@@ -1,0 +1,1 @@
+backend/migrations/sqls/*.sql filter=lfs diff=lfs merge=lfs -text
