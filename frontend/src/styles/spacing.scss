@@ -1,0 +1,62 @@
+// padding and margin
+$space_sizes:
+                (l, 4em),    //x-large
+                (l, 2em),    //large
+                (m, 1.5em),  //medium
+                (d, 1em),  //default
+                (s, 0.5em),  //small
+                (xs, 0.25em) //x-small
+;
+$orientation_list: (
+        v,
+        h
+);
+$direction_list: (
+                (t, top),
+                (r, right),
+                (b, bottom),
+                (l, left)
+);
+
+@each $space_sizes, $size in $space_sizes {
+  .pa#{$space_sizes} {
+    padding: $size;
+  }
+  .ma#{$space_sizes} {
+    margin: $size;
+  }
+}
+@each $direction_list, $direction in $direction_list {
+  @each $space_sizes, $size in $space_sizes {
+    .p#{$direction_list}#{$space_sizes} {
+      padding-#{$direction}: $size;
+    }
+    .m#{$direction_list}#{$space_sizes} {
+      margin-#{$direction}: $size;
+    }
+  }
+}
+@each $orientation_list, $orientation in $orientation_list {
+  @each $space_sizes, $size in $space_sizes {
+    @if $orientation_list == "v" {
+      .p#{$orientation_list}#{$space_sizes} {
+        padding-bottom: $size;
+        padding-top: $size;
+      }
+      .m#{$orientation_list}#{$space_sizes} {
+        margin-bottom: $size;
+        margin-top: $size;
+      }
+    }
+    @else if $orientation_list == "h" {
+      .p#{$orientation_list}#{$space_sizes} {
+        padding-left: $size;
+        padding-right: $size;
+      }
+      .m#{$orientation_list}#{$space_sizes} {
+        margin-left: $size;
+        margin-right: $size;
+      }
+    }
+  }
+}

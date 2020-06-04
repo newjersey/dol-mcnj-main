@@ -1,0 +1,51 @@
+scss/* flex */
+
+.fdr {
+  display: flex;
+  flex-direction: row;
+}
+
+.fdc {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-full {
+  flex: 0 0 100%;
+}
+
+.flex-half {
+  flex: 0 0 50%;
+}
+
+.fjs {
+  justify-content: flex-start;
+}
+
+.fje {
+  justify-content: flex-end;
+}
+
+.fjc {
+  justify-content: center;
+}
+
+.fjb {
+  justify-content: space-between;
+}
+
+.fja {
+  justify-content: space-around;
+}
+
+.fas {
+  align-items: flex-start;
+}
+
+.fae {
+  align-items: flex-end;
+}
+
+.fac {
+  align-items: center;
+}

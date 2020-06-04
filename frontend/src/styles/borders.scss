@@ -1,0 +1,53 @@
+$color-border-soft: #ccc;
+
+// border
+$border_sizes:
+                (l, 5px), //large
+                (m, 2px), //medium
+                (d, 1px)  //default
+;
+
+@each $border_sizes, $size in $border_sizes {
+  .ba#{$border_sizes} {
+    border: $size solid $color-border-soft;
+  }
+}
+@each $border_sizes, $size in $border_sizes {
+  .brad#{$border_sizes} {
+    border-radius: $size;
+  }
+}
+@each $direction_list, $direction in $direction_list {
+  @each $border_sizes, $width in $border_sizes {
+    @if $border_sizes != "" {
+      .b#{$direction_list}#{$border_sizes} {
+        border-#{$direction}: $width solid $color-border-soft;
+      }
+    }
+    @else  {
+      .b#{$direction_list} {
+        border-#{$direction}: $width solid $color-border-soft;
+      }
+    }
+  }
+}
+@each $orientation_list, $orientation in $orientation_list {
+  @each $border_sizes, $size in $border_sizes {
+    $hyphen: '';
+    @if $space_sizes != ''{
+      $hyphen: '-';
+    }
+    @if $orientation_list == "v" {
+      .b#{$orientation_list}#{$border_sizes} {
+        border-bottom: $size;
+        border-top: $size;
+      }
+    }
+    @else if $orientation_list == "h" {
+      .b#{$orientation_list}#{$border_sizes} {
+        border-left: $size;
+        border-right: $size;
+      }
+    }
+  }
+}
