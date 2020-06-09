@@ -8,14 +8,14 @@ This [typescript](https://www.typescriptlang.org/) repo is structured with two p
  - **backend** - the [express](https://expressjs.com/) API server
  - **frontend** - the [react](https://reactjs.org/) web UI
  
-#### npm Dependencies
+### npm Dependencies
 
 For npm dependencies:
 ```shell script
 ./scripts/install-all.sh
 ```
 
-#### postgres
+### postgres
 
 If not already installed, install [postgres](https://www.postgresql.org/)
 
@@ -53,10 +53,10 @@ Run all [jest](https://jestjs.io/) tests, and linting:
 
 Run [cypress](https://www.cypress.io/) feature tests:
 ```shell script
-./scripts/test-all.sh
+./scripts/feature-tests.sh
 ```
 
-#### Adding DB migrations
+### Adding DB migrations
 
 ```shell script
 npm --prefix=backend db-migrate create [migration-name] -- --sql-file
