@@ -1,3 +1,5 @@
+import { Program } from "./Program";
+
 export interface DataClient {
-  findAllPrograms: () => Promise<string[]>;
+  findAllPrograms: () => Promise<Program[]>;
 }

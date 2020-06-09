@@ -10,7 +10,7 @@ export interface ProgramEntity {
   booksmaterialscost: number;
   suppliestoolscost: number;
   othercosts: number;
-  totalcost: number;
+  totalcost: string;
   prerequisites: string;
   wiaeligible: string;
   leadtodegree: boolean;

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
+import {Program} from "./domain/Program";
+import {buildProgram} from "./test-helpers/factories";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -12,11 +14,12 @@ describe("ApiClient", () => {
   });
 
   it("calls observer with successful program data", (done) => {
-    mockedAxios.get.mockResolvedValue({ data: ["program1", "program2"] });
+    const programs = [buildProgram({}), buildProgram({})];
+    mockedAxios.get.mockResolvedValue({ data: programs });
 
     const observer = {
-      onSuccess: (data: string[]): void => {
-        expect(data).toEqual(["program1", "program2"]);
+      onSuccess: (data: Program[]): void => {
+        expect(data).toEqual(programs);
         done();
       },
       onError: jest.fn(),

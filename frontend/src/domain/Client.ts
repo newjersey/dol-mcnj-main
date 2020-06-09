@@ -1,5 +1,7 @@
+import { Program } from "./Program";
+
 export interface Client {
-  getPrograms: (observer: Observer<string[]>) => void;
+  getPrograms: (observer: Observer<Program[]>) => void;
 }
 
 export interface Observer<T> {
