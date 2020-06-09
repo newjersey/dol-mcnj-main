@@ -4,6 +4,7 @@ cd $(git rev-parse --show-toplevel)
 
 set -e
 
+# format files
 npm --prefix=frontend run prettier
 npm --prefix=backend run prettier
 
