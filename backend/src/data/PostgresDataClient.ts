@@ -5,6 +5,7 @@ import { DataClient } from "../domain/DataClient";
 import { IDatabase } from "pg-promise";
 import { ProgramEntity } from "./ProgramEntity";
 import pgPromise from "pg-promise";
+import { Program } from "../domain/Program";
 
 const pgp = pgPromise();
 
@@ -15,11 +16,13 @@ export class PostgresDataClient implements DataClient {
     this.db = pgp(connection);
   }
 
-  findAllPrograms(): Promise<string[]> {
+  findAllPrograms(): Promise<Program[]> {
     return this.db
-      .any("SELECT officialname FROM programs")
+      .any("SELECT officialname, totalcost FROM programs")
       .then((data: ProgramEntity[]) => {
-        return data.map((it) => it.officialname);
+        return data.map((it) => {
+          return { name: it.officialname, totalCost: parseFloat(it.totalcost) };
+        });
       })
       .catch(() => {
         return Promise.reject();

@@ -1,6 +1,7 @@
 import request from "supertest";
 import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
+import { buildProgram } from "../test-helpers/factories";
 
 describe("router", () => {
   let app: Express;
@@ -14,14 +15,13 @@ describe("router", () => {
   });
 
   it("sends list of program names from data client", (done) => {
-    stubFindAllPrograms.mockImplementationOnce(() =>
-      Promise.resolve(["some program"])
-    );
+    const programs = [buildProgram({}), buildProgram({})];
+    stubFindAllPrograms.mockImplementationOnce(() => Promise.resolve(programs));
     request(app)
       .get("/programs")
       .then((response) => {
         expect(response.status).toEqual(200);
-        expect(response.body).toEqual(["some program"]);
+        expect(response.body).toEqual(programs);
         done();
       });
   });

@@ -27,8 +27,8 @@ describe("PostgresDataClient", () => {
   it("fetches data as a list of program titles", async () => {
     const foundPrograms = await dataClient.findAllPrograms();
     expect(foundPrograms).toEqual([
-      "Tree Identification Class",
-      "Edible Leaves 101",
+      { name: "Tree Identification Class", totalCost: 3035 },
+      { name: "Edible Leaves 101", totalCost: 1235.2 },
     ]);
   });
 
