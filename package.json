@@ -1,0 +1,13 @@
+{
+  "name": "d4ad",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "start": "./scripts/prod-start.sh",
+    "build": "./scripts/build.sh",
+    "test": "./scripts/test-all.sh && ./scripts/feature-tests.sh",
+    "install": "./scripts/install-all.sh"
+  }
+}
