@@ -23,10 +23,11 @@
     "test": "react-scripts test",
     "test:ci": "CI=1 react-scripts test",
     "lint": "eslint --max-warnings 0 '*/**/*.{js,ts,tsx}'",
-    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "lint:fix": "eslint --max-warnings 0 '*/**/*.{js,ts,tsx}' --fix",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "prettier": "prettier --write src/**/*.{ts,tsx}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,6 +47,9 @@
   "proxy": "http://localhost:8080",
   "homepage": ".",
   "devDependencies": {
-    "cypress": "^4.7.0"
+    "cypress": "^4.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-cypress": "^2.11.1",
+    "prettier": "2.0.5"
   }
 }

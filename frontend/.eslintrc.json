@@ -3,7 +3,9 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "react-app",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:cypress/recommended",
+    "prettier"
   ],
   "env": {
     "browser": true
@@ -18,5 +20,6 @@
     "jsx-a11y"
   ],
   "rules": {
+    "@typescript-eslint/no-empty-function": "off"
   }
 }

@@ -4,6 +4,9 @@ cd $(git rev-parse --show-toplevel)
 
 set -e
 
+npm --prefix=frontend run prettier
+npm --prefix=backend run prettier
+
 # check if uncommited changes
 changed_files=$(git status --porcelain | wc -l)
 if [ $changed_files -ne 0 ]; then
