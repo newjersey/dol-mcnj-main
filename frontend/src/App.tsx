@@ -1,24 +1,28 @@
-import React, {ReactElement, useEffect, useState} from 'react';
-import axios, {AxiosResponse} from "axios";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Client } from "./Client";
 
-interface PingResponse {
-    message: string;
+interface Props {
+  client: Client;
 }
 
-const App = (): ReactElement => {
-  const [response, setReponse] = useState("");
+const App = (props: Props): ReactElement<Props> => {
+  const [programs, setPrograms] = useState<string[]>([]);
 
   useEffect(() => {
-    axios.get('/api/ping')
-        .then((response: AxiosResponse<PingResponse>) => {
-            setReponse(response.data.message)
-        })
-  });
+    props.client.getPrograms({
+      onSuccess: setPrograms,
+      onError: () => {},
+    });
+  }, [props.client]);
 
   return (
     <div className="pad">
-      <h1>the server says:</h1>
-      <p>{response}</p>
+      <h1>Training Programs Available to New Jerseyans</h1>
+      <ul>
+        {programs.map((it) => (
+          <li key={it}>{it}</li>
+        ))}
+      </ul>
     </div>
   );
 };

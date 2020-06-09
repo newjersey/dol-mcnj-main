@@ -1,9 +1,17 @@
-import {Request, Response, Router} from "express";
+import { Request, Response, Router } from "express";
+import { DataClient } from "../domain/DataClient";
 
-const router = Router();
+export const routerFactory = (dataClient: DataClient): Router => {
+  const router = Router();
 
-router.get('/ping', (req: Request, res: Response) => {
-    return res.status(200).json({message: 'pong'})
-});
+  router.get("/programs", (req: Request, res: Response<string[]>) => {
+    dataClient
+      .findAllPrograms()
+      .then((programs: string[]) => {
+        res.status(200).json(programs);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
 
-export default router;
+  return router;
+};
