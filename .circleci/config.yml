@@ -1,0 +1,42 @@
+version: 2.1
+jobs:
+  build-and-test:
+    docker:
+      - image: circleci/node:latest
+      - image: circleci/postgres:10
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD:
+    steps:
+      - checkout
+      - run:
+          name: Setup postgres
+          command: |
+            sudo apt-get update
+            sudo apt-get install postgresql-client
+            createdb -h localhost d4adlocal -U postgres
+      - run:
+          name: Install cypress dependencies
+          command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - restore_cache:
+          keys:
+            - node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
+            - node-deps-v2-{{ .Branch }}
+            - node-deps-v2
+      - run:
+          command: npm install
+      - save_cache:
+          key: node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run:
+          command: npm test
+      - run:
+          name: Run feature tests
+          command: scripts/feature-tests.sh
+workflows:
+  build-and-test:
+    jobs:
+      - build-and-test
+  version: 2.1

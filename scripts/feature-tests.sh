@@ -9,7 +9,7 @@ kill $(lsof -i:${APP_PORT} -t)
 set -e
 
 ./scripts/db-migrate.sh
-psql -U postgres -d d4adlocal -c 'delete from programs;'
+psql -U postgres -d d4adlocal -h localhost -p 5432 -c 'delete from programs;'
 ./scripts/db-seed-local.sh
 
 echo "starting app"
@@ -19,7 +19,9 @@ while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done
 
 echo "app started"
 
-npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:8080
+npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT}
+
+set +e
 
 kill $(lsof -i:${APP_PORT} -t)
 

@@ -8,7 +8,9 @@ describe("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
 
   beforeAll(async () => {
-    await cmd("psql -c 'create database d4adtest;' -U postgres");
+    await cmd(
+      "psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432"
+    );
     await cmd("npm run db-migrate up -- -e test");
     await cmd(
       "CSV_FILENAME=program_test.csv DB_NAME=d4adtest ../scripts/db-seed.sh"
@@ -34,6 +36,8 @@ describe("PostgresDataClient", () => {
 
   afterAll(async () => {
     dataClient.disconnect();
-    await cmd("psql -c 'drop database d4adtest;' -U postgres");
+    await cmd(
+      "psql -c 'drop database d4adtest;' -U postgres -h localhost -p 5432"
+    );
   });
 });
