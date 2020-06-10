@@ -1,5 +1,0 @@
-language: node_js
-services:
-  - postgresql
-before_script:
-  - psql -c 'create database d4adlocal;' -U postgres

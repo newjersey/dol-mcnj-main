@@ -1,6 +1,8 @@
 # D4AD
-Data for the American Dream
 
+[![build](https://circleci.com/gh/newjersey/d4ad.svg?style=shield)](https://circleci.com/gh/newjersey/d4ad)
+
+Data for the American Dream
 ## Getting Started
 
 This [typescript](https://www.typescriptlang.org/) repo is structured with two primary sub-folders:

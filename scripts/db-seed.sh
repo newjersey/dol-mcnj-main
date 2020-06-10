@@ -4,7 +4,7 @@ cd $(git rev-parse --show-toplevel)
 
 CSV_FILEPATH=$(pwd)/data/${CSV_FILENAME}
 
-psql -U postgres -d "${DB_NAME}" -c "COPY programs
+psql -U postgres -d "${DB_NAME}" -h localhost -p 5432 -c "\copy programs
     (PROVIDERID,
      OFFICIALNAME,
      CIPCODE,

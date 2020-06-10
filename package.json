@@ -7,7 +7,7 @@
   "scripts": {
     "start": "./scripts/prod-start.sh",
     "build": "./scripts/build.sh",
-    "test": "./scripts/test-all.sh && ./scripts/feature-tests.sh",
+    "test": "./scripts/test-all.sh",
     "install": "./scripts/install-all.sh"
   }
 }
