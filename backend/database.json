@@ -12,5 +12,12 @@
     "user": "postgres",
     "password": "",
     "database": "d4adtest"
+  },
+  "gcpdev": {
+    "driver": "pg",
+    "host": "/cloudsql/d4ad-dev:us-east4:d4ad-dev-gcp-pg",
+    "user": "postgres",
+    "password": {"ENV": "DB_PASS"},
+    "database": "d4addev"
   }
 }

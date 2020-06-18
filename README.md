@@ -31,11 +31,6 @@ Run database migrations:
 ./scripts/db-migrate.sh
 ```
 
-Seed the DB:
-```shell script
-./scripts/db-seed-local.sh
-```
-
 ## Development
 
 Start frontend dev server:
@@ -61,7 +56,37 @@ Run [cypress](https://www.cypress.io/) feature tests:
 ### Adding DB migrations
 
 ```shell script
-npm --prefix=backend db-migrate create [migration-name] -- --sql-file
+npm --prefix=backend run db-migrate create [migration-name] -- --sql-file
+```
+
+#### Seeding
+
+When you want to add a DB migration that is a **seed** operation (that is, inserting
+data from a CSV), there's a specific process for this:
+- make sure that the CSV source file is in the `backend/data` directory
+- run the above DB migrate command to create the migration scripts in `backend/migrations`. 
+I recommend the name to be "seed-[description]"
+- run the `csvInserter` script to populate the migration file with insert statements generated from the CSV:
+```shell script
+node backend/data/csvInserter.js csvFilename.csv tablenameToInsertInto backend/migrations/sqls/seed-migration-name.sql
+```
+
+assuming that you want a different seed for testing vs real life, then:
+
+- create a CSV in `/backend/data` with matching structure, and test data
+- duplicate the `.sql` migration file and rename it to end with `-TEST.sql`
+- run the same node command above, with the test CSV filename and the test sql migration filename
+- edit the corresponding `.js` file for the migration by replacing this line:
+```javascript
+exports.up = function(db) {
+  var filePath = path.join(__dirname, 'sqls', 'filename.sql');
+``` 
+
+with this instead:
+```javascript
+exports.up = function(db) {
+  const fileName = process.env.NODE_ENV === 'test' ? 'filename-TEST.sql' : 'filename.sql';
+  var filePath = path.join(__dirname, 'sqls', fileName);
 ```
 
 ## Pushing changes
@@ -81,4 +106,14 @@ Build frontend, build backend, compile all into one directory:
 Start the production server (frontend & backend)
 ```shell script
 ./scripts/prod-start.sh
+```
+
+### Deploying to GCP
+
+First, make sure that [gcloud SDK] is installed
+Ensure you are logged in and pointing to the correct project.
+
+This script generated the `app.yaml` and deploys the app
+```shell script
+./scripts/deploy.sh
 ```

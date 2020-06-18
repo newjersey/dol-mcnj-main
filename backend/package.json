@@ -7,6 +7,7 @@
     "build": "node build.js",
     "lint": "eslint --max-warnings 0 '*/**/*.{js,ts}'",
     "lint:fix": "eslint --max-warnings 0 '*/**/*.{js,ts}' --fix",
+    "prestart": "npm run db-migrate up -- -e $DB_ENV",
     "start": "node ./dist/server.js --env=production",
     "start:dev": "nodemon",
     "test": "jest",
@@ -30,8 +31,11 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
+    "papaparse": "^5.2.0",
     "pg": "^8.2.1",
-    "pg-promise": "^10.5.6"
+    "pg-promise": "^10.5.6",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.5"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -51,7 +55,6 @@
     "supertest": "^4.0.2",
     "ts-jest": "^26.1.0",
     "ts-node": "^8.10.2",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.9.3"
+    "tsconfig-paths": "^3.9.0"
   }
 }
