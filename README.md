@@ -110,10 +110,11 @@ Start the production server (frontend & backend)
 
 ### Deploying to GCP
 
-First, make sure that [gcloud SDK] is installed
-Ensure you are logged in and pointing to the correct project.
+First, make sure that [Google Cloud SDK](https://cloud.google.com/sdk/install) is installed
 
-This script generated the `app.yaml` and deploys the app
+Ensure you are logged in to the CLI and pointing to the correct project.
+
+This script generates the `app.yaml` and deploys the app:
 ```shell script
 ./scripts/deploy.sh
 ```
