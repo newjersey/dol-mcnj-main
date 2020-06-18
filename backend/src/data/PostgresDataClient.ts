@@ -24,7 +24,8 @@ export class PostgresDataClient implements DataClient {
           return { name: it.officialname, totalCost: parseFloat(it.totalcost) };
         });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log("db error: ", e);
         return Promise.reject();
       });
   }

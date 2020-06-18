@@ -12,9 +12,6 @@ describe("PostgresDataClient", () => {
       "psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432"
     );
     await cmd("npm run db-migrate up -- -e test");
-    await cmd(
-      "CSV_FILENAME=program_test.csv DB_NAME=d4adtest ../scripts/db-seed.sh"
-    );
 
     const connection = {
       user: "postgres",

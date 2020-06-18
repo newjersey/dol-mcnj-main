@@ -9,12 +9,10 @@ kill $(lsof -i:${APP_PORT} -t)
 set -e
 
 ./scripts/db-migrate.sh
-psql -U postgres -d d4adlocal -h localhost -p 5432 -c 'delete from programs;'
-./scripts/db-seed-local.sh
 
 echo "starting app"
 ./scripts/build.sh
-./scripts/prod-start.sh &
+./scripts/prod-start-local.sh &
 while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done
 
 echo "app started"
