@@ -35,8 +35,30 @@ jobs:
       - run:
           name: Run feature tests
           command: scripts/feature-tests.sh
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: install and initialize gcloud sdk
+          command: |
+            echo $GCLOUD_SERVICE_KEY | base64 --decode | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - run:
+          name: deploy
+          command: scripts/deploy.sh
 workflows:
-  build-and-test:
+  build-test-deploy:
     jobs:
       - build-and-test
+      - deploy:
+          requires:
+            - build-and-test
   version: 2.1
