@@ -3,8 +3,10 @@ describe('The Home Page', () => {
     cy.visit('/');
     cy.contains("Automated Office Systems Processor").should('exist');
     cy.contains("$7,570.00").should('exist');
+    cy.contains("--").should("exist");
 
     cy.contains("Skincare").should('exist');
     cy.contains("$14,119.00").should('exist');
+    cy.contains("71.4%").should('exist');
   })
 });

@@ -64,6 +64,7 @@ npm --prefix=backend run db-migrate create [migration-name] -- --sql-file
 When you want to add a DB migration that is a **seed** operation (that is, inserting
 data from a CSV), there's a specific process for this:
 - make sure that the CSV source file is in the `backend/data` directory
+- ensure that it does not have any leading/trailing newlines 
 - run the above DB migrate command to create the migration scripts in `backend/migrations`. 
 I recommend the name to be "seed-[description]"
 - run the `csvInserter` script to populate the migration file with insert statements generated from the CSV:

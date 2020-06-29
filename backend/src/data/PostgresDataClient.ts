@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { DataClient } from "../domain/DataClient";
-import { IDatabase } from "pg-promise";
-import { ProgramEntity } from "./ProgramEntity";
-import pgPromise from "pg-promise";
+import pgPromise, { IDatabase } from "pg-promise";
+import { ProgramOutcomeEntity } from "./ProgramEntity";
 import { Program } from "../domain/Program";
 
 const pgp = pgPromise();
@@ -17,17 +16,36 @@ export class PostgresDataClient implements DataClient {
   }
 
   findAllPrograms(): Promise<Program[]> {
+    const sqlSelect =
+      "SELECT programs.officialname, programs.totalcost, outcomes_cip.PerEmployed2 " +
+      "FROM programs " +
+      "LEFT OUTER JOIN outcomes_cip " +
+      "ON outcomes_cip.cipcode = programs.cipcode AND outcomes_cip.providerid = programs.providerid;";
+
     return this.db
-      .any("SELECT officialname, totalcost FROM programs")
-      .then((data: ProgramEntity[]) => {
+      .any(sqlSelect)
+      .then((data: ProgramOutcomeEntity[]) => {
         return data.map((it) => {
-          return { name: it.officialname, totalCost: parseFloat(it.totalcost) };
+          return {
+            name: it.officialname,
+            totalCost: parseFloat(it.totalcost),
+            percentEmployed: this.formatPercentEmployed(it.peremployed2),
+          };
         });
       })
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
       });
+  }
+
+  private formatPercentEmployed(peremployed: string): number | null {
+    const NAN_INDICATOR = "-99999";
+    if (peremployed === null || peremployed === NAN_INDICATOR) {
+      return null;
+    }
+
+    return parseFloat(peremployed);
   }
 
   disconnect() {

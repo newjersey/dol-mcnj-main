@@ -36,3 +36,9 @@ export interface ProgramEntity {
   statusname: string;
   id: string;
 }
+
+export interface ProgramOutcomeEntity {
+  officialname: string;
+  totalcost: string;
+  peremployed2: string;
+}
