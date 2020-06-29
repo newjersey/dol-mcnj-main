@@ -23,11 +23,29 @@ describe("PostgresDataClient", () => {
     dataClient = new PostgresDataClient(connection);
   });
 
-  it("fetches data as a list of program titles", async () => {
+  it("fetches data as program objects", async () => {
     const foundPrograms = await dataClient.findAllPrograms();
     expect(foundPrograms).toEqual([
-      { name: "Tree Identification Class", totalCost: 3035 },
-      { name: "Edible Leaves 101", totalCost: 1235.2 },
+      {
+        name: "Tree Identification Class",
+        totalCost: 3035,
+        percentEmployed: 0,
+      },
+      {
+        name: "Edible Leaves 101",
+        totalCost: 1235.2,
+        percentEmployed: 0.661016949152542,
+      },
+      {
+        name: "Mushroom Foraging Certification",
+        totalCost: 45,
+        percentEmployed: null,
+      },
+      {
+        name: "Program With No Outcomes",
+        totalCost: 100.0,
+        percentEmployed: null,
+      },
     ]);
   });
 

@@ -1,3 +1,5 @@
+$grey: #DBDADA;
+
 @import "spacing";
 @import "borders";
 @import "flex";
@@ -11,5 +13,31 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+}
+
+.header {
+  background-color: $grey;
+  line-height: 1.2;
+}
+
+th {
+  text-align: left;
+  padding-right: 50px;
+}
+
+tr {
+  height: 2.5rem;
+}
+
+td {
+  padding-right: 50px;
+}
+
+.number {
+  text-align: right;
 }
 
