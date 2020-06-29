@@ -17,7 +17,7 @@ export class PostgresDataClient implements DataClient {
 
   findAllPrograms(): Promise<Program[]> {
     const sqlSelect =
-      "SELECT programs.officialname, programs.totalcost, outcomes_cip.PerEmployed2 " +
+      "SELECT programs.id, programs.officialname, programs.totalcost, outcomes_cip.PerEmployed2 " +
       "FROM programs " +
       "LEFT OUTER JOIN outcomes_cip " +
       "ON outcomes_cip.cipcode = programs.cipcode AND outcomes_cip.providerid = programs.providerid;";
@@ -27,6 +27,7 @@ export class PostgresDataClient implements DataClient {
       .then((data: ProgramOutcomeEntity[]) => {
         return data.map((it) => {
           return {
+            id: it.id,
             name: it.officialname,
             totalCost: parseFloat(it.totalcost),
             percentEmployed: this.formatPercentEmployed(it.peremployed2),
