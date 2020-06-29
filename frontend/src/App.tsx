@@ -47,9 +47,7 @@ const App = (props: Props): ReactElement<Props> => {
             {programs.map((it) => (
               <tr key={it.name}>
                 <td>{it.name}</td>
-                <td className="number">
-                  {formatPercentEmployed(it.percentEmployed)}
-                </td>
+                <td className="number">{formatPercentEmployed(it.percentEmployed)}</td>
                 <td className="number">{formatMoney(it.totalCost)}</td>
               </tr>
             ))}

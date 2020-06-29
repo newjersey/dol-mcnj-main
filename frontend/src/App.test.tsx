@@ -24,9 +24,7 @@ describe("<App />", () => {
     act(() => stubClient.capturedObserver.onSuccess([program1, program2]));
 
     expect(subject.getByText("program1", { exact: false })).toBeInTheDocument();
-    expect(
-      subject.getByText("$1,000.00", { exact: false })
-    ).toBeInTheDocument();
+    expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("60.1%", { exact: false })).toBeInTheDocument();
 
     expect(subject.getByText("program2", { exact: false })).toBeInTheDocument();
@@ -38,11 +36,7 @@ describe("<App />", () => {
     const stubClient = new StubClient();
     const subject = render(<App client={stubClient} />);
 
-    act(() =>
-      stubClient.capturedObserver.onSuccess([
-        buildProgram({ percentEmployed: null }),
-      ])
-    );
+    act(() => stubClient.capturedObserver.onSuccess([buildProgram({ percentEmployed: null })]));
 
     expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
   });
