@@ -8,8 +8,6 @@ kill $(lsof -i:${APP_PORT} -t)
 
 set -e
 
-./scripts/db-migrate.sh
-
 echo "starting app"
 ./scripts/build.sh
 ./scripts/prod-start-local.sh &
