@@ -31,6 +31,9 @@
     "cypress:run": "cypress run",
     "prettier": "prettier --write src/**/*.{ts,tsx}"
   },
+  "prettier": {
+    "printWidth": 100
+  },
   "eslintConfig": {
     "extends": "react-app"
   },

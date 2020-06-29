@@ -14,6 +14,9 @@
     "db-migrate": "db-migrate",
     "prettier": "prettier --write src/**/*.ts"
   },
+  "prettier": {
+    "printWidth": 100
+  },
   "nodemonConfig": {
     "watch": [
       "src"
