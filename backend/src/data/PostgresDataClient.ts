@@ -23,22 +23,7 @@ export class PostgresDataClient implements DataClient {
       "ON outcomes_cip.cipcode = programs.cipcode " +
       "AND outcomes_cip.providerid = programs.providerid;";
 
-    return this.db
-      .any(sqlSelect)
-      .then((data: ProgramOutcomeEntity[]) => {
-        return data.map((it) => {
-          return {
-            id: it.id,
-            name: it.officialname,
-            totalCost: parseFloat(it.totalcost),
-            percentEmployed: this.formatPercentEmployed(it.peremployed2),
-          };
-        });
-      })
-      .catch((e) => {
-        console.log("db error: ", e);
-        return Promise.reject();
-      });
+    return this.dbQueryForProgramOutcomeEntities(sqlSelect);
   }
 
   searchPrograms(searchQuery: string): Promise<Program[]> {
@@ -51,32 +36,38 @@ export class PostgresDataClient implements DataClient {
       `WHERE LOWER(officialname) LIKE LOWER('%${searchQuery}%') ` +
       `OR LOWER(description) LIKE LOWER('%${searchQuery}%');`;
 
+    return this.dbQueryForProgramOutcomeEntities(sqlSearch);
+  }
+
+  private dbQueryForProgramOutcomeEntities = (sql: string): Promise<Program[]> => {
     return this.db
-      .any(sqlSearch)
+      .any(sql)
       .then((data: ProgramOutcomeEntity[]) => {
-        return data.map((it) => {
-          return {
-            id: it.id,
-            name: it.officialname,
-            totalCost: parseFloat(it.totalcost),
-            percentEmployed: this.formatPercentEmployed(it.peremployed2),
-          };
-        });
+        return data.map(this.mapProgramOutcomeEntityToProgram);
       })
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
       });
-  }
+  };
 
-  private formatPercentEmployed(perEmployed: string): number | null {
+  private mapProgramOutcomeEntityToProgram = (entity: ProgramOutcomeEntity): Program => {
+    return {
+      id: entity.id,
+      name: entity.officialname,
+      totalCost: parseFloat(entity.totalcost),
+      percentEmployed: this.formatPercentEmployed(entity.peremployed2),
+    };
+  };
+
+  private formatPercentEmployed = (perEmployed: string): number | null => {
     const NAN_INDICATOR = "-99999";
     if (perEmployed === null || perEmployed === NAN_INDICATOR) {
       return null;
     }
 
     return parseFloat(perEmployed);
-  }
+  };
 
   disconnect() {
     pgp.end();
