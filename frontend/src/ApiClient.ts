@@ -4,20 +4,19 @@ import {Program} from "./domain/Program";
 
 export class ApiClient implements Client {
   getPrograms(observer: Observer<Program[]>): void {
+    this.get("/api/programs", observer);
+  }
+
+  getProgramsByQuery(query: string, observer: Observer<Program[]>): void {
+    this.get(`/api/programs/search?query=${query}`, observer);
+  };
+
+  private get<T>(endpoint: string, observer: Observer<T>): void {
     axios
-      .get("/api/programs")
-      .then((response: AxiosResponse<Program[]>) => {
+      .get(endpoint)
+      .then((response: AxiosResponse<T>) => {
         observer.onSuccess(response.data);
       })
       .catch(() => observer.onError());
   }
-
-  getProgramsByQuery(query: string, observer: Observer<Program[]>): void {
-    axios
-      .get(`/api/programs/search?query=${query}`)
-      .then((response: AxiosResponse<Program[]>) => {
-        observer.onSuccess(response.data);
-      })
-      .catch(() => observer.onError());
-  };
 }
