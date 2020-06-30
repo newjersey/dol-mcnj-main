@@ -13,31 +13,70 @@ describe("ApiClient", () => {
     apiClient = new ApiClient();
   });
 
-  it("calls observer with successful program data", (done) => {
-    const programs = [buildProgram({}), buildProgram({})];
-    mockedAxios.get.mockResolvedValue({ data: programs });
+  describe('getPrograms', () => {
+    it("calls observer with successful program data", (done) => {
+      const programs = [buildProgram({}), buildProgram({})];
+      mockedAxios.get.mockResolvedValue({ data: programs });
 
-    const observer = {
-      onSuccess: (data: Program[]): void => {
-        expect(data).toEqual(programs);
-        done();
-      },
-      onError: jest.fn(),
-    };
+      const observer = {
+        onSuccess: (data: Program[]): void => {
+          expect(data).toEqual(programs);
+          done();
+        },
+        onError: jest.fn(),
+      };
 
-    apiClient.getPrograms(observer);
+      apiClient.getPrograms(observer);
+    });
+
+    it("calls observer with error when GET fails", (done) => {
+      mockedAxios.get.mockRejectedValue({});
+
+      const observer = {
+        onSuccess: jest.fn(),
+        onError: (): void => {
+          done();
+        },
+      };
+
+      apiClient.getPrograms(observer);
+    });
   });
 
-  it("calls observer with error when GET fails", (done) => {
-    mockedAxios.get.mockRejectedValue({});
+  describe('getProgramsByQuery', () => {
+    it('uses the search query in the api call', () => {
+      const dummyObserver = {onSuccess: jest.fn(), onError: jest.fn()}
+      apiClient.getProgramsByQuery("penguins", dummyObserver);
 
-    const observer = {
-      onSuccess: jest.fn(),
-      onError: (): void => {
-        done();
-      },
-    };
+      expect(mockedAxios.get).toHaveBeenCalledWith("/api/programs/search?query=penguins")
+    });
 
-    apiClient.getPrograms(observer);
+    it("calls observer with successful program data", (done) => {
+      const programs = [buildProgram({}), buildProgram({})];
+      mockedAxios.get.mockResolvedValue({ data: programs });
+
+      const observer = {
+        onSuccess: (data: Program[]): void => {
+          expect(data).toEqual(programs);
+          done();
+        },
+        onError: jest.fn(),
+      };
+
+      apiClient.getProgramsByQuery('some query', observer);
+    });
+
+    it("calls observer with error when GET fails", (done) => {
+      mockedAxios.get.mockRejectedValue({});
+
+      const observer = {
+        onSuccess: jest.fn(),
+        onError: (): void => {
+          done();
+        },
+      };
+
+      apiClient.getProgramsByQuery('some query', observer);
+    });
   });
 });
