@@ -1,7 +1,8 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import { Client } from "./domain/Client";
-import { Program } from "./domain/Program";
-import { formatMoney } from "accounting";
+import React, {ReactElement, useEffect, useState} from "react";
+import {Client} from "./domain/Client";
+import {Program} from "./domain/Program";
+import {formatMoney} from "accounting";
+import {Searchbar} from "./Searchbar";
 
 interface Props {
   client: Client;
@@ -25,14 +26,22 @@ const App = (props: Props): ReactElement<Props> => {
     return (Math.trunc(percentEmployed * 1000) / 10).toFixed(1) + "%";
   };
 
+  const executeSearch = (searchQuery: string): void => {
+    props.client.getProgramsByQuery(searchQuery, {
+      onSuccess: setPrograms,
+      onError: () => {},
+    })
+  };
+
   return (
     <>
-      <header className="header pvm prd plxl">
+      <header className="header pvm prd plxl fdr fac">
         <h3>
           New Jersey
           <br />
           Training Explorer
         </h3>
+        <Searchbar onSearch={executeSearch}/>
       </header>
       <div className="mhxl mvl">
         <table>

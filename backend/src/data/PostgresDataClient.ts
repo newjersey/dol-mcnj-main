@@ -20,7 +20,8 @@ export class PostgresDataClient implements DataClient {
       "SELECT programs.id, programs.officialname, programs.totalcost, outcomes_cip.PerEmployed2 " +
       "FROM programs " +
       "LEFT OUTER JOIN outcomes_cip " +
-      "ON outcomes_cip.cipcode = programs.cipcode AND outcomes_cip.providerid = programs.providerid;";
+      "ON outcomes_cip.cipcode = programs.cipcode " +
+      "AND outcomes_cip.providerid = programs.providerid;";
 
     return this.db
       .any(sqlSelect)
@@ -40,13 +41,41 @@ export class PostgresDataClient implements DataClient {
       });
   }
 
-  private formatPercentEmployed(peremployed: string): number | null {
+  searchPrograms(searchQuery: string): Promise<Program[]> {
+    const sqlSearch =
+      "SELECT programs.id, programs.officialname, programs.totalcost, outcomes_cip.PerEmployed2 " +
+      "FROM programs " +
+      "LEFT OUTER JOIN outcomes_cip " +
+      "ON outcomes_cip.cipcode = programs.cipcode " +
+      "AND outcomes_cip.providerid = programs.providerid " +
+      `WHERE LOWER(officialname) LIKE LOWER('%${searchQuery}%') ` +
+      `OR LOWER(description) LIKE LOWER('%${searchQuery}%');`;
+
+    return this.db
+      .any(sqlSearch)
+      .then((data: ProgramOutcomeEntity[]) => {
+        return data.map((it) => {
+          return {
+            id: it.id,
+            name: it.officialname,
+            totalCost: parseFloat(it.totalcost),
+            percentEmployed: this.formatPercentEmployed(it.peremployed2),
+          };
+        });
+      })
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  }
+
+  private formatPercentEmployed(perEmployed: string): number | null {
     const NAN_INDICATOR = "-99999";
-    if (peremployed === null || peremployed === NAN_INDICATOR) {
+    if (perEmployed === null || perEmployed === NAN_INDICATOR) {
       return null;
     }
 
-    return parseFloat(peremployed);
+    return parseFloat(perEmployed);
   }
 
   disconnect() {

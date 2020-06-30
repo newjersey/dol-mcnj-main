@@ -31,6 +31,14 @@ describe("PostgresDataClient", () => {
     ]);
   });
 
+  it("searches for titles and descriptions containing a search query", async () => {
+    const foundPrograms = await dataClient.searchPrograms("tree");
+    expect(foundPrograms).toEqual([
+      { id: 1, name: "Tree Identification Class", totalCost: 3035, percentEmployed: 0 },
+      { id: 4, name: "Program With No Outcomes", totalCost: 100.0, percentEmployed: null },
+    ]);
+  });
+
   afterAll(async () => {
     dataClient.disconnect();
     await cmd("psql -c 'drop database d4adtest;' -U postgres -h localhost -p 5432");

@@ -11,4 +11,13 @@ export class ApiClient implements Client {
       })
       .catch(() => observer.onError());
   }
+
+  getProgramsByQuery(query: string, observer: Observer<Program[]>): void {
+    axios
+      .get(`/api/programs/search?query=${query}`)
+      .then((response: AxiosResponse<Program[]>) => {
+        observer.onSuccess(response.data);
+      })
+      .catch(() => observer.onError());
+  };
 }

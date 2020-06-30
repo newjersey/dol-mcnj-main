@@ -2,6 +2,7 @@ import { Program } from "./Program";
 
 export interface Client {
   getPrograms: (observer: Observer<Program[]>) => void;
+  getProgramsByQuery: (query: string, observer: Observer<Program[]>) => void;
 }
 
 export interface Observer<T> {
