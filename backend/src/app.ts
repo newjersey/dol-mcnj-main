@@ -21,5 +21,8 @@ app.use('/api', routerFactory(postgresDataClient));
 app.get('/', (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 export default app;

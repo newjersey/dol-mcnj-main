@@ -1,14 +1,21 @@
-import React, {ChangeEvent, ReactElement, useState} from "react";
+import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
 import {InputAdornment} from "@material-ui/core";
 import {PrimaryButton} from "./components/PrimaryButton";
 import {Input} from "./components/Input";
 
 interface Props {
   onSearch: (searchQuery: string) => void;
+  initialValue?: string;
 }
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  useEffect(() => {
+    if (props.initialValue) {
+      setSearchQuery(props.initialValue as string);
+    }
+  }, [props.initialValue]);
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchQuery(event.target.value)
@@ -21,7 +28,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
   };
 
   return (
-    <div className="mll fdr fac">
+    <div className="fdr fac">
       <Input
         value={searchQuery}
         onChange={handleSearchInput}

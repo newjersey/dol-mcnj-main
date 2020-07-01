@@ -1,15 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.scss";
-import App from "./App";
+import SearchResultsPage from "./SearchResultsPage";
 import * as serviceWorker from "./serviceWorker";
 import { ApiClient } from "./ApiClient";
+import {Router} from "@reach/router";
+import {LandingPage} from "./LandingPage";
 
 const apiClient = new ApiClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App client={apiClient} />
+    <Router>
+      <LandingPage path="/"/>
+      <SearchResultsPage path="/search" client={apiClient} />
+      <SearchResultsPage path="/search/:searchQuery" client={apiClient} />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
