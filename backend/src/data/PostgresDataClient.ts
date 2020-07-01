@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { DataClient } from "../domain/DataClient";
-import pgPromise, { IDatabase } from "pg-promise";
+import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
 import { ProgramOutcomeEntity } from "./ProgramEntity";
 import { Program } from "../domain/Program";
 
@@ -33,15 +33,19 @@ export class PostgresDataClient implements DataClient {
       "LEFT OUTER JOIN outcomes_cip " +
       "ON outcomes_cip.cipcode = programs.cipcode " +
       "AND outcomes_cip.providerid = programs.providerid " +
-      `WHERE LOWER(officialname) LIKE LOWER('%${searchQuery}%') ` +
-      `OR LOWER(description) LIKE LOWER('%${searchQuery}%');`;
+      "WHERE LOWER(officialname) LIKE LOWER('%' || $1 || '%') " +
+      "OR LOWER(description) LIKE LOWER('%' || $1 || '%');";
 
-    return this.dbQueryForProgramOutcomeEntities(sqlSearch);
+    return this.dbQueryForProgramOutcomeEntities(sqlSearch, [searchQuery]);
   }
 
-  private dbQueryForProgramOutcomeEntities = (sql: string): Promise<Program[]> => {
+  private dbQueryForProgramOutcomeEntities = (
+    sql: string,
+    values?: string[]
+  ): Promise<Program[]> => {
+    const paramaterizedQuery = new ParameterizedQuery({ text: sql, values: values });
     return this.db
-      .any(sql)
+      .any(paramaterizedQuery)
       .then((data: ProgramOutcomeEntity[]) => {
         return data.map(this.mapProgramOutcomeEntityToProgram);
       })
