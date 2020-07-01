@@ -31,7 +31,9 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <p className="info">Did you know the state of New Jersey can pay for your training?</p>
 
             <p className="info">To see if you qualify for a tuition waiver or voucher,&nbsp;
-              <a href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml">
+              <a target="_blank"
+                 rel="noopener noreferrer"
+                 href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml">
                 reach out to your local One-Stop Career center
               </a>.
             </p>
