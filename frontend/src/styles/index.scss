@@ -1,4 +1,5 @@
 $grey: #DBDADA;
+$light-green: #EBF5EE;
 
 @import "spacing";
 @import "borders";
@@ -17,6 +18,13 @@ body {
 
 h1, h2, h3, h4, h5 {
   margin: 0;
+}
+
+h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 64px;
+  line-height: 72px;
 }
 
 .header {
@@ -39,4 +47,36 @@ td {
 
 .number {
   text-align: right;
+}
+
+.split {
+  height: 100vh;
+  position: relative;
+  width: 50%;
+}
+
+.bg-light-green {
+  background-color: $light-green;
+}
+
+.nj-logo {
+  width: 120px;
+  //height: 96px;
+}
+
+.subtitle {
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.info {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+hr {
+  background-color: #DBDADA;
+  border-color: #DBDADA;
+  color: #DBDADA;
 }

@@ -3,9 +3,6 @@ import axios, { AxiosResponse } from "axios";
 import {Program} from "./domain/Program";
 
 export class ApiClient implements Client {
-  getPrograms(observer: Observer<Program[]>): void {
-    this.get("/api/programs", observer);
-  }
 
   getProgramsByQuery(query: string, observer: Observer<Program[]>): void {
     this.get(`/api/programs/search?query=${query}`, observer);

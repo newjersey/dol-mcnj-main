@@ -3,20 +3,23 @@ import {Client} from "./domain/Client";
 import {Program} from "./domain/Program";
 import {formatMoney} from "accounting";
 import {Searchbar} from "./Searchbar";
+import {navigate, RouteComponentProps} from "@reach/router";
 
-interface Props {
+interface Props extends RouteComponentProps {
   client: Client;
+  searchQuery?: string;
 }
 
-const App = (props: Props): ReactElement<Props> => {
+const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [programs, setPrograms] = useState<Program[]>([]);
 
   useEffect(() => {
-    props.client.getPrograms({
+    const queryToSearch = props.searchQuery ? props.searchQuery : '';
+    props.client.getProgramsByQuery(queryToSearch, {
       onSuccess: setPrograms,
       onError: () => {},
     });
-  }, [props.client]);
+  }, [props.searchQuery, props.client]);
 
   const formatPercentEmployed = (percentEmployed: number | null): string => {
     if (percentEmployed === null) {
@@ -26,22 +29,18 @@ const App = (props: Props): ReactElement<Props> => {
     return (Math.trunc(percentEmployed * 1000) / 10).toFixed(1) + "%";
   };
 
-  const executeSearch = (searchQuery: string): void => {
-    props.client.getProgramsByQuery(searchQuery, {
-      onSuccess: setPrograms,
-      onError: () => {},
-    })
-  };
-
   return (
     <>
       <header className="header pvm prd plxl fdr fac">
-        <h3>
+        <h3 className="mrl">
           New Jersey
           <br />
           Training Explorer
         </h3>
-        <Searchbar onSearch={executeSearch}/>
+        <Searchbar
+          onSearch={(searchQuery: string): Promise<void> => navigate(`/search/${searchQuery}`)}
+          initialValue={props.searchQuery}
+        />
       </header>
       <div className="mhxl mvl">
         <table>
@@ -67,4 +66,4 @@ const App = (props: Props): ReactElement<Props> => {
   );
 };
 
-export default App;
+export default SearchResultsPage;
