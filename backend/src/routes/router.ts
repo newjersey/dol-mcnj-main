@@ -6,12 +6,10 @@ export const routerFactory = (dataClient: DataClient): Router => {
   const router = Router();
 
   router.get("/programs/search", (req: Request, res: Response<Program[]>) => {
-    Promise.resolve()
-      .then(() => {
-        return req.query.query
-          ? dataClient.searchPrograms(req.query.query as string)
-          : dataClient.findAllPrograms();
-      })
+    (req.query.query
+      ? dataClient.searchPrograms(req.query.query as string)
+      : dataClient.findAllPrograms()
+    )
       .then((programs: Program[]) => {
         res.status(200).json(programs);
       })
