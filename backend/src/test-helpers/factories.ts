@@ -1,4 +1,4 @@
-import {Program, Provider} from "../domain/Program";
+import { Program, Provider } from "../domain/Program";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 
@@ -12,7 +12,6 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     ...overrides,
   };
 };
-
 
 export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {

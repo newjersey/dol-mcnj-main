@@ -6,7 +6,7 @@ export const Input = withStyles({
     borderRadius: 10,
     height: 38,
     boxShadow: "0",
-    width: 382,
+    width: "100%",
     fontSize: 16,
     borderColor: "#7B7777",
   },

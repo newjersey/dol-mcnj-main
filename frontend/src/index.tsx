@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.scss";
-import SearchResultsPage from "./SearchResultsPage";
 import * as serviceWorker from "./serviceWorker";
 import { ApiClient } from "./ApiClient";
 import {Router} from "@reach/router";
-import {LandingPage} from "./LandingPage";
+import {LandingPage} from "./landing-page/LandingPage";
+import {SearchResultsPage} from "./search-results/SearchResultsPage";
 
 const apiClient = new ApiClient();
 

@@ -1,15 +1,16 @@
-import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
-import {InputAdornment} from "@material-ui/core";
-import {PrimaryButton} from "./components/PrimaryButton";
-import {Input} from "./components/Input";
+import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { InputAdornment } from "@material-ui/core";
+import { PrimaryButton } from "./PrimaryButton";
+import { Input } from "./Input";
 
 interface Props {
   onSearch: (searchQuery: string) => void;
   initialValue?: string;
+  stacked?: boolean;
 }
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     if (props.initialValue) {
@@ -18,17 +19,20 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
   }, [props.initialValue]);
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchQuery(event.target.value)
+    setSearchQuery(event.target.value);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') {
-      props.onSearch(searchQuery)
+    if (event.key === "Enter") {
+      props.onSearch(searchQuery);
     }
   };
 
+  const flexDirection = props.stacked ? "fdc" : "fdr";
+  const marginDirection = props.stacked ? "mts" : "mld";
+
   return (
-    <div className="fdr fac">
+    <div className={`${flexDirection} fac`}>
       <Input
         value={searchQuery}
         onChange={handleSearchInput}
@@ -40,14 +44,11 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         }
         placeholder="Search for training courses"
       />
-      <span className="mld">
-        <PrimaryButton
-          variant="contained"
-          onClick={(): void => props.onSearch(searchQuery)}
-        >
+      <div className={marginDirection}>
+        <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
           Search
         </PrimaryButton>
-      </span>
+      </div>
     </div>
-  )
-}
+  );
+};

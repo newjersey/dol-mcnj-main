@@ -1,26 +1,26 @@
 import React from "react";
-import {render} from "@testing-library/react";
-import SearchResultsPage from "./SearchResultsPage";
-import {Client, Observer} from "./domain/Client";
-import {act} from "react-dom/test-utils";
-import {buildProgram} from "./test-helpers/factories";
-import {Program} from "./domain/Program";
+import { render } from "@testing-library/react";
+import { Client, Observer } from "../domain/Client";
+import { act } from "react-dom/test-utils";
+import { buildProgram } from "../test-helpers/factories";
+import { Program } from "../domain/Program";
+import { SearchResultsPage } from "./SearchResultsPage";
 
 describe("<SearchResultsPage />", () => {
-  describe('initial render', () => {
-    it('uses the url paramater in the search bar input', () => {
+  describe("initial render", () => {
+    it("uses the url paramater in the search bar input", () => {
       const stubClient = new StubClient();
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
-      expect(subject.getByPlaceholderText('Search for training courses')).toHaveValue("octopods");
+      expect(subject.getByPlaceholderText("Search for training courses")).toHaveValue("octopods");
     });
 
-    it('uses the url parameter to execute a search', () => {
+    it("uses the url parameter to execute a search", () => {
       const stubClient = new StubClient();
       render(<SearchResultsPage client={stubClient} searchQuery="octopods" />);
       expect(stubClient.capturedQuery).toEqual("octopods");
     });
 
-    it('executes an empty search when parameter does not exist', () => {
+    it("executes an empty search when parameter does not exist", () => {
       const stubClient = new StubClient();
       render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
       expect(stubClient.capturedQuery).toEqual("");
