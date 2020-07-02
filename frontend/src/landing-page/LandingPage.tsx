@@ -2,8 +2,11 @@ import { navigate, RouteComponentProps } from "@reach/router";
 import React, { ReactElement } from "react";
 import { Searchbar } from "../components/Searchbar";
 import njLogo from "../njlogo.svg";
+import { useMediaQuery } from "@material-ui/core";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
+  const isSmallerScreen = useMediaQuery("(max-width:1100px)");
+
   return (
     <div className="fdr">
       <div className="split fdc fac bg-light-green">
@@ -27,17 +30,18 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
       </div>
       <div className="split">
         <div className="paxxl">
-          <div className="mhl mvxl prxl">
+          <div className="mhl mvxl">
             <h2 className="subtitle">Search for Training</h2>
             <p className="info">
               Find training to prepare you for a promotion, better job, or even a career change
             </p>
             <Searchbar
               onSearch={(searchQuery: string): Promise<void> => navigate(`/search/${searchQuery}`)}
+              stacked={isSmallerScreen}
             />
           </div>
           <hr />
-          <div className="mhl mvxl prxxl">
+          <div className="mhl mvxl">
             <h2 className="subtitle">Get up to $4,000 from the state for your training</h2>
 
             <p className="info">Did you know the state of New Jersey can pay for your training?</p>
