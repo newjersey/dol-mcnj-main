@@ -21,21 +21,21 @@ describe("PostgresDataClient", () => {
     dataClient = new PostgresDataClient(connection);
   });
 
-  it("fetches data as program objects", async () => {
+  it("fetches data from multiple tables as program objects", async () => {
     const foundPrograms = await dataClient.findAllPrograms();
     expect(foundPrograms).toEqual([
-      { id: 1, name: "Tree Identification Class", totalCost: 3035, percentEmployed: 0 },
-      { id: 2, name: "Edible Leaves 101", totalCost: 1235.2, percentEmployed: 0.661016949152542 },
-      { id: 3, name: "Mushroom Foraging Certification", totalCost: 45, percentEmployed: null },
-      { id: 4, name: "Program With No Outcomes", totalCost: 100.0, percentEmployed: null },
+      { id: 1, name: "Tree Identification Class", totalCost: 3035, percentEmployed: 0, provider: {id: '123', city : 'Vineland'}},
+      { id: 2, name: "Edible Leaves 101", totalCost: 1235.2, percentEmployed: 0.661016949152542, provider: {id: '456', city : 'Treeland' }},
+      { id: 3, name: "Mushroom Foraging Certification", totalCost: 45, percentEmployed: null, provider: {id: '789', city : 'Cumberland' }},
+      { id: 4, name: "Program With No Outcomes", totalCost: 100.0, percentEmployed: null, provider: {id: '456', city : 'Treeland' }},
     ]);
   });
 
   it("searches for titles and descriptions containing a search query", async () => {
     const foundPrograms = await dataClient.searchPrograms("tree");
     expect(foundPrograms).toEqual([
-      { id: 1, name: "Tree Identification Class", totalCost: 3035, percentEmployed: 0 },
-      { id: 4, name: "Program With No Outcomes", totalCost: 100.0, percentEmployed: null },
+      { id: 1, name: "Tree Identification Class", totalCost: 3035, percentEmployed: 0, provider: {id: '123', city : 'Vineland' }},
+      { id: 4, name: "Program With No Outcomes", totalCost: 100.0, percentEmployed: null, provider: {id: '456', city: 'Treeland' }},
     ]);
   });
 
