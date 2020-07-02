@@ -109,11 +109,21 @@ hr {
   color: #DBDADA;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .sidebar {
     min-height: calc(100vh - 150px);
     position: fixed;
-    width: inherit;
+    width: 293px;
+    margin-right: -15px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sidebar {
+    min-height: calc(100vh - 150px);
+    position: fixed;
+    width: 375px;
+    margin-right: -15px;
   }
 }
 
