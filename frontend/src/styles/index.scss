@@ -1,17 +1,32 @@
 $grey: #DBDADA;
+$navy: #12263A;
 $light-green: #EBF5EE;
+$blue: #1668B4;
 
 @import "spacing";
 @import "borders";
 @import "flex";
+@import "css/bootstrap.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 body {
   line-height: 1.5rem;
   margin: 0;
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,14 +37,24 @@ h1, h2, h3, h4, h5 {
 
 h1 {
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 64px;
   line-height: 72px;
 }
 
+h3 {
+  font-weight: 500;
+}
+
 .header {
-  background-color: $grey;
+  background-color: $navy;
   line-height: 1.2;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 61px;
+  z-index: 10;
 }
 
 th {
@@ -59,9 +84,12 @@ td {
   background-color: $light-green;
 }
 
-.nj-logo {
+.nj-logo-landing {
   width: 120px;
-  //height: 96px;
+}
+
+.nj-logo-header {
+  width: 40px;
 }
 
 .subtitle {
@@ -79,4 +107,36 @@ hr {
   background-color: #DBDADA;
   border-color: #DBDADA;
   color: #DBDADA;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    min-height: calc(100vh - 150px);
+    position: fixed;
+    width: inherit;
+  }
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.blue {
+  color: $blue;
+}
+
+.card {
+  border: 1px solid #E5E5E5;
+  border-radius: 5px;
+
+  .material-icons {
+    line-height: 1.2rem;
+    font-size: 16px;
+    display: inline-flex;
+    vertical-align: text-bottom;
+  }
+}
+
+.align-right {
+  text-align: right;
 }

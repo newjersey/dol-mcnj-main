@@ -69,8 +69,8 @@ export class PostgresDataClient implements DataClient {
       percentEmployed: this.formatPercentEmployed(entity.peremployed2),
       provider: {
         id: entity.providerid,
-        city: entity.city
-      }
+        city: entity.city,
+      },
     };
   };
 
