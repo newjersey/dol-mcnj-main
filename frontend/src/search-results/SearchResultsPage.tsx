@@ -28,7 +28,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
       <div className="container mtxxl">
         <div className="row">
-          <div className="col-sm-3">
+          <div className="col-md-4">
             <div className="bg-light-green sidebar pam mbm">
               <Searchbar
                 onSearch={(searchQuery: string): Promise<void> =>
@@ -39,7 +39,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               />
             </div>
           </div>
-          <div className="col-sm-8 col-sm-offset-4">
+          <div className="col-md-8 col-md-offset-4">
             {programs.map((program) => (
               <ProgramCard key={program.id} program={program} />
             ))}
