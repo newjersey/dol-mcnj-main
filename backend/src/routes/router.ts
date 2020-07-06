@@ -1,15 +1,18 @@
 import { Request, Response, Router } from "express";
-import { DataClient } from "../domain/DataClient";
 import { Program } from "../domain/Program";
+import { findAllPrograms } from "../domain/types";
+import { searchPrograms } from "../domain/types";
 
-export const routerFactory = (dataClient: DataClient): Router => {
+interface RouterActions {
+  findAllPrograms: findAllPrograms;
+  searchPrograms: searchPrograms;
+}
+
+export const routerFactory = ({ findAllPrograms, searchPrograms }: RouterActions): Router => {
   const router = Router();
 
   router.get("/programs/search", (req: Request, res: Response<Program[]>) => {
-    (req.query.query
-      ? dataClient.searchPrograms(req.query.query as string)
-      : dataClient.findAllPrograms()
-    )
+    (req.query.query ? searchPrograms(req.query.query as string) : findAllPrograms())
       .then((programs: Program[]) => {
         res.status(200).json(programs);
       })
@@ -17,8 +20,7 @@ export const routerFactory = (dataClient: DataClient): Router => {
   });
 
   router.get("/programs", (req: Request, res: Response<Program[]>) => {
-    dataClient
-      .findAllPrograms()
+    findAllPrograms()
       .then((programs: Program[]) => {
         res.status(200).json(programs);
       })

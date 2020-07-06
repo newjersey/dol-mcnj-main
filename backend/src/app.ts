@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express';
 import {routerFactory} from "./routes/router";
 import path from "path";
 import {PostgresDataClient} from "./data/PostgresDataClient";
+import {searchProgramsFactory} from "./domain/searchPrograms";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -14,10 +15,15 @@ const connection = {
 
 const postgresDataClient = new PostgresDataClient(connection);
 
+const router = routerFactory({
+    findAllPrograms: postgresDataClient.findAllPrograms,
+    searchPrograms: searchProgramsFactory(postgresDataClient)
+});
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use('/api', routerFactory(postgresDataClient));
+app.use('/api', router);
 app.get('/', (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

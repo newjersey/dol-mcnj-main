@@ -45,3 +45,10 @@ export interface JoinedEntity {
   providerid: string;
   city: string;
 }
+
+export interface CipSocCrosswalkEntity {
+  soc2018code: string;
+  soc2018title: string;
+  cip2020code: string;
+  cip2020title: string;
+}
