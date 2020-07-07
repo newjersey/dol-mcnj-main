@@ -53,4 +53,10 @@ describe('Search', () => {
     // removes others
     cy.contains('Patient Care Technician Program').should('not.exist');
   })
+
+  it('links back to home page', () => {
+    cy.visit('/search');
+    cy.contains('Training Explorer').click();
+    cy.location('pathname').should('eq', '/');
+  });
 });
