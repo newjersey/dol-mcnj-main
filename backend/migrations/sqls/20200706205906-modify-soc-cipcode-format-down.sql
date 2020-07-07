@@ -1,0 +1,1 @@
+alter table soccipcrosswalk drop column cipcode;

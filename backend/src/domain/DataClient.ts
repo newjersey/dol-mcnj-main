@@ -1,8 +1,9 @@
 import { Program } from "./Program";
 
+export type ProgramId = string;
+
 export interface DataClient {
   findAllPrograms: () => Promise<Program[]>;
-  searchPrograms: (searchQuery: string) => Promise<Program[]>;
-  searchCipsBySocKeyword: (searchQuery: string) => Promise<string[]>;
-  findProgramsByCips: (cips: string[]) => Promise<Program[]>;
+  findProgramsByIds: (ids: string[]) => Promise<Program[]>;
+  search: (searchQuery: string) => Promise<ProgramId[]>;
 }
