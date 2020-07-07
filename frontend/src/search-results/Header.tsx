@@ -8,7 +8,7 @@ export const Header = (): ReactElement => {
         <a href="/">
           <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
         </a>
-        <a href="/">
+        <a href="/" className="no-link-format">
           <h2 className="mrl">Training Explorer</h2>
         </a>
       </div>
