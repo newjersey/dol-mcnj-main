@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { DataClient } from "../domain/DataClient";
+import { DataClient, ProgramId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
-import { CipSocCrosswalkEntity, JoinedEntity } from "./ProgramEntity";
+import { JoinedEntity, SearchedEntity } from "./ProgramEntity";
 import { Program } from "../domain/Program";
 
 const pgp = pgPromise();
@@ -31,34 +31,25 @@ export class PostgresDataClient implements DataClient {
     return this.dbQueryForProgramOutcomeEntities(sqlSelect);
   };
 
-  searchPrograms = (searchQuery: string): Promise<Program[]> => {
-    const sqlSearch =
-      this.joinStatement +
-      "WHERE LOWER(officialname) LIKE LOWER('%' || $1 || '%') " +
-      "OR LOWER(description) LIKE LOWER('%' || $1 || '%');";
-
-    return this.dbQueryForProgramOutcomeEntities(sqlSearch, [searchQuery]);
-  };
-
-  findProgramsByCips = (cips: string[]): Promise<Program[]> => {
-    if (cips.length === 0) {
+  findProgramsByIds = (ids: string[]): Promise<Program[]> => {
+    if (ids.length === 0) {
       return Promise.resolve([]);
     }
 
-    const values = cips.map((cip) => "'" + cip + "'").join(",");
-    const sqlSearch = this.joinStatement + `WHERE programs.cipcode IN (${values});`;
+    const values = ids.map((id) => "'" + id + "'").join(",");
+    const sqlSearch = this.joinStatement + `WHERE programs.id IN (${values});`;
 
     return this.dbQueryForProgramOutcomeEntities(sqlSearch);
   };
 
-  searchCipsBySocKeyword = (searchQuery: string): Promise<string[]> => {
-    const sql =
-      "SELECT * FROM soccipcrosswalk " + "WHERE LOWER(soc2018title) LIKE LOWER('%' || $1 || '%')";
+  search = (searchQuery: string): Promise<ProgramId[]> => {
+    const sql = "select id from programtokens " + "where tokens @@ websearch_to_tsquery($1);";
+
     const paramaterizedQuery = new ParameterizedQuery({ text: sql, values: [searchQuery] });
     return this.db
       .any(paramaterizedQuery)
-      .then((data: CipSocCrosswalkEntity[]) => {
-        return data.map((entity) => entity.cip2020code.replace(/\./g, ""));
+      .then((data: SearchedEntity[]) => {
+        return data.map((entity) => entity.id);
       })
       .catch((e) => {
         console.log("db error: ", e);
