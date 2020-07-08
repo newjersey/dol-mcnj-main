@@ -9,7 +9,7 @@ export const Header = (): ReactElement => {
           <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
         </a>
         <a href="/" className="no-link-format">
-          <h2 className="mrl">Training Explorer</h2>
+          <h1 className="mrl text-xl">Training Explorer</h1>
         </a>
       </div>
     </header>

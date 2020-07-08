@@ -19,10 +19,10 @@ export const ProgramCard = (props: Props): ReactElement => {
     <div className="card pam mbs container-fluid">
       <div className="row">
         <div className="col-xs-8">
-          <h3 className="blue">{props.program.name}</h3>
+          <h2 className="blue text-m weight-500">{props.program.name}</h2>
         </div>
         <div className="col-xs-4 align-right">
-          <h3>{formatMoney(props.program.totalCost)}</h3>
+          <h3 className="text-m weight-500">{formatMoney(props.program.totalCost)}</h3>
         </div>
       </div>
       <div className="row">
