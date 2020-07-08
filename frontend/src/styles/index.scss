@@ -1,12 +1,11 @@
-$grey: #DBDADA;
-$navy: #12263A;
-$light-green: #EBF5EE;
-$blue: #1668B4;
-
+@import "sizes";
+@import "colors";
 @import "spacing";
 @import "borders";
 @import "flex";
 @import "css/bootstrap.css";
+@import "landing-page";
+@import "search-results-page";
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
@@ -31,6 +30,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+hr {
+  background-color: #DBDADA;
+  border-color: #DBDADA;
+  color: #DBDADA;
+}
+
 h1, h2, h3, h4, h5 {
   margin: 0;
 }
@@ -42,109 +47,27 @@ h1 {
   line-height: 72px;
 }
 
-h3 {
+h2 {
+  font-style: normal;
   font-weight: 500;
-}
-
-.header {
-  background-color: $navy;
-  line-height: 1.2;
-  color: white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 61px;
-  z-index: 10;
-}
-
-th {
-  text-align: left;
-  padding-right: 50px;
-}
-
-tr {
-  height: 2.5rem;
-}
-
-td {
-  padding-right: 50px;
-}
-
-.number {
-  text-align: right;
-}
-
-.split {
-  height: 100vh;
-  position: relative;
-  width: 50%;
-}
-
-.bg-light-green {
-  background-color: $light-green;
-}
-
-.nj-logo-landing {
-  width: 120px;
-}
-
-.nj-logo-header {
-  width: 40px;
-}
-
-.subtitle {
-  font-weight: normal;
   font-size: 32px;
   line-height: 1.1;
 }
 
-.info {
-  font-size: 18px;
-  line-height: 1.2;
-}
-
-hr {
-  background-color: #DBDADA;
-  border-color: #DBDADA;
-  color: #DBDADA;
-}
-
-@media (min-width: 992px) {
-  .sidebar {
-    min-height: calc(100vh - 150px);
-    position: fixed;
-    width: 293px;
-    margin-right: -15px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .sidebar {
-    min-height: calc(100vh - 150px);
-    position: fixed;
-    width: 375px;
-    margin-right: -15px;
-  }
+h3 {
+  font-weight: 500;
 }
 
 .width-100 {
   width: 100%;
 }
 
-.blue {
-  color: $blue;
+.height-100 {
+  height: 100%;
 }
 
-.card {
-  border: 1px solid #E5E5E5;
-  border-radius: 5px;
-
-  .material-icons {
-    line-height: 1.2rem;
-    font-size: 16px;
-    display: inline-flex;
-    vertical-align: text-bottom;
-  }
+.height-full {
+  height: 100vh;
 }
 
 .align-right {
@@ -158,4 +81,14 @@ hr {
 a.no-link-format {
   color: inherit;
   text-decoration: inherit;
+}
+
+.button-size {
+  min-width: 114px;
+}
+
+@media (max-width: $xs) {
+  .button-size {
+    min-width: 100%;
+  }
 }

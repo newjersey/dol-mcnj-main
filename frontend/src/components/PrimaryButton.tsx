@@ -11,7 +11,7 @@ export const PrimaryButton = withStyles({
     textTransform: "none",
     fontWeight: "bold",
     fontSize: 16,
-    width: 114,
+    width: "100%",
     "&:hover": {
       backgroundColor: "#777777",
     },

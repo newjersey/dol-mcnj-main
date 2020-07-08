@@ -44,7 +44,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         }
         placeholder="Search for training courses"
       />
-      <div className={marginDirection}>
+      <div className={`${marginDirection} button-size`}>
         <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
           Search
         </PrimaryButton>

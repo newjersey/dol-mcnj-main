@@ -5,6 +5,7 @@ import { Searchbar } from "../components/Searchbar";
 import { navigate, RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
 import { ProgramCard } from "./ProgramCard";
+import { useMediaQuery } from "@material-ui/core";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -12,6 +13,10 @@ interface Props extends RouteComponentProps {
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
+  const isWidescreen = useMediaQuery("(min-width:992px)");
+  const isMobile = useMediaQuery("(max-width:768px)");
+  const shouldStackSearchButton = isMobile || isWidescreen;
+
   const [programs, setPrograms] = useState<Program[]>([]);
 
   useEffect(() => {
@@ -26,20 +31,22 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     <>
       <Header />
 
-      <div className="container mtxxl">
+      <div className="container search-container">
         <div className="row">
           <div className="col-md-4">
-            <div className="bg-light-green sidebar pam mbm">
-              <Searchbar
-                onSearch={(searchQuery: string): Promise<void> =>
-                  navigate(`/search/${searchQuery}`)
-                }
-                initialValue={props.searchQuery}
-                stacked={true}
-              />
+            <div className="bg-light-green sidebar pam">
+              <div className="search-wrapper">
+                <Searchbar
+                  onSearch={(searchQuery: string): Promise<void> =>
+                    navigate(`/search/${searchQuery}`)
+                  }
+                  initialValue={props.searchQuery}
+                  stacked={shouldStackSearchButton}
+                />
+              </div>
             </div>
           </div>
-          <div className="col-md-8 col-md-offset-4">
+          <div className="col-md-8 col-md-offset-4 offset-col">
             {programs.map((program) => (
               <ProgramCard key={program.id} program={program} />
             ))}

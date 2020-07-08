@@ -20,14 +20,23 @@ export const ProgramCard = (props: Props): ReactElement => {
       <div className="row">
         <div className="col-xs-8">
           <h3 className="blue">{props.program.name}</h3>
-          <p>
-            <i className="material-icons mrxs">location_on</i>
-            {props.program.provider.city}
-          </p>
         </div>
         <div className="col-xs-4 align-right">
           <h3>{formatMoney(props.program.totalCost)}</h3>
-          <p>{formatPercentEmployed(props.program.percentEmployed)}</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-4 col-md-push-8 align-right-when-lg">
+          <p className="mb-when-lg">
+            <i className="material-icons mrxs hide-when-lg">card_travel</i>
+            {formatPercentEmployed(props.program.percentEmployed)}
+          </p>
+        </div>
+        <div className="col-md-8 col-md-pull-4">
+          <p className="mt-when-lg">
+            <i className="material-icons mrxs">location_on</i>
+            {props.program.provider.city}
+          </p>
         </div>
       </div>
     </div>

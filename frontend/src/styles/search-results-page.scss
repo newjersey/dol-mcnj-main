@@ -1,0 +1,118 @@
+@import "sizes";
+
+$header-height: 61px;
+$searchbox-height: 120px;
+
+.card {
+  border: 1px solid #E5E5E5;
+  border-radius: 5px;
+
+  .material-icons {
+    line-height: 1.2rem;
+    font-size: 16px;
+    display: inline-flex;
+    vertical-align: text-bottom;
+  }
+}
+
+.nj-logo-header {
+  width: 40px;
+}
+
+.header {
+  background-color: $navy;
+  line-height: 1.2;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $header-height;
+  z-index: 10;
+}
+
+
+.search-container {
+  margin-top: calc(#{$header-height} + 15px);
+}
+
+// medium screens
+@media (min-width: $sm) {
+  .sidebar {
+    min-height: calc(100vh - (#{$header-height} + 30px));
+    position: fixed;
+    width: 293px;
+    margin-right: -15px;
+  }
+}
+
+// large screens
+@media (min-width: $md) {
+  .sidebar {
+    min-height: calc(100vh - (#{$header-height} + 30px));
+    position: fixed;
+    width: 375px;
+    margin-right: -15px;
+  }
+}
+
+.align-right-when-lg {
+  text-align: right;
+}
+
+.mb-when-lg {
+  margin-bottom: 1rem;
+}
+
+.mt-when-lg {
+  margin-top: 1rem;
+}
+
+.hide-when-lg {
+  display: none !important;
+}
+
+// small screens only
+@media (min-width: $xs) and (max-width: $sm) {
+  .search-wrapper {
+    width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// xs and small screens
+@media (max-width: $sm) {
+  .sidebar {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    height: $searchbox-height;
+    z-index: 10;
+  }
+
+  .offset-col {
+    margin-top: calc(#{$searchbox-height} + 15px);
+  }
+
+  .search-container {
+    margin-top: $header-height;
+  }
+
+  .align-right-when-lg {
+    text-align: left;
+  }
+
+  .hide-when-lg {
+    display: inline-flex !important;
+  }
+
+  .mb-when-lg {
+    margin-bottom: 0;
+  }
+
+  .mt-when-lg {
+    margin-top: 0;
+  }
+}
+
+
