@@ -30,15 +30,23 @@ $searchbox-height: 7.5rem;
   z-index: 10;
 }
 
+.results-count-container {
+  margin-top: $header-height;
+  height: $header-height;
+  margin-bottom: 1.5rem;
+}
 
-.search-container {
-  margin-top: calc(#{$header-height} + 15px);
+.fixed-wrapper {
+  position: fixed;
+  background-color: white;
+  z-index: 10;
+  width: 100%;
 }
 
 // medium screens
 @media (min-width: $sm) {
   .sidebar {
-    min-height: calc(100vh - (#{$header-height} + 30px));
+    min-height: calc(100vh - (#{$header-height}*2 + 30px));
     position: fixed;
     width: 293px;
     margin-right: -15px;
@@ -48,7 +56,7 @@ $searchbox-height: 7.5rem;
 // large screens
 @media (min-width: $md) {
   .sidebar {
-    min-height: calc(100vh - (#{$header-height} + 30px));
+    min-height: calc(100vh - (#{$header-height}*2 + 30px));
     position: fixed;
     width: 375px;
     margin-right: -15px;

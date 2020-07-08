@@ -13,9 +13,9 @@ interface Props extends RouteComponentProps {
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
-  const isWidescreen = useMediaQuery("(min-width:992px)");
+  const isMediumOrLarge = useMediaQuery("(min-width:992px)");
   const isMobile = useMediaQuery("(max-width:768px)");
-  const shouldStackSearchButton = isMobile || isWidescreen;
+  const shouldStackSearchButton = isMobile || isMediumOrLarge;
 
   const [programs, setPrograms] = useState<Program[]>([]);
 
@@ -27,9 +27,30 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     });
   }, [props.searchQuery, props.client]);
 
+  const getResultCount = (): ReactElement => {
+    let message = "";
+    if (programs.length === 1) {
+      message = `${programs.length} result found for "${props.searchQuery}"`;
+    } else {
+      message = `${programs.length} results found for "${props.searchQuery}"`;
+    }
+
+    return <h2 className="text-xl weight-500 pvs">{message}</h2>;
+  };
+
   return (
     <>
       <Header />
+
+      {isMediumOrLarge && (
+        <div className="container results-count-container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="ptd fixed-wrapper">{getResultCount()}</div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="container search-container">
         <div className="row">
@@ -47,6 +68,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             </div>
           </div>
           <div className="col-md-8 col-md-offset-4 offset-col">
+            {!isMediumOrLarge && getResultCount()}
             {programs.map((program) => (
               <ProgramCard key={program.id} program={program} />
             ))}
