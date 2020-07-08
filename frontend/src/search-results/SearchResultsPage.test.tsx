@@ -57,6 +57,24 @@ describe("<SearchResultsPage />", () => {
     expect(subject.getByText("80.0%", { exact: false })).toBeInTheDocument();
   });
 
+  it("displays number of results returns for search query", () => {
+    const subject = render(<SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />);
+    act(() => stubClient.capturedObserver.onSuccess([buildProgram({}), buildProgram({})]));
+
+    expect(
+      subject.getByText('2 results found for "frigate birds"', { exact: false })
+    ).toBeInTheDocument();
+  });
+
+  it("displays correct grammar when 1 result returned for search query", () => {
+    const subject = render(<SearchResultsPage client={stubClient} searchQuery={"cormorants"} />);
+    act(() => stubClient.capturedObserver.onSuccess([buildProgram({})]));
+
+    expect(
+      subject.getByText('1 result found for "cormorants"', { exact: false })
+    ).toBeInTheDocument();
+  });
+
   it("displays percent employed as '--' when it is null", () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
 
