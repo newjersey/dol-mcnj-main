@@ -1,7 +1,7 @@
 @import "sizes";
 
-$header-height: 61px;
-$searchbox-height: 120px;
+$header-height: 3.8rem;
+$searchbox-height: 7.5rem;
 
 .card {
   border: 1px solid #E5E5E5;
@@ -9,14 +9,14 @@ $searchbox-height: 120px;
 
   .material-icons {
     line-height: 1.2rem;
-    font-size: 16px;
+    font-size: 1rem;
     display: inline-flex;
     vertical-align: text-bottom;
   }
 }
 
 .nj-logo-header {
-  width: 40px;
+  width: 2.5rem;
 }
 
 .header {

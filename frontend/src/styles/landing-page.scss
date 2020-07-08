@@ -2,18 +2,7 @@
 @import "colors";
 
 .nj-logo-landing {
-  width: 120px;
-}
-
-.subtitle {
-  font-weight: normal;
-  font-size: 32px;
-  line-height: 1.1;
-}
-
-.info {
-  font-size: 18px;
-  line-height: 1.2;
+  width: 7rem;
 }
 
 .gutter-filler-left {
@@ -23,7 +12,7 @@
 }
 
 .col-adjust {
-  padding-bottom: 100px;
+  padding-bottom: 6rem;
 }
 
 .grey-line {
@@ -51,27 +40,16 @@
     height: 100vh;
   }
 
-  .subtitle {
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 1.1;
-  }
-
   .section-header {
     text-align: center;
   }
 
-  .h1-landing {
-    font-size: 48px;
-    line-height: 1.1;
-  }
-
   .nj-logo-landing {
-    width: 90px;
+    width: 5.5rem;
   }
 
   .col-adjust {
-    padding: 0 50px;
+    padding: 0 3rem;
 
     &.height-100 {
       height: auto;

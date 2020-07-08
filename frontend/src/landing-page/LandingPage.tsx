@@ -22,14 +22,14 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                   src={njLogo}
                   alt="New Jersey innovation logo"
                 />
-                <h1 className="h1-landing">
+                <h1 className="text-xxl">
                   Training
                   <br />
                   Explorer
                 </h1>
               </div>
               <div className="mlm">
-                <h2 className="fdr fjc subtitle">
+                <h2 className="fdr fjc text-xl weight-400">
                   Find the training you need to get the job that you want
                 </h2>
               </div>
@@ -39,8 +39,8 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
           <div className="col-md-6 height-100 fdc fjc col-adjust">
             <div className="adjustable-margin-left">
               <div className="mhl mvxl">
-                <h2 className="section-header">Search for Training</h2>
-                <p className="info">
+                <h2 className="text-xl section-header">Search for Training</h2>
+                <p className="text-m">
                   Find training to prepare you for a promotion, better job, or even a career change
                 </p>
                 <Searchbar
@@ -52,15 +52,15 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
               </div>
               <div className="grey-line" />
               <div className="mhl mvxl">
-                <h2 className="section-header">
+                <h2 className="text-xl section-header">
                   Get up to $4,000 from the state for your training
                 </h2>
 
-                <p className="info">
+                <p className="text-m">
                   Did you know the state of New Jersey can pay for your training?
                 </p>
 
-                <p className="info">
+                <p className="text-m">
                   To see if you qualify for a tuition waiver or voucher,&nbsp;
                   <a
                     target="_blank"

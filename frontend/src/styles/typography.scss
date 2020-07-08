@@ -1,0 +1,55 @@
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+.text-xxl {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+.text-xl {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.text-l {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.375rem;
+}
+
+.text-m {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.weight-400 {
+  font-weight: 400;
+}
+
+.weight-500 {
+  font-weight: 500;
+}
+
+@media (max-width: $sm) {
+  .text-xxl {
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+
+  .text-xl {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.375rem;
+  }
+}
