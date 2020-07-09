@@ -1,4 +1,3 @@
-import { Training } from "./Training";
+import { TrainingResult } from "./Training";
 
-export type SearchTrainings = (searchQuery: string) => Promise<Training[]>;
-export type FindAllTrainings = () => Promise<Training[]>;
+export type SearchTrainings = (searchQuery?: string) => Promise<TrainingResult[]>;

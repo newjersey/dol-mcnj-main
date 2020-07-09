@@ -1,19 +1,19 @@
-import { Training, Provider } from "../domain/Training";
+import { TrainingResult, ProviderResult } from "../domain/Training";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 
-export const buildTraining = (overrides: Partial<Training>): Training => {
+export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
     totalCost: randomInt(),
     percentEmployed: randomInt(),
-    provider: buildProvider({}),
+    provider: buildProviderResult({}),
     ...overrides,
   };
 };
 
-export const buildProvider = (overrides: Partial<Provider>): Provider => {
+export const buildProviderResult = (overrides: Partial<ProviderResult>): ProviderResult => {
   return {
     id: "some-id-" + randomInt(),
     city: "some-city-" + randomInt(),

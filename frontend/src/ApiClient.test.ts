@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
-import {Training} from "./domain/Training";
-import {buildTraining} from "./test-helpers/factories";
+import {TrainingResult} from "./domain/Training";
+import {buildTrainingResult} from "./test-objects/factories";
 
 jest.mock("axios");
 
@@ -25,11 +25,11 @@ describe("ApiClient", () => {
     });
 
     it("calls observer with successful training data", (done) => {
-      const trainings = [buildTraining({}), buildTraining({})];
+      const trainings = [buildTrainingResult({}), buildTrainingResult({})];
       mockedAxios.get.mockResolvedValue({ data: trainings });
 
       const observer = {
-        onSuccess: (data: Training[]): void => {
+        onSuccess: (data: TrainingResult[]): void => {
           expect(data).toEqual(trainings);
           done();
         },

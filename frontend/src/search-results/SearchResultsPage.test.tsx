@@ -1,11 +1,10 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { Client, Observer } from "../domain/Client";
 import { act } from "react-dom/test-utils";
-import { buildTraining, buildProvider } from "../test-helpers/factories";
-import { Training } from "../domain/Training";
+import { buildProviderResult, buildTrainingResult } from "../test-objects/factories";
 import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
+import { StubClient } from "../test-objects/StubClient";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -18,7 +17,7 @@ describe("<SearchResultsPage />", () => {
     stubClient = new StubClient();
   });
 
-  it("uses the url paramater in the search bar input", () => {
+  it("uses the url parameter in the search bar input", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
     expect(subject.getByPlaceholderText("Search for training courses")).toHaveValue("octopods");
   });
@@ -36,20 +35,20 @@ describe("<SearchResultsPage />", () => {
   it("displays list of training names and their data", () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
 
-    const training1 = buildTraining({
+    const training1 = buildTrainingResult({
       name: "training1",
       totalCost: 1000,
       percentEmployed: 0.6018342,
-      provider: buildProvider({
+      provider: buildProviderResult({
         city: "Camden",
         name: "Cammy Community College",
       }),
     });
-    const training2 = buildTraining({
+    const training2 = buildTrainingResult({
       name: "training2",
       totalCost: 333.33,
       percentEmployed: 0.8,
-      provider: buildProvider({
+      provider: buildProviderResult({
         city: "Newark",
         name: "New'rk School",
       }),
@@ -71,7 +70,9 @@ describe("<SearchResultsPage />", () => {
 
   it("displays number of results returns for search query", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />);
-    act(() => stubClient.capturedObserver.onSuccess([buildTraining({}), buildTraining({})]));
+    act(() =>
+      stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})])
+    );
 
     expect(
       subject.getByText('2 results found for "frigate birds"', { exact: false })
@@ -80,7 +81,7 @@ describe("<SearchResultsPage />", () => {
 
   it("displays correct grammar when 1 result returned for search query", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"cormorants"} />);
-    act(() => stubClient.capturedObserver.onSuccess([buildTraining({})]));
+    act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));
 
     expect(
       subject.getByText('1 result found for "cormorants"', { exact: false })
@@ -90,7 +91,9 @@ describe("<SearchResultsPage />", () => {
   it("displays percent employed as '--' when it is null", () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess([buildTraining({ percentEmployed: null })]));
+    act(() =>
+      stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })])
+    );
 
     expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
   });
@@ -104,17 +107,3 @@ describe("<SearchResultsPage />", () => {
     expect(navigate).toHaveBeenCalledWith("/search/penguins");
   });
 });
-
-class StubClient implements Client {
-  capturedObserver: Observer<Training[]> = {
-    onError: () => {},
-    onSuccess: () => {},
-  };
-
-  capturedQuery: string | undefined = undefined;
-
-  getTrainingsByQuery(query: string, observer: Observer<Training[]>): void {
-    this.capturedObserver = observer;
-    this.capturedQuery = query;
-  }
-}

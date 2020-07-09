@@ -3,7 +3,7 @@
 
 import { DataClient, TrainingId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
-import { Training, Status } from "../domain/Training";
+import { TrainingResult, Status } from "../domain/Training";
 import { JoinedEntity, SearchedEntity } from "./Entities";
 
 const pgp = pgPromise();
@@ -26,13 +26,13 @@ export class PostgresDataClient implements DataClient {
     "LEFT OUTER JOIN providers " +
     "ON providers.providerid = programs.providerid ";
 
-  findAllTrainings = (): Promise<Training[]> => {
+  findAllTrainings = (): Promise<TrainingResult[]> => {
     const sqlSelect = this.joinStatement + ";";
 
     return this.dbQueryForJoinedEntities(sqlSelect);
   };
 
-  findTrainingsByIds = (ids: string[]): Promise<Training[]> => {
+  findTrainingsByIds = (ids: string[]): Promise<TrainingResult[]> => {
     if (ids.length === 0) {
       return Promise.resolve([]);
     }
@@ -58,12 +58,15 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  private dbQueryForJoinedEntities = (sql: string, values?: string[]): Promise<Training[]> => {
+  private dbQueryForJoinedEntities = (
+    sql: string,
+    values?: string[]
+  ): Promise<TrainingResult[]> => {
     const paramaterizedQuery = new ParameterizedQuery({ text: sql, values: values });
     return this.db
       .any(paramaterizedQuery)
       .then((data: JoinedEntity[]) => {
-        return data.map(this.mapJoinedEntityToTraining);
+        return data.map(this.mapJoinedEntityToTrainingResult);
       })
       .catch((e) => {
         console.log("db error: ", e);
@@ -71,7 +74,7 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  private mapJoinedEntityToTraining = (entity: JoinedEntity): Training => {
+  private mapJoinedEntityToTrainingResult = (entity: JoinedEntity): TrainingResult => {
     return {
       id: entity.id,
       name: entity.officialname,

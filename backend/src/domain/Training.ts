@@ -1,13 +1,13 @@
-export interface Training {
+export interface TrainingResult {
   id: string;
   name: string;
   totalCost: number;
   percentEmployed: number | null;
   status: Status;
-  provider: Provider;
+  provider: ProviderResult;
 }
 
-export interface Provider {
+export interface ProviderResult {
   city: string;
   id: string;
   name: string;
