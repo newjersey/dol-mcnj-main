@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
-import {Program} from "./domain/Program";
-import {buildProgram} from "./test-helpers/factories";
+import {Training} from "./domain/Training";
+import {buildTraining} from "./test-helpers/factories";
 
 jest.mock("axios");
 
@@ -14,29 +14,29 @@ describe("ApiClient", () => {
     apiClient = new ApiClient();
   });
 
-  describe('getProgramsByQuery', () => {
+  describe('getTrainingsByQuery', () => {
     it('uses the search query in the api call', () => {
       const dummyObserver = {onSuccess: jest.fn(), onError: jest.fn()}
       mockedAxios.get.mockResolvedValue({ data: [] });
 
-      apiClient.getProgramsByQuery("penguins", dummyObserver);
+      apiClient.getTrainingsByQuery("penguins", dummyObserver);
 
-      expect(mockedAxios.get).toHaveBeenCalledWith("/api/programs/search?query=penguins")
+      expect(mockedAxios.get).toHaveBeenCalledWith("/api/trainings/search?query=penguins")
     });
 
-    it("calls observer with successful program data", (done) => {
-      const programs = [buildProgram({}), buildProgram({})];
-      mockedAxios.get.mockResolvedValue({ data: programs });
+    it("calls observer with successful training data", (done) => {
+      const trainings = [buildTraining({}), buildTraining({})];
+      mockedAxios.get.mockResolvedValue({ data: trainings });
 
       const observer = {
-        onSuccess: (data: Program[]): void => {
-          expect(data).toEqual(programs);
+        onSuccess: (data: Training[]): void => {
+          expect(data).toEqual(trainings);
           done();
         },
         onError: jest.fn(),
       };
 
-      apiClient.getProgramsByQuery('some query', observer);
+      apiClient.getTrainingsByQuery('some query', observer);
     });
 
     it("calls observer with error when GET fails", (done) => {
@@ -49,7 +49,7 @@ describe("ApiClient", () => {
         },
       };
 
-      apiClient.getProgramsByQuery('some query', observer);
+      apiClient.getTrainingsByQuery('some query', observer);
     });
   });
 });

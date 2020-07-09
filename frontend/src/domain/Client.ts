@@ -1,7 +1,7 @@
-import { Program } from "./Program";
+import { Training } from "./Training";
 
 export interface Client {
-  getProgramsByQuery: (query: string, observer: Observer<Program[]>) => void;
+  getTrainingsByQuery: (query: string, observer: Observer<Training[]>) => void;
 }
 
 export interface Observer<T> {

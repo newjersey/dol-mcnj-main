@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
-import { Program } from "../domain/Program";
+import { Training } from "../domain/Training";
 import { Searchbar } from "../components/Searchbar";
 import { navigate, RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
-import { ProgramCard } from "./ProgramCard";
+import { TrainingCard } from "./TrainingCard";
 import { useMediaQuery } from "@material-ui/core";
 
 interface Props extends RouteComponentProps {
@@ -17,22 +17,22 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isMobile = useMediaQuery("(max-width:768px)");
   const shouldStackSearchButton = isMobile || isMediumOrLarge;
 
-  const [programs, setPrograms] = useState<Program[]>([]);
+  const [trainings, setTrainings] = useState<Training[]>([]);
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
-    props.client.getProgramsByQuery(queryToSearch, {
-      onSuccess: setPrograms,
+    props.client.getTrainingsByQuery(queryToSearch, {
+      onSuccess: setTrainings,
       onError: () => {},
     });
   }, [props.searchQuery, props.client]);
 
   const getResultCount = (): ReactElement => {
-    let message = "";
-    if (programs.length === 1) {
-      message = `${programs.length} result found for "${props.searchQuery}"`;
+    let message;
+    if (trainings.length === 1) {
+      message = `${trainings.length} result found for "${props.searchQuery}"`;
     } else {
-      message = `${programs.length} results found for "${props.searchQuery}"`;
+      message = `${trainings.length} results found for "${props.searchQuery}"`;
     }
 
     return <h2 className="text-xl weight-500 pvs">{message}</h2>;
@@ -69,8 +69,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           </div>
           <div className="col-md-8 col-md-offset-4 offset-col">
             {!isMediumOrLarge && getResultCount()}
-            {programs.map((program) => (
-              <ProgramCard key={program.id} program={program} />
+            {trainings.map((training) => (
+              <TrainingCard key={training.id} training={training} />
             ))}
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { PostgresDataClient } from "./PostgresDataClient";
 import util from "util";
 import { exec } from "child_process";
-import { Status } from "../domain/Program";
+import { Status } from "../domain/Training";
 
 const cmd = util.promisify(exec);
 
@@ -22,10 +22,10 @@ describe("PostgresDataClient", () => {
     dataClient = new PostgresDataClient(connection);
   });
 
-  it("fetches data from multiple tables as program objects", async () => {
-    const foundPrograms = await dataClient.findAllPrograms();
-    expect(foundPrograms.length).toEqual(5);
-    expect(foundPrograms).toContainEqual({
+  it("fetches data from multiple tables as training objects", async () => {
+    const foundTrainings = await dataClient.findAllTrainings();
+    expect(foundTrainings.length).toEqual(5);
+    expect(foundTrainings).toContainEqual({
       id: 1,
       name: "Tree Identification Class",
       totalCost: 3035,
@@ -40,21 +40,21 @@ describe("PostgresDataClient", () => {
     });
   });
 
-  it("searches program ids when title, description matches a search query", async () => {
-    const foundPrograms = await dataClient.search("tree");
-    expect(foundPrograms).toEqual(expect.arrayContaining([1, 2, 5]));
+  it("searches training ids when title, description matches a search query", async () => {
+    const foundTrainings = await dataClient.search("tree");
+    expect(foundTrainings).toEqual(expect.arrayContaining([1, 2, 5]));
   });
 
-  it("finds programs by list of ids", async () => {
-    const foundPrograms = await dataClient.findProgramsByIds(["1", "4"]);
-    expect(foundPrograms.map((it) => it.name)).toEqual(
+  it("finds trainings by list of ids", async () => {
+    const foundTrainings = await dataClient.findTrainingsByIds(["1", "4"]);
+    expect(foundTrainings.map((it) => it.name)).toEqual(
       expect.arrayContaining(["Tree Identification Class", "Mushroom Foraging Certification"])
     );
   });
 
   it("returns empty when id list is empty", async () => {
-    const foundPrograms = await dataClient.findProgramsByIds([]);
-    expect(foundPrograms).toHaveLength(0);
+    const foundTrainings = await dataClient.findTrainingsByIds([]);
+    expect(foundTrainings).toHaveLength(0);
   });
 
   afterAll(async () => {

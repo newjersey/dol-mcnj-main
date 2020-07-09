@@ -1,4 +1,4 @@
-import { Program } from "./Program";
+import { Training } from "./Training";
 
-export type SearchPrograms = (searchQuery: string) => Promise<Program[]>;
-export type FindAllPrograms = () => Promise<Program[]>;
+export type SearchTrainings = (searchQuery: string) => Promise<Training[]>;
+export type FindAllTrainings = () => Promise<Training[]>;
