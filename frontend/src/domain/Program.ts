@@ -9,4 +9,5 @@ export interface Program {
 export interface Provider {
   id: string;
   city: string;
+  name: string;
 }

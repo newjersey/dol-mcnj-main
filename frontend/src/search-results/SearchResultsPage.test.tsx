@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Client, Observer } from "../domain/Client";
 import { act } from "react-dom/test-utils";
-import { buildProgram } from "../test-helpers/factories";
+import { buildProgram, buildProvider } from "../test-helpers/factories";
 import { Program } from "../domain/Program";
 import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
@@ -40,21 +40,33 @@ describe("<SearchResultsPage />", () => {
       name: "program1",
       totalCost: 1000,
       percentEmployed: 0.6018342,
+      provider: buildProvider({
+        city: "Camden",
+        name: "Cammy Community College",
+      }),
     });
     const program2 = buildProgram({
       name: "program2",
       totalCost: 333.33,
       percentEmployed: 0.8,
+      provider: buildProvider({
+        city: "Newark",
+        name: "New'rk School",
+      }),
     });
     act(() => stubClient.capturedObserver.onSuccess([program1, program2]));
 
     expect(subject.getByText("program1", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("60.1%", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Camden", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
 
     expect(subject.getByText("program2", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$333.33", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("80.0%", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Newark", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("New'rk School", { exact: false })).toBeInTheDocument();
   });
 
   it("displays number of results returns for search query", () => {
