@@ -1,11 +1,11 @@
 import { Request, Response, Router } from "express";
 import { Program } from "../domain/Program";
-import { findAllPrograms } from "../domain/types";
-import { searchPrograms } from "../domain/types";
+import { FindAllPrograms } from "../domain/types";
+import { SearchPrograms } from "../domain/types";
 
 interface RouterActions {
-  findAllPrograms: findAllPrograms;
-  searchPrograms: searchPrograms;
+  findAllPrograms: FindAllPrograms;
+  searchPrograms: SearchPrograms;
 }
 
 export const routerFactory = ({ findAllPrograms, searchPrograms }: RouterActions): Router => {

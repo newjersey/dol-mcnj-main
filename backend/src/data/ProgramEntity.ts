@@ -5,6 +5,8 @@ export interface JoinedEntity {
   peremployed2: string;
   providerid: string;
   city: string;
+  statusname: string;
+  providerstatus: string;
 }
 
 export interface SearchedEntity {
