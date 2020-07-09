@@ -33,9 +33,13 @@ export const ProgramCard = (props: Props): ReactElement => {
           </p>
         </div>
         <div className="col-md-8 col-md-pull-4">
-          <p className="mt-when-lg">
+          <p className="mt-when-lg mbz">
             <i className="material-icons mrxs">location_on</i>
             {props.program.provider.city}
+          </p>
+          <p className="mtxs">
+            <i className="material-icons mrxs">school</i>
+            {props.program.provider.name}
           </p>
         </div>
       </div>

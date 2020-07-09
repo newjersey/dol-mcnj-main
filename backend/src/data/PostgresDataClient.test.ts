@@ -31,7 +31,12 @@ describe("PostgresDataClient", () => {
       totalCost: 3035,
       percentEmployed: 0,
       status: Status.APPROVED,
-      provider: { id: "123", city: "Vineland", status: Status.SUSPENDED },
+      provider: {
+        id: "123",
+        city: "Vineland",
+        name: "Vineland Public Schools Adult Education Program",
+        status: Status.SUSPENDED,
+      },
     });
   });
 

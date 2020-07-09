@@ -18,6 +18,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
     city: "some-city-" + randomInt(),
+    name: "some-provider-name-" + randomInt(),
     status: randomStatus(),
     ...overrides,
   };

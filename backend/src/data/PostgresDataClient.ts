@@ -3,8 +3,8 @@
 
 import { DataClient, ProgramId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
-import { JoinedEntity, SearchedEntity } from "./ProgramEntity";
 import { Program, Status } from "../domain/Program";
+import { JoinedEntity, SearchedEntity } from "./Entities";
 
 const pgp = pgPromise();
 
@@ -17,7 +17,8 @@ export class PostgresDataClient implements DataClient {
 
   joinStatement =
     "SELECT programs.id, programs.providerid, programs.officialname, programs.totalcost, " +
-    "outcomes_cip.PerEmployed2, providers.city, programs.statusname, providers.statusname AS providerstatus " +
+    "outcomes_cip.PerEmployed2, programs.statusname, " +
+    "providers.city, providers.statusname AS providerstatus, providers.name AS providername " +
     "FROM programs " +
     "LEFT OUTER JOIN outcomes_cip " +
     "ON outcomes_cip.cipcode = programs.cipcode " +
@@ -83,6 +84,7 @@ export class PostgresDataClient implements DataClient {
       provider: {
         id: entity.providerid,
         city: entity.city,
+        name: entity.providername,
         status: this.mapStatus(entity.providerstatus),
       },
     };

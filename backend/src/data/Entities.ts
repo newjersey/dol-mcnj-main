@@ -7,6 +7,7 @@ export interface JoinedEntity {
   city: string;
   statusname: string;
   providerstatus: string;
+  providername: string;
 }
 
 export interface SearchedEntity {

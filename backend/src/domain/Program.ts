@@ -10,6 +10,7 @@ export interface Program {
 export interface Provider {
   city: string;
   id: string;
+  name: string;
   status: Status;
 }
 
