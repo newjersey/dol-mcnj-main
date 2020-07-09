@@ -16,7 +16,6 @@ const connection = {
 const postgresDataClient = new PostgresDataClient(connection);
 
 const router = routerFactory({
-    findAllTrainings: postgresDataClient.findAllTrainings,
     searchTrainings: searchTrainingsFactory(postgresDataClient)
 });
 

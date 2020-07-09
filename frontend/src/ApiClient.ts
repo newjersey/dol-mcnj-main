@@ -1,10 +1,10 @@
 import { Observer, Client } from "./domain/Client";
 import axios, { AxiosResponse } from "axios";
-import {Training} from "./domain/Training";
+import {TrainingResult} from "./domain/Training";
 
 export class ApiClient implements Client {
 
-  getTrainingsByQuery(query: string, observer: Observer<Training[]>): void {
+  getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
     this.get(`/api/trainings/search?query=${query}`, observer);
   };
 

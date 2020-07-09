@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
-import { Training } from "../domain/Training";
+import { TrainingResult } from "../domain/Training";
 import { Searchbar } from "../components/Searchbar";
 import { navigate, RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
-import { TrainingCard } from "./TrainingCard";
+import { TrainingResultCard } from "./TrainingResultCard";
 import { useMediaQuery } from "@material-ui/core";
 
 interface Props extends RouteComponentProps {
@@ -17,7 +17,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isMobile = useMediaQuery("(max-width:768px)");
   const shouldStackSearchButton = isMobile || isMediumOrLarge;
 
-  const [trainings, setTrainings] = useState<Training[]>([]);
+  const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
@@ -70,7 +70,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="col-md-8 col-md-offset-4 offset-col">
             {!isMediumOrLarge && getResultCount()}
             {trainings.map((training) => (
-              <TrainingCard key={training.id} training={training} />
+              <TrainingResultCard key={training.id} trainingResult={training} />
             ))}
           </div>
         </div>
