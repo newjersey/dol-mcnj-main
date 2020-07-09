@@ -1,6 +1,7 @@
 import { PostgresDataClient } from "./PostgresDataClient";
 import util from "util";
 import { exec } from "child_process";
+import { Status } from "../domain/Program";
 
 const cmd = util.promisify(exec);
 
@@ -29,7 +30,8 @@ describe("PostgresDataClient", () => {
       name: "Tree Identification Class",
       totalCost: 3035,
       percentEmployed: 0,
-      provider: { id: "123", city: "Vineland" },
+      status: Status.APPROVED,
+      provider: { id: "123", city: "Vineland", status: Status.SUSPENDED },
     });
   });
 

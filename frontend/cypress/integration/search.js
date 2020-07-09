@@ -5,20 +5,21 @@ describe('Search', () => {
     cy.contains('Search for Training').should('exist');
 
     // input search
-    cy.get('input').type('microsystem');
+    cy.get('input').type('baker');
     cy.get('button').contains('Search').click();
 
     // on search results page
-    cy.location('pathname').should('eq', '/search/microsystem');
-    cy.get('input').should('have.value', 'microsystem');
+    cy.location('pathname').should('eq', '/search/baker');
+    cy.get('input').should('have.value', 'baker');
 
     // matches by title
-    cy.contains('Sun Microsystems Solaris 9: Basic System Admin I & II-online').should('exist');
-    cy.contains('Sun Microsystems Solaris 9:Admin I and II').should('exist');
+    cy.contains('Baking and Pastry Professional').should('exist');
+
+    // matches by title but is suspended
+    cy.contains('Art of International Bread Baking').should('not.exist');
 
     // matches by description
-    cy.contains('Java Programming').should('exist');
-    cy.contains('Web Programmer Certification').should('exist');
+    cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
   });
 
   it('searches from the search results page', () => {
@@ -37,21 +38,22 @@ describe('Search', () => {
     cy.contains("Ocean Township").should('exist');
 
     // input search
-    cy.get('input').type('microsystem');
+    cy.get('input').type('baker');
     cy.get('button').contains('Search').click();
 
-    cy.location('pathname').should('eq', '/search/microsystem');
+    cy.location('pathname').should('eq', '/search/baker');
 
     // matches by title
-    cy.contains('Sun Microsystems Solaris 9: Basic System Admin I & II-online').should('exist');
-    cy.contains('Sun Microsystems Solaris 9:Admin I and II').should('exist');
+    cy.contains('Baking and Pastry Professional').should('exist');
+
+    // matches by title but is suspended
+    cy.contains('Art of International Bread Baking').should('not.exist');
 
     // matches by description
-    cy.contains('Java Programming').should('exist');
-    cy.contains('Web Programmer Certification').should('exist');
+    cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
 
     // removes others
-    cy.contains('Patient Care Technician Program').should('not.exist');
+    cy.contains('Automated Office Systems Processor').should('not.exist');
   })
 
   it('links back to home page', () => {

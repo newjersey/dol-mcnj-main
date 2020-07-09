@@ -4,7 +4,7 @@
 import { DataClient, ProgramId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
 import { JoinedEntity, SearchedEntity } from "./ProgramEntity";
-import { Program } from "../domain/Program";
+import { Program, Status } from "../domain/Program";
 
 const pgp = pgPromise();
 
@@ -17,7 +17,7 @@ export class PostgresDataClient implements DataClient {
 
   joinStatement =
     "SELECT programs.id, programs.providerid, programs.officialname, programs.totalcost, " +
-    "outcomes_cip.PerEmployed2, providers.city " +
+    "outcomes_cip.PerEmployed2, providers.city, programs.statusname, providers.statusname AS providerstatus " +
     "FROM programs " +
     "LEFT OUTER JOIN outcomes_cip " +
     "ON outcomes_cip.cipcode = programs.cipcode " +
@@ -79,11 +79,26 @@ export class PostgresDataClient implements DataClient {
       name: entity.officialname,
       totalCost: parseFloat(entity.totalcost),
       percentEmployed: this.formatPercentEmployed(entity.peremployed2),
+      status: this.mapStatus(entity.statusname),
       provider: {
         id: entity.providerid,
         city: entity.city,
+        status: this.mapStatus(entity.providerstatus),
       },
     };
+  };
+
+  private mapStatus = (status: string): Status => {
+    switch (status) {
+      case "Approved":
+        return Status.APPROVED;
+      case "Pending":
+        return Status.PENDING;
+      case "Suspend":
+        return Status.SUSPENDED;
+      default:
+        return Status.UNKNOWN;
+    }
   };
 
   private formatPercentEmployed = (perEmployed: string): number | null => {
