@@ -1,8 +1,8 @@
-import { Program, Provider, Status } from "../domain/Program";
+import { Training, Provider, Status } from "../domain/Training";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 
-export const buildProgram = (overrides: Partial<Program>): Program => {
+export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),

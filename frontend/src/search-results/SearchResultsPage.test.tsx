@@ -2,8 +2,8 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { Client, Observer } from "../domain/Client";
 import { act } from "react-dom/test-utils";
-import { buildProgram, buildProvider } from "../test-helpers/factories";
-import { Program } from "../domain/Program";
+import { buildTraining, buildProvider } from "../test-helpers/factories";
+import { Training } from "../domain/Training";
 import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 
@@ -33,11 +33,11 @@ describe("<SearchResultsPage />", () => {
     expect(stubClient.capturedQuery).toEqual("");
   });
 
-  it("displays list of program names and their data", () => {
+  it("displays list of training names and their data", () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
 
-    const program1 = buildProgram({
-      name: "program1",
+    const training1 = buildTraining({
+      name: "training1",
       totalCost: 1000,
       percentEmployed: 0.6018342,
       provider: buildProvider({
@@ -45,8 +45,8 @@ describe("<SearchResultsPage />", () => {
         name: "Cammy Community College",
       }),
     });
-    const program2 = buildProgram({
-      name: "program2",
+    const training2 = buildTraining({
+      name: "training2",
       totalCost: 333.33,
       percentEmployed: 0.8,
       provider: buildProvider({
@@ -54,15 +54,15 @@ describe("<SearchResultsPage />", () => {
         name: "New'rk School",
       }),
     });
-    act(() => stubClient.capturedObserver.onSuccess([program1, program2]));
+    act(() => stubClient.capturedObserver.onSuccess([training1, training2]));
 
-    expect(subject.getByText("program1", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("training1", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("60.1%", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Camden", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
 
-    expect(subject.getByText("program2", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("training2", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$333.33", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("80.0%", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark", { exact: false })).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("<SearchResultsPage />", () => {
 
   it("displays number of results returns for search query", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />);
-    act(() => stubClient.capturedObserver.onSuccess([buildProgram({}), buildProgram({})]));
+    act(() => stubClient.capturedObserver.onSuccess([buildTraining({}), buildTraining({})]));
 
     expect(
       subject.getByText('2 results found for "frigate birds"', { exact: false })
@@ -80,7 +80,7 @@ describe("<SearchResultsPage />", () => {
 
   it("displays correct grammar when 1 result returned for search query", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"cormorants"} />);
-    act(() => stubClient.capturedObserver.onSuccess([buildProgram({})]));
+    act(() => stubClient.capturedObserver.onSuccess([buildTraining({})]));
 
     expect(
       subject.getByText('1 result found for "cormorants"', { exact: false })
@@ -90,7 +90,7 @@ describe("<SearchResultsPage />", () => {
   it("displays percent employed as '--' when it is null", () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess([buildProgram({ percentEmployed: null })]));
+    act(() => stubClient.capturedObserver.onSuccess([buildTraining({ percentEmployed: null })]));
 
     expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
   });
@@ -106,14 +106,14 @@ describe("<SearchResultsPage />", () => {
 });
 
 class StubClient implements Client {
-  capturedObserver: Observer<Program[]> = {
+  capturedObserver: Observer<Training[]> = {
     onError: () => {},
     onSuccess: () => {},
   };
 
   capturedQuery: string | undefined = undefined;
 
-  getProgramsByQuery(query: string, observer: Observer<Program[]>): void {
+  getTrainingsByQuery(query: string, observer: Observer<Training[]>): void {
     this.capturedObserver = observer;
     this.capturedQuery = query;
   }

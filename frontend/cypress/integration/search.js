@@ -26,7 +26,7 @@ describe('Search', () => {
     // on results page
     cy.visit('/search');
 
-    // displays all programs
+    // displays all trainings
     cy.contains("Automated Office Systems Processor").should('exist');
     cy.contains("$7,570.00").should('exist');
     cy.contains("--").should("exist");
@@ -54,7 +54,7 @@ describe('Search', () => {
 
     // removes others
     cy.contains('Automated Office Systems Processor').should('not.exist');
-  })
+  });
 
   it('links back to home page', () => {
     cy.visit('/search');

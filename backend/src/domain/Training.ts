@@ -1,4 +1,4 @@
-export interface Program {
+export interface Training {
   id: string;
   name: string;
   totalCost: number;

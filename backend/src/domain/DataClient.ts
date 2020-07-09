@@ -1,9 +1,9 @@
-import { Program } from "./Program";
+import { Training } from "./Training";
 
-export type ProgramId = string;
+export type TrainingId = string;
 
 export interface DataClient {
-  findAllPrograms: () => Promise<Program[]>;
-  findProgramsByIds: (ids: string[]) => Promise<Program[]>;
-  search: (searchQuery: string) => Promise<ProgramId[]>;
+  findAllTrainings: () => Promise<Training[]>;
+  findTrainingsByIds: (ids: string[]) => Promise<Training[]>;
+  search: (searchQuery: string) => Promise<TrainingId[]>;
 }

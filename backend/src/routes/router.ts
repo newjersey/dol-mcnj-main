@@ -1,28 +1,28 @@
 import { Request, Response, Router } from "express";
-import { Program } from "../domain/Program";
-import { FindAllPrograms } from "../domain/types";
-import { SearchPrograms } from "../domain/types";
+import { Training } from "../domain/Training";
+import { FindAllTrainings } from "../domain/types";
+import { SearchTrainings } from "../domain/types";
 
 interface RouterActions {
-  findAllPrograms: FindAllPrograms;
-  searchPrograms: SearchPrograms;
+  findAllTrainings: FindAllTrainings;
+  searchTrainings: SearchTrainings;
 }
 
-export const routerFactory = ({ findAllPrograms, searchPrograms }: RouterActions): Router => {
+export const routerFactory = ({ findAllTrainings, searchTrainings }: RouterActions): Router => {
   const router = Router();
 
-  router.get("/programs/search", (req: Request, res: Response<Program[]>) => {
-    (req.query.query ? searchPrograms(req.query.query as string) : findAllPrograms())
-      .then((programs: Program[]) => {
-        res.status(200).json(programs);
+  router.get("/trainings/search", (req: Request, res: Response<Training[]>) => {
+    (req.query.query ? searchTrainings(req.query.query as string) : findAllTrainings())
+      .then((trainings: Training[]) => {
+        res.status(200).json(trainings);
       })
       .catch((e) => res.status(500).send(e));
   });
 
-  router.get("/programs", (req: Request, res: Response<Program[]>) => {
-    findAllPrograms()
-      .then((programs: Program[]) => {
-        res.status(200).json(programs);
+  router.get("/trainings", (req: Request, res: Response<Training[]>) => {
+    findAllTrainings()
+      .then((trainings: Training[]) => {
+        res.status(200).json(trainings);
       })
       .catch((e) => res.status(500).send(e));
   });

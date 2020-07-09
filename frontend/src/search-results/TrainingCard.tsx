@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
-import { Program } from "../domain/Program";
+import { Training } from "../domain/Training";
 import { formatMoney } from "accounting";
 
 interface Props {
-  program: Program;
+  training: Training;
 }
 
-export const ProgramCard = (props: Props): ReactElement => {
+export const TrainingCard = (props: Props): ReactElement => {
   const formatPercentEmployed = (percentEmployed: number | null): string => {
     if (percentEmployed === null) {
       return "--";
@@ -19,27 +19,27 @@ export const ProgramCard = (props: Props): ReactElement => {
     <div className="card pam mbs container-fluid">
       <div className="row">
         <div className="col-xs-8">
-          <h2 className="blue text-m weight-500">{props.program.name}</h2>
+          <h2 className="blue text-m weight-500">{props.training.name}</h2>
         </div>
         <div className="col-xs-4 align-right">
-          <h3 className="text-m weight-500">{formatMoney(props.program.totalCost)}</h3>
+          <h3 className="text-m weight-500">{formatMoney(props.training.totalCost)}</h3>
         </div>
       </div>
       <div className="row">
         <div className="col-md-4 col-md-push-8 align-right-when-lg">
           <p className="mb-when-lg">
             <i className="material-icons mrxs hide-when-lg">card_travel</i>
-            {formatPercentEmployed(props.program.percentEmployed)}
+            {formatPercentEmployed(props.training.percentEmployed)}
           </p>
         </div>
         <div className="col-md-8 col-md-pull-4">
           <p className="mt-when-lg mbz">
             <i className="material-icons mrxs">location_on</i>
-            {props.program.provider.city}
+            {props.training.provider.city}
           </p>
           <p className="mtxs">
             <i className="material-icons mrxs">school</i>
-            {props.program.provider.name}
+            {props.training.provider.name}
           </p>
         </div>
       </div>

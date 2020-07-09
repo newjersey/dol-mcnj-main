@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { DataClient, ProgramId } from "../domain/DataClient";
+import { DataClient, TrainingId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
-import { Program, Status } from "../domain/Program";
+import { Training, Status } from "../domain/Training";
 import { JoinedEntity, SearchedEntity } from "./Entities";
 
 const pgp = pgPromise();
@@ -26,13 +26,13 @@ export class PostgresDataClient implements DataClient {
     "LEFT OUTER JOIN providers " +
     "ON providers.providerid = programs.providerid ";
 
-  findAllPrograms = (): Promise<Program[]> => {
+  findAllTrainings = (): Promise<Training[]> => {
     const sqlSelect = this.joinStatement + ";";
 
-    return this.dbQueryForProgramOutcomeEntities(sqlSelect);
+    return this.dbQueryForJoinedEntities(sqlSelect);
   };
 
-  findProgramsByIds = (ids: string[]): Promise<Program[]> => {
+  findTrainingsByIds = (ids: string[]): Promise<Training[]> => {
     if (ids.length === 0) {
       return Promise.resolve([]);
     }
@@ -40,10 +40,10 @@ export class PostgresDataClient implements DataClient {
     const values = ids.map((id) => "'" + id + "'").join(",");
     const sqlSearch = this.joinStatement + `WHERE programs.id IN (${values});`;
 
-    return this.dbQueryForProgramOutcomeEntities(sqlSearch);
+    return this.dbQueryForJoinedEntities(sqlSearch);
   };
 
-  search = (searchQuery: string): Promise<ProgramId[]> => {
+  search = (searchQuery: string): Promise<TrainingId[]> => {
     const sql = "select id from programtokens " + "where tokens @@ websearch_to_tsquery($1);";
 
     const paramaterizedQuery = new ParameterizedQuery({ text: sql, values: [searchQuery] });
@@ -58,15 +58,12 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  private dbQueryForProgramOutcomeEntities = (
-    sql: string,
-    values?: string[]
-  ): Promise<Program[]> => {
+  private dbQueryForJoinedEntities = (sql: string, values?: string[]): Promise<Training[]> => {
     const paramaterizedQuery = new ParameterizedQuery({ text: sql, values: values });
     return this.db
       .any(paramaterizedQuery)
       .then((data: JoinedEntity[]) => {
-        return data.map(this.mapJoinedEntityToProgram);
+        return data.map(this.mapJoinedEntityToTraining);
       })
       .catch((e) => {
         console.log("db error: ", e);
@@ -74,7 +71,7 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  private mapJoinedEntityToProgram = (entity: JoinedEntity): Program => {
+  private mapJoinedEntityToTraining = (entity: JoinedEntity): Training => {
     return {
       id: entity.id,
       name: entity.officialname,
