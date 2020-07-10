@@ -27,15 +27,17 @@ describe('Search', () => {
     cy.visit('/search');
 
     // displays all trainings
-    cy.contains("Automated Office Systems Processor").should('exist');
-    cy.contains("$7,570.00").should('exist');
-    cy.contains("--").should("exist");
-    cy.contains("Clifton").should("exist");
+    cy.contains("Patient Care Technician Program").should('exist');
+    cy.contains("$4,735.00").should('exist');
+    cy.contains("0.0%").should("exist");
+    cy.contains("Sewell").should("exist");
+    cy.contains("Rowan College at Gloucester County Division of Continuing Ed - WIA Title 2").should("exist");
 
-    cy.contains("Skincare").should('exist');
-    cy.contains("$14,119.00").should('exist');
-    cy.contains("71.4%").should('exist');
-    cy.contains("Ocean Township").should('exist');
+    cy.contains("Basic MIG").should('exist');
+    cy.contains("$840.00").should('exist');
+    cy.contains("--").should('exist');
+    cy.contains("Paterson").should('exist');
+    cy.contains("HoHoKus School of Trade - Customized Trainer").should('exist');
 
     // input search
     cy.get('input').type('baker');
@@ -53,7 +55,7 @@ describe('Search', () => {
     cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
 
     // removes others
-    cy.contains('Automated Office Systems Processor').should('not.exist');
+    cy.contains('Patient Care Technician Program').should('not.exist');
   });
 
   it('links back to home page', () => {

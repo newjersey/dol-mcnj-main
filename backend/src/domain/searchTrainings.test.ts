@@ -50,6 +50,7 @@ describe("searchTrainings", () => {
   });
 
   it("filters out results when training is suspended or pending", async () => {
+    stubDataClient.search.mockResolvedValue([]);
     stubDataClient.findTrainingsByIds.mockResolvedValue([
       buildTrainingResult({ id: "1", status: Status.APPROVED }),
       buildTrainingResult({ id: "2", status: Status.PENDING }),
@@ -63,6 +64,7 @@ describe("searchTrainings", () => {
   });
 
   it("filters out results when provider is suspended or pending", async () => {
+    stubDataClient.search.mockResolvedValue([]);
     stubDataClient.findTrainingsByIds.mockResolvedValue([
       buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
       buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
@@ -71,6 +73,32 @@ describe("searchTrainings", () => {
     ]);
 
     const searchResults = await searchTrainings("keyword");
+
+    expect(searchResults.map((it) => it.id)).toEqual(["1", "3"]);
+  });
+
+  it("filters out results when training is suspended or pending and search is empty", async () => {
+    stubDataClient.findAllTrainings.mockResolvedValue([
+      buildTrainingResult({ id: "1", status: Status.APPROVED }),
+      buildTrainingResult({ id: "2", status: Status.PENDING }),
+      buildTrainingResult({ id: "3", status: Status.UNKNOWN }),
+      buildTrainingResult({ id: "4", status: Status.SUSPENDED }),
+    ]);
+
+    const searchResults = await searchTrainings("");
+
+    expect(searchResults.map((it) => it.id)).toEqual(["1", "3"]);
+  });
+
+  it("filters out results when provider is suspended or pending and search is empty", async () => {
+    stubDataClient.findAllTrainings.mockResolvedValue([
+      buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
+      buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
+      buildTrainingResult({ id: "3", provider: buildProviderResult({ status: Status.UNKNOWN }) }),
+      buildTrainingResult({ id: "4", provider: buildProviderResult({ status: Status.SUSPENDED }) }),
+    ]);
+
+    const searchResults = await searchTrainings("");
 
     expect(searchResults.map((it) => it.id)).toEqual(["1", "3"]);
   });
