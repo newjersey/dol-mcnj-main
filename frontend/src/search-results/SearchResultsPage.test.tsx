@@ -79,6 +79,12 @@ describe("<SearchResultsPage />", () => {
     ).toBeInTheDocument();
   });
 
+  it("displays empty string for search query when undefined", () => {
+    const subject = render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
+
+    expect(subject.getByText('0 results found for ""', { exact: false })).toBeInTheDocument();
+  });
+
   it("displays correct grammar when 1 result returned for search query", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"cormorants"} />);
     act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));

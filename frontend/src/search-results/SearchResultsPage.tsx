@@ -29,10 +29,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getResultCount = (): ReactElement => {
     let message;
+    const query = props.searchQuery ? props.searchQuery : "";
     if (trainings.length === 1) {
-      message = `${trainings.length} result found for "${props.searchQuery}"`;
+      message = `${trainings.length} result found for "${query}"`;
     } else {
-      message = `${trainings.length} results found for "${props.searchQuery}"`;
+      message = `${trainings.length} results found for "${query}"`;
     }
 
     return <h2 className="text-xl weight-500 pvs">{message}</h2>;
