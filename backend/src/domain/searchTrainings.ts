@@ -15,7 +15,10 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       .then((trainings: TrainingResult[]): TrainingResult[] => {
         return trainings.filter(
           (training) =>
-            training.status !== Status.SUSPENDED && training.provider.status !== Status.SUSPENDED
+            training.status !== Status.SUSPENDED &&
+            training.status !== Status.PENDING &&
+            training.provider.status !== Status.SUSPENDED &&
+            training.provider.status !== Status.PENDING
         );
       });
   };
