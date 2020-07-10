@@ -17,7 +17,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
 
   return (
     <a href={`/training/${props.trainingResult.id}`} className="no-link-format">
-      <div className="card mbs container-fluid pam">
+      <div className="card mbs container-fluid pam hover-shadow">
         <div className="row">
           <div className="col-xs-8">
             <h2 className="blue text-m weight-500">{props.trainingResult.name}</h2>

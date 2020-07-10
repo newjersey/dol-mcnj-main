@@ -1,6 +1,6 @@
 @import "sizes";
+@import "header";
 
-$header-height: 3.8rem;
 $searchbox-height: 7.5rem;
 
 .card {
@@ -15,19 +15,8 @@ $searchbox-height: 7.5rem;
   }
 }
 
-.nj-logo-header {
-  width: 2.5rem;
-}
-
-.header {
-  background-color: $navy;
-  line-height: 1.2;
-  color: white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: $header-height;
-  z-index: 10;
+.hover-shadow:hover {
+  box-shadow: 0 0 10px $grey;;
 }
 
 .results-count-container {
@@ -122,5 +111,3 @@ $searchbox-height: 7.5rem;
     margin-top: 0.25em;
   }
 }
-
-

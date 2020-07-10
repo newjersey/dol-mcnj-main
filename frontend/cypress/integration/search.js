@@ -61,4 +61,16 @@ describe('Search', () => {
     cy.contains('Training Explorer').click();
     cy.location('pathname').should('eq', '/');
   });
+
+  it('links to a training detail page', () => {
+    cy.visit('/search/baker');
+    cy.contains('Baking and Pastry Professional').click({force: true});
+    cy.location('pathname').should('eq', '/training/14146');
+
+    // removes search results
+    cy.contains('Pastry Arts Academic Credit Certificate').should('not.exist');
+
+    // shows program
+    cy.contains('Baking and Pastry Professional').should('exist');
+  });
 });

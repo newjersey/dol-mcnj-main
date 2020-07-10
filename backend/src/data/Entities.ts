@@ -10,6 +10,14 @@ export interface JoinedEntity {
   providername: string;
 }
 
+export interface ProgramEntity {
+  id: string;
+  officialname: string;
+  providerid: string;
+  providername: string;
+  website: string;
+}
+
 export interface SearchedEntity {
   id: string;
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Client, Observer } from "../domain/Client";
-import { TrainingResult } from "../domain/Training";
+import { Training, TrainingResult } from "../domain/Training";
 
 export class StubClient implements Client {
   capturedObserver: Observer<any> = {
@@ -10,9 +10,15 @@ export class StubClient implements Client {
   };
 
   capturedQuery: string | undefined = undefined;
+  capturedId: string | undefined = undefined;
 
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
     this.capturedObserver = observer;
     this.capturedQuery = query;
+  }
+
+  getTrainingById(id: string, observer: Observer<Training>): void {
+    this.capturedObserver = observer;
+    this.capturedId = id;
   }
 }

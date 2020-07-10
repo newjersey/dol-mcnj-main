@@ -39,7 +39,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
           <div className="col-md-6 height-100 fdc fjc col-adjust">
             <div className="adjustable-margin-left">
               <div className="mhl mvxl">
-                <h2 className="text-xl section-header">Search for Training</h2>
+                <h2 className="text-xl weight-500 section-header">Search for Training</h2>
                 <p className="text-m">
                   Find training to prepare you for a promotion, better job, or even a career change
                 </p>
@@ -52,7 +52,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
               </div>
               <div className="grey-line" />
               <div className="mhl mvxl">
-                <h2 className="text-xl section-header">
+                <h2 className="text-xl weight-500 section-header">
                   Get up to $4,000 from the state for your training
                 </h2>
 

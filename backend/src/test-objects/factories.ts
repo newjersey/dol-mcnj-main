@@ -1,4 +1,4 @@
-import { TrainingResult, ProviderResult, Status } from "../domain/Training";
+import { TrainingResult, ProviderResult, Status, Training, Provider } from "../domain/Training";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 
@@ -20,6 +20,23 @@ export const buildProviderResult = (overrides: Partial<ProviderResult>): Provide
     city: "some-city-" + randomInt(),
     name: "some-provider-name-" + randomInt(),
     status: randomStatus(),
+    ...overrides,
+  };
+};
+
+export const buildTraining = (overrides: Partial<Training>): Training => {
+  return {
+    id: "some-id-" + randomInt(),
+    name: "some-name-" + randomInt(),
+    provider: buildProvider({}),
+    ...overrides,
+  };
+};
+
+export const buildProvider = (overrides: Partial<Provider>): Provider => {
+  return {
+    id: "some-id-" + randomInt(),
+    url: "some-url-" + randomInt(),
     ...overrides,
   };
 };

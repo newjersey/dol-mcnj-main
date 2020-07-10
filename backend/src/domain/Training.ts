@@ -14,6 +14,17 @@ export interface ProviderResult {
   status: Status;
 }
 
+export interface Training {
+  id: string;
+  name: string;
+  provider: Provider;
+}
+
+export interface Provider {
+  id: string;
+  url: string;
+}
+
 export enum Status {
   APPROVED = "Approved",
   SUSPENDED = "Suspend",

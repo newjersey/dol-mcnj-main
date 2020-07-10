@@ -3,6 +3,7 @@ import {routerFactory} from "./routes/router";
 import path from "path";
 import {PostgresDataClient} from "./data/PostgresDataClient";
 import {searchTrainingsFactory} from "./domain/searchTrainings";
+import {findTrainingByIdFactory} from "./domain/findTrainingById";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -16,7 +17,8 @@ const connection = {
 const postgresDataClient = new PostgresDataClient(connection);
 
 const router = routerFactory({
-    searchTrainings: searchTrainingsFactory(postgresDataClient)
+    searchTrainings: searchTrainingsFactory(postgresDataClient),
+    findTrainingById: findTrainingByIdFactory(postgresDataClient)
 });
 
 const app = express();
