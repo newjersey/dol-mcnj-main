@@ -1,0 +1,20 @@
+$header-height: 3.8rem;
+
+.nj-logo-header {
+  width: 2.5rem;
+}
+
+.header {
+  background-color: $navy;
+  line-height: 1.2;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $header-height;
+  z-index: 10;
+}
+
+.below-header {
+  margin-top: $header-height;
+}

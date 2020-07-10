@@ -11,3 +11,14 @@ export interface ProviderResult {
   city: string;
   name: string;
 }
+
+export interface Training {
+  id: string;
+  name: string;
+  provider: Provider;
+}
+
+export interface Provider {
+  id: string;
+  url: string;
+}

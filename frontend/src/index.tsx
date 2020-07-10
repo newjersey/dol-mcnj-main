@@ -6,6 +6,7 @@ import { ApiClient } from "./ApiClient";
 import {Router} from "@reach/router";
 import {LandingPage} from "./landing-page/LandingPage";
 import {SearchResultsPage} from "./search-results/SearchResultsPage";
+import { TrainingPage } from "./training-page/TrainingPage";
 
 const apiClient = new ApiClient();
 
@@ -15,6 +16,7 @@ ReactDOM.render(
       <LandingPage path="/"/>
       <SearchResultsPage path="/search" client={apiClient} />
       <SearchResultsPage path="/search/:searchQuery" client={apiClient} />
+      <TrainingPage path="/training/:id" client={apiClient} />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

@@ -57,6 +57,30 @@ describe("PostgresDataClient", () => {
     expect(foundTrainings).toHaveLength(0);
   });
 
+  it("finds training by ids", async () => {
+    const foundTraining = await dataClient.findTrainingById("1");
+    expect(foundTraining).toEqual({
+      id: 1,
+      name: "Tree Identification Class",
+      provider: {
+        id: "123",
+        url: "www.vineland.org/adulted",
+      },
+    });
+  });
+
+  it("returns empty if url does not exist", async () => {
+    const foundTraining = await dataClient.findTrainingById("4");
+    expect(foundTraining).toEqual({
+      id: 4,
+      name: "Mushroom Foraging Certification",
+      provider: {
+        id: "789",
+        url: "",
+      },
+    });
+  });
+
   afterAll(async () => {
     dataClient.disconnect();
     await cmd("psql -c 'drop database d4adtest;' -U postgres -h localhost -p 5432");
