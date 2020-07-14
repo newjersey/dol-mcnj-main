@@ -22,11 +22,17 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140253594-9"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      if(/training\.njcareers\.org/.test(window.location.hostname)) {
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'UA-140253594-9');
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-140253594-9');
+      }
     </script>
 
     <!--

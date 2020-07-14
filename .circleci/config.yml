@@ -53,12 +53,46 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run:
           name: deploy
-          command: scripts/deploy.sh
+          command: DB_PASS=$DB_DEV_PASS DB_NAME=d4addev DB_ENV=gcpdev CLOUD_SQL_CONNECTION_NAME=d4ad-dev:us-east4:d4ad-dev-gcp-pg scripts/deploy.sh
+  deploy-prod:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: install and initialize gcloud sdk
+          command: |
+            echo $GCLOUD_SERVICE_KEY_PROD | base64 --decode | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_PROD}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - run:
+          name: deploy
+          command: DB_PASS=$DB_PROD_PASS DB_NAME=d4adprod DB_ENV=gcpprod CLOUD_SQL_CONNECTION_NAME=d4ad-prod:us-east4:d4ad-prod-gcp-pg scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
-      - build-and-test
+      - build-and-test:
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - build-and-test
+          filters:
+            branches:
+              only: master
+      - prod-approval:
+          type: approval
+          requires:
+            - deploy
+          filters:
+            branches:
+              only: master
+      - deploy-prod:
+          requires:
+            - prod-approval
+          filters:
+            branches:
+              only: master
   version: 2.1
