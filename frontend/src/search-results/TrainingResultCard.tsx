@@ -6,6 +6,20 @@ interface Props {
   trainingResult: TrainingResult;
 }
 
+const CalendarLengthLookup = {
+  0: "--",
+  1: "Less than 1 day to complete",
+  2: "1-2 days to complete",
+  3: "3-7 days to complete",
+  4: "2-3 weeks to complete",
+  5: "4-11 weeks to complete",
+  6: "3-5 months to complete",
+  7: "6-12 months to complete",
+  8: "13 months to 2 years to complete",
+  9: "3-4 years to complete",
+  10: "More than 4 years to complete",
+};
+
 export const TrainingResultCard = (props: Props): ReactElement => {
   const formatPercentEmployed = (percentEmployed: number | null): string => {
     if (percentEmployed === null) {
@@ -35,12 +49,16 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           </div>
           <div className="col-md-8 col-md-pull-4">
             <p className="mt-when-lg mbz">
+              <i className="material-icons mrxs">school</i>
+              {props.trainingResult.provider.name}
+            </p>
+            <p className="mtxs mbz">
               <i className="material-icons mrxs">location_on</i>
               {props.trainingResult.provider.city}
             </p>
-            <p className="mtxs">
-              <i className="material-icons mrxs">school</i>
-              {props.trainingResult.provider.name}
+            <p className="mtxs mbz">
+              <i className="material-icons mrxs">av_timer</i>
+              {CalendarLengthLookup[props.trainingResult.calendarLength]}
             </p>
           </div>
         </div>

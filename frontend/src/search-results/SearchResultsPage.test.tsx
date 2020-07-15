@@ -5,6 +5,7 @@ import { buildProviderResult, buildTrainingResult } from "../test-objects/factor
 import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
+import { CalendarLength } from "../domain/Training";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -39,6 +40,7 @@ describe("<SearchResultsPage />", () => {
       name: "training1",
       totalCost: 1000,
       percentEmployed: 0.6018342,
+      calendarLength: CalendarLength.FOUR_TO_ELEVEN_WEEKS,
       provider: buildProviderResult({
         city: "Camden",
         name: "Cammy Community College",
@@ -48,6 +50,7 @@ describe("<SearchResultsPage />", () => {
       name: "training2",
       totalCost: 333.33,
       percentEmployed: 0.8,
+      calendarLength: CalendarLength.LESS_THAN_ONE_DAY,
       provider: buildProviderResult({
         city: "Newark",
         name: "New'rk School",
@@ -60,12 +63,14 @@ describe("<SearchResultsPage />", () => {
     expect(subject.getByText("60.1%", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Camden", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("4-11 weeks to complete", { exact: false })).toBeInTheDocument();
 
     expect(subject.getByText("training2", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$333.33", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("80.0%", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("New'rk School", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Less than 1 day to complete", { exact: false })).toBeInTheDocument();
   });
 
   it("displays number of results returns for search query", () => {
@@ -99,6 +104,18 @@ describe("<SearchResultsPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })])
+    );
+
+    expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
+  });
+
+  it("displays calendar length as '--' when it is null", () => {
+    const subject = render(<SearchResultsPage client={stubClient} />);
+
+    act(() =>
+      stubClient.capturedObserver.onSuccess([
+        buildTrainingResult({ calendarLength: CalendarLength.NULL }),
+      ])
     );
 
     expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
