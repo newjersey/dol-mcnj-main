@@ -1,5 +1,11 @@
-import { TrainingResult, ProviderResult, Status, Training, Provider } from "../domain/Training";
-import { CalendarLength } from "../../../frontend/src/domain/Training";
+import {
+  TrainingResult,
+  ProviderResult,
+  Status,
+  Training,
+  Provider,
+  CalendarLength,
+} from "../domain/Training";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 
@@ -31,6 +37,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
     provider: buildProvider({}),
+    calendarLength: randomCalendarLength(),
     ...overrides,
   };
 };

@@ -16,6 +16,7 @@ export interface ProgramEntity {
   officialname: string;
   providerid: string;
   providername: string;
+  calendarlengthid: string;
   website: string;
 }
 

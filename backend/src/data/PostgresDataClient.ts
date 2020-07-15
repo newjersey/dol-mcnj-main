@@ -45,7 +45,7 @@ export class PostgresDataClient implements DataClient {
 
   findTrainingById = (id: string): Promise<Training> => {
     const sql =
-      "SELECT programs.id, programs.providerid, programs.officialname, " +
+      "SELECT programs.id, programs.providerid, programs.officialname, programs.calendarlengthid, " +
       "providers.website, providers.name AS providername " +
       "FROM programs " +
       "LEFT OUTER JOIN providers " +
@@ -115,6 +115,8 @@ export class PostgresDataClient implements DataClient {
     return {
       id: entity.id,
       name: entity.officialname,
+      calendarLength:
+        entity.calendarlengthid !== null ? parseInt(entity.calendarlengthid) : CalendarLength.NULL,
       provider: {
         id: entity.providerid,
         url: entity.website ? entity.website : "",

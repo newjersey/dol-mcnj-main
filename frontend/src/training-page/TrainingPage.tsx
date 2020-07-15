@@ -3,6 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { Header } from "../search-results/Header";
+import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -50,6 +51,11 @@ export const TrainingPage = (props: Props): ReactElement => {
             <div className="card pam">
               <i className="material-icons mrxs">link</i>
               {getProviderUrl()}
+
+              <p className="mtxs mbz">
+                <i className="material-icons mrxs">av_timer</i>
+                {CalendarLengthLookup[training.calendarLength]}
+              </p>
             </div>
           </div>
         </div>
