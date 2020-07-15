@@ -3,6 +3,10 @@
 
 $searchbox-height: 7.5rem;
 
+.search-container {
+  margin-top: $header-height;
+}
+
 .card {
   border: 1px solid #E5E5E5;
   border-radius: 5px;
@@ -15,99 +19,72 @@ $searchbox-height: 7.5rem;
   }
 }
 
-.hover-shadow:hover {
-  box-shadow: 0 0 10px $grey;;
-}
-
-.results-count-container {
-  margin-top: $header-height;
-  height: $header-height;
-  margin-bottom: 1.5rem;
-}
-
-.fixed-wrapper {
+.searchbox {
   position: fixed;
-  background-color: white;
-  z-index: 10;
   width: 100%;
+  height: $searchbox-height;
+  z-index: 10;
+  margin-left: -15px;
 }
 
-// medium screens
-@media (min-width: $sm) {
-  .sidebar {
-    min-height: calc(100vh - (#{$header-height}*2 + 30px));
-    position: fixed;
-    width: 293px;
-    margin-right: -15px;
+.space-for-searchbox {
+  margin-top: $searchbox-height;
+}
+
+// small and up
+@media (min-width: $xs) {
+  .searchbox {
+    width: 235px;
+    height: calc(100vh - (#{$header-height} * 2 + 30px));
+    margin-left: 0;
   }
-}
 
-// large screens
-@media (min-width: $md) {
-  .sidebar {
-    min-height: calc(100vh - (#{$header-height}*2 + 30px));
-    position: fixed;
-    width: 375px;
-    margin-right: -15px;
+  .space-for-searchbox {
+    margin-top: 0;
   }
-}
 
-.align-right-when-lg {
-  text-align: right;
-}
-
-.mb-when-lg {
-  margin-bottom: 1rem;
-}
-
-.mt-when-lg {
-  margin-top: 1rem;
-}
-
-.hide-when-lg {
-  display: none !important;
-}
-
-// small screens only
-@media (min-width: $xs) and (max-width: $sm) {
-  .search-wrapper {
-    width: 720px;
-    margin-left: auto;
-    margin-right: auto;
+  .results-count-container {
+    margin-top: $header-height;
+    height: $header-height;
+    margin-bottom: 1.5rem;
   }
-}
 
-// xs and small screens
-@media (max-width: $sm) {
-  .sidebar {
+  .fixed-wrapper {
     position: fixed;
-    width: 100vw;
-    left: 0;
-    height: $searchbox-height;
+    background-color: white;
     z-index: 10;
-  }
-
-  .offset-col {
-    margin-top: calc(#{$searchbox-height} + 15px);
+    width: 100%;
   }
 
   .search-container {
-    margin-top: $header-height;
+    margin-top: 0;
+  }
+}
+
+// medium and up
+@media (min-width: $sm) {
+  .searchbox {
+    width: 307px;
   }
 
   .align-right-when-lg {
-    text-align: left;
+    text-align: right;
   }
 
   .hide-when-lg {
-    display: inline-flex !important;
+    display: none !important;
   }
+}
 
-  .mb-when-lg {
-    margin-bottom: 0;
+// large and up
+@media (min-width: $md) {
+  .searchbox {
+    width: 375px;
   }
+}
 
-  .mt-when-lg {
-    margin-top: 0.25em;
-  }
+
+
+.hover-shadow:hover {
+  box-shadow: 0 0 10px $grey;
 }

@@ -62,11 +62,11 @@ a.no-link-format {
 }
 
 .button-size {
-  min-width: 114px;
+  min-width: 100%;
 }
 
-@media (max-width: $xs) {
+@media (min-width: $xs) {
   .button-size {
-    min-width: 100%;
+    min-width: 114px;
   }
 }
