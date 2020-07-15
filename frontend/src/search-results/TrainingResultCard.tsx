@@ -29,13 +29,13 @@ export const TrainingResultCard = (props: Props): ReactElement => {
         </div>
         <div className="row">
           <div className="col-md-4 col-md-push-8 align-right-when-lg">
-            <p className="mb-when-lg">
+            <p className="mts mbxs">
               <i className="material-icons mrxs hide-when-lg">card_travel</i>
               {formatPercentEmployed(props.trainingResult.percentEmployed)}
             </p>
           </div>
           <div className="col-md-8 col-md-pull-4">
-            <p className="mt-when-lg mbz">
+            <p className="mtxs mbz">
               <i className="material-icons mrxs">school</i>
               {props.trainingResult.provider.name}
             </p>

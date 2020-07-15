@@ -13,9 +13,7 @@ interface Props extends RouteComponentProps {
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
-  const isMediumOrLarge = useMediaQuery("(min-width:992px)");
-  const isMobile = useMediaQuery("(max-width:768px)");
-  const shouldStackSearchButton = isMobile || isMediumOrLarge;
+  const isTabletAndUp = useMediaQuery("(min-width:768px)");
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
@@ -43,7 +41,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     <>
       <Header />
 
-      {isMediumOrLarge && (
+      {isTabletAndUp && (
         <div className="container results-count-container">
           <div className="row">
             <div className="col-md-12">
@@ -55,21 +53,19 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
       <div className="container search-container">
         <div className="row">
-          <div className="col-md-4">
-            <div className="bg-light-green sidebar pam">
-              <div className="search-wrapper">
-                <Searchbar
-                  onSearch={(searchQuery: string): Promise<void> =>
-                    navigate(`/search/${searchQuery}`)
-                  }
-                  initialValue={props.searchQuery}
-                  stacked={shouldStackSearchButton}
-                />
-              </div>
+          <div className="col-sm-4">
+            <div className="bg-light-green pam searchbox">
+              <Searchbar
+                onSearch={(searchQuery: string): Promise<void> =>
+                  navigate(`/search/${searchQuery}`)
+                }
+                initialValue={props.searchQuery}
+                stacked={true}
+              />
             </div>
           </div>
-          <div className="col-md-8 col-md-offset-4 offset-col">
-            {!isMediumOrLarge && getResultCount()}
+          <div className="col-sm-8 space-for-searchbox">
+            {!isTabletAndUp && getResultCount()}
             {trainings.map((training) => (
               <TrainingResultCard key={training.id} trainingResult={training} />
             ))}
