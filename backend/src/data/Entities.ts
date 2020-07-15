@@ -8,6 +8,7 @@ export interface JoinedEntity {
   statusname: string;
   providerstatus: string;
   providername: string;
+  calendarlengthid: string;
 }
 
 export interface ProgramEntity {

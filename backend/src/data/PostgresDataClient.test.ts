@@ -1,7 +1,7 @@
 import { PostgresDataClient } from "./PostgresDataClient";
 import util from "util";
 import { exec } from "child_process";
-import { Status } from "../domain/Training";
+import { CalendarLength, Status } from "../domain/Training";
 
 const cmd = util.promisify(exec);
 
@@ -31,6 +31,7 @@ describe("PostgresDataClient", () => {
       totalCost: 3035,
       percentEmployed: 0,
       status: Status.APPROVED,
+      calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
       provider: {
         id: "123",
         city: "Vineland",
@@ -79,6 +80,11 @@ describe("PostgresDataClient", () => {
         url: "",
       },
     });
+  });
+
+  it("returns null enum if calendar length id does not exist", async () => {
+    const foundTrainings = await dataClient.findTrainingsByIds(["4"]);
+    expect(foundTrainings[0].calendarLength).toEqual(CalendarLength.NULL);
   });
 
   afterAll(async () => {

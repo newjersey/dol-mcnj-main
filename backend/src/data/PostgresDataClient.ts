@@ -3,7 +3,7 @@
 
 import { DataClient, TrainingId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
-import { Status, Training, TrainingResult } from "../domain/Training";
+import { CalendarLength, Status, Training, TrainingResult } from "../domain/Training";
 import { JoinedEntity, ProgramEntity, SearchedEntity } from "./Entities";
 
 const pgp = pgPromise();
@@ -16,7 +16,7 @@ export class PostgresDataClient implements DataClient {
   }
 
   joinStatement =
-    "SELECT programs.id, programs.providerid, programs.officialname, programs.totalcost, " +
+    "SELECT programs.id, programs.providerid, programs.officialname, programs.totalcost, programs.calendarlengthid, " +
     "outcomes_cip.PerEmployed2, programs.statusname, " +
     "providers.city, providers.statusname AS providerstatus, providers.name AS providername " +
     "FROM programs " +
@@ -100,6 +100,8 @@ export class PostgresDataClient implements DataClient {
       totalCost: parseFloat(entity.totalcost),
       percentEmployed: this.formatPercentEmployed(entity.peremployed2),
       status: this.mapStatus(entity.statusname),
+      calendarLength:
+        entity.calendarlengthid !== null ? parseInt(entity.calendarlengthid) : CalendarLength.NULL,
       provider: {
         id: entity.providerid,
         city: entity.city,

@@ -1,4 +1,5 @@
 import { TrainingResult, ProviderResult, Status, Training, Provider } from "../domain/Training";
+import { CalendarLength } from "../../../frontend/src/domain/Training";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 
@@ -10,6 +11,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     percentEmployed: randomInt(),
     provider: buildProviderResult({}),
     status: randomStatus(),
+    calendarLength: randomCalendarLength(),
     ...overrides,
   };
 };
@@ -43,6 +45,15 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 
 export const randomStatus = (): Status => {
   const allStatuses: Status[] = Object.keys(Status).map((key) => key as Status);
-  const randomIndex = Math.random() * allStatuses.length;
+  const randomIndex = Math.floor(Math.random() * allStatuses.length);
   return allStatuses[randomIndex];
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const randomCalendarLength = (): CalendarLength => {
+  const all: number[] = Object.keys(CalendarLength)
+    .filter((k) => typeof CalendarLength[k as any] === "number")
+    .map((key) => key as any);
+  const randomIndex = Math.floor(Math.random() * all.length);
+  return all[randomIndex];
 };
