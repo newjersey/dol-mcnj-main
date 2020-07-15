@@ -19,6 +19,7 @@ export interface Training {
   id: string;
   name: string;
   provider: Provider;
+  calendarLength: CalendarLength;
 }
 
 export interface Provider {
