@@ -2,22 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
-import { ApiClient } from "./ApiClient";
-import {Router} from "@reach/router";
-import {LandingPage} from "./landing-page/LandingPage";
-import {SearchResultsPage} from "./search-results/SearchResultsPage";
-import { TrainingPage } from "./training-page/TrainingPage";
+import {App} from "./App";
+import {ApiClient} from "./ApiClient";
+
 
 const apiClient = new ApiClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <LandingPage path="/"/>
-      <SearchResultsPage path="/search" client={apiClient} />
-      <SearchResultsPage path="/search/:searchQuery" client={apiClient} />
-      <TrainingPage path="/training/:id" client={apiClient} />
-    </Router>
+      <App client={apiClient}/>
   </React.StrictMode>,
   document.getElementById("root")
 );

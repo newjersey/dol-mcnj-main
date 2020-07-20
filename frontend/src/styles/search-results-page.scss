@@ -1,7 +1,7 @@
 @import "sizes";
 @import "header";
 
-$searchbox-height: 7.5rem;
+$filterbox-height: 11.5rem;
 
 .search-container {
   margin-top: $header-height;
@@ -19,27 +19,39 @@ $searchbox-height: 7.5rem;
   }
 }
 
-.searchbox {
+.filterbox {
   position: fixed;
   width: 100%;
-  height: $searchbox-height;
+  height: $filterbox-height;
   z-index: 10;
   margin-left: -15px;
 }
 
-.space-for-searchbox {
-  margin-top: $searchbox-height;
+.hover-shadow:hover {
+  box-shadow: 0 0 10px $grey;
+}
+
+.space-for-filterbox {
+  margin-top: $filterbox-height;
+}
+
+.full {
+  height: 100%;
+}
+
+.label-height {
+  line-height: 2.5;
 }
 
 // small and up
 @media (min-width: $xs) {
-  .searchbox {
+  .filterbox {
     width: 235px;
     height: calc(100vh - (#{$header-height} * 2 + 30px));
     margin-left: 0;
   }
 
-  .space-for-searchbox {
+  .space-for-filterbox {
     margin-top: 0;
   }
 
@@ -63,7 +75,7 @@ $searchbox-height: 7.5rem;
 
 // medium and up
 @media (min-width: $sm) {
-  .searchbox {
+  .filterbox {
     width: 307px;
   }
 
@@ -78,13 +90,7 @@ $searchbox-height: 7.5rem;
 
 // large and up
 @media (min-width: $md) {
-  .searchbox {
+  .filterbox {
     width: 375px;
   }
-}
-
-
-
-.hover-shadow:hover {
-  box-shadow: 0 0 10px $grey;
 }

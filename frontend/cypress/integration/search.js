@@ -5,7 +5,7 @@ describe('Search', () => {
     cy.contains('Search for Training').should('exist');
 
     // input search
-    cy.get('input').type('baker');
+    cy.get('input[aria-label="search"]').type('baker');
     cy.get('button').contains('Search').click();
 
     // on search results page
@@ -42,7 +42,7 @@ describe('Search', () => {
     cy.contains("1-2 days to complete").should('exist');
 
     // input search
-    cy.get('input').type('baker');
+    cy.get('input[aria-label="search"]').type('baker');
     cy.get('button').contains('Search').click();
 
     cy.location('pathname').should('eq', '/search/baker');

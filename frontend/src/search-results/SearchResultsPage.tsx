@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
 import { Searchbar } from "../components/Searchbar";
@@ -6,6 +6,8 @@ import { navigate, RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { useMediaQuery } from "@material-ui/core";
+import { FilterContext } from "../App";
+import { FilterBox } from "./FilterBox";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,6 +18,17 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+  const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
+
+  const { state } = useContext(FilterContext);
+
+  useEffect(() => {
+    let newFilteredTrainings = trainings;
+    state.filters.forEach((filter) => {
+      newFilteredTrainings = filter.func(newFilteredTrainings);
+    });
+    setFilteredTrainings(newFilteredTrainings);
+  }, [trainings, state.filters]);
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
@@ -28,10 +41,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
     const query = props.searchQuery ? props.searchQuery : "";
-    if (trainings.length === 1) {
-      message = `${trainings.length} result found for "${query}"`;
+    if (filteredTrainings.length === 1) {
+      message = `${filteredTrainings.length} result found for "${query}"`;
     } else {
-      message = `${trainings.length} results found for "${query}"`;
+      message = `${filteredTrainings.length} results found for "${query}"`;
     }
 
     return <h2 className="text-xl weight-500 pvs">{message}</h2>;
@@ -54,7 +67,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <div className="container search-container">
         <div className="row">
           <div className="col-sm-4">
-            <div className="bg-light-green pam searchbox">
+            <FilterBox>
               <Searchbar
                 onSearch={(searchQuery: string): Promise<void> =>
                   navigate(`/search/${searchQuery}`)
@@ -62,11 +75,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 initialValue={props.searchQuery}
                 stacked={true}
               />
-            </div>
+            </FilterBox>
           </div>
-          <div className="col-sm-8 space-for-searchbox">
+          <div className="col-sm-8 space-for-filterbox">
             {!isTabletAndUp && getResultCount()}
-            {trainings.map((training) => (
+            {filteredTrainings.map((training) => (
               <TrainingResultCard key={training.id} trainingResult={training} />
             ))}
           </div>

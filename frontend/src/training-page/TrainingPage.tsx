@@ -30,7 +30,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const getProviderUrl = (): ReactElement => {
-    if (!training?.provider.url) {
+    if (!training?.provider?.url) {
       return <div>--</div>;
     }
 
