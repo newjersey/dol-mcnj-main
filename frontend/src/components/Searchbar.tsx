@@ -34,6 +34,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
   return (
     <div className={`${flexDirection} fac`}>
       <Input
+        inputProps={{ "aria-label": "search" }}
         value={searchQuery}
         onChange={handleSearchInput}
         onKeyDown={handleKeyDown}

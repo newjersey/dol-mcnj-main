@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
+import { Link } from "@reach/router";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -17,7 +18,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   return (
-    <a href={`/training/${props.trainingResult.id}`} className="no-link-format">
+    <Link className="no-link-format" to={`/training/${props.trainingResult.id}`}>
       <div className="card mbs container-fluid pam hover-shadow">
         <div className="row">
           <div className="col-xs-8">
@@ -50,6 +51,6 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };

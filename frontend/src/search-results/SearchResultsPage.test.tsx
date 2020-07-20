@@ -7,9 +7,16 @@ import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
 
-jest.mock("@reach/router", () => ({
-  navigate: jest.fn(),
-}));
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function mockFunctions() {
+  const original = jest.requireActual("@reach/router");
+  return {
+    ...original,
+    navigate: jest.fn(),
+  };
+}
+
+jest.mock("@reach/router", () => mockFunctions());
 
 describe("<SearchResultsPage />", () => {
   let stubClient: StubClient;
@@ -33,7 +40,7 @@ describe("<SearchResultsPage />", () => {
     expect(stubClient.capturedQuery).toEqual("");
   });
 
-  it("displays list of training names and their data", () => {
+  it("displays list of training names and their data", async () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
 
     const training1 = buildTrainingResult({
@@ -56,6 +63,7 @@ describe("<SearchResultsPage />", () => {
         name: "New'rk School",
       }),
     });
+
     act(() => stubClient.capturedObserver.onSuccess([training1, training2]));
 
     expect(subject.getByText("training1", { exact: false })).toBeInTheDocument();

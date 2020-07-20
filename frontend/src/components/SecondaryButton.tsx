@@ -1,11 +1,11 @@
 import { Button, withStyles } from "@material-ui/core";
 
-export const PrimaryButton = withStyles({
+export const SecondaryButton = withStyles({
   root: {
-    background: "#12263A",
+    background: "#FFFFFF",
     borderRadius: 10,
-    border: 0,
-    color: "white",
+    border: "1px solid #E5E5E5",
+    color: "#5C5858",
     height: 35,
     boxShadow: "0",
     textTransform: "none",
@@ -13,10 +13,10 @@ export const PrimaryButton = withStyles({
     fontSize: 16,
     width: "100%",
     "&:hover": {
-      backgroundColor: "#777777",
+      backgroundColor: "#DDDDDD",
     },
   },
   label: {
-    color: "white",
+    color: "#5C5858",
   },
 })(Button);
