@@ -31,6 +31,7 @@ describe("<TrainingPage />", () => {
       name: "my cool training",
       calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
       provider: buildProvider({ url: "www.mycoolwebsite.com" }),
+      description: "some cool description",
     });
 
     act(() => stubClient.capturedObserver.onSuccess(training));
@@ -38,6 +39,7 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("6-12 months to complete", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
   });
 
   it("links to the provider website with http", () => {

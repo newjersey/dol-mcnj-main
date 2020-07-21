@@ -37,6 +37,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
     provider: buildProvider({}),
+    description: "some-description-" + randomInt(),
     calendarLength: randomCalendarLength(),
     ...overrides,
   };
