@@ -102,4 +102,20 @@ describe("searchTrainings", () => {
 
     expect(searchResults.map((it) => it.id)).toEqual(["1", "3"]);
   });
+
+  it("strips surrounding quotation marks from title of training result", async () => {
+    stubDataClient.findAllTrainings.mockResolvedValue([
+      buildTrainingResult({ name: '"Some Name with Quotes"' }),
+      buildTrainingResult({ name: "Some Name without Quotes" }),
+      buildTrainingResult({ name: '"Quotes "in the" middle too"' }),
+    ]);
+
+    const searchResults = await searchTrainings("");
+
+    expect(searchResults.map((it) => it.name)).toEqual([
+      "Some Name with Quotes",
+      "Some Name without Quotes",
+      'Quotes "in the" middle too',
+    ]);
+  });
 });
