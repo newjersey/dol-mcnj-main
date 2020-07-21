@@ -20,6 +20,11 @@ export interface ProgramEntity {
   calendarlengthid: string;
   website: string;
   description: string;
+  street1: string;
+  street2: string;
+  city: string;
+  state: string;
+  zip: string;
 }
 
 export interface OccupationEntity {

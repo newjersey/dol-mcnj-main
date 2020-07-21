@@ -46,7 +46,8 @@ export class PostgresDataClient implements DataClient {
   findTrainingById = async (id: string): Promise<Training> => {
     const sql =
       "SELECT programs.id, programs.providerid, programs.officialname, programs.calendarlengthid, programs.description, " +
-      "programs.cipcode, providers.website, providers.name AS providername " +
+      "programs.cipcode, providers.website, providers.name AS providername, " +
+      "providers.street1, providers.street2, providers.city, providers.state, providers.zip " +
       "FROM programs " +
       "LEFT OUTER JOIN providers " +
       "ON providers.providerid = programs.providerid " +
@@ -78,6 +79,13 @@ export class PostgresDataClient implements DataClient {
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",
+        address: {
+          street1: programEntity.street1,
+          street2: programEntity.street2 ? programEntity.street2 : "",
+          city: programEntity.city,
+          state: programEntity.state,
+          zipCode: programEntity.zip,
+        },
       },
     });
   };

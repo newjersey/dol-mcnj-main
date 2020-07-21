@@ -49,6 +49,24 @@ export const TrainingPage = (props: Props): ReactElement => {
     return training.occupations.join(", ");
   };
 
+  const getProviderAddress = (): ReactElement => {
+    if (!training || !training.provider.address.city) {
+      return <>--</>;
+    }
+
+    const address = training.provider.address;
+
+    return (
+      <div className="inline">
+        <span>{address.street1}</span>
+        <div>{address.street2}</div>
+        <div>
+          {address.city}, {address.state} {address.zipCode}
+        </div>
+      </div>
+    );
+  };
+
   return training ? (
     <>
       <Header />
@@ -86,8 +104,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <h2 className="text-m weight-500">Provider Details</h2>
               </div>
               <div className="ptm group-padding">
-                <i className="material-icons mrxs">link</i>
-                {getProviderUrl()}
+                <div className="mbd">
+                  <i className="material-icons mrxs align-top">location_on</i>
+                  {getProviderAddress()}
+                </div>
+
+                <div>
+                  <i className="material-icons mrxs">link</i>
+                  {getProviderUrl()}
+                </div>
               </div>
             </div>
           </div>

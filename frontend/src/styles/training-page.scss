@@ -5,6 +5,14 @@
   padding-right: 15px;
 }
 
+.inline {
+  display: inline-block;
+}
+
+.align-top {
+  vertical-align: top;
+}
+
 // small and up
 @media (min-width: $xs) {
 
