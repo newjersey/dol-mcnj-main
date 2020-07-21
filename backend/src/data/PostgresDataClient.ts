@@ -4,7 +4,7 @@
 import { DataClient, TrainingId } from "../domain/DataClient";
 import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
 import { CalendarLength, Status, Training, TrainingResult } from "../domain/Training";
-import { JoinedEntity, ProgramEntity, SearchedEntity } from "./Entities";
+import { JoinedEntity, OccupationEntity, ProgramEntity, SearchedEntity } from "./Entities";
 
 const pgp = pgPromise();
 
@@ -43,23 +43,43 @@ export class PostgresDataClient implements DataClient {
     return this.dbQueryForJoinedEntities(sqlSearch);
   };
 
-  findTrainingById = (id: string): Promise<Training> => {
+  findTrainingById = async (id: string): Promise<Training> => {
     const sql =
       "SELECT programs.id, programs.providerid, programs.officialname, programs.calendarlengthid, programs.description, " +
-      "providers.website, providers.name AS providername " +
+      "programs.cipcode, providers.website, providers.name AS providername " +
       "FROM programs " +
       "LEFT OUTER JOIN providers " +
       "ON providers.providerid = programs.providerid " +
       "WHERE programs.id = $1;";
 
     const parameterizedQuery = new ParameterizedQuery({ text: sql, values: [id] });
-    return this.db
-      .one(parameterizedQuery)
-      .then(this.mapProgramEntityToTraining)
-      .catch((e) => {
-        console.log("db error: ", e);
-        return Promise.reject();
-      });
+    const programEntity: ProgramEntity = await this.db.one(parameterizedQuery);
+
+    const selectOccupations = "SELECT soc2018title from soccipcrosswalk where cipcode = $1;";
+
+    const parameterizedSelectOccupations = new ParameterizedQuery({
+      text: selectOccupations,
+      values: [programEntity.cipcode],
+    });
+
+    const matchingOccipations: OccupationEntity[] = await this.db.any(
+      parameterizedSelectOccupations
+    );
+
+    return Promise.resolve({
+      id: programEntity.id,
+      name: programEntity.officialname,
+      description: programEntity.description,
+      calendarLength:
+        programEntity.calendarlengthid !== null
+          ? parseInt(programEntity.calendarlengthid)
+          : CalendarLength.NULL,
+      occupations: matchingOccipations.map((it) => it.soc2018title),
+      provider: {
+        id: programEntity.providerid,
+        url: programEntity.website ? programEntity.website : "",
+      },
+    });
   };
 
   search = (searchQuery: string): Promise<TrainingId[]> => {
@@ -107,20 +127,6 @@ export class PostgresDataClient implements DataClient {
         city: entity.city,
         name: entity.providername,
         status: this.mapStatus(entity.providerstatus),
-      },
-    };
-  };
-
-  private mapProgramEntityToTraining = (entity: ProgramEntity): Training => {
-    return {
-      id: entity.id,
-      name: entity.officialname,
-      description: entity.description,
-      calendarLength:
-        entity.calendarlengthid !== null ? parseInt(entity.calendarlengthid) : CalendarLength.NULL,
-      provider: {
-        id: entity.providerid,
-        url: entity.website ? entity.website : "",
       },
     };
   };

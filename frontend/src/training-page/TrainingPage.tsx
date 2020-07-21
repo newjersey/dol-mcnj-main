@@ -41,6 +41,14 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  const getCareerTrackList = (): string => {
+    if (!training || training.occupations.length === 0) {
+      return "--";
+    }
+
+    return training.occupations.join(", ");
+  };
+
   return training ? (
     <>
       <Header />
@@ -60,8 +68,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <h2 className="text-m weight-500">Quick Stats</h2>
               </div>
               <div className="ptm group-padding">
-                <i className="material-icons mrxs">av_timer</i>
-                {CalendarLengthLookup[training.calendarLength]}
+                <div className="mbd">
+                  <i className="material-icons mrxs">work_outline</i>
+                  Career Track: {getCareerTrackList()}
+                </div>
+
+                <div>
+                  <i className="material-icons mrxs">av_timer</i>
+                  {CalendarLengthLookup[training.calendarLength]}
+                </div>
               </div>
             </div>
           </div>

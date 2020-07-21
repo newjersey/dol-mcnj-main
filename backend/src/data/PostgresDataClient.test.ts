@@ -68,11 +68,17 @@ describe("PostgresDataClient", () => {
         "This program is designed for clients who are interested in learning skills necessary " +
         "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
         "their leaves and bark and seeds.",
+      occupations: ["Botanists"],
       provider: {
         id: "123",
         url: "www.vineland.org/adulted",
       },
     });
+  });
+
+  it("gets list of all occupations for a training's cip code", async () => {
+    const foundTraining = await dataClient.findTrainingById("3");
+    expect(foundTraining.occupations).toEqual(["Botanists", "Chefs"]);
   });
 
   it("returns empty values if url/calendar length does not exist", async () => {

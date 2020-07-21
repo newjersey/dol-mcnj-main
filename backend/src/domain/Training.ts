@@ -21,6 +21,7 @@ export interface Training {
   provider: Provider;
   description: string;
   calendarLength: CalendarLength;
+  occupations: string[];
 }
 
 export interface Provider {

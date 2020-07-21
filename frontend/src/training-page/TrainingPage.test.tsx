@@ -31,6 +31,7 @@ describe("<TrainingPage />", () => {
       name: "my cool training",
       calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
       provider: buildProvider({ url: "www.mycoolwebsite.com" }),
+      occupations: ["Botanist", "Senator"],
       description: "some cool description",
     });
 
@@ -40,6 +41,9 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("6-12 months to complete", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText("Career Track: Botanist, Senator", { exact: false })
+    ).toBeInTheDocument();
   });
 
   it("links to the provider website with http", () => {
@@ -79,5 +83,13 @@ describe("<TrainingPage />", () => {
 
     expect(subject.getByText("--")).toBeInTheDocument();
     expect(subject.getByText("--")).not.toHaveAttribute("href");
+  });
+
+  it("displays -- if training has no occupations", () => {
+    const subject = render(<TrainingPage client={stubClient} id="12345" />);
+
+    act(() => stubClient.capturedObserver.onSuccess(buildTraining({ occupations: [] })));
+
+    expect(subject.getByText("Career Track: --")).toBeInTheDocument();
   });
 });

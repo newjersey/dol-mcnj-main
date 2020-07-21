@@ -13,12 +13,17 @@ export interface JoinedEntity {
 
 export interface ProgramEntity {
   id: string;
+  cipcode: string;
   officialname: string;
   providerid: string;
   providername: string;
   calendarlengthid: string;
   website: string;
   description: string;
+}
+
+export interface OccupationEntity {
+  soc2018title: string;
 }
 
 export interface SearchedEntity {
