@@ -53,7 +53,6 @@ describe("ApiClient", () => {
     });
   });
 
-
   describe('getTrainingById', () => {
     it('uses the id in the api call', () => {
       const dummyObserver = {onSuccess: jest.fn(), onError: jest.fn()}

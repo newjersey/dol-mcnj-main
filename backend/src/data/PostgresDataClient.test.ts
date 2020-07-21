@@ -58,7 +58,7 @@ describe("PostgresDataClient", () => {
     expect(foundTrainings).toHaveLength(0);
   });
 
-  it("finds training by ids", async () => {
+  it("finds a training by id", async () => {
     const foundTraining = await dataClient.findTrainingById("1");
     expect(foundTraining).toEqual({
       id: 1,
@@ -72,6 +72,13 @@ describe("PostgresDataClient", () => {
       provider: {
         id: "123",
         url: "www.vineland.org/adulted",
+        address: {
+          street1: "48 W. Landis Ave.",
+          street2: "",
+          city: "Vineland",
+          state: "NJ",
+          zipCode: "08360",
+        },
       },
     });
   });

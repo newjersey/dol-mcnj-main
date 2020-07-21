@@ -3,7 +3,7 @@ import { StubClient } from "../test-objects/StubClient";
 import { render } from "@testing-library/react";
 import { TrainingPage } from "./TrainingPage";
 import { act } from "react-dom/test-utils";
-import { buildProvider, buildTraining } from "../test-objects/factories";
+import { buildAddress, buildProvider, buildTraining } from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
 
 describe("<TrainingPage />", () => {
@@ -30,7 +30,16 @@ describe("<TrainingPage />", () => {
       id: "12345",
       name: "my cool training",
       calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
-      provider: buildProvider({ url: "www.mycoolwebsite.com" }),
+      provider: buildProvider({
+        url: "www.mycoolwebsite.com",
+        address: buildAddress({
+          street1: "123 Main Street",
+          street2: "",
+          city: "Newark",
+          state: "NJ",
+          zipCode: "01234",
+        }),
+      }),
       occupations: ["Botanist", "Senator"],
       description: "some cool description",
     });
@@ -44,6 +53,30 @@ describe("<TrainingPage />", () => {
     expect(
       subject.getByText("Career Track: Botanist, Senator", { exact: false })
     ).toBeInTheDocument();
+    expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
+  });
+
+  it("displays both address lines if they exist", () => {
+    const subject = render(<TrainingPage client={stubClient} id="12345" />);
+
+    const training = buildTraining({
+      provider: buildProvider({
+        address: buildAddress({
+          street1: "123 Main Street",
+          street2: "Apartment 1",
+          city: "Newark",
+          state: "NJ",
+          zipCode: "01234",
+        }),
+      }),
+    });
+
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Apartment 1", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
   });
 
   it("links to the provider website with http", () => {
@@ -91,5 +124,19 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(buildTraining({ occupations: [] })));
 
     expect(subject.getByText("Career Track: --")).toBeInTheDocument();
+  });
+
+  it("displays -- if training provider has no address", () => {
+    const subject = render(<TrainingPage client={stubClient} id="12345" />);
+
+    act(() =>
+      stubClient.capturedObserver.onSuccess(
+        buildTraining({
+          provider: buildProvider({ address: buildAddress({ city: undefined }) }),
+        })
+      )
+    );
+
+    expect(subject.getByText("--")).toBeInTheDocument();
   });
 });
