@@ -4,6 +4,7 @@ import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { Header } from "../search-results/Header";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
+import { NotFoundPage } from "../not-found-page/NotFoundPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -12,12 +13,13 @@ interface Props extends RouteComponentProps {
 
 export const TrainingPage = (props: Props): ReactElement => {
   const [training, setTraining] = useState<Training | undefined>(undefined);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: setTraining,
-      onError: () => {},
+      onError: () => setError(true),
     });
   }, [props.id, props.client]);
 
@@ -67,59 +69,63 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  return training ? (
-    <>
-      <Header />
-      <div className="container below-header">
-        <h2 className="text-xl ptm pbs weight-500">{training.name}</h2>
-        <div className="row">
-          <div className="col-md-8">
-            <div className="mvm grouping">
-              <div className="bg-light-green pvs bar">
-                <h2 className="text-m weight-500">Description</h2>
+  if (training) {
+    return (
+      <>
+        <Header />
+        <div className="container below-header">
+          <h2 className="text-xl ptm pbs weight-500">{training.name}</h2>
+          <div className="row">
+            <div className="col-md-8">
+              <div className="mvm grouping">
+                <div className="bg-light-green pvs bar">
+                  <h2 className="text-m weight-500">Description</h2>
+                </div>
+                <div className="ptm group-padding">{training.description}</div>
               </div>
-              <div className="ptm group-padding">{training.description}</div>
+
+              <div className="mvm grouping">
+                <div className="bg-light-green pvs bar">
+                  <h2 className="text-m weight-500">Quick Stats</h2>
+                </div>
+                <div className="ptm group-padding">
+                  <div className="mbd">
+                    <i className="material-icons icon mrxs">work_outline</i>
+                    Career Track: {getCareerTrackList()}
+                  </div>
+
+                  <div>
+                    <i className="material-icons icon mrxs">av_timer</i>
+                    {CalendarLengthLookup[training.calendarLength]}
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div className="mvm grouping">
-              <div className="bg-light-green pvs bar">
-                <h2 className="text-m weight-500">Quick Stats</h2>
-              </div>
-              <div className="ptm group-padding">
-                <div className="mbd">
-                  <i className="material-icons mrxs">work_outline</i>
-                  Career Track: {getCareerTrackList()}
+            <div className="col-md-4">
+              <div className="mvm grouping">
+                <div className="bg-light-green pvs bar">
+                  <h2 className="text-m weight-500">Provider Details</h2>
                 </div>
+                <div className="ptm group-padding">
+                  <div className="mbd">
+                    <i className="material-icons icon mrxs align-top">location_on</i>
+                    {getProviderAddress()}
+                  </div>
 
-                <div>
-                  <i className="material-icons mrxs">av_timer</i>
-                  {CalendarLengthLookup[training.calendarLength]}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="mvm grouping">
-              <div className="bg-light-green pvs bar">
-                <h2 className="text-m weight-500">Provider Details</h2>
-              </div>
-              <div className="ptm group-padding">
-                <div className="mbd">
-                  <i className="material-icons mrxs align-top">location_on</i>
-                  {getProviderAddress()}
-                </div>
-
-                <div>
-                  <i className="material-icons mrxs">link</i>
-                  {getProviderUrl()}
+                  <div>
+                    <i className="material-icons icon mrxs">link</i>
+                    {getProviderUrl()}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  ) : (
-    <></>
-  );
+      </>
+    );
+  } else if (error) {
+    return <NotFoundPage />;
+  } else {
+    return <></>;
+  }
 };

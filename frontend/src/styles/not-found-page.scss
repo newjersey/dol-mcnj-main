@@ -1,0 +1,16 @@
+.alert-box {
+  border-radius: 20px;
+  border: 1px solid $light-grey;
+  box-shadow: 0 4px 4px $grey;
+}
+
+.error-icon {
+  line-height: 1.375rem;
+  font-size: 4rem;
+  display: inline-flex;
+  vertical-align: text-bottom;
+}
+
+.rounded-top {
+  border-radius: 20px 20px 0 0;
+}

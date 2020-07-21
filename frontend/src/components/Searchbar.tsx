@@ -40,7 +40,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         onKeyDown={handleKeyDown}
         startAdornment={
           <InputAdornment position="start">
-            <i className="material-icons">search</i>
+            <i className="material-icons icon">search</i>
           </InputAdornment>
         }
         placeholder="Search for training courses"
