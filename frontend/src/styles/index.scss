@@ -9,6 +9,7 @@
 @import "header";
 @import "search-results-page";
 @import "training-page";
+@import "not-found-page";
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
@@ -59,6 +60,11 @@ a {
 
 a.no-link-format {
   color: inherit;
+  text-decoration: inherit;
+}
+
+a.link-format-blue {
+  color: $blue;
   text-decoration: inherit;
 }
 

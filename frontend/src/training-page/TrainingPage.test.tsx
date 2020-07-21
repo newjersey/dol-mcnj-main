@@ -139,4 +139,14 @@ describe("<TrainingPage />", () => {
 
     expect(subject.getByText("--")).toBeInTheDocument();
   });
+
+  it("displays the Not Found page on server error", () => {
+    const subject = render(<TrainingPage client={stubClient} id="notfound" />);
+
+    act(() => stubClient.capturedObserver.onError());
+
+    expect(
+      subject.getByText("Sorry, we can't seem to find that page", { exact: false })
+    ).toBeInTheDocument();
+  });
 });

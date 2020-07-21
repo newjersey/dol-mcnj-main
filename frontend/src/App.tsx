@@ -5,6 +5,7 @@ import {TrainingPage} from "./training-page/TrainingPage";
 import {Client} from "./domain/Client";
 import {Router} from "@reach/router";
 import {Filter} from "./domain/Filter";
+import {NotFoundPage} from "./not-found-page/NotFoundPage";
 
 interface Props {
     client: Client;
@@ -70,6 +71,7 @@ export const App = (props: Props): ReactElement => {
                 <SearchResultsPage path="/search" client={props.client}/>
                 <SearchResultsPage path="/search/:searchQuery" client={props.client}/>
                 <TrainingPage path="/training/:id" client={props.client}/>
+                <NotFoundPage default />
             </Router>
         </FilterContext.Provider>
     )
