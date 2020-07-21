@@ -133,7 +133,7 @@ export class PostgresDataClient implements DataClient {
       provider: {
         id: entity.providerid,
         city: entity.city,
-        name: entity.providername,
+        name: entity.providername ? entity.providername : "",
         status: this.mapStatus(entity.providerstatus),
       },
     };
