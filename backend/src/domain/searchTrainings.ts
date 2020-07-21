@@ -20,6 +20,10 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
         .map((training) => ({
           ...training,
           name: stripSurroundingQuotes(training.name),
+          provider: {
+            ...training.provider,
+            name: stripSurroundingQuotes(training.provider.name),
+          },
         }));
     });
 };

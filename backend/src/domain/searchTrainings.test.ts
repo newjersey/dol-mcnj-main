@@ -15,6 +15,13 @@ describe("searchTrainings", () => {
     searchTrainings = searchTrainingsFactory(stubDataClient);
   });
 
+  it("returns trainings", async () => {
+    const training = buildTrainingResult({});
+    stubDataClient.search.mockResolvedValue([]);
+    stubDataClient.findTrainingsByIds.mockResolvedValue([training]);
+    expect(await searchTrainings("some query")).toEqual([training]);
+  });
+
   it("gets matching trainings via keyword search and id lookup", async () => {
     const training1 = buildTrainingResult({ name: "training 1", id: "1" });
     const training2 = buildTrainingResult({ name: "training 2", id: "2" });
@@ -103,16 +110,31 @@ describe("searchTrainings", () => {
     expect(searchResults.map((it) => it.id)).toEqual(["1", "3"]);
   });
 
-  it("strips surrounding quotation marks from title of training result", async () => {
+  it("strips surrounding quotation marks from name / provider name of training result", async () => {
     stubDataClient.findAllTrainings.mockResolvedValue([
-      buildTrainingResult({ name: '"Some Name with Quotes"' }),
-      buildTrainingResult({ name: "Some Name without Quotes" }),
-      buildTrainingResult({ name: '"Quotes "in the" middle too"' }),
+      buildTrainingResult({
+        name: '"Some Name with Quotes"',
+        provider: buildProviderResult({ name: '"Some Name with Quotes"' }),
+      }),
+      buildTrainingResult({
+        name: "Some Name without Quotes",
+        provider: buildProviderResult({ name: "Some Name without Quotes" }),
+      }),
+      buildTrainingResult({
+        name: '"Quotes "in the" middle too"',
+        provider: buildProviderResult({ name: '"Quotes "in the" middle too"' }),
+      }),
     ]);
 
     const searchResults = await searchTrainings("");
 
     expect(searchResults.map((it) => it.name)).toEqual([
+      "Some Name with Quotes",
+      "Some Name without Quotes",
+      'Quotes "in the" middle too',
+    ]);
+
+    expect(searchResults.map((it) => it.provider.name)).toEqual([
       "Some Name with Quotes",
       "Some Name without Quotes",
       'Quotes "in the" middle too',
