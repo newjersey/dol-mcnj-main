@@ -17,6 +17,7 @@ export interface Training {
   id: string;
   name: string;
   calendarLength: CalendarLength;
+  description: string;
   provider: Provider;
 }
 

@@ -18,6 +18,7 @@ export interface ProgramEntity {
   providername: string;
   calendarlengthid: string;
   website: string;
+  description: string;
 }
 
 export interface SearchedEntity {

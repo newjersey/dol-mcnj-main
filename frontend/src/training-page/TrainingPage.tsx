@@ -48,14 +48,32 @@ export const TrainingPage = (props: Props): ReactElement => {
         <h2 className="text-xl ptm pbs weight-500">{training.name}</h2>
         <div className="row">
           <div className="col-md-8">
-            <div className="card pam">
-              <i className="material-icons mrxs">link</i>
-              {getProviderUrl()}
+            <div className="mvm grouping">
+              <div className="bg-light-green pvs bar">
+                <h2 className="text-m weight-500">Description</h2>
+              </div>
+              <div className="ptm group-padding">{training.description}</div>
+            </div>
 
-              <p className="mtxs mbz">
+            <div className="mvm grouping">
+              <div className="bg-light-green pvs bar">
+                <h2 className="text-m weight-500">Quick Stats</h2>
+              </div>
+              <div className="ptm group-padding">
                 <i className="material-icons mrxs">av_timer</i>
                 {CalendarLengthLookup[training.calendarLength]}
-              </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="mvm grouping">
+              <div className="bg-light-green pvs bar">
+                <h2 className="text-m weight-500">Provider Details</h2>
+              </div>
+              <div className="ptm group-padding">
+                <i className="material-icons mrxs">link</i>
+                {getProviderUrl()}
+              </div>
             </div>
           </div>
         </div>

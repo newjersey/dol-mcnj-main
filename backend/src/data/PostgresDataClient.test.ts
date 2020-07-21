@@ -64,6 +64,10 @@ describe("PostgresDataClient", () => {
       id: 1,
       name: "Tree Identification Class",
       calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
+      description:
+        "This program is designed for clients who are interested in learning skills necessary " +
+        "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
+        "their leaves and bark and seeds.",
       provider: {
         id: "123",
         url: "www.vineland.org/adulted",
@@ -73,15 +77,8 @@ describe("PostgresDataClient", () => {
 
   it("returns empty values if url/calendar length does not exist", async () => {
     const foundTraining = await dataClient.findTrainingById("4");
-    expect(foundTraining).toEqual({
-      id: 4,
-      name: "Mushroom Foraging Certification",
-      calendarLength: CalendarLength.NULL,
-      provider: {
-        id: "789",
-        url: "",
-      },
-    });
+    expect(foundTraining.calendarLength).toEqual(CalendarLength.NULL);
+    expect(foundTraining.provider.url).toEqual("");
   });
 
   it("returns null enum if calendar length id does not exist", async () => {
