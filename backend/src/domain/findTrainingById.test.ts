@@ -24,4 +24,36 @@ describe("findTrainingById", () => {
     await expect(findTrainingById("")).rejects.toEqual("id is empty or undefined");
     await expect(findTrainingById(undefined)).rejects.toEqual("id is empty or undefined");
   });
+
+  it("strips surrounding quotation marks from title/description of training", async () => {
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        name: '"Some Name with Quotes"',
+        description: '"Some Name with Quotes"',
+      })
+    );
+
+    expect((await findTrainingById("123")).name).toEqual("Some Name with Quotes");
+    expect((await findTrainingById("123")).description).toEqual("Some Name with Quotes");
+
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        name: "Some Name without Quotes",
+        description: "Some Name without Quotes",
+      })
+    );
+
+    expect((await findTrainingById("123")).name).toEqual("Some Name without Quotes");
+    expect((await findTrainingById("123")).description).toEqual("Some Name without Quotes");
+
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        name: '"Quotes "in the" middle too"',
+        description: '"Quotes "in the" middle too"',
+      })
+    );
+
+    expect((await findTrainingById("123")).name).toEqual('Quotes "in the" middle too');
+    expect((await findTrainingById("123")).description).toEqual('Quotes "in the" middle too');
+  });
 });
