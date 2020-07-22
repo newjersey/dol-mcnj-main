@@ -30,33 +30,156 @@ export const waitForEffect = async (): Promise<undefined> => {
 describe('<App />', () => {
 
     let stubClient: StubClient;
+    let subject: RenderResult;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         stubClient = new StubClient();
+        const {container, history} = renderWithRouter(<App client={stubClient} />)
+        subject = container;
+
+        await history.navigate('/search/some-query')
+        await waitForEffect()
     })
 
-    describe('filtering', () => {
+    describe('filtering by employment rate', () => {
+
+        const training80percent = buildTrainingResult({ name: "training80", percentEmployed: .80 })
+        const training79percent = buildTrainingResult({ name: "training79", percentEmployed: .79 })
+        const training60percent = buildTrainingResult({ name: "training60", percentEmployed: .60 })
+        const training59percent = buildTrainingResult({ name: "training59", percentEmployed: .59 })
+        const training1percent = buildTrainingResult({ name: "training1", percentEmployed: .01 })
+        const trainingNoData = buildTrainingResult({ name: "training no data", percentEmployed: undefined })
+
+        beforeEach(async () => {
+          act(() => {
+            stubClient.capturedObserver.onSuccess([
+              training80percent,
+              training79percent,
+              training60percent,
+              training59percent,
+              training1percent,
+              trainingNoData
+            ])
+          });
+
+          expect(subject.getByText("training80")).toBeInTheDocument();
+          expect(subject.getByText("training79")).toBeInTheDocument();
+          expect(subject.getByText("training60")).toBeInTheDocument();
+          expect(subject.getByText("training59")).toBeInTheDocument();
+          expect(subject.getByText("training1")).toBeInTheDocument();
+          expect(subject.getByText("training no data")).toBeInTheDocument();
+        })
+
+        it("filters by best employment rate", async () => {
+          fireEvent.click(subject.getByLabelText("Best"))
+
+          expect(subject.queryByText("training80")).toBeInTheDocument();
+          expect(subject.queryByText("training79")).not.toBeInTheDocument();
+          expect(subject.queryByText("training60")).not.toBeInTheDocument();
+          expect(subject.queryByText("training59")).not.toBeInTheDocument();
+          expect(subject.queryByText("training1")).not.toBeInTheDocument();
+          expect(subject.queryByText("training no data")).not.toBeInTheDocument();
+        })
+
+      it("filters by medium employment rate", async () => {
+        fireEvent.click(subject.getByLabelText("Medium"))
+
+        expect(subject.queryByText("training80")).not.toBeInTheDocument();
+        expect(subject.queryByText("training79")).toBeInTheDocument();
+        expect(subject.queryByText("training60")).toBeInTheDocument();
+        expect(subject.queryByText("training59")).not.toBeInTheDocument();
+        expect(subject.queryByText("training1")).not.toBeInTheDocument();
+        expect(subject.queryByText("training no data")).not.toBeInTheDocument();
+      })
+
+      it("filters by low employment rate", async () => {
+        fireEvent.click(subject.getByLabelText("Low"))
+
+        expect(subject.queryByText("training80")).not.toBeInTheDocument();
+        expect(subject.queryByText("training79")).not.toBeInTheDocument();
+        expect(subject.queryByText("training60")).not.toBeInTheDocument();
+        expect(subject.queryByText("training59")).toBeInTheDocument();
+        expect(subject.queryByText("training1")).toBeInTheDocument();
+        expect(subject.queryByText("training no data")).not.toBeInTheDocument();
+      })
+
+      it("filters by no data employment rate", async () => {
+        fireEvent.click(subject.getByLabelText("No Data"))
+
+        expect(subject.queryByText("training80")).not.toBeInTheDocument();
+        expect(subject.queryByText("training79")).not.toBeInTheDocument();
+        expect(subject.queryByText("training60")).not.toBeInTheDocument();
+        expect(subject.queryByText("training59")).not.toBeInTheDocument();
+        expect(subject.queryByText("training1")).not.toBeInTheDocument();
+        expect(subject.queryByText("training no data")).toBeInTheDocument();
+      })
+
+      it("does not filter when all or none are checked", async () => {
+        fireEvent.click(subject.getByLabelText("Best"))
+        fireEvent.click(subject.getByLabelText("Medium"))
+        fireEvent.click(subject.getByLabelText("Low"))
+        fireEvent.click(subject.getByLabelText("No Data"))
+
+        expect(subject.getByText("training80")).toBeInTheDocument();
+        expect(subject.getByText("training79")).toBeInTheDocument();
+        expect(subject.getByText("training60")).toBeInTheDocument();
+        expect(subject.getByText("training59")).toBeInTheDocument();
+        expect(subject.getByText("training1")).toBeInTheDocument();
+        expect(subject.getByText("training no data")).toBeInTheDocument();
+
+        fireEvent.click(subject.getByLabelText("Best"))
+        fireEvent.click(subject.getByLabelText("Medium"))
+        fireEvent.click(subject.getByLabelText("Low"))
+        fireEvent.click(subject.getByLabelText("No Data"))
+
+        expect(subject.getByText("training80")).toBeInTheDocument();
+        expect(subject.getByText("training79")).toBeInTheDocument();
+        expect(subject.getByText("training60")).toBeInTheDocument();
+        expect(subject.getByText("training59")).toBeInTheDocument();
+        expect(subject.getByText("training1")).toBeInTheDocument();
+        expect(subject.getByText("training no data")).toBeInTheDocument();
+      })
+
+      it("combines filters", async () => {
+        fireEvent.click(subject.getByLabelText("Best"))
+
+        expect(subject.queryByText("training80")).toBeInTheDocument();
+        expect(subject.queryByText("training79")).not.toBeInTheDocument();
+        expect(subject.queryByText("training60")).not.toBeInTheDocument();
+        expect(subject.queryByText("training59")).not.toBeInTheDocument();
+        expect(subject.queryByText("training1")).not.toBeInTheDocument();
+        expect(subject.queryByText("training no data")).not.toBeInTheDocument();
+
+        fireEvent.click(subject.getByLabelText("Medium"))
+
+        expect(subject.getByText("training80")).toBeInTheDocument();
+        expect(subject.getByText("training79")).toBeInTheDocument();
+        expect(subject.getByText("training60")).toBeInTheDocument();
+        expect(subject.queryByText("training59")).not.toBeInTheDocument();
+        expect(subject.queryByText("training1")).not.toBeInTheDocument();
+        expect(subject.queryByText("training no data")).not.toBeInTheDocument();
+      })
+    })
+
+    describe('filtering by max cost', () => {
 
         const training1999 = buildTrainingResult({ name: "training1999", totalCost: 1999 })
         const training2000 = buildTrainingResult({ name: "training2000", totalCost: 2000 })
         const training2001 = buildTrainingResult({ name: "training2001", totalCost: 2001 })
         const training5000 = buildTrainingResult({ name: "training5000", totalCost: 5000 })
 
-        let subject: RenderResult;
-
         const getMaxCostInput = (subject: RenderResult): HTMLElement => {
             return subject.getByLabelText("Max Cost", {exact: false})
         }
 
         beforeEach(async () => {
-            const {container, history} = renderWithRouter(<App client={stubClient} />)
-            subject = container;
-
-            await history.navigate('/search/some-query')
-            await waitForEffect()
-
             act(() => {
-                stubClient.capturedObserver.onSuccess([training1999, training2000, training2001, training5000])
+                stubClient.capturedObserver.onSuccess([
+                  training1999,
+                  training2000,
+                  training2001,
+                  training5000
+                ])
             });
 
             expect(subject.getByText("training1999")).toBeInTheDocument();
@@ -71,8 +194,8 @@ describe('<App />', () => {
             });
             fireEvent.blur(getMaxCostInput(subject));
 
-            expect(subject.getByText("training1999")).toBeInTheDocument();
-            expect(subject.getByText("training2000")).toBeInTheDocument();
+            expect(subject.queryByText("training1999")).toBeInTheDocument();
+            expect(subject.queryByText("training2000")).toBeInTheDocument();
             expect(subject.queryByText("training2001")).not.toBeInTheDocument();
             expect(subject.queryByText("training5000")).not.toBeInTheDocument();
         })
@@ -89,8 +212,8 @@ describe('<App />', () => {
             });
             fireEvent.blur(getMaxCostInput(subject));
 
-            expect(subject.getByText("training1999")).toBeInTheDocument();
-            expect(subject.getByText("training2000")).toBeInTheDocument();
+            expect(subject.queryByText("training1999")).toBeInTheDocument();
+            expect(subject.queryByText("training2000")).toBeInTheDocument();
             expect(subject.queryByText("training2001")).toBeInTheDocument();
             expect(subject.queryByText("training5000")).not.toBeInTheDocument();
         })
@@ -102,8 +225,8 @@ describe('<App />', () => {
             });
             fireEvent.blur(getMaxCostInput(subject));
 
-            expect(subject.getByText("training1999")).toBeInTheDocument();
-            expect(subject.getByText("training2000")).toBeInTheDocument();
+            expect(subject.queryByText("training1999")).toBeInTheDocument();
+            expect(subject.queryByText("training2000")).toBeInTheDocument();
             expect(subject.queryByText("training2001")).not.toBeInTheDocument();
             expect(subject.queryByText("training5000")).not.toBeInTheDocument();
 
@@ -112,8 +235,8 @@ describe('<App />', () => {
             });
             fireEvent.blur(getMaxCostInput(subject));
 
-            expect(subject.getByText("training1999")).toBeInTheDocument();
-            expect(subject.getByText("training2000")).toBeInTheDocument();
+            expect(subject.queryByText("training1999")).toBeInTheDocument();
+            expect(subject.queryByText("training2000")).toBeInTheDocument();
             expect(subject.queryByText("training2001")).toBeInTheDocument();
             expect(subject.queryByText("training5000")).toBeInTheDocument();
         })
@@ -129,8 +252,8 @@ describe('<App />', () => {
                 code: "Enter",
             });
 
-            expect(subject.getByText("training1999")).toBeInTheDocument();
-            expect(subject.getByText("training2000")).toBeInTheDocument();
+            expect(subject.queryByText("training1999")).toBeInTheDocument();
+            expect(subject.queryByText("training2000")).toBeInTheDocument();
             expect(subject.queryByText("training2001")).not.toBeInTheDocument();
             expect(subject.queryByText("training5000")).not.toBeInTheDocument();
         })

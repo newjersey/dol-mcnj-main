@@ -4,16 +4,31 @@ import { FilterableElement } from "../domain/Filter";
 import { FilterActionType, FilterContext } from "../App";
 import { TrainingResult } from "../domain/Training";
 import { SecondaryButton } from "../components/SecondaryButton";
-import { useMediaQuery } from "@material-ui/core";
+import { FormControlLabel, FormGroup, useMediaQuery } from "@material-ui/core";
+import { SpacedCheckbox } from "../components/SpacedCheckbox";
 
 interface Props {
   children: ReactElement;
+}
+
+interface EmploymentRate {
+  best: boolean;
+  medium: boolean;
+  low: boolean;
+  nodata: boolean;
 }
 
 export const FilterBox = (props: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
 
   const [maxCost, setMaxCost] = useState<string>("");
+  const [employmentRate, setEmploymentRate] = useState<EmploymentRate>({
+    best: false,
+    medium: false,
+    low: false,
+    nodata: false,
+  });
+
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
 
   const { state, dispatch } = useContext(FilterContext);
@@ -37,12 +52,14 @@ export const FilterBox = (props: Props): ReactElement => {
     switch (element) {
       case FilterableElement.MAX_COST:
         return setMaxCost;
+      case FilterableElement.EMPLOYMENT_RATE:
+        return setEmploymentRate;
     }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
-      applyFilter();
+      applyMaxCostFilter();
     }
   };
 
@@ -50,7 +67,38 @@ export const FilterBox = (props: Props): ReactElement => {
     setMaxCost(event.target.value);
   };
 
-  const applyFilter = (): void => {
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
+    const newEmploymentRate = {
+      ...employmentRate,
+      [event.target.name]: checked,
+    };
+
+    setEmploymentRate(newEmploymentRate);
+
+    const nothingIsChecked = Object.values(newEmploymentRate).every((value) => !value);
+
+    dispatch({
+      type: nothingIsChecked ? FilterActionType.REMOVE : FilterActionType.ADD,
+      filter: {
+        element: FilterableElement.EMPLOYMENT_RATE,
+        value: newEmploymentRate,
+        func: (trainingResults): TrainingResult[] =>
+          trainingResults.filter((it) => {
+            return (
+              (newEmploymentRate.best && it.percentEmployed && it.percentEmployed >= 0.8) ||
+              (newEmploymentRate.medium &&
+                it.percentEmployed &&
+                it.percentEmployed < 0.8 &&
+                it.percentEmployed >= 0.6) ||
+              (newEmploymentRate.low && it.percentEmployed && it.percentEmployed < 0.6) ||
+              (newEmploymentRate.nodata && !it.percentEmployed)
+            );
+          }),
+      },
+    });
+  };
+
+  const applyMaxCostFilter = (): void => {
     dispatch({
       type: maxCost !== "" ? FilterActionType.ADD : FilterActionType.REMOVE,
       filter: {
@@ -95,11 +143,63 @@ export const FilterBox = (props: Props): ReactElement => {
               value={maxCost}
               onChange={handleInput}
               onKeyDown={handleKeyDown}
-              onBlur={applyFilter}
+              onBlur={applyMaxCostFilter}
               placeholder="$"
             />
           </span>
         </label>
+
+        <div className="mtd">
+          <label className="bold" htmlFor="employmentRate">
+            Employment Rate
+            <FormGroup id="employmentRate">
+              <FormControlLabel
+                control={
+                  <SpacedCheckbox
+                    checked={employmentRate.best}
+                    onChange={handleCheckboxChange}
+                    name="best"
+                    color="primary"
+                  />
+                }
+                label="Best"
+              />
+              <FormControlLabel
+                control={
+                  <SpacedCheckbox
+                    checked={employmentRate.medium}
+                    onChange={handleCheckboxChange}
+                    name="medium"
+                    color="primary"
+                  />
+                }
+                label="Medium"
+              />
+              <FormControlLabel
+                control={
+                  <SpacedCheckbox
+                    checked={employmentRate.low}
+                    onChange={handleCheckboxChange}
+                    name="low"
+                    color="primary"
+                  />
+                }
+                label="Low"
+              />
+              <FormControlLabel
+                control={
+                  <SpacedCheckbox
+                    checked={employmentRate.nodata}
+                    onChange={handleCheckboxChange}
+                    name="nodata"
+                    color="primary"
+                  />
+                }
+                label="No Data"
+              />
+            </FormGroup>
+          </label>
+        </div>
       </div>
     </div>
   );

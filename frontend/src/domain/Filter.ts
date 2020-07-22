@@ -9,4 +9,5 @@ export interface Filter {
 
 export enum FilterableElement {
   MAX_COST,
+  EMPLOYMENT_RATE,
 }
