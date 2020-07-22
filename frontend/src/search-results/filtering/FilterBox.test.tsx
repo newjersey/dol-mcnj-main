@@ -1,7 +1,7 @@
-import { TrainingResult } from "../domain/Training";
-import { Filter, FilterableElement } from "../domain/Filter";
+import { TrainingResult } from "../../domain/Training";
+import { Filter, FilterableElement } from "../../domain/Filter";
 import { render, fireEvent, RenderResult } from "@testing-library/react";
-import { FilterContext } from "../App";
+import { FilterContext } from "../../App";
 import React from "react";
 import { FilterBox } from "./FilterBox";
 import { useMediaQuery } from "@material-ui/core";
