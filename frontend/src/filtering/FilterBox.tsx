@@ -36,6 +36,10 @@ export const FilterBox = (props: Props): ReactElement => {
     return filterIsOpen && !isTabletAndUp ? "full" : "";
   };
 
+  const getArrowIcon = (): string => {
+    return filterIsOpen && !isTabletAndUp ? "keyboard_arrow_up" : "keyboard_arrow_down";
+  };
+
   return (
     <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
       <Searchbar
@@ -48,8 +52,15 @@ export const FilterBox = (props: Props): ReactElement => {
       />
       <div className="ptm fdr" style={{ display: isTabletAndUp ? "none" : "flex" }}>
         <SecondaryButton className="fin flex-half" onClick={toggleFilterVisibility}>
-          <i className={`material-icons ${blueWhenFilterApplied()}`}>filter_list</i>
-          <span className={`mls ${blueWhenFilterApplied()}`}>Filters</span>
+          <span className={`pls ${blueWhenFilterApplied()}`}>Filters</span>
+          <span className="prs" style={{ marginLeft: "auto" }}>
+            <i
+              style={{ lineHeight: "inherit" }}
+              className={`material-icons ${blueWhenFilterApplied()}`}
+            >
+              {getArrowIcon()}
+            </i>
+          </span>
         </SecondaryButton>
       </div>
       <div className="ptd" style={{ display: filterIsOpen ? "block" : "none" }}>
