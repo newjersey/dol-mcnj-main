@@ -1,9 +1,10 @@
-import React, {ReactElement, useContext, useEffect, useState} from "react";
-import {FilterContext} from "../../App";
-import {SecondaryButton} from "../../components/SecondaryButton";
-import {useMediaQuery} from "@material-ui/core";
-import {CostFilter} from "./CostFilter";
-import {EmploymentRateFilter} from "./EmploymentRateFilter";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { FilterContext } from "../App";
+import { SecondaryButton } from "../components/SecondaryButton";
+import { useMediaQuery } from "@material-ui/core";
+import { CostFilter } from "./CostFilter";
+import { EmploymentRateFilter } from "./EmploymentRateFilter";
+import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 
 interface Props {
   children: ReactElement;
@@ -47,6 +48,10 @@ export const FilterBox = (props: Props): ReactElement => {
 
         <div className="mtd">
           <EmploymentRateFilter />
+        </div>
+
+        <div className="mtd">
+          <TimeToCompleteFilter />
         </div>
       </div>
     </div>

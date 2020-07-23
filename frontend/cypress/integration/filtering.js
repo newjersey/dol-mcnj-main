@@ -43,6 +43,27 @@ describe('Filtering', () => {
 
     });
 
+    it('filters by training length', () => {
+        cy.visit('/search/baker');
+        cy.contains('Baking and Pastry Arts').should('exist');
+        cy.contains('8 results found for "baker"').should('exist');
+
+
+        cy.contains('Time to Complete').within(() => {
+            cy.get('[type="checkbox"][name="days"]').check()
+        });
+
+        cy.contains('Baking for Beginners').should('not.exist');
+        cy.contains('0 results found for "baker"').should('exist');
+
+        cy.contains('Time to Complete').within(() => {
+            cy.get('[type="checkbox"][name="weeks"]').check()
+        });
+
+        cy.contains('Baking for Beginners').should('exist');
+        cy.contains('2 results found for "baker"').should('exist');
+    });
+
     it('preserves a filter between pages', () => {
         cy.visit('/search/baker');
         cy.contains('Pastry Arts Academic Credit Certificate').should('exist');

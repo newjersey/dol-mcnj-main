@@ -1,9 +1,9 @@
 import { FormControlLabel, FormGroup } from "@material-ui/core";
-import { SpacedCheckbox } from "../../components/SpacedCheckbox";
+import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
-import { FilterActionType, FilterContext } from "../../App";
-import { FilterableElement } from "../../domain/Filter";
-import { TrainingResult } from "../../domain/Training";
+import { FilterActionType, FilterContext } from "../App";
+import { FilterableElement } from "../domain/Filter";
+import { TrainingResult } from "../domain/Training";
 
 interface EmploymentRate {
   best: boolean;
