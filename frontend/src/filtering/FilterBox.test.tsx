@@ -25,7 +25,7 @@ describe("<FilterBox />", () => {
 
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox />
+        <FilterBox resultCount={1} />
       </FilterContext.Provider>
     );
   };
@@ -62,7 +62,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] opens and closes filter panel on button push", () => {
     useMobileSize();
-    const subject = render(<FilterBox />);
+    const subject = render(<FilterBox resultCount={1} />);
     expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
     fireEvent.click(subject.getByText("Filters"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
@@ -70,7 +70,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] changes arrow to indicate open/close state", () => {
     useMobileSize();
-    const subject = render(<FilterBox />);
+    const subject = render(<FilterBox resultCount={1} />);
 
     expect(subject.queryByText("keyboard_arrow_down")).toBeInTheDocument();
     expect(subject.queryByText("keyboard_arrow_up")).not.toBeInTheDocument();
@@ -83,7 +83,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] closes the filter panel when search is executed", () => {
     useMobileSize();
-    const subject = render(<FilterBox />);
+    const subject = render(<FilterBox resultCount={1} />);
     fireEvent.click(subject.getByText("Filters"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
 
@@ -92,9 +92,25 @@ describe("<FilterBox />", () => {
     expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
   });
 
+  it("[MOBILE] displays the number of search results", () => {
+    useMobileSize();
+    const subject = render(<FilterBox resultCount={50} />);
+    fireEvent.click(subject.getByText("Filters"));
+
+    expect(subject.getByText("50 results")).toBeInTheDocument();
+  });
+
+  it("[MOBILE] uses correct grammar on result count", () => {
+    useMobileSize();
+    const subject = render(<FilterBox resultCount={1} />);
+    fireEvent.click(subject.getByText("Filters"));
+
+    expect(subject.getByText("1 result")).toBeInTheDocument();
+  });
+
   it("[DESKTOP] shows filter panel by default with no toggle button", () => {
     useDesktopSize();
-    const subject = render(<FilterBox />);
+    const subject = render(<FilterBox resultCount={1} />);
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
     expect(subject.getByText("Filters", { exact: false })).not.toBeVisible();
   });

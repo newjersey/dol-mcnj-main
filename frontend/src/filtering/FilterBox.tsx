@@ -10,6 +10,7 @@ import { Searchbar } from "../components/Searchbar";
 
 interface Props {
   searchQuery?: string;
+  resultCount: number;
 }
 
 export const FilterBox = (props: Props): ReactElement => {
@@ -40,6 +41,14 @@ export const FilterBox = (props: Props): ReactElement => {
     return filterIsOpen && !isTabletAndUp ? "keyboard_arrow_up" : "keyboard_arrow_down";
   };
 
+  const getResultCountText = (): string => {
+    if (props.resultCount === 1) {
+      return `${props.resultCount} result`;
+    } else {
+      return `${props.resultCount} results`;
+    }
+  };
+
   return (
     <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
       <Searchbar
@@ -64,6 +73,12 @@ export const FilterBox = (props: Props): ReactElement => {
         </SecondaryButton>
       </div>
       <div className="ptd" style={{ display: filterIsOpen ? "block" : "none" }}>
+        <div style={{ display: isTabletAndUp ? "none" : "block" }}>
+          <div className="mbs grey-line"></div>
+          <div>{getResultCountText()}</div>
+          <div className="mvs grey-line"></div>
+        </div>
+
         <CostFilter />
 
         <div className="mtd">
