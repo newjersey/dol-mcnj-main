@@ -68,6 +68,19 @@ describe("<FilterBox />", () => {
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
   });
 
+  it("[MOBILE] changes arrow to indicate open/close state", () => {
+    useMobileSize();
+    const subject = render(<FilterBox />);
+
+    expect(subject.queryByText("keyboard_arrow_down")).toBeInTheDocument();
+    expect(subject.queryByText("keyboard_arrow_up")).not.toBeInTheDocument();
+
+    fireEvent.click(subject.getByText("Filters"));
+
+    expect(subject.queryByText("keyboard_arrow_down")).not.toBeInTheDocument();
+    expect(subject.queryByText("keyboard_arrow_up")).toBeInTheDocument();
+  });
+
   it("[MOBILE] closes the filter panel when search is executed", () => {
     useMobileSize();
     const subject = render(<FilterBox />);
