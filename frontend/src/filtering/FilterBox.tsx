@@ -5,9 +5,11 @@ import { useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";
 import { EmploymentRateFilter } from "./EmploymentRateFilter";
 import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
+import { navigate } from "@reach/router";
+import { Searchbar } from "../components/Searchbar";
 
 interface Props {
-  children: ReactElement;
+  searchQuery?: string;
 }
 
 export const FilterBox = (props: Props): ReactElement => {
@@ -36,7 +38,14 @@ export const FilterBox = (props: Props): ReactElement => {
 
   return (
     <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
-      {props.children}
+      <Searchbar
+        onSearch={(searchQuery: string): Promise<void> => {
+          toggleFilterVisibility();
+          return navigate(`/search/${searchQuery}`);
+        }}
+        initialValue={props.searchQuery}
+        stacked={true}
+      />
       <div className="ptm fdr" style={{ display: isTabletAndUp ? "none" : "flex" }}>
         <SecondaryButton className="fin flex-half" onClick={toggleFilterVisibility}>
           <i className={`material-icons ${blueWhenFilterApplied()}`}>filter_list</i>

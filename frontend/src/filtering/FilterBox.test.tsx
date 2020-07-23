@@ -25,9 +25,7 @@ describe("<FilterBox />", () => {
 
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox>
-          <div />
-        </FilterBox>
+        <FilterBox />
       </FilterContext.Provider>
     );
   };
@@ -64,23 +62,26 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] opens and closes filter panel on button push", () => {
     useMobileSize();
-    const subject = render(
-      <FilterBox>
-        <div />
-      </FilterBox>
-    );
+    const subject = render(<FilterBox />);
     expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
     fireEvent.click(subject.getByText("Filters"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
   });
 
+  it("[MOBILE] closes the filter panel when search is executed", () => {
+    useMobileSize();
+    const subject = render(<FilterBox />);
+    fireEvent.click(subject.getByText("Filters"));
+    expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
+
+    fireEvent.click(subject.getByText("Search"));
+
+    expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
+  });
+
   it("[DESKTOP] shows filter panel by default with no toggle button", () => {
     useDesktopSize();
-    const subject = render(
-      <FilterBox>
-        <div />
-      </FilterBox>
-    );
+    const subject = render(<FilterBox />);
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
     expect(subject.getByText("Filters", { exact: false })).not.toBeVisible();
   });
