@@ -6,7 +6,6 @@ export const SecondaryButton = withStyles({
     borderRadius: 10,
     border: "1px solid #E5E5E5",
     color: "#5C5858",
-    height: 35,
     boxShadow: "0",
     textTransform: "none",
     fontWeight: "bold",

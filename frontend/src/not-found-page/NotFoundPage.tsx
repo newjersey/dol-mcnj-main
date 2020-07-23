@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Header } from "../search-results/Header";
+import { Icon } from "@material-ui/core";
 
 export const NotFoundPage = (props: RouteComponentProps): ReactElement => {
   return (
@@ -11,7 +12,9 @@ export const NotFoundPage = (props: RouteComponentProps): ReactElement => {
           <div className="col-md-6 col-md-offset-3">
             <div className="alert-box mtxl">
               <div className="rounded-top bg-light-green pal fdr fac">
-                <i className="material-icons error-icon mrs">error</i>
+                <div className="text-xxl mrs fin vam">
+                  <Icon fontSize="inherit">error</Icon>
+                </div>
                 <h2 className="text-xl">Sorry, we can't seem to find that page</h2>
               </div>
               <div className="pal">

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment, Icon } from "@material-ui/core";
 import { PrimaryButton } from "./PrimaryButton";
 import { Input } from "./Input";
 
@@ -40,7 +40,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         onKeyDown={handleKeyDown}
         startAdornment={
           <InputAdornment position="start">
-            <i className="material-icons icon">search</i>
+            <Icon>search</Icon>
           </InputAdornment>
         }
         placeholder="Search for training courses"

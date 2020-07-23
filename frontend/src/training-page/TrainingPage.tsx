@@ -5,6 +5,7 @@ import { Training } from "../domain/Training";
 import { Header } from "../search-results/Header";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { NotFoundPage } from "../not-found-page/NotFoundPage";
+import { InlineIcon } from "../components/InlineIcon";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -81,23 +82,26 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <div className="bg-light-green pvs bar">
                   <h2 className="text-m weight-500">Description</h2>
                 </div>
-                <div className="ptm group-padding">{training.description}</div>
+                <p className="pts group-padding">{training.description}</p>
               </div>
 
               <div className="mvm grouping">
                 <div className="bg-light-green pvs bar">
                   <h2 className="text-m weight-500">Quick Stats</h2>
                 </div>
-                <div className="ptm group-padding">
-                  <div className="mbd">
-                    <i className="material-icons icon mrxs">work_outline</i>
-                    Career Track: {getCareerTrackList()}
-                  </div>
-
-                  <div>
-                    <i className="material-icons icon mrxs">av_timer</i>
-                    {CalendarLengthLookup[training.calendarLength]}
-                  </div>
+                <div className="pts group-padding">
+                  <p>
+                    <span className="fin">
+                      <InlineIcon className="mrxs">work_outline</InlineIcon>
+                      Career Track: {getCareerTrackList()}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="fin">
+                      <InlineIcon className="mrxs">av_timer</InlineIcon>
+                      {CalendarLengthLookup[training.calendarLength]}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -106,16 +110,19 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <div className="bg-light-green pvs bar">
                   <h2 className="text-m weight-500">Provider Details</h2>
                 </div>
-                <div className="ptm group-padding">
-                  <div className="mbd">
-                    <i className="material-icons icon mrxs align-top">location_on</i>
-                    {getProviderAddress()}
+                <div className="pts group-padding">
+                  <div className="mvd">
+                    <span className="fin">
+                      <InlineIcon className="mrxs">location_on</InlineIcon>
+                      {getProviderAddress()}
+                    </span>
                   </div>
-
-                  <div>
-                    <i className="material-icons icon mrxs">link</i>
-                    {getProviderUrl()}
-                  </div>
+                  <p>
+                    <span className="fin">
+                      <InlineIcon className="mrxs">link</InlineIcon>
+                      {getProviderUrl()}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
