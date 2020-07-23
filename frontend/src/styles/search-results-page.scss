@@ -1,7 +1,7 @@
 @import "sizes";
 @import "header";
 
-$filterbox-height: 11.5rem;
+$filterbox-height: 12rem;
 
 .search-container {
   margin-top: $header-height;
@@ -14,13 +14,6 @@ $filterbox-height: 11.5rem;
 
 .line-height {
   padding-top: 3px;
-}
-
-.icon {
-  line-height: 1.2rem;
-  font-size: 1rem;
-  display: inline-flex;
-  vertical-align: text-bottom;
 }
 
 .filterbox {

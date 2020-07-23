@@ -6,7 +6,6 @@ export const PrimaryButton = withStyles({
     borderRadius: 10,
     border: 0,
     color: "white",
-    height: 35,
     boxShadow: "0",
     textTransform: "none",
     fontWeight: "bold",

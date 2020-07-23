@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { FilterContext } from "../App";
 import { SecondaryButton } from "../components/SecondaryButton";
-import { useMediaQuery } from "@material-ui/core";
+import { Icon, useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";
 import { EmploymentRateFilter } from "./EmploymentRateFilter";
 import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
@@ -60,23 +60,21 @@ export const FilterBox = (props: Props): ReactElement => {
         stacked={true}
       />
       <div className="ptm fdr" style={{ display: isTabletAndUp ? "none" : "flex" }}>
-        <SecondaryButton className="fin flex-half" onClick={toggleFilterVisibility}>
-          <span className={`pls ${blueWhenFilterApplied()}`}>Filters</span>
-          <span className="prs" style={{ marginLeft: "auto" }}>
-            <i
-              style={{ lineHeight: "inherit" }}
-              className={`material-icons ${blueWhenFilterApplied()}`}
-            >
-              {getArrowIcon()}
-            </i>
+        <SecondaryButton
+          className="fin flex-half"
+          onClick={toggleFilterVisibility}
+          endIcon={<Icon>{getArrowIcon()}</Icon>}
+        >
+          <span style={{ marginRight: "auto" }} className={`pls ${blueWhenFilterApplied()}`}>
+            Filters
           </span>
         </SecondaryButton>
       </div>
       <div className="ptd" style={{ display: filterIsOpen ? "block" : "none" }}>
         <div style={{ display: isTabletAndUp ? "none" : "block" }}>
-          <div className="mbs grey-line"></div>
+          <div className="mbs grey-line" />
           <div>{getResultCountText()}</div>
-          <div className="mvs grey-line"></div>
+          <div className="mvs grey-line" />
         </div>
 
         <CostFilter />
