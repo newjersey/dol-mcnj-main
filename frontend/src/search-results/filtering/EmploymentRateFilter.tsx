@@ -1,9 +1,9 @@
-import {FormControlLabel, FormGroup} from "@material-ui/core";
-import {SpacedCheckbox} from "../../components/SpacedCheckbox";
-import React, {ChangeEvent, ReactElement, useContext, useEffect, useState} from "react";
-import {FilterActionType, FilterContext} from "../../App";
-import {FilterableElement} from "../../domain/Filter";
-import {TrainingResult} from "../../domain/Training";
+import { FormControlLabel, FormGroup } from "@material-ui/core";
+import { SpacedCheckbox } from "../../components/SpacedCheckbox";
+import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { FilterActionType, FilterContext } from "../../App";
+import { FilterableElement } from "../../domain/Filter";
+import { TrainingResult } from "../../domain/Training";
 
 interface EmploymentRate {
   best: boolean;
@@ -13,7 +13,6 @@ interface EmploymentRate {
 }
 
 export const EmploymentRateFilter = (): ReactElement => {
-
   const [employmentRate, setEmploymentRate] = useState<EmploymentRate>({
     best: false,
     medium: false,
@@ -24,9 +23,11 @@ export const EmploymentRateFilter = (): ReactElement => {
   const { state, dispatch } = useContext(FilterContext);
 
   useEffect(() => {
-    const employmentRateFilter = state.filters.find(filter => filter.element === FilterableElement.EMPLOYMENT_RATE)
+    const employmentRateFilter = state.filters.find(
+      (filter) => filter.element === FilterableElement.EMPLOYMENT_RATE
+    );
     if (employmentRateFilter) {
-      setEmploymentRate(employmentRateFilter.value)
+      setEmploymentRate(employmentRateFilter.value);
     }
   }, [state.filters]);
 
@@ -111,5 +112,5 @@ export const EmploymentRateFilter = (): ReactElement => {
         />
       </FormGroup>
     </label>
-  )
-}
+  );
+};

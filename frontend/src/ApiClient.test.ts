@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
-import {Training, TrainingResult} from "./domain/Training";
-import {buildTraining, buildTrainingResult} from "./test-objects/factories";
+import { Training, TrainingResult } from "./domain/Training";
+import { buildTraining, buildTrainingResult } from "./test-objects/factories";
 
 jest.mock("axios");
 
@@ -14,14 +14,14 @@ describe("ApiClient", () => {
     apiClient = new ApiClient();
   });
 
-  describe('getTrainingsByQuery', () => {
-    it('uses the search query in the api call', () => {
-      const dummyObserver = {onSuccess: jest.fn(), onError: jest.fn()}
+  describe("getTrainingsByQuery", () => {
+    it("uses the search query in the api call", () => {
+      const dummyObserver = { onSuccess: jest.fn(), onError: jest.fn() };
       mockedAxios.get.mockResolvedValue({ data: [] });
 
       apiClient.getTrainingsByQuery("penguins", dummyObserver);
 
-      expect(mockedAxios.get).toHaveBeenCalledWith("/api/trainings/search?query=penguins")
+      expect(mockedAxios.get).toHaveBeenCalledWith("/api/trainings/search?query=penguins");
     });
 
     it("calls observer with successful training data", (done) => {
@@ -36,7 +36,7 @@ describe("ApiClient", () => {
         onError: jest.fn(),
       };
 
-      apiClient.getTrainingsByQuery('some query', observer);
+      apiClient.getTrainingsByQuery("some query", observer);
     });
 
     it("calls observer with error when GET fails", (done) => {
@@ -49,18 +49,18 @@ describe("ApiClient", () => {
         },
       };
 
-      apiClient.getTrainingsByQuery('some query', observer);
+      apiClient.getTrainingsByQuery("some query", observer);
     });
   });
 
-  describe('getTrainingById', () => {
-    it('uses the id in the api call', () => {
-      const dummyObserver = {onSuccess: jest.fn(), onError: jest.fn()}
+  describe("getTrainingById", () => {
+    it("uses the id in the api call", () => {
+      const dummyObserver = { onSuccess: jest.fn(), onError: jest.fn() };
       mockedAxios.get.mockResolvedValue({ data: buildTraining({}) });
 
       apiClient.getTrainingById("12345", dummyObserver);
 
-      expect(mockedAxios.get).toHaveBeenCalledWith("/api/trainings/12345")
+      expect(mockedAxios.get).toHaveBeenCalledWith("/api/trainings/12345");
     });
 
     it("calls observer with successful training data", (done) => {
@@ -75,7 +75,7 @@ describe("ApiClient", () => {
         onError: jest.fn(),
       };
 
-      apiClient.getTrainingById('some id', observer);
+      apiClient.getTrainingById("some id", observer);
     });
 
     it("calls observer with error when GET fails", (done) => {
@@ -88,7 +88,7 @@ describe("ApiClient", () => {
         },
       };
 
-      apiClient.getTrainingById('some id', observer);
+      apiClient.getTrainingById("some id", observer);
     });
   });
 });

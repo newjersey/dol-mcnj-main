@@ -2,17 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
-import {App} from "./App";
-import {ApiClient} from "./ApiClient";
-import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-
+import { App } from "./App";
+import { ApiClient } from "./ApiClient";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 const apiClient = new ApiClient();
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#12263A',
+      main: "#12263A",
     },
   },
 });
@@ -20,7 +19,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App client={apiClient}/>
+      <App client={apiClient} />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
