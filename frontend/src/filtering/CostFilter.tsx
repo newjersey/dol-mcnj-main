@@ -1,8 +1,8 @@
-import { Input } from "../../components/Input";
+import { Input } from "../components/Input";
 import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
-import { FilterActionType, FilterContext } from "../../App";
-import { FilterableElement } from "../../domain/Filter";
-import { TrainingResult } from "../../domain/Training";
+import { FilterActionType, FilterContext } from "../App";
+import { FilterableElement } from "../domain/Filter";
+import { TrainingResult } from "../domain/Training";
 
 export const CostFilter = (): ReactElement => {
   const [maxCost, setMaxCost] = useState<string>("");

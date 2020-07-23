@@ -7,7 +7,7 @@ import { Header } from "./Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { useMediaQuery } from "@material-ui/core";
 import { FilterContext } from "../App";
-import { FilterBox } from "./filtering/FilterBox";
+import { FilterBox } from "../filtering/FilterBox";
 
 interface Props extends RouteComponentProps {
   client: Client;
