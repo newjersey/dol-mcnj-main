@@ -66,7 +66,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <div className="container search-container">
         <div className="row">
           <div className="col-sm-4">
-            <FilterBox searchQuery={props.searchQuery} />
+            <FilterBox searchQuery={props.searchQuery} resultCount={filteredTrainings.length} />
           </div>
           <div className="col-sm-8 space-for-filterbox">
             {!isTabletAndUp && getResultCount()}
