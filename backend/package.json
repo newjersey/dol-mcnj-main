@@ -11,7 +11,7 @@
     "start:dev": "nodemon",
     "test": "jest",
     "db-migrate": "db-migrate",
-    "prettier": "prettier --write src/**/*.ts"
+    "prettier": "prettier --write src/*.ts && prettier --write src/**/*.ts"
   },
   "prettier": {
     "printWidth": 100
