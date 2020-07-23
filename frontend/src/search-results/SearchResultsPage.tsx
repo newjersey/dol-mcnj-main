@@ -1,8 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
-import { Searchbar } from "../components/Searchbar";
-import { navigate, RouteComponentProps } from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { useMediaQuery } from "@material-ui/core";
@@ -67,15 +66,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <div className="container search-container">
         <div className="row">
           <div className="col-sm-4">
-            <FilterBox>
-              <Searchbar
-                onSearch={(searchQuery: string): Promise<void> =>
-                  navigate(`/search/${searchQuery}`)
-                }
-                initialValue={props.searchQuery}
-                stacked={true}
-              />
-            </FilterBox>
+            <FilterBox searchQuery={props.searchQuery} />
           </div>
           <div className="col-sm-8 space-for-filterbox">
             {!isTabletAndUp && getResultCount()}
