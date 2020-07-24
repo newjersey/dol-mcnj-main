@@ -25,9 +25,13 @@ describe("<FilterBox />", () => {
 
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox resultCount={1} />
+        <FilterBox resultCount={1} setShowTrainings={jest.fn()} />
       </FilterContext.Provider>
     );
+  };
+
+  const renderFilterBox = ({ resultCount = 1, setShowTrainings = jest.fn() }): RenderResult => {
+    return render(<FilterBox resultCount={resultCount} setShowTrainings={setShowTrainings} />);
   };
 
   it("sets initial filter value from context if present", () => {
@@ -62,7 +66,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] opens and closes filter panel on button push", () => {
     useMobileSize();
-    const subject = render(<FilterBox resultCount={1} />);
+    const subject = renderFilterBox({});
     expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
     fireEvent.click(subject.getByText("Filters"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
@@ -70,7 +74,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] changes arrow to indicate open/close state", () => {
     useMobileSize();
-    const subject = render(<FilterBox resultCount={1} />);
+    const subject = renderFilterBox({});
 
     expect(subject.queryByText("keyboard_arrow_down")).toBeInTheDocument();
     expect(subject.queryByText("keyboard_arrow_up")).not.toBeInTheDocument();
@@ -83,7 +87,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] closes the filter panel when search is executed", () => {
     useMobileSize();
-    const subject = render(<FilterBox resultCount={1} />);
+    const subject = renderFilterBox({});
     fireEvent.click(subject.getByText("Filters"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
 
@@ -94,7 +98,7 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] displays the number of search results", () => {
     useMobileSize();
-    const subject = render(<FilterBox resultCount={50} />);
+    const subject = renderFilterBox({ resultCount: 50 });
     fireEvent.click(subject.getByText("Filters"));
 
     expect(subject.getByText("50 results")).toBeInTheDocument();
@@ -102,15 +106,37 @@ describe("<FilterBox />", () => {
 
   it("[MOBILE] uses correct grammar on result count", () => {
     useMobileSize();
-    const subject = render(<FilterBox resultCount={1} />);
+    const subject = renderFilterBox({ resultCount: 1 });
     fireEvent.click(subject.getByText("Filters"));
 
     expect(subject.getByText("1 result")).toBeInTheDocument();
   });
 
+  it("[MOBILE] triggers setShowTrainings when filter box is opened/closed", () => {
+    useMobileSize();
+    const mockCallback = jest.fn();
+    const subject = renderFilterBox({ setShowTrainings: mockCallback });
+
+    fireEvent.click(subject.getByText("Filters"));
+    expect(mockCallback).toHaveBeenLastCalledWith(false);
+
+    fireEvent.click(subject.getByText("Filters"));
+    expect(mockCallback).toHaveBeenLastCalledWith(true);
+
+    fireEvent.click(subject.getByText("Filters"));
+    expect(mockCallback).toHaveBeenLastCalledWith(false);
+  });
+
+  it("triggers setShowTrainings on screen size change", () => {
+    useDesktopSize();
+    const mockCallback = jest.fn();
+    renderFilterBox({ setShowTrainings: mockCallback });
+    expect(mockCallback).toHaveBeenLastCalledWith(true);
+  });
+
   it("[DESKTOP] shows filter panel by default with no toggle button", () => {
     useDesktopSize();
-    const subject = render(<FilterBox resultCount={1} />);
+    const subject = renderFilterBox({});
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
     expect(subject.getByText("Filters", { exact: false })).not.toBeVisible();
   });

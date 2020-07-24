@@ -18,6 +18,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
+  const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
 
   const { state } = useContext(FilterContext);
 
@@ -66,14 +67,20 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <div className="container search-container">
         <div className="row">
           <div className="col-sm-4">
-            <FilterBox searchQuery={props.searchQuery} resultCount={filteredTrainings.length} />
+            <FilterBox
+              searchQuery={props.searchQuery}
+              resultCount={filteredTrainings.length}
+              setShowTrainings={setShouldShowTrainings}
+            />
           </div>
-          <div className="col-sm-8 space-for-filterbox">
-            {!isTabletAndUp && getResultCount()}
-            {filteredTrainings.map((training) => (
-              <TrainingResultCard key={training.id} trainingResult={training} />
-            ))}
-          </div>
+          {shouldShowTrainings && (
+            <div className="col-sm-8 space-for-filterbox">
+              {!isTabletAndUp && getResultCount()}
+              {filteredTrainings.map((training) => (
+                <TrainingResultCard key={training.id} trainingResult={training} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
