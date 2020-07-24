@@ -49,6 +49,7 @@ $filterbox-height: 12rem;
     width: 235px;
     height: calc(100vh - (#{$header-height} * 2 + 30px));
     margin-left: 0;
+    overflow-y: auto;
   }
 
   .space-for-filterbox {
