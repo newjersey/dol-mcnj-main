@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { FilterContext } from "../App";
 import { SecondaryButton } from "../components/SecondaryButton";
 import { Icon, useMediaQuery } from "@material-ui/core";
@@ -11,10 +11,20 @@ import { Searchbar } from "../components/Searchbar";
 interface Props {
   searchQuery?: string;
   resultCount: number;
+  setShowTrainings: (shouldShowTrainings: boolean) => void;
 }
+
+const usePrevious = <T extends {}>(value: T): T | undefined => {
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
 
 export const FilterBox = (props: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const previousWasTabletAndUp = usePrevious(isTabletAndUp);
 
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
   const { state } = useContext(FilterContext);
@@ -22,11 +32,24 @@ export const FilterBox = (props: Props): ReactElement => {
   useEffect(() => {
     if (isTabletAndUp) {
       setFilterIsOpen(true);
+      props.setShowTrainings(true);
     }
-  }, [isTabletAndUp]);
+
+    if (!isTabletAndUp && previousWasTabletAndUp) {
+      setFilterIsOpen(false);
+      props.setShowTrainings(true);
+    }
+  }, [isTabletAndUp, previousWasTabletAndUp, props]);
 
   const toggleFilterVisibility = (): void => {
-    setFilterIsOpen(!filterIsOpen);
+    const newFilterIsOpen = !filterIsOpen;
+    props.setShowTrainings(!newFilterIsOpen);
+    setFilterIsOpen(newFilterIsOpen);
+  };
+
+  const closeFilters = (): void => {
+    props.setShowTrainings(true);
+    setFilterIsOpen(false);
   };
 
   const blueWhenFilterApplied = (): string => {
@@ -53,7 +76,7 @@ export const FilterBox = (props: Props): ReactElement => {
     <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
       <Searchbar
         onSearch={(searchQuery: string): Promise<void> => {
-          toggleFilterVisibility();
+          closeFilters();
           return navigate(`/search/${searchQuery}`);
         }}
         initialValue={props.searchQuery}

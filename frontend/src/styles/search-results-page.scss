@@ -33,7 +33,10 @@ $filterbox-height: 12rem;
 }
 
 .full {
-  height: 100%;
+  height: calc(100vh - #{$header-height});
+  overflow-y: scroll;
+  margin-top: $header-height;
+  bottom: 0;
 }
 
 .label-height {

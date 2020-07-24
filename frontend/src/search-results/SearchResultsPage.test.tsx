@@ -6,9 +6,10 @@ import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
+import { useMediaQuery } from "@material-ui/core";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-function mockFunctions() {
+function mockReachRouter() {
   const original = jest.requireActual("@reach/router");
   return {
     ...original,
@@ -16,7 +17,17 @@ function mockFunctions() {
   };
 }
 
-jest.mock("@reach/router", () => mockFunctions());
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function mockMaterialUI() {
+  const original = jest.requireActual("@material-ui/core");
+  return {
+    ...original,
+    useMediaQuery: jest.fn(),
+  };
+}
+
+jest.mock("@material-ui/core", () => mockMaterialUI());
+jest.mock("@reach/router", () => mockReachRouter());
 
 describe("<SearchResultsPage />", () => {
   let stubClient: StubClient;
@@ -137,4 +148,21 @@ describe("<SearchResultsPage />", () => {
     fireEvent.click(subject.getByText("Search"));
     expect(navigate).toHaveBeenCalledWith("/search/penguins");
   });
+
+  it("hides search results when filters are open on mobile", () => {
+    useMobileSize();
+    const subject = render(<SearchResultsPage client={stubClient} />);
+
+    act(() =>
+      stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "my cool training" })])
+    );
+
+    expect(subject.queryByText("my cool training")).toBeInTheDocument();
+    fireEvent.click(subject.getByText("Filters"));
+    expect(subject.queryByText("my cool training")).not.toBeInTheDocument();
+  });
+
+  const useMobileSize = (): void => {
+    (useMediaQuery as jest.Mock).mockImplementation(() => false);
+  };
 });
