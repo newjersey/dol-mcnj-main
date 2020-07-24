@@ -2,6 +2,9 @@ describe('Search', () => {
   it('searches from the homepage', () => {
     // on homepage
     cy.visit('/');
+    cy.injectAxe();
+    cy.checkA11y();
+
     cy.contains('Search for Training').should('exist');
 
     // input search
@@ -25,6 +28,7 @@ describe('Search', () => {
   it('searches from the search results page', () => {
     // on results page
     cy.visit('/search');
+    cy.injectAxe();
 
     // displays all trainings
     cy.contains("Patient Care Technician Program").should('exist');
@@ -58,6 +62,8 @@ describe('Search', () => {
 
     // removes others
     cy.contains('Patient Care Technician Program').should('not.exist');
+
+    cy.checkA11y();
   });
 
   it('links back to home page', () => {

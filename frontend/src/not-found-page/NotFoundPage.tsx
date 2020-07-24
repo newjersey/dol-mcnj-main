@@ -7,7 +7,7 @@ export const NotFoundPage = (props: RouteComponentProps): ReactElement => {
   return (
     <>
       <Header />
-      <div className="container below-header">
+      <main role="main" className="container below-header">
         <div className="row">
           <div className="col-md-6 col-md-offset-3">
             <div className="alert-box mtxl">
@@ -36,7 +36,7 @@ export const NotFoundPage = (props: RouteComponentProps): ReactElement => {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 };

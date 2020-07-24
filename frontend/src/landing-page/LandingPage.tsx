@@ -15,7 +15,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
       <div className="container landing-container height-full">
         <div className="row landing-row height-100">
           <div className="col-md-6 bg-light-green fdc fjc height-100 col-adjust">
-            <div className="maxl">
+            <header className="maxl">
               <div className="fdr fjc mbd">
                 <img
                   className="nj-logo-landing mrd"
@@ -33,11 +33,11 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                   Find the training you need to get the job that you want
                 </h2>
               </div>
-            </div>
+            </header>
           </div>
 
           <div className="col-md-6 height-100 fdc fjc col-adjust">
-            <div className="adjustable-margin-left">
+            <main role="main" className="adjustable-margin-left">
               <div className="mhl mvxl">
                 <h2 className="text-xl weight-500 section-header">Search for Training</h2>
                 <p className="text-m">
@@ -72,7 +72,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                   .
                 </p>
               </div>
-            </div>
+            </main>
           </div>
         </div>
       </div>

@@ -74,7 +74,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     return (
       <>
         <Header />
-        <div className="container below-header">
+        <main className="container below-header" role="main">
           <h2 className="text-xl ptm pbs weight-500">{training.name}</h2>
           <div className="row">
             <div className="col-md-8">
@@ -127,7 +127,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-        </div>
+        </main>
       </>
     );
   } else if (error) {

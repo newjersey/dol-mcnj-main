@@ -54,35 +54,37 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     <>
       <Header />
 
-      {isTabletAndUp && (
-        <div className="container results-count-container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="ptd fixed-wrapper">{getResultCount()}</div>
+      <main role="main">
+        {isTabletAndUp && (
+          <div className="container results-count-container">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="ptd fixed-wrapper">{getResultCount()}</div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="container search-container">
-        <div className="row">
-          <div className="col-sm-4">
-            <FilterBox
-              searchQuery={props.searchQuery}
-              resultCount={filteredTrainings.length}
-              setShowTrainings={setShouldShowTrainings}
-            />
-          </div>
-          {shouldShowTrainings && (
-            <div className="col-sm-8 space-for-filterbox">
-              {!isTabletAndUp && getResultCount()}
-              {filteredTrainings.map((training) => (
-                <TrainingResultCard key={training.id} trainingResult={training} />
-              ))}
+        <div className="container search-container">
+          <div className="row">
+            <div className="col-sm-4">
+              <FilterBox
+                searchQuery={props.searchQuery}
+                resultCount={filteredTrainings.length}
+                setShowTrainings={setShouldShowTrainings}
+              />
             </div>
-          )}
+            {shouldShowTrainings && (
+              <div className="col-sm-8 space-for-filterbox">
+                {!isTabletAndUp && getResultCount()}
+                {filteredTrainings.map((training) => (
+                  <TrainingResultCard key={training.id} trainingResult={training} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </main>
     </>
   );
 };
