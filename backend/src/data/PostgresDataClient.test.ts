@@ -48,6 +48,7 @@ describe("PostgresDataClient", () => {
 
   it("finds trainings by list of ids", async () => {
     const foundTrainings = await dataClient.findTrainingsByIds(["1", "4"]);
+    expect(foundTrainings.length).toEqual(2);
     expect(foundTrainings.map((it) => it.name)).toEqual(
       expect.arrayContaining(["Tree Identification Class", "Mushroom Foraging Certification"])
     );
