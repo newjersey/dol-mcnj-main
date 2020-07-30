@@ -7,6 +7,7 @@ import { TrainingResultCard } from "./TrainingResultCard";
 import { useMediaQuery } from "@material-ui/core";
 import { FilterContext } from "../App";
 import { FilterBox } from "../filtering/FilterBox";
+import { BetaBanner } from "../components/BetaBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -53,6 +54,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   return (
     <>
       <Header />
+      <BetaBanner />
 
       <main role="main">
         {isTabletAndUp && (
