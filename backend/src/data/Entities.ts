@@ -31,6 +31,6 @@ export interface OccupationEntity {
   soc2018title: string;
 }
 
-export interface SearchedEntity {
+export interface IdEntity {
   id: string;
 }

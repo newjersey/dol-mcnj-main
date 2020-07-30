@@ -1,35 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { DataClient, TrainingId } from "../domain/DataClient";
-import pgPromise, { IDatabase, ParameterizedQuery } from "pg-promise";
 import { CalendarLength, Status, Training, TrainingResult } from "../domain/Training";
-import { JoinedEntity, OccupationEntity, ProgramEntity, SearchedEntity } from "./Entities";
-
-const pgp = pgPromise();
+import { JoinedEntity, OccupationEntity, ProgramEntity, IdEntity } from "./Entities";
+import knex, { PgConnectionConfig } from "knex";
+import Knex from "knex";
 
 export class PostgresDataClient implements DataClient {
-  db: IDatabase<any>;
+  kdb: Knex;
 
-  constructor(connection: any) {
-    this.db = pgp(connection);
+  constructor(connection: PgConnectionConfig) {
+    this.kdb = knex({
+      client: "pg",
+      connection: connection,
+    });
   }
 
-  joinStatement =
-    "SELECT programs.id, programs.providerid, programs.officialname, programs.totalcost, programs.calendarlengthid, " +
-    "outcomes_cip.PerEmployed2, programs.statusname, " +
-    "providers.city, providers.statusname AS providerstatus, providers.name AS providername " +
-    "FROM programs " +
-    "LEFT OUTER JOIN outcomes_cip " +
-    "ON outcomes_cip.cipcode = programs.cipcode " +
-    "AND outcomes_cip.providerid = programs.providerid " +
-    "LEFT OUTER JOIN providers " +
-    "ON providers.providerid = programs.providerid ";
-
-  findAllTrainings = (): Promise<TrainingResult[]> => {
-    const sqlSelect = this.joinStatement + ";";
-
-    return this.dbQueryForJoinedEntities(sqlSelect);
+  findAllTrainings = async (): Promise<TrainingResult[]> => {
+    return this.findTrainingsByIds(
+      await this.kdb("programs")
+        .select("id")
+        .then((data: IdEntity[]) => data.map((it) => it.id))
+    );
   };
 
   findTrainingsByIds = (ids: string[]): Promise<TrainingResult[]> => {
@@ -37,35 +27,60 @@ export class PostgresDataClient implements DataClient {
       return Promise.resolve([]);
     }
 
-    const values = ids.map((id) => "'" + id + "'").join(",");
-    const sqlSearch = this.joinStatement + `WHERE programs.id IN (${values});`;
-
-    return this.dbQueryForJoinedEntities(sqlSearch);
+    return this.kdb("programs")
+      .select(
+        "programs.id",
+        "programs.providerid",
+        "programs.officialname",
+        "programs.totalcost",
+        "programs.calendarlengthid",
+        "programs.statusname",
+        "outcomes_cip.peremployed2",
+        "providers.city",
+        "providers.statusname as providerstatus",
+        "providers.name as providername"
+      )
+      .leftOuterJoin("outcomes_cip", function () {
+        this.on("outcomes_cip.cipcode", "programs.cipcode").on(
+          "outcomes_cip.providerid",
+          "programs.providerid"
+        );
+      })
+      .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
+      .whereIn("programs.id", ids)
+      .then((data: JoinedEntity[]) => {
+        return data.map(this.mapJoinedEntityToTrainingResult);
+      })
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   };
 
   findTrainingById = async (id: string): Promise<Training> => {
-    const sql =
-      "SELECT programs.id, programs.providerid, programs.officialname, programs.calendarlengthid, programs.description, " +
-      "programs.cipcode, providers.website, providers.name AS providername, " +
-      "providers.street1, providers.street2, providers.city, providers.state, providers.zip " +
-      "FROM programs " +
-      "LEFT OUTER JOIN providers " +
-      "ON providers.providerid = programs.providerid " +
-      "WHERE programs.id = $1;";
+    const programEntity: ProgramEntity = await this.kdb("programs")
+      .select(
+        "programs.id",
+        "programs.providerid",
+        "programs.officialname",
+        "programs.calendarlengthid",
+        "programs.description",
+        "programs.cipcode",
+        "providers.website",
+        "providers.name as providername",
+        "providers.street1",
+        "providers.street2",
+        "providers.city",
+        "providers.state",
+        "providers.zip"
+      )
+      .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
+      .where("programs.id", id)
+      .first();
 
-    const parameterizedQuery = new ParameterizedQuery({ text: sql, values: [id] });
-    const programEntity: ProgramEntity = await this.db.one(parameterizedQuery);
-
-    const selectOccupations = "SELECT soc2018title from soccipcrosswalk where cipcode = $1;";
-
-    const parameterizedSelectOccupations = new ParameterizedQuery({
-      text: selectOccupations,
-      values: [programEntity.cipcode],
-    });
-
-    const matchingOccipations: OccupationEntity[] = await this.db.any(
-      parameterizedSelectOccupations
-    );
+    const matchingOccupations: OccupationEntity[] = await this.kdb("soccipcrosswalk")
+      .select("soc2018title")
+      .where("cipcode", programEntity.cipcode);
 
     return Promise.resolve({
       id: programEntity.id,
@@ -75,7 +90,7 @@ export class PostgresDataClient implements DataClient {
         programEntity.calendarlengthid !== null
           ? parseInt(programEntity.calendarlengthid)
           : CalendarLength.NULL,
-      occupations: matchingOccipations.map((it) => it.soc2018title),
+      occupations: matchingOccupations.map((it) => it.soc2018title),
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",
@@ -91,30 +106,10 @@ export class PostgresDataClient implements DataClient {
   };
 
   search = (searchQuery: string): Promise<TrainingId[]> => {
-    const sql = "select id from programtokens " + "where tokens @@ websearch_to_tsquery($1);";
-
-    const parameterizedQuery = new ParameterizedQuery({ text: sql, values: [searchQuery] });
-    return this.db
-      .any(parameterizedQuery)
-      .then((data: SearchedEntity[]) => {
-        return data.map((entity) => entity.id);
-      })
-      .catch((e) => {
-        console.log("db error: ", e);
-        return Promise.reject();
-      });
-  };
-
-  private dbQueryForJoinedEntities = (
-    sql: string,
-    values?: string[]
-  ): Promise<TrainingResult[]> => {
-    const parameterizedQuery = new ParameterizedQuery({ text: sql, values: values });
-    return this.db
-      .any(parameterizedQuery)
-      .then((data: JoinedEntity[]) => {
-        return data.map(this.mapJoinedEntityToTrainingResult);
-      })
+    return this.kdb("programtokens")
+      .select("id")
+      .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
+      .then((data: IdEntity[]) => data.map((entity) => entity.id))
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
@@ -161,7 +156,7 @@ export class PostgresDataClient implements DataClient {
     return parseFloat(perEmployed);
   };
 
-  disconnect() {
-    pgp.end();
+  disconnect(): void {
+    this.kdb.destroy();
   }
 }
