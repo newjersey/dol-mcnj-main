@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 import { Searchbar } from "../components/Searchbar";
 import njLogo from "../njlogo.svg";
 import { useMediaQuery } from "@material-ui/core";
+import { BetaBanner } from "../components/BetaBanner";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
   const isSmallWidescreen = useMediaQuery("(min-width:992px) and (max-width:1100px)");
@@ -11,6 +12,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
 
   return (
     <>
+      <BetaBanner noHeader={true} />
       <div className="gutter-filler-left bg-light-green" />
       <div className="container landing-container height-full">
         <div className="row landing-row height-100">

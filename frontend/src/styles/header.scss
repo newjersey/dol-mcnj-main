@@ -1,5 +1,3 @@
-$header-height: 3.8rem;
-
 .nj-logo-header {
   width: 2.5rem;
 }
@@ -15,6 +13,22 @@ $header-height: 3.8rem;
   z-index: 10;
 }
 
-.below-header {
+.beta-banner {
+  background-color: $light-red;
+  line-height: $beta-banner-height;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $beta-banner-height;
   margin-top: $header-height;
+  z-index: 10;
+}
+
+.no-header-margin {
+  margin-top: 0;
+}
+
+.below-banners {
+  margin-top: $below-banners-height;
 }

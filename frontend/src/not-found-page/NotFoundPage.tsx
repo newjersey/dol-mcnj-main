@@ -2,12 +2,14 @@ import React, { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Header } from "../search-results/Header";
 import { Icon } from "@material-ui/core";
+import { BetaBanner } from "../components/BetaBanner";
 
 export const NotFoundPage = (props: RouteComponentProps): ReactElement => {
   return (
     <>
       <Header />
-      <main role="main" className="container below-header">
+      <BetaBanner />
+      <main role="main" className="container below-banners">
         <div className="row">
           <div className="col-md-6 col-md-offset-3">
             <div className="alert-box mtxl">

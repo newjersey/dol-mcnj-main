@@ -1,10 +1,9 @@
 @import "sizes";
 @import "header";
 
-$filterbox-height: 12rem;
 
 .search-container {
-  margin-top: $header-height;
+  margin-top: $below-banners-height;
 }
 
 .card {
@@ -33,9 +32,9 @@ $filterbox-height: 12rem;
 }
 
 .full {
-  height: calc(100vh - #{$header-height});
+  height: calc(100vh - #{$below-banners-height});
   overflow-y: scroll;
-  margin-top: $header-height;
+  margin-top: $below-banners-height;
   bottom: 0;
 }
 
@@ -47,7 +46,7 @@ $filterbox-height: 12rem;
 @media (min-width: $xs) {
   .filterbox {
     width: 235px;
-    height: calc(100vh - (#{$header-height} * 2 + 30px));
+    height: calc(100vh - #{$below-banners-height} + #{$result-count-height} + 30px);
     margin-left: 0;
     overflow-y: auto;
   }
@@ -57,8 +56,8 @@ $filterbox-height: 12rem;
   }
 
   .results-count-container {
-    margin-top: $header-height;
-    height: $header-height;
+    margin-top: $below-banners-height;
+    height: $result-count-height;
     margin-bottom: 1.5rem;
   }
 

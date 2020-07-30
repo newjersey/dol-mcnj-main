@@ -1,0 +1,6 @@
+$beta-banner-height: 2.5rem;
+$filterbox-height: 12rem;
+$header-height: 3.8rem;
+$result-count-height: 3.8rem;
+
+$below-banners-height: calc(#{$header-height} + #{$beta-banner-height})

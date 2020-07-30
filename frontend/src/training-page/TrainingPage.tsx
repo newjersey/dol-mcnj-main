@@ -6,6 +6,7 @@ import { Header } from "../search-results/Header";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { NotFoundPage } from "../not-found-page/NotFoundPage";
 import { InlineIcon } from "../components/InlineIcon";
+import { BetaBanner } from "../components/BetaBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -74,7 +75,8 @@ export const TrainingPage = (props: Props): ReactElement => {
     return (
       <>
         <Header />
-        <main className="container below-header" role="main">
+        <BetaBanner />
+        <main className="container below-banners" role="main">
           <h2 className="text-xl ptm pbs weight-500">{training.name}</h2>
           <div className="row">
             <div className="col-md-8">
