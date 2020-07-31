@@ -17,6 +17,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     percentEmployed: randomInt(),
     provider: buildProviderResult({}),
     calendarLength: randomCalendarLength(),
+    inDemand: !!Math.round(Math.random()),
     ...overrides,
   };
 };
@@ -38,6 +39,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     calendarLength: randomCalendarLength(),
     occupations: ["some-occupation-" + randomInt()],
     description: "some-description-" + randomInt(),
+    inDemand: !!Math.round(Math.random()),
     ...overrides,
   };
 };

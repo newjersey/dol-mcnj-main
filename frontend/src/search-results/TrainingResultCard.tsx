@@ -4,6 +4,7 @@ import { formatMoney } from "accounting";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
+import { InDemandTag } from "../components/InDemandTag";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -57,6 +58,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 {CalendarLengthLookup[props.trainingResult.calendarLength]}
               </span>
             </p>
+            <p className="mtxs mbz">{props.trainingResult.inDemand ? <InDemandTag /> : <></>}</p>
           </div>
         </div>
       </div>

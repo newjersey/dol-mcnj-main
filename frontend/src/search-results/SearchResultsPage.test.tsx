@@ -92,6 +92,22 @@ describe("<SearchResultsPage />", () => {
     expect(subject.getByText("Less than 1 day to complete", { exact: false })).toBeInTheDocument();
   });
 
+  it("displays an in-demand tag when a training is in-demand", () => {
+    const subject = render(<SearchResultsPage client={stubClient} />);
+    const inDemand = buildTrainingResult({ name: "in-demand", inDemand: true });
+    act(() => stubClient.capturedObserver.onSuccess([inDemand]));
+
+    expect(subject.queryByText("In Demand")).toBeInTheDocument();
+  });
+
+  it("does not display an in-demand tag when a training is not in-demand", () => {
+    const subject = render(<SearchResultsPage client={stubClient} />);
+    const notInDemand = buildTrainingResult({ name: "not-in-demand", inDemand: false });
+    act(() => stubClient.capturedObserver.onSuccess([notInDemand]));
+
+    expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
+  });
+
   it("displays number of results returns for search query", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />);
     act(() =>

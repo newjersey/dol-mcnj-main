@@ -1,13 +1,13 @@
 export type StubDataClient = {
   findAllTrainings: jest.Mock;
   search: jest.Mock;
-  findTrainingsByIds: jest.Mock;
+  findTrainingResultsByIds: jest.Mock;
   findTrainingById: jest.Mock;
 };
 
 export const StubDataClient = (): StubDataClient => ({
   findAllTrainings: jest.fn(),
   search: jest.fn(),
-  findTrainingsByIds: jest.fn(),
+  findTrainingResultsByIds: jest.fn(),
   findTrainingById: jest.fn(),
 });

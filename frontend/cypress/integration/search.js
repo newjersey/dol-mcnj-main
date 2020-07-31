@@ -83,4 +83,21 @@ describe('Search', () => {
     // shows program
     cy.contains('Baking and Pastry Professional').should('exist');
   });
+
+  it('tags trainings on in-demand', () => {
+    cy.visit('/search/baking');
+
+    // in-demand training
+    cy.contains('Culinary Arts/Restaurant Operations').within(() => {
+      cy.contains('In Demand').should('exist');
+    });
+
+    // not in-demand training
+    cy.contains('Baking and Pastry Professional').within(() => {
+      cy.contains('In Demand').should('not.exist');
+    });
+
+    cy.contains('Culinary Arts/Restaurant Operations').click({force: true});
+    cy.contains('In Demand').should('exist');
+  });
 });

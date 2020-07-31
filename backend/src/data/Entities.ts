@@ -9,6 +9,7 @@ export interface JoinedEntity {
   providerstatus: string;
   providername: string;
   calendarlengthid: string;
+  indemandcip: string;
 }
 
 export interface ProgramEntity {
@@ -25,6 +26,7 @@ export interface ProgramEntity {
   city: string;
   state: string;
   zip: string;
+  indemandcip: string;
 }
 
 export interface OccupationEntity {

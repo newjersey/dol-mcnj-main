@@ -6,7 +6,7 @@ import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (searchQuery?: string): Promise<TrainingResult[]> =>
     (searchQuery
-      ? dataClient.search(searchQuery).then(dataClient.findTrainingsByIds)
+      ? dataClient.search(searchQuery).then(dataClient.findTrainingResultsByIds)
       : dataClient.findAllTrainings()
     ).then((trainings: TrainingResult[]): TrainingResult[] => {
       return trainings
