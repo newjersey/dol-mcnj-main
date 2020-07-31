@@ -18,7 +18,7 @@ describe("searchTrainings", () => {
   it("returns trainings", async () => {
     const training = buildTrainingResult({});
     stubDataClient.search.mockResolvedValue([]);
-    stubDataClient.findTrainingsByIds.mockResolvedValue([training]);
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training]);
     expect(await searchTrainings("some query")).toEqual([training]);
   });
 
@@ -27,13 +27,13 @@ describe("searchTrainings", () => {
     const training2 = buildTrainingResult({ name: "training 2", id: "2" });
 
     stubDataClient.search.mockResolvedValue(["1", "2"]);
-    stubDataClient.findTrainingsByIds.mockResolvedValue([training1, training2]);
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
 
     const searchResults = await searchTrainings("keyword");
     expect(searchResults).toEqual(expect.arrayContaining([training1, training2]));
 
     expect(stubDataClient.search).toHaveBeenCalledWith("keyword");
-    expect(stubDataClient.findTrainingsByIds).toHaveBeenCalledWith(["1", "2"]);
+    expect(stubDataClient.findTrainingResultsByIds).toHaveBeenCalledWith(["1", "2"]);
   });
 
   it("gets all trainings when search query is empty/undefined", async () => {
@@ -58,7 +58,7 @@ describe("searchTrainings", () => {
 
   it("filters out results when training is suspended or pending", async () => {
     stubDataClient.search.mockResolvedValue([]);
-    stubDataClient.findTrainingsByIds.mockResolvedValue([
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([
       buildTrainingResult({ id: "1", status: Status.APPROVED }),
       buildTrainingResult({ id: "2", status: Status.PENDING }),
       buildTrainingResult({ id: "3", status: Status.UNKNOWN }),
@@ -72,7 +72,7 @@ describe("searchTrainings", () => {
 
   it("filters out results when provider is suspended or pending", async () => {
     stubDataClient.search.mockResolvedValue([]);
-    stubDataClient.findTrainingsByIds.mockResolvedValue([
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([
       buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
       buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
       buildTrainingResult({ id: "3", provider: buildProviderResult({ status: Status.UNKNOWN }) }),

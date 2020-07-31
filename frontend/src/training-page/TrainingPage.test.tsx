@@ -57,6 +57,22 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
   });
 
+  it("displays an in-demand tag when a training is in-demand", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const inDemand = buildTraining({ inDemand: true });
+    act(() => stubClient.capturedObserver.onSuccess(inDemand));
+
+    expect(subject.queryByText("In Demand")).toBeInTheDocument();
+  });
+
+  it("does not display an in-demand tag when a training is not in-demand", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const notInDemand = buildTraining({ inDemand: false });
+    act(() => stubClient.capturedObserver.onSuccess(notInDemand));
+
+    expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
+  });
+
   it("displays both address lines if they exist", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
 

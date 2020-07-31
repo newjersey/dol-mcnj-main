@@ -15,14 +15,14 @@ export class PostgresDataClient implements DataClient {
   }
 
   findAllTrainings = async (): Promise<TrainingResult[]> => {
-    return this.findTrainingsByIds(
+    return this.findTrainingResultsByIds(
       await this.kdb("programs")
         .select("id")
         .then((data: IdEntity[]) => data.map((it) => it.id))
     );
   };
 
-  findTrainingsByIds = (ids: string[]): Promise<TrainingResult[]> => {
+  findTrainingResultsByIds = (ids: string[]): Promise<TrainingResult[]> => {
     if (ids.length === 0) {
       return Promise.resolve([]);
     }
@@ -38,7 +38,8 @@ export class PostgresDataClient implements DataClient {
         "outcomes_cip.peremployed2",
         "providers.city",
         "providers.statusname as providerstatus",
-        "providers.name as providername"
+        "providers.name as providername",
+        "indemandcips.cipcode as indemandcip"
       )
       .leftOuterJoin("outcomes_cip", function () {
         this.on("outcomes_cip.cipcode", "programs.cipcode").on(
@@ -47,6 +48,7 @@ export class PostgresDataClient implements DataClient {
         );
       })
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
+      .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .whereIn("programs.id", ids)
       .then((data: JoinedEntity[]) => {
         return data.map(this.mapJoinedEntityToTrainingResult);
@@ -72,9 +74,11 @@ export class PostgresDataClient implements DataClient {
         "providers.street2",
         "providers.city",
         "providers.state",
-        "providers.zip"
+        "providers.zip",
+        "indemandcips.cipcode as indemandcip"
       )
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
+      .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .where("programs.id", id)
       .first();
 
@@ -91,6 +95,7 @@ export class PostgresDataClient implements DataClient {
           ? parseInt(programEntity.calendarlengthid)
           : CalendarLength.NULL,
       occupations: matchingOccupations.map((it) => it.soc2018title),
+      inDemand: programEntity.indemandcip !== null,
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",
@@ -125,6 +130,7 @@ export class PostgresDataClient implements DataClient {
       status: this.mapStatus(entity.statusname),
       calendarLength:
         entity.calendarlengthid !== null ? parseInt(entity.calendarlengthid) : CalendarLength.NULL,
+      inDemand: entity.indemandcip !== null,
       provider: {
         id: entity.providerid,
         city: entity.city,

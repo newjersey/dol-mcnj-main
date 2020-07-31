@@ -5,6 +5,7 @@ export interface TrainingResult {
   percentEmployed: number | null;
   calendarLength: CalendarLength;
   provider: ProviderResult;
+  inDemand: boolean;
 }
 
 export interface ProviderResult {
@@ -20,6 +21,7 @@ export interface Training {
   description: string;
   occupations: string[];
   provider: Provider;
+  inDemand: boolean;
 }
 
 export interface Provider {

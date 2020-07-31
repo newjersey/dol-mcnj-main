@@ -4,6 +4,7 @@ $light-green: #EBF5EE;
 $blue: #1668B4;
 $light-grey: #E5E5E5;
 $light-red: #fadee3;
+$orange: #FCDBB6;
 
 .bg-light-green {
   background-color: $light-green;
@@ -11,4 +12,8 @@ $light-red: #fadee3;
 
 .blue {
   color: $blue;
+}
+
+.bg-orange {
+  background-color: $orange;
 }

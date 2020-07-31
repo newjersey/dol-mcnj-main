@@ -6,6 +6,7 @@ export interface TrainingResult {
   status: Status;
   calendarLength: CalendarLength;
   provider: ProviderResult;
+  inDemand: boolean;
 }
 
 export interface ProviderResult {
@@ -22,6 +23,7 @@ export interface Training {
   description: string;
   calendarLength: CalendarLength;
   occupations: string[];
+  inDemand: boolean;
 }
 
 export interface Provider {

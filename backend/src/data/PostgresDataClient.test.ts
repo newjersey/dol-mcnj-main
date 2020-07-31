@@ -38,6 +38,7 @@ describe("PostgresDataClient", () => {
         name: "Vineland Public Schools Adult Education Program",
         status: Status.SUSPENDED,
       },
+      inDemand: true,
     });
   });
 
@@ -47,7 +48,7 @@ describe("PostgresDataClient", () => {
   });
 
   it("finds trainings by list of ids", async () => {
-    const foundTrainings = await dataClient.findTrainingsByIds(["1", "4"]);
+    const foundTrainings = await dataClient.findTrainingResultsByIds(["1", "4"]);
     expect(foundTrainings.length).toEqual(2);
     expect(foundTrainings.map((it) => it.name)).toEqual(
       expect.arrayContaining(["Tree Identification Class", "Mushroom Foraging Certification"])
@@ -55,7 +56,7 @@ describe("PostgresDataClient", () => {
   });
 
   it("returns empty when id list is empty", async () => {
-    const foundTrainings = await dataClient.findTrainingsByIds([]);
+    const foundTrainings = await dataClient.findTrainingResultsByIds([]);
     expect(foundTrainings).toHaveLength(0);
   });
 
@@ -81,7 +82,16 @@ describe("PostgresDataClient", () => {
           zipCode: "08360",
         },
       },
+      inDemand: true,
     });
+  });
+
+  it("returns inDemand as false when training cip is not on indemand list", async () => {
+    const foundTraining = await dataClient.findTrainingById("3");
+    expect(foundTraining.inDemand).toEqual(false);
+
+    const foundTrainings = await dataClient.findTrainingResultsByIds(["3"]);
+    expect(foundTrainings[0].inDemand).toEqual(false);
   });
 
   it("gets list of all occupations for a training's cip code", async () => {
@@ -96,7 +106,7 @@ describe("PostgresDataClient", () => {
   });
 
   it("returns null enum if calendar length id does not exist", async () => {
-    const foundTrainings = await dataClient.findTrainingsByIds(["4"]);
+    const foundTrainings = await dataClient.findTrainingResultsByIds(["4"]);
     expect(foundTrainings[0].calendarLength).toEqual(CalendarLength.NULL);
   });
 
