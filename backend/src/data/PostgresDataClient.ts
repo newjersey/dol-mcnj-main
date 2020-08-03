@@ -18,7 +18,7 @@ export class PostgresDataClient implements DataClient {
     return this.findTrainingResultsByIds(
       await this.kdb("programs")
         .select("id")
-        .then((data: IdEntity[]) => data.map((it) => it.id))
+        .then((data: IdEntity[]) => data.map((it) => it.id.toString()))
     );
   };
 
@@ -41,6 +41,7 @@ export class PostgresDataClient implements DataClient {
         "providers.name as providername",
         "indemandcips.cipcode as indemandcip"
       )
+      .joinRaw(`join unnest('{${ids.join(",")}}'::int[]) WITH ORDINALITY t(id, ord) USING (id)`)
       .leftOuterJoin("outcomes_cip", function () {
         this.on("outcomes_cip.cipcode", "programs.cipcode").on(
           "outcomes_cip.providerid",
@@ -50,6 +51,7 @@ export class PostgresDataClient implements DataClient {
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .whereIn("programs.id", ids)
+      .orderByRaw("t.ord")
       .then((data: JoinedEntity[]) => {
         return data.map(this.mapJoinedEntityToTrainingResult);
       })
@@ -112,9 +114,13 @@ export class PostgresDataClient implements DataClient {
 
   search = (searchQuery: string): Promise<TrainingId[]> => {
     return this.kdb("programtokens")
-      .select("id")
+      .select(
+        "id",
+        this.kdb.raw("ts_rank_cd(tokens, websearch_to_tsquery(?), 1) AS rank", [searchQuery])
+      )
       .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
-      .then((data: IdEntity[]) => data.map((entity) => entity.id))
+      .orderBy("rank", "desc")
+      .then((data: IdEntity[]) => data.map((entity) => entity.id.toString()))
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();

@@ -44,15 +44,29 @@ describe("PostgresDataClient", () => {
 
   it("searches training ids when title, description matches a search query", async () => {
     const foundTrainings = await dataClient.search("tree");
-    expect(foundTrainings).toEqual(expect.arrayContaining([1, 2, 5]));
+    expect(foundTrainings).toEqual(expect.arrayContaining(["1", "2", "5"]));
   });
 
-  it("finds trainings by list of ids", async () => {
+  it("returns search results in order of relevance", async () => {
+    const foundTrainings = await dataClient.search("tree");
+    expect(foundTrainings[0]).toEqual("2");
+    expect(foundTrainings[1]).toEqual("1");
+    expect(foundTrainings[2]).toEqual("5");
+  });
+
+  it("finds training results by list of ids", async () => {
     const foundTrainings = await dataClient.findTrainingResultsByIds(["1", "4"]);
     expect(foundTrainings.length).toEqual(2);
     expect(foundTrainings.map((it) => it.name)).toEqual(
       expect.arrayContaining(["Tree Identification Class", "Mushroom Foraging Certification"])
     );
+  });
+
+  it("preserves order of input list of ids", async () => {
+    const foundTrainings = await dataClient.findTrainingResultsByIds(["4", "1"]);
+    expect(foundTrainings.length).toEqual(2);
+    expect(foundTrainings[0].name).toEqual("Mushroom Foraging Certification");
+    expect(foundTrainings[1].name).toEqual("Tree Identification Class");
   });
 
   it("returns empty when id list is empty", async () => {
