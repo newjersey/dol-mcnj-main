@@ -4,7 +4,7 @@ import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery, CircularProgress } from "@material-ui/core";
 import { FilterContext } from "../App";
 import { FilterBox } from "../filtering/FilterBox";
 import { BetaBanner } from "../components/BetaBanner";
@@ -20,6 +20,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { state } = useContext(FilterContext);
 
@@ -34,8 +35,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
     props.client.getTrainingsByQuery(queryToSearch, {
-      onSuccess: setTrainings,
-      onError: () => {},
+      onSuccess: (data: TrainingResult[]) => {
+        setTrainings(data);
+        setIsLoading(false);
+      },
+      onError: () => {
+        setIsLoading(false);
+      },
     });
   }, [props.searchQuery, props.client]);
 
@@ -61,7 +67,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="container results-count-container">
             <div className="row">
               <div className="col-md-12">
-                <div className="ptd fixed-wrapper">{getResultCount()}</div>
+                <div className="ptd fixed-wrapper">{!isLoading && getResultCount()}</div>
               </div>
             </div>
           </div>
@@ -78,7 +84,14 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             </div>
             {shouldShowTrainings && (
               <div className="col-sm-8 space-for-filterbox">
-                {!isTabletAndUp && getResultCount()}
+                {isLoading && (
+                  <div className="fdr fjc ptl">
+                    <CircularProgress color="secondary" />
+                  </div>
+                )}
+
+                {!isLoading && !isTabletAndUp && getResultCount()}
+
                 {filteredTrainings.map((training) => (
                   <TrainingResultCard key={training.id} trainingResult={training} />
                 ))}
