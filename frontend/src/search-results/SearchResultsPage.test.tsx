@@ -119,8 +119,34 @@ describe("<SearchResultsPage />", () => {
     ).toBeInTheDocument();
   });
 
+  it("displays a spinner while search results are loading - success", () => {
+    const subject = render(<SearchResultsPage client={stubClient} searchQuery={"some query"} />);
+
+    expect(subject.queryByRole("progressbar")).toBeInTheDocument();
+    expect(subject.queryByText("0 results found", { exact: false })).not.toBeInTheDocument();
+
+    act(() =>
+      stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})])
+    );
+
+    expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
+  });
+
+  it("displays a spinner while search results are loading - error", () => {
+    const subject = render(<SearchResultsPage client={stubClient} searchQuery={"some query"} />);
+
+    expect(subject.queryByRole("progressbar")).toBeInTheDocument();
+    expect(subject.queryByText("0 results found", { exact: false })).not.toBeInTheDocument();
+
+    act(() => stubClient.capturedObserver.onError());
+
+    expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
+  });
+
   it("displays empty string for search query when undefined", () => {
     const subject = render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
+
+    act(() => stubClient.capturedObserver.onSuccess([]));
 
     expect(subject.getByText('0 results found for ""', { exact: false })).toBeInTheDocument();
   });
