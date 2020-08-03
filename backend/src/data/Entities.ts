@@ -34,5 +34,5 @@ export interface OccupationEntity {
 }
 
 export interface IdEntity {
-  id: string;
+  id: number;
 }
