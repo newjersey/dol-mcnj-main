@@ -38,21 +38,21 @@ describe("searchTrainings", () => {
 
   it("gets all trainings when search query is empty/undefined", async () => {
     const allTrainings = [buildTrainingResult({}), buildTrainingResult({})];
-    stubDataClient.findAllTrainings.mockResolvedValue(allTrainings);
+    stubDataClient.findAllTrainingResults.mockResolvedValue(allTrainings);
 
     let searchResults = await searchTrainings("");
     expect(searchResults).toEqual(expect.arrayContaining(allTrainings));
 
-    expect(stubDataClient.findAllTrainings).toHaveBeenCalled();
+    expect(stubDataClient.findAllTrainingResults).toHaveBeenCalled();
     expect(stubDataClient.search).not.toHaveBeenCalled();
 
     jest.resetAllMocks();
-    stubDataClient.findAllTrainings.mockResolvedValue(allTrainings);
+    stubDataClient.findAllTrainingResults.mockResolvedValue(allTrainings);
 
     searchResults = await searchTrainings(undefined);
     expect(searchResults).toEqual(expect.arrayContaining(allTrainings));
 
-    expect(stubDataClient.findAllTrainings).toHaveBeenCalled();
+    expect(stubDataClient.findAllTrainingResults).toHaveBeenCalled();
     expect(stubDataClient.search).not.toHaveBeenCalled();
   });
 
@@ -85,7 +85,7 @@ describe("searchTrainings", () => {
   });
 
   it("filters out results when training is suspended or pending and search is empty", async () => {
-    stubDataClient.findAllTrainings.mockResolvedValue([
+    stubDataClient.findAllTrainingResults.mockResolvedValue([
       buildTrainingResult({ id: "1", status: Status.APPROVED }),
       buildTrainingResult({ id: "2", status: Status.PENDING }),
       buildTrainingResult({ id: "3", status: Status.UNKNOWN }),
@@ -98,7 +98,7 @@ describe("searchTrainings", () => {
   });
 
   it("filters out results when provider is suspended or pending and search is empty", async () => {
-    stubDataClient.findAllTrainings.mockResolvedValue([
+    stubDataClient.findAllTrainingResults.mockResolvedValue([
       buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
       buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
       buildTrainingResult({ id: "3", provider: buildProviderResult({ status: Status.UNKNOWN }) }),
@@ -111,7 +111,7 @@ describe("searchTrainings", () => {
   });
 
   it("strips surrounding quotation marks from name / provider name of training result", async () => {
-    stubDataClient.findAllTrainings.mockResolvedValue([
+    stubDataClient.findAllTrainingResults.mockResolvedValue([
       buildTrainingResult({
         name: '"Some Name with Quotes"',
         provider: buildProviderResult({ name: '"Some Name with Quotes"' }),

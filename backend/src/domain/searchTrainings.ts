@@ -7,7 +7,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   return async (searchQuery?: string): Promise<TrainingResult[]> =>
     (searchQuery
       ? dataClient.search(searchQuery).then(dataClient.findTrainingResultsByIds)
-      : dataClient.findAllTrainings()
+      : dataClient.findAllTrainingResults()
     ).then((trainings: TrainingResult[]): TrainingResult[] => {
       return trainings
         .filter(

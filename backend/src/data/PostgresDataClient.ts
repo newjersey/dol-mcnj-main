@@ -14,7 +14,7 @@ export class PostgresDataClient implements DataClient {
     });
   }
 
-  findAllTrainings = async (): Promise<TrainingResult[]> => {
+  findAllTrainingResults = async (): Promise<TrainingResult[]> => {
     return this.findTrainingResultsByIds(
       await this.kdb("programs")
         .select("id")
