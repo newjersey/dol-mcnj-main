@@ -23,6 +23,12 @@ describe('Search', () => {
 
     // matches by description
     cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
+
+    cy.contains(
+      '"...positions as Assistant Pastry Chefs, Assistant Cake Decorators, ' +
+      'Assistant Bakers, and Staff Bakers. Students completing in-school ' +
+      'training gain real..."'
+    ).should('exist');
   });
 
   it('searches from the search results page', () => {

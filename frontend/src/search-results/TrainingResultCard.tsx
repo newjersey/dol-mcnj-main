@@ -19,6 +19,25 @@ export const TrainingResultCard = (props: Props): ReactElement => {
     return (Math.trunc(percentEmployed * 1000) / 10).toFixed(1) + "% employed";
   };
 
+  const boldHighlightedSection = (highlight: string): ReactElement[] => {
+    if (highlight === "") {
+      return [];
+    }
+
+    const boldedHighlights = highlight
+      .split("[[")
+      .flatMap((substring) => substring.split("]]"))
+      .map((section, index) => {
+        if (index % 2 !== 0) {
+          return <b key={index}>{section}</b>;
+        } else {
+          return <span key={index}>{section}</span>;
+        }
+      });
+
+    return [<span key="start">"...</span>, ...boldedHighlights, <span key="end">..."</span>];
+  };
+
   return (
     <Link className="no-link-format" to={`/training/${props.trainingResult.id}`}>
       <div className="card mbs container-fluid pam hover-shadow">
@@ -58,6 +77,11 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 {CalendarLengthLookup[props.trainingResult.calendarLength]}
               </span>
             </p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-10">
+            <p>{boldHighlightedSection(props.trainingResult.highlight)}</p>
             <p className="mtxs mbz">{props.trainingResult.inDemand ? <InDemandTag /> : <></>}</p>
           </div>
         </div>

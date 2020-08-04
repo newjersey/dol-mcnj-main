@@ -7,6 +7,7 @@ export interface TrainingResult {
   calendarLength: CalendarLength;
   provider: ProviderResult;
   inDemand: boolean;
+  highlight: string;
 }
 
 export interface ProviderResult {

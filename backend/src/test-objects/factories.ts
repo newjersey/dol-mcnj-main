@@ -20,6 +20,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     status: randomStatus(),
     calendarLength: randomCalendarLength(),
     inDemand: !!Math.round(Math.random()),
+    highlight: "some-hightlight-" + Math.random(),
     ...overrides,
   };
 };

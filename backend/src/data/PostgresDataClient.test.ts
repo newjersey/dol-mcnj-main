@@ -26,7 +26,7 @@ describe("PostgresDataClient", () => {
     const trainingResults = await dataClient.findAllTrainingResults();
     expect(trainingResults.length).toEqual(5);
     expect(trainingResults).toContainEqual({
-      id: 1,
+      id: "1",
       name: "Tree Identification Class",
       totalCost: 3035,
       percentEmployed: 0,
@@ -39,7 +39,21 @@ describe("PostgresDataClient", () => {
         status: Status.SUSPENDED,
       },
       inDemand: true,
+      highlight: "",
     });
+  });
+
+  it("fetches highlights for a list of result ids", async () => {
+    const highlights = await dataClient.getHighlights(["5", "1"], "tree");
+    expect(highlights[0]).toEqual("This program is also about [[trees]]");
+    expect(highlights[1]).toEqual(
+      "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]"
+    );
+  });
+
+  it("returns empty string when a result does not have a match in the description", async () => {
+    const highlights = await dataClient.getHighlights(["1"], "class");
+    expect(highlights[0]).toEqual("");
   });
 
   it("searches training ids when title, description matches a search query", async () => {
@@ -77,7 +91,7 @@ describe("PostgresDataClient", () => {
   it("finds a training by id", async () => {
     const foundTraining = await dataClient.findTrainingById("1");
     expect(foundTraining).toEqual({
-      id: 1,
+      id: "1",
       name: "Tree Identification Class",
       calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
       description:

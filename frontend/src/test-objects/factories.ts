@@ -18,6 +18,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     provider: buildProviderResult({}),
     calendarLength: randomCalendarLength(),
     inDemand: !!Math.round(Math.random()),
+    highlight: "some-highlight-" + randomInt(),
     ...overrides,
   };
 };

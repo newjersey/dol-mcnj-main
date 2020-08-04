@@ -3,6 +3,7 @@ export type StubDataClient = {
   search: jest.Mock;
   findTrainingResultsByIds: jest.Mock;
   findTrainingById: jest.Mock;
+  getHighlights: jest.Mock;
 };
 
 export const StubDataClient = (): StubDataClient => ({
@@ -10,4 +11,5 @@ export const StubDataClient = (): StubDataClient => ({
   search: jest.fn(),
   findTrainingResultsByIds: jest.fn(),
   findTrainingById: jest.fn(),
+  getHighlights: jest.fn(),
 });
