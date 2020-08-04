@@ -182,16 +182,40 @@ describe("<SearchResultsPage />", () => {
     expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
   });
 
-  it("navigates to new search page when new search is executed", () => {
+  it("removes results, loads, and navigates to new search page when new search is executed", () => {
     const subject = render(<SearchResultsPage client={stubClient} />);
+    act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]));
+    expect(subject.queryByText("some name")).toBeInTheDocument();
+    expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
+
     fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
       target: { value: "penguins" },
     });
     fireEvent.click(subject.getByText("Search"));
+
+    expect(subject.queryByText("some name")).not.toBeInTheDocument();
+    expect(subject.queryByRole("progressbar")).toBeInTheDocument();
     expect(navigate).toHaveBeenCalledWith("/search/penguins");
   });
 
-  it("hides search results when filters are open on mobile", () => {
+  it("does not navigate to new page when search query is the same", () => {
+    const subject = render(<SearchResultsPage client={stubClient} searchQuery={"penguins"} />);
+    act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]));
+    expect(subject.queryByText("some name")).toBeInTheDocument();
+    expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
+    expect(navigate).toBeCalledTimes(1);
+
+    fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+      target: { value: "penguins" },
+    });
+    fireEvent.click(subject.getByText("Search"));
+
+    expect(subject.queryByText("some name")).toBeInTheDocument();
+    expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
+    expect(navigate).toBeCalledTimes(1);
+  });
+
+  it("[MOBILE] hides search results when filters are open", () => {
     useMobileSize();
     const subject = render(<SearchResultsPage client={stubClient} />);
 

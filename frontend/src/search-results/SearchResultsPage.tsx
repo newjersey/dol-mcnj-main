@@ -4,7 +4,7 @@ import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { useMediaQuery, CircularProgress } from "@material-ui/core";
+import { CircularProgress, useMediaQuery } from "@material-ui/core";
 import { FilterContext } from "../App";
 import { FilterBox } from "../filtering/FilterBox";
 import { BetaBanner } from "../components/BetaBanner";
@@ -57,6 +57,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     return <h2 className="text-xl weight-500 pvs">{message}</h2>;
   };
 
+  const setToReloadState = (): void => {
+    setIsLoading(true);
+    setTrainings([]);
+  };
+
   return (
     <>
       <Header />
@@ -80,6 +85,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 searchQuery={props.searchQuery}
                 resultCount={filteredTrainings.length}
                 setShowTrainings={setShouldShowTrainings}
+                setToReloadState={setToReloadState}
               />
             </div>
             {shouldShowTrainings && (
