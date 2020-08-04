@@ -16,10 +16,17 @@ describe("searchTrainings", () => {
   });
 
   it("returns trainings", async () => {
-    const training = buildTrainingResult({});
-    stubDataClient.search.mockResolvedValue([]);
+    const training = buildTrainingResult({ highlight: "" });
+    stubDataClient.search.mockResolvedValue([training.id]);
+    stubDataClient.getHighlights.mockResolvedValue(["some highlight"]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([training]);
-    expect(await searchTrainings("some query")).toEqual([training]);
+
+    expect(await searchTrainings("some query")).toEqual([
+      {
+        ...training,
+        highlight: "some highlight",
+      },
+    ]);
   });
 
   it("gets matching trainings via keyword search and id lookup", async () => {
@@ -28,6 +35,7 @@ describe("searchTrainings", () => {
 
     stubDataClient.search.mockResolvedValue(["1", "2"]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
+    stubDataClient.getHighlights.mockResolvedValue([training1.highlight, training2.highlight]);
 
     const searchResults = await searchTrainings("keyword");
     expect(searchResults).toEqual(expect.arrayContaining([training1, training2]));
@@ -37,7 +45,10 @@ describe("searchTrainings", () => {
   });
 
   it("gets all trainings when search query is empty/undefined", async () => {
-    const allTrainings = [buildTrainingResult({}), buildTrainingResult({})];
+    const allTrainings = [
+      buildTrainingResult({ highlight: "" }),
+      buildTrainingResult({ highlight: "" }),
+    ];
     stubDataClient.findAllTrainingResults.mockResolvedValue(allTrainings);
 
     let searchResults = await searchTrainings("");

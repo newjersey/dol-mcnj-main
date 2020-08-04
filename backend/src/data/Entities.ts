@@ -36,3 +36,7 @@ export interface OccupationEntity {
 export interface IdEntity {
   id: number;
 }
+
+export interface HeadlineEntity {
+  headline: string;
+}

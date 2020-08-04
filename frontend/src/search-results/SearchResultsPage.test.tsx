@@ -63,6 +63,7 @@ describe("<SearchResultsPage />", () => {
         city: "Camden",
         name: "Cammy Community College",
       }),
+      highlight: "some [[text]] here",
     });
     const training2 = buildTrainingResult({
       name: "training2",
@@ -73,6 +74,7 @@ describe("<SearchResultsPage />", () => {
         city: "Newark",
         name: "New'rk School",
       }),
+      highlight: "",
     });
 
     act(() => stubClient.capturedObserver.onSuccess([training1, training2]));
@@ -83,6 +85,9 @@ describe("<SearchResultsPage />", () => {
     expect(subject.getByText("Camden", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("4-11 weeks to complete", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText('"...', { exact: false }).parentElement?.innerHTML).toEqual(
+      '<span>"...</span><span>some </span><b>text</b><span> here</span><span>..."</span>'
+    );
 
     expect(subject.getByText("training2", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$333.33", { exact: false })).toBeInTheDocument();

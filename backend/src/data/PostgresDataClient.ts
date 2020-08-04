@@ -1,6 +1,12 @@
 import { DataClient, TrainingId } from "../domain/DataClient";
 import { CalendarLength, Status, Training, TrainingResult } from "../domain/Training";
-import { JoinedEntity, OccupationEntity, ProgramEntity, IdEntity } from "./Entities";
+import {
+  JoinedEntity,
+  OccupationEntity,
+  ProgramEntity,
+  IdEntity,
+  HeadlineEntity,
+} from "./Entities";
 import knex, { PgConnectionConfig } from "knex";
 import Knex from "knex";
 
@@ -89,7 +95,7 @@ export class PostgresDataClient implements DataClient {
       .where("cipcode", programEntity.cipcode);
 
     return Promise.resolve({
-      id: programEntity.id,
+      id: programEntity.id.toString(),
       name: programEntity.officialname,
       description: programEntity.description,
       calendarLength:
@@ -127,9 +133,35 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
+  getHighlights = (ids: string[], searchQuery: string): Promise<string[]> => {
+    return this.kdb("programs")
+      .select(
+        this.kdb.raw(
+          "ts_headline(description, websearch_to_tsquery(?)," +
+            "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as headline",
+          [searchQuery]
+        )
+      )
+      .joinRaw(`join unnest('{${ids.join(",")}}'::int[]) WITH ORDINALITY t(id, ord) USING (id)`)
+      .whereIn("id", ids)
+      .orderByRaw("t.ord")
+      .then((data: HeadlineEntity[]) =>
+        data.map((entity) => {
+          if (!entity.headline.includes("[[")) {
+            return "";
+          }
+          return entity.headline;
+        })
+      )
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
   private mapJoinedEntityToTrainingResult = (entity: JoinedEntity): TrainingResult => {
     return {
-      id: entity.id,
+      id: entity.id.toString(),
       name: entity.officialname,
       totalCost: parseFloat(entity.totalcost),
       percentEmployed: this.formatPercentEmployed(entity.peremployed2),
@@ -143,6 +175,7 @@ export class PostgresDataClient implements DataClient {
         name: entity.providername ? entity.providername : "",
         status: this.mapStatus(entity.providerstatus),
       },
+      highlight: "",
     };
   };
 
