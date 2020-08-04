@@ -25,13 +25,19 @@ describe("<FilterBox />", () => {
 
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox resultCount={1} setShowTrainings={jest.fn()} />
+        <FilterBox resultCount={1} setShowTrainings={jest.fn()} setToReloadState={jest.fn()} />
       </FilterContext.Provider>
     );
   };
 
   const renderFilterBox = ({ resultCount = 1, setShowTrainings = jest.fn() }): RenderResult => {
-    return render(<FilterBox resultCount={resultCount} setShowTrainings={setShowTrainings} />);
+    return render(
+      <FilterBox
+        resultCount={resultCount}
+        setShowTrainings={setShowTrainings}
+        setToReloadState={jest.fn()}
+      />
+    );
   };
 
   it("sets initial filter value from context if present", () => {

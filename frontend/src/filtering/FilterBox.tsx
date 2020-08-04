@@ -5,13 +5,14 @@ import { Icon, useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";
 import { EmploymentRateFilter } from "./EmploymentRateFilter";
 import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
-import { navigate } from "@reach/router";
 import { Searchbar } from "../components/Searchbar";
+import { navigate } from "@reach/router";
 
 interface Props {
   searchQuery?: string;
   resultCount: number;
   setShowTrainings: (shouldShowTrainings: boolean) => void;
+  setToReloadState: () => void;
 }
 
 const usePrevious = <T extends {}>(value: T): T | undefined => {
@@ -22,7 +23,12 @@ const usePrevious = <T extends {}>(value: T): T | undefined => {
   return ref.current;
 };
 
-export const FilterBox = (props: Props): ReactElement => {
+export const FilterBox = ({
+  searchQuery,
+  resultCount,
+  setShowTrainings,
+  setToReloadState,
+}: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const previousWasTabletAndUp = usePrevious(isTabletAndUp);
 
@@ -32,24 +38,19 @@ export const FilterBox = (props: Props): ReactElement => {
   useEffect(() => {
     if (isTabletAndUp) {
       setFilterIsOpen(true);
-      props.setShowTrainings(true);
+      setShowTrainings(true);
     }
 
     if (!isTabletAndUp && previousWasTabletAndUp) {
       setFilterIsOpen(false);
-      props.setShowTrainings(true);
+      setShowTrainings(true);
     }
-  }, [isTabletAndUp, previousWasTabletAndUp, props]);
+  }, [isTabletAndUp, previousWasTabletAndUp, setShowTrainings]);
 
   const toggleFilterVisibility = (): void => {
     const newFilterIsOpen = !filterIsOpen;
-    props.setShowTrainings(!newFilterIsOpen);
+    setShowTrainings(!newFilterIsOpen);
     setFilterIsOpen(newFilterIsOpen);
-  };
-
-  const closeFilters = (): void => {
-    props.setShowTrainings(true);
-    setFilterIsOpen(false);
   };
 
   const blueWhenFilterApplied = (): string => {
@@ -65,23 +66,31 @@ export const FilterBox = (props: Props): ReactElement => {
   };
 
   const getResultCountText = (): string => {
-    if (props.resultCount === 1) {
-      return `${props.resultCount} result`;
+    if (resultCount === 1) {
+      return `${resultCount} result`;
     } else {
-      return `${props.resultCount} results`;
+      return `${resultCount} results`;
     }
+  };
+
+  const executeSearch = (newQuery: string): void => {
+    setShowTrainings(true);
+
+    if (!isTabletAndUp) {
+      setFilterIsOpen(false);
+    }
+
+    if (newQuery === searchQuery) {
+      return;
+    }
+
+    setToReloadState();
+    navigate(`/search/${newQuery}`);
   };
 
   return (
     <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
-      <Searchbar
-        onSearch={(searchQuery: string): Promise<void> => {
-          closeFilters();
-          return navigate(`/search/${searchQuery}`);
-        }}
-        initialValue={props.searchQuery}
-        stacked={true}
-      />
+      <Searchbar onSearch={executeSearch} initialValue={searchQuery} stacked={true} />
       <div className="ptm fdr" style={{ display: isTabletAndUp ? "none" : "flex" }}>
         <SecondaryButton
           className="fin flex-half"
