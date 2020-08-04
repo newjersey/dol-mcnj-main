@@ -22,10 +22,10 @@ describe("PostgresDataClient", () => {
     dataClient = new PostgresDataClient(connection);
   });
 
-  it("fetches data from multiple tables as training objects", async () => {
-    const foundTrainings = await dataClient.findAllTrainings();
-    expect(foundTrainings.length).toEqual(5);
-    expect(foundTrainings).toContainEqual({
+  it("fetches data from multiple tables as training result objects", async () => {
+    const trainingResults = await dataClient.findAllTrainingResults();
+    expect(trainingResults.length).toEqual(5);
+    expect(trainingResults).toContainEqual({
       id: 1,
       name: "Tree Identification Class",
       totalCost: 3035,
@@ -43,35 +43,35 @@ describe("PostgresDataClient", () => {
   });
 
   it("searches training ids when title, description matches a search query", async () => {
-    const foundTrainings = await dataClient.search("tree");
-    expect(foundTrainings).toEqual(expect.arrayContaining(["1", "2", "5"]));
+    const resultIds = await dataClient.search("tree");
+    expect(resultIds).toEqual(expect.arrayContaining(["1", "2", "5"]));
   });
 
   it("returns search results in order of relevance", async () => {
-    const foundTrainings = await dataClient.search("tree");
-    expect(foundTrainings[0]).toEqual("2");
-    expect(foundTrainings[1]).toEqual("1");
-    expect(foundTrainings[2]).toEqual("5");
+    const resultIds = await dataClient.search("tree");
+    expect(resultIds[0]).toEqual("2");
+    expect(resultIds[1]).toEqual("1");
+    expect(resultIds[2]).toEqual("5");
   });
 
   it("finds training results by list of ids", async () => {
-    const foundTrainings = await dataClient.findTrainingResultsByIds(["1", "4"]);
-    expect(foundTrainings.length).toEqual(2);
-    expect(foundTrainings.map((it) => it.name)).toEqual(
+    const trainingResults = await dataClient.findTrainingResultsByIds(["1", "4"]);
+    expect(trainingResults.length).toEqual(2);
+    expect(trainingResults.map((it) => it.name)).toEqual(
       expect.arrayContaining(["Tree Identification Class", "Mushroom Foraging Certification"])
     );
   });
 
   it("preserves order of input list of ids", async () => {
-    const foundTrainings = await dataClient.findTrainingResultsByIds(["4", "1"]);
-    expect(foundTrainings.length).toEqual(2);
-    expect(foundTrainings[0].name).toEqual("Mushroom Foraging Certification");
-    expect(foundTrainings[1].name).toEqual("Tree Identification Class");
+    const trainingResults = await dataClient.findTrainingResultsByIds(["4", "1"]);
+    expect(trainingResults.length).toEqual(2);
+    expect(trainingResults[0].name).toEqual("Mushroom Foraging Certification");
+    expect(trainingResults[1].name).toEqual("Tree Identification Class");
   });
 
   it("returns empty when id list is empty", async () => {
-    const foundTrainings = await dataClient.findTrainingResultsByIds([]);
-    expect(foundTrainings).toHaveLength(0);
+    const trainingResults = await dataClient.findTrainingResultsByIds([]);
+    expect(trainingResults).toHaveLength(0);
   });
 
   it("finds a training by id", async () => {
