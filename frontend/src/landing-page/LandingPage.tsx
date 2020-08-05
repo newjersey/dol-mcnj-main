@@ -15,8 +15,8 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
       <BetaBanner noHeader={true} />
       <div className="gutter-filler-left bg-light-green" />
       <div className="container landing-container height-full">
-        <div className="row landing-row height-100">
-          <div className="col-md-6 bg-light-green fdc fjc height-100 col-adjust">
+        <div className="row landing-row height-100 height-full">
+          <div className="col-md-6 bg-light-green fdc fjc height-100 height-full col-adjust">
             <header className="maxl">
               <div className="fdr fjc mbd">
                 <img
@@ -38,7 +38,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             </header>
           </div>
 
-          <div className="col-md-6 height-100 fdc fjc col-adjust">
+          <div className="col-md-6 height-100 height-full fdc fjc col-adjust">
             <main role="main" className="adjustable-margin-left">
               <div className="mhl mvxl">
                 <h2 className="text-xl weight-500 section-header">Search for Training</h2>
