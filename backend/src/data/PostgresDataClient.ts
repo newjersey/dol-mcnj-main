@@ -147,10 +147,10 @@ export class PostgresDataClient implements DataClient {
       .orderByRaw("t.ord")
       .then((data: HeadlineEntity[]) =>
         data.map((entity) => {
-          if (!entity.headline.includes("[[")) {
-            return "";
+          if (entity.headline?.includes("[[")) {
+            return entity.headline;
           }
-          return entity.headline;
+          return "";
         })
       )
       .catch((e) => {

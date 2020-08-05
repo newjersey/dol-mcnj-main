@@ -24,7 +24,7 @@ describe("PostgresDataClient", () => {
 
   it("fetches data from multiple tables as training result objects", async () => {
     const trainingResults = await dataClient.findAllTrainingResults();
-    expect(trainingResults.length).toEqual(5);
+    expect(trainingResults.length).toEqual(6);
     expect(trainingResults).toContainEqual({
       id: "1",
       name: "Tree Identification Class",
@@ -54,6 +54,9 @@ describe("PostgresDataClient", () => {
   it("returns empty string when a result does not have a match in the description", async () => {
     const highlights = await dataClient.getHighlights(["1"], "class");
     expect(highlights[0]).toEqual("");
+
+    const highlightsNoDescription = await dataClient.getHighlights(["6"], "class");
+    expect(highlightsNoDescription[0]).toEqual("");
   });
 
   it("searches training ids when title, description matches a search query", async () => {
