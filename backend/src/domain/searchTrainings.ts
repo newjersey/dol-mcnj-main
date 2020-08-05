@@ -22,13 +22,6 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     return Promise.all([trainingResultsPromise, highlightsPromise]).then(
       ([trainingResults, highlights]) => {
         return trainingResults
-          .filter(
-            (training) =>
-              training.status !== Status.SUSPENDED &&
-              training.status !== Status.PENDING &&
-              training.provider.status !== Status.SUSPENDED &&
-              training.provider.status !== Status.PENDING
-          )
           .map((training, index) => ({
             ...training,
             name: stripSurroundingQuotes(training.name),
@@ -37,7 +30,14 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
               name: stripSurroundingQuotes(training.provider.name),
             },
             highlight: highlights?.length > 0 ? highlights[index] : "",
-          }));
+          }))
+          .filter(
+            (training) =>
+              training.status !== Status.SUSPENDED &&
+              training.status !== Status.PENDING &&
+              training.provider.status !== Status.SUSPENDED &&
+              training.provider.status !== Status.PENDING
+          );
       }
     );
   };
