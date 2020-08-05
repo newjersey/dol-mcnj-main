@@ -46,7 +46,7 @@
 @media (min-width: $xs) {
   .filterbox {
     width: 235px;
-    height: calc(100vh - #{$below-banners-height} + #{$result-count-height} + 30px);
+    height: calc(100vh - #{$below-banners-height} - #{$result-count-height} - 15px);
     margin-left: 0;
     overflow-y: auto;
   }
@@ -58,7 +58,7 @@
   .results-count-container {
     margin-top: $below-banners-height;
     height: $result-count-height;
-    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .fixed-wrapper {
