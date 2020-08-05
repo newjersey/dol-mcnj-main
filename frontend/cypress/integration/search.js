@@ -8,12 +8,12 @@ describe('Search', () => {
     cy.contains('Search for Training').should('exist');
 
     // input search
-    cy.get('input[aria-label="search"]').type('baker');
+    cy.get('input[aria-label="search"]').type('baking');
     cy.get('button').contains('Search').click();
 
     // on search results page
-    cy.location('pathname').should('eq', '/search/baker');
-    cy.get('input').should('have.value', 'baker');
+    cy.location('pathname').should('eq', '/search/baking');
+    cy.get('input').should('have.value', 'baking');
 
     // matches by title
     cy.contains('Baking and Pastry Professional').should('exist');
@@ -25,9 +25,8 @@ describe('Search', () => {
     cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
 
     cy.contains(
-      '"...positions as Assistant Pastry Chefs, Assistant Cake Decorators, ' +
-      'Assistant Bakers, and Staff Bakers. Students completing in-school ' +
-      'training gain real..."'
+      "...student interested in career in pastry arts. Coursework includes baking " +
+      "skills, patisserie, pastry arts, nutrition, confectionary and showpieces..."
     ).should('exist');
   });
 

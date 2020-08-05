@@ -44,6 +44,26 @@ describe("searchTrainings", () => {
     expect(stubDataClient.findTrainingResultsByIds).toHaveBeenCalledWith(["1", "2"]);
   });
 
+  it("accurately matches highlights when filtering out trainings", async () => {
+    const training1 = buildTrainingResult({ name: "training 1", status: Status.SUSPENDED });
+    const training2 = buildTrainingResult({ name: "training 2", status: Status.APPROVED });
+
+    stubDataClient.search.mockResolvedValue(["1", "2"]);
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
+    stubDataClient.getHighlights.mockResolvedValue([
+      "training 1 highlight",
+      "training 2 highlight",
+    ]);
+
+    const searchResults = await searchTrainings("keyword");
+    expect(searchResults).toEqual([
+      {
+        ...training2,
+        highlight: "training 2 highlight",
+      },
+    ]);
+  });
+
   it("gets all trainings when search query is empty/undefined", async () => {
     const allTrainings = [
       buildTrainingResult({ highlight: "" }),
