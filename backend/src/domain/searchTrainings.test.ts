@@ -171,4 +171,31 @@ describe("searchTrainings", () => {
       'Quotes "in the" middle too',
     ]);
   });
+
+  it("title cases the local exception county", async () => {
+    stubDataClient.findAllTrainingResults.mockResolvedValue([
+      buildTrainingResult({
+        localExceptionCounty: ["ATLANTIC"],
+      }),
+      buildTrainingResult({
+        localExceptionCounty: ["ATLANTIC COUNTY"],
+      }),
+
+      buildTrainingResult({
+        localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
+      }),
+      buildTrainingResult({
+        localExceptionCounty: [],
+      }),
+    ]);
+
+    const searchResults = await searchTrainings("");
+
+    expect(searchResults.map((it) => it.localExceptionCounty)).toEqual([
+      ["Atlantic"],
+      ["Atlantic County"],
+      ["Atlantic", "Middlesex"],
+      [],
+    ]);
+  });
 });

@@ -10,6 +10,7 @@ export interface JoinedEntity {
   providername: string;
   calendarlengthid: string;
   indemandcip: string;
+  localexceptioncounty: string;
 }
 
 export interface ProgramEntity {
@@ -27,10 +28,20 @@ export interface ProgramEntity {
   state: string;
   zip: string;
   indemandcip: string;
+  localexceptioncounty: string;
 }
 
 export interface OccupationEntity {
   soc2018title: string;
+}
+
+export interface CountyEntity {
+  county: string;
+}
+
+export interface IdCountyEntity {
+  id: string;
+  county: string;
 }
 
 export interface IdEntity {

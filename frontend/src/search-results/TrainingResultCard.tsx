@@ -5,6 +5,7 @@ import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
+import { LocalWaiverTag } from "../components/LocalWaiverTag";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -82,7 +83,12 @@ export const TrainingResultCard = (props: Props): ReactElement => {
         <div className="row">
           <div className="col-md-10">
             <p>{boldHighlightedSection(props.trainingResult.highlight)}</p>
-            <p className="mtxs mbz">{props.trainingResult.inDemand ? <InDemandTag /> : <></>}</p>
+            <p className="mtxs mbz">
+              {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
+              {props.trainingResult.localExceptionCounty.map((county) => (
+                <LocalWaiverTag key={county} county={county} />
+              ))}
+            </p>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ export interface TrainingResult {
   calendarLength: CalendarLength;
   provider: ProviderResult;
   inDemand: boolean;
+  localExceptionCounty: string[];
   highlight: string;
 }
 
@@ -25,6 +26,7 @@ export interface Training {
   calendarLength: CalendarLength;
   occupations: string[];
   inDemand: boolean;
+  localExceptionCounty: string[];
 }
 
 export interface Provider {

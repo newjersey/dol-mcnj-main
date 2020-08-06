@@ -7,6 +7,7 @@ export interface TrainingResult {
   provider: ProviderResult;
   inDemand: boolean;
   highlight: string;
+  localExceptionCounty: string[];
 }
 
 export interface ProviderResult {
@@ -23,6 +24,7 @@ export interface Training {
   occupations: string[];
   provider: Provider;
   inDemand: boolean;
+  localExceptionCounty: string[];
 }
 
 export interface Provider {

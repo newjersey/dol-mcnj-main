@@ -40,6 +40,7 @@ describe("PostgresDataClient", () => {
       },
       inDemand: true,
       highlight: "",
+      localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
     });
   });
 
@@ -114,6 +115,7 @@ describe("PostgresDataClient", () => {
         },
       },
       inDemand: true,
+      localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
     });
   });
 
@@ -123,6 +125,14 @@ describe("PostgresDataClient", () => {
 
     const foundTrainings = await dataClient.findTrainingResultsByIds(["3"]);
     expect(foundTrainings[0].inDemand).toEqual(false);
+  });
+
+  it("returns localExceptionCounty as empty array when training cip is not on local exception list", async () => {
+    const foundTraining = await dataClient.findTrainingById("3");
+    expect(foundTraining.localExceptionCounty).toEqual([]);
+
+    const foundTrainings = await dataClient.findTrainingResultsByIds(["3"]);
+    expect(foundTrainings[0].localExceptionCounty).toEqual([]);
   });
 
   it("gets list of all occupations for a training's cip code", async () => {

@@ -56,4 +56,38 @@ describe("findTrainingById", () => {
     expect((await findTrainingById("123")).name).toEqual('Quotes "in the" middle too');
     expect((await findTrainingById("123")).description).toEqual('Quotes "in the" middle too');
   });
+
+  it("title cases the local exception county", async () => {
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        localExceptionCounty: ["ATLANTIC"],
+      })
+    );
+
+    expect((await findTrainingById("123")).localExceptionCounty).toEqual(["Atlantic"]);
+
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        localExceptionCounty: ["ATLANTIC COUNTY"],
+      })
+    );
+
+    expect((await findTrainingById("123")).localExceptionCounty).toEqual(["Atlantic County"]);
+
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
+      })
+    );
+
+    expect((await findTrainingById("123")).localExceptionCounty).toEqual(["Atlantic", "Middlesex"]);
+
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        localExceptionCounty: [],
+      })
+    );
+
+    expect((await findTrainingById("123")).localExceptionCounty).toEqual([]);
+  });
 });
