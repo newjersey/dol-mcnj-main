@@ -49,5 +49,6 @@ export interface IdEntity {
 }
 
 export interface HeadlineEntity {
-  headline: string;
+  descheadline: string;
+  careerheadline: string;
 }
