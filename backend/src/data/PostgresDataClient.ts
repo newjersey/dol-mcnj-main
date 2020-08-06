@@ -6,6 +6,8 @@ import {
   ProgramEntity,
   IdEntity,
   HeadlineEntity,
+  CountyEntity,
+  IdCountyEntity,
 } from "./Entities";
 import knex, { PgConnectionConfig } from "knex";
 import Knex from "knex";
@@ -28,12 +30,12 @@ export class PostgresDataClient implements DataClient {
     );
   };
 
-  findTrainingResultsByIds = (ids: string[]): Promise<TrainingResult[]> => {
+  findTrainingResultsByIds = async (ids: string[]): Promise<TrainingResult[]> => {
     if (ids.length === 0) {
       return Promise.resolve([]);
     }
 
-    return this.kdb("programs")
+    const joinedEntities: JoinedEntity[] = await this.kdb("programs")
       .select(
         "programs.id",
         "programs.providerid",
@@ -57,14 +59,43 @@ export class PostgresDataClient implements DataClient {
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .whereIn("programs.id", ids)
-      .orderByRaw("t.ord")
-      .then((data: JoinedEntity[]) => {
-        return data.map(this.mapJoinedEntityToTrainingResult);
-      })
-      .catch((e) => {
-        console.log("db error: ", e);
-        return Promise.reject();
-      });
+      .orderByRaw("t.ord");
+
+    const localExceptionCounties: IdCountyEntity[] = await this.kdb("programs")
+      .select("id", "county")
+      .innerJoin("localexceptioncips", "localexceptioncips.cipcode", "programs.cipcode")
+      .whereIn("id", ids);
+
+    const localExceptionCountiesLookup = localExceptionCounties.reduce(
+      (result: Record<string, string[]>, item: IdCountyEntity) => ({
+        ...result,
+        [item.id]: [...(result[item.id] || []), item.county],
+      }),
+      {}
+    );
+
+    return Promise.resolve(
+      joinedEntities.map((entity) => ({
+        id: entity.id.toString(),
+        name: entity.officialname,
+        totalCost: parseFloat(entity.totalcost),
+        percentEmployed: this.formatPercentEmployed(entity.peremployed2),
+        status: this.mapStatus(entity.statusname),
+        calendarLength:
+          entity.calendarlengthid !== null
+            ? parseInt(entity.calendarlengthid)
+            : CalendarLength.NULL,
+        inDemand: entity.indemandcip !== null,
+        provider: {
+          id: entity.providerid,
+          city: entity.city,
+          name: entity.providername ? entity.providername : "",
+          status: this.mapStatus(entity.providerstatus),
+        },
+        highlight: "",
+        localExceptionCounty: localExceptionCountiesLookup[entity.id] || [],
+      }))
+    );
   };
 
   findTrainingById = async (id: string): Promise<Training> => {
@@ -94,6 +125,10 @@ export class PostgresDataClient implements DataClient {
       .select("soc2018title")
       .where("cipcode", programEntity.cipcode);
 
+    const localExceptionCounties: CountyEntity[] = await this.kdb("localexceptioncips")
+      .select("county")
+      .where("cipcode", programEntity.cipcode);
+
     return Promise.resolve({
       id: programEntity.id.toString(),
       name: programEntity.officialname,
@@ -104,6 +139,7 @@ export class PostgresDataClient implements DataClient {
           : CalendarLength.NULL,
       occupations: matchingOccupations.map((it) => it.soc2018title),
       inDemand: programEntity.indemandcip !== null,
+      localExceptionCounty: localExceptionCounties.map((it) => it.county),
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",
@@ -157,26 +193,6 @@ export class PostgresDataClient implements DataClient {
         console.log("db error: ", e);
         return Promise.reject();
       });
-  };
-
-  private mapJoinedEntityToTrainingResult = (entity: JoinedEntity): TrainingResult => {
-    return {
-      id: entity.id.toString(),
-      name: entity.officialname,
-      totalCost: parseFloat(entity.totalcost),
-      percentEmployed: this.formatPercentEmployed(entity.peremployed2),
-      status: this.mapStatus(entity.statusname),
-      calendarLength:
-        entity.calendarlengthid !== null ? parseInt(entity.calendarlengthid) : CalendarLength.NULL,
-      inDemand: entity.indemandcip !== null,
-      provider: {
-        id: entity.providerid,
-        city: entity.city,
-        name: entity.providername ? entity.providername : "",
-        status: this.mapStatus(entity.providerstatus),
-      },
-      highlight: "",
-    };
   };
 
   private mapStatus = (status: string): Status => {

@@ -4,6 +4,7 @@ import { TrainingResult, Status } from "./Training";
 import { DataClient } from "./DataClient";
 import { SearchTrainings } from "./types";
 import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
+import { convertToTitleCase } from "./convertToTitleCase";
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (searchQuery?: string): Promise<TrainingResult[]> => {
@@ -30,6 +31,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
               name: stripSurroundingQuotes(training.provider.name),
             },
             highlight: highlights?.length > 0 ? highlights[index] : "",
+            localExceptionCounty: training.localExceptionCounty.map(convertToTitleCase),
           }))
           .filter(
             (training) =>

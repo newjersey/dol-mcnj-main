@@ -2,6 +2,7 @@ import { DataClient } from "./DataClient";
 import { FindTrainingById } from "./types";
 import { Training } from "./Training";
 import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
+import { convertToTitleCase } from "./convertToTitleCase";
 
 export const findTrainingByIdFactory = (dataClient: DataClient): FindTrainingById => {
   return async (id?: string): Promise<Training> => {
@@ -13,6 +14,7 @@ export const findTrainingByIdFactory = (dataClient: DataClient): FindTrainingByI
       ...training,
       name: stripSurroundingQuotes(training.name),
       description: stripSurroundingQuotes(training.description),
+      localExceptionCounty: training.localExceptionCounty.map(convertToTitleCase),
     }));
   };
 };

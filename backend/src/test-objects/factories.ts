@@ -1,11 +1,11 @@
 import {
-  TrainingResult,
+  Address,
+  CalendarLength,
+  Provider,
   ProviderResult,
   Status,
   Training,
-  Provider,
-  CalendarLength,
-  Address,
+  TrainingResult,
 } from "../domain/Training";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
@@ -20,7 +20,8 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     status: randomStatus(),
     calendarLength: randomCalendarLength(),
     inDemand: !!Math.round(Math.random()),
-    highlight: "some-hightlight-" + Math.random(),
+    highlight: "some-hightlight-" + randomInt(),
+    localExceptionCounty: [],
     ...overrides,
   };
 };
@@ -44,6 +45,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     occupations: ["some-occupation-" + randomInt()],
     calendarLength: randomCalendarLength(),
     inDemand: !!Math.round(Math.random()),
+    localExceptionCounty: [],
     ...overrides,
   };
 };
