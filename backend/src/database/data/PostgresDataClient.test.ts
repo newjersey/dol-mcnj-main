@@ -1,17 +1,10 @@
 import { PostgresDataClient } from "./PostgresDataClient";
-import util from "util";
-import { exec } from "child_process";
-import { CalendarLength, Status } from "../domain/Training";
-
-const cmd = util.promisify(exec);
+import { CalendarLength, Status } from "../../domain/Training";
 
 describe("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
 
   beforeAll(async () => {
-    await cmd("psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432");
-    await cmd("npm run db-migrate up -- -e test");
-
     const connection = {
       user: "postgres",
       host: "localhost",
@@ -42,45 +35,6 @@ describe("PostgresDataClient", () => {
       highlight: "",
       localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
     });
-  });
-
-  it("fetches description highlight for an id", async () => {
-    const highlight = await dataClient.getHighlight("1", "tree");
-    expect(highlight).toEqual(
-      "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]"
-    );
-  });
-
-  it("uses occupation for highlight if no match in description", async () => {
-    const highlight = await dataClient.getHighlight("3", "botanist");
-    expect(highlight).toEqual("Career track: [[Botanists]], Chefs");
-  });
-
-  it("uses description for highlight if there's a match on occupation and description", async () => {
-    const highlight = await dataClient.getHighlight("4", "chef");
-    expect(highlight).toEqual(
-      "mushrooms; they are good for you. Become a [[chef]] to help others eat mushrooms"
-    );
-  });
-
-  it("returns empty highlight when a result does not have a match", async () => {
-    const highlight = await dataClient.getHighlight("1", "class");
-    expect(highlight).toEqual("");
-
-    const highlightNoDescription = await dataClient.getHighlight("6", "class");
-    expect(highlightNoDescription).toEqual("");
-  });
-
-  it("searches training ids when title, description matches a search query", async () => {
-    const resultIds = await dataClient.search("tree");
-    expect(resultIds).toEqual(expect.arrayContaining(["1", "2", "5"]));
-  });
-
-  it("returns search results in order of relevance", async () => {
-    const resultIds = await dataClient.search("tree");
-    expect(resultIds[0]).toEqual("2");
-    expect(resultIds[1]).toEqual("1");
-    expect(resultIds[2]).toEqual("5");
   });
 
   it("finds training results by list of ids", async () => {
@@ -164,6 +118,5 @@ describe("PostgresDataClient", () => {
 
   afterAll(async () => {
     dataClient.disconnect();
-    await cmd("psql -c 'drop database d4adtest;' -U postgres -h localhost -p 5432");
   });
 });

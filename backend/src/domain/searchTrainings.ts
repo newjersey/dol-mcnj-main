@@ -3,13 +3,17 @@ import { DataClient } from "./DataClient";
 import { SearchTrainings } from "./types";
 import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
 import { convertToTitleCase } from "./convertToTitleCase";
+import { SearchClient } from "./SearchClient";
 
-export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
+export const searchTrainingsFactory = (
+  dataClient: DataClient,
+  searchClient: SearchClient
+): SearchTrainings => {
   return async (searchQuery?: string): Promise<TrainingResult[]> => {
     let trainingResults;
 
     if (searchQuery) {
-      const ids: string[] = await dataClient.search(searchQuery);
+      const ids: string[] = await searchClient.search(searchQuery);
       trainingResults = await dataClient.findTrainingResultsByIds(ids);
     } else {
       trainingResults = await dataClient.findAllTrainingResults();
@@ -28,7 +32,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
           let highlight = "";
 
           if (searchQuery) {
-            highlight = await dataClient.getHighlight(trainingResult.id, searchQuery);
+            highlight = await searchClient.getHighlight(trainingResult.id, searchQuery);
           }
 
           return {

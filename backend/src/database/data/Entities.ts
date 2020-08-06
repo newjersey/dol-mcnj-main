@@ -35,6 +35,10 @@ export interface OccupationEntity {
   soc2018title: string;
 }
 
+export interface IdEntity {
+  id: number;
+}
+
 export interface CountyEntity {
   county: string;
 }
@@ -42,13 +46,4 @@ export interface CountyEntity {
 export interface IdCountyEntity {
   id: string;
   county: string;
-}
-
-export interface IdEntity {
-  id: number;
-}
-
-export interface HeadlineEntity {
-  descheadline: string;
-  careerheadline: string;
 }
