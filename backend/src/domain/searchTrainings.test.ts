@@ -2,23 +2,25 @@ import { searchTrainingsFactory } from "./searchTrainings";
 import { buildProviderResult, buildTrainingResult } from "../test-objects/factories";
 import { Status } from "./Training";
 import { SearchTrainings } from "./types";
-import { StubDataClient } from "../test-objects/StubDataClient";
+import { StubDataClient, StubSearchClient } from "../test-objects/StubDataClient";
 
 describe("searchTrainings", () => {
   let searchTrainings: SearchTrainings;
   let stubDataClient: StubDataClient;
+  let stubSearchClient: StubSearchClient;
 
   beforeEach(() => {
     jest.resetAllMocks();
     stubDataClient = StubDataClient();
+    stubSearchClient = StubSearchClient();
 
-    searchTrainings = searchTrainingsFactory(stubDataClient);
+    searchTrainings = searchTrainingsFactory(stubDataClient, stubSearchClient);
   });
 
   it("returns trainings", async () => {
     const training = buildTrainingResult({ highlight: "" });
-    stubDataClient.search.mockResolvedValue([training.id]);
-    stubDataClient.getHighlight.mockResolvedValue("some highlight");
+    stubSearchClient.search.mockResolvedValue([training.id]);
+    stubSearchClient.getHighlight.mockResolvedValue("some highlight");
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([training]);
 
     expect(await searchTrainings("some query")).toEqual([
@@ -33,14 +35,14 @@ describe("searchTrainings", () => {
     const training1 = buildTrainingResult({ id: "1", highlight: "some highlight" });
     const training2 = buildTrainingResult({ id: "2", highlight: "some highlight" });
 
-    stubDataClient.search.mockResolvedValue(["1", "2"]);
+    stubSearchClient.search.mockResolvedValue(["1", "2"]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
-    stubDataClient.getHighlight.mockResolvedValue("some highlight");
+    stubSearchClient.getHighlight.mockResolvedValue("some highlight");
 
     const searchResults = await searchTrainings("keyword");
     expect(searchResults).toEqual(expect.arrayContaining([training1, training2]));
 
-    expect(stubDataClient.search).toHaveBeenCalledWith("keyword");
+    expect(stubSearchClient.search).toHaveBeenCalledWith("keyword");
     expect(stubDataClient.findTrainingResultsByIds).toHaveBeenCalledWith(["1", "2"]);
   });
 
@@ -65,7 +67,7 @@ describe("searchTrainings", () => {
     expect(searchResults).toEqual(expect.arrayContaining(expectedResults));
 
     expect(stubDataClient.findAllTrainingResults).toHaveBeenCalled();
-    expect(stubDataClient.search).not.toHaveBeenCalled();
+    expect(stubSearchClient.search).not.toHaveBeenCalled();
 
     jest.resetAllMocks();
     stubDataClient.findAllTrainingResults.mockResolvedValue(allTrainings);
@@ -74,11 +76,11 @@ describe("searchTrainings", () => {
     expect(searchResults).toEqual(expect.arrayContaining(expectedResults));
 
     expect(stubDataClient.findAllTrainingResults).toHaveBeenCalled();
-    expect(stubDataClient.search).not.toHaveBeenCalled();
+    expect(stubSearchClient.search).not.toHaveBeenCalled();
   });
 
   it("filters out results when training is suspended or pending", async () => {
-    stubDataClient.search.mockResolvedValue([]);
+    stubSearchClient.search.mockResolvedValue([]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([
       buildTrainingResult({ id: "1", status: Status.APPROVED }),
       buildTrainingResult({ id: "2", status: Status.PENDING }),
@@ -92,7 +94,7 @@ describe("searchTrainings", () => {
   });
 
   it("filters out results when provider is suspended or pending", async () => {
-    stubDataClient.search.mockResolvedValue([]);
+    stubSearchClient.search.mockResolvedValue([]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([
       buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
       buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
