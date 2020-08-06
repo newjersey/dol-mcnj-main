@@ -169,20 +169,36 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  getHighlight = (id: string, searchQuery: string): Promise<string> => {
+  getHighlight = async (id: string, searchQuery: string): Promise<string> => {
+    const careerTracksJoined = await this.kdb("soccipcrosswalk")
+      .select("soc2018title")
+      .whereRaw("soccipcrosswalk.cipcode = (select cipcode from programs where id = ?)", id)
+      .then((data: OccupationEntity[]) => data.map((it) => it.soc2018title).join(", "))
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+
     return this.kdb("programs")
       .select(
         this.kdb.raw(
           "ts_headline(description, websearch_to_tsquery(?)," +
-            "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as headline",
+            "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as descheadline",
           [searchQuery]
+        ),
+        this.kdb.raw(
+          "ts_headline(?, websearch_to_tsquery(?)," +
+            "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as careerheadline",
+          [careerTracksJoined, searchQuery]
         )
       )
       .where("id", id)
       .first()
       .then((data: HeadlineEntity) => {
-        if (data.headline?.includes("[[")) {
-          return data.headline;
+        if (data.descheadline?.includes("[[")) {
+          return data.descheadline;
+        } else if (data.careerheadline?.includes("[[")) {
+          return "Career track: " + data.careerheadline;
         }
         return "";
       })

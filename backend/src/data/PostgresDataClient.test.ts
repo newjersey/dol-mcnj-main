@@ -44,14 +44,26 @@ describe("PostgresDataClient", () => {
     });
   });
 
-  it("fetches highlights for a list of result ids", async () => {
+  it("fetches description highlight for an id", async () => {
     const highlight = await dataClient.getHighlight("1", "tree");
     expect(highlight).toEqual(
       "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]"
     );
   });
 
-  it("returns empty string when a result does not have a match in the description", async () => {
+  it("uses occupation for highlight if no match in description", async () => {
+    const highlight = await dataClient.getHighlight("3", "botanist");
+    expect(highlight).toEqual("Career track: [[Botanists]], Chefs");
+  });
+
+  it("uses description for highlight if there's a match on occupation and description", async () => {
+    const highlight = await dataClient.getHighlight("4", "chef");
+    expect(highlight).toEqual(
+      "mushrooms; they are good for you. Become a [[chef]] to help others eat mushrooms"
+    );
+  });
+
+  it("returns empty highlight when a result does not have a match", async () => {
     const highlight = await dataClient.getHighlight("1", "class");
     expect(highlight).toEqual("");
 
