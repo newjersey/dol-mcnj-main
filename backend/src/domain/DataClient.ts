@@ -7,5 +7,5 @@ export interface DataClient {
   findTrainingResultsByIds: (ids: string[]) => Promise<TrainingResult[]>;
   search: (searchQuery: string) => Promise<TrainingId[]>;
   findTrainingById: (id: string) => Promise<Training>;
-  getHighlights: (ids: string[], searchQuery: string) => Promise<string[]>;
+  getHighlight: (id: string, searchQuery: string) => Promise<string>;
 }
