@@ -169,7 +169,7 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  getHighlights = (ids: string[], searchQuery: string): Promise<string[]> => {
+  getHighlight = (id: string, searchQuery: string): Promise<string> => {
     return this.kdb("programs")
       .select(
         this.kdb.raw(
@@ -178,17 +178,14 @@ export class PostgresDataClient implements DataClient {
           [searchQuery]
         )
       )
-      .joinRaw(`join unnest('{${ids.join(",")}}'::int[]) WITH ORDINALITY t(id, ord) USING (id)`)
-      .whereIn("id", ids)
-      .orderByRaw("t.ord")
-      .then((data: HeadlineEntity[]) =>
-        data.map((entity) => {
-          if (entity.headline?.includes("[[")) {
-            return entity.headline;
-          }
-          return "";
-        })
-      )
+      .where("id", id)
+      .first()
+      .then((data: HeadlineEntity) => {
+        if (data.headline?.includes("[[")) {
+          return data.headline;
+        }
+        return "";
+      })
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();

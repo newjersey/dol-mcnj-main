@@ -18,7 +18,7 @@ describe("searchTrainings", () => {
   it("returns trainings", async () => {
     const training = buildTrainingResult({ highlight: "" });
     stubDataClient.search.mockResolvedValue([training.id]);
-    stubDataClient.getHighlights.mockResolvedValue(["some highlight"]);
+    stubDataClient.getHighlight.mockResolvedValue("some highlight");
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([training]);
 
     expect(await searchTrainings("some query")).toEqual([
@@ -30,12 +30,12 @@ describe("searchTrainings", () => {
   });
 
   it("gets matching trainings via keyword search and id lookup", async () => {
-    const training1 = buildTrainingResult({ name: "training 1", id: "1" });
-    const training2 = buildTrainingResult({ name: "training 2", id: "2" });
+    const training1 = buildTrainingResult({ id: "1", highlight: "some highlight" });
+    const training2 = buildTrainingResult({ id: "2", highlight: "some highlight" });
 
     stubDataClient.search.mockResolvedValue(["1", "2"]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
-    stubDataClient.getHighlights.mockResolvedValue([training1.highlight, training2.highlight]);
+    stubDataClient.getHighlight.mockResolvedValue("some highlight");
 
     const searchResults = await searchTrainings("keyword");
     expect(searchResults).toEqual(expect.arrayContaining([training1, training2]));
@@ -44,35 +44,25 @@ describe("searchTrainings", () => {
     expect(stubDataClient.findTrainingResultsByIds).toHaveBeenCalledWith(["1", "2"]);
   });
 
-  it("accurately matches highlights when filtering out trainings", async () => {
-    const training1 = buildTrainingResult({ name: "training 1", status: Status.SUSPENDED });
-    const training2 = buildTrainingResult({ name: "training 2", status: Status.APPROVED });
-
-    stubDataClient.search.mockResolvedValue(["1", "2"]);
-    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
-    stubDataClient.getHighlights.mockResolvedValue([
-      "training 1 highlight",
-      "training 2 highlight",
-    ]);
-
-    const searchResults = await searchTrainings("keyword");
-    expect(searchResults).toEqual([
-      {
-        ...training2,
-        highlight: "training 2 highlight",
-      },
-    ]);
-  });
-
   it("gets all trainings when search query is empty/undefined", async () => {
-    const allTrainings = [
-      buildTrainingResult({ highlight: "" }),
-      buildTrainingResult({ highlight: "" }),
+    const result1 = buildTrainingResult({});
+    const result2 = buildTrainingResult({});
+    const allTrainings = [result1, result2];
+    const expectedResults = [
+      {
+        ...result1,
+        highlight: "",
+      },
+      {
+        ...result2,
+        highlight: "",
+      },
     ];
+
     stubDataClient.findAllTrainingResults.mockResolvedValue(allTrainings);
 
     let searchResults = await searchTrainings("");
-    expect(searchResults).toEqual(expect.arrayContaining(allTrainings));
+    expect(searchResults).toEqual(expect.arrayContaining(expectedResults));
 
     expect(stubDataClient.findAllTrainingResults).toHaveBeenCalled();
     expect(stubDataClient.search).not.toHaveBeenCalled();
@@ -81,7 +71,7 @@ describe("searchTrainings", () => {
     stubDataClient.findAllTrainingResults.mockResolvedValue(allTrainings);
 
     searchResults = await searchTrainings(undefined);
-    expect(searchResults).toEqual(expect.arrayContaining(allTrainings));
+    expect(searchResults).toEqual(expect.arrayContaining(expectedResults));
 
     expect(stubDataClient.findAllTrainingResults).toHaveBeenCalled();
     expect(stubDataClient.search).not.toHaveBeenCalled();

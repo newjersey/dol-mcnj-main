@@ -45,19 +45,18 @@ describe("PostgresDataClient", () => {
   });
 
   it("fetches highlights for a list of result ids", async () => {
-    const highlights = await dataClient.getHighlights(["5", "1"], "tree");
-    expect(highlights[0]).toEqual("This program is also about [[trees]]");
-    expect(highlights[1]).toEqual(
+    const highlight = await dataClient.getHighlight("1", "tree");
+    expect(highlight).toEqual(
       "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]"
     );
   });
 
   it("returns empty string when a result does not have a match in the description", async () => {
-    const highlights = await dataClient.getHighlights(["1"], "class");
-    expect(highlights[0]).toEqual("");
+    const highlight = await dataClient.getHighlight("1", "class");
+    expect(highlight).toEqual("");
 
-    const highlightsNoDescription = await dataClient.getHighlights(["6"], "class");
-    expect(highlightsNoDescription[0]).toEqual("");
+    const highlightNoDescription = await dataClient.getHighlight("6", "class");
+    expect(highlightNoDescription).toEqual("");
   });
 
   it("searches training ids when title, description matches a search query", async () => {
