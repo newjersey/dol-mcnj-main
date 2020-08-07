@@ -1,6 +1,7 @@
-import { Observer, Client } from "./domain/Client";
-import axios, { AxiosResponse } from "axios";
+import { Client, Observer } from "./domain/Client";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
+import { Error } from "./domain/Error";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
@@ -17,6 +18,12 @@ export class ApiClient implements Client {
       .then((response: AxiosResponse<T>) => {
         observer.onSuccess(response.data);
       })
-      .catch(() => observer.onError());
+      .catch((errorResponse: AxiosError<T>) => {
+        if (errorResponse.response?.status === 404) {
+          return observer.onError(Error.NOT_FOUND);
+        }
+
+        return observer.onError(Error.SYSTEM_ERROR);
+      });
   }
 }

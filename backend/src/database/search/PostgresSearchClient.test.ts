@@ -3,7 +3,7 @@ import {PostgresSearchClient} from "./PostgresSearchClient";
 describe("PostgresSearchClient", () => {
   let dataClient: PostgresSearchClient;
 
-  beforeAll(async () => {
+  beforeAll(() => {
     const connection = {
       user: "postgres",
       host: "localhost",
@@ -54,6 +54,6 @@ describe("PostgresSearchClient", () => {
   });
 
   afterAll(async () => {
-    dataClient.disconnect();
+    await dataClient.disconnect();
   });
 });

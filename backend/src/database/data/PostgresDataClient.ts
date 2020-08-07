@@ -1,14 +1,9 @@
-import { DataClient } from "../../domain/DataClient";
-import { CalendarLength, Status, Training, TrainingResult } from "../../domain/Training";
-import {
-  JoinedEntity,
-  OccupationEntity,
-  ProgramEntity,
-  CountyEntity,
-  IdCountyEntity, IdEntity,
-} from "./Entities";
-import knex, { PgConnectionConfig } from "knex";
-import Knex from "knex";
+import {DataClient} from "../../domain/DataClient";
+import {CalendarLength, Status, Training, TrainingResult} from "../../domain/Training";
+import {CountyEntity, IdCountyEntity, IdEntity, JoinedEntity, OccupationEntity, ProgramEntity,} from "./Entities";
+import knex from "knex";
+import Knex, {PgConnectionConfig} from "knex";
+import {Error} from "../../domain/Error";
 
 export class PostgresDataClient implements DataClient {
   kdb: Knex;
@@ -117,7 +112,12 @@ export class PostgresDataClient implements DataClient {
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .where("programs.id", id)
-      .first();
+      .first()
+      .catch(() => undefined)
+
+    if (!programEntity) {
+      return Promise.reject(Error.NOT_FOUND)
+    }
 
     const matchingOccupations: OccupationEntity[] = await this.kdb("soccipcrosswalk")
       .select("soc2018title")
@@ -174,7 +174,7 @@ export class PostgresDataClient implements DataClient {
     return parseFloat(perEmployed);
   };
 
-  disconnect(): void {
-    this.kdb.destroy();
+  disconnect = async (): Promise<void> => {
+    await this.kdb.destroy();
   }
 }

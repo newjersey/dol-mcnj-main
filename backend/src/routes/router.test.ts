@@ -2,6 +2,7 @@ import request from "supertest";
 import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
 import { buildTraining, buildTrainingResult } from "../test-objects/factories";
+import { Error } from "../domain/Error";
 
 describe("router", () => {
   let app: Express;
@@ -56,8 +57,13 @@ describe("router", () => {
     });
 
     it("sends a 500 when the fetch fails", (done) => {
-      stubSearchTrainings.mockImplementationOnce(() => Promise.reject());
+      stubFindTrainingById.mockImplementationOnce(() => Promise.reject());
       request(app).get("/trainings/systemerror").expect(500).end(done);
+    });
+
+    it("sends a 404 when the fetch fails with a Not Found error", (done) => {
+      stubFindTrainingById.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
+      request(app).get("/trainings/notfounderror").expect(404).end(done);
     });
   });
 });

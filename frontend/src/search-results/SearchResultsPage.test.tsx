@@ -250,6 +250,14 @@ describe("<SearchResultsPage />", () => {
     expect(subject.queryByText("my cool training")).not.toBeInTheDocument();
   });
 
+  it("displays error page when search fails", () => {
+    const subject = render(<SearchResultsPage client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onError());
+
+    expect(subject.queryByText("Sorry, something went wrong")).toBeInTheDocument();
+  });
+
   const useMobileSize = (): void => {
     (useMediaQuery as jest.Mock).mockImplementation(() => false);
   };

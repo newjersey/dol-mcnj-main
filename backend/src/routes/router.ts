@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Training, TrainingResult } from "../domain/Training";
 import { FindTrainingById, SearchTrainings } from "../domain/types";
+import { Error } from "../domain/Error";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -23,7 +24,12 @@ export const routerFactory = ({ searchTrainings, findTrainingById }: RouterActio
       .then((training: Training) => {
         res.status(200).json(training);
       })
-      .catch((e) => res.status(500).send(e));
+      .catch((e) => {
+        if (e === Error.NOT_FOUND) {
+          res.status(404).send();
+        }
+        res.status(500).send();
+      });
   });
 
   return router;

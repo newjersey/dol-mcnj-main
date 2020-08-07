@@ -5,7 +5,7 @@ import { TrainingPage } from "./training-page/TrainingPage";
 import { Client } from "./domain/Client";
 import { Router } from "@reach/router";
 import { Filter } from "./domain/Filter";
-import { NotFoundPage } from "./not-found-page/NotFoundPage";
+import { NotFoundPage } from "./error/NotFoundPage";
 
 interface Props {
   client: Client;

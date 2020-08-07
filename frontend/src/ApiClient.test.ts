@@ -2,6 +2,7 @@ import axios from "axios";
 import { ApiClient } from "./ApiClient";
 import { Training, TrainingResult } from "./domain/Training";
 import { buildTraining, buildTrainingResult } from "./test-objects/factories";
+import { Error } from "./domain/Error";
 
 jest.mock("axios");
 
@@ -39,7 +40,7 @@ describe("ApiClient", () => {
       apiClient.getTrainingsByQuery("some query", observer);
     });
 
-    it("calls observer with error when GET fails", (done) => {
+    it("calls observer with error and type when GET fails", (done) => {
       mockedAxios.get.mockRejectedValue({});
 
       const observer = {
@@ -78,12 +79,27 @@ describe("ApiClient", () => {
       apiClient.getTrainingById("some id", observer);
     });
 
-    it("calls observer with error when GET fails", (done) => {
+    it("calls observer with system error when GET fails", (done) => {
       mockedAxios.get.mockRejectedValue({});
 
       const observer = {
         onSuccess: jest.fn(),
-        onError: (): void => {
+        onError: (error: Error): void => {
+          expect(error).toEqual(Error.SYSTEM_ERROR);
+          done();
+        },
+      };
+
+      apiClient.getTrainingById("some id", observer);
+    });
+
+    it("calls observer with not found error when GET 404s", (done) => {
+      mockedAxios.get.mockRejectedValue({ response: { status: 404 } });
+
+      const observer = {
+        onSuccess: jest.fn(),
+        onError: (error: Error): void => {
+          expect(error).toEqual(Error.NOT_FOUND);
           done();
         },
       };

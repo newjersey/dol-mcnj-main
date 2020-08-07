@@ -5,6 +5,7 @@ import { TrainingPage } from "./TrainingPage";
 import { act } from "react-dom/test-utils";
 import { buildAddress, buildProvider, buildTraining } from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
+import { Error } from "../domain/Error";
 
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
@@ -176,10 +177,18 @@ describe("<TrainingPage />", () => {
   it("displays the Not Found page on server error", () => {
     const subject = render(<TrainingPage client={stubClient} id="notfound" />);
 
-    act(() => stubClient.capturedObserver.onError());
+    act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
     expect(
       subject.getByText("Sorry, we can't seem to find that page", { exact: false })
     ).toBeInTheDocument();
+  });
+
+  it("displays the Error page on not found error", () => {
+    const subject = render(<TrainingPage client={stubClient} id="notfound" />);
+
+    act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
+
+    expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
 });
