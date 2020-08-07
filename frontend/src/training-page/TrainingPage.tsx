@@ -11,6 +11,8 @@ import { LocalWaiverTag } from "../components/LocalWaiverTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
+import { Grouping } from "./Grouping";
+import { formatMoney } from "accounting";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -86,53 +88,63 @@ export const TrainingPage = (props: Props): ReactElement => {
           {training.localExceptionCounty.map((county) => (
             <LocalWaiverTag key={county} county={county} />
           ))}
+
           <div className="row">
             <div className="col-md-8">
-              <div className="mvm grouping">
-                <div className="bg-light-green pvs bar">
-                  <h2 className="text-m weight-500">Description</h2>
-                </div>
-                <p className="pts group-padding">{training.description}</p>
-              </div>
+              <div className="container-fluid">
+                <div className="row">
+                  <Grouping title="Description">
+                    <p>{training.description}</p>
+                  </Grouping>
 
-              <div className="mvm grouping">
-                <div className="bg-light-green pvs bar">
-                  <h2 className="text-m weight-500">Quick Stats</h2>
-                </div>
-                <div className="pts group-padding">
-                  <p>
-                    <span className="fin">
-                      <InlineIcon className="mrxs">work_outline</InlineIcon>
-                      Career Track: {getCareerTrackList()}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="fin">
-                      <InlineIcon className="mrxs">av_timer</InlineIcon>
-                      {CalendarLengthLookup[training.calendarLength]}
-                    </span>
-                  </p>
+                  <Grouping title="Quick Stats">
+                    <>
+                      <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">work_outline</InlineIcon>
+                          Career Track: {getCareerTrackList()}
+                        </span>
+                      </p>
+                      <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">av_timer</InlineIcon>
+                          {CalendarLengthLookup[training.calendarLength]}
+                        </span>
+                      </p>
+                    </>
+                  </Grouping>
                 </div>
               </div>
             </div>
+
             <div className="col-md-4">
-              <div className="mvm grouping">
-                <div className="bg-light-green pvs bar">
-                  <h2 className="text-m weight-500">Provider Details</h2>
-                </div>
-                <div className="pts group-padding">
-                  <div className="mvd">
-                    <span className="fin">
-                      <InlineIcon className="mrxs">location_on</InlineIcon>
-                      {getProviderAddress()}
-                    </span>
-                  </div>
-                  <p>
-                    <span className="fin">
-                      <InlineIcon className="mrxs">link</InlineIcon>
-                      {getProviderUrl()}
-                    </span>
-                  </p>
+              <div className="container-fluid">
+                <div className="row">
+                  <Grouping title="Cost">
+                    <p>
+                      <span className="weight-500">Total Cost</span>
+                      <span className="text-l pull-right weight-500">
+                        {formatMoney(training.totalCost)}
+                      </span>
+                    </p>
+                  </Grouping>
+
+                  <Grouping title="Provider Details">
+                    <>
+                      <div className="mvd">
+                        <span className="fin">
+                          <InlineIcon className="mrxs">location_on</InlineIcon>
+                          {getProviderAddress()}
+                        </span>
+                      </div>
+                      <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">link</InlineIcon>
+                          {getProviderUrl()}
+                        </span>
+                      </p>
+                    </>
+                  </Grouping>
                 </div>
               </div>
             </div>

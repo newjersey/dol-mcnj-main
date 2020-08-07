@@ -43,6 +43,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     description: "some-description-" + randomInt(),
     inDemand: !!Math.round(Math.random()),
     localExceptionCounty: ["some-county-" + randomInt()],
+    totalCost: randomInt(),
     ...overrides,
   };
 };

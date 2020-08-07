@@ -29,6 +29,7 @@ export interface ProgramEntity {
   zip: string;
   indemandcip: string;
   localexceptioncounty: string;
+  totalcost: string;
 }
 
 export interface OccupationEntity {

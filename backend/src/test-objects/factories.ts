@@ -46,6 +46,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     calendarLength: randomCalendarLength(),
     inDemand: !!Math.round(Math.random()),
     localExceptionCounty: [],
+    totalCost: randomInt(),
     ...overrides,
   };
 };

@@ -25,6 +25,7 @@ export interface Training {
   provider: Provider;
   inDemand: boolean;
   localExceptionCounty: string[];
+  totalCost: number;
 }
 
 export interface Provider {
