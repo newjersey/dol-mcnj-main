@@ -190,4 +190,32 @@ describe("searchTrainings", () => {
       [],
     ]);
   });
+
+  describe("error handling", () => {
+    it("rejects when search is broken", (done) => {
+      stubSearchClient.search.mockRejectedValue({});
+
+      searchTrainings("query").catch(() => done());
+    });
+
+    it("rejects when find by ids is broken", (done) => {
+      stubSearchClient.search.mockResolvedValue(["id"]);
+      stubDataClient.findTrainingResultsByIds.mockRejectedValue({});
+
+      searchTrainings("query").catch(() => done());
+    });
+
+    it("rejects when get highlights is broken", (done) => {
+      stubSearchClient.search.mockResolvedValue(["id"]);
+      stubDataClient.findTrainingResultsByIds.mockResolvedValue([buildTrainingResult({})]);
+      stubSearchClient.getHighlight.mockRejectedValue({});
+
+      searchTrainings("query").catch(() => done());
+    });
+
+    it("rejects when find all is broken", (done) => {
+      stubDataClient.findAllTrainingResults.mockRejectedValue({});
+      searchTrainings("").catch(() => done());
+    });
+  });
 });

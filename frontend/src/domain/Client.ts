@@ -1,4 +1,5 @@
 import { Training, TrainingResult } from "./Training";
+import { Error } from "./Error";
 
 export interface Client {
   getTrainingsByQuery: (query: string, observer: Observer<TrainingResult[]>) => void;
@@ -7,5 +8,5 @@ export interface Client {
 
 export interface Observer<T> {
   onSuccess: (result: T) => void;
-  onError: () => void;
+  onError: (error: Error) => void;
 }

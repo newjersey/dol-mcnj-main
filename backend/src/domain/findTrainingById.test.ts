@@ -90,4 +90,12 @@ describe("findTrainingById", () => {
 
     expect((await findTrainingById("123")).localExceptionCounty).toEqual([]);
   });
+
+  describe("error handling", () => {
+    it("rejects when find by id is broken", (done) => {
+      stubDataClient.findTrainingById.mockRejectedValue({});
+
+      findTrainingById("id").catch(() => done());
+    });
+  });
 });

@@ -67,7 +67,7 @@ export class PostgresSearchClient implements SearchClient {
       });
   };
 
-  disconnect(): void {
-    this.kdb.destroy();
+  disconnect = async (): Promise<void> => {
+    await this.kdb.destroy();
   }
 }

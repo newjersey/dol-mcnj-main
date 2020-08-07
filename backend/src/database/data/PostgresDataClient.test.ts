@@ -1,5 +1,6 @@
-import { PostgresDataClient } from "./PostgresDataClient";
-import { CalendarLength, Status } from "../../domain/Training";
+import {PostgresDataClient} from "./PostgresDataClient";
+import {CalendarLength, Status} from "../../domain/Training";
+import {Error} from "../../domain/Error";
 
 describe("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
@@ -116,7 +117,21 @@ describe("PostgresDataClient", () => {
     expect(foundTrainings[0].calendarLength).toEqual(CalendarLength.NULL);
   });
 
+  it("throws with a not found error if id does not exist", async () => {
+    return dataClient.findTrainingById('99999')
+      .catch((e) => {
+        expect(e).toEqual(Error.NOT_FOUND)
+      })
+  });
+
+  it("throws with a not found error if id does not exist", async () => {
+    return dataClient.findTrainingById('doesnotexist')
+      .catch((e) => {
+        expect(e).toEqual(Error.NOT_FOUND)
+      })
+  });
+
   afterAll(async () => {
-    dataClient.disconnect();
+    await dataClient.disconnect();
   });
 });

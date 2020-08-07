@@ -4,11 +4,13 @@ import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { Header } from "../search-results/Header";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
-import { NotFoundPage } from "../not-found-page/NotFoundPage";
 import { InlineIcon } from "../components/InlineIcon";
 import { BetaBanner } from "../components/BetaBanner";
 import { InDemandTag } from "../components/InDemandTag";
 import { LocalWaiverTag } from "../components/LocalWaiverTag";
+import { Error } from "../domain/Error";
+import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
+import { NotFoundPage } from "../error/NotFoundPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -17,13 +19,13 @@ interface Props extends RouteComponentProps {
 
 export const TrainingPage = (props: Props): ReactElement => {
   const [training, setTraining] = useState<Training | undefined>(undefined);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: setTraining,
-      onError: () => setError(true),
+      onError: (error: Error) => setError(error),
     });
   }, [props.id, props.client]);
 
@@ -138,7 +140,9 @@ export const TrainingPage = (props: Props): ReactElement => {
         </main>
       </>
     );
-  } else if (error) {
+  } else if (error === Error.SYSTEM_ERROR) {
+    return <SomethingWentWrongPage />;
+  } else if (error === Error.NOT_FOUND) {
     return <NotFoundPage />;
   } else {
     return <></>;

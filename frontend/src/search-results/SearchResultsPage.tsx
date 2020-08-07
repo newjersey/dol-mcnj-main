@@ -8,6 +8,7 @@ import { CircularProgress, useMediaQuery } from "@material-ui/core";
 import { FilterContext } from "../App";
 import { FilterBox } from "../filtering/FilterBox";
 import { BetaBanner } from "../components/BetaBanner";
+import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -21,6 +22,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const { state } = useContext(FilterContext);
 
@@ -40,7 +42,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         setIsLoading(false);
       },
       onError: () => {
-        setIsLoading(false);
+        setIsError(true);
       },
     });
   }, [props.searchQuery, props.client]);
@@ -61,6 +63,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setIsLoading(true);
     setTrainings([]);
   };
+
+  if (isError) {
+    return <SomethingWentWrongPage />;
+  }
 
   return (
     <>
