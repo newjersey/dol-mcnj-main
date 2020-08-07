@@ -27,6 +27,7 @@ export interface Training {
   occupations: string[];
   inDemand: boolean;
   localExceptionCounty: string[];
+  totalCost: number;
 }
 
 export interface Provider {

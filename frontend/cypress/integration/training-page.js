@@ -6,6 +6,7 @@ describe('Training Page', () => {
     cy.contains('Welding Technology/ Welder').should('exist');
     cy.contains('www.mcts.edu').should('exist');
     cy.contains('13 months to 2 years to complete').should('exist');
+    cy.contains('$6,620.00').should('exist');
     cy.contains(
       'This course consists of ten 36-hour units of instruction containing 4 ' +
       'units of theory and 6 units of lab. The first semester requires two three hour ' +

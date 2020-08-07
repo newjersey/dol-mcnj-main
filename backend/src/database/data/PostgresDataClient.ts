@@ -100,6 +100,7 @@ export class PostgresDataClient implements DataClient {
         "programs.calendarlengthid",
         "programs.description",
         "programs.cipcode",
+        "programs.totalcost",
         "providers.website",
         "providers.name as providername",
         "providers.street1",
@@ -138,6 +139,7 @@ export class PostgresDataClient implements DataClient {
       occupations: matchingOccupations.map((it) => it.soc2018title),
       inDemand: programEntity.indemandcip !== null,
       localExceptionCounty: localExceptionCounties.map((it) => it.county),
+      totalCost: parseFloat(programEntity.totalcost),
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",

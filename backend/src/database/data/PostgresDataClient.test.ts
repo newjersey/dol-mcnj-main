@@ -69,6 +69,7 @@ describe("PostgresDataClient", () => {
         "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
         "their leaves and bark and seeds.",
       occupations: ["Botanists"],
+      totalCost: 3035,
       provider: {
         id: "123",
         url: "www.vineland.org/adulted",

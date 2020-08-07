@@ -43,6 +43,7 @@ describe("<TrainingPage />", () => {
       }),
       occupations: ["Botanist", "Senator"],
       description: "some cool description",
+      totalCost: 1234.56,
     });
 
     act(() => stubClient.capturedObserver.onSuccess(training));
@@ -56,6 +57,7 @@ describe("<TrainingPage />", () => {
     ).toBeInTheDocument();
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("$1,234.56", { exact: false })).toBeInTheDocument();
   });
 
   it("displays an in-demand tag when a training is in-demand", () => {
