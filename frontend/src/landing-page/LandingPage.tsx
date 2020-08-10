@@ -52,7 +52,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                   stacked={shouldStackSearchButton}
                 />
               </div>
-              <div className="grey-line" />
+              <div className="grey-line mvm" />
               <div className="pvl">
                 <h2 className="text-xl weight-500 section-header">
                   Get up to $4,000 from the state for your training
