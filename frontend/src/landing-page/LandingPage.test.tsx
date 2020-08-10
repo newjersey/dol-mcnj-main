@@ -16,4 +16,13 @@ describe("<LandingPage />", () => {
     fireEvent.click(subject.getByText("Search"));
     expect(navigate).toHaveBeenCalledWith("/search/penguins");
   });
+
+  it("encodes uri components in search query", () => {
+    const subject = render(<LandingPage />);
+    fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+      target: { value: "penguins / penglings" },
+    });
+    fireEvent.click(subject.getByText("Search"));
+    expect(navigate).toHaveBeenCalledWith("/search/penguins%20%2F%20penglings");
+  });
 });
