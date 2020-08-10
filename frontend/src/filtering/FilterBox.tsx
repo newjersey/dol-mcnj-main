@@ -85,7 +85,7 @@ export const FilterBox = ({
     }
 
     setToReloadState();
-    navigate(`/search/${newQuery}`);
+    navigate(`/search/${encodeURIComponent(newQuery)}`);
   };
 
   return (

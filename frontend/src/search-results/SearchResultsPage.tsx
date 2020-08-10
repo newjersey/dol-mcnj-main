@@ -49,7 +49,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getResultCount = (): ReactElement => {
     let message;
-    const query = props.searchQuery ? props.searchQuery : "";
+    const query = props.searchQuery ? decodeURIComponent(props.searchQuery) : "";
     if (filteredTrainings.length === 1) {
       message = `${filteredTrainings.length} result found for "${query}"`;
     } else {
@@ -88,7 +88,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="row">
             <div className="col-sm-4">
               <FilterBox
-                searchQuery={props.searchQuery}
+                searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : undefined}
                 resultCount={filteredTrainings.length}
                 setShowTrainings={setShouldShowTrainings}
                 setToReloadState={setToReloadState}

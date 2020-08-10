@@ -47,7 +47,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                 </p>
                 <Searchbar
                   onSearch={(searchQuery: string): Promise<void> =>
-                    navigate(`/search/${searchQuery}`)
+                    navigate(`/search/${encodeURIComponent(searchQuery)}`)
                   }
                   stacked={shouldStackSearchButton}
                 />
