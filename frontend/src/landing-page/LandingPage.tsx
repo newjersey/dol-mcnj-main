@@ -6,18 +6,18 @@ import { useMediaQuery } from "@material-ui/core";
 import { BetaBanner } from "../components/BetaBanner";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
-  const isSmallWidescreen = useMediaQuery("(min-width:992px) and (max-width:1100px)");
-  const isMobile = useMediaQuery("(max-width:768px)");
-  const shouldStackSearchButton = isMobile || isSmallWidescreen;
+  const isWidescreen = useMediaQuery("(min-width:1100px)");
+  const shouldStackSearchButton = !isWidescreen;
 
   return (
     <>
       <BetaBanner noHeader={true} />
+
       <div className="gutter-filler-left bg-light-green" />
-      <div className="container landing-container height-full">
-        <div className="row landing-row height-100 height-full">
-          <div className="col-md-6 bg-light-green fdc fjc height-100 height-full col-adjust">
-            <header className="maxl">
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-6 bg-light-green col-adjust fdc fjc full-height-column">
+            <header className="pvxl">
               <div className="fdr fjc mbd">
                 <img
                   className="nj-logo-landing mrd"
@@ -30,7 +30,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                   Explorer
                 </h1>
               </div>
-              <div className="mlm">
+              <div className="subtitle-adjust">
                 <h2 className="fdr fjc text-xl weight-400">
                   Find the training you need to get the job that you want
                 </h2>
@@ -38,9 +38,9 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             </header>
           </div>
 
-          <div className="col-md-6 height-100 height-full fdc fjc col-adjust">
+          <div className="col-sm-6 col-adjust fdc fjc full-height-column">
             <main role="main" className="adjustable-margin-left">
-              <div className="mhl mvxl">
+              <div className="pvl">
                 <h2 className="text-xl weight-500 section-header">Search for Training</h2>
                 <p className="text-m">
                   Find training to prepare you for a promotion, better job, or even a career change
@@ -53,7 +53,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                 />
               </div>
               <div className="grey-line" />
-              <div className="mhl mvxl">
+              <div className="pvl">
                 <h2 className="text-xl weight-500 section-header">
                   Get up to $4,000 from the state for your training
                 </h2>

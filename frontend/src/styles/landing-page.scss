@@ -1,19 +1,22 @@
 @import "sizes";
 @import "colors";
 
+
 .nj-logo-landing {
-  width: 7rem;
+  width: 5.5rem;
   height: 100%;
 }
 
 .gutter-filler-left {
-  position: absolute;
-  height: 100vh;
-  width: 50%;
+    display: none;
 }
 
 .col-adjust {
-  padding-bottom: 6rem;
+  padding: 0 48px;
+}
+
+.full-height-column {
+  height: auto;
 }
 
 .grey-line {
@@ -22,50 +25,41 @@
   background-color: $grey;
 }
 
-.adjustable-margin-left {
-  margin-left: 5rem;
+.section-header {
+  text-align: center;
 }
 
-@media (max-width: $sm) {
-  .gutter-filler-left {
-    display: none;
-  }
-
-  .landing-container {
-    width: 100%;
-    padding: 0;
-  }
-
-  .landing-row {
-    margin: 0;
-    height: 100vh;
-  }
-
-  .section-header {
-    text-align: center;
-  }
-
+@media (min-width: $xs) {
   .nj-logo-landing {
-    width: 5.5rem;
+    width: 7rem;
+  }
+
+  .gutter-filler-left {
+    position: absolute;
+    display: block;
+    height: 100vh;
+    width: 50%;
+  }
+
+  .full-height-column {
     height: 100%;
+    min-height: 100vh;
   }
 
   .col-adjust {
-    padding: 0 3rem;
-
-    &.height-100 {
-      height: auto;
-    }
-  }
-
-  .adjustable-margin-left {
-    margin-left: 15px;
-    margin-right: 15px;
+    padding-bottom: 6rem;
+    padding-top: $beta-banner-height;
   }
 }
 
-@media (max-width: $xs) {
-  .col-adjust {
-    padding: 0;
+@media (min-width: $sm) {
+  .adjustable-margin-left {
+    margin-left: 48px;
+  }
+}
+
+@media (min-width: $md) {
+  .subtitle-adjust {
+    padding-left: 60px;
   }
 }
