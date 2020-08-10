@@ -33,6 +33,7 @@ export interface ProgramEntity {
   totalcost: string;
   onlineprogram: string;
   peremployed2: string;
+  avgquarterlywage2: string;
 }
 
 export interface OccupationEntity {

@@ -48,6 +48,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     totalCost: randomInt(),
     online: randomBool(),
     percentEmployed: randomInt(),
+    averageSalary: randomInt(),
     ...overrides,
   };
 };

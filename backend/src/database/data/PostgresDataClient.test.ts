@@ -23,7 +23,7 @@ describe("PostgresDataClient", () => {
       id: "1",
       name: "Tree Identification Class",
       totalCost: 3035,
-      percentEmployed: 0,
+      percentEmployed: 0.661016949152542,
       status: Status.APPROVED,
       calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
       provider: {
@@ -71,7 +71,8 @@ describe("PostgresDataClient", () => {
         "their leaves and bark and seeds.",
       occupations: ["Botanists"],
       totalCost: 3035,
-      percentEmployed: 0,
+      percentEmployed: 0.661016949152542,
+      averageSalary: 64664,
       provider: {
         id: "123",
         url: "www.vineland.org/adulted",
@@ -100,6 +101,14 @@ describe("PostgresDataClient", () => {
   it("returns online as false when training programid is not on online list", async () => {
     const foundTraining = await dataClient.findTrainingById("3");
     expect(foundTraining.inDemand).toEqual(false);
+  });
+
+  it("returns averageSalary as null when it does not exist or is redacted", async () => {
+    const foundTraining = await dataClient.findTrainingById("3");
+    expect(foundTraining.averageSalary).toEqual(null);
+
+    const foundTraining2 = await dataClient.findTrainingById("5");
+    expect(foundTraining2.averageSalary).toEqual(null);
   });
 
   it("returns localExceptionCounty as empty array when training cip is not on local exception list", async () => {
