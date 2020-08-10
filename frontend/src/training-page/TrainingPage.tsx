@@ -13,6 +13,7 @@ import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "./Grouping";
 import { formatMoney } from "accounting";
+import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -92,6 +93,13 @@ export const TrainingPage = (props: Props): ReactElement => {
           {training.localExceptionCounty.map((county) => (
             <LocalWaiverTag key={county} county={county} />
           ))}
+
+          <div className="bg-lighter-purple stat-block mtm">
+            <div>Employment Rate</div>
+            <div className="stat-block-number">
+              {formatPercentEmployed(training.percentEmployed)}
+            </div>
+          </div>
 
           <div className="row">
             <div className="col-md-8">

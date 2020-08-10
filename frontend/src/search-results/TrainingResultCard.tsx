@@ -6,20 +6,13 @@ import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
 import { LocalWaiverTag } from "../components/LocalWaiverTag";
+import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 
 interface Props {
   trainingResult: TrainingResult;
 }
 
 export const TrainingResultCard = (props: Props): ReactElement => {
-  const formatPercentEmployed = (percentEmployed: number | null): string => {
-    if (percentEmployed === null) {
-      return "--";
-    }
-
-    return (Math.trunc(percentEmployed * 1000) / 10).toFixed(1) + "% employed";
-  };
-
   const getLocationOrOnline = (): string => {
     if (props.trainingResult.online) {
       return "Online Class";
@@ -63,7 +56,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <p className="mts mbxs">
               <span className="fin fas">
                 <InlineIcon className="hide-when-lg mrxs">card_travel</InlineIcon>
-                {formatPercentEmployed(props.trainingResult.percentEmployed)}
+                {formatPercentEmployed(props.trainingResult.percentEmployed)} employed
               </span>
             </p>
           </div>

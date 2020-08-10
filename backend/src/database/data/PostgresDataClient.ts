@@ -45,10 +45,10 @@ export class PostgresDataClient implements DataClient {
       )
       .joinRaw(`join unnest('{${ids.join(",")}}'::int[]) WITH ORDINALITY t(id, ord) USING (id)`)
       .leftOuterJoin("outcomes_cip", function () {
-        this.on("outcomes_cip.cipcode", "programs.cipcode").on(
-          "outcomes_cip.providerid",
-          "programs.providerid"
-        );
+        this
+          .on("outcomes_cip.cipcode", "programs.cipcode")
+          .on("outcomes_cip.providerid", "programs.providerid"
+          );
       })
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
@@ -112,11 +112,18 @@ export class PostgresDataClient implements DataClient {
         "providers.state",
         "providers.zip",
         "indemandcips.cipcode as indemandcip",
-        "onlineprograms.programid as onlineprogram"
+        "onlineprograms.programid as onlineprogram",
+        "outcomes_cip.peremployed2",
       )
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .leftOuterJoin("onlineprograms", "onlineprograms.programid", "programs.programid")
+      .leftOuterJoin("outcomes_cip", function () {
+        this
+          .on("outcomes_cip.cipcode", "programs.cipcode")
+          .on("outcomes_cip.providerid", "programs.providerid"
+        );
+      })
       .where("programs.id", id)
       .first()
       .catch(() => undefined)
@@ -146,6 +153,7 @@ export class PostgresDataClient implements DataClient {
       localExceptionCounty: localExceptionCounties.map((it) => it.county),
       totalCost: parseFloat(programEntity.totalcost),
       online: !!programEntity.onlineprogram,
+      percentEmployed: this.formatPercentEmployed(programEntity.peremployed2),
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",

@@ -47,6 +47,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     localExceptionCounty: ["some-county-" + randomInt()],
     totalCost: randomInt(),
     online: randomBool(),
+    percentEmployed: randomInt(),
     ...overrides,
   };
 };
