@@ -64,6 +64,33 @@ describe('Filtering', () => {
         cy.contains('2 results found for "baker"').should('exist');
     });
 
+    it('filters by class format', () => {
+        cy.visit('/search/internet%20marketing');
+        cy.contains('Internet Marketing Specialist').should('exist');
+        cy.contains('Internet Marketing (Online & Digital)').should('exist');
+        cy.contains('12 results found for "internet marketing"').should('exist');
+
+        cy.contains('Class Format').within(() => {
+            cy.get('[type="checkbox"][name="inPerson"]').check()
+        });
+
+        cy.contains('Internet Marketing Specialist').should('exist');
+        cy.contains('Internet Marketing (Online & Digital)').should('not.exist');
+        cy.contains('9 results found for "internet marketing"').should('exist');
+
+        cy.contains('Class Format').within(() => {
+            cy.get('[type="checkbox"][name="inPerson"]').uncheck()
+        });
+
+        cy.contains('Class Format').within(() => {
+            cy.get('[type="checkbox"][name="online"]').check()
+        });
+
+        cy.contains('Internet Marketing Specialist').should('not.exist');
+        cy.contains('Internet Marketing (Online & Digital)').should('exist');
+        cy.contains('3 results found for "internet marketing"').should('exist');
+    });
+
     it('preserves a filter between pages', () => {
         cy.visit('/search/baker');
         cy.contains('Pastry Arts Academic Credit Certificate').should('exist');

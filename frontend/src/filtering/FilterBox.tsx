@@ -7,6 +7,7 @@ import { EmploymentRateFilter } from "./EmploymentRateFilter";
 import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 import { Searchbar } from "../components/Searchbar";
 import { navigate } from "@reach/router";
+import { ClassFormatFilter } from "./ClassFormatFilter";
 
 interface Props {
   searchQuery?: string;
@@ -117,6 +118,10 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
+        </div>
+
+        <div className="mtd">
+          <ClassFormatFilter />
         </div>
       </div>
     </div>
