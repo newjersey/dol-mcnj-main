@@ -6,6 +6,18 @@ import { act } from "react-dom/test-utils";
 import { buildAddress, buildProvider, buildTraining } from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
 import { Error } from "../domain/Error";
+import { useMediaQuery } from "@material-ui/core";
+
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function mockFunctions() {
+  const original = jest.requireActual("@material-ui/core");
+  return {
+    ...original,
+    useMediaQuery: jest.fn(),
+  };
+}
+
+jest.mock("@material-ui/core", () => mockFunctions());
 
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
@@ -45,6 +57,7 @@ describe("<TrainingPage />", () => {
       description: "some cool description",
       totalCost: 1234.56,
       percentEmployed: 0.77523,
+      averageSalary: 123456,
       online: false,
     });
 
@@ -61,6 +74,7 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$1,234.56", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("77.5%", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("$123,456")).toBeInTheDocument();
   });
 
   it("displays online instead of location when training is online", () => {
@@ -216,4 +230,26 @@ describe("<TrainingPage />", () => {
 
     expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
+
+  it("labels Employment Rate on desktop", () => {
+    useDesktopSize();
+    const subject = render(<TrainingPage client={stubClient} id="1234" />);
+    act(() => stubClient.capturedObserver.onSuccess(buildTraining({})));
+    expect(subject.getByText("Employment Rate")).toBeInTheDocument();
+  });
+
+  it("labels Employment Rate as 'employ rate' on mobile", () => {
+    useMobileSize();
+    const subject = render(<TrainingPage client={stubClient} id="1234" />);
+    act(() => stubClient.capturedObserver.onSuccess(buildTraining({})));
+    expect(subject.getByText("Employ. Rate")).toBeInTheDocument();
+  });
+
+  const useMobileSize = (): void => {
+    (useMediaQuery as jest.Mock).mockImplementation(() => false);
+  };
+
+  const useDesktopSize = (): void => {
+    (useMediaQuery as jest.Mock).mockImplementation(() => true);
+  };
 });

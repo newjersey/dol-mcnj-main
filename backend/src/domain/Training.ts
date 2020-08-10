@@ -31,6 +31,7 @@ export interface Training {
   totalCost: number;
   online: boolean;
   percentEmployed: number | null;
+  averageSalary: number | null;
 }
 
 export interface Provider {

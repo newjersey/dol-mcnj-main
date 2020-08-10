@@ -5,6 +5,8 @@ import knex from "knex";
 import Knex, {PgConnectionConfig} from "knex";
 import {Error} from "../../domain/Error";
 
+const NAN_INDICATOR = "-99999";
+
 export class PostgresDataClient implements DataClient {
   kdb: Knex;
 
@@ -114,6 +116,7 @@ export class PostgresDataClient implements DataClient {
         "indemandcips.cipcode as indemandcip",
         "onlineprograms.programid as onlineprogram",
         "outcomes_cip.peremployed2",
+        "outcomes_cip.avgquarterlywage2",
       )
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
@@ -121,8 +124,7 @@ export class PostgresDataClient implements DataClient {
       .leftOuterJoin("outcomes_cip", function () {
         this
           .on("outcomes_cip.cipcode", "programs.cipcode")
-          .on("outcomes_cip.providerid", "programs.providerid"
-        );
+          .on("outcomes_cip.providerid", "programs.providerid");
       })
       .where("programs.id", id)
       .first()
@@ -154,6 +156,7 @@ export class PostgresDataClient implements DataClient {
       totalCost: parseFloat(programEntity.totalcost),
       online: !!programEntity.onlineprogram,
       percentEmployed: this.formatPercentEmployed(programEntity.peremployed2),
+      averageSalary: this.formatAverageSalary(programEntity.avgquarterlywage2),
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",
@@ -182,12 +185,20 @@ export class PostgresDataClient implements DataClient {
   };
 
   private formatPercentEmployed = (perEmployed: string): number | null => {
-    const NAN_INDICATOR = "-99999";
     if (perEmployed === null || perEmployed === NAN_INDICATOR) {
       return null;
     }
 
     return parseFloat(perEmployed);
+  };
+
+  private formatAverageSalary = (averageQuarterlyWage: string): number | null => {
+    if (averageQuarterlyWage === null || averageQuarterlyWage === NAN_INDICATOR) {
+      return null;
+    }
+
+    const QUARTERS_IN_A_YEAR = 4;
+    return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
   };
 
   disconnect = async (): Promise<void> => {

@@ -14,6 +14,7 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "./Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
+import { useMediaQuery } from "@material-ui/core";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -21,6 +22,8 @@ interface Props extends RouteComponentProps {
 }
 
 export const TrainingPage = (props: Props): ReactElement => {
+  const isTabletAndUp = useMediaQuery("(min-width:768px)");
+
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [error, setError] = useState<Error | null>(null);
 
@@ -94,10 +97,20 @@ export const TrainingPage = (props: Props): ReactElement => {
             <LocalWaiverTag key={county} county={county} />
           ))}
 
-          <div className="bg-lighter-purple stat-block mtm">
-            <div>Employment Rate</div>
-            <div className="stat-block-number">
-              {formatPercentEmployed(training.percentEmployed)}
+          <div className="fdr">
+            <div className="bg-lightest-purple stat-block mtm">
+              <div>Avg. Salary</div>
+              <div className="stat-block-number ptm">
+                {training.averageSalary
+                  ? formatMoney(training.averageSalary, { precision: 0 })
+                  : "--"}
+              </div>
+            </div>
+            <div className="bg-lighter-purple stat-block mtm">
+              <div>{isTabletAndUp ? "Employment Rate" : "Employ. Rate"}</div>
+              <div className="stat-block-number">
+                {training.averageSalary ? formatPercentEmployed(training.percentEmployed) : "--"}
+              </div>
             </div>
           </div>
 

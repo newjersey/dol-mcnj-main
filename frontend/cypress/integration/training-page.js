@@ -7,6 +7,7 @@ describe('Training Page', () => {
 
     cy.contains('In Demand').should('exist');
     cy.contains('77.5%').should('exist');
+    cy.contains('$27,284').should('exist');
 
     cy.contains('Welding students are taught state-of-the-art techniques in gas welding, ' +
       'electric (ARC) welding, Tungsten Inert Gas (TIG) welding, and Metallic Inert Gas (MIG) ' +
