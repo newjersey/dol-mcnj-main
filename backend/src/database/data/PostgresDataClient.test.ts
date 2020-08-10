@@ -35,6 +35,7 @@ describe("PostgresDataClient", () => {
       inDemand: true,
       highlight: "",
       localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
+      online: true,
     });
   });
 
@@ -83,6 +84,7 @@ describe("PostgresDataClient", () => {
       },
       inDemand: true,
       localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
+      online: true
     });
   });
 
@@ -92,6 +94,11 @@ describe("PostgresDataClient", () => {
 
     const foundTrainings = await dataClient.findTrainingResultsByIds(["3"]);
     expect(foundTrainings[0].inDemand).toEqual(false);
+  });
+
+  it("returns online as false when training programid is not on online list", async () => {
+    const foundTraining = await dataClient.findTrainingById("3");
+    expect(foundTraining.inDemand).toEqual(false);
   });
 
   it("returns localExceptionCounty as empty array when training cip is not on local exception list", async () => {

@@ -8,6 +8,7 @@ import {
 } from "../domain/Training";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
+const randomBool = (): boolean => !!Math.round(Math.random());
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
@@ -17,9 +18,10 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     percentEmployed: randomInt(),
     provider: buildProviderResult({}),
     calendarLength: randomCalendarLength(),
-    inDemand: !!Math.round(Math.random()),
+    inDemand: randomBool(),
     highlight: "some-highlight-" + randomInt(),
     localExceptionCounty: ["some-county-" + randomInt()],
+    online: randomBool(),
     ...overrides,
   };
 };
@@ -41,9 +43,10 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     calendarLength: randomCalendarLength(),
     occupations: ["some-occupation-" + randomInt()],
     description: "some-description-" + randomInt(),
-    inDemand: !!Math.round(Math.random()),
+    inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
     totalCost: randomInt(),
+    online: randomBool(),
     ...overrides,
   };
 };

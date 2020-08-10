@@ -60,6 +60,10 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const getProviderAddress = (): ReactElement => {
+    if (training?.online) {
+      return <>'Online Class'</>;
+    }
+
     if (!training || !training.provider.address.city) {
       return <>--</>;
     }

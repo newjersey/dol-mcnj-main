@@ -40,7 +40,8 @@ export class PostgresDataClient implements DataClient {
         "providers.city",
         "providers.statusname as providerstatus",
         "providers.name as providername",
-        "indemandcips.cipcode as indemandcip"
+        "indemandcips.cipcode as indemandcip",
+        "onlineprograms.programid as onlineprogram"
       )
       .joinRaw(`join unnest('{${ids.join(",")}}'::int[]) WITH ORDINALITY t(id, ord) USING (id)`)
       .leftOuterJoin("outcomes_cip", function () {
@@ -51,6 +52,7 @@ export class PostgresDataClient implements DataClient {
       })
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
+      .leftOuterJoin("onlineprograms", "onlineprograms.programid", "programs.programid")
       .whereIn("programs.id", ids)
       .orderByRaw("t.ord");
 
@@ -87,6 +89,7 @@ export class PostgresDataClient implements DataClient {
         },
         highlight: "",
         localExceptionCounty: localExceptionCountiesLookup[entity.id] || [],
+        online: !!entity.onlineprogram,
       }))
     );
   };
@@ -108,10 +111,12 @@ export class PostgresDataClient implements DataClient {
         "providers.city",
         "providers.state",
         "providers.zip",
-        "indemandcips.cipcode as indemandcip"
+        "indemandcips.cipcode as indemandcip",
+        "onlineprograms.programid as onlineprogram"
       )
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
+      .leftOuterJoin("onlineprograms", "onlineprograms.programid", "programs.programid")
       .where("programs.id", id)
       .first()
       .catch(() => undefined)
@@ -140,6 +145,7 @@ export class PostgresDataClient implements DataClient {
       inDemand: programEntity.indemandcip !== null,
       localExceptionCounty: localExceptionCounties.map((it) => it.county),
       totalCost: parseFloat(programEntity.totalcost),
+      online: !!programEntity.onlineprogram,
       provider: {
         id: programEntity.providerid,
         url: programEntity.website ? programEntity.website : "",

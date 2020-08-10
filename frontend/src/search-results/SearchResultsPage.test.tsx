@@ -85,6 +85,7 @@ describe("<SearchResultsPage />", () => {
           name: "Cammy Community College",
         }),
         highlight: "some [[text]] here",
+        online: false,
       });
       const training2 = buildTrainingResult({
         name: "training2",
@@ -96,6 +97,7 @@ describe("<SearchResultsPage />", () => {
           name: "New'rk School",
         }),
         highlight: "",
+        online: false,
       });
 
       act(() => stubClient.capturedObserver.onSuccess([training1, training2]));
@@ -118,6 +120,22 @@ describe("<SearchResultsPage />", () => {
       expect(
         subject.getByText("Less than 1 day to complete", { exact: false })
       ).toBeInTheDocument();
+    });
+
+    it("displays online instead of location when training is online", () => {
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      const training = buildTrainingResult({
+        provider: buildProviderResult({
+          city: "Camden",
+        }),
+        online: true,
+      });
+
+      act(() => stubClient.capturedObserver.onSuccess([training]));
+
+      expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
+      expect(subject.queryByText("Camden", { exact: false })).not.toBeInTheDocument();
     });
 
     it("displays an in-demand tag when a training is in-demand", () => {
