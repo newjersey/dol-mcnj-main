@@ -13,8 +13,23 @@
   vertical-align: top;
 }
 
+.stat-block {
+  width: 33%;
+  padding: .5rem .5rem 1rem .5rem;
+}
+
+.stat-block-number {
+  padding-top: .25rem;
+  text-align: right;
+  font-size: 1.5rem;
+}
+
 // small and up
 @media (min-width: $xs) {
+
+  .stat-block {
+    width: 167px;
+  }
 
   .bar {
     margin-left: 0;

@@ -1,23 +1,34 @@
 describe('Training Page', () => {
   it('displays training details', () => {
-    cy.visit('/training/61');
+    cy.visit('/training/14166');
     cy.injectAxe();
 
-    cy.contains('Welding Technology/ Welder').should('exist');
-    cy.contains('www.mcts.edu').should('exist');
-    cy.contains('13 months to 2 years to complete').should('exist');
-    cy.contains('$6,620.00').should('exist');
+    cy.contains('Welding (w/ Trade Math Lab and Pro. Dev.)').should('exist');
+
+    cy.contains('In Demand').should('exist');
+    cy.contains('77.5%').should('exist');
+
+    cy.contains('Welding students are taught state-of-the-art techniques in gas welding, ' +
+      'electric (ARC) welding, Tungsten Inert Gas (TIG) welding, and Metallic Inert Gas (MIG) ' +
+      'welding. These disciplines require the use of steel, stainless steel, everdure, aluminum ' +
+      'and pipe. Students proceed through each project at their own rate of speed and ' +
+      'receive individualized instruction regarding safety, quality and general welding ' +
+      'techniques. This class also includes 1 hour per day of a trade mathematics lab and/or ' +
+      'professional development prior to the start of the regularly scheduled Welding program ' +
+      '(141 hours total).').should('exist');
+
+    cy.contains('6-12 months to complete').should('exist');
     cy.contains(
-      'This course consists of ten 36-hour units of instruction containing 4 ' +
-      'units of theory and 6 units of lab. The first semester requires two three hour ' +
-      'evenings per week, one of theory and one of lab. The following 36-hour units of ' +
-      'instruction will be taken in the sequence indicated. Each unit consists of ' +
-      'twelve, three hour sessions.'
+      'Career Track: Welders, Cutters, Solderers, and Brazers, Welding, ' +
+      'Soldering, and Brazing Machine Setters, Operators, and Tenders'
     ).should('exist');
-    cy.contains(
-      'Career Track: Welders, Cutters, Solderers, and Brazers, ' +
-      'Welding, Soldering, and Brazing Machine Setters, Operators, and Tenders'
-    ).should('exist');
+
+    cy.contains('$5,100.00').should('exist');
+
+    cy.contains('www.camdencc.edu').should('exist');
+    cy.contains('Continuing Education').should('exist');
+    cy.contains('200 College Drive').should('exist');
+    cy.contains('Blackwood, NJ 08012').should('exist');
 
     cy.checkA11y();
   });

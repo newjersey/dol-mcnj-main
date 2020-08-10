@@ -71,6 +71,7 @@ describe("PostgresDataClient", () => {
         "their leaves and bark and seeds.",
       occupations: ["Botanists"],
       totalCost: 3035,
+      percentEmployed: 0,
       provider: {
         id: "123",
         url: "www.vineland.org/adulted",

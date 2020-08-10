@@ -30,6 +30,7 @@ export interface Training {
   localExceptionCounty: string[];
   totalCost: number;
   online: boolean;
+  percentEmployed: number | null;
 }
 
 export interface Provider {

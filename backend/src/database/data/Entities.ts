@@ -32,6 +32,7 @@ export interface ProgramEntity {
   localexceptioncounty: string;
   totalcost: string;
   onlineprogram: string;
+  peremployed2: string;
 }
 
 export interface OccupationEntity {

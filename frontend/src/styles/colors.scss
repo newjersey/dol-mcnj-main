@@ -5,9 +5,24 @@ $blue: #1668B4;
 $light-grey: #E5E5E5;
 $light-red: #fadee3;
 $orange: #FCDBB6;
+$light-purple: #F4EAFE;
+$lighter-purple: #F9F4FE;
+$lightest-purple: #FCf9FF;
 
 .bg-light-green {
   background-color: $light-green;
+}
+
+.bg-light-purple {
+  background-color: $light-purple;
+}
+
+.bg-lighter-purple {
+  background-color: $lighter-purple;
+}
+
+.bg-lightest-purple {
+  background-color: $lightest-purple;
 }
 
 .blue {
