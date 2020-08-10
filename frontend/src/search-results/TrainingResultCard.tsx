@@ -20,6 +20,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
     return (Math.trunc(percentEmployed * 1000) / 10).toFixed(1) + "% employed";
   };
 
+  const getLocationOrOnline = (): string => {
+    if (props.trainingResult.online) {
+      return "Online Class";
+    }
+
+    return props.trainingResult.provider.city;
+  };
+
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
     if (highlight === "") {
       return [];
@@ -69,7 +77,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <p className="mtxs mbz">
               <span className="fin fas">
                 <InlineIcon className="mrxs">location_on</InlineIcon>
-                {props.trainingResult.provider.city}
+                {getLocationOrOnline()}
               </span>
             </p>
             <p className="mtxs mbz">

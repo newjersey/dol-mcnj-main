@@ -11,6 +11,7 @@ export interface JoinedEntity {
   calendarlengthid: string;
   indemandcip: string;
   localexceptioncounty: string;
+  onlineprogram: string;
 }
 
 export interface ProgramEntity {
@@ -30,6 +31,7 @@ export interface ProgramEntity {
   indemandcip: string;
   localexceptioncounty: string;
   totalcost: string;
+  onlineprogram: string;
 }
 
 export interface OccupationEntity {

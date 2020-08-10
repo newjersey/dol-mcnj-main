@@ -9,6 +9,7 @@ export interface TrainingResult {
   inDemand: boolean;
   localExceptionCounty: string[];
   highlight: string;
+  online: boolean;
 }
 
 export interface ProviderResult {
@@ -28,6 +29,7 @@ export interface Training {
   inDemand: boolean;
   localExceptionCounty: string[];
   totalCost: number;
+  online: boolean;
 }
 
 export interface Provider {

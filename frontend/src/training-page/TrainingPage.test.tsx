@@ -44,6 +44,7 @@ describe("<TrainingPage />", () => {
       occupations: ["Botanist", "Senator"],
       description: "some cool description",
       totalCost: 1234.56,
+      online: false,
     });
 
     act(() => stubClient.capturedObserver.onSuccess(training));
@@ -58,6 +59,24 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$1,234.56", { exact: false })).toBeInTheDocument();
+  });
+
+  it("displays online instead of location when training is online", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+
+    const training = buildTraining({
+      provider: buildProvider({
+        address: buildAddress({
+          city: "Newark",
+        }),
+      }),
+      online: true,
+    });
+
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
+    expect(subject.queryByText("Camden", { exact: false })).not.toBeInTheDocument();
   });
 
   it("displays an in-demand tag when a training is in-demand", () => {
@@ -97,6 +116,7 @@ describe("<TrainingPage />", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
 
     const training = buildTraining({
+      online: false,
       provider: buildProvider({
         address: buildAddress({
           street1: "123 Main Street",
@@ -168,6 +188,7 @@ describe("<TrainingPage />", () => {
     act(() =>
       stubClient.capturedObserver.onSuccess(
         buildTraining({
+          online: false,
           provider: buildProvider({ address: buildAddress({ city: undefined }) }),
         })
       )
