@@ -9,4 +9,5 @@ export interface CareerTrackEntity {
 
 export interface SearchEntity {
   id: number;
+  rank: number;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { buildProviderResult, buildTrainingResult } from "../test-objects/factories";
-import { SearchResultsPage } from "./SearchResultsPage";
+import { SearchResultsPage, SortOrder } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
@@ -312,6 +312,83 @@ describe("<SearchResultsPage />", () => {
       });
       fireEvent.click(subject.getByText("Search"));
       expect(navigate).toHaveBeenCalledWith("/search/penguins%20%2F%20penglings");
+    });
+  });
+
+  describe("sorting", () => {
+    it("defaults to sort order from backend", () => {
+      const training1 = buildTrainingResult({ name: "training1" });
+      const training2 = buildTrainingResult({ name: "training2" });
+      const training3 = buildTrainingResult({ name: "training3" });
+
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
+
+      const cards = subject.getAllByTestId("card");
+      expect(cards[0].textContent).toContain("training1");
+      expect(cards[1].textContent).toContain("training2");
+      expect(cards[2].textContent).toContain("training3");
+    });
+
+    it("sorts by price low to high", () => {
+      const training1 = buildTrainingResult({ name: "training1", totalCost: 300 });
+      const training2 = buildTrainingResult({ name: "training2", totalCost: 100 });
+      const training3 = buildTrainingResult({ name: "training3", totalCost: 200 });
+
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
+
+      fireEvent.change(subject.getByLabelText("Sort by"), {
+        target: { value: SortOrder.PRICE_LOW_TO_HIGH },
+      });
+
+      const cards = subject.getAllByTestId("card");
+      expect(cards[0].textContent).toContain("training2");
+      expect(cards[1].textContent).toContain("training3");
+      expect(cards[2].textContent).toContain("training1");
+    });
+
+    it("sorts by price high to low", () => {
+      const training1 = buildTrainingResult({ name: "training1", totalCost: 300 });
+      const training2 = buildTrainingResult({ name: "training2", totalCost: 100 });
+      const training3 = buildTrainingResult({ name: "training3", totalCost: 200 });
+
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
+
+      fireEvent.change(subject.getByLabelText("Sort by"), {
+        target: { value: SortOrder.PRICE_HIGH_TO_LOW },
+      });
+
+      const cards = subject.getAllByTestId("card");
+      expect(cards[0].textContent).toContain("training1");
+      expect(cards[1].textContent).toContain("training3");
+      expect(cards[2].textContent).toContain("training2");
+    });
+
+    it("sorts by rank as relevance", () => {
+      const training1 = buildTrainingResult({ name: "training1", rank: 2 });
+      const training2 = buildTrainingResult({ name: "training2", rank: 1 });
+      const training3 = buildTrainingResult({ name: "training3", rank: 3 });
+
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
+
+      fireEvent.change(subject.getByLabelText("Sort by"), {
+        target: { value: SortOrder.PRICE_HIGH_TO_LOW },
+      });
+      fireEvent.change(subject.getByLabelText("Sort by"), {
+        target: { value: SortOrder.RELEVANCE },
+      });
+
+      const cards = subject.getAllByTestId("card");
+      expect(cards[0].textContent).toContain("training3");
+      expect(cards[1].textContent).toContain("training1");
+      expect(cards[2].textContent).toContain("training2");
     });
   });
 

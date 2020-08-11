@@ -43,14 +43,17 @@ describe("PostgresSearchClient", () => {
 
   it("searches training ids when title, description matches a search query", async () => {
     const resultIds = await dataClient.search("tree");
-    expect(resultIds).toEqual(expect.arrayContaining(["1", "2", "5"]));
+    expect(resultIds.map(it => it.id)).toEqual(expect.arrayContaining(["1", "2", "5"]));
   });
 
   it("returns search results in order of relevance", async () => {
     const resultIds = await dataClient.search("tree");
-    expect(resultIds[0]).toEqual("2");
-    expect(resultIds[1]).toEqual("1");
-    expect(resultIds[2]).toEqual("5");
+    expect(resultIds[0].id).toEqual("2");
+    expect(resultIds[1].id).toEqual("1");
+    expect(resultIds[2].id).toEqual("5");
+
+    expect(resultIds[0].rank).toBeGreaterThan(resultIds[1].rank);
+    expect(resultIds[1].rank).toBeGreaterThan(resultIds[2].rank);
   });
 
   afterAll(async () => {

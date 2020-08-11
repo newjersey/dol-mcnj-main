@@ -22,8 +22,9 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     calendarLength: randomCalendarLength(),
     inDemand: randomBool(),
     online: randomBool(),
-    highlight: "some-hightlight-" + randomInt(),
     localExceptionCounty: [],
+    highlight: "some-hightlight-" + randomInt(),
+    rank: randomInt(),
     ...overrides,
   };
 };

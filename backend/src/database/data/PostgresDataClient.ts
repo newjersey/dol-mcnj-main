@@ -92,6 +92,7 @@ export class PostgresDataClient implements DataClient {
         highlight: "",
         localExceptionCounty: localExceptionCountiesLookup[entity.id] || [],
         online: !!entity.onlineprogram,
+        rank: 0
       }))
     );
   };
