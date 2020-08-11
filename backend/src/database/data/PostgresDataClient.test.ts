@@ -33,9 +33,10 @@ describe("PostgresDataClient", () => {
         status: Status.SUSPENDED,
       },
       inDemand: true,
-      highlight: "",
       localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
       online: true,
+      highlight: "",
+      rank: 0,
     });
   });
 

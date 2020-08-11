@@ -14,6 +14,7 @@ interface Props {
   resultCount: number;
   setShowTrainings: (shouldShowTrainings: boolean) => void;
   setToReloadState: () => void;
+  children: ReactElement;
 }
 
 const usePrevious = <T extends {}>(value: T): T | undefined => {
@@ -29,6 +30,7 @@ export const FilterBox = ({
   resultCount,
   setShowTrainings,
   setToReloadState,
+  children,
 }: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const previousWasTabletAndUp = usePrevious(isTabletAndUp);
@@ -102,6 +104,7 @@ export const FilterBox = ({
             Filters
           </span>
         </SecondaryButton>
+        <div className="fin mla">{children}</div>
       </div>
       <div className="ptd" style={{ display: filterIsOpen ? "block" : "none" }}>
         <div style={{ display: isTabletAndUp ? "none" : "block" }}>

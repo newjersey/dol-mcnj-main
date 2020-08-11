@@ -19,9 +19,10 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     provider: buildProviderResult({}),
     calendarLength: randomCalendarLength(),
     inDemand: randomBool(),
-    highlight: "some-highlight-" + randomInt(),
     localExceptionCounty: ["some-county-" + randomInt()],
     online: randomBool(),
+    highlight: "some-highlight-" + randomInt(),
+    rank: randomInt(),
     ...overrides,
   };
 };

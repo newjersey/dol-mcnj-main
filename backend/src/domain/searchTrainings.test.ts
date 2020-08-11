@@ -17,32 +17,30 @@ describe("searchTrainings", () => {
     searchTrainings = searchTrainingsFactory(stubDataClient, stubSearchClient);
   });
 
-  it("returns trainings", async () => {
-    const training = buildTrainingResult({ highlight: "" });
-    stubSearchClient.search.mockResolvedValue([training.id]);
+  it("returns matching trainings with highlights and ranks", async () => {
+    const training1 = buildTrainingResult({ id: "1", highlight: "", rank: undefined });
+    const training2 = buildTrainingResult({ id: "2", highlight: "", rank: undefined });
+    stubSearchClient.search.mockResolvedValue([
+      { id: training1.id, rank: 1 },
+      { id: training2.id, rank: 2 },
+    ]);
     stubSearchClient.getHighlight.mockResolvedValue("some highlight");
-    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training]);
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
 
     expect(await searchTrainings("some query")).toEqual([
       {
-        ...training,
+        ...training1,
+        rank: 1,
+        highlight: "some highlight",
+      },
+      {
+        ...training2,
+        rank: 2,
         highlight: "some highlight",
       },
     ]);
-  });
 
-  it("gets matching trainings via keyword search and id lookup", async () => {
-    const training1 = buildTrainingResult({ id: "1", highlight: "some highlight" });
-    const training2 = buildTrainingResult({ id: "2", highlight: "some highlight" });
-
-    stubSearchClient.search.mockResolvedValue(["1", "2"]);
-    stubDataClient.findTrainingResultsByIds.mockResolvedValue([training1, training2]);
-    stubSearchClient.getHighlight.mockResolvedValue("some highlight");
-
-    const searchResults = await searchTrainings("keyword");
-    expect(searchResults).toEqual(expect.arrayContaining([training1, training2]));
-
-    expect(stubSearchClient.search).toHaveBeenCalledWith("keyword");
+    expect(stubSearchClient.search).toHaveBeenCalledWith("some query");
     expect(stubDataClient.findTrainingResultsByIds).toHaveBeenCalledWith(["1", "2"]);
   });
 
@@ -54,10 +52,12 @@ describe("searchTrainings", () => {
       {
         ...result1,
         highlight: "",
+        rank: 0,
       },
       {
         ...result2,
         highlight: "",
+        rank: 0,
       },
     ];
 

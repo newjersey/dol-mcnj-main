@@ -3,18 +3,19 @@ import { DataClient } from "./DataClient";
 import { SearchTrainings } from "./types";
 import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
 import { convertToTitleCase } from "./convertToTitleCase";
-import { SearchClient } from "./SearchClient";
+import { SearchClient, SearchResult } from "./SearchClient";
 
 export const searchTrainingsFactory = (
   dataClient: DataClient,
   searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery?: string): Promise<TrainingResult[]> => {
-    let trainingResults;
+    let trainingResults: TrainingResult[];
+    let searchResults: SearchResult[];
 
     if (searchQuery) {
-      const ids: string[] = await searchClient.search(searchQuery);
-      trainingResults = await dataClient.findTrainingResultsByIds(ids);
+      searchResults = await searchClient.search(searchQuery);
+      trainingResults = await dataClient.findTrainingResultsByIds(searchResults.map((it) => it.id));
     } else {
       trainingResults = await dataClient.findAllTrainingResults();
     }
@@ -30,9 +31,17 @@ export const searchTrainingsFactory = (
         )
         .map(async (trainingResult) => {
           let highlight = "";
+          let rank = 0;
 
           if (searchQuery) {
             highlight = await searchClient.getHighlight(trainingResult.id, searchQuery);
+          }
+
+          if (searchResults) {
+            const foundRank = searchResults.find((it) => it.id === trainingResult.id)?.rank;
+            if (foundRank) {
+              rank = foundRank;
+            }
           }
 
           return {
@@ -43,6 +52,7 @@ export const searchTrainingsFactory = (
               name: stripSurroundingQuotes(trainingResult.provider.name),
             },
             highlight: highlight,
+            rank: rank,
             localExceptionCounty: trainingResult.localExceptionCounty.map(convertToTitleCase),
           };
         })

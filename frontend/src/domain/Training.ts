@@ -6,9 +6,10 @@ export interface TrainingResult {
   calendarLength: CalendarLength;
   provider: ProviderResult;
   inDemand: boolean;
-  highlight: string;
   localExceptionCounty: string[];
   online: boolean;
+  highlight: string;
+  rank: number;
 }
 
 export interface ProviderResult {

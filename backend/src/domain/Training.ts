@@ -9,6 +9,7 @@ export interface TrainingResult {
   inDemand: boolean;
   localExceptionCounty: string[];
   highlight: string;
+  rank: number;
   online: boolean;
 }
 
