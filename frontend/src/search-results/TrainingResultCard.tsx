@@ -56,7 +56,9 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <p className="mts mbxs">
               <span className="fin fas">
                 <InlineIcon className="hide-when-lg mrxs">card_travel</InlineIcon>
-                {formatPercentEmployed(props.trainingResult.percentEmployed)} employed
+                {props.trainingResult.percentEmployed
+                  ? formatPercentEmployed(props.trainingResult.percentEmployed) + " employed"
+                  : "--"}
               </span>
             </p>
           </div>

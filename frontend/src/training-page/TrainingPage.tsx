@@ -109,7 +109,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             <div className="bg-lighter-purple stat-block mtm">
               <div>{isTabletAndUp ? "Employment Rate" : "Employ. Rate"}</div>
               <div className="stat-block-number">
-                {training.averageSalary ? formatPercentEmployed(training.percentEmployed) : "--"}
+                {training.percentEmployed ? formatPercentEmployed(training.percentEmployed) : "--"}
               </div>
             </div>
           </div>
