@@ -74,7 +74,7 @@ describe('Search', () => {
   it('links to a training detail page', () => {
     cy.visit('/search/baker');
     cy.contains('Baking and Pastry Professional').click({force: true});
-    cy.location('pathname').should('eq', '/training/14146');
+    cy.location('pathname').should('eq', '/training/48200');
 
     // removes search results
     cy.contains('Pastry Arts Academic Credit Certificate').should('not.exist');

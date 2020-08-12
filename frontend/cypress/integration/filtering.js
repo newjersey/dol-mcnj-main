@@ -101,7 +101,7 @@ describe('Filtering', () => {
         });
 
         cy.contains('Baking for Beginners').click({force: true});
-        cy.location('pathname').should('eq', '/training/14654');
+        cy.location('pathname').should('eq', '/training/49248');
         cy.go('back');
 
         cy.contains('Pastry Arts Academic Credit Certificate').should('not.exist');

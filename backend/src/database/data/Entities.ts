@@ -1,5 +1,5 @@
 export interface JoinedEntity {
-  id: string;
+  programid: string;
   officialname: string;
   totalcost: string;
   peremployed2: string;
@@ -15,7 +15,7 @@ export interface JoinedEntity {
 }
 
 export interface ProgramEntity {
-  id: string;
+  programid: string;
   cipcode: string;
   officialname: string;
   providerid: string;
@@ -41,7 +41,7 @@ export interface OccupationEntity {
 }
 
 export interface IdEntity {
-  id: number;
+  programid: string;
 }
 
 export interface CountyEntity {
@@ -49,6 +49,6 @@ export interface CountyEntity {
 }
 
 export interface IdCountyEntity {
-  id: string;
+  programid: string;
   county: string;
 }

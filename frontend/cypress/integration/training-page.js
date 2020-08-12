@@ -1,6 +1,6 @@
 describe('Training Page', () => {
   it('displays training details', () => {
-    cy.visit('/training/14166');
+    cy.visit('/training/48216');
     cy.injectAxe();
 
     cy.contains('Welding (w/ Trade Math Lab and Pro. Dev.)').should('exist');

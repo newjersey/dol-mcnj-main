@@ -136,14 +136,14 @@ describe("PostgresDataClient", () => {
     expect(foundTrainings[0].calendarLength).toEqual(CalendarLength.NULL);
   });
 
-  it("throws with a not found error if id does not exist", async () => {
+  it("throws with a not found error if numeric id does not exist", async () => {
     return dataClient.findTrainingById('99999')
       .catch((e) => {
         expect(e).toEqual(Error.NOT_FOUND)
       })
   });
 
-  it("throws with a not found error if id does not exist", async () => {
+  it("throws with a not found error if string id does not exist", async () => {
     return dataClient.findTrainingById('doesnotexist')
       .catch((e) => {
         expect(e).toEqual(Error.NOT_FOUND)

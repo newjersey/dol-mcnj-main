@@ -8,6 +8,6 @@ export interface CareerTrackEntity {
 }
 
 export interface SearchEntity {
-  id: number;
+  programid: string;
   rank: number;
 }
