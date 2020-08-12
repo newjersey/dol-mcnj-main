@@ -2,7 +2,7 @@ describe('Filtering', () => {
     it('filters by max cost', () => {
         cy.visit('/search/baker');
         cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
-        cy.contains('8 results found for "baker"').should('exist');
+        cy.contains('7 results found for "baker"').should('exist');
 
         cy.contains('Max Cost').within(() => {
             cy.get('input').type('5000');
@@ -10,7 +10,7 @@ describe('Filtering', () => {
         });
 
         cy.contains('Pastry Arts Academic Credit Certificate').should('not.exist');
-        cy.contains('5 results found for "baker"').should('exist');
+        cy.contains('3 results found for "baker"').should('exist');
 
         cy.contains('Max Cost').within(() => {
             cy.get('input').clear()
@@ -18,13 +18,13 @@ describe('Filtering', () => {
         });
 
         cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
-        cy.contains('8 results found for "baker"').should('exist');
+        cy.contains('7 results found for "baker"').should('exist');
     });
 
     it('filters by employment outcomes', () => {
         cy.visit('/search/baker');
         cy.contains('Baking and Pastry Arts').should('exist');
-        cy.contains('8 results found for "baker"').should('exist');
+        cy.contains('7 results found for "baker"').should('exist');
 
 
         cy.contains('Employment Rate').within(() => {
@@ -39,14 +39,14 @@ describe('Filtering', () => {
         });
 
         cy.contains('Baking and Pastry Arts').should('exist');
-        cy.contains('2 results found for "baker"').should('exist');
+        cy.contains('3 results found for "baker"').should('exist');
 
     });
 
     it('filters by training length', () => {
         cy.visit('/search/baker');
         cy.contains('Baking and Pastry Arts').should('exist');
-        cy.contains('8 results found for "baker"').should('exist');
+        cy.contains('7 results found for "baker"').should('exist');
 
 
         cy.contains('Time to Complete').within(() => {
@@ -61,22 +61,22 @@ describe('Filtering', () => {
         });
 
         cy.contains('Baking for Beginners').should('exist');
-        cy.contains('2 results found for "baker"').should('exist');
+        cy.contains('1 result found for "baker"').should('exist');
     });
 
     it('filters by class format', () => {
         cy.visit('/search/internet%20marketing');
-        cy.contains('Internet Marketing Specialist').should('exist');
-        cy.contains('Internet Marketing (Online & Digital)').should('exist');
-        cy.contains('12 results found for "internet marketing"').should('exist');
+        cy.contains('Certified Global Business Professional').should('exist');
+        cy.contains('Management Training - online').should('exist');
+        cy.contains('8 results found for "internet marketing"').should('exist');
 
         cy.contains('Class Format').within(() => {
             cy.get('[type="checkbox"][name="inPerson"]').check()
         });
 
-        cy.contains('Internet Marketing Specialist').should('exist');
-        cy.contains('Internet Marketing (Online & Digital)').should('not.exist');
-        cy.contains('9 results found for "internet marketing"').should('exist');
+        cy.contains('Certified Global Business Professional').should('exist');
+        cy.contains('Management Training - online').should('not.exist');
+        cy.contains('6 results found for "internet marketing"').should('exist');
 
         cy.contains('Class Format').within(() => {
             cy.get('[type="checkbox"][name="inPerson"]').uncheck()
@@ -86,9 +86,9 @@ describe('Filtering', () => {
             cy.get('[type="checkbox"][name="online"]').check()
         });
 
-        cy.contains('Internet Marketing Specialist').should('not.exist');
-        cy.contains('Internet Marketing (Online & Digital)').should('exist');
-        cy.contains('3 results found for "internet marketing"').should('exist');
+        cy.contains('Certified Global Business Professional').should('not.exist');
+        cy.contains('Management Training - online').should('exist');
+        cy.contains('2 results found for "internet marketing"').should('exist');
     });
 
     it('preserves a filter between pages', () => {
