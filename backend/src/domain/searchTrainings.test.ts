@@ -140,6 +140,10 @@ describe("searchTrainings", () => {
         provider: buildProviderResult({ name: '"Some Name with Quotes"' }),
       }),
       buildTrainingResult({
+        name: '"Quote at beginning',
+        provider: buildProviderResult({ name: 'Quote at end"' }),
+      }),
+      buildTrainingResult({
         name: "Some Name without Quotes",
         provider: buildProviderResult({ name: "Some Name without Quotes" }),
       }),
@@ -147,20 +151,28 @@ describe("searchTrainings", () => {
         name: '"Quotes "in the" middle too"',
         provider: buildProviderResult({ name: '"Quotes "in the" middle too"' }),
       }),
+      buildTrainingResult({
+        name: '"""Lots of Quotes"""',
+        provider: buildProviderResult({ name: '"""Lots of Quotes"""' }),
+      }),
     ]);
 
     const searchResults = await searchTrainings("");
 
     expect(searchResults.map((it) => it.name)).toEqual([
       "Some Name with Quotes",
+      "Quote at beginning",
       "Some Name without Quotes",
       'Quotes "in the" middle too',
+      "Lots of Quotes",
     ]);
 
     expect(searchResults.map((it) => it.provider.name)).toEqual([
       "Some Name with Quotes",
+      "Quote at end",
       "Some Name without Quotes",
       'Quotes "in the" middle too',
+      "Lots of Quotes",
     ]);
   });
 

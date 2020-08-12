@@ -55,6 +55,16 @@ describe("findTrainingById", () => {
 
     expect((await findTrainingById("123")).name).toEqual('Quotes "in the" middle too');
     expect((await findTrainingById("123")).description).toEqual('Quotes "in the" middle too');
+
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        name: '"""Lots of Quotes"""',
+        description: '"""Lots of Quotes"""',
+      })
+    );
+
+    expect((await findTrainingById("123")).name).toEqual("Lots of Quotes");
+    expect((await findTrainingById("123")).description).toEqual("Lots of Quotes");
   });
 
   it("title cases the local exception county", async () => {
