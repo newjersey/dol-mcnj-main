@@ -90,6 +90,28 @@ exports.up = function(db) {
   var filePath = path.join(__dirname, 'sqls', fileName);
 ```
 
+#### Updating Seeds
+
+When you want to add a DB migration that is a **seed update** operation (that is, replacing data
+in a table new fresher data from a CSV), here is what to do:
+
+For the up-file:
+- Follow the seed instructions above to add the CSV and create an `update-*.sql` file
+- Follow the instructions above to use `csvInserter` to insert new CSV data into your update file.
+- Add a `delete from [tablename];` line at the top of the sql file.
+
+**Important** - For the down-file:
+- Copy all the insert statements from the previous seed/update up-file for this table into this down-file.
+- Add a `delete from [tablename];` line at the top of the sql down-file
+
+**IMPORTANT!** - if we're updating the `programs` table:
+- at the END of both the up-file AND the down-file, we must delete all rows from the `programtokens` table
+and re-create it by adding the `programtokens` code that is in `20200706210029-programtokens-up.sql`.
+- This will ensure that the tokens being searched on are up-to-date with program table changes.
+
+Please see `decision_log.md #2020-08-12` for explanation of why we need this, and please see `20200812144318-update-programs-*.sql`
+migration for examples of what this should look like.
+
 ## Pushing changes
 
 Always push via ship-it ([why?](https://medium.com/@AnneLoVerso/ship-it-a-humble-script-for-low-risk-deployment-1b8ba99994f7))

@@ -16,7 +16,7 @@ describe('Search', () => {
     cy.get('input[aria-label="search"]').should('have.value', 'baking');
 
     // matches by title
-    cy.contains('Baking and Pastry Professional').should('exist');
+    cy.contains('Baking and Pastry Arts').should('exist');
 
     // matches by title but is suspended
     cy.contains('Art of International Bread Baking').should('not.exist');
@@ -36,12 +36,12 @@ describe('Search', () => {
     cy.injectAxe();
 
     // displays trainings
-    cy.contains("Basic MIG").should('exist');
-    cy.contains("$840.00").should('exist');
-    cy.contains("--").should('exist');
-    cy.contains("Paterson").should('exist');
-    cy.contains("HoHoKus School of Trade - Customized Trainer").should('exist');
-    cy.contains("1-2 days to complete").should('exist');
+    cy.contains("Introduction to Welding Technology").should('exist');
+    cy.contains("$4,000.00").should('exist');
+    cy.contains("77.5%").should('exist');
+    cy.contains("Blackwood").should('exist');
+    cy.contains("Camden County College - Continuing Education").should('exist');
+    cy.contains("3-5 months to complete").should('exist');
 
     // input search
     cy.get('input[aria-label="search"]').clear();
@@ -51,7 +51,7 @@ describe('Search', () => {
     cy.location('pathname').should('eq', '/search/baker');
 
     // matches by title
-    cy.contains('Baking and Pastry Professional').should('exist');
+    cy.contains('Baking and Pastry Arts').should('exist');
 
     // matches by title but is suspended
     cy.contains('Art of International Bread Baking').should('not.exist');
@@ -60,7 +60,7 @@ describe('Search', () => {
     cy.contains('Pastry Arts Academic Credit Certificate').should('exist');
 
     // removes others
-    cy.contains('Patient Care Technician Program').should('not.exist');
+    cy.contains('Introduction to Welding Technology').should('not.exist');
 
     cy.checkA11y();
   });
@@ -73,14 +73,14 @@ describe('Search', () => {
 
   it('links to a training detail page', () => {
     cy.visit('/search/baker');
-    cy.contains('Baking and Pastry Professional').click({force: true});
-    cy.location('pathname').should('eq', '/training/48200');
+    cy.contains('Baking and Pastry Arts').click({force: true});
+    cy.location('pathname').should('eq', '/training/37838');
 
     // removes search results
     cy.contains('Pastry Arts Academic Credit Certificate').should('not.exist');
 
     // shows program
-    cy.contains('Baking and Pastry Professional').should('exist');
+    cy.contains('Baking and Pastry Arts').should('exist');
   });
 
   it('tags trainings on in-demand', () => {
@@ -92,7 +92,7 @@ describe('Search', () => {
     });
 
     // not in-demand training
-    cy.contains('Baking and Pastry Professional').within(() => {
+    cy.contains('Baking and Pastry Arts').within(() => {
       cy.contains('In Demand').should('not.exist');
     });
 
