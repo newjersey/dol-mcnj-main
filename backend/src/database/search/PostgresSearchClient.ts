@@ -16,13 +16,13 @@ export class PostgresSearchClient implements SearchClient {
   search = (searchQuery: string): Promise<SearchResult[]> => {
     return this.kdb("programtokens")
       .select(
-        "id",
+        "programid",
         this.kdb.raw("ts_rank_cd(tokens, websearch_to_tsquery(?), 1) AS rank", [searchQuery])
       )
       .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
       .orderBy("rank", "desc")
       .then((data: SearchEntity[]) => data.map((entity) => ({
-        id: entity.id.toString(),
+        id: entity.programid,
         rank: entity.rank
       })))
       .catch((e) => {
@@ -34,7 +34,7 @@ export class PostgresSearchClient implements SearchClient {
   getHighlight = async (id: string, searchQuery: string): Promise<string> => {
     const careerTracksJoined = await this.kdb("soccipcrosswalk")
       .select("soc2018title")
-      .whereRaw("soccipcrosswalk.cipcode = (select cipcode from programs where id = ?)", id)
+      .whereRaw("soccipcrosswalk.cipcode = (select cipcode from programs where programid = ?)", id)
       .then((data: CareerTrackEntity[]) => data.map((it) => it.soc2018title).join(", "))
       .catch((e) => {
         console.log("db error: ", e);
@@ -54,7 +54,7 @@ export class PostgresSearchClient implements SearchClient {
           [careerTracksJoined, searchQuery]
         )
       )
-      .where("id", id)
+      .where("programid", id)
       .first()
       .then((data: HeadlineEntity) => {
         if (data.descheadline?.includes("[[")) {

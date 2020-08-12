@@ -20,8 +20,8 @@ export class PostgresDataClient implements DataClient {
   findAllTrainingResults = async (): Promise<TrainingResult[]> => {
     return this.findTrainingResultsByIds(
       await this.kdb("programs")
-        .select("id")
-        .then((data: IdEntity[]) => data.map((it) => it.id.toString()))
+        .select("programid")
+        .then((data: IdEntity[]) => data.map((it) => it.programid))
     );
   };
 
@@ -32,7 +32,7 @@ export class PostgresDataClient implements DataClient {
 
     const joinedEntities: JoinedEntity[] = await this.kdb("programs")
       .select(
-        "programs.id",
+        "programs.programid",
         "programs.providerid",
         "programs.officialname",
         "programs.totalcost",
@@ -45,35 +45,37 @@ export class PostgresDataClient implements DataClient {
         "indemandcips.cipcode as indemandcip",
         "onlineprograms.programid as onlineprogram"
       )
-      .joinRaw(`join unnest('{${ids.join(",")}}'::int[]) WITH ORDINALITY t(id, ord) USING (id)`)
+      .joinRaw(`join unnest('{${ids.join(",")}}'::varchar[]) WITH ORDINALITY t(programid, ord) USING (programid)`)
       .leftOuterJoin("outcomes_cip", function () {
         this
           .on("outcomes_cip.cipcode", "programs.cipcode")
-          .on("outcomes_cip.providerid", "programs.providerid"
-          );
+          .on("outcomes_cip.providerid", "programs.providerid");
       })
       .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
       .leftOuterJoin("onlineprograms", "onlineprograms.programid", "programs.programid")
-      .whereIn("programs.id", ids)
+      .whereIn("programs.programid", ids)
       .orderByRaw("t.ord");
 
     const localExceptionCounties: IdCountyEntity[] = await this.kdb("programs")
-      .select("id", "county")
+      .select(
+        "programid",
+        "county"
+      )
       .innerJoin("localexceptioncips", "localexceptioncips.cipcode", "programs.cipcode")
-      .whereIn("id", ids);
+      .whereIn("programid", ids);
 
     const localExceptionCountiesLookup = localExceptionCounties.reduce(
       (result: Record<string, string[]>, item: IdCountyEntity) => ({
         ...result,
-        [item.id]: [...(result[item.id] || []), item.county],
+        [item.programid]: [...(result[item.programid] || []), item.county],
       }),
       {}
     );
 
     return Promise.resolve(
       joinedEntities.map((entity) => ({
-        id: entity.id.toString(),
+        id: entity.programid,
         name: entity.officialname,
         totalCost: parseFloat(entity.totalcost),
         percentEmployed: this.formatPercentEmployed(entity.peremployed2),
@@ -90,7 +92,7 @@ export class PostgresDataClient implements DataClient {
           status: this.mapStatus(entity.providerstatus),
         },
         highlight: "",
-        localExceptionCounty: localExceptionCountiesLookup[entity.id] || [],
+        localExceptionCounty: localExceptionCountiesLookup[entity.programid] || [],
         online: !!entity.onlineprogram,
         rank: 0
       }))
@@ -100,7 +102,7 @@ export class PostgresDataClient implements DataClient {
   findTrainingById = async (id: string): Promise<Training> => {
     const programEntity: ProgramEntity = await this.kdb("programs")
       .select(
-        "programs.id",
+        "programs.programid",
         "programs.providerid",
         "programs.officialname",
         "programs.calendarlengthid",
@@ -127,7 +129,7 @@ export class PostgresDataClient implements DataClient {
           .on("outcomes_cip.cipcode", "programs.cipcode")
           .on("outcomes_cip.providerid", "programs.providerid");
       })
-      .where("programs.id", id)
+      .where("programs.programid", id)
       .first()
       .catch(() => undefined)
 
@@ -144,7 +146,7 @@ export class PostgresDataClient implements DataClient {
       .where("cipcode", programEntity.cipcode);
 
     return Promise.resolve({
-      id: programEntity.id.toString(),
+      id: programEntity.programid,
       name: programEntity.officialname,
       description: programEntity.description,
       calendarLength:
