@@ -25,7 +25,9 @@ describe("<FilterBox />", () => {
 
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox resultCount={1} setShowTrainings={jest.fn()} setToReloadState={jest.fn()} />
+        <FilterBox resultCount={1} setShowTrainings={jest.fn()} setToReloadState={jest.fn()}>
+          <div />
+        </FilterBox>
       </FilterContext.Provider>
     );
   };
@@ -36,7 +38,9 @@ describe("<FilterBox />", () => {
         resultCount={resultCount}
         setShowTrainings={setShowTrainings}
         setToReloadState={jest.fn()}
-      />
+      >
+        <div />
+      </FilterBox>
     );
   };
 
@@ -144,7 +148,7 @@ describe("<FilterBox />", () => {
     useDesktopSize();
     const subject = renderFilterBox({});
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
-    expect(subject.getByText("Filters", { exact: false })).not.toBeVisible();
+    expect(subject.queryByText("Filters", { exact: false })).not.toBeInTheDocument();
   });
 
   const useDesktopSize = (): void => {
