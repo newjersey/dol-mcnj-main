@@ -62,8 +62,7 @@ describe('Search', () => {
     // removes others
     cy.contains('Patient Care Technician Program').should('not.exist');
 
-    // temporary disable until they respond to issue report about MUI-select
-    // cy.checkA11y();
+    cy.checkA11y();
   });
 
   it('links back to home page', () => {

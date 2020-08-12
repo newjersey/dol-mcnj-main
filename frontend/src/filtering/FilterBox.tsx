@@ -94,18 +94,20 @@ export const FilterBox = ({
   return (
     <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
       <Searchbar onSearch={executeSearch} initialValue={searchQuery} stacked={true} />
-      <div className="ptm fdr" style={{ display: isTabletAndUp ? "none" : "flex" }}>
-        <SecondaryButton
-          className="fin flex-half"
-          onClick={toggleFilterVisibility}
-          endIcon={<Icon>{getArrowIcon()}</Icon>}
-        >
-          <span style={{ marginRight: "auto" }} className={`pls ${blueWhenFilterApplied()}`}>
-            Filters
-          </span>
-        </SecondaryButton>
-        <div className="fin mla">{children}</div>
-      </div>
+      {!isTabletAndUp && (
+        <div className="ptm fdr">
+          <SecondaryButton
+            className="fin flex-half"
+            onClick={toggleFilterVisibility}
+            endIcon={<Icon>{getArrowIcon()}</Icon>}
+          >
+            <span style={{ marginRight: "auto" }} className={`pls ${blueWhenFilterApplied()}`}>
+              Filters
+            </span>
+          </SecondaryButton>
+          <div className="fin mla">{children}</div>
+        </div>
+      )}
       <div className="ptd" style={{ display: filterIsOpen ? "block" : "none" }}>
         <div style={{ display: isTabletAndUp ? "none" : "block" }}>
           <div className="mbs grey-line" />
