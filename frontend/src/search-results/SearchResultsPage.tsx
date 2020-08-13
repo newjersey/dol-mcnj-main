@@ -64,7 +64,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       message = `${filteredTrainings.length} results found for "${query}"`;
     }
 
-    return <h2 className="text-xl weight-500 pvs">{message}</h2>;
+    return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
   };
 
   const setToReloadState = (): void => {
@@ -123,7 +123,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="container results-count-container">
             <div className="row ptd fixed-wrapper">
               <div className="col-md-12 fdr fac">
-                <div>{!isLoading && getResultCount()}</div>
+                <div className="result-count-text">{!isLoading && getResultCount()}</div>
                 <div className="mla">{getSortDropdown()}</div>
               </div>
             </div>
