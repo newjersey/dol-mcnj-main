@@ -4,6 +4,7 @@ import { SearchTrainings } from "./types";
 import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
 import { convertToTitleCase } from "./convertToTitleCase";
 import { SearchClient, SearchResult } from "./SearchClient";
+import { stripUnicode } from "./stripUnicode";
 
 export const searchTrainingsFactory = (
   dataClient: DataClient,
@@ -51,7 +52,7 @@ export const searchTrainingsFactory = (
               ...trainingResult.provider,
               name: stripSurroundingQuotes(trainingResult.provider.name),
             },
-            highlight: highlight,
+            highlight: stripUnicode(highlight),
             rank: rank,
             localExceptionCounty: trainingResult.localExceptionCounty.map(convertToTitleCase),
           };
