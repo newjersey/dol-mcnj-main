@@ -101,6 +101,16 @@ describe("findTrainingById", () => {
     expect((await findTrainingById("123")).localExceptionCounty).toEqual([]);
   });
 
+  it("strips unicode inverted question marks from highlights", async () => {
+    stubDataClient.findTrainingById.mockResolvedValue(
+      buildTraining({
+        description: "some ¿weird¿ character",
+      })
+    );
+
+    expect((await findTrainingById("123")).description).toEqual("some weird character");
+  });
+
   describe("error handling", () => {
     it("rejects when find by id is broken", (done) => {
       stubDataClient.findTrainingById.mockRejectedValue({});

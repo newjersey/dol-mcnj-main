@@ -203,6 +203,16 @@ describe("searchTrainings", () => {
     ]);
   });
 
+  it("strips unicode inverted question marks from highlights", async () => {
+    stubSearchClient.search.mockResolvedValue(["id"]);
+    stubDataClient.findTrainingResultsByIds.mockResolvedValue([buildTrainingResult({})]);
+    stubSearchClient.getHighlight.mockResolvedValue("some ¿weird¿ character");
+
+    const searchResults = await searchTrainings("query");
+
+    expect(searchResults.map((it) => it.highlight)).toEqual(["some weird character"]);
+  });
+
   describe("error handling", () => {
     it("rejects when search is broken", (done) => {
       stubSearchClient.search.mockRejectedValue({});
