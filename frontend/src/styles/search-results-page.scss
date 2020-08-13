@@ -42,8 +42,24 @@
   line-height: 2.5;
 }
 
+.cutoff-text {
+  display: block;
+  display: -webkit-box;
+  max-height: 3.8rem;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 // small and up
 @media (min-width: $xs) {
+  .cutoff-text {
+    display: block;
+    max-height: unset;
+    white-space: nowrap;
+  }
+
   .filterbox {
     width: 235px;
     height: calc(100vh - #{$below-banners-height} - #{$result-count-height} - 15px);
@@ -59,6 +75,10 @@
     margin-top: $below-banners-height;
     height: $result-count-height;
     padding-bottom: 1.5rem;
+  }
+
+  .result-count-text {
+    max-width: 80%;
   }
 
   .fixed-wrapper {
