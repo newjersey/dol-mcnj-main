@@ -1,11 +1,12 @@
-import { DataClient } from "./DataClient";
-import { FindTrainingById } from "./types";
-import { Training } from "./Training";
-import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
-import { convertToTitleCase } from "./convertToTitleCase";
-import { stripUnicode } from "./stripUnicode";
+import {stripSurroundingQuotes} from "../utils/stripSurroundingQuotes";
+import {stripUnicode} from "../utils/stripUnicode";
+import {convertToTitleCase} from "../utils/convertToTitleCase";
+import {FindTrainingById} from "../types";
+import {TrainingDataClient} from "./TrainingDataClient";
+import {Training} from "./Training";
 
-export const findTrainingByIdFactory = (dataClient: DataClient): FindTrainingById => {
+
+export const findTrainingByIdFactory = (dataClient: TrainingDataClient): FindTrainingById => {
   return async (id?: string): Promise<Training> => {
     if (!id) {
       return Promise.reject("id is empty or undefined");

@@ -1,8 +1,8 @@
-import { searchTrainingsFactory } from "./searchTrainings";
-import { buildProviderResult, buildTrainingResult } from "../test-objects/factories";
-import { Status } from "./Training";
-import { SearchTrainings } from "./types";
-import { StubDataClient, StubSearchClient } from "../test-objects/StubDataClient";
+import {StubDataClient, StubSearchClient} from "../../test-objects/StubDataClient";
+import {SearchTrainings} from "../types";
+import {searchTrainingsFactory} from "./searchTrainings";
+import {buildProviderResult, buildTrainingResult} from "../../test-objects/factories";
+import {ApprovalStatus} from "../ApprovalStatus";
 
 describe("searchTrainings", () => {
   let searchTrainings: SearchTrainings;
@@ -82,10 +82,10 @@ describe("searchTrainings", () => {
   it("filters out results when training is suspended or pending", async () => {
     stubSearchClient.search.mockResolvedValue([]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([
-      buildTrainingResult({ id: "1", status: Status.APPROVED }),
-      buildTrainingResult({ id: "2", status: Status.PENDING }),
-      buildTrainingResult({ id: "3", status: Status.UNKNOWN }),
-      buildTrainingResult({ id: "4", status: Status.SUSPENDED }),
+      buildTrainingResult({ id: "1", status: ApprovalStatus.APPROVED }),
+      buildTrainingResult({ id: "2", status: ApprovalStatus.PENDING }),
+      buildTrainingResult({ id: "3", status: ApprovalStatus.UNKNOWN }),
+      buildTrainingResult({ id: "4", status: ApprovalStatus.SUSPENDED }),
     ]);
 
     const searchResults = await searchTrainings("keyword");
@@ -96,10 +96,10 @@ describe("searchTrainings", () => {
   it("filters out results when provider is suspended or pending", async () => {
     stubSearchClient.search.mockResolvedValue([]);
     stubDataClient.findTrainingResultsByIds.mockResolvedValue([
-      buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
-      buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
-      buildTrainingResult({ id: "3", provider: buildProviderResult({ status: Status.UNKNOWN }) }),
-      buildTrainingResult({ id: "4", provider: buildProviderResult({ status: Status.SUSPENDED }) }),
+      buildTrainingResult({ id: "1", provider: buildProviderResult({ status: ApprovalStatus.APPROVED }) }),
+      buildTrainingResult({ id: "2", provider: buildProviderResult({ status: ApprovalStatus.PENDING }) }),
+      buildTrainingResult({ id: "3", provider: buildProviderResult({ status: ApprovalStatus.UNKNOWN }) }),
+      buildTrainingResult({ id: "4", provider: buildProviderResult({ status: ApprovalStatus.SUSPENDED }) }),
     ]);
 
     const searchResults = await searchTrainings("keyword");
@@ -109,10 +109,10 @@ describe("searchTrainings", () => {
 
   it("filters out results when training is suspended or pending and search is empty", async () => {
     stubDataClient.findAllTrainingResults.mockResolvedValue([
-      buildTrainingResult({ id: "1", status: Status.APPROVED }),
-      buildTrainingResult({ id: "2", status: Status.PENDING }),
-      buildTrainingResult({ id: "3", status: Status.UNKNOWN }),
-      buildTrainingResult({ id: "4", status: Status.SUSPENDED }),
+      buildTrainingResult({ id: "1", status: ApprovalStatus.APPROVED }),
+      buildTrainingResult({ id: "2", status: ApprovalStatus.PENDING }),
+      buildTrainingResult({ id: "3", status: ApprovalStatus.UNKNOWN }),
+      buildTrainingResult({ id: "4", status: ApprovalStatus.SUSPENDED }),
     ]);
 
     const searchResults = await searchTrainings("");
@@ -122,10 +122,10 @@ describe("searchTrainings", () => {
 
   it("filters out results when provider is suspended or pending and search is empty", async () => {
     stubDataClient.findAllTrainingResults.mockResolvedValue([
-      buildTrainingResult({ id: "1", provider: buildProviderResult({ status: Status.APPROVED }) }),
-      buildTrainingResult({ id: "2", provider: buildProviderResult({ status: Status.PENDING }) }),
-      buildTrainingResult({ id: "3", provider: buildProviderResult({ status: Status.UNKNOWN }) }),
-      buildTrainingResult({ id: "4", provider: buildProviderResult({ status: Status.SUSPENDED }) }),
+      buildTrainingResult({ id: "1", provider: buildProviderResult({ status: ApprovalStatus.APPROVED }) }),
+      buildTrainingResult({ id: "2", provider: buildProviderResult({ status: ApprovalStatus.PENDING }) }),
+      buildTrainingResult({ id: "3", provider: buildProviderResult({ status: ApprovalStatus.UNKNOWN }) }),
+      buildTrainingResult({ id: "4", provider: buildProviderResult({ status: ApprovalStatus.SUSPENDED }) }),
     ]);
 
     const searchResults = await searchTrainings("");

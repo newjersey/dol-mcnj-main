@@ -1,6 +1,6 @@
-import { DataClient } from "../domain/DataClient";
+import { TrainingDataClient } from "../domain/training/TrainingDataClient";
 
-export interface StubDataClient extends DataClient {
+export interface StubDataClient extends TrainingDataClient {
   findAllTrainingResults: jest.Mock;
   findTrainingResultsByIds: jest.Mock;
   findTrainingById: jest.Mock;

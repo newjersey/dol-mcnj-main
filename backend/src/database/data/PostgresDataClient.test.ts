@@ -1,6 +1,7 @@
 import {PostgresDataClient} from "./PostgresDataClient";
-import {CalendarLength, Status} from "../../domain/Training";
 import {Error} from "../../domain/Error";
+import {CalendarLength} from "../../../../frontend/src/domain/Training";
+import {ApprovalStatus} from "../../domain/ApprovalStatus";
 
 describe("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
@@ -25,13 +26,13 @@ describe("PostgresDataClient", () => {
         name: "Tree Identification Class",
         totalCost: 3035,
         percentEmployed: 0.661016949152542,
-        status: Status.APPROVED,
+        status: ApprovalStatus.APPROVED,
         calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
         provider: {
           id: "123",
           city: "Vineland",
           name: "Vineland Public Schools Adult Education Program",
-          status: Status.SUSPENDED,
+          status: ApprovalStatus.SUSPENDED,
         },
         inDemand: true,
         localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],

@@ -1,13 +1,8 @@
-import {
-  Address,
-  CalendarLength,
-  Provider,
-  ProviderResult,
-  Status,
-  Training,
-  TrainingResult,
-} from "../domain/Training";
-import { Occupation } from "../domain/Occupation";
+import { CalendarLength } from "../../../frontend/src/domain/Training";
+import { ProviderResult, TrainingResult } from "../domain/search/TrainingResult";
+import { Address, Provider, Training } from "../domain/training/Training";
+import { Occupation } from "../domain/occupations/Occupation";
+import { ApprovalStatus } from "../domain/ApprovalStatus";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -19,7 +14,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     provider: buildProviderResult({}),
-    status: randomStatus(),
+    status: randomApprovalStatus(),
     calendarLength: randomCalendarLength(),
     inDemand: randomBool(),
     online: randomBool(),
@@ -35,7 +30,7 @@ export const buildProviderResult = (overrides: Partial<ProviderResult>): Provide
     id: "some-id-" + randomInt(),
     city: "some-city-" + randomInt(),
     name: "some-provider-name-" + randomInt(),
-    status: randomStatus(),
+    status: randomApprovalStatus(),
     ...overrides,
   };
 };
@@ -86,8 +81,10 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
   };
 };
 
-export const randomStatus = (): Status => {
-  const allStatuses: Status[] = Object.keys(Status).map((key) => key as Status);
+export const randomApprovalStatus = (): ApprovalStatus => {
+  const allStatuses: ApprovalStatus[] = Object.keys(ApprovalStatus).map(
+    (key) => key as ApprovalStatus
+  );
   const randomIndex = Math.floor(Math.random() * allStatuses.length);
   return allStatuses[randomIndex];
 };

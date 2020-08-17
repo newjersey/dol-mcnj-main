@@ -1,5 +1,3 @@
-import {DataClient} from "../../domain/DataClient";
-import {CalendarLength, Status, Training, TrainingResult} from "../../domain/Training";
 import {
   CountyEntity,
   IdCountyEntity,
@@ -12,11 +10,16 @@ import {
 import knex from "knex";
 import Knex, {PgConnectionConfig} from "knex";
 import {Error} from "../../domain/Error";
-import {Occupation} from "../../domain/Occupation";
+import {TrainingDataClient} from "../../domain/training/TrainingDataClient";
+import {TrainingResult} from "../../domain/search/TrainingResult";
+import {CalendarLength} from "../../../../frontend/src/domain/Training";
+import {Training} from "../../domain/training/Training";
+import {Occupation} from "../../domain/occupations/Occupation";
+import {ApprovalStatus} from "../../domain/ApprovalStatus";
 
 const NAN_INDICATOR = "-99999";
 
-export class PostgresDataClient implements DataClient {
+export class PostgresDataClient implements TrainingDataClient {
   kdb: Knex;
 
   constructor(connection: PgConnectionConfig) {
@@ -200,16 +203,16 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  private mapStatus = (status: string): Status => {
+  private mapStatus = (status: string): ApprovalStatus => {
     switch (status) {
       case "Approved":
-        return Status.APPROVED;
+        return ApprovalStatus.APPROVED;
       case "Pending":
-        return Status.PENDING;
+        return ApprovalStatus.PENDING;
       case "Suspend":
-        return Status.SUSPENDED;
+        return ApprovalStatus.SUSPENDED;
       default:
-        return Status.UNKNOWN;
+        return ApprovalStatus.UNKNOWN;
     }
   };
 

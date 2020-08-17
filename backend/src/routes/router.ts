@@ -1,8 +1,9 @@
 import { Request, Response, Router } from "express";
-import { Training, TrainingResult } from "../domain/Training";
 import { FindTrainingById, GetInDemandOccupations, SearchTrainings } from "../domain/types";
 import { Error } from "../domain/Error";
-import { Occupation } from "../domain/Occupation";
+import { Occupation } from "../domain/occupations/Occupation";
+import { Training } from "../domain/training/Training";
+import { TrainingResult } from "../domain/search/TrainingResult";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
