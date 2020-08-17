@@ -1,14 +1,20 @@
 import { Request, Response, Router } from "express";
 import { Training, TrainingResult } from "../domain/Training";
-import { FindTrainingById, SearchTrainings } from "../domain/types";
+import { FindTrainingById, GetInDemandOccupations, SearchTrainings } from "../domain/types";
 import { Error } from "../domain/Error";
+import { Occupation } from "../domain/Occupation";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingById: FindTrainingById;
+  getInDemandOccupations: GetInDemandOccupations;
 }
 
-export const routerFactory = ({ searchTrainings, findTrainingById }: RouterActions): Router => {
+export const routerFactory = ({
+  searchTrainings,
+  findTrainingById,
+  getInDemandOccupations,
+}: RouterActions): Router => {
   const router = Router();
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
@@ -30,6 +36,14 @@ export const routerFactory = ({ searchTrainings, findTrainingById }: RouterActio
         }
         res.status(500).send();
       });
+  });
+
+  router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
+    getInDemandOccupations()
+      .then((occupations: Occupation[]) => {
+        res.status(200).json(occupations);
+      })
+      .catch((e) => res.status(500).send(e));
   });
 
   return router;

@@ -1,9 +1,18 @@
 import {DataClient} from "../../domain/DataClient";
 import {CalendarLength, Status, Training, TrainingResult} from "../../domain/Training";
-import {CountyEntity, IdCountyEntity, IdEntity, JoinedEntity, OccupationEntity, ProgramEntity,} from "./Entities";
+import {
+  CountyEntity,
+  IdCountyEntity,
+  IdEntity,
+  JoinedEntity,
+  OccupationEntity,
+  ProgramEntity,
+  SocTitleEntity,
+} from "./Entities";
 import knex from "knex";
 import Knex, {PgConnectionConfig} from "knex";
 import {Error} from "../../domain/Error";
+import {Occupation} from "../../domain/Occupation";
 
 const NAN_INDICATOR = "-99999";
 
@@ -137,7 +146,7 @@ export class PostgresDataClient implements DataClient {
       return Promise.reject(Error.NOT_FOUND)
     }
 
-    const matchingOccupations: OccupationEntity[] = await this.kdb("soccipcrosswalk")
+    const matchingOccupations: SocTitleEntity[] = await this.kdb("soccipcrosswalk")
       .select("soc2018title")
       .where("cipcode", programEntity.cipcode);
 
@@ -172,6 +181,23 @@ export class PostgresDataClient implements DataClient {
         },
       },
     });
+  };
+
+  getInDemandOccupations = async (): Promise<Occupation[]> => {
+    return this.kdb("indemandsocs")
+      .select(
+        "soc",
+        "socdefinitions.soctitle"
+      )
+      .innerJoin('socdefinitions', 'socdefinitions.soccode', 'indemandsocs.soc')
+      .then((data: OccupationEntity[]) => data.map(entity => ({
+        soc: entity.soc,
+        title: entity.soctitle
+      })))
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   };
 
   private mapStatus = (status: string): Status => {

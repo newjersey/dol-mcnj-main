@@ -1,8 +1,9 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
 import { Training, TrainingResult } from "./domain/Training";
-import { buildTraining, buildTrainingResult } from "./test-objects/factories";
+import { buildOccupation, buildTraining, buildTrainingResult } from "./test-objects/factories";
 import { Error } from "./domain/Error";
+import { Occupation } from "./domain/Occupation";
 
 jest.mock("axios");
 
@@ -105,6 +106,37 @@ describe("ApiClient", () => {
       };
 
       apiClient.getTrainingById("some id", observer);
+    });
+  });
+
+  describe("getOccupations", () => {
+    it("calls observer with successful occupation data", (done) => {
+      const occupations = [buildOccupation({}), buildOccupation({})];
+      mockedAxios.get.mockResolvedValue({ data: occupations });
+
+      const observer = {
+        onSuccess: (data: Occupation[]): void => {
+          expect(mockedAxios.get).toHaveBeenCalledWith("/api/occupations");
+          expect(data).toEqual(occupations);
+          done();
+        },
+        onError: jest.fn(),
+      };
+
+      apiClient.getOccupations(observer);
+    });
+
+    it("calls observer with error and type when GET fails", (done) => {
+      mockedAxios.get.mockRejectedValue({});
+
+      const observer = {
+        onSuccess: jest.fn(),
+        onError: (): void => {
+          done();
+        },
+      };
+
+      apiClient.getOccupations(observer);
     });
   });
 });

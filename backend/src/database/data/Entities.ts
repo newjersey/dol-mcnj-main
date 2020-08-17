@@ -36,8 +36,13 @@ export interface ProgramEntity {
   avgquarterlywage2: string;
 }
 
-export interface OccupationEntity {
+export interface SocTitleEntity {
   soc2018title: string;
+}
+
+export interface OccupationEntity {
+  soc: string;
+  soctitle: string;
 }
 
 export interface IdEntity {

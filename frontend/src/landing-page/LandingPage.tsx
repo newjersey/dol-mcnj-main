@@ -1,4 +1,4 @@
-import { navigate, RouteComponentProps } from "@reach/router";
+import { navigate, RouteComponentProps, Link } from "@reach/router";
 import React, { ReactElement } from "react";
 import { Searchbar } from "../components/Searchbar";
 import njLogo from "../njlogo.svg";
@@ -59,12 +59,17 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                 </h2>
 
                 <p className="text-m">
-                  Did you know the state of New Jersey can pay for your training?
+                  Did you know the state of New Jersey offers discounted training for
+                  <Link className="link-format-blue" to="/in-demand-careers">
+                    in-demand careers
+                  </Link>
+                  ?
                 </p>
 
                 <p className="text-m">
                   To see if you qualify for a tuition waiver or voucher,&nbsp;
                   <a
+                    className="link-format-blue"
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"

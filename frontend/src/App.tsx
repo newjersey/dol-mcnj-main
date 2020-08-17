@@ -6,6 +6,7 @@ import { Client } from "./domain/Client";
 import { Router } from "@reach/router";
 import { Filter } from "./domain/Filter";
 import { NotFoundPage } from "./error/NotFoundPage";
+import { InDemandCareersPage } from "./in-demand-careers-page/InDemandCareersPage";
 
 interface Props {
   client: Client;
@@ -72,6 +73,7 @@ export const App = (props: Props): ReactElement => {
         <SearchResultsPage path="/search" client={props.client} />
         <SearchResultsPage path="/search/:searchQuery" client={props.client} />
         <TrainingPage path="/training/:id" client={props.client} />
+        <InDemandCareersPage path="/in-demand-careers" client={props.client} />
         <NotFoundPage default />
       </Router>
     </FilterContext.Provider>

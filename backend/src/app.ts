@@ -23,6 +23,7 @@ const postgresSearchClient = new PostgresSearchClient(connection);
 const router = routerFactory({
   searchTrainings: searchTrainingsFactory(postgresDataClient, postgresSearchClient),
   findTrainingById: findTrainingByIdFactory(postgresDataClient),
+  getInDemandOccupations: postgresDataClient.getInDemandOccupations,
 });
 
 const app = express();
