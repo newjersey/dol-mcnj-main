@@ -4,6 +4,48 @@ The purpose of this document is to keep track of technical decisions made on thi
 will be handing over this code to another person to maintain in the next few months, this is intended
 to provide as much context as possible into why things were decided at the time.
 
+### 2020-08-13
+
+Working on [#174302410](https://www.pivotaltracker.com/story/show/174302410) to add the list of in-demand
+careers.
+
+The data on in-demand SOCs and CIPs came in a spreadsheet that was not designed to be exported into a CSV.
+In a previous story ([#173594867](https://www.pivotaltracker.com/story/show/173594867) to show an in-demand tag),
+we had to manually do some spreadsheet magic to get a list of in-demand CIPs to save in a table.
+
+Now, we need to also know which SOCs are in-demand.  The issue at hand here is how to add the In-Demand SOC
+data into the database.
+
+#### Option A
+
+We could do a bit more spreadsheet magic to get a list of in-demand SOCs, and create a new database table
+called `indemandsocs` or something, and insert the data there.
+
+#### Option B
+
+We could do a bit more spreadsheet magic to get a list of in-demand SOCs, and then combine this with the
+existing `indemandcips` table (using the crosswalk table) to get a single table holding all the in-demand data.
+
+#### Tradeoffs
+
+Option A is cleaner and simpler, and follows the same pattern we've used so far where we just create a table
+directly from a CSV without much change.
+
+Option B consolidates information because why have 2 separate tables holding in-demand information - not
+to mention that we also have the `soccipcrosswalk` table that maps between the two. So if anything, all
+we really need is the list of in-demand SOCs, and the in-demand CIPs can be programmatically determined using
+the crosswalk.
+
+#### Decision
+
+Option A.
+
+It's simpler and cleaner, and less work.  So far, nothing indicates that an extra table will be harder
+to maintain, and this is less complexity to get the data into the app.
+
+If it ever becomes an issue to keep in-demand CIPs and in-demand SOCs in different tables, it would
+be easy to adjust in the future.  But for now, there's no reason to take on the complexity of combining them.
+
 ### 2020-08-12
 
 Working on [#174279670](https://www.pivotaltracker.com/story/show/174279670) to update ETPL data (programs
@@ -15,7 +57,7 @@ from the new files, instead of attempting a more complicated update transaction.
 
 The issue at hand here is whether to try to make this delete-and-insert undoable.
 
-**Option A**
+#### Option A
 
 We could try to make the database perfectly roll-back-able in these migrations by copy-pasting the previous 
 version of the data in the "down" file.  This would look like:
@@ -32,7 +74,7 @@ delete from programs;
 insert into programs ... ([old data]);
 ```
 
-**Option B**
+#### Option B
 
 We could treat the database seed as a source of truth, not a migration, despite it being handled by the
 migration scripts.  This would mean that the new data insert does not get undone when the database is rolled back.
@@ -48,7 +90,7 @@ down-file:
 [does nothing]
 ```
 
-**Tradeoffs**
+#### Tradeoffs
 
 Option A preserves the exact state of the database, and would therefore be an honest reflection of
 seeding as a migration step.
@@ -72,7 +114,9 @@ to see what's going on. But that makes them independently roll-back-able (roll b
 which would put them out of sync.  Separating these into 2 migration files would also make Option A impossible
 because of the new data that would be inserted in the programs down-file making `programtokens` out of sync.
 
-**Decision**: Option A
+#### Decision
+
+Option A.
 
 The biggest concern is `programs` and `programtokens` data being out of sync - this would make the app
 unusable. For this reason, making the changes to `programtokens` should happen in the same file as 

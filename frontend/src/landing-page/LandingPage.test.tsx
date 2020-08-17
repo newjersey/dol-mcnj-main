@@ -3,9 +3,16 @@ import React from "react";
 import { LandingPage } from "./LandingPage";
 import { navigate } from "@reach/router";
 
-jest.mock("@reach/router", () => ({
-  navigate: jest.fn(),
-}));
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function mockReachRouter() {
+  const original = jest.requireActual("@reach/router");
+  return {
+    ...original,
+    navigate: jest.fn(),
+  };
+}
+
+jest.mock("@reach/router", () => mockReachRouter());
 
 describe("<LandingPage />", () => {
   it("links to search results page when search is executed", () => {

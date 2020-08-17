@@ -2,6 +2,7 @@ import { Client, Observer } from "./domain/Client";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
+import { Occupation } from "./domain/Occupation";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
@@ -10,6 +11,10 @@ export class ApiClient implements Client {
 
   getTrainingById(id: string, observer: Observer<Training>): void {
     this.get(`/api/trainings/${id}`, observer);
+  }
+
+  getOccupations(observer: Observer<Occupation[]>): void {
+    this.get("/api/occupations", observer);
   }
 
   private get<T>(endpoint: string, observer: Observer<T>): void {

@@ -1,0 +1,8 @@
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Major','11-0000','Agriculture Occupations',null);
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Minor','11-1000','Forestry and Gardening',null);
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Broad','11-1010','Forest Science',null);
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Detailed','11-1011','Botanist Specialists','Do stuff related to plants');
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Major','13-0000','Business and Financial Operations Occupations',null);
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Minor','13-1000','Business Operations Specialists',null);
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Broad','13-1080','Logisticians and Project Management Specialists',null);
+INSERT INTO socdefinitions (SOCGroup,SOCCode,SOCTitle,SOCDefinition) values ('Detailed','13-1081','Logisticians','Analyze and coordinate the ongoing logistical functions of a firm or organization. Responsible for the entire life cycle of a product, including acquisition, distribution, internal allocation, delivery, and final disposal of resources. Excludes “Transportation, Storage, and Distribution Managers” (11-3071) and “Project Management Specialists” (13-1082).');

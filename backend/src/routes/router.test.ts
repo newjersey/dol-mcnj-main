@@ -1,7 +1,7 @@
 import request from "supertest";
 import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
-import { buildTraining, buildTrainingResult } from "../test-objects/factories";
+import { buildOccupation, buildTraining, buildTrainingResult } from "../test-objects/factories";
 import { Error } from "../domain/Error";
 
 describe("router", () => {
@@ -9,14 +9,17 @@ describe("router", () => {
   let router: Router;
   let stubSearchTrainings: jest.Mock;
   let stubFindTrainingById: jest.Mock;
+  let stubGetInDemandOccupations: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
     stubFindTrainingById = jest.fn();
+    stubGetInDemandOccupations = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
       findTrainingById: stubFindTrainingById,
+      getInDemandOccupations: stubGetInDemandOccupations,
     });
     app = express();
     app.use(router);
@@ -64,6 +67,26 @@ describe("router", () => {
     it("sends a 404 when the fetch fails with a Not Found error", (done) => {
       stubFindTrainingById.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
       request(app).get("/trainings/notfounderror").expect(404).end(done);
+    });
+  });
+
+  describe("/occupations", () => {
+    it("fetches in demand occupations", (done) => {
+      const occupations = [buildOccupation({})];
+      stubGetInDemandOccupations.mockImplementationOnce(() => Promise.resolve(occupations));
+      request(app)
+        .get("/occupations")
+        .then((response) => {
+          expect(response.status).toEqual(200);
+          expect(response.body).toEqual(occupations);
+          expect(stubGetInDemandOccupations).toHaveBeenCalled();
+          done();
+        });
+    });
+
+    it("sends a 500 when the fetch fails", (done) => {
+      stubGetInDemandOccupations.mockImplementationOnce(() => Promise.reject());
+      request(app).get("/occupations").expect(500).end(done);
     });
   });
 });

@@ -7,6 +7,7 @@ import {
   Training,
   TrainingResult,
 } from "../domain/Training";
+import { Occupation } from "../domain/Occupation";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -73,6 +74,14 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    ...overrides,
+  };
+};
+
+export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
+  return {
+    soc: "some-soc-" + randomInt(),
+    title: "some-title-" + randomInt(),
     ...overrides,
   };
 };
