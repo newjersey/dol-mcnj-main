@@ -29,7 +29,7 @@ export const InDemandCareersPage = (props: Props): ReactElement => {
         <p>
           This is a list of occupations expected to have the most openings in the future in the
           state of New Jersey. Trainings related to careers on this list can be eligible for funding
-          by the state.
+          by the State.
         </p>
 
         {occupations.map((occupation) => (

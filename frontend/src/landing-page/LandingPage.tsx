@@ -59,7 +59,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                 </h2>
 
                 <p className="text-m">
-                  Did you know the state of New Jersey offers discounted training for
+                  Did you know the state of New Jersey offers discounted training for&nbsp;
                   <Link className="link-format-blue" to="/in-demand-careers">
                     in-demand careers
                   </Link>
