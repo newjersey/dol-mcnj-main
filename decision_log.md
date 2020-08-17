@@ -4,6 +4,48 @@ The purpose of this document is to keep track of technical decisions made on thi
 will be handing over this code to another person to maintain in the next few months, this is intended
 to provide as much context as possible into why things were decided at the time.
 
+### 2020-08-17
+
+Working on [#174302410](https://www.pivotaltracker.com/story/show/174302410) to group in-demand careers by category.
+
+This story requires going one-by-one through the in-demand SOCs (via some kind of map or something) and 
+modifying the SOC to lookup the Major category associated with it, and then building all this together into the
+Occupation object to be returned to the frontend.
+
+The decision here is whether to do this work in the Database layer or the Domain layer.
+
+#### Option A
+
+We could stay the course and do logic to create domain objects in the Database layer.  This enforces a separation
+of concerns because it decouples our domain logic from the nitty-gritty of how we store our data.
+
+#### Option B
+
+We could shrink our Database layer into mostly doing SQL queries, with little logic to combine things into
+complex objects.  Our Domain layer would grow and be responsible for coordinating many SQL queries to build
+an object for the frontend.  We would still use join-queries to take advantage of how SQL should be helping us,
+we would just build objects on the Domain side.
+
+#### Tradeoffs
+
+The data layer is starting to feel pretty heavy and like it's doing a lot of work.  And testing it
+is often pretty heavy, and requires coordinating across multiple test CSVs.  I think one-off cases would be
+easier to test if they were handled elsewhere.
+
+Also, for use-cases like this one, where we have a list with an async for-each to go with each item (same as
+how search works with highlight), these kinds of things probably should be separate functions in the data layer.
+
+However, going with Option B means creating a whole new set of data transfer objects (or really, moving and
+renaming Entities into the domain layer) and I worry it will become a lot of overhead to manage.
+
+#### Decision
+
+Option B.
+
+I think that simple, maintainable code is most important (and easily testable) in the context of someone
+else picking up the work.  Splitting responsibilities and making the data layer simpler will improve testing
+and also hopefull make it clearer how each object is getting pieced together from data calls.
+
 ### 2020-08-13
 
 Working on [#174302410](https://www.pivotaltracker.com/story/show/174302410) to add the list of in-demand

@@ -1,13 +1,15 @@
-import { Status, TrainingResult } from "./Training";
-import { DataClient } from "./DataClient";
-import { SearchTrainings } from "./types";
-import { stripSurroundingQuotes } from "./stripSurroundingQuotes";
-import { convertToTitleCase } from "./convertToTitleCase";
-import { SearchClient, SearchResult } from "./SearchClient";
-import { stripUnicode } from "./stripUnicode";
+import {TrainingDataClient} from "../training/TrainingDataClient";
+import {SearchClient, SearchResult} from "../../database/search/SearchClient";
+import {convertToTitleCase} from "../utils/convertToTitleCase";
+import {stripUnicode} from "../utils/stripUnicode";
+import {stripSurroundingQuotes} from "../utils/stripSurroundingQuotes";
+import {SearchTrainings} from "../types";
+import {TrainingResult} from "./TrainingResult";
+import {ApprovalStatus} from "../ApprovalStatus";
+
 
 export const searchTrainingsFactory = (
-  dataClient: DataClient,
+  dataClient: TrainingDataClient,
   searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery?: string): Promise<TrainingResult[]> => {
@@ -25,10 +27,10 @@ export const searchTrainingsFactory = (
       trainingResults
         .filter(
           (training) =>
-            training.status !== Status.SUSPENDED &&
-            training.status !== Status.PENDING &&
-            training.provider.status !== Status.SUSPENDED &&
-            training.provider.status !== Status.PENDING
+            training.status !== ApprovalStatus.SUSPENDED &&
+            training.status !== ApprovalStatus.PENDING &&
+            training.provider.status !== ApprovalStatus.SUSPENDED &&
+            training.provider.status !== ApprovalStatus.PENDING
         )
         .map(async (trainingResult) => {
           let highlight = "";

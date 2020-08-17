@@ -1,7 +1,8 @@
-import { FindTrainingById } from "./types";
-import { StubDataClient } from "../test-objects/StubDataClient";
-import { findTrainingByIdFactory } from "./findTrainingById";
-import { buildTraining } from "../test-objects/factories";
+import {StubDataClient} from "../../test-objects/StubDataClient";
+import {FindTrainingById} from "../types";
+import {findTrainingByIdFactory} from "./findTrainingById";
+import {buildTraining} from "../../test-objects/factories";
+
 
 describe("findTrainingById", () => {
   let findTrainingById: FindTrainingById;
