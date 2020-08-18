@@ -1,10 +1,9 @@
-import {TrainingResult} from "../search/TrainingResult";
-import {Training} from "./Training";
 import {Occupation} from "../occupations/Occupation";
+import {LocalException, OccupationTitle, Program} from "./Program";
 
 export interface TrainingDataClient {
-  findAllTrainingResults: () => Promise<TrainingResult[]>;
-  findTrainingResultsByIds: (ids: string[]) => Promise<TrainingResult[]>;
-  findTrainingById: (id: string) => Promise<Training>;
+  findProgramsByIds: (ids: string[]) => Promise<Program[]>;
+  findOccupationTitlesByCip: (cip: string) => Promise<OccupationTitle[]>;
+  getLocalExceptions: () => Promise<LocalException[]>;
   getInDemandOccupations: () => Promise<Occupation[]>;
 }

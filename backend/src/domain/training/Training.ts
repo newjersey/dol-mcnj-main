@@ -1,4 +1,4 @@
-import {CalendarLength} from "../../../../frontend/src/domain/Training";
+import {CalendarLength} from "../CalendarLength";
 
 export interface Training {
   id: string;
@@ -19,6 +19,7 @@ export interface Provider {
   id: string;
   url: string;
   address: Address;
+  name: string;
 }
 
 export interface Address {

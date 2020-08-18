@@ -1,7 +1,7 @@
 import knex from "knex";
 import Knex, {PgConnectionConfig} from "knex";
 import {CareerTrackEntity, HeadlineEntity, SearchEntity} from "./Entities";
-import {SearchClient, SearchResult} from "./SearchClient";
+import {SearchClient, SearchResult} from "../../domain/search/SearchClient";
 
 export class PostgresSearchClient implements SearchClient {
   kdb: Knex;

@@ -1,16 +1,14 @@
-import { TrainingDataClient } from "../domain/training/TrainingDataClient";
-
-export interface StubDataClient extends TrainingDataClient {
-  findAllTrainingResults: jest.Mock;
-  findTrainingResultsByIds: jest.Mock;
-  findTrainingById: jest.Mock;
+export interface StubDataClient {
+  findProgramsByIds: jest.Mock;
+  getLocalExceptions: jest.Mock;
+  findOccupationTitlesByCip: jest.Mock;
   getInDemandOccupations: jest.Mock;
 }
 
 export const StubDataClient = (): StubDataClient => ({
-  findAllTrainingResults: jest.fn(),
-  findTrainingResultsByIds: jest.fn(),
-  findTrainingById: jest.fn(),
+  findProgramsByIds: jest.fn(),
+  getLocalExceptions: jest.fn(),
+  findOccupationTitlesByCip: jest.fn(),
   getInDemandOccupations: jest.fn(),
 });
 

@@ -1,7 +1,5 @@
 import {PostgresDataClient} from "./PostgresDataClient";
 import {Error} from "../../domain/Error";
-import {CalendarLength} from "../../../../frontend/src/domain/Training";
-import {ApprovalStatus} from "../../domain/ApprovalStatus";
 
 describe("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
@@ -17,154 +15,103 @@ describe("PostgresDataClient", () => {
     dataClient = new PostgresDataClient(connection);
   });
 
-  describe('findAllTrainingResults', () => {
-    it("fetches data from multiple tables as training result objects", async () => {
-      const trainingResults = await dataClient.findAllTrainingResults();
-      expect(trainingResults.length).toEqual(6);
-      expect(trainingResults).toContainEqual({
-        id: "1",
-        name: "Tree Identification Class",
-        totalCost: 3035,
-        percentEmployed: 0.661016949152542,
-        status: ApprovalStatus.APPROVED,
-        calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
-        provider: {
-          id: "123",
-          city: "Vineland",
-          name: "Vineland Public Schools Adult Education Program",
-          status: ApprovalStatus.SUSPENDED,
-        },
-        inDemand: true,
-        localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
-        online: true,
-        highlight: "",
-        rank: 0,
-      });
-    });
-  })
+  const testProgram1 = {
+    programid: "1",
+    cipcode: "123456",
+    officialname: "Tree Identification Class",
+    description:
+      "This program is designed for clients who are interested in learning skills necessary " +
+      "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
+      "their leaves and bark and seeds.",
+    calendarlengthid: "6",
+    providername: "Vineland Public Schools Adult Education Program",
+    providerid: "123",
+    totalcost: "3035",
+    website: "www.vineland.org/adulted",
+    street1: "48 W. Landis Ave.",
+    street2: null,
+    city: "Vineland",
+    state: "NJ",
+    zip: "08360",
+    indemandcip: "123456",
+    peremployed2: "0.661016949152542",
+    avgquarterlywage2: "16166",
+    onlineprogramid: "1"
+  };
 
-  describe('findTrainingResultsByIds', () => {
-    it("finds training results by list of ids", async () => {
-      const trainingResults = await dataClient.findTrainingResultsByIds(["1", "4"]);
-      expect(trainingResults.length).toEqual(2);
-      expect(trainingResults.map((it) => it.name)).toEqual(
-        expect.arrayContaining(["Tree Identification Class", "Mushroom Foraging Certification"])
+  describe('findProgramsByIds', () => {
+    it("finds programs by list of ids", async () => {
+      const programs = await dataClient.findProgramsByIds(["1", "2"]);
+      expect(programs.length).toEqual(2);
+      expect(programs[0]).toEqual(testProgram1);
+      expect(programs.map((it) => it.officialname)).toEqual(
+        expect.arrayContaining(["Tree Identification Class", "Tree Identification Class Level 2"])
       );
     });
 
+    it("does not return programs with status as not Approved", async () => {
+      const programs = await dataClient.findProgramsByIds(["1", "3"]);
+      expect(programs.length).toEqual(1);
+      expect(programs[0].programid).toEqual('1');
+    });
+
+    it("does not return programs with provider status as not Approved", async () => {
+      const programs = await dataClient.findProgramsByIds(["1", "4"]);
+      expect(programs.length).toEqual(1);
+      expect(programs[0].programid).toEqual('1');
+    });
+
     it("preserves order of input list of ids", async () => {
-      const trainingResults = await dataClient.findTrainingResultsByIds(["4", "1"]);
-      expect(trainingResults.length).toEqual(2);
-      expect(trainingResults[0].name).toEqual("Mushroom Foraging Certification");
-      expect(trainingResults[1].name).toEqual("Tree Identification Class");
+      const programs = await dataClient.findProgramsByIds(["2", "1"]);
+      expect(programs.length).toEqual(2);
+      expect(programs[0].officialname).toEqual("Tree Identification Class Level 2");
+      expect(programs[1].officialname).toEqual("Tree Identification Class");
     });
-
-    it("returns null enum if calendar length id does not exist", async () => {
-      const foundTrainings = await dataClient.findTrainingResultsByIds(["4"]);
-      expect(foundTrainings[0].calendarLength).toEqual(CalendarLength.NULL);
-    });
-
 
     it("returns empty when id list is empty", async () => {
-      const trainingResults = await dataClient.findTrainingResultsByIds([]);
-      expect(trainingResults).toHaveLength(0);
+      const programs = await dataClient.findProgramsByIds([]);
+      expect(programs).toHaveLength(0);
     });
 
-    it("returns inDemand as false when training cip is not on indemand list", async () => {
-      const foundTrainings = await dataClient.findTrainingResultsByIds(["3"]);
-      expect(foundTrainings[0].inDemand).toEqual(false);
-    });
-
-    it("returns localExceptionCounty as empty array when training cip is not on local exception list", async () => {
-      const foundTrainings = await dataClient.findTrainingResultsByIds(["3"]);
-      expect(foundTrainings[0].localExceptionCounty).toEqual([]);
+    it("throws with a not found error if called with one id that does not exist", (done) => {
+      dataClient.findProgramsByIds(['doesnotexist'])
+        .catch((e) => {
+          expect(e).toEqual(Error.NOT_FOUND)
+          done();
+        })
     });
   })
 
-  describe('findTrainingById', () => {
-
-    it("finds a training by id", async () => {
-      const foundTraining = await dataClient.findTrainingById("1");
-      expect(foundTraining).toEqual({
-        id: "1",
-        name: "Tree Identification Class",
-        calendarLength: CalendarLength.THREE_TO_FIVE_MONTHS,
-        description:
-          "This program is designed for clients who are interested in learning skills necessary " +
-          "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
-          "their leaves and bark and seeds.",
-        occupations: ["Botanists"],
-        totalCost: 3035,
-        percentEmployed: 0.661016949152542,
-        averageSalary: 64664,
-        provider: {
-          id: "123",
-          url: "www.vineland.org/adulted",
-          address: {
-            street1: "48 W. Landis Ave.",
-            street2: "",
-            city: "Vineland",
-            state: "NJ",
-            zipCode: "08360",
-          },
+  describe('getLocalExceptions', () => {
+    it('gets cips and counties with local waiver exceptions', async () => {
+      const localExceptions = await dataClient.getLocalExceptions()
+      expect(localExceptions).toEqual([
+        {
+          cipcode: "123456",
+          county: "ATLANTIC"
         },
-        inDemand: true,
-        localExceptionCounty: ["ATLANTIC", "MIDDLESEX"],
-        online: true
-      });
-    });
+        {
+          cipcode: "123456",
+          county: "MIDDLESEX"
+        }
+      ])
+    })
+  })
 
-    it("throws with a not found error if numeric id does not exist", async () => {
-      return dataClient.findTrainingById('99999')
-        .catch((e) => {
-          expect(e).toEqual(Error.NOT_FOUND)
-        })
-    });
-
-    it("throws with a not found error if string id does not exist", async () => {
-      return dataClient.findTrainingById('doesnotexist')
-        .catch((e) => {
-          expect(e).toEqual(Error.NOT_FOUND)
-        })
-    });
-
-    it("returns null enum calendar length does not exist", async () => {
-      const foundTraining = await dataClient.findTrainingById("4");
-      expect(foundTraining.calendarLength).toEqual(CalendarLength.NULL);
-    });
-
-    it("returns empty if url does not exist", async () => {
-      const foundTraining = await dataClient.findTrainingById("4");
-      expect(foundTraining.provider.url).toEqual("");
-    });
-
-    it("returns online as false when training programid is not on online list", async () => {
-      const foundTraining = await dataClient.findTrainingById("3");
-      expect(foundTraining.inDemand).toEqual(false);
-    });
-
-    it("returns averageSalary as null when it does not exist or is redacted", async () => {
-      const foundTraining = await dataClient.findTrainingById("3");
-      expect(foundTraining.averageSalary).toEqual(null);
-
-      const foundTraining2 = await dataClient.findTrainingById("5");
-      expect(foundTraining2.averageSalary).toEqual(null);
-    });
-
-    it("returns inDemand as false when training cip is not on indemand list", async () => {
-      const foundTraining = await dataClient.findTrainingById("3");
-      expect(foundTraining.inDemand).toEqual(false);
-    });
-
-    it("returns localExceptionCounty as empty array when training cip is not on local exception list", async () => {
-      const foundTraining = await dataClient.findTrainingById("3");
-      expect(foundTraining.localExceptionCounty).toEqual([]);
-    });
-
-    it("gets list of all occupations for a training's cip code", async () => {
-      const foundTraining = await dataClient.findTrainingById("3");
-      expect(foundTraining.occupations).toEqual(["Botanists", "Chefs"]);
-    });
+  describe('findOccupationTitlesByCip', () => {
+    it('gets occupation information for a cip code', async () => {
+      const localExceptions = await dataClient.findOccupationTitlesByCip('987654')
+      expect(localExceptions).toEqual([
+        {
+          soc: "11-1011",
+          soctitle: "Botanists"
+        },
+        {
+          soc: "12-1011",
+          soctitle: "Chefs"
+        }
+      ])
+    })
   })
 
   describe('getInDemandOccupations', () => {

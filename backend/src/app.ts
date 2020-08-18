@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 import { routerFactory } from "./routes/router";
 import path from "path";
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
-import { searchTrainingsFactory } from "./domain/searchTrainings";
-import { findTrainingByIdFactory } from "./domain/findTrainingById";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
+import { findTrainingsByIdsFactory } from "./domain/training/findTrainingsByIds";
+import { searchTrainingsFactory } from "./domain/search/searchTrainings";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -19,10 +19,11 @@ const connection = {
 
 const postgresDataClient = new PostgresDataClient(connection);
 const postgresSearchClient = new PostgresSearchClient(connection);
+const findTrainingsByIds = findTrainingsByIdsFactory(postgresDataClient);
 
 const router = routerFactory({
-  searchTrainings: searchTrainingsFactory(postgresDataClient, postgresSearchClient),
-  findTrainingById: findTrainingByIdFactory(postgresDataClient),
+  searchTrainings: searchTrainingsFactory(findTrainingsByIds, postgresSearchClient),
+  findTrainingsByIds: findTrainingsByIds,
   getInDemandOccupations: postgresDataClient.getInDemandOccupations,
 });
 
