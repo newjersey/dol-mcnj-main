@@ -1,12 +1,10 @@
-import {ApprovalStatus} from "../ApprovalStatus";
-import {CalendarLength} from "../../../../frontend/src/domain/Training";
+import {CalendarLength} from "../CalendarLength";
 
 export interface TrainingResult {
   id: string;
   name: string;
   totalCost: number;
   percentEmployed: number | null;
-  status: ApprovalStatus;
   calendarLength: CalendarLength;
   provider: ProviderResult;
   inDemand: boolean;
@@ -20,5 +18,4 @@ export interface ProviderResult {
   city: string;
   id: string;
   name: string;
-  status: ApprovalStatus;
 }

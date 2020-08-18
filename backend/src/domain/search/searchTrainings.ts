@@ -1,64 +1,53 @@
-import {TrainingDataClient} from "../training/TrainingDataClient";
-import {SearchClient, SearchResult} from "../../database/search/SearchClient";
-import {convertToTitleCase} from "../utils/convertToTitleCase";
 import {stripUnicode} from "../utils/stripUnicode";
-import {stripSurroundingQuotes} from "../utils/stripSurroundingQuotes";
-import {SearchTrainings} from "../types";
+import {FindTrainingsByIds, SearchTrainings} from "../types";
 import {TrainingResult} from "./TrainingResult";
-import {ApprovalStatus} from "../ApprovalStatus";
+import {Training} from "../training/Training";
+import {SearchClient} from "./SearchClient";
 
 
 export const searchTrainingsFactory = (
-  dataClient: TrainingDataClient,
+  findTrainingsByIds: FindTrainingsByIds,
   searchClient: SearchClient
 ): SearchTrainings => {
-  return async (searchQuery?: string): Promise<TrainingResult[]> => {
-    let trainingResults: TrainingResult[];
-    let searchResults: SearchResult[];
+  return async (searchQuery: string): Promise<TrainingResult[]> => {
 
-    if (searchQuery) {
-      searchResults = await searchClient.search(searchQuery);
-      trainingResults = await dataClient.findTrainingResultsByIds(searchResults.map((it) => it.id));
-    } else {
-      trainingResults = await dataClient.findAllTrainingResults();
-    }
+    const searchResults = await searchClient.search(searchQuery);
+    const trainings = await findTrainingsByIds(searchResults.map((it) => it.id));
 
     return Promise.all(
-      trainingResults
-        .filter(
-          (training) =>
-            training.status !== ApprovalStatus.SUSPENDED &&
-            training.status !== ApprovalStatus.PENDING &&
-            training.provider.status !== ApprovalStatus.SUSPENDED &&
-            training.provider.status !== ApprovalStatus.PENDING
-        )
-        .map(async (trainingResult) => {
-          let highlight = "";
-          let rank = 0;
+      trainings.map(async (training: Training) => {
+        let highlight = "";
+        let rank = 0;
 
-          if (searchQuery) {
-            highlight = await searchClient.getHighlight(trainingResult.id, searchQuery);
+        if (searchQuery) {
+          highlight = await searchClient.getHighlight(training.id, searchQuery);
+        }
+
+        if (searchResults) {
+          const foundRank = searchResults.find((it) => it.id === training.id)?.rank;
+          if (foundRank) {
+            rank = foundRank;
           }
+        }
 
-          if (searchResults) {
-            const foundRank = searchResults.find((it) => it.id === trainingResult.id)?.rank;
-            if (foundRank) {
-              rank = foundRank;
-            }
-          }
-
-          return {
-            ...trainingResult,
-            name: stripSurroundingQuotes(trainingResult.name),
-            provider: {
-              ...trainingResult.provider,
-              name: stripSurroundingQuotes(trainingResult.provider.name),
-            },
-            highlight: stripUnicode(highlight),
-            rank: rank,
-            localExceptionCounty: trainingResult.localExceptionCounty.map(convertToTitleCase),
-          };
-        })
-    );
+        return {
+          id: training.id,
+          name: training.name,
+          totalCost: training.totalCost,
+          percentEmployed: training.percentEmployed,
+          calendarLength: training.calendarLength,
+          provider: {
+            id: training.provider.id,
+            name: training.provider.name,
+            city: training.provider.address.city,
+          },
+          inDemand: training.inDemand,
+          localExceptionCounty: training.localExceptionCounty,
+          online: training.online,
+          highlight: stripUnicode(highlight),
+          rank: rank,
+        };
+      })
+    )
   };
 };

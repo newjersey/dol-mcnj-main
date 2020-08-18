@@ -8,17 +8,17 @@ describe("router", () => {
   let app: Express;
   let router: Router;
   let stubSearchTrainings: jest.Mock;
-  let stubFindTrainingById: jest.Mock;
+  let stubFindTrainingsByIds: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
-    stubFindTrainingById = jest.fn();
+    stubFindTrainingsByIds = jest.fn();
     stubGetInDemandOccupations = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
-      findTrainingById: stubFindTrainingById,
+      findTrainingsByIds: stubFindTrainingsByIds,
       getInDemandOccupations: stubGetInDemandOccupations,
     });
     app = express();
@@ -46,27 +46,31 @@ describe("router", () => {
   });
 
   describe("/trainings/{id}", () => {
-    it("fetches for id and returns list of matching trainings", (done) => {
+    it("fetches for first id and returns matching training", (done) => {
       const training = buildTraining({});
-      stubFindTrainingById.mockImplementationOnce(() => Promise.resolve(training));
+      stubFindTrainingsByIds.mockResolvedValue([training]);
       request(app)
         .get("/trainings/12345")
         .then((response) => {
           expect(response.status).toEqual(200);
           expect(response.body).toEqual(training);
-          expect(stubFindTrainingById).toHaveBeenCalledWith("12345");
+          expect(stubFindTrainingsByIds).toHaveBeenCalledWith(["12345"]);
           done();
         });
     });
 
     it("sends a 500 when the fetch fails", (done) => {
-      stubFindTrainingById.mockImplementationOnce(() => Promise.reject());
+      stubFindTrainingsByIds.mockImplementationOnce(() => Promise.reject());
       request(app).get("/trainings/systemerror").expect(500).end(done);
     });
 
     it("sends a 404 when the fetch fails with a Not Found error", (done) => {
-      stubFindTrainingById.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
+      stubFindTrainingsByIds.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
       request(app).get("/trainings/notfounderror").expect(404).end(done);
+    });
+
+    it("sends a 404 when the id does not exist", (done) => {
+      request(app).get("/trainings/").expect(404).end(done);
     });
   });
 

@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { FindTrainingById, GetInDemandOccupations, SearchTrainings } from "../domain/types";
+import { FindTrainingsByIds, GetInDemandOccupations, SearchTrainings } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
@@ -7,13 +7,13 @@ import { TrainingResult } from "../domain/search/TrainingResult";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
-  findTrainingById: FindTrainingById;
+  findTrainingsByIds: FindTrainingsByIds;
   getInDemandOccupations: GetInDemandOccupations;
 }
 
 export const routerFactory = ({
   searchTrainings,
-  findTrainingById,
+  findTrainingsByIds,
   getInDemandOccupations,
 }: RouterActions): Router => {
   const router = Router();
@@ -27,9 +27,9 @@ export const routerFactory = ({
   });
 
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
-    findTrainingById(req.params.id as string)
-      .then((training: Training) => {
-        res.status(200).json(training);
+    findTrainingsByIds([req.params.id as string])
+      .then((trainings: Training[]) => {
+        res.status(200).json(trainings[0]);
       })
       .catch((e) => {
         if (e === Error.NOT_FOUND) {
