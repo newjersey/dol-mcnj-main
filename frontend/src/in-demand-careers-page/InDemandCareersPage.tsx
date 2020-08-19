@@ -4,20 +4,47 @@ import { Header } from "../search-results/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Client } from "../domain/Client";
 import { Occupation } from "../domain/Occupation";
+import { MajorGroup } from "./MajorGroup";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
+type MajorGroupName = string;
+
 export const InDemandCareersPage = (props: Props): ReactElement => {
-  const [occupations, setOccupations] = useState<Occupation[]>([]);
+  const [occupationLookup, setOccupationLookup] = useState<Record<MajorGroupName, Occupation[]>>(
+    {}
+  );
 
   useEffect(() => {
     props.client.getOccupations({
-      onSuccess: setOccupations,
+      onSuccess: (data) => setOccupationLookup(groupOccupations(data)),
       onError: () => {},
     });
   }, [props.client]);
+
+  const groupOccupations = (occupations: Occupation[]): Record<MajorGroupName, Occupation[]> => {
+    return occupations.reduce(
+      (result: Record<MajorGroupName, Occupation[]>, item: Occupation) => ({
+        ...result,
+        [item.majorGroup]: [...(result[item.majorGroup] || []), item],
+      }),
+      {}
+    );
+  };
+
+  const displayMajorGroups = (): ReactElement[] => {
+    const sortedMajorGroups = Object.keys(occupationLookup).sort();
+
+    return sortedMajorGroups.map((majorGroupName) => (
+      <MajorGroup
+        key={majorGroupName}
+        majorGroupName={majorGroupName}
+        occupations={occupationLookup[majorGroupName]}
+      />
+    ));
+  };
 
   return (
     <>
@@ -32,9 +59,7 @@ export const InDemandCareersPage = (props: Props): ReactElement => {
           by the State.
         </p>
 
-        {occupations.map((occupation) => (
-          <p key={occupation.soc}>{occupation.title}</p>
-        ))}
+        <div className="fdc">{displayMajorGroups()}</div>
       </main>
     </>
   );

@@ -76,6 +76,7 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
   return {
     soc: "some-soc-" + randomInt(),
     title: "some-title-" + randomInt(),
+    majorGroup: "some-group-" + randomInt(),
     ...overrides,
   };
 };
