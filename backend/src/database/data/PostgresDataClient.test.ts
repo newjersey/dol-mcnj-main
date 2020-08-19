@@ -100,8 +100,8 @@ describe("PostgresDataClient", () => {
 
   describe('findOccupationTitlesByCip', () => {
     it('gets occupation information for a cip code', async () => {
-      const localExceptions = await dataClient.findOccupationTitlesByCip('987654')
-      expect(localExceptions).toEqual([
+      const occupationTitles = await dataClient.findOccupationTitlesByCip('987654')
+      expect(occupationTitles).toEqual([
         {
           soc: "11-1011",
           soctitle: "Botanists"
@@ -114,17 +114,27 @@ describe("PostgresDataClient", () => {
     })
   })
 
-  describe('getInDemandOccupations', () => {
+  describe('findOccupationTitleBySoc', () => {
+    it('gets occupation information for a soc code', async () => {
+      const occupationTitle = await dataClient.findOccupationTitleBySoc('11-0000')
+      expect(occupationTitle).toEqual({
+        soc: "11-0000",
+        soctitle: "Agriculture Occupations"
+      })
+    })
+  })
+
+  describe('getInDemandOccupationTitles', () => {
     it('gets the list of in-demand SOCs and looks up their titles', async () => {
-      const inDemandOccupations = await dataClient.getInDemandOccupations();
+      const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
       expect(inDemandOccupations).toEqual(expect.arrayContaining([
         {
           soc: "11-1011",
-          title: "Botanist Specialists"
+          soctitle: "Botanist Specialists"
         },
         {
           soc: "13-1081",
-          title: "Logisticians"
+          soctitle: "Logisticians"
         }
       ]));
     })

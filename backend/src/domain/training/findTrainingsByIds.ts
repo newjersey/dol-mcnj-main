@@ -5,10 +5,10 @@ import {FindTrainingsByIds} from "../types";
 import {Training} from "./Training";
 import {CalendarLength} from "../CalendarLength";
 import {LocalException, Program} from "./Program";
-import {TrainingDataClient} from "./TrainingDataClient";
+import {DataClient} from "./DataClient";
 
 
-export const findTrainingsByIdsFactory = (dataClient: TrainingDataClient): FindTrainingsByIds => {
+export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainingsByIds => {
   return async (ids: string[]): Promise<Training[]> => {
 
     const programs = await dataClient.findProgramsByIds(ids);

@@ -1,14 +1,12 @@
-import {OccupationEntity,} from "./Entities";
 import knex from "knex";
 import Knex, {PgConnectionConfig} from "knex";
 import {Error} from "../../domain/Error";
-import {Occupation} from "../../domain/occupations/Occupation";
 import {LocalException, OccupationTitle, Program} from "../../domain/training/Program";
-import {TrainingDataClient} from "../../domain/training/TrainingDataClient";
+import {DataClient} from "../../domain/training/DataClient";
 
 const APPROVED = 'Approved';
 
-export class PostgresDataClient implements TrainingDataClient {
+export class PostgresDataClient implements DataClient {
   kdb: Knex;
 
   constructor(connection: PgConnectionConfig) {
@@ -82,17 +80,23 @@ export class PostgresDataClient implements TrainingDataClient {
       .where("cipcode", cip);
   }
 
-  getInDemandOccupations = async (): Promise<Occupation[]> => {
+  findOccupationTitleBySoc = (soc: string): Promise<OccupationTitle> => {
+    return this.kdb("socdefinitions")
+      .select(
+        "soccode as soc",
+        "soctitle as soctitle",
+      )
+      .where("soccode", soc)
+      .first();
+  }
+
+  getInDemandOccupationTitles = async (): Promise<OccupationTitle[]> => {
     return this.kdb("indemandsocs")
       .select(
         "soc",
         "socdefinitions.soctitle"
       )
       .innerJoin('socdefinitions', 'socdefinitions.soccode', 'indemandsocs.soc')
-      .then((data: OccupationEntity[]) => data.map(entity => ({
-        soc: entity.soc,
-        title: entity.soctitle
-      })))
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
