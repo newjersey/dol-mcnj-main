@@ -28,3 +28,8 @@ export interface OccupationTitle {
   soc: string;
   soctitle: string;
 }
+
+export interface NullableOccupationTitle {
+  soc: string;
+  soctitle: string | null;
+}

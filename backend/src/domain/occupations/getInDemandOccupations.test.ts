@@ -1,7 +1,7 @@
 import {GetInDemandOccupations} from "../types";
 import {StubDataClient} from "../../test-objects/StubDataClient";
 import {getInDemandOccupationsFactory} from "./getInDemandOccupations";
-import {buildOccupationTitle} from "../../test-objects/factories";
+import {buildNullableOccupationTitle, buildOccupationTitle} from "../../test-objects/factories";
 
 describe('getInDemandOccupations', () => {
 
@@ -43,5 +43,26 @@ describe('getInDemandOccupations', () => {
     stubDataClient.findOccupationTitleBySoc.mockResolvedValue(buildOccupationTitle({}))
     await getInDemandOccupations();
     expect(stubDataClient.findOccupationTitleBySoc).toHaveBeenLastCalledWith('11-0000')
+  })
+
+  it('converts a 2010 soc to 2018 socs when its occupationTitle is null', async () => {
+    stubDataClient.getInDemandOccupationTitles.mockResolvedValueOnce([buildNullableOccupationTitle({soc: '2010 soc', soctitle: null})])
+    stubDataClient.find2018OccupationTitlesBySoc2010.mockResolvedValue([
+      buildOccupationTitle({soc: "2018 soc 1", soctitle: "has a hash 1 (##)"}),
+      buildOccupationTitle({soc: "2018 soc 2", soctitle: "has a hash 2 (##)"}),
+    ])
+    stubDataClient.findOccupationTitleBySoc
+      .mockResolvedValueOnce(buildOccupationTitle({soc: "2018 soc 1", soctitle: "real 2018 title 1"}))
+      .mockResolvedValueOnce(buildOccupationTitle({soc: "2018 soc 2", soctitle: "real 2018 title 2"}))
+      .mockResolvedValueOnce(buildOccupationTitle({soctitle: "major group 1"}))
+      .mockResolvedValueOnce(buildOccupationTitle({soctitle: "major group 2"}))
+
+    const occupations = await getInDemandOccupations();
+    expect(occupations[0].soc).toEqual("2018 soc 1")
+    expect(occupations[0].title).toEqual("real 2018 title 1")
+    expect(occupations[1].soc).toEqual("2018 soc 2")
+    expect(occupations[1].title).toEqual("real 2018 title 2")
+
+    expect(stubDataClient.find2018OccupationTitlesBySoc2010).toHaveBeenCalledWith('2010 soc');
   })
 });

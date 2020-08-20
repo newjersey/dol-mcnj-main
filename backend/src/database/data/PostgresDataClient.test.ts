@@ -135,6 +135,26 @@ describe("PostgresDataClient", () => {
         {
           soc: "13-1081",
           soctitle: "Logisticians"
+        },
+        {
+          soc: "old 2010 soc",
+          soctitle: null
+        }
+      ]));
+    })
+  })
+
+  describe('find2018OccupationTitleBySoc2010', () => {
+    it('gets the list 2018 occupations for a 2010 soc', async () => {
+      const soc2018s = await dataClient.find2018OccupationTitlesBySoc2010('15-1134');
+      expect(soc2018s).toEqual(expect.arrayContaining([
+        {
+          soc: "15-1254",
+          soctitle: "Web Developers"
+        },
+        {
+          soc: "15-1255",
+          soctitle: "Web and Digital Interface Designers (##)"
         }
       ]));
     })
