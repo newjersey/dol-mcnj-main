@@ -26,6 +26,7 @@ describe('Training Page', () => {
 
     cy.contains('$5,100.00').should('exist');
 
+    cy.contains('Camden County College - Continuing Education').should('exist');
     cy.contains('www.camdencc.edu').should('exist');
     cy.contains('Continuing Education').should('exist');
     cy.contains('200 College Drive').should('exist');

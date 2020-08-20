@@ -35,6 +35,7 @@ export interface Training {
 
 export interface Provider {
   id: string;
+  name: string;
   url: string;
   address: Address;
 }

@@ -156,6 +156,12 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                   <Grouping title="Provider Details">
                     <>
+                      <p>
+                        <span className="fin fas">
+                          <InlineIcon className="mrxs">school</InlineIcon>
+                          {training.provider.name}
+                        </span>
+                      </p>
                       <div className="mvd">
                         <span className="fin">
                           <InlineIcon className="mrxs">location_on</InlineIcon>

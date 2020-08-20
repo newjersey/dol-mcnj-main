@@ -45,6 +45,7 @@ describe("<TrainingPage />", () => {
       calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
       provider: buildProvider({
         url: "www.mycoolwebsite.com",
+        name: "My Cool Provider",
         address: buildAddress({
           street1: "123 Main Street",
           street2: "",
@@ -64,12 +65,13 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
-    expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("6-12 months to complete", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(
       subject.getByText("Career Track: Botanist, Senator", { exact: false })
     ).toBeInTheDocument();
+    expect(subject.getByText("My Cool Provider", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$1,234.56", { exact: false })).toBeInTheDocument();
