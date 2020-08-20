@@ -42,6 +42,10 @@ describe("findTrainingsByIds", () => {
         name: program.providername,
         id: program.providerid,
         url: program.website,
+        contactName: program.contactfirstname + " " + program.contactlastname,
+        contactTitle: program.contacttitle,
+        phoneNumber: program.phone,
+        phoneExtension: program.phoneextension,
         address: {
           street1: program.street1,
           street2: program.street2,
@@ -115,6 +119,11 @@ describe("findTrainingsByIds", () => {
       city: null,
       state: null,
       zip: null,
+      contactfirstname: null,
+      contactlastname: null,
+      contacttitle: null,
+      phone: null,
+      phoneextension: null,
       indemandcip: null,
       peremployed2: null,
       avgquarterlywage2: null,
@@ -132,6 +141,10 @@ describe("findTrainingsByIds", () => {
     expect(training.provider.address.city).toEqual("")
     expect(training.provider.address.state).toEqual("")
     expect(training.provider.address.zipCode).toEqual("")
+    expect(training.provider.contactName).toEqual("")
+    expect(training.provider.contactTitle).toEqual("")
+    expect(training.provider.phoneNumber).toEqual("")
+    expect(training.provider.phoneExtension).toEqual("")
     expect(training.inDemand).toEqual(false)
     expect(training.percentEmployed).toEqual(null)
     expect(training.averageSalary).toEqual(null)

@@ -13,6 +13,11 @@ export interface Program {
   city: string | null;
   state: string | null;
   zip: string | null;
+  contactfirstname: string | null;
+  contactlastname: string | null;
+  contacttitle: string | null;
+  phone: string | null;
+  phoneextension: string | null;
   indemandcip: string | null;
   peremployed2: string | null;
   avgquarterlywage2: string | null;

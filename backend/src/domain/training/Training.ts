@@ -20,6 +20,10 @@ export interface Provider {
   url: string;
   address: Address;
   name: string;
+  contactName: string;
+  contactTitle: string;
+  phoneNumber: string;
+  phoneExtension: string;
 }
 
 export interface Address {

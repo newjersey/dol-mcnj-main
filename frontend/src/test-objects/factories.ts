@@ -61,6 +61,10 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     name: "some-provider-name-" + randomInt(),
     url: "some-url-" + randomInt(),
     address: buildAddress({}),
+    contactName: "some-contactName-" + randomInt(),
+    contactTitle: "some-contactTitle-" + randomInt(),
+    phoneNumber: "some-phoneNumber-" + randomInt(),
+    phoneExtension: "some-phoneExtension-" + randomInt(),
     ...overrides,
   };
 };

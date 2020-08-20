@@ -62,6 +62,10 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     url: "some-url-" + randomInt(),
     address: buildAddress({}),
     name: "some-name-" + randomInt(),
+    contactName: "some-contactName-" + randomInt(),
+    contactTitle: "some-contactTitle-" + randomInt(),
+    phoneNumber: "some-phoneNumber-" + randomInt(),
+    phoneExtension: "some-phoneExtension-" + randomInt(),
     ...overrides,
   };
 };
@@ -102,6 +106,11 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zip: "some-zip-" + randomInt(),
+    contactfirstname: "some-contactfirstname-" + randomInt(),
+    contactlastname: "some-contactlastname-" + randomInt(),
+    contacttitle: "some-contacttitle-" + randomInt(),
+    phone: "some-phone-" + randomInt(),
+    phoneextension: "some-phoneextension-" + randomInt(),
     indemandcip: "some-indemandcip-" + randomInt(),
     peremployed2: randomInt().toString(),
     avgquarterlywage2: randomInt().toString(),

@@ -27,10 +27,13 @@ describe('Training Page', () => {
     cy.contains('$5,100.00').should('exist');
 
     cy.contains('Camden County College - Continuing Education').should('exist');
-    cy.contains('www.camdencc.edu').should('exist');
     cy.contains('Continuing Education').should('exist');
     cy.contains('200 College Drive').should('exist');
     cy.contains('Blackwood, NJ 08012').should('exist');
+    cy.contains('Kaina Hanna').should('exist');
+    cy.contains('Project Coordinator').should('exist');
+    cy.contains('(856) 874-6004').should('exist');
+    cy.contains('www.camdencc.edu').should('exist');
 
     cy.checkA11y();
   });
