@@ -1,8 +1,6 @@
 import express, { Request, Response } from "express";
-import path from "path";
-import cors from "cors";
-import helmet from "helmet";
 import { routerFactory } from "./routes/router";
+import path from "path";
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByIdsFactory } from "./domain/training/findTrainingsByIds";
@@ -31,9 +29,6 @@ const router = routerFactory({
 });
 
 const app = express();
-
-app.use(helmet());
-app.use(cors());
 
 app.use(express.static(path.join(__dirname, "build")));
 app.use("/api", router);
