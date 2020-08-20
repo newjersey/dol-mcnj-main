@@ -58,6 +58,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
 export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
+    name: "some-provider-name-" + randomInt(),
     url: "some-url-" + randomInt(),
     address: buildAddress({}),
     ...overrides,
