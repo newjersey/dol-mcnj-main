@@ -18,6 +18,7 @@ For this reason, many tables have extraneous columns that are not used (or not _
 - [`onlineprograms`](#onlineprograms)
 - [`indemandsocs`](#indemandsocs)
 - [`socdefinitions`](#socdefinitions)
+- [`soc2010to2018crosswalk`](#soc2010to2018crosswalk)
 
 
 ### programs
@@ -202,3 +203,18 @@ SOCGroup | 'Major'/'Minor'/'Broad'/'Detailed'
 SOCCode | SOC code
 SOCTitle | official title
 SOCDefinition |
+
+### soc2010to2018crosswalk
+
+Source of truth from [Bureau of Labor Statistics](https://www.bls.gov/soc/2018/crosswalks_used_by_agencies.htm) for
+crosswalking from the 2010 SOC system to the 2018 SOC system.
+
+**Please note** that the column headers had to be changed from the original values in the CSV sheet because 
+database columns cannot start with a number.  So `2010SOCCode` -> `SOCCode2010`, etc.
+
+column name | description
+------------|------------
+SOCCode2010 | 2010 SOC code, used by in-demand SOCs
+SOCTitle2010 | 
+SOCCode2018 | 2018 SOC code, what we use for the site
+SOCTitle2018 |
