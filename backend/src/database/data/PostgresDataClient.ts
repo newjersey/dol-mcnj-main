@@ -1,7 +1,7 @@
 import knex from "knex";
 import Knex, {PgConnectionConfig} from "knex";
 import {Error} from "../../domain/Error";
-import {LocalException, OccupationTitle, Program} from "../../domain/training/Program";
+import {LocalException, NullableOccupationTitle, OccupationTitle, Program} from "../../domain/training/Program";
 import {DataClient} from "../../domain/training/DataClient";
 
 const APPROVED = 'Approved';
@@ -54,7 +54,11 @@ export class PostgresDataClient implements DataClient {
       .whereIn("programs.programid", ids)
       .andWhere('programs.statusname', APPROVED)
       .andWhere('providers.statusname', APPROVED)
-      .orderByRaw("t.ord");
+      .orderByRaw("t.ord")
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
 
     if (programs.length === 0) {
       return Promise.reject(Error.NOT_FOUND)
@@ -68,7 +72,11 @@ export class PostgresDataClient implements DataClient {
       .select(
         "cipcode",
         "county"
-      );
+      )
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   }
 
   findOccupationTitlesByCip = (cip: string): Promise<OccupationTitle[]> => {
@@ -77,7 +85,11 @@ export class PostgresDataClient implements DataClient {
         "soc2018code as soc",
         "soc2018title as soctitle",
       )
-      .where("cipcode", cip);
+      .where("cipcode", cip)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   }
 
   findOccupationTitleBySoc = (soc: string): Promise<OccupationTitle> => {
@@ -87,16 +99,33 @@ export class PostgresDataClient implements DataClient {
         "soctitle as soctitle",
       )
       .where("soccode", soc)
-      .first();
+      .first()
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   }
 
-  getInDemandOccupationTitles = async (): Promise<OccupationTitle[]> => {
+  find2018OccupationTitlesBySoc2010 = (soc2010: string): Promise<OccupationTitle[]> => {
+    return this.kdb("soc2010to2018crosswalk")
+      .select(
+        "soccode2018 as soc",
+        "soctitle2018 as soctitle",
+      )
+      .where("soccode2010", soc2010)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  }
+
+  getInDemandOccupationTitles = async (): Promise<NullableOccupationTitle[]> => {
     return this.kdb("indemandsocs")
       .select(
         "soc",
         "socdefinitions.soctitle"
       )
-      .innerJoin('socdefinitions', 'socdefinitions.soccode', 'indemandsocs.soc')
+      .leftOuterJoin('socdefinitions', 'socdefinitions.soccode', 'indemandsocs.soc')
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
