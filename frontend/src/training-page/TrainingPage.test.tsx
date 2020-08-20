@@ -53,6 +53,10 @@ describe("<TrainingPage />", () => {
           state: "NJ",
           zipCode: "01234",
         }),
+        contactName: "Ada Lovelace",
+        contactTitle: "Computing Pioneer",
+        phoneNumber: "6093800243",
+        phoneExtension: "9876",
       }),
       occupations: ["Botanist", "Senator"],
       description: "some cool description",
@@ -77,6 +81,9 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("$1,234.56", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("77.5%", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$123,456")).toBeInTheDocument();
+    expect(subject.getByText("Ada Lovelace", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Computing Pioneer", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("(609) 380-0243 Ext: 9876", { exact: false })).toBeInTheDocument();
   });
 
   it("displays online instead of location when training is online", () => {
@@ -151,6 +158,14 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Apartment 1", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
+  });
+
+  it("does not `Ext:` when provider contact has no phone extension", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const notInDemand = buildTraining({ provider: buildProvider({ phoneExtension: "" }) });
+    act(() => stubClient.capturedObserver.onSuccess(notInDemand));
+
+    expect(subject.queryByText("Ext:")).not.toBeInTheDocument();
   });
 
   it("links to the provider website with http", () => {

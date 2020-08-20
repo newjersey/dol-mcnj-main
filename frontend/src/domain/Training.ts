@@ -38,6 +38,10 @@ export interface Provider {
   name: string;
   url: string;
   address: Address;
+  contactName: string;
+  contactTitle: string;
+  phoneNumber: string;
+  phoneExtension: string;
 }
 
 export interface Address {

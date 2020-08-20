@@ -15,6 +15,7 @@ import { Grouping } from "./Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { useMediaQuery } from "@material-ui/core";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -81,6 +82,28 @@ export const TrainingPage = (props: Props): ReactElement => {
         <div>
           {address.city}, {address.state} {address.zipCode}
         </div>
+      </div>
+    );
+  };
+
+  const getProviderContact = (): ReactElement => {
+    if (!training) {
+      return <></>;
+    }
+
+    let phoneNumber = parsePhoneNumberFromString(
+      training.provider.phoneNumber,
+      "US"
+    )?.formatNational();
+    if (training.provider.phoneExtension) {
+      phoneNumber = `${phoneNumber} Ext: ${training.provider.phoneExtension}`;
+    }
+
+    return (
+      <div className="inline">
+        <span>{training.provider.contactName}</span>
+        <div>{training.provider.contactTitle}</div>
+        <div>{phoneNumber}</div>
       </div>
     );
   };
@@ -166,6 +189,12 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <span className="fin">
                           <InlineIcon className="mrxs">location_on</InlineIcon>
                           {getProviderAddress()}
+                        </span>
+                      </div>
+                      <div className="mvd">
+                        <span className="fin">
+                          <InlineIcon className="mrxs">person</InlineIcon>
+                          {getProviderContact()}
                         </span>
                       </div>
                       <p>

@@ -27,6 +27,11 @@ export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainings
           id: program.providerid,
           name: program.providername ? program.providername : "",
           url: program.website ? program.website : "",
+          contactName: program.contactfirstname && program.contactlastname ?
+            `${program.contactfirstname} ${program.contactlastname}` : "",
+          contactTitle: program.contacttitle ? program.contacttitle : "",
+          phoneNumber: program.phone ? program.phone : "",
+          phoneExtension: program.phoneextension ? program.phoneextension : "",
           address: {
             street1: program.street1 ? program.street1 : "",
             street2: program.street2 ? program.street2 : "",

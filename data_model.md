@@ -85,11 +85,11 @@ MSTREET2 |
 MCITY | 
 MSTATE | 
 MZIP | 
-CONTACTFIRSTNAME | 
-CONTACTLASTNAME | 
-CONTACTTITLE | 
-PHONE | 
-PHONEEXTENSION | 
+CONTACTFIRSTNAME | contact person first name
+CONTACTLASTNAME | contact person last name
+CONTACTTITLE | contact person title
+PHONE | phone number
+PHONEEXTENSION | optional phone extension
 FAX | 
 WEBSITE | main webpage for provider
 EMAIL | 
