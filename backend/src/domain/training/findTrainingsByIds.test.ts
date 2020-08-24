@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import {StubDataClient} from "../../test-objects/StubDataClient";
 import {FindTrainingsByIds} from "../types";
-import {buildLocalException, buildOccupationTitle, buildProgram} from "../../test-objects/factories";
 import {CalendarLength} from "../CalendarLength";
 import {findTrainingsByIdsFactory} from "./findTrainingsByIds";
+import {StubDataClient} from "../test-objects/StubDataClient";
+import {buildLocalException, buildOccupationTitle, buildProgram} from "../test-objects/factories";
 
 
 describe("findTrainingsByIds", () => {

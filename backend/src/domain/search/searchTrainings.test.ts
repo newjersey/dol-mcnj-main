@@ -1,7 +1,7 @@
-import {StubSearchClient} from "../../test-objects/StubDataClient";
 import {SearchTrainings} from "../types";
 import {searchTrainingsFactory} from "./searchTrainings";
-import {buildTraining} from "../../test-objects/factories";
+import {buildTraining} from "../test-objects/factories";
+import {StubSearchClient} from "../test-objects/StubDataClient";
 
 describe("searchTrainings", () => {
   let searchTrainings: SearchTrainings;

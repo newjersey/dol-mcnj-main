@@ -1,13 +1,13 @@
-import { ProviderResult, TrainingResult } from "../domain/search/TrainingResult";
-import { Address, Provider, Training } from "../domain/training/Training";
-import { Occupation } from "../domain/occupations/Occupation";
-import { CalendarLength } from "../domain/CalendarLength";
+import { ProviderResult, TrainingResult } from "../search/TrainingResult";
+import { Address, Provider, Training } from "../training/Training";
+import { Occupation } from "../occupations/Occupation";
+import { CalendarLength } from "../CalendarLength";
 import {
   LocalException,
   NullableOccupationTitle,
   OccupationTitle,
   Program,
-} from "../domain/training/Program";
+} from "../training/Program";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());

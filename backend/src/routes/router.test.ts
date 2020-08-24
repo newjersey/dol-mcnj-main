@@ -1,8 +1,12 @@
 import request from "supertest";
 import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
-import { buildOccupation, buildTraining, buildTrainingResult } from "../test-objects/factories";
 import { Error } from "../domain/Error";
+import {
+  buildOccupation,
+  buildTraining,
+  buildTrainingResult,
+} from "../domain/test-objects/factories";
 
 describe("router", () => {
   let app: Express;
