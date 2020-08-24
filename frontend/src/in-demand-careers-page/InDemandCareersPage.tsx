@@ -54,9 +54,9 @@ export const InDemandCareersPage = (props: Props): ReactElement => {
       <main className="container below-banners">
         <h2 className="text-xl ptd weight-500">In-Demand Careers</h2>
         <p>
-          This is a list of occupations expected to have the most openings in the future in the
-          state of New Jersey. Trainings related to careers on this list can be eligible for funding
-          by the State.
+          This is a list of careers expected to have the most openings in the future in the state of
+          New Jersey. Trainings related to careers on this list can be eligible for funding by the
+          State.
         </p>
 
         <div className="fdc">{displayMajorGroups()}</div>

@@ -6,7 +6,7 @@ import {
   SearchTrainings,
 } from "../domain/types";
 import { Error } from "../domain/Error";
-import { Occupation } from "../domain/occupations/Occupation";
+import { Occupation } from "../domain/careers/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/search/TrainingResult";
 
