@@ -42,6 +42,7 @@ export class PostgresDataClient implements DataClient {
         "providers.city",
         "providers.state",
         "providers.zip",
+        "providers.county",
         "providers.contactfirstname",
         "providers.contactlastname",
         "providers.contacttitle",

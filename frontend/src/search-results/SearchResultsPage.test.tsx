@@ -81,6 +81,7 @@ describe("<SearchResultsPage />", () => {
         percentEmployed: 0.6018342,
         calendarLength: CalendarLength.FOUR_TO_ELEVEN_WEEKS,
         city: "Camden",
+        county: "Camden County",
         providerName: "Cammy Community College",
         highlight: "some [[text]] here",
         online: false,
@@ -91,6 +92,7 @@ describe("<SearchResultsPage />", () => {
         percentEmployed: 0.8,
         calendarLength: CalendarLength.LESS_THAN_ONE_DAY,
         city: "Newark",
+        county: "Essex County",
         providerName: "New'rk School",
         highlight: "",
         online: false,
@@ -102,6 +104,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("60.1%", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Camden", { exact: false })).toBeInTheDocument();
+      expect(subject.getByText("Camden County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("4-11 weeks to complete", { exact: false })).toBeInTheDocument();
       expect(subject.getByText('"...', { exact: false }).parentElement?.innerHTML).toEqual(
@@ -112,17 +115,19 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText("$333.33", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("80.0%", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Newark", { exact: false })).toBeInTheDocument();
+      expect(subject.getByText("Essex County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("New'rk School", { exact: false })).toBeInTheDocument();
       expect(
         subject.getByText("Less than 1 day to complete", { exact: false })
       ).toBeInTheDocument();
     });
 
-    it("displays online instead of location when training is online", () => {
+    it("displays online instead of city/county when training is online", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       const training = buildTrainingResult({
         city: "Camden",
+        county: "My Cool County",
         online: true,
       });
 
@@ -130,6 +135,7 @@ describe("<SearchResultsPage />", () => {
 
       expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
       expect(subject.queryByText("Camden", { exact: false })).not.toBeInTheDocument();
+      expect(subject.queryByText("My Cool County", { exact: false })).not.toBeInTheDocument();
     });
 
     it("displays an in-demand tag when a training is in-demand", () => {

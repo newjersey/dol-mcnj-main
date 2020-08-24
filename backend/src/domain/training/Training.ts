@@ -24,6 +24,7 @@ export interface Provider {
   contactTitle: string;
   phoneNumber: string;
   phoneExtension: string;
+  county: string;
 }
 
 export interface Address {

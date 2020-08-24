@@ -26,6 +26,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     rank: randomInt(),
     city: "some-city-" + randomInt(),
     zipCode: "some-zipcode-" + randomInt(),
+    county: "some-county-" + randomInt(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
     ...overrides,
@@ -60,6 +61,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     contactTitle: "some-contactTitle-" + randomInt(),
     phoneNumber: "some-phoneNumber-" + randomInt(),
     phoneExtension: "some-phoneExtension-" + randomInt(),
+    county: "some-county-" + randomInt(),
     ...overrides,
   };
 };
@@ -100,6 +102,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zip: "some-zip-" + randomInt(),
+    county: "some-county-" + randomInt(),
     contactfirstname: "some-contactfirstname-" + randomInt(),
     contactlastname: "some-contactlastname-" + randomInt(),
     contacttitle: "some-contacttitle-" + randomInt(),

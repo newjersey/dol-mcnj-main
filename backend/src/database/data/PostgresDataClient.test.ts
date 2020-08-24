@@ -33,6 +33,7 @@ describe("PostgresDataClient", () => {
     city: "Vineland",
     state: "NJ",
     zip: "08360",
+    county: "Cumberland",
     contactfirstname: "Gloria",
     contactlastname: "Kucher",
     contacttitle: "Principal",
