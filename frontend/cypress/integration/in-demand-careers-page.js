@@ -7,13 +7,13 @@ describe("In Demand Careers page", () => {
 
     cy.injectAxe();
 
-    cy.contains("Business and Financial Operations Occupations").should("exist");
+    cy.contains("Business and Financial Operations").should("exist");
     cy.contains("Compliance Officers").should("not.exist");
     cy.contains("Cost Estimators").should("not.exist");
 
-    cy.contains("Business and Financial Operations Occupations").click();
+    cy.contains("Business and Financial Operations").click();
 
-    cy.contains("Business and Financial Operations Occupations").should("exist");
+    cy.contains("Business and Financial Operations").should("exist");
     cy.contains("Compliance Officers").should("exist");
     cy.contains("Cost Estimators").should("exist");
 

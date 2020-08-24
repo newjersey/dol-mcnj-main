@@ -1,6 +1,6 @@
 import { TrainingResult } from "../search/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
-import { Occupation } from "../occupations/Occupation";
+import { Occupation } from "../careers/Occupation";
 import { CalendarLength } from "../CalendarLength";
 import {
   LocalException,

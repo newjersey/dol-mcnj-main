@@ -6,7 +6,7 @@ import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByIdsFactory } from "./domain/training/findTrainingsByIds";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
-import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandOccupations";
+import { getInDemandOccupationsFactory } from "./domain/careers/getInDemandOccupations";
 import { ZipcodeClient } from "./zipcodes/ZipcodeClient";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";

@@ -72,4 +72,19 @@ describe("getInDemandOccupations", () => {
 
     expect(stubDataClient.find2018OccupationTitlesBySoc2010).toHaveBeenCalledWith("2010 soc");
   });
+
+  it("strips the word `Occupations` from the end of the group title if it exists", async () => {
+    stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
+      buildOccupationTitle({ soctitle: "soc 1", soc: "1" }),
+      buildOccupationTitle({ soctitle: "soc 2", soc: "2" }),
+    ]);
+
+    stubDataClient.findOccupationTitleBySoc
+      .mockResolvedValueOnce(buildOccupationTitle({ soctitle: "Architecture Occupations" }))
+      .mockResolvedValueOnce(buildOccupationTitle({ soctitle: "Engineering" }));
+
+    const occupations = await getInDemandOccupations();
+    expect(occupations[0].majorGroup).toEqual("Architecture");
+    expect(occupations[1].majorGroup).toEqual("Engineering");
+  });
 });

@@ -2,6 +2,7 @@ import { DataClient } from "../training/DataClient";
 import { GetInDemandOccupations } from "../types";
 import { Occupation } from "./Occupation";
 import { NullableOccupationTitle, OccupationTitle } from "../training/Program";
+import { stripOccupations } from "../utils/stripOccupations";
 
 export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDemandOccupations => {
   const expand2010SocsTo2018 = async (
@@ -41,7 +42,7 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
         return {
           soc: occupationTitle.soc,
           title: occupationTitle.soctitle,
-          majorGroup: majorGroup.soctitle,
+          majorGroup: stripOccupations(majorGroup.soctitle),
         };
       })
     );
