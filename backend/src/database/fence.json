@@ -1,0 +1,6 @@
+{
+  "tags": [
+    "database"
+  ],
+  "imports": ["domain"]
+}

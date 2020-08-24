@@ -1,7 +1,7 @@
 import {GetInDemandOccupations} from "../types";
-import {StubDataClient} from "../../test-objects/StubDataClient";
+import {StubDataClient} from "../test-objects/StubDataClient";
 import {getInDemandOccupationsFactory} from "./getInDemandOccupations";
-import {buildNullableOccupationTitle, buildOccupationTitle} from "../../test-objects/factories";
+import {buildNullableOccupationTitle, buildOccupationTitle} from "../test-objects/factories";
 
 describe('getInDemandOccupations', () => {
 
