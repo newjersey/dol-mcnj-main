@@ -9,10 +9,11 @@ export interface TrainingResult {
   inDemand: boolean;
   localExceptionCounty: string[];
   online: boolean;
-  city: string;
-  zipCode: string;
   providerId: string;
   providerName: string;
+  city: string;
+  zipCode: string;
+  county: string;
   highlight: string;
   rank: number;
 }

@@ -46,6 +46,7 @@ describe("findTrainingsByIds", () => {
           contactTitle: program.contacttitle,
           phoneNumber: program.phone,
           phoneExtension: program.phoneextension,
+          county: program.county + " County",
           address: {
             street1: program.street1,
             street2: program.street2,
@@ -257,6 +258,18 @@ describe("findTrainingsByIds", () => {
     ]);
 
     expect((await findTrainingsByIds(["123"]))[0].description).toEqual("some weird character");
+  });
+
+  it("appends `County` to the county", async () => {
+    stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({ county: "Atlantic" })]);
+
+    expect((await findTrainingsByIds(["123"]))[0].provider.county).toEqual("Atlantic County");
+  });
+
+  it("replaces `Select One` county with empty string", async () => {
+    stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({ county: "Select One" })]);
+
+    expect((await findTrainingsByIds(["123"]))[0].provider.county).toEqual("");
   });
 
   describe("error handling", () => {

@@ -18,7 +18,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       return "Online Class";
     }
 
-    return props.trainingResult.city;
+    return `${props.trainingResult.city}, ${props.trainingResult.county}`;
   };
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {

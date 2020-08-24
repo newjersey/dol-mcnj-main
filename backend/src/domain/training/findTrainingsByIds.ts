@@ -32,6 +32,7 @@ export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainings
             contactTitle: program.contacttitle ? program.contacttitle : "",
             phoneNumber: program.phone ? program.phone : "",
             phoneExtension: program.phoneextension ? program.phoneextension : "",
+            county: formatCounty(program.county),
             address: {
               street1: program.street1 ? program.street1 : "",
               street2: program.street2 ? program.street2 : "",
@@ -58,6 +59,15 @@ export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainings
 };
 
 const NAN_INDICATOR = "-99999";
+
+const formatCounty = (county: string): string => {
+  const SELECT_ONE = "Select One";
+  if (!county || county === SELECT_ONE) {
+    return "";
+  }
+
+  return `${county} County`;
+};
 
 const formatPercentEmployed = (perEmployed: string | null): number | null => {
   if (perEmployed === null || perEmployed === NAN_INDICATOR) {
