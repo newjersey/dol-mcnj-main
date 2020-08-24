@@ -325,7 +325,7 @@ describe("<SearchResultsPage />", () => {
       expect(cards[2].textContent).toContain("training3");
     });
 
-    it("sorts by price low to high", () => {
+    it("sorts by cost low to high", () => {
       const training1 = buildTrainingResult({ name: "training1", totalCost: 300 });
       const training2 = buildTrainingResult({ name: "training2", totalCost: 100 });
       const training3 = buildTrainingResult({ name: "training3", totalCost: 200 });
@@ -335,7 +335,7 @@ describe("<SearchResultsPage />", () => {
       act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
       fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.PRICE_LOW_TO_HIGH },
+        target: { value: SortOrder.COST_LOW_TO_HIGH },
       });
 
       const cards = subject.getAllByTestId("card");
@@ -344,7 +344,7 @@ describe("<SearchResultsPage />", () => {
       expect(cards[2].textContent).toContain("training1");
     });
 
-    it("sorts by price high to low", () => {
+    it("sorts by cost high to low", () => {
       const training1 = buildTrainingResult({ name: "training1", totalCost: 300 });
       const training2 = buildTrainingResult({ name: "training2", totalCost: 100 });
       const training3 = buildTrainingResult({ name: "training3", totalCost: 200 });
@@ -354,7 +354,7 @@ describe("<SearchResultsPage />", () => {
       act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
       fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.PRICE_HIGH_TO_LOW },
+        target: { value: SortOrder.COST_HIGH_TO_LOW },
       });
 
       const cards = subject.getAllByTestId("card");
@@ -373,7 +373,7 @@ describe("<SearchResultsPage />", () => {
       act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
       fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.PRICE_HIGH_TO_LOW },
+        target: { value: SortOrder.COST_HIGH_TO_LOW },
       });
       fireEvent.change(subject.getByLabelText("Sort by"), {
         target: { value: SortOrder.RELEVANCE },

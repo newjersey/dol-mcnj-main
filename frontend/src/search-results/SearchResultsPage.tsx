@@ -18,8 +18,8 @@ interface Props extends RouteComponentProps {
 
 export enum SortOrder {
   RELEVANCE = "RELEVANCE",
-  PRICE_LOW_TO_HIGH = "PRICE_LOW_TO_HIGH",
-  PRICE_HIGH_TO_LOW = "PRICE_HIGH_TO_LOW",
+  COST_LOW_TO_HIGH = "COST_LOW_TO_HIGH",
+  COST_HIGH_TO_LOW = "COST_HIGH_TO_LOW",
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
@@ -84,9 +84,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       switch (newSortOrder) {
         case SortOrder.RELEVANCE:
           return b.rank - a.rank;
-        case SortOrder.PRICE_LOW_TO_HIGH:
+        case SortOrder.COST_LOW_TO_HIGH:
           return a.totalCost - b.totalCost;
-        case SortOrder.PRICE_HIGH_TO_LOW:
+        case SortOrder.COST_HIGH_TO_LOW:
           return b.totalCost - a.totalCost;
         default:
           return 0;
@@ -107,8 +107,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         id="sortby"
       >
         <option value={SortOrder.RELEVANCE}>Relevance</option>
-        <option value={SortOrder.PRICE_LOW_TO_HIGH}>Price: Low to High</option>
-        <option value={SortOrder.PRICE_HIGH_TO_LOW}>Price: High to Low</option>
+        <option value={SortOrder.COST_LOW_TO_HIGH}>Cost: Low to High</option>
+        <option value={SortOrder.COST_HIGH_TO_LOW}>Cost: High to Low</option>
       </WhiteSelect>
     </FormControl>
   );
