@@ -1,11 +1,4 @@
-import {
-  TrainingResult,
-  ProviderResult,
-  Training,
-  Provider,
-  CalendarLength,
-  Address,
-} from "../domain/Training";
+import { Address, CalendarLength, Provider, Training, TrainingResult } from "../domain/Training";
 import { Occupation } from "../domain/Occupation";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
@@ -17,22 +10,16 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     name: "some-name-" + randomInt(),
     totalCost: randomInt(),
     percentEmployed: randomInt(),
-    provider: buildProviderResult({}),
     calendarLength: randomCalendarLength(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
     online: randomBool(),
+    providerId: "some-id-" + randomInt(),
+    providerName: "some-provider-name-" + randomInt(),
+    city: "some-city-" + randomInt(),
+    zipCode: "some-zipcode-" + randomInt(),
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
-    ...overrides,
-  };
-};
-
-export const buildProviderResult = (overrides: Partial<ProviderResult>): ProviderResult => {
-  return {
-    id: "some-id-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    name: "some-provider-name-" + randomInt(),
     ...overrides,
   };
 };

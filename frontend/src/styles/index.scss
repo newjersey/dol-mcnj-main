@@ -14,7 +14,7 @@
 @import "in-demand-page";
 @import "components";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 * {
   -webkit-box-sizing: border-box;
@@ -32,7 +32,7 @@ body {
   line-height: 1.5rem;
   margin: 0;
   font-size: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;

@@ -1,4 +1,4 @@
-import {PostgresSearchClient} from "./PostgresSearchClient";
+import { PostgresSearchClient } from "./PostgresSearchClient";
 
 describe("PostgresSearchClient", () => {
   let dataClient: PostgresSearchClient;
@@ -43,7 +43,7 @@ describe("PostgresSearchClient", () => {
 
   it("searches training ids when title, description matches a search query", async () => {
     const resultIds = await dataClient.search("tree");
-    expect(resultIds.map(it => it.id)).toEqual(expect.arrayContaining(["1", "2", "5"]));
+    expect(resultIds.map((it) => it.id)).toEqual(expect.arrayContaining(["1", "2", "5"]));
   });
 
   it("returns search results in order of relevance", async () => {

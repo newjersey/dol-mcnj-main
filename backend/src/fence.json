@@ -1,6 +1,4 @@
 {
-  "tags": [
-    "backend"
-  ],
-  "dependencies": ["knex", "express", "cors", "supertest"]
+  "tags": ["backend"],
+  "dependencies": ["knex", "express", "cors", "supertest", "axios"]
 }

@@ -1,10 +1,10 @@
-import {buildTrainingResult} from "../../test-objects/factories";
-import {act} from "react-dom/test-utils";
-import {fireEvent, RenderResult} from "@testing-library/react";
-import {StubClient} from "../../test-objects/StubClient";
-import {App} from "../../App";
+import { buildTrainingResult } from "../../test-objects/factories";
+import { act } from "react-dom/test-utils";
+import { fireEvent, RenderResult } from "@testing-library/react";
+import { StubClient } from "../../test-objects/StubClient";
+import { App } from "../../App";
 import React from "react";
-import {renderWithRouter, waitForEffect} from "./helpers";
+import { renderWithRouter, waitForEffect } from "./helpers";
 
 describe("filtering by employment rate", () => {
   const training80percent = buildTrainingResult({ name: "training80", percentEmployed: 0.8 });

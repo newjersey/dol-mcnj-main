@@ -139,4 +139,35 @@ describe("ApiClient", () => {
       apiClient.getOccupations(observer);
     });
   });
+
+  describe("getZipCodes", () => {
+    it("calls observer with successful zipcode data", (done) => {
+      const zipcodes = ["12345", "67890"];
+      mockedAxios.get.mockResolvedValue({ data: zipcodes });
+
+      const observer = {
+        onSuccess: (data: string[]): void => {
+          expect(mockedAxios.get).toHaveBeenCalledWith("/api/zipcodes?center=11111&radius=10");
+          expect(data).toEqual(zipcodes);
+          done();
+        },
+        onError: jest.fn(),
+      };
+
+      apiClient.getZipcodesInRadius({ center: "11111", radius: "10" }, observer);
+    });
+
+    it("calls observer with error and type when GET fails", (done) => {
+      mockedAxios.get.mockRejectedValue({});
+
+      const observer = {
+        onSuccess: jest.fn(),
+        onError: (): void => {
+          done();
+        },
+      };
+
+      apiClient.getZipcodesInRadius({ center: "11111", radius: "10" }, observer);
+    });
+  });
 });

@@ -4,18 +4,15 @@ export interface TrainingResult {
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
-  provider: ProviderResult;
   inDemand: boolean;
   localExceptionCounty: string[];
   online: boolean;
+  city: string;
+  zipCode: string;
+  providerId: string;
+  providerName: string;
   highlight: string;
   rank: number;
-}
-
-export interface ProviderResult {
-  id: string;
-  city: string;
-  name: string;
 }
 
 export interface Training {

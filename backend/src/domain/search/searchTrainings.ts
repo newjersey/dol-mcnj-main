@@ -1,16 +1,14 @@
-import {stripUnicode} from "../utils/stripUnicode";
-import {FindTrainingsByIds, SearchTrainings} from "../types";
-import {TrainingResult} from "./TrainingResult";
-import {Training} from "../training/Training";
-import {SearchClient} from "./SearchClient";
-
+import { stripUnicode } from "../utils/stripUnicode";
+import { FindTrainingsByIds, SearchTrainings } from "../types";
+import { TrainingResult } from "./TrainingResult";
+import { Training } from "../training/Training";
+import { SearchClient } from "./SearchClient";
 
 export const searchTrainingsFactory = (
   findTrainingsByIds: FindTrainingsByIds,
   searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
-
     const searchResults = await searchClient.search(searchQuery);
     const trainings = await findTrainingsByIds(searchResults.map((it) => it.id));
 
@@ -36,11 +34,10 @@ export const searchTrainingsFactory = (
           totalCost: training.totalCost,
           percentEmployed: training.percentEmployed,
           calendarLength: training.calendarLength,
-          provider: {
-            id: training.provider.id,
-            name: training.provider.name,
-            city: training.provider.address.city,
-          },
+          providerId: training.provider.id,
+          providerName: training.provider.name,
+          city: training.provider.address.city,
+          zipCode: training.provider.address.zipCode,
           inDemand: training.inDemand,
           localExceptionCounty: training.localExceptionCounty,
           online: training.online,
@@ -48,6 +45,6 @@ export const searchTrainingsFactory = (
           rank: rank,
         };
       })
-    )
+    );
   };
 };

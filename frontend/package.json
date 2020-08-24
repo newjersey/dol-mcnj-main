@@ -33,7 +33,7 @@
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "prettier": "prettier --write src/*.{ts,tsx} && prettier --write src/**/*.{ts,tsx}",
+    "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf"
   },
   "prettier": {

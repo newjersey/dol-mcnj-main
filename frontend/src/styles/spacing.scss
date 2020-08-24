@@ -3,27 +3,11 @@
 }
 
 // padding and margin
-$space_sizes:
-                (xxl, 6em),
-                (xl, 4em),
-                (l, 2em),
-                (m, 1.5em),
-                (d, 1em),
-                (s, 0.5em),
-                (xs, 0.25em),
-                (xxs, 0.125em),
-                (z, 0em)
-;
-$orientation_list: (
-        v,
-        h
-);
-$direction_list: (
-                (t, top),
-                (r, right),
-                (b, bottom),
-                (l, left)
-);
+$space_sizes: (xxl, 6em), (xl, 4em), (l, 2em), (m, 1.5em), (d, 1em), (s, 0.5em), (xs, 0.25em),
+  (xxs, 0.125em), (z, 0em);
+
+$orientation_list: (v, h);
+$direction_list: ((t, top), (r, right), (b, bottom), (l, left));
 
 @each $space_sizes, $size in $space_sizes {
   .pa#{$space_sizes} {
@@ -54,8 +38,7 @@ $direction_list: (
         margin-bottom: $size;
         margin-top: $size;
       }
-    }
-    @else if $orientation_list == "h" {
+    } @else if $orientation_list == "h" {
       .p#{$orientation_list}#{$space_sizes} {
         padding-left: $size;
         padding-right: $size;

@@ -1,7 +1,7 @@
-import {SearchTrainings} from "../types";
-import {searchTrainingsFactory} from "./searchTrainings";
-import {buildTraining} from "../test-objects/factories";
-import {StubSearchClient} from "../test-objects/StubDataClient";
+import { SearchTrainings } from "../types";
+import { searchTrainingsFactory } from "./searchTrainings";
+import { buildTraining } from "../test-objects/factories";
+import { StubSearchClient } from "../test-objects/StubDataClient";
 
 describe("searchTrainings", () => {
   let searchTrainings: SearchTrainings;
@@ -25,7 +25,7 @@ describe("searchTrainings", () => {
     ]);
     stubSearchClient.getHighlight
       .mockResolvedValueOnce("some highlight 1")
-      .mockResolvedValueOnce("some highlight 2")
+      .mockResolvedValueOnce("some highlight 2");
     stubFindTrainingsByIds.mockResolvedValue([training1, training2]);
 
     expect(await searchTrainings("some query")).toEqual([
@@ -35,14 +35,13 @@ describe("searchTrainings", () => {
         totalCost: training1.totalCost,
         percentEmployed: training1.percentEmployed,
         calendarLength: training1.calendarLength,
-        provider: {
-          id: training1.provider.id,
-          name: training1.provider.name,
-          city: training1.provider.address.city,
-        },
         inDemand: training1.inDemand,
         localExceptionCounty: training1.localExceptionCounty,
         online: training1.online,
+        providerId: training1.provider.id,
+        providerName: training1.provider.name,
+        city: training1.provider.address.city,
+        zipCode: training1.provider.address.zipCode,
         rank: 1,
         highlight: "some highlight 1",
       },
@@ -52,14 +51,13 @@ describe("searchTrainings", () => {
         totalCost: training2.totalCost,
         percentEmployed: training2.percentEmployed,
         calendarLength: training2.calendarLength,
-        provider: {
-          id: training2.provider.id,
-          name: training2.provider.name,
-          city: training2.provider.address.city,
-        },
         inDemand: training2.inDemand,
         localExceptionCounty: training2.localExceptionCounty,
         online: training2.online,
+        city: training2.provider.address.city,
+        zipCode: training2.provider.address.zipCode,
+        providerId: training2.provider.id,
+        providerName: training2.provider.name,
         rank: 2,
         highlight: "some highlight 2",
       },
@@ -96,6 +94,5 @@ describe("searchTrainings", () => {
 
       searchTrainings("query").catch(() => done());
     });
-
   });
 });

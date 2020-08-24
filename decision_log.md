@@ -4,6 +4,40 @@ The purpose of this document is to keep track of technical decisions made on thi
 will be handing over this code to another person to maintain in the next few months, this is intended
 to provide as much context as possible into why things were decided at the time.
 
+### 2020-08-24
+
+Working on [#174012081](https://www.pivotaltracker.com/story/show/174012081) to filter by radius to a zip code.
+
+Since this requires integration to an external API, I am debating how/whether to feature-test this.  We can't feature-test
+it against the real zip code API, because 1) that would use up our limited per-hour API calls, and 2) it would require
+checking our API key into source control, which would make it publicly accessible.  Don't want that.
+
+#### Option A
+
+Don't include a feature test for location filter, and accept the unit tests as sufficient confidence.
+
+#### Option B
+
+Use a service like WireMock to fake the zipcode endpoint so that it always returns a stub value for the feature tests.
+
+#### Tradeoffs
+
+Option A has concerns for long-term maintainability because it means forgoing a test of a user feature.  
+
+Option B has concerns for long-term maintainability because it requires adding an additional server service
+and keeping it in the code.
+
+Neither option will protect/alert us in the event that the zipcode API were to change its return structure.  We would
+have to run our feature tests against dev/prod in order for us to know that.
+
+#### Decision
+
+Option B.
+
+WireMock has an npm package that should allow us to work it neatly into our workflow.  We already have automated
+scripts for spinning feature test servers up and down.  This will provide more confidence and the overhead should not
+be unreasonable.
+
 ### 2020-08-17
 
 Working on [#174302410](https://www.pivotaltracker.com/story/show/174302410) to group in-demand careers by category.

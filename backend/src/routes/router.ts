@@ -1,5 +1,10 @@
 import { Request, Response, Router } from "express";
-import { FindTrainingsByIds, GetInDemandOccupations, SearchTrainings } from "../domain/types";
+import {
+  FindTrainingsByIds,
+  GetInDemandOccupations,
+  GetZipCodesInRadius,
+  SearchTrainings,
+} from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
@@ -9,12 +14,14 @@ interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingsByIds: FindTrainingsByIds;
   getInDemandOccupations: GetInDemandOccupations;
+  getZipCodesInRadius: GetZipCodesInRadius;
 }
 
 export const routerFactory = ({
   searchTrainings,
   findTrainingsByIds,
   getInDemandOccupations,
+  getZipCodesInRadius,
 }: RouterActions): Router => {
   const router = Router();
 
@@ -45,6 +52,14 @@ export const routerFactory = ({
         res.status(200).json(occupations);
       })
       .catch((e) => res.status(500).send(e));
+  });
+
+  router.get("/zipcodes", (req: Request, res: Response<string[]>) => {
+    getZipCodesInRadius(req.query.center as string, req.query.radius as string)
+      .then((zipCodes: string[]) => {
+        res.status(200).json(zipCodes);
+      })
+      .catch(() => res.status(500).send());
   });
 
   return router;

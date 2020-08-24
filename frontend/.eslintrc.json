@@ -15,10 +15,7 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint/eslint-plugin",
-    "jsx-a11y"
-  ],
+  "plugins": ["@typescript-eslint/eslint-plugin", "jsx-a11y"],
   "rules": {
     "@typescript-eslint/no-empty-function": "off"
   }
