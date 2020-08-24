@@ -1,4 +1,4 @@
-import {CalendarLength} from "../CalendarLength";
+import { CalendarLength } from "../CalendarLength";
 
 export interface TrainingResult {
   id: string;
@@ -6,16 +6,13 @@ export interface TrainingResult {
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
-  provider: ProviderResult;
   inDemand: boolean;
   localExceptionCounty: string[];
+  online: boolean;
+  city: string;
+  zipCode: string;
+  providerId: string;
+  providerName: string;
   highlight: string;
   rank: number;
-  online: boolean;
-}
-
-export interface ProviderResult {
-  city: string;
-  id: string;
-  name: string;
 }

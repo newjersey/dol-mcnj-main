@@ -1,7 +1,7 @@
 import knex from "knex";
-import Knex, {PgConnectionConfig} from "knex";
-import {CareerTrackEntity, HeadlineEntity, SearchEntity} from "./Entities";
-import {SearchClient, SearchResult} from "../../domain/search/SearchClient";
+import Knex, { PgConnectionConfig } from "knex";
+import { CareerTrackEntity, HeadlineEntity, SearchEntity } from "./Entities";
+import { SearchClient, SearchResult } from "../../domain/search/SearchClient";
 
 export class PostgresSearchClient implements SearchClient {
   kdb: Knex;
@@ -21,10 +21,12 @@ export class PostgresSearchClient implements SearchClient {
       )
       .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
       .orderBy("rank", "desc")
-      .then((data: SearchEntity[]) => data.map((entity) => ({
-        id: entity.programid,
-        rank: entity.rank
-      })))
+      .then((data: SearchEntity[]) =>
+        data.map((entity) => ({
+          id: entity.programid,
+          rank: entity.rank,
+        }))
+      )
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
@@ -72,5 +74,5 @@ export class PostgresSearchClient implements SearchClient {
 
   disconnect = async (): Promise<void> => {
     await this.kdb.destroy();
-  }
+  };
 }

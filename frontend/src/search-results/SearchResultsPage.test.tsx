@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { buildProviderResult, buildTrainingResult } from "../test-objects/factories";
+import { buildTrainingResult } from "../test-objects/factories";
 import { SearchResultsPage, SortOrder } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
@@ -80,10 +80,8 @@ describe("<SearchResultsPage />", () => {
         totalCost: 1000,
         percentEmployed: 0.6018342,
         calendarLength: CalendarLength.FOUR_TO_ELEVEN_WEEKS,
-        provider: buildProviderResult({
-          city: "Camden",
-          name: "Cammy Community College",
-        }),
+        city: "Camden",
+        providerName: "Cammy Community College",
         highlight: "some [[text]] here",
         online: false,
       });
@@ -92,10 +90,8 @@ describe("<SearchResultsPage />", () => {
         totalCost: 333.33,
         percentEmployed: 0.8,
         calendarLength: CalendarLength.LESS_THAN_ONE_DAY,
-        provider: buildProviderResult({
-          city: "Newark",
-          name: "New'rk School",
-        }),
+        city: "Newark",
+        providerName: "New'rk School",
         highlight: "",
         online: false,
       });
@@ -126,9 +122,7 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       const training = buildTrainingResult({
-        provider: buildProviderResult({
-          city: "Camden",
-        }),
+        city: "Camden",
         online: true,
       });
 

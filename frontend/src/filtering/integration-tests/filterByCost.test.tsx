@@ -1,10 +1,10 @@
-import {StubClient} from "../../test-objects/StubClient";
-import {App} from "../../App";
+import { StubClient } from "../../test-objects/StubClient";
+import { App } from "../../App";
 import React from "react";
-import {buildTrainingResult} from "../../test-objects/factories";
-import {act} from "react-dom/test-utils";
+import { buildTrainingResult } from "../../test-objects/factories";
+import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
-import {renderWithRouter, waitForEffect} from "./helpers";
+import { renderWithRouter, waitForEffect } from "./helpers";
 
 describe("filtering by max cost", () => {
   const training1999 = buildTrainingResult({ name: "training1999", totalCost: 1999 });

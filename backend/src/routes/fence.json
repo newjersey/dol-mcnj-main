@@ -1,6 +1,4 @@
 {
-  "tags": [
-    "routes"
-  ],
+  "tags": ["routes"],
   "imports": ["domain"]
 }

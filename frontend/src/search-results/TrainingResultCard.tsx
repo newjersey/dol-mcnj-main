@@ -18,7 +18,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       return "Online Class";
     }
 
-    return props.trainingResult.provider.city;
+    return props.trainingResult.city;
   };
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
@@ -66,7 +66,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <p className="mtxs mbz">
               <span className="fin fas">
                 <InlineIcon className="mrxs">school</InlineIcon>
-                {props.trainingResult.provider.name}
+                {props.trainingResult.providerName}
               </span>
             </p>
             <p className="mtxs mbz">

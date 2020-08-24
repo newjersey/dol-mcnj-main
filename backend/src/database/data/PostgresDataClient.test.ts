@@ -1,5 +1,5 @@
-import {PostgresDataClient} from "./PostgresDataClient";
-import {Error} from "../../domain/Error";
+import { PostgresDataClient } from "./PostgresDataClient";
+import { Error } from "../../domain/Error";
 
 describe("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
@@ -41,10 +41,10 @@ describe("PostgresDataClient", () => {
     indemandcip: "123456",
     peremployed2: "0.661016949152542",
     avgquarterlywage2: "16166",
-    onlineprogramid: "1"
+    onlineprogramid: "1",
   };
 
-  describe('findProgramsByIds', () => {
+  describe("findProgramsByIds", () => {
     it("finds programs by list of ids", async () => {
       const programs = await dataClient.findProgramsByIds(["1", "2"]);
       expect(programs.length).toEqual(2);
@@ -57,13 +57,13 @@ describe("PostgresDataClient", () => {
     it("does not return programs with status as not Approved", async () => {
       const programs = await dataClient.findProgramsByIds(["1", "3"]);
       expect(programs.length).toEqual(1);
-      expect(programs[0].programid).toEqual('1');
+      expect(programs[0].programid).toEqual("1");
     });
 
     it("does not return programs with provider status as not Approved", async () => {
       const programs = await dataClient.findProgramsByIds(["1", "4"]);
       expect(programs.length).toEqual(1);
-      expect(programs[0].programid).toEqual('1');
+      expect(programs[0].programid).toEqual("1");
     });
 
     it("preserves order of input list of ids", async () => {
@@ -79,91 +79,94 @@ describe("PostgresDataClient", () => {
     });
 
     it("throws with a not found error if called with one id that does not exist", (done) => {
-      dataClient.findProgramsByIds(['doesnotexist'])
-        .catch((e) => {
-          expect(e).toEqual(Error.NOT_FOUND)
-          done();
-        })
+      dataClient.findProgramsByIds(["doesnotexist"]).catch((e) => {
+        expect(e).toEqual(Error.NOT_FOUND);
+        done();
+      });
     });
-  })
+  });
 
-  describe('getLocalExceptions', () => {
-    it('gets cips and counties with local waiver exceptions', async () => {
-      const localExceptions = await dataClient.getLocalExceptions()
+  describe("getLocalExceptions", () => {
+    it("gets cips and counties with local waiver exceptions", async () => {
+      const localExceptions = await dataClient.getLocalExceptions();
       expect(localExceptions).toEqual([
         {
           cipcode: "123456",
-          county: "ATLANTIC"
+          county: "ATLANTIC",
         },
         {
           cipcode: "123456",
-          county: "MIDDLESEX"
-        }
-      ])
-    })
-  })
+          county: "MIDDLESEX",
+        },
+      ]);
+    });
+  });
 
-  describe('findOccupationTitlesByCip', () => {
-    it('gets occupation information for a cip code', async () => {
-      const occupationTitles = await dataClient.findOccupationTitlesByCip('987654')
+  describe("findOccupationTitlesByCip", () => {
+    it("gets occupation information for a cip code", async () => {
+      const occupationTitles = await dataClient.findOccupationTitlesByCip("987654");
       expect(occupationTitles).toEqual([
         {
           soc: "11-1011",
-          soctitle: "Botanists"
+          soctitle: "Botanists",
         },
         {
           soc: "12-1011",
-          soctitle: "Chefs"
-        }
-      ])
-    })
-  })
+          soctitle: "Chefs",
+        },
+      ]);
+    });
+  });
 
-  describe('findOccupationTitleBySoc', () => {
-    it('gets occupation information for a soc code', async () => {
-      const occupationTitle = await dataClient.findOccupationTitleBySoc('11-0000')
+  describe("findOccupationTitleBySoc", () => {
+    it("gets occupation information for a soc code", async () => {
+      const occupationTitle = await dataClient.findOccupationTitleBySoc("11-0000");
       expect(occupationTitle).toEqual({
         soc: "11-0000",
-        soctitle: "Agriculture Occupations"
-      })
-    })
-  })
+        soctitle: "Agriculture Occupations",
+      });
+    });
+  });
 
-  describe('getInDemandOccupationTitles', () => {
-    it('gets the list of in-demand SOCs and looks up their titles', async () => {
+  describe("getInDemandOccupationTitles", () => {
+    it("gets the list of in-demand SOCs and looks up their titles", async () => {
       const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
-      expect(inDemandOccupations).toEqual(expect.arrayContaining([
-        {
-          soc: "11-1011",
-          soctitle: "Botanist Specialists"
-        },
-        {
-          soc: "13-1081",
-          soctitle: "Logisticians"
-        },
-        {
-          soc: "old 2010 soc",
-          soctitle: null
-        }
-      ]));
-    })
-  })
+      expect(inDemandOccupations).toEqual(
+        expect.arrayContaining([
+          {
+            soc: "11-1011",
+            soctitle: "Botanist Specialists",
+          },
+          {
+            soc: "13-1081",
+            soctitle: "Logisticians",
+          },
+          {
+            soc: "old 2010 soc",
+            soctitle: null,
+          },
+        ])
+      );
+    });
+  });
 
-  describe('find2018OccupationTitleBySoc2010', () => {
-    it('gets the list 2018 occupations for a 2010 soc', async () => {
-      const soc2018s = await dataClient.find2018OccupationTitlesBySoc2010('15-1134');
-      expect(soc2018s).toEqual(expect.arrayContaining([
-        {
-          soc: "15-1254",
-          soctitle: "Web Developers"
-        },
-        {
-          soc: "15-1255",
-          soctitle: "Web and Digital Interface Designers (##)"
-        }
-      ]));
-    })
-  })
+  describe("find2018OccupationTitleBySoc2010", () => {
+    it("gets the list 2018 occupations for a 2010 soc", async () => {
+      const soc2018s = await dataClient.find2018OccupationTitlesBySoc2010("15-1134");
+      expect(soc2018s).toEqual(
+        expect.arrayContaining([
+          {
+            soc: "15-1254",
+            soctitle: "Web Developers",
+          },
+          {
+            soc: "15-1255",
+            soctitle: "Web and Digital Interface Designers (##)",
+          },
+        ])
+      );
+    });
+  });
 
   afterAll(async () => {
     await dataClient.disconnect();

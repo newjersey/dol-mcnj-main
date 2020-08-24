@@ -12,4 +12,5 @@ export enum FilterableElement {
   EMPLOYMENT_RATE,
   TIME_TO_COMPLETE,
   CLASS_FORMAT,
+  LOCATION,
 }

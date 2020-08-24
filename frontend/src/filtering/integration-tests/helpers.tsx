@@ -1,7 +1,7 @@
-import {render, RenderResult} from "@testing-library/react";
-import {act} from "react-dom/test-utils";
-import React, {ReactElement} from "react";
-import {createHistory, createMemorySource, History, LocationProvider} from "@reach/router";
+import { render, RenderResult } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
+import React, { ReactElement } from "react";
+import { createHistory, createMemorySource, History, LocationProvider } from "@reach/router";
 
 interface RenderedWithRouter {
   container: RenderResult;

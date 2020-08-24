@@ -8,6 +8,8 @@ import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 import { Searchbar } from "../components/Searchbar";
 import { navigate } from "@reach/router";
 import { ClassFormatFilter } from "./ClassFormatFilter";
+import { LocationFilter } from "./LocationFilter";
+import { Client } from "../domain/Client";
 
 interface Props {
   searchQuery?: string;
@@ -15,6 +17,7 @@ interface Props {
   setShowTrainings: (shouldShowTrainings: boolean) => void;
   setToReloadState: () => void;
   children: ReactElement;
+  client: Client;
 }
 
 const usePrevious = <T extends {}>(value: T): T | undefined => {
@@ -31,6 +34,7 @@ export const FilterBox = ({
   setShowTrainings,
   setToReloadState,
   children,
+  client,
 }: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const previousWasTabletAndUp = usePrevious(isTabletAndUp);
@@ -127,6 +131,10 @@ export const FilterBox = ({
 
         <div className="mtd">
           <ClassFormatFilter />
+        </div>
+
+        <div className="mtd">
+          <LocationFilter client={client} />
         </div>
       </div>
     </div>

@@ -138,6 +138,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 resultCount={filteredTrainings.length}
                 setShowTrainings={setShouldShowTrainings}
                 setToReloadState={setToReloadState}
+                client={props.client}
               >
                 {getSortDropdown()}
               </FilterBox>

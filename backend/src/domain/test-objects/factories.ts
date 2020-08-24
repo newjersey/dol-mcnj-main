@@ -1,4 +1,4 @@
-import { ProviderResult, TrainingResult } from "../search/TrainingResult";
+import { TrainingResult } from "../search/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
 import { Occupation } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
@@ -18,22 +18,16 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     name: "some-name-" + randomInt(),
     totalCost: randomInt(),
     percentEmployed: randomInt(),
-    provider: buildProviderResult({}),
     calendarLength: randomCalendarLength(),
     inDemand: randomBool(),
     online: randomBool(),
     localExceptionCounty: [],
     highlight: "some-hightlight-" + randomInt(),
     rank: randomInt(),
-    ...overrides,
-  };
-};
-
-export const buildProviderResult = (overrides: Partial<ProviderResult>): ProviderResult => {
-  return {
-    id: "some-id-" + randomInt(),
     city: "some-city-" + randomInt(),
-    name: "some-provider-name-" + randomInt(),
+    zipCode: "some-zipcode-" + randomInt(),
+    providerId: "some-id-" + randomInt(),
+    providerName: "some-provider-name-" + randomInt(),
     ...overrides,
   };
 };

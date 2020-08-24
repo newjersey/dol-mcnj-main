@@ -1,4 +1,4 @@
-import {CalendarLength} from "../CalendarLength";
+import { CalendarLength } from "../CalendarLength";
 
 export interface Training {
   id: string;

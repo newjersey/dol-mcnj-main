@@ -14,16 +14,19 @@ describe("router", () => {
   let stubSearchTrainings: jest.Mock;
   let stubFindTrainingsByIds: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
+  let stubGetZipCodesInRadius: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
     stubFindTrainingsByIds = jest.fn();
     stubGetInDemandOccupations = jest.fn();
+    stubGetZipCodesInRadius = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
       findTrainingsByIds: stubFindTrainingsByIds,
       getInDemandOccupations: stubGetInDemandOccupations,
+      getZipCodesInRadius: stubGetZipCodesInRadius,
     });
     app = express();
     app.use(router);
@@ -95,6 +98,25 @@ describe("router", () => {
     it("sends a 500 when the fetch fails", (done) => {
       stubGetInDemandOccupations.mockImplementationOnce(() => Promise.reject());
       request(app).get("/occupations").expect(500).end(done);
+    });
+  });
+
+  describe("/zipcodes?center={zipcode}&radius={distance}", () => {
+    it("calls the zip code client for zip codes within the radius", (done) => {
+      stubGetZipCodesInRadius.mockImplementationOnce(() => Promise.resolve(["12345", "54321"]));
+      request(app)
+        .get("/zipcodes?center=11223&radius=10")
+        .then((response) => {
+          expect(response.status).toEqual(200);
+          expect(response.body).toEqual(["12345", "54321"]);
+          expect(stubGetZipCodesInRadius).toHaveBeenCalledWith("11223", "10");
+          done();
+        });
+    });
+
+    it("sends a 500 when the fetch fails", (done) => {
+      stubGetZipCodesInRadius.mockImplementationOnce(() => Promise.reject());
+      request(app).get("/zipcodes?center=11223&radius=10").expect(500).end(done);
     });
   });
 });

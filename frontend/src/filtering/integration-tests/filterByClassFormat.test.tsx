@@ -1,16 +1,14 @@
-import {buildTrainingResult} from "../../test-objects/factories";
-import {act} from "react-dom/test-utils";
-import {fireEvent, RenderResult} from "@testing-library/react";
-import {StubClient} from "../../test-objects/StubClient";
-import {App} from "../../App";
+import { buildTrainingResult } from "../../test-objects/factories";
+import { act } from "react-dom/test-utils";
+import { fireEvent, RenderResult } from "@testing-library/react";
+import { StubClient } from "../../test-objects/StubClient";
+import { App } from "../../App";
 import React from "react";
-import {renderWithRouter, waitForEffect} from "./helpers";
-
+import { renderWithRouter, waitForEffect } from "./helpers";
 
 describe("filtering by online or in-person", () => {
-
-  const online = buildTrainingResult({ name: "online training", online: true })
-  const inPerson = buildTrainingResult({ name: "in-person training", online: false })
+  const online = buildTrainingResult({ name: "online training", online: true });
+  const inPerson = buildTrainingResult({ name: "in-person training", online: false });
 
   let stubClient: StubClient;
   let subject: RenderResult;
@@ -31,19 +29,19 @@ describe("filtering by online or in-person", () => {
     expect(subject.getByText("in-person training")).toBeInTheDocument();
   });
 
-  it('filters by online', () => {
+  it("filters by online", () => {
     fireEvent.click(subject.getByLabelText("Online"));
 
     expect(subject.queryByText("online training")).toBeInTheDocument();
-    expect(subject.queryByText("in-person training"))
-  })
+    expect(subject.queryByText("in-person training"));
+  });
 
-  it('filters by in-person', () => {
+  it("filters by in-person", () => {
     fireEvent.click(subject.getByLabelText("In-Person"));
 
     expect(subject.queryByText("online training")).not.toBeInTheDocument();
     expect(subject.queryByText("in-person training")).toBeInTheDocument();
-  })
+  });
 
   it("does not filter when all or none are checked", async () => {
     fireEvent.click(subject.getByLabelText("Online"));
