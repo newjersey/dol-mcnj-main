@@ -1,0 +1,4 @@
+{
+  "tags": ["zipcodes"],
+  "imports": ["domain"]
+}
