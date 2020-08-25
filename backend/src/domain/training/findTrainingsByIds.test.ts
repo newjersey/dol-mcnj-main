@@ -180,48 +180,95 @@ describe("findTrainingsByIds", () => {
     expect(training.averageSalary).toEqual(100000);
   });
 
-  it("strips surrounding quotation marks from title/description of training", async () => {
+  it("strips surrounding quotation marks from title/description/more of training", async () => {
     stubDataClient.findProgramsByIds.mockResolvedValue([
       buildProgram({
         officialname: '"Some Name with Quotes"',
         description: '"Some Name with Quotes"',
+        providername: '"Some Name with Quotes"',
+        street1: '"Some Name with Quotes"',
+        street2: '"Some Name with Quotes"',
+        contactfirstname: '"Some Name"',
+        contactlastname: '"with Quotes"',
+        contacttitle: '"Some Name with Quotes"',
       }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("Some Name with Quotes");
-    expect((await findTrainingsByIds(["123"]))[0].description).toEqual("Some Name with Quotes");
+    let foundTraining = (await findTrainingsByIds(["123"]))[0];
+
+    expect(foundTraining.name).toEqual("Some Name with Quotes");
+    expect(foundTraining.description).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.name).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.address.street1).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.address.street2).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.contactName).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.contactTitle).toEqual("Some Name with Quotes");
 
     stubDataClient.findProgramsByIds.mockResolvedValue([
       buildProgram({
         officialname: "Some Name without Quotes",
         description: "Some Name without Quotes",
+        providername: "Some Name without Quotes",
+        street1: "Some Name without Quotes",
+        street2: "Some Name without Quotes",
+        contactfirstname: "Some Name",
+        contactlastname: "without Quotes",
+        contacttitle: "Some Name without Quotes",
       }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("Some Name without Quotes");
-    expect((await findTrainingsByIds(["123"]))[0].description).toEqual("Some Name without Quotes");
+    foundTraining = (await findTrainingsByIds(["123"]))[0];
+    expect(foundTraining.name).toEqual("Some Name without Quotes");
+    expect(foundTraining.description).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.name).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.address.street1).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.address.street2).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.contactName).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.contactTitle).toEqual("Some Name without Quotes");
 
     stubDataClient.findProgramsByIds.mockResolvedValue([
       buildProgram({
         officialname: '"Quotes "in the" middle too"',
         description: '"Quotes "in the" middle too"',
+        providername: '"Quotes "in the" middle too"',
+        street1: '"Quotes "in the" middle too"',
+        street2: '"Quotes "in the" middle too"',
+        contactfirstname: '"Quotes "in" the"',
+        contactlastname: 'the "middle" too',
+        contacttitle: '"Quotes "in the" middle too"',
       }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].name).toEqual('Quotes "in the" middle too');
-    expect((await findTrainingsByIds(["123"]))[0].description).toEqual(
-      'Quotes "in the" middle too'
-    );
+    foundTraining = (await findTrainingsByIds(["123"]))[0];
+    expect(foundTraining.name).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.description).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.provider.name).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.provider.address.street1).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.provider.address.street2).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.provider.contactName).toEqual('Quotes "in" the the "middle" too');
+    expect(foundTraining.provider.contactTitle).toEqual('Quotes "in the" middle too');
 
     stubDataClient.findProgramsByIds.mockResolvedValue([
       buildProgram({
         officialname: '"""Lots of Quotes"""',
         description: '"""Lots of Quotes"""',
+        providername: '"""Lots of Quotes"""',
+        street1: '"""Lots of Quotes"""',
+        street2: '"""Lots of Quotes"""',
+        contactfirstname: '"""Lots of"""',
+        contactlastname: '"""Quotes"""',
+        contacttitle: '"""Lots of Quotes"""',
       }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("Lots of Quotes");
-    expect((await findTrainingsByIds(["123"]))[0].description).toEqual("Lots of Quotes");
+    foundTraining = (await findTrainingsByIds(["123"]))[0];
+    expect(foundTraining.name).toEqual("Lots of Quotes");
+    expect(foundTraining.description).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.name).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.address.street1).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.address.street2).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.contactName).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.contactTitle).toEqual("Lots of Quotes");
   });
 
   it("title cases the local exception county", async () => {
@@ -250,6 +297,24 @@ describe("findTrainingsByIds", () => {
 
     stubDataClient.getLocalExceptions.mockResolvedValue([]);
     expect((await findTrainingsByIds(["123"]))[0].localExceptionCounty).toEqual([]);
+  });
+
+  it("title cases program names if they are all caps", async () => {
+    stubDataClient.findProgramsByIds.mockResolvedValue([
+      buildProgram({
+        officialname: "MY VERY COOL PROGRAM",
+      }),
+    ]);
+
+    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("My Very Cool Program");
+
+    stubDataClient.findProgramsByIds.mockResolvedValue([
+      buildProgram({
+        officialname: "My very cool program",
+      }),
+    ]);
+
+    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("My very cool program");
   });
 
   it("strips unicode inverted question marks from descriptions", async () => {
