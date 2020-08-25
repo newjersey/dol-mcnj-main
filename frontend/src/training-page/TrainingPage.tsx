@@ -14,8 +14,9 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "./Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-import { useMediaQuery } from "@material-ui/core";
+import { Icon, useMediaQuery } from "@material-ui/core";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import ReactTooltip from "react-tooltip";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -122,7 +123,29 @@ export const TrainingPage = (props: Props): ReactElement => {
 
           <div className="fdr">
             <div className="bg-lightest-purple stat-block mtm">
-              <div>Avg. Salary</div>
+              <div className="fdr">
+                <div>Avg. Salary</div>
+                <div className="mla">
+                  <Icon fontSize="small" data-for="average-salary-tooltip" data-tip="">
+                    info
+                  </Icon>
+                  <ReactTooltip
+                    id="average-salary-tooltip"
+                    className="tooltip"
+                    border={true}
+                    borderColor={"#dbdada"}
+                    effect="solid"
+                    place="bottom"
+                    type="light"
+                  >
+                    <div className="pbs">
+                      Average salary 6 months after completion of this class or classes like it at
+                      this provider
+                    </div>
+                    <div>Data source: NJ Dept of Labor</div>
+                  </ReactTooltip>
+                </div>
+              </div>
               <div className="stat-block-number ptm">
                 {training.averageSalary
                   ? formatMoney(training.averageSalary, { precision: 0 })
@@ -130,7 +153,30 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
             <div className="bg-lighter-purple stat-block mtm">
-              <div>{isTabletAndUp ? "Employment Rate" : "Employ. Rate"}</div>
+              <div className="fdr">
+                <div>{isTabletAndUp ? "Employment Rate" : "Employ. Rate"}</div>
+                <div className="mla">
+                  <Icon fontSize="small" data-for="employment-rate-tooltip" data-tip="">
+                    info
+                  </Icon>
+                  <ReactTooltip
+                    id="employment-rate-tooltip"
+                    className="tooltip"
+                    border={true}
+                    borderColor={"#dbdada"}
+                    effect="solid"
+                    place="bottom"
+                    type="light"
+                  >
+                    <div className="pbs">
+                      Percentage of enrolled students who were employed within 6 months of finishing
+                      this class or classes like it at this provider
+                    </div>
+
+                    <div>Data source: NJ Dept of Labor</div>
+                  </ReactTooltip>
+                </div>
+              </div>
               <div className="stat-block-number">
                 {training.percentEmployed ? formatPercentEmployed(training.percentEmployed) : "--"}
               </div>

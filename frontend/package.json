@@ -21,6 +21,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "react-tooltip": "^4.2.8",
     "typescript": "^3.7.5"
   },
   "scripts": {
