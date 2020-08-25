@@ -6,6 +6,7 @@ APP_PORT=8080
 WIREMOCK_PORT=8090
 
 kill $(lsof -i:${WIREMOCK_PORT} -t)
+kill $(lsof -i:${APP_PORT} -t)
 
 set -e
 

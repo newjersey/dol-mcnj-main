@@ -199,7 +199,11 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="container-fluid">
                 <div className="row">
                   <Grouping title="Description">
-                    <p>{training.description}</p>
+                    <>
+                      {training.description.split("\n").map((line, i) => (
+                        <p key={i}>{line}</p>
+                      ))}
+                    </>
                   </Grouping>
 
                   <Grouping title="Quick Stats">

@@ -262,6 +262,17 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("Employ. Rate")).toBeInTheDocument();
   });
 
+  it("converts carriage returns to newlines in the description", () => {
+    const subject = render(<TrainingPage client={stubClient} id="1234" />);
+    act(() =>
+      stubClient.capturedObserver.onSuccess(
+        buildTraining({ description: "some first line\nsome second line" })
+      )
+    );
+    expect(subject.getByText("some first line")).toBeInTheDocument();
+    expect(subject.getByText("some second line")).toBeInTheDocument();
+  });
+
   const useMobileSize = (): void => {
     (useMediaQuery as jest.Mock).mockImplementation(() => false);
   };
