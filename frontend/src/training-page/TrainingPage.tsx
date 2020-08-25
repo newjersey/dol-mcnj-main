@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { Header } from "../search-results/Header";
@@ -57,14 +57,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getCareerTrackList = (): string => {
-    if (!training || training.occupations.length === 0) {
-      return "--";
-    }
-
-    return training.occupations.join(", ");
-  };
-
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
       return <>Online Class</>;
@@ -106,6 +98,31 @@ export const TrainingPage = (props: Props): ReactElement => {
         <div>{training.provider.contactTitle}</div>
         <div>{phoneNumber}</div>
       </div>
+    );
+  };
+
+  const getAssociatedCareers = (): ReactElement => {
+    if (training?.occupations.length === 0 || training?.occupations.includes("NO MATCH")) {
+      return (
+        <p>
+          This is a general training that might prepare you for a wide variety of career paths.
+          Browse&nbsp;
+          <Link className="link-format-blue" to="/in-demand-careers">
+            in-demand careers
+          </Link>
+          &nbsp;to see how you might apply this training.
+        </p>
+      );
+    }
+
+    return (
+      <>
+        {training?.occupations.map((occupation, i) => (
+          <p key={i} className="blue weight-500">
+            {occupation}
+          </p>
+        ))}
+      </>
     );
   };
 
@@ -210,17 +227,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <>
                       <p>
                         <span className="fin">
-                          <InlineIcon className="mrxs">work_outline</InlineIcon>
-                          Career Track: {getCareerTrackList()}
-                        </span>
-                      </p>
-                      <p>
-                        <span className="fin">
                           <InlineIcon className="mrxs">av_timer</InlineIcon>
                           {CalendarLengthLookup[training.calendarLength]}
                         </span>
                       </p>
                     </>
+                  </Grouping>
+
+                  <Grouping title="Associated Careers">
+                    <>{getAssociatedCareers()}</>
                   </Grouping>
                 </div>
               </div>

@@ -71,9 +71,8 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("6-12 months to complete", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
-    expect(
-      subject.getByText("Career Track: Botanist, Senator", { exact: false })
-    ).toBeInTheDocument();
+    expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Senator", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("My Cool Provider", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
@@ -207,12 +206,16 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("--")).not.toHaveAttribute("href");
   });
 
-  it("displays -- if training has no occupations", () => {
+  it("displays helper text if training has no occupations or NO MATCH", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
 
     act(() => stubClient.capturedObserver.onSuccess(buildTraining({ occupations: [] })));
 
-    expect(subject.getByText("Career Track: --")).toBeInTheDocument();
+    expect(subject.getByText("This is a general training", { exact: false })).toBeInTheDocument();
+
+    act(() => stubClient.capturedObserver.onSuccess(buildTraining({ occupations: ["NO MATCH"] })));
+
+    expect(subject.getByText("This is a general training", { exact: false })).toBeInTheDocument();
   });
 
   it("displays -- if training provider has no address", () => {

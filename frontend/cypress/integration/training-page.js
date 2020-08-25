@@ -21,10 +21,10 @@ describe("Training Page", () => {
     ).should("exist");
 
     cy.contains("6-12 months to complete").should("exist");
-    cy.contains(
-      "Career Track: Welders, Cutters, Solderers, and Brazers, Welding, " +
-        "Soldering, and Brazing Machine Setters, Operators, and Tenders"
-    ).should("exist");
+    cy.contains("Welders, Cutters, Solderers, and Brazers").should("exist");
+    cy.contains("Welding, Soldering, and Brazing Machine Setters, Operators, and Tenders").should(
+      "exist"
+    );
 
     cy.contains("$5,100.00").should("exist");
 
