@@ -109,6 +109,18 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  const getDataMissingOrSource = (data: number | null): ReactElement | undefined => {
+    if (!data) {
+      return (
+        <div>
+          * This information is missing because we haven’t received enough data from this institute.
+        </div>
+      );
+    } else {
+      return <div>Data source: NJ Dept of Labor</div>;
+    }
+  };
+
   if (training) {
     return (
       <>
@@ -142,7 +154,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       Average salary 6 months after completion of this class or classes like it at
                       this provider
                     </div>
-                    <div>Data source: NJ Dept of Labor</div>
+                    {getDataMissingOrSource(training.averageSalary)}
                   </ReactTooltip>
                 </div>
               </div>
@@ -172,8 +184,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       Percentage of enrolled students who were employed within 6 months of finishing
                       this class or classes like it at this provider
                     </div>
-
-                    <div>Data source: NJ Dept of Labor</div>
+                    {getDataMissingOrSource(training.percentEmployed)}
                   </ReactTooltip>
                 </div>
               </div>
