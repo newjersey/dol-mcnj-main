@@ -3,12 +3,18 @@
 [![build](https://circleci.com/gh/newjersey/d4ad.svg?style=shield)](https://circleci.com/gh/newjersey/d4ad)
 
 Data for the American Dream
+
 ## Getting Started
 
 This [typescript](https://www.typescriptlang.org/) repo is structured with two primary sub-folders:
 
  - **backend** - the [express](https://expressjs.com/) API server
  - **frontend** - the [react](https://reactjs.org/) web UI
+
+It also includes som resource documents:
+
+- [`decision_log`](https://github.com/newjersey/d4ad/blob/master/decision_log.md) lists architectural decisions and their rationale. 
+- [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) details data tables and columns.
  
 ### npm Dependencies
 
@@ -135,6 +141,18 @@ Always push via ship-it ([why?](https://medium.com/@AnneLoVerso/ship-it-a-humble
 ./scripts/ship-it.sh
 ```
 
+## CI/CD
+
+We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master).
+
+The pipeline is:
+1. npm install (frontend and backend)
+1. run all unit tests (frontend and backend)
+1. build code and run feature tests
+1. deploy to GCP Dev environment
+1. [manual approval step]
+1. deploy to GCP Prod environment
+
 ## Deployment
 
 Build frontend, build backend, compile all into one directory:
@@ -157,3 +175,5 @@ This script generates the `app.yaml` and deploys the app:
 ```shell script
 ./scripts/deploy.sh
 ```
+
+Generally, developers won't have to do this - we have automated deploys to dev and prod via [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master).
