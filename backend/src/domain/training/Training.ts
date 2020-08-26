@@ -9,6 +9,11 @@ export interface Training {
   occupations: string[];
   inDemand: boolean;
   localExceptionCounty: string[];
+  tuitionCost: number;
+  feesCost: number;
+  booksMaterialsCost: number;
+  suppliesToolsCost: number;
+  otherCost: number;
   totalCost: number;
   online: boolean;
   percentEmployed: number | null;

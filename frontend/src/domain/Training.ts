@@ -25,6 +25,11 @@ export interface Training {
   provider: Provider;
   inDemand: boolean;
   localExceptionCounty: string[];
+  tuitionCost: number;
+  feesCost: number;
+  booksMaterialsCost: number;
+  suppliesToolsCost: number;
+  otherCost: number;
   totalCost: number;
   online: boolean;
   percentEmployed: number | null;

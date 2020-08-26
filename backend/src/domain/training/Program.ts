@@ -4,6 +4,11 @@ export interface Program {
   officialname: string;
   description: string;
   providerid: string;
+  tuition: string;
+  fees: string;
+  booksmaterialscost: string;
+  suppliestoolscost: string;
+  othercosts: string;
   totalcost: string;
   providername: string | null;
   calendarlengthid: string | null;
