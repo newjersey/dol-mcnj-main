@@ -245,12 +245,41 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="container-fluid">
                 <div className="row">
                   <Grouping title="Cost">
-                    <p>
-                      <span className="weight-500">Total Cost</span>
-                      <span className="text-l pull-right weight-500">
-                        {formatMoney(training.totalCost)}
-                      </span>
-                    </p>
+                    <>
+                      <p>
+                        <span className="weight-500">Total Cost</span>
+                        <span className="text-l pull-right weight-500">
+                          {formatMoney(training.totalCost)}
+                        </span>
+                      </p>
+                      <div className="grey-line" />
+                      <div className="mvd">
+                        <div>
+                          <span>Tution</span>
+                          <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                        </div>
+                        <div>
+                          <span>Fees</span>
+                          <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                        </div>
+                        <div>
+                          <span>Books & Materials</span>
+                          <span className="pull-right">
+                            {formatMoney(training.booksMaterialsCost)}
+                          </span>
+                        </div>
+                        <div>
+                          <span>Supplies & Tools</span>
+                          <span className="pull-right">
+                            {formatMoney(training.suppliesToolsCost)}
+                          </span>
+                        </div>
+                        <div>
+                          <span>Other</span>
+                          <span className="pull-right">{formatMoney(training.otherCost)}</span>
+                        </div>
+                      </div>
+                    </>
                   </Grouping>
 
                   <Grouping title="Provider Details">

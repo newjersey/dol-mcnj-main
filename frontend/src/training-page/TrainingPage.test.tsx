@@ -60,6 +60,11 @@ describe("<TrainingPage />", () => {
       }),
       occupations: ["Botanist", "Senator"],
       description: "some cool description",
+      tuitionCost: 0,
+      feesCost: 50,
+      booksMaterialsCost: 608.9,
+      suppliesToolsCost: 9.99,
+      otherCost: 1000,
       totalCost: 1234.56,
       percentEmployed: 0.77523,
       averageSalary: 123456,
@@ -77,6 +82,13 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
+
+    expect(subject.getByText("$0.00", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("$50.00", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("$608.90", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("$9.99", { exact: false })).toBeInTheDocument();
+
     expect(subject.getByText("$1,234.56", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("77.5%", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("$123,456")).toBeInTheDocument();
@@ -100,7 +112,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
-    expect(subject.queryByText("Camden", { exact: false })).not.toBeInTheDocument();
+    expect(subject.queryByText("Newark", { exact: false })).not.toBeInTheDocument();
   });
 
   it("displays an in-demand tag when a training is in-demand", () => {
