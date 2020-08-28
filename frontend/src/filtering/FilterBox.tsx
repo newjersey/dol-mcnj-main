@@ -137,15 +137,11 @@ export const FilterBox = ({
         )}
 
         <div className="mtd">
+          <LocationFilter client={client} />
+        </div>
+
+        <div className="mtd">
           <CostFilter />
-        </div>
-
-        <div className="mtd">
-          <EmploymentRateFilter />
-        </div>
-
-        <div className="mtd">
-          <TimeToCompleteFilter />
         </div>
 
         <div className="mtd">
@@ -153,7 +149,11 @@ export const FilterBox = ({
         </div>
 
         <div className="mtd">
-          <LocationFilter client={client} />
+          <TimeToCompleteFilter />
+        </div>
+
+        <div className="mtd">
+          <EmploymentRateFilter />
         </div>
       </div>
     </div>

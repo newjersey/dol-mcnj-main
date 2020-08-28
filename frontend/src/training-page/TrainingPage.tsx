@@ -14,7 +14,7 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "./Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-import { Icon, useMediaQuery } from "@material-ui/core";
+import { Icon } from "@material-ui/core";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import ReactTooltip from "react-tooltip";
 
@@ -24,8 +24,6 @@ interface Props extends RouteComponentProps {
 }
 
 export const TrainingPage = (props: Props): ReactElement => {
-  const isTabletAndUp = useMediaQuery("(min-width:768px)");
-
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [error, setError] = useState<Error | null>(null);
 
@@ -51,7 +49,12 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     return (
-      <a target="_blank" rel="noopener noreferrer" href={getHttpUrl(training.provider.url)}>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        className="break-text"
+        href={getHttpUrl(training.provider.url)}
+      >
         {training.provider.url}
       </a>
     );
@@ -159,7 +162,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <div className="fdr">
             <div className="bg-lightest-purple stat-block mtm">
               <div className="fdr">
-                <div>Avg. Salary</div>
+                <div>Avg Salary after Program</div>
                 <div className="mla">
                   <Icon fontSize="small" data-for="average-salary-tooltip" data-tip="">
                     info
@@ -189,7 +192,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
             <div className="bg-lighter-purple stat-block mtm">
               <div className="fdr">
-                <div>{isTabletAndUp ? "Employment Rate" : "Employ. Rate"}</div>
+                <div>Program Employment Rate</div>
                 <div className="mla">
                   <Icon fontSize="small" data-for="employment-rate-tooltip" data-tip="">
                     info
@@ -204,8 +207,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                     type="light"
                   >
                     <div className="pbs">
-                      Percentage of enrolled students who were employed within 6 months of finishing
-                      this class or classes like it at this provider
+                      Percentage of enrolled students employed within 6 months of this class or
+                      classes like it at this provider
                     </div>
                     {getDataMissingOrSource(training.percentEmployed)}
                   </ReactTooltip>

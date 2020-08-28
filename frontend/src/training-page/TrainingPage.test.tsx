@@ -6,18 +6,6 @@ import { act } from "react-dom/test-utils";
 import { buildAddress, buildProvider, buildTraining } from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
 import { Error } from "../domain/Error";
-import { useMediaQuery } from "@material-ui/core";
-
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-function mockFunctions() {
-  const original = jest.requireActual("@material-ui/core");
-  return {
-    ...original,
-    useMediaQuery: jest.fn(),
-  };
-}
-
-jest.mock("@material-ui/core", () => mockFunctions());
 
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
@@ -304,20 +292,6 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
 
-  it("labels Employment Rate on desktop", () => {
-    useDesktopSize();
-    const subject = render(<TrainingPage client={stubClient} id="1234" />);
-    act(() => stubClient.capturedObserver.onSuccess(buildTraining({})));
-    expect(subject.getByText("Employment Rate")).toBeInTheDocument();
-  });
-
-  it("labels Employment Rate as 'employ rate' on mobile", () => {
-    useMobileSize();
-    const subject = render(<TrainingPage client={stubClient} id="1234" />);
-    act(() => stubClient.capturedObserver.onSuccess(buildTraining({})));
-    expect(subject.getByText("Employ. Rate")).toBeInTheDocument();
-  });
-
   it("converts carriage returns to newlines in the description", () => {
     const subject = render(<TrainingPage client={stubClient} id="1234" />);
     act(() =>
@@ -328,12 +302,4 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("some first line")).toBeInTheDocument();
     expect(subject.getByText("some second line")).toBeInTheDocument();
   });
-
-  const useMobileSize = (): void => {
-    (useMediaQuery as jest.Mock).mockImplementation(() => false);
-  };
-
-  const useDesktopSize = (): void => {
-    (useMediaQuery as jest.Mock).mockImplementation(() => true);
-  };
 });

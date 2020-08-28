@@ -35,6 +35,12 @@
   font-weight: 300;
 }
 
+.break-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 // small and up
 @media (min-width: $xs) {
   .stat-block {

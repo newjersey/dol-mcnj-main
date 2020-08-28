@@ -4,6 +4,7 @@ import { FilterActionType, FilterContext } from "../App";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { Client } from "../domain/Client";
+import { InlineIcon } from "../components/InlineIcon";
 
 export interface SearchArea {
   center: string;
@@ -77,8 +78,8 @@ export const LocationFilter = (props: Props): ReactElement => {
 
   return (
     <>
-      <div className="bold">Location</div>
-      <div className="fin mld fac">
+      <div className="bold">Miles from Zip Code</div>
+      <div className="fin mts fac ">
         <Input
           id="miles"
           inputProps={{ "aria-label": "Miles" }}
@@ -101,7 +102,11 @@ export const LocationFilter = (props: Props): ReactElement => {
           placeholder="Zip Code"
         />
       </div>
-      {isError && <div>This feature is currently unavailable</div>}
+      {isError && (
+        <div className="red fin mts">
+          <InlineIcon className="mrxs">error</InlineIcon> This feature is currently unavailable
+        </div>
+      )}
     </>
   );
 };

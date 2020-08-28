@@ -72,12 +72,10 @@ a.link-format-blue {
   text-decoration: inherit;
 }
 
-.button-size {
+.button-size-full {
   min-width: 100%;
 }
 
-@media (min-width: $xs) {
-  .button-size {
-    min-width: 114px;
-  }
+.button-size-small {
+  min-width: 114px;
 }
