@@ -67,15 +67,21 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     const address = training.provider.address;
+    const nameAndAddressEncoded = encodeURIComponent(
+      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`
+    );
+    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
     return (
-      <div className="inline">
-        <span>{address.street1}</span>
-        <div>{address.street2}</div>
-        <div>
-          {address.city}, {address.state} {address.zipCode}
+      <a href={googleUrl} target="_blank" rel="noopener noreferrer">
+        <div className="inline">
+          <span>{address.street1}</span>
+          <div>{address.street2}</div>
+          <div>
+            {address.city}, {address.state} {address.zipCode}
+          </div>
         </div>
-      </div>
+      </a>
     );
   };
 
