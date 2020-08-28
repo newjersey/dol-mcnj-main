@@ -5,6 +5,7 @@ import { FilterContext } from "../App";
 import React from "react";
 import { FilterBox } from "./FilterBox";
 import { useMediaQuery } from "@material-ui/core";
+import { StubClient } from "../test-objects/StubClient";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockFunctions() {
@@ -25,7 +26,12 @@ describe("<FilterBox />", () => {
 
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox resultCount={1} setShowTrainings={jest.fn()} setToReloadState={jest.fn()}>
+        <FilterBox
+          resultCount={1}
+          setShowTrainings={jest.fn()}
+          setToReloadState={jest.fn()}
+          client={new StubClient()}
+        >
           <div />
         </FilterBox>
       </FilterContext.Provider>
@@ -38,6 +44,7 @@ describe("<FilterBox />", () => {
         resultCount={resultCount}
         setShowTrainings={setShowTrainings}
         setToReloadState={jest.fn()}
+        client={new StubClient()}
       >
         <div />
       </FilterBox>
@@ -59,7 +66,7 @@ describe("<FilterBox />", () => {
   it("[MOBILE] has default-color text when no filter applied", () => {
     useMobileSize();
     const subject = renderWithFilters([]);
-    expect(subject.getByText("Filters", { exact: false })).not.toHaveClass("blue");
+    expect(subject.getByText("Edit Search or Filter", { exact: false })).not.toHaveClass("blue");
   });
 
   it("[MOBILE] has blue text when a filter is applied", () => {
@@ -71,14 +78,14 @@ describe("<FilterBox />", () => {
         value: "5000",
       },
     ]);
-    expect(subject.getByText("Filters", { exact: false })).toHaveClass("blue");
+    expect(subject.getByText("Edit Search or Filter", { exact: false })).toHaveClass("blue");
   });
 
   it("[MOBILE] opens and closes filter panel on button push", () => {
     useMobileSize();
     const subject = renderFilterBox({});
     expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
   });
 
@@ -89,7 +96,7 @@ describe("<FilterBox />", () => {
     expect(subject.queryByText("keyboard_arrow_down")).toBeInTheDocument();
     expect(subject.queryByText("keyboard_arrow_up")).not.toBeInTheDocument();
 
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
 
     expect(subject.queryByText("keyboard_arrow_down")).not.toBeInTheDocument();
     expect(subject.queryByText("keyboard_arrow_up")).toBeInTheDocument();
@@ -98,7 +105,7 @@ describe("<FilterBox />", () => {
   it("[MOBILE] closes the filter panel when search is executed", () => {
     useMobileSize();
     const subject = renderFilterBox({});
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
 
     fireEvent.click(subject.getByText("Search"));
@@ -109,7 +116,7 @@ describe("<FilterBox />", () => {
   it("[MOBILE] displays the number of search results", () => {
     useMobileSize();
     const subject = renderFilterBox({ resultCount: 50 });
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
 
     expect(subject.getByText("50 results")).toBeInTheDocument();
   });
@@ -117,7 +124,7 @@ describe("<FilterBox />", () => {
   it("[MOBILE] uses correct grammar on result count", () => {
     useMobileSize();
     const subject = renderFilterBox({ resultCount: 1 });
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
 
     expect(subject.getByText("1 result")).toBeInTheDocument();
   });
@@ -127,13 +134,13 @@ describe("<FilterBox />", () => {
     const mockCallback = jest.fn();
     const subject = renderFilterBox({ setShowTrainings: mockCallback });
 
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(mockCallback).toHaveBeenLastCalledWith(false);
 
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(mockCallback).toHaveBeenLastCalledWith(true);
 
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(mockCallback).toHaveBeenLastCalledWith(false);
   });
 

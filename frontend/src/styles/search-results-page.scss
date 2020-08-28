@@ -1,10 +1,6 @@
 @import "sizes";
 @import "header";
 
-.search-container {
-  margin-top: $below-banners-height;
-}
-
 .card {
   border: 1px solid $light-grey;
   border-radius: 5px;
@@ -31,9 +27,8 @@
 }
 
 .full {
-  height: calc(100vh - #{$below-banners-height});
+  height: 100vh;
   overflow-y: scroll;
-  margin-top: $below-banners-height;
   bottom: 0;
 }
 
@@ -85,10 +80,6 @@
     background-color: white;
     z-index: 10;
     width: inherit;
-  }
-
-  .search-container {
-    margin-top: 0;
   }
 }
 
