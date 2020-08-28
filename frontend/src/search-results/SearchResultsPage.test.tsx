@@ -401,7 +401,7 @@ describe("<SearchResultsPage />", () => {
     );
 
     expect(subject.queryByText("my cool training")).toBeInTheDocument();
-    fireEvent.click(subject.getByText("Filters"));
+    fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(subject.queryByText("my cool training")).not.toBeInTheDocument();
   });
 

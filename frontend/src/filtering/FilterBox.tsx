@@ -10,6 +10,8 @@ import { navigate } from "@reach/router";
 import { ClassFormatFilter } from "./ClassFormatFilter";
 import { LocationFilter } from "./LocationFilter";
 import { Client } from "../domain/Client";
+import njLogo from "../njlogo.svg";
+import { InlineIcon } from "../components/InlineIcon";
 
 interface Props {
   searchQuery?: string;
@@ -38,6 +40,7 @@ export const FilterBox = ({
 }: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const previousWasTabletAndUp = usePrevious(isTabletAndUp);
+  const isMobile = !isTabletAndUp;
 
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
   const { state } = useContext(FilterContext);
@@ -65,11 +68,11 @@ export const FilterBox = ({
   };
 
   const isFullscreen = (): string => {
-    return filterIsOpen && !isTabletAndUp ? "full" : "";
+    return filterIsOpen && isMobile ? "full" : "";
   };
 
   const getArrowIcon = (): string => {
-    return filterIsOpen && !isTabletAndUp ? "keyboard_arrow_up" : "keyboard_arrow_down";
+    return filterIsOpen && isMobile ? "keyboard_arrow_up" : "keyboard_arrow_down";
   };
 
   const getResultCountText = (): string => {
@@ -83,7 +86,7 @@ export const FilterBox = ({
   const executeSearch = (newQuery: string): void => {
     setShowTrainings(true);
 
-    if (!isTabletAndUp) {
+    if (isMobile) {
       setFilterIsOpen(false);
     }
 
@@ -95,31 +98,47 @@ export const FilterBox = ({
     navigate(`/search/${encodeURIComponent(newQuery)}`);
   };
 
-  return (
-    <div className={`bg-light-green pam filterbox ${isFullscreen()}`}>
-      <Searchbar onSearch={executeSearch} initialValue={searchQuery} stacked={true} />
-      {!isTabletAndUp && (
-        <div className="ptm fdr">
-          <SecondaryButton
-            className="fin flex-half"
-            onClick={toggleFilterVisibility}
-            endIcon={<Icon>{getArrowIcon()}</Icon>}
-          >
-            <span style={{ marginRight: "auto" }} className={`pls ${blueWhenFilterApplied()}`}>
-              Filters
-            </span>
-          </SecondaryButton>
-          <div className="fin mla">{children}</div>
-        </div>
-      )}
-      <div className="ptd" style={{ display: filterIsOpen ? "block" : "none" }}>
-        <div style={{ display: isTabletAndUp ? "none" : "block" }}>
-          <div className="mbs grey-line" />
-          <div>{getResultCountText()}</div>
-          <div className="mvs grey-line" />
-        </div>
+  const MobileFilterButtonHeader = (): ReactElement => {
+    return (
+      <header className="fdr mbm" role="banner">
+        <a href="/">
+          <img className="nj-logo-header mrd" src={njLogo} alt="" />
+        </a>
+        <SecondaryButton
+          className=""
+          onClick={toggleFilterVisibility}
+          endIcon={<Icon>{getArrowIcon()}</Icon>}
+        >
+          <span className={`fin pls ${blueWhenFilterApplied()}`}>
+            <InlineIcon className="mrs">filter_list</InlineIcon>
+            Edit Search or Filter
+          </span>
+        </SecondaryButton>
+      </header>
+    );
+  };
 
-        <CostFilter />
+  return (
+    <div className={`bg-light-green pad filterbox ${isFullscreen()}`}>
+      {isMobile && <MobileFilterButtonHeader />}
+
+      <div className="phd" style={{ display: filterIsOpen ? "block" : "none" }}>
+        <Searchbar onSearch={executeSearch} initialValue={searchQuery} stacked={true} />
+
+        {isMobile && (
+          <>
+            <div className="mtd mbs grey-line" />
+            <div className="fdr fac mvd">
+              <div className="flex-half">{getResultCountText()}</div>
+              <div className="flex-half">{children}</div>
+            </div>
+            <div className="mvs grey-line" />
+          </>
+        )}
+
+        <div className="mtd">
+          <CostFilter />
+        </div>
 
         <div className="mtd">
           <EmploymentRateFilter />
