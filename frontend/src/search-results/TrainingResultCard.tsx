@@ -55,7 +55,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <div className="col-md-4 col-md-push-8 align-right-when-lg">
             <p className="mts mbxs">
               <span className="fin fas">
-                <InlineIcon className="hide-when-lg mrxs">card_travel</InlineIcon>
+                <InlineIcon className="hide-when-lg mrs">card_travel</InlineIcon>
                 {props.trainingResult.percentEmployed
                   ? formatPercentEmployed(props.trainingResult.percentEmployed) + " employed"
                   : "--"}
@@ -65,19 +65,19 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <div className="col-md-8 col-md-pull-4">
             <p className="mtxs mbz">
               <span className="fin fas">
-                <InlineIcon className="mrxs">school</InlineIcon>
+                <InlineIcon className="mrs">school</InlineIcon>
                 {props.trainingResult.providerName}
               </span>
             </p>
             <p className="mtxs mbz">
               <span className="fin fas">
-                <InlineIcon className="mrxs">location_on</InlineIcon>
+                <InlineIcon className="mrs">location_on</InlineIcon>
                 {getLocationOrOnline()}
               </span>
             </p>
             <p className="mtxs mbz">
               <span className="fin fas">
-                <InlineIcon className="mrxs">av_timer</InlineIcon>
+                <InlineIcon className="mrs">av_timer</InlineIcon>
                 {CalendarLengthLookup[props.trainingResult.calendarLength]}
               </span>
             </p>

@@ -6,8 +6,9 @@ import { useMediaQuery } from "@material-ui/core";
 import { BetaBanner } from "../components/BetaBanner";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
-  const isWidescreen = useMediaQuery("(min-width:1100px)");
-  const shouldStackSearchButton = !isWidescreen;
+  const isSmallMobile = useMediaQuery("(max-width:482px)");
+  const isTablet = useMediaQuery("(min-width:768px) and (max-width:1200px)");
+  const shouldStackSearchButton = isSmallMobile || isTablet;
 
   return (
     <>
@@ -50,6 +51,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                     navigate(`/search/${encodeURIComponent(searchQuery)}`)
                   }
                   stacked={shouldStackSearchButton}
+                  smallButton={!shouldStackSearchButton}
                 />
               </div>
               <div className="grey-line mvm" />

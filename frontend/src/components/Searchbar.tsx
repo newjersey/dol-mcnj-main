@@ -7,6 +7,7 @@ interface Props {
   onSearch: (searchQuery: string) => void;
   initialValue?: string;
   stacked?: boolean;
+  smallButton?: boolean;
 }
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
@@ -30,6 +31,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
 
   const flexDirection = props.stacked ? "fdc" : "fdr";
   const marginDirection = props.stacked ? "mts" : "mld";
+  const buttonWidth = props.smallButton ? "button-size-small" : "button-size-full";
 
   return (
     <div className={`${flexDirection} fac`}>
@@ -45,7 +47,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         }
         placeholder="Search for training courses"
       />
-      <div className={`${marginDirection} button-size`}>
+      <div className={`${marginDirection} ${buttonWidth}`}>
         <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
           Search
         </PrimaryButton>
