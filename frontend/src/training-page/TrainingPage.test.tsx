@@ -171,6 +171,47 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
   });
 
+  it("links each line of the address to a map using url-encoded name and address", () => {
+    const subject = render(<TrainingPage client={stubClient} id="12345" />);
+
+    act(() =>
+      stubClient.capturedObserver.onSuccess(
+        buildTraining({
+          online: false,
+          provider: buildProvider({
+            name: "Cool Provider",
+            address: buildAddress({
+              street1: "123 Main Street",
+              street2: "Apartment 1",
+              city: "Newark",
+              state: "NJ",
+              zipCode: "01234",
+            }),
+          }),
+        })
+      )
+    );
+
+    const urlEncoded =
+      "Cool%20Provider%20123%20Main%20Street%20Apartment%201%20Newark%20NJ%2001234";
+
+    expect(
+      subject
+        .getByText("123 Main Street", { exact: false })
+        .parentElement?.parentElement?.getAttribute("href")
+    ).toEqual(`https://www.google.com/maps/search/?api=1&query=${urlEncoded}`);
+  });
+
+  it("does not link to a map when training is online", () => {
+    const subject = render(<TrainingPage client={stubClient} id="12345" />);
+
+    act(() => stubClient.capturedObserver.onSuccess(buildTraining({ online: true })));
+
+    expect(
+      subject.getByText("Online Class", { exact: false }).parentElement?.parentElement
+    ).not.toHaveAttribute("href");
+  });
+
   it("does not `Ext:` when provider contact has no phone extension", () => {
     const subject = render(<TrainingPage client={stubClient} />);
     const notInDemand = buildTraining({ provider: buildProvider({ phoneExtension: "" }) });
