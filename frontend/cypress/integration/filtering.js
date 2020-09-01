@@ -21,26 +21,6 @@ describe("Filtering", () => {
     cy.contains('7 results found for "baker"').should("exist");
   });
 
-  it("filters by employment outcomes", () => {
-    cy.visit("/search/baker");
-    cy.contains("Baking and Pastry Arts").should("exist");
-    cy.contains('7 results found for "baker"').should("exist");
-
-    cy.contains("Employment Rate").within(() => {
-      cy.get('[type="checkbox"][name="best"]').check();
-    });
-
-    cy.contains("Baking and Pastry Arts").should("not.exist");
-    cy.contains('0 results found for "baker"').should("exist");
-
-    cy.contains("Employment Rate").within(() => {
-      cy.get('[type="checkbox"][name="medium"]').check();
-    });
-
-    cy.contains("Baking and Pastry Arts").should("exist");
-    cy.contains('3 results found for "baker"').should("exist");
-  });
-
   it("filters by training length", () => {
     cy.visit("/search/baker");
     cy.contains("Baking and Pastry Arts").should("exist");

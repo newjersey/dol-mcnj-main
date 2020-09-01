@@ -9,7 +9,6 @@ export interface Filter {
 
 export enum FilterableElement {
   MAX_COST,
-  EMPLOYMENT_RATE,
   TIME_TO_COMPLETE,
   CLASS_FORMAT,
   LOCATION,
