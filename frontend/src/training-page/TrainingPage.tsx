@@ -14,9 +14,8 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "./Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-import { Icon } from "@material-ui/core";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import ReactTooltip from "react-tooltip";
+import { StatBlock } from "./StatBlock";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -135,18 +134,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getDataMissingOrSource = (data: number | null): ReactElement | undefined => {
-    if (!data) {
-      return (
-        <div>
-          * This information is missing because we haven’t received enough data from this institute.
-        </div>
-      );
-    } else {
-      return <div>Data source: NJ Dept of Labor</div>;
-    }
-  };
-
   if (training) {
     return (
       <>
@@ -159,65 +146,27 @@ export const TrainingPage = (props: Props): ReactElement => {
             <LocalWaiverTag key={county} county={county} />
           ))}
 
-          <div className="fdr">
-            <div className="bg-lightest-purple stat-block mtm">
-              <div className="fdr">
-                <div>Avg Salary after Program</div>
-                <div className="mla">
-                  <Icon fontSize="small" data-for="average-salary-tooltip" data-tip="">
-                    info
-                  </Icon>
-                  <ReactTooltip
-                    id="average-salary-tooltip"
-                    className="tooltip"
-                    border={true}
-                    borderColor={"#dbdada"}
-                    effect="solid"
-                    place="bottom"
-                    type="light"
-                  >
-                    <div className="pbs">
-                      Average salary 6 months after completion of this class or classes like it at
-                      this provider
-                    </div>
-                    {getDataMissingOrSource(training.averageSalary)}
-                  </ReactTooltip>
-                </div>
-              </div>
-              <div className="stat-block-number ptm">
-                {training.averageSalary
+          <div className="stat-block-stack mtm">
+            <StatBlock
+              title="Avg Salary after Program"
+              tooltipText="Average salary 6 months after completion of this class or classes like it at
+                    this provider"
+              data={
+                training.averageSalary
                   ? formatMoney(training.averageSalary, { precision: 0 })
-                  : "--"}
-              </div>
-            </div>
-            <div className="bg-lighter-purple stat-block mtm">
-              <div className="fdr">
-                <div>Program Employment Rate</div>
-                <div className="mla">
-                  <Icon fontSize="small" data-for="employment-rate-tooltip" data-tip="">
-                    info
-                  </Icon>
-                  <ReactTooltip
-                    id="employment-rate-tooltip"
-                    className="tooltip"
-                    border={true}
-                    borderColor={"#dbdada"}
-                    effect="solid"
-                    place="bottom"
-                    type="light"
-                  >
-                    <div className="pbs">
-                      Percentage of enrolled students employed within 6 months of this class or
-                      classes like it at this provider
-                    </div>
-                    {getDataMissingOrSource(training.percentEmployed)}
-                  </ReactTooltip>
-                </div>
-              </div>
-              <div className="stat-block-number">
-                {training.percentEmployed ? formatPercentEmployed(training.percentEmployed) : "--"}
-              </div>
-            </div>
+                  : "--"
+              }
+              backgroundColorClass="bg-lightest-purple"
+            />
+            <StatBlock
+              title="Program Employment Rate"
+              tooltipText="Percentage of enrolled students employed within 6 months of this class or
+                    classes like it at this provider"
+              data={
+                training.percentEmployed ? formatPercentEmployed(training.percentEmployed) : "--"
+              }
+              backgroundColorClass="bg-lighter-purple"
+            />
           </div>
 
           <div className="row">
