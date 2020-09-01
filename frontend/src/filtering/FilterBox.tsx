@@ -3,7 +3,6 @@ import { FilterContext } from "../App";
 import { SecondaryButton } from "../components/SecondaryButton";
 import { Icon, useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";
-import { EmploymentRateFilter } from "./EmploymentRateFilter";
 import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 import { Searchbar } from "../components/Searchbar";
 import { navigate } from "@reach/router";
@@ -150,10 +149,6 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
-        </div>
-
-        <div className="mtd">
-          <EmploymentRateFilter />
         </div>
       </div>
     </div>
