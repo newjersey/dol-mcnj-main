@@ -20,6 +20,7 @@ export enum SortOrder {
   RELEVANCE = "RELEVANCE",
   COST_LOW_TO_HIGH = "COST_LOW_TO_HIGH",
   COST_HIGH_TO_LOW = "COST_HIGH_TO_LOW",
+  EMPLOYMENT_RATE = "EMPLOYMENT_RATE",
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
@@ -88,6 +89,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           return a.totalCost - b.totalCost;
         case SortOrder.COST_HIGH_TO_LOW:
           return b.totalCost - a.totalCost;
+        case SortOrder.EMPLOYMENT_RATE:
+          return (
+            (b.percentEmployed ? b.percentEmployed : 0) -
+            (a.percentEmployed ? a.percentEmployed : 0)
+          );
         default:
           return 0;
       }
@@ -109,6 +115,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         <option value={SortOrder.RELEVANCE}>Relevance</option>
         <option value={SortOrder.COST_LOW_TO_HIGH}>Cost: Low to High</option>
         <option value={SortOrder.COST_HIGH_TO_LOW}>Cost: High to Low</option>
+        <option value={SortOrder.EMPLOYMENT_RATE}>Employment Rate</option>
       </WhiteSelect>
     </FormControl>
   );

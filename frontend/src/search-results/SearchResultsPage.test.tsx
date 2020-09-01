@@ -390,6 +390,25 @@ describe("<SearchResultsPage />", () => {
       expect(cards[1].textContent).toContain("training1");
       expect(cards[2].textContent).toContain("training2");
     });
+
+    it("sorts by employment rate (high to low)", () => {
+      const training1 = buildTrainingResult({ name: "training1", percentEmployed: 50 });
+      const training2 = buildTrainingResult({ name: "training2", percentEmployed: null });
+      const training3 = buildTrainingResult({ name: "training3", percentEmployed: 99 });
+
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
+
+      fireEvent.change(subject.getByLabelText("Sort by"), {
+        target: { value: SortOrder.EMPLOYMENT_RATE },
+      });
+
+      const cards = subject.getAllByTestId("card");
+      expect(cards[0].textContent).toContain("training3");
+      expect(cards[1].textContent).toContain("training1");
+      expect(cards[2].textContent).toContain("training2");
+    });
   });
 
   it("[MOBILE] hides search results when filters are open", () => {
