@@ -24,8 +24,14 @@
 }
 
 .stat-block {
-  width: 33%;
-  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.stat-block-stack {
+  display: flex;
+  flex-direction: column;
 }
 
 .stat-block-number {
@@ -44,7 +50,12 @@
 // small and up
 @media (min-width: $xs) {
   .stat-block {
+    margin-top: 0rem;
     width: 167px;
+  }
+
+  .stat-block-stack {
+    flex-direction: row;
   }
 
   .bar {
