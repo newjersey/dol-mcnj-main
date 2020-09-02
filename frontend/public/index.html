@@ -16,10 +16,7 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script>
-      console.log(document.location.hostname)
       if(document.location.hostname.indexOf("training.njcareers") !== -1) {
-        console.log('creating google code')
-
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);
@@ -31,7 +28,7 @@
         js.type = "text/javascript";
         js.async = true;
         js.src = "https://www.googletagmanager.com/gtag/js?id=UA-140253594-9";
-        head.appendChild(js);
+        document.head.appendChild(js);
       }
     </script>
 
