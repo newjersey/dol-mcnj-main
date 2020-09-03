@@ -6,8 +6,10 @@ import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByIdsFactory } from "./domain/training/findTrainingsByIds";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
-import { getInDemandOccupationsFactory } from "./domain/careers/getInDemandOccupations";
+import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandOccupations";
+import { getOccupationDetailFactory } from "./domain/occupations/getOccupationDetail";
 import { ZipcodeClient } from "./zipcodes/ZipcodeClient";
+import { OnetClient } from "./oNET/OnetClient";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -23,6 +25,12 @@ const connection = {
 const zipcodeApiKey = process.env.ZIPCODE_API_KEY || "ZIPCODE_API_KEY";
 const zipcodeBaseUrl = process.env.ZIPCODE_BASEURL || "http://localhost:8090";
 
+const onetBaseUrl = process.env.ONET_BASEURL || "http://localhost:8090";
+const onetAuth = {
+  username: process.env.ONET_USERNAME || "ONET_USERNAME",
+  password: process.env.ONET_PASSWORD || "ONET_PASSWORD",
+};
+
 const postgresDataClient = new PostgresDataClient(connection);
 const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsByIds = findTrainingsByIdsFactory(postgresDataClient);
@@ -32,6 +40,10 @@ const router = routerFactory({
   findTrainingsByIds: findTrainingsByIds,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getZipCodesInRadius: ZipcodeClient(zipcodeBaseUrl, zipcodeApiKey),
+  getOccupationDetail: getOccupationDetailFactory(
+    OnetClient(onetBaseUrl, onetAuth),
+    postgresDataClient
+  ),
 });
 
 const app = express();

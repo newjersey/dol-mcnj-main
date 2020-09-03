@@ -1,7 +1,12 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
 import { Training, TrainingResult } from "./domain/Training";
-import { buildOccupation, buildTraining, buildTrainingResult } from "./test-objects/factories";
+import {
+  buildOccupation,
+  buildTraining,
+  buildTrainingResult,
+  buildOccupationDetail,
+} from "./test-objects/factories";
 import { Error } from "./domain/Error";
 import { Occupation } from "./domain/Occupation";
 
@@ -168,6 +173,38 @@ describe("ApiClient", () => {
       };
 
       apiClient.getZipcodesInRadius({ center: "11111", radius: "10" }, observer);
+    });
+  });
+
+  describe("getOccupationDetailBySoc", () => {
+    it("calls observer with successful occupation detail data", (done) => {
+      const occupationDetail = buildOccupationDetail({});
+
+      mockedAxios.get.mockResolvedValue({ data: occupationDetail });
+
+      const observer = {
+        onSuccess: (data: OccupationDetail): void => {
+          expect(data).toEqual(occupationDetail);
+          done();
+        },
+        onError: jest.fn(),
+      };
+
+      apiClient.getOccupationDetailBySoc("12-2051", observer);
+      expect(mockedAxios.get).toHaveBeenCalledWith("/api/occupations/12-2051");
+    });
+
+    it("calls observer with error when GET fails", (done) => {
+      mockedAxios.get.mockRejectedValue({});
+
+      const observer = {
+        onSuccess: jest.fn(),
+        onError: (): void => {
+          done();
+        },
+      };
+
+      apiClient.getOccupationDetailBySoc("12-2051", observer);
     });
   });
 });

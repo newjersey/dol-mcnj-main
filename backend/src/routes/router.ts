@@ -4,9 +4,10 @@ import {
   GetInDemandOccupations,
   GetZipCodesInRadius,
   SearchTrainings,
+  GetOccupationDetail,
 } from "../domain/types";
 import { Error } from "../domain/Error";
-import { Occupation } from "../domain/careers/Occupation";
+import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/search/TrainingResult";
 
@@ -15,6 +16,7 @@ interface RouterActions {
   findTrainingsByIds: FindTrainingsByIds;
   getInDemandOccupations: GetInDemandOccupations;
   getZipCodesInRadius: GetZipCodesInRadius;
+  getOccupationDetail: GetOccupationDetail;
 }
 
 export const routerFactory = ({
@@ -22,6 +24,7 @@ export const routerFactory = ({
   findTrainingsByIds,
   getInDemandOccupations,
   getZipCodesInRadius,
+  getOccupationDetail,
 }: RouterActions): Router => {
   const router = Router();
 
@@ -58,6 +61,14 @@ export const routerFactory = ({
     getZipCodesInRadius(req.query.center as string, req.query.radius as string)
       .then((zipCodes: string[]) => {
         res.status(200).json(zipCodes);
+      })
+      .catch(() => res.status(500).send());
+  });
+
+  router.get("/occupations/:soc", (req: Request, res: Response<OccupationDetail>) => {
+    getOccupationDetail(req.params.soc as string)
+      .then((occupationDetail: OccupationDetail) => {
+        res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
   });

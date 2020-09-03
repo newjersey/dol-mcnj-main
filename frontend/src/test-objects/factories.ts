@@ -1,5 +1,5 @@
 import { Address, CalendarLength, Provider, Training, TrainingResult } from "../domain/Training";
-import { Occupation } from "../domain/Occupation";
+import { Occupation, OccupationDetail } from "../domain/Occupation";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 const randomBool = (): boolean => !!Math.round(Math.random());
@@ -78,6 +78,15 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
     soc: "some-soc-" + randomInt(),
     title: "some-title-" + randomInt(),
     majorGroup: "some-group-" + randomInt(),
+    ...overrides,
+  };
+};
+
+export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): OccupationDetail => {
+  return {
+    soc: "some-soc-code-" + randomInt(),
+    title: "some-title-" + randomInt(),
+    description: "some-description-" + randomInt(),
     ...overrides,
   };
 };

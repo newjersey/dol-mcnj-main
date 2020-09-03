@@ -8,6 +8,7 @@ $orange: #fcdbb6;
 $light-purple: #f4eafe;
 $lighter-purple: #f9f4fe;
 $lightest-purple: #fcf9ff;
+$purple: #cdc9e6;
 $red: #b11818;
 
 .bg-light-green {
@@ -24,6 +25,10 @@ $red: #b11818;
 
 .bg-lightest-purple {
   background-color: $lightest-purple;
+}
+
+.bg-purple {
+  background-color: $purple;
 }
 
 .blue {

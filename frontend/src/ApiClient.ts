@@ -2,7 +2,7 @@ import { Client, Observer } from "./domain/Client";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
-import { Occupation } from "./domain/Occupation";
+import { Occupation, OccupationDetail } from "./domain/Occupation";
 import { SearchArea } from "./filtering/LocationFilter";
 
 export class ApiClient implements Client {
@@ -20,6 +20,10 @@ export class ApiClient implements Client {
 
   getZipcodesInRadius(searchArea: SearchArea, observer: Observer<string[]>): void {
     this.get(`/api/zipcodes?center=${searchArea.center}&radius=${searchArea.radius}`, observer);
+  }
+
+  getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
+    this.get(`/api/occupations/${soc}`, observer);
   }
 
   private get<T>(endpoint: string, observer: Observer<T>): void {

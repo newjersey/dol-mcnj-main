@@ -11,7 +11,7 @@ import { LocalWaiverTag } from "../components/LocalWaiverTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
-import { Grouping } from "./Grouping";
+import { Grouping } from "../components/Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { parsePhoneNumberFromString } from "libphonenumber-js";

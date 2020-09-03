@@ -2,6 +2,7 @@ import React, { Dispatch, ReactElement, Reducer, useReducer } from "react";
 import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
+import { OccupationPage } from "./occupation-page/OccupationPage";
 import { Client } from "./domain/Client";
 import { Router } from "@reach/router";
 import { Filter } from "./domain/Filter";
@@ -74,6 +75,7 @@ export const App = (props: Props): ReactElement => {
         <SearchResultsPage path="/search/:searchQuery" client={props.client} />
         <TrainingPage path="/training/:id" client={props.client} />
         <InDemandCareersPage path="/in-demand-careers" client={props.client} />
+        <OccupationPage path="/occupation/:soc" client={props.client} />
         <NotFoundPage default />
       </Router>
     </FilterContext.Provider>

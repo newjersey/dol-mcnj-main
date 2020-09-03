@@ -2,7 +2,7 @@
 
 import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
-import { Occupation } from "../domain/Occupation";
+import { Occupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
 
 export class StubClient implements Client {
@@ -36,5 +36,9 @@ export class StubClient implements Client {
     this.capturedObserver = observer;
     this.capturedSearchArea = searchArea;
     this.getZipcodesInRadiusWasCalled = true;
+  }
+
+  getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
+    this.capturedObserver = observer;
   }
 }

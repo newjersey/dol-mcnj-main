@@ -124,12 +124,13 @@ describe("PostgresDataClient", () => {
     });
   });
 
-  describe("findOccupationTitleBySoc", () => {
+  describe("findSocDefinitionBySoc", () => {
     it("gets occupation information for a soc code", async () => {
-      const occupationTitle = await dataClient.findOccupationTitleBySoc("11-0000");
-      expect(occupationTitle).toEqual({
-        soc: "11-0000",
-        soctitle: "Agriculture Occupations",
+      const socDefinition = await dataClient.findSocDefinitionBySoc("11-1011");
+      expect(socDefinition).toEqual({
+        soc: "11-1011",
+        soctitle: "Botanist Specialists",
+        socdefinition: "Do stuff related to plants",
       });
     });
   });
@@ -156,7 +157,7 @@ describe("PostgresDataClient", () => {
     });
   });
 
-  describe("find2018OccupationTitleBySoc2010", () => {
+  describe("find2018OccupationTitlesBySoc2010", () => {
     it("gets the list 2018 occupations for a 2010 soc", async () => {
       const soc2018s = await dataClient.find2018OccupationTitlesBySoc2010("15-1134");
       expect(soc2018s).toEqual(
@@ -168,6 +169,24 @@ describe("PostgresDataClient", () => {
           {
             soc: "15-1255",
             soctitle: "Web and Digital Interface Designers (##)",
+          },
+        ])
+      );
+    });
+  });
+
+  describe("find2010OccupationTitlesBySoc2018", () => {
+    it("gets the list 2010 occupations for a 2018 soc", async () => {
+      const soc2010s = await dataClient.find2010OccupationTitlesBySoc2018("15-1255");
+      expect(soc2010s).toEqual(
+        expect.arrayContaining([
+          {
+            soc: "15-1134",
+            soctitle: "Web Developers (#)",
+          },
+          {
+            soc: "15-1199",
+            soctitle: "Computer Occupations, All Other (#)",
           },
         ])
       );
