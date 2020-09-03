@@ -15,7 +15,7 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
           occupationTitle.soc
         );
         const socs2018 = await Promise.all(
-          socs2018withBadTitles.map(async (it) => await dataClient.findOccupationTitleBySoc(it.soc))
+          socs2018withBadTitles.map(async (it) => await dataClient.findSocDefinitionBySoc(it.soc))
         );
         expanded = [...expanded, ...socs2018];
       } else {
@@ -38,7 +38,7 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
         const initialCode = occupationTitle.soc.split("-")[0];
         const majorGroupSoc = initialCode + "-0000";
 
-        const majorGroup = await dataClient.findOccupationTitleBySoc(majorGroupSoc);
+        const majorGroup = await dataClient.findSocDefinitionBySoc(majorGroupSoc);
         return {
           soc: occupationTitle.soc,
           title: occupationTitle.soctitle,

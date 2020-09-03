@@ -15,18 +15,21 @@ describe("router", () => {
   let stubFindTrainingsByIds: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
   let stubGetZipCodesInRadius: jest.Mock;
+  let stubGetOccupationDetail: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
     stubFindTrainingsByIds = jest.fn();
     stubGetInDemandOccupations = jest.fn();
     stubGetZipCodesInRadius = jest.fn();
+    stubGetOccupationDetail = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
       findTrainingsByIds: stubFindTrainingsByIds,
       getInDemandOccupations: stubGetInDemandOccupations,
       getZipCodesInRadius: stubGetZipCodesInRadius,
+      getOccupationDetail: stubGetOccupationDetail,
     });
     app = express();
     app.use(router);
@@ -117,6 +120,31 @@ describe("router", () => {
     it("sends a 500 when the fetch fails", (done) => {
       stubGetZipCodesInRadius.mockImplementationOnce(() => Promise.reject());
       request(app).get("/zipcodes?center=11223&radius=10").expect(500).end(done);
+    });
+  });
+
+  describe("/occupations/{soc}", () => {
+    it("calls the oNET client for occupation code", (done) => {
+      const detail = {
+        soc: "17-2051",
+        title: "some cool title",
+        description: "some super cool description",
+      };
+
+      stubGetOccupationDetail.mockResolvedValue(detail);
+      request(app)
+        .get("/occupations/17-2051")
+        .then((response) => {
+          expect(response.status).toEqual(200);
+          expect(response.body).toEqual(detail);
+          expect(stubGetOccupationDetail).toHaveBeenCalledWith("17-2051");
+          done();
+        });
+    });
+
+    it("rejects on failure", (done) => {
+      stubGetOccupationDetail.mockRejectedValue({});
+      request(app).get("/occupations/17-2051").expect(500).end(done);
     });
   });
 });

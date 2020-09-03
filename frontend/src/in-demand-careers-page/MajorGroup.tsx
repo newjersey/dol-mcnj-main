@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { Occupation } from "../domain/Occupation";
 import { Icon } from "@material-ui/core";
+import { Link } from "@reach/router";
 
 import ArchitectureandEngineeringOccupations from "./industry-icons/Architecture and Engineering Occupations.svg";
 import ArtsDesignEntertainmentSportsandMediaOccupations from "./industry-icons/Arts Design Entertainment Sports and Media Occupations.svg";
@@ -64,7 +65,9 @@ export const MajorGroup = (props: Props): ReactElement => {
         <div className="mts mlxl">
           {props.occupations.map((it) => (
             <div key={it.soc} className="pbs">
-              {it.title}
+              <Link className="no-link-format" to={`/occupation/${it.soc}`}>
+                {it.title}
+              </Link>
             </div>
           ))}
         </div>

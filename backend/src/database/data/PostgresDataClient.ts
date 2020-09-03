@@ -5,6 +5,7 @@ import {
   LocalException,
   NullableOccupationTitle,
   OccupationTitle,
+  SocDefinition,
   Program,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/training/DataClient";
@@ -107,9 +108,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  findOccupationTitleBySoc = (soc: string): Promise<OccupationTitle> => {
+  findSocDefinitionBySoc = (soc: string): Promise<SocDefinition> => {
     return this.kdb("socdefinitions")
-      .select("soccode as soc", "soctitle as soctitle")
+      .select("soccode as soc", "soctitle", "socdefinition")
       .where("soccode", soc)
       .first()
       .catch((e) => {
@@ -122,6 +123,16 @@ export class PostgresDataClient implements DataClient {
     return this.kdb("soc2010to2018crosswalk")
       .select("soccode2018 as soc", "soctitle2018 as soctitle")
       .where("soccode2010", soc2010)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
+  find2010OccupationTitlesBySoc2018 = (soc2018: string): Promise<OccupationTitle[]> => {
+    return this.kdb("soc2010to2018crosswalk")
+      .select("soccode2010 as soc", "soctitle2010 as soctitle")
+      .where("soccode2018", soc2018)
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();

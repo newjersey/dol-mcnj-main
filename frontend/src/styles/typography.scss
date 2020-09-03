@@ -49,6 +49,10 @@ h5 {
   font-weight: 700;
 }
 
+.all-caps {
+  text-transform: uppercase;
+}
+
 @media (min-width: $sm) {
   .text-xxl {
     font-size: 4rem;

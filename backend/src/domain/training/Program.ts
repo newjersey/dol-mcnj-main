@@ -40,6 +40,12 @@ export interface OccupationTitle {
   soctitle: string;
 }
 
+export interface SocDefinition {
+  soc: string;
+  soctitle: string;
+  socdefinition: string;
+}
+
 export interface NullableOccupationTitle {
   soc: string;
   soctitle: string | null;

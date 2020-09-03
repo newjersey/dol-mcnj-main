@@ -1,12 +1,13 @@
 import { TrainingResult } from "../search/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
-import { Occupation } from "../careers/Occupation";
+import { Occupation, OccupationDetail } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
 import {
   LocalException,
   NullableOccupationTitle,
   OccupationTitle,
   Program,
+  SocDefinition,
 } from "../training/Program";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
@@ -91,6 +92,15 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
   };
 };
 
+export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): OccupationDetail => {
+  return {
+    soc: "some-soc-code-" + randomInt(),
+    title: "some-title-" + randomInt(),
+    description: "some-description-" + randomInt(),
+    ...overrides,
+  };
+};
+
 export const buildProgram = (overrides: Partial<Program>): Program => {
   return {
     programid: "some-programid-" + randomInt(),
@@ -130,6 +140,15 @@ export const buildOccupationTitle = (overrides: Partial<OccupationTitle>): Occup
   return {
     soc: "some-soc-" + randomInt(),
     soctitle: "some-soctitle-" + randomInt(),
+    ...overrides,
+  };
+};
+
+export const buildSocDefinition = (overrides: Partial<SocDefinition>): SocDefinition => {
+  return {
+    soc: "some-soc-" + randomInt(),
+    soctitle: "some-soctitle-" + randomInt(),
+    socdefinition: "some-socdefinition-" + randomInt(),
     ...overrides,
   };
 };
