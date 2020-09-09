@@ -1,0 +1,55 @@
+{
+  "code": "17-2051.00",
+  "report": "summary",
+  "display": "long",
+  "task": [
+    {
+      "id": 148,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/148",
+      "name": "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards."
+    },
+    {
+      "id": 147,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/147",
+      "name": "Compute load and grade requirements, water flow rates, or material stress factors to determine design specifications."
+    },
+    {
+      "id": 20489,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/20489",
+      "name": "Provide technical advice to industrial or managerial personnel regarding design, construction, program modifications, or structural repairs."
+    },
+    {
+      "id": 153,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/153",
+      "name": "Test soils or materials to determine the adequacy and strength of foundations, concrete, asphalt, or steel."
+    },
+    {
+      "id": 20490,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/20490",
+      "name": "Manage and direct the construction, operations, or maintenance activities at project site."
+    },
+    {
+      "id": 150,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/150",
+      "name": "Direct or participate in surveying to lay out installations or establish reference points, grades, or elevations to guide construction."
+    },
+    {
+      "id": 151,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/151",
+      "name": "Estimate quantities and cost of materials, equipment, or labor to determine project feasibility."
+    },
+    {
+      "id": 20491,
+      "green": false,
+      "related": "https://services.onetcenter.org/ws/online/occupations/17-2051.00/related/tasks/20491",
+      "name": "Plan and design transportation or hydraulic systems or structures, using computer-assisted design or drawing tools."
+    }
+  ]
+}

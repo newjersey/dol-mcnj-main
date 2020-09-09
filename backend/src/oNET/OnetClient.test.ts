@@ -2,6 +2,7 @@ import axios from "axios";
 import { GetOccupationDetail } from "../domain/types";
 import { OnetClient } from "./OnetClient";
 import onetTestData from "./onetTestData.json";
+import onetTestDataTasks from "./onetTestDataTasks.json";
 
 jest.mock("axios");
 
@@ -19,9 +20,10 @@ describe("OnetClient", () => {
   });
 
   it("sends request and gets response", async () => {
-    mockedAxios.get.mockResolvedValue({
-      data: onetTestData,
-    });
+    mockedAxios.get
+      .mockResolvedValueOnce({ data: onetTestData })
+      .mockResolvedValueOnce({ data: onetTestDataTasks });
+
     const occupationDetail = await getOccupationDetail("17-2051");
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
@@ -45,6 +47,16 @@ describe("OnetClient", () => {
       title: "Civil Engineers",
       description:
         "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures, and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems.",
+      tasks: [
+        "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards.",
+        "Compute load and grade requirements, water flow rates, or material stress factors to determine design specifications.",
+        "Provide technical advice to industrial or managerial personnel regarding design, construction, program modifications, or structural repairs.",
+        "Test soils or materials to determine the adequacy and strength of foundations, concrete, asphalt, or steel.",
+        "Manage and direct the construction, operations, or maintenance activities at project site.",
+        "Direct or participate in surveying to lay out installations or establish reference points, grades, or elevations to guide construction.",
+        "Estimate quantities and cost of materials, equipment, or labor to determine project feasibility.",
+        "Plan and design transportation or hydraulic systems or structures, using computer-assisted design or drawing tools.",
+      ],
     });
   });
 

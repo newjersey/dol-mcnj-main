@@ -30,6 +30,7 @@ export const getOccupationDetailFactory = (
             soc: socDefinition.soc,
             title: socDefinition.soctitle,
             description: socDefinition.socdefinition,
+            tasks: [],
           };
         }
       });

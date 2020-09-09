@@ -8,4 +8,5 @@ export interface OccupationDetail {
   soc: string;
   title: string;
   description: string;
+  tasks: string[];
 }

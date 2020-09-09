@@ -67,6 +67,7 @@ describe("getOccupationDetail", () => {
         soc: socDefinition.soc,
         title: socDefinition.soctitle,
         description: socDefinition.socdefinition,
+        tasks: [],
       });
     });
   });

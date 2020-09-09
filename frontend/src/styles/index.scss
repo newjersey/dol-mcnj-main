@@ -43,6 +43,14 @@ a {
   color: $blue;
 }
 
+button {
+  font: unset;
+  text-align: unset;
+  background-color: unset;
+  border: unset;
+  cursor: pointer;
+}
+
 .width-100 {
   width: 100%;
 }
