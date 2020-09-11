@@ -71,29 +71,40 @@ export const OccupationPage = (props: Props): ReactElement => {
       <>
         <Header />
         <BetaBanner />
-        <main className="container below-banners" role="main">
-          <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
-          <h2 className="text-xl ptd pbs weight-500">{occupationDetail.title}</h2>
+        <div className="fdc page">
+          <main className="container below-banners" role="main">
+            <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
+            <h2 className="text-xl ptd pbs weight-500">{occupationDetail.title}</h2>
 
-          <div className="row">
-            <div className="col-md-8">
-              <div className="container-fluid">
-                <div className="row">
-                  <Grouping title="Description" backgroundColorClass="bg-purple">
-                    <p>{occupationDetail.description}</p>
-                  </Grouping>
+            <div className="row">
+              <div className="col-md-8">
+                <div className="container-fluid">
+                  <div className="row">
+                    <Grouping title="Description" backgroundColorClass="bg-purple">
+                      <p>{occupationDetail.description}</p>
+                    </Grouping>
 
-                  <Grouping title="A Day in the Life" backgroundColorClass="bg-purple">
-                    <>
-                      {getTasksList(occupationDetail.tasks)}
-                      {seeMore(occupationDetail.tasks)}
-                    </>
-                  </Grouping>
+                    <Grouping title="A Day in the Life" backgroundColorClass="bg-purple">
+                      <>
+                        {getTasksList(occupationDetail.tasks)}
+                        {seeMore(occupationDetail.tasks)}
+                      </>
+                    </Grouping>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </main>
+          </main>
+
+          <footer className="container footer ptxl pbm">
+            <p>
+              {" "}
+              Source: O*NET OnLine by the U.S. Department of Labor, Employment and Training
+              Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of
+              USDOL/ETA.
+            </p>
+          </footer>
+        </div>
       </>
     );
   } else {
