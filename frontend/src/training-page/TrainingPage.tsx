@@ -140,7 +140,8 @@ export const TrainingPage = (props: Props): ReactElement => {
         <Header />
         <BetaBanner />
         <main className="container below-banners" role="main">
-          <h2 className="text-xl ptm pbs weight-500">{training.name}</h2>
+          <div className="ptm weight-500 fin all-caps border-bottom-dark">Training Opportunity</div>
+          <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
           {training.inDemand ? <InDemandTag /> : <></>}
           {training.localExceptionCounty.map((county) => (
             <LocalWaiverTag key={county} county={county} />
