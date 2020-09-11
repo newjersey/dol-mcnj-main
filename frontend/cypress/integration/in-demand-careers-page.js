@@ -19,4 +19,20 @@ describe("In Demand Careers page", () => {
 
     cy.checkA11y();
   });
+
+  it("links to occupation page from list or from search", () => {
+    cy.visit("/");
+    cy.contains("in-demand careers").click();
+
+    cy.contains("Computer and Mathematical").click();
+    cy.contains("Web Developers").click();
+    cy.location("pathname").should("eq", "/occupation/15-1254");
+
+    cy.visit("/");
+    cy.contains("in-demand careers").click();
+
+    cy.get('input[aria-label="occupation-search"]').type("web");
+    cy.contains("Web Developers").click();
+    cy.location("pathname").should("eq", "/occupation/15-1254");
+  });
 });

@@ -5,6 +5,7 @@ import { BetaBanner } from "../components/BetaBanner";
 import { Client } from "../domain/Client";
 import { Occupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
+import { Typeahead } from "./Typeahead";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -58,6 +59,10 @@ export const InDemandCareersPage = (props: Props): ReactElement => {
           New Jersey. Trainings related to careers on this list can be eligible for funding by the
           State.
         </p>
+
+        <div className="pbm search-bar">
+          <Typeahead occupations={Object.values(occupationLookup).flat()} />
+        </div>
 
         <div className="fdc">{displayMajorGroups()}</div>
       </main>
