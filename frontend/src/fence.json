@@ -11,6 +11,8 @@
     "axios",
     "accounting",
     "libphonenumber-js",
-    "react-tooltip"
+    "react-tooltip",
+    " @material-ui/core/styles",
+    "@material-ui/lab"
   ]
 }

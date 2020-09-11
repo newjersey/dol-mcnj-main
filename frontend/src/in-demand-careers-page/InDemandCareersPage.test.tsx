@@ -4,6 +4,27 @@ import React from "react";
 import { InDemandCareersPage } from "./InDemandCareersPage";
 import { act } from "react-dom/test-utils";
 import { buildOccupation } from "../test-objects/factories";
+import { navigate } from "@reach/router";
+
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function mockReachRouter() {
+  const original = jest.requireActual("@reach/router");
+  return {
+    ...original,
+    navigate: jest.fn(),
+  };
+}
+
+jest.mock("@reach/router", () => mockReachRouter());
+
+global.document.createRange = () => ({
+  setStart: () => {},
+  setEnd: () => {},
+  commonAncestorContainer: {
+    nodeName: "BODY",
+    ownerDocument: document,
+  },
+});
 
 describe("<InDemandCareersPage />", () => {
   let stubClient: StubClient;
@@ -94,5 +115,24 @@ describe("<InDemandCareersPage />", () => {
 
     expect(subject.queryByText("keyboard_arrow_down")).not.toBeInTheDocument();
     expect(subject.queryByText("keyboard_arrow_up")).toBeInTheDocument();
+  });
+
+  it("typeahead searches for and navigates to in-demand careers", () => {
+    const subject = render(<InDemandCareersPage client={stubClient} />);
+
+    act(() =>
+      stubClient.capturedObserver.onSuccess([
+        buildOccupation({ title: "Data Scientist", soc: "12-3456" }),
+        buildOccupation({ title: "Data Artist" }),
+        buildOccupation({ title: "Something else" }),
+      ])
+    );
+
+    fireEvent.change(subject.getByPlaceholderText("Search for occupations"), {
+      target: { value: "data" },
+    });
+    fireEvent.click(subject.getByText("Data Scientist"));
+
+    expect(navigate).toHaveBeenCalledWith("/occupation/12-3456");
   });
 });

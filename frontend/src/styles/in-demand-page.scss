@@ -3,3 +3,14 @@
   border-radius: 5px;
   color: $blue;
 }
+
+.search-bar {
+  width: 100%;
+}
+
+// small and up
+@media (min-width: $xs) {
+  .search-bar {
+    width: 335px;
+  }
+}
