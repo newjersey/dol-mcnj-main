@@ -8,6 +8,7 @@ import { Router } from "@reach/router";
 import { Filter } from "./domain/Filter";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandCareersPage } from "./in-demand-careers-page/InDemandCareersPage";
+import { FundingPage } from "./funding-page/FundingPage";
 
 interface Props {
   client: Client;
@@ -76,6 +77,7 @@ export const App = (props: Props): ReactElement => {
         <TrainingPage path="/training/:id" client={props.client} />
         <InDemandCareersPage path="/in-demand-careers" client={props.client} />
         <OccupationPage path="/occupation/:soc" client={props.client} />
+        <FundingPage path="/funding" />
         <NotFoundPage default />
       </Router>
     </FilterContext.Provider>
