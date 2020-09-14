@@ -11,6 +11,7 @@ import { LocationFilter } from "./LocationFilter";
 import { Client } from "../domain/Client";
 import njLogo from "../njlogo.svg";
 import { InlineIcon } from "../components/InlineIcon";
+import { FundingEligibleFilter } from "./FundingEligibleFilter";
 
 interface Props {
   searchQuery?: string;
@@ -134,6 +135,10 @@ export const FilterBox = ({
             <div className="mvs grey-line" />
           </>
         )}
+
+        <div className="mtd">
+          <FundingEligibleFilter />
+        </div>
 
         <div className="mtd">
           <LocationFilter client={client} />

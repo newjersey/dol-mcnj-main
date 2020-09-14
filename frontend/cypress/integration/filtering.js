@@ -90,6 +90,25 @@ describe("Filtering", () => {
     cy.contains('7 results found for "baker"').should("exist");
   });
 
+  it("filters by funding eligible", () => {
+    cy.visit("/search/catering");
+    cy.contains("Food Service Skills Training").should("exist");
+    cy.contains("Catering Management").should("exist");
+    cy.contains('20 results found for "catering"').should("exist");
+
+    cy.get('input[name="fundingEligibleOnly"]').check();
+
+    cy.contains("Food Service Skills Training").should("not.exist");
+    cy.contains("Catering Management").should("exist");
+    cy.contains('11 results found for "catering"').should("exist");
+
+    cy.get('input[name="fundingEligibleOnly"]').uncheck();
+
+    cy.contains("Food Service Skills Training").should("exist");
+    cy.contains("Catering Management").should("exist");
+    cy.contains('20 results found for "catering"').should("exist");
+  });
+
   it("preserves a filter between pages", () => {
     cy.visit("/search/baker");
     cy.contains("Pastry Arts Academic Credit Certificate").should("exist");

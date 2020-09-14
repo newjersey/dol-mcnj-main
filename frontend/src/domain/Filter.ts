@@ -12,4 +12,5 @@ export enum FilterableElement {
   TIME_TO_COMPLETE,
   CLASS_FORMAT,
   LOCATION,
+  FUNDING_ELIGIBLE,
 }
