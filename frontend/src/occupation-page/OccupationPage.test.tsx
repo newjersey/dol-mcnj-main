@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { OccupationPage } from "./OccupationPage";
 import { buildOccupationDetail } from "../test-objects/factories";
 import { act } from "react-dom/test-utils";
@@ -19,6 +19,7 @@ describe("<OccupationPage />", () => {
       description: "some cool description",
       tasks: ["task1", "task2"],
       education: "some education text",
+      inDemand: true,
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
@@ -30,6 +31,15 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
+    expect(subject.queryByText("In Demand")).toBeInTheDocument();
+  });
+
+  it("does not display an in-demand tag when a occupation is not in-demand", () => {
+    const subject = render(<OccupationPage client={stubClient} />);
+    const notInDemand = buildOccupationDetail({ inDemand: false });
+    act(() => stubClient.capturedObserver.onSuccess(notInDemand));
+
+    expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
   });
 
   it("displays data missing message if tasks are not available", () => {

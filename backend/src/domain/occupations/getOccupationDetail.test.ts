@@ -30,12 +30,16 @@ describe("getOccupationDetail", () => {
       const onetOccupationDetail = buildOccupationDetailPartial({});
       mockOnet.mockResolvedValue(onetOccupationDetail);
       mockGetEducationText.mockResolvedValue("some-string");
+      stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
+        buildOccupationTitle({ soc: "some-soc" }),
+      ]);
 
       const result = await getOccupationDetail("some-soc");
 
       expect(result).toEqual({
         ...onetOccupationDetail,
         education: "some-string",
+        inDemand: true,
       });
     });
   });
@@ -51,6 +55,9 @@ describe("getOccupationDetail", () => {
         buildOccupationTitle({ soc: "2010-soc" }),
       ]);
       mockGetEducationText.mockResolvedValue("some education text");
+      stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
+        buildOccupationTitle({ soc: "2010-soc" }),
+      ]);
 
       const result = await getOccupationDetail("2018-soc");
 
@@ -58,6 +65,7 @@ describe("getOccupationDetail", () => {
         ...onetOccupationDetail,
         soc: "2018-soc",
         education: "some education text",
+        inDemand: true,
       });
     });
   });
@@ -74,6 +82,9 @@ describe("getOccupationDetail", () => {
 
       stubDataClient.findSocDefinitionBySoc.mockResolvedValue(socDefinition);
       mockGetEducationText.mockResolvedValue("some education text");
+      stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
+        buildOccupationTitle({ soc: "random-soc" }),
+      ]);
 
       const result = await getOccupationDetail("2018-soc");
 
@@ -83,6 +94,7 @@ describe("getOccupationDetail", () => {
         description: socDefinition.socdefinition,
         tasks: [],
         education: "some education text",
+        inDemand: false,
       });
     });
   });

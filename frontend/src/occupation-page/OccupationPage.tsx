@@ -6,6 +6,7 @@ import { Header } from "../search-results/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
+import { InDemandTag } from "../components/InDemandTag";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -77,7 +78,7 @@ export const OccupationPage = (props: Props): ReactElement => {
           <main className="container below-banners" role="main">
             <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
             <h2 className="text-xl ptd pbs weight-500">{occupationDetail.title}</h2>
-
+            {occupationDetail.inDemand ? <InDemandTag /> : <></>}
             <div className="row">
               <div className="col-md-8">
                 <div className="container-fluid">

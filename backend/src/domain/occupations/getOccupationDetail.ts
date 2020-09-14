@@ -8,26 +8,32 @@ export const getOccupationDetailFactory = (
   dataClient: DataClient
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
+    const isInDemand = async (soc: string): Promise<boolean> => {
+      const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
+      return inDemandOccupations.map((it) => it.soc).includes(soc);
+    };
+
     const education = await getEducationText(soc);
     return getOccupationDetailFromOnet(soc)
-      .then((onetOccupationDetail: OccupationDetailPartial) => {
+      .then(async (onetOccupationDetail: OccupationDetailPartial) => {
         return {
           ...onetOccupationDetail,
           education: education,
+          inDemand: await isInDemand(soc),
         };
       })
       .catch(async () => {
         const occupationTitles2010 = await dataClient.find2010OccupationTitlesBySoc2018(soc);
 
         if (occupationTitles2010.length === 1) {
-          const onetOccupationDetail = await getOccupationDetailFromOnet(
-            occupationTitles2010[0].soc
-          );
+          const soc2010 = occupationTitles2010[0].soc;
+          const onetOccupationDetail = await getOccupationDetailFromOnet(soc2010);
 
           return {
             ...onetOccupationDetail,
             soc: soc,
             education: education,
+            inDemand: await isInDemand(soc2010),
           };
         } else {
           const socDefinition = await dataClient.findSocDefinitionBySoc(soc);
@@ -38,6 +44,7 @@ export const getOccupationDetailFactory = (
             description: socDefinition.socdefinition,
             tasks: [],
             education: education,
+            inDemand: await isInDemand(socDefinition.soc),
           };
         }
       });

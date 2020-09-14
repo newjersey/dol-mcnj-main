@@ -89,6 +89,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     description: "some-description-" + randomInt(),
     tasks: ["some-task-" + randomInt()],
     education: "some-eduction-text-" + randomInt(),
+    inDemand: randomBool(),
     ...overrides,
   };
 };
