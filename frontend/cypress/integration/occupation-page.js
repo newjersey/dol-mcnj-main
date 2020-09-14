@@ -65,6 +65,10 @@ describe("Occupation Page", () => {
 
     cy.contains("See Less").should("exist");
 
+    cy.contains(
+      "Civil engineers need a bachelor’s degree in civil engineering, in one of its specialties, or in civil engineering technology. They typically need a graduate degree and licensure for promotion to senior positions. Although licensure requirements vary by state, civil engineers usually must be licensed if they provide services directly to the public."
+    ).should("exist");
+
     cy.checkA11y();
   });
 
@@ -86,6 +90,8 @@ describe("Occupation Page", () => {
       "Write, design, or edit Web page content, or direct others producing content."
     ).should("exist");
     cy.contains("Select programming languages, design tools, or applications.").should("exist");
+
+    cy.contains("This data is not yet available for this occupation.").should("exist");
   });
 
   it("displays occupation details from BLS descriptions for non-ONET socs", () => {

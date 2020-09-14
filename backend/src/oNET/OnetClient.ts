@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { GetOccupationDetail } from "../domain/types";
-import { OccupationDetail } from "../domain/occupations/Occupation";
+import { GetOccupationDetailPartial } from "../domain/types";
+import { OccupationDetailPartial } from "../domain/occupations/Occupation";
 import { Error } from "../domain/Error";
 
 interface OnetResponse {
@@ -22,7 +22,7 @@ interface OnetAuth {
   password: string;
 }
 
-export const OnetClient = (baseUrl: string, auth: OnetAuth): GetOccupationDetail => {
+export const OnetClient = (baseUrl: string, auth: OnetAuth): GetOccupationDetailPartial => {
   const onetConfig = {
     auth: auth,
     headers: {
@@ -44,7 +44,7 @@ export const OnetClient = (baseUrl: string, auth: OnetAuth): GetOccupationDetail
       });
   };
 
-  return async (soc: string): Promise<OccupationDetail> => {
+  return async (soc: string): Promise<OccupationDetailPartial> => {
     return axios
       .get(`${baseUrl}/ws/online/occupations/${soc}.00`, onetConfig)
       .then(async (response: AxiosResponse<OnetResponse>) => {

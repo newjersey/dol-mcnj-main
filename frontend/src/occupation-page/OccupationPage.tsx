@@ -13,6 +13,8 @@ interface Props extends RouteComponentProps {
 }
 
 export const OccupationPage = (props: Props): ReactElement => {
+  const DATA_UNAVAILABLE_TEXT = "This data is not yet available for this occupation.";
+
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail | undefined>(undefined);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -54,7 +56,7 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
 
     if (tasks.length === 0) {
-      return <p>This data is not yet available for this occupation.</p>;
+      return <p>{DATA_UNAVAILABLE_TEXT}</p>;
     } else {
       return (
         <ul>
@@ -93,15 +95,34 @@ export const OccupationPage = (props: Props): ReactElement => {
                   </div>
                 </div>
               </div>
+
+              <div className="col-md-4">
+                <div className="container-fluid">
+                  <div className="row">
+                    <Grouping title="Education" backgroundColorClass="bg-purple">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: occupationDetail.education
+                            ? occupationDetail.education
+                            : DATA_UNAVAILABLE_TEXT,
+                        }}
+                      />
+                    </Grouping>
+                  </div>
+                </div>
+              </div>
             </div>
           </main>
 
           <footer className="container footer ptxl pbm">
             <p>
-              {" "}
               Source: O*NET OnLine by the U.S. Department of Labor, Employment and Training
               Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of
               USDOL/ETA.
+            </p>
+            <p>
+              Source: Bureau of Labor Statistics, U.S. Department of Labor, Occupational Outlook
+              Handbook
             </p>
           </footer>
         </div>

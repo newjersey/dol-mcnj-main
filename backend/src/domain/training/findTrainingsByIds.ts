@@ -5,7 +5,7 @@ import { FindTrainingsByIds } from "../types";
 import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
-import { DataClient } from "./DataClient";
+import { DataClient } from "../DataClient";
 
 export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainingsByIds => {
   return async (ids: string[]): Promise<Training[]> => {

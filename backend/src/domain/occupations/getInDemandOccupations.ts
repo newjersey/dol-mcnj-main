@@ -1,4 +1,4 @@
-import { DataClient } from "../training/DataClient";
+import { DataClient } from "../DataClient";
 import { GetInDemandOccupations } from "../types";
 import { Occupation } from "./Occupation";
 import { NullableOccupationTitle, OccupationTitle } from "../training/Program";

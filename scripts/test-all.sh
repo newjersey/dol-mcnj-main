@@ -11,7 +11,7 @@ npm --prefix=frontend run fences
 npm --prefix=backend run fences
 
 npm --prefix=frontend run test:ci
-npm --prefix=backend run test
+npm --prefix=backend run test -- --no-cache
 
 
 echo "  _            _                             _"

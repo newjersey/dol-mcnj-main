@@ -1,6 +1,6 @@
 import { TrainingResult } from "../search/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
-import { Occupation, OccupationDetail } from "../occupations/Occupation";
+import { Occupation, OccupationDetail, OccupationDetailPartial } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
 import {
   LocalException,
@@ -93,6 +93,19 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
 };
 
 export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): OccupationDetail => {
+  return {
+    soc: "some-soc-code-" + randomInt(),
+    title: "some-title-" + randomInt(),
+    description: "some-description-" + randomInt(),
+    tasks: ["some-tasks-" + randomInt()],
+    education: "some-education-" + randomInt(),
+    ...overrides,
+  };
+};
+
+export const buildOccupationDetailPartial = (
+  overrides: Partial<OccupationDetailPartial>
+): OccupationDetailPartial => {
   return {
     soc: "some-soc-code-" + randomInt(),
     title: "some-title-" + randomInt(),

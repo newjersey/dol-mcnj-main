@@ -7,8 +7,9 @@ import {
   OccupationTitle,
   SocDefinition,
   Program,
+  EducationText,
 } from "../../domain/training/Program";
-import { DataClient } from "../../domain/training/DataClient";
+import { DataClient } from "../../domain/DataClient";
 
 const APPROVED = "Approved";
 
@@ -143,6 +144,17 @@ export class PostgresDataClient implements DataClient {
     return this.kdb("indemandsocs")
       .select("soc", "socdefinitions.soctitle")
       .leftOuterJoin("socdefinitions", "socdefinitions.soccode", "indemandsocs.soc")
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
+  getEducationTextBySoc = (soc: string): Promise<EducationText> => {
+    return this.kdb("blsoccupationhandbook")
+      .select("occupation_summary_how_to_become_one as howtobecomeone")
+      .where("occupation_soc_coverage_soc_code", soc)
+      .first()
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();

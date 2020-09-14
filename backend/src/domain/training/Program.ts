@@ -50,3 +50,7 @@ export interface NullableOccupationTitle {
   soc: string;
   soctitle: string | null;
 }
+
+export interface EducationText {
+  howtobecomeone: string;
+}
