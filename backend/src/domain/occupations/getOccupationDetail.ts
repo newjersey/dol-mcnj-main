@@ -1,15 +1,20 @@
-import { GetOccupationDetail } from "../types";
-import { OccupationDetail } from "./Occupation";
-import { DataClient } from "../training/DataClient";
+import { GetOccupationDetail, GetOccupationDetailPartial, GetEducationText } from "../types";
+import { OccupationDetail, OccupationDetailPartial } from "./Occupation";
+import { DataClient } from "../DataClient";
 
 export const getOccupationDetailFactory = (
-  getOccupationDetailFromOnet: GetOccupationDetail,
+  getOccupationDetailFromOnet: GetOccupationDetailPartial,
+  getEducationText: GetEducationText,
   dataClient: DataClient
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
+    const education = await getEducationText(soc);
     return getOccupationDetailFromOnet(soc)
-      .then((onetOccupationDetail: OccupationDetail) => {
-        return onetOccupationDetail;
+      .then((onetOccupationDetail: OccupationDetailPartial) => {
+        return {
+          ...onetOccupationDetail,
+          education: education,
+        };
       })
       .catch(async () => {
         const occupationTitles2010 = await dataClient.find2010OccupationTitlesBySoc2018(soc);
@@ -22,6 +27,7 @@ export const getOccupationDetailFactory = (
           return {
             ...onetOccupationDetail,
             soc: soc,
+            education: education,
           };
         } else {
           const socDefinition = await dataClient.findSocDefinitionBySoc(soc);
@@ -31,6 +37,7 @@ export const getOccupationDetailFactory = (
             title: socDefinition.soctitle,
             description: socDefinition.socdefinition,
             tasks: [],
+            education: education,
           };
         }
       });

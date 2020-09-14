@@ -10,6 +10,7 @@ import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandO
 import { getOccupationDetailFactory } from "./domain/occupations/getOccupationDetail";
 import { ZipcodeClient } from "./zipcodes/ZipcodeClient";
 import { OnetClient } from "./oNET/OnetClient";
+import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -42,6 +43,7 @@ const router = routerFactory({
   getZipCodesInRadius: ZipcodeClient(zipcodeBaseUrl, zipcodeApiKey),
   getOccupationDetail: getOccupationDetailFactory(
     OnetClient(onetBaseUrl, onetAuth),
+    getEducationTextFactory(postgresDataClient),
     postgresDataClient
   ),
 });

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetOccupationDetail } from "../domain/types";
+import { GetOccupationDetailPartial } from "../domain/types";
 import { OnetClient } from "./OnetClient";
 import onetTestData from "./onetTestData.json";
 import onetTestDataTasks from "./onetTestDataTasks.json";
@@ -7,7 +7,7 @@ import onetTestDataTasks from "./onetTestDataTasks.json";
 jest.mock("axios");
 
 describe("OnetClient", () => {
-  let getOccupationDetail: GetOccupationDetail;
+  let getOccupationDetailPartial: GetOccupationDetailPartial;
   let mockedAxios: jest.Mocked<typeof axios>;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe("OnetClient", () => {
       username: "fakeUsername",
       password: "fakePassword",
     };
-    getOccupationDetail = OnetClient("wwww.some-cool-url.com", mockedAuth);
+    getOccupationDetailPartial = OnetClient("wwww.some-cool-url.com", mockedAuth);
   });
 
   it("sends request and gets response", async () => {
@@ -24,7 +24,7 @@ describe("OnetClient", () => {
       .mockResolvedValueOnce({ data: onetTestData })
       .mockResolvedValueOnce({ data: onetTestDataTasks });
 
-    const occupationDetail = await getOccupationDetail("17-2051");
+    const occupationDetail = await getOccupationDetailPartial("17-2051");
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
       "wwww.some-cool-url.com/ws/online/occupations/17-2051.00",
@@ -62,6 +62,6 @@ describe("OnetClient", () => {
 
   it("rejects when request fails", (done) => {
     mockedAxios.get.mockRejectedValue({});
-    getOccupationDetail("17-2051").catch(() => done());
+    getOccupationDetailPartial("17-2051").catch(() => done());
   });
 });

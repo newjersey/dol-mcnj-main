@@ -18,6 +18,7 @@ describe("<OccupationPage />", () => {
       title: "Test SOC Code",
       description: "some cool description",
       tasks: ["task1", "task2"],
+      education: "some education text",
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
@@ -28,6 +29,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("some cool description")).toBeInTheDocument();
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
+    expect(subject.getByText("some education text")).toBeInTheDocument();
   });
 
   it("displays data missing message if tasks are not available", () => {
@@ -80,5 +82,19 @@ describe("<OccupationPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.queryByText("See More")).not.toBeInTheDocument();
+  });
+
+  it("displays data missing message if education is not available", () => {
+    const occupationDetail = buildOccupationDetail({
+      education: "",
+    });
+
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    expect(
+      subject.getByText("This data is not yet available for this occupation.")
+    ).toBeInTheDocument();
   });
 });

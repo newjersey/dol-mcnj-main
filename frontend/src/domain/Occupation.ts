@@ -9,4 +9,5 @@ export interface OccupationDetail {
   title: string;
   description: string;
   tasks: string[];
+  education: string;
 }

@@ -6,6 +6,7 @@ export interface StubDataClient {
   find2018OccupationTitlesBySoc2010: jest.Mock;
   find2010OccupationTitlesBySoc2018: jest.Mock;
   getInDemandOccupationTitles: jest.Mock;
+  getEducationTextBySoc: jest.Mock;
 }
 
 export const StubDataClient = (): StubDataClient => ({
@@ -16,6 +17,7 @@ export const StubDataClient = (): StubDataClient => ({
   find2018OccupationTitlesBySoc2010: jest.fn(),
   find2010OccupationTitlesBySoc2018: jest.fn(),
   getInDemandOccupationTitles: jest.fn(),
+  getEducationTextBySoc: jest.fn(),
 });
 
 export type StubSearchClient = {
