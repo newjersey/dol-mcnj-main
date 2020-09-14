@@ -69,6 +69,14 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                 </p>
 
                 <p className="text-m">
+                  If you are interested in exploring funding opportunities,&nbsp;
+                  <Link className="link-format-blue" to="/funding">
+                    learn more
+                  </Link>
+                  &nbsp;about what the State has to offer.
+                </p>
+
+                <p className="text-m">
                   To see if you qualify for a tuition waiver or voucher,&nbsp;
                   <a
                     className="link-format-blue"

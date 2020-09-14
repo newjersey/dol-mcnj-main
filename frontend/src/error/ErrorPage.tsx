@@ -21,7 +21,7 @@ export const ErrorPage = (props: Props): ReactElement => {
                 <div className="text-xxl mrs fin vam">
                   <Icon fontSize="inherit">error</Icon>
                 </div>
-                <h2 className="text-xl">{props.headerText}</h2>
+                <h2 className="text-xl weight-500">{props.headerText}</h2>
               </div>
               <div className="pal">{props.children}</div>
             </div>
