@@ -4,6 +4,7 @@ import { routerFactory } from "./router";
 import { Error } from "../domain/Error";
 import {
   buildOccupation,
+  buildOccupationDetail,
   buildTraining,
   buildTrainingResult,
 } from "../domain/test-objects/factories";
@@ -125,11 +126,7 @@ describe("router", () => {
 
   describe("/occupations/{soc}", () => {
     it("calls the oNET client for occupation code", (done) => {
-      const detail = {
-        soc: "17-2051",
-        title: "some cool title",
-        description: "some super cool description",
-      };
+      const detail = buildOccupationDetail({});
 
       stubGetOccupationDetail.mockResolvedValue(detail);
       request(app)

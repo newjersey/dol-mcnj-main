@@ -10,6 +10,7 @@ export interface OccupationDetail {
   description: string;
   tasks: string[];
   education: string;
+  inDemand: boolean;
 }
 
 export interface OccupationDetailPartial {
