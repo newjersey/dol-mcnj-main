@@ -40,7 +40,7 @@ export const OnetClient = (baseUrl: string, auth: OnetAuth): GetOccupationDetail
         return response.data.task.map((task: OnetTask): string => task.name);
       })
       .catch(() => {
-        return Promise.reject(Error.SYSTEM_ERROR);
+        return Promise.resolve([]);
       });
   };
 
