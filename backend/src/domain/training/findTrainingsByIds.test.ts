@@ -27,8 +27,8 @@ describe("findTrainingsByIds", () => {
     });
     stubDataClient.findProgramsByIds.mockResolvedValue([program]);
     stubDataClient.findOccupationTitlesByCip.mockResolvedValue([
-      buildOccupationTitle({ soctitle: "some job" }),
-      buildOccupationTitle({ soctitle: "some other job" }),
+      buildOccupationTitle({ soctitle: "some job", soc: "123" }),
+      buildOccupationTitle({ soctitle: "some other job", soc: "456" }),
     ]);
     stubDataClient.getLocalExceptions.mockResolvedValue([
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
@@ -57,7 +57,10 @@ describe("findTrainingsByIds", () => {
         },
         description: program.description,
         calendarLength: parseInt(program.calendarlengthid!),
-        occupations: ["some job", "some other job"],
+        occupations: [
+          { soc: "123", title: "some job", majorGroup: "" },
+          { soc: "456", title: "some other job", majorGroup: "" },
+        ],
         inDemand: true,
         localExceptionCounty: ["Atlantic"],
         tuitionCost: parseFloat(program.tuition),
@@ -97,12 +100,12 @@ describe("findTrainingsByIds", () => {
     ]);
     expect(training1.id).toEqual(program1.programid);
     expect(training1.name).toEqual(program1.officialname);
-    expect(training1.occupations).toEqual(["occupation 1"]);
+    expect(training1.occupations[0].title).toEqual("occupation 1");
     expect(training1.localExceptionCounty).toEqual(["Atlantic"]);
 
     expect(training2.id).toEqual(program2.programid);
     expect(training2.name).toEqual(program2.officialname);
-    expect(training2.occupations).toEqual(["occupation 2"]);
+    expect(training2.occupations[0].title).toEqual("occupation 2");
     expect(training2.localExceptionCounty).toEqual(["Pacific"]);
   });
 
@@ -114,12 +117,15 @@ describe("findTrainingsByIds", () => {
   it("lists matching occupation titles for a training", async () => {
     stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({})]);
     stubDataClient.findOccupationTitlesByCip.mockResolvedValue([
-      buildOccupationTitle({ soctitle: "chemists" }),
-      buildOccupationTitle({ soctitle: "astrophysicists" }),
+      buildOccupationTitle({ soctitle: "chemists", soc: "456" }),
+      buildOccupationTitle({ soctitle: "astrophysicists", soc: "123" }),
     ]);
 
     const training = await findTrainingsByIds(["123"]);
-    expect(training[0].occupations).toEqual(["chemists", "astrophysicists"]);
+    expect(training[0].occupations).toEqual([
+      { title: "chemists", soc: "456", majorGroup: "" },
+      { title: "astrophysicists", soc: "123", majorGroup: "" },
+    ]);
   });
 
   it("replaces missing data with empty values", async () => {

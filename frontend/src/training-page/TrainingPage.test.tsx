@@ -3,9 +3,25 @@ import { StubClient } from "../test-objects/StubClient";
 import { render } from "@testing-library/react";
 import { TrainingPage } from "./TrainingPage";
 import { act } from "react-dom/test-utils";
-import { buildAddress, buildProvider, buildTraining } from "../test-objects/factories";
+import {
+  buildAddress,
+  buildOccupation,
+  buildProvider,
+  buildTraining,
+} from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
 import { Error } from "../domain/Error";
+
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function mockReachRouter() {
+  const original = jest.requireActual("@reach/router");
+  return {
+    ...original,
+    navigate: jest.fn(),
+  };
+}
+
+jest.mock("@reach/router", () => mockReachRouter());
 
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
@@ -46,7 +62,7 @@ describe("<TrainingPage />", () => {
         phoneNumber: "6093800243",
         phoneExtension: "9876",
       }),
-      occupations: ["Botanist", "Senator"],
+      occupations: [buildOccupation({ title: "Botanist" }), buildOccupation({ title: "Senator" })],
       description: "some cool description",
       tuitionCost: 0,
       feesCost: 50,
@@ -254,7 +270,11 @@ describe("<TrainingPage />", () => {
 
     expect(subject.getByText("This is a general training", { exact: false })).toBeInTheDocument();
 
-    act(() => stubClient.capturedObserver.onSuccess(buildTraining({ occupations: ["NO MATCH"] })));
+    act(() =>
+      stubClient.capturedObserver.onSuccess(
+        buildTraining({ occupations: [buildOccupation({ title: "NO MATCH" })] })
+      )
+    );
 
     expect(subject.getByText("This is a general training", { exact: false })).toBeInTheDocument();
   });

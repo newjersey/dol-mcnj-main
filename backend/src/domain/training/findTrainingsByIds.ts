@@ -49,7 +49,11 @@ export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainings
           calendarLength: program.calendarlengthid
             ? parseInt(program.calendarlengthid)
             : CalendarLength.NULL,
-          occupations: matchingOccupations.map((it) => it.soctitle),
+          occupations: matchingOccupations.map((it) => ({
+            title: it.soctitle,
+            soc: it.soc,
+            majorGroup: "",
+          })),
           inDemand: !!program.indemandcip,
           localExceptionCounty: localExceptionCounties,
           tuitionCost: parseFloat(program.tuition),

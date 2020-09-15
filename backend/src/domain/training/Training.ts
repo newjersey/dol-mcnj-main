@@ -1,4 +1,5 @@
 import { CalendarLength } from "../CalendarLength";
+import { Occupation } from "../occupations/Occupation";
 
 export interface Training {
   id: string;
@@ -6,7 +7,7 @@ export interface Training {
   provider: Provider;
   description: string;
   calendarLength: CalendarLength;
-  occupations: string[];
+  occupations: Occupation[];
   inDemand: boolean;
   localExceptionCounty: string[];
   tuitionCost: number;
