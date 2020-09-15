@@ -60,6 +60,20 @@ describe("OnetClient", () => {
     });
   });
 
+  it("returns description when tasks fail", async () => {
+    mockedAxios.get.mockResolvedValueOnce({ data: onetTestData }).mockRejectedValueOnce({});
+
+    const occupationDetail = await getOccupationDetailPartial("17-2051");
+
+    expect(occupationDetail).toEqual({
+      soc: "17-2051",
+      title: "Civil Engineers",
+      description:
+        "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures, and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems.",
+      tasks: [],
+    });
+  });
+
   it("rejects when request fails", (done) => {
     mockedAxios.get.mockRejectedValue({});
     getOccupationDetailPartial("17-2051").catch(() => done());
