@@ -1,3 +1,5 @@
+import { Occupation } from "./Occupation";
+
 export interface TrainingResult {
   id: string;
   name: string;
@@ -21,7 +23,7 @@ export interface Training {
   name: string;
   calendarLength: CalendarLength;
   description: string;
-  occupations: string[];
+  occupations: Occupation[];
   provider: Provider;
   inDemand: boolean;
   localExceptionCounty: string[];
