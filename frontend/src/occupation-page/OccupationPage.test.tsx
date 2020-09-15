@@ -4,6 +4,7 @@ import { OccupationPage } from "./OccupationPage";
 import { buildOccupationDetail } from "../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { StubClient } from "../test-objects/StubClient";
+import { Error } from "../domain/Error";
 
 describe("<OccupationPage />", () => {
   let stubClient: StubClient;
@@ -106,5 +107,23 @@ describe("<OccupationPage />", () => {
     expect(
       subject.getByText("This data is not yet available for this occupation.")
     ).toBeInTheDocument();
+  });
+
+  it("displays the Not Found page on not found error", () => {
+    const subject = render(<OccupationPage client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
+
+    expect(
+      subject.getByText("Sorry, we can't seem to find that page", { exact: false })
+    ).toBeInTheDocument();
+  });
+
+  it("displays the Error page on server error", () => {
+    const subject = render(<OccupationPage client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
+
+    expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
 });

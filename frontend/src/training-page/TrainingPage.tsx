@@ -29,7 +29,10 @@ export const TrainingPage = (props: Props): ReactElement => {
   useEffect(() => {
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
-      onSuccess: setTraining,
+      onSuccess: (result: Training) => {
+        setError(null);
+        setTraining(result);
+      },
       onError: (error: Error) => setError(error),
     });
   }, [props.id, props.client]);
