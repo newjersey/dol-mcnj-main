@@ -274,7 +274,7 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("--")).toBeInTheDocument();
   });
 
-  it("displays the Not Found page on server error", () => {
+  it("displays the Not Found page on not found error", () => {
     const subject = render(<TrainingPage client={stubClient} id="notfound" />);
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
@@ -284,7 +284,7 @@ describe("<TrainingPage />", () => {
     ).toBeInTheDocument();
   });
 
-  it("displays the Error page on not found error", () => {
+  it("displays the Error page on server error", () => {
     const subject = render(<TrainingPage client={stubClient} id="notfound" />);
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));

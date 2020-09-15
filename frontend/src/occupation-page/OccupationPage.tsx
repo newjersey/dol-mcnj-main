@@ -7,6 +7,9 @@ import { BetaBanner } from "../components/BetaBanner";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
+import { Error } from "../domain/Error";
+import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
+import { NotFoundPage } from "../error/NotFoundPage";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -18,15 +21,17 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail | undefined>(undefined);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const socCode = props.soc ? props.soc : "";
 
     props.client.getOccupationDetailBySoc(socCode, {
       onSuccess: (result: OccupationDetail) => {
+        setError(null);
         setOccupationDetail(result);
       },
-      onError: () => {},
+      onError: (error: Error) => setError(error),
     });
   }, [props.soc, props.client]);
 
@@ -129,6 +134,10 @@ export const OccupationPage = (props: Props): ReactElement => {
         </div>
       </>
     );
+  } else if (error === Error.SYSTEM_ERROR) {
+    return <SomethingWentWrongPage />;
+  } else if (error === Error.NOT_FOUND) {
+    return <NotFoundPage />;
   } else {
     return <></>;
   }
