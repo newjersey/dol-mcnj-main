@@ -29,55 +29,54 @@ export class PostgresDataClient implements DataClient {
       return Promise.resolve([]);
     }
 
-    const programs = await this.kdb("programs")
+    const programs = await this.kdb("etpl")
       .select(
-        "programs.programid",
-        "programs.providerid",
-        "programs.officialname",
-        "programs.calendarlengthid",
-        "programs.description",
-        "programs.cipcode",
-        "programs.tuition",
-        "programs.fees",
-        "programs.booksmaterialscost",
-        "programs.suppliestoolscost",
-        "programs.othercosts",
-        "programs.totalcost",
-        "providers.website",
-        "providers.name as providername",
-        "providers.street1",
-        "providers.street2",
-        "providers.city",
-        "providers.state",
-        "providers.zip",
-        "providers.county",
-        "providers.contactfirstname",
-        "providers.contactlastname",
-        "providers.contacttitle",
-        "providers.phone",
-        "providers.phoneextension",
+        "etpl.programid",
+        "etpl.providerid",
+        "etpl.officialname",
+        "etpl.calendarlengthid",
+        "etpl.description",
+        "etpl.cipcode",
+        "etpl.tuition",
+        "etpl.fees",
+        "etpl.booksmaterialscost",
+        "etpl.suppliestoolscost",
+        "etpl.othercosts",
+        "etpl.totalcost",
+        "etpl.website",
+        "etpl.providername",
+        "etpl.street1",
+        "etpl.street2",
+        "etpl.city",
+        "etpl.state",
+        "etpl.zip",
+        "etpl.county",
+        "etpl.contactfirstname",
+        "etpl.contactlastname",
+        "etpl.contacttitle",
+        "etpl.phone",
+        "etpl.phoneextension",
         "indemandcips.cipcode as indemandcip",
         "onlineprograms.programid as onlineprogramid",
         "outcomes_cip.peremployed2",
         "outcomes_cip.avgquarterlywage2"
       )
-      .leftOuterJoin("providers", "providers.providerid", "programs.providerid")
-      .leftOuterJoin("indemandcips", "indemandcips.cipcode", "programs.cipcode")
-      .leftOuterJoin("onlineprograms", "onlineprograms.programid", "programs.programid")
+      .leftOuterJoin("indemandcips", "indemandcips.cipcode", "etpl.cipcode")
+      .leftOuterJoin("onlineprograms", "onlineprograms.programid", "etpl.programid")
       .leftOuterJoin("outcomes_cip", function () {
-        this.on("outcomes_cip.cipcode", "programs.cipcode").on(
+        this.on("outcomes_cip.cipcode", "etpl.cipcode").on(
           "outcomes_cip.providerid",
-          "programs.providerid"
+          "etpl.providerid"
         );
       })
       .joinRaw(
         `join unnest('{${ids.join(
           ","
-        )}}'::varchar[]) WITH ORDINALITY t(programid, ord) ON programs.programid = t.programid`
+        )}}'::varchar[]) WITH ORDINALITY t(programid, ord) ON etpl.programid = t.programid`
       )
-      .whereIn("programs.programid", ids)
-      .andWhere("programs.statusname", APPROVED)
-      .andWhere("providers.statusname", APPROVED)
+      .whereIn("etpl.programid", ids)
+      .andWhere("etpl.statusname", APPROVED)
+      .andWhere("etpl.providerstatusname", APPROVED)
       .orderByRaw("t.ord")
       .catch((e) => {
         console.log("db error: ", e);
