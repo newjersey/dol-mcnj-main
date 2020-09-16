@@ -36,14 +36,14 @@ export class PostgresSearchClient implements SearchClient {
   getHighlight = async (id: string, searchQuery: string): Promise<string> => {
     const careerTracksJoined = await this.kdb("soccipcrosswalk")
       .select("soc2018title")
-      .whereRaw("soccipcrosswalk.cipcode = (select cipcode from programs where programid = ?)", id)
+      .whereRaw("soccipcrosswalk.cipcode = (select cipcode from etpl where programid = ?)", id)
       .then((data: CareerTrackEntity[]) => data.map((it) => it.soc2018title).join(", "))
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
       });
 
-    return this.kdb("programs")
+    return this.kdb("etpl")
       .select(
         this.kdb.raw(
           "ts_headline(description, websearch_to_tsquery(?)," +

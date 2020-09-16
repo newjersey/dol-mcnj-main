@@ -9,8 +9,7 @@ For this reason, many tables have extraneous columns that are not used (or not _
 
 ### Table(s) of Contents
 
-- [`programs`](#programs)
-- [`providers`](#providers)
+- [`etpl`](#etpl)
 - [`soccipcrosswalk`](#soccipcrosswalk)
 - [`programtokens`](#programtokens)
 - [`indemandcips`](#indemandcips)
@@ -21,24 +20,25 @@ For this reason, many tables have extraneous columns that are not used (or not _
 - [`soc2010to2018crosswalk`](#soc2010to2018crosswalk)
 
 
-### programs
+### etpl
 
-This is the ETPL source of truth.
+This is the ETPL source of truth.  Has a row for every program and its provider 
+(so provider data may be duplicated on many rows)
 Columns with no description are not yet used in the app.
 
 column name | description
 ------------|------------
-PROVIDERID | references `providers` table
+PROVIDERID | 
 OFFICIALNAME | program title
 CIPCODE | training category code
 APPROVINGAGENCYID | 
 OTHERAGENCY | 
 SUBMITTEDTOWIB | 
-TUITION | 
-FEES | 
-BOOKSMATERIALSCOST | 
-SUPPLIESTOOLSCOST | 
-OTHERCOSTS | 
+TUITION | tuition cost
+FEES | fees cost
+BOOKSMATERIALSCOST | books & materials cost
+SUPPLIESTOOLSCOST | supplies & tools cost
+OTHERCOSTS | other costs
 TOTALCOST | total sum cost of program
 PREREQUISITES | 
 WIAELIGIBLE | 
@@ -60,19 +60,10 @@ SUBMITTED |
 APPROVED | 
 CONTACTNAME | 
 CONTACTPHONE | 
-PHONEEXTENSION | 
+CONTACTPHONEEXTENSION | 
 PROGRAMID | primary key
 STATUSNAME | 'Approved'/'Suspend'/'Pending'/null
-
-### providers
-
-Another ETPL source of truth.  Has a row for every provider, references many programs in the programs table
-Columns with no description are not yet used in the app.
-
-column name | description
-------------|------------
-PROVIDERID | primary key; referenced by `programs`
-NAME | name of the school/org 
+PROVIDERNAME | name of the school/org 
 SCHOOLIDENTIFICATIONNUMBER | 
 STREET1 | street address: line 1
 STREET2 | street address: line 2
@@ -114,11 +105,10 @@ BUSROUTE1 |
 BUSROUTE2 | 
 TRNROUTE1 | 
 TRNROUTE2 | 
-WIBCOMMENT | 
-STATECOMMENT | 
+PROVIDERWIBCOMMENT | 
+PROVIDERSTATECOMMENT | 
 DTSUBMITTED | 
-STATUSNAME | 'Approved'/'Suspend'/'Pending'/null
-
+PROVIDERSTATUSNAME | 'Approved'/'Suspend'/'Pending'/null
 
 ### soccipcrosswalk
 
