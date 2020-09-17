@@ -123,13 +123,18 @@ export const FilterBox = ({
       {isMobile && <MobileFilterButtonHeader />}
 
       <div className="phd" style={{ display: filterIsOpen ? "block" : "none" }}>
-        <Searchbar onSearch={executeSearch} initialValue={searchQuery} stacked={true} />
+        <Searchbar
+          onSearch={executeSearch}
+          initialValue={searchQuery}
+          stacked={true}
+          buttonText="Update Results"
+        />
 
         {isMobile && (
           <>
             <div className="mtd mbs grey-line" />
             <div className="fdr fac mvd">
-              <div className="flex-half">{getResultCountText()}</div>
+              <div className="flex-half bold">{getResultCountText()}</div>
               <div className="flex-half">{children}</div>
             </div>
             <div className="mvs grey-line" />

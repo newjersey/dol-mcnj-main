@@ -17,7 +17,7 @@ interface Props extends RouteComponentProps {
 }
 
 export enum SortOrder {
-  RELEVANCE = "RELEVANCE",
+  BEST_MATCH = "BEST_MATCH",
   COST_LOW_TO_HIGH = "COST_LOW_TO_HIGH",
   COST_HIGH_TO_LOW = "COST_HIGH_TO_LOW",
   EMPLOYMENT_RATE = "EMPLOYMENT_RATE",
@@ -31,7 +31,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.RELEVANCE);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.BEST_MATCH);
 
   const { state } = useContext(FilterContext);
 
@@ -83,7 +83,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
     const sortedResults = filteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
       switch (newSortOrder) {
-        case SortOrder.RELEVANCE:
+        case SortOrder.BEST_MATCH:
           return b.rank - a.rank;
         case SortOrder.COST_LOW_TO_HIGH:
           return a.totalCost - b.totalCost;
@@ -103,7 +103,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   };
 
   const getSortDropdown = (): ReactElement => (
-    <FormControl variant="outlined" className="mla">
+    <FormControl variant="outlined" className="mla width-100">
       <InputLabel htmlFor="sortby">Sort by</InputLabel>
       <WhiteSelect
         native={true}
@@ -112,7 +112,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         label="Sort by"
         id="sortby"
       >
-        <option value={SortOrder.RELEVANCE}>Relevance</option>
+        <option value={SortOrder.BEST_MATCH}>Best Match</option>
         <option value={SortOrder.COST_LOW_TO_HIGH}>Cost: Low to High</option>
         <option value={SortOrder.COST_HIGH_TO_LOW}>Cost: High to Low</option>
         <option value={SortOrder.EMPLOYMENT_RATE}>Employment Rate</option>

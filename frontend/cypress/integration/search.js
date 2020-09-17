@@ -46,7 +46,7 @@ describe("Search", () => {
     // input search
     cy.get('input[aria-label="search"]').clear();
     cy.get('input[aria-label="search"]').type("baker");
-    cy.get("button").contains("Search").click();
+    cy.get("button").contains("Update Results").click();
 
     cy.location("pathname").should("eq", "/search/baker");
 

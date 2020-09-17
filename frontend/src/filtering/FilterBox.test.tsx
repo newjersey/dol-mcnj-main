@@ -108,7 +108,7 @@ describe("<FilterBox />", () => {
     fireEvent.click(subject.getByText("Edit Search or Filter"));
     expect(subject.getByLabelText("Max Cost", { exact: false })).toBeVisible();
 
-    fireEvent.click(subject.getByText("Search"));
+    fireEvent.click(subject.getByText("Update Results"));
 
     expect(subject.getByLabelText("Max Cost", { exact: false })).not.toBeVisible();
   });

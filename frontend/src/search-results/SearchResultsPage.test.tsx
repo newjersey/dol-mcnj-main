@@ -279,7 +279,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
         target: { value: "penguins" },
       });
-      fireEvent.click(subject.getByText("Search"));
+      fireEvent.click(subject.getByText("Update Results"));
 
       expect(subject.queryByText("some name")).not.toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
@@ -298,7 +298,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
         target: { value: "penguins" },
       });
-      fireEvent.click(subject.getByText("Search"));
+      fireEvent.click(subject.getByText("Update Results"));
 
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -310,7 +310,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
         target: { value: "penguins / penglings" },
       });
-      fireEvent.click(subject.getByText("Search"));
+      fireEvent.click(subject.getByText("Update Results"));
       expect(navigate).toHaveBeenCalledWith("/search/penguins%20%2F%20penglings");
     });
   });
@@ -369,7 +369,7 @@ describe("<SearchResultsPage />", () => {
       expect(cards[2].textContent).toContain("training2");
     });
 
-    it("sorts by rank as relevance", () => {
+    it("sorts by rank as best match", () => {
       const training1 = buildTrainingResult({ name: "training1", rank: 2 });
       const training2 = buildTrainingResult({ name: "training2", rank: 1 });
       const training3 = buildTrainingResult({ name: "training3", rank: 3 });
@@ -382,7 +382,7 @@ describe("<SearchResultsPage />", () => {
         target: { value: SortOrder.COST_HIGH_TO_LOW },
       });
       fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.RELEVANCE },
+        target: { value: SortOrder.BEST_MATCH },
       });
 
       const cards = subject.getAllByTestId("card");
