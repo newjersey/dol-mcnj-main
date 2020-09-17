@@ -8,6 +8,7 @@ import {
   SocDefinition,
   Program,
   EducationText,
+  SalaryEstimate,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
 
@@ -154,6 +155,18 @@ export class PostgresDataClient implements DataClient {
     return this.kdb("blsoccupationhandbook")
       .select("occupation_summary_how_to_become_one as howtobecomeone")
       .where("occupation_soc_coverage_soc_code", soc)
+      .first()
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
+  getSalaryEstimateBySoc = (soc: string): Promise<SalaryEstimate> => {
+    return this.kdb("oesestimates")
+      .select("a_median as mediansalary")
+      .where("occ_code", soc)
+      .where("area_title", "New Jersey")
       .first()
       .catch((e) => {
         console.log("db error: ", e);

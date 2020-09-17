@@ -15,7 +15,7 @@ import { Grouping } from "../components/Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { StatBlock } from "./StatBlock";
+import { StatBlock } from "../components/StatBlock";
 
 interface Props extends RouteComponentProps {
   client: Client;

@@ -10,6 +10,8 @@ import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
+import { StatBlock } from "../components/StatBlock";
+import { formatMoney } from "accounting";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -84,6 +86,19 @@ export const OccupationPage = (props: Props): ReactElement => {
             <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
             <h2 className="text-xl ptd pbs weight-500">{occupationDetail.title}</h2>
             {occupationDetail.inDemand ? <InDemandTag /> : <></>}
+
+            <div className="stat-block-stack mtm">
+              <StatBlock
+                title="Median Salary"
+                data={
+                  occupationDetail.medianSalary
+                    ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
+                    : "--"
+                }
+                backgroundColorClass="bg-lighter-purple"
+              />
+            </div>
+
             <div className="row">
               <div className="col-md-8">
                 <div className="container-fluid">

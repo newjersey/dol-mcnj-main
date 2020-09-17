@@ -203,6 +203,13 @@ describe("PostgresDataClient", () => {
     });
   });
 
+  describe("getSalaryEstimateBySoc", () => {
+    it("gets the a_median for a given soc", async () => {
+      const estimate = await dataClient.getSalaryEstimateBySoc("11-1021");
+      expect(estimate.mediansalary).toEqual("138,010");
+    });
+  });
+
   afterAll(async () => {
     await dataClient.disconnect();
   });

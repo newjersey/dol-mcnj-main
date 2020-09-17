@@ -13,14 +13,17 @@ describe("getOccupationDetail", () => {
   let getOccupationDetail: GetOccupationDetail;
   let stubDataClient: StubDataClient;
   let mockGetEducationText: jest.Mock;
+  let mockGetSalaryEstimate: jest.Mock;
 
   beforeEach(() => {
     mockOnet = jest.fn();
     mockGetEducationText = jest.fn();
+    mockGetSalaryEstimate = jest.fn();
     stubDataClient = StubDataClient();
     getOccupationDetail = getOccupationDetailFactory(
       mockOnet,
       mockGetEducationText,
+      mockGetSalaryEstimate,
       stubDataClient
     );
   });
@@ -33,6 +36,7 @@ describe("getOccupationDetail", () => {
       stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
         buildOccupationTitle({ soc: "some-soc" }),
       ]);
+      mockGetSalaryEstimate.mockResolvedValue(38260);
 
       const result = await getOccupationDetail("some-soc");
 
@@ -40,6 +44,7 @@ describe("getOccupationDetail", () => {
         ...onetOccupationDetail,
         education: "some-string",
         inDemand: true,
+        medianSalary: 38260,
       });
     });
   });
@@ -58,6 +63,7 @@ describe("getOccupationDetail", () => {
       stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
         buildOccupationTitle({ soc: "2010-soc" }),
       ]);
+      mockGetSalaryEstimate.mockResolvedValue(38260);
 
       const result = await getOccupationDetail("2018-soc");
 
@@ -66,6 +72,7 @@ describe("getOccupationDetail", () => {
         soc: "2018-soc",
         education: "some education text",
         inDemand: true,
+        medianSalary: 38260,
       });
     });
   });
@@ -85,6 +92,7 @@ describe("getOccupationDetail", () => {
       stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
         buildOccupationTitle({ soc: "random-soc" }),
       ]);
+      mockGetSalaryEstimate.mockResolvedValue(38260);
 
       const result = await getOccupationDetail("2018-soc");
 
@@ -95,6 +103,7 @@ describe("getOccupationDetail", () => {
         tasks: [],
         education: "some education text",
         inDemand: false,
+        medianSalary: 38260,
       });
     });
   });

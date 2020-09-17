@@ -54,3 +54,7 @@ export interface NullableOccupationTitle {
 export interface EducationText {
   howtobecomeone: string;
 }
+
+export interface SalaryEstimate {
+  mediansalary: string;
+}

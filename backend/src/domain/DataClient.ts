@@ -5,6 +5,7 @@ import {
   Program,
   SocDefinition,
   EducationText,
+  SalaryEstimate,
 } from "./training/Program";
 
 export interface DataClient {
@@ -16,4 +17,5 @@ export interface DataClient {
   getLocalExceptions: () => Promise<LocalException[]>;
   getInDemandOccupationTitles: () => Promise<NullableOccupationTitle[]>;
   getEducationTextBySoc: (soc: string) => Promise<EducationText>;
+  getSalaryEstimateBySoc: (soc: string) => Promise<SalaryEstimate>;
 }

@@ -21,6 +21,7 @@ describe("<OccupationPage />", () => {
       tasks: ["task1", "task2"],
       education: "some education text",
       inDemand: true,
+      medianSalary: 97820,
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
@@ -33,6 +34,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
     expect(subject.queryByText("In Demand")).toBeInTheDocument();
+    expect(subject.getByText("$97,820")).toBeInTheDocument();
   });
 
   it("does not display an in-demand tag when a occupation is not in-demand", () => {
@@ -125,5 +127,17 @@ describe("<OccupationPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
     expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
+  });
+
+  it("displays data missing message if median salary is not available", () => {
+    const occupationDetail = buildOccupationDetail({
+      medianSalary: null,
+    });
+
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    expect(subject.getByText("--")).toBeInTheDocument();
   });
 });

@@ -11,6 +11,7 @@ import { getOccupationDetailFactory } from "./domain/occupations/getOccupationDe
 import { ZipcodeClient } from "./zipcodes/ZipcodeClient";
 import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
+import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -44,6 +45,7 @@ const router = routerFactory({
   getOccupationDetail: getOccupationDetailFactory(
     OnetClient(onetBaseUrl, onetAuth),
     getEducationTextFactory(postgresDataClient),
+    getSalaryEstimateFactory(postgresDataClient),
     postgresDataClient
   ),
 });

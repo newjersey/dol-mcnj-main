@@ -9,3 +9,4 @@ export type GetZipCodesInRadius = (zipCode: string, distance: string) => Promise
 export type GetOccupationDetail = (soc: string) => Promise<OccupationDetail>;
 export type GetOccupationDetailPartial = (soc: string) => Promise<OccupationDetailPartial>;
 export type GetEducationText = (soc: string) => Promise<string>;
+export type GetSalaryEstimate = (soc: string) => Promise<number | null>;
