@@ -18,13 +18,13 @@ describe("PostgresDataClient", () => {
   const testProgram1 = {
     programid: "1",
     cipcode: "123456",
-    officialname: "Tree Identification Class",
+    officialname: "Standardized Tree Identification Class",
     description:
-      "This program is designed for clients who are interested in learning skills necessary " +
+      "Standardized This program is designed for clients who are interested in learning skills necessary " +
       "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
       "their leaves and bark and seeds.",
     calendarlengthid: "6",
-    providername: "Vineland Public Schools Adult Education Program",
+    providername: "Standardized Vineland Public Schools",
     providerid: "123",
     tuition: "3000",
     fees: "35",
@@ -56,7 +56,10 @@ describe("PostgresDataClient", () => {
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
-        expect.arrayContaining(["Tree Identification Class", "Tree Identification Class Level 2"])
+        expect.arrayContaining([
+          "Standardized Tree Identification Class",
+          "Standardized Tree Identification Class Level 2",
+        ])
       );
     });
 
@@ -75,8 +78,8 @@ describe("PostgresDataClient", () => {
     it("preserves order of input list of ids", async () => {
       const programs = await dataClient.findProgramsByIds(["2", "1"]);
       expect(programs.length).toEqual(2);
-      expect(programs[0].officialname).toEqual("Tree Identification Class Level 2");
-      expect(programs[1].officialname).toEqual("Tree Identification Class");
+      expect(programs[0].officialname).toEqual("Standardized Tree Identification Class Level 2");
+      expect(programs[1].officialname).toEqual("Standardized Tree Identification Class");
     });
 
     it("returns empty when id list is empty", async () => {
