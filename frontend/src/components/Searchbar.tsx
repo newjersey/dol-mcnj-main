@@ -8,6 +8,7 @@ interface Props {
   initialValue?: string;
   stacked?: boolean;
   smallButton?: boolean;
+  buttonText?: string;
 }
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
@@ -49,7 +50,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
       />
       <div className={`${marginDirection} ${buttonWidth}`}>
         <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
-          Search
+          {props.buttonText ? props.buttonText : "Search"}
         </PrimaryButton>
       </div>
     </div>

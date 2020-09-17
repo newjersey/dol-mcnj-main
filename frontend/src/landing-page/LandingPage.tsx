@@ -57,11 +57,11 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
               <div className="grey-line mvm" />
               <div className="pvl">
                 <h2 className="text-xl weight-500 section-header">
-                  Get up to $4,000 from the state for your training
+                  Get up to $4,000 from the State for your training
                 </h2>
 
                 <p className="text-m">
-                  Did you know the state of New Jersey offers discounted training for&nbsp;
+                  Did you know the State of New Jersey offers discounted training for&nbsp;
                   <Link className="link-format-blue" to="/in-demand-careers">
                     in-demand careers
                   </Link>
@@ -77,7 +77,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
                 </p>
 
                 <p className="text-m">
-                  To see if you qualify for a tuition waiver or voucher,&nbsp;
+                  To see if you qualify for a tuition waiver or grant,&nbsp;
                   <a
                     className="link-format-blue"
                     target="_blank"

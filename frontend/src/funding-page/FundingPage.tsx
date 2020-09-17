@@ -26,7 +26,7 @@ export const FundingPage = (props: RouteComponentProps): ReactElement => {
               Information Session.
             </p>
 
-            <h3 className="text-l ptd weight-500">Individual Training Account (ITA) Grant</h3>
+            <h3 className="text-l ptd weight-500">Tuition Waivers</h3>
             <p>
               Tuition waivers enable eligible unemployed individuals to enroll, tuition free, in
               courses of instruction at public colleges and universities in New Jersey. These
