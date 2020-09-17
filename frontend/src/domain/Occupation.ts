@@ -11,4 +11,5 @@ export interface OccupationDetail {
   tasks: string[];
   education: string;
   inDemand: boolean;
+  medianSalary: number | null;
 }
