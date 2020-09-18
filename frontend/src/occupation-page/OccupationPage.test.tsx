@@ -22,6 +22,7 @@ describe("<OccupationPage />", () => {
       education: "some education text",
       inDemand: true,
       medianSalary: 97820,
+      openJobsCount: 1010,
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
@@ -34,6 +35,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
     expect(subject.queryByText("In Demand")).toBeInTheDocument();
+    expect(subject.getByText("1,010")).toBeInTheDocument();
     expect(subject.getByText("$97,820")).toBeInTheDocument();
   });
 
@@ -129,7 +131,16 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
 
-  it("displays data missing message if median salary is not available", () => {
+  it("displays -- message if open jobs count is null", () => {
+    const occupationDetail = buildOccupationDetail({
+      openJobsCount: null,
+    });
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    expect(subject.getByText("--")).toBeInTheDocument();
+  });
+
+  it("displays -- message if median salary is not available", () => {
     const occupationDetail = buildOccupationDetail({
       medianSalary: null,
     });

@@ -12,6 +12,7 @@ import { ZipcodeClient } from "./zipcodes/ZipcodeClient";
 import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
+import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -33,6 +34,10 @@ const onetAuth = {
   password: process.env.ONET_PASSWORD || "ONET_PASSWORD",
 };
 
+const careerOneStopBaseUrl = process.env.CAREER_ONESTOP_BASEURL || "http://localhost:8090";
+const careerOneStopUserId = process.env.CAREER_ONESTOP_USERID || "CAREER_ONESTOP_USERID";
+const careerOneStopAuthToken = process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
+
 const postgresDataClient = new PostgresDataClient(connection);
 const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsByIds = findTrainingsByIdsFactory(postgresDataClient);
@@ -46,6 +51,7 @@ const router = routerFactory({
     OnetClient(onetBaseUrl, onetAuth),
     getEducationTextFactory(postgresDataClient),
     getSalaryEstimateFactory(postgresDataClient),
+    CareerOneStopClient(careerOneStopBaseUrl, careerOneStopUserId, careerOneStopAuthToken),
     postgresDataClient
   ),
 });

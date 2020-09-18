@@ -12,4 +12,5 @@ export interface OccupationDetail {
   education: string;
   inDemand: boolean;
   medianSalary: number | null;
+  openJobsCount: number | null;
 }

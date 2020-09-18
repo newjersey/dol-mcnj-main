@@ -12,6 +12,7 @@ import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
 import { StatBlock } from "../components/StatBlock";
 import { formatMoney } from "accounting";
+import careeronestop from "../careeronestop.png";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -89,6 +90,15 @@ export const OccupationPage = (props: Props): ReactElement => {
 
             <div className="stat-block-stack mtm">
               <StatBlock
+                title="Jobs Open in NJ"
+                data={
+                  occupationDetail.openJobsCount
+                    ? occupationDetail.openJobsCount.toLocaleString()
+                    : "--"
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
                 title="Median Salary"
                 data={
                   occupationDetail.medianSalary
@@ -144,6 +154,9 @@ export const OccupationPage = (props: Props): ReactElement => {
             <p>
               Source: Bureau of Labor Statistics, U.S. Department of Labor, Occupational Outlook
               Handbook
+            </p>
+            <p>
+              <img src={careeronestop} alt="Source: CareerOneStop" />
             </p>
           </footer>
         </div>
