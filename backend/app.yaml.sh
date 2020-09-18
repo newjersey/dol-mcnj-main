@@ -12,4 +12,5 @@ env_variables:
   ONET_BASEURL: \"$ONET_BASEURL\"
   ONET_USERNAME: \"$ONET_USERNAME\"
   ONET_PASSWORD: \"$ONET_PASSWORD\"
+  NODE_OPTIONS: --max_old_space_size=4096
 """
