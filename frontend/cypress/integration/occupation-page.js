@@ -5,12 +5,18 @@ describe("Occupation Page", () => {
 
     cy.contains("Civil Engineers").should("exist");
 
+    // median salary
     cy.contains("$97,820");
 
+    // open jobs
+    cy.contains("375").should("exist");
+
+    // description
     cy.contains(
       "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures, and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems."
     ).should("exist");
 
+    // tasks
     cy.contains(
       "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards."
     ).should("exist");
@@ -29,6 +35,7 @@ describe("Occupation Page", () => {
 
     cy.contains("See More").click();
 
+    // more tasks
     cy.contains(
       "Direct or participate in surveying to lay out installations or establish reference points, grades, or elevations to guide construction."
     ).should("exist");
@@ -68,6 +75,7 @@ describe("Occupation Page", () => {
 
     cy.contains("See Less").should("exist");
 
+    // education
     cy.contains(
       "Civil engineers need a bachelor’s degree in civil engineering, in one of its specialties, or in civil engineering technology. They typically need a graduate degree and licensure for promotion to senior positions. Although licensure requirements vary by state, civil engineers usually must be licensed if they provide services directly to the public."
     ).should("exist");
@@ -79,12 +87,18 @@ describe("Occupation Page", () => {
     cy.visit("/occupation/15-1254");
     cy.contains("Web Developers").should("exist");
 
+    // median salary
     cy.contains("--").should("exist");
 
+    // open jobs
+    cy.contains("1,710").should("exist");
+
+    // description
     cy.contains(
       "Design, create, and modify Web sites. Analyze user needs to implement Web site content, graphics, performance, and capacity. May integrate Web sites with other computer applications. May convert written, graphic, audio, and video components to compatible Web formats by using software designed to facilitate the creation of Web and multimedia content."
     ).should("exist");
 
+    // tasks
     cy.contains("Write supporting code for Web applications or Web sites.").should("exist");
     cy.contains(
       "Design, build, or maintain Web sites, using authoring or scripting languages, content creation tools, management tools, and digital media."
@@ -97,6 +111,7 @@ describe("Occupation Page", () => {
     ).should("exist");
     cy.contains("Select programming languages, design tools, or applications.").should("exist");
 
+    // education
     cy.contains("This data is not yet available for this occupation.").should("exist");
   });
 
@@ -104,12 +119,15 @@ describe("Occupation Page", () => {
     cy.visit("/occupation/15-1255");
     cy.contains("Web and Digital Interface Designers").should("exist");
 
+    // open jobs & median salary
     cy.contains("--").should("exist");
 
+    // description
     cy.contains(
       "Design digital user interfaces or websites. Develop and test layouts, interfaces, functionality, and navigation menus to ensure compatibility and usability across browsers or devices. May use web framework applications as well as client-side code and processes. May evaluate web design following web and accessibility standards, and may analyze web use metrics and optimize websites for marketability and search engine ranking. May design and test interfaces that facilitate the human-computer interaction and maximize the usability of digital devices, websites, and software with a focus on aesthetics and design. May create graphics used in websites and manage website content and links. Excludes “Special Effects Artists and Animators” (27-1014) and “Graphic Designers” (27-1024)."
     ).should("exist");
 
+    // education & tasks
     cy.contains("This data is not yet available for this occupation.").should("exist");
   });
 });

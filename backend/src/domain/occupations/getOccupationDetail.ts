@@ -3,6 +3,7 @@ import {
   GetOccupationDetailPartial,
   GetEducationText,
   GetSalaryEstimate,
+  GetOpenJobsCount,
 } from "../types";
 import { OccupationDetail, OccupationDetailPartial } from "./Occupation";
 import { DataClient } from "../DataClient";
@@ -11,6 +12,7 @@ export const getOccupationDetailFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
   getEducationText: GetEducationText,
   getSalaryEstimate: GetSalaryEstimate,
+  getOpenJobsCount: GetOpenJobsCount,
   dataClient: DataClient
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
@@ -29,6 +31,7 @@ export const getOccupationDetailFactory = (
           education: education,
           inDemand: await isInDemand(soc),
           medianSalary: medianSalary,
+          openJobsCount: await getOpenJobsCount(soc),
         };
       })
       .catch(async () => {
@@ -44,6 +47,7 @@ export const getOccupationDetailFactory = (
             education: education,
             inDemand: await isInDemand(soc2010),
             medianSalary: medianSalary,
+            openJobsCount: await getOpenJobsCount(soc2010),
           };
         } else {
           const socDefinition = await dataClient.findSocDefinitionBySoc(soc);
@@ -56,6 +60,7 @@ export const getOccupationDetailFactory = (
             education: education,
             inDemand: await isInDemand(socDefinition.soc),
             medianSalary: medianSalary,
+            openJobsCount: await getOpenJobsCount(socDefinition.soc),
           };
         }
       });

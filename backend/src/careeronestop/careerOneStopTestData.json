@@ -1,0 +1,1459 @@
+{
+  "Jobcount": "1710",
+  "JobsKeywordLocations": {
+    "Keyword": "",
+    "Location": "NJ",
+    "Radius": "1000"
+  },
+  "Locations": [
+    {
+      "LocationName": "Princeton, NJ",
+      "LocationCount": "168"
+    },
+    {
+      "LocationName": "Trenton, NJ",
+      "LocationCount": "154"
+    },
+    {
+      "LocationName": "Bridgewater, NJ",
+      "LocationCount": "150"
+    },
+    {
+      "LocationName": "Mount Laurel, NJ",
+      "LocationCount": "143"
+    },
+    {
+      "LocationName": "Edison, NJ",
+      "LocationCount": "139"
+    },
+    {
+      "LocationName": "East Brunswick, NJ",
+      "LocationCount": "129"
+    },
+    {
+      "LocationName": "Matawan, NJ",
+      "LocationCount": "128"
+    },
+    {
+      "LocationName": "Liberty Corner, NJ",
+      "LocationCount": "128"
+    },
+    {
+      "LocationName": "Jersey City, NJ",
+      "LocationCount": "99"
+    },
+    {
+      "LocationName": "Parsippany, NJ",
+      "LocationCount": "36"
+    },
+    {
+      "LocationName": "Whippany, NJ",
+      "LocationCount": "27"
+    },
+    {
+      "LocationName": "Newark, NJ",
+      "LocationCount": "27"
+    },
+    {
+      "LocationName": "Basking Ridge, NJ",
+      "LocationCount": "26"
+    },
+    {
+      "LocationName": "Piscataway, NJ",
+      "LocationCount": "24"
+    },
+    {
+      "LocationName": "New Brunswick, NJ",
+      "LocationCount": "19"
+    },
+    {
+      "LocationName": "Pennington, NJ",
+      "LocationCount": "18"
+    },
+    {
+      "LocationName": "Hoboken, NJ",
+      "LocationCount": "14"
+    },
+    {
+      "LocationName": "Florham Park, NJ",
+      "LocationCount": "11"
+    },
+    {
+      "LocationName": "Cherry Hill, NJ",
+      "LocationCount": "11"
+    },
+    {
+      "LocationName": "Iselin, NJ",
+      "LocationCount": "10"
+    },
+    {
+      "LocationName": "Warren, NJ",
+      "LocationCount": "9"
+    },
+    {
+      "LocationName": "Somerset, NJ",
+      "LocationCount": "9"
+    },
+    {
+      "LocationName": "Saddle Brook, NJ",
+      "LocationCount": "9"
+    },
+    {
+      "LocationName": "Morristown, NJ",
+      "LocationCount": "9"
+    },
+    {
+      "LocationName": "Weehawken, NJ",
+      "LocationCount": "8"
+    },
+    {
+      "LocationName": "Montvale, NJ",
+      "LocationCount": "7"
+    },
+    {
+      "LocationName": "Secaucus, NJ",
+      "LocationCount": "6"
+    },
+    {
+      "LocationName": "Mcguire Afb, NJ",
+      "LocationCount": "6"
+    },
+    {
+      "LocationName": "Lebanon, NJ",
+      "LocationCount": "6"
+    },
+    {
+      "LocationName": "Branchburg, NJ",
+      "LocationCount": "6"
+    },
+    {
+      "LocationName": "Summit, NJ",
+      "LocationCount": "5"
+    },
+    {
+      "LocationName": "Raritan, NJ",
+      "LocationCount": "5"
+    },
+    {
+      "LocationName": "Hamilton, NJ",
+      "LocationCount": "5"
+    },
+    {
+      "LocationName": "Berkeley Heights, NJ",
+      "LocationCount": "5"
+    },
+    {
+      "LocationName": "Wall, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Roseland, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Rochelle Park, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Rahway, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "New Jersey, USA",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Mt Laurel, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Montclair, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Livingston, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Franklin Lakes, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Fairfield, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Egg Harbor Township, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Camden, NJ",
+      "LocationCount": "4"
+    },
+    {
+      "LocationName": "Wayne, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "South Brunswick, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Somerville, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Picatinny, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Mt. Laurel, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Moorestown, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Cinnaminson, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Atlantic City, NJ",
+      "LocationCount": "3"
+    },
+    {
+      "LocationName": "Woodbridge, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Union, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Titusville, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Thorofare, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Teaneck, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "South Plainfield, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Skillman, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Short Hills, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Morris Plains, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Flemington, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Englewood, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Burlington, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Bloomfield, NJ",
+      "LocationCount": "2"
+    },
+    {
+      "LocationName": "Woodcliff Lake, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Whitehouse Station, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Vorhees, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Somerset / Union City, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Somerdale, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Sea Girt, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Scotch Plains, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Randolph, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Plainfield, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Paterson, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Paramus, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Offsite, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "North Brunswick Township, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Murray Hill, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Mt. Holly, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Mount Laurel Township, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Morganville, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Moorestown Township, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Moonachie, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Middletown, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Maple Shade, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Manville, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Mansfield, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Madison, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Little Falls, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Lawnside, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Kingston, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Kenilworth, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Howell, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Home Office/Virtual, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Holmdel, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Hightstown, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Hazlet, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Harrison, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Hanover, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Glen Rock, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Garwood, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Ft Dix, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Fort Lee, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Folsom, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Flanders, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Ewing, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Englishtown, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Elmwood Park, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Egg Harbor City, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Eatontown, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Dover, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Clark, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Carteret, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Bridgewater Township, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Bergen County, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Belvidere, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Audubon, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Any City, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "Allendale, NJ",
+      "LocationCount": "1"
+    },
+    {
+      "LocationName": "(Remote Till The Time Pandemic Subsides)., NJ",
+      "LocationCount": "1"
+    }
+  ],
+  "Companies": [
+    {
+      "CompanyName": "Oracle",
+      "JobCount": "1024",
+      "CompanyId": "34186"
+    },
+    {
+      "CompanyName": "Robert Half International",
+      "JobCount": "44",
+      "CompanyId": "27625"
+    },
+    {
+      "CompanyName": "Randstad",
+      "JobCount": "34",
+      "CompanyId": "42496"
+    },
+    {
+      "CompanyName": "Robert Half International",
+      "JobCount": "33",
+      "CompanyId": "27630"
+    },
+    {
+      "CompanyName": "Two95 International Inc.",
+      "JobCount": "23",
+      "CompanyId": "37354"
+    },
+    {
+      "CompanyName": "Bank of America",
+      "JobCount": "22",
+      "CompanyId": "197"
+    },
+    {
+      "CompanyName": "JPMorgan Chase",
+      "JobCount": "21",
+      "CompanyId": "51043"
+    },
+    {
+      "CompanyName": "Verizon",
+      "JobCount": "19",
+      "CompanyId": "34389"
+    },
+    {
+      "CompanyName": "J&J Family of Companies",
+      "JobCount": "18",
+      "CompanyId": "27478"
+    },
+    {
+      "CompanyName": "Hired by Matrix, Inc.",
+      "JobCount": "16",
+      "CompanyId": "14206"
+    },
+    {
+      "CompanyName": "Accenture",
+      "JobCount": "15",
+      "CompanyId": "43426"
+    },
+    {
+      "CompanyName": "Barclays",
+      "JobCount": "15",
+      "CompanyId": "50993"
+    },
+    {
+      "CompanyName": "Kforce",
+      "JobCount": "14",
+      "CompanyId": "27975"
+    },
+    {
+      "CompanyName": "IQVIA",
+      "JobCount": "11",
+      "CompanyId": "40208"
+    },
+    {
+      "CompanyName": "Rutgers University",
+      "JobCount": "11",
+      "CompanyId": "36227"
+    },
+    {
+      "CompanyName": "Deloitte",
+      "JobCount": "10",
+      "CompanyId": "28117"
+    },
+    {
+      "CompanyName": "Fiserv",
+      "JobCount": "10",
+      "CompanyId": "27439"
+    },
+    {
+      "CompanyName": "Broadridge Financial Solutions",
+      "JobCount": "9",
+      "CompanyId": "44706"
+    },
+    {
+      "CompanyName": "ADP",
+      "JobCount": "8",
+      "CompanyId": "50715"
+    },
+    {
+      "CompanyName": "Guidehouse",
+      "JobCount": "8",
+      "CompanyId": "51252"
+    },
+    {
+      "CompanyName": "Bristol Myers Squibb",
+      "JobCount": "7",
+      "CompanyId": "51121"
+    },
+    {
+      "CompanyName": "Capgemini",
+      "JobCount": "7",
+      "CompanyId": "41774"
+    },
+    {
+      "CompanyName": "CyberCoders",
+      "JobCount": "7",
+      "CompanyId": "27846"
+    },
+    {
+      "CompanyName": "MLWIZ Team",
+      "JobCount": "7",
+      "CompanyId": "49719"
+    },
+    {
+      "CompanyName": "TD Bank",
+      "JobCount": "7",
+      "CompanyId": "20160"
+    },
+    {
+      "CompanyName": "UBS Financial Services",
+      "JobCount": "7",
+      "CompanyId": "27455"
+    },
+    {
+      "CompanyName": "Colgate",
+      "JobCount": "6",
+      "CompanyId": "31256"
+    },
+    {
+      "CompanyName": "Lawyer.com",
+      "JobCount": "6",
+      "CompanyId": "43320"
+    },
+    {
+      "CompanyName": "Merck",
+      "JobCount": "6",
+      "CompanyId": "27431"
+    },
+    {
+      "CompanyName": "Newell Brands",
+      "JobCount": "6",
+      "CompanyId": "42277"
+    },
+    {
+      "CompanyName": "Cognizant Technology Solutions",
+      "JobCount": "5",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "UPS",
+      "JobCount": "5",
+      "CompanyId": "38184"
+    },
+    {
+      "CompanyName": "WIPRO US BRANCH IT SERVICE",
+      "JobCount": "5",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "CTG",
+      "JobCount": "4",
+      "CompanyId": "26020"
+    },
+    {
+      "CompanyName": "Capgemini",
+      "JobCount": "4",
+      "CompanyId": "12896"
+    },
+    {
+      "CompanyName": "ConnectiveRx",
+      "JobCount": "4",
+      "CompanyId": "50808"
+    },
+    {
+      "CompanyName": "Corra",
+      "JobCount": "4",
+      "CompanyId": "45347"
+    },
+    {
+      "CompanyName": "Humana",
+      "JobCount": "4",
+      "CompanyId": "43177"
+    },
+    {
+      "CompanyName": "Kelly Services",
+      "JobCount": "4",
+      "CompanyId": "41412"
+    },
+    {
+      "CompanyName": "Pearson",
+      "JobCount": "4",
+      "CompanyId": "37192"
+    },
+    {
+      "CompanyName": "S&P Global",
+      "JobCount": "4",
+      "CompanyId": "25936"
+    },
+    {
+      "CompanyName": "SHI International Corp.",
+      "JobCount": "4",
+      "CompanyId": "42300"
+    },
+    {
+      "CompanyName": "Sirius Computer Solutions",
+      "JobCount": "4",
+      "CompanyId": "43917"
+    },
+    {
+      "CompanyName": "TEKsystems",
+      "JobCount": "4",
+      "CompanyId": "37485"
+    },
+    {
+      "CompanyName": "Tradeweb",
+      "JobCount": "4",
+      "CompanyId": "28101"
+    },
+    {
+      "CompanyName": "VIVA USA Inc",
+      "JobCount": "4",
+      "CompanyId": "41373"
+    },
+    {
+      "CompanyName": "Anthem, Inc.",
+      "JobCount": "3",
+      "CompanyId": "41395"
+    },
+    {
+      "CompanyName": "Anthem, Inc.",
+      "JobCount": "3",
+      "CompanyId": "44512"
+    },
+    {
+      "CompanyName": "Anthem, Inc.",
+      "JobCount": "3",
+      "CompanyId": "50713"
+    },
+    {
+      "CompanyName": "Apex Systems, Inc",
+      "JobCount": "3",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Avanade Inc.",
+      "JobCount": "3",
+      "CompanyId": "45087"
+    },
+    {
+      "CompanyName": "Capgemini",
+      "JobCount": "3",
+      "CompanyId": "41224"
+    },
+    {
+      "CompanyName": "Citigroup",
+      "JobCount": "3",
+      "CompanyId": "40002"
+    },
+    {
+      "CompanyName": "DriveWealth",
+      "JobCount": "3",
+      "CompanyId": "50883"
+    },
+    {
+      "CompanyName": "KPMG",
+      "JobCount": "3",
+      "CompanyId": "42620"
+    },
+    {
+      "CompanyName": "Marlabs Inc.",
+      "JobCount": "3",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Montgomery Investment Technology, Inc.",
+      "JobCount": "3",
+      "CompanyId": "46244"
+    },
+    {
+      "CompanyName": "New York Life Insurance Company",
+      "JobCount": "3",
+      "CompanyId": "31679"
+    },
+    {
+      "CompanyName": "PEER CONSULTING RESOURCES INC",
+      "JobCount": "3",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Panasonic",
+      "JobCount": "3",
+      "CompanyId": "48247"
+    },
+    {
+      "CompanyName": "The Childrens Place",
+      "JobCount": "3",
+      "CompanyId": "51225"
+    },
+    {
+      "CompanyName": "Verisk Analytics/ URIX",
+      "JobCount": "3",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "eDriving",
+      "JobCount": "3",
+      "CompanyId": "43837"
+    },
+    {
+      "CompanyName": "A3 Technology Inc",
+      "JobCount": "2",
+      "CompanyId": "44086"
+    },
+    {
+      "CompanyName": "ADP",
+      "JobCount": "2",
+      "CompanyId": "43231"
+    },
+    {
+      "CompanyName": "ASRC Federal Holding Company",
+      "JobCount": "2",
+      "CompanyId": "41985"
+    },
+    {
+      "CompanyName": "BNY Mellon",
+      "JobCount": "2",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "BRAINWARE, INC.",
+      "JobCount": "2",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Barclays",
+      "JobCount": "2",
+      "CompanyId": "1561"
+    },
+    {
+      "CompanyName": "Battelle Memorial Institute",
+      "JobCount": "2",
+      "CompanyId": "46594"
+    },
+    {
+      "CompanyName": "Burlington",
+      "JobCount": "2",
+      "CompanyId": "42190"
+    },
+    {
+      "CompanyName": "CVS Health",
+      "JobCount": "2",
+      "CompanyId": "20154"
+    },
+    {
+      "CompanyName": "Cogent Infotech",
+      "JobCount": "2",
+      "CompanyId": "51609"
+    },
+    {
+      "CompanyName": "Construction Specialties, LLC",
+      "JobCount": "2",
+      "CompanyId": "51220"
+    },
+    {
+      "CompanyName": "Covance",
+      "JobCount": "2",
+      "CompanyId": "50711"
+    },
+    {
+      "CompanyName": "Flow Commerce",
+      "JobCount": "2",
+      "CompanyId": "48472"
+    },
+    {
+      "CompanyName": "Freedom Mortgage",
+      "JobCount": "2",
+      "CompanyId": "18867"
+    },
+    {
+      "CompanyName": "JPMorgan Chase",
+      "JobCount": "2",
+      "CompanyId": "41022"
+    },
+    {
+      "CompanyName": "KPMG",
+      "JobCount": "2",
+      "CompanyId": "49619"
+    },
+    {
+      "CompanyName": "Kaizen Technologies Inc",
+      "JobCount": "2",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "L&T Technology Services",
+      "JobCount": "2",
+      "CompanyId": "50024"
+    },
+    {
+      "CompanyName": "Mathematica",
+      "JobCount": "2",
+      "CompanyId": "17232"
+    },
+    {
+      "CompanyName": "Momentum Solar",
+      "JobCount": "2",
+      "CompanyId": "42976"
+    },
+    {
+      "CompanyName": "Nucamp",
+      "JobCount": "2",
+      "CompanyId": "49721"
+    },
+    {
+      "CompanyName": "Oracle",
+      "JobCount": "2",
+      "CompanyId": "28290"
+    },
+    {
+      "CompanyName": "Prudential Ins Co of America",
+      "JobCount": "2",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Siemens",
+      "JobCount": "2",
+      "CompanyId": "49664"
+    },
+    {
+      "CompanyName": "Synergy Global Technologies Inc.",
+      "JobCount": "2",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "The CARIAN Group",
+      "JobCount": "2",
+      "CompanyId": "50918"
+    },
+    {
+      "CompanyName": "The Computer Merchant, Ltd.",
+      "JobCount": "2",
+      "CompanyId": "1671"
+    },
+    {
+      "CompanyName": "Thermo Fisher Scientific",
+      "JobCount": "2",
+      "CompanyId": "40247"
+    },
+    {
+      "CompanyName": "Travelers",
+      "JobCount": "2",
+      "CompanyId": "50700"
+    },
+    {
+      "CompanyName": "Trimble, Inc.",
+      "JobCount": "2",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "U.S. Bank",
+      "JobCount": "2",
+      "CompanyId": "27258"
+    },
+    {
+      "CompanyName": "Verisk",
+      "JobCount": "2",
+      "CompanyId": "51292"
+    },
+    {
+      "CompanyName": "iconectiv",
+      "JobCount": "2",
+      "CompanyId": "17277"
+    },
+    {
+      "CompanyName": "AT&T",
+      "JobCount": "1",
+      "CompanyId": "40106"
+    },
+    {
+      "CompanyName": "Adecco Staffing",
+      "JobCount": "1",
+      "CompanyId": "46596"
+    },
+    {
+      "CompanyName": "Aerotek",
+      "JobCount": "1",
+      "CompanyId": "32247"
+    },
+    {
+      "CompanyName": "Air National Guard",
+      "JobCount": "1",
+      "CompanyId": "46883"
+    },
+    {
+      "CompanyName": "Amazon Corporate LLC",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "American Express",
+      "JobCount": "1",
+      "CompanyId": "27618"
+    },
+    {
+      "CompanyName": "AmerisourceBergen Pharmaceutical Distribution and Strategic Global Sourcing",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Atlantic Health System",
+      "JobCount": "1",
+      "CompanyId": "40663"
+    },
+    {
+      "CompanyName": "Axtria, Inc.",
+      "JobCount": "1",
+      "CompanyId": "50082"
+    },
+    {
+      "CompanyName": "BCD Travel",
+      "JobCount": "1",
+      "CompanyId": "41409"
+    },
+    {
+      "CompanyName": "BlackRock",
+      "JobCount": "1",
+      "CompanyId": "44567"
+    },
+    {
+      "CompanyName": "Bristol Myers Squibb",
+      "JobCount": "1",
+      "CompanyId": "42733"
+    },
+    {
+      "CompanyName": "CIT Group Inc.",
+      "JobCount": "1",
+      "CompanyId": "27633"
+    },
+    {
+      "CompanyName": "CIT",
+      "JobCount": "1",
+      "CompanyId": "28862"
+    },
+    {
+      "CompanyName": "CORDEV, Inc.",
+      "JobCount": "1",
+      "CompanyId": "50591"
+    },
+    {
+      "CompanyName": "Centers for Disease Control and Prevention",
+      "JobCount": "1",
+      "CompanyId": "47069"
+    },
+    {
+      "CompanyName": "Change Healthcare",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Chenoa Information Services, Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Cigna",
+      "JobCount": "1",
+      "CompanyId": "44740"
+    },
+    {
+      "CompanyName": "Cisco",
+      "JobCount": "1",
+      "CompanyId": "40545"
+    },
+    {
+      "CompanyName": "Comrise Inc.",
+      "JobCount": "1",
+      "CompanyId": "18550"
+    },
+    {
+      "CompanyName": "Conduent",
+      "JobCount": "1",
+      "CompanyId": "50052"
+    },
+    {
+      "CompanyName": "Cornerstone onDemand",
+      "JobCount": "1",
+      "CompanyId": "37124"
+    },
+    {
+      "CompanyName": "Covance",
+      "JobCount": "1",
+      "CompanyId": "41655"
+    },
+    {
+      "CompanyName": "Creative Circle, LLC",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "DATA Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "DXC Technology",
+      "JobCount": "1",
+      "CompanyId": "42948"
+    },
+    {
+      "CompanyName": "Daiichi Sankyo Inc.",
+      "JobCount": "1",
+      "CompanyId": "27469"
+    },
+    {
+      "CompanyName": "Dow Jones",
+      "JobCount": "1",
+      "CompanyId": "24826"
+    },
+    {
+      "CompanyName": "ELLKAY LLC",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "EY",
+      "JobCount": "1",
+      "CompanyId": "27121"
+    },
+    {
+      "CompanyName": "Educational Testing Service",
+      "JobCount": "1",
+      "CompanyId": "6327"
+    },
+    {
+      "CompanyName": "ExpInfo, Inc",
+      "JobCount": "1",
+      "CompanyId": "7864"
+    },
+    {
+      "CompanyName": "FHI360",
+      "JobCount": "1",
+      "CompanyId": "41704"
+    },
+    {
+      "CompanyName": "Ferring Pharmaceuticals Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Foote, Cone & Belding",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Freedom Mortgage",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "GEP",
+      "JobCount": "1",
+      "CompanyId": "50630"
+    },
+    {
+      "CompanyName": "GalaxE",
+      "JobCount": "1",
+      "CompanyId": "31559"
+    },
+    {
+      "CompanyName": "General Dynamics Information Technology",
+      "JobCount": "1",
+      "CompanyId": "43686"
+    },
+    {
+      "CompanyName": "Harding Loevner LP",
+      "JobCount": "1",
+      "CompanyId": "46618"
+    },
+    {
+      "CompanyName": "Headquarters, NASA",
+      "JobCount": "1",
+      "CompanyId": "47125"
+    },
+    {
+      "CompanyName": "Hewlett Packard Enterprise Company",
+      "JobCount": "1",
+      "CompanyId": "50823"
+    },
+    {
+      "CompanyName": "Hill-Rom",
+      "JobCount": "1",
+      "CompanyId": "45439"
+    },
+    {
+      "CompanyName": "Infosys Public Services Inc",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Intellective",
+      "JobCount": "1",
+      "CompanyId": "46470"
+    },
+    {
+      "CompanyName": "International Voyager, Inc",
+      "JobCount": "1",
+      "CompanyId": "51409"
+    },
+    {
+      "CompanyName": "KMK Consulting, Inc.",
+      "JobCount": "1",
+      "CompanyId": "46292"
+    },
+    {
+      "CompanyName": "Knipper",
+      "JobCount": "1",
+      "CompanyId": "42217"
+    },
+    {
+      "CompanyName": "Langan Engineering, Environmental, Surveying and Landscape Architecture, D.P.C.",
+      "JobCount": "1",
+      "CompanyId": "15184"
+    },
+    {
+      "CompanyName": "Lockheed Martin",
+      "JobCount": "1",
+      "CompanyId": "27471"
+    },
+    {
+      "CompanyName": "Lord Abbett",
+      "JobCount": "1",
+      "CompanyId": "40044"
+    },
+    {
+      "CompanyName": "Markem-Imaje",
+      "JobCount": "1",
+      "CompanyId": "35167"
+    },
+    {
+      "CompanyName": "Mars",
+      "JobCount": "1",
+      "CompanyId": "50770"
+    },
+    {
+      "CompanyName": "NTT  Data, Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Nokia Siemens Networks",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Novisync Inc",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Octane Learning",
+      "JobCount": "1",
+      "CompanyId": "49301"
+    },
+    {
+      "CompanyName": "Om Group Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Ortho Clinical Diagnostics, Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "PPD",
+      "JobCount": "1",
+      "CompanyId": "45096"
+    },
+    {
+      "CompanyName": "Parsons Corporation",
+      "JobCount": "1",
+      "CompanyId": "48268"
+    },
+    {
+      "CompanyName": "Pentagon Force Protection Agency",
+      "JobCount": "1",
+      "CompanyId": "46998"
+    },
+    {
+      "CompanyName": "Piorion Solutions, Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Polaris Consulting & Services Ltd.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Princeton University",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "RMS Computer Corporation",
+      "JobCount": "1",
+      "CompanyId": "4856"
+    },
+    {
+      "CompanyName": "Regeneron Pharmaceuticals",
+      "JobCount": "1",
+      "CompanyId": "1982"
+    },
+    {
+      "CompanyName": "SUCCESS RATE INC",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Samsung Electronics America",
+      "JobCount": "1",
+      "CompanyId": "43230"
+    },
+    {
+      "CompanyName": "Schneider Electric",
+      "JobCount": "1",
+      "CompanyId": "16950"
+    },
+    {
+      "CompanyName": "Softworld",
+      "JobCount": "1",
+      "CompanyId": "11558"
+    },
+    {
+      "CompanyName": "South Jersey Industries",
+      "JobCount": "1",
+      "CompanyId": "16797"
+    },
+    {
+      "CompanyName": "Spatial Data Logic",
+      "JobCount": "1",
+      "CompanyId": "48717"
+    },
+    {
+      "CompanyName": "StayinFront",
+      "JobCount": "1",
+      "CompanyId": "42782"
+    },
+    {
+      "CompanyName": "Stryker",
+      "JobCount": "1",
+      "CompanyId": "27304"
+    },
+    {
+      "CompanyName": "SubCom",
+      "JobCount": "1",
+      "CompanyId": "49932"
+    },
+    {
+      "CompanyName": "TIAA",
+      "JobCount": "1",
+      "CompanyId": "28303"
+    },
+    {
+      "CompanyName": "U.S. Army Communications Electronics Command",
+      "JobCount": "1",
+      "CompanyId": "46953"
+    },
+    {
+      "CompanyName": "U.S. Capitol Police",
+      "JobCount": "1",
+      "CompanyId": "47119"
+    },
+    {
+      "CompanyName": "UIC Government Services and the Bowhead Family of Companies",
+      "JobCount": "1",
+      "CompanyId": "49607"
+    },
+    {
+      "CompanyName": "Ukpeagvik I&#241;upiat Corporation/Bowhead Family of Companies",
+      "JobCount": "1",
+      "CompanyId": "6812"
+    },
+    {
+      "CompanyName": "UnicornHRO",
+      "JobCount": "1",
+      "CompanyId": "44951"
+    },
+    {
+      "CompanyName": "UnitedHealth Group",
+      "JobCount": "1",
+      "CompanyId": "27043"
+    },
+    {
+      "CompanyName": "Universal Technical Resource Services, Inc.",
+      "JobCount": "1",
+      "CompanyId": "8855"
+    },
+    {
+      "CompanyName": "UserEdge Technical Personnel",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "ValueMomentum, Inc.",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "Visual Lease, LLC",
+      "JobCount": "1",
+      "CompanyId": "43261"
+    },
+    {
+      "CompanyName": "Vornado Realty Trust",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "WHISHWORKS",
+      "JobCount": "1",
+      "CompanyId": "48124"
+    },
+    {
+      "CompanyName": "Web Solutions NYC",
+      "JobCount": "1",
+      "CompanyId": "43488"
+    },
+    {
+      "CompanyName": "Wells Fargo",
+      "JobCount": "1",
+      "CompanyId": "27286"
+    },
+    {
+      "CompanyName": "WonderBotz",
+      "JobCount": "1",
+      "CompanyId": "46796"
+    },
+    {
+      "CompanyName": "cyberThink Inc",
+      "JobCount": "1",
+      "CompanyId": "1228"
+    },
+    {
+      "CompanyName": "iCIMS",
+      "JobCount": "1",
+      "CompanyId": "50276"
+    }
+  ]
+}

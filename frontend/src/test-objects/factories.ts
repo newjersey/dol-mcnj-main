@@ -91,6 +91,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     education: "some-eduction-text-" + randomInt(),
     inDemand: randomBool(),
     medianSalary: randomInt(),
+    openJobsCount: randomInt(),
     ...overrides,
   };
 };

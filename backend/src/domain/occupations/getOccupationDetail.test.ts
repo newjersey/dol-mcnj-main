@@ -14,16 +14,19 @@ describe("getOccupationDetail", () => {
   let stubDataClient: StubDataClient;
   let mockGetEducationText: jest.Mock;
   let mockGetSalaryEstimate: jest.Mock;
+  let mockGetOpenJobsCount: jest.Mock;
 
   beforeEach(() => {
     mockOnet = jest.fn();
     mockGetEducationText = jest.fn();
     mockGetSalaryEstimate = jest.fn();
+    mockGetOpenJobsCount = jest.fn();
     stubDataClient = StubDataClient();
     getOccupationDetail = getOccupationDetailFactory(
       mockOnet,
       mockGetEducationText,
       mockGetSalaryEstimate,
+      mockGetOpenJobsCount,
       stubDataClient
     );
   });
@@ -33,6 +36,8 @@ describe("getOccupationDetail", () => {
       const onetOccupationDetail = buildOccupationDetailPartial({});
       mockOnet.mockResolvedValue(onetOccupationDetail);
       mockGetEducationText.mockResolvedValue("some-string");
+      mockGetOpenJobsCount.mockResolvedValue(10);
+
       stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
         buildOccupationTitle({ soc: "some-soc" }),
       ]);
@@ -45,6 +50,7 @@ describe("getOccupationDetail", () => {
         education: "some-string",
         inDemand: true,
         medianSalary: 38260,
+        openJobsCount: 10,
       });
     });
   });
@@ -60,6 +66,7 @@ describe("getOccupationDetail", () => {
         buildOccupationTitle({ soc: "2010-soc" }),
       ]);
       mockGetEducationText.mockResolvedValue("some education text");
+      mockGetOpenJobsCount.mockResolvedValue(1000);
       stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
         buildOccupationTitle({ soc: "2010-soc" }),
       ]);
@@ -73,7 +80,10 @@ describe("getOccupationDetail", () => {
         education: "some education text",
         inDemand: true,
         medianSalary: 38260,
+        openJobsCount: 1000,
       });
+
+      expect(mockGetOpenJobsCount).toHaveBeenCalledWith("2010-soc");
     });
   });
 
@@ -89,6 +99,7 @@ describe("getOccupationDetail", () => {
 
       stubDataClient.findSocDefinitionBySoc.mockResolvedValue(socDefinition);
       mockGetEducationText.mockResolvedValue("some education text");
+      mockGetOpenJobsCount.mockResolvedValue(100);
       stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
         buildOccupationTitle({ soc: "random-soc" }),
       ]);
@@ -104,6 +115,7 @@ describe("getOccupationDetail", () => {
         education: "some education text",
         inDemand: false,
         medianSalary: 38260,
+        openJobsCount: 100,
       });
     });
   });
