@@ -63,7 +63,7 @@ CONTACTPHONE |
 CONTACTPHONEEXTENSION | 
 PROGRAMID | primary key
 STATUSNAME | 'Approved'/'Suspend'/'Pending'/null
-NAME | name of the school/org/provider 
+PROVIDERNAME | name of the school/org 
 SCHOOLIDENTIFICATIONNUMBER | 
 STREET1 | street address: line 1
 STREET2 | street address: line 2

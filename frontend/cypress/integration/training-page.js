@@ -3,7 +3,7 @@ describe("Training Page", () => {
     cy.visit("/training/48216");
     cy.injectAxe();
 
-    cy.contains("Welding ").should("exist");
+    cy.contains("Welding (w/ Trade Math Lab and Pro. Dev.)").should("exist");
 
     cy.contains("In Demand").should("exist");
     cy.contains("77.5%").should("exist");
@@ -33,7 +33,7 @@ describe("Training Page", () => {
     cy.contains("$0.00").should("exist");
     cy.contains("$0.00").should("exist");
 
-    cy.contains("Camden County College").should("exist");
+    cy.contains("Camden County College - Continuing Education").should("exist");
     cy.contains("Continuing Education").should("exist");
     cy.contains("200 College Drive").should("exist");
     cy.contains("Blackwood, NJ 08012").should("exist");

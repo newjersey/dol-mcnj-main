@@ -22,7 +22,7 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Pastry Arts Academic Credit").should("exist");
+    cy.contains("Pastry Arts Academic Credit Certificate").should("exist");
 
     cy.contains(
       "...student interested in career in pastry arts. Coursework includes baking " +
@@ -40,7 +40,7 @@ describe("Search", () => {
     cy.contains("$4,000.00").should("exist");
     cy.contains("77.5%").should("exist");
     cy.contains("Blackwood").should("exist");
-    cy.contains("Camden County College").should("exist");
+    cy.contains("Camden County College - Continuing Education").should("exist");
     cy.contains("3-5 months to complete").should("exist");
 
     // input search
@@ -57,7 +57,7 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Pastry Arts Academic Credit").should("exist");
+    cy.contains("Pastry Arts Academic Credit Certificate").should("exist");
 
     // removes others
     cy.contains("Introduction to Welding Technology").should("not.exist");
@@ -77,7 +77,7 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/training/37838");
 
     // removes search results
-    cy.contains("Pastry Arts Academic Credit").should("not.exist");
+    cy.contains("Pastry Arts Academic Credit Certificate").should("not.exist");
 
     // shows program
     cy.contains("Baking and Pastry Arts").should("exist");
