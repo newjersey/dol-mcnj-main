@@ -210,6 +210,16 @@ describe("PostgresDataClient", () => {
     });
   });
 
+  describe("getOESCodeBySoc", () => {
+    it("gets the OES 2019 code from a soc 2018 code", async () => {
+      const oesCode = await dataClient.getOESCodeBySoc("15-1254");
+      expect(oesCode).toEqual({
+        soc: "15-1257",
+        soctitle: "Web Developers and Digital Interface Designers",
+      });
+    });
+  });
+
   afterAll(async () => {
     await dataClient.disconnect();
   });
