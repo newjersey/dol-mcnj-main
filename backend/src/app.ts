@@ -25,18 +25,39 @@ const connection = {
   port: 5432,
 };
 
-const zipcodeApiKey = process.env.ZIPCODE_API_KEY || "ZIPCODE_API_KEY";
-const zipcodeBaseUrl = process.env.ZIPCODE_BASEURL || "http://localhost:8090";
+const isCI = process.env.IS_CI;
 
-const onetBaseUrl = process.env.ONET_BASEURL || "http://localhost:8090";
-const onetAuth = {
-  username: process.env.ONET_USERNAME || "ONET_USERNAME",
-  password: process.env.ONET_PASSWORD || "ONET_PASSWORD",
+// default external api values
+const apiValues = {
+  zipcodeApiKey: "ZIPCODE_API_KEY",
+  zipcodeBaseUrl: "http://localhost:8090",
+  onetBaseUrl: "http://localhost:8090",
+  onetAuth: {
+    username: "ONET_USERNAME",
+    password: "ONET_PASSWORD",
+  },
+  careerOneStopBaseUrl: "http://localhost:8090",
+  careerOneStopUserId: "CAREER_ONESTOP_USERID",
+  careerOneStopAuthToken: "CAREER_ONESTOP_AUTH_TOKEN",
 };
 
-const careerOneStopBaseUrl = process.env.CAREER_ONESTOP_BASEURL || "http://localhost:8090";
-const careerOneStopUserId = process.env.CAREER_ONESTOP_USERID || "CAREER_ONESTOP_USERID";
-const careerOneStopAuthToken = process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
+// try to update to use env vars in all cases EXCEPT running feature tests in CI
+// because in CI, we want to use wiremock jsons, not the real APIs
+if (!isCI) {
+  apiValues.zipcodeApiKey = process.env.ZIPCODE_API_KEY || "ZIPCODE_API_KEY";
+  apiValues.zipcodeBaseUrl = process.env.ZIPCODE_BASEURL || "http://localhost:8090";
+
+  apiValues.onetBaseUrl = process.env.ONET_BASEURL || "http://localhost:8090";
+  apiValues.onetAuth = {
+    username: process.env.ONET_USERNAME || "ONET_USERNAME",
+    password: process.env.ONET_PASSWORD || "ONET_PASSWORD",
+  };
+
+  apiValues.careerOneStopBaseUrl = process.env.CAREER_ONESTOP_BASEURL || "http://localhost:8090";
+  apiValues.careerOneStopUserId = process.env.CAREER_ONESTOP_USERID || "CAREER_ONESTOP_USERID";
+  apiValues.careerOneStopAuthToken =
+    process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
+}
 
 const postgresDataClient = new PostgresDataClient(connection);
 const postgresSearchClient = new PostgresSearchClient(connection);
@@ -46,12 +67,16 @@ const router = routerFactory({
   searchTrainings: searchTrainingsFactory(findTrainingsByIds, postgresSearchClient),
   findTrainingsByIds: findTrainingsByIds,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
-  getZipCodesInRadius: ZipcodeClient(zipcodeBaseUrl, zipcodeApiKey),
+  getZipCodesInRadius: ZipcodeClient(apiValues.zipcodeBaseUrl, apiValues.zipcodeApiKey),
   getOccupationDetail: getOccupationDetailFactory(
-    OnetClient(onetBaseUrl, onetAuth),
+    OnetClient(apiValues.onetBaseUrl, apiValues.onetAuth),
     getEducationTextFactory(postgresDataClient),
     getSalaryEstimateFactory(postgresDataClient),
-    CareerOneStopClient(careerOneStopBaseUrl, careerOneStopUserId, careerOneStopAuthToken),
+    CareerOneStopClient(
+      apiValues.careerOneStopBaseUrl,
+      apiValues.careerOneStopUserId,
+      apiValues.careerOneStopAuthToken
+    ),
     postgresDataClient
   ),
 });
