@@ -173,6 +173,17 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
+  getOESCodeBySoc = (soc: string): Promise<OccupationTitle> => {
+    return this.kdb("oeshybridcrosswalk")
+      .select("oes2019estimatescode as soc", "oes2019estimatestitle as soctitle")
+      .where("soccode2018", soc)
+      .first()
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
   disconnect = async (): Promise<void> => {
     await this.kdb.destroy();
   };

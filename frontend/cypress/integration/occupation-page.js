@@ -88,7 +88,7 @@ describe("Occupation Page", () => {
     cy.contains("Web Developers").should("exist");
 
     // median salary
-    cy.contains("--").should("exist");
+    cy.contains("$79,810").should("exist");
 
     // open jobs
     cy.contains("1,710").should("exist");
@@ -112,15 +112,20 @@ describe("Occupation Page", () => {
     cy.contains("Select programming languages, design tools, or applications.").should("exist");
 
     // education
-    cy.contains("This data is not yet available for this occupation.").should("exist");
+    cy.contains(
+      "Educational requirements for web developers vary with the setting they work in and the type of work they do. Requirements range from a high school diploma to a bachelor’s degree. Web developers need knowledge of both programming and graphic design."
+    ).should("exist");
   });
 
   it("displays occupation details from BLS descriptions for non-ONET socs", () => {
     cy.visit("/occupation/15-1255");
     cy.contains("Web and Digital Interface Designers").should("exist");
 
-    // open jobs & median salary
+    // open jobs
     cy.contains("--").should("exist");
+
+    // median salary
+    cy.contains("$79,810").should("exist");
 
     // description
     cy.contains(
@@ -128,6 +133,8 @@ describe("Occupation Page", () => {
     ).should("exist");
 
     // education & tasks
-    cy.contains("This data is not yet available for this occupation.").should("exist");
+    cy.contains(
+      "Educational requirements for web developers vary with the setting they work in and the type of work they do. Requirements range from a high school diploma to a bachelor’s degree. Web developers need knowledge of both programming and graphic design."
+    ).should("exist");
   });
 });

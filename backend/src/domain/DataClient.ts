@@ -18,4 +18,5 @@ export interface DataClient {
   getInDemandOccupationTitles: () => Promise<NullableOccupationTitle[]>;
   getEducationTextBySoc: (soc: string) => Promise<EducationText>;
   getSalaryEstimateBySoc: (soc: string) => Promise<SalaryEstimate>;
+  getOESCodeBySoc: (soc: string) => Promise<OccupationTitle>;
 }
