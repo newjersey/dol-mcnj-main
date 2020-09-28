@@ -91,4 +91,16 @@ describe("getInDemandOccupations", () => {
     expect(occupations[0].majorGroup).toEqual("Architecture");
     expect(occupations[1].majorGroup).toEqual("Engineering");
   });
+
+  it("removes duplicates from the in demand occupations list", async () => {
+    stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
+      buildOccupationTitle({ soctitle: "soc 1", soc: "1" }),
+      buildOccupationTitle({ soctitle: "soc 1", soc: "1" }),
+    ]);
+
+    stubDataClient.findSocDefinitionBySoc.mockResolvedValue(buildSocDefinition({}));
+
+    const occupations = await getInDemandOccupations();
+    expect(occupations).toHaveLength(1);
+  });
 });
