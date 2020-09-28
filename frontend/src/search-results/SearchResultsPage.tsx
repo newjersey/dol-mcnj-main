@@ -68,8 +68,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
   };
 
-  const setToReloadState = (): void => {
+  const resetState = (): void => {
     setIsLoading(true);
+    setSortOrder(SortOrder.BEST_MATCH);
     setTrainings([]);
   };
 
@@ -148,7 +149,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : undefined}
                 resultCount={filteredTrainings.length}
                 setShowTrainings={setShouldShowTrainings}
-                setToReloadState={setToReloadState}
+                resetStateForReload={resetState}
                 client={props.client}
               >
                 {getSortDropdown()}

@@ -29,7 +29,7 @@ describe("<FilterBox />", () => {
         <FilterBox
           resultCount={1}
           setShowTrainings={jest.fn()}
-          setToReloadState={jest.fn()}
+          resetStateForReload={jest.fn()}
           client={new StubClient()}
         >
           <div />
@@ -43,7 +43,7 @@ describe("<FilterBox />", () => {
       <FilterBox
         resultCount={resultCount}
         setShowTrainings={setShowTrainings}
-        setToReloadState={jest.fn()}
+        resetStateForReload={jest.fn()}
         client={new StubClient()}
       >
         <div />

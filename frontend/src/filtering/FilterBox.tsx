@@ -17,7 +17,7 @@ interface Props {
   searchQuery?: string;
   resultCount: number;
   setShowTrainings: (shouldShowTrainings: boolean) => void;
-  setToReloadState: () => void;
+  resetStateForReload: () => void;
   children: ReactElement;
   client: Client;
 }
@@ -34,7 +34,7 @@ export const FilterBox = ({
   searchQuery,
   resultCount,
   setShowTrainings,
-  setToReloadState,
+  resetStateForReload,
   children,
   client,
 }: Props): ReactElement => {
@@ -94,7 +94,7 @@ export const FilterBox = ({
       return;
     }
 
-    setToReloadState();
+    resetStateForReload();
     navigate(`/search/${encodeURIComponent(newQuery)}`);
   };
 
