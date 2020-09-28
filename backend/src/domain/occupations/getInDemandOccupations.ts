@@ -5,10 +5,17 @@ import { NullableOccupationTitle, OccupationTitle } from "../training/Program";
 import { stripOccupations } from "../utils/stripOccupations";
 
 export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDemandOccupations => {
+  const removeDuplicateSocs = (occupationTitles: OccupationTitle[]): OccupationTitle[] => {
+    return occupationTitles.filter(
+      (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
+    );
+  };
+
   const expand2010SocsTo2018 = async (
     occupationTitles: NullableOccupationTitle[]
   ): Promise<OccupationTitle[]> => {
     let expanded: OccupationTitle[] = [];
+
     for (const occupationTitle of occupationTitles) {
       if (!occupationTitle.soctitle) {
         const socs2018withBadTitles = await dataClient.find2018OccupationTitlesBySoc2010(
@@ -31,7 +38,7 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
 
   return async (): Promise<Occupation[]> => {
     const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
-    const expandedInDemand = await expand2010SocsTo2018(inDemandOccupations);
+    const expandedInDemand = removeDuplicateSocs(await expand2010SocsTo2018(inDemandOccupations));
 
     return Promise.all(
       expandedInDemand.map(async (occupationTitle) => {
