@@ -133,15 +133,17 @@ in a table new fresher data from a CSV), here is what to do:
 > if we're updating the `etpl` table, 
 follow the [ETPL table seed guide](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md)
 
-For the up-file:
-- Follow the seed instructions above to add the CSV and create an `update-*.sql` file
-- Follow the instructions above to use `csvInserter` to insert new CSV data into your update file.
-- Add a `delete from [tablename];` line at the top of the sql file.
+First, create a db-migration (with a `update-*.sql` filename pattern).
 
-For the down-file:
-- Copy all the insert statements from the **previous** seed/update up-file for this table into this down-file.
-- Add a `delete from [tablename];` line at the top of the sql down-file
+Next, make sure that both the OLD (previous) CSV and also the NEW (about-to-be-inserted) CSV are in the `backend/data` folder.
 
+Next, we have a script for creating update migrations by finding the changed rows, and then deleting and re-inserting
+only those rows.
+
+Run the script:
+```shell script
+./backend/data/create_update_migrations.sh oldFilename.csv newFilename.csv tablenameToInsertInto backend/migrations/sqls/upFile.sql backend/migrations/sqls/downFile.sql
+```
 
 ## Pushing changes
 
