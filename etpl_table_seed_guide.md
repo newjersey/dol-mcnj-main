@@ -14,10 +14,11 @@ The process, at a high level:
 
 Make sure the newest `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` are in the `backend/data` folder.
 
-Execute the combiner script as follows:
+Execute the combiner script as follows (including renaming the old etpl csv):
 
 ```shell script
 cd backend/data
+mv standardized_etpl.csv standardized_etpl_old.csv
 ./combine-etpl.sh programs_yyyymmdd.csv providers_yyyymmdd.csv
 ```
 
@@ -32,15 +33,14 @@ Run the standardizer script (still in the `/backend/data` folder) as follows:
 ./run-standardization.sh
 ```
 
-This will create the `standardized_etpl.csv` and put it in the `/backend/data` folder
+This will create the new `standardized_etpl.csv` and put it in the `/backend/data` folder
 
 ## Insert the data 
 
 Follow the [README instructions](https://github.com/newjersey/d4ad/blob/master/README.md#updating-seeds) to create
 a new migration for the update operation.  The tablename is `etpl`.  
 
-Remember to include the `delete from` statement at the top.
-Use the `standardized_etpl.csv` to create insert statements.
+Use the `standardized_etpl.csv` as the "new" file, and `standardized_etpl_old.csv` as the "old" file.
 
 ## Update the `programtokens`
 
