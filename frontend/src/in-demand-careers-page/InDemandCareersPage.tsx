@@ -19,6 +19,10 @@ export const InDemandCareersPage = (props: Props): ReactElement => {
   );
 
   useEffect(() => {
+    document.title = "In-Demand Careers";
+  }, []);
+
+  useEffect(() => {
     props.client.getOccupations({
       onSuccess: (data) => setOccupationLookup(groupOccupations(data)),
       onError: () => {},

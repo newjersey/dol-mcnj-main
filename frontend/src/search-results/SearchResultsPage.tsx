@@ -36,6 +36,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const { state } = useContext(FilterContext);
 
   useEffect(() => {
+    document.title = `${props.searchQuery} - Search Results`;
+  }, [props.searchQuery]);
+
+  useEffect(() => {
     let newFilteredTrainings = trainings;
     state.filters.forEach((filter) => {
       newFilteredTrainings = filter.func(newFilteredTrainings);
