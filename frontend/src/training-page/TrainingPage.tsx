@@ -27,6 +27,12 @@ export const TrainingPage = (props: Props): ReactElement => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    if (training) {
+      document.title = `${training.name}`;
+    }
+  }, [training]);
+
+  useEffect(() => {
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: (result: Training) => {

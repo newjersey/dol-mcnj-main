@@ -27,6 +27,12 @@ export const OccupationPage = (props: Props): ReactElement => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    if (occupationDetail) {
+      document.title = `${occupationDetail.title}`;
+    }
+  }, [occupationDetail]);
+
+  useEffect(() => {
     const socCode = props.soc ? props.soc : "";
 
     props.client.getOccupationDetailBySoc(socCode, {

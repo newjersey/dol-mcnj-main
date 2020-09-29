@@ -1,9 +1,13 @@
 import { Header } from "../search-results/Header";
 import { BetaBanner } from "../components/BetaBanner";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 
 export const FundingPage = (props: RouteComponentProps): ReactElement => {
+  useEffect(() => {
+    document.title = "Fund Your Training";
+  }, []);
+
   return (
     <>
       <Header />
