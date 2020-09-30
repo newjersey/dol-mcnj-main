@@ -1,5 +1,6 @@
 dist/
 migrations/
 data/csvInserter.js
+data/csvUpdater.js
 src/globalSetup.js
 src/globalTeardown.js
