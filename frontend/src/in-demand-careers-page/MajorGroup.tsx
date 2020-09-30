@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { Occupation } from "../domain/Occupation";
+import { InDemandOccupation } from "../domain/Occupation";
 import { Icon } from "@material-ui/core";
 import { Link } from "@reach/router";
 
@@ -29,7 +29,7 @@ import TransportationandMaterialMovingOccupations from "./industry-icons/Transpo
 
 interface Props {
   majorGroupName: string;
-  occupations: Occupation[];
+  occupations: InDemandOccupation[];
 }
 
 export const MajorGroup = (props: Props): ReactElement => {

@@ -1,34 +1,30 @@
 import { DataClient } from "../DataClient";
 import { GetInDemandOccupations } from "../types";
-import { Occupation } from "./Occupation";
-import { NullableOccupationTitle, OccupationTitle } from "../training/Program";
+import { InDemandOccupation, Occupation } from "./Occupation";
 import { stripOccupations } from "../utils/stripOccupations";
+import { NullableOccupation } from "../training/Program";
 
 export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDemandOccupations => {
-  const removeDuplicateSocs = (occupationTitles: OccupationTitle[]): OccupationTitle[] => {
+  const removeDuplicateSocs = (occupationTitles: Occupation[]): Occupation[] => {
     return occupationTitles.filter(
       (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
     );
   };
 
-  const expand2010SocsTo2018 = async (
-    occupationTitles: NullableOccupationTitle[]
-  ): Promise<OccupationTitle[]> => {
-    let expanded: OccupationTitle[] = [];
+  const expand2010SocsTo2018 = async (occupations: NullableOccupation[]): Promise<Occupation[]> => {
+    let expanded: Occupation[] = [];
 
-    for (const occupationTitle of occupationTitles) {
-      if (!occupationTitle.soctitle) {
-        const socs2018withBadTitles = await dataClient.find2018OccupationTitlesBySoc2010(
-          occupationTitle.soc
-        );
+    for (const occupation of occupations) {
+      if (!occupation.title) {
+        const socs2018withBadTitles = await dataClient.find2018OccupationsBySoc2010(occupation.soc);
         const socs2018 = await Promise.all(
           socs2018withBadTitles.map(async (it) => await dataClient.findSocDefinitionBySoc(it.soc))
         );
         expanded = [...expanded, ...socs2018];
       } else {
         expanded.push({
-          ...occupationTitle,
-          soctitle: occupationTitle.soctitle as string,
+          ...occupation,
+          title: occupation.title as string,
         });
       }
     }
@@ -36,8 +32,8 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
     return expanded;
   };
 
-  return async (): Promise<Occupation[]> => {
-    const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
+  return async (): Promise<InDemandOccupation[]> => {
+    const inDemandOccupations = await dataClient.getOccupationsInDemand();
     const expandedInDemand = removeDuplicateSocs(await expand2010SocsTo2018(inDemandOccupations));
 
     return Promise.all(
@@ -48,8 +44,8 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
         const majorGroup = await dataClient.findSocDefinitionBySoc(majorGroupSoc);
         return {
           soc: occupationTitle.soc,
-          title: occupationTitle.soctitle,
-          majorGroup: stripOccupations(majorGroup.soctitle),
+          title: occupationTitle.title,
+          majorGroup: stripOccupations(majorGroup.title),
         };
       })
     );

@@ -1,14 +1,13 @@
 import { TrainingResult } from "../search/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
-import { Occupation, OccupationDetail, OccupationDetailPartial } from "../occupations/Occupation";
-import { CalendarLength } from "../CalendarLength";
 import {
-  LocalException,
-  NullableOccupationTitle,
-  OccupationTitle,
-  Program,
-  SocDefinition,
-} from "../training/Program";
+  InDemandOccupation,
+  Occupation,
+  OccupationDetail,
+  OccupationDetailPartial,
+} from "../occupations/Occupation";
+import { CalendarLength } from "../CalendarLength";
+import { LocalException, NullableOccupation, Program, SocDefinition } from "../training/Program";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -87,6 +86,16 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
   return {
     soc: "some-soc-" + randomInt(),
     title: "some-title-" + randomInt(),
+    ...overrides,
+  };
+};
+
+export const buildInDemandOccupation = (
+  overrides: Partial<InDemandOccupation>
+): InDemandOccupation => {
+  return {
+    soc: "some-soc-" + randomInt(),
+    title: "some-title-" + randomInt(),
     majorGroup: "some-group-" + randomInt(),
     ...overrides,
   };
@@ -153,29 +162,21 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
   };
 };
 
-export const buildOccupationTitle = (overrides: Partial<OccupationTitle>): OccupationTitle => {
-  return {
-    soc: "some-soc-" + randomInt(),
-    soctitle: "some-soctitle-" + randomInt(),
-    ...overrides,
-  };
-};
-
 export const buildSocDefinition = (overrides: Partial<SocDefinition>): SocDefinition => {
   return {
     soc: "some-soc-" + randomInt(),
-    soctitle: "some-soctitle-" + randomInt(),
-    socdefinition: "some-socdefinition-" + randomInt(),
+    title: "some-soctitle-" + randomInt(),
+    definition: "some-socdefinition-" + randomInt(),
     ...overrides,
   };
 };
 
-export const buildNullableOccupationTitle = (
-  overrides: Partial<NullableOccupationTitle>
-): NullableOccupationTitle => {
+export const buildNullableOccupation = (
+  overrides: Partial<NullableOccupation>
+): NullableOccupation => {
   return {
     soc: "some-soc-" + randomInt(),
-    soctitle: "some-soctitle-" + randomInt(),
+    title: "some-soctitle-" + randomInt(),
     ...overrides,
   };
 };

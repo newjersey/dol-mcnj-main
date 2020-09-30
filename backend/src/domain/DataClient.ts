@@ -1,22 +1,22 @@
 import {
   LocalException,
-  NullableOccupationTitle,
-  OccupationTitle,
   Program,
   SocDefinition,
   EducationText,
   SalaryEstimate,
+  NullableOccupation,
 } from "./training/Program";
+import { Occupation } from "./occupations/Occupation";
 
 export interface DataClient {
   findProgramsByIds: (ids: string[]) => Promise<Program[]>;
-  findOccupationTitlesByCip: (cip: string) => Promise<OccupationTitle[]>;
+  findOccupationsByCip: (cip: string) => Promise<Occupation[]>;
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
-  find2018OccupationTitlesBySoc2010: (soc2010: string) => Promise<OccupationTitle[]>;
-  find2010OccupationTitlesBySoc2018: (soc2018: string) => Promise<OccupationTitle[]>;
+  find2018OccupationsBySoc2010: (soc2010: string) => Promise<Occupation[]>;
+  find2010OccupationsBySoc2018: (soc2018: string) => Promise<Occupation[]>;
   getLocalExceptions: () => Promise<LocalException[]>;
-  getInDemandOccupationTitles: () => Promise<NullableOccupationTitle[]>;
+  getOccupationsInDemand: () => Promise<NullableOccupation[]>;
   getEducationTextBySoc: (soc: string) => Promise<EducationText>;
   getSalaryEstimateBySoc: (soc: string) => Promise<SalaryEstimate>;
-  getOESCodeBySoc: (soc: string) => Promise<OccupationTitle>;
+  getOESOccupationBySoc: (soc: string) => Promise<Occupation>;
 }

@@ -2,7 +2,7 @@
 
 import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
-import { Occupation, OccupationDetail } from "../domain/Occupation";
+import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
 
 export class StubClient implements Client {
@@ -27,7 +27,7 @@ export class StubClient implements Client {
     this.capturedId = id;
   }
 
-  getOccupations(observer: Observer<Occupation[]>): void {
+  getInDemandOccupations(observer: Observer<InDemandOccupation[]>): void {
     this.capturedObserver = observer;
     this.getOccupationsWasCalled = true;
   }

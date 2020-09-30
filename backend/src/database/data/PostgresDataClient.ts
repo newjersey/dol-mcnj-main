@@ -3,14 +3,14 @@ import Knex, { PgConnectionConfig } from "knex";
 import { Error } from "../../domain/Error";
 import {
   LocalException,
-  NullableOccupationTitle,
-  OccupationTitle,
   SocDefinition,
   Program,
   EducationText,
   SalaryEstimate,
+  NullableOccupation,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
+import { Occupation } from "../../domain/occupations/Occupation";
 
 const APPROVED = "Approved";
 
@@ -99,9 +99,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  findOccupationTitlesByCip = (cip: string): Promise<OccupationTitle[]> => {
+  findOccupationsByCip = (cip: string): Promise<Occupation[]> => {
     return this.kdb("soccipcrosswalk")
-      .select("soc2018code as soc", "soc2018title as soctitle")
+      .select("soc2018code as soc", "soc2018title as title")
       .where("cipcode", cip)
       .catch((e) => {
         console.log("db error: ", e);
@@ -111,7 +111,7 @@ export class PostgresDataClient implements DataClient {
 
   findSocDefinitionBySoc = (soc: string): Promise<SocDefinition> => {
     return this.kdb("socdefinitions")
-      .select("soccode as soc", "soctitle", "socdefinition")
+      .select("soccode as soc", "soctitle as title", "socdefinition as definition")
       .where("soccode", soc)
       .first()
       .catch((e) => {
@@ -120,9 +120,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  find2018OccupationTitlesBySoc2010 = (soc2010: string): Promise<OccupationTitle[]> => {
+  find2018OccupationsBySoc2010 = (soc2010: string): Promise<Occupation[]> => {
     return this.kdb("soc2010to2018crosswalk")
-      .select("soccode2018 as soc", "soctitle2018 as soctitle")
+      .select("soccode2018 as soc", "soctitle2018 as title")
       .where("soccode2010", soc2010)
       .catch((e) => {
         console.log("db error: ", e);
@@ -130,9 +130,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  find2010OccupationTitlesBySoc2018 = (soc2018: string): Promise<OccupationTitle[]> => {
+  find2010OccupationsBySoc2018 = (soc2018: string): Promise<Occupation[]> => {
     return this.kdb("soc2010to2018crosswalk")
-      .select("soccode2010 as soc", "soctitle2010 as soctitle")
+      .select("soccode2010 as soc", "soctitle2010 as title")
       .where("soccode2018", soc2018)
       .catch((e) => {
         console.log("db error: ", e);
@@ -140,9 +140,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  getInDemandOccupationTitles = async (): Promise<NullableOccupationTitle[]> => {
+  getOccupationsInDemand = async (): Promise<NullableOccupation[]> => {
     return this.kdb("indemandsocs")
-      .select("soc", "socdefinitions.soctitle")
+      .select("soc", "socdefinitions.soctitle as title")
       .leftOuterJoin("socdefinitions", "socdefinitions.soccode", "indemandsocs.soc")
       .catch((e) => {
         console.log("db error: ", e);
@@ -173,9 +173,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  getOESCodeBySoc = (soc: string): Promise<OccupationTitle> => {
+  getOESOccupationBySoc = (soc: string): Promise<Occupation> => {
     return this.kdb("oeshybridcrosswalk")
-      .select("oes2019estimatescode as soc", "oes2019estimatestitle as soctitle")
+      .select("oes2019estimatescode as soc", "oes2019estimatestitle as title")
       .where("soccode2018", soc)
       .first()
       .catch((e) => {
