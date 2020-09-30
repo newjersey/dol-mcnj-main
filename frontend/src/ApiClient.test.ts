@@ -8,7 +8,7 @@ import {
   buildOccupationDetail,
 } from "./test-objects/factories";
 import { Error } from "./domain/Error";
-import { Occupation } from "./domain/Occupation";
+import { InDemandOccupation } from "./domain/Occupation";
 
 jest.mock("axios");
 
@@ -120,7 +120,7 @@ describe("ApiClient", () => {
       mockedAxios.get.mockResolvedValue({ data: occupations });
 
       const observer = {
-        onSuccess: (data: Occupation[]): void => {
+        onSuccess: (data: InDemandOccupation[]): void => {
           expect(mockedAxios.get).toHaveBeenCalledWith("/api/occupations");
           expect(data).toEqual(occupations);
           done();
@@ -128,7 +128,7 @@ describe("ApiClient", () => {
         onError: jest.fn(),
       };
 
-      apiClient.getOccupations(observer);
+      apiClient.getInDemandOccupations(observer);
     });
 
     it("calls observer with error and type when GET fails", (done) => {
@@ -141,7 +141,7 @@ describe("ApiClient", () => {
         },
       };
 
-      apiClient.getOccupations(observer);
+      apiClient.getInDemandOccupations(observer);
     });
   });
 

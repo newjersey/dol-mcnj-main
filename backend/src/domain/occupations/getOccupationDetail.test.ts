@@ -3,7 +3,7 @@ import { StubDataClient } from "../test-objects/StubDataClient";
 import { getOccupationDetailFactory } from "./getOccupationDetail";
 import {
   buildOccupationDetailPartial,
-  buildOccupationTitle,
+  buildOccupation,
   buildSocDefinition,
 } from "../test-objects/factories";
 import { Error } from "../Error";
@@ -38,8 +38,8 @@ describe("getOccupationDetail", () => {
       mockGetEducationText.mockResolvedValue("some-string");
       mockGetOpenJobsCount.mockResolvedValue(10);
 
-      stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
-        buildOccupationTitle({ soc: "some-soc" }),
+      stubDataClient.getOccupationsInDemand.mockResolvedValue([
+        buildOccupation({ soc: "some-soc" }),
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
@@ -62,13 +62,13 @@ describe("getOccupationDetail", () => {
         .mockRejectedValueOnce(Error.SYSTEM_ERROR)
         .mockResolvedValueOnce(onetOccupationDetail);
 
-      stubDataClient.find2010OccupationTitlesBySoc2018.mockResolvedValue([
-        buildOccupationTitle({ soc: "2010-soc" }),
+      stubDataClient.find2010OccupationsBySoc2018.mockResolvedValue([
+        buildOccupation({ soc: "2010-soc" }),
       ]);
       mockGetEducationText.mockResolvedValue("some education text");
       mockGetOpenJobsCount.mockResolvedValue(1000);
-      stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
-        buildOccupationTitle({ soc: "2010-soc" }),
+      stubDataClient.getOccupationsInDemand.mockResolvedValue([
+        buildOccupation({ soc: "2010-soc" }),
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
@@ -92,16 +92,16 @@ describe("getOccupationDetail", () => {
       const socDefinition = buildSocDefinition({ soc: "2018-soc" });
 
       mockOnet.mockRejectedValue(Error.SYSTEM_ERROR);
-      stubDataClient.find2010OccupationTitlesBySoc2018.mockResolvedValue([
-        buildOccupationTitle({}),
-        buildOccupationTitle({}),
+      stubDataClient.find2010OccupationsBySoc2018.mockResolvedValue([
+        buildOccupation({}),
+        buildOccupation({}),
       ]);
 
       stubDataClient.findSocDefinitionBySoc.mockResolvedValue(socDefinition);
       mockGetEducationText.mockResolvedValue("some education text");
       mockGetOpenJobsCount.mockResolvedValue(100);
-      stubDataClient.getInDemandOccupationTitles.mockResolvedValue([
-        buildOccupationTitle({ soc: "random-soc" }),
+      stubDataClient.getOccupationsInDemand.mockResolvedValue([
+        buildOccupation({ soc: "random-soc" }),
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
@@ -109,8 +109,8 @@ describe("getOccupationDetail", () => {
 
       expect(result).toEqual({
         soc: socDefinition.soc,
-        title: socDefinition.soctitle,
-        description: socDefinition.socdefinition,
+        title: socDefinition.title,
+        description: socDefinition.definition,
         tasks: [],
         education: "some education text",
         inDemand: false,

@@ -111,17 +111,17 @@ describe("PostgresDataClient", () => {
     });
   });
 
-  describe("findOccupationTitlesByCip", () => {
+  describe("findOccupationsByCip", () => {
     it("gets occupation information for a cip code", async () => {
-      const occupationTitles = await dataClient.findOccupationTitlesByCip("987654");
-      expect(occupationTitles).toEqual([
+      const occupations = await dataClient.findOccupationsByCip("987654");
+      expect(occupations).toEqual([
         {
           soc: "11-1011",
-          soctitle: "Botanists",
+          title: "Botanists",
         },
         {
           soc: "12-1011",
-          soctitle: "Chefs",
+          title: "Chefs",
         },
       ]);
     });
@@ -132,64 +132,64 @@ describe("PostgresDataClient", () => {
       const socDefinition = await dataClient.findSocDefinitionBySoc("11-1011");
       expect(socDefinition).toEqual({
         soc: "11-1011",
-        soctitle: "Botanist Specialists",
-        socdefinition: "Do stuff related to plants",
+        title: "Botanist Specialists",
+        definition: "Do stuff related to plants",
       });
     });
   });
 
-  describe("getInDemandOccupationTitles", () => {
+  describe("getOccupationsInDemand", () => {
     it("gets the list of in-demand SOCs and looks up their titles", async () => {
-      const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
+      const inDemandOccupations = await dataClient.getOccupationsInDemand();
       expect(inDemandOccupations).toEqual(
         expect.arrayContaining([
           {
             soc: "11-1011",
-            soctitle: "Botanist Specialists",
+            title: "Botanist Specialists",
           },
           {
             soc: "13-1081",
-            soctitle: "Logisticians",
+            title: "Logisticians",
           },
           {
             soc: "old 2010 soc",
-            soctitle: null,
+            title: null,
           },
         ])
       );
     });
   });
 
-  describe("find2018OccupationTitlesBySoc2010", () => {
+  describe("find2018OccupationsBySoc2010", () => {
     it("gets the list 2018 occupations for a 2010 soc", async () => {
-      const soc2018s = await dataClient.find2018OccupationTitlesBySoc2010("15-1134");
+      const soc2018s = await dataClient.find2018OccupationsBySoc2010("15-1134");
       expect(soc2018s).toEqual(
         expect.arrayContaining([
           {
             soc: "15-1254",
-            soctitle: "Web Developers",
+            title: "Web Developers",
           },
           {
             soc: "15-1255",
-            soctitle: "Web and Digital Interface Designers (##)",
+            title: "Web and Digital Interface Designers (##)",
           },
         ])
       );
     });
   });
 
-  describe("find2010OccupationTitlesBySoc2018", () => {
+  describe("find2010OccupationsBySoc2018", () => {
     it("gets the list 2010 occupations for a 2018 soc", async () => {
-      const soc2010s = await dataClient.find2010OccupationTitlesBySoc2018("15-1255");
+      const soc2010s = await dataClient.find2010OccupationsBySoc2018("15-1255");
       expect(soc2010s).toEqual(
         expect.arrayContaining([
           {
             soc: "15-1134",
-            soctitle: "Web Developers (#)",
+            title: "Web Developers (#)",
           },
           {
             soc: "15-1199",
-            soctitle: "Computer Occupations, All Other (#)",
+            title: "Computer Occupations, All Other (#)",
           },
         ])
       );
@@ -213,12 +213,12 @@ describe("PostgresDataClient", () => {
     });
   });
 
-  describe("getOESCodeBySoc", () => {
+  describe("getOESOccupationBySoc", () => {
     it("gets the OES 2019 code from a soc 2018 code", async () => {
-      const oesCode = await dataClient.getOESCodeBySoc("15-1254");
+      const oesCode = await dataClient.getOESOccupationBySoc("15-1254");
       expect(oesCode).toEqual({
         soc: "15-1257",
-        soctitle: "Web Developers and Digital Interface Designers",
+        title: "Web Developers and Digital Interface Designers",
       });
     });
   });

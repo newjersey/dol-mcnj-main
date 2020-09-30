@@ -13,7 +13,7 @@ export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainings
 
     return Promise.all(
       programs.map(async (program: Program) => {
-        const matchingOccupations = await dataClient.findOccupationTitlesByCip(program.cipcode);
+        const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
         const localExceptionCounties = (await dataClient.getLocalExceptions())
           .filter((localException: LocalException) => localException.cipcode === program.cipcode)
           .map((localException: LocalException) =>
@@ -50,9 +50,8 @@ export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainings
             ? parseInt(program.calendarlengthid)
             : CalendarLength.NULL,
           occupations: matchingOccupations.map((it) => ({
-            title: it.soctitle,
+            title: it.title,
             soc: it.soc,
-            majorGroup: "",
           })),
           inDemand: !!program.indemandcip,
           localExceptionCounty: localExceptionCounties,

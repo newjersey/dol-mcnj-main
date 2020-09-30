@@ -4,7 +4,7 @@ import { FindTrainingsByIds } from "../types";
 import { CalendarLength } from "../CalendarLength";
 import { findTrainingsByIdsFactory } from "./findTrainingsByIds";
 import { StubDataClient } from "../test-objects/StubDataClient";
-import { buildLocalException, buildOccupationTitle, buildProgram } from "../test-objects/factories";
+import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
 
 describe("findTrainingsByIds", () => {
   let findTrainingsByIds: FindTrainingsByIds;
@@ -15,7 +15,7 @@ describe("findTrainingsByIds", () => {
     stubDataClient = StubDataClient();
     findTrainingsByIds = findTrainingsByIdsFactory(stubDataClient);
     stubDataClient.getLocalExceptions.mockResolvedValue([]);
-    stubDataClient.findOccupationTitlesByCip.mockResolvedValue([]);
+    stubDataClient.findOccupationsByCip.mockResolvedValue([]);
   });
 
   it("finds training by one id", async () => {
@@ -26,9 +26,9 @@ describe("findTrainingsByIds", () => {
       onlineprogramid: "123",
     });
     stubDataClient.findProgramsByIds.mockResolvedValue([program]);
-    stubDataClient.findOccupationTitlesByCip.mockResolvedValue([
-      buildOccupationTitle({ soctitle: "some job", soc: "123" }),
-      buildOccupationTitle({ soctitle: "some other job", soc: "456" }),
+    stubDataClient.findOccupationsByCip.mockResolvedValue([
+      buildOccupation({ title: "some job", soc: "123" }),
+      buildOccupation({ title: "some other job", soc: "456" }),
     ]);
     stubDataClient.getLocalExceptions.mockResolvedValue([
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
@@ -58,8 +58,8 @@ describe("findTrainingsByIds", () => {
         description: program.description,
         calendarLength: parseInt(program.calendarlengthid!),
         occupations: [
-          { soc: "123", title: "some job", majorGroup: "" },
-          { soc: "456", title: "some other job", majorGroup: "" },
+          { soc: "123", title: "some job" },
+          { soc: "456", title: "some other job" },
         ],
         inDemand: true,
         localExceptionCounty: ["Atlantic"],
@@ -82,9 +82,9 @@ describe("findTrainingsByIds", () => {
 
     stubDataClient.findProgramsByIds.mockResolvedValue([program1, program2]);
 
-    stubDataClient.findOccupationTitlesByCip
-      .mockResolvedValueOnce([buildOccupationTitle({ soctitle: "occupation 1" })])
-      .mockResolvedValueOnce([buildOccupationTitle({ soctitle: "occupation 2" })]);
+    stubDataClient.findOccupationsByCip
+      .mockResolvedValueOnce([buildOccupation({ title: "occupation 1" })])
+      .mockResolvedValueOnce([buildOccupation({ title: "occupation 2" })]);
 
     stubDataClient.getLocalExceptions
       .mockResolvedValueOnce([
@@ -116,15 +116,15 @@ describe("findTrainingsByIds", () => {
 
   it("lists matching occupation titles for a training", async () => {
     stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({})]);
-    stubDataClient.findOccupationTitlesByCip.mockResolvedValue([
-      buildOccupationTitle({ soctitle: "chemists", soc: "456" }),
-      buildOccupationTitle({ soctitle: "astrophysicists", soc: "123" }),
+    stubDataClient.findOccupationsByCip.mockResolvedValue([
+      buildOccupation({ title: "chemists", soc: "456" }),
+      buildOccupation({ title: "astrophysicists", soc: "123" }),
     ]);
 
     const training = await findTrainingsByIds(["123"]);
     expect(training[0].occupations).toEqual([
-      { title: "chemists", soc: "456", majorGroup: "" },
-      { title: "astrophysicists", soc: "123", majorGroup: "" },
+      { title: "chemists", soc: "456" },
+      { title: "astrophysicists", soc: "123" },
     ]);
   });
 
@@ -362,7 +362,7 @@ describe("findTrainingsByIds", () => {
 
     it("rejects when occupation title lookup is broken", (done) => {
       stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({})]);
-      stubDataClient.findOccupationTitlesByCip.mockRejectedValue({});
+      stubDataClient.findOccupationsByCip.mockRejectedValue({});
       findTrainingsByIds(["id"]).catch(() => done());
     });
   });

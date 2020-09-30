@@ -1,18 +1,18 @@
 import React, { ChangeEvent, ReactElement } from "react";
-import { Occupation } from "../domain/Occupation";
+import { InDemandOccupation } from "../domain/Occupation";
 import { createStyles, Icon, InputAdornment, TextField } from "@material-ui/core";
 import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
 import { navigate } from "@reach/router";
 import { makeStyles } from "@material-ui/core/styles";
 
 interface Props {
-  occupations: Occupation[];
+  occupations: InDemandOccupation[];
 }
 
 export const Typeahead = (props: Props): ReactElement => {
   const handleTypeaheadChange = (
     event: ChangeEvent<{}>,
-    value: Occupation | null,
+    value: InDemandOccupation | null,
     reason: AutocompleteChangeReason
   ): void => {
     if (value && reason === "select-option") {
@@ -33,7 +33,7 @@ export const Typeahead = (props: Props): ReactElement => {
   return (
     <Autocomplete
       options={props.occupations}
-      getOptionLabel={(occupation: Occupation): string => occupation.title}
+      getOptionLabel={(occupation: InDemandOccupation): string => occupation.title}
       onChange={handleTypeaheadChange}
       classes={useStyles()}
       renderInput={(params): ReactElement => (

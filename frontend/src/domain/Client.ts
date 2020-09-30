@@ -1,12 +1,12 @@
 import { Training, TrainingResult } from "./Training";
 import { Error } from "./Error";
-import { Occupation, OccupationDetail } from "./Occupation";
+import { InDemandOccupation, OccupationDetail } from "./Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
 
 export interface Client {
   getTrainingsByQuery: (query: string, observer: Observer<TrainingResult[]>) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
-  getOccupations: (observer: Observer<Occupation[]>) => void;
+  getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;
   getZipcodesInRadius: (searchArea: SearchArea, observer: Observer<string[]>) => void;
   getOccupationDetailBySoc: (soc: string, observer: Observer<OccupationDetail>) => void;
 }

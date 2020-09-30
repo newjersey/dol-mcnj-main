@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { InDemandCareersPage } from "./InDemandCareersPage";
 import { act } from "react-dom/test-utils";
-import { buildOccupation } from "../test-objects/factories";
+import { buildInDemandOccupation } from "../test-objects/factories";
 import { navigate } from "@reach/router";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -43,9 +43,9 @@ describe("<InDemandCareersPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
-        buildOccupation({ majorGroup: "Welding Occupations", title: "Underwater Welder" }),
-        buildOccupation({ majorGroup: "Welding Occupations", title: "Magma Welder" }),
-        buildOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
+        buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Underwater Welder" }),
+        buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Magma Welder" }),
+        buildInDemandOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
       ])
     );
 
@@ -61,9 +61,9 @@ describe("<InDemandCareersPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
-        buildOccupation({ majorGroup: "Miners" }),
-        buildOccupation({ majorGroup: "Artists" }),
-        buildOccupation({ majorGroup: "Welders" }),
+        buildInDemandOccupation({ majorGroup: "Miners" }),
+        buildInDemandOccupation({ majorGroup: "Artists" }),
+        buildInDemandOccupation({ majorGroup: "Welders" }),
       ])
     );
 
@@ -78,9 +78,9 @@ describe("<InDemandCareersPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
-        buildOccupation({ majorGroup: "Welding Occupations", title: "Underwater Welder" }),
-        buildOccupation({ majorGroup: "Welding Occupations", title: "Magma Welder" }),
-        buildOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
+        buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Underwater Welder" }),
+        buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Magma Welder" }),
+        buildInDemandOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
       ])
     );
 
@@ -104,7 +104,7 @@ describe("<InDemandCareersPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
-        buildOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
+        buildInDemandOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
       ])
     );
 
@@ -122,9 +122,9 @@ describe("<InDemandCareersPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
-        buildOccupation({ title: "Data Scientist", soc: "12-3456" }),
-        buildOccupation({ title: "Data Artist" }),
-        buildOccupation({ title: "Something else" }),
+        buildInDemandOccupation({ title: "Data Scientist", soc: "12-3456" }),
+        buildInDemandOccupation({ title: "Data Artist" }),
+        buildInDemandOccupation({ title: "Something else" }),
       ])
     );
 

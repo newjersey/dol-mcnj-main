@@ -1,7 +1,12 @@
-export interface Occupation {
+export interface InDemandOccupation {
   soc: string;
   title: string;
   majorGroup: string;
+}
+
+export interface Occupation {
+  soc: string;
+  title: string;
 }
 
 export interface OccupationDetail {

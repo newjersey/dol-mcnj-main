@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import { Header } from "../search-results/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Client } from "../domain/Client";
-import { Occupation } from "../domain/Occupation";
+import { InDemandOccupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
 import { Typeahead } from "./Typeahead";
 
@@ -14,24 +14,26 @@ interface Props extends RouteComponentProps {
 type MajorGroupName = string;
 
 export const InDemandCareersPage = (props: Props): ReactElement => {
-  const [occupationLookup, setOccupationLookup] = useState<Record<MajorGroupName, Occupation[]>>(
-    {}
-  );
+  const [occupationLookup, setOccupationLookup] = useState<
+    Record<MajorGroupName, InDemandOccupation[]>
+  >({});
 
   useEffect(() => {
     document.title = "In-Demand Careers";
   }, []);
 
   useEffect(() => {
-    props.client.getOccupations({
+    props.client.getInDemandOccupations({
       onSuccess: (data) => setOccupationLookup(groupOccupations(data)),
       onError: () => {},
     });
   }, [props.client]);
 
-  const groupOccupations = (occupations: Occupation[]): Record<MajorGroupName, Occupation[]> => {
+  const groupOccupations = (
+    occupations: InDemandOccupation[]
+  ): Record<MajorGroupName, InDemandOccupation[]> => {
     return occupations.reduce(
-      (result: Record<MajorGroupName, Occupation[]>, item: Occupation) => ({
+      (result: Record<MajorGroupName, InDemandOccupation[]>, item: InDemandOccupation) => ({
         ...result,
         [item.majorGroup]: [...(result[item.majorGroup] || []), item],
       }),

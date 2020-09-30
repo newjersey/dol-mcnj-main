@@ -35,20 +35,15 @@ export interface LocalException {
   county: string;
 }
 
-export interface OccupationTitle {
-  soc: string;
-  soctitle: string;
-}
-
 export interface SocDefinition {
   soc: string;
-  soctitle: string;
-  socdefinition: string;
+  title: string;
+  definition: string;
 }
 
-export interface NullableOccupationTitle {
+export interface NullableOccupation {
   soc: string;
-  soctitle: string | null;
+  title: string | null;
 }
 
 export interface EducationText {

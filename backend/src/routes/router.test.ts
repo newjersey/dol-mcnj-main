@@ -3,7 +3,7 @@ import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
 import { Error } from "../domain/Error";
 import {
-  buildOccupation,
+  buildInDemandOccupation,
   buildOccupationDetail,
   buildTraining,
   buildTrainingResult,
@@ -87,7 +87,7 @@ describe("router", () => {
 
   describe("/occupations", () => {
     it("fetches in demand occupations", (done) => {
-      const occupations = [buildOccupation({})];
+      const occupations = [buildInDemandOccupation({})];
       stubGetInDemandOccupations.mockImplementationOnce(() => Promise.resolve(occupations));
       request(app)
         .get("/occupations")

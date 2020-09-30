@@ -17,7 +17,7 @@ export const getOccupationDetailFactory = (
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
     const isInDemand = async (soc: string): Promise<boolean> => {
-      const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
+      const inDemandOccupations = await dataClient.getOccupationsInDemand();
       return inDemandOccupations.map((it) => it.soc).includes(soc);
     };
 
@@ -39,7 +39,7 @@ export const getOccupationDetailFactory = (
         });
       })
       .catch(async () => {
-        const occupationTitles2010 = await dataClient.find2010OccupationTitlesBySoc2018(soc);
+        const occupationTitles2010 = await dataClient.find2010OccupationsBySoc2018(soc);
 
         if (occupationTitles2010.length === 1) {
           const soc2010 = occupationTitles2010[0].soc;
@@ -70,8 +70,8 @@ export const getOccupationDetailFactory = (
           ]).then(([socDefinition, inDemand, openJobsCount, education, medianSalary]) => {
             return {
               soc: socDefinition.soc,
-              title: socDefinition.soctitle,
-              description: socDefinition.socdefinition,
+              title: socDefinition.title,
+              description: socDefinition.definition,
               tasks: [],
               education: education,
               inDemand: inDemand,

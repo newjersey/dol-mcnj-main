@@ -1,27 +1,27 @@
 export interface StubDataClient {
   findProgramsByIds: jest.Mock;
-  getLocalExceptions: jest.Mock;
-  findOccupationTitlesByCip: jest.Mock;
+  findOccupationsByCip: jest.Mock;
   findSocDefinitionBySoc: jest.Mock;
-  find2018OccupationTitlesBySoc2010: jest.Mock;
-  find2010OccupationTitlesBySoc2018: jest.Mock;
-  getInDemandOccupationTitles: jest.Mock;
+  find2018OccupationsBySoc2010: jest.Mock;
+  find2010OccupationsBySoc2018: jest.Mock;
+  getLocalExceptions: jest.Mock;
+  getOccupationsInDemand: jest.Mock;
   getEducationTextBySoc: jest.Mock;
   getSalaryEstimateBySoc: jest.Mock;
-  getOESCodeBySoc: jest.Mock;
+  getOESOccupationBySoc: jest.Mock;
 }
 
 export const StubDataClient = (): StubDataClient => ({
   findProgramsByIds: jest.fn(),
-  getLocalExceptions: jest.fn(),
-  findOccupationTitlesByCip: jest.fn(),
+  findOccupationsByCip: jest.fn(),
   findSocDefinitionBySoc: jest.fn(),
-  find2018OccupationTitlesBySoc2010: jest.fn(),
-  find2010OccupationTitlesBySoc2018: jest.fn(),
-  getInDemandOccupationTitles: jest.fn(),
+  find2018OccupationsBySoc2010: jest.fn(),
+  find2010OccupationsBySoc2018: jest.fn(),
+  getLocalExceptions: jest.fn(),
+  getOccupationsInDemand: jest.fn(),
   getEducationTextBySoc: jest.fn(),
   getSalaryEstimateBySoc: jest.fn(),
-  getOESCodeBySoc: jest.fn(),
+  getOESOccupationBySoc: jest.fn(),
 });
 
 export type StubSearchClient = {

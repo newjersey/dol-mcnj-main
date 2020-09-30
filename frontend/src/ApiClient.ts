@@ -2,7 +2,7 @@ import { Client, Observer } from "./domain/Client";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
-import { Occupation, OccupationDetail } from "./domain/Occupation";
+import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
 import { SearchArea } from "./filtering/LocationFilter";
 
 export class ApiClient implements Client {
@@ -14,7 +14,7 @@ export class ApiClient implements Client {
     this.get(`/api/trainings/${id}`, observer);
   }
 
-  getOccupations(observer: Observer<Occupation[]>): void {
+  getInDemandOccupations(observer: Observer<InDemandOccupation[]>): void {
     this.get("/api/occupations", observer);
   }
 
