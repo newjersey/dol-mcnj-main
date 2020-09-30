@@ -55,20 +55,18 @@ describe("getInDemandOccupations", () => {
       buildNullableOccupation({ soc: "2010 soc", title: null }),
     ]);
     stubDataClient.find2018OccupationsBySoc2010.mockResolvedValue([
-      buildOccupation({ soc: "2018 soc 1", title: "has a hash 1 (##)" }),
-      buildOccupation({ soc: "2018 soc 2", title: "has a hash 2 (##)" }),
+      buildOccupation({ soc: "2018 soc 1", title: "2018 title 1" }),
+      buildOccupation({ soc: "2018 soc 2", title: "2018 title 2" }),
     ]);
     stubDataClient.findSocDefinitionBySoc
-      .mockResolvedValueOnce(buildSocDefinition({ soc: "2018 soc 1", title: "real 2018 title 1" }))
-      .mockResolvedValueOnce(buildSocDefinition({ soc: "2018 soc 2", title: "real 2018 title 2" }))
       .mockResolvedValueOnce(buildSocDefinition({ title: "major group 1" }))
       .mockResolvedValueOnce(buildSocDefinition({ title: "major group 2" }));
 
     const occupations = await getInDemandOccupations();
     expect(occupations[0].soc).toEqual("2018 soc 1");
-    expect(occupations[0].title).toEqual("real 2018 title 1");
+    expect(occupations[0].title).toEqual("2018 title 1");
     expect(occupations[1].soc).toEqual("2018 soc 2");
-    expect(occupations[1].title).toEqual("real 2018 title 2");
+    expect(occupations[1].title).toEqual("2018 title 2");
 
     expect(stubDataClient.find2018OccupationsBySoc2010).toHaveBeenCalledWith("2010 soc");
   });

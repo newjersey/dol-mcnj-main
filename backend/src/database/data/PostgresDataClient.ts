@@ -122,8 +122,13 @@ export class PostgresDataClient implements DataClient {
 
   find2018OccupationsBySoc2010 = (soc2010: string): Promise<Occupation[]> => {
     return this.kdb("soc2010to2018crosswalk")
-      .select("soccode2018 as soc", "soctitle2018 as title")
+      .select("soccode2018 as soc", "socdefinitions.soctitle as title")
       .where("soccode2010", soc2010)
+      .leftOuterJoin(
+        "socdefinitions",
+        "socdefinitions.soccode",
+        "soc2010to2018crosswalk.soccode2018"
+      )
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
