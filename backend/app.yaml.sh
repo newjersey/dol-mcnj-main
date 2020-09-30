@@ -3,7 +3,7 @@ echo """
 runtime: nodejs10
 resources:
   cpu: 2
-  memory_gb: 4
+  memory_gb: 8
 env_variables:
   DB_USER: postgres
   DB_PASS: \"$DB_PASS\"

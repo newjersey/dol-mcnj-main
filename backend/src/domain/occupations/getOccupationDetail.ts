@@ -16,7 +16,6 @@ export const getOccupationDetailFactory = (
   dataClient: DataClient
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
-
     const isInDemand = async (soc: string): Promise<boolean> => {
       const inDemandOccupations = await dataClient.getInDemandOccupationTitles();
       return inDemandOccupations.map((it) => it.soc).includes(soc);
@@ -24,12 +23,11 @@ export const getOccupationDetailFactory = (
 
     return getOccupationDetailFromOnet(soc)
       .then((onetOccupationDetail: OccupationDetailPartial) => {
-
         return Promise.all([
           isInDemand(soc),
           getOpenJobsCount(soc),
           getEducationText(soc),
-          getSalaryEstimate(soc)
+          getSalaryEstimate(soc),
         ]).then(([inDemand, openJobsCount, education, medianSalary]) => {
           return {
             ...onetOccupationDetail,
@@ -38,7 +36,7 @@ export const getOccupationDetailFactory = (
             medianSalary: medianSalary,
             openJobsCount: openJobsCount,
           };
-        })
+        });
       })
       .catch(async () => {
         const occupationTitles2010 = await dataClient.find2010OccupationTitlesBySoc2018(soc);
@@ -51,7 +49,7 @@ export const getOccupationDetailFactory = (
             isInDemand(soc2010),
             getOpenJobsCount(soc2010),
             getEducationText(soc),
-            getSalaryEstimate(soc)
+            getSalaryEstimate(soc),
           ]).then(([onetOccupationDetail, inDemand, openJobsCount, education, medianSalary]) => {
             return {
               ...onetOccupationDetail,
@@ -61,14 +59,14 @@ export const getOccupationDetailFactory = (
               medianSalary: medianSalary,
               openJobsCount: openJobsCount,
             };
-          })
+          });
         } else {
           return Promise.all([
             dataClient.findSocDefinitionBySoc(soc),
             isInDemand(soc),
             getOpenJobsCount(soc),
             getEducationText(soc),
-            getSalaryEstimate(soc)
+            getSalaryEstimate(soc),
           ]).then(([socDefinition, inDemand, openJobsCount, education, medianSalary]) => {
             return {
               soc: socDefinition.soc,
@@ -80,7 +78,7 @@ export const getOccupationDetailFactory = (
               medianSalary: medianSalary,
               openJobsCount: openJobsCount,
             };
-          })
+          });
         }
       });
   };
