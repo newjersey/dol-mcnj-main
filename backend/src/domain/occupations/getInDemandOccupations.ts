@@ -16,10 +16,7 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
 
     for (const occupation of occupations) {
       if (!occupation.title) {
-        const socs2018withBadTitles = await dataClient.find2018OccupationsBySoc2010(occupation.soc);
-        const socs2018 = await Promise.all(
-          socs2018withBadTitles.map(async (it) => await dataClient.findSocDefinitionBySoc(it.soc))
-        );
+        const socs2018 = await dataClient.find2018OccupationsBySoc2010(occupation.soc);
         expanded = [...expanded, ...socs2018];
       } else {
         expanded.push({

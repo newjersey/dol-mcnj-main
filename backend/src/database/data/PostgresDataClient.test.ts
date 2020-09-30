@@ -171,7 +171,7 @@ describe("PostgresDataClient", () => {
           },
           {
             soc: "15-1255",
-            title: "Web and Digital Interface Designers (##)",
+            title: "Web and Digital Interface Designers",
           },
         ])
       );
