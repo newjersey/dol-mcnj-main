@@ -189,6 +189,19 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
+  getNeighboringOccupations = (soc: string): Promise<Occupation[]> => {
+    const firstFiveDigits = soc.slice(0, 6);
+    return this.kdb("socdefinitions")
+      .select("soccode as soc", "soctitle as title")
+      .where("soccode", "like", `${firstFiveDigits}%`)
+      .andWhere("socgroup", "Detailed")
+      .andWhereNot("soccode", soc)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
   disconnect = async (): Promise<void> => {
     await this.kdb.destroy();
   };

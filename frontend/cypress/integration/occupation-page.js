@@ -80,6 +80,15 @@ describe("Occupation Page", () => {
       "Civil engineers need a bachelor’s degree in civil engineering, in one of its specialties, or in civil engineering technology. They typically need a graduate degree and licensure for promotion to senior positions. Although licensure requirements vary by state, civil engineers usually must be licensed if they provide services directly to the public."
     ).should("exist");
 
+    // related occupations
+    cy.contains("Construction Managers").should("exist");
+    cy.contains("Architectural and Engineering Managers").should("exist");
+    cy.contains("Agricultural Engineers").should("exist");
+    cy.contains("Environmental Engineers").should("exist");
+    cy.contains("Mining and Geological Engineers, Including Mining Safety Engineers").should(
+      "exist"
+    );
+
     cy.checkA11y();
   });
 
@@ -115,6 +124,17 @@ describe("Occupation Page", () => {
     cy.contains(
       "Educational requirements for web developers vary with the setting they work in and the type of work they do. Requirements range from a high school diploma to a bachelor’s degree. Web developers need knowledge of both programming and graphic design."
     ).should("exist");
+
+    // related occupations
+    cy.contains("Computer Systems Analysts").should("exist");
+    cy.contains("Computer Programmers").should("exist");
+    cy.contains("Software Developers").should("exist");
+    cy.contains("Software Quality Assurance Analysts and Testers").should("exist");
+    cy.contains("Database Administrators").should("exist");
+    cy.contains("Database Architects").should("exist");
+    cy.contains("Computer User Support Specialists").should("exist");
+    cy.contains("Computer Occupations, All Other").should("exist");
+    cy.contains("Desktop Publishers").should("exist");
   });
 
   it("displays occupation details from BLS descriptions for non-ONET socs", () => {
@@ -136,5 +156,11 @@ describe("Occupation Page", () => {
     cy.contains(
       "Educational requirements for web developers vary with the setting they work in and the type of work they do. Requirements range from a high school diploma to a bachelor’s degree. Web developers need knowledge of both programming and graphic design."
     ).should("exist");
+
+    // related occupations
+    cy.contains("Computer Programmers").should("exist");
+    cy.contains("Software Developers").should("exist");
+    cy.contains("Software Quality Assurance Analysts and Testers").should("exist");
+    cy.contains("Web Developers").should("exist");
   });
 });

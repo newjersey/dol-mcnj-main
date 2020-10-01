@@ -105,6 +105,9 @@ describe("getOccupationDetail", () => {
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
+      const neighboringOccupations = [buildOccupation({}), buildOccupation({})];
+      stubDataClient.getNeighboringOccupations.mockResolvedValue(neighboringOccupations);
+
       const result = await getOccupationDetail("2018-soc");
 
       expect(result).toEqual({
@@ -116,6 +119,7 @@ describe("getOccupationDetail", () => {
         inDemand: false,
         medianSalary: 38260,
         openJobsCount: 100,
+        relatedOccupations: neighboringOccupations,
       });
     });
   });

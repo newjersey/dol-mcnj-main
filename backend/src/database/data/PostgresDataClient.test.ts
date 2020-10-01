@@ -223,6 +223,22 @@ describe("PostgresDataClient", () => {
     });
   });
 
+  describe("getNeighboringOccupations", () => {
+    it("gets occupations with a soc code matching first 5 digits of input not including itself", async () => {
+      const neighboringOccupations = await dataClient.getNeighboringOccupations("15-1254");
+      expect(neighboringOccupations).toEqual([
+        {
+          soc: "15-1253",
+          title: "Software Quality Assurance Analysts and Testers",
+        },
+        {
+          soc: "15-1255",
+          title: "Web and Digital Interface Designers",
+        },
+      ]);
+    });
+  });
+
   afterAll(async () => {
     await dataClient.disconnect();
   });

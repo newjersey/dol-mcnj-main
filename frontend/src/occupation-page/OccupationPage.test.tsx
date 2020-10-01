@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { OccupationPage } from "./OccupationPage";
-import { buildOccupationDetail } from "../test-objects/factories";
+import { buildOccupation, buildOccupationDetail } from "../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { StubClient } from "../test-objects/StubClient";
 import { Error } from "../domain/Error";
@@ -23,6 +23,10 @@ describe("<OccupationPage />", () => {
       inDemand: true,
       medianSalary: 97820,
       openJobsCount: 1010,
+      relatedOccupations: [
+        buildOccupation({ title: "Related 1" }),
+        buildOccupation({ title: "Related 2" }),
+      ],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
@@ -37,6 +41,8 @@ describe("<OccupationPage />", () => {
     expect(subject.queryByText("In Demand")).toBeInTheDocument();
     expect(subject.getByText("1,010")).toBeInTheDocument();
     expect(subject.getByText("$97,820")).toBeInTheDocument();
+    expect(subject.getByText("Related 1")).toBeInTheDocument();
+    expect(subject.getByText("Related 2")).toBeInTheDocument();
   });
 
   it("does not display an in-demand tag when a occupation is not in-demand", () => {
@@ -50,6 +56,20 @@ describe("<OccupationPage />", () => {
   it("displays data missing message if tasks are not available", () => {
     const occupationDetail = buildOccupationDetail({
       tasks: [],
+    });
+
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    expect(
+      subject.getByText("This data is not yet available for this occupation.")
+    ).toBeInTheDocument();
+  });
+
+  it("displays data missing message if related occupations are not available", () => {
+    const occupationDetail = buildOccupationDetail({
+      relatedOccupations: [],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);

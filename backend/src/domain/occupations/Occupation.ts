@@ -18,6 +18,7 @@ export interface OccupationDetail {
   inDemand: boolean;
   medianSalary: number | null;
   openJobsCount: number | null;
+  relatedOccupations: Occupation[];
 }
 
 export interface OccupationDetailPartial {
@@ -25,4 +26,5 @@ export interface OccupationDetailPartial {
   title: string;
   description: string;
   tasks: string[];
+  relatedOccupations: Occupation[];
 }

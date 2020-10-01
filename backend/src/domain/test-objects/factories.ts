@@ -111,6 +111,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     inDemand: randomBool(),
     medianSalary: randomInt(),
     openJobsCount: randomInt(),
+    relatedOccupations: [buildOccupation({})],
     ...overrides,
   };
 };
@@ -123,6 +124,7 @@ export const buildOccupationDetailPartial = (
     title: "some-title-" + randomInt(),
     description: "some-description-" + randomInt(),
     tasks: ["some-tasks-" + randomInt()],
+    relatedOccupations: [buildOccupation({})],
     ...overrides,
   };
 };

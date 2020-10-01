@@ -19,4 +19,5 @@ export interface DataClient {
   getEducationTextBySoc: (soc: string) => Promise<EducationText>;
   getSalaryEstimateBySoc: (soc: string) => Promise<SalaryEstimate>;
   getOESOccupationBySoc: (soc: string) => Promise<Occupation>;
+  getNeighboringOccupations: (soc: string) => Promise<Occupation[]>;
 }
