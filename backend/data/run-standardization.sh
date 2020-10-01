@@ -10,7 +10,8 @@ git clone https://github.com/robinsonkwame/d4ad_standardization
 
 # install and setup python stuff
 cd d4ad_standardization
-pipenv install
+pipenv --python $(which python3)
+pipenv install --skip-lock
 
 # setup data
 mkdir D4AD_Standardization/data/raw

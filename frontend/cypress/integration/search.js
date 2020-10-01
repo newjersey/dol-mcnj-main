@@ -16,17 +16,17 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Baking and Pastry").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Pastry Arts Academic Credit").should("exist");
+    cy.contains("in Professional Cooking").should("exist");
 
     cy.contains(
-      "...student interested in career in pastry arts. Coursework includes baking " +
-        "skills, patisserie, pastry arts, nutrition, confectionary and showpieces..."
+      "...Baking & Pastry Arts program is designed to teach an " +
+        "overview of the baking industry from the ground..."
     ).should("exist");
   });
 
@@ -45,19 +45,19 @@ describe("Search", () => {
 
     // input search
     cy.get('input[aria-label="search"]').clear();
-    cy.get('input[aria-label="search"]').type("baker");
+    cy.get('input[aria-label="search"]').type("baking");
     cy.get("button").contains("Update Results").click();
 
-    cy.location("pathname").should("eq", "/search/baker");
+    cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Baking and Pastry").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Pastry Arts Academic Credit").should("exist");
+    cy.contains("in Professional Cooking").should("exist");
 
     // removes others
     cy.contains("Introduction to Welding Technology").should("not.exist");
@@ -72,15 +72,15 @@ describe("Search", () => {
   });
 
   it("links to a training detail page", () => {
-    cy.visit("/search/baker");
-    cy.contains("Baking and Pastry Arts").click({ force: true });
-    cy.location("pathname").should("eq", "/training/37838");
+    cy.visit("/search/baking");
+    cy.contains("Culinary Baking Kitchen Manager").click({ force: true });
+    cy.location("pathname").should("eq", "/training/49259");
 
     // removes search results
-    cy.contains("Pastry Arts Academic Credit").should("not.exist");
+    cy.contains("Baking and Pastry").should("not.exist");
 
     // shows program
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Culinary Baking Kitchen Manager").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
@@ -92,7 +92,7 @@ describe("Search", () => {
     });
 
     // not in-demand training
-    cy.contains("Baking and Pastry Arts").within(() => {
+    cy.contains("Baking and Pastry").within(() => {
       cy.contains("In Demand").should("not.exist");
     });
 

@@ -11,13 +11,15 @@ describe("Training Page", () => {
 
     cy.contains(
       "Welding students are taught state-of-the-art techniques in gas welding, " +
-        "electric (ARC) welding, Tungsten Inert Gas (TIG) welding, and Metallic Inert Gas (MIG) " +
-        "welding. These disciplines require the use of steel, stainless steel, everdure, aluminum " +
-        "and pipe. Students proceed through each project at their own rate of speed and " +
-        "receive individualized instruction regarding safety, quality and general welding " +
-        "techniques. This class also includes 1 hour per day of a trade mathematics lab and/or " +
-        "professional development prior to the start of the regularly scheduled Welding program " +
-        "(141 hours total)."
+        "electric (ARC) welding, Tungsten Inert Gas (TIG) welding, and Metallic " +
+        "Inert Gas (MIG) welding. These disciplines require the use of steel, " +
+        "stainless steel, everdure, aluminum and pipe. Students proceed through " +
+        "each project at their own rate of speed and receive individualized instruction " +
+        "regarding safety, quality and general welding techniques."
+    ).should("exist");
+    cy.contains(
+      "This class also includes 1 hour per day of a trade mathematics lab and/or " +
+        "professional development prior to the start of the regularly scheduled Welding program (141 hours total)."
     ).should("exist");
 
     cy.contains("6-12 months to complete").should("exist");
