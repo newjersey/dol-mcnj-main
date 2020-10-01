@@ -12,6 +12,10 @@ The process, at a high level:
 
 ## Combine the CSV files
 
+Download the programs and providers CSVs.  **IMPORTANT** - in the `programs`, make sure to
+delete the `SUBMITTERNAME` and `SUBMITTERTITLE` columns before downloading.  These are private
+data that should not be part of our repo.
+
 Make sure the newest `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` are in the `backend/data` folder.
 
 Execute the combiner script as follows (including renaming the old etpl csv):
@@ -35,12 +39,14 @@ Run the standardizer script (still in the `/backend/data` folder) as follows:
 
 This will create the new `standardized_etpl.csv` and put it in the `/backend/data` folder
 
-## Insert the data 
+## Insert the data
 
 Follow the [README instructions](https://github.com/newjersey/d4ad/blob/master/README.md#updating-seeds) to create
-a new migration for the update operation.  The tablename is `etpl`.  
+a new migration for the update operation.  The tablename is `etpl`.
 
 Use the `standardized_etpl.csv` as the "new" file, and `standardized_etpl_old.csv` as the "old" file.
+
+After this step, delete the `standardized_etpl_old.csv` file.
 
 ## Update the `programtokens`
 
