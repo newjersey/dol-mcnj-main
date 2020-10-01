@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/ws/online/occupations/17-2051.00/details/related_occupations?display=long",
+    "basicAuthCredentials": {
+      "username": "ONET_USERNAME",
+      "password": "ONET_PASSWORD"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n   \"code\" : \"17-2051.00\",\n   \"report\" : \"details\",\n   \"occupation\" : [\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/11-9021.00/\",\n         \"code\" : \"11-9021.00\",\n         \"title\" : \"Construction Managers\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/11-9041.00/\",\n         \"code\" : \"11-9041.00\",\n         \"title\" : \"Architectural and Engineering Managers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/13-1081.01/\",\n         \"code\" : \"13-1081.01\",\n         \"title\" : \"Logistics Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/17-2021.00/\",\n         \"code\" : \"17-2021.00\",\n         \"title\" : \"Agricultural Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/17-2051.01/\",\n         \"code\" : \"17-2051.01\",\n         \"title\" : \"Transportation Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/17-2081.00/\",\n         \"code\" : \"17-2081.00\",\n         \"title\" : \"Environmental Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/17-2111.02/\",\n         \"code\" : \"17-2111.02\",\n         \"title\" : \"Fire-Prevention and Protection Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/17-2151.00/\",\n         \"code\" : \"17-2151.00\",\n         \"title\" : \"Mining and Geological Engineers, Including Mining Safety Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/17-2199.03/\",\n         \"code\" : \"17-2199.03\",\n         \"title\" : \"Energy Engineers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/19-1031.01/\",\n         \"code\" : \"19-1031.01\",\n         \"title\" : \"Soil and Water Conservationists\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : true\n         }\n      }\n   ]\n}",
+    "headers": {
+      "Content-Type": "text/json"
+    }
+  }
+}

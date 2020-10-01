@@ -67,18 +67,29 @@ export const getOccupationDetailFactory = (
             getOpenJobsCount(soc),
             getEducationText(soc),
             getSalaryEstimate(soc),
-          ]).then(([socDefinition, inDemand, openJobsCount, education, medianSalary]) => {
-            return {
-              soc: socDefinition.soc,
-              title: socDefinition.title,
-              description: socDefinition.definition,
-              tasks: [],
-              education: education,
-              inDemand: inDemand,
-              medianSalary: medianSalary,
-              openJobsCount: openJobsCount,
-            };
-          });
+            dataClient.getNeighboringOccupations(soc),
+          ]).then(
+            ([
+              socDefinition,
+              inDemand,
+              openJobsCount,
+              education,
+              medianSalary,
+              neighboringOccupations,
+            ]) => {
+              return {
+                soc: socDefinition.soc,
+                title: socDefinition.title,
+                description: socDefinition.definition,
+                tasks: [],
+                education: education,
+                inDemand: inDemand,
+                medianSalary: medianSalary,
+                openJobsCount: openJobsCount,
+                relatedOccupations: neighboringOccupations,
+              };
+            }
+          );
         }
       });
   };

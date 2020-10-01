@@ -69,7 +69,11 @@ const router = routerFactory({
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getZipCodesInRadius: ZipcodeClient(apiValues.zipcodeBaseUrl, apiValues.zipcodeApiKey),
   getOccupationDetail: getOccupationDetailFactory(
-    OnetClient(apiValues.onetBaseUrl, apiValues.onetAuth),
+    OnetClient(
+      apiValues.onetBaseUrl,
+      apiValues.onetAuth,
+      postgresDataClient.find2018OccupationsBySoc2010
+    ),
     getEducationTextFactory(postgresDataClient),
     getSalaryEstimateFactory(postgresDataClient),
     CareerOneStopClient(

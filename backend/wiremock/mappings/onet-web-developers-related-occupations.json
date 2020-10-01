@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/ws/online/occupations/15-1134.00/details/related_occupations?display=long",
+    "basicAuthCredentials": {
+      "username": "ONET_USERNAME",
+      "password": "ONET_PASSWORD"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n   \"code\" : \"15-1134.00\",\n   \"report\" : \"details\",\n   \"occupation\" : [\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1121.00/\",\n         \"code\" : \"15-1121.00\",\n         \"title\" : \"Computer Systems Analysts\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1131.00/\",\n         \"code\" : \"15-1131.00\",\n         \"title\" : \"Computer Programmers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1132.00/\",\n         \"code\" : \"15-1132.00\",\n         \"title\" : \"Software Developers, Applications\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1133.00/\",\n         \"code\" : \"15-1133.00\",\n         \"title\" : \"Software Developers, Systems Software\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : true\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1141.00/\",\n         \"code\" : \"15-1141.00\",\n         \"title\" : \"Database Administrators\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1151.00/\",\n         \"code\" : \"15-1151.00\",\n         \"title\" : \"Computer User Support Specialists\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1199.01/\",\n         \"code\" : \"15-1199.01\",\n         \"title\" : \"Software Quality Assurance Engineers and Testers\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/15-1199.03/\",\n         \"code\" : \"15-1199.03\",\n         \"title\" : \"Web Administrators\",\n         \"tags\" : {\n            \"bright_outlook\" : true,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/43-9011.00/\",\n         \"code\" : \"43-9011.00\",\n         \"title\" : \"Computer Operators\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : false\n         }\n      },\n      {\n         \"href\" : \"https://services.onetcenter.org/ws/online/occupations/43-9031.00/\",\n         \"code\" : \"43-9031.00\",\n         \"title\" : \"Desktop Publishers\",\n         \"tags\" : {\n            \"bright_outlook\" : false,\n            \"green\" : false\n         }\n      }\n   ]\n}\n",
+    "headers": {
+      "Content-Type": "text/json"
+    }
+  }
+}

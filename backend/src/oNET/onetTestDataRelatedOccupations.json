@@ -1,0 +1,33 @@
+{
+  "code": "17-2051.00",
+  "report": "details",
+  "occupation": [
+    {
+      "href": "https://services.onetcenter.org/ws/online/occupations/11-9021.00/",
+      "code": "11-9021.00",
+      "title": "Construction Managers",
+      "tags": {
+        "bright_outlook": true,
+        "green": true
+      }
+    },
+    {
+      "href": "https://services.onetcenter.org/ws/online/occupations/11-9041.00/",
+      "code": "11-9041.00",
+      "title": "Architectural and Engineering Managers",
+      "tags": {
+        "bright_outlook": false,
+        "green": true
+      }
+    },
+    {
+      "href": "https://services.onetcenter.org/ws/online/occupations/13-1081.01/",
+      "code": "13-1081.01",
+      "title": "Logistics Engineers",
+      "tags": {
+        "bright_outlook": false,
+        "green": true
+      }
+    }
+  ]
+}

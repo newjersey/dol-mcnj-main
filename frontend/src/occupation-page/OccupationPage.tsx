@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { OccupationDetail } from "../domain/Occupation";
+import { Occupation, OccupationDetail } from "../domain/Occupation";
 import { Header } from "../search-results/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Grouping } from "../components/Grouping";
@@ -83,6 +83,28 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
+  const getRelatedOccupations = (occupations: Occupation[]): ReactElement => {
+    if (occupations.length === 0) {
+      return <p>{DATA_UNAVAILABLE_TEXT}</p>;
+    } else {
+      return (
+        <>
+          {occupations.map((occupation) => (
+            <Link
+              className="no-link-format"
+              to={`/occupation/${occupation.soc}`}
+              key={occupation.soc}
+            >
+              <p key={occupation.soc} className="blue weight-500 mvs">
+                {occupation.title}
+              </p>
+            </Link>
+          ))}
+        </>
+      );
+    }
+  };
+
   if (occupationDetail) {
     return (
       <>
@@ -144,6 +166,10 @@ export const OccupationPage = (props: Props): ReactElement => {
                             : DATA_UNAVAILABLE_TEXT,
                         }}
                       />
+                    </Grouping>
+
+                    <Grouping title="Related Occupations" backgroundColorClass="bg-purple">
+                      {getRelatedOccupations(occupationDetail.relatedOccupations)}
                     </Grouping>
                   </div>
                 </div>

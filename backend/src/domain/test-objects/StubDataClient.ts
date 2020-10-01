@@ -9,6 +9,7 @@ export interface StubDataClient {
   getEducationTextBySoc: jest.Mock;
   getSalaryEstimateBySoc: jest.Mock;
   getOESOccupationBySoc: jest.Mock;
+  getNeighboringOccupations: jest.Mock;
 }
 
 export const StubDataClient = (): StubDataClient => ({
@@ -22,6 +23,7 @@ export const StubDataClient = (): StubDataClient => ({
   getEducationTextBySoc: jest.fn(),
   getSalaryEstimateBySoc: jest.fn(),
   getOESOccupationBySoc: jest.fn(),
+  getNeighboringOccupations: jest.fn(),
 });
 
 export type StubSearchClient = {
