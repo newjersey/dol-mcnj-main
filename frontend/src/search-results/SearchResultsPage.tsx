@@ -5,22 +5,17 @@ import { RouteComponentProps } from "@reach/router";
 import { Header } from "./Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { CircularProgress, FormControl, InputLabel, useMediaQuery } from "@material-ui/core";
-import { FilterContext } from "../App";
 import { FilterBox } from "../filtering/FilterBox";
 import { BetaBanner } from "../components/BetaBanner";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { WhiteSelect } from "../components/WhiteSelect";
+import { SortOrder } from "../sorting/SortOrder";
+import { SortContext } from "../sorting/SortContext";
+import { FilterContext } from "../filtering/FilterContext";
 
 interface Props extends RouteComponentProps {
   client: Client;
   searchQuery?: string;
-}
-
-export enum SortOrder {
-  BEST_MATCH = "BEST_MATCH",
-  COST_LOW_TO_HIGH = "COST_LOW_TO_HIGH",
-  COST_HIGH_TO_LOW = "COST_HIGH_TO_LOW",
-  EMPLOYMENT_RATE = "EMPLOYMENT_RATE",
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
@@ -31,9 +26,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.BEST_MATCH);
 
-  const { state } = useContext(FilterContext);
+  const filterState = useContext(FilterContext).state;
+
+  const sortContextValue = useContext(SortContext);
+  const sortState = sortContextValue.state;
+  const sortDispatch = sortContextValue.dispatch;
 
   useEffect(() => {
     document.title = `${props.searchQuery} - Search Results`;
@@ -41,11 +39,31 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
-    state.filters.forEach((filter) => {
+
+    filterState.filters.forEach((filter) => {
       newFilteredTrainings = filter.func(newFilteredTrainings);
     });
-    setFilteredTrainings(newFilteredTrainings);
-  }, [trainings, state.filters]);
+
+    const sortedResults = newFilteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
+      switch (sortState.sortOrder) {
+        case SortOrder.BEST_MATCH:
+          return b.rank - a.rank;
+        case SortOrder.COST_LOW_TO_HIGH:
+          return a.totalCost - b.totalCost;
+        case SortOrder.COST_HIGH_TO_LOW:
+          return b.totalCost - a.totalCost;
+        case SortOrder.EMPLOYMENT_RATE:
+          return (
+            (b.percentEmployed ? b.percentEmployed : 0) -
+            (a.percentEmployed ? a.percentEmployed : 0)
+          );
+        default:
+          return 0;
+      }
+    });
+
+    setFilteredTrainings([...sortedResults]);
+  }, [trainings, filterState.filters, sortState.sortOrder]);
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
@@ -74,7 +92,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const resetState = (): void => {
     setIsLoading(true);
-    setSortOrder(SortOrder.BEST_MATCH);
     setTrainings([]);
   };
 
@@ -84,27 +101,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as SortOrder;
-    setSortOrder(newSortOrder);
-
-    const sortedResults = filteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
-      switch (newSortOrder) {
-        case SortOrder.BEST_MATCH:
-          return b.rank - a.rank;
-        case SortOrder.COST_LOW_TO_HIGH:
-          return a.totalCost - b.totalCost;
-        case SortOrder.COST_HIGH_TO_LOW:
-          return b.totalCost - a.totalCost;
-        case SortOrder.EMPLOYMENT_RATE:
-          return (
-            (b.percentEmployed ? b.percentEmployed : 0) -
-            (a.percentEmployed ? a.percentEmployed : 0)
-          );
-        default:
-          return 0;
-      }
-    });
-
-    setFilteredTrainings(sortedResults);
+    sortDispatch(newSortOrder);
   };
 
   const getSortDropdown = (): ReactElement => (
@@ -112,7 +109,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <InputLabel htmlFor="sortby">Sort by</InputLabel>
       <WhiteSelect
         native={true}
-        value={sortOrder}
+        value={sortState.sortOrder}
         onChange={handleSortChange}
         label="Sort by"
         id="sortby"

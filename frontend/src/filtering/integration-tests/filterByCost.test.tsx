@@ -4,7 +4,7 @@ import React from "react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
-import { renderWithRouter, waitForEffect } from "./helpers";
+import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 
 describe("filtering by max cost", () => {
   const training1999 = buildTrainingResult({ name: "training1999", totalCost: 1999 });

@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { buildTrainingResult } from "../test-objects/factories";
-import { SearchResultsPage, SortOrder } from "./SearchResultsPage";
+import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
@@ -312,102 +312,6 @@ describe("<SearchResultsPage />", () => {
       });
       fireEvent.click(subject.getByText("Update Results"));
       expect(navigate).toHaveBeenCalledWith("/search/penguins%20%2F%20penglings");
-    });
-  });
-
-  describe("sorting", () => {
-    it("defaults to sort order from backend", () => {
-      const training1 = buildTrainingResult({ name: "training1" });
-      const training2 = buildTrainingResult({ name: "training2" });
-      const training3 = buildTrainingResult({ name: "training3" });
-
-      const subject = render(<SearchResultsPage client={stubClient} />);
-
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
-
-      const cards = subject.getAllByTestId("card");
-      expect(cards[0].textContent).toContain("training1");
-      expect(cards[1].textContent).toContain("training2");
-      expect(cards[2].textContent).toContain("training3");
-    });
-
-    it("sorts by cost low to high", () => {
-      const training1 = buildTrainingResult({ name: "training1", totalCost: 300 });
-      const training2 = buildTrainingResult({ name: "training2", totalCost: 100 });
-      const training3 = buildTrainingResult({ name: "training3", totalCost: 200 });
-
-      const subject = render(<SearchResultsPage client={stubClient} />);
-
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
-
-      fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.COST_LOW_TO_HIGH },
-      });
-
-      const cards = subject.getAllByTestId("card");
-      expect(cards[0].textContent).toContain("training2");
-      expect(cards[1].textContent).toContain("training3");
-      expect(cards[2].textContent).toContain("training1");
-    });
-
-    it("sorts by cost high to low", () => {
-      const training1 = buildTrainingResult({ name: "training1", totalCost: 300 });
-      const training2 = buildTrainingResult({ name: "training2", totalCost: 100 });
-      const training3 = buildTrainingResult({ name: "training3", totalCost: 200 });
-
-      const subject = render(<SearchResultsPage client={stubClient} />);
-
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
-
-      fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.COST_HIGH_TO_LOW },
-      });
-
-      const cards = subject.getAllByTestId("card");
-      expect(cards[0].textContent).toContain("training1");
-      expect(cards[1].textContent).toContain("training3");
-      expect(cards[2].textContent).toContain("training2");
-    });
-
-    it("sorts by rank as best match", () => {
-      const training1 = buildTrainingResult({ name: "training1", rank: 2 });
-      const training2 = buildTrainingResult({ name: "training2", rank: 1 });
-      const training3 = buildTrainingResult({ name: "training3", rank: 3 });
-
-      const subject = render(<SearchResultsPage client={stubClient} />);
-
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
-
-      fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.COST_HIGH_TO_LOW },
-      });
-      fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.BEST_MATCH },
-      });
-
-      const cards = subject.getAllByTestId("card");
-      expect(cards[0].textContent).toContain("training3");
-      expect(cards[1].textContent).toContain("training1");
-      expect(cards[2].textContent).toContain("training2");
-    });
-
-    it("sorts by employment rate (high to low)", () => {
-      const training1 = buildTrainingResult({ name: "training1", percentEmployed: 50 });
-      const training2 = buildTrainingResult({ name: "training2", percentEmployed: null });
-      const training3 = buildTrainingResult({ name: "training3", percentEmployed: 99 });
-
-      const subject = render(<SearchResultsPage client={stubClient} />);
-
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
-
-      fireEvent.change(subject.getByLabelText("Sort by"), {
-        target: { value: SortOrder.EMPLOYMENT_RATE },
-      });
-
-      const cards = subject.getAllByTestId("card");
-      expect(cards[0].textContent).toContain("training3");
-      expect(cards[1].textContent).toContain("training1");
-      expect(cards[2].textContent).toContain("training2");
     });
   });
 

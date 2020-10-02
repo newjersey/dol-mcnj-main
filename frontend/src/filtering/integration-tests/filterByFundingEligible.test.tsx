@@ -4,7 +4,7 @@ import React from "react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
-import { renderWithRouter, waitForEffect } from "./helpers";
+import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 
 describe("filtering by funding eligible", () => {
   const inDemand = buildTrainingResult({ name: "in demand training", inDemand: true });

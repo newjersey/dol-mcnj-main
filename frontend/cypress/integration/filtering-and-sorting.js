@@ -109,6 +109,68 @@ describe("Filtering", () => {
     cy.contains('16 results found for "catering"').should("exist");
   });
 
+  it("sorts by cost high to low", () => {
+    cy.visit("/search/baker");
+    cy.get("select").select("Cost: High to Low");
+
+    const costsOrder = ["$33,553.00", "$33,553.00", "$4,995.00", "$2,900.00", "$2,107.00"];
+
+    cy.get(".card").each(($value, index) => {
+      expect($value.text()).contains(costsOrder[index]);
+    });
+  });
+
+  it("sorts by cost low to high", () => {
+    cy.visit("/search/baker");
+    cy.get("select").select("Cost: Low to High");
+
+    const costsOrder = ["$2,107.00", "$2,900.00", "$4,995.00", "$33,553.00", "$33,553.00"];
+
+    cy.get(".card").each(($value, index) => {
+      expect($value.text()).contains(costsOrder[index]);
+    });
+  });
+
+  it("sorts by employment rate", () => {
+    cy.visit("/search/baker");
+    cy.get("select").select("Employment Rate");
+
+    const ratesOrder = ["71.4% employed", "--", "--", "--", "--"];
+
+    cy.get(".card").each(($value, index) => {
+      expect($value.text()).contains(ratesOrder[index]);
+    });
+  });
+
+  it("preserves sort order between pages", () => {
+    cy.visit("/search/baker");
+
+    cy.get(".card")
+      .first()
+      .within(() => {
+        cy.contains("Baking and Pastry").should("exist");
+      });
+
+    cy.get("select").select("Cost: High to Low");
+
+    cy.get(".card")
+      .first()
+      .within(() => {
+        cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");
+      });
+    cy.contains("Baking & Pastry Option, Culinary Arts").click({ force: true });
+    cy.location("pathname").should("eq", "/training/50299");
+    cy.go("back");
+
+    cy.get(".card")
+      .first()
+      .within(() => {
+        cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");
+      });
+
+    cy.contains("Cost: High to Low").should("exist");
+  });
+
   it("preserves a filter between pages", () => {
     cy.visit("/search/baker");
     cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");

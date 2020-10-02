@@ -1,6 +1,6 @@
 import { Input } from "../components/Input";
 import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
-import { FilterActionType, FilterContext } from "../App";
+import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { Client } from "../domain/Client";

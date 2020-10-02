@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { FormControlLabel, FormGroup } from "@material-ui/core";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
-import { FilterActionType, FilterContext } from "../App";
+import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { CalendarLength, TrainingResult } from "../domain/Training";
 
