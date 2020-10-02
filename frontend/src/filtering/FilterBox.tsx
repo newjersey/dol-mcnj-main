@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
-import { FilterContext } from "../App";
+import { FilterContext } from "./FilterContext";
 import { SecondaryButton } from "../components/SecondaryButton";
 import { Icon, useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";

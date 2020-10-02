@@ -4,7 +4,7 @@ import React from "react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { fireEvent, RenderResult } from "@testing-library/react";
-import { renderWithRouter, waitForEffect } from "./helpers";
+import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { Error } from "../../domain/Error";
 
 describe("filtering by location", () => {

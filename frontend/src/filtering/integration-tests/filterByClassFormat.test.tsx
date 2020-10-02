@@ -4,7 +4,7 @@ import { fireEvent, RenderResult } from "@testing-library/react";
 import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
-import { renderWithRouter, waitForEffect } from "./helpers";
+import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 
 describe("filtering by online or in-person", () => {
   const online = buildTrainingResult({ name: "online training", online: true });
