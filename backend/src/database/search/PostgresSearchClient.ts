@@ -46,7 +46,7 @@ export class PostgresSearchClient implements SearchClient {
     return this.kdb("etpl")
       .select(
         this.kdb.raw(
-          "ts_headline(description, websearch_to_tsquery(?)," +
+          "ts_headline(standardized_description, websearch_to_tsquery(?)," +
             "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as descheadline",
           [searchQuery]
         ),
