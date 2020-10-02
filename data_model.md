@@ -18,6 +18,9 @@ For this reason, many tables have extraneous columns that are not used (or not _
 - [`indemandsocs`](#indemandsocs)
 - [`socdefinitions`](#socdefinitions)
 - [`soc2010to2018crosswalk`](#soc2010to2018crosswalk)
+- [`blsoccupationhandbook`](#blsoccupationhandbook)
+- [`oesestimates`](#oesestimates)
+- [`oeshybridcrosswalk`](#oeshybridcrosswalk)
 
 
 ### etpl
@@ -109,6 +112,19 @@ PROVIDERWIBCOMMENT |
 PROVIDERSTATECOMMENT |
 DTSUBMITTED |
 PROVIDERSTATUSNAME | 'Approved'/'Suspend'/'Pending'/null
+standardized_name | standardized program title
+standardized_name_1 | standardized provider name
+standardized_description | standardized description
+standardized_featuresdescription |
+mentions_wioa | 
+default_job_search_duration | 
+mentioned_job_search_duration |
+google_direction_url |
+mention_hybrid |
+mention_inperson |
+mention_remote |
+commented_suspended_program_status |
+standardized_nongovapproval |
 
 ### soccipcrosswalk
 
@@ -360,10 +376,9 @@ reference_period |
 reference_year |
 reference_year_agg |
 
-### blsoccupationhandbook
+### oesestimates
 
 Source of truth from [Bureau of Labor Statistics Occupational Employment Statistics](https://www.bls.gov/oes/tables.htm)
-
 
 column name | description
 ------------|------------
@@ -397,3 +412,17 @@ a_pct75 |
 a_pct90 |
 annual |
 hourly |
+
+### oeshybridcrosswalk
+
+Crosswalk between SOC codes and OES-specific codes
+
+OES2019EstimatesCode | OES code
+OES2019EstimatesTitle |
+SOCCode2018 | SOC 2018 code
+SOCTitle2018 |
+OES2018EstimatesCode |
+OES2018EstimatesTitle |
+SOCCode2010 |
+SOCTitle2010
+NOTES |
