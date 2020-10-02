@@ -43,6 +43,8 @@ export class PostgresSearchClient implements SearchClient {
         return Promise.reject();
       });
 
+    const queryJoinedWithOrs = searchQuery.split(" ").join(" or ");
+
     return this.kdb("etpl")
       .select(
         this.kdb.raw(
@@ -51,9 +53,19 @@ export class PostgresSearchClient implements SearchClient {
           [searchQuery]
         ),
         this.kdb.raw(
+          "ts_headline(standardized_description, websearch_to_tsquery(?)," +
+            "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as descheadlineors",
+          [queryJoinedWithOrs]
+        ),
+        this.kdb.raw(
           "ts_headline(?, websearch_to_tsquery(?)," +
             "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as careerheadline",
           [careerTracksJoined, searchQuery]
+        ),
+        this.kdb.raw(
+          "ts_headline(?, websearch_to_tsquery(?)," +
+            "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as careerheadlineors",
+          [careerTracksJoined, queryJoinedWithOrs]
         )
       )
       .where("programid", id)
@@ -63,6 +75,10 @@ export class PostgresSearchClient implements SearchClient {
           return data.descheadline;
         } else if (data.careerheadline?.includes("[[")) {
           return "Career track: " + data.careerheadline;
+        } else if (data.descheadlineors?.includes("[[")) {
+          return data.descheadlineors;
+        } else if (data.careerheadlineors?.includes("[[")) {
+          return "Career track: " + data.careerheadlineors;
         }
         return "";
       })

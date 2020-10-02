@@ -1,6 +1,8 @@
 export interface HeadlineEntity {
   descheadline: string;
+  descheadlineors: string;
   careerheadline: string;
+  careerheadlineors: string;
 }
 
 export interface CareerTrackEntity {
