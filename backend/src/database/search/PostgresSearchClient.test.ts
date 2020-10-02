@@ -41,6 +41,13 @@ describe("PostgresSearchClient", () => {
     expect(highlightNoDescription).toEqual("");
   });
 
+  it("returns a partial highlight when only one word is in the description", async () => {
+    const highlight = await dataClient.getHighlight("3", "leaf chef");
+    expect(highlight).toEqual(
+      "designed to prepare students for jobs where edible [[leaf]] eating is required.  Software includes Microsoft Office including PowerPoint. Prior experience"
+    );
+  });
+
   it("searches training ids when title, description matches a search query", async () => {
     const resultIds = await dataClient.search("tree");
     expect(resultIds.map((it) => it.id)).toEqual(expect.arrayContaining(["1", "2", "5"]));
