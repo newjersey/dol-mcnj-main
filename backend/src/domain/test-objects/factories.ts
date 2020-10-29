@@ -1,4 +1,4 @@
-import { TrainingResult } from "../search/TrainingResult";
+import { TrainingResult } from "../training/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
 import {
   InDemandOccupation,

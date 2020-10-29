@@ -4,7 +4,7 @@ import cors from "cors";
 import { routerFactory } from "./routes/router";
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
-import { findTrainingsByIdsFactory } from "./domain/training/findTrainingsByIds";
+import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
 import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandOccupations";
 import { getOccupationDetailFactory } from "./domain/occupations/getOccupationDetail";
@@ -61,11 +61,11 @@ if (!isCI) {
 
 const postgresDataClient = new PostgresDataClient(connection);
 const postgresSearchClient = new PostgresSearchClient(connection);
-const findTrainingsByIds = findTrainingsByIdsFactory(postgresDataClient);
+const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
-  searchTrainings: searchTrainingsFactory(findTrainingsByIds, postgresSearchClient),
-  findTrainingsByIds: findTrainingsByIds,
+  searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
+  findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getZipCodesInRadius: ZipcodeClient(apiValues.zipcodeBaseUrl, apiValues.zipcodeApiKey),
   getOccupationDetail: getOccupationDetailFactory(

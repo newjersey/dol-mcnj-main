@@ -2,18 +2,19 @@ import { SearchTrainings } from "../types";
 import { searchTrainingsFactory } from "./searchTrainings";
 import { buildTraining } from "../test-objects/factories";
 import { StubSearchClient } from "../test-objects/StubDataClient";
+import { Selector } from "../training/Selector";
 
 describe("searchTrainings", () => {
   let searchTrainings: SearchTrainings;
-  let stubFindTrainingsByIds: jest.Mock;
+  let stubFindTrainingsBy: jest.Mock;
   let stubSearchClient: StubSearchClient;
 
   beforeEach(() => {
     jest.resetAllMocks();
-    stubFindTrainingsByIds = jest.fn();
+    stubFindTrainingsBy = jest.fn();
     stubSearchClient = StubSearchClient();
 
-    searchTrainings = searchTrainingsFactory(stubFindTrainingsByIds, stubSearchClient);
+    searchTrainings = searchTrainingsFactory(stubFindTrainingsBy, stubSearchClient);
   });
 
   it("returns matching trainings with highlights and ranks", async () => {
@@ -26,7 +27,7 @@ describe("searchTrainings", () => {
     stubSearchClient.getHighlight
       .mockResolvedValueOnce("some highlight 1")
       .mockResolvedValueOnce("some highlight 2");
-    stubFindTrainingsByIds.mockResolvedValue([training1, training2]);
+    stubFindTrainingsBy.mockResolvedValue([training1, training2]);
 
     expect(await searchTrainings("some query")).toEqual([
       {
@@ -66,11 +67,11 @@ describe("searchTrainings", () => {
     ]);
 
     expect(stubSearchClient.search).toHaveBeenCalledWith("some query");
-    expect(stubFindTrainingsByIds).toHaveBeenCalledWith(["1", "2"]);
+    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1", "2"]);
   });
 
   it("returns empty when search query is empty", async () => {
-    stubFindTrainingsByIds.mockResolvedValue([]);
+    stubFindTrainingsBy.mockResolvedValue([]);
     stubSearchClient.search.mockResolvedValue([]);
     const searchResults = await searchTrainings("");
     expect(searchResults).toEqual([]);
@@ -84,14 +85,14 @@ describe("searchTrainings", () => {
 
     it("rejects when find by ids is broken", (done) => {
       stubSearchClient.search.mockResolvedValue(["id"]);
-      stubFindTrainingsByIds.mockRejectedValue({});
+      stubFindTrainingsBy.mockRejectedValue({});
 
       searchTrainings("query").catch(() => done());
     });
 
     it("rejects when get highlights is broken", (done) => {
       stubSearchClient.search.mockResolvedValue(["id"]);
-      stubFindTrainingsByIds.mockResolvedValue([buildTraining({})]);
+      stubFindTrainingsBy.mockResolvedValue([buildTraining({})]);
       stubSearchClient.getHighlight.mockRejectedValue({});
 
       searchTrainings("query").catch(() => done());

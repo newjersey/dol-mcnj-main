@@ -1,16 +1,20 @@
 import { stripUnicode } from "../utils/stripUnicode";
-import { FindTrainingsByIds, SearchTrainings } from "../types";
-import { TrainingResult } from "./TrainingResult";
+import { FindTrainingsBy, SearchTrainings } from "../types";
+import { TrainingResult } from "../training/TrainingResult";
 import { Training } from "../training/Training";
 import { SearchClient } from "./SearchClient";
+import { Selector } from "../training/Selector";
 
 export const searchTrainingsFactory = (
-  findTrainingsByIds: FindTrainingsByIds,
+  findTrainingsBy: FindTrainingsBy,
   searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
     const searchResults = await searchClient.search(searchQuery);
-    const trainings = await findTrainingsByIds(searchResults.map((it) => it.id));
+    const trainings = await findTrainingsBy(
+      Selector.ID,
+      searchResults.map((it) => it.id)
+    );
 
     return Promise.all(
       trainings.map(async (training: Training) => {

@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import {
-  FindTrainingsByIds,
+  FindTrainingsBy,
   GetInDemandOccupations,
   GetZipCodesInRadius,
   SearchTrainings,
@@ -9,11 +9,12 @@ import {
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
-import { TrainingResult } from "../domain/search/TrainingResult";
+import { TrainingResult } from "../domain/training/TrainingResult";
+import { Selector } from "../domain/training/Selector";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
-  findTrainingsByIds: FindTrainingsByIds;
+  findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
   getZipCodesInRadius: GetZipCodesInRadius;
   getOccupationDetail: GetOccupationDetail;
@@ -21,7 +22,7 @@ interface RouterActions {
 
 export const routerFactory = ({
   searchTrainings,
-  findTrainingsByIds,
+  findTrainingsBy,
   getInDemandOccupations,
   getZipCodesInRadius,
   getOccupationDetail,
@@ -37,7 +38,7 @@ export const routerFactory = ({
   });
 
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
-    findTrainingsByIds([req.params.id as string])
+    findTrainingsBy(Selector.ID, [req.params.id as string])
       .then((trainings: Training[]) => {
         res.status(200).json(trainings[0]);
       })
