@@ -41,6 +41,11 @@ export interface SocDefinition {
   definition: string;
 }
 
+export interface CipDefinition {
+  cipcode: string;
+  ciptitle: string;
+}
+
 export interface NullableOccupation {
   soc: string;
   title: string | null;

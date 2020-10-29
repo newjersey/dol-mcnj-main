@@ -4,6 +4,7 @@ import { Error } from "../../domain/Error";
 import {
   LocalException,
   SocDefinition,
+  CipDefinition,
   Program,
   EducationText,
   SalaryEstimate,
@@ -114,6 +115,16 @@ export class PostgresDataClient implements DataClient {
       .select("soccode as soc", "soctitle as title", "socdefinition as definition")
       .where("soccode", soc)
       .first()
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
+  findCipDefinitionBySoc2018 = (soc: string): Promise<CipDefinition[]> => {
+    return this.kdb("soccipcrosswalk")
+      .select("cipcode", "cip2020title as ciptitle")
+      .where("soc2018code", soc)
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
