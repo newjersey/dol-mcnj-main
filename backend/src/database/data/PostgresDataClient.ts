@@ -1,6 +1,5 @@
 import knex from "knex";
 import Knex, { PgConnectionConfig } from "knex";
-import { Error } from "../../domain/Error";
 import {
   LocalException,
   SocDefinition,
@@ -12,6 +11,8 @@ import {
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
+import { Selector } from "../../domain/training/Selector";
+import { Error } from "../../domain/Error";
 
 const APPROVED = "Approved";
 
@@ -25,10 +26,19 @@ export class PostgresDataClient implements DataClient {
     });
   }
 
-  findProgramsByIds = async (ids: string[]): Promise<Program[]> => {
-    if (ids.length === 0) {
+  findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
+    if (values.length === 0) {
       return Promise.resolve([]);
     }
+
+    const column = ((sel: Selector): string => {
+      switch (sel) {
+        case Selector.CIP_CODE:
+          return "cipcode";
+        case Selector.ID:
+          return "programid";
+      }
+    })(selector);
 
     const programs = await this.kdb("etpl")
       .select(
@@ -71,21 +81,24 @@ export class PostgresDataClient implements DataClient {
         );
       })
       .joinRaw(
-        `join unnest('{${ids.join(
+        `join unnest('{${values.join(
           ","
-        )}}'::varchar[]) WITH ORDINALITY t(programid, ord) ON etpl.programid = t.programid`
+        )}}'::varchar[]) WITH ORDINALITY t(listcolumn, ord) ON etpl.${column} = t.listcolumn`
       )
-      .whereIn("etpl.programid", ids)
+      .whereIn(`etpl.${column}`, values)
       .andWhere("etpl.statusname", APPROVED)
       .andWhere("etpl.providerstatusname", APPROVED)
       .orderByRaw("t.ord")
-      .catch((e) => {
-        console.log("db error: ", e);
+      .catch(() => {
         return Promise.reject();
       });
 
     if (programs.length === 0) {
-      return Promise.reject(Error.NOT_FOUND);
+      if (column === "cipcode") {
+        return Promise.resolve([]);
+      } else {
+        return Promise.reject(Error.NOT_FOUND);
+      }
     }
 
     return programs;

@@ -25,7 +25,7 @@ describe("findTrainingsByIds", () => {
       indemandcip: "123456",
       onlineprogramid: "123",
     });
-    stubDataClient.findProgramsByIds.mockResolvedValue([program]);
+    stubDataClient.findProgramsBy.mockResolvedValue([program]);
     stubDataClient.findOccupationsByCip.mockResolvedValue([
       buildOccupation({ title: "some job", soc: "123" }),
       buildOccupation({ title: "some other job", soc: "456" }),
@@ -80,7 +80,7 @@ describe("findTrainingsByIds", () => {
     const program1 = buildProgram({});
     const program2 = buildProgram({});
 
-    stubDataClient.findProgramsByIds.mockResolvedValue([program1, program2]);
+    stubDataClient.findProgramsBy.mockResolvedValue([program1, program2]);
 
     stubDataClient.findOccupationsByCip
       .mockResolvedValueOnce([buildOccupation({ title: "occupation 1" })])
@@ -110,12 +110,12 @@ describe("findTrainingsByIds", () => {
   });
 
   it("finds empty trainings by empty ids", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([]);
+    stubDataClient.findProgramsBy.mockResolvedValue([]);
     expect(await findTrainingsByIds([])).toEqual([]);
   });
 
   it("lists matching occupation titles for a training", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({})]);
+    stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({})]);
     stubDataClient.findOccupationsByCip.mockResolvedValue([
       buildOccupation({ title: "chemists", soc: "456" }),
       buildOccupation({ title: "astrophysicists", soc: "123" }),
@@ -149,7 +149,7 @@ describe("findTrainingsByIds", () => {
       avgquarterlywage2: null,
       onlineprogramid: null,
     });
-    stubDataClient.findProgramsByIds.mockResolvedValue([program]);
+    stubDataClient.findProgramsBy.mockResolvedValue([program]);
 
     const [training] = await findTrainingsByIds(["123"]);
 
@@ -176,7 +176,7 @@ describe("findTrainingsByIds", () => {
       programid: "123",
       peremployed2: "-99999",
     });
-    stubDataClient.findProgramsByIds.mockResolvedValue([program]);
+    stubDataClient.findProgramsBy.mockResolvedValue([program]);
     const [training] = await findTrainingsByIds(["123"]);
     expect(training.percentEmployed).toEqual(null);
   });
@@ -186,13 +186,13 @@ describe("findTrainingsByIds", () => {
       programid: "123",
       avgquarterlywage2: "25000",
     });
-    stubDataClient.findProgramsByIds.mockResolvedValue([program]);
+    stubDataClient.findProgramsBy.mockResolvedValue([program]);
     const [training] = await findTrainingsByIds(["123"]);
     expect(training.averageSalary).toEqual(100000);
   });
 
   it("strips surrounding quotation marks from title/description/more of training", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
         officialname: '"Some Name with Quotes"',
         description: '"Some Name with Quotes"',
@@ -215,7 +215,7 @@ describe("findTrainingsByIds", () => {
     expect(foundTraining.provider.contactName).toEqual("Some Name with Quotes");
     expect(foundTraining.provider.contactTitle).toEqual("Some Name with Quotes");
 
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
         officialname: "Some Name without Quotes",
         description: "Some Name without Quotes",
@@ -237,7 +237,7 @@ describe("findTrainingsByIds", () => {
     expect(foundTraining.provider.contactName).toEqual("Some Name without Quotes");
     expect(foundTraining.provider.contactTitle).toEqual("Some Name without Quotes");
 
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
         officialname: '"Quotes "in the" middle too"',
         description: '"Quotes "in the" middle too"',
@@ -259,7 +259,7 @@ describe("findTrainingsByIds", () => {
     expect(foundTraining.provider.contactName).toEqual('Quotes "in" the the "middle" too');
     expect(foundTraining.provider.contactTitle).toEqual('Quotes "in the" middle too');
 
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
         officialname: '"""Lots of Quotes"""',
         description: '"""Lots of Quotes"""',
@@ -283,7 +283,7 @@ describe("findTrainingsByIds", () => {
   });
 
   it("title cases the local exception county", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({ cipcode: "123" })]);
+    stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ cipcode: "123" })]);
 
     stubDataClient.getLocalExceptions.mockResolvedValue([
       buildLocalException({ cipcode: "123", county: "ATLANTIC" }),
@@ -311,7 +311,7 @@ describe("findTrainingsByIds", () => {
   });
 
   it("title cases program names if they are all caps", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
         officialname: "MY VERY COOL PROGRAM",
       }),
@@ -319,7 +319,7 @@ describe("findTrainingsByIds", () => {
 
     expect((await findTrainingsByIds(["123"]))[0].name).toEqual("My Very Cool Program");
 
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
         officialname: "My very cool program",
       }),
@@ -329,7 +329,7 @@ describe("findTrainingsByIds", () => {
   });
 
   it("strips unicode inverted question marks from descriptions", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([
+    stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({ description: "some ¿weird¿ character" }),
     ]);
 
@@ -337,31 +337,31 @@ describe("findTrainingsByIds", () => {
   });
 
   it("appends `County` to the county", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({ county: "Atlantic" })]);
+    stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ county: "Atlantic" })]);
 
     expect((await findTrainingsByIds(["123"]))[0].provider.county).toEqual("Atlantic County");
   });
 
   it("replaces `Select One` county with empty string", async () => {
-    stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({ county: "Select One" })]);
+    stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ county: "Select One" })]);
 
     expect((await findTrainingsByIds(["123"]))[0].provider.county).toEqual("");
   });
 
   describe("error handling", () => {
     it("rejects when find by ids is broken", (done) => {
-      stubDataClient.findProgramsByIds.mockRejectedValue({});
+      stubDataClient.findProgramsBy.mockRejectedValue({});
       findTrainingsByIds(["id"]).catch(() => done());
     });
 
     it("rejects when local exception lookup is broken", (done) => {
-      stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({})]);
+      stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({})]);
       stubDataClient.getLocalExceptions.mockRejectedValue({});
       findTrainingsByIds(["id"]).catch(() => done());
     });
 
     it("rejects when occupation title lookup is broken", (done) => {
-      stubDataClient.findProgramsByIds.mockResolvedValue([buildProgram({})]);
+      stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({})]);
       stubDataClient.findOccupationsByCip.mockRejectedValue({});
       findTrainingsByIds(["id"]).catch(() => done());
     });

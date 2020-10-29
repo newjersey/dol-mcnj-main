@@ -1,4 +1,5 @@
 import { PostgresDataClient } from "./PostgresDataClient";
+import { Selector } from "../../domain/training/Selector";
 import { Error } from "../../domain/Error";
 
 describe("PostgresDataClient", () => {
@@ -50,9 +51,9 @@ describe("PostgresDataClient", () => {
     onlineprogramid: "1",
   };
 
-  describe("findProgramsByIds", () => {
+  describe("findProgramsBy", () => {
     it("finds programs by list of ids", async () => {
-      const programs = await dataClient.findProgramsByIds(["1", "2"]);
+      const programs = await dataClient.findProgramsBy(Selector.ID, ["1", "2"]);
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
@@ -63,32 +64,52 @@ describe("PostgresDataClient", () => {
       );
     });
 
+    it("finds programs by list of cip codes", async () => {
+      const programs = await dataClient.findProgramsBy(Selector.CIP_CODE, ["123456", "000000"]);
+      expect(programs.length).toEqual(4);
+      expect(programs[0]).toEqual(testProgram1);
+      expect(programs.map((it) => it.officialname)).toEqual(
+        expect.arrayContaining([
+          "Standardized Tree Identification Class",
+          "Standardized Tree Identification Class Level 2",
+          "Standardized Program With No Description",
+          "Standardized Program With No Outcomes",
+        ])
+      );
+    });
+
     it("does not return programs with status as not Approved", async () => {
-      const programs = await dataClient.findProgramsByIds(["1", "3"]);
+      const programs = await dataClient.findProgramsBy(Selector.ID, ["1", "3"]);
       expect(programs.length).toEqual(1);
       expect(programs[0].programid).toEqual("1");
     });
 
     it("does not return programs with provider status as not Approved", async () => {
-      const programs = await dataClient.findProgramsByIds(["1", "4"]);
+      const programs = await dataClient.findProgramsBy(Selector.ID, ["1", "4"]);
       expect(programs.length).toEqual(1);
       expect(programs[0].programid).toEqual("1");
     });
 
     it("preserves order of input list of ids", async () => {
-      const programs = await dataClient.findProgramsByIds(["2", "1"]);
+      const programs = await dataClient.findProgramsBy(Selector.ID, ["2", "1"]);
       expect(programs.length).toEqual(2);
       expect(programs[0].officialname).toEqual("Standardized Tree Identification Class Level 2");
       expect(programs[1].officialname).toEqual("Standardized Tree Identification Class");
     });
 
-    it("returns empty when id list is empty", async () => {
-      const programs = await dataClient.findProgramsByIds([]);
+    it("returns empty when list is empty", async () => {
+      const programs = await dataClient.findProgramsBy(Selector.ID, []);
       expect(programs).toHaveLength(0);
     });
 
-    it("throws with a not found error if called with one id that does not exist", (done) => {
-      dataClient.findProgramsByIds(["doesnotexist"]).catch((e) => {
+    it("returns empty if called with a cipcode selector that does not exist", async () => {
+      const programs = await dataClient.findProgramsBy(Selector.CIP_CODE, ["doesnotexist"]);
+
+      expect(programs).toHaveLength(0);
+    });
+
+    it("throws a not found error if called with a selector that does not exist", (done) => {
+      dataClient.findProgramsBy(Selector.ID, ["doesnotexist"]).catch((e) => {
         expect(e).toEqual(Error.NOT_FOUND);
         done();
       });
