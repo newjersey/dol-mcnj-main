@@ -138,6 +138,23 @@ describe("PostgresDataClient", () => {
     });
   });
 
+  describe("findCipDefinitionBySoc2018", () => {
+    it("gets the list of 2020 cip codes for a 2018 soc code", async () => {
+      const cips = await dataClient.findCipDefinitionBySoc2018("12-1011");
+
+      expect(cips).toEqual([
+        {
+          cipcode: "121212",
+          ciptitle: "Mushrooms",
+        },
+        {
+          cipcode: "987654",
+          ciptitle: "Vegetables",
+        },
+      ]);
+    });
+  });
+
   describe("getOccupationsInDemand", () => {
     it("gets the list of in-demand SOCs and looks up their titles", async () => {
       const inDemandOccupations = await dataClient.getOccupationsInDemand();

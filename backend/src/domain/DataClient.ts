@@ -2,6 +2,7 @@ import {
   LocalException,
   Program,
   SocDefinition,
+  CipDefinition,
   EducationText,
   SalaryEstimate,
   NullableOccupation,
@@ -12,6 +13,7 @@ export interface DataClient {
   findProgramsByIds: (ids: string[]) => Promise<Program[]>;
   findOccupationsByCip: (cip: string) => Promise<Occupation[]>;
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
+  findCipDefinitionBySoc2018: (soc: string) => Promise<CipDefinition[]>;
   find2018OccupationsBySoc2010: (soc2010: string) => Promise<Occupation[]>;
   find2010OccupationsBySoc2018: (soc2018: string) => Promise<Occupation[]>;
   getLocalExceptions: () => Promise<LocalException[]>;
