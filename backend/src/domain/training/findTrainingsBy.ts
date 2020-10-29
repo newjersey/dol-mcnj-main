@@ -1,16 +1,16 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { stripUnicode } from "../utils/stripUnicode";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
-import { FindTrainingsByIds } from "../types";
+import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 
-export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainingsByIds => {
-  return async (ids: string[]): Promise<Training[]> => {
-    const programs = await dataClient.findProgramsBy(Selector.ID, ids);
+export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
+  return async (selector: Selector, values: string[]): Promise<Training[]> => {
+    const programs = await dataClient.findProgramsBy(selector, values);
 
     return Promise.all(
       programs.map(async (program: Program) => {

@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { FindTrainingsByIds } from "../types";
+import { FindTrainingsBy } from "../types";
 import { CalendarLength } from "../CalendarLength";
-import { findTrainingsByIdsFactory } from "./findTrainingsByIds";
+import { findTrainingsByFactory } from "./findTrainingsBy";
 import { StubDataClient } from "../test-objects/StubDataClient";
 import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
+import { Selector } from "./Selector";
 
-describe("findTrainingsByIds", () => {
-  let findTrainingsByIds: FindTrainingsByIds;
+describe("findTrainingsBy", () => {
+  let findTrainingsBy: FindTrainingsBy;
   let stubDataClient: StubDataClient;
 
   beforeEach(() => {
     jest.resetAllMocks();
     stubDataClient = StubDataClient();
-    findTrainingsByIds = findTrainingsByIdsFactory(stubDataClient);
+    findTrainingsBy = findTrainingsByFactory(stubDataClient);
     stubDataClient.getLocalExceptions.mockResolvedValue([]);
     stubDataClient.findOccupationsByCip.mockResolvedValue([]);
   });
@@ -34,7 +35,7 @@ describe("findTrainingsByIds", () => {
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
     ]);
 
-    expect(await findTrainingsByIds(["123"])).toEqual([
+    expect(await findTrainingsBy(Selector.ID, ["123"])).toEqual([
       {
         id: program.programid,
         name: program.officialname,
@@ -94,7 +95,7 @@ describe("findTrainingsByIds", () => {
         buildLocalException({ cipcode: program2.cipcode, county: "Pacific" }),
       ]);
 
-    const [training1, training2] = await findTrainingsByIds([
+    const [training1, training2] = await findTrainingsBy(Selector.ID, [
       program1.programid,
       program2.programid,
     ]);
@@ -111,7 +112,70 @@ describe("findTrainingsByIds", () => {
 
   it("finds empty trainings by empty ids", async () => {
     stubDataClient.findProgramsBy.mockResolvedValue([]);
-    expect(await findTrainingsByIds([])).toEqual([]);
+    expect(await findTrainingsBy(Selector.ID, [])).toEqual([]);
+  });
+
+  it("finds training by cipcode", async () => {
+    const program = buildProgram({
+      programid: "123",
+      cipcode: "123456",
+      indemandcip: "123456",
+      onlineprogramid: "123",
+    });
+    stubDataClient.findProgramsBy.mockResolvedValue([program]);
+    stubDataClient.findOccupationsByCip.mockResolvedValue([
+      buildOccupation({ title: "some job", soc: "123" }),
+      buildOccupation({ title: "some other job", soc: "456" }),
+    ]);
+    stubDataClient.getLocalExceptions.mockResolvedValue([
+      buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
+    ]);
+
+    expect(await findTrainingsBy(Selector.CIP_CODE, ["123456"])).toEqual([
+      {
+        id: program.programid,
+        name: program.officialname,
+        provider: {
+          name: program.providername,
+          id: program.providerid,
+          url: program.website,
+          contactName: program.contactfirstname + " " + program.contactlastname,
+          contactTitle: program.contacttitle,
+          phoneNumber: program.phone,
+          phoneExtension: program.phoneextension,
+          county: program.county + " County",
+          address: {
+            street1: program.street1,
+            street2: program.street2,
+            city: program.city,
+            state: program.state,
+            zipCode: program.zip,
+          },
+        },
+        description: program.description,
+        calendarLength: parseInt(program.calendarlengthid!),
+        occupations: [
+          { soc: "123", title: "some job" },
+          { soc: "456", title: "some other job" },
+        ],
+        inDemand: true,
+        localExceptionCounty: ["Atlantic"],
+        tuitionCost: parseFloat(program.tuition),
+        feesCost: parseFloat(program.fees),
+        booksMaterialsCost: parseFloat(program.booksmaterialscost),
+        suppliesToolsCost: parseFloat(program.suppliestoolscost),
+        otherCost: parseFloat(program.othercosts),
+        totalCost: parseFloat(program.totalcost),
+        online: true,
+        percentEmployed: parseFloat(program.peremployed2!),
+        averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
+      },
+    ]);
+  });
+
+  it("finds empty trainings by empty cipcodes", async () => {
+    stubDataClient.findProgramsBy.mockResolvedValue([]);
+    expect(await findTrainingsBy(Selector.CIP_CODE, [])).toEqual([]);
   });
 
   it("lists matching occupation titles for a training", async () => {
@@ -121,7 +185,7 @@ describe("findTrainingsByIds", () => {
       buildOccupation({ title: "astrophysicists", soc: "123" }),
     ]);
 
-    const training = await findTrainingsByIds(["123"]);
+    const training = await findTrainingsBy(Selector.ID, ["123"]);
     expect(training[0].occupations).toEqual([
       { title: "chemists", soc: "456" },
       { title: "astrophysicists", soc: "123" },
@@ -151,7 +215,7 @@ describe("findTrainingsByIds", () => {
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
 
-    const [training] = await findTrainingsByIds(["123"]);
+    const [training] = await findTrainingsBy(Selector.ID, ["123"]);
 
     expect(training.calendarLength).toEqual(CalendarLength.NULL);
     expect(training.provider.url).toEqual("");
@@ -177,7 +241,7 @@ describe("findTrainingsByIds", () => {
       peremployed2: "-99999",
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
-    const [training] = await findTrainingsByIds(["123"]);
+    const [training] = await findTrainingsBy(Selector.ID, ["123"]);
     expect(training.percentEmployed).toEqual(null);
   });
 
@@ -187,7 +251,7 @@ describe("findTrainingsByIds", () => {
       avgquarterlywage2: "25000",
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
-    const [training] = await findTrainingsByIds(["123"]);
+    const [training] = await findTrainingsBy(Selector.ID, ["123"]);
     expect(training.averageSalary).toEqual(100000);
   });
 
@@ -205,7 +269,7 @@ describe("findTrainingsByIds", () => {
       }),
     ]);
 
-    let foundTraining = (await findTrainingsByIds(["123"]))[0];
+    let foundTraining = (await findTrainingsBy(Selector.ID, ["123"]))[0];
 
     expect(foundTraining.name).toEqual("Some Name with Quotes");
     expect(foundTraining.description).toEqual("Some Name with Quotes");
@@ -228,7 +292,7 @@ describe("findTrainingsByIds", () => {
       }),
     ]);
 
-    foundTraining = (await findTrainingsByIds(["123"]))[0];
+    foundTraining = (await findTrainingsBy(Selector.ID, ["123"]))[0];
     expect(foundTraining.name).toEqual("Some Name without Quotes");
     expect(foundTraining.description).toEqual("Some Name without Quotes");
     expect(foundTraining.provider.name).toEqual("Some Name without Quotes");
@@ -250,7 +314,7 @@ describe("findTrainingsByIds", () => {
       }),
     ]);
 
-    foundTraining = (await findTrainingsByIds(["123"]))[0];
+    foundTraining = (await findTrainingsBy(Selector.ID, ["123"]))[0];
     expect(foundTraining.name).toEqual('Quotes "in the" middle too');
     expect(foundTraining.description).toEqual('Quotes "in the" middle too');
     expect(foundTraining.provider.name).toEqual('Quotes "in the" middle too');
@@ -272,7 +336,7 @@ describe("findTrainingsByIds", () => {
       }),
     ]);
 
-    foundTraining = (await findTrainingsByIds(["123"]))[0];
+    foundTraining = (await findTrainingsBy(Selector.ID, ["123"]))[0];
     expect(foundTraining.name).toEqual("Lots of Quotes");
     expect(foundTraining.description).toEqual("Lots of Quotes");
     expect(foundTraining.provider.name).toEqual("Lots of Quotes");
@@ -288,12 +352,14 @@ describe("findTrainingsByIds", () => {
     stubDataClient.getLocalExceptions.mockResolvedValue([
       buildLocalException({ cipcode: "123", county: "ATLANTIC" }),
     ]);
-    expect((await findTrainingsByIds(["123"]))[0].localExceptionCounty).toEqual(["Atlantic"]);
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([
+      "Atlantic",
+    ]);
 
     stubDataClient.getLocalExceptions.mockResolvedValue([
       buildLocalException({ cipcode: "123", county: "ATLANTIC COUNTY" }),
     ]);
-    expect((await findTrainingsByIds(["123"]))[0].localExceptionCounty).toEqual([
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([
       "Atlantic County",
     ]);
 
@@ -301,13 +367,13 @@ describe("findTrainingsByIds", () => {
       buildLocalException({ cipcode: "123", county: "ATLANTIC" }),
       buildLocalException({ cipcode: "123", county: "MIDDLESEX" }),
     ]);
-    expect((await findTrainingsByIds(["123"]))[0].localExceptionCounty).toEqual([
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([
       "Atlantic",
       "Middlesex",
     ]);
 
     stubDataClient.getLocalExceptions.mockResolvedValue([]);
-    expect((await findTrainingsByIds(["123"]))[0].localExceptionCounty).toEqual([]);
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([]);
   });
 
   it("title cases program names if they are all caps", async () => {
@@ -317,7 +383,7 @@ describe("findTrainingsByIds", () => {
       }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("My Very Cool Program");
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].name).toEqual("My Very Cool Program");
 
     stubDataClient.findProgramsBy.mockResolvedValue([
       buildProgram({
@@ -325,7 +391,7 @@ describe("findTrainingsByIds", () => {
       }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].name).toEqual("My very cool program");
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].name).toEqual("My very cool program");
   });
 
   it("strips unicode inverted question marks from descriptions", async () => {
@@ -333,37 +399,41 @@ describe("findTrainingsByIds", () => {
       buildProgram({ description: "some ¿weird¿ character" }),
     ]);
 
-    expect((await findTrainingsByIds(["123"]))[0].description).toEqual("some weird character");
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].description).toEqual(
+      "some weird character"
+    );
   });
 
   it("appends `County` to the county", async () => {
     stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ county: "Atlantic" })]);
 
-    expect((await findTrainingsByIds(["123"]))[0].provider.county).toEqual("Atlantic County");
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].provider.county).toEqual(
+      "Atlantic County"
+    );
   });
 
   it("replaces `Select One` county with empty string", async () => {
     stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ county: "Select One" })]);
 
-    expect((await findTrainingsByIds(["123"]))[0].provider.county).toEqual("");
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].provider.county).toEqual("");
   });
 
   describe("error handling", () => {
     it("rejects when find by ids is broken", (done) => {
       stubDataClient.findProgramsBy.mockRejectedValue({});
-      findTrainingsByIds(["id"]).catch(() => done());
+      findTrainingsBy(Selector.ID, ["id"]).catch(() => done());
     });
 
     it("rejects when local exception lookup is broken", (done) => {
       stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({})]);
       stubDataClient.getLocalExceptions.mockRejectedValue({});
-      findTrainingsByIds(["id"]).catch(() => done());
+      findTrainingsBy(Selector.ID, ["id"]).catch(() => done());
     });
 
     it("rejects when occupation title lookup is broken", (done) => {
       stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({})]);
       stubDataClient.findOccupationsByCip.mockRejectedValue({});
-      findTrainingsByIds(["id"]).catch(() => done());
+      findTrainingsBy(Selector.ID, ["id"]).catch(() => done());
     });
   });
 });

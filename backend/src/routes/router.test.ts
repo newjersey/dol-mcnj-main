@@ -8,26 +8,27 @@ import {
   buildTraining,
   buildTrainingResult,
 } from "../domain/test-objects/factories";
+import { Selector } from "../domain/training/Selector";
 
 describe("router", () => {
   let app: Express;
   let router: Router;
   let stubSearchTrainings: jest.Mock;
-  let stubFindTrainingsByIds: jest.Mock;
+  let stubFindTrainingsBy: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
   let stubGetZipCodesInRadius: jest.Mock;
   let stubGetOccupationDetail: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
-    stubFindTrainingsByIds = jest.fn();
+    stubFindTrainingsBy = jest.fn();
     stubGetInDemandOccupations = jest.fn();
     stubGetZipCodesInRadius = jest.fn();
     stubGetOccupationDetail = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
-      findTrainingsByIds: stubFindTrainingsByIds,
+      findTrainingsBy: stubFindTrainingsBy,
       getInDemandOccupations: stubGetInDemandOccupations,
       getZipCodesInRadius: stubGetZipCodesInRadius,
       getOccupationDetail: stubGetOccupationDetail,
@@ -59,24 +60,24 @@ describe("router", () => {
   describe("/trainings/{id}", () => {
     it("fetches for first id and returns matching training", (done) => {
       const training = buildTraining({});
-      stubFindTrainingsByIds.mockResolvedValue([training]);
+      stubFindTrainingsBy.mockResolvedValue([training]);
       request(app)
         .get("/trainings/12345")
         .then((response) => {
           expect(response.status).toEqual(200);
           expect(response.body).toEqual(training);
-          expect(stubFindTrainingsByIds).toHaveBeenCalledWith(["12345"]);
+          expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["12345"]);
           done();
         });
     });
 
     it("sends a 500 when the fetch fails", (done) => {
-      stubFindTrainingsByIds.mockImplementationOnce(() => Promise.reject());
+      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject());
       request(app).get("/trainings/systemerror").expect(500).end(done);
     });
 
     it("sends a 404 when the fetch fails with a Not Found error", (done) => {
-      stubFindTrainingsByIds.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
+      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
       request(app).get("/trainings/notfounderror").expect(404).end(done);
     });
 
