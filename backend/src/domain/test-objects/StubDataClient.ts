@@ -1,5 +1,5 @@
 export interface StubDataClient {
-  findProgramsByIds: jest.Mock;
+  findProgramsBy: jest.Mock;
   findOccupationsByCip: jest.Mock;
   findSocDefinitionBySoc: jest.Mock;
   findCipDefinitionBySoc2018: jest.Mock;
@@ -14,7 +14,7 @@ export interface StubDataClient {
 }
 
 export const StubDataClient = (): StubDataClient => ({
-  findProgramsByIds: jest.fn(),
+  findProgramsBy: jest.fn(),
   findOccupationsByCip: jest.fn(),
   findSocDefinitionBySoc: jest.fn(),
   findCipDefinitionBySoc2018: jest.fn(),

@@ -6,10 +6,11 @@ import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
 import { DataClient } from "../DataClient";
+import { Selector } from "./Selector";
 
 export const findTrainingsByIdsFactory = (dataClient: DataClient): FindTrainingsByIds => {
   return async (ids: string[]): Promise<Training[]> => {
-    const programs = await dataClient.findProgramsByIds(ids);
+    const programs = await dataClient.findProgramsBy(Selector.ID, ids);
 
     return Promise.all(
       programs.map(async (program: Program) => {

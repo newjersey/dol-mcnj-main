@@ -8,9 +8,10 @@ import {
   NullableOccupation,
 } from "./training/Program";
 import { Occupation } from "./occupations/Occupation";
+import { Selector } from "./training/Selector";
 
 export interface DataClient {
-  findProgramsByIds: (ids: string[]) => Promise<Program[]>;
+  findProgramsBy: (selector: Selector, values: string[]) => Promise<Program[]>;
   findOccupationsByCip: (cip: string) => Promise<Occupation[]>;
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
   findCipDefinitionBySoc2018: (soc: string) => Promise<CipDefinition[]>;
