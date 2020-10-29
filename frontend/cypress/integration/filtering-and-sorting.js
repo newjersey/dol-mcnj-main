@@ -158,7 +158,7 @@ describe("Filtering", () => {
       .within(() => {
         cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");
       });
-    cy.contains("Baking & Pastry Option, Culinary Arts").click({ force: true });
+    cy.get(".card").first().click({ force: true });
     cy.location("pathname").should("eq", "/training/50299");
     cy.go("back");
 
