@@ -1,3 +1,5 @@
+import { TrainingResult } from "../training/TrainingResult";
+
 export interface InDemandOccupation {
   soc: string;
   title: string;
@@ -19,6 +21,7 @@ export interface OccupationDetail {
   medianSalary: number | null;
   openJobsCount: number | null;
   relatedOccupations: Occupation[];
+  relatedTrainings: TrainingResult[];
 }
 
 export interface OccupationDetailPartial {

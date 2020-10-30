@@ -5,6 +5,9 @@ import {
   buildOccupationDetailPartial,
   buildOccupation,
   buildSocDefinition,
+  buildTraining,
+  buildProvider,
+  buildAddress,
 } from "../test-objects/factories";
 import { Error } from "../Error";
 
@@ -15,18 +18,21 @@ describe("getOccupationDetail", () => {
   let mockGetEducationText: jest.Mock;
   let mockGetSalaryEstimate: jest.Mock;
   let mockGetOpenJobsCount: jest.Mock;
+  let mockFindTrainingsBy: jest.Mock;
 
   beforeEach(() => {
     mockOnet = jest.fn();
     mockGetEducationText = jest.fn();
     mockGetSalaryEstimate = jest.fn();
     mockGetOpenJobsCount = jest.fn();
+    mockFindTrainingsBy = jest.fn();
     stubDataClient = StubDataClient();
     getOccupationDetail = getOccupationDetailFactory(
       mockOnet,
       mockGetEducationText,
       mockGetSalaryEstimate,
       mockGetOpenJobsCount,
+      mockFindTrainingsBy,
       stubDataClient
     );
   });
@@ -43,6 +49,35 @@ describe("getOccupationDetail", () => {
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
+      stubDataClient.findCipDefinitionBySoc2018.mockResolvedValue([
+        {
+          cipcode: "123456",
+          ciptitle: "some-cip",
+        },
+      ]);
+
+      mockFindTrainingsBy.mockResolvedValue([
+        buildTraining({
+          id: "some-training-id",
+          name: "some-training-name",
+          provider: buildProvider({
+            id: "some-provider-id",
+            address: buildAddress({
+              city: "some-provider-city",
+              zipCode: "some-provider-zipCode",
+            }),
+            county: "some-provider-county",
+            name: "some-provider-name",
+          }),
+          totalCost: 534,
+          percentEmployed: 3454,
+          calendarLength: 33,
+          localExceptionCounty: [],
+          online: true,
+          inDemand: true,
+        }),
+      ]);
+
       const result = await getOccupationDetail("some-soc");
 
       expect(result).toEqual({
@@ -51,6 +86,25 @@ describe("getOccupationDetail", () => {
         inDemand: true,
         medianSalary: 38260,
         openJobsCount: 10,
+        relatedTrainings: [
+          {
+            id: "some-training-id",
+            name: "some-training-name",
+            totalCost: 534,
+            percentEmployed: 3454,
+            calendarLength: 33,
+            localExceptionCounty: [],
+            online: true,
+            providerId: "some-provider-id",
+            providerName: "some-provider-name",
+            city: "some-provider-city",
+            zipCode: "some-provider-zipCode",
+            county: "some-provider-county",
+            inDemand: true,
+            highlight: "",
+            rank: 0,
+          },
+        ],
       });
     });
   });
@@ -72,6 +126,35 @@ describe("getOccupationDetail", () => {
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
+      stubDataClient.findCipDefinitionBySoc2018.mockResolvedValue([
+        {
+          cipcode: "123456",
+          ciptitle: "some-cip",
+        },
+      ]);
+
+      mockFindTrainingsBy.mockResolvedValue([
+        buildTraining({
+          id: "some-training-id",
+          name: "some-training-name",
+          provider: buildProvider({
+            id: "some-provider-id",
+            address: buildAddress({
+              city: "some-provider-city",
+              zipCode: "some-provider-zipCode",
+            }),
+            county: "some-provider-county",
+            name: "some-provider-name",
+          }),
+          totalCost: 534,
+          percentEmployed: 3454,
+          calendarLength: 33,
+          localExceptionCounty: [],
+          online: true,
+          inDemand: true,
+        }),
+      ]);
+
       const result = await getOccupationDetail("2018-soc");
 
       expect(result).toEqual({
@@ -81,6 +164,25 @@ describe("getOccupationDetail", () => {
         inDemand: true,
         medianSalary: 38260,
         openJobsCount: 1000,
+        relatedTrainings: [
+          {
+            id: "some-training-id",
+            name: "some-training-name",
+            totalCost: 534,
+            percentEmployed: 3454,
+            calendarLength: 33,
+            localExceptionCounty: [],
+            online: true,
+            providerId: "some-provider-id",
+            providerName: "some-provider-name",
+            city: "some-provider-city",
+            zipCode: "some-provider-zipCode",
+            county: "some-provider-county",
+            inDemand: true,
+            highlight: "",
+            rank: 0,
+          },
+        ],
       });
 
       expect(mockGetOpenJobsCount).toHaveBeenCalledWith("2010-soc");
@@ -105,8 +207,37 @@ describe("getOccupationDetail", () => {
       ]);
       mockGetSalaryEstimate.mockResolvedValue(38260);
 
+      stubDataClient.findCipDefinitionBySoc2018.mockResolvedValue([
+        {
+          cipcode: "123456",
+          ciptitle: "some-cip",
+        },
+      ]);
+
       const neighboringOccupations = [buildOccupation({}), buildOccupation({})];
       stubDataClient.getNeighboringOccupations.mockResolvedValue(neighboringOccupations);
+
+      mockFindTrainingsBy.mockResolvedValue([
+        buildTraining({
+          id: "some-training-id",
+          name: "some-training-name",
+          provider: buildProvider({
+            id: "some-provider-id",
+            address: buildAddress({
+              city: "some-provider-city",
+              zipCode: "some-provider-zipCode",
+            }),
+            county: "some-provider-county",
+            name: "some-provider-name",
+          }),
+          totalCost: 534,
+          percentEmployed: 3454,
+          calendarLength: 33,
+          localExceptionCounty: [],
+          online: true,
+          inDemand: true,
+        }),
+      ]);
 
       const result = await getOccupationDetail("2018-soc");
 
@@ -120,6 +251,25 @@ describe("getOccupationDetail", () => {
         medianSalary: 38260,
         openJobsCount: 100,
         relatedOccupations: neighboringOccupations,
+        relatedTrainings: [
+          {
+            id: "some-training-id",
+            name: "some-training-name",
+            totalCost: 534,
+            percentEmployed: 3454,
+            calendarLength: 33,
+            localExceptionCounty: [],
+            online: true,
+            providerId: "some-provider-id",
+            providerName: "some-provider-name",
+            city: "some-provider-city",
+            zipCode: "some-provider-zipCode",
+            county: "some-provider-county",
+            inDemand: true,
+            highlight: "",
+            rank: 0,
+          },
+        ],
       });
     });
   });

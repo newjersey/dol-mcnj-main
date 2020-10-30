@@ -112,6 +112,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     medianSalary: randomInt(),
     openJobsCount: randomInt(),
     relatedOccupations: [buildOccupation({})],
+    relatedTrainings: [buildTrainingResult({})],
     ...overrides,
   };
 };
