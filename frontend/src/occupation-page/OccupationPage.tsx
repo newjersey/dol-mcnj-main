@@ -13,6 +13,8 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { StatBlock } from "../components/StatBlock";
 import { formatMoney } from "accounting";
 import careeronestop from "../careeronestop.png";
+import { TrainingResultCard } from "../search-results/TrainingResultCard";
+import { TrainingResult } from "../domain/Training";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -105,6 +107,30 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
+  const getRelatedTrainings = (trainings: TrainingResult[], occupation: string): ReactElement => {
+    if (trainings.length === 0) {
+      return <p>{DATA_UNAVAILABLE_TEXT}</p>;
+    } else {
+      const trainingsToShow = trainings.slice(0, 3);
+      const seeMore = trainings.length > 3;
+      const resultsUrl = `/search/${occupation}`;
+
+      return (
+        <>
+          {seeMore && (
+            <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
+              See More Results >
+            </Link>
+          )}
+
+          {trainingsToShow.map((training) => (
+            <TrainingResultCard key={training.id} trainingResult={training} />
+          ))}
+        </>
+      );
+    }
+  };
+
   if (occupationDetail) {
     return (
       <>
@@ -113,7 +139,9 @@ export const OccupationPage = (props: Props): ReactElement => {
         <div className="fdc page">
           <main className="container below-banners" role="main">
             <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
-            <h2 className="text-xl ptd pbs weight-500">{occupationDetail.title}</h2>
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {occupationDetail.title}
+            </h2>
             {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
             <div className="stat-block-stack mtm">
@@ -171,6 +199,17 @@ export const OccupationPage = (props: Props): ReactElement => {
                     <Grouping title="Related Occupations" backgroundColorClass="bg-purple">
                       {getRelatedOccupations(occupationDetail.relatedOccupations)}
                     </Grouping>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-9">
+                <div className="container-fluid">
+                  <div className="row">
+                    <h2 className="text-xl ptd pbs weight-500 fin">Related Training</h2>
+                    {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
                   </div>
                 </div>
               </div>

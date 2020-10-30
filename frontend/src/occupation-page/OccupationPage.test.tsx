@@ -1,7 +1,11 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { OccupationPage } from "./OccupationPage";
-import { buildOccupation, buildOccupationDetail } from "../test-objects/factories";
+import {
+  buildOccupation,
+  buildOccupationDetail,
+  buildTrainingResult,
+} from "../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { StubClient } from "../test-objects/StubClient";
 import { Error } from "../domain/Error";
@@ -27,6 +31,10 @@ describe("<OccupationPage />", () => {
         buildOccupation({ title: "Related 1" }),
         buildOccupation({ title: "Related 2" }),
       ],
+      relatedTrainings: [
+        buildTrainingResult({ name: "Training 1", inDemand: false }),
+        buildTrainingResult({ name: "Training 2", inDemand: false }),
+      ],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
@@ -43,11 +51,13 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("$97,820")).toBeInTheDocument();
     expect(subject.getByText("Related 1")).toBeInTheDocument();
     expect(subject.getByText("Related 2")).toBeInTheDocument();
+    expect(subject.getByText("Training 1")).toBeInTheDocument();
+    expect(subject.getByText("Training 2")).toBeInTheDocument();
   });
 
   it("does not display an in-demand tag when a occupation is not in-demand", () => {
     const subject = render(<OccupationPage client={stubClient} />);
-    const notInDemand = buildOccupationDetail({ inDemand: false });
+    const notInDemand = buildOccupationDetail({ inDemand: false, relatedTrainings: [] });
     act(() => stubClient.capturedObserver.onSuccess(notInDemand));
 
     expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
@@ -170,5 +180,56 @@ describe("<OccupationPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText("--")).toBeInTheDocument();
+  });
+
+  it("displays data missing message if related trainings is not available", () => {
+    const occupationDetail = buildOccupationDetail({
+      relatedTrainings: [],
+    });
+
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    expect(
+      subject.getByText("This data is not yet available for this occupation.")
+    ).toBeInTheDocument();
+  });
+
+  it("shows 'See More Results' if more than 3 related trainings", () => {
+    const occupationDetail = buildOccupationDetail({
+      relatedTrainings: [
+        buildTrainingResult({ name: "Training 1" }),
+        buildTrainingResult({ name: "Training 2" }),
+        buildTrainingResult({ name: "Training 3" }),
+        buildTrainingResult({ name: "Training 4" }),
+      ],
+    });
+
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    expect(subject.getByText("Training 1")).toBeInTheDocument();
+    expect(subject.getByText("Training 2")).toBeInTheDocument();
+    expect(subject.getByText("Training 3")).toBeInTheDocument();
+    expect(subject.queryByText("Training 4")).not.toBeInTheDocument();
+
+    expect(subject.queryByText("See More Results")).not.toBeInTheDocument();
+  });
+
+  it("does not show See More Results if there are 3 related trainings or fewer", () => {
+    const occupationDetail = buildOccupationDetail({
+      relatedTrainings: [
+        buildTrainingResult({ name: "Training 1" }),
+        buildTrainingResult({ name: "Training 2" }),
+        buildTrainingResult({ name: "Training 3" }),
+      ],
+    });
+
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    expect(subject.queryByText("See More Results")).not.toBeInTheDocument();
   });
 });
