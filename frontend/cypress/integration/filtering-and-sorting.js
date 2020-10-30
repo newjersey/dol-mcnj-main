@@ -158,8 +158,10 @@ describe("Filtering", () => {
       .within(() => {
         cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");
       });
-    cy.get(".card").first().click({ force: true });
-    cy.location("pathname").should("eq", "/training/50299");
+
+    // get card with unique text
+    cy.get(".card").eq(2).click({ force: true });
+    cy.location("pathname").should("eq", "/training/50300");
     cy.go("back");
 
     cy.get(".card")
