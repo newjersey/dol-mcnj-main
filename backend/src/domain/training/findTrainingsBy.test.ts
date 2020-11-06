@@ -404,6 +404,16 @@ describe("findTrainingsBy", () => {
     );
   });
 
+  it("converts scrambled é to e in descriptions", async () => {
+    stubDataClient.findProgramsBy.mockResolvedValue([
+      buildProgram({ description: "some w√©ird character" }),
+    ]);
+
+    expect((await findTrainingsBy(Selector.ID, ["123"]))[0].description).toEqual(
+      "some weird character"
+    );
+  });
+
   it("appends `County` to the county", async () => {
     stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ county: "Atlantic" })]);
 
