@@ -158,6 +158,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               />
               <StatBlock
                 title="Median Salary"
+                tooltipText="On average, workers in this occupation earn this amount in the State of NJ."
                 data={
                   occupationDetail.medianSalary
                     ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
