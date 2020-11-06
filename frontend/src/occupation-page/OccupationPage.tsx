@@ -168,6 +168,20 @@ export const OccupationPage = (props: Props): ReactElement => {
               />
             </div>
 
+            {occupationDetail.openJobsCount && (
+              <div>
+                <a
+                  data-testid="jobOpenings"
+                  className="link-format-blue weight-500 blue fin mtm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupationDetail.openJobsSoc}&location=New%20Jersey&radius=0&source=CB&currentpage=1`}
+                >
+                  Search current job openings posted for this occupation >
+                </a>
+              </div>
+            )}
+
             <div className="row">
               <div className="col-md-8">
                 <div className="container-fluid">

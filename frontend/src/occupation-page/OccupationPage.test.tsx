@@ -53,6 +53,9 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("Related 2")).toBeInTheDocument();
     expect(subject.getByText("Training 1")).toBeInTheDocument();
     expect(subject.getByText("Training 2")).toBeInTheDocument();
+
+    const jobOpenings = subject.getAllByTestId("jobOpenings");
+    expect(jobOpenings).toHaveLength(1);
   });
 
   it("does not display an in-demand tag when a occupation is not in-demand", () => {
@@ -231,5 +234,16 @@ describe("<OccupationPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.queryByText("See More Results")).not.toBeInTheDocument();
+  });
+
+  it("does not display job openings link if there are no job openings", () => {
+    const occupationDetail = buildOccupationDetail({
+      openJobsCount: null,
+    });
+    const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
+    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+
+    const jobOpenings = subject.queryAllByTestId("jobOpenings");
+    expect(jobOpenings).toHaveLength(0);
   });
 });

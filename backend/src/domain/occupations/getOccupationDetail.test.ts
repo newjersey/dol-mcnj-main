@@ -86,6 +86,7 @@ describe("getOccupationDetail", () => {
         inDemand: true,
         medianSalary: 38260,
         openJobsCount: 10,
+        openJobsSoc: "some-soc",
         relatedTrainings: [
           {
             id: "some-training-id",
@@ -164,6 +165,7 @@ describe("getOccupationDetail", () => {
         inDemand: true,
         medianSalary: 38260,
         openJobsCount: 1000,
+        openJobsSoc: "2010-soc",
         relatedTrainings: [
           {
             id: "some-training-id",
