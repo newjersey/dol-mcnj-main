@@ -16,6 +16,9 @@ describe("Occupation Page", () => {
       // open jobs
       // cy.contains("375").should("exist");
 
+      // open jobs links
+      // cy.contains("Search current job openings posted for this occupation").should("exist");
+
       // description
       cy.contains(
         "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures, and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems."
@@ -129,6 +132,9 @@ describe("Occupation Page", () => {
       // open jobs
       // cy.contains("1,710").should("exist");
 
+      // open jobs links
+      // cy.contains("Search current job openings posted for this occupation").should("exist");
+
       // description
       cy.contains(
         "Design, create, and modify Web sites. Analyze user needs to implement Web site content, graphics, performance, and capacity. May integrate Web sites with other computer applications. May convert written, graphic, audio, and video components to compatible Web formats by using software designed to facilitate the creation of Web and multimedia content."
@@ -189,6 +195,9 @@ describe("Occupation Page", () => {
 
       // open jobs
       cy.contains("--").should("exist");
+
+      // open jobs links
+      // cy.contains("Search current job openings posted for this occupation").should("not.exist");
 
       // median salary
       cy.contains("$79,810").should("exist");

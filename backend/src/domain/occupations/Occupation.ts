@@ -20,6 +20,7 @@ export interface OccupationDetail {
   inDemand: boolean;
   medianSalary: number | null;
   openJobsCount: number | null;
+  openJobsSoc?: string;
   relatedOccupations: Occupation[];
   relatedTrainings: TrainingResult[];
 }

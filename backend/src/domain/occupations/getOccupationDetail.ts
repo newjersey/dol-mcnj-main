@@ -52,6 +52,7 @@ export const getOccupationDetailFactory = (
             inDemand: inDemand,
             medianSalary: medianSalary,
             openJobsCount: openJobsCount,
+            openJobsSoc: soc,
             relatedTrainings: relatedTrainings,
           };
         });
@@ -85,6 +86,7 @@ export const getOccupationDetailFactory = (
                 inDemand: inDemand,
                 medianSalary: medianSalary,
                 openJobsCount: openJobsCount,
+                openJobsSoc: soc2010,
                 relatedTrainings: relatedTrainings,
               };
             }
