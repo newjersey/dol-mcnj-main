@@ -6,6 +6,7 @@ interface Props {
   title: string;
   tooltipText?: string;
   data: string;
+  dataSource?: string;
   backgroundColorClass: string;
 }
 
@@ -20,7 +21,7 @@ export const StatBlock = (props: Props): ReactElement => {
         </div>
       );
     } else {
-      return <div>Data source: NJ Dept of Labor</div>;
+      return <div>{`Data source: ${props.dataSource || "NJ Dept of Labor"}`}</div>;
     }
   };
 
@@ -35,12 +36,14 @@ export const StatBlock = (props: Props): ReactElement => {
 
   return (
     <div className={`${props.backgroundColorClass} stat-block`}>
-      {/*<div className="fdr fjc fac" { ...tooltipTargetIfMobile()}>*/}
-      <div className="fdr fje fac" {...tooltipTargetIfMobile()}>
+      <div
+        className={props.tooltipText ? "fdr fjb fac" : "fdr fje fac"}
+        {...tooltipTargetIfMobile()}
+      >
         <div>{props.title}</div>
         {!isTabletAndUp && <div className="stat-block-number mla mrs">{props.data}</div>}
         {props.tooltipText && (
-          <div>
+          <div className="flex">
             <Icon fontSize="small" data-for={`${props.title}-tooltip`} data-tip="">
               info
             </Icon>

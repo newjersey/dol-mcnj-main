@@ -147,6 +147,8 @@ export const OccupationPage = (props: Props): ReactElement => {
             <div className="stat-block-stack mtm">
               <StatBlock
                 title="Jobs Open in NJ"
+                tooltipText="The number of jobs currently posted for this occupation in the State of NJ."
+                dataSource="National Labor Exchange"
                 data={
                   occupationDetail.openJobsCount
                     ? occupationDetail.openJobsCount.toLocaleString()
