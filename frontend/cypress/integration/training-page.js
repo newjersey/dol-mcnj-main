@@ -4,6 +4,7 @@ describe("Training Page", () => {
     cy.injectAxe();
 
     cy.contains("Welding ").should("exist");
+    cy.contains("h3", "Camden County College").should("exist");
 
     cy.contains("In Demand").should("exist");
     cy.contains("77.5%").should("exist");
@@ -35,7 +36,7 @@ describe("Training Page", () => {
     cy.contains("$0.00").should("exist");
     cy.contains("$0.00").should("exist");
 
-    cy.contains("Camden County College").should("exist");
+    cy.contains("span", "Camden County College").should("exist");
     cy.contains("Continuing Education").should("exist");
     cy.contains("200 College Drive").should("exist");
     cy.contains("Blackwood, NJ 08012").should("exist");
