@@ -82,7 +82,7 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Senator", { exact: false })).toBeInTheDocument();
-    expect(subject.getByText("My Cool Provider", { exact: false })).toBeInTheDocument();
+    expect(subject.getAllByText("My Cool Provider", { exact: false })).toHaveLength(2);
     expect(subject.getByText("www.mycoolwebsite.com", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
