@@ -1,4 +1,8 @@
 export const convertToTitleCaseIfUppercase = (text: string): string => {
+  if (text === null) {
+    return "";
+  }
+
   if (text !== text.toUpperCase()) {
     return text;
   }
