@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/ws/online/occupations/15-1255.00/details/related_occupations?display=long",
+    "basicAuthCredentials": {
+      "username": "ONET_USERNAME",
+      "password": "ONET_PASSWORD"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": "{\r\n   \"error\" : \"Related Occupations data is not available in the Details report for this occupation.\"\r\n}",
+    "headers": {
+      "Content-Type": "text/json"
+    }
+  }
+}

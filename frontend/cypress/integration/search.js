@@ -16,17 +16,17 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking and Pastry").should("exist");
+    cy.contains("Baking & Pastry , Culinary Arts").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("in Professional Cooking").should("exist");
+    cy.contains("Culinary Arts").should("exist");
 
     cy.contains(
-      "...Baking & Pastry Arts program is designed to teach an " +
-        "overview of the baking industry from the ground..."
+      "...This two-semester certificate in Baking and Pastry is designed " +
+      "to provide students with career training for entry-level positions..."
     ).should("exist");
   });
 
@@ -57,7 +57,7 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("in Professional Cooking").should("exist");
+    cy.contains("Culinary Arts").should("exist");
 
     // removes others
     cy.contains("Introduction to Welding Technology").should("not.exist");
@@ -73,30 +73,34 @@ describe("Search", () => {
 
   it("links to a training detail page", () => {
     cy.visit("/search/baking");
-    cy.contains("Culinary Baking Kitchen Manager").click({ force: true });
-    cy.location("pathname").should("eq", "/training/49259");
+    cy.contains(
+      "Culinary & Baking Opportunity Program for Adults with Developmental Disabilities"
+    ).click({ force: true });
+    cy.location("pathname").should("eq", "/training/48865");
 
     // removes search results
     cy.contains("Baking and Pastry").should("not.exist");
 
     // shows program
-    cy.contains("Culinary Baking Kitchen Manager").should("exist");
+    cy.contains(
+      "Culinary & Baking Opportunity Program for Adults with Developmental Disabilities"
+    ).should("exist");
   });
 
   it("tags trainings on in-demand", () => {
     cy.visit("/search/baking");
 
     // in-demand training
-    cy.contains("Culinary Arts/Restaurant Operations").within(() => {
+    cy.contains("Culinary Arts").within(() => {
       cy.contains("In Demand").should("exist");
     });
 
     // not in-demand training
-    cy.contains("Baking and Pastry").within(() => {
+    cy.contains("Baking & Pastry Option, Culinary Arts").within(() => {
       cy.contains("In Demand").should("not.exist");
     });
 
-    cy.contains("Culinary Arts/Restaurant Operations").click({ force: true });
+    cy.contains("Culinary Arts").click({ force: true });
     cy.contains("In Demand").should("exist");
   });
 });

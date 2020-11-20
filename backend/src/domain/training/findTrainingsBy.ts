@@ -1,6 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { stripUnicode } from "../utils/stripUnicode";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
+import { formatZip } from "../utils/formatZipCode";
 import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
@@ -43,7 +44,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               street2: program.street2 ? stripSurroundingQuotes(program.street2) : "",
               city: program.city ? program.city : "",
               state: program.state ? program.state : "",
-              zipCode: program.zip ? program.zip : "",
+              zipCode: program.zip ? formatZip(program.zip) : "",
             },
           },
           description: stripSurroundingQuotes(stripUnicode(program.description)),
