@@ -21,7 +21,7 @@ describe("Occupation Page", () => {
 
       // description
       cy.contains(
-        "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures, and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems."
+        "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems."
       ).should("exist");
 
       // tasks
@@ -117,7 +117,7 @@ describe("Occupation Page", () => {
     });
   });
 
-  it("displays occupation details from ONET for 2010 socs", () => {
+  it("displays occupation details from ONET for previous 2010 socs", () => {
     cy.server();
     cy.route("api/occupations/15-1254").as("getOccupation");
 
@@ -137,7 +137,7 @@ describe("Occupation Page", () => {
 
       // description
       cy.contains(
-        "Design, create, and modify Web sites. Analyze user needs to implement Web site content, graphics, performance, and capacity. May integrate Web sites with other computer applications. May convert written, graphic, audio, and video components to compatible Web formats by using software designed to facilitate the creation of Web and multimedia content."
+        "Develop and implement websites, web applications, application databases, and interactive web interfaces. Evaluate code to ensure that it is properly structured, meets industry standards, and is compatible with browsers and devices. Optimize website performance, scalability, and server-side code and processes. May develop website infrastructure and integrate websites with other computer applications."
       ).should("exist");
 
       // tasks
@@ -149,9 +149,11 @@ describe("Occupation Page", () => {
         "Back up files from Web sites to local directories for instant recovery in case of problems."
       ).should("exist");
       cy.contains(
-        "Write, design, or edit Web page content, or direct others producing content."
+        "Select programming languages, design tools, or applications."
       ).should("exist");
-      cy.contains("Select programming languages, design tools, or applications.").should("exist");
+      cy.contains(
+        "Evaluate code to ensure that it is valid, is properly structured, meets industry standards, and is compatible with browsers, devices, or operating systems."
+      ).should("exist");
 
       // education
       cy.contains(
@@ -159,14 +161,6 @@ describe("Occupation Page", () => {
       ).should("exist");
 
       // related occupations
-      cy.contains("Computer Systems Analysts").should("exist");
-      cy.contains("Computer Programmers").should("exist");
-      cy.contains("Software Developers").should("exist");
-      cy.contains("Software Quality Assurance Analysts and Testers").should("exist");
-      cy.contains("Database Administrators").should("exist");
-      cy.contains("Database Architects").should("exist");
-      cy.contains("Computer User Support Specialists").should("exist");
-      cy.contains("Computer Occupations, All Other").should("exist");
       cy.contains("Desktop Publishers").should("exist");
 
       // related trainings
@@ -184,7 +178,7 @@ describe("Occupation Page", () => {
     });
   });
 
-  it("displays occupation details from BLS descriptions for non-ONET socs", () => {
+  it("displays occupation details for previous non-ONET socs", () => {
     cy.server();
     cy.route("api/occupations/15-1255").as("getOccupation");
 
@@ -204,7 +198,7 @@ describe("Occupation Page", () => {
 
       // description
       cy.contains(
-        "Design digital user interfaces or websites. Develop and test layouts, interfaces, functionality, and navigation menus to ensure compatibility and usability across browsers or devices. May use web framework applications as well as client-side code and processes. May evaluate web design following web and accessibility standards, and may analyze web use metrics and optimize websites for marketability and search engine ranking. May design and test interfaces that facilitate the human-computer interaction and maximize the usability of digital devices, websites, and software with a focus on aesthetics and design. May create graphics used in websites and manage website content and links. Excludes “Special Effects Artists and Animators” (27-1014) and “Graphic Designers” (27-1024)."
+        "Design digital user interfaces or websites. Develop and test layouts, interfaces, functionality, and navigation menus to ensure compatibility and usability across browsers or devices. May use web framework applications as well as client-side code and processes. May evaluate web design following web and accessibility standards, and may analyze web use metrics and optimize websites for marketability and search engine ranking. May design and test interfaces that facilitate the human-computer interaction and maximize the usability of digital devices, websites, and software with a focus on aesthetics and design. May create graphics used in websites and manage website content and links."
       ).should("exist");
 
       // education & tasks
@@ -213,10 +207,7 @@ describe("Occupation Page", () => {
       ).should("exist");
 
       // related occupations
-      cy.contains("Computer Programmers").should("exist");
-      cy.contains("Software Developers").should("exist");
-      cy.contains("Software Quality Assurance Analysts and Testers").should("exist");
-      cy.contains("Web Developers").should("exist");
+      // This data is not yet available for this occupation.
 
       // related trainings
       // cy.get(".card").eq(0).within(() => {
