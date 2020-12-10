@@ -5,7 +5,7 @@ describe("Search", () => {
     cy.injectAxe();
     cy.checkA11y();
 
-    cy.contains("Search for Training").should("exist");
+    cy.get("[placeholder='Enter occupation, certification, or provider']").should("exist");
 
     // input search
     cy.get('input[aria-label="search"]').type("baking");

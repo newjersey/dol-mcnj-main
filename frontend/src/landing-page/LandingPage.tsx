@@ -1,98 +1,82 @@
 import { navigate, RouteComponentProps, Link } from "@reach/router";
 import React, { ReactElement } from "react";
 import { Searchbar } from "../components/Searchbar";
-import njLogo from "../njlogo.svg";
-import { useMediaQuery } from "@material-ui/core";
 import { BetaBanner } from "../components/BetaBanner";
+import { Header } from "../components/Header";
+
+import IconOccupation from "./landing-icons/occupations.svg";
+import IconFunding from "./landing-icons/funding.svg";
+import IconCounseling from "./landing-icons/counseling.svg";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
-  const isSmallMobile = useMediaQuery("(max-width:482px)");
-  const isTablet = useMediaQuery("(min-width:768px) and (max-width:1200px)");
-  const shouldStackSearchButton = isSmallMobile || isTablet;
-
   return (
     <>
-      <BetaBanner noHeader={true} />
+      <Header />
+      <BetaBanner />
 
-      <div className="gutter-filler-left bg-light-green" />
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-6 bg-light-green col-adjust fdc fjc full-height-column">
-            <header className="pvxl">
-              <div className="fdr fjc mbd">
-                <img
-                  className="nj-logo-landing mrd"
-                  src={njLogo}
-                  alt="New Jersey innovation logo"
-                />
-                <h1 className="text-xxl">
-                  Training
-                  <br />
-                  Explorer
-                </h1>
-              </div>
-              <div className="subtitle-adjust">
-                <h2 className="fdr fjc text-xl weight-400">
-                  Find the training you need to get the job that you want
-                </h2>
-              </div>
-            </header>
-          </div>
-
-          <div className="col-sm-6 col-adjust fdc fjc full-height-column">
-            <main role="main" className="adjustable-margin-left">
-              <div className="pvl">
-                <h2 className="text-xl weight-500 section-header">Search for Training</h2>
-                <p className="text-m">
-                  Find training to prepare you for a promotion, better job, or even a career change
-                </p>
-                <Searchbar
-                  onSearch={(searchQuery: string): Promise<void> =>
-                    navigate(`/search/${encodeURIComponent(searchQuery)}`)
-                  }
-                  stacked={shouldStackSearchButton}
-                  smallButton={!shouldStackSearchButton}
-                />
-              </div>
-              <div className="grey-line mvm" />
-              <div className="pvl">
-                <h2 className="text-xl weight-500 section-header">
-                  Get up to $4,000 from the State for your training
-                </h2>
-
-                <p className="text-m">
-                  Did you know the State of New Jersey offers discounted training for&nbsp;
-                  <Link className="link-format-blue" to="/in-demand-careers">
-                    in-demand careers
-                  </Link>
-                  ?
-                </p>
-
-                <p className="text-m">
-                  If you are interested in exploring funding opportunities,&nbsp;
-                  <Link className="link-format-blue" to="/funding">
-                    learn more
-                  </Link>
-                  &nbsp;about what the State has to offer.
-                </p>
-
-                <p className="text-m">
-                  To see if you qualify for a tuition waiver or grant,&nbsp;
-                  <a
-                    className="link-format-blue"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
-                  >
-                    reach out to your local One-Stop Career center
-                  </a>
-                  .
-                </p>
-              </div>
-            </main>
+      <main className="below-banners">
+        <div className="bg-light-green pvl">
+          <div className="container search-container fdc fac fjc mtm mbl">
+            <h2 className="text-xl weight-400 align-center mbd title">
+              Find training to better prepare you for a promotion, better job, or even a career
+              change
+            </h2>
+            <Searchbar
+              className="width-100 phm"
+              onSearch={(searchQuery: string): Promise<void> =>
+                navigate(`/search/${encodeURIComponent(searchQuery)}`)
+              }
+              placeholder="Enter occupation, certification, or provider"
+              stacked={true}
+            />
           </div>
         </div>
-      </div>
+
+        <div className="container options-container">
+          <div className="col-md-4 fdc fac mvl">
+            <div className="landing-image mbs">
+              <img className="" alt="" src={IconOccupation} />
+            </div>
+            <h3 className="text-l weight-400">In-Demand Occupations</h3>
+            <p className="phm align-center options-desc">
+              Find New Jersey's fastest growing occupations
+            </p>
+            <Link className="link-as-button weight-500" to="/in-demand-careers">
+              View Occupations
+            </Link>
+          </div>
+          <div className="col-md-4 fdc fac mvl">
+            <div className="landing-image mbs">
+              <img className="" alt="" src={IconFunding} />
+            </div>
+            <h3 className="text-l weight-400">Explore Funding Assistance</h3>
+            <p className="phm align-center options-desc">
+              Apply for funding to cover your training costs
+            </p>
+            <Link className="link-as-button weight-500" to="/funding">
+              Learn More
+            </Link>
+          </div>
+          <div className="col-md-4 fdc fac mvl">
+            <div className="landing-image mbs">
+              <img className="" alt="" src={IconCounseling} />
+            </div>
+            <h3 className="text-l weight-400">Connect with a Counselor</h3>
+            <p className="phm align-center options-desc">
+              Find out about training counseling and funding qualifications at a One-Stop Career
+              Center
+            </p>
+            <a
+              className="link-as-button weight-500"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
+            >
+              Find Counseling
+            </a>
+          </div>
+        </div>
+      </main>
     </>
   );
 };

@@ -1,5 +1,6 @@
 $grey: #dbdada;
 $navy: #12263a;
+$indigo: #21456a;
 $light-green: #ebf5ee;
 $blue: #1668b4;
 $light-grey: #e5e5e5;
@@ -31,12 +32,20 @@ $red: #b11818;
   background-color: $purple;
 }
 
+.bg-blue {
+  background-color: $navy;
+}
+
 .blue {
   color: $blue;
 }
 
 .red {
   color: $red;
+}
+
+.white {
+  color: white;
 }
 
 .bg-orange {

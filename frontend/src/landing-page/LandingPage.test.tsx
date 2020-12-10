@@ -17,7 +17,7 @@ jest.mock("@reach/router", () => mockReachRouter());
 describe("<LandingPage />", () => {
   it("links to search results page when search is executed", () => {
     const subject = render(<LandingPage />);
-    fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+    fireEvent.change(subject.getByPlaceholderText("Enter occupation, certification, or provider"), {
       target: { value: "penguins" },
     });
     fireEvent.click(subject.getByText("Search"));
@@ -26,7 +26,7 @@ describe("<LandingPage />", () => {
 
   it("encodes uri components in search query", () => {
     const subject = render(<LandingPage />);
-    fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+    fireEvent.change(subject.getByPlaceholderText("Enter occupation, certification, or provider"), {
       target: { value: "penguins / penglings" },
     });
     fireEvent.click(subject.getByText("Search"));
