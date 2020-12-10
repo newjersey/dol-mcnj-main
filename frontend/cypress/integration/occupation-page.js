@@ -148,9 +148,7 @@ describe("Occupation Page", () => {
       cy.contains(
         "Back up files from Web sites to local directories for instant recovery in case of problems."
       ).should("exist");
-      cy.contains(
-        "Select programming languages, design tools, or applications."
-      ).should("exist");
+      cy.contains("Select programming languages, design tools, or applications.").should("exist");
       cy.contains(
         "Evaluate code to ensure that it is valid, is properly structured, meets industry standards, and is compatible with browsers, devices, or operating systems."
       ).should("exist");

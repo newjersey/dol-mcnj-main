@@ -113,7 +113,15 @@ describe("Filtering", () => {
     cy.visit("/search/baking");
     cy.get("select").select("Cost: High to Low");
 
-    const costsOrder = ["$33,553.00", "$33,553.00", "20,839.00", "20,839.00", "7,400.00", "$3,004.00", "$1,475.00"];
+    const costsOrder = [
+      "$33,553.00",
+      "$33,553.00",
+      "20,839.00",
+      "20,839.00",
+      "7,400.00",
+      "$3,004.00",
+      "$1,475.00",
+    ];
 
     cy.get(".card").each(($value, index) => {
       expect($value.text()).contains(costsOrder[index]);
@@ -124,7 +132,15 @@ describe("Filtering", () => {
     cy.visit("/search/baking");
     cy.get("select").select("Cost: Low to High");
 
-    const costsOrder = ["$1,475.00", "$3,004.00", "7,400.00", "20,839.00", "20,839.00", "$33,553.00", "$33,553.00"];
+    const costsOrder = [
+      "$1,475.00",
+      "$3,004.00",
+      "7,400.00",
+      "20,839.00",
+      "20,839.00",
+      "$33,553.00",
+      "$33,553.00",
+    ];
 
     cy.get(".card").each(($value, index) => {
       expect($value.text()).contains(costsOrder[index]);
@@ -135,7 +151,19 @@ describe("Filtering", () => {
     cy.visit("/search/catering");
     cy.get("select").select("Employment Rate");
 
-    const ratesOrder = ["30.0% employed", "30.0% employed", "--", "--", "--", "--", "--", "--", "--", "--", "--"];
+    const ratesOrder = [
+      "30.0% employed",
+      "30.0% employed",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+    ];
 
     cy.get(".card").each(($value, index) => {
       expect($value.text()).contains(ratesOrder[index]);
