@@ -26,7 +26,7 @@ describe("Search", () => {
 
     cy.contains(
       "...This two-semester certificate in Baking and Pastry is designed " +
-      "to provide students with career training for entry-level positions..."
+        "to provide students with career training for entry-level positions..."
     ).should("exist");
   });
 
