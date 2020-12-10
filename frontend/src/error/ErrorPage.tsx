@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Header } from "../search-results/Header";
+import { Header } from "../components/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Icon } from "@material-ui/core";
 

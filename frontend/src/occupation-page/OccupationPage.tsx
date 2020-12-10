@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Occupation, OccupationDetail } from "../domain/Occupation";
-import { Header } from "../search-results/Header";
+import { Header } from "../components/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";

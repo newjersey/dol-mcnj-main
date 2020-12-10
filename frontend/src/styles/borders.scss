@@ -2,10 +2,16 @@ $color-border-soft: #ccc;
 
 // border
 $border_sizes: (l, 5px), (m, 2px), (d, 1px);
+$border_colors: (cg, $light-grey), (cd, $color-border-soft);
 
 @each $border_sizes, $size in $border_sizes {
   .ba#{$border_sizes} {
     border: $size solid $color-border-soft;
+  }
+  @each $border_colors, $color in $border_colors {
+    .ba#{$border_sizes}#{$border_colors} {
+      border: $size solid $color;
+    }
   }
 }
 @each $border_sizes, $size in $border_sizes {
@@ -19,9 +25,19 @@ $border_sizes: (l, 5px), (m, 2px), (d, 1px);
       .b#{$direction_list}#{$border_sizes} {
         border-#{$direction}: $width solid $color-border-soft;
       }
+      @each $border_colors, $color in $border_colors {
+        .b#{$direction_list}#{$border_sizes}#{$border_colors} {
+          border-#{$direction}: $width solid $color;
+        }
+      }
     } @else {
       .b#{$direction_list} {
         border-#{$direction}: $width solid $color-border-soft;
+      }
+      @each $border_colors, $color in $border_colors {
+        .b#{$direction_list}#{$border_colors} {
+          border-#{$direction}: $width solid $color;
+        }
       }
     }
   }
@@ -34,13 +50,29 @@ $border_sizes: (l, 5px), (m, 2px), (d, 1px);
     }
     @if $orientation_list == "v" {
       .b#{$orientation_list}#{$border_sizes} {
-        border-bottom: $size;
-        border-top: $size;
+        border-bottom: $size solid;
+        border-top: $size solid;
+      }
+      @each $border_colors, $color in $border_colors {
+        .b#{$orientation_list}#{$border_sizes}#{$border_colors} {
+          border-bottom: $size solid;
+          border-top: $size solid;
+          border-bottom-color: $color;
+          border-top-color: $color;
+        }
       }
     } @else if $orientation_list == "h" {
       .b#{$orientation_list}#{$border_sizes} {
-        border-left: $size;
-        border-right: $size;
+        border-left: $size solid;
+        border-right: $size solid;
+      }
+      @each $border_colors, $color in $border_colors {
+        .b#{$orientation_list}#{$border_sizes}#{$border_colors} {
+          border-left: $size solid;
+          border-right: $size solid;
+          border-left-color: $color;
+          border-right-color: $color;
+        }
       }
     }
   }

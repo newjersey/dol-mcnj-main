@@ -2,7 +2,7 @@ import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } fro
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps } from "@reach/router";
-import { Header } from "./Header";
+import { Header } from "../components/Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { CircularProgress, FormControl, InputLabel, useMediaQuery } from "@material-ui/core";
 import { FilterBox } from "../filtering/FilterBox";

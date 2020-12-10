@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
-import { Header } from "../search-results/Header";
+import { Header } from "../components/Header";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { InlineIcon } from "../components/InlineIcon";
 import { BetaBanner } from "../components/BetaBanner";
