@@ -1,4 +1,4 @@
-import { Header } from "../search-results/Header";
+import { Header } from "../components/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import React, { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
