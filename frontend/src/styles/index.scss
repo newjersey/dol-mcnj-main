@@ -8,6 +8,7 @@
 @import "css/bootstrap.css";
 @import "landing-page";
 @import "header";
+@import "footer";
 @import "search-results-page";
 @import "training-page";
 @import "not-found-page";
@@ -61,6 +62,10 @@ button {
 
 .height-full {
   min-height: 100vh;
+}
+
+.align-center {
+  text-align: center;
 }
 
 .align-right {

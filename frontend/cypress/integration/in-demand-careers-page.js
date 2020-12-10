@@ -1,7 +1,7 @@
 describe("In Demand Careers page", () => {
   it("displays in demand careers", () => {
     cy.visit("/");
-    cy.contains("in-demand careers").click();
+    cy.contains("View Occupations").click();
 
     cy.location("pathname").should("eq", "/in-demand-careers");
 
@@ -22,14 +22,14 @@ describe("In Demand Careers page", () => {
 
   it("links to occupation page from list or from search", () => {
     cy.visit("/");
-    cy.contains("in-demand careers").click();
+    cy.contains("View Occupations").click();
 
     cy.contains("Computer and Mathematical").click();
     cy.contains("Web Developers").click();
     cy.location("pathname").should("eq", "/occupation/15-1254");
 
     cy.visit("/");
-    cy.contains("in-demand careers").click();
+    cy.contains("View Occupations").click();
 
     cy.get('input[aria-label="occupation-search"]').type("web");
     cy.contains("Web Developers").click();
