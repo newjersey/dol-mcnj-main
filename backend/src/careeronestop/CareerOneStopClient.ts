@@ -12,12 +12,15 @@ export const CareerOneStopClient = (
 ): GetOpenJobsCount => {
   return async (soc: string): Promise<number | null> => {
     return axios
-      .get(`${baseUrl}/v1/jobsearch/${userId}/${soc}.00/NJ/1000/0`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
+      .get(
+        `${baseUrl}/v1/jobsearch/${userId}/${soc}/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response: AxiosResponse<CareerOneStopJobsResponse>) => {
         return parseInt(response.data.Jobcount);
       })
