@@ -175,7 +175,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                   className="link-format-blue weight-500 blue fin mtm"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupationDetail.openJobsSoc}&location=New%20Jersey&radius=0&source=CB&currentpage=1`}
+                  href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupationDetail.openJobsSoc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
                 >
                   Search current job openings posted for this occupation >
                 </a>
