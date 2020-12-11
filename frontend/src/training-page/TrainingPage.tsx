@@ -118,7 +118,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getAssociatedCareers = (): ReactElement => {
+  const getAssociatedOccupations = (): ReactElement => {
     if (
       training?.occupations.length === 0 ||
       training?.occupations.map((it) => it.title).includes("NO MATCH")
@@ -127,8 +127,8 @@ export const TrainingPage = (props: Props): ReactElement => {
         <p>
           This is a general training that might prepare you for a wide variety of career paths.
           Browse&nbsp;
-          <Link className="link-format-blue" to="/in-demand-careers">
-            in-demand careers
+          <Link className="link-format-blue" to="/in-demand-occupations">
+            in-demand occupations
           </Link>
           &nbsp;to see how you might apply this training.
         </p>
@@ -208,8 +208,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping title="Associated Careers">
-                    <>{getAssociatedCareers()}</>
+                  <Grouping title="Associated Occupations">
+                    <>{getAssociatedOccupations()}</>
                   </Grouping>
                 </div>
               </div>

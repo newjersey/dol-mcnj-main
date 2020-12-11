@@ -4,6 +4,7 @@ $indigo: #21456a;
 $light-green: #ebf5ee;
 $blue: #1668b4;
 $light-grey: #e5e5e5;
+$accessible-gray: #5c5858;
 $light-red: #fadee3;
 $orange: #fcdbb6;
 $light-purple: #f4eafe;
@@ -46,6 +47,10 @@ $red: #b11818;
 
 .white {
   color: white;
+}
+
+.accessible-gray {
+  color: $accessible-gray;
 }
 
 .bg-orange {

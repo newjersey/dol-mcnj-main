@@ -41,7 +41,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               Find New Jersey's fastest growing occupations
             </p>
-            <Link className="link-as-button weight-500" to="/in-demand-careers">
+            <Link className="link-as-button weight-500" to="/in-demand-occupations">
               View Occupations
             </Link>
           </div>

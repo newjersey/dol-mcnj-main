@@ -234,14 +234,14 @@ export const OccupationPage = (props: Props): ReactElement => {
           </main>
 
           <footer className="container footer ptxl pbm">
-            <p>
-              Source: O*NET OnLine by the U.S. Department of Labor, Employment and Training
-              Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of
-              USDOL/ETA.
+            <p className="accessible-gray">
+              <span className="bold">Source:</span> O*NET OnLine by the U.S. Department of Labor,
+              Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license.
+              O*NET® is a trademark of USDOL/ETA.
             </p>
-            <p>
-              Source: Bureau of Labor Statistics, U.S. Department of Labor, Occupational Outlook
-              Handbook
+            <p className="accessible-gray">
+              <span className="bold">Source:</span> Bureau of Labor Statistics, U.S. Department of
+              Labor, Occupational Outlook Handbook
             </p>
             <p>
               <img src={careeronestop} alt="Source: CareerOneStop" />

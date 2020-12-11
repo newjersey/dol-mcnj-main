@@ -13,13 +13,13 @@ interface Props extends RouteComponentProps {
 
 type MajorGroupName = string;
 
-export const InDemandCareersPage = (props: Props): ReactElement => {
+export const InDemandOccupationsPage = (props: Props): ReactElement => {
   const [occupationLookup, setOccupationLookup] = useState<
     Record<MajorGroupName, InDemandOccupation[]>
   >({});
 
   useEffect(() => {
-    document.title = "In-Demand Careers";
+    document.title = "In-Demand Occupations";
   }, []);
 
   useEffect(() => {
@@ -59,11 +59,11 @@ export const InDemandCareersPage = (props: Props): ReactElement => {
       <BetaBanner />
 
       <main className="container below-banners">
-        <h2 className="text-xl ptd weight-500">In-Demand Careers</h2>
+        <h2 className="text-xl ptd weight-500">In-Demand Occupations</h2>
         <p>
-          This is a list of careers expected to have the most openings in the future in the State of
-          New Jersey. Trainings related to careers on this list can be eligible for funding by the
-          State.
+          This is a list of occupations expected to have the most openings in the future in the
+          State of New Jersey. Trainings related to occupations on this list can be eligible for
+          funding by the State.
         </p>
 
         <div className="pbm search-bar">
