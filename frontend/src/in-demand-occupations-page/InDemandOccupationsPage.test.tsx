@@ -1,7 +1,7 @@
 import { StubClient } from "../test-objects/StubClient";
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
-import { InDemandCareersPage } from "./InDemandCareersPage";
+import { InDemandOccupationsPage } from "./InDemandOccupationsPage";
 import { act } from "react-dom/test-utils";
 import { buildInDemandOccupation } from "../test-objects/factories";
 import { navigate } from "@reach/router";
@@ -26,7 +26,7 @@ global.document.createRange = () => ({
   },
 });
 
-describe("<InDemandCareersPage />", () => {
+describe("<InDemandOccupationsPage />", () => {
   let stubClient: StubClient;
 
   beforeEach(() => {
@@ -34,12 +34,12 @@ describe("<InDemandCareersPage />", () => {
   });
 
   it("calls to get occupations from client", () => {
-    render(<InDemandCareersPage client={stubClient} />);
+    render(<InDemandOccupationsPage client={stubClient} />);
     expect(stubClient.getOccupationsWasCalled).toEqual(true);
   });
 
   it("displays unique major groups and not titles on the page", () => {
-    const subject = render(<InDemandCareersPage client={stubClient} />);
+    const subject = render(<InDemandOccupationsPage client={stubClient} />);
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -57,7 +57,7 @@ describe("<InDemandCareersPage />", () => {
   });
 
   it("displays major groups in alphabetical order", () => {
-    const subject = render(<InDemandCareersPage client={stubClient} />);
+    const subject = render(<InDemandOccupationsPage client={stubClient} />);
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -74,7 +74,7 @@ describe("<InDemandCareersPage />", () => {
   });
 
   it("displays occupations for a category when it is clicked", () => {
-    const subject = render(<InDemandCareersPage client={stubClient} />);
+    const subject = render(<InDemandOccupationsPage client={stubClient} />);
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -100,7 +100,7 @@ describe("<InDemandCareersPage />", () => {
   });
 
   it("changes arrow to indicate open/close state", () => {
-    const subject = render(<InDemandCareersPage client={stubClient} />);
+    const subject = render(<InDemandOccupationsPage client={stubClient} />);
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -117,8 +117,8 @@ describe("<InDemandCareersPage />", () => {
     expect(subject.queryByText("keyboard_arrow_up")).toBeInTheDocument();
   });
 
-  it("typeahead searches for and navigates to in-demand careers", () => {
-    const subject = render(<InDemandCareersPage client={stubClient} />);
+  it("typeahead searches for and navigates to in-demand ", () => {
+    const subject = render(<InDemandOccupationsPage client={stubClient} />);
 
     act(() =>
       stubClient.capturedObserver.onSuccess([

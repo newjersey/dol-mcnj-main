@@ -6,7 +6,7 @@ import { OccupationPage } from "./occupation-page/OccupationPage";
 import { Client } from "./domain/Client";
 import { Router } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
-import { InDemandCareersPage } from "./in-demand-careers-page/InDemandCareersPage";
+import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
 import { FundingPage } from "./funding-page/FundingPage";
 import {
   initialFilterState,
@@ -35,7 +35,7 @@ export const App = (props: Props): ReactElement => {
           <SearchResultsPage path="/search" client={props.client} />
           <SearchResultsPage path="/search/:searchQuery" client={props.client} />
           <TrainingPage path="/training/:id" client={props.client} />
-          <InDemandCareersPage path="/in-demand-careers" client={props.client} />
+          <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
           <OccupationPage path="/occupation/:soc" client={props.client} />
           <FundingPage path="/funding" />
           <NotFoundPage default />

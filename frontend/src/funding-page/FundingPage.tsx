@@ -20,25 +20,32 @@ export const FundingPage = (props: RouteComponentProps): ReactElement => {
           </div>
 
           <div className="col-sm-8">
-            <h3 className="text-l ptd weight-500">Individual Training Account (ITA) Grant</h3>
+            <h3 className="text-l ptd weight-500">How does funding work?</h3>
             <p>
-              People who are economically disadvantaged or lost their job due to a layoff may be
-              eligible for up to $4000 to pay for training. People can choose from a number of
-              training providers approved by the Department of Labor and Workforce Development to
-              receive training for an in-demand occupation. To learn more about the process, please
-              register with your local one stop career center and ask to attend a training
-              Information Session.
+              There is funding available for individuals looking for new occupations that fall
+              within the State’s “in-demand” list of occupations. In-demand occupations are expected
+              to have the most openings in the future in the State of New Jersey.
             </p>
 
-            <h3 className="text-l ptd weight-500">Tuition Waivers</h3>
+            <h3 className="text-l ptd weight-500">How do I know what qualifies for funding?</h3>
             <p>
-              Tuition waivers enable eligible unemployed individuals to enroll, tuition free, in
-              courses of instruction at public colleges and universities in New Jersey. These
-              courses can only be attended if there are seats available. Books, labs and other
-              appropriate fees are the responsibility of the student. Complete the Free Application
-              for Federal Student Aid (FAFSA) application, identify the program you are seeking at
-              your local NJ State or County College or University, and meet with a one stop
-              counselor to see if you qualify.
+              Training that leads to an&nbsp;
+              <Link to="/in-demand-occupations">in-demand occupation</Link>&nbsp; can qualify for
+              funding but your local One Stop will make the final determination. As we mentioned
+              under “How Does Funding Work”, these types of occupations are expected to have the
+              most openings in the future in the State of New Jersey. This list of occupations can
+              be used by career counselors to help you make decisions about careers advancements and
+              training.
+            </p>
+
+            <h3 className="text-l ptd weight-500">
+              Interested in funding? Here's what to do next.
+            </h3>
+            <p>
+              <Link to="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml">
+                Contact a career counselor
+              </Link>
+              &nbsp;at your local One-Stop Career Center to explore funding opportunities.
             </p>
           </div>
 
@@ -64,7 +71,7 @@ export const FundingPage = (props: RouteComponentProps): ReactElement => {
               <p>
                 In-Demand occupations are expected to have the most openings in the future in the
                 State of New Jersey. Trainings related to&nbsp;
-                <Link className="link-format-blue" to="/in-demand-careers">
+                <Link className="link-format-blue" to="/in-demand-occupations">
                   occupations on this list
                 </Link>
                 &nbsp;can be eligible for funding by the State.

@@ -26,13 +26,19 @@ export const Header = (): ReactElement => {
           </a>
           {isOpen && (
             <nav className="nav nav-mobile">
-              <Link to="/search" className="no-link-format nav-item pvm phd bvdcg">
+              <Link to="/" className="no-link-format nav-item pvm phd bvdcg">
+                <span className="container flex fac fjb">
+                  Home
+                  <Icon className="mla">chevron_right</Icon>
+                </span>
+              </Link>
+              <Link to="/search" className="no-link-format nav-item pvm phd bbdcg">
                 <span className="container flex fac fjb">
                   Find Training
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <Link to="/in-demand-careers" className="no-link-format nav-item pvm phd bbdcg">
+              <Link to="/in-demand-occupations" className="no-link-format nav-item pvm phd bbdcg">
                 <span className="container flex fac fjb">
                   In-Demand Occupations
                   <Icon className="mla">chevron_right</Icon>
@@ -75,7 +81,7 @@ export const Header = (): ReactElement => {
               <Link to="/search" className="no-link-format">
                 Find Training
               </Link>
-              <Link to="/in-demand-careers" className="no-link-format">
+              <Link to="/in-demand-occupations" className="no-link-format">
                 In-Demand Occupations
               </Link>
               <Link to="/funding" className="no-link-format funding">

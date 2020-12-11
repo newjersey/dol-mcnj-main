@@ -1,9 +1,9 @@
-describe("In Demand Careers page", () => {
-  it("displays in demand careers", () => {
+describe("In Demand Occupations page", () => {
+  it("displays in demand occupations", () => {
     cy.visit("/");
     cy.contains("View Occupations").click();
 
-    cy.location("pathname").should("eq", "/in-demand-careers");
+    cy.location("pathname").should("eq", "/in-demand-occupations");
 
     cy.injectAxe();
 
