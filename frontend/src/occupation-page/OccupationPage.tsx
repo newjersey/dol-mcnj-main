@@ -15,6 +15,7 @@ import { formatMoney } from "accounting";
 import careeronestop from "../careeronestop.png";
 import { TrainingResultCard } from "../search-results/TrainingResultCard";
 import { TrainingResult } from "../domain/Training";
+import { CircularProgress } from "@material-ui/core";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -27,12 +28,14 @@ export const OccupationPage = (props: Props): ReactElement => {
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail | undefined>(undefined);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (occupationDetail) {
       document.title = `${occupationDetail.title}`;
+      setIsLoading(false);
     }
-  }, [occupationDetail]);
+  }, [occupationDetail, isLoading]);
 
   useEffect(() => {
     const socCode = props.soc ? props.soc : "";
@@ -254,6 +257,18 @@ export const OccupationPage = (props: Props): ReactElement => {
     return <SomethingWentWrongPage />;
   } else if (error === Error.NOT_FOUND) {
     return <NotFoundPage />;
+  } else if (isLoading) {
+    return (
+      <>
+        <Header />
+        <BetaBanner />
+        <div className="fdc page">
+          <main className="container page fdr fjc fac ptl" role="main">
+            <CircularProgress color="secondary" />
+          </main>
+        </div>
+      </>
+    );
   } else {
     return <></>;
   }
