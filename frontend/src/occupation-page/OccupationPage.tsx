@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Occupation, OccupationDetail } from "../domain/Occupation";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { BetaBanner } from "../components/BetaBanner";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
@@ -139,104 +140,102 @@ export const OccupationPage = (props: Props): ReactElement => {
       <>
         <Header />
         <BetaBanner />
-        <div className="fdc page">
-          <main className="container below-banners" role="main">
-            <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
-            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-              {occupationDetail.title}
-            </h2>
-            {occupationDetail.inDemand ? <InDemandTag /> : <></>}
+        <main className="container below-banners" role="main">
+          <div className="ptm weight-500 fin all-caps border-bottom-dark">Occupation</div>
+          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+            {occupationDetail.title}
+          </h2>
+          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
-            <div className="stat-block-stack mtm">
-              <StatBlock
-                title="Jobs Open in NJ"
-                tooltipText="The number of jobs currently posted for this occupation in the State of NJ."
-                dataSource="National Labor Exchange"
-                data={
-                  occupationDetail.openJobsCount
-                    ? occupationDetail.openJobsCount.toLocaleString()
-                    : "--"
-                }
-                backgroundColorClass="bg-lightest-purple"
-              />
-              <StatBlock
-                title="Median Salary"
-                tooltipText="On average, workers in this occupation earn this amount in the State of NJ."
-                data={
-                  occupationDetail.medianSalary
-                    ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
-                    : "--"
-                }
-                backgroundColorClass="bg-lighter-purple"
-              />
+          <div className="stat-block-stack mtm">
+            <StatBlock
+              title="Jobs Open in NJ"
+              tooltipText="The number of jobs currently posted for this occupation in the State of NJ."
+              dataSource="National Labor Exchange"
+              data={
+                occupationDetail.openJobsCount
+                  ? occupationDetail.openJobsCount.toLocaleString()
+                  : "--"
+              }
+              backgroundColorClass="bg-lightest-purple"
+            />
+            <StatBlock
+              title="Median Salary"
+              tooltipText="On average, workers in this occupation earn this amount in the State of NJ."
+              data={
+                occupationDetail.medianSalary
+                  ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
+                  : "--"
+              }
+              backgroundColorClass="bg-lighter-purple"
+            />
+          </div>
+
+          {occupationDetail.openJobsCount && (
+            <div>
+              <a
+                data-testid="jobOpenings"
+                className="link-format-blue weight-500 blue fin mtm"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupationDetail.openJobsSoc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+              >
+                Search current job openings posted for this occupation >
+              </a>
             </div>
+          )}
 
-            {occupationDetail.openJobsCount && (
-              <div>
-                <a
-                  data-testid="jobOpenings"
-                  className="link-format-blue weight-500 blue fin mtm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupationDetail.openJobsSoc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
-                >
-                  Search current job openings posted for this occupation >
-                </a>
-              </div>
-            )}
+          <div className="row">
+            <div className="col-md-8">
+              <div className="container-fluid">
+                <div className="row">
+                  <Grouping title="Description" backgroundColorClass="bg-purple">
+                    <p>{occupationDetail.description}</p>
+                  </Grouping>
 
-            <div className="row">
-              <div className="col-md-8">
-                <div className="container-fluid">
-                  <div className="row">
-                    <Grouping title="Description" backgroundColorClass="bg-purple">
-                      <p>{occupationDetail.description}</p>
-                    </Grouping>
-
-                    <Grouping title="A Day in the Life" backgroundColorClass="bg-purple">
-                      <>
-                        {getTasksList(occupationDetail.tasks)}
-                        {seeMore(occupationDetail.tasks)}
-                      </>
-                    </Grouping>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                <div className="container-fluid">
-                  <div className="row">
-                    <Grouping title="Education" backgroundColorClass="bg-purple">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: occupationDetail.education
-                            ? occupationDetail.education
-                            : DATA_UNAVAILABLE_TEXT,
-                        }}
-                      />
-                    </Grouping>
-
-                    <Grouping title="Related Occupations" backgroundColorClass="bg-purple">
-                      {getRelatedOccupations(occupationDetail.relatedOccupations)}
-                    </Grouping>
-                  </div>
+                  <Grouping title="A Day in the Life" backgroundColorClass="bg-purple">
+                    <>
+                      {getTasksList(occupationDetail.tasks)}
+                      {seeMore(occupationDetail.tasks)}
+                    </>
+                  </Grouping>
                 </div>
               </div>
             </div>
 
-            <div className="row">
-              <div className="col-md-9">
-                <div className="container-fluid">
-                  <div className="row">
-                    <h2 className="text-xl ptd pbs weight-500 fin">Related Training</h2>
-                    {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
-                  </div>
+            <div className="col-md-4">
+              <div className="container-fluid">
+                <div className="row">
+                  <Grouping title="Education" backgroundColorClass="bg-purple">
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: occupationDetail.education
+                          ? occupationDetail.education
+                          : DATA_UNAVAILABLE_TEXT,
+                      }}
+                    />
+                  </Grouping>
+
+                  <Grouping title="Related Occupations" backgroundColorClass="bg-purple">
+                    {getRelatedOccupations(occupationDetail.relatedOccupations)}
+                  </Grouping>
                 </div>
               </div>
             </div>
-          </main>
+          </div>
 
-          <footer className="container footer ptxl pbm">
+          <div className="row">
+            <div className="col-md-9">
+              <div className="container-fluid">
+                <div className="row">
+                  <h2 className="text-xl ptd pbs weight-500 fin">Related Training</h2>
+                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="container-full ptxl">
             <p className="accessible-gray">
               <span className="bold">Source:</span> O*NET OnLine by the U.S. Department of Labor,
               Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license.
@@ -249,8 +248,9 @@ export const OccupationPage = (props: Props): ReactElement => {
             <p>
               <img src={careeronestop} alt="Source: CareerOneStop" />
             </p>
-          </footer>
-        </div>
+          </div>
+        </main>
+        <Footer />
       </>
     );
   } else if (error === Error.SYSTEM_ERROR) {

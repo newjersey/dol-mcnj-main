@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { BetaBanner } from "../components/BetaBanner";
 import { Client } from "../domain/Client";
 import { InDemandOccupation } from "../domain/Occupation";
@@ -70,8 +71,10 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
           <Typeahead occupations={Object.values(occupationLookup).flat()} />
         </div>
 
-        <div className="fdc">{displayMajorGroups()}</div>
+        <div className="fdc pbm">{displayMajorGroups()}</div>
       </main>
+
+      <Footer />
     </>
   );
 };

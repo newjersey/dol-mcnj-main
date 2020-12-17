@@ -30,6 +30,22 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+}
+
+#root {
+  min-height: 100%;
+  height: 100%;
+}
+
+#root > div {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   line-height: 1.5rem;
   margin: 0;

@@ -71,8 +71,8 @@ export const Header = (): ReactElement => {
   const nav = (): ReactElement => {
     return (
       <>
-        <header className="header fdr fac" role="banner">
-          <div className="container header-container">
+        <header className="header" role="banner">
+          <div className="container header-container height-100">
             <a href="/" className="logo no-link-format fin fac">
               <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
               <h1 className="text-m bold">Training Explorer</h1>

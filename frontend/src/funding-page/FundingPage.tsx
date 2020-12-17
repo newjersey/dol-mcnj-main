@@ -1,4 +1,5 @@
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { BetaBanner } from "../components/BetaBanner";
 import React, { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
@@ -49,7 +50,7 @@ export const FundingPage = (props: RouteComponentProps): ReactElement => {
             </p>
           </div>
 
-          <div className="col-sm-4">
+          <div className="col-sm-4 mbm">
             <div className="bg-light-purple pam bradl">
               <h3 className="text-l weight-500">Get Started</h3>
               <p>
@@ -80,6 +81,8 @@ export const FundingPage = (props: RouteComponentProps): ReactElement => {
           </div>
         </div>
       </main>
+
+      <Footer />
     </>
   );
 };

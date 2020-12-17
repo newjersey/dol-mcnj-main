@@ -21,6 +21,7 @@
     display: grid;
     grid-template-columns: 78px 1fr;
     grid-template-rows: 1fr;
+    align-items: center;
   }
 
   .menu-btn {
@@ -84,17 +85,14 @@
   line-height: $beta-banner-height;
   text-align: center;
   position: fixed;
-  top: 0;
+  top: $header-height;
   width: 100%;
   height: $beta-banner-height;
-  margin-top: $header-height;
   z-index: 10;
 }
 
-.no-header-margin {
-  margin-top: 0;
-}
-
 .below-banners {
-  margin-top: $below-banners-height;
+  min-height: calc(100% - #{$footer-height});
+  padding-top: $below-banners-height;
+  padding-bottom: $footer-height;
 }

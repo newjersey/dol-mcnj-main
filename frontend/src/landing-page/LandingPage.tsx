@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 import IconOccupation from "./landing-icons/occupations.svg";
 import IconFunding from "./landing-icons/funding.svg";
@@ -77,6 +78,8 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
           </div>
         </div>
       </main>
+
+      <Footer />
     </>
   );
 };
