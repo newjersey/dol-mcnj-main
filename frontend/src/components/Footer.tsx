@@ -5,10 +5,12 @@ import { Icon } from "@material-ui/core";
 export const Footer = (): ReactElement => {
   return (
     <footer className="footer bg-light-purple pvd width-100 flex fac">
-      <div className="container">
-        <p className="flex fac maz">
+      <div className="container align-center">
+        <p className="fin fac maz text-s">
           Made with&nbsp;
-          <Icon className="red">favorite</Icon>
+          <Icon className="red" fontSize="inherit">
+            favorite
+          </Icon>
           &nbsp;by the Office of Innovation
         </p>
         {/*

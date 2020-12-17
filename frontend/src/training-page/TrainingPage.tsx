@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { InlineIcon } from "../components/InlineIcon";
 import { BetaBanner } from "../components/BetaBanner";
@@ -185,7 +186,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             />
           </div>
 
-          <div className="row">
+          <div className="row pbs">
             <div className="col-md-8">
               <div className="container-fluid">
                 <div className="row">
@@ -216,7 +217,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
 
             <div className="col-md-4">
-              <div className="container-fluid">
+              <div className="container-fluid mbm">
                 <div className="row">
                   <Grouping title="Cost">
                     <>
@@ -289,6 +290,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
           </div>
         </main>
+        <Footer />
       </>
     );
   } else if (error === Error.SYSTEM_ERROR) {
