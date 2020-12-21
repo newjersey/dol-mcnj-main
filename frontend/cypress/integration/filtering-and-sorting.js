@@ -90,19 +90,19 @@ describe("Filtering", () => {
     cy.contains('7 results found for "baking"').should("exist");
   });
 
-  it("filters by funding eligible", () => {
+  it("filters by In-Demand Only", () => {
     cy.visit("/search/catering");
     cy.contains("Food Service Skills Training").should("exist");
     cy.contains("Catering Management").should("exist");
     cy.contains('11 results found for "catering"').should("exist");
 
-    cy.get('input[name="fundingEligibleOnly"]').check();
+    cy.get('input[name="inDemandOnly"]').check();
 
     cy.contains("Food Service Skills Training").should("not.exist");
     cy.contains("Catering Management").should("exist");
     cy.contains('8 results found for "catering"').should("exist");
 
-    cy.get('input[name="fundingEligibleOnly"]').uncheck();
+    cy.get('input[name="inDemandOnly"]').uncheck();
 
     cy.contains("Food Service Skills Training").should("exist");
     cy.contains("Catering Management").should("exist");

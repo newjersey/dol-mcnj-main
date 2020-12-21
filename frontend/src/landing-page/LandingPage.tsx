@@ -8,6 +8,7 @@ import { Footer } from "../components/Footer";
 import IconOccupation from "./landing-icons/occupations.svg";
 import IconFunding from "./landing-icons/funding.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
+import { Icon } from "@material-ui/core";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
   return (
@@ -64,8 +65,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             </div>
             <h3 className="text-l weight-400">Connect with a Counselor</h3>
             <p className="phm align-center options-desc">
-              Find out about training counseling and funding qualifications at a One-Stop Career
-              Center
+              Find out about training counseling and funding qualifications
             </p>
             <a
               className="link-as-button weight-500"
@@ -73,7 +73,8 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
               rel="noopener noreferrer"
               href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
             >
-              Find Counseling
+              Find Counseling&nbsp;
+              <Icon>launch</Icon>
             </a>
           </div>
         </div>

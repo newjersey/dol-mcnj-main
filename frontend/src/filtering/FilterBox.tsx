@@ -9,9 +9,8 @@ import { navigate } from "@reach/router";
 import { ClassFormatFilter } from "./ClassFormatFilter";
 import { LocationFilter } from "./LocationFilter";
 import { Client } from "../domain/Client";
-import njLogo from "../njlogo.svg";
 import { InlineIcon } from "../components/InlineIcon";
-import { FundingEligibleFilter } from "./FundingEligibleFilter";
+import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 
 interface Props {
   searchQuery?: string;
@@ -68,7 +67,8 @@ export const FilterBox = ({
   };
 
   const isFullscreen = (): string => {
-    return filterIsOpen && isMobile ? "full" : "";
+    const mobileClass = filterIsOpen ? "full bg-light-green" : "bg-white pvd";
+    return isMobile ? mobileClass : "bg-light-green pvd";
   };
 
   const getArrowIcon = (): string => {
@@ -98,14 +98,11 @@ export const FilterBox = ({
     navigate(`/search/${encodeURIComponent(newQuery)}`);
   };
 
-  const MobileFilterButtonHeader = (): ReactElement => {
+  const MobileFilterDropdown = (): ReactElement => {
     return (
-      <header className="fdr mbm" role="banner">
-        <a href="/">
-          <img className="nj-logo-header mrd" src={njLogo} alt="" />
-        </a>
+      <div className={`fdr mbd ${filterIsOpen && "phd"}`}>
         <SecondaryButton
-          className=""
+          className="filter-dropdown"
           onClick={toggleFilterVisibility}
           endIcon={<Icon>{getArrowIcon()}</Icon>}
         >
@@ -114,13 +111,13 @@ export const FilterBox = ({
             Edit Search or Filter
           </span>
         </SecondaryButton>
-      </header>
+      </div>
     );
   };
 
   return (
-    <div className={`bg-light-green pad filterbox ${isFullscreen()}`}>
-      {isMobile && <MobileFilterButtonHeader />}
+    <div className={`filterbox ${isFullscreen()}`}>
+      {isMobile && <MobileFilterDropdown />}
 
       <div className="phd" style={{ display: filterIsOpen ? "block" : "none" }}>
         <Searchbar
@@ -133,7 +130,7 @@ export const FilterBox = ({
         {isMobile && (
           <>
             <div className="mtd mbs grey-line" />
-            <div className="fdr fac mvd">
+            <div className="fdr fac mvm">
               <div className="flex-half bold">{getResultCountText()}</div>
               <div className="flex-half">{children}</div>
             </div>
@@ -142,11 +139,11 @@ export const FilterBox = ({
         )}
 
         <div className="mtd">
-          <FundingEligibleFilter />
+          <LocationFilter client={client} />
         </div>
 
         <div className="mtd">
-          <LocationFilter client={client} />
+          <InDemandOnlyFilter />
         </div>
 
         <div className="mtd">

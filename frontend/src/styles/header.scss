@@ -42,6 +42,7 @@
   .nav-mobile {
     background: white;
     position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
     min-height: 100%;
@@ -94,5 +95,8 @@
 .below-banners {
   min-height: calc(100% - #{$footer-height});
   padding-top: $below-banners-height;
-  padding-bottom: $footer-height;
+
+  &:not(.no-footer) {
+    padding-bottom: $footer-height;
+  }
 }

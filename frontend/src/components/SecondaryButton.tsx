@@ -3,9 +3,9 @@ import { Button, withStyles } from "@material-ui/core";
 export const SecondaryButton = withStyles({
   root: {
     background: "#FFFFFF",
-    borderRadius: 4,
+    borderRadius: 10,
     border: "1px solid #C4C4C4",
-    color: "#5C5858",
+    color: "#1668b4",
     boxShadow: "0",
     textTransform: "none",
     fontWeight: "bold",
@@ -17,6 +17,6 @@ export const SecondaryButton = withStyles({
     },
   },
   label: {
-    color: "#5C5858",
+    color: "#1668b4",
   },
 })(Button);

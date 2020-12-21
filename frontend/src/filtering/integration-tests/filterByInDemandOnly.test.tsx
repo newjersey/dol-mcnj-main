@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 
-describe("filtering by funding eligible", () => {
+describe("filtering by In-Demand Only", () => {
   const inDemand = buildTrainingResult({ name: "in demand training", inDemand: true });
   const notInDemand = buildTrainingResult({ name: "not in demand training", inDemand: false });
 
@@ -29,13 +29,13 @@ describe("filtering by funding eligible", () => {
     expect(subject.getByText("not in demand training")).toBeInTheDocument();
   });
 
-  it("filters by funding eligible only when toggled on", async () => {
-    fireEvent.click(subject.getByLabelText("Funding Eligible Only"));
+  it("filters by In-Demany Only only when toggled on", async () => {
+    fireEvent.click(subject.getByLabelText("Show In-Demand Trainings Only"));
 
     expect(subject.getByText("in demand training")).toBeInTheDocument();
     expect(subject.queryByText("not in demand training")).not.toBeInTheDocument();
 
-    fireEvent.click(subject.getByLabelText("Funding Eligible Only"));
+    fireEvent.click(subject.getByLabelText("Show In-Demand Trainings Only"));
 
     expect(subject.getByText("in demand training")).toBeInTheDocument();
     expect(subject.getByText("not in demand training")).toBeInTheDocument();
