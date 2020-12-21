@@ -4,12 +4,22 @@ import { useState } from "react";
 import { Icon, useMediaQuery, Button } from "@material-ui/core";
 import njLogo from "../njlogo.svg";
 
+interface HandleClickInterface {
+  currentTarget: HTMLAnchorElement;
+}
+
 export const Header = (): ReactElement => {
   const isDesktop = useMediaQuery("(min-width:992px)");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
+  };
+
+  const pageCheck = (event: HandleClickInterface): void => {
+    if (event.currentTarget.getAttribute("href") === window.location.pathname) {
+      setIsOpen(false);
+    }
   };
 
   const mobileNav = (): ReactElement => {
@@ -26,25 +36,37 @@ export const Header = (): ReactElement => {
           </a>
           {isOpen && (
             <nav className="nav nav-mobile">
-              <Link to="/" className="no-link-format nav-item pvm phd bvdcg">
+              <Link to="/" className="no-link-format nav-item pvm phd bvdcg" onClick={pageCheck}>
                 <span className="container flex fac fjb">
                   Home
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <Link to="/search" className="no-link-format nav-item pvm phd bbdcg">
+              <Link
+                to="/search"
+                className="no-link-format nav-item pvm phd bbdcg"
+                onClick={pageCheck}
+              >
                 <span className="container flex fac fjb">
                   Find Training
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <Link to="/in-demand-occupations" className="no-link-format nav-item pvm phd bbdcg">
+              <Link
+                to="/in-demand-occupations"
+                className="no-link-format nav-item pvm phd bbdcg"
+                onClick={pageCheck}
+              >
                 <span className="container flex fac fjb">
                   In-Demand Occupations
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <Link to="/funding" className="no-link-format nav-item pvm phd bbdcg">
+              <Link
+                to="/funding"
+                className="no-link-format nav-item pvm phd bbdcg"
+                onClick={pageCheck}
+              >
                 <span className="container flex fac fjb">
                   Financial Support
                   <Icon className="mla">chevron_right</Icon>
@@ -55,9 +77,10 @@ export const Header = (): ReactElement => {
                 rel="noopener noreferrer"
                 href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
                 className="no-link-format nav-item pvm phd bbdcg"
+                onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  Counseling
+                  Counseling&nbsp;<Icon>launch</Icon>
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </a>
@@ -91,9 +114,10 @@ export const Header = (): ReactElement => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
-                className="no-link-format counseling"
+                className="no-link-format fin fac counseling"
               >
-                Counseling
+                Counseling&nbsp;
+                <Icon>launch</Icon>
               </a>
             </nav>
           </div>

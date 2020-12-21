@@ -124,14 +124,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   return (
     <>
-      {isTabletAndUp && (
-        <>
-          <Header />
-          <BetaBanner />
-        </>
-      )}
+      <Header />
+      <BetaBanner />
 
-      <main role="main">
+      <main className="below-banners no-footer" role="main">
         {isTabletAndUp && (
           <div className="container results-count-container">
             <div className="row ptd fixed-wrapper">
@@ -143,7 +139,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           </div>
         )}
 
-        <div className="container">
+        <div className="container pbm">
           <div className="row">
             <div className="col-sm-4">
               <FilterBox

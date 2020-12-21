@@ -1,5 +1,6 @@
 @import "sizes";
 @import "header";
+@import "colors";
 
 .card {
   border: 1px solid $light-grey;
@@ -16,6 +17,7 @@
   height: $filterbox-height;
   z-index: 10;
   margin-left: -15px;
+  padding: 15px;
 }
 
 .hover-shadow:hover {
@@ -27,9 +29,11 @@
 }
 
 .full {
-  height: 100vh;
+  position: fixed;
+  height: calc(100% - #{$below-banners-height});
   overflow-y: scroll;
-  bottom: 0;
+  z-index: 10;
+  margin-left: -15px;
 }
 
 .label-height {
@@ -46,6 +50,12 @@
   text-overflow: ellipsis;
 }
 
+.grey-line {
+  height: 1px;
+  width: 100%;
+  background-color: $grey;
+}
+
 // small and up
 @media (min-width: $xs) {
   .cutoff-text {
@@ -56,7 +66,7 @@
 
   .filterbox {
     width: 235px;
-    height: calc(100vh - #{$below-banners-height} - #{$result-count-height} - 15px);
+    height: calc(100% - #{$below-banners-height} - #{$result-count-height} - 15px);
     margin-left: 0;
     overflow-y: auto;
   }
@@ -66,7 +76,6 @@
   }
 
   .results-count-container {
-    margin-top: $below-banners-height;
     height: $result-count-height;
     padding-bottom: 1.5rem;
   }
