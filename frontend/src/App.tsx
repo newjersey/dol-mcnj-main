@@ -3,6 +3,8 @@ import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
+import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
+import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
 import { Client } from "./domain/Client";
 import { Router } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
@@ -38,6 +40,8 @@ export const App = (props: Props): ReactElement => {
           <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
           <OccupationPage path="/occupation/:soc" client={props.client} />
           <FundingPage path="/funding" />
+          <PrivacyPolicyPage path="/privacy-policy" />
+          <TermsOfServicePage path="/terms-of-service" />
           <NotFoundPage default />
         </Router>
       </FilterContext.Provider>

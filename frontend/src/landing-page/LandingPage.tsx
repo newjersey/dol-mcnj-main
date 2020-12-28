@@ -16,7 +16,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
       <Header />
       <BetaBanner />
 
-      <main className="below-banners">
+      <main className="below-banners" role="main">
         <div className="bg-light-green pvl">
           <div className="container search-container fdc fac fjc mtm mbl">
             <h2 className="text-xl weight-400 align-center mbd title">
