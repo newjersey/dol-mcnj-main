@@ -103,4 +103,14 @@ describe("Search", () => {
     cy.contains("Culinary Arts").click({ force: true });
     cy.contains("In Demand").should("exist");
   });
+
+  it("tags shows search training tips", () => {
+    cy.visit("/search/baker");
+
+    // search tips
+    cy.get("[data-testid='searchTips']").should(
+      "contain",
+      "Are you not seeing the results you were looking for?"
+    );
+  });
 });

@@ -4,7 +4,7 @@ import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps } from "@reach/router";
 import { Header } from "../components/Header";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { CircularProgress, FormControl, InputLabel, useMediaQuery } from "@material-ui/core";
+import { CircularProgress, FormControl, InputLabel, useMediaQuery, Icon } from "@material-ui/core";
 import { FilterBox } from "../filtering/FilterBox";
 import { BetaBanner } from "../components/BetaBanner";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
@@ -24,6 +24,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
+  const [showSearchTips, setShowSearchTips] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
 
@@ -62,8 +64,14 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       }
     });
 
+    if (newFilteredTrainings.length < 5 || newFilteredTrainings.length > 50) {
+      setShowSearchTips(true);
+    } else {
+      setShowSearchTips(false);
+    }
+
     setFilteredTrainings([...sortedResults]);
-  }, [trainings, filterState.filters, sortState.sortOrder]);
+  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips]);
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
@@ -77,6 +85,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       },
     });
   }, [props.searchQuery, props.client]);
+
+  const toggleIsOpen = (): void => {
+    setIsOpen(!isOpen);
+  };
 
   const getResultCount = (): ReactElement => {
     let message;
@@ -122,6 +134,48 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     </FormControl>
   );
 
+  const getSearchTips = (): ReactElement => (
+    <div className="mbm" data-testid="searchTips">
+      <p>
+        Are you not seeing the results you were looking for? We recommend that you try these search
+        tips to enhance your results:
+      </p>
+      <p>
+        Are your search results too small? Your search may be too specific. Try searching with less
+        words.
+      </p>
+      <p>
+        Are your search results too long? Your search results may be too broad, so try using more
+        terms that describe what you are searching for.
+      </p>
+      <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
+        {isOpen ? "See less" : "See more examples"}
+        <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>
+      </button>
+
+      {isOpen && (
+        <div>
+          <p>Here are some examples that may improve your search results:</p>
+          <p>
+            <span className="bold">Training Providers: </span>
+            If you're searching for a training provider, try using only the provider's name and
+            exclude words like "university" or "college".
+          </p>
+          <p>
+            <span className="bold">Occupations: </span>
+            If you're looking for training for a job, you can type the job title directly into the
+            search box.
+          </p>
+          <p>
+            <span className="bold">License: </span>
+            If you know the name of the license you're training for, use the acronym to see more
+            results. For example, for the commercial driving license, you can search for CDL.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
       <Header />
@@ -161,6 +215,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 )}
 
                 {!isLoading && !isTabletAndUp && getResultCount()}
+                {!isLoading && showSearchTips && getSearchTips()}
 
                 {filteredTrainings.map((training) => (
                   <TrainingResultCard key={training.id} trainingResult={training} />
