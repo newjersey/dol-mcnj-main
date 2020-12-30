@@ -267,6 +267,88 @@ describe("<SearchResultsPage />", () => {
     });
   });
 
+  describe("when displaying search tips", () => {
+    it("displays search tips when less than 5 training results", () => {
+      const subject = render(<SearchResultsPage client={stubClient} />);
+
+      const training1 = buildTrainingResult({
+        name: "training1",
+        totalCost: 1000,
+        percentEmployed: 0.6018342,
+        calendarLength: CalendarLength.FOUR_TO_ELEVEN_WEEKS,
+        city: "Camden",
+        county: "Camden County",
+        providerName: "Cammy Community College",
+        highlight: "some [[text]] here",
+        online: false,
+      });
+
+      act(() => stubClient.capturedObserver.onSuccess([training1]));
+
+      expect(subject.getByTestId("searchTips")).toBeInTheDocument();
+    });
+
+    it("does not display search tips between 5-50 training results", () => {
+      const subject = render(<SearchResultsPage client={stubClient} />);
+      const trainings = new Array(25);
+
+      for (let i = 0; i < trainings.length; i++) {
+        trainings[i] = buildTrainingResult({
+          name: "training" + i,
+        });
+      }
+
+      act(() => stubClient.capturedObserver.onSuccess(trainings));
+
+      expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
+    });
+
+    it("displays search tips when greater than 50 training results", () => {
+      const subject = render(<SearchResultsPage client={stubClient} />);
+      const trainings = new Array(51);
+
+      for (let i = 0; i < trainings.length; i++) {
+        trainings[i] = buildTrainingResult({
+          name: "training" + i,
+        });
+      }
+
+      act(() => stubClient.capturedObserver.onSuccess(trainings));
+
+      expect(subject.getByTestId("searchTips")).toBeInTheDocument();
+    });
+
+    it("does not display search tips when exactly 5 training results", () => {
+      const subject = render(<SearchResultsPage client={stubClient} />);
+      const trainings = new Array(5);
+
+      for (let i = 0; i < trainings.length; i++) {
+        trainings[i] = buildTrainingResult({
+          name: "training" + i,
+        });
+      }
+
+      act(() => stubClient.capturedObserver.onSuccess(trainings));
+
+      expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
+    });
+
+    it("does not display search tips when exactly 50 training results", () => {
+      const subject = render(<SearchResultsPage client={stubClient} />);
+      const trainings = new Array(50);
+
+      for (let i = 0; i < trainings.length; i++) {
+        trainings[i] = buildTrainingResult({
+          name: "training" + i,
+        });
+      }
+
+      act(() => stubClient.capturedObserver.onSuccess(trainings));
+
+      expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
+    });
+  });
+
   describe("when executing a new search", () => {
     it("removes results, loads, and navigates to new search page when new search is executed", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
