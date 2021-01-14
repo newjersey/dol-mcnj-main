@@ -6,7 +6,7 @@ import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
-import { useMediaQuery } from "@material-ui/core";
+// import { useMediaQuery } from "@material-ui/core";
 import { Error } from "../domain/Error";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -57,9 +57,10 @@ describe("<SearchResultsPage />", () => {
       expect(stubClient.capturedQuery).toEqual("octopods");
     });
 
-    it("executes an empty search when parameter does not exist", () => {
-      render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
+    it("executes an empty search and displays starting instructions when parameter does not exist", () => {
+      const subject = render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
       expect(stubClient.capturedQuery).toEqual("");
+      expect(subject.getByTestId("gettingStarted")).toBeInTheDocument();
     });
 
     it("displays error page when search fails", () => {
@@ -236,12 +237,15 @@ describe("<SearchResultsPage />", () => {
       ).toBeInTheDocument();
     });
 
-    it("displays empty string for search query when undefined", () => {
+    it("displays does not display, shows getting started message when undefined", () => {
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
 
       act(() => stubClient.capturedObserver.onSuccess([]));
 
-      expect(subject.getByText('0 results found for ""', { exact: false })).toBeInTheDocument();
+      expect(
+        subject.queryByText('0 results found for ""', { exact: false })
+      ).not.toBeInTheDocument();
+      expect(subject.getByText("Getting Started", { exact: false })).toBeInTheDocument();
     });
 
     it("displays correct grammar when 1 result returned for search query", () => {
@@ -358,10 +362,10 @@ describe("<SearchResultsPage />", () => {
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
 
-      fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+      fireEvent.change(subject.getAllByPlaceholderText("Search for training courses")[0], {
         target: { value: "penguins" },
       });
-      fireEvent.click(subject.getByText("Update Results"));
+      fireEvent.click(subject.getAllByText("Search")[0]);
 
       expect(subject.queryByText("some name")).not.toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
@@ -380,7 +384,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
         target: { value: "penguins" },
       });
-      fireEvent.click(subject.getByText("Update Results"));
+      fireEvent.click(subject.getByText("Edit Search or Filter"));
 
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -389,28 +393,11 @@ describe("<SearchResultsPage />", () => {
 
     it("encodes uri components in search query", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
-      fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+      fireEvent.change(subject.getAllByPlaceholderText("Search for training courses")[0], {
         target: { value: "penguins / penglings" },
       });
-      fireEvent.click(subject.getByText("Update Results"));
+      fireEvent.click(subject.getAllByText("Search")[0]);
       expect(navigate).toHaveBeenCalledWith("/search/penguins%20%2F%20penglings");
     });
   });
-
-  it("[MOBILE] hides search results when filters are open", () => {
-    useMobileSize();
-    const subject = render(<SearchResultsPage client={stubClient} />);
-
-    act(() =>
-      stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "my cool training" })])
-    );
-
-    expect(subject.queryByText("my cool training")).toBeInTheDocument();
-    fireEvent.click(subject.getByText("Edit Search or Filter"));
-    expect(subject.queryByText("my cool training")).not.toBeInTheDocument();
-  });
-
-  const useMobileSize = (): void => {
-    (useMediaQuery as jest.Mock).mockImplementation(() => false);
-  };
 });

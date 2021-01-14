@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, Link } from "@reach/router";
 import { Header } from "../components/Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { CircularProgress, FormControl, InputLabel, useMediaQuery, Icon } from "@material-ui/core";
@@ -23,7 +23,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
-  const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(true);
+  const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(false);
   const [showSearchTips, setShowSearchTips] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -36,7 +36,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortDispatch = sortContextValue.dispatch;
 
   useEffect(() => {
-    document.title = `${props.searchQuery} - Search Results`;
+    document.title = props.searchQuery
+      ? `${props.searchQuery} - Search Results`
+      : "Search for Training";
   }, [props.searchQuery]);
 
   useEffect(() => {
@@ -64,17 +66,17 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       }
     });
 
-    if (newFilteredTrainings.length < 5 || newFilteredTrainings.length > 50) {
-      setShowSearchTips(true);
-    } else {
-      setShowSearchTips(false);
-    }
-
     setFilteredTrainings([...sortedResults]);
-  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips]);
+    setShowSearchTips(newFilteredTrainings.length < 5 || newFilteredTrainings.length > 50);
+
+    if (newFilteredTrainings.length > 0) {
+      setShouldShowTrainings(true);
+    }
+  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, props.searchQuery]);
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
+
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
         setTrainings(data);
@@ -92,11 +94,17 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getResultCount = (): ReactElement => {
     let message;
-    const query = props.searchQuery ? decodeURIComponent(props.searchQuery) : "";
-    if (filteredTrainings.length === 1) {
-      message = `${filteredTrainings.length} result found for "${query}"`;
+
+    if (!props.searchQuery) {
+      message = "Getting Started - Search For Training";
     } else {
-      message = `${filteredTrainings.length} results found for "${query}"`;
+      const query = decodeURIComponent(props.searchQuery);
+
+      if (filteredTrainings.length === 1) {
+        message = `${filteredTrainings.length} result found for "${query}"`;
+      } else {
+        message = `${filteredTrainings.length} results found for "${query}"`;
+      }
     }
 
     return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
@@ -117,21 +125,25 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   };
 
   const getSortDropdown = (): ReactElement => (
-    <FormControl variant="outlined" className="mla width-100">
-      <InputLabel htmlFor="sortby">Sort by</InputLabel>
-      <WhiteSelect
-        native={true}
-        value={sortState.sortOrder}
-        onChange={handleSortChange}
-        label="Sort by"
-        id="sortby"
-      >
-        <option value={SortOrder.BEST_MATCH}>Best Match</option>
-        <option value={SortOrder.COST_LOW_TO_HIGH}>Cost: Low to High</option>
-        <option value={SortOrder.COST_HIGH_TO_LOW}>Cost: High to Low</option>
-        <option value={SortOrder.EMPLOYMENT_RATE}>Employment Rate</option>
-      </WhiteSelect>
-    </FormControl>
+    <>
+      {filteredTrainings.length > 0 && (
+        <FormControl variant="outlined" className="mla width-100">
+          <InputLabel htmlFor="sortby">Sort by</InputLabel>
+          <WhiteSelect
+            native={true}
+            value={sortState.sortOrder}
+            onChange={handleSortChange}
+            label="Sort by"
+            id="sortby"
+          >
+            <option value={SortOrder.BEST_MATCH}>Best Match</option>
+            <option value={SortOrder.COST_LOW_TO_HIGH}>Cost: Low to High</option>
+            <option value={SortOrder.COST_HIGH_TO_LOW}>Cost: High to Low</option>
+            <option value={SortOrder.EMPLOYMENT_RATE}>Employment Rate</option>
+          </WhiteSelect>
+        </FormControl>
+      )}
+    </>
   );
 
   const getSearchTips = (): ReactElement => (
@@ -184,29 +196,32 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <main className="below-banners no-footer" role="main">
         {isTabletAndUp && (
           <div className="container results-count-container">
-            <div className="row ptd fixed-wrapper">
+            <div className={shouldShowTrainings ? "row ptd fixed-wrapper" : "row ptd"}>
               <div className="col-md-12 fdr fac">
                 <div className="result-count-text">{!isLoading && getResultCount()}</div>
-                <div className="mla">{getSortDropdown()}</div>
+                {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
               </div>
             </div>
           </div>
         )}
 
-        <div className="container pbm">
-          <div className="row">
-            <div className="col-sm-4">
-              <FilterBox
-                searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : undefined}
-                resultCount={filteredTrainings.length}
-                setShowTrainings={setShouldShowTrainings}
-                resetStateForReload={resetState}
-                client={props.client}
-              >
-                {getSortDropdown()}
-              </FilterBox>
-            </div>
-            {shouldShowTrainings && (
+        {shouldShowTrainings && (
+          <div className="container pbm">
+            <div className="row">
+              <div className="col-sm-4">
+                {
+                  <FilterBox
+                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    resultCount={filteredTrainings.length}
+                    setShowTrainings={setShouldShowTrainings}
+                    resetStateForReload={resetState}
+                    client={props.client}
+                    fixedContainer={true}
+                  >
+                    {getSortDropdown()}
+                  </FilterBox>
+                }
+              </div>
               <div className="col-sm-8 space-for-filterbox">
                 {isLoading && (
                   <div className="fdr fjc ptl">
@@ -221,9 +236,77 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   <TrainingResultCard key={training.id} trainingResult={training} />
                 ))}
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
+
+        {!shouldShowTrainings && (
+          <div className="container" data-testid="gettingStarted">
+            <div className="row">
+              {isTabletAndUp && (
+                <div className="col-sm-4">
+                  {
+                    <FilterBox
+                      searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                      resultCount={filteredTrainings.length}
+                      setShowTrainings={setShouldShowTrainings}
+                      resetStateForReload={resetState}
+                      client={props.client}
+                      fixedContainer={true}
+                    >
+                      {getSortDropdown()}
+                    </FilterBox>
+                  }
+                </div>
+              )}
+              <div className={`col-sm-7 ${isTabletAndUp ? "pls" : "ptm"}`}>
+                {!isTabletAndUp && <h3 className="text-l mts">Getting Started</h3>}
+                {isTabletAndUp && <h3 className="text-l mts">What is the Training Explorer?</h3>}
+
+                <p className="mbl lhxl">
+                  The Training Explorer is a comprehensive listing of all schools and organizations
+                  offering education and job training that may be eligible to receive&nbsp;
+                  <Link className="link-format-blue" to="/funding">
+                    funding assistance
+                  </Link>
+                  .
+                </p>
+                <h3 className="text-l">What Can I Search for?</h3>
+                <p>Here are some examples that may improve your search results:</p>
+                <p>
+                  <span className="bold">Training Providers: </span>
+                  If you're searching for a training provider, try using only the provider's name
+                  and exclude words like "university" or "college".
+                </p>
+                <p>
+                  <span className="bold">Occupations: </span>
+                  If you're looking for training for a job, you can type the job directly into the
+                  search box.
+                </p>
+                <p>
+                  <span className="bold">License: </span>
+                  If you know the name of the license you're training for, use the acronym to see
+                  more results. For example, for the commercial driving license, try searching for
+                  "CDL".
+                </p>
+                {!isTabletAndUp && (
+                  <div className="mtl mbd">
+                    <h3 className="text-l">Search for Training</h3>
+                    <FilterBox
+                      searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                      resultCount={filteredTrainings.length}
+                      setShowTrainings={setShouldShowTrainings}
+                      resetStateForReload={resetState}
+                      client={props.client}
+                    >
+                      {getSortDropdown()}
+                    </FilterBox>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </>
   );
