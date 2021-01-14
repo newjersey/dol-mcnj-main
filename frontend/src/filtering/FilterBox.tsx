@@ -18,6 +18,7 @@ interface Props {
   setShowTrainings: (shouldShowTrainings: boolean) => void;
   resetStateForReload: () => void;
   children: ReactElement;
+  fixedContainer?: boolean;
   client: Client;
 }
 
@@ -35,6 +36,7 @@ export const FilterBox = ({
   setShowTrainings,
   resetStateForReload,
   children,
+  fixedContainer,
   client,
 }: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
@@ -47,18 +49,19 @@ export const FilterBox = ({
   useEffect(() => {
     if (isTabletAndUp) {
       setFilterIsOpen(true);
-      setShowTrainings(true);
     }
 
     if (!isTabletAndUp && previousWasTabletAndUp) {
       setFilterIsOpen(false);
+    }
+
+    if (searchQuery) {
       setShowTrainings(true);
     }
-  }, [isTabletAndUp, previousWasTabletAndUp, setShowTrainings]);
+  }, [isTabletAndUp, previousWasTabletAndUp, searchQuery, setShowTrainings]);
 
   const toggleFilterVisibility = (): void => {
     const newFilterIsOpen = !filterIsOpen;
-    setShowTrainings(!newFilterIsOpen);
     setFilterIsOpen(newFilterIsOpen);
   };
 
@@ -67,8 +70,12 @@ export const FilterBox = ({
   };
 
   const isFullscreen = (): string => {
-    const mobileClass = filterIsOpen ? "full bg-light-green" : "bg-white pvd";
+    const mobileClass = filterIsOpen ? "full bg-light-green pvd" : "bg-white pvd";
     return isMobile ? mobileClass : "bg-light-green pvd";
+  };
+
+  const isFixedContainer = (): string => {
+    return fixedContainer && !filterIsOpen ? "is-fixed" : "";
   };
 
   const getArrowIcon = (): string => {
@@ -84,14 +91,14 @@ export const FilterBox = ({
   };
 
   const executeSearch = (newQuery: string): void => {
-    setShowTrainings(true);
-
     if (isMobile) {
       setFilterIsOpen(false);
     }
 
     if (newQuery === searchQuery) {
       return;
+    } else if (newQuery) {
+      setShowTrainings(true);
     }
 
     resetStateForReload();
@@ -100,7 +107,7 @@ export const FilterBox = ({
 
   const MobileFilterDropdown = (): ReactElement => {
     return (
-      <div className={`fdr mbd ${filterIsOpen && "phd"}`}>
+      <div className={`fdr mbd ${filterIsOpen && "phl"}`}>
         <SecondaryButton
           className="filter-dropdown"
           onClick={toggleFilterVisibility}
@@ -116,15 +123,24 @@ export const FilterBox = ({
   };
 
   return (
-    <div className={`filterbox ${isFullscreen()}`}>
-      {isMobile && <MobileFilterDropdown />}
+    <div className={`filterbox ${isFullscreen()} ${isFixedContainer()}`}>
+      {isMobile && searchQuery && <MobileFilterDropdown />}
 
-      <div className="phd" style={{ display: filterIsOpen ? "block" : "none" }}>
+      {isMobile && !searchQuery && (
         <Searchbar
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
-          buttonText="Update Results"
+          buttonText="Search"
+        />
+      )}
+
+      <div className="phl" style={{ display: filterIsOpen ? "block" : "none" }}>
+        <Searchbar
+          onSearch={executeSearch}
+          initialValue={searchQuery}
+          stacked={true}
+          buttonText={!searchQuery ? "Search" : "Update Results"}
         />
 
         {isMobile && (

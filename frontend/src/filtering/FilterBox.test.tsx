@@ -27,6 +27,7 @@ describe("<FilterBox />", () => {
     return render(
       <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
         <FilterBox
+          searchQuery={"some-query"}
           resultCount={1}
           setShowTrainings={jest.fn()}
           resetStateForReload={jest.fn()}
@@ -41,6 +42,24 @@ describe("<FilterBox />", () => {
   const renderFilterBox = ({ resultCount = 1, setShowTrainings = jest.fn() }): RenderResult => {
     return render(
       <FilterBox
+        searchQuery={"some-query"}
+        resultCount={resultCount}
+        setShowTrainings={setShowTrainings}
+        resetStateForReload={jest.fn()}
+        client={new StubClient()}
+      >
+        <div />
+      </FilterBox>
+    );
+  };
+
+  const renderEmptyFilterBox = ({
+    resultCount = 0,
+    setShowTrainings = jest.fn(),
+  }): RenderResult => {
+    return render(
+      <FilterBox
+        searchQuery={undefined}
         resultCount={resultCount}
         setShowTrainings={setShowTrainings}
         resetStateForReload={jest.fn()}
@@ -66,6 +85,7 @@ describe("<FilterBox />", () => {
   it("[MOBILE] has default-color text when no filter applied", () => {
     useMobileSize();
     const subject = renderWithFilters([]);
+
     expect(subject.getByText("Edit Search or Filter", { exact: false })).not.toHaveClass("blue");
   });
 
@@ -129,19 +149,12 @@ describe("<FilterBox />", () => {
     expect(subject.getByText("1 result")).toBeInTheDocument();
   });
 
-  it("[MOBILE] triggers setShowTrainings when filter box is opened/closed", () => {
+  it("[MOBILE] displays search bar if no search query is given", () => {
     useMobileSize();
-    const mockCallback = jest.fn();
-    const subject = renderFilterBox({ setShowTrainings: mockCallback });
+    const subject = renderEmptyFilterBox({});
 
-    fireEvent.click(subject.getByText("Edit Search or Filter"));
-    expect(mockCallback).toHaveBeenLastCalledWith(false);
-
-    fireEvent.click(subject.getByText("Edit Search or Filter"));
-    expect(mockCallback).toHaveBeenLastCalledWith(true);
-
-    fireEvent.click(subject.getByText("Edit Search or Filter"));
-    expect(mockCallback).toHaveBeenLastCalledWith(false);
+    expect(subject.getAllByText("Search")[0]).toBeInTheDocument();
+    expect(subject.queryByText("Update Results")).not.toBeInTheDocument();
   });
 
   it("triggers setShowTrainings on screen size change", () => {

@@ -65,6 +65,15 @@ describe("Search", () => {
     cy.checkA11y();
   });
 
+  it("shows getting started messaging when no search", () => {
+    // on results page
+    cy.visit("/search");
+    cy.injectAxe();
+
+    // displays zero state
+    cy.contains("Getting Started - Search For Training").should("exist");
+  });
+
   it("links back to home page", () => {
     cy.visit("/search");
     cy.contains("Training Explorer").click();

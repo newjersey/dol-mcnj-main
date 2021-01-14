@@ -12,12 +12,15 @@
 }
 
 .filterbox {
-  position: fixed;
   width: 100%;
-  height: $filterbox-height;
-  z-index: 10;
-  margin-left: -15px;
-  padding: 15px;
+
+  &.is-fixed {
+    position: fixed;
+    height: $filterbox-height;
+    z-index: 10;
+    margin-left: -15px;
+    padding: 15px;
+  }
 }
 
 .hover-shadow:hover {
@@ -65,10 +68,12 @@
   }
 
   .filterbox {
-    width: 235px;
-    height: calc(100% - #{$below-banners-height} - #{$result-count-height} - 15px);
-    margin-left: 0;
-    overflow-y: auto;
+    &.is-fixed {
+      width: 235px;
+      height: calc(100% - #{$below-banners-height} - #{$result-count-height} - 15px);
+      margin-left: 0;
+      overflow-y: auto;
+    }
   }
 
   .space-for-filterbox {
@@ -95,7 +100,9 @@
 // medium and up
 @media (min-width: $sm) {
   .filterbox {
-    width: 307px;
+    &.is-fixed {
+      width: 307px;
+    }
   }
 
   .align-right-when-lg {
@@ -110,6 +117,8 @@
 // large and up
 @media (min-width: $md) {
   .filterbox {
-    width: 375px;
+    &.is-fixed {
+      width: 375px;
+    }
   }
 }
