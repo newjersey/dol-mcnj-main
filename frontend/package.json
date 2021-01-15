@@ -15,7 +15,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "accounting": "^0.4.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "fibers": "^5.0.0",
     "libphonenumber-js": "^1.7.57",
     "material-design-icons": "^3.0.1",
