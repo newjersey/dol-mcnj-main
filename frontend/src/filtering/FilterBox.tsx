@@ -75,7 +75,8 @@ export const FilterBox = ({
   };
 
   const isFixedContainer = (): string => {
-    return fixedContainer && !filterIsOpen ? "is-fixed" : "";
+    const mobileFixed = isMobile && !filterIsOpen;
+    return fixedContainer && (!isMobile || mobileFixed) ? "is-fixed" : "";
   };
 
   const getArrowIcon = (): string => {
