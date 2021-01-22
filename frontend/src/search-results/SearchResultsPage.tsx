@@ -196,7 +196,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <main className="below-banners no-footer" role="main">
         {isTabletAndUp && (
           <div className="container results-count-container">
-            <div className={shouldShowTrainings ? "row ptd fixed-wrapper" : "row ptd"}>
+            <div className="row ptd fixed-wrapper">
               <div className="col-md-12 fdr fac">
                 <div className="result-count-text">{!isLoading && getResultCount()}</div>
                 {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
@@ -259,11 +259,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   }
                 </div>
               )}
-              <div className={`col-sm-7 ${isTabletAndUp ? "pls" : "ptm"}`}>
+              <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
                 {!isTabletAndUp && <h3 className="text-l mts">Getting Started</h3>}
                 {isTabletAndUp && <h3 className="text-l mts">What is the Training Explorer?</h3>}
 
-                <p className="mbl lhxl">
+                <p className="mbl">
                   The Training Explorer is a comprehensive listing of all schools and organizations
                   offering education and job training that may be eligible to receive&nbsp;
                   <Link className="link-format-blue" to="/funding">
