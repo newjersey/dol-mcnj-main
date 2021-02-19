@@ -2,3 +2,21 @@
   border-radius: 10px;
   width: max-content;
 }
+
+/* link styled as a button */
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $navy;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  min-height: 35px;
+  min-width: 200px;
+
+  &.secondary {
+    background: $indigo;
+  }
+}

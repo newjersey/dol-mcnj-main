@@ -1,0 +1,66 @@
+.training-comparison {
+  position: fixed;
+  bottom: 0;
+  z-index: 10; // overlap fixed-wrapper
+
+  &.expanded {
+    max-height: 85%;
+    overflow: scroll;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 80px;
+    grid-column-gap: 5.75%;
+
+    &.expanded {
+      grid-template-columns: 1fr 80px;
+    }
+  }
+
+  .comparison-item {
+    position: relative;
+    background: white;
+    border: 1px solid $light-grey;
+    padding: 8px;
+
+    &.empty {
+      background: rgba(white, 0.4);
+    }
+
+    .btn-remove {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      min-width: auto;
+      padding: 0;
+      font-size: 20px;
+    }
+  }
+
+  .btn-compare,
+  .btn-collapse {
+    margin-bottom: 16px;
+  }
+}
+
+.comparison-table {
+  .table-header {
+    font-weight: 500;
+    padding: 8px;
+    background: $purple;
+  }
+
+  .table-cell {
+    padding: 8px 8px 24px;
+    border: 0;
+    width: 30%;
+    vertical-align: top;
+  }
+
+  .table-row:last-child {
+    .table-cell {
+      padding-bottom: 0px;
+    }
+  }
+}

@@ -1,10 +1,10 @@
-import { navigate, RouteComponentProps, Link } from "@reach/router";
+import { navigate, RouteComponentProps } from "@reach/router";
 import React, { ReactElement } from "react";
 import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-
+import { LinkButton } from "../components/LinkButton";
 import IconOccupation from "./landing-icons/occupations.svg";
 import IconFunding from "./landing-icons/funding.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
@@ -43,9 +43,9 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               Find New Jersey's fastest growing occupations
             </p>
-            <Link className="link-as-button weight-500" to="/in-demand-occupations">
+            <LinkButton to="/in-demand-occupations" secondary>
               View Occupations
-            </Link>
+            </LinkButton>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
@@ -55,9 +55,9 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               Apply for funding to cover your training costs
             </p>
-            <Link className="link-as-button weight-500" to="/funding">
+            <LinkButton to="/funding" secondary>
               Learn More
-            </Link>
+            </LinkButton>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
@@ -67,15 +67,16 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               Find out about training counseling and funding qualifications
             </p>
-            <a
-              className="link-as-button weight-500"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
+            <LinkButton
+              to="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
+              external
+              secondary
             >
-              Find Counseling&nbsp;
-              <Icon>launch</Icon>
-            </a>
+              <>
+                Find Counseling&nbsp;
+                <Icon>launch</Icon>
+              </>
+            </LinkButton>
           </div>
         </div>
       </main>

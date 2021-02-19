@@ -190,7 +190,7 @@ describe("Filtering", () => {
       });
 
     // get card with unique text
-    cy.get(".card").eq(4).click({ force: true });
+    cy.get(".card .no-link-format").eq(4).click({ force: true });
     cy.location("pathname").should("eq", "/training/43970");
     cy.go("back");
 

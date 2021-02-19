@@ -13,6 +13,8 @@ import { SortOrder } from "../sorting/SortOrder";
 import { SortContext } from "../sorting/SortContext";
 import { FilterContext } from "../filtering/FilterContext";
 
+import { TrainingComparison } from "./TrainingComparison";
+
 interface Props extends RouteComponentProps {
   client: Client;
   searchQuery?: string;
@@ -28,6 +30,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+
+  const [itemsToCompare, setItemsToCompare] = useState<TrainingResult[]>([]);
 
   const filterState = useContext(FilterContext).state;
 
@@ -206,38 +210,50 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         )}
 
         {shouldShowTrainings && (
-          <div className="container pbm">
-            <div className="row">
-              <div className="col-sm-4">
-                {
-                  <FilterBox
-                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
-                    resultCount={filteredTrainings.length}
-                    setShowTrainings={setShouldShowTrainings}
-                    resetStateForReload={resetState}
-                    client={props.client}
-                    fixedContainer={true}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
-                }
-              </div>
-              <div className="col-sm-8 space-for-filterbox">
-                {isLoading && (
-                  <div className="fdr fjc ptl">
-                    <CircularProgress color="secondary" />
-                  </div>
-                )}
+          <>
+            <div className={`container ${itemsToCompare.length ? "space-for-comparison" : "pbm"}`}>
+              <div className="row">
+                <div className="col-sm-4">
+                  {
+                    <FilterBox
+                      searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                      resultCount={filteredTrainings.length}
+                      setShowTrainings={setShouldShowTrainings}
+                      resetStateForReload={resetState}
+                      client={props.client}
+                      fixedContainer={true}
+                    >
+                      {getSortDropdown()}
+                    </FilterBox>
+                  }
+                </div>
+                <div className="col-sm-8 space-for-filterbox">
+                  {isLoading && (
+                    <div className="fdr fjc ptl">
+                      <CircularProgress color="secondary" />
+                    </div>
+                  )}
 
-                {!isLoading && !isTabletAndUp && getResultCount()}
-                {!isLoading && showSearchTips && getSearchTips()}
+                  {!isLoading && !isTabletAndUp && getResultCount()}
+                  {!isLoading && showSearchTips && getSearchTips()}
 
-                {filteredTrainings.map((training) => (
-                  <TrainingResultCard key={training.id} trainingResult={training} />
-                ))}
+                  {filteredTrainings.map((training) => (
+                    <TrainingResultCard
+                      key={training.id}
+                      trainingResult={training}
+                      compareResult={true}
+                      items={itemsToCompare}
+                      setTrainingsToCompare={setItemsToCompare}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+            <TrainingComparison
+              trainings={itemsToCompare}
+              setTrainingsToCompare={setItemsToCompare}
+            />
+          </>
         )}
 
         {!shouldShowTrainings && (
