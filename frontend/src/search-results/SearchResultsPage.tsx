@@ -67,7 +67,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     });
 
     setFilteredTrainings([...sortedResults]);
-    setShowSearchTips(newFilteredTrainings.length < 5 || newFilteredTrainings.length > 50);
+    setShowSearchTips(newFilteredTrainings.length < 5);
 
     if (newFilteredTrainings.length > 0) {
       setShouldShowTrainings(true);
