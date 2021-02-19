@@ -292,22 +292,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByTestId("searchTips")).toBeInTheDocument();
     });
 
-    it("does not display search tips between 5-50 training results", () => {
-      const subject = render(<SearchResultsPage client={stubClient} />);
-      const trainings = new Array(25);
-
-      for (let i = 0; i < trainings.length; i++) {
-        trainings[i] = buildTrainingResult({
-          name: "training" + i,
-        });
-      }
-
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
-
-      expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
-    });
-
-    it("displays search tips when greater than 50 training results", () => {
+    it("displays search tips when greater than 5 training results", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       const trainings = new Array(51);
 
@@ -319,7 +304,7 @@ describe("<SearchResultsPage />", () => {
 
       act(() => stubClient.capturedObserver.onSuccess(trainings));
 
-      expect(subject.getByTestId("searchTips")).toBeInTheDocument();
+      expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
 
     it("does not display search tips when exactly 5 training results", () => {
