@@ -15,18 +15,6 @@
   max-width: 320px;
 }
 
-.link-as-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background: $indigo;
-  text-decoration: none;
-  border-radius: 10px;
-  min-height: 35px;
-  min-width: 200px;
-}
-
 @media (min-width: $sm) {
   .title {
     font-size: 1.5rem;

@@ -98,17 +98,23 @@ describe("Occupation Page", () => {
       );
 
       // related trainings
-      // cy.get(".card").eq(0).within(() => {
-      //   cy.contains("Architectural Design and Drafting").should("exist");
-      // });
-      //
-      // cy.get(".card").eq(1).within(() => {
-      //   cy.contains("Civil Engineering Technology A.").should("exist");
-      // });
-      //
-      // cy.get(".card").eq(2).within(() => {
-      //   cy.contains("Architectural Design and Drafting").should("exist");
-      // });
+      cy.get(".card")
+        .eq(0)
+        .within(() => {
+          cy.contains("Civil Engineering Technology A.").should("exist");
+        });
+
+      cy.get(".card")
+        .eq(1)
+        .within(() => {
+          cy.contains("Architectural Design and Drafting").should("exist");
+        });
+
+      cy.get(".card")
+        .eq(2)
+        .within(() => {
+          cy.contains("Architectural Design and Drafting").should("exist");
+        });
 
       cy.contains("Structural Engineering/Design").should("not.exist");
       cy.contains("See More Results").should("exist");

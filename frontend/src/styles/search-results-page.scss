@@ -31,6 +31,10 @@
   margin-top: $filterbox-height;
 }
 
+.space-for-comparison {
+  padding-bottom: calc(#{$comparison-height} + 1.5rem);
+}
+
 .full {
   position: fixed;
   height: calc(100% - #{$below-banners-height});
