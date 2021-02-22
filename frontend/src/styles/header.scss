@@ -99,4 +99,13 @@
   &:not(.no-footer) {
     padding-bottom: $footer-height;
   }
+
+  @media (max-width: $xs) {
+    min-height: calc(100% - #{$footer-height-mobile});
+
+    &:not(.no-footer) {
+      padding-bottom: $footer-height-mobile;
+    }
+  }
 }
+

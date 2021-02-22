@@ -36,14 +36,14 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
               During the pilot, usage of the Website is restricted to residents of the United
               States. By proceeding, you certify that you are currently located in and reside in the
               United States. If this status changes during the pilot period, please contact us
-              at&nbsp;
+              at{" "}
               <a
-                href="mailto:"
+                href="mailto:TrainingEvaluationUnit@dol.nj.gov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
               >
-                ###@####.gov
+                TrainingEvaluationUnit@dol.nj.gov
               </a>
               .
             </p>
@@ -53,12 +53,12 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
               We make great effort to provide secure, accurate and complete information on this
               Website. Any errors or omissions should be reported to us at{" "}
               <a
-                href="mailto:"
+                href="mailto:TrainingEvaluationUnit@dol.nj.gov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
               >
-                ###@####.gov
+                TrainingEvaluationUnit@dol.nj.gov
               </a>{" "}
               for review.
             </p>
@@ -208,15 +208,15 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
               We respect the intellectual property of others, and we ask users of our Website to do
               the same. In accordance with the Digital Millennium Copyright Act (DMCA) and other
               applicable law, if you believe your copyright has been infringed please email us
-              at:&nbsp;
+              at:{" "}
               <a
-                href="mailto:"
+                href="mailto:TrainingEvaluationUnit@dol.nj.gov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
               >
-                ###@####.gov
-              </a>
+                TrainingEvaluationUnit@dol.nj.gov
+              </a>.
             </p>
             <p>
               To be an effective notice under Section 512(c) of the DMCA your written notice must
@@ -285,12 +285,12 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
                 your personal information, or obtain further information on safeguards, please send
                 an email to{" "}
                 <a
-                  href="mailto:"
+                  href="mailto:TrainingEvaluationUnit@dol.nj.gov"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link-format-blue"
                 >
-                  ###@####.gov
+                  TrainingEvaluationUnit@dol.nj.gov
                 </a>
                 .
               </li>
