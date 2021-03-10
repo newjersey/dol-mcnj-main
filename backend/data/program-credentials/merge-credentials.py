@@ -33,12 +33,12 @@ def mergedf(leftdf, rightdf, jointype, leftcol, rightcol):
 
 
 def export(df):
-    df.to_csv('programs_20210226_merged.csv', index=False)
+    df.to_csv('programs_20210305_merged.csv', index=False)
 
 
 def main():
     # update with the latest
-    from_filepath = "../programs_20210226.csv"
+    from_filepath = "../programs_20210305.csv"
 
     input_file1 = "./TBLDEGREELU_DATA_TABLE.csv"
     input_file2 = "./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv"
