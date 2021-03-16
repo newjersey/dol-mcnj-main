@@ -93,6 +93,10 @@ button {
   cursor: pointer;
 }
 
+.visually-hidden {
+  visibility: hidden;
+}
+
 a.no-link-format {
   color: inherit;
   text-decoration: inherit;

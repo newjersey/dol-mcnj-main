@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement } from "react";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
@@ -18,31 +18,7 @@ interface Props {
 }
 
 export const TrainingResultCard = (props: Props): ReactElement => {
-  const [trainingChecked, setTrainingChecked] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (props.items) {
-      updateChecked();
-    }
-  });
-
-  const updateChecked = (): void => {
-    if (props.items?.length === 0) {
-      setTrainingChecked(false);
-    } else {
-      props.items?.map((item) => {
-        if (item === props.trainingResult) {
-          return setTrainingChecked(true);
-        } else {
-          return setTrainingChecked(false);
-        }
-      });
-    }
-  };
-
   const handleCheckboxChange = (checked: boolean): void => {
-    setTrainingChecked(checked);
-
     if (props.items) {
       let comparisonItems = props.items;
 
@@ -84,19 +60,22 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   const ComparisonCheckbox = (): ReactElement => {
+    const isChecked =
+      props.items && props.items.filter((el) => el === props.trainingResult).length > 0;
+
     return (
       <label className="bold mla" htmlFor="comparison">
         <FormGroup id={`comparison-${props.trainingResult.id}`}>
           <FormControlLabel
             control={
               <SpacedCheckbox
-                checked={trainingChecked}
+                checked={isChecked}
                 onChange={(e, checked): void => {
                   return handleCheckboxChange(checked);
                 }}
                 name="compare"
                 color="primary"
-                disabled={props.items && props.items.length >= 3 && !trainingChecked}
+                disabled={props.items && props.items.length >= 3 && !isChecked}
               />
             }
             label="Compare"
