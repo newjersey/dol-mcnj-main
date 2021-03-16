@@ -122,4 +122,18 @@ describe("Search", () => {
       "Are you not seeing the results you were looking for?"
     );
   });
+
+  it("shows comparison items when checked", () => {
+    cy.visit("/search/painter");
+
+    cy.get("[data-testid='card']")
+      .first()
+      .within(() => {
+        cy.get('[type="checkbox"][name="compare"]').check();
+      });
+
+    cy.get(".training-comparison").within(() => {
+      cy.get(".comparison-item").should("exist");
+    });
+  });
 });

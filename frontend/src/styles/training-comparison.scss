@@ -4,17 +4,17 @@
   z-index: 10; // overlap fixed-wrapper
 
   &.expanded {
-    max-height: 85%;
-    overflow: scroll;
+    width: 100%;
+    height: calc(100% - #{$header-height});
+    overflow: hidden scroll;
   }
 
   .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 80px;
     grid-column-gap: 5.75%;
 
-    &.expanded {
-      grid-template-columns: 1fr 80px;
+    &:not(.expanded) {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 
@@ -23,6 +23,9 @@
     background: white;
     border: 1px solid $light-grey;
     padding: 8px;
+    min-width: 100%;
+    width: 100%;
+    height: 75px;
 
     &.empty {
       background: rgba(white, 0.4);
@@ -38,9 +41,64 @@
     }
   }
 
+  .truncated {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 1;
+  }
+
+  .button-container {
+    grid-column: 1 / -1;
+  }
+
   .btn-compare,
   .btn-collapse {
     margin-bottom: 16px;
+  }
+
+  @media (max-width: $xs) {
+    .icon-flip {
+      transform: scaleX(-1);
+    }
+
+    .table-scroll {
+      margin-left: -50%;
+    }
+  }
+
+  @media (min-width: $xs) {
+    &.expanded {
+      max-height: 85%;
+      height: auto;
+
+      .button-container {
+        grid-column: 2;
+      }
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 80px;
+      grid-column-gap: 5.75%;
+
+      &.expanded {
+        grid-template-columns: 1fr 80px;
+      }
+    }
+
+    .comparison-item {
+      height: auto;
+    }
+
+    .btn-compare,
+    .btn-collapse {
+      margin-bottom: 16px;
+    }
+
+    .button-container {
+      grid-column: 4;
+    }
   }
 }
 
@@ -49,6 +107,7 @@
     font-weight: 500;
     padding: 8px;
     background: $purple;
+    column-span: 3;
   }
 
   .table-cell {
@@ -58,9 +117,26 @@
     vertical-align: top;
   }
 
-  .table-row:last-child {
+  .cell-bottom {
+    padding-bottom: 0;
+    vertical-align: bottom;
+  }
+
+  @media (max-width: $xs) {
+    &.wide {
+      width: 150%;
+    }
+
     .table-cell {
-      padding-bottom: 0px;
+      width: 35%;
+    }
+
+    .cell-bottom {
+      padding: 0;
+    }
+
+    .table-button {
+      min-width: 113px;
     }
   }
 }

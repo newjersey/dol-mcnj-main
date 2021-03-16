@@ -10,6 +10,8 @@ import { LinkButton } from "../components/LinkButton";
 interface Props {
   headings?: string[];
   data: TrainingResult[];
+  wide?: boolean;
+  className?: string;
 }
 
 export const ComparisonTable = (props: Props): ReactElement => {
@@ -34,15 +36,21 @@ export const ComparisonTable = (props: Props): ReactElement => {
     },
     {
       heading: "Employment Rate",
-      col1: props.data[0]?.percentEmployed
-        ? formatPercentEmployed(props.data[0].percentEmployed)
-        : "--",
-      col2: props.data[1]?.percentEmployed
-        ? formatPercentEmployed(props.data[1].percentEmployed)
-        : "--",
-      col3: props.data[2]?.percentEmployed
-        ? formatPercentEmployed(props.data[2].percentEmployed)
-        : "--",
+      col1: props.data[0]
+        ? props.data[0].percentEmployed
+          ? formatPercentEmployed(props.data[0].percentEmployed)
+          : "--"
+        : null,
+      col2: props.data[1]
+        ? props.data[1].percentEmployed
+          ? formatPercentEmployed(props.data[1].percentEmployed)
+          : "--"
+        : null,
+      col3: props.data[2]
+        ? props.data[2].percentEmployed
+          ? formatPercentEmployed(props.data[2].percentEmployed)
+          : "--"
+        : null,
     },
     {
       heading: "Time to Complete",
@@ -59,45 +67,57 @@ export const ComparisonTable = (props: Props): ReactElement => {
     {
       heading: "",
       col1: props.data[0] && (
-        <LinkButton to={`/training/${props.data[0].id}`}>See Details</LinkButton>
+        <LinkButton className=" table-button" to={`/training/${props.data[0].id}`}>
+          See Details
+        </LinkButton>
       ),
       col2: props.data[1] && (
-        <LinkButton to={`/training/${props.data[1].id}`}>See Details</LinkButton>
+        <LinkButton className=" table-button" to={`/training/${props.data[1].id}`}>
+          See Details
+        </LinkButton>
       ),
       col3: props.data[2] && (
-        <LinkButton to={`/training/${props.data[2].id}`}>See Details</LinkButton>
+        <LinkButton className=" table-button" to={`/training/${props.data[2].id}`}>
+          See Details
+        </LinkButton>
       ),
+      class: "cell-bottom",
     },
   ];
 
   const table = (
-    <Table className="comparison-table">
+    <Table className={`comparison-table ${props.wide && "wide"} ${props.className}`}>
       <TableBody>
         {row.map((row, key) => {
           return (
             <>
               {row.heading && (
                 <TableRow className="table-row" key={`trh-${key}`}>
-                  <TableCell component="th" className="table-header" key="th1">
-                    {row.heading}
-                  </TableCell>
-                  <TableCell component="th" className="table-header" key="th2" />
-                  <TableCell component="th" className="table-header" key="th3" />
+                  {row.heading && (
+                    <TableCell
+                      component="th"
+                      className="table-header"
+                      colSpan={3}
+                      key={`th1-${key}`}
+                    >
+                      {row.heading}
+                    </TableCell>
+                  )}
                 </TableRow>
               )}
               <TableRow key={`trc-${key}`}>
                 {row.col1 && (
-                  <TableCell className="table-cell" key="tr1">
+                  <TableCell className={`table-cell ${row.class}`} key={`tr1-${key}`}>
                     {row.col1}
                   </TableCell>
                 )}
                 {row.col2 && (
-                  <TableCell className="table-cell" key="tr2">
+                  <TableCell className={`table-cell ${row.class}`} key={`tr2-${key}`}>
                     {row.col2}
                   </TableCell>
                 )}
                 {row.col3 && (
-                  <TableCell className="table-cell" key="tr3">
+                  <TableCell className={`table-cell ${row.class}`} key={`tr3-${key}`}>
                     {row.col3}
                   </TableCell>
                 )}

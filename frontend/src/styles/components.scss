@@ -16,7 +16,15 @@
   min-height: 35px;
   min-width: 200px;
 
+  &:hover {
+    background: #777777;
+  }
+
   &.secondary {
     background: $indigo;
+
+    &:hover {
+      background: $blue;
+    }
   }
 }
