@@ -35,8 +35,7 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
             <p>
               During the pilot, usage of the Website is restricted to residents of the United
               States. By proceeding, you certify that you are currently located in and reside in the
-              United States. If this status changes during the pilot period, please contact us
-              at{" "}
+              United States. If this status changes during the pilot period, please contact us at{" "}
               <a
                 href="mailto:TrainingEvaluationUnit@dol.nj.gov"
                 target="_blank"
@@ -207,8 +206,7 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
             <p>
               We respect the intellectual property of others, and we ask users of our Website to do
               the same. In accordance with the Digital Millennium Copyright Act (DMCA) and other
-              applicable law, if you believe your copyright has been infringed please email us
-              at:{" "}
+              applicable law, if you believe your copyright has been infringed please email us at:{" "}
               <a
                 href="mailto:TrainingEvaluationUnit@dol.nj.gov"
                 target="_blank"
@@ -216,7 +214,8 @@ export const TermsOfServicePage = (props: RouteComponentProps): ReactElement => 
                 className="link-format-blue"
               >
                 TrainingEvaluationUnit@dol.nj.gov
-              </a>.
+              </a>
+              .
             </p>
             <p>
               To be an effective notice under Section 512(c) of the DMCA your written notice must
