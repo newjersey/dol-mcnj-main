@@ -10,10 +10,13 @@ export const Footer = (): ReactElement => {
       <div className="container">
         <div className={isTablet ? "grid-container" : "align-center"}>
           <div className={isTablet ? "" : "flex fdc mbd"}>
-            <Link className={`no-link-format text-s ${isTablet ? "prd" : "mbxs"}`} to="/privacy">
+            <Link
+              className={`no-link-format text-s ${isTablet ? "prd" : "mbxs"}`}
+              to="/privacy-policy"
+            >
               Privacy Policy
             </Link>
-            <Link className="no-link-format text-s" to="/tos">
+            <Link className="no-link-format text-s" to="/terms-of-service">
               Terms of Service
             </Link>
           </div>
@@ -23,8 +26,7 @@ export const Footer = (): ReactElement => {
             <Icon className="red" fontSize="inherit">
               favorite
             </Icon>
-            &nbsp;by
-            the Office of Innovation
+            &nbsp;by the Office of Innovation
           </p>
         </div>
       </div>
