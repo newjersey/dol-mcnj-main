@@ -1,0 +1,13 @@
+ID,NAME
+101,Certificate of Completion
+102,At least one year but less than two year Certificate
+103,At least two year but less than four year Certificate
+200,Associate's Degree
+300,Bachelor's Degree
+400,Post-Baccalaureate(below Master's)
+500,Master's Degree
+600,Post-Master's Certificate(below Doctorate)
+700,Doctoral Degree
+800,First Professional Degree/Award
+850,High School Diploma or Equivalent
+900,Community College Certificate
