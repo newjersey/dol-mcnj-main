@@ -38,7 +38,7 @@ describe("PostgresDataClient", () => {
     street2: null,
     city: "Vineland",
     state: "NJ",
-    zip: "08360",
+    zip: "8360",
     county: "Cumberland",
     contactfirstname: "Gloria",
     contactlastname: "Kucher",
@@ -66,14 +66,12 @@ describe("PostgresDataClient", () => {
 
     it("finds programs by list of cip codes", async () => {
       const programs = await dataClient.findProgramsBy(Selector.CIP_CODE, ["123456", "000000"]);
-      expect(programs.length).toEqual(4);
+      expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
         expect.arrayContaining([
           "Standardized Tree Identification Class",
           "Standardized Tree Identification Class Level 2",
-          "Standardized Program With No Description",
-          "Standardized Program With No Outcomes",
         ])
       );
     });
