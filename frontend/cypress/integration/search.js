@@ -114,7 +114,7 @@ describe("Search", () => {
   });
 
   it("tags shows search training tips", () => {
-    cy.visit("/search/baker");
+    cy.visit("/search/braider");
 
     // search tips
     cy.get("[data-testid='searchTips']").should(
