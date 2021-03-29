@@ -14,7 +14,7 @@ describe("Occupation Page", () => {
       cy.contains("$97,820");
 
       // open jobs
-      // cy.contains("375").should("exist");
+      // cy.contains("1,254").should("exist");
 
       // open jobs links
       // cy.contains("Search current job openings posted for this occupation").should("exist");
@@ -98,26 +98,10 @@ describe("Occupation Page", () => {
       );
 
       // related trainings
-      cy.get(".card")
-        .eq(0)
-        .within(() => {
-          cy.contains("Civil Engineering Technology A.").should("exist");
-        });
+      cy.contains("This data is not yet available for this occupation.").should("exist");
 
-      cy.get(".card")
-        .eq(1)
-        .within(() => {
-          cy.contains("Architectural Design and Drafting").should("exist");
-        });
-
-      cy.get(".card")
-        .eq(2)
-        .within(() => {
-          cy.contains("Architectural Design and Drafting").should("exist");
-        });
-
-      cy.contains("Structural Engineering/Design").should("not.exist");
-      cy.contains("See More Results").should("exist");
+      // cy.contains("Structural Engineering/Design").should("not.exist");
+      cy.contains("See More Results").should("not.exist");
 
       cy.checkA11y();
     });
@@ -136,7 +120,7 @@ describe("Occupation Page", () => {
       cy.contains("$79,810").should("exist");
 
       // open jobs
-      // cy.contains("1,710").should("exist");
+      // cy.contains("6,898").should("exist");
 
       // open jobs links
       // cy.contains("Search current job openings posted for this occupation").should("exist");
@@ -168,17 +152,23 @@ describe("Occupation Page", () => {
       cy.contains("Desktop Publishers").should("exist");
 
       // related trainings
-      // cy.get(".card").eq(0).within(() => {
-      //   cy.contains("Advanced Java Developer").should("exist");
-      // });
-      //
-      // cy.get(".card").eq(1).within(() => {
-      //   cy.contains("Agile/Scrum Master").should("exist");
-      // });
-      //
-      // cy.get(".card").eq(2).within(() => {
-      //   cy.contains("Smartphone Programmer").should("exist");
-      // });
+      cy.get(".card")
+        .eq(0)
+        .within(() => {
+          cy.contains("CNC/CAM Programming Project").should("exist");
+        });
+
+      cy.get(".card")
+        .eq(1)
+        .within(() => {
+          cy.contains("MSCD: Web Applications Certification").should("exist");
+        });
+
+      cy.get(".card")
+        .eq(2)
+        .within(() => {
+          cy.contains("Computer Programmer's Package").should("exist");
+        });
     });
   });
 
@@ -192,10 +182,10 @@ describe("Occupation Page", () => {
       cy.get("[data-testid=title]").should("contain", "Web and Digital Interface Designers");
 
       // open jobs
-      cy.contains("--").should("exist");
+      // cy.contains("255").should("exist");
 
       // open jobs links
-      // cy.contains("Search current job openings posted for this occupation").should("not.exist");
+      // cy.contains("Search current job openings posted for this occupation").should("exist");
 
       // median salary
       cy.contains("$79,810").should("exist");
@@ -214,17 +204,23 @@ describe("Occupation Page", () => {
       // This data is not yet available for this occupation.
 
       // related trainings
-      // cy.get(".card").eq(0).within(() => {
-      //   cy.contains("Computer Systems Technology").should("exist");
-      // });
-      //
-      // cy.get(".card").eq(1).within(() => {
-      //   cy.contains("Computer Science").should("exist");
-      // });
-      //
-      // cy.get(".card").eq(2).within(() => {
-      //   cy.contains("Computer Science").should("exist");
-      // });
+      cy.get(".card")
+        .eq(0)
+        .within(() => {
+          cy.contains("Python Programming").should("exist");
+        });
+
+      cy.get(".card")
+        .eq(1)
+        .within(() => {
+          cy.contains("HSEAP and Networking and Security").should("exist");
+        });
+
+      cy.get(".card")
+        .eq(2)
+        .within(() => {
+          cy.contains("Computer Programmer's Package").should("exist");
+        });
     });
   });
 });
