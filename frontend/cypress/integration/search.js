@@ -36,11 +36,11 @@ describe("Search", () => {
     cy.injectAxe();
 
     // displays trainings
-    cy.contains("Introduction to Welding Technology").should("exist");
-    cy.contains("$4,000.00").should("exist");
-    cy.contains("77.5%").should("exist");
-    cy.contains("Blackwood").should("exist");
-    cy.contains("Camden County College").should("exist");
+    cy.contains("Welding Workshops").should("exist");
+    cy.contains("$559.00").should("exist");
+    // cy.contains("77.5%").should("exist");
+    cy.contains("Denville").should("exist");
+    cy.contains("Ocean County Vocational Technical Schools").should("exist");
     cy.contains("3-5 months to complete").should("exist");
 
     // input search
@@ -51,7 +51,7 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Baking and Pastry").should("exist");
+    cy.contains("Baking & Pastry , Culinary Arts").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -60,7 +60,7 @@ describe("Search", () => {
     cy.contains("Culinary Arts").should("exist");
 
     // removes others
-    cy.contains("Introduction to Welding Technology").should("not.exist");
+    cy.contains("Welding Workshops").should("not.exist");
 
     cy.checkA11y();
   });
@@ -82,18 +82,14 @@ describe("Search", () => {
 
   it("links to a training detail page", () => {
     cy.visit("/search/baking");
-    cy.contains(
-      "Culinary & Baking Opportunity Program for Adults with Developmental Disabilities"
-    ).click({ force: true });
-    cy.location("pathname").should("eq", "/training/48865");
+    cy.contains("Baking Technician").click({ force: true });
+    cy.location("pathname").should("eq", "/training/48472");
 
     // removes search results
     cy.contains("Baking and Pastry").should("not.exist");
 
     // shows program
-    cy.contains(
-      "Culinary & Baking Opportunity Program for Adults with Developmental Disabilities"
-    ).should("exist");
+    cy.contains("Baking Technician").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
