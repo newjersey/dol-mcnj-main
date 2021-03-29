@@ -5,12 +5,13 @@ because it requires multiple steps for standardizing the data, inserting it, and
 
 The process, at a high level:
 
-1. [Combine](#combine-the-csv-files) the `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` files into a single combined csv
-2. [Standardize](#standardize-using-python-scripts) the data using the python data-standardization repo
-3. [Insert](#insert-the-data) the data into the database migration
-4. [Update](#update-the-programtokens) the program tokens within the migration
+1. [Add](#add-credential-names) credential column names to `programs_yyyymmdd.csv`
+2. [Combine](#combine-the-csv-files) the `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` files into a single combined csv
+3. [Standardize](#standardize-using-python-scripts) the data using the python data-standardization repo
+4. [Insert](#insert-the-data) the data into the database migration
+5. [Update](#update-the-programtokens) the program tokens within the migration
 
-## Combine the CSV files
+## Add Credential Names
 
 Download the programs and providers CSVs.  **IMPORTANT** - in the `programs`, make sure to
 delete the `SUBMITTERNAME` and `SUBMITTERTITLE` columns before downloading.  These are private
@@ -18,12 +19,45 @@ data that should not be part of our repo.
 
 Make sure the newest `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` are in the `backend/data` folder.
 
-Execute the combiner script as follows (including renaming the old etpl csv):
+Move to the program credentials folder:
 
 ```shell script
-cd backend/data
+cd backend/data/program-credentials
+```
+
+Open `merge-credentials.py` and update the following lines (36 & 41) with the correct
+`programs_yyyymmdd.csv` filename:
+
+```
+df.to_csv('../programs_yyyymmdd_merged.csv', index=False)
+```
+
+```
+from_filepath = "../programs_yyyymmdd.csv"
+```
+
+Execute the merge credentials script as follows:
+
+```shell script
+python3 merge-credentials.py programs_yyyymmdd.csv
+```
+
+This adds the `DEGREEAWARDEDNAME`, `LICENSEAWARDEDNAME`, and `INDUSTRYCREDENTIALNAME` columns
+to programs `programs_yyyymmdd.csv`. Confirm this change before moving to the next step.
+There should be no trailing whitespace at end of file.
+
+Note: Open programs_yyyymmdd_merged.csv in code editor. If integer values appear as decimal,
+open file in excel and hit save. Numbers will appear as integers again.
+
+## Combine the CSV files
+
+Move back to `backend/data` and execute the combiner script as follows
+(including renaming the old etpl csv):
+
+```shell script
+cd ..
 mv standardized_etpl.csv standardized_etpl_old.csv
-./combine-etpl.sh programs_yyyymmdd.csv providers_yyyymmdd.csv
+./combine-etpl.sh programs_yyyymmdd_merged.csv providers_yyyymmdd.csv
 ```
 
 This generates `combined_etpl_raw.csv` in the same `backend/data` folder.
