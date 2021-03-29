@@ -47,10 +47,13 @@ PREREQUISITES |
 WIAELIGIBLE |
 LEADTODEGREE |
 DEGREEAWARDED |
+DEGREEAWARDEDNAME | name of degree awarded
 LEADTOLICENSE |
 LICENSEAWARDED |
+LICENSEAWARDEDNAME | name of license awarded
 LEADTOINDUSTRYCREDENTIAL |
 INDUSTRYCREDENTIAL |
+INDUSTRYCREDENTIALNAME | name of industry credential
 FINANCIALAID |
 DESCRIPTION | long-form description
 CREDIT |
@@ -116,8 +119,8 @@ standardized_name | standardized program title
 standardized_name_1 | standardized provider name
 standardized_description | standardized description
 standardized_featuresdescription |
-mentions_wioa | 
-default_job_search_duration | 
+mentions_wioa |
+default_job_search_duration |
 mentioned_job_search_duration |
 google_direction_url |
 mention_hybrid |
