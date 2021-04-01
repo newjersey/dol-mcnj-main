@@ -29,105 +29,105 @@ This is the ETPL source of truth.  Has a row for every program and its provider
 (so provider data may be duplicated on many rows)
 Columns with no description are not yet used in the app.
 
-column name | description
-------------|------------
-PROVIDERID |
-OFFICIALNAME | program title
-CIPCODE | training category code
-APPROVINGAGENCYID |
-OTHERAGENCY |
-SUBMITTEDTOWIB |
-TUITION | tuition cost
-FEES | fees cost
-BOOKSMATERIALSCOST | books & materials cost
-SUPPLIESTOOLSCOST | supplies & tools cost
-OTHERCOSTS | other costs
-TOTALCOST | total sum cost of program
-PREREQUISITES |
-WIAELIGIBLE |
-LEADTODEGREE |
-DEGREEAWARDED |
-DEGREEAWARDEDNAME | name of degree awarded
-LEADTOLICENSE |
-LICENSEAWARDED |
-LICENSEAWARDEDNAME | name of license awarded
-LEADTOINDUSTRYCREDENTIAL |
-INDUSTRYCREDENTIAL |
+column name | description | CTDL Column
+------------|------------ | ------------
+PROVIDERID | |
+OFFICIALNAME | program title |
+CIPCODE | training category code |
+APPROVINGAGENCYID | |
+OTHERAGENCY | |
+SUBMITTEDTOWIB | |
+TUITION | tuition cost |
+FEES | fees cost |
+BOOKSMATERIALSCOST | books & materials cost |
+SUPPLIESTOOLSCOST | supplies & tools cost |
+OTHERCOSTS | other costs |
+TOTALCOST | total sum cost of program |
+PREREQUISITES | |
+WIAELIGIBLE | |
+LEADTODEGREE | |
+DEGREEAWARDED | Degree conferred at completion | Credential Name
+DEGREEAWARDEDNAME | name of degree awarded |
+LEADTOLICENSE | Boolean |
+LICENSEAWARDED | License Name | Credential Name
+LICENSEAWARDEDNAME | name of license awarded |
+LEADTOINDUSTRYCREDENTIAL | Boolean |
+INDUSTRYCREDENTIAL | Industry-valued Credential Name | Credential Name
 INDUSTRYCREDENTIALNAME | name of industry credential
-FINANCIALAID |
-DESCRIPTION | long-form description
-CREDIT |
-TOTALCLOCKHOURS |
-CALENDARLENGTHID | value 1 - 10; how long takes to complete
-FEATURESDESCRIPTION |
-WIBCOMMENT |
-STATECOMMENT |
-SUBMITTED |
-APPROVED |
-CONTACTNAME |
-CONTACTPHONE |
-CONTACTPHONEEXTENSION |
-PROGRAMID | primary key
-STATUSNAME | 'Approved'/'Suspend'/'Pending'/null
-PROVIDERNAME | name of the school/org
-SCHOOLIDENTIFICATIONNUMBER |
-STREET1 | street address: line 1
-STREET2 | street address: line 2
-CITY | street address: city
-STATE | street address: state
-ZIP | street address: zip code
-COUNTY |
-MSTREET1 |
-MSTREET2 |
-MCITY |
-MSTATE |
-MZIP |
-CONTACTFIRSTNAME | contact person first name
-CONTACTLASTNAME | contact person last name
-CONTACTTITLE | contact person title
-PHONE | phone number
-PHONEEXTENSION | optional phone extension
-FAX |
-WEBSITE | main webpage for provider
-EMAIL |
-LICENSINGAGENCYID |
-TYPEID |
-NONGOVAPPROVAL |
-CERTAPPROVALEXP |
-CUSTOMIZED |
-DISTANCELEARNING |
-SPEAKSPANISH |
-OTHERLANGUAGES |
-LANGUAGES |
-CAREERASSIST |
-ONESTOPCAREER |
-PERSONALASSIST |
-ACCESSAJBATB |
-CHILDCARE |
-ASSISTOBTAININGCHILDCARE |
-EVENINGCOURSES |
-ACCESSFORDISABLED |
-BUSROUTE1 |
-BUSROUTE2 |
-TRNROUTE1 |
-TRNROUTE2 |
-PROVIDERWIBCOMMENT |
-PROVIDERSTATECOMMENT |
-DTSUBMITTED |
-PROVIDERSTATUSNAME | 'Approved'/'Suspend'/'Pending'/null
-standardized_name | standardized program title
-standardized_name_1 | standardized provider name
-standardized_description | standardized description
-standardized_featuresdescription |
-mentions_wioa |
-default_job_search_duration |
-mentioned_job_search_duration |
-google_direction_url |
-mention_hybrid |
-mention_inperson |
-mention_remote |
-commented_suspended_program_status |
-standardized_nongovapproval |
+FINANCIALAID | |
+DESCRIPTION | long-form description |
+CREDIT | |
+TOTALCLOCKHOURS | n Clock Hours | Estimated Duration
+CALENDARLENGTHID | value 1 - 10; how long takes to complete |
+FEATURESDESCRIPTION | |
+WIBCOMMENT | |
+STATECOMMENT | |
+SUBMITTED | |
+APPROVED | |
+CONTACTNAME | |
+CONTACTPHONE | |
+CONTACTPHONEEXTENSION | |
+PROGRAMID | primary key | External Identifier
+STATUSNAME | 'Approved'/'Suspend'/'Pending'/null |
+PROVIDERNAME | name of the school/org |
+SCHOOLIDENTIFICATIONNUMBER | |
+STREET1 | street address: line 1 |
+STREET2 | street address: line 2 |
+CITY | street address: city |
+STATE | street address: state |
+ZIP | street address: zip code |
+COUNTY | |
+MSTREET1 | |
+MSTREET2 | |
+MCITY | |
+MSTATE | |
+MZIP | |
+CONTACTFIRSTNAME | contact person first name |
+CONTACTLASTNAME | contact person last name |
+CONTACTTITLE | contact person title |
+PHONE | phone number |
+PHONEEXTENSION | optional phone extension |
+FAX | |
+WEBSITE | main webpage for provider; https: or http: | Subject Webpage
+EMAIL | |
+LICENSINGAGENCYID | |
+TYPEID | |
+NONGOVAPPROVAL | |
+CERTAPPROVALEXP | |
+CUSTOMIZED | |
+DISTANCELEARNING | |
+SPEAKSPANISH | |
+OTHERLANGUAGES | |
+LANGUAGES | |
+CAREERASSIST | |
+ONESTOPCAREER | |
+PERSONALASSIST | |
+ACCESSAJBATB | |
+CHILDCARE | |
+ASSISTOBTAININGCHILDCARE | |
+EVENINGCOURSES | |
+ACCESSFORDISABLED | |
+BUSROUTE1 | |
+BUSROUTE2 | |
+TRNROUTE1 | |
+TRNROUTE2 | |
+PROVIDERWIBCOMMENT | |
+PROVIDERSTATECOMMENT | |
+DTSUBMITTED | |
+PROVIDERSTATUSNAME | 'Approved'/'Suspend'/'Pending'/null |
+standardized_name | standardized program title | Subjects
+standardized_name_1 | standardized provider name | Offered By
+standardized_description | standardized description | Description
+standardized_featuresdescription | |
+mentions_wioa | |
+default_job_search_duration | |
+mentioned_job_search_duration | |
+google_direction_url | |
+mention_hybrid | |
+mention_inperson | |
+mention_remote | |
+commented_suspended_program_status | |
+standardized_nongovapproval | |
 
 ### soccipcrosswalk
 
