@@ -14,7 +14,7 @@ describe("Occupation Page", () => {
       cy.contains("$97,820");
 
       // open jobs
-      // cy.contains("1,254").should("exist");
+      // cy.contains("1,302").should("exist");
 
       // open jobs links
       // cy.contains("Search current job openings posted for this occupation").should("exist");
@@ -98,9 +98,7 @@ describe("Occupation Page", () => {
       );
 
       // related trainings
-      cy.contains("This data is not yet available for this occupation.").should("exist");
-
-      // cy.contains("Structural Engineering/Design").should("not.exist");
+      cy.contains("Architectural Design and Drafting").should("exist");
       cy.contains("See More Results").should("not.exist");
 
       cy.checkA11y();

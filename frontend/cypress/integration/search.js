@@ -81,31 +81,41 @@ describe("Search", () => {
   });
 
   it("links to a training detail page", () => {
-    cy.visit("/search/baking");
-    cy.contains("Baking Technician").click({ force: true });
-    cy.location("pathname").should("eq", "/training/48472");
+    cy.visit("/search/digital%20marketing");
+    cy.contains("in Integrated Marketing Communications").click({ force: true });
+    cy.location("pathname").should("eq", "/training/43873");
 
     // removes search results
-    cy.contains("Baking and Pastry").should("not.exist");
+    cy.contains("Digital Marketing").should("not.exist");
 
     // shows program
-    cy.contains("Baking Technician").should("exist");
+    cy.contains("in Integrated Marketing Communications").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
-    cy.visit("/search/baking");
+    cy.visit("/search/digital%20marketing");
 
     // in-demand training
-    cy.contains("Culinary Arts").within(() => {
-      // cy.contains("In Demand").should("exist");
-    });
+    // cy.contains("in Integrated Marketing Communications").within(() => {
+    //   cy.contains("In Demand").should("exist");
+    // });
+    cy.get(".card")
+      .eq(0)
+      .within(() => {
+        cy.contains("In Demand").should("exist");
+      });
 
     // not in-demand training
-    cy.contains("Baking & Pastry Option, Culinary Arts").within(() => {
-      cy.contains("In Demand").should("not.exist");
-    });
+    // cy.contains("Digital Marketing").within(() => {
+    //   cy.contains("In Demand").should("not.exist");
+    // });
+    cy.get(".card")
+      .eq(1)
+      .within(() => {
+        cy.contains("In Demand").should("not.exist");
+      });
 
-    cy.contains("Culinary Arts").click({ force: true });
+    cy.contains("in Integrated Marketing Communications").click({ force: true });
     cy.contains("In Demand").should("exist");
   });
 
@@ -120,7 +130,7 @@ describe("Search", () => {
   });
 
   it("shows comparison items when checked", () => {
-    cy.visit("/search/painter");
+    cy.visit("/search/painting");
 
     cy.get("[data-testid='card']")
       .first()
