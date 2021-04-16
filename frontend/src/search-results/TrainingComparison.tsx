@@ -1,20 +1,22 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useContext } from "react";
 import { TertiaryButton } from "../components/TertiaryButton";
 import { TrainingResult } from "../domain/Training";
 import { Button, useMediaQuery } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import { ComparisonTable } from "./ComparisonTable";
+import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 
 interface Props {
   className?: string;
-  trainings: TrainingResult[];
-  setTrainingsToCompare: (setItemsToCompare: TrainingResult[]) => void;
+  comparisonItems: TrainingResult[];
 }
 
 export const TrainingComparison = (props: Props): ReactElement => {
   const [showComparison, setShowComparison] = useState<boolean>(false);
   const [scrollEnd, setScrollEnd] = useState<boolean>(true);
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+
+  const { dispatch } = useContext(ComparisonContext);
 
   const compareItems = (): void => {
     setShowComparison(true);
@@ -25,13 +27,19 @@ export const TrainingComparison = (props: Props): ReactElement => {
   };
 
   const removeItem = (item: TrainingResult): void => {
-    const newList = props.trainings.filter((el) => el !== item);
-    props.setTrainingsToCompare(newList);
+    dispatch({
+      type: ComparisonActionType.REMOVE,
+      comparison: item,
+      list: props.comparisonItems,
+    });
   };
 
   const clearItems = (): void => {
-    props.setTrainingsToCompare([]);
-    setShowComparison(false);
+    dispatch({
+      type: ComparisonActionType.REMOVE_ALL,
+      comparison: props.comparisonItems[0],
+      list: [],
+    });
   };
 
   const scrollTable = (): void => {
@@ -42,7 +50,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
     const items = [];
 
     for (let i = 0; i < 3; i++) {
-      props.trainings[i] ? items.push(props.trainings[i]) : items.push(undefined);
+      props.comparisonItems[i] ? items.push(props.comparisonItems[i]) : items.push(undefined);
     }
 
     return (
@@ -71,7 +79,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
   const comparisonExpanded = (): ReactElement => {
     return (
       <>
-        {!isTabletAndUp && props.trainings.length > 2 && (
+        {!isTabletAndUp && props.comparisonItems.length > 2 && (
           <div className={`width-100 ${scrollEnd ? "align-right" : ""}`}>
             <Icon
               className={`mbs pointer ${!scrollEnd ? "icon-flip" : ""}`}
@@ -83,15 +91,15 @@ export const TrainingComparison = (props: Props): ReactElement => {
           </div>
         )}
         <ComparisonTable
-          data={props.trainings}
-          wide={props.trainings.length > 2}
+          data={props.comparisonItems}
+          wide={props.comparisonItems.length > 2}
           className={!scrollEnd ? "table-scroll" : ""}
         />
       </>
     );
   };
 
-  if (props.trainings.length > 0) {
+  if (props.comparisonItems.length > 0) {
     return (
       <div
         data-testid="training-comparison"

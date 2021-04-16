@@ -12,8 +12,8 @@ import { WhiteSelect } from "../components/WhiteSelect";
 import { SortOrder } from "../sorting/SortOrder";
 import { SortContext } from "../sorting/SortContext";
 import { FilterContext } from "../filtering/FilterContext";
-
 import { TrainingComparison } from "./TrainingComparison";
+import { ComparisonContext } from "../comparison/ComparisonContext";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -31,10 +31,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
 
-  const [itemsToCompare, setItemsToCompare] = useState<TrainingResult[]>([]);
-
   const filterState = useContext(FilterContext).state;
-
+  const comparisonState = useContext(ComparisonContext).state;
   const sortContextValue = useContext(SortContext);
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
@@ -211,7 +209,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
         {shouldShowTrainings && (
           <>
-            <div className={`container ${itemsToCompare.length ? "space-for-comparison" : "pbm"}`}>
+            <div
+              className={`container ${
+                comparisonState.comparison.length > 0 ? "space-for-comparison" : "pbm"
+              }`}
+            >
               <div className="row">
                 <div className="col-sm-4">
                   {
@@ -241,18 +243,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     <TrainingResultCard
                       key={training.id}
                       trainingResult={training}
-                      compareResult={true}
-                      items={itemsToCompare}
-                      setTrainingsToCompare={setItemsToCompare}
+                      comparisonItems={comparisonState.comparison}
                     />
                   ))}
                 </div>
               </div>
             </div>
-            <TrainingComparison
-              trainings={itemsToCompare}
-              setTrainingsToCompare={setItemsToCompare}
-            />
+            <TrainingComparison comparisonItems={comparisonState.comparison} />
           </>
         )}
 
