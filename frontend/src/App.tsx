@@ -17,6 +17,12 @@ import {
   FilterContext,
 } from "./filtering/FilterContext";
 import { SortReducer, sortReducer, initialSortState, SortContext } from "./sorting/SortContext";
+import {
+  initialComparisonState,
+  ComparisonReducer,
+  comparisonReducer,
+  ComparisonContext,
+} from "./comparison/ComparisonContext";
 
 interface Props {
   client: Client;
@@ -28,23 +34,29 @@ export const App = (props: Props): ReactElement => {
     filterReducer,
     initialFilterState
   );
+  const [comparisonState, comparisonDispatch] = useReducer<ComparisonReducer>(
+    comparisonReducer,
+    initialComparisonState
+  );
 
   return (
-    <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
-      <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
-        <Router>
-          <LandingPage path="/" />
-          <SearchResultsPage path="/search" client={props.client} />
-          <SearchResultsPage path="/search/:searchQuery" client={props.client} />
-          <TrainingPage path="/training/:id" client={props.client} />
-          <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
-          <OccupationPage path="/occupation/:soc" client={props.client} />
-          <FundingPage path="/funding" />
-          <PrivacyPolicyPage path="/privacy-policy" />
-          <TermsOfServicePage path="/terms-of-service" />
-          <NotFoundPage default />
-        </Router>
-      </FilterContext.Provider>
-    </SortContext.Provider>
+    <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
+      <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
+        <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
+          <Router>
+            <LandingPage path="/" />
+            <SearchResultsPage path="/search" client={props.client} />
+            <SearchResultsPage path="/search/:searchQuery" client={props.client} />
+            <TrainingPage path="/training/:id" client={props.client} />
+            <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
+            <OccupationPage path="/occupation/:soc" client={props.client} />
+            <FundingPage path="/funding" />
+            <PrivacyPolicyPage path="/privacy-policy" />
+            <TermsOfServicePage path="/terms-of-service" />
+            <NotFoundPage default />
+          </Router>
+        </FilterContext.Provider>
+      </SortContext.Provider>
+    </ComparisonContext.Provider>
   );
 };

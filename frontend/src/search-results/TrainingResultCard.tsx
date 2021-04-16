@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useContext } from "react";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
@@ -9,27 +9,22 @@ import { LocalWaiverTag } from "../components/LocalWaiverTag";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel } from "@material-ui/core";
+import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 
 interface Props {
   trainingResult: TrainingResult;
-  compareResult?: boolean;
-  items?: TrainingResult[];
-  setTrainingsToCompare?: (setItemsToCompare: TrainingResult[]) => void;
+  comparisonItems?: TrainingResult[];
 }
 
 export const TrainingResultCard = (props: Props): ReactElement => {
+  const { state, dispatch } = useContext(ComparisonContext);
+
   const handleCheckboxChange = (checked: boolean): void => {
-    if (props.items) {
-      let comparisonItems = props.items;
-
-      if (checked) {
-        comparisonItems = [...props.items, props.trainingResult];
-      } else {
-        comparisonItems = comparisonItems.filter((el) => el !== props.trainingResult);
-      }
-
-      props.setTrainingsToCompare && props.setTrainingsToCompare(comparisonItems);
-    }
+    dispatch({
+      type: checked ? ComparisonActionType.ADD : ComparisonActionType.REMOVE,
+      comparison: props.trainingResult,
+      list: props.comparisonItems || [],
+    });
   };
 
   const getLocationOrOnline = (): string => {
@@ -61,7 +56,8 @@ export const TrainingResultCard = (props: Props): ReactElement => {
 
   const ComparisonCheckbox = (): ReactElement => {
     const isChecked =
-      props.items && props.items.filter((el) => el === props.trainingResult).length > 0;
+      state.comparison &&
+      state.comparison.filter((el) => el.id === props.trainingResult.id).length > 0;
 
     return (
       <label className="bold mla" htmlFor="comparison">
@@ -75,7 +71,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 }}
                 name="compare"
                 color="primary"
-                disabled={props.items && props.items.length >= 3 && !isChecked}
+                disabled={props.comparisonItems && props.comparisonItems.length >= 3 && !isChecked}
               />
             }
             label="Compare"
@@ -139,7 +135,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             {props.trainingResult.localExceptionCounty.map((county) => (
               <LocalWaiverTag key={county} county={county} />
             ))}
-            {props.compareResult && <ComparisonCheckbox />}
+            {props.comparisonItems && <ComparisonCheckbox />}
           </div>
         </div>
       </div>
