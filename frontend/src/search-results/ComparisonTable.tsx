@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Table, TableBody, TableCell, TableRow } from "@material-ui/core";
+import { useMediaQuery /*, Icon*/ } from "@material-ui/core";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
@@ -8,126 +8,364 @@ import { InDemandTag } from "../components/InDemandTag";
 import { LinkButton } from "../components/LinkButton";
 
 interface Props {
-  headings?: string[];
   data: TrainingResult[];
-  wide?: boolean;
-  className?: string;
+  scrollEnd: boolean;
 }
 
 export const ComparisonTable = (props: Props): ReactElement => {
-  const row = [
-    {
-      heading: "Training Title",
-      col1: props.data[0]?.name,
-      col2: props.data[1]?.name,
-      col3: props.data[2]?.name,
-    },
-    {
-      heading: "Training Provider",
-      col1: props.data[0]?.providerName,
-      col2: props.data[1]?.providerName,
-      col3: props.data[2]?.providerName,
-    },
-    {
-      heading: "Cost",
-      col1: props.data[0] && formatMoney(props.data[0].totalCost),
-      col2: props.data[1] && formatMoney(props.data[1].totalCost),
-      col3: props.data[2] && formatMoney(props.data[2].totalCost),
-    },
-    {
-      heading: "Employment Rate",
-      col1: props.data[0]
-        ? props.data[0].percentEmployed
-          ? formatPercentEmployed(props.data[0].percentEmployed)
-          : "--"
-        : null,
-      col2: props.data[1]
-        ? props.data[1].percentEmployed
-          ? formatPercentEmployed(props.data[1].percentEmployed)
-          : "--"
-        : null,
-      col3: props.data[2]
-        ? props.data[2].percentEmployed
-          ? formatPercentEmployed(props.data[2].percentEmployed)
-          : "--"
-        : null,
-    },
-    {
-      heading: "Time to Complete",
-      col1: CalendarLengthLookup[props.data[0]?.calendarLength],
-      col2: CalendarLengthLookup[props.data[1]?.calendarLength],
-      col3: CalendarLengthLookup[props.data[2]?.calendarLength],
-    },
-    {
-      heading: "",
-      col1: props.data[0]?.inDemand && <InDemandTag />,
-      col2: props.data[1]?.inDemand && <InDemandTag />,
-      col3: props.data[2]?.inDemand && <InDemandTag />,
-    },
-    {
-      heading: "",
-      col1: props.data[0] && (
-        <LinkButton className=" table-button" to={`/training/${props.data[0].id}`}>
-          See Details
-        </LinkButton>
-      ),
-      col2: props.data[1] && (
-        <LinkButton className=" table-button" to={`/training/${props.data[1].id}`}>
-          See Details
-        </LinkButton>
-      ),
-      col3: props.data[2] && (
-        <LinkButton className=" table-button" to={`/training/${props.data[2].id}`}>
-          See Details
-        </LinkButton>
-      ),
-      class: "cell-bottom",
-    },
-  ];
+  const isTablet = useMediaQuery("(min-width:768px)");
+  const item1 = props.data[0];
+  const item2 = props.data[1];
+  const item3 = props.data[2];
+  const showInDemand = item1?.inDemand || item2?.inDemand || item3?.inDemand;
 
-  const table = (
-    <Table className={`comparison-table ${props.wide && "wide"} ${props.className}`}>
-      <TableBody>
-        {row.map((row, key) => {
-          return (
-            <>
-              {row.heading && (
-                <TableRow className="table-row" key={`trh-${key}`}>
-                  {row.heading && (
-                    <TableCell
-                      component="th"
-                      className="table-header"
-                      colSpan={3}
-                      key={`th1-${key}`}
-                    >
-                      {row.heading}
-                    </TableCell>
-                  )}
-                </TableRow>
+  const tblClasses = (): string => {
+    const view = isTablet ? "comparison-table " : "comparison-table-mobile ";
+    const wide = props.data.length > 2 ? "wide " : "";
+    const scroll = !props.scrollEnd ? "scroll-end " : "";
+    return view + wide + scroll + "mbs";
+  };
+
+  const mobileTable = (): ReactElement => {
+    return (
+      <table className={tblClasses()}>
+        <tbody>
+          <tr>
+            {item1 && (
+              <td className="weight-500 align-center" key={`${item1.id}-nam`}>
+                {item1.name}
+              </td>
+            )}
+            {item2 && (
+              <td className="weight-500 align-center" key={`${item2.id}-nam`}>
+                {item2.name}
+              </td>
+            )}
+            {item3 && (
+              <td className="weight-500 align-center" key={`${item3.id}-nam`}>
+                {item3.name}
+              </td>
+            )}
+          </tr>
+          <tr>
+            {item1 && (
+              <td className="align-center" key={`${item1.id}-pro`}>
+                {item1.providerName}
+              </td>
+            )}
+            {item2 && (
+              <td className="align-center" key={`${item2.id}-pro`}>
+                {item2.providerName}
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center" key={`${item3.id}-pro`}>
+                {item3.providerName}
+              </td>
+            )}
+          </tr>
+          {showInDemand && (
+            <tr>
+              {item1.inDemand && (
+                <td className="align-center spacing" key={`${item1.id}-dem`}>
+                  {<InDemandTag />}
+                </td>
               )}
-              <TableRow key={`trc-${key}`}>
-                {row.col1 && (
-                  <TableCell className={`table-cell ${row.class}`} key={`tr1-${key}`}>
-                    {row.col1}
-                  </TableCell>
-                )}
-                {row.col2 && (
-                  <TableCell className={`table-cell ${row.class}`} key={`tr2-${key}`}>
-                    {row.col2}
-                  </TableCell>
-                )}
-                {row.col3 && (
-                  <TableCell className={`table-cell ${row.class}`} key={`tr3-${key}`}>
-                    {row.col3}
-                  </TableCell>
-                )}
-              </TableRow>
-            </>
-          );
-        })}
-      </TableBody>
-    </Table>
-  );
+              {item2?.inDemand && (
+                <td className="align-center spacing" key={`${item2.id}-dem`}>
+                  <InDemandTag />
+                </td>
+              )}
+              {item3?.inDemand && (
+                <td className="align-center spacing" key={`${item3.id}-dem`}>
+                  <InDemandTag />
+                </td>
+              )}
+            </tr>
+          )}
+          <tr>
+            <td className="weight-500">
+              <span>Cost</span>
+              {/*!item2 && <Icon fontSize="inherit">info</Icon>*/}
+            </td>
+            {item2 && (
+              <td>
+                {/*props.scrollEnd ? <Icon fontSize="inherit">info</Icon> : 'Cost'*/}
+                {!props.scrollEnd && <span className="weight-500">Cost</span>}
+              </td>
+            )}
+            {item3 && <td>{/*<Icon fontSize="inherit">info</Icon>*/}</td>}
+          </tr>
+          <tr>
+            {item1 && (
+              <td className="align-center spacing" key={`${item1.id}-cos`}>
+                {formatMoney(item1.totalCost)}
+              </td>
+            )}
+            {item2 && (
+              <td className="align-center spacing" key={`${item2.id}-cos`}>
+                {formatMoney(item2.totalCost)}
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center spacing" key={`${item3.id}-cos`}>
+                {formatMoney(item3.totalCost)}
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className="weight-500">
+              <span>Employment Rate</span>
+              {/*!item2 && <Icon fontSize="inherit">info</Icon>*/}
+            </td>
+            {item2 && (
+              <td>
+                {/*props.scrollEnd ? <Icon fontSize="inherit">info</Icon> : 'Cost'*/}
+                {!props.scrollEnd && <span className="weight-500">Employment Rate</span>}
+              </td>
+            )}
+            {item3 && <td>{/*<Icon fontSize="inherit">info</Icon>*/}</td>}
+          </tr>
+          <tr>
+            <td className="align-center spacing" key={`${item1.id}-emp`}>
+              {item1.percentEmployed
+                ? formatPercentEmployed(item1.percentEmployed) + " Employed"
+                : "--"}
+            </td>
+            {item2 && (
+              <td className="align-center spacing" key={`${item2.id}-emp`}>
+                {item2.percentEmployed
+                  ? formatPercentEmployed(item2.percentEmployed) + " Employed"
+                  : "--"}
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center spacing" key={`${item3.id}-emp`}>
+                {item3.percentEmployed
+                  ? formatPercentEmployed(item3.percentEmployed) + " Employed"
+                  : "--"}
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className="weight-500">
+              <span>Time to Complete</span>
+              {/*!item2 && <Icon fontSize="inherit">info</Icon>*/}
+            </td>
+            {item2 && (
+              <td>
+                {/*props.scrollEnd ? <Icon fontSize="inherit">info</Icon> : 'Cost'*/}
+                {!props.scrollEnd && <span className="weight-500">Time to Complete</span>}
+              </td>
+            )}
+            {item3 && <td>{/*<Icon fontSize="inherit">info</Icon>*/}</td>}
+          </tr>
+          <tr>
+            {item1 && (
+              <td className="duration align-center spacing" key={`${item1.id}-cal`}>
+                {CalendarLengthLookup[item1.calendarLength]}
+              </td>
+            )}
+            {item2 && (
+              <td className="duration align-center spacing" key={`${item2.id}-cal`}>
+                {CalendarLengthLookup[item2.calendarLength]}
+              </td>
+            )}
+            {item3 && (
+              <td className="duration align-center spacing" key={`${item3.id}-cal`}>
+                {CalendarLengthLookup[item3.calendarLength]}
+              </td>
+            )}
+          </tr>
+          <tr>
+            {item1 && (
+              <td className="align-center" key={`${item1.id}-det`}>
+                <LinkButton className=" btn-details" to={`/training/${item1.id}`}>
+                  See Details
+                </LinkButton>
+              </td>
+            )}
+            {item2 && (
+              <td className="align-center" key={`${item2.id}-det`}>
+                <LinkButton className=" btn-details" to={`/training/${item2.id}`}>
+                  See Details
+                </LinkButton>
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center" key={`${item3.id}-det`}>
+                <LinkButton className=" btn-details" to={`/training/${item3.id}`}>
+                  See Details
+                </LinkButton>
+              </td>
+            )}
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
 
-  return table;
+  const table = (): ReactElement => {
+    return (
+      <table className={tblClasses()}>
+        <tbody>
+          <tr>
+            <td className="tbl-header"></td>
+            {item1 && (
+              <td className="weight-500 align-center" key={`${item1.id}-nam`}>
+                {item1.name}
+              </td>
+            )}
+            {item2 && (
+              <td className="weight-500 align-center bldcg" key={`${item2.id}-nam`}>
+                {item2.name}
+              </td>
+            )}
+            {item3 && (
+              <td className="weight-500 align-center bldcg" key={`${item3.id}-nam`}>
+                {item3.name}
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className="tbl-header"></td>
+            {item1 && (
+              <td className="align-center" key={`${item1.id}-pro`}>
+                {item1.providerName}
+              </td>
+            )}
+            {item2 && (
+              <td className="align-center bldcg" key={`${item2.id}-pro`}>
+                {item2.providerName}
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center bldcg" key={`${item3.id}-pro`}>
+                {item3.providerName}
+              </td>
+            )}
+          </tr>
+          {showInDemand && (
+            <tr>
+              <td className="tbl-header"></td>
+              {item1.inDemand && (
+                <td className="align-center spacing" key={`${item1.id}-dem`}>
+                  {<InDemandTag />}
+                  {/*<Icon fontSize="inherit">info</Icon>*/}
+                </td>
+              )}
+              {item2?.inDemand && (
+                <td
+                  className={`align-center spacing bldcg ${item3 && "brdcg"}`}
+                  key={`${item2.id}-dem`}
+                >
+                  <InDemandTag />
+                  {/*<Icon fontSize="inherit">info</Icon>*/}
+                </td>
+              )}
+              {item3?.inDemand && (
+                <td className="align-center spacing bldcg" key={`${item3.id}-dem`}>
+                  <InDemandTag />
+                  {/*<Icon fontSize="inherit">info</Icon>*/}
+                </td>
+              )}
+            </tr>
+          )}
+          <tr>
+            <td className="weight-500 tbl-header btdcg">
+              <span>Cost</span>
+              {/*<Icon fontSize="inherit">info</Icon>*/}
+            </td>
+            {item1 && (
+              <td className="align-center spacing btdcg" key={`${item1.id}-cos`}>
+                {formatMoney(item1.totalCost)}
+              </td>
+            )}
+            {item2 && (
+              <td className="align-center spacing btdcg bldcg" key={`${item2.id}-cos`}>
+                {formatMoney(item2.totalCost)}
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center spacing btdcg bldcg" key={`${item3.id}-cos`}>
+                {formatMoney(item3.totalCost)}
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className="weight-500 tbl-header btdcg">
+              <span>Employment Rate %</span>
+              {/*<Icon fontSize="inherit">info</Icon>*/}
+            </td>
+            <td className="align-center spacing btdcg" key={`${item1.id}-emp`}>
+              {item1.percentEmployed
+                ? formatPercentEmployed(item1.percentEmployed) + " Employed"
+                : "--"}
+            </td>
+            {item2 && (
+              <td className="align-center spacing btdcg bldcg" key={`${item2.id}-emp`}>
+                {item2.percentEmployed
+                  ? formatPercentEmployed(item2.percentEmployed) + " Employed"
+                  : "--"}
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center spacing btdcg bldcg" key={`${item3.id}-emp`}>
+                {item3.percentEmployed
+                  ? formatPercentEmployed(item3.percentEmployed) + " Employed"
+                  : "--"}
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className="weight-500 tbl-header btdcg">
+              <span>Time to Complete</span>
+              {/*<Icon fontSize="inherit">info</Icon>*/}
+            </td>
+            {item1 && (
+              <td className="duration align-center spacing btdcg" key={`${item1.id}-cal`}>
+                {CalendarLengthLookup[item1.calendarLength]}
+              </td>
+            )}
+            {item2 && (
+              <td className="duration align-center spacing btdcg bldcg" key={`${item2.id}-cal`}>
+                {CalendarLengthLookup[item2.calendarLength]}
+              </td>
+            )}
+            {item3 && (
+              <td className="duration align-center spacing btdcg bldcg" key={`${item3.id}-cal`}>
+                {CalendarLengthLookup[item3.calendarLength]}
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className="tbl-header"></td>
+            {item1 && (
+              <td className="align-center details bldcg" key={`${item1.id}-det`}>
+                <LinkButton className=" btn-details" to={`/training/${item1.id}`}>
+                  See Details
+                </LinkButton>
+              </td>
+            )}
+            {item2 && (
+              <td className="align-center details bldcg" key={`${item2.id}-det`}>
+                <LinkButton className=" btn-details" to={`/training/${item2.id}`}>
+                  See Details
+                </LinkButton>
+              </td>
+            )}
+            {item3 && (
+              <td className="align-center details bldcg" key={`${item3.id}-det`}>
+                <LinkButton className=" btn-details" to={`/training/${item3.id}`}>
+                  See Details
+                </LinkButton>
+              </td>
+            )}
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
+
+  return isTablet ? table() : mobileTable();
 };

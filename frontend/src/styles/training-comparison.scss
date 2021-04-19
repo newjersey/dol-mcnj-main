@@ -13,6 +13,10 @@
     display: grid;
     grid-column-gap: 5.75%;
 
+    &.expanded {
+      overflow: hidden;
+    }
+
     &:not(.expanded) {
       grid-template-columns: 1fr 1fr 1fr;
     }
@@ -61,10 +65,6 @@
     .icon-flip {
       transform: scaleX(-1);
     }
-
-    .table-scroll {
-      margin-left: -50%;
-    }
   }
 
   @media (min-width: $xs) {
@@ -84,6 +84,7 @@
 
       &.expanded {
         grid-template-columns: 1fr 80px;
+        overflow: none;
       }
     }
 
@@ -102,41 +103,72 @@
   }
 }
 
-.comparison-table {
-  .table-header {
-    font-weight: 500;
-    padding: 8px;
-    background: $purple;
-    column-span: 3;
+.comparison-table-mobile {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 102%;
+  margin-left: -1%;
+
+  &.wide {
+    width: 152%;
   }
 
-  .table-cell {
-    padding: 8px 8px 24px;
-    border: 0;
-    width: 30%;
+  &.scroll-end {
+    margin-left: -51%;
+  }
+
+  .bg-light-purple-30 {
+    background: rgba($light-purple, 0.3);
+  }
+
+  .bg-light-purple-50 {
+    background: rgba($light-purple, 0.5);
+  }
+
+  td {
+    padding: 8px;
+    vertical-align: top;
+    border-left: 1px solid $light-grey;
+    border-right: 1px solid $light-grey;
+  }
+
+  .spacing {
+    padding-bottom: 16px;
+  }
+
+  .duration {
+    padding-bottom: 48px;
+  }
+
+  .btn-details {
+    min-width: 113px;
+  }
+}
+
+.comparison-table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+
+  td {
+    padding: 8px;
     vertical-align: top;
   }
 
-  .cell-bottom {
-    padding-bottom: 0;
-    vertical-align: bottom;
+  .tbl-header {
+    width: 126px;
   }
 
-  @media (max-width: $xs) {
-    &.wide {
-      width: 150%;
-    }
+  .spacing {
+    padding-bottom: 16px;
+  }
 
-    .table-cell {
-      width: 35%;
-    }
+  .duration {
+    padding-bottom: 48px;
+  }
 
-    .cell-bottom {
-      padding: 0;
-    }
-
-    .table-button {
-      min-width: 113px;
-    }
+  .details {
+    padding-bottom: 0;
+    vertical-align: bottom;
   }
 }

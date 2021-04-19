@@ -82,7 +82,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
         {!isTabletAndUp && props.comparisonItems.length > 2 && (
           <div className={`width-100 ${scrollEnd ? "align-right" : ""}`}>
             <Icon
-              className={`mbs pointer ${!scrollEnd ? "icon-flip" : ""}`}
+              className={`pointer ${!scrollEnd ? "icon-flip" : ""}`}
               role="button"
               onClick={scrollTable}
             >
@@ -90,11 +90,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
             </Icon>
           </div>
         )}
-        <ComparisonTable
-          data={props.comparisonItems}
-          wide={props.comparisonItems.length > 2}
-          className={!scrollEnd ? "table-scroll" : ""}
-        />
+        <ComparisonTable data={props.comparisonItems} scrollEnd={scrollEnd} />
       </>
     );
   };
