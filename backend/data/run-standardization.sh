@@ -6,7 +6,7 @@ INPUT_CSV=combined_etpl_raw.csv
 
 # setup
 rm -rf d4ad_standardization
-git clone https://github.com/robinsonkwame/d4ad_standardization
+git clone https://github.com/pritesh1082/d4ad_standardization
 
 # install and setup python stuff
 cd d4ad_standardization
