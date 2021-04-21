@@ -99,7 +99,7 @@ describe("Occupation Page", () => {
 
       // related trainings
       cy.contains("Architectural Design and Drafting").should("exist");
-      cy.contains("See More Results").should("not.exist");
+      cy.contains("See More Results").should("exist");
 
       cy.checkA11y();
     });

@@ -38,7 +38,7 @@ describe("Search", () => {
     // displays trainings
     cy.contains("Welding Workshops").should("exist");
     cy.contains("$559.00").should("exist");
-    // cy.contains("77.5%").should("exist");
+    cy.contains("77.5%").should("exist");
     cy.contains("Denville").should("exist");
     cy.contains("Ocean County Vocational Technical Schools").should("exist");
     cy.contains("3-5 months to complete").should("exist");
@@ -51,7 +51,7 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Baking & Pastry , Culinary Arts").should("exist");
+    cy.contains("Pastry and Baking Arts").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -96,9 +96,6 @@ describe("Search", () => {
     cy.visit("/search/digital%20marketing");
 
     // in-demand training
-    // cy.contains("in Integrated Marketing Communications").within(() => {
-    //   cy.contains("In Demand").should("exist");
-    // });
     cy.get(".card")
       .eq(0)
       .within(() => {
@@ -106,14 +103,9 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    // cy.contains("Digital Marketing").within(() => {
-    //   cy.contains("In Demand").should("not.exist");
-    // });
-    cy.get(".card")
-      .eq(1)
-      .within(() => {
-        cy.contains("In Demand").should("not.exist");
-      });
+    cy.contains("Visual and Digital Design").within(() => {
+      cy.contains("In Demand").should("not.exist");
+    });
 
     cy.contains("in Integrated Marketing Communications").click({ force: true });
     cy.contains("In Demand").should("exist");
