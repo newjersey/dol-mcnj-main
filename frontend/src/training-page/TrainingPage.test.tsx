@@ -294,6 +294,22 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("--")).toBeInTheDocument();
   });
 
+  it("displays share training text if training is in-demand", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const inDemand = buildTraining({ inDemand: true });
+    act(() => stubClient.capturedObserver.onSuccess(inDemand));
+
+    expect(subject.queryByTestId("shareInDemandTraining")).toBeInTheDocument();
+  });
+
+  it("does not display share training text if training is not in-demand", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const notInDemand = buildTraining({ inDemand: false });
+    act(() => stubClient.capturedObserver.onSuccess(notInDemand));
+
+    expect(subject.queryByText("shareInDemandTraining")).not.toBeInTheDocument();
+  });
+
   it("displays the Not Found page on not found error", () => {
     const subject = render(<TrainingPage client={stubClient} id="notfound" />);
 

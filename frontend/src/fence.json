@@ -13,6 +13,7 @@
     "libphonenumber-js",
     "react-tooltip",
     " @material-ui/core/styles",
-    "@material-ui/lab"
+    "@material-ui/lab",
+    "react-to-print"
   ]
 }

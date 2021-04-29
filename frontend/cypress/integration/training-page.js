@@ -30,6 +30,16 @@ describe("Training Page", () => {
     cy.contains("Health Specialties Teachers, Postsecondary").should("exist");
     cy.contains("Massage Therapists").should("exist");
 
+    // share trainings
+    cy.contains(
+      "This training leads to an occupation that is in-demand, which may qualify for " +
+        "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
+        "eligibility, and share this training page with them."
+    ).should("exist");
+    cy.contains("Copy a link to this training opportunity").should("exist");
+    cy.contains("Save and print this training opportunity").should("exist");
+    cy.contains("Learn more about funding options and One-Stop Centers").should("exist");
+
     // cost
     cy.contains("$8,790.00").should("exist");
     cy.contains("$8,400.00").should("exist");
@@ -48,5 +58,19 @@ describe("Training Page", () => {
     cy.contains("www.massagetrainingcenter.com").should("exist");
 
     cy.checkA11y();
+  });
+
+  it("does not display share training description text for non in-demand training", () => {
+    cy.visit("/training/50649");
+    cy.injectAxe();
+
+    cy.contains(
+      "This training leads to an occupation that is in-demand, which may qualify for " +
+        "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
+        "eligibility, and share this training page with them."
+    ).should("not.exist");
+    cy.contains("Copy a link to this training opportunity").should("exist");
+    cy.contains("Save and print this training opportunity").should("exist");
+    cy.contains("Learn more about funding options and One-Stop Centers").should("exist");
   });
 });
