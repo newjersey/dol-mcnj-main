@@ -79,6 +79,10 @@
       }
     }
   }
+
+  @media print {
+    position: static;
+  }
 }
 
 .beta-banner {
@@ -90,6 +94,10 @@
   width: 100%;
   height: $beta-banner-height;
   z-index: 10;
+
+  @media print {
+    position: static;
+  }
 }
 
 .below-banners {
@@ -106,5 +114,11 @@
     &:not(.no-footer) {
       padding-bottom: $footer-height-mobile;
     }
+  }
+
+  @media print {
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }

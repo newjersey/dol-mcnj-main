@@ -17,4 +17,9 @@
   @media (max-width: $xs) {
     height: $footer-height-mobile;
   }
+
+  @media print {
+    position: static;
+    height: auto;
+  }
 }
