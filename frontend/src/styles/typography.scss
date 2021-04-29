@@ -64,6 +64,14 @@ h5 {
   line-height: 2rem;
 }
 
+.align-top {
+  vertical-align: top;
+}
+
+.align-bottom {
+  vertical-align: bottom;
+}
+
 @media (min-width: $sm) {
   .text-xxl {
     font-size: 4rem;
