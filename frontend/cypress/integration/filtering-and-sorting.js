@@ -28,7 +28,7 @@ describe("Filtering", () => {
     cy.contains("OMCA Conversion Optimization Associate").should("exist");
     cy.contains("OMCP Social and Mobile Marketing Professional").should("exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
-    cy.contains('59 results found for "digital marketing"').should("exist");
+    cy.contains('60 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="days"]').check();
@@ -64,7 +64,7 @@ describe("Filtering", () => {
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
     cy.contains("OMCA Conversion Optimization Associate").should("not.exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('29 results found for "digital marketing"').should("exist");
+    cy.contains('30 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="months"]').uncheck();
@@ -85,7 +85,7 @@ describe("Filtering", () => {
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("OMCA Content Marketing Associate").should("exist");
-    cy.contains('59 results found for "digital marketing"').should("exist");
+    cy.contains('60 results found for "digital marketing"').should("exist");
 
     cy.contains("Class Format").within(() => {
       cy.get('[type="checkbox"][name="inPerson"]').check();
@@ -105,13 +105,13 @@ describe("Filtering", () => {
 
     cy.contains("OMCA Content Marketing Associate").should("exist");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains('11 results found for "digital marketing"').should("exist");
+    cy.contains('12 results found for "digital marketing"').should("exist");
   });
 
   it("filters by location", () => {
     cy.visit("/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains('59 results found for "digital marketing"').should("exist");
+    cy.contains('60 results found for "digital marketing"').should("exist");
 
     cy.get('input[aria-label="Miles"]').type("5");
     cy.get('input[aria-label="Miles"]').blur();
@@ -122,32 +122,32 @@ describe("Filtering", () => {
     // @FIX zip-api: "this feature is currently unavailable" in test
     // cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
     // cy.contains("in Integrated Marketing Communications").should("exist");
-    // cy.contains('16 results found for "digital marketing"').should("exist");
+    // cy.contains('17 results found for "digital marketing"').should("exist");
 
     cy.get('input[aria-label="Miles"]').clear();
     cy.get('input[aria-label="Miles"]').blur();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains('59 results found for "digital marketing"').should("exist");
+    cy.contains('60 results found for "digital marketing"').should("exist");
   });
 
   it("filters by In-Demand Only", () => {
     cy.visit("/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("exist");
-    cy.contains('59 results found for "digital marketing"').should("exist");
+    cy.contains('60 results found for "digital marketing"').should("exist");
 
     cy.get('input[name="inDemandOnly"]').check();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("not.exist");
-    cy.contains('36 results found for "digital marketing"').should("exist");
+    cy.contains('37 results found for "digital marketing"').should("exist");
 
     cy.get('input[name="inDemandOnly"]').uncheck();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("exist");
-    cy.contains('59 results found for "digital marketing"').should("exist");
+    cy.contains('60 results found for "digital marketing"').should("exist");
   });
 
   it("sorts by cost high to low", () => {
