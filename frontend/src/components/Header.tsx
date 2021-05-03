@@ -113,7 +113,7 @@ export const Header = (): ReactElement => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
+                href="https://nj.gov/labor/career-services/"
                 className="no-link-format fin fac counseling"
               >
                 Counseling&nbsp;
