@@ -34,7 +34,9 @@ jobs:
           command: npm test
       - run:
           name: Run feature tests
-          command: scripts/feature-tests.sh
+          command: scripts/feature-tests.sh > feature-test-output.txt
+      - store_artifacts:
+          path: feature-test-output.txt
       - persist_to_workspace:
           root: ~/project
           paths:
