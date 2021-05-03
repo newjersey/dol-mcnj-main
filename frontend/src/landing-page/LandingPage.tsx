@@ -67,11 +67,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               Find out about training counseling and funding qualifications
             </p>
-            <LinkButton
-              to="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
-              external
-              secondary
-            >
+            <LinkButton to="https://nj.gov/labor/career-services/" external secondary>
               <>
                 Find Counseling&nbsp;
                 <Icon>launch</Icon>
