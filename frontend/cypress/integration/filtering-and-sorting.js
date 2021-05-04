@@ -28,7 +28,7 @@ describe("Filtering", () => {
     cy.contains("OMCA Conversion Optimization Associate").should("exist");
     cy.contains("OMCP Social and Mobile Marketing Professional").should("exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
-    cy.contains('60 results found for "digital marketing"').should("exist");
+    cy.contains('61 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="days"]').check();
@@ -64,7 +64,7 @@ describe("Filtering", () => {
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
     cy.contains("OMCA Conversion Optimization Associate").should("not.exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('30 results found for "digital marketing"').should("exist");
+    cy.contains('31 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="months"]').uncheck();
@@ -85,7 +85,7 @@ describe("Filtering", () => {
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("OMCA Content Marketing Associate").should("exist");
-    cy.contains('60 results found for "digital marketing"').should("exist");
+    cy.contains('61 results found for "digital marketing"').should("exist");
 
     cy.contains("Class Format").within(() => {
       cy.get('[type="checkbox"][name="inPerson"]').check();
@@ -93,7 +93,7 @@ describe("Filtering", () => {
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("OMCA Content Marketing Associate").should("not.exist");
-    cy.contains('48 results found for "digital marketing"').should("exist");
+    cy.contains('49 results found for "digital marketing"').should("exist");
 
     cy.contains("Class Format").within(() => {
       cy.get('[type="checkbox"][name="inPerson"]').uncheck();
@@ -111,7 +111,7 @@ describe("Filtering", () => {
   it("filters by location", () => {
     cy.visit("/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains('60 results found for "digital marketing"').should("exist");
+    cy.contains('61 results found for "digital marketing"').should("exist");
 
     cy.get('input[aria-label="Miles"]').type("5");
     cy.get('input[aria-label="Miles"]').blur();
@@ -128,26 +128,26 @@ describe("Filtering", () => {
     cy.get('input[aria-label="Miles"]').blur();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains('60 results found for "digital marketing"').should("exist");
+    cy.contains('61 results found for "digital marketing"').should("exist");
   });
 
   it("filters by In-Demand Only", () => {
     cy.visit("/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("exist");
-    cy.contains('60 results found for "digital marketing"').should("exist");
+    cy.contains('61 results found for "digital marketing"').should("exist");
 
     cy.get('input[name="inDemandOnly"]').check();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("not.exist");
-    cy.contains('37 results found for "digital marketing"').should("exist");
+    cy.contains('38 results found for "digital marketing"').should("exist");
 
     cy.get('input[name="inDemandOnly"]').uncheck();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("exist");
-    cy.contains('60 results found for "digital marketing"').should("exist");
+    cy.contains('61 results found for "digital marketing"').should("exist");
   });
 
   it("sorts by cost high to low", () => {
@@ -216,26 +216,26 @@ describe("Filtering", () => {
         ).should("exist");
       });
 
-    cy.get("select").select("Cost: High to Low");
+    cy.get("select").select("Employment Rate");
 
     cy.get(".card")
       .first()
       .within(() => {
-        cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");
+        cy.contains("Baking and Pastry").should("exist");
       });
 
     // get card with unique text
     cy.get(".card .no-link-format").eq(0).click({ force: true });
-    cy.location("pathname").should("eq", "/training/50307");
+    cy.location("pathname").should("eq", "/training/46328");
     cy.go("back");
 
     cy.get(".card")
       .first()
       .within(() => {
-        cy.contains("Baking & Pastry Option, Culinary Arts").should("exist");
+        cy.contains("Baking and Pastry").should("exist");
       });
 
-    cy.contains("Cost: High to Low").should("exist");
+    cy.contains("Employment Rate").should("exist");
   });
 
   it("preserves a filter between pages", () => {
