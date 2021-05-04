@@ -122,16 +122,21 @@ describe("Search", () => {
   });
 
   it("shows comparison items when checked", () => {
+    cy.server();
+    cy.route("/api/trainings/search?query=painting").as("getSearch");
+
     cy.visit("/search/painting");
 
-    cy.get("[data-testid='card']")
-      .first()
-      .within(() => {
-        cy.get('[type="checkbox"][name="compare"]').check();
-      });
+    cy.wait("@getSearch").then(() => {
+      cy.get("[data-testid='card']")
+        .first()
+        .within(() => {
+          cy.get('[type="checkbox"][name="compare"]').check();
+        });
 
-    cy.get(".training-comparison").within(() => {
-      cy.get(".comparison-item").should("exist");
+      cy.get(".training-comparison").within(() => {
+        cy.get(".comparison-item").should("exist");
+      });
     });
   });
 });
