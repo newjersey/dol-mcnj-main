@@ -5,7 +5,6 @@ import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
-import { LocalWaiverTag } from "../components/LocalWaiverTag";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel } from "@material-ui/core";
@@ -132,9 +131,6 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p>{boldHighlightedSection(props.trainingResult.highlight)}</p>
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
-            {props.trainingResult.localExceptionCounty.map((county) => (
-              <LocalWaiverTag key={county} county={county} />
-            ))}
             {props.comparisonItems && <ComparisonCheckbox />}
           </div>
         </div>

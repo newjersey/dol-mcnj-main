@@ -8,7 +8,6 @@ import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { InlineIcon } from "../components/InlineIcon";
 import { BetaBanner } from "../components/BetaBanner";
 import { InDemandTag } from "../components/InDemandTag";
-import { LocalWaiverTag } from "../components/LocalWaiverTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -196,9 +195,6 @@ export const TrainingPage = (props: Props): ReactElement => {
             <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
             {training.inDemand ? <InDemandTag className="mts" /> : <></>}
-            {training.localExceptionCounty.map((county) => (
-              <LocalWaiverTag key={county} county={county} />
-            ))}
 
             <div className="stat-block-stack mtm">
               <StatBlock

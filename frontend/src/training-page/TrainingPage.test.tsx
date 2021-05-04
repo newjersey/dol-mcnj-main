@@ -135,23 +135,6 @@ describe("<TrainingPage />", () => {
     expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
   });
 
-  it("displays county waiver tags when a training has a local exception", () => {
-    const subject = render(<TrainingPage client={stubClient} />);
-    const training = buildTraining({ localExceptionCounty: ["Atlantic", "Middlesex"] });
-    act(() => stubClient.capturedObserver.onSuccess(training));
-
-    expect(subject.queryByText("Waiver for Atlantic County")).toBeInTheDocument();
-    expect(subject.queryByText("Waiver for Middlesex County")).toBeInTheDocument();
-  });
-
-  it("does not display county waiver tags when a training has empty local exception", () => {
-    const subject = render(<TrainingPage client={stubClient} />);
-    const training = buildTraining({ localExceptionCounty: [] });
-    act(() => stubClient.capturedObserver.onSuccess(training));
-
-    expect(subject.queryByText("Waiver for", { exact: false })).not.toBeInTheDocument();
-  });
-
   it("displays both address lines if they exist", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
 
