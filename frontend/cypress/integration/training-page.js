@@ -24,7 +24,7 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick stats
-    cy.contains("6-12 months to complete").should("exist");
+    cy.contains("Completion time: 6-12 months").should("exist");
 
     // associated occupations
     cy.contains("Health Specialties Teachers, Postsecondary").should("exist");

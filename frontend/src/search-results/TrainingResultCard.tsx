@@ -7,7 +7,7 @@ import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
-import { FormGroup, FormControlLabel } from "@material-ui/core";
+import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 
 interface Props {
@@ -17,6 +17,7 @@ interface Props {
 
 export const TrainingResultCard = (props: Props): ReactElement => {
   const { state, dispatch } = useContext(ComparisonContext);
+  const isTabletAndUp = useMediaQuery("(min-width:768px)");
 
   const handleCheckboxChange = (checked: boolean): void => {
     dispatch({
@@ -121,14 +122,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {CalendarLengthLookup[props.trainingResult.calendarLength]}
+              {CalendarLengthLookup[props.trainingResult.calendarLength]} to complete
             </span>
           </p>
         </div>
       </div>
       <div className="row">
         <div className="col-md-12">
-          <p>{boldHighlightedSection(props.trainingResult.highlight)}</p>
+          {isTabletAndUp && <p>{boldHighlightedSection(props.trainingResult.highlight)}</p>}
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
             {props.comparisonItems && <ComparisonCheckbox />}

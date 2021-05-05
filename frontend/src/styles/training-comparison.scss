@@ -65,6 +65,12 @@
     .icon-flip {
       transform: scaleX(-1);
     }
+
+    .btn-compare,
+    .btn-collapse,
+    .btn-clear-all {
+      padding: 4px;
+    }
   }
 
   @media (min-width: $xs) {

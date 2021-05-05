@@ -78,7 +78,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
-    expect(subject.getByText("6-12 months to complete", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Completion time: 6-12 months", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Senator", { exact: false })).toBeInTheDocument();
