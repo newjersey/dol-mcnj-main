@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { useMediaQuery /*, Icon*/ } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
@@ -101,21 +101,15 @@ export const ComparisonTable = (props: Props): ReactElement => {
             </tr>
           )}
           <tr>
-            <td className="weight-500 pas bhdcg bg-light-purple-30">
+            <td className="weight-500 pas bhdcg bg-light-purple">
               <span>Cost</span>
-              {/*!item2 && <Icon fontSize="inherit">info</Icon>*/}
             </td>
             {item2 && (
-              <td className="weight-500 pas bhdcg bg-light-purple-30">
-                {/*props.scrollEnd ? <Icon fontSize="inherit">info</Icon> : 'Cost'*/}
+              <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && <span className="weight-500">Cost</span>}
               </td>
             )}
-            {item3 && (
-              <td className="weight-500 pas bhdcg bg-light-purple-30">
-                {/*<Icon fontSize="inherit">info</Icon>*/}
-              </td>
-            )}
+            {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
           </tr>
           <tr>
             {item1 && (
@@ -135,21 +129,15 @@ export const ComparisonTable = (props: Props): ReactElement => {
             )}
           </tr>
           <tr>
-            <td className="weight-500 pas bhdcg bg-light-purple-50">
+            <td className="weight-500 pas bhdcg bg-light-purple">
               <span>Employment Rate</span>
-              {/*!item2 && <Icon fontSize="inherit">info</Icon>*/}
             </td>
             {item2 && (
-              <td className="weight-500 pas bhdcg bg-light-purple-50">
-                {/*props.scrollEnd ? <Icon fontSize="inherit">info</Icon> : 'Cost'*/}
+              <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && <span className="weight-500">Employment Rate</span>}
               </td>
             )}
-            {item3 && (
-              <td className="weight-500 pas bhdcg bg-light-purple-50">
-                {/*<Icon fontSize="inherit">info</Icon>*/}
-              </td>
-            )}
+            {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
           </tr>
           <tr>
             <td className="align-center pas bhdcg" key={`${item1.id}-emp`}>
@@ -175,19 +163,13 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
               <span>Time to Complete</span>
-              {/*!item2 && <Icon fontSize="inherit">info</Icon>*/}
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
-                {/*props.scrollEnd ? <Icon fontSize="inherit">info</Icon> : 'Cost'*/}
                 {!props.scrollEnd && <span className="weight-500">Time to Complete</span>}
               </td>
             )}
-            {item3 && (
-              <td className="weight-500 pas bhdcg bg-light-purple">
-                {/*<Icon fontSize="inherit">info</Icon>*/}
-              </td>
-            )}
+            {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
           </tr>
           <tr>
             {item1 && (
@@ -290,7 +272,6 @@ export const ComparisonTable = (props: Props): ReactElement => {
                 {item1?.inDemand && (
                   <>
                     <InDemandTag />
-                    {/*<Icon fontSize="inherit">info</Icon>*/}
                   </>
                 )}
               </td>
@@ -299,7 +280,6 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   {item2?.inDemand && (
                     <>
                       <InDemandTag />
-                      {/*<Icon fontSize="inherit">info</Icon>*/}
                     </>
                   )}
                 </td>
@@ -309,7 +289,6 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   {item3?.inDemand && (
                     <>
                       <InDemandTag />
-                      {/*<Icon fontSize="inherit">info</Icon>*/}
                     </>
                   )}
                 </td>
@@ -319,7 +298,6 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="weight-500 tbl-header btdcg">
               <span>Cost</span>
-              {/*<Icon fontSize="inherit">info</Icon>*/}
             </td>
             {item1 && (
               <td className="align-center pvd btdcg" key={`${item1.id}-cos`}>
@@ -340,7 +318,6 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="weight-500 tbl-header btdcg">
               <span>Employment Rate %</span>
-              {/*<Icon fontSize="inherit">info</Icon>*/}
             </td>
             <td className="align-center pvd btdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
@@ -365,7 +342,6 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="weight-500 tbl-header btdcg">
               <span>Time to Complete</span>
-              {/*<Icon fontSize="inherit">info</Icon>*/}
             </td>
             {item1 && (
               <td className="align-center ptd pbl btdcg" key={`${item1.id}-cal`}>

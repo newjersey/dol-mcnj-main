@@ -236,7 +236,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
-                            {CalendarLengthLookup[training.calendarLength]}
+                            Completion time: {CalendarLengthLookup[training.calendarLength]}
                           </span>
                         </p>
                       </>

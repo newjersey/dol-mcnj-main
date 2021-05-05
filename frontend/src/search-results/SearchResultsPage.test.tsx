@@ -6,7 +6,7 @@ import { SearchResultsPage } from "./SearchResultsPage";
 import { navigate } from "@reach/router";
 import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
-// import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import { Error } from "../domain/Error";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -74,6 +74,8 @@ describe("<SearchResultsPage />", () => {
 
   describe("when displaying data", () => {
     it("displays list of training names and their data", async () => {
+      useTabletSize();
+
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       const training1 = buildTrainingResult({
@@ -339,6 +341,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("does not navigate to new page when search query is the same", () => {
+      useMobileSize();
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"penguins"} />);
       act(() =>
         stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })])
@@ -366,4 +369,12 @@ describe("<SearchResultsPage />", () => {
       expect(navigate).toHaveBeenCalledWith("/search/penguins%20%2F%20penglings");
     });
   });
+
+  const useMobileSize = (): void => {
+    (useMediaQuery as jest.Mock).mockImplementation(() => false);
+  };
+
+  const useTabletSize = (): void => {
+    (useMediaQuery as jest.Mock).mockImplementation(() => true);
+  };
 });

@@ -103,8 +103,12 @@ export const TrainingComparison = (props: Props): ReactElement => {
           showComparison ? "expanded" : ""
         }`}
       >
-        <div className="container ptm pbl">
-          <div className={`grid-container pbm ${showComparison ? "expanded" : ""}`}>
+        <div className="container pvm">
+          <div
+            className={`grid-container ${isTabletAndUp && "pbm"} ${
+              showComparison ? "expanded" : ""
+            }`}
+          >
             {!showComparison && comparisonCollapsed()}
             {showComparison && comparisonExpanded()}
 
