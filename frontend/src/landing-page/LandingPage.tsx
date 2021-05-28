@@ -6,9 +6,8 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { LinkButton } from "../components/LinkButton";
 import IconOccupation from "./landing-icons/occupations.svg";
-import IconFunding from "./landing-icons/funding.svg";
+import IconWorkforce from "./landing-icons/workforce.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
-import { Icon } from "@material-ui/core";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
   return (
@@ -37,41 +36,38 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
         <div className="container options-container">
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
-              <img className="" alt="" src={IconOccupation} />
+              <img alt="icon-occupation" src={IconOccupation} />
             </div>
-            <h3 className="text-l weight-400">In-Demand Occupations</h3>
+            <h3 className="text-l weight-400">For Training Explorers</h3>
             <p className="phm align-center options-desc">
-              Find New Jersey's fastest growing occupations
+              Find New Jersey’s fastest growing occupations
             </p>
-            <LinkButton to="/in-demand-occupations" secondary>
-              View Occupations
-            </LinkButton>
-          </div>
-          <div className="col-md-4 fdc fac mvl">
-            <div className="landing-image mbs">
-              <img className="" alt="" src={IconFunding} />
-            </div>
-            <h3 className="text-l weight-400">Explore Funding Assistance</h3>
-            <p className="phm align-center options-desc">
-              Apply for funding to cover your training costs
-            </p>
-            <LinkButton to="/funding" secondary>
+            <LinkButton to="/explorer" secondary>
               Learn More
             </LinkButton>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
-              <img className="" alt="" src={IconCounseling} />
+              <img alt="icon-counseling" src={IconCounseling} />
             </div>
-            <h3 className="text-l weight-400">Connect with a Counselor</h3>
+            <h3 className="text-l weight-400">For Counselors and Coaches</h3>
             <p className="phm align-center options-desc">
-              Find out about training counseling and funding qualifications
+              Empower your search to find training information more quickly
             </p>
-            <LinkButton to="https://nj.gov/labor/career-services/" external secondary>
-              <>
-                Find Counseling&nbsp;
-                <Icon>launch</Icon>
-              </>
+            <LinkButton to="/counselor" secondary>
+              Explore the Tool
+            </LinkButton>
+          </div>
+          <div className="col-md-4 fdc fac mvl">
+            <div className="landing-image mbs">
+              <img alt="icon-workforce" src={IconWorkforce} />
+            </div>
+            <h3 className="text-l weight-400">For Training Providers</h3>
+            <p className="phm align-center options-desc">
+              Learn about the process to get on NJ’s Eligible Training Provider List
+            </p>
+            <LinkButton to="/training-provider" secondary>
+              Find More Information
             </LinkButton>
           </div>
         </div>
