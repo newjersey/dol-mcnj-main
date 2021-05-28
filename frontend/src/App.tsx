@@ -23,6 +23,9 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
+import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
+import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
+import { LandingPageTrainingProvider } from "./landing-page/LandingPageTrainingProvider";
 
 interface Props {
   client: Client;
@@ -45,6 +48,9 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <Router>
             <LandingPage path="/" />
+            <LandingPageCounselor path="/counselor" />
+            <LandingPageExplorer path="/explorer" />
+            <LandingPageTrainingProvider path="/training-provider" />
             <SearchResultsPage path="/search" client={props.client} />
             <SearchResultsPage path="/search/:searchQuery" client={props.client} />
             <TrainingPage path="/training/:id" client={props.client} />

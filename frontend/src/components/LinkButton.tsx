@@ -13,7 +13,7 @@ export const LinkButton = (props: Props): ReactElement => {
   const { className, children, secondary, external, to } = props;
 
   const classes =
-    "link-button weight-500" + (secondary ? " secondary" : "") + (className ? className : "");
+    "link-button weight-500" + (secondary ? " secondary" : "") + (className ? " " + className : "");
 
   if (external) {
     return (
