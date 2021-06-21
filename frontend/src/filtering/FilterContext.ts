@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-redeclare */
+
 import React, { Dispatch, Reducer } from "react";
 import { Filter } from "../domain/Filter";
 

@@ -123,7 +123,7 @@ export const OccupationPage = (props: Props): ReactElement => {
         <>
           {seeMore && (
             <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
-              See More Results >
+              See More Results {">"}
             </Link>
           )}
 
@@ -180,7 +180,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                 rel="noopener noreferrer"
                 href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupationDetail.openJobsSoc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
               >
-                Search current job openings posted for this occupation >
+                Search current job openings posted for this occupation {">"}
               </a>
             </div>
           )}

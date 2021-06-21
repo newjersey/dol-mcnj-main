@@ -260,7 +260,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <Button className="link-format-blue" onClick={copyHandler}>
                             <Icon className="accessible-gray weight-500">link</Icon>
                             <span className="mlxs weight-500">
-                              Copy a link to this training opportunity >
+                              Copy a link to this training opportunity {">"}
                             </span>
                           </Button>
                           {copy && (
@@ -273,7 +273,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <Button className="link-format-blue" onClick={printHandler}>
                             <Icon className="accessible-gray weight-500">print</Icon>
                             <span className="mlxs weight-500">
-                              Save and print this training opportunity >
+                              Save and print this training opportunity {">"}
                             </span>
                           </Button>
                         </p>
@@ -281,7 +281,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <Link className="no-link-format weight-500 fin" to="/funding">
                             <Icon className="accessible-gray">attach_money</Icon>
                             <span className="blue">
-                              Learn more about funding options and One-Stop Centers >
+                              Learn more about funding options and One-Stop Centers {">"}
                             </span>
                           </Link>
                         </p>
