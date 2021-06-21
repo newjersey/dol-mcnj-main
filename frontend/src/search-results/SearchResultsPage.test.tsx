@@ -348,7 +348,6 @@ describe("<SearchResultsPage />", () => {
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
-      expect(navigate).toBeCalledTimes(1);
 
       fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
         target: { value: "penguins" },
@@ -357,7 +356,7 @@ describe("<SearchResultsPage />", () => {
 
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
-      expect(navigate).toBeCalledTimes(1);
+      expect(navigate).not.toHaveBeenCalled();
     });
 
     it("encodes uri components in search query", () => {

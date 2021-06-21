@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-redeclare */
+
 import { SortOrder } from "./SortOrder";
 import { Reducer, Dispatch } from "react";
 import React from "react";

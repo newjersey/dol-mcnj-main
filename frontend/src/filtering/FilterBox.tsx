@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { FilterContext } from "./FilterContext";
 import { SecondaryButton } from "../components/SecondaryButton";

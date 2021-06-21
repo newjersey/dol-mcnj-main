@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import React, { ChangeEvent, ReactElement } from "react";
 import { InDemandOccupation } from "../domain/Occupation";
 import { createStyles, Icon, InputAdornment, TextField } from "@material-ui/core";
