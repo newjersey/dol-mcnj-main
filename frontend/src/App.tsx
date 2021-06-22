@@ -26,6 +26,7 @@ import {
 import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
 import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
 import { LandingPageTrainingProvider } from "./landing-page/LandingPageTrainingProvider";
+import { EtplPage } from "./etpl-page/EtplPage";
 
 interface Props {
   client: Client;
@@ -59,6 +60,7 @@ export const App = (props: Props): ReactElement => {
             <FundingPage path="/funding" />
             <PrivacyPolicyPage path="/privacy-policy" />
             <TermsOfServicePage path="/terms-of-service" />
+            <EtplPage path="/etpl" client={props.client} />
             <NotFoundPage default />
           </Router>
         </FilterContext.Provider>

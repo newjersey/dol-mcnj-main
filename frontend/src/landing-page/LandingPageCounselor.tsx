@@ -82,7 +82,7 @@ export const LandingPageCounselor = (props: RouteComponentProps): ReactElement =
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     Built with feedback by counselors and case managers
                   </p>
-                  <LinkButton secondary to="">
+                  <LinkButton external secondary to="https://forms.gle/XSmLCPHBctFVSGsA6">
                     Read More
                   </LinkButton>
                 </div>

@@ -53,7 +53,7 @@ export const LandingPageTrainingProvider = (props: RouteComponentProps): ReactEl
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     Clear step-by-step instructions to get on the ETPL
                   </p>
-                  <LinkButton secondary to="">
+                  <LinkButton secondary to="/etpl">
                     Get Approved
                   </LinkButton>
                 </div>
@@ -68,8 +68,8 @@ export const LandingPageTrainingProvider = (props: RouteComponentProps): ReactEl
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     View a list of ETPL applications and find the right one for your program
                   </p>
-                  <LinkButton secondary to="">
-                    Get your application
+                  <LinkButton secondary to="/etpl#apply">
+                    Find your application
                   </LinkButton>
                 </div>
               </>
