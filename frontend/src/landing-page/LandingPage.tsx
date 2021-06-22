@@ -6,7 +6,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { LinkButton } from "../components/LinkButton";
 import IconOccupation from "./landing-icons/occupations.svg";
-import IconWorkforce from "./landing-icons/workforce.svg";
+import IconGear from "./landing-icons/gear.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
@@ -60,7 +60,7 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
-              <img alt="icon-workforce" src={IconWorkforce} />
+              <img alt="icon-workforce" src={IconGear} />
             </div>
             <h3 className="text-l weight-400">For Training Providers</h3>
             <p className="phm align-center options-desc">

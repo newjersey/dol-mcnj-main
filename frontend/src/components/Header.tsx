@@ -53,37 +53,35 @@ export const Header = (): ReactElement => {
                 </span>
               </Link>
               <Link
-                to="/in-demand-occupations"
+                to="/explorer"
                 className="no-link-format nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  In-Demand Occupations
+                  For Training Explorers
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
               <Link
-                to="/funding"
+                to="/counselor"
                 className="no-link-format nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  Financial Support
+                  For Counselors &amp; Coaches
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
+              <Link
+                to="/training-provider"
                 className="no-link-format nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  Counseling&nbsp;<Icon>launch</Icon>
+                  For Training Providers
                   <Icon className="mla">chevron_right</Icon>
                 </span>
-              </a>
+              </Link>
             </nav>
           )}
         </div>
