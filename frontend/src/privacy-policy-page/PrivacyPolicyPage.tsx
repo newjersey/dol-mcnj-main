@@ -254,8 +254,17 @@ export const PrivacyPolicyPage = (props: RouteComponentProps): ReactElement => {
                 are located and where information protection standards may differ, e.g., your
                 information may be stored on servers located in other states, or even countries. We
                 will utilize appropriate safeguards governing the transfer and usage of your
-                personal information. If you would like further detail on the safeguards we have in
-                place you can contact us directly as set forth in "How Can You Contact Us" below.
+                personal information. If you would like further details on the safeguards we have in
+                place you can contact us directly at{" "}
+                <a
+                  href="mailto:TrainingEvaluationUnit@dol.nj.gov"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-format-blue"
+                >
+                  TrainingEvaluationUnit@dol.nj.gov
+                </a>
+                .
               </li>
             </ul>
           </div>
