@@ -32,14 +32,65 @@ def mergedf(leftdf, rightdf, jointype, leftcol, rightcol):
     return df, add_column
 
 
+def addCredentials(maindf):
+    df = maindf
+    # new column credential type
+    df['CREDENTIALTYPE'] = ''
+
+    # replace special characters " and *
+    df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('[*,"]', '')
+    df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('AAS', 'A.A.S.')
+
+    # Certification
+    df.loc[df['LEADTOINDUSTRYCREDENTIAL'] == 1.0, 'CREDENTIALTYPE'] = 'Certification'
+
+    # GED
+    df.loc[df['OFFICIALNAME'].str.contains('GED'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
+    df.loc[df['OFFICIALNAME'].str.contains(
+        'General Education Diploma'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
+    df.loc[df['OFFICIALNAME'].str.contains(
+        'High School Equivalence'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
+    df.loc[df['OFFICIALNAME'].str.contains(
+        'High School Equivalency'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
+
+    # Pre-Apprenticeship
+    df.loc[df['OFFICIALNAME'].str.contains('Pre-Apprentice'), 'CREDENTIALTYPE'] = 'Pre-Apprenticeship'
+
+    # Apprenticeship
+    df.loc[(df['OFFICIALNAME'].str.contains('Apprentice')) & (
+                df['CREDENTIALTYPE'] != 'Pre-Apprenticeship'), 'CREDENTIALTYPE'] = 'Apprenticeship'
+
+    # Secondary School Diploma
+    df.loc[df['OFFICIALNAME'].str.contains(
+        'High School Diploma - Adults'), 'CREDENTIALTYPE'] = 'Secondary School Diploma'
+
+    # ESL
+    df.loc[df['OFFICIALNAME'].str.contains('ESL'), 'CREDENTIALTYPE'] = 'ESL'
+    df.loc[df['OFFICIALNAME'].str.contains('English as a Second Language'), 'CREDENTIALTYPE'] = 'ESL'
+
+    # Associate
+    df.loc[df['OFFICIALNAME'].str.contains('A.S.', regex=False), 'CREDENTIALTYPE'] = 'Associate Degree'
+
+    # Masters
+    df.loc[(df['OFFICIALNAME'].str.contains('M.', regex=False)) & (
+        df['DEGREEAWARDEDNAME'].str.contains('Master')), 'CREDENTIALTYPE'] = 'Masters Degree'
+
+    # License
+    df.loc[(df['LEADTOLICENSE'] == 1.0) & (
+                df['LEADTOINDUSTRYCREDENTIAL'] == 0.0), 'CREDENTIALTYPE'] = 'License'
+
+    # Certificate of Completion
+    df.loc[df['CREDENTIALTYPE'] == '', 'CREDENTIALTYPE'] = 'Certificate of Completion'
+
+    return df
+
+
 def export(df):
-    df.to_csv('../programs_yyyymmdd_merged.csv', index=False)
+    df.to_csv('../programs_yyyymmdd_merged.csv', index=False, encoding='utf-8-sig')
 
 
 def main():
-    # update with the latest
     from_filepath = "../programs_yyyymmdd.csv"
-
     input_file1 = "./TBLDEGREELU_DATA_TABLE.csv"
     input_file2 = "./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv"
     input_file3 = "./TBLLICENSE_DATA_TABLE.csv"
@@ -71,8 +122,13 @@ def main():
     maindf.insert(19, 'NAME', maindfcol)
     maindf.rename(columns={maindf.columns[19]: "LICENSEAWARDEDNAME"}, inplace=True)
 
+    # add Credential Types
+    finaldf = addCredentials(maindf)
+    # remove special characters " and * from officialname field
+    # maindf['OFFICIALNAME'] = maindf['OFFICIALNAME'].str.replace('[*,"]', '')
+
     # export to csv
-    export(maindf)
+    export(finaldf)
 
 
 if __name__ == '__main__':

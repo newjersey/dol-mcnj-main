@@ -54,7 +54,8 @@ psql $DBNAME -c "CREATE TABLE $PROGRAMS_TABLE (
   CONTACTPHONE character varying(16),
   PHONEEXTENSION character varying(8),
   PROGRAMID character varying(8) not null primary key,
-  STATUSNAME character varying(16)
+  STATUSNAME character varying(16),
+  CREDENTIALTYPE text
 );" -U postgres -h localhost -p 5432
 
 psql $DBNAME -c "CREATE TABLE providers (
@@ -150,6 +151,7 @@ psql $DBNAME -c "\copy (select programs.PROVIDERID,
     programs.PHONEEXTENSION as contactphoneextension,
     programs.PROGRAMID,
     programs.STATUSNAME,
+    programs.CREDENTIALTYPE,
     providers.NAME,
     providers.SCHOOLIDENTIFICATIONNUMBER,
     providers.STREET1,
