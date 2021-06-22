@@ -43,9 +43,14 @@ export const FundingPage = (props: RouteComponentProps): ReactElement => {
               Interested in funding? Here's what to do next.
             </h3>
             <p>
-              <Link to="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml">
+              <a
+                className="link-format-blue"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
+              >
                 Contact a career counselor
-              </Link>
+              </a>
               &nbsp;at your local One-Stop Career Center to explore funding opportunities.
             </p>
           </div>
