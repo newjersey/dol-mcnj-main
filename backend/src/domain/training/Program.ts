@@ -3,6 +3,8 @@ export interface Program {
   cipcode: string;
   officialname: string;
   description: string;
+  industrycredentialname: string;
+  prerequisites: string;
   providerid: string;
   tuition: string;
   fees: string;

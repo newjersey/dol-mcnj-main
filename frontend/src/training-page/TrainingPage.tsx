@@ -233,6 +233,22 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                     <Grouping title="Quick Stats">
                       <>
+                        {training.certifications && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">school</InlineIcon>
+                              Certifications: {training.certifications}
+                            </span>
+                          </p>
+                        )}
+                        {training.prerequisites && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">list_alt</InlineIcon>
+                              Prerequisites: {training.prerequisites}
+                            </span>
+                          </p>
+                        )}
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
