@@ -24,6 +24,7 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick stats
+    cy.contains("Prerequisites: HS Diploma/GED").should("exist");
     cy.contains("Completion time: 6-12 months").should("exist");
 
     // associated occupations

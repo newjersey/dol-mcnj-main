@@ -6,6 +6,8 @@ export interface Training {
   name: string;
   provider: Provider;
   description: string;
+  certifications: string;
+  prerequisites: string;
   calendarLength: CalendarLength;
   occupations: Occupation[];
   inDemand: boolean;

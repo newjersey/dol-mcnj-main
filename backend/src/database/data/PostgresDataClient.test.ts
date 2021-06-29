@@ -24,6 +24,8 @@ describe("PostgresDataClient", () => {
       "Standardized This program is designed for clients who are interested in learning skills necessary " +
       "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
       "their leaves and bark and seeds.",
+    industrycredentialname: "tree identifier",
+    prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
     calendarlengthid: "6",
     providername: "Standardized Vineland Public Schools",
     providerid: "123",

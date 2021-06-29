@@ -48,6 +48,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             },
           },
           description: stripSurroundingQuotes(stripUnicode(program.description)),
+          certifications: program.industrycredentialname,
+          prerequisites: formatPrerequisites(program.prerequisites),
           calendarLength: program.calendarlengthid
             ? parseInt(program.calendarlengthid)
             : CalendarLength.NULL,
@@ -98,4 +100,14 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
 
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
+};
+
+const formatPrerequisites = (prereq: string | null): string => {
+  if (!prereq) return "";
+
+  if (prereq.match(/None/i)) {
+    return "";
+  }
+
+  return stripSurroundingQuotes(prereq);
 };

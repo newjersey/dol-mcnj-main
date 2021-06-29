@@ -57,6 +57,8 @@ describe("findTrainingsBy", () => {
           },
         },
         description: program.description,
+        certifications: "tree identifier",
+        prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
         calendarLength: parseInt(program.calendarlengthid!),
         occupations: [
           { soc: "123", title: "some job" },
@@ -153,6 +155,8 @@ describe("findTrainingsBy", () => {
           },
         },
         description: program.description,
+        certifications: "tree identifier",
+        prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
         calendarLength: parseInt(program.calendarlengthid!),
         occupations: [
           { soc: "123", title: "some job" },

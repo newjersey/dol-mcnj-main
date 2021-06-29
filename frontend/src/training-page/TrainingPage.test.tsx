@@ -64,6 +64,8 @@ describe("<TrainingPage />", () => {
       }),
       occupations: [buildOccupation({ title: "Botanist" }), buildOccupation({ title: "Senator" })],
       description: "some cool description",
+      certifications: "tree identifier",
+      prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
       tuitionCost: 0,
       feesCost: 50,
       booksMaterialsCost: 608.9,
