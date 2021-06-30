@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, Link } from "@reach/router";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -94,18 +94,21 @@ export const LandingPageCounselor = (props: RouteComponentProps): ReactElement =
             Learn how to use the Training Explorer from these commonly asked questions
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              How is this different from NJTOPPs?
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              How often is this site updated?
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              Where can I find the in-demand occupations list?
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              What are the data sources for this website?
-            </LandingCard>
+            <Link className="no-link-format" to="/faq/data-sources">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                What are the data sources for this website?
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/labor-demand-occupations">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                Where can I find the in-demand occupations list?
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/funding-opportunities">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                What are funding opportunities that my customers can apply for
+              </LandingCard>
+            </Link>
           </div>
 
           <div className="align-center">

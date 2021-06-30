@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, Link } from "@reach/router";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -95,24 +95,32 @@ export const LandingPageTrainingProvider = (props: RouteComponentProps): ReactEl
             Learn how to use the Training Explorer from these commonly asked questions
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to search for training and I know what I’m looking for.
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I don't know where to start my search and I need help with that.
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I need to find training that offers support like child care or night classes.
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to learn more about funding opportunities
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to look at job listings
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to enroll in a training that I see on website
-            </LandingCard>
+            <Link className="no-link-format" to="/etpl">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                How can my school become an approved provider listed on the ETPL?
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/registered-apprenticeship">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                I operate a Registered Apprenticeship program. Does my program have to be on the
+                ETPL?
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/etpl-out-of-state-provider">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                How can my out-of-state school become an approved provider listed on the ETPL?
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/etpl-performance-standards">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                Are there minimum performance standards in place for ETPL eligibility?
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/labor-demand-occupations">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                What is the Labor Demand Occupations List?
+              </LandingCard>
+            </Link>
           </div>
 
           <div className="align-center">
