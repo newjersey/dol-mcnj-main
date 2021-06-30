@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, Link } from "@reach/router";
 import { useMediaQuery } from "@material-ui/core";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
@@ -94,24 +94,41 @@ export const LandingPageExplorer = (props: RouteComponentProps): ReactElement =>
             Learn how to use the Training Explorer from these commonly asked questions
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to search for training and I know what I’m looking for.
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I don't know where to start my search and I need help with that.
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I need to find training that offers support like child care or night classes.
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to learn more about funding opportunities
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to look at job listings
-            </LandingCard>
-            <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-              I want to enroll in a training that I see on website
-            </LandingCard>
+            <Link className="no-link-format" to="/faq/enroll-program">
+              <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
+                I want to enroll in a training that I see on website
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/search-help">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                I don't know where to start my search and I need help with that
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/child-care">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                I need help with child care
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/funding-opportunities">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                I want to learn more about funding opportunities
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/job-listings">
+              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
+                I want to look at job listings
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/unemployment-insurance">
+              <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
+                I need help applying for unemployment insurance
+              </LandingCard>
+            </Link>
+            <Link className="no-link-format" to="/faq/health-insurance">
+              <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
+                I need help applying for health insurance
+              </LandingCard>
+            </Link>
           </div>
 
           <div className="align-center">
