@@ -17,7 +17,7 @@ export const FaqFundingOpportunities = (props: RouteComponentProps): ReactElemen
       <BetaBanner />
 
       <main className="container below-banners" role="main">
-        <FaqBreadcrumb current="Etpl Out of State Provider" />
+        <FaqBreadcrumb current="Funding Opportunities" />
 
         <div className="row mbm">
           <div className="col-sm-12 col-md-10 col-lg-8">
