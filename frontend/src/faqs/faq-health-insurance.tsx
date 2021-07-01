@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqHealthInsurance = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Health Insurance";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

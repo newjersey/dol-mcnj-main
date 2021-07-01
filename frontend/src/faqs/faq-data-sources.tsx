@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqDataSources = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Data Sources";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

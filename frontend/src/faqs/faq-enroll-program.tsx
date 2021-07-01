@@ -9,6 +9,7 @@ import { InDemandTag } from "../components/InDemandTag";
 export const FaqEnrollProgram = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Enroll Program";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

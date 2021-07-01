@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqFundingOpportunities = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Funding Opportunities";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

@@ -35,6 +35,10 @@ export const EtplPage = (props: Props): ReactElement => {
 
   useEffect(() => {
     document.title = "ETPL";
+
+    if (window.location.hash === "") {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   const displayAgencyList = (): ReactElement => {

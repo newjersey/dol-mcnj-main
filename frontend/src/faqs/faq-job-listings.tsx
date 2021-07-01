@@ -10,6 +10,7 @@ import OccupationDetailsScreenshot from "./occupation-details-screenshot.png";
 export const FaqJobListings = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Job Listings";
+    window.scrollTo(0, 0);
   }, []);
 
   return (
