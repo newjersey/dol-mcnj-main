@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqRegisteredApprenticeship = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Registered Apprenticeship";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

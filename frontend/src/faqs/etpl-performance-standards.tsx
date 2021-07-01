@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqEtplPerformanceStandards = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Etpl Performance Standards";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqEtplOosProvider = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Etpl Out of State Provider";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

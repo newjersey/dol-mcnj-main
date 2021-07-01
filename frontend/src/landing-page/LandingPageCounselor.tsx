@@ -7,7 +7,6 @@ import { LinkButton } from "../components/LinkButton";
 import { LandingCard } from "./LandingCard";
 import IconList from "./landing-icons/list.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
-import IconFeedback from "./landing-icons/feedback.svg";
 import { useMediaQuery } from "@material-ui/core";
 
 export const LandingPageCounselor = (props: RouteComponentProps): ReactElement => {
@@ -69,21 +68,6 @@ export const LandingPageCounselor = (props: RouteComponentProps): ReactElement =
                   </p>
                   <LinkButton secondary to="/in-demand-occupations">
                     View Occupations
-                  </LinkButton>
-                </div>
-              </>
-            </LandingCard>
-            <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
-              <>
-                <div className="landing-image mrd">
-                  <img alt="icon-feedback" src={IconFeedback} />
-                </div>
-                <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
-                    Built with feedback by counselors and case managers
-                  </p>
-                  <LinkButton external secondary to="https://forms.gle/XSmLCPHBctFVSGsA6">
-                    Read More
                   </LinkButton>
                 </div>
               </>

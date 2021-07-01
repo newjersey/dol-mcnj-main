@@ -8,6 +8,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 export const FaqLaborDemandOccupations = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Labor Demand Occupations";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

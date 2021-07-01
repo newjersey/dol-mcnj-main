@@ -10,6 +10,7 @@ import FilterScreenshot from "./filter-screenshot.png";
 export const FaqSearchHelp = (props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Search Help";
+    window.scrollTo(0, 0);
   }, []);
 
   return (
