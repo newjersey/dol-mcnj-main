@@ -38,7 +38,7 @@ export const PrivacyPolicyPage = (props: RouteComponentProps): ReactElement => {
             </p>
             <ul className="plm mvd">
               <li>
-                Support inquiries (e.g., technical, training-related), feedback and other
+                Support inquiries (e.g, technical, training-related), feedback and other
                 communications
               </li>
               <li>Site-generated data, including recommendations provided to you</li>
