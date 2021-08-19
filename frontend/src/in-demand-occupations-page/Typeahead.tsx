@@ -6,6 +6,7 @@ import { createStyles, Icon, InputAdornment, TextField } from "@material-ui/core
 import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
 import { navigate } from "@reach/router";
 import { makeStyles } from "@material-ui/core/styles";
+import { InDemandPageStrings } from "../localizations/InDemandPageStrings";
 
 interface Props {
   occupations: InDemandOccupation[];
@@ -41,7 +42,7 @@ export const Typeahead = (props: Props): ReactElement => {
       renderInput={(params): ReactElement => (
         <TextField
           {...params}
-          placeholder="Search for occupations"
+          placeholder={InDemandPageStrings.typeaheadPlaceholder}
           variant="outlined"
           margin="dense"
           InputProps={{

@@ -2,6 +2,9 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { TrainingComparison } from "./TrainingComparison";
 import { buildTrainingResult } from "../test-objects/factories";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+
+const { comparisonCompare, comparisonCollapse, comparisonClear } = SearchResultsPageStrings;
 
 // @todo: update test
 xdescribe("<TrainingComparison />", () => {
@@ -12,8 +15,8 @@ xdescribe("<TrainingComparison />", () => {
     const subject = render(<TrainingComparison comparisonItems={trainings} />);
 
     expect(subject.queryByTestId("training-comparison")).not.toHaveClass("expanded");
-    expect(subject.queryByText("Compare")).toBeTruthy();
-    expect(subject.queryByText("Collapse")).toBeFalsy();
+    expect(subject.queryByText(comparisonCompare)).toBeTruthy();
+    expect(subject.queryByText(comparisonCollapse)).toBeFalsy();
     expect(mockSetTrainings).not.toHaveBeenCalled();
   });
 
@@ -24,14 +27,14 @@ xdescribe("<TrainingComparison />", () => {
     const subject = render(<TrainingComparison comparisonItems={trainings} />);
 
     expect(subject.queryByTestId("training-comparison")).not.toHaveClass("expanded");
-    expect(subject.queryByText("Compare")).toBeTruthy();
-    expect(subject.queryByText("Collapse")).toBeFalsy();
+    expect(subject.queryByText(comparisonCompare)).toBeTruthy();
+    expect(subject.queryByText(comparisonCollapse)).toBeFalsy();
 
-    fireEvent.click(subject.getByText("Compare"));
+    fireEvent.click(subject.getByText(comparisonCompare));
 
     expect(subject.queryByTestId("training-comparison")).toHaveClass("expanded");
-    expect(subject.queryByText("Compare")).toBeFalsy();
-    expect(subject.queryByText("Collapse")).toBeTruthy();
+    expect(subject.queryByText(comparisonCompare)).toBeFalsy();
+    expect(subject.queryByText(comparisonCollapse)).toBeTruthy();
     expect(mockSetTrainings).not.toHaveBeenCalled();
   });
 
@@ -60,7 +63,7 @@ xdescribe("<TrainingComparison />", () => {
 
     expect(mockSetTrainings).not.toHaveBeenCalled();
 
-    fireEvent.click(subject.getByText("Clear all"));
+    fireEvent.click(subject.getByText(comparisonClear));
 
     expect(mockSetTrainings).toHaveBeenCalled();
   });

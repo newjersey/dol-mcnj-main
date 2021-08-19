@@ -5,6 +5,7 @@ import { Button, useMediaQuery } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import { ComparisonTable } from "./ComparisonTable";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
 
 interface Props {
   className?: string;
@@ -64,7 +65,9 @@ export const TrainingComparison = (props: Props): ReactElement => {
 
                 <Button className="btn-remove" onClick={(): void => removeItem(item)}>
                   <Icon fontSize="inherit">cancel</Icon>
-                  <span className="visually-hidden">Cancel</span>
+                  <span className="visually-hidden">
+                    {SearchResultsPageStrings.comparisonRemove}
+                  </span>
                 </Button>
               </div>
             );
@@ -115,17 +118,17 @@ export const TrainingComparison = (props: Props): ReactElement => {
             <div className={`button-container fdc fje ${!isTabletAndUp && "ptm"}`}>
               {showComparison && (
                 <TertiaryButton className="btn-collapse" onClick={collapseItems}>
-                  Collapse
+                  {SearchResultsPageStrings.comparisonCollapse}
                 </TertiaryButton>
               )}
 
               {!showComparison && (
                 <TertiaryButton className="btn-compare" onClick={compareItems}>
-                  Compare
+                  {SearchResultsPageStrings.comparisonCompare}
                 </TertiaryButton>
               )}
               <TertiaryButton className="btn-clear-all" onClick={clearItems}>
-                Clear all
+                {SearchResultsPageStrings.comparisonClear}
               </TertiaryButton>
             </div>
           </div>

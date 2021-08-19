@@ -1,0 +1,15 @@
+export const HeaderStrings: Record<string, string> = {
+  title: "Training Explorer",
+  linkToSearch: "Find Training",
+  linkToInDemandOccupations: "In-Demand Occupations",
+  linkToFunding: "Financial Support",
+  linkToCounselingText: "Counseling",
+  linkToCounseling: "https://nj.gov/labor/career-services/",
+  mobileMenuText: "Menu",
+  mobileLinkToExplorers: "For Training Explorers",
+  mobileLinkToCounselors: "For Counselors & Coaches",
+  mobileLinkToTrainingProviders: "For Training Providers",
+  betaBannerText: "This site is in beta. Feedback welcome",
+  betaBannerLinkText: "here",
+  betaBannerFeedbackLink: "https://forms.gle/XSmLCPHBctFVSGsA6",
+};

@@ -8,6 +8,9 @@ import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
 import { useMediaQuery } from "@material-ui/core";
 import { Error } from "../domain/Error";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
@@ -30,6 +33,10 @@ function mockMaterialUI() {
 jest.mock("@material-ui/core", () => mockMaterialUI());
 jest.mock("@reach/router", () => mockReachRouter());
 
+const { searchBarDefaultPlaceholderText } = SearchAndFilterStrings;
+
+const { inDemandTag, percentEmployedUnavailable } = SearchResultsPageStrings;
+
 describe("<SearchResultsPage />", () => {
   let stubClient: StubClient;
 
@@ -40,16 +47,18 @@ describe("<SearchResultsPage />", () => {
   describe("when handling initial pageload search", () => {
     it("uses the url parameter in the search bar input", () => {
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
-      expect(subject.getByPlaceholderText("Search for training courses")).toHaveValue("octopods");
+      expect(
+        subject.getByPlaceholderText(SearchAndFilterStrings.searchBarDefaultPlaceholderText)
+      ).toHaveValue("octopods");
     });
 
     it("cleans the url parameter of uri encoding for search bar input", () => {
       const subject = render(
         <SearchResultsPage client={stubClient} searchQuery={"octopods%2Foctopi"} />
       );
-      expect(subject.getByPlaceholderText("Search for training courses")).toHaveValue(
-        "octopods/octopi"
-      );
+      expect(
+        subject.getByPlaceholderText(SearchAndFilterStrings.searchBarDefaultPlaceholderText)
+      ).toHaveValue("octopods/octopi");
     });
 
     it("uses the url parameter to execute a search", () => {
@@ -68,7 +77,7 @@ describe("<SearchResultsPage />", () => {
 
       act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-      expect(subject.queryByText("Sorry, something went wrong")).toBeInTheDocument();
+      expect(subject.queryByText(ErrorPageStrings.somethingWentWrongHeader)).toBeInTheDocument();
     });
   });
 
@@ -146,7 +155,7 @@ describe("<SearchResultsPage />", () => {
       const inDemand = buildTrainingResult({ name: "in-demand", inDemand: true });
       act(() => stubClient.capturedObserver.onSuccess([inDemand]));
 
-      expect(subject.queryByText("In Demand")).toBeInTheDocument();
+      expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
     });
 
     it("does not display an in-demand tag when a training is not in-demand", () => {
@@ -154,7 +163,7 @@ describe("<SearchResultsPage />", () => {
       const notInDemand = buildTrainingResult({ name: "not-in-demand", inDemand: false });
       act(() => stubClient.capturedObserver.onSuccess([notInDemand]));
 
-      expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
+      expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
     });
 
     it("displays percent employed as '--' when it is null", () => {
@@ -164,7 +173,7 @@ describe("<SearchResultsPage />", () => {
         stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })])
       );
 
-      expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
+      expect(subject.getByText(percentEmployedUnavailable, { exact: false })).toBeInTheDocument();
     });
 
     it("displays calendar length as '--' when it is null", () => {
@@ -330,7 +339,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
 
-      fireEvent.change(subject.getAllByPlaceholderText("Search for training courses")[0], {
+      fireEvent.change(subject.getAllByPlaceholderText(searchBarDefaultPlaceholderText)[0], {
         target: { value: "penguins" },
       });
       fireEvent.click(subject.getAllByText("Search")[0]);
@@ -349,7 +358,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
 
-      fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+      fireEvent.change(subject.getByPlaceholderText(searchBarDefaultPlaceholderText), {
         target: { value: "penguins" },
       });
       fireEvent.click(subject.getByText("Edit Search or Filter"));
@@ -361,7 +370,7 @@ describe("<SearchResultsPage />", () => {
 
     it("encodes uri components in search query", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
-      fireEvent.change(subject.getAllByPlaceholderText("Search for training courses")[0], {
+      fireEvent.change(subject.getAllByPlaceholderText(searchBarDefaultPlaceholderText)[0], {
         target: { value: "penguins / penglings" },
       });
       fireEvent.click(subject.getAllByText("Search")[0]);

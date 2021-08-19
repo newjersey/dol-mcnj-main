@@ -6,6 +6,7 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { InDemandTag } from "../components/InDemandTag";
 import { LinkButton } from "../components/LinkButton";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
 
 interface Props {
   data: TrainingResult[];
@@ -106,7 +107,9 @@ export const ComparisonTable = (props: Props): ReactElement => {
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
-                {!props.scrollEnd && <span className="weight-500">Cost</span>}
+                {!props.scrollEnd && (
+                  <span className="weight-500">{SearchResultsPageStrings.comparisonCostLabel}</span>
+                )}
               </td>
             )}
             {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
@@ -130,11 +133,15 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
-              <span>Employment Rate</span>
+              <span>{SearchResultsPageStrings.comparisonEmploymentRateLabelMobile}</span>
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
-                {!props.scrollEnd && <span className="weight-500">Employment Rate</span>}
+                {!props.scrollEnd && (
+                  <span className="weight-500">
+                    {SearchResultsPageStrings.comparisonEmploymentRateLabel}
+                  </span>
+                )}
               </td>
             )}
             {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
@@ -142,31 +149,44 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="align-center pas bhdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
-                ? formatPercentEmployed(item1.percentEmployed) + " Employed"
-                : "--"}
+                ? SearchResultsPageStrings.percentEmployed.replace(
+                    "{percent}",
+                    formatPercentEmployed(item1.percentEmployed)
+                  )
+                : SearchResultsPageStrings.percentEmployedUnavailable}
             </td>
             {item2 && (
               <td className="align-center pas bhdcg" key={`${item2.id}-emp`}>
                 {item2.percentEmployed
-                  ? formatPercentEmployed(item2.percentEmployed) + " Employed"
-                  : "--"}
+                  ? SearchResultsPageStrings.percentEmployed.replace(
+                      "{percent}",
+                      formatPercentEmployed(item2.percentEmployed)
+                    )
+                  : SearchResultsPageStrings.percentEmployedUnavailable}
               </td>
             )}
             {item3 && (
               <td className="align-center pas bhdcg" key={`${item3.id}-emp`}>
                 {item3.percentEmployed
-                  ? formatPercentEmployed(item3.percentEmployed) + " Employed"
-                  : "--"}
+                  ? SearchResultsPageStrings.percentEmployed.replace(
+                      "{percent}",
+                      formatPercentEmployed(item3.percentEmployed)
+                    )
+                  : SearchResultsPageStrings.percentEmployedUnavailable}
               </td>
             )}
           </tr>
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
-              <span>Time to Complete</span>
+              <span>{SearchResultsPageStrings.comparisonTimeToCompleteLabel}</span>
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
-                {!props.scrollEnd && <span className="weight-500">Time to Complete</span>}
+                {!props.scrollEnd && (
+                  <span className="weight-500">
+                    {SearchResultsPageStrings.comparisonTimeToCompleteLabel}
+                  </span>
+                )}
               </td>
             )}
             {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
@@ -192,21 +212,21 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item1 && (
               <td className="align-center ptd pbs bhdcg" key={`${item1.id}-det`}>
                 <LinkButton className=" btn-details" to={`/training/${item1.id}`}>
-                  See Details
+                  {SearchResultsPageStrings.comparisonSeeDetails}
                 </LinkButton>
               </td>
             )}
             {item2 && (
               <td className="align-center ptd pbs bhdcg" key={`${item2.id}-det`}>
                 <LinkButton className=" btn-details" to={`/training/${item2.id}`}>
-                  See Details
+                  {SearchResultsPageStrings.comparisonSeeDetails}
                 </LinkButton>
               </td>
             )}
             {item3 && (
               <td className="align-center ptd pbs bhdcg" key={`${item3.id}-det`}>
                 <LinkButton className=" btn-details" to={`/training/${item3.id}`}>
-                  See Details
+                  {SearchResultsPageStrings.comparisonSeeDetails}
                 </LinkButton>
               </td>
             )}
@@ -297,7 +317,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
           )}
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>Cost</span>
+              <span>{SearchResultsPageStrings.comparisonCostLabel}</span>
             </td>
             {item1 && (
               <td className="align-center pvd btdcg" key={`${item1.id}-cos`}>
@@ -317,31 +337,40 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>Employment Rate %</span>
+              <span>{SearchResultsPageStrings.comparisonEmploymentRateLabel}</span>
             </td>
             <td className="align-center pvd btdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
-                ? formatPercentEmployed(item1.percentEmployed) + " Employed"
-                : "--"}
+                ? SearchResultsPageStrings.percentEmployed.replace(
+                    "{percent}",
+                    formatPercentEmployed(item1.percentEmployed)
+                  )
+                : SearchResultsPageStrings.percentEmployedUnavailable}
             </td>
             {item2 && (
               <td className="align-center pvd btdcg bldcg" key={`${item2.id}-emp`}>
                 {item2.percentEmployed
-                  ? formatPercentEmployed(item2.percentEmployed) + " Employed"
-                  : "--"}
+                  ? SearchResultsPageStrings.percentEmployed.replace(
+                      "{percent}",
+                      formatPercentEmployed(item2.percentEmployed)
+                    )
+                  : SearchResultsPageStrings.percentEmployedUnavailable}
               </td>
             )}
             {item3 && (
               <td className="align-center pvd btdcg bldcg" key={`${item3.id}-emp`}>
                 {item3.percentEmployed
-                  ? formatPercentEmployed(item3.percentEmployed) + " Employed"
-                  : "--"}
+                  ? SearchResultsPageStrings.percentEmployed.replace(
+                      "{percent}",
+                      formatPercentEmployed(item3.percentEmployed)
+                    )
+                  : SearchResultsPageStrings.percentEmployedUnavailable}
               </td>
             )}
           </tr>
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>Time to Complete</span>
+              <span>{SearchResultsPageStrings.comparisonTimeToCompleteLabel}</span>
             </td>
             {item1 && (
               <td className="align-center ptd pbl btdcg" key={`${item1.id}-cal`}>
@@ -364,21 +393,21 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item1 && (
               <td className="align-center align-bottom ptd pbz bldcg" key={`${item1.id}-det`}>
                 <LinkButton className=" btn-details" to={`/training/${item1.id}`}>
-                  See Details
+                  {SearchResultsPageStrings.comparisonSeeDetails}
                 </LinkButton>
               </td>
             )}
             {item2 && (
               <td className="align-center align-bottom ptd pbz bldcg" key={`${item2.id}-det`}>
                 <LinkButton className=" btn-details" to={`/training/${item2.id}`}>
-                  See Details
+                  {SearchResultsPageStrings.comparisonSeeDetails}
                 </LinkButton>
               </td>
             )}
             {item3 && (
               <td className="align-center align-bottom ptd pbz bldcg" key={`${item3.id}-det`}>
                 <LinkButton className=" btn-details" to={`/training/${item3.id}`}>
-                  See Details
+                  {SearchResultsPageStrings.comparisonSeeDetails}
                 </LinkButton>
               </td>
             )}

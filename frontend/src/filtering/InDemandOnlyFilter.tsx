@@ -3,6 +3,7 @@ import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { FormControlLabel, Switch } from "@material-ui/core";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 export const InDemandOnlyFilter = (): ReactElement => {
   const [inDemandOnly, setInDemandOnly] = useState<boolean>(false);
@@ -39,7 +40,7 @@ export const InDemandOnlyFilter = (): ReactElement => {
           color="primary"
         />
       }
-      label="Show In-Demand Trainings Only"
+      label={SearchAndFilterStrings.inDemandFilterLabel}
     />
   );
 };

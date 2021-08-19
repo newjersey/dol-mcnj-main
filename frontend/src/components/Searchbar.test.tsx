@@ -1,17 +1,20 @@
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { Searchbar } from "./Searchbar";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+
+const { searchBarDefaultPlaceholderText } = SearchAndFilterStrings;
 
 describe("<Searchbar />", () => {
   it("sets an initial value to the input if provided", () => {
     const subject = render(<Searchbar onSearch={jest.fn()} initialValue="pelicans" />);
-    expect(subject.getByPlaceholderText("Search for training courses")).toHaveValue("pelicans");
+    expect(subject.getByPlaceholderText(searchBarDefaultPlaceholderText)).toHaveValue("pelicans");
   });
 
   it("executes search on clicking button", () => {
     const spyOnSearch = jest.fn();
     const subject = render(<Searchbar onSearch={spyOnSearch} />);
-    fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+    fireEvent.change(subject.getByPlaceholderText(searchBarDefaultPlaceholderText), {
       target: { value: "penguins" },
     });
     fireEvent.click(subject.getByText("Search"));
@@ -21,10 +24,10 @@ describe("<Searchbar />", () => {
   it("executes search on Enter key", () => {
     const spyOnSearch = jest.fn();
     const subject = render(<Searchbar onSearch={spyOnSearch} />);
-    fireEvent.change(subject.getByPlaceholderText("Search for training courses"), {
+    fireEvent.change(subject.getByPlaceholderText(searchBarDefaultPlaceholderText), {
       target: { value: "penguins" },
     });
-    fireEvent.keyDown(subject.getByPlaceholderText("Search for training courses"), {
+    fireEvent.keyDown(subject.getByPlaceholderText(searchBarDefaultPlaceholderText), {
       key: "Enter",
       code: "Enter",
     });

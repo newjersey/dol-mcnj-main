@@ -3,6 +3,7 @@ import { Link } from "@reach/router";
 import { useState } from "react";
 import { Icon, useMediaQuery, Button } from "@material-ui/core";
 import njLogo from "../njlogo.svg";
+import { HeaderStrings } from "../localizations/HeaderStrings";
 
 interface HandleClickInterface {
   currentTarget: HTMLAnchorElement;
@@ -28,7 +29,7 @@ export const Header = (): ReactElement => {
         <div className="container header-container height-100">
           <Button onClick={toggleIsOpen} className="menu-btn no-link-format">
             <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
-            Menu
+            {HeaderStrings.mobileMenuText}
           </Button>
           <a href="/" className="logo no-link-format fin fac">
             <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
@@ -48,7 +49,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  Find Training
+                  {HeaderStrings.linkToSearch}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -58,7 +59,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  For Training Explorers
+                  {HeaderStrings.mobileLinkToExplorers}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -68,7 +69,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  For Counselors &amp; Coaches
+                  {HeaderStrings.mobileLinkToCounselors}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -78,7 +79,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  For Training Providers
+                  {HeaderStrings.mobileLinkToTrainingProviders}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -96,25 +97,25 @@ export const Header = (): ReactElement => {
           <div className="container header-container height-100">
             <a href="/" className="logo no-link-format fin fac">
               <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
-              <h1 className="text-m bold">Training Explorer</h1>
+              <h1 className="text-m bold">{HeaderStrings.title}</h1>
             </a>
             <nav className="nav fac">
               <Link to="/search" className="no-link-format">
-                Find Training
+                {HeaderStrings.linkToSearch}
               </Link>
               <Link to="/in-demand-occupations" className="no-link-format">
-                In-Demand Occupations
+                {HeaderStrings.linkToInDemandOccupations}
               </Link>
               <Link to="/funding" className="no-link-format funding">
-                Financial Support
+                {HeaderStrings.linkToFunding}
               </Link>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://nj.gov/labor/career-services/"
+                href={HeaderStrings.linkToCounseling}
                 className="no-link-format fin fac counseling"
               >
-                Counseling&nbsp;
+                {HeaderStrings.linkToCounselingText}&nbsp;
                 <Icon>launch</Icon>
               </a>
             </nav>

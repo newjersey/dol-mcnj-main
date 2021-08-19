@@ -19,6 +19,8 @@ import { StatBlock } from "../components/StatBlock";
 import { Icon } from "@material-ui/core";
 import { Button } from "../components/Button";
 import { useReactToPrint } from "react-to-print";
+import { TrainingPageStrings } from "../localizations/TrainingPageStrings";
+import { StatBlockStrings } from "../localizations/StatBlockStrings";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -63,13 +65,13 @@ export const TrainingPage = (props: Props): ReactElement => {
     } catch {
       setCopy({
         class: "red",
-        text: "Unsuccessful, try  again later",
+        text: TrainingPageStrings.unsuccessfulCopy,
       });
     }
 
     setCopy({
       class: "green",
-      text: "Successfully copied",
+      text: TrainingPageStrings.successfulCopy,
     });
 
     setTimeout((): void => {
@@ -87,7 +89,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderUrl = (): ReactElement => {
     if (!training?.provider?.url) {
-      return <>--</>;
+      return <>{TrainingPageStrings.missingProviderUrl}</>;
     }
 
     return (
@@ -104,11 +106,11 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-      return <>Online Class</>;
+      return <>{TrainingPageStrings.onlineClass}</>;
     }
 
     if (!training || !training.provider.address.city) {
-      return <>--</>;
+      return <>{TrainingPageStrings.missingProviderAddress}</>;
     }
 
     const address = training.provider.address;
@@ -159,12 +161,13 @@ export const TrainingPage = (props: Props): ReactElement => {
     ) {
       return (
         <p>
-          This is a general training that might prepare you for a wide variety of career paths.
-          Browse&nbsp;
+          {TrainingPageStrings.associatedOccupationsText.split("{link}")[0].trim()}
+          &nbsp;
           <Link className="link-format-blue" to="/in-demand-occupations">
-            in-demand occupations
+            {TrainingPageStrings.associatedOccupationsLinkText}
           </Link>
-          &nbsp;to see how you might apply this training.
+          &nbsp;
+          {TrainingPageStrings.associatedOccupationsText.split("{link}")[1].trim()}
         </p>
       );
     }
@@ -190,7 +193,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <BetaBanner />
           <main className="container below-banners" role="main">
             <div className="ptm weight-500 fin all-caps border-bottom-dark">
-              Training Opportunity
+              {TrainingPageStrings.header}
             </div>
             <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
@@ -198,22 +201,22 @@ export const TrainingPage = (props: Props): ReactElement => {
 
             <div className="stat-block-stack mtm">
               <StatBlock
-                title="Avg Salary after Program"
-                tooltipText="Average salary 6 months after completion of this class or classes like it at
-                      this provider"
+                title={TrainingPageStrings.avgSalaryTitle}
+                tooltipText={TrainingPageStrings.avgSalaryTooltip}
                 data={
                   training.averageSalary
                     ? formatMoney(training.averageSalary, { precision: 0 })
-                    : "--"
+                    : StatBlockStrings.missingDataIndicator
                 }
                 backgroundColorClass="bg-lightest-purple"
               />
               <StatBlock
-                title="Program Employment Rate"
-                tooltipText="Percentage of enrolled students employed within 6 months of this class or
-                      classes like it at this provider"
+                title={TrainingPageStrings.employmentRateTitle}
+                tooltipText={TrainingPageStrings.employmentRateTooltip}
                 data={
-                  training.percentEmployed ? formatPercentEmployed(training.percentEmployed) : "--"
+                  training.percentEmployed
+                    ? formatPercentEmployed(training.percentEmployed)
+                    : StatBlockStrings.missingDataIndicator
                 }
                 backgroundColorClass="bg-lighter-purple"
               />
@@ -223,7 +226,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="col-md-8">
                 <div className="container-fluid">
                   <div className="row">
-                    <Grouping title="Description">
+                    <Grouping title={TrainingPageStrings.descriptionGroupHeader}>
                       <>
                         {training.description.split("\n").map((line, i) => (
                           <p key={i}>{line}</p>
@@ -231,13 +234,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                       </>
                     </Grouping>
 
-                    <Grouping title="Quick Stats">
+                    <Grouping title={TrainingPageStrings.quickStatsGroupHeader}>
                       <>
                         {training.certifications && (
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">school</InlineIcon>
-                              Certifications: {training.certifications}
+                              {TrainingPageStrings.certificationsLabel}&nbsp;
+                              {training.certifications}
                             </span>
                           </p>
                         )}
@@ -245,38 +249,36 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              Prerequisites: {training.prerequisites}
+                              {TrainingPageStrings.prereqsLabel}&nbsp;{training.prerequisites}
                             </span>
                           </p>
                         )}
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
-                            Completion time: {CalendarLengthLookup[training.calendarLength]}
+                            {TrainingPageStrings.completionTimeLabel}&nbsp;
+                            {CalendarLengthLookup[training.calendarLength]}
                           </span>
                         </p>
                       </>
                     </Grouping>
 
-                    <Grouping title="Associated Occupations">
+                    <Grouping title={TrainingPageStrings.associatedOccupationsGroupHeader}>
                       <>{getAssociatedOccupations()}</>
                     </Grouping>
 
-                    <Grouping title="Share this Training">
+                    <Grouping title={TrainingPageStrings.shareGroupHeader}>
                       <>
                         {training.inDemand && (
                           <p className="mvd" data-testid="shareInDemandTraining">
-                            This training leads to an occupation that is in-demand, which may
-                            qualify for funding. Contact your NJ County One-Stop Career, who will
-                            help determine funding eligibility, and share this training page with
-                            them.
+                            {TrainingPageStrings.inDemandDescription}
                           </p>
                         )}
                         <p>
                           <Button className="link-format-blue" onClick={copyHandler}>
                             <Icon className="accessible-gray weight-500">link</Icon>
                             <span className="mlxs weight-500">
-                              Copy a link to this training opportunity {">"}
+                              {TrainingPageStrings.copyLinkText}
                             </span>
                           </Button>
                           {copy && (
@@ -289,16 +291,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <Button className="link-format-blue" onClick={printHandler}>
                             <Icon className="accessible-gray weight-500">print</Icon>
                             <span className="mlxs weight-500">
-                              Save and print this training opportunity {">"}
+                              {TrainingPageStrings.savePrintLinkText}
                             </span>
                           </Button>
                         </p>
                         <p>
                           <Link className="no-link-format weight-500 fin" to="/funding">
                             <Icon className="accessible-gray">attach_money</Icon>
-                            <span className="blue">
-                              Learn more about funding options and One-Stop Centers {">"}
-                            </span>
+                            <span className="blue">{TrainingPageStrings.fundingLinkText}</span>
                           </Link>
                         </p>
                       </>
@@ -310,10 +310,10 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="col-md-4">
                 <div className="container-fluid mbm">
                   <div className="row">
-                    <Grouping title="Cost">
+                    <Grouping title={TrainingPageStrings.costGroupHeader}>
                       <>
                         <p>
-                          <span className="weight-500">Total Cost</span>
+                          <span className="weight-500">{TrainingPageStrings.totalCostLabel}</span>
                           <span className="text-l pull-right weight-500">
                             {formatMoney(training.totalCost)}
                           </span>
@@ -321,34 +321,34 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="grey-line" />
                         <div className="mvd">
                           <div>
-                            <span>Tution</span>
+                            <span>{TrainingPageStrings.tuitionCostLabel}</span>
                             <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
                           </div>
                           <div>
-                            <span>Fees</span>
+                            <span>{TrainingPageStrings.feesCostLabel}</span>
                             <span className="pull-right">{formatMoney(training.feesCost)}</span>
                           </div>
                           <div>
-                            <span>Books & Materials</span>
+                            <span>{TrainingPageStrings.materialsCostLabel}</span>
                             <span className="pull-right">
                               {formatMoney(training.booksMaterialsCost)}
                             </span>
                           </div>
                           <div>
-                            <span>Supplies & Tools</span>
+                            <span>{TrainingPageStrings.suppliesCostLabel}</span>
                             <span className="pull-right">
                               {formatMoney(training.suppliesToolsCost)}
                             </span>
                           </div>
                           <div>
-                            <span>Other</span>
+                            <span>{TrainingPageStrings.otherCostLabel}</span>
                             <span className="pull-right">{formatMoney(training.otherCost)}</span>
                           </div>
                         </div>
                       </>
                     </Grouping>
 
-                    <Grouping title="Provider Details">
+                    <Grouping title={TrainingPageStrings.providerGroupHeader}>
                       <>
                         <p>
                           <span className="fin fas">

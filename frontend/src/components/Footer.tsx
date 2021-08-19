@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { Icon, useMediaQuery } from "@material-ui/core";
 import { Link } from "@reach/router";
+import { FooterStrings } from "../localizations/FooterStrings";
 
 export const Footer = (): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
@@ -22,11 +23,13 @@ export const Footer = (): ReactElement => {
           </div>
 
           <p className="fin fac maz text-s made-by-ooi">
-            Made with&nbsp;
+            {FooterStrings.madeWithMessage.split("{heart}")[0].trim()}
+            &nbsp;
             <Icon className="red" fontSize="inherit">
               favorite
             </Icon>
-            &nbsp;by the Office of Innovation
+            &nbsp;
+            {FooterStrings.madeWithMessage.split("{heart}")[1].trim()}
           </p>
         </div>
       </div>

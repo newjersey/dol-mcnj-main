@@ -14,6 +14,8 @@ import { SortContext } from "../sorting/SortContext";
 import { FilterContext } from "../filtering/FilterContext";
 import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -39,8 +41,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   useEffect(() => {
     document.title = props.searchQuery
-      ? `${props.searchQuery} - Search Results`
-      : "Search for Training";
+      ? SearchResultsPageStrings.pageTitle.replace("{query}", props.searchQuery)
+      : SearchResultsPageStrings.noSearchTermPageTitle;
   }, [props.searchQuery]);
 
   useEffect(() => {
@@ -98,14 +100,18 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     let message;
 
     if (!props.searchQuery) {
-      message = "Getting Started - Search For Training";
+      message = SearchResultsPageStrings.noSearchTermHeader;
     } else {
       const query = decodeURIComponent(props.searchQuery);
 
       if (filteredTrainings.length === 1) {
-        message = `${filteredTrainings.length} result found for "${query}"`;
+        message = SearchResultsPageStrings.singularResultsString
+          .replace("{count}", filteredTrainings.length.toString())
+          .replace("{query}", query);
       } else {
-        message = `${filteredTrainings.length} results found for "${query}"`;
+        message = SearchResultsPageStrings.pluralResultsString
+          .replace("{count}", filteredTrainings.length.toString())
+          .replace("{query}", query);
       }
     }
 
@@ -130,18 +136,24 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     <>
       {filteredTrainings.length > 0 && (
         <FormControl variant="outlined" className="mla width-100">
-          <InputLabel htmlFor="sortby">Sort by</InputLabel>
+          <InputLabel htmlFor="sortby">{SearchAndFilterStrings.sortByLabel}</InputLabel>
           <WhiteSelect
             native={true}
             value={sortState.sortOrder}
             onChange={handleSortChange}
-            label="Sort by"
+            label={SearchAndFilterStrings.sortByLabel}
             id="sortby"
           >
-            <option value={SortOrder.BEST_MATCH}>Best Match</option>
-            <option value={SortOrder.COST_LOW_TO_HIGH}>Cost: Low to High</option>
-            <option value={SortOrder.COST_HIGH_TO_LOW}>Cost: High to Low</option>
-            <option value={SortOrder.EMPLOYMENT_RATE}>Employment Rate</option>
+            <option value={SortOrder.BEST_MATCH}>{SearchAndFilterStrings.sortByBestMatch}</option>
+            <option value={SortOrder.COST_LOW_TO_HIGH}>
+              {SearchAndFilterStrings.sortByCostLowToHigh}
+            </option>
+            <option value={SortOrder.COST_HIGH_TO_LOW}>
+              {SearchAndFilterStrings.sortByCostHighToLow}
+            </option>
+            <option value={SortOrder.EMPLOYMENT_RATE}>
+              {SearchAndFilterStrings.sortByEmploymentRate}
+            </option>
           </WhiteSelect>
         </FormControl>
       )}
@@ -150,40 +162,28 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getSearchTips = (): ReactElement => (
     <div className="mbm" data-testid="searchTips">
-      <p>
-        Are you not seeing the results you were looking for? We recommend that you try these search
-        tips to enhance your results:
-      </p>
-      <p>
-        Are your search results too small? Your search may be too specific. Try searching with less
-        words.
-      </p>
-      <p>
-        Are your search results too long? Your search results may be too broad, so try using more
-        terms that describe what you are searching for.
-      </p>
+      <p>{SearchResultsPageStrings.searchTips1}</p>
+      <p>{SearchResultsPageStrings.searchTips2}</p>
+      <p>{SearchResultsPageStrings.searchTips3}</p>
       <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
-        {isOpen ? "See less" : "See more examples"}
+        {isOpen ? SearchResultsPageStrings.seeLessText : SearchResultsPageStrings.seeMoreText}
         <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>
       </button>
 
       {isOpen && (
         <div>
-          <p>Here are some examples that may improve your search results:</p>
+          <p>{SearchResultsPageStrings.searchHelperText}</p>
           <p>
-            <span className="bold">Training Providers: </span>
-            If you're searching for a training provider, try using only the provider's name and
-            exclude words like "university" or "college".
+            <span className="bold">{SearchResultsPageStrings.boldText1}&nbsp;</span>
+            {SearchResultsPageStrings.helperText1}
           </p>
           <p>
-            <span className="bold">Occupations: </span>
-            If you're looking for training for a job, you can type the job title directly into the
-            search box.
+            <span className="bold">{SearchResultsPageStrings.boldText2}&nbsp;</span>
+            {SearchResultsPageStrings.helperText2}
           </p>
           <p>
-            <span className="bold">License: </span>
-            If you know the name of the license you're training for, use the acronym to see more
-            results. For example, for the commercial driving license, you can search for CDL.
+            <span className="bold">{SearchResultsPageStrings.boldText3}&nbsp;</span>
+            {SearchResultsPageStrings.helperText3}
           </p>
         </div>
       )}
@@ -273,38 +273,40 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 </div>
               )}
               <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
-                {!isTabletAndUp && <h3 className="text-l mts">Getting Started</h3>}
-                {isTabletAndUp && <h3 className="text-l mts">What is the Training Explorer?</h3>}
+                {!isTabletAndUp && (
+                  <h3 className="text-l mts">
+                    {SearchResultsPageStrings.sectionOneHeaderSmallScreen}
+                  </h3>
+                )}
+                {isTabletAndUp && (
+                  <h3 className="text-l mts">{SearchResultsPageStrings.sectionOneHeader}</h3>
+                )}
 
                 <p className="mbl">
-                  The Training Explorer is a comprehensive listing of all schools and organizations
-                  offering education and job training that may be eligible to receive&nbsp;
+                  {SearchResultsPageStrings.introText}
+                  &nbsp;
                   <Link className="link-format-blue" to="/funding">
-                    funding assistance
+                    {SearchResultsPageStrings.introTextLink}
                   </Link>
                   .
                 </p>
-                <h3 className="text-l">What Can I Search for?</h3>
-                <p>Here are some examples that may improve your search results:</p>
+                <h3 className="text-l">{SearchResultsPageStrings.searchHelperHeader}</h3>
+                <p>{SearchResultsPageStrings.searchHelperText}</p>
                 <p>
-                  <span className="bold">Training Providers: </span>
-                  If you're searching for a training provider, try using only the provider's name
-                  and exclude words like "university" or "college".
+                  <span className="bold">{SearchResultsPageStrings.boldText1}&nbsp;</span>
+                  {SearchResultsPageStrings.helperText1}
                 </p>
                 <p>
-                  <span className="bold">Occupations: </span>
-                  If you're looking for training for a job, you can type the job directly into the
-                  search box.
+                  <span className="bold">{SearchResultsPageStrings.boldText2}&nbsp;</span>
+                  {SearchResultsPageStrings.helperText2}
                 </p>
                 <p>
-                  <span className="bold">License: </span>
-                  If you know the name of the license you're training for, use the acronym to see
-                  more results. For example, for the commercial driving license, try searching for
-                  "CDL".
+                  <span className="bold">{SearchResultsPageStrings.boldText3}&nbsp;</span>
+                  {SearchResultsPageStrings.helperText3}
                 </p>
                 {!isTabletAndUp && (
                   <div className="mtl mbd">
-                    <h3 className="text-l">Search for Training</h3>
+                    <h3 className="text-l">{SearchResultsPageStrings.smallScreenSearchHeader}</h3>
                     <FilterBox
                       searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
                       resultCount={filteredTrainings.length}

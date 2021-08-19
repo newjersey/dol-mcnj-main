@@ -4,6 +4,7 @@ import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { FormControlLabel, FormGroup } from "@material-ui/core";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 interface ClassFormat {
   online: boolean;
@@ -52,7 +53,7 @@ export const ClassFormatFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="classFormat">
-      Class Format
+      {SearchAndFilterStrings.classFormatFilterLabel}
       <FormGroup id="classFormat">
         <FormControlLabel
           control={
@@ -63,7 +64,7 @@ export const ClassFormatFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label="In-Person"
+          label={SearchAndFilterStrings.classFormatInPersonLabel}
         />
         <FormControlLabel
           control={
@@ -74,7 +75,7 @@ export const ClassFormatFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label="Online"
+          label={SearchAndFilterStrings.classFormatOnlineLabel}
         />
       </FormGroup>
     </label>
