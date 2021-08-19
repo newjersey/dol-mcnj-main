@@ -21,7 +21,4 @@ export const TrainingProviderPageStrings: Record<string, string> = {
   outOfStateFaq: "How can my out-of-state school become an approved provider listed on the ETPL?",
   performanceFaq: "Are there minimum performance standards in place for ETPL eligibility?",
   laborDemandFaq: "What is the Labor Demand Occupations List?",
-  sectionFiveHeader: "Have More Questions?",
-  getInTouchText: "Get in Touch",
-  contactUsButtonText: "Contact Us",
 };

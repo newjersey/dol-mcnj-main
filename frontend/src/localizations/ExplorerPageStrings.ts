@@ -21,7 +21,4 @@ export const ExplorerPageStrings: Record<string, string> = {
   jobListingsFaq: "I want to look at job listings",
   unemploymentInsuranceFaq: "I need help applying for unemployment insurance",
   healthInsuranceFaq: "I need help applying for health insurance",
-  sectionFiveHeader: "Have More Questions?",
-  getInTouchText: "Get in Touch",
-  contactUsButtonText: "Contact Us",
 };
