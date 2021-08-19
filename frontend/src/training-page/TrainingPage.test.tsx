@@ -11,6 +11,9 @@ import {
 } from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
 import { Error } from "../domain/Error";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { TrainingPageStrings } from "../localizations/TrainingPageStrings";
+import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
@@ -22,6 +25,14 @@ function mockReachRouter() {
 }
 
 jest.mock("@reach/router", () => mockReachRouter());
+
+const { inDemandTag } = SearchResultsPageStrings;
+const {
+  missingProviderUrl,
+  missingProviderAddress,
+  associatedOccupationsText,
+} = TrainingPageStrings;
+const { notFoundHeader, somethingWentWrongHeader } = ErrorPageStrings;
 
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
@@ -126,7 +137,7 @@ describe("<TrainingPage />", () => {
     const inDemand = buildTraining({ inDemand: true });
     act(() => stubClient.capturedObserver.onSuccess(inDemand));
 
-    expect(subject.queryByText("In Demand")).toBeInTheDocument();
+    expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
   });
 
   it("does not display an in-demand tag when a training is not in-demand", () => {
@@ -134,7 +145,7 @@ describe("<TrainingPage />", () => {
     const notInDemand = buildTraining({ inDemand: false });
     act(() => stubClient.capturedObserver.onSuccess(notInDemand));
 
-    expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
+    expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
   });
 
   it("displays both address lines if they exist", () => {
@@ -244,8 +255,8 @@ describe("<TrainingPage />", () => {
       stubClient.capturedObserver.onSuccess(buildTraining({ provider: buildProvider({ url: "" }) }))
     );
 
-    expect(subject.getByText("--")).toBeInTheDocument();
-    expect(subject.getByText("--")).not.toHaveAttribute("href");
+    expect(subject.getByText(missingProviderUrl)).toBeInTheDocument();
+    expect(subject.getByText(missingProviderUrl)).not.toHaveAttribute("href");
   });
 
   it("displays helper text if training has no occupations or NO MATCH", () => {
@@ -261,7 +272,9 @@ describe("<TrainingPage />", () => {
       )
     );
 
-    expect(subject.getByText("This is a general training", { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText(associatedOccupationsText.substring(0, 10), { exact: false })
+    ).toBeInTheDocument();
   });
 
   it("displays -- if training provider has no address", () => {
@@ -276,7 +289,7 @@ describe("<TrainingPage />", () => {
       )
     );
 
-    expect(subject.getByText("--")).toBeInTheDocument();
+    expect(subject.getByText(missingProviderAddress)).toBeInTheDocument();
   });
 
   it("displays share training text if training is in-demand", () => {
@@ -292,7 +305,7 @@ describe("<TrainingPage />", () => {
     const notInDemand = buildTraining({ inDemand: false });
     act(() => stubClient.capturedObserver.onSuccess(notInDemand));
 
-    expect(subject.queryByText("shareInDemandTraining")).not.toBeInTheDocument();
+    expect(subject.queryByTestId("shareInDemandTraining")).not.toBeInTheDocument();
   });
 
   it("displays the Not Found page on not found error", () => {
@@ -300,9 +313,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText("Sorry, we can't seem to find that page", { exact: false })
-    ).toBeInTheDocument();
+    expect(subject.getByText(notFoundHeader, { exact: false })).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", () => {
@@ -310,7 +321,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText(somethingWentWrongHeader, { exact: false })).toBeInTheDocument();
   });
 
   it("converts carriage returns to newlines in the description", () => {

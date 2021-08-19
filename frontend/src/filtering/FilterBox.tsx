@@ -13,6 +13,7 @@ import { LocationFilter } from "./LocationFilter";
 import { Client } from "../domain/Client";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 interface Props {
   searchQuery?: string;
@@ -87,9 +88,15 @@ export const FilterBox = ({
 
   const getResultCountText = (): string => {
     if (resultCount === 1) {
-      return `${resultCount} result`;
+      return SearchAndFilterStrings.singularResultCountString.replace(
+        "{count}",
+        resultCount.toString()
+      );
     } else {
-      return `${resultCount} results`;
+      return SearchAndFilterStrings.pluralResultCountString.replace(
+        "{count}",
+        resultCount.toString()
+      );
     }
   };
 
@@ -118,7 +125,7 @@ export const FilterBox = ({
         >
           <span className={`fin pls ${blueWhenFilterApplied()}`}>
             <InlineIcon className="mrs">filter_list</InlineIcon>
-            Edit Search or Filter
+            {SearchAndFilterStrings.mobileFilterText}
           </span>
         </SecondaryButton>
       </div>
@@ -134,7 +141,7 @@ export const FilterBox = ({
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
-          buttonText="Search"
+          buttonText={SearchAndFilterStrings.searchButtonDefaultText}
         />
       )}
 
@@ -143,7 +150,11 @@ export const FilterBox = ({
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
-          buttonText={!searchQuery ? "Search" : "Update Results"}
+          buttonText={
+            !searchQuery
+              ? SearchAndFilterStrings.searchButtonDefaultText
+              : SearchAndFilterStrings.searchButtonUpdateResultsText
+          }
         />
 
         {isMobile && (

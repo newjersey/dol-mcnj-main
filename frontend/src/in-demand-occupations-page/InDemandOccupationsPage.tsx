@@ -7,6 +7,7 @@ import { Client } from "../domain/Client";
 import { InDemandOccupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
 import { Typeahead } from "./Typeahead";
+import { InDemandPageStrings } from "../localizations/InDemandPageStrings";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -20,7 +21,7 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   >({});
 
   useEffect(() => {
-    document.title = "In-Demand Occupations";
+    document.title = InDemandPageStrings.pageTitle;
   }, []);
 
   useEffect(() => {
@@ -60,12 +61,8 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
       <BetaBanner />
 
       <main className="container below-banners">
-        <h2 className="text-xl ptd weight-500">In-Demand Occupations</h2>
-        <p>
-          This is a list of occupations expected to have the most openings in the future in the
-          State of New Jersey. Trainings related to occupations on this list can be eligible for
-          funding by the State.
-        </p>
+        <h2 className="text-xl ptd weight-500">{InDemandPageStrings.header}</h2>
+        <p>{InDemandPageStrings.description}</p>
 
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />

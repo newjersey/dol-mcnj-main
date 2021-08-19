@@ -1,11 +1,14 @@
-import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+import { renderWithRouter, waitForEffect } from "../../test-objects/helpers";
 import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
-import { RenderResult, fireEvent } from "@testing-library/react";
+import { fireEvent, RenderResult } from "@testing-library/react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { SortOrder } from "../SortOrder";
+import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+
+const { sortByLabel } = SearchAndFilterStrings;
 
 describe("sorting", () => {
   let stubClient: StubClient;
@@ -40,7 +43,7 @@ describe("sorting", () => {
 
     act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
-    fireEvent.change(subject.getByLabelText("Sort by"), {
+    fireEvent.change(subject.getByLabelText(sortByLabel), {
       target: { value: SortOrder.COST_LOW_TO_HIGH },
     });
 
@@ -57,7 +60,7 @@ describe("sorting", () => {
 
     act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
-    fireEvent.change(subject.getByLabelText("Sort by"), {
+    fireEvent.change(subject.getByLabelText(sortByLabel), {
       target: { value: SortOrder.COST_HIGH_TO_LOW },
     });
 
@@ -74,10 +77,10 @@ describe("sorting", () => {
 
     act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
-    fireEvent.change(subject.getByLabelText("Sort by"), {
+    fireEvent.change(subject.getByLabelText(sortByLabel), {
       target: { value: SortOrder.COST_HIGH_TO_LOW },
     });
-    fireEvent.change(subject.getByLabelText("Sort by"), {
+    fireEvent.change(subject.getByLabelText(sortByLabel), {
       target: { value: SortOrder.BEST_MATCH },
     });
 
@@ -94,7 +97,7 @@ describe("sorting", () => {
 
     act(() => stubClient.capturedObserver.onSuccess([training1, training2, training3]));
 
-    fireEvent.change(subject.getByLabelText("Sort by"), {
+    fireEvent.change(subject.getByLabelText(sortByLabel), {
       target: { value: SortOrder.EMPLOYMENT_RATE },
     });
 

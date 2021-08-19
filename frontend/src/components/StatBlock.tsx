@@ -1,6 +1,7 @@
 import { Icon, useMediaQuery } from "@material-ui/core";
 import ReactTooltip from "react-tooltip";
 import React, { ReactElement } from "react";
+import { StatBlockStrings } from "../localizations/StatBlockStrings";
 
 interface Props {
   title: string;
@@ -14,14 +15,15 @@ export const StatBlock = (props: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
 
   const getDataMissingOrSource = (data: string): ReactElement | undefined => {
-    if (data === "--") {
+    if (data === StatBlockStrings.missingDataIndicator) {
+      return <div>{StatBlockStrings.missingDataExplanation}</div>;
+    } else {
       return (
         <div>
-          * This information is missing because we haven’t received enough data from this institute.
+          {StatBlockStrings.dataSourceLabel}&nbsp;
+          {props.dataSource || StatBlockStrings.defaultDataSource}
         </div>
       );
-    } else {
-      return <div>{`Data source: ${props.dataSource || "NJ Dept of Labor"}`}</div>;
     }
   };
 

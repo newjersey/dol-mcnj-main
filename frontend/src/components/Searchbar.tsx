@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { InputAdornment, Icon } from "@material-ui/core";
 import { PrimaryButton } from "./PrimaryButton";
 import { Input } from "./Input";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 interface Props {
   onSearch: (searchQuery: string) => void;
@@ -48,11 +49,15 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
             <Icon>search</Icon>
           </InputAdornment>
         }
-        placeholder={props.placeholder ? props.placeholder : "Search for training courses"}
+        placeholder={
+          props.placeholder
+            ? props.placeholder
+            : SearchAndFilterStrings.searchBarDefaultPlaceholderText
+        }
       />
       <div className={`${marginDirection} ${buttonWidth}`}>
         <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
-          {props.buttonText ? props.buttonText : "Search"}
+          {props.buttonText ? props.buttonText : SearchAndFilterStrings.searchButtonDefaultText}
         </PrimaryButton>
       </div>
     </div>

@@ -1,11 +1,12 @@
 import React, { ReactElement } from "react";
+import { HeaderStrings } from "../localizations/HeaderStrings";
 
 interface Props {
   noHeader?: boolean;
 }
 
 export const BetaBanner = (props: Props): ReactElement => {
-  const feedbackLink = "https://forms.gle/XSmLCPHBctFVSGsA6";
+  const feedbackLink = HeaderStrings.betaBannerFeedbackLink;
 
   const getHeaderMarginClass = (): string => {
     if (props.noHeader) {
@@ -17,9 +18,9 @@ export const BetaBanner = (props: Props): ReactElement => {
 
   return (
     <aside className={`beta-banner ${getHeaderMarginClass()}`}>
-      This site is in beta. Feedback welcome&nbsp;
+      {HeaderStrings.betaBannerText}&nbsp;
       <a className="link-format-blue" target="_blank" rel="noopener noreferrer" href={feedbackLink}>
-        here
+        {HeaderStrings.betaBannerLinkText}
       </a>
       .
     </aside>

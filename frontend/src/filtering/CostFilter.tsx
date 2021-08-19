@@ -3,6 +3,7 @@ import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } fro
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 export const CostFilter = (): ReactElement => {
   const [maxCost, setMaxCost] = useState<string>("");
@@ -41,9 +42,11 @@ export const CostFilter = (): ReactElement => {
 
   return (
     <>
-      <div className="bold">Cost</div>
+      <div className="bold">{SearchAndFilterStrings.costFilterLabel}</div>
       <label htmlFor="maxCost" className="fin label-height">
-        Max&nbsp;Cost
+        {SearchAndFilterStrings.maxCostLabel.split(" ")[0]}
+        &nbsp;
+        {SearchAndFilterStrings.maxCostLabel.split(" ")[1]}
         <span className="fin mld">
           <Input
             id="maxCost"

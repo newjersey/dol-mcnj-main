@@ -5,6 +5,7 @@ import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { Client } from "../domain/Client";
 import { InlineIcon } from "../components/InlineIcon";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 export interface SearchArea {
   center: string;
@@ -78,7 +79,7 @@ export const LocationFilter = (props: Props): ReactElement => {
 
   return (
     <>
-      <div className="bold">Miles from Zip Code</div>
+      <div className="bold">{SearchAndFilterStrings.locationFilterLabel}</div>
       <div className="fin mts fac ">
         <Input
           id="miles"
@@ -88,23 +89,23 @@ export const LocationFilter = (props: Props): ReactElement => {
           onChange={handleMilesInput}
           onKeyDown={handleKeyDown}
           onBlur={applyLocationFilter}
-          placeholder="Miles"
+          placeholder={SearchAndFilterStrings.locationFilterMilesPlaceholder}
         />
         <span className="phs">from</span>
         <Input
           id="zipcode"
-          inputProps={{ "aria-label": "Zip Code" }}
+          inputProps={{ "aria-label": SearchAndFilterStrings.locationFilterZipCodePlaceholder }}
           type="text"
           value={searchArea.center}
           onChange={handleZipCodeInput}
           onKeyDown={handleKeyDown}
           onBlur={applyLocationFilter}
-          placeholder="Zip Code"
+          placeholder={SearchAndFilterStrings.locationFilterZipCodePlaceholder}
         />
       </div>
       {isError && (
         <div className="red fin mts">
-          <InlineIcon className="mrxs">error</InlineIcon> This feature is currently unavailable
+          <InlineIcon className="mrxs">error</InlineIcon>&nbsp;{SearchAndFilterStrings.filterError}
         </div>
       )}
     </>

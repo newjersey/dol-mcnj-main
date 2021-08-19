@@ -4,6 +4,7 @@ import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { CalendarLength, TrainingResult } from "../domain/Training";
+import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 interface TimeToComplete {
   days: boolean;
@@ -78,7 +79,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="timeToComplete">
-      Time to Complete
+      {SearchAndFilterStrings.timeToCompleteFilterLabel}
       <FormGroup id="timeToComplete">
         <FormControlLabel
           control={
@@ -89,7 +90,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label="Days"
+          label={SearchAndFilterStrings.timeToCompleteDaysLabel}
         />
         <FormControlLabel
           control={
@@ -100,7 +101,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label="Weeks"
+          label={SearchAndFilterStrings.timeToCompleteWeeksLabel}
         />
         <FormControlLabel
           control={
@@ -111,7 +112,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label="Months"
+          label={SearchAndFilterStrings.timeToCompleteMonthsLabel}
         />
         <FormControlLabel
           control={
@@ -122,7 +123,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label="Years"
+          label={SearchAndFilterStrings.timeToCompleteYearsLabel}
         />
       </FormGroup>
     </label>
