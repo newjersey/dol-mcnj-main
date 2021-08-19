@@ -9,6 +9,7 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -29,7 +30,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
 
   const getLocationOrOnline = (): string => {
     if (props.trainingResult.online) {
-      return "Online Class";
+      return SearchResultsPageStrings.onlineClassLabel;
     }
 
     return `${props.trainingResult.city}, ${props.trainingResult.county}`;
@@ -74,7 +75,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 disabled={props.comparisonItems && props.comparisonItems.length >= 3 && !isChecked}
               />
             }
-            label="Compare"
+            label={SearchResultsPageStrings.comparisonCheckLabel}
           />
         </FormGroup>
       </label>
@@ -101,8 +102,11 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <span className="fin fas">
               <InlineIcon className="hide-when-lg mrs">card_travel</InlineIcon>
               {props.trainingResult.percentEmployed
-                ? formatPercentEmployed(props.trainingResult.percentEmployed) + " employed"
-                : "--"}
+                ? SearchResultsPageStrings.percentEmployed.replace(
+                    "{percent}",
+                    formatPercentEmployed(props.trainingResult.percentEmployed)
+                  )
+                : SearchResultsPageStrings.percentEmployedUnavailable}
             </span>
           </p>
         </div>
@@ -122,7 +126,10 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {CalendarLengthLookup[props.trainingResult.calendarLength]} to complete
+              {SearchResultsPageStrings.timeToComplete.replace(
+                "{time}",
+                CalendarLengthLookup[props.trainingResult.calendarLength]
+              )}
             </span>
           </p>
         </div>

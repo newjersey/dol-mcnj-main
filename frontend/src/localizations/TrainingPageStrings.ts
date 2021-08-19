@@ -1,0 +1,37 @@
+export const TrainingPageStrings: Record<string, string> = {
+  header: "Training Opportunity",
+  avgSalaryTitle: "Avg Salary after Program",
+  avgSalaryTooltip:
+    "Average salary 6 months after completion of this class or classes like it at this provider",
+  employmentRateTitle: "Program Employment Rate",
+  employmentRateTooltip:
+    "Percentage of enrolled students employed within 6 months of this class or classes like it at this provider",
+  descriptionGroupHeader: "Description",
+  quickStatsGroupHeader: "Quick Stats",
+  certificationsLabel: "Certifications:",
+  prereqsLabel: "Prerequisites:",
+  completionTimeLabel: "Completion time:",
+  associatedOccupationsGroupHeader: "Associated Occupations",
+  associatedOccupationsText:
+    "This is a general training that might prepare you for a wide variety of career paths Browse {link} to see how you might apply this training.",
+  associatedOccupationsLinkText: "in-demand occupations",
+  shareGroupHeader: "Share this Training",
+  inDemandDescription:
+    "This training leads to an occupation that is in-demand, which may qualify for funding. Contact your NJ County One-Stop Career, who will help determine funding eligibility, and share this training page with them.",
+  copyLinkText: "Copy a link to this training opportunity >",
+  successfulCopy: "Successfully copied",
+  unsuccessfulCopy: "Unsuccessful, try again later",
+  savePrintLinkText: "Save and print this training opportunity >",
+  fundingLinkText: "Learn more about funding options and One-Stop Centers >",
+  costGroupHeader: "Cost",
+  totalCostLabel: "Total Cost",
+  tuitionCostLabel: "Tuition",
+  feesCostLabel: "Fees",
+  materialsCostLabel: "Books & Materials",
+  suppliesCostLabel: "Supplies & Tools",
+  otherCostLabel: "Other",
+  providerGroupHeader: "Provider Details",
+  missingProviderUrl: "--",
+  missingProviderAddress: "--",
+  onlineClass: "Online Class",
+};

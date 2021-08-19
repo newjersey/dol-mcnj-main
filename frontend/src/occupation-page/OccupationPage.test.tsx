@@ -9,6 +9,15 @@ import {
 import { act } from "react-dom/test-utils";
 import { StubClient } from "../test-objects/StubClient";
 import { Error } from "../domain/Error";
+import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { OccupationPageStrings } from "../localizations/OccupationPageStrings";
+import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
+import { StatBlockStrings } from "../localizations/StatBlockStrings";
+
+const { inDemandTag } = SearchResultsPageStrings;
+const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } = OccupationPageStrings;
+const { notFoundHeader, somethingWentWrongHeader } = ErrorPageStrings;
+const { missingDataIndicator } = StatBlockStrings;
 
 describe("<OccupationPage />", () => {
   let stubClient: StubClient;
@@ -46,7 +55,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
-    expect(subject.queryByText("In Demand")).toBeInTheDocument();
+    expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
     expect(subject.getByText("1,010")).toBeInTheDocument();
     expect(subject.getByText("$97,820")).toBeInTheDocument();
     expect(subject.getByText("Related 1")).toBeInTheDocument();
@@ -63,7 +72,7 @@ describe("<OccupationPage />", () => {
     const notInDemand = buildOccupationDetail({ inDemand: false, relatedTrainings: [] });
     act(() => stubClient.capturedObserver.onSuccess(notInDemand));
 
-    expect(subject.queryByText("In Demand")).not.toBeInTheDocument();
+    expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
   });
 
   it("displays data missing message if tasks are not available", () => {
@@ -75,9 +84,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(
-      subject.getByText("This data is not yet available for this occupation.")
-    ).toBeInTheDocument();
+    expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
   it("displays data missing message if related occupations are not available", () => {
@@ -89,9 +96,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(
-      subject.getByText("This data is not yet available for this occupation.")
-    ).toBeInTheDocument();
+    expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
   it("hides tasks beyond 5 behind a See More", () => {
@@ -117,7 +122,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("task5")).toBeInTheDocument();
     expect(subject.getByText("task6")).toBeInTheDocument();
 
-    expect(subject.getByText("See Less")).toBeInTheDocument();
+    expect(subject.getByText(seeLess)).toBeInTheDocument();
   });
 
   it("does not show See More if there are 5 tasks or fewer", () => {
@@ -129,7 +134,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.queryByText("See More")).not.toBeInTheDocument();
+    expect(subject.queryByText(seeMore)).not.toBeInTheDocument();
   });
 
   it("displays data missing message if education is not available", () => {
@@ -141,9 +146,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(
-      subject.getByText("This data is not yet available for this occupation.")
-    ).toBeInTheDocument();
+    expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
   it("displays the Not Found page on not found error", () => {
@@ -151,9 +154,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText("Sorry, we can't seem to find that page", { exact: false })
-    ).toBeInTheDocument();
+    expect(subject.getByText(notFoundHeader, { exact: false })).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", () => {
@@ -161,7 +162,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText(somethingWentWrongHeader, { exact: false })).toBeInTheDocument();
   });
 
   it("displays -- message if open jobs count is null", () => {
@@ -170,7 +171,7 @@ describe("<OccupationPage />", () => {
     });
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
-    expect(subject.getByText("--")).toBeInTheDocument();
+    expect(subject.getByText(missingDataIndicator)).toBeInTheDocument();
   });
 
   it("displays -- message if median salary is not available", () => {
@@ -182,7 +183,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.getByText("--")).toBeInTheDocument();
+    expect(subject.getByText(missingDataIndicator)).toBeInTheDocument();
   });
 
   it("displays data missing message if related trainings is not available", () => {
@@ -194,9 +195,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(
-      subject.getByText("This data is not yet available for this occupation.")
-    ).toBeInTheDocument();
+    expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
   it("shows 'See More Results' if more than 3 related trainings", () => {
@@ -217,7 +216,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("Training 3")).toBeInTheDocument();
     expect(subject.queryByText("Training 4")).not.toBeInTheDocument();
 
-    expect(subject.queryByText("See More Results")).not.toBeInTheDocument();
+    expect(subject.queryByText(relatedTrainingSeeMore)).toBeInTheDocument();
   });
 
   it("does not show See More Results if there are 3 related trainings or fewer", () => {
@@ -233,7 +232,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.queryByText("See More Results")).not.toBeInTheDocument();
+    expect(subject.queryByText(relatedTrainingSeeMore)).not.toBeInTheDocument();
   });
 
   it("does not display job openings link if there are no job openings", () => {

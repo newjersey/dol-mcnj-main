@@ -8,6 +8,7 @@ import { LinkButton } from "../components/LinkButton";
 import IconOccupation from "./landing-icons/occupations.svg";
 import IconGear from "./landing-icons/gear.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
+import { LandingPageStrings } from "../localizations/LandingPageStrings";
 
 export const LandingPage = (props: RouteComponentProps): ReactElement => {
   return (
@@ -19,15 +20,14 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
         <div className="bg-light-green pvl">
           <div className="container search-container fdc fac fjc mtm mbl">
             <h2 className="text-xl weight-400 align-center mbd title">
-              Find training to better prepare you for a promotion, better job, or even a career
-              change
+              {LandingPageStrings.headerText}
             </h2>
             <Searchbar
               className="width-100 phm"
               onSearch={(searchQuery: string): Promise<void> =>
                 navigate(`/search/${encodeURIComponent(searchQuery)}`)
               }
-              placeholder="Enter occupation, certification, or provider"
+              placeholder={LandingPageStrings.searchBoxPlaceholder}
               stacked={true}
             />
           </div>
@@ -38,36 +38,36 @@ export const LandingPage = (props: RouteComponentProps): ReactElement => {
             <div className="landing-image mbs">
               <img alt="icon-occupation" src={IconOccupation} />
             </div>
-            <h3 className="text-l weight-400">For Training Explorers</h3>
+            <h3 className="text-l weight-400">{LandingPageStrings.columnOneHeader}</h3>
             <p className="phm align-center options-desc">
-              Find New Jersey’s fastest growing occupations
+              {LandingPageStrings.columnOneDescription}
             </p>
             <LinkButton to="/explorer" secondary>
-              Learn More
+              {LandingPageStrings.columnOneButtonText}
             </LinkButton>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
               <img alt="icon-counseling" src={IconCounseling} />
             </div>
-            <h3 className="text-l weight-400">For Counselors and Coaches</h3>
+            <h3 className="text-l weight-400">{LandingPageStrings.columnTwoHeader}</h3>
             <p className="phm align-center options-desc">
-              Empower your search to find training information more quickly
+              {LandingPageStrings.columnTwoDescription}
             </p>
             <LinkButton to="/counselor" secondary>
-              Explore the Tool
+              {LandingPageStrings.columnTwoButtonText}
             </LinkButton>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
               <img alt="icon-workforce" src={IconGear} />
             </div>
-            <h3 className="text-l weight-400">For Training Providers</h3>
+            <h3 className="text-l weight-400">{LandingPageStrings.columnThreeHeader}</h3>
             <p className="phm align-center options-desc">
-              Learn about the process to get on NJ’s Eligible Training Provider List
+              {LandingPageStrings.columnThreeDescription}
             </p>
             <LinkButton to="/training-provider" secondary>
-              Find More Information
+              {LandingPageStrings.columnThreeButtonText}
             </LinkButton>
           </div>
         </div>
