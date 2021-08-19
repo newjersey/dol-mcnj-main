@@ -10,6 +10,7 @@ import IconPortfolio from "./landing-icons/portfolio.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
 import { useMediaQuery } from "@material-ui/core";
 import { TrainingProviderPageStrings } from "../localizations/TrainingProviderPageStrings";
+import { ContactUsSection } from "../components/ContactUsSection";
 
 export const LandingPageTrainingProvider = (props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
@@ -117,17 +118,7 @@ export const LandingPageTrainingProvider = (props: RouteComponentProps): ReactEl
             </Link>
           </div>
 
-          <div className="align-center">
-            <h4 className="mtl mbs text-m weight-500">
-              {TrainingProviderPageStrings.sectionFiveHeader}
-            </h4>
-            <p className="mtz mbd text-m weight-500">
-              {TrainingProviderPageStrings.getInTouchText}
-            </p>
-            <LinkButton secondary external className="mbl" to="mailto:test@email.com">
-              {TrainingProviderPageStrings.contactUsButtonText}
-            </LinkButton>
-          </div>
+          <ContactUsSection />
         </div>
       </main>
 
