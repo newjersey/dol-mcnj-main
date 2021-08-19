@@ -43,9 +43,6 @@ export const EtplPageStrings: Record<string, string> = {
     "Submit your application to COEI at {link} COEI will follow up if there are any questions regarding your application.",
   step3LinkText: "njtopps@dol.nj.gov.",
   step3Link: "mailto:njtopps@dol.nj.gov",
-  moreQuestionsHeader: "Have More Questions?",
-  getInTouchText: "Get in Touch",
-  contactUsButtonText: "Contact Us",
 
   // agencies
   cosmetology: "Board of Cosmetology",

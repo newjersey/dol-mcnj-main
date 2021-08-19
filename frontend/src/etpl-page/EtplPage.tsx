@@ -6,7 +6,6 @@ import { Footer } from "../components/Footer";
 import { BetaBanner } from "../components/BetaBanner";
 import { Client } from "../domain/Client";
 import { MajorGroup } from "./MajorGroup";
-import { LinkButton } from "../components/LinkButton";
 
 import BoardOfCosmetology from "./agency-icons/cosmetology.svg";
 import BoardOfNursing from "./agency-icons/nursing.svg";
@@ -26,6 +25,7 @@ import NJBoardObjectfRealEstateAppraisers from "./agency-icons/nj-board-of-real-
 import NJStatePoliceSecurityOfficerTrainingSORA from "./agency-icons/nj-state-police_security-officer-training-sora.svg";
 import ProLiteracy from "./agency-icons/proliteracy.svg";
 import { EtplPageStrings } from "../localizations/EtplPageStrings";
+import { ContactUsSection } from "../components/ContactUsSection";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -416,13 +416,7 @@ export const EtplPage = (props: Props): ReactElement => {
         </div>
 
         <div className="row">
-          <div className="col-md-12 align-center">
-            <h4 className="mtl mbs text-m weight-500">{EtplPageStrings.moreQuestionsHeader}</h4>
-            <p className="mtz mbd text-m weight-500">{EtplPageStrings.getInTouchText}</p>
-            <LinkButton secondary external className="mbl" to="mailto:test@email.com">
-              {EtplPageStrings.contactUsButtonText}
-            </LinkButton>
-          </div>
+          <ContactUsSection />
         </div>
       </main>
 

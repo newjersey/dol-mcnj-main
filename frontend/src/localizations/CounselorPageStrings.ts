@@ -15,7 +15,4 @@ export const CounselorPageStrings: Record<string, string> = {
   dataFaq: "What are the data sources for this website?",
   occupationsFaq: "Where can I find the in-demand occupations list?",
   fundingFaq: "What are funding opportunities that my customers can apply for?",
-  sectionFiveHeader: "Have More Questions?",
-  getInTouchText: "Get in Touch",
-  contactUsButtonText: "Contact Us",
 };

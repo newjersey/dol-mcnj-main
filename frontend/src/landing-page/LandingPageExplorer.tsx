@@ -10,6 +10,7 @@ import IconCustomize from "./landing-icons/customize.svg";
 import IconFunding from "./landing-icons/funding.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
 import { ExplorerPageStrings } from "../localizations/ExplorerPageStrings";
+import { ContactUsSection } from "../components/ContactUsSection";
 
 export const LandingPageExplorer = (props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
@@ -125,13 +126,7 @@ export const LandingPageExplorer = (props: RouteComponentProps): ReactElement =>
             </Link>
           </div>
 
-          <div className="align-center">
-            <h4 className="mtl mbs text-m weight-500">{ExplorerPageStrings.sectionFiveHeader}</h4>
-            <p className="mtz mbd text-m weight-500">{ExplorerPageStrings.getInTouchText}</p>
-            <LinkButton secondary external className="mbl" to="mailto:test@email.com">
-              {ExplorerPageStrings.contactUsButtonText}
-            </LinkButton>
-          </div>
+          <ContactUsSection />
         </div>
       </main>
 
