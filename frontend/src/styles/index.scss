@@ -119,3 +119,17 @@ a.link-format-blue {
 .button-size-small {
   min-width: 114px;
 }
+
+.contextual-info-panel {
+  width: 33vw;
+  padding-left: 3em;
+  padding-right: 2em;
+}
+
+@media (max-width: $xs) {
+  .contextual-info-panel {
+    width: 66vw;
+    padding-left: 2em;
+    padding-right: 1.5em;
+  }
+}

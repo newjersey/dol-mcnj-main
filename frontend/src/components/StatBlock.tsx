@@ -1,7 +1,7 @@
-import { Icon, useMediaQuery } from "@material-ui/core";
-import ReactTooltip from "react-tooltip";
-import React, { ReactElement } from "react";
+import { Icon, IconButton, useMediaQuery } from "@material-ui/core";
+import React, { ReactElement, useContext, useCallback } from "react";
 import { StatBlockStrings } from "../localizations/StatBlockStrings";
+import { ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
 
 interface Props {
   title: string;
@@ -13,19 +13,23 @@ interface Props {
 
 export const StatBlock = (props: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const { setContextualInfo } = useContext(ContextualInfoContext);
 
-  const getDataMissingOrSource = (data: string): ReactElement | undefined => {
-    if (data === StatBlockStrings.missingDataIndicator) {
-      return <div>{StatBlockStrings.missingDataExplanation}</div>;
-    } else {
-      return (
-        <div>
-          {StatBlockStrings.dataSourceLabel}&nbsp;
-          {props.dataSource || StatBlockStrings.defaultDataSource}
-        </div>
-      );
-    }
-  };
+  const dataMissingOrSource =
+    props.data === StatBlockStrings.missingDataIndicator
+      ? StatBlockStrings.missingDataExplanation
+      : `${StatBlockStrings.dataSourceLabel} ${
+          props.dataSource ?? StatBlockStrings.defaultDataSource
+        }`;
+
+  const onClickInfo = useCallback(() => {
+    setContextualInfo((prevValue) => ({
+      ...prevValue,
+      isOpen: true,
+      title: props.title,
+      body: props.tooltipText + ". " + dataMissingOrSource ?? "",
+    }));
+  }, [dataMissingOrSource, props.title, props.tooltipText, setContextualInfo]);
 
   const tooltipTargetIfMobile = (): Record<string, string> | undefined => {
     if (!isTabletAndUp) {
@@ -44,24 +48,12 @@ export const StatBlock = (props: Props): ReactElement => {
       >
         <div>{props.title}</div>
         {!isTabletAndUp && <div className="stat-block-number mla mrs">{props.data}</div>}
-        {props.tooltipText && (
-          <div className="flex">
+        {props.tooltipText != null && (
+          <IconButton aria-label="open info panel" onClick={onClickInfo} color="primary">
             <Icon fontSize="small" data-for={`${props.title}-tooltip`} data-tip="">
               info
             </Icon>
-            <ReactTooltip
-              id={`${props.title}-tooltip`}
-              className="tooltip"
-              border={true}
-              borderColor={"#dbdada"}
-              effect="solid"
-              place="bottom"
-              type="light"
-            >
-              <div className="pbs">{props.tooltipText}</div>
-              {getDataMissingOrSource(props.data)}
-            </ReactTooltip>
-          </div>
+          </IconButton>
         )}
       </div>
       {isTabletAndUp && <div className="stat-block-number ptm pbs">{props.data}</div>}
