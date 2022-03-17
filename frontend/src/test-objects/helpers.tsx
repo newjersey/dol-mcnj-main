@@ -1,7 +1,8 @@
 import { render, RenderResult } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import React, { ReactElement } from "react";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 import { createHistory, createMemorySource, History, LocationProvider } from "@reach/router";
+import { ContextualInfo, ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
 
 interface RenderedWithRouter {
   container: RenderResult;
@@ -22,4 +23,16 @@ export const waitForEffect = async (): Promise<undefined> => {
   return act(async () => {
     await new Promise((resolve) => setImmediate(resolve));
   });
+};
+
+export const withContextualInfo = (
+  subject: ReactElement,
+  contextualInfo: ContextualInfo,
+  setContextualInfo: Dispatch<SetStateAction<ContextualInfo>>
+): ReactElement => {
+  return (
+    <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
+      {subject}
+    </ContextualInfoContext.Provider>
+  );
 };
