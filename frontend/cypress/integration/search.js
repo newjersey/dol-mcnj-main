@@ -16,7 +16,7 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking & Pastry , Culinary Arts").should("exist");
+    cy.contains("Baking and Pastry Arts").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -40,7 +40,7 @@ describe("Search", () => {
     cy.contains("$559.00").should("exist");
     cy.contains("77.5%").should("exist");
     cy.contains("Denville").should("exist");
-    cy.contains("Ocean County Vocational Technical Schools").should("exist");
+    cy.contains("Morris County School of Technology, Adult Education").should("exist");
     cy.contains("3-5 months to complete").should("exist");
 
     // input search
@@ -51,7 +51,7 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Pastry and Baking Arts").should("exist");
+    cy.contains("Baking and Pastry Arts").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
