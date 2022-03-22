@@ -12,7 +12,7 @@ set -e
 
 echo "starting app"
 ./scripts/build.sh
-ZIPCODE_API_KEY=ZIPCODE_API_KEY ZIPCODE_BASEURL=http://localhost:8090 ./scripts/prod-start-local.sh &
+./scripts/prod-start-local.sh &
 npm --prefix=backend run start:wiremock &
 while ! echo exit | nc localhost ${WIREMOCK_PORT}; do sleep 1; done
 while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done

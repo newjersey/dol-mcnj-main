@@ -8,7 +8,6 @@ import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
 import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandOccupations";
 import { getOccupationDetailFactory } from "./domain/occupations/getOccupationDetail";
-import { ZipcodeClient } from "./zipcodes/ZipcodeClient";
 import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
@@ -29,8 +28,6 @@ const isCI = process.env.IS_CI;
 
 // default external api values
 const apiValues = {
-  zipcodeApiKey: "ZIPCODE_API_KEY",
-  zipcodeBaseUrl: "http://localhost:8090",
   onetBaseUrl: "http://localhost:8090",
   onetAuth: {
     username: "ONET_USERNAME",
@@ -44,9 +41,6 @@ const apiValues = {
 // try to update to use env vars in all cases EXCEPT running feature tests in CI
 // because in CI, we want to use wiremock jsons, not the real APIs
 if (!isCI) {
-  apiValues.zipcodeApiKey = process.env.ZIPCODE_API_KEY || "ZIPCODE_API_KEY";
-  apiValues.zipcodeBaseUrl = process.env.ZIPCODE_BASEURL || "http://localhost:8090";
-
   apiValues.onetBaseUrl = process.env.ONET_BASEURL || "http://localhost:8090";
   apiValues.onetAuth = {
     username: process.env.ONET_USERNAME || "ONET_USERNAME",
@@ -67,7 +61,6 @@ const router = routerFactory({
   searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
-  getZipCodesInRadius: ZipcodeClient(apiValues.zipcodeBaseUrl, apiValues.zipcodeApiKey),
   getOccupationDetail: getOccupationDetailFactory(
     OnetClient(
       apiValues.onetBaseUrl,

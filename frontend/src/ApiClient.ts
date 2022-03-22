@@ -3,7 +3,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
-import { SearchArea } from "./filtering/LocationFilter";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
@@ -16,10 +15,6 @@ export class ApiClient implements Client {
 
   getInDemandOccupations(observer: Observer<InDemandOccupation[]>): void {
     this.get("/api/occupations", observer);
-  }
-
-  getZipcodesInRadius(searchArea: SearchArea, observer: Observer<string[]>): void {
-    this.get(`/api/zipcodes?center=${searchArea.center}&radius=${searchArea.radius}`, observer);
   }
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
