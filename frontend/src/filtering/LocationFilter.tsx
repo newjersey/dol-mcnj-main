@@ -3,111 +3,137 @@ import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } fro
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
-import { Client } from "../domain/Client";
 import { InlineIcon } from "../components/InlineIcon";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
-
+import { FormControl, InputLabel } from "@material-ui/core";
+import { WhiteSelect } from "../components/WhiteSelect";
+import { getZipCodesInRadius } from "./findZipCodesInRadius";
 export interface SearchArea {
   center: string;
-  radius: string;
+  radius: number;
 }
 
-interface Props {
-  client: Client;
-}
+const MILES_VALUES = [5, 10, 25, 50];
+const DEFAULT_MILES = 10;
+const ZIP_CODE_INPUT_PROPS = {
+  "aria-label": SearchAndFilterStrings.locationFilterZipCodePlaceholder,
+};
 
-export const LocationFilter = (props: Props): ReactElement => {
-  const [searchArea, setSearchArea] = useState<SearchArea>({ center: "", radius: "" });
-  const [isError, setIsError] = useState<boolean>(false);
+const checkValidZipCode = (value: string) => {
+  const parsedValue = parseInt(value);
+  if (typeof parsedValue !== "number") return false;
+  return parsedValue >= 7001 && parsedValue <= 8999;
+};
+
+export const LocationFilter = (): ReactElement => {
   const { state, dispatch } = useContext(FilterContext);
+
+  const [searchArea, setSearchArea] = useState<SearchArea>({ center: "", radius: DEFAULT_MILES });
+  const [isValidZipCode, setIsValidZipCode] = useState<boolean>(true);
 
   useEffect(() => {
     const locationFilter = state.filters.find(
       (filter) => filter.element === FilterableElement.LOCATION
     );
-    if (locationFilter) {
+    if (locationFilter != null) {
       setSearchArea(locationFilter.value);
     }
   }, [state.filters]);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === "Enter") {
-      applyLocationFilter();
+  const applyLocationFilter = (currentSearchArea: SearchArea, validateZipCode = true): void => {
+    if (validateZipCode && currentSearchArea.center !== "") {
+      const validZipCode = checkValidZipCode(currentSearchArea.center);
+      setIsValidZipCode(validZipCode);
+      if (!validZipCode) {
+        return;
+      }
     }
-  };
 
-  const handleMilesInput = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchArea({ ...searchArea, radius: event.target.value });
-  };
-
-  const handleZipCodeInput = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchArea({ ...searchArea, center: event.target.value });
-  };
-
-  const applyLocationFilter = (): void => {
-    const bothValuesExist = searchArea.radius && searchArea.center;
-
-    if (bothValuesExist) {
-      props.client.getZipcodesInRadius(searchArea, {
-        onSuccess: (zipCodesInRadius) => {
-          setIsError(false);
-          dispatch({
-            type: FilterActionType.ADD,
-            filter: {
-              element: FilterableElement.LOCATION,
-              value: searchArea,
-              func: (trainingResults): TrainingResult[] =>
-                trainingResults.filter((it) => it.online || zipCodesInRadius.includes(it.zipCode)),
-            },
-          });
-        },
-        onError: () => {
-          setIsError(true);
+    if (currentSearchArea.center) {
+      const zipCodesInRadius = getZipCodesInRadius(
+        currentSearchArea.center,
+        currentSearchArea.radius
+      );
+      dispatch({
+        type: FilterActionType.ADD,
+        filter: {
+          element: FilterableElement.LOCATION,
+          value: currentSearchArea,
+          func: (trainingResults): TrainingResult[] =>
+            trainingResults.filter((it) => it.online || zipCodesInRadius.includes(it.zipCode)),
         },
       });
-    } else {
+    } else if (state.filters.some((filter) => filter.element === FilterableElement.LOCATION)) {
       dispatch({
         type: FilterActionType.REMOVE,
         filter: {
           element: FilterableElement.LOCATION,
-          value: searchArea,
+          value: currentSearchArea,
           func: (trainingResults): TrainingResult[] => trainingResults,
         },
       });
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === "Enter") {
+      applyLocationFilter(searchArea);
+    }
+  };
+
+  const handleMilesInput = (event: ChangeEvent<{ value: unknown }>): void => {
+    const newSearchArea = { ...searchArea, radius: Number(event.target.value) };
+    setSearchArea(newSearchArea);
+    applyLocationFilter(newSearchArea, false);
+  };
+
+  const handleZipCodeInput = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchArea({ ...searchArea, center: event.target.value });
+  };
+
   return (
-    <>
-      <div className="bold">{SearchAndFilterStrings.locationFilterLabel}</div>
+    <section>
+      <header>
+        <div className="bold">{SearchAndFilterStrings.locationFilterLabel}</div>
+      </header>
       <div className="fin mts fac ">
-        <Input
-          id="miles"
-          inputProps={{ "aria-label": "Miles" }}
-          type="number"
-          value={searchArea.radius}
-          onChange={handleMilesInput}
-          onKeyDown={handleKeyDown}
-          onBlur={applyLocationFilter}
-          placeholder={SearchAndFilterStrings.locationFilterMilesPlaceholder}
-        />
+        <FormControl variant="outlined" className="mla width-100">
+          <InputLabel htmlFor="miles">
+            {SearchAndFilterStrings.locationFilterMilesInputLabel}
+          </InputLabel>
+          <WhiteSelect
+            native={true}
+            value={searchArea.radius}
+            onChange={handleMilesInput}
+            label={SearchAndFilterStrings.locationFilterMilesInputLabel}
+            id="miles"
+          >
+            {MILES_VALUES.map((val) => (
+              <option key={val} value={val}>
+                {val}
+              </option>
+            ))}
+          </WhiteSelect>
+        </FormControl>
         <span className="phs">from</span>
         <Input
           id="zipcode"
-          inputProps={{ "aria-label": SearchAndFilterStrings.locationFilterZipCodePlaceholder }}
+          inputProps={ZIP_CODE_INPUT_PROPS}
           type="text"
           value={searchArea.center}
           onChange={handleZipCodeInput}
           onKeyDown={handleKeyDown}
-          onBlur={applyLocationFilter}
+          onBlur={() => applyLocationFilter(searchArea)}
           placeholder={SearchAndFilterStrings.locationFilterZipCodePlaceholder}
+          error={!isValidZipCode}
         />
       </div>
-      {isError && (
+      {!isValidZipCode && (
         <div className="red fin mts">
-          <InlineIcon className="mrxs">error</InlineIcon>&nbsp;{SearchAndFilterStrings.filterError}
+          <InlineIcon className="mrxs">error</InlineIcon>{" "}
+          {SearchAndFilterStrings.locationFilterZipCodeInvalid}
         </div>
       )}
-    </>
+    </section>
   );
 };

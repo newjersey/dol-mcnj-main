@@ -222,7 +222,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                       resultCount={filteredTrainings.length}
                       setShowTrainings={setShouldShowTrainings}
                       resetStateForReload={resetState}
-                      client={props.client}
                       fixedContainer={true}
                     >
                       {getSortDropdown()}
@@ -264,7 +263,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                       resultCount={filteredTrainings.length}
                       setShowTrainings={setShouldShowTrainings}
                       resetStateForReload={resetState}
-                      client={props.client}
                       fixedContainer={true}
                     >
                       {getSortDropdown()}
@@ -312,7 +310,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                       resultCount={filteredTrainings.length}
                       setShowTrainings={setShouldShowTrainings}
                       resetStateForReload={resetState}
-                      client={props.client}
                     >
                       {getSortDropdown()}
                     </FilterBox>

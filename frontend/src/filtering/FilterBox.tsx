@@ -10,7 +10,6 @@ import { Searchbar } from "../components/Searchbar";
 import { navigate } from "@reach/router";
 import { ClassFormatFilter } from "./ClassFormatFilter";
 import { LocationFilter } from "./LocationFilter";
-import { Client } from "../domain/Client";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
@@ -22,7 +21,6 @@ interface Props {
   resetStateForReload: () => void;
   children: ReactElement;
   fixedContainer?: boolean;
-  client: Client;
 }
 
 const usePrevious = <T extends {}>(value: T): T | undefined => {
@@ -40,7 +38,6 @@ export const FilterBox = ({
   resetStateForReload,
   children,
   fixedContainer,
-  client,
 }: Props): ReactElement => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const previousWasTabletAndUp = usePrevious(isTabletAndUp);
@@ -169,7 +166,7 @@ export const FilterBox = ({
         )}
 
         <div className="mtd">
-          <LocationFilter client={client} />
+          <LocationFilter />
         </div>
 
         <div className="mtd">
