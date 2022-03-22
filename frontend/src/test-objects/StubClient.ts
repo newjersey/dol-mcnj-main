@@ -15,7 +15,6 @@ export class StubClient implements Client {
   capturedId: string | undefined = undefined;
   capturedSearchArea: SearchArea | undefined = undefined;
   getOccupationsWasCalled = false;
-  getZipcodesInRadiusWasCalled = false;
 
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
     this.capturedObserver = observer;
@@ -30,12 +29,6 @@ export class StubClient implements Client {
   getInDemandOccupations(observer: Observer<InDemandOccupation[]>): void {
     this.capturedObserver = observer;
     this.getOccupationsWasCalled = true;
-  }
-
-  getZipcodesInRadius(searchArea: SearchArea, observer: Observer<string[]>): void {
-    this.capturedObserver = observer;
-    this.capturedSearchArea = searchArea;
-    this.getZipcodesInRadiusWasCalled = true;
   }
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {

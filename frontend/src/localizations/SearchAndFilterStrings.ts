@@ -11,8 +11,9 @@ export const SearchAndFilterStrings: Record<string, string> = {
   pluralResultCountString: "{count} results",
   mobileFilterText: "Edit Search or Filter",
   locationFilterLabel: "Miles from Zip Code",
-  locationFilterMilesPlaceholder: "Miles",
+  locationFilterMilesInputLabel: "Miles",
   locationFilterZipCodePlaceholder: "Zip Code",
+  locationFilterZipCodeInvalid: "Please enter a 5-digit New Jersey ZIP code.",
   inDemandFilterLabel: "Show In-Demand Trainings Only",
   costFilterLabel: "Cost",
   maxCostLabel: "Max Cost",
@@ -24,5 +25,4 @@ export const SearchAndFilterStrings: Record<string, string> = {
   timeToCompleteWeeksLabel: "Weeks",
   timeToCompleteMonthsLabel: "Months",
   timeToCompleteYearsLabel: "Years",
-  filterError: "This feature is currently unavailable",
 };

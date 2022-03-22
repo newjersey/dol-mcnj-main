@@ -5,7 +5,6 @@ import { FilterContext } from "./FilterContext";
 import React from "react";
 import { FilterBox } from "./FilterBox";
 import { useMediaQuery } from "@material-ui/core";
-import { StubClient } from "../test-objects/StubClient";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -39,7 +38,6 @@ describe("<FilterBox />", () => {
           resultCount={1}
           setShowTrainings={jest.fn()}
           resetStateForReload={jest.fn()}
-          client={new StubClient()}
         >
           <div />
         </FilterBox>
@@ -54,7 +52,6 @@ describe("<FilterBox />", () => {
         resultCount={resultCount}
         setShowTrainings={setShowTrainings}
         resetStateForReload={jest.fn()}
-        client={new StubClient()}
       >
         <div />
       </FilterBox>
@@ -71,7 +68,6 @@ describe("<FilterBox />", () => {
         resultCount={resultCount}
         setShowTrainings={setShowTrainings}
         resetStateForReload={jest.fn()}
-        client={new StubClient()}
       >
         <div />
       </FilterBox>
