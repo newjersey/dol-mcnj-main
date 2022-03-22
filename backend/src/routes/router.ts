@@ -2,7 +2,6 @@ import { Request, Response, Router } from "express";
 import {
   FindTrainingsBy,
   GetInDemandOccupations,
-  GetZipCodesInRadius,
   SearchTrainings,
   GetOccupationDetail,
 } from "../domain/types";
@@ -16,7 +15,6 @@ interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
-  getZipCodesInRadius: GetZipCodesInRadius;
   getOccupationDetail: GetOccupationDetail;
 }
 
@@ -24,7 +22,6 @@ export const routerFactory = ({
   searchTrainings,
   findTrainingsBy,
   getInDemandOccupations,
-  getZipCodesInRadius,
   getOccupationDetail,
 }: RouterActions): Router => {
   const router = Router();
@@ -56,14 +53,6 @@ export const routerFactory = ({
         res.status(200).json(occupations);
       })
       .catch((e) => res.status(500).send(e));
-  });
-
-  router.get("/zipcodes", (req: Request, res: Response<string[]>) => {
-    getZipCodesInRadius(req.query.center as string, req.query.radius as string)
-      .then((zipCodes: string[]) => {
-        res.status(200).json(zipCodes);
-      })
-      .catch(() => res.status(500).send());
   });
 
   router.get("/occupations/:soc", (req: Request, res: Response<OccupationDetail>) => {
