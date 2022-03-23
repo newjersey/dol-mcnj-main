@@ -6,7 +6,7 @@ Created on Thu Feb 18 13:59:05 2021
 """
 
 import pandas as pd
-
+import sys
 
 def input_source(*args):
     df = {}
@@ -85,12 +85,14 @@ def addCredentials(maindf):
     return df
 
 
-def export(df):
-    df.to_csv('../programs_yyyymmdd_merged.csv', index=False, encoding='utf-8-sig')
+def export(df, yyyymmdd):
+    df.to_csv(f'../programs_{yyyymmdd}_merged.csv', index=False, encoding='utf-8-sig')
 
 
 def main():
-    from_filepath = "../programs_yyyymmdd.csv"
+    print(sys.argv)
+    yyyymmdd = sys.argv[1]
+    from_filepath = f"../programs_{yyyymmdd}.csv"
     input_file1 = "./TBLDEGREELU_DATA_TABLE.csv"
     input_file2 = "./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv"
     input_file3 = "./TBLLICENSE_DATA_TABLE.csv"
@@ -100,6 +102,9 @@ def main():
     mydf = input_source(files_list)
     maindf = mydf['df0']
     df1, df2, df3 = mydf['df1'], mydf['df2'], mydf['df3']
+
+    # Remove private data from programs file
+    maindf.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
 
     # merge degree
     leftcolslist = maindf.columns.values.tolist()
@@ -128,7 +133,7 @@ def main():
     # maindf['OFFICIALNAME'] = maindf['OFFICIALNAME'].str.replace('[*,"]', '')
 
     # export to csv
-    export(finaldf)
+    export(finaldf, yyyymmdd)
 
 
 if __name__ == '__main__':
