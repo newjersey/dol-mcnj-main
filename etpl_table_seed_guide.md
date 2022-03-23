@@ -11,69 +11,67 @@ The process, at a high level:
 4. [Insert](#insert-the-data) the data into the database migration
 5. [Update](#update-the-programtokens) the program tokens within the migration
 
-## Add Credential Names
+## Prerequisites
 
-1. Make sure you have Python (version 3) installed.
-1. Download the programs and providers CSVs
-1. Rename the files to the `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` formats.
-1. Put the files in the `backend/data` folder.
-1. In the `programs`, delete the `SUBMITTERNAME` and `SUBMITTERTITLE` columns. These are private data that should not be part of our repo.
-1. Move to the program credentials folder:
+You will need the following:
+
+- Terminal
+- Python version 3 installed
+- `pipenv` package installed
+
+## Get CSVs and Clean Programs
+
+1. Download the programs and providers CSVs from NJTOPPS (the POC from NJ DOL will be able to send them to you)
+2. Rename the files to the `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` formats, and move them to the `backend/data folder`. You can use the following script, assuming your CSV files are in the `d4ad` root folder.
+
+```shell script
+date=$(date '+%Y%m%d')
+mv oldProgramsFileName.csv "backend/data/programs_${date}.csv"
+mv oldProvidersFileName.csv "backend/data/providers_${date}.csv"
+```
+
+3. Move to the program credentials folder and execute the following script to add the `DEGREEAWARDEDNAME`, `LICENSEAWARDEDNAME`, and `INDUSTRYCREDENTIALNAME` columns
+   to programs `programs_yyyymmdd.csv`. This also removes the `SUBMITTERNAME` and `SUBMITTERTITLE` columns from the resulting file, as it is private data that should not be part of the data we upload.
 
 ```shell script
 cd backend/data/program-credentials
+python3 merge-credentials.py $date
 ```
 
-6. Open `merge-credentials.py` in your IDE and update the following lines (36 & 41) with the correct `programs_yyyymmdd.csv` filename:
+4. Confirm the changes in Step 3 before moving to the next step. Also, remove (if any) trailing whitespace at end of file.
 
-```
-df.to_csv('../programs_yyyymmdd_merged.csv', index=False)
-```
+5. Open `programs_yyyymmdd_merged.csv` in your IDE. If integer values appear as decimals, open file in Excel and hit save. The numbers will appear as integers again. If you do not do this, you will get an error in the next step with decimal numbers in the message.
 
-```
-from_filepath = "../programs_yyyymmdd.csv"
-```
+## Combine Programs and Providers
 
-7. Execute the following script to add the `DEGREEAWARDEDNAME`, `LICENSEAWARDEDNAME`, and `INDUSTRYCREDENTIALNAME` columns
-   to programs `programs_yyyymmdd.csv`.
-
-```shell script
-python3 merge-credentials.py programs_yyyymmdd.csv
-```
-
-8. Confirm this change before moving to the next step. Also, remove (if any) trailing whitespace at end of file.
-
-9. Open `programs_yyyymmdd_merged.csv` in your IDE. If integer values appear as decimals, open file in Excel and hit save. The numbers will appear as integers again. If you do not do this, you will get an error in the next step with decimal numbers in the message.
-
-## Combine the CSV files
-
-1. Execute the combiner script as follows. This moves back to the `backend/data` folder, adds the `_old` suffix to the CSV file to make way for the new one, and generates `combined_etpl_raw.csv` in the same `backend/data` folder.
+6. Execute the combiner script as follows. This moves back to the `backend/data` folder, adds the `_old` suffix to the CSV file to make way for the new one, and generates `combined_etpl_raw.csv` in the same `backend/data` folder.
 
 ```shell script
 cd ..
 mv standardized_etpl.csv standardized_etpl_old.csv
-./combine-etpl.sh programs_yyyymmdd_merged.csv providers_yyyymmdd.csv
+./combine-etpl.sh "programs_${date}_merged.csv" "providers_${date}.csv"
 ```
 
-## Standardize using python scripts
+## Standardize Combined Data
 
-1. Make sure `pipenv` is installed on the machine.
-2. In `backend/data`, run the standardizer script. This will create the new `standardized_etpl.csv` and put it in the same folder.
+7. In `backend/data`, run the standardizer script. This will create the new `standardized_etpl.csv` and put it in the same folder.
 
 ```shell script
 ./run-standardization.sh
 ```
 
-## Insert the data
+## Create migrations to update Postgres DB
 
-1. Follow the [README instructions](https://github.com/newjersey/d4ad/blob/master/README.md#updating-seeds) to create a new migration for the update operation. The tablename is `etpl`. Use the `standardized_etpl.csv` as the "new" file, and `standardized_etpl_old.csv` as the "old" file.
-2. After this step, delete the `standardized_etpl_old.csv`, `programs_yyyymmdd.csv`, `providers_yyyymmdd.csv`, `combined_etpl_raw.csv`, `programs_yyyymmdd_merged.csv` files. You no longer need them and don't need to push them to Github.
+8. Follow the [README instructions](https://github.com/newjersey/d4ad/blob/master/README.md#updating-seeds) to create a new migration for the update operation. The tablename is `etpl`. Use the `standardized_etpl.csv` as the "new" file, and `standardized_etpl_old.csv` as the "old" file.
+9. After this step, delete the files that you will not need to push to Github. Run the following command in the `backend/data` folder.
 
-## Update the `programtokens`
+```shell script
+rm standardized_etpl_old.csv && rm "programs_${date}.csv" && rm "providers_${date}.csv" && rm combined_etpl_raw.csv && rm "programs_${date}_merged.csv"
+```
 
-This is **IMPORTANT** when updating the ETPL table.
+## Update the `programtokens` DB
 
-1. At the END of BOTH the up-file AND the down-file, we must delete all rows from the `programtokens` table and re-create it by adding the following code. This will ensure that the tokens being searched on are up-to-date with etpl table changes. Please see [`decision_log.md #2020-08-12`](https://github.com/newjersey/d4ad/blob/master/decision_log.md#2020-08-12) for explanation of why we need this.
+10. **Important**: At the END of BOTH the up-file AND the down-file, we must delete all rows from the `programtokens` table and re-create it by adding the following code. This will ensure that the tokens being searched on are up-to-date with etpl table changes. Please see [`decision_log.md #2020-08-12`](https://github.com/newjersey/d4ad/blob/master/decision_log.md#2020-08-12) for explanation of why we need this.
 
 ```postgresql
 delete from programtokens;
