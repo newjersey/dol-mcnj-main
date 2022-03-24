@@ -1,4 +1,4 @@
 {
   "tags": ["backend"],
-  "dependencies": ["knex", "express", "cors", "supertest", "axios", "path"]
+  "dependencies": ["knex", "express", "cors", "supertest", "axios"]
 }
