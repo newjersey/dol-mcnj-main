@@ -6,7 +6,7 @@ import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { InDemandTag } from "../components/InDemandTag";
 
-export const FaqEnrollProgram = (props: RouteComponentProps): ReactElement => {
+export const FaqEnrollProgram = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Enroll Program";
     window.scrollTo(0, 0);

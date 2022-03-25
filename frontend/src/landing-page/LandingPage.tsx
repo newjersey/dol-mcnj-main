@@ -10,7 +10,7 @@ import IconGear from "./landing-icons/gear.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
 import { LandingPageStrings } from "../localizations/LandingPageStrings";
 
-export const LandingPage = (props: RouteComponentProps): ReactElement => {
+export const LandingPage = (_props: RouteComponentProps): ReactElement => {
   return (
     <>
       <Header />

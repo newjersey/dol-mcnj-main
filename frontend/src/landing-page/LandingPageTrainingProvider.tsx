@@ -12,7 +12,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { TrainingProviderPageStrings } from "../localizations/TrainingProviderPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
 
-export const LandingPageTrainingProvider = (props: RouteComponentProps): ReactElement => {
+export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
 
   return (
