@@ -1,6 +1,5 @@
 .nj-logo-header {
   width: 2rem;
-  z-index: 14;
 }
 
 .header {
@@ -34,6 +33,7 @@
   .logo {
     grid-area: 1 / 1 / 1 / -1;
     justify-self: end;
+    z-index: 14;
 
     @media (min-width: 768px) {
       justify-self: center;
