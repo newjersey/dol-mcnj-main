@@ -7,7 +7,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import SearchScreenshot from "./search-screenshot.png";
 import FilterScreenshot from "./filter-screenshot.png";
 
-export const FaqSearchHelp = (props: RouteComponentProps): ReactElement => {
+export const FaqSearchHelp = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Search Help";
     window.scrollTo(0, 0);

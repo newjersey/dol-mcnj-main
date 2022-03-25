@@ -5,7 +5,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 
-export const FaqFundingOpportunities = (props: RouteComponentProps): ReactElement => {
+export const FaqFundingOpportunities = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Funding Opportunities";
     window.scrollTo(0, 0);

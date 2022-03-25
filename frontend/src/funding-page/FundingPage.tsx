@@ -5,7 +5,7 @@ import React, { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { FundingPageStrings } from "../localizations/FundingPageStrings";
 
-export const FundingPage = (props: RouteComponentProps): ReactElement => {
+export const FundingPage = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = FundingPageStrings.pageTitle;
   }, []);

@@ -13,7 +13,7 @@ export const ContextualInfoPanel = (): ReactElement => {
   }, [setContextualInfo]);
 
   const onCloseHandler = useCallback(
-    (event) => {
+    (_event) => {
       onClickClose();
     },
     [onClickClose]

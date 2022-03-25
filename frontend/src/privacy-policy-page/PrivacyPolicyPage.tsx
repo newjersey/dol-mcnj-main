@@ -4,7 +4,7 @@ import { Header } from "../components/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Footer } from "../components/Footer";
 
-export const PrivacyPolicyPage = (props: RouteComponentProps): ReactElement => {
+export const PrivacyPolicyPage = (_props: RouteComponentProps): ReactElement => {
   return (
     <>
       <Header />

@@ -31,7 +31,7 @@ interface Props extends RouteComponentProps {
   client: Client;
 }
 
-export const EtplPage = (props: Props): ReactElement => {
+export const EtplPage = (_props: Props): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
 
   useEffect(() => {

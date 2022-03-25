@@ -11,7 +11,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { CounselorPageStrings } from "../localizations/CounselorPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
 
-export const LandingPageCounselor = (props: RouteComponentProps): ReactElement => {
+export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
 
   return (

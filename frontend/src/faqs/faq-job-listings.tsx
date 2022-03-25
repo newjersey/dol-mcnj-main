@@ -7,7 +7,7 @@ import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import SearchOccupationScreenshot from "./search-occupation-screenshot.png";
 import OccupationDetailsScreenshot from "./occupation-details-screenshot.png";
 
-export const FaqJobListings = (props: RouteComponentProps): ReactElement => {
+export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Job Listings";
     window.scrollTo(0, 0);

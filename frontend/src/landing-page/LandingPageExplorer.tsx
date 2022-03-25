@@ -12,7 +12,7 @@ import IconOccupation from "./landing-icons/occupations.svg";
 import { ExplorerPageStrings } from "../localizations/ExplorerPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
 
-export const LandingPageExplorer = (props: RouteComponentProps): ReactElement => {
+export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
 
   return (

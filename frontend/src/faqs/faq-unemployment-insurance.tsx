@@ -5,7 +5,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 
-export const FaqUnemploymentInsurance = (props: RouteComponentProps): ReactElement => {
+export const FaqUnemploymentInsurance = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Unemployment Insurance";
     window.scrollTo(0, 0);

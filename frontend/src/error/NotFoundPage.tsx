@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import { ErrorPage } from "./ErrorPage";
 import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
 
-export const NotFoundPage = (props: RouteComponentProps): ReactElement => {
+export const NotFoundPage = (_props: RouteComponentProps): ReactElement => {
   return (
     <ErrorPage headerText={ErrorPageStrings.notFoundHeader}>
       <>
