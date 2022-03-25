@@ -1,4 +1,4 @@
-import { Icon, IconButton, useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import React, { ReactElement, useContext, useCallback } from "react";
 import { StatBlockStrings } from "../localizations/StatBlockStrings";
 import { ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
@@ -46,15 +46,14 @@ export const StatBlock = (props: Props): ReactElement => {
         className={props.tooltipText ? "fdr fjb fac" : "fdr fje fac"}
         {...tooltipTargetIfMobile()}
       >
-        <div>{props.title}</div>
-        {!isTabletAndUp && <div className="stat-block-number mla mrs">{props.data}</div>}
-        {props.tooltipText != null && (
-          <IconButton aria-label="open info panel" onClick={onClickInfo} color="primary">
-            <Icon fontSize="small" data-for={`${props.title}-tooltip`} data-tip="">
-              info
-            </Icon>
-          </IconButton>
+        {props.tooltipText != null ? (
+          <button onClick={onClickInfo} className="contextual-link-button">
+            <span className="contextual-link-text">{props.title}</span>
+          </button>
+        ) : (
+          <div>{props.title}</div>
         )}
+        {!isTabletAndUp && <div className="stat-block-number mla mrs">{props.data}</div>}
       </div>
       {isTabletAndUp && <div className="stat-block-number ptm pbs">{props.data}</div>}
     </div>

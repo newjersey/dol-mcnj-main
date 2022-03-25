@@ -133,3 +133,16 @@ a.link-format-blue {
     padding-right: 1.5em;
   }
 }
+
+.contextual-link-button {
+  font-weight: inherit !important;
+  font-style: inherit !important;
+  cursor: pointer;
+  color: #000000;
+}
+
+.contextual-link-text {
+  border-bottom-width: 2px;
+  border-bottom-style: dashed;
+  border-color: #000000;
+}
