@@ -3,6 +3,7 @@
 [![build](https://circleci.com/gh/newjersey/d4ad.svg?style=shield)](https://circleci.com/gh/newjersey/d4ad)
 
 ## Getting Started
+first, 🍕 + 🥯.
 
 This [typescript](https://www.typescriptlang.org/) repo is structured with two primary sub-folders:
 
