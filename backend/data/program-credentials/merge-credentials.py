@@ -90,7 +90,6 @@ def export(df, yyyymmdd):
 
 
 def main():
-    print(sys.argv)
     yyyymmdd = sys.argv[1]
     from_filepath = f"../programs_{yyyymmdd}.csv"
     input_file1 = "./TBLDEGREELU_DATA_TABLE.csv"
