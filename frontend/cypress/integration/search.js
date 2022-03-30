@@ -82,14 +82,14 @@ describe("Search", () => {
 
   it("links to a training detail page", () => {
     cy.visit("/search/digital%20marketing");
-    cy.contains("in Integrated Marketing Communications").click({ force: true });
-    cy.location("pathname").should("eq", "/training/43873");
+    cy.contains("Certified Digital Marketing Professional").click({ force: true });
+    cy.location("pathname").should("eq", "/training/51389");
 
     // removes search results
-    cy.contains("Digital Marketing").should("not.exist");
+    cy.contains("Rutgers Virtual Live Mini MBA").should("not.exist");
 
     // shows program
-    cy.contains("in Integrated Marketing Communications").should("exist");
+    cy.contains("Certified Digital Marketing Professional").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
@@ -103,11 +103,11 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Visual and Digital Design").within(() => {
+    cy.contains("Smartphone Programmer").within(() => {
       cy.contains("In Demand").should("not.exist");
     });
 
-    cy.contains("in Integrated Marketing Communications").click({ force: true });
+    cy.contains("Certified Digital Marketing Professional").click({ force: true });
     cy.contains("In Demand").should("exist");
   });
 
@@ -131,7 +131,7 @@ describe("Search", () => {
       cy.get("[data-testid='card']")
         .first()
         .within(() => {
-          cy.get('[type="checkbox"][name="compare"]').check();
+          cy.get('[type="checkbox"][name="compare"]').focus().check();
         });
 
       cy.get(".training-comparison").within(() => {

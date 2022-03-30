@@ -109,8 +109,8 @@ psql $DBNAME -c "CREATE TABLE providers (
   );" -U postgres -h localhost -p 5432
 
 # copy data in
-psql $DBNAME -c "COPY $PROGRAMS_TABLE FROM '`pwd`/$1' DELIMITER ',' CSV HEADER;" -U postgres -h localhost -p 5432
-psql $DBNAME -c "COPY $PROVIDERS_TABLE FROM '`pwd`/$2' DELIMITER ',' CSV HEADER;" -U postgres -h localhost -p 5432
+psql $DBNAME -c "\COPY $PROGRAMS_TABLE FROM '`pwd`/$1' DELIMITER ',' CSV HEADER;" -U postgres -h localhost -p 5432
+psql $DBNAME -c "\COPY $PROVIDERS_TABLE FROM '`pwd`/$2' DELIMITER ',' CSV HEADER;" -U postgres -h localhost -p 5432
 
 # export joined table as csv
 psql $DBNAME -c "\copy (select programs.PROVIDERID,
