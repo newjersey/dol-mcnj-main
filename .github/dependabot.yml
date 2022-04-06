@@ -8,14 +8,14 @@ updates:
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     commit-message:
       prefix: "chore"
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     commit-message:
       prefix: "chore"
       include: "scope"
