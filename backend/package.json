@@ -58,7 +58,7 @@
     "eslint-config-prettier": "^6.11.0",
     "fs-extra": "^10.0.1",
     "good-fences": "^0.9.1",
-    "jasmine": "^3.5.0",
+    "jasmine": "^4.1.0",
     "jest": "^26.6.3",
     "prettier": "^2.0.5",
     "supertest": "^6.2.2",
