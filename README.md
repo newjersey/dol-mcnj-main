@@ -158,11 +158,10 @@ in a table new fresher data from a CSV), here is what to do:
 For updating the ETPL data, it would be (without the correct up and down files changed):
 
 ```shell script
-./backend/data/create_update_migrations.sh standardized_etpl_old.csv standardized_etpl.csv etpl backend/migrations/sqls/upFileName.sql backend/migrations/sqls/downFileName.sql
+./backend/data/create_update_etpl_migrations.sh backend/migrations/sqls/INSERT-UP-FILENAME.sql backend/migrations/sqls/INSERT-DOWN-FILENAME.sql
 ```
 
-4. Open the up and down SQL files to see that they've been filled with SQL commands. In most cases, it should be a combination of `DELETE FROM` and `INSERT INTO` statements.
-5. We need to make sure the test migrations are accurate. Create new up and down files with the same name but with the `-TEST.sql` added.
+4. We need to make sure the test migrations are accurate. Create new up and down files with the same name but with the `-TEST.sql` added.
 
 - If your operation is just an update, leave a comment in BOTH files for "intentionally left blank"
 - If your operation adds new columns, your down file should be "intentionally left blank" but your up file should delete from and re-insert the newly restructured test data. Do this by first making a copy of `standardized_etpl_test.csv` and naming it `standardized_etpl_test_old.csv`. Then, add your new column(s) to the `standardized_etpl_test.csv` file and fill with dummy data. Then, run the same script in Step 3 above with the same table name but the test CSV files and up and down SQL files.
