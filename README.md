@@ -118,14 +118,14 @@ Assuming that you want a different seed for testing vs real life, then:
 - edit the corresponding `.js` file for the migration by replacing this line:
 
 ```javascript
-exports.up = function(db) {
+exports.up/down = function(db) {
   var filePath = path.join(__dirname, 'sqls', 'filename.sql');
 ```
 
 with this instead:
 
 ```javascript
-exports.up = function(db) {
+exports.up/down = function(db) {
   const fileName = process.env.NODE_ENV === 'test' ? 'filename-TEST.sql' : 'filename.sql';
   var filePath = path.join(__dirname, 'sqls', fileName);
 ```
@@ -145,7 +145,7 @@ exports.up = function(db) {
 When you want to add a DB migration that is a **seed update** operation (that is, replacing data
 in a table new fresher data from a CSV), here is what to do:
 
-> **IMPORTANT:** if we're updating the `etpl` table, first follow the [ETPL table seed guide](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md)
+> **IMPORTANT:** if we're updating the `etpl` table, follow the [ETPL table seed guide](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md) instead.
 
 1. Create a database migration using the same script as [above](d4ad#adding-db-migrations) in the root `d4ad` folder. Use the `update-*` pattern for the migration name. For example, for the `etpl` table, you would run `npm --prefix=backend run db-migrate create update-etpl -- --sql-file`. This will automatically create the up and down SQL files and the JS file, all prefixed with a timestamp.
 2. Make sure that both the OLD (previous) CSV and also the NEW (about-to-be-inserted) CSV are in the `backend/data` folder.
@@ -155,28 +155,14 @@ in a table new fresher data from a CSV), here is what to do:
 ./backend/data/create_update_migrations.sh oldFilename.csv newFilename.csv tablenameToInsertInto backend/migrations/sqls/upFileName.sql backend/migrations/sqls/downFileName.sql
 ```
 
-For updating the ETPL data, it would be (without the correct up and down files changed):
-
-```shell script
-./backend/data/create_update_etpl_migrations.sh backend/migrations/sqls/INSERT-UP-FILENAME.sql backend/migrations/sqls/INSERT-DOWN-FILENAME.sql
-```
-
 4. We need to make sure the test migrations are accurate. Create new up and down files with the same name but with the `-TEST.sql` added.
 
 - If your operation is just an update, leave a comment in BOTH files for "intentionally left blank"
-- If your operation adds new columns, your down file should be "intentionally left blank" but your up file should delete from and re-insert the newly restructured test data. Do this by first making a copy of `standardized_etpl_test.csv` and naming it `standardized_etpl_test_old.csv`. Then, add your new column(s) to the `standardized_etpl_test.csv` file and fill with dummy data. Then, run the same script in Step 3 above with the same table name but the test CSV files and up and down SQL files.
+- If your operation adds new columns, your down file should be "intentionally left blank" but your up file should delete from and re-insert the newly restructured test data.
 
 5. As mentioned in the "Seeding" section above, modify the `.js` file for the migration to conditionally load the `-TEST.sql` up and down files.
-6. Go back to the [ETPL Table Seed Guide](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md#create-migrations-to-update-postgres-db) and continue with Step 9.
-7. Finally, run the automated tests in the root folder with `./scripts/test-all.sh && ./scripts/build.sh && ./scripts/feature-tests.sh`.
 
-> **Troubleshooting**: When running the tests above, if you get an error during migration about a certain field not being a "numeric type," check the up-TEST file to make sure that the first line is not inserting the actual column names into the table, such as "tuition." If so, delete this line, since we only want to insert the actual data, not the column names from the CSV.
-
-> **Troubleshooting 2**: If you get the error that `duplicate key value violates unique constraint "etpl_pkey"`, then there may be an issue in how the SQL script is deleting data. To remedy this, highlight all of the statements in your UP and DOWN files that start with `DELETE FROM`, and replace them with just one line: `DELETE FROM etpl;`. Instead of deleting specific rows, this will wipe the entire table. This should only be done if there are ~5k `INSERT INTO` statements in the file, meaning the entire data set will be re-inserted into the table.
-
-> **Troubleshooting 3**: If you get the error about a Postgres password not being of the right type, you may need to change your Postgres user permissions. This involves finding the `pg_hba.conf` file on your computer, opening it in your Terminal via Vim editor, and changing all the permissions to `trust` instead of `sha_...`.
-
-8. Add, commit, and push the requisite files (up and down SQL files, the up and down TEST SQL files, the updated JS migration file, and the updated CSV file). The continuous deployment will automatically run the script that finds this new migration and executes it, thus updating the Postgres database with the commands outlined in the migrations.
+6. Add, commit, and push the requisite files (up and down SQL files, the up and down TEST SQL files, the updated JS migration file, and the updated CSV file). The continuous deployment will automatically run the script that finds this new migration and executes it, thus updating the Postgres database with the commands outlined in the migrations.
 
 ## Pushing changes
 

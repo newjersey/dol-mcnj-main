@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-SQL_UP=$1
-SQL_DOWN=$2
+OLD_CSV=$1
+NEW_CSV=$2
+SQL_UP=$3
+SQL_DOWN=$4
 
-node backend/data/csvDeleteAllAndInsert.js standardized_etpl.csv etpl $SQL_UP
-node backend/data/csvDeleteAllAndInsert.js standardized_etpl_old.csv etpl $SQL_DOWN
+node backend/data/csvDeleteAllAndInsert.js $NEW_CSV etpl $SQL_UP
+node backend/data/csvDeleteAllAndInsert.js $OLD_CSV etpl $SQL_DOWN
