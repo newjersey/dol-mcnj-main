@@ -8,13 +8,14 @@ because it requires multiple steps for standardizing the data, inserting it, and
 You will need the following:
 
 - Terminal
-- Python version 3 installed
+- Python version 3.7 installed
 - `pipenv` package installed
 
 ## Get CSVs and Clean Programs
 
-1. Download the programs and providers CSVs from NJTOPPS (the POC from NJ DOL will be able to send them to you) and name them as `oldPrograms.csv` and `oldProviders.csv`.
-2. In the `d4ad` root folder, run the script below. It will rename the files to the `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` formats, and move them to the `backend/data folder`.
+1. Download the latest programs and providers CSVs from NJTOPPS (the POC from NJ DOL will send them to you). Rename them as `oldPrograms.csv` and `oldProviders.csv`.
+2. In Terminal, in the `d4ad` root folder, run the commands below.
+   _Context:_ It will name the files to the `programs_yyyymmdd.csv` and `providers_yyyymmdd.csv` formats and move them to the `backend/data folder`.
 
 ```shell script
 date=$(date '+%Y%m%d')
@@ -22,18 +23,23 @@ mv oldPrograms.csv "backend/data/programs_${date}.csv"
 mv oldProviders.csv "backend/data/providers_${date}.csv"
 ```
 
-3. In the root folder, run the following script. It will move to the program credentials folder and execute the following script to add the `DEGREEAWARDEDNAME`, `LICENSEAWARDEDNAME`, and `INDUSTRYCREDENTIALNAME` columns to programs `programs_yyyymmdd.csv`. This also removes the `SUBMITTERNAME` and `SUBMITTERTITLE` columns from the resulting file, as it is private data that should not be part of the data we upload. You may see a warning in the output, that's okay!
+3. In the same `d4ad` folder, run the following commands.
+   _Context_: It will create the `programs_yyyymmdd_merged.csv` file, with `DEGREEAWARDEDNAME`, `LICENSEAWARDEDNAME`, and `INDUSTRYCREDENTIALNAME` columns added and `SUBMITTERNAME` and `SUBMITTERTITLE` removed (private data). You may see a warning in the output, that's okay!
 
 ```shell script
 cd backend/data/program-credentials
 python3 merge-credentials.py $date
 ```
 
-4. Open the `programs_yyyymmdd_merged.csv` file in both your IDE and Excel. In your IDE, if integer values appear as decimals, hit save in Excel. The numbers will appear as integers again. If you do not do this, you will get an error in the next step with decimal numbers in the message. In Excel, also confirm the changes in Step 3. In your IDE, if you see any new lines at the end of the file, remove it.
+4. Open the `programs_yyyymmdd_merged.csv` file in Excel. Hit Save.
+   _Context_: Sometimes, integer values may appear as decimals in the CSV. This will make them integers again, preventing an error in the combine step.
+
+5. Open the `programs_yyyymmdd_merged.csv` file in your IDE. Scroll to the bottom of the file. If you see any new empty lines, delete them so that the last line is data.
 
 ## Combine Programs and Providers
 
-6. In the same `program-credentials` folder, run the script below. This moves back to the `backend/data` folder, adds the `_old` suffix to the CSV file to make way for the new one, and generates `combined_etpl_raw.csv` in the same `backend/data` folder.
+6. In the same `program-credentials` folder, run the script below.
+   _Context_: This adds the `_old` suffix to the standardized CSV file to make way for the new one, and generates `combined_etpl_raw.csv` in the same `backend/data` folder.
 
 > If you are asked for a Postgres password, include the one you made for the user `postgres` when setting up the app. You may get an error that "the etplcombination table doesn't exist", that's okay!
 
@@ -45,7 +51,8 @@ mv standardized_etpl.csv standardized_etpl_old.csv
 
 ## Standardize Combined Data
 
-7. In `backend/data`, run the following script. This will create the new `standardized_etpl.csv` and put it in the same folder.
+7. In `backend/data`, run the following script.
+   _Context_: This will create the new `standardized_etpl.csv` and put it in the same folder.
 
 ```shell script
 ./run-standardization.sh
@@ -57,7 +64,7 @@ mv standardized_etpl.csv standardized_etpl_old.csv
 9. After this step, delete the files that you will not need to push to Github. Run the following command in the `backend/data` folder.
 
 ```shell script
-rm standardized_etpl_old.csv && rm "programs_${date}.csv" && rm "providers_${date}.csv" && rm "program-credentials/programs_${date}_merged.csv"
+rm standardized_etpl_old.csv && rm "programs_${date}.csv" && rm "providers_${date}.csv" && rm "programs_${date}_merged.csv"
 ```
 
 ## Update the `programtokens` DB

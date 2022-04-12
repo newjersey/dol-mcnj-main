@@ -2,6 +2,7 @@ dist/
 migrations/
 data/csvInserter.js
 data/csvUpdater.js
+data/csvDeleteAllAndInsert.js
 src/globalSetup.js
 src/globalTeardown.js
 node_modules
