@@ -77,10 +77,8 @@ npm --prefix=backend run db-migrate create update-etpl -- --sql-file
 ```
 
 10. Create new up and down files with the same names but with the `-TEST.sql` suffix instead.
-
-    10.1. If your operation is just an update, add the following comment "-- intentionally left blank" to both files.
-
-    10.2. If your operation adds new columns, your DOWN file should have "-- intentionally left blank" but your UP file should have SQL code. Do this by first making a copy of `standardized_etpl_test.csv` and naming it `standardized_etpl_old_test.csv`. Then, add your new column(s) to the `standardized_etpl_test.csv` file in Excel and fill with dummy data. Finally, run the same script in Step 9 above with the test CSV and SQL files.
+    10.1. If your operation is just an update, add the following comment `-- intentionally left blank` to both files.
+    10.2. If your operation adds new columns, your DOWN file should have `-- intentionally left blank` but your UP file should have SQL code. Do this by first making a copy of `standardized_etpl_test.csv` and naming it `standardized_etpl_old_test.csv`. Then, add your new column(s) to the `standardized_etpl_test.csv` file in Excel and fill with dummy data. Finally, run the same script in Step 9 above with the test CSV and SQL files.
 
 11. Modify the migration `.js` file to conditionally load the `-TEST.sql` up and down files. Follow the instructions in the README section starting with "edit the corresponding `.js` file..." to see what code to replace.
 12. Delete the files that you will not need to push to Github. Run the following command in the `backend/data` folder.
@@ -117,6 +115,6 @@ group by etpl.programid;
 
 > **Troubleshooting 1**: If you get the error about a Postgres password not being of the right type, you may need to change your Postgres user permissions. This involves finding the `pg_hba.conf` file on your computer, opening it in your Terminal via Vim editor, and changing all the permissions to `trust` instead of `sha_...`.
 
-**Troubleshooting 2**: If Cypress feature tests fail, you likely need to just change some of the data that we are looking for in the Training Explorer. Check the video for what data is showing in these instances, and update the test to check for that same data. You'll see examples of this in past commits to update data.
+> **Troubleshooting 2**: If Cypress feature tests fail, you likely need to just change some of the data that we are looking for in the Training Explorer. Check the video for what data is showing in these instances, and update the test to check for that same data. You'll see examples of this in past commits to update data.
 
 15. Add, commit, and push the requisite files (up and down SQL files, the up and down TEST SQL files, the updated JS migration file, and the updated CSV file). The continuous deployment will automatically run the script that finds this new migration and executes it, thus updating the Postgres database with the commands outlined in the migrations.
