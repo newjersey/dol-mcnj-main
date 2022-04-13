@@ -5,6 +5,7 @@ import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
 
 describe("filtering by online or in-person", () => {
   const online = buildTrainingResult({ name: "online training", online: true });
@@ -55,5 +56,16 @@ describe("filtering by online or in-person", () => {
 
     expect(subject.getByText("online training")).toBeInTheDocument();
     expect(subject.getByText("in-person training")).toBeInTheDocument();
+  });
+
+  it("removes filter when clear button is clicked", () => {
+    fireEvent.click(subject.getByLabelText("In-Person"));
+    expect(subject.getByLabelText("In-Person")).toBeChecked();
+
+    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    expect(subject.getByLabelText("In-Person")).not.toBeChecked();
+    expect(subject.queryByText("online training")).toBeInTheDocument();
+    expect(subject.queryByText("in-person training")).toBeInTheDocument();
   });
 });

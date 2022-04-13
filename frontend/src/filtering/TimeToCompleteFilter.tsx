@@ -28,13 +28,15 @@ const TimeToCompleteBuckets = {
   ],
 };
 
+const INITIAL_STATE = {
+  days: false,
+  weeks: false,
+  months: false,
+  years: false,
+};
+
 export const TimeToCompleteFilter = (): ReactElement => {
-  const [timeToComplete, setTimeToComplete] = useState<TimeToComplete>({
-    days: false,
-    weeks: false,
-    months: false,
-    years: false,
-  });
+  const [timeToComplete, setTimeToComplete] = useState<TimeToComplete>(INITIAL_STATE);
 
   const { state, dispatch } = useContext(FilterContext);
 
@@ -44,7 +46,10 @@ export const TimeToCompleteFilter = (): ReactElement => {
     );
     if (timeToCompleteFilter) {
       setTimeToComplete(timeToCompleteFilter.value);
+    } else if (timeToCompleteFilter == null && Object.values(timeToComplete).some((val) => val)) {
+      setTimeToComplete(INITIAL_STATE);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {

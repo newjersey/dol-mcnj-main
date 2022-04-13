@@ -15,7 +15,10 @@ export const InDemandOnlyFilter = (): ReactElement => {
     );
     if (inDemandOnlyFilter) {
       setInDemandOnly(inDemandOnlyFilter.value);
+    } else if (inDemandOnlyFilter == null && inDemandOnly) {
+      setInDemandOnly(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
   const applyInDemandOnlyFilter = (event: ChangeEvent<HTMLInputElement>): void => {

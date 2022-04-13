@@ -1,9 +1,10 @@
-import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import React, { ChangeEvent, ReactElement, useEffect, useState, useContext } from "react";
 import { InputAdornment, Icon } from "@material-ui/core";
 import { PrimaryButton } from "./PrimaryButton";
 import { Input } from "./Input";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
-
+import { SecondaryButton } from "../components/SecondaryButton";
+import { FilterActionType, FilterContext } from "../filtering/FilterContext";
 interface Props {
   onSearch: (searchQuery: string) => void;
   initialValue?: string;
@@ -12,10 +13,12 @@ interface Props {
   buttonText?: string;
   placeholder?: string;
   className?: string;
+  isLandingPage?: boolean;
 }
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const { dispatch } = useContext(FilterContext);
 
   useEffect(() => {
     if (props.initialValue) {
@@ -31,6 +34,10 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
     if (event.key === "Enter") {
       props.onSearch(searchQuery);
     }
+  };
+
+  const handleClearAll = (): void => {
+    dispatch({ type: FilterActionType.REMOVE_ALL });
   };
 
   const flexDirection = props.stacked ? "fdc" : "fdr";
@@ -59,6 +66,13 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
           {props.buttonText ? props.buttonText : SearchAndFilterStrings.searchButtonDefaultText}
         </PrimaryButton>
+        {props.isLandingPage !== true && (
+          <div className="mts">
+            <SecondaryButton variant="contained" onClick={handleClearAll}>
+              {SearchAndFilterStrings.clearAllFiltersButtonLabel}
+            </SecondaryButton>
+          </div>
+        )}
       </div>
     </div>
   );

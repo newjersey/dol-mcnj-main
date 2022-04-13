@@ -15,7 +15,10 @@ export const CostFilter = (): ReactElement => {
     );
     if (maxCostFilter) {
       setMaxCost(maxCostFilter.value);
+    } else if (maxCostFilter == null && maxCost !== "") {
+      setMaxCost("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
