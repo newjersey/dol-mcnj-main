@@ -5,6 +5,7 @@ import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
 
 describe("filtering by In-Demand Only", () => {
   const inDemand = buildTrainingResult({ name: "in demand training", inDemand: true });
@@ -39,5 +40,16 @@ describe("filtering by In-Demand Only", () => {
 
     expect(subject.getByText("in demand training")).toBeInTheDocument();
     expect(subject.getByText("not in demand training")).toBeInTheDocument();
+  });
+
+  it("removes filter when clear all button clicked", async () => {
+    fireEvent.click(subject.getByLabelText("Show In-Demand Trainings Only"));
+    expect(subject.getByLabelText("Show In-Demand Trainings Only")).toBeChecked();
+
+    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    expect(subject.getByLabelText("Show In-Demand Trainings Only")).not.toBeChecked();
+    expect(subject.getByText("in demand training")).toBeInTheDocument();
+    expect(subject.queryByText("not in demand training")).toBeInTheDocument();
   });
 });

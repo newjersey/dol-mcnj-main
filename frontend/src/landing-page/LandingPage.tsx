@@ -29,6 +29,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               }
               placeholder={LandingPageStrings.searchBoxPlaceholder}
               stacked={true}
+              isLandingPage={true}
             />
           </div>
         </div>

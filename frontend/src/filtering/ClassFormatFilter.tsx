@@ -11,11 +11,13 @@ interface ClassFormat {
   inPerson: boolean;
 }
 
+const INITIAL_STATE = {
+  online: false,
+  inPerson: false,
+};
+
 export const ClassFormatFilter = (): ReactElement => {
-  const [classFormat, setClassFormat] = useState<ClassFormat>({
-    online: false,
-    inPerson: false,
-  });
+  const [classFormat, setClassFormat] = useState<ClassFormat>(INITIAL_STATE);
 
   const { state, dispatch } = useContext(FilterContext);
 
@@ -25,7 +27,10 @@ export const ClassFormatFilter = (): ReactElement => {
     );
     if (classFormatFilter) {
       setClassFormat(classFormatFilter.value);
+    } else if (classFormatFilter == null && Object.values(classFormat).some((val) => val)) {
+      setClassFormat(INITIAL_STATE);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {

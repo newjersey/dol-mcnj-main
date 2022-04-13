@@ -25,10 +25,15 @@ const checkValidZipCode = (value: string) => {
   return parsedValue >= 7001 && parsedValue <= 8999;
 };
 
+const INITIAL_STATE = {
+  center: "",
+  radius: DEFAULT_MILES,
+};
+
 export const LocationFilter = (): ReactElement => {
   const { state, dispatch } = useContext(FilterContext);
 
-  const [searchArea, setSearchArea] = useState<SearchArea>({ center: "", radius: DEFAULT_MILES });
+  const [searchArea, setSearchArea] = useState<SearchArea>(INITIAL_STATE);
   const [isValidZipCode, setIsValidZipCode] = useState<boolean>(true);
 
   useEffect(() => {
@@ -37,7 +42,10 @@ export const LocationFilter = (): ReactElement => {
     );
     if (locationFilter != null) {
       setSearchArea(locationFilter.value);
+    } else if (locationFilter == null && searchArea.center !== "") {
+      setSearchArea(INITIAL_STATE);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
   const applyLocationFilter = (currentSearchArea: SearchArea, validateZipCode = true): void => {

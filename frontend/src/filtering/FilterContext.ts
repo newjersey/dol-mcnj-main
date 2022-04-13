@@ -25,31 +25,36 @@ interface FilterState {
 
 export interface FilterAction {
   type: FilterActionType;
-  filter: Filter;
+  filter?: Filter;
 }
 
 export enum FilterActionType {
   ADD,
   REMOVE,
+  REMOVE_ALL,
 }
 
-const removeFilter = (filter: Filter, list: Filter[]): Filter[] => {
+const removeFilter = (filter: Filter | undefined, list: Filter[]): Filter[] => {
+  if (filter == null) return list;
   return list.filter((it: Filter) => it.element !== filter.element);
 };
 
 export const filterReducer = (state: FilterState, action: FilterAction): FilterState => {
   switch (action.type) {
     case FilterActionType.ADD:
+      if (action.filter == null) return state;
       return {
         ...state,
         filters: [...removeFilter(action.filter, state.filters), action.filter],
       };
     case FilterActionType.REMOVE:
+      if (action.filter == null) return state;
       return {
         ...state,
         filters: removeFilter(action.filter, state.filters),
       };
-
+    case FilterActionType.REMOVE_ALL:
+      return initialFilterState;
     default:
       throw new Error();
   }

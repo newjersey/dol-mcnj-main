@@ -5,6 +5,7 @@ import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
 
 describe("filtering by max cost", () => {
   const training1999 = buildTrainingResult({ name: "training1999", totalCost: 1999 });
@@ -118,5 +119,22 @@ describe("filtering by max cost", () => {
     fireEvent.blur(getMaxCostInput(subject));
 
     expect(subject.getByText('2 results found for "some-query"')).toBeInTheDocument();
+  });
+
+  it("removes filter when clear button is clicked", async () => {
+    fireEvent.change(getMaxCostInput(subject), {
+      target: { value: "2000" },
+    });
+    fireEvent.blur(getMaxCostInput(subject));
+
+    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    expect((subject.getByPlaceholderText("$", { exact: false }) as HTMLInputElement).value).toEqual(
+      ""
+    );
+    expect(subject.queryByText("training1999")).toBeInTheDocument();
+    expect(subject.queryByText("training2000")).toBeInTheDocument();
+    expect(subject.queryByText("training2001")).toBeInTheDocument();
+    expect(subject.queryByText("training5000")).toBeInTheDocument();
   });
 });

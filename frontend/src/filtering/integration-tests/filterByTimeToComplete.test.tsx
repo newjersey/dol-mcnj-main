@@ -6,6 +6,7 @@ import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
 
 describe("filtering by time to complete", () => {
   const lessThanOneDay = buildTrainingResult({
@@ -207,5 +208,24 @@ describe("filtering by time to complete", () => {
     expect(subject.queryByText("13 months - 2 years")).not.toBeInTheDocument();
     expect(subject.queryByText("3-4 years")).not.toBeInTheDocument();
     expect(subject.queryByText("4+ years")).not.toBeInTheDocument();
+  });
+
+  it("removes filter when clear all button is clicked", () => {
+    fireEvent.click(subject.getByLabelText("Weeks"));
+    expect(subject.getByLabelText("Weeks")).toBeChecked();
+
+    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    expect(subject.getByLabelText("Weeks")).not.toBeChecked();
+    expect(subject.queryByText("less than one day")).toBeInTheDocument();
+    expect(subject.queryByText("1-2 days")).toBeInTheDocument();
+    expect(subject.queryByText("3-7 days")).toBeInTheDocument();
+    expect(subject.queryByText("2-3 weeks")).toBeInTheDocument();
+    expect(subject.queryByText("4-11 weeks")).toBeInTheDocument();
+    expect(subject.queryByText("3-5 months")).toBeInTheDocument();
+    expect(subject.queryByText("6-12 months")).toBeInTheDocument();
+    expect(subject.queryByText("13 months - 2 years")).toBeInTheDocument();
+    expect(subject.queryByText("3-4 years")).toBeInTheDocument();
+    expect(subject.queryByText("4+ years")).toBeInTheDocument();
   });
 });

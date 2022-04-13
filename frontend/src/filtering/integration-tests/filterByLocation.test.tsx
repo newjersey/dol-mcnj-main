@@ -361,4 +361,24 @@ describe("filtering by location", () => {
 
     expect(subject.getByText('3 results found for "some-query"')).toBeInTheDocument();
   });
+
+  it("removes filter when clear all button is clicked", async () => {
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "5" },
+    });
+    fireEvent.change(getZipInput(subject), {
+      target: { value: "07021" },
+    });
+    fireEvent.blur(getZipInput(subject));
+
+    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    expect(getZipInput(subject)).toHaveValue("");
+    expect(subject.queryByText("training1")).toBeInTheDocument();
+    expect(subject.queryByText("training2")).toBeInTheDocument();
+    expect(subject.queryByText("training3")).toBeInTheDocument();
+    expect(subject.queryByText("training4")).toBeInTheDocument();
+    expect(subject.queryByText("training5")).toBeInTheDocument();
+    expect(subject.queryByText("training6")).toBeInTheDocument();
+  });
 });
