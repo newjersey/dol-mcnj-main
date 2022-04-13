@@ -26,4 +26,5 @@ export const SearchAndFilterStrings: Record<string, string> = {
   timeToCompleteMonthsLabel: "Months",
   timeToCompleteYearsLabel: "Years",
   clearAllFiltersButtonLabel: "Clear All",
+  countyFilterLabel: "Search by County",
 };
