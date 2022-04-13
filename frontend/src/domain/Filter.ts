@@ -13,4 +13,5 @@ export enum FilterableElement {
   CLASS_FORMAT,
   LOCATION,
   IN_DEMAND_ONLY,
+  COUNTY,
 }

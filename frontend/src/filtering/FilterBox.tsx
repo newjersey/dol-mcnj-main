@@ -13,6 +13,7 @@ import { LocationFilter } from "./LocationFilter";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { CountyFilter } from "./CountyFilter";
 
 interface Props {
   searchQuery?: string;
@@ -183,6 +184,10 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
+        </div>
+
+        <div className="mtd">
+          <CountyFilter />
         </div>
       </div>
     </div>
