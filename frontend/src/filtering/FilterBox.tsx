@@ -171,6 +171,10 @@ export const FilterBox = ({
         </div>
 
         <div className="mtd">
+          <CountyFilter />
+        </div>
+
+        <div className="mtd">
           <InDemandOnlyFilter />
         </div>
 
@@ -184,10 +188,6 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
-        </div>
-
-        <div className="mtd">
-          <CountyFilter />
         </div>
       </div>
     </div>
