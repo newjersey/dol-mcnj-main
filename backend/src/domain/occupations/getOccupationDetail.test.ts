@@ -75,6 +75,7 @@ describe("getOccupationDetail", () => {
           localExceptionCounty: [],
           online: true,
           inDemand: true,
+          occupations: [{ soc: "some-soc", title: "some-title" }],
         }),
       ]);
 
@@ -104,6 +105,7 @@ describe("getOccupationDetail", () => {
             inDemand: true,
             highlight: "",
             rank: 0,
+            socCodes: ["some-soc"],
           },
         ],
       });
@@ -153,6 +155,7 @@ describe("getOccupationDetail", () => {
           localExceptionCounty: [],
           online: true,
           inDemand: true,
+          occupations: [{ soc: "some-soc", title: "some-title" }],
         }),
       ]);
 
@@ -183,6 +186,7 @@ describe("getOccupationDetail", () => {
             inDemand: true,
             highlight: "",
             rank: 0,
+            socCodes: ["some-soc"],
           },
         ],
       });
@@ -238,6 +242,7 @@ describe("getOccupationDetail", () => {
           localExceptionCounty: [],
           online: true,
           inDemand: true,
+          occupations: [{ soc: "some-soc", title: "some-title" }],
         }),
       ]);
 
@@ -270,6 +275,7 @@ describe("getOccupationDetail", () => {
             inDemand: true,
             highlight: "",
             rank: 0,
+            socCodes: ["some-soc"],
           },
         ],
       });

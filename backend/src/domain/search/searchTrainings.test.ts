@@ -46,6 +46,7 @@ describe("searchTrainings", () => {
         county: training1.provider.county,
         rank: 1,
         highlight: "some highlight 1",
+        socCodes: training1.occupations.map((o) => o.soc),
       },
       {
         id: training2.id,
@@ -63,6 +64,7 @@ describe("searchTrainings", () => {
         county: training2.provider.county,
         rank: 2,
         highlight: "some highlight 2",
+        socCodes: training2.occupations.map((o) => o.soc),
       },
     ]);
 
