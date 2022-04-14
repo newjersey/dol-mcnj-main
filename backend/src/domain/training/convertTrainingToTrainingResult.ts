@@ -23,5 +23,6 @@ export const convertTrainingToTrainingResult = (
     inDemand: training.inDemand,
     highlight: stripUnicode(highlight),
     rank: rank,
+    socCodes: training.occupations.map((o) => o.soc),
   };
 };

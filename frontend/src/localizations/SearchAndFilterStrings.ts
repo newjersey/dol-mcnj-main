@@ -25,6 +25,8 @@ export const SearchAndFilterStrings: Record<string, string> = {
   timeToCompleteWeeksLabel: "Weeks",
   timeToCompleteMonthsLabel: "Months",
   timeToCompleteYearsLabel: "Years",
-  clearAllFiltersButtonLabel: "Clear All",
+  clearAllFiltersButtonLabel: "Clear Filters",
+  socCodeFilterLabel: "Filter by SOC Code",
+  invalidSocCodeError: "Please enter a valid SOC code format, i.e. 43-9041.",
   countyFilterLabel: "Filter by County",
 };
