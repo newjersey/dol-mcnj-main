@@ -4,6 +4,7 @@ import { Occupation } from "../occupations/Occupation";
 export interface Training {
   id: string;
   name: string;
+  cipCode: string;
   provider: Provider;
   description: string;
   certifications: string;

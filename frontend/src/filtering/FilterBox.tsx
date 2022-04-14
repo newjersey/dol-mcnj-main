@@ -15,6 +15,7 @@ import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { CountyFilter } from "./CountyFilter";
 import { SocCodeFilter } from "./SocCodeFilter";
+import { CipCodeFilter } from "./CipCodeFilter";
 
 interface Props {
   searchQuery?: string;
@@ -191,7 +192,11 @@ export const FilterBox = ({
           <TimeToCompleteFilter />
         </div>
 
-        <div className="mtm">
+        <div className="mtl">
+          <CipCodeFilter />
+        </div>
+
+        <div className="mtd">
           <SocCodeFilter />
         </div>
       </div>

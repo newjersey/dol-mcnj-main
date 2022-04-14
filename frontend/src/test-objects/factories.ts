@@ -8,6 +8,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
+    cipCode: "some-cip-" + randomInt(),
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
@@ -30,6 +31,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
+    cipCode: "some-cip-" + randomInt(),
     provider: buildProvider({}),
     calendarLength: randomCalendarLength(),
     occupations: [buildOccupation({})],

@@ -3,6 +3,7 @@ import { CalendarLength } from "../CalendarLength";
 export interface TrainingResult {
   id: string;
   name: string;
+  cipCode: string;
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;

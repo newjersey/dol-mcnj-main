@@ -28,5 +28,7 @@ export const SearchAndFilterStrings: Record<string, string> = {
   clearAllFiltersButtonLabel: "Clear Filters",
   socCodeFilterLabel: "Filter by SOC Code",
   invalidSocCodeError: "Please enter a valid SOC code format, i.e. 43-9041.",
+  cipCodeFilterLabel: "Filter by CIP Code",
+  invalidCipCodeError: "Please enter a 6-digit CIP code.",
   countyFilterLabel: "Filter by County",
 };

@@ -39,6 +39,7 @@ describe("findTrainingsBy", () => {
       {
         id: program.programid,
         name: program.officialname,
+        cipCode: program.cipcode,
         provider: {
           name: program.providername,
           id: program.providerid,
@@ -137,6 +138,7 @@ describe("findTrainingsBy", () => {
       {
         id: program.programid,
         name: program.officialname,
+        cipCode: program.cipcode,
         provider: {
           name: program.providername,
           id: program.providerid,
