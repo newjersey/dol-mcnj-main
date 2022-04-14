@@ -14,5 +14,6 @@ export enum FilterableElement {
   LOCATION,
   IN_DEMAND_ONLY,
   SOC_CODE,
+  CIP_CODE,
   COUNTY,
 }

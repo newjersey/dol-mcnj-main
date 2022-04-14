@@ -25,6 +25,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         return {
           id: program.programid,
           name: stripSurroundingQuotes(convertToTitleCaseIfUppercase(program.officialname)),
+          cipCode: program.cipcode,
           provider: {
             id: program.providerid,
             name: program.providername ? stripSurroundingQuotes(program.providername) : "",

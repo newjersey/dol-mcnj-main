@@ -3,6 +3,7 @@ import { Occupation } from "./Occupation";
 export interface TrainingResult {
   id: string;
   name: string;
+  cipCode: string;
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
@@ -22,6 +23,7 @@ export interface TrainingResult {
 export interface Training {
   id: string;
   name: string;
+  cipCode: string;
   calendarLength: CalendarLength;
   description: string;
   certifications: string;

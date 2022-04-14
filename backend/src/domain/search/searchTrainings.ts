@@ -35,6 +35,7 @@ export const searchTrainingsFactory = (
         return {
           id: training.id,
           name: training.name,
+          cipCode: training.cipCode,
           totalCost: training.totalCost,
           percentEmployed: training.percentEmployed,
           calendarLength: training.calendarLength,
