@@ -18,12 +18,8 @@ function mockFunctions() {
 
 jest.mock("@material-ui/core", () => mockFunctions());
 
-const {
-  mobileFilterText,
-  maxCostLabel,
-  searchButtonDefaultText,
-  searchButtonUpdateResultsText,
-} = SearchAndFilterStrings;
+const { mobileFilterText, maxCostLabel, searchButtonDefaultText, searchButtonUpdateResultsText } =
+  SearchAndFilterStrings;
 
 describe("<FilterBox />", () => {
   const renderWithFilters = (filters: Filter[]): RenderResult => {
@@ -172,7 +168,7 @@ describe("<FilterBox />", () => {
     useDesktopSize();
     const subject = renderFilterBox({});
     expect(subject.getByLabelText(maxCostLabel, { exact: false })).toBeVisible();
-    expect(subject.queryByText("Filters", { exact: false })).not.toBeInTheDocument();
+    expect(subject.queryByText("Filters")).not.toBeInTheDocument();
   });
 
   const useDesktopSize = (): void => {

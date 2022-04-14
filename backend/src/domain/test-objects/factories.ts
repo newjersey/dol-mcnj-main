@@ -29,6 +29,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     county: "some-county-" + randomInt(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
+    socCodes: ["some-soc-" + randomInt()],
     ...overrides,
   };
 };

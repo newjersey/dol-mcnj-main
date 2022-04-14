@@ -16,6 +16,7 @@ export interface TrainingResult {
   county: string;
   highlight: string;
   rank: number;
+  socCodes: string[];
 }
 
 export interface Training {

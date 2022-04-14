@@ -14,6 +14,7 @@ import { InlineIcon } from "../components/InlineIcon";
 import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { CountyFilter } from "./CountyFilter";
+import { SocCodeFilter } from "./SocCodeFilter";
 
 interface Props {
   searchQuery?: string;
@@ -188,6 +189,10 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
+        </div>
+
+        <div className="mtm">
+          <SocCodeFilter />
         </div>
       </div>
     </div>
