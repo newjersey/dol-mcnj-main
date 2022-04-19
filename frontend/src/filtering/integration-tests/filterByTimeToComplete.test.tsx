@@ -212,7 +212,7 @@ describe("filtering by time to complete", () => {
     expect(subject.queryByText("4+ years")).not.toBeInTheDocument();
   });
 
-  it("removes filter when clear all button is clicked", () => {
+  it("removes filter when clear all button is clicked", async () => {
     fireEvent.click(subject.getByLabelText("Weeks"));
     expect(subject.getByLabelText("Weeks")).toBeChecked();
 
