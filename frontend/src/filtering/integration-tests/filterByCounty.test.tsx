@@ -34,6 +34,8 @@ describe("filtering by county", () => {
   let subject: RenderResult;
 
   beforeEach(async () => {
+    jest.setTimeout(60000);
+
     stubClient = new StubClient();
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
