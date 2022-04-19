@@ -16,4 +16,5 @@ export enum FilterableElement {
   SOC_CODE,
   CIP_CODE,
   COUNTY,
+  EVENING_COURSES,
 }

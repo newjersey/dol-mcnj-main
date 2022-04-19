@@ -77,6 +77,7 @@ describe("getOccupationDetail", () => {
           inDemand: true,
           occupations: [{ soc: "some-soc", title: "some-title" }],
           cipCode: "some-cip",
+          hasEveningCourses: false,
         }),
       ]);
 
@@ -108,6 +109,7 @@ describe("getOccupationDetail", () => {
             rank: 0,
             socCodes: ["some-soc"],
             cipCode: "some-cip",
+            hasEveningCourses: false,
           },
         ],
       });
@@ -159,6 +161,7 @@ describe("getOccupationDetail", () => {
           inDemand: true,
           occupations: [{ soc: "some-soc", title: "some-title" }],
           cipCode: "some-cip",
+          hasEveningCourses: false,
         }),
       ]);
 
@@ -191,6 +194,7 @@ describe("getOccupationDetail", () => {
             rank: 0,
             socCodes: ["some-soc"],
             cipCode: "some-cip",
+            hasEveningCourses: false,
           },
         ],
       });
@@ -248,6 +252,7 @@ describe("getOccupationDetail", () => {
           inDemand: true,
           occupations: [{ soc: "some-soc", title: "some-title" }],
           cipCode: "some-cip",
+          hasEveningCourses: false,
         }),
       ]);
 
@@ -282,6 +287,7 @@ describe("getOccupationDetail", () => {
             rank: 0,
             socCodes: ["some-soc"],
             cipCode: "some-cip",
+            hasEveningCourses: false,
           },
         ],
       });

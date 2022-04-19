@@ -18,4 +18,5 @@ export interface TrainingResult {
   highlight: string;
   rank: number;
   socCodes: string[];
+  hasEveningCourses: boolean;
 }
