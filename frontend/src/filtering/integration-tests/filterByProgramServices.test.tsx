@@ -42,12 +42,14 @@ describe("filtering by program services", () => {
     expect(subject.queryByText("training2")).not.toBeInTheDocument();
   });
 
-  it("removes filter when clear button is clicked", () => {
+  it("removes filter when clear button is clicked", async () => {
     const checkbox = getCheckbox();
     if (checkbox != null) fireEvent.click(checkbox);
     expect(getCheckbox()).toBeChecked();
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    await waitForEffect();
 
     expect(getCheckbox()).not.toBeChecked();
     expect(subject.queryByText("training1")).toBeInTheDocument();

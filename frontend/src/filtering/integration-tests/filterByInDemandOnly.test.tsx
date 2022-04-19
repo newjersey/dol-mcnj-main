@@ -48,6 +48,8 @@ describe("filtering by In-Demand Only", () => {
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
+    await waitForEffect();
+
     expect(subject.getByLabelText("Show In-Demand Trainings Only")).not.toBeChecked();
     expect(subject.getByText("in demand training")).toBeInTheDocument();
     expect(subject.queryByText("not in demand training")).toBeInTheDocument();

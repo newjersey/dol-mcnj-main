@@ -102,6 +102,8 @@ describe("filtering by soc code", () => {
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
+    await waitForEffect();
+
     expect(
       (subject.getByPlaceholderText("i.e. 43-9041", { exact: false }) as HTMLInputElement).value
     ).toEqual("");

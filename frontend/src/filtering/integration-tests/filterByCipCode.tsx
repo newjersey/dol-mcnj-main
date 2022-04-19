@@ -102,6 +102,8 @@ describe("filtering by cip code", () => {
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
+    await waitForEffect();
+
     expect(
       (subject.getByPlaceholderText("i.e. 011102", { exact: false }) as HTMLInputElement).value
     ).toEqual("");
