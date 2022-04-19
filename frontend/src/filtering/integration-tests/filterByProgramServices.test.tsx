@@ -16,7 +16,6 @@ describe("filtering by program services", () => {
 
   function getCheckbox() {
     return subject.getByLabelText("Offers evening courses");
-    // return subject.container.querySelector(`input[name="${FilterableElement.EVENING_COURSES}"]`);
   }
 
   beforeEach(async () => {

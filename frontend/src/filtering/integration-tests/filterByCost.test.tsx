@@ -21,6 +21,8 @@ describe("filtering by max cost", () => {
   let subject: RenderResult;
 
   beforeEach(async () => {
+    jest.setTimeout(10000);
+
     stubClient = new StubClient();
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
