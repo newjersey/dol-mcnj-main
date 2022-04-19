@@ -218,6 +218,8 @@ describe("filtering by time to complete", () => {
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
+    await waitForEffect();
+
     expect(subject.getByLabelText("Weeks")).not.toBeChecked();
     expect(subject.queryByText("less than one day")).toBeInTheDocument();
     expect(subject.queryByText("1-2 days")).toBeInTheDocument();

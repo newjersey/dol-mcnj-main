@@ -58,11 +58,13 @@ describe("filtering by online or in-person", () => {
     expect(subject.getByText("in-person training")).toBeInTheDocument();
   });
 
-  it("removes filter when clear button is clicked", () => {
+  it("removes filter when clear button is clicked", async () => {
     fireEvent.click(subject.getByLabelText("In-Person"));
     expect(subject.getByLabelText("In-Person")).toBeChecked();
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    await waitForEffect();
 
     expect(subject.getByLabelText("In-Person")).not.toBeChecked();
     expect(subject.queryByText("online training")).toBeInTheDocument();

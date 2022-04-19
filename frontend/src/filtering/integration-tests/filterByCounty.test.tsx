@@ -85,6 +85,8 @@ describe("filtering by county", () => {
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
+    await waitForEffect();
+
     expect((getCountyInput(subject) as HTMLInputElement).value).toEqual("");
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();

@@ -131,6 +131,8 @@ describe("filtering by max cost", () => {
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
+    await waitForEffect();
+
     expect((subject.getByPlaceholderText("$", { exact: false }) as HTMLInputElement).value).toEqual(
       ""
     );

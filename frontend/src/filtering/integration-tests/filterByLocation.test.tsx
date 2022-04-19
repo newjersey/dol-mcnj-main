@@ -34,6 +34,8 @@ describe("filtering by location", () => {
   let subject: RenderResult;
 
   beforeEach(async () => {
+    jest.setTimeout(10000);
+
     stubClient = new StubClient();
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
@@ -372,6 +374,8 @@ describe("filtering by location", () => {
     fireEvent.blur(getZipInput(subject));
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+
+    await waitForEffect();
 
     expect(getZipInput(subject)).toHaveValue("");
     expect(subject.queryByText("training1")).toBeInTheDocument();
