@@ -30,6 +30,7 @@ export interface Program {
   peremployed2: string | null;
   avgquarterlywage2: string | null;
   onlineprogramid: string | null;
+  eveningcourses: string;
 }
 
 export interface LocalException {

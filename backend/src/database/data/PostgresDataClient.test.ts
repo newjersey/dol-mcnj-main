@@ -51,6 +51,7 @@ describe("PostgresDataClient", () => {
     peremployed2: "0.661016949152542",
     avgquarterlywage2: "16166",
     onlineprogramid: "1",
+    eveningcourses: "1",
   };
 
   describe("findProgramsBy", () => {

@@ -16,6 +16,7 @@ import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings"
 import { CountyFilter } from "./CountyFilter";
 import { SocCodeFilter } from "./SocCodeFilter";
 import { CipCodeFilter } from "./CipCodeFilter";
+import { ProgramServicesFilter } from "./ProgramServicesFilter";
 
 interface Props {
   searchQuery?: string;
@@ -190,6 +191,10 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
+        </div>
+
+        <div className="mtd">
+          <ProgramServicesFilter />
         </div>
 
         <div className="mtl">

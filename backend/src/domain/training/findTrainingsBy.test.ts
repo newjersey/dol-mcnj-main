@@ -2,7 +2,7 @@
 
 import { FindTrainingsBy } from "../types";
 import { CalendarLength } from "../CalendarLength";
-import { findTrainingsByFactory } from "./findTrainingsBy";
+import { findTrainingsByFactory, mapStrNumToBool } from "./findTrainingsBy";
 import { StubDataClient } from "../test-objects/StubDataClient";
 import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
 import { Selector } from "./Selector";
@@ -76,6 +76,7 @@ describe("findTrainingsBy", () => {
         online: true,
         percentEmployed: parseFloat(program.peremployed2!),
         averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
+        hasEveningCourses: mapStrNumToBool(program.eveningcourses),
       },
     ]);
   });
@@ -175,6 +176,7 @@ describe("findTrainingsBy", () => {
         online: true,
         percentEmployed: parseFloat(program.peremployed2!),
         averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
+        hasEveningCourses: mapStrNumToBool(program.eveningcourses),
       },
     ]);
   });

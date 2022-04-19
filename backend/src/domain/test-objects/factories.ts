@@ -31,6 +31,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
     socCodes: ["some-soc-" + randomInt()],
+    hasEveningCourses: randomBool(),
     ...overrides,
   };
 };
@@ -57,6 +58,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     online: randomBool(),
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
+    hasEveningCourses: randomBool(),
     ...overrides,
   };
 };
@@ -168,6 +170,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     peremployed2: randomInt().toString(),
     avgquarterlywage2: randomInt().toString(),
     onlineprogramid: "some-onlineprogramid-" + randomInt(),
+    eveningcourses: Math.random() < 0.5 ? "1" : "2",
     ...overrides,
   };
 };

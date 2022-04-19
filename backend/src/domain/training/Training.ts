@@ -22,6 +22,7 @@ export interface Training {
   online: boolean;
   percentEmployed: number | null;
   averageSalary: number | null;
+  hasEveningCourses: boolean;
 }
 
 export interface Provider {

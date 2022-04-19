@@ -50,6 +50,7 @@ export const searchTrainingsFactory = (
           highlight: stripUnicode(highlight),
           rank: rank,
           socCodes: training.occupations.map((o) => o.soc),
+          hasEveningCourses: training.hasEveningCourses,
         };
       })
     );

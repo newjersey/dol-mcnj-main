@@ -69,6 +69,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           online: !!program.onlineprogramid,
           percentEmployed: formatPercentEmployed(program.peremployed2),
           averageSalary: formatAverageSalary(program.avgquarterlywage2),
+          hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         };
       })
     );
@@ -111,4 +112,8 @@ const formatPrerequisites = (prereq: string | null): string => {
   }
 
   return stripSurroundingQuotes(prereq);
+};
+
+export const mapStrNumToBool = (value: string): boolean => {
+  return value === "1";
 };
