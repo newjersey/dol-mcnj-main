@@ -146,3 +146,8 @@ a.link-format-blue {
   border-bottom-style: dashed;
   border-color: #000000;
 }
+
+.two-column-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

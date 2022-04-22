@@ -2,7 +2,7 @@
 
 import { FindTrainingsBy } from "../types";
 import { CalendarLength } from "../CalendarLength";
-import { findTrainingsByFactory, mapStrNumToBool } from "./findTrainingsBy";
+import { findTrainingsByFactory, formatLanguages, mapStrNumToBool } from "./findTrainingsBy";
 import { StubDataClient } from "../test-objects/StubDataClient";
 import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
 import { Selector } from "./Selector";
@@ -77,6 +77,7 @@ describe("findTrainingsBy", () => {
         percentEmployed: parseFloat(program.peremployed2!),
         averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
+        languages: formatLanguages(program.languages),
       },
     ]);
   });
@@ -177,6 +178,7 @@ describe("findTrainingsBy", () => {
         percentEmployed: parseFloat(program.peremployed2!),
         averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
+        languages: formatLanguages(program.languages),
       },
     ]);
   });
