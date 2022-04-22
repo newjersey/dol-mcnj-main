@@ -49,6 +49,7 @@ describe("searchTrainings", () => {
         socCodes: training1.occupations.map((o) => o.soc),
         cipCode: training1.cipCode,
         hasEveningCourses: training1.hasEveningCourses,
+        languages: training1.languages,
       },
       {
         id: training2.id,
@@ -69,6 +70,7 @@ describe("searchTrainings", () => {
         socCodes: training2.occupations.map((o) => o.soc),
         cipCode: training2.cipCode,
         hasEveningCourses: training2.hasEveningCourses,
+        languages: training2.languages,
       },
     ]);
 

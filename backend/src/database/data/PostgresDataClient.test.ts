@@ -52,6 +52,7 @@ describe("PostgresDataClient", () => {
     avgquarterlywage2: "16166",
     onlineprogramid: "1",
     eveningcourses: "1",
+    languages: null,
   };
 
   describe("findProgramsBy", () => {

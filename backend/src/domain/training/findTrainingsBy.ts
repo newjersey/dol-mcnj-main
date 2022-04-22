@@ -70,6 +70,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           percentEmployed: formatPercentEmployed(program.peremployed2),
           averageSalary: formatAverageSalary(program.avgquarterlywage2),
           hasEveningCourses: mapStrNumToBool(program.eveningcourses),
+          languages: formatLanguages(program.languages),
         };
       })
     );
@@ -116,4 +117,10 @@ const formatPrerequisites = (prereq: string | null): string => {
 
 export const mapStrNumToBool = (value: string): boolean => {
   return value === "1";
+};
+
+export const formatLanguages = (languages: string | null): string[] => {
+  if (languages == null || languages.length === 0) return [];
+  const languagesWithoutQuotes = languages.replace(/["\s]+/g, "");
+  return languagesWithoutQuotes.split(",");
 };

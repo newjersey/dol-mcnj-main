@@ -23,6 +23,7 @@ export interface Training {
   percentEmployed: number | null;
   averageSalary: number | null;
   hasEveningCourses: boolean;
+  languages: string[];
 }
 
 export interface Provider {

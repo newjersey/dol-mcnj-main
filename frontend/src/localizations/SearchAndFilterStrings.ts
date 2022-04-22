@@ -33,4 +33,7 @@ export const SearchAndFilterStrings: Record<string, string> = {
   countyFilterLabel: "Filter by County",
   programServicesFilterLabel: "Filter by Training Provider Services",
   eveningCoursesLabel: "Offers evening courses",
+  languagesFilterLabel: "Filter by Languages",
+  filterListExpandLabel: "Show more",
+  filterListCollapseLabel: "Show less",
 };

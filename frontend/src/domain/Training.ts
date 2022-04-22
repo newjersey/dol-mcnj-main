@@ -19,6 +19,7 @@ export interface TrainingResult {
   rank: number;
   socCodes: string[];
   hasEveningCourses: boolean;
+  languages: string[];
 }
 
 export interface Training {
@@ -43,6 +44,7 @@ export interface Training {
   percentEmployed: number | null;
   averageSalary: number | null;
   hasEveningCourses: boolean;
+  languages: string[];
 }
 
 export interface Provider {

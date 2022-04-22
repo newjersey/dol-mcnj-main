@@ -72,6 +72,10 @@ h5 {
   vertical-align: bottom;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 @media (min-width: $sm) {
   .text-xxl {
     font-size: 4rem;
