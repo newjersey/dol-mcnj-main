@@ -35,6 +35,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     languages: ["some-language-" + randomInt()],
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
+    hasChildcareAssistance: randomBool(),
     ...overrides,
   };
 };
@@ -65,6 +66,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     languages: ["some-language-" + randomInt()],
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
+    hasChildcareAssistance: randomBool(),
     ...overrides,
   };
 };
@@ -180,6 +182,8 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     languages: "some-languages-" + randomInt(),
     accessfordisabled: Math.random() < 0.5 ? "1" : "2",
     personalassist: Math.random() < 0.5 ? "1" : "2",
+    childcare: Math.random() < 0.5 ? "1" : "2",
+    assistobtainingchildcare: Math.random() < 0.5 ? "1" : "2",
     ...overrides,
   };
 };

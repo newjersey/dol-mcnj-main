@@ -10,18 +10,21 @@ interface ProgramServices {
   hasEveningCourses: boolean;
   isWheelchairAccessible: boolean;
   hasJobPlacementAssistance: boolean;
+  hasChildcareAssistance: boolean;
 }
 
 const INITIAL_STATE = {
   hasEveningCourses: false,
   isWheelchairAccessible: false,
   hasJobPlacementAssistance: false,
+  hasChildcareAssistance: false,
 };
 
 const SERVICE_TO_FILTER = {
   hasEveningCourses: FilterableElement.EVENING_COURSES,
   isWheelchairAccessible: FilterableElement.WHEELCHAIR_ACCESSIBLE,
   hasJobPlacementAssistance: FilterableElement.JOB_PLACEMENT_ASSISTANCE,
+  hasChildcareAssistance: FilterableElement.CHILDCARE_ASSISTANCE,
 };
 
 export const ProgramServicesFilter = (): ReactElement => {
@@ -38,7 +41,15 @@ export const ProgramServicesFilter = (): ReactElement => {
     const jobPlacementAssistFilter = state.filters.find(
       (filter) => filter.element === FilterableElement.JOB_PLACEMENT_ASSISTANCE
     );
-    if (eveningCoursesFilter || wheelchairAccessibleFilter || jobPlacementAssistFilter) {
+    const childcareAssistFilter = state.filters.find(
+      (filter) => filter.element === FilterableElement.CHILDCARE_ASSISTANCE
+    );
+    if (
+      eveningCoursesFilter ||
+      wheelchairAccessibleFilter ||
+      jobPlacementAssistFilter ||
+      childcareAssistFilter
+    ) {
       setProgramServices((prevValue) => ({
         ...prevValue,
         hasEveningCourses: eveningCoursesFilter?.value ?? prevValue.hasEveningCourses,
@@ -46,11 +57,13 @@ export const ProgramServicesFilter = (): ReactElement => {
           wheelchairAccessibleFilter?.value ?? prevValue.isWheelchairAccessible,
         hasJobPlacementAssistance:
           jobPlacementAssistFilter?.value ?? prevValue.hasJobPlacementAssistance,
+        hasChildcareAssistance: childcareAssistFilter?.value ?? prevValue.hasChildcareAssistance,
       }));
     } else if (
       eveningCoursesFilter == null &&
       wheelchairAccessibleFilter == null &&
       jobPlacementAssistFilter == null &&
+      childcareAssistFilter == null &&
       Object.values(programServices).some((v) => v)
     ) {
       setProgramServices(INITIAL_STATE);
@@ -78,6 +91,8 @@ export const ProgramServicesFilter = (): ReactElement => {
               return trainingResults.filter((it) => it.isWheelchairAccessible);
             case "hasJobPlacementAssistance":
               return trainingResults.filter((it) => it.hasJobPlacementAssistance);
+            case "hasChildcareAssistance":
+              return trainingResults.filter((it) => it.hasChildcareAssistance);
             default:
               return trainingResults;
           }
@@ -104,13 +119,13 @@ export const ProgramServicesFilter = (): ReactElement => {
         <FormControlLabel
           control={
             <SpacedCheckbox
-              checked={programServices.hasJobPlacementAssistance}
+              checked={programServices.hasChildcareAssistance}
               onChange={handleCheckboxChange}
-              name="hasJobPlacementAssistance"
+              name="hasChildcareAssistance"
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.jobPlacementAssistLabel}
+          label={SearchAndFilterStrings.childcareAssistLabel}
         />
         <FormControlLabel
           control={
@@ -122,6 +137,17 @@ export const ProgramServicesFilter = (): ReactElement => {
             />
           }
           label={SearchAndFilterStrings.eveningCoursesLabel}
+        />
+        <FormControlLabel
+          control={
+            <SpacedCheckbox
+              checked={programServices.hasJobPlacementAssistance}
+              onChange={handleCheckboxChange}
+              name="hasJobPlacementAssistance"
+              color="primary"
+            />
+          }
+          label={SearchAndFilterStrings.jobPlacementAssistLabel}
         />
       </FormGroup>
     </label>

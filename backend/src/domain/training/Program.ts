@@ -34,6 +34,8 @@ export interface Program {
   languages: string | null;
   accessfordisabled: string | null;
   personalassist: string | null;
+  childcare: string | null;
+  assistobtainingchildcare: string | null;
 }
 
 export interface LocalException {

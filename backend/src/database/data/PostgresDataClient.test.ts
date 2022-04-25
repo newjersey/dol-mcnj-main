@@ -55,6 +55,8 @@ describe("PostgresDataClient", () => {
     languages: null,
     accessfordisabled: "1",
     personalassist: "2",
+    childcare: "2",
+    assistobtainingchildcare: "1",
   };
 
   describe("findProgramsBy", () => {

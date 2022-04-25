@@ -81,6 +81,7 @@ describe("getOccupationDetail", () => {
           languages: ["some-language"],
           isWheelchairAccessible: true,
           hasJobPlacementAssistance: true,
+          hasChildcareAssistance: true,
         }),
       ]);
 
@@ -116,6 +117,7 @@ describe("getOccupationDetail", () => {
             languages: ["some-language"],
             isWheelchairAccessible: true,
             hasJobPlacementAssistance: true,
+            hasChildcareAssistance: true,
           },
         ],
       });
@@ -171,6 +173,7 @@ describe("getOccupationDetail", () => {
           languages: ["some-language"],
           isWheelchairAccessible: true,
           hasJobPlacementAssistance: true,
+          hasChildcareAssistance: true,
         }),
       ]);
 
@@ -207,6 +210,7 @@ describe("getOccupationDetail", () => {
             languages: ["some-language"],
             isWheelchairAccessible: true,
             hasJobPlacementAssistance: true,
+            hasChildcareAssistance: true,
           },
         ],
       });
@@ -268,6 +272,7 @@ describe("getOccupationDetail", () => {
           languages: ["some-language"],
           isWheelchairAccessible: true,
           hasJobPlacementAssistance: true,
+          hasChildcareAssistance: true,
         }),
       ]);
 
@@ -306,6 +311,7 @@ describe("getOccupationDetail", () => {
             languages: ["some-language"],
             isWheelchairAccessible: true,
             hasJobPlacementAssistance: true,
+            hasChildcareAssistance: true,
           },
         ],
       });
