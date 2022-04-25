@@ -78,6 +78,7 @@ describe("findTrainingsBy", () => {
         averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
+        isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
       },
     ]);
   });
@@ -179,6 +180,7 @@ describe("findTrainingsBy", () => {
         averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
+        isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
       },
     ]);
   });

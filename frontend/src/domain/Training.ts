@@ -20,6 +20,7 @@ export interface TrainingResult {
   socCodes: string[];
   hasEveningCourses: boolean;
   languages: string[];
+  isWheelchairAccessible: boolean;
 }
 
 export interface Training {
@@ -45,6 +46,7 @@ export interface Training {
   averageSalary: number | null;
   hasEveningCourses: boolean;
   languages: string[];
+  isWheelchairAccessible: boolean;
 }
 
 export interface Provider {

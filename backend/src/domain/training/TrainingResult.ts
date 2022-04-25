@@ -20,4 +20,5 @@ export interface TrainingResult {
   socCodes: string[];
   hasEveningCourses: boolean;
   languages: string[];
+  isWheelchairAccessible: boolean;
 }

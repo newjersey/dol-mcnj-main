@@ -71,6 +71,7 @@ export class PostgresDataClient implements DataClient {
         "etpl.phoneextension",
         "etpl.eveningcourses",
         "etpl.languages",
+        "etpl.accessfordisabled",
         "indemandcips.cipcode as indemandcip",
         "onlineprograms.programid as onlineprogramid",
         "outcomes_cip.peremployed2",
