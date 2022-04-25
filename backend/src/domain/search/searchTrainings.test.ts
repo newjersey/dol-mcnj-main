@@ -51,6 +51,7 @@ describe("searchTrainings", () => {
         hasEveningCourses: training1.hasEveningCourses,
         languages: training1.languages,
         isWheelchairAccessible: training1.isWheelchairAccessible,
+        hasJobPlacementAssistance: training1.hasJobPlacementAssistance,
       },
       {
         id: training2.id,
@@ -73,6 +74,7 @@ describe("searchTrainings", () => {
         hasEveningCourses: training2.hasEveningCourses,
         languages: training2.languages,
         isWheelchairAccessible: training2.isWheelchairAccessible,
+        hasJobPlacementAssistance: training2.hasJobPlacementAssistance,
       },
     ]);
 

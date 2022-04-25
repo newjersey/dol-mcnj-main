@@ -28,5 +28,6 @@ export const convertTrainingToTrainingResult = (
     hasEveningCourses: training.hasEveningCourses,
     languages: training.languages,
     isWheelchairAccessible: training.isWheelchairAccessible,
+    hasJobPlacementAssistance: training.hasJobPlacementAssistance,
   };
 };

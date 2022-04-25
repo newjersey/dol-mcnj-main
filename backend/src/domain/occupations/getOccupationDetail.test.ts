@@ -80,6 +80,7 @@ describe("getOccupationDetail", () => {
           hasEveningCourses: false,
           languages: ["some-language"],
           isWheelchairAccessible: true,
+          hasJobPlacementAssistance: true,
         }),
       ]);
 
@@ -114,6 +115,7 @@ describe("getOccupationDetail", () => {
             hasEveningCourses: false,
             languages: ["some-language"],
             isWheelchairAccessible: true,
+            hasJobPlacementAssistance: true,
           },
         ],
       });
@@ -168,6 +170,7 @@ describe("getOccupationDetail", () => {
           hasEveningCourses: false,
           languages: ["some-language"],
           isWheelchairAccessible: true,
+          hasJobPlacementAssistance: true,
         }),
       ]);
 
@@ -203,6 +206,7 @@ describe("getOccupationDetail", () => {
             hasEveningCourses: false,
             languages: ["some-language"],
             isWheelchairAccessible: true,
+            hasJobPlacementAssistance: true,
           },
         ],
       });
@@ -263,6 +267,7 @@ describe("getOccupationDetail", () => {
           hasEveningCourses: false,
           languages: ["some-language"],
           isWheelchairAccessible: true,
+          hasJobPlacementAssistance: true,
         }),
       ]);
 
@@ -300,6 +305,7 @@ describe("getOccupationDetail", () => {
             hasEveningCourses: false,
             languages: ["some-language"],
             isWheelchairAccessible: true,
+            hasJobPlacementAssistance: true,
           },
         ],
       });

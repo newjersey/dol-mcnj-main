@@ -79,6 +79,7 @@ describe("findTrainingsBy", () => {
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
+        hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
       },
     ]);
   });
@@ -181,6 +182,7 @@ describe("findTrainingsBy", () => {
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
+        hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
       },
     ]);
   });

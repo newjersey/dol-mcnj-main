@@ -33,6 +33,7 @@ export interface Program {
   eveningcourses: string;
   languages: string | null;
   accessfordisabled: string | null;
+  personalassist: string | null;
 }
 
 export interface LocalException {

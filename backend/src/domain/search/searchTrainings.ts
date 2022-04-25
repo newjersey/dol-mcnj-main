@@ -53,6 +53,7 @@ export const searchTrainingsFactory = (
           hasEveningCourses: training.hasEveningCourses,
           languages: training.languages,
           isWheelchairAccessible: training.isWheelchairAccessible,
+          hasJobPlacementAssistance: training.hasJobPlacementAssistance,
         };
       })
     );
