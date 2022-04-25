@@ -50,6 +50,7 @@ describe("searchTrainings", () => {
         cipCode: training1.cipCode,
         hasEveningCourses: training1.hasEveningCourses,
         languages: training1.languages,
+        isWheelchairAccessible: training1.isWheelchairAccessible,
       },
       {
         id: training2.id,
@@ -71,6 +72,7 @@ describe("searchTrainings", () => {
         cipCode: training2.cipCode,
         hasEveningCourses: training2.hasEveningCourses,
         languages: training2.languages,
+        isWheelchairAccessible: training2.isWheelchairAccessible,
       },
     ]);
 

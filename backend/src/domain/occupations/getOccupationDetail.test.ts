@@ -79,6 +79,7 @@ describe("getOccupationDetail", () => {
           cipCode: "some-cip",
           hasEveningCourses: false,
           languages: ["some-language"],
+          isWheelchairAccessible: true,
         }),
       ]);
 
@@ -112,6 +113,7 @@ describe("getOccupationDetail", () => {
             cipCode: "some-cip",
             hasEveningCourses: false,
             languages: ["some-language"],
+            isWheelchairAccessible: true,
           },
         ],
       });
@@ -165,6 +167,7 @@ describe("getOccupationDetail", () => {
           cipCode: "some-cip",
           hasEveningCourses: false,
           languages: ["some-language"],
+          isWheelchairAccessible: true,
         }),
       ]);
 
@@ -199,6 +202,7 @@ describe("getOccupationDetail", () => {
             cipCode: "some-cip",
             hasEveningCourses: false,
             languages: ["some-language"],
+            isWheelchairAccessible: true,
           },
         ],
       });
@@ -258,6 +262,7 @@ describe("getOccupationDetail", () => {
           cipCode: "some-cip",
           hasEveningCourses: false,
           languages: ["some-language"],
+          isWheelchairAccessible: true,
         }),
       ]);
 
@@ -294,6 +299,7 @@ describe("getOccupationDetail", () => {
             cipCode: "some-cip",
             hasEveningCourses: false,
             languages: ["some-language"],
+            isWheelchairAccessible: true,
           },
         ],
       });

@@ -32,6 +32,7 @@ export interface Program {
   onlineprogramid: string | null;
   eveningcourses: string;
   languages: string | null;
+  accessfordisabled: string | null;
 }
 
 export interface LocalException {

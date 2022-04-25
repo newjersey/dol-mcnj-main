@@ -18,4 +18,5 @@ export enum FilterableElement {
   COUNTY,
   EVENING_COURSES,
   LANGUAGES,
+  WHEELCHAIR_ACCESSIBLE,
 }

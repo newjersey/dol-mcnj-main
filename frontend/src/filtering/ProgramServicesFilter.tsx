@@ -8,14 +8,17 @@ import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings"
 
 interface ProgramServices {
   hasEveningCourses: boolean;
+  isWheelchairAccessible: boolean;
 }
 
 const INITIAL_STATE = {
   hasEveningCourses: false,
+  isWheelchairAccessible: false,
 };
 
 const SERVICE_TO_FILTER = {
   hasEveningCourses: FilterableElement.EVENING_COURSES,
+  isWheelchairAccessible: FilterableElement.WHEELCHAIR_ACCESSIBLE,
 };
 
 export const ProgramServicesFilter = (): ReactElement => {
@@ -26,16 +29,22 @@ export const ProgramServicesFilter = (): ReactElement => {
     const eveningCoursesFilter = state.filters.find(
       (filter) => filter.element === FilterableElement.EVENING_COURSES
     );
-    if (eveningCoursesFilter) {
+    const wheelchairAccessibleFilter = state.filters.find(
+      (filter) => filter.element === FilterableElement.WHEELCHAIR_ACCESSIBLE
+    );
+    if (eveningCoursesFilter || wheelchairAccessibleFilter) {
       setProgramServices((prevValue) => ({
         ...prevValue,
-        hasEveningCourses: eveningCoursesFilter.value,
+        hasEveningCourses: eveningCoursesFilter?.value ?? prevValue.hasEveningCourses,
+        isWheelchairAccessible:
+          wheelchairAccessibleFilter?.value ?? prevValue.isWheelchairAccessible,
       }));
-    } else if (eveningCoursesFilter == null && programServices.hasEveningCourses) {
-      setProgramServices((prevValue) => ({
-        ...prevValue,
-        hasEveningCourses: false,
-      }));
+    } else if (
+      eveningCoursesFilter == null &&
+      wheelchairAccessibleFilter == null &&
+      Object.values(programServices).some((v) => v)
+    ) {
+      setProgramServices(INITIAL_STATE);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
@@ -52,8 +61,16 @@ export const ProgramServicesFilter = (): ReactElement => {
       filter: {
         element: SERVICE_TO_FILTER[filterName as keyof typeof SERVICE_TO_FILTER], // Checkbox names must be of FilterableElement type
         value: checked,
-        func: (trainingResults): TrainingResult[] =>
-          trainingResults.filter((it) => it.hasEveningCourses),
+        func: (trainingResults): TrainingResult[] => {
+          switch (filterName) {
+            case "hasEveningCourses":
+              return trainingResults.filter((it) => it.hasEveningCourses);
+            case "isWheelchairAccessible":
+              return trainingResults.filter((it) => it.isWheelchairAccessible);
+            default:
+              return trainingResults;
+          }
+        },
       },
     });
   };
@@ -62,6 +79,17 @@ export const ProgramServicesFilter = (): ReactElement => {
     <label className="bold" htmlFor="programServices">
       {SearchAndFilterStrings.programServicesFilterLabel}
       <FormGroup id="programServices">
+        <FormControlLabel
+          control={
+            <SpacedCheckbox
+              checked={programServices.isWheelchairAccessible}
+              onChange={handleCheckboxChange}
+              name="isWheelchairAccessible"
+              color="primary"
+            />
+          }
+          label={SearchAndFilterStrings.wheelChairAccessibleLabel}
+        />
         <FormControlLabel
           control={
             <SpacedCheckbox

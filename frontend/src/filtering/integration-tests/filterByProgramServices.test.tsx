@@ -8,15 +8,19 @@ import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
 
 describe("filtering by program services", () => {
-  const training1 = buildTrainingResult({ name: "training1", hasEveningCourses: true });
-  const training2 = buildTrainingResult({ name: "training2", hasEveningCourses: false });
+  const training1 = buildTrainingResult({
+    name: "training1",
+    hasEveningCourses: true,
+    isWheelchairAccessible: false,
+  });
+  const training2 = buildTrainingResult({
+    name: "training2",
+    hasEveningCourses: false,
+    isWheelchairAccessible: true,
+  });
 
   let stubClient: StubClient;
   let subject: RenderResult;
-
-  function getCheckbox() {
-    return subject.getByLabelText("Offers evening courses");
-  }
 
   beforeEach(async () => {
     stubClient = new StubClient();
@@ -35,23 +39,32 @@ describe("filtering by program services", () => {
   });
 
   it("filters by evening course", () => {
-    const checkbox = getCheckbox();
-    if (checkbox != null) fireEvent.click(checkbox);
+    fireEvent.click(subject.getByLabelText("Offers evening courses"));
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).not.toBeInTheDocument();
   });
 
-  it("removes filter when clear button is clicked", async () => {
-    const checkbox = getCheckbox();
-    if (checkbox != null) fireEvent.click(checkbox);
-    expect(getCheckbox()).toBeChecked();
+  it("filters by wheelchair accessibility", () => {
+    fireEvent.click(subject.getByLabelText("Wheelchair accessible"));
+
+    expect(subject.queryByText("training1")).not.toBeInTheDocument();
+    expect(subject.queryByText("training2")).toBeInTheDocument();
+  });
+
+  it("removes filters when clear button is clicked", async () => {
+    fireEvent.click(subject.getByLabelText("Offers evening courses"));
+    expect(subject.getByLabelText("Offers evening courses")).toBeChecked();
+
+    fireEvent.click(subject.getByLabelText("Wheelchair accessible"));
+    expect(subject.getByLabelText("Wheelchair accessible")).toBeChecked();
 
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 
-    expect(getCheckbox()).not.toBeChecked();
+    expect(subject.getByLabelText("Offers evening courses")).not.toBeChecked();
+    expect(subject.getByLabelText("Wheelchair accessible")).not.toBeChecked();
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
   });

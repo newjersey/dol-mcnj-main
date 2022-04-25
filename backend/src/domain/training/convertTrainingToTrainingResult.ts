@@ -27,5 +27,6 @@ export const convertTrainingToTrainingResult = (
     socCodes: training.occupations.map((o) => o.soc),
     hasEveningCourses: training.hasEveningCourses,
     languages: training.languages,
+    isWheelchairAccessible: training.isWheelchairAccessible,
   };
 };

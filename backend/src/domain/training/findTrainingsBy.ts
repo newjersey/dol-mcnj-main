@@ -71,6 +71,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           averageSalary: formatAverageSalary(program.avgquarterlywage2),
           hasEveningCourses: mapStrNumToBool(program.eveningcourses),
           languages: formatLanguages(program.languages),
+          isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
         };
       })
     );
@@ -115,7 +116,7 @@ const formatPrerequisites = (prereq: string | null): string => {
   return stripSurroundingQuotes(prereq);
 };
 
-export const mapStrNumToBool = (value: string): boolean => {
+export const mapStrNumToBool = (value: string | null): boolean => {
   return value === "1";
 };
 

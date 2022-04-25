@@ -24,6 +24,7 @@ export interface Training {
   averageSalary: number | null;
   hasEveningCourses: boolean;
   languages: string[];
+  isWheelchairAccessible: boolean;
 }
 
 export interface Provider {
