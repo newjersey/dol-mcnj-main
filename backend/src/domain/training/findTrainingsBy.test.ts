@@ -80,6 +80,8 @@ describe("findTrainingsBy", () => {
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
         hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
+        hasChildcareAssistance:
+          mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
       },
     ]);
   });
@@ -183,6 +185,8 @@ describe("findTrainingsBy", () => {
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
         hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
+        hasChildcareAssistance:
+          mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
       },
     ]);
   });

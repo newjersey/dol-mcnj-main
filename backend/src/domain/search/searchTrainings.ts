@@ -54,6 +54,7 @@ export const searchTrainingsFactory = (
           languages: training.languages,
           isWheelchairAccessible: training.isWheelchairAccessible,
           hasJobPlacementAssistance: training.hasJobPlacementAssistance,
+          hasChildcareAssistance: training.hasChildcareAssistance,
         };
       })
     );

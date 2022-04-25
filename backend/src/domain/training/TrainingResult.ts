@@ -22,4 +22,5 @@ export interface TrainingResult {
   languages: string[];
   isWheelchairAccessible: boolean;
   hasJobPlacementAssistance: boolean;
+  hasChildcareAssistance: boolean;
 }
