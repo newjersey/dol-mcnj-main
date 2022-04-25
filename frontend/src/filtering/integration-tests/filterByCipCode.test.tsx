@@ -119,36 +119,36 @@ describe("filtering by cip code", () => {
       target: { value: "12" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "abcdef" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "123456" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.queryByText(SearchAndFilterStrings.invalidSocCodeError)).not.toBeInTheDocument();
+    expect(subject.queryByText(SearchAndFilterStrings.invalidCipCodeError)).not.toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "1234567" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "12345" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "12-3456" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.queryByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(subject.queryByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
   });
 });
