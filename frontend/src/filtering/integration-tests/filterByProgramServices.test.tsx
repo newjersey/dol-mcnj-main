@@ -12,11 +12,19 @@ describe("filtering by program services", () => {
     name: "training1",
     hasEveningCourses: true,
     isWheelchairAccessible: false,
+    hasJobPlacementAssistance: false,
   });
   const training2 = buildTrainingResult({
     name: "training2",
     hasEveningCourses: false,
     isWheelchairAccessible: true,
+    hasJobPlacementAssistance: false,
+  });
+  const training3 = buildTrainingResult({
+    name: "training3",
+    hasEveningCourses: false,
+    isWheelchairAccessible: false,
+    hasJobPlacementAssistance: true,
   });
 
   let stubClient: StubClient;
@@ -33,11 +41,12 @@ describe("filtering by program services", () => {
     await waitForEffect();
 
     act(() => {
-      stubClient.capturedObserver.onSuccess([training1, training2]);
+      stubClient.capturedObserver.onSuccess([training1, training2, training3]);
     });
 
     expect(subject.getByText("training1")).toBeInTheDocument();
     expect(subject.getByText("training2")).toBeInTheDocument();
+    expect(subject.getByText("training3")).toBeInTheDocument();
   });
 
   it("filters by evening course", () => {
@@ -45,6 +54,7 @@ describe("filtering by program services", () => {
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).not.toBeInTheDocument();
+    expect(subject.queryByText("training3")).not.toBeInTheDocument();
   });
 
   it("filters by wheelchair accessibility", () => {
@@ -52,6 +62,15 @@ describe("filtering by program services", () => {
 
     expect(subject.queryByText("training1")).not.toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
+    expect(subject.queryByText("training3")).not.toBeInTheDocument();
+  });
+
+  it("filters by job placement assistance", () => {
+    fireEvent.click(subject.getByLabelText("Job placement assistance"));
+
+    expect(subject.queryByText("training1")).not.toBeInTheDocument();
+    expect(subject.queryByText("training2")).not.toBeInTheDocument();
+    expect(subject.queryByText("training3")).toBeInTheDocument();
   });
 
   it("removes filters when clear button is clicked", async () => {
@@ -61,13 +80,18 @@ describe("filtering by program services", () => {
     fireEvent.click(subject.getByLabelText("Wheelchair accessible"));
     expect(subject.getByLabelText("Wheelchair accessible")).toBeChecked();
 
+    fireEvent.click(subject.getByLabelText("Job placement assistance"));
+    expect(subject.getByLabelText("Job placement assistance")).toBeChecked();
+
     fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 
     expect(subject.getByLabelText("Offers evening courses")).not.toBeChecked();
     expect(subject.getByLabelText("Wheelchair accessible")).not.toBeChecked();
+    expect(subject.getByLabelText("Job placement assistance")).not.toBeChecked();
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
+    expect(subject.queryByText("training3")).toBeInTheDocument();
   });
 });

@@ -21,6 +21,7 @@ export interface TrainingResult {
   hasEveningCourses: boolean;
   languages: string[];
   isWheelchairAccessible: boolean;
+  hasJobPlacementAssistance: boolean;
 }
 
 export interface Training {
@@ -47,6 +48,7 @@ export interface Training {
   hasEveningCourses: boolean;
   languages: string[];
   isWheelchairAccessible: boolean;
+  hasJobPlacementAssistance: boolean;
 }
 
 export interface Provider {

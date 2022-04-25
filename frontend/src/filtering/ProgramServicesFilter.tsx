@@ -9,16 +9,19 @@ import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings"
 interface ProgramServices {
   hasEveningCourses: boolean;
   isWheelchairAccessible: boolean;
+  hasJobPlacementAssistance: boolean;
 }
 
 const INITIAL_STATE = {
   hasEveningCourses: false,
   isWheelchairAccessible: false,
+  hasJobPlacementAssistance: false,
 };
 
 const SERVICE_TO_FILTER = {
   hasEveningCourses: FilterableElement.EVENING_COURSES,
   isWheelchairAccessible: FilterableElement.WHEELCHAIR_ACCESSIBLE,
+  hasJobPlacementAssistance: FilterableElement.JOB_PLACEMENT_ASSISTANCE,
 };
 
 export const ProgramServicesFilter = (): ReactElement => {
@@ -32,16 +35,22 @@ export const ProgramServicesFilter = (): ReactElement => {
     const wheelchairAccessibleFilter = state.filters.find(
       (filter) => filter.element === FilterableElement.WHEELCHAIR_ACCESSIBLE
     );
-    if (eveningCoursesFilter || wheelchairAccessibleFilter) {
+    const jobPlacementAssistFilter = state.filters.find(
+      (filter) => filter.element === FilterableElement.JOB_PLACEMENT_ASSISTANCE
+    );
+    if (eveningCoursesFilter || wheelchairAccessibleFilter || jobPlacementAssistFilter) {
       setProgramServices((prevValue) => ({
         ...prevValue,
         hasEveningCourses: eveningCoursesFilter?.value ?? prevValue.hasEveningCourses,
         isWheelchairAccessible:
           wheelchairAccessibleFilter?.value ?? prevValue.isWheelchairAccessible,
+        hasJobPlacementAssistance:
+          jobPlacementAssistFilter?.value ?? prevValue.hasJobPlacementAssistance,
       }));
     } else if (
       eveningCoursesFilter == null &&
       wheelchairAccessibleFilter == null &&
+      jobPlacementAssistFilter == null &&
       Object.values(programServices).some((v) => v)
     ) {
       setProgramServices(INITIAL_STATE);
@@ -67,6 +76,8 @@ export const ProgramServicesFilter = (): ReactElement => {
               return trainingResults.filter((it) => it.hasEveningCourses);
             case "isWheelchairAccessible":
               return trainingResults.filter((it) => it.isWheelchairAccessible);
+            case "hasJobPlacementAssistance":
+              return trainingResults.filter((it) => it.hasJobPlacementAssistance);
             default:
               return trainingResults;
           }
@@ -89,6 +100,17 @@ export const ProgramServicesFilter = (): ReactElement => {
             />
           }
           label={SearchAndFilterStrings.wheelChairAccessibleLabel}
+        />
+        <FormControlLabel
+          control={
+            <SpacedCheckbox
+              checked={programServices.hasJobPlacementAssistance}
+              onChange={handleCheckboxChange}
+              name="hasJobPlacementAssistance"
+              color="primary"
+            />
+          }
+          label={SearchAndFilterStrings.jobPlacementAssistLabel}
         />
         <FormControlLabel
           control={

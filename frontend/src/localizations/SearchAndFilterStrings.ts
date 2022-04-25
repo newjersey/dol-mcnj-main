@@ -34,6 +34,7 @@ export const SearchAndFilterStrings: Record<string, string> = {
   programServicesFilterLabel: "Filter by Training Provider Services",
   eveningCoursesLabel: "Offers evening courses",
   wheelChairAccessibleLabel: "Wheelchair accessible",
+  jobPlacementAssistLabel: "Job placement assistance",
   languagesFilterLabel: "Filter by Languages",
   filterListExpandLabel: "Show more",
   filterListCollapseLabel: "Show less",

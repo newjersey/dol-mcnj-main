@@ -72,6 +72,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasEveningCourses: mapStrNumToBool(program.eveningcourses),
           languages: formatLanguages(program.languages),
           isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
+          hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
         };
       })
     );
