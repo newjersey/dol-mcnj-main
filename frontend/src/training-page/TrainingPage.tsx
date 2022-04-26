@@ -398,7 +398,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         {training.isWheelchairAccessible && (
                           <p>
                             <span className="fin">
-                              <InlineIcon className="mrxs">accessible</InlineIcon>
+                              <InlineIcon className="mrxs">accessible_forward</InlineIcon>
                               {TrainingPageStrings.wheelchairAccessibleServiceLabel}
                             </span>
                           </p>
