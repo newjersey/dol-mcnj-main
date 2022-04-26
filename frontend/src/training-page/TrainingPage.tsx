@@ -376,6 +376,52 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </p>
                       </>
                     </Grouping>
+
+                    <Grouping title={TrainingPageStrings.providerServicesGroupHeader}>
+                      <>
+                        {training.hasEveningCourses && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">nightlight_round</InlineIcon>
+                              {TrainingPageStrings.eveningCoursesServiceLabel}
+                            </span>
+                          </p>
+                        )}
+                        {training.languages.length > 0 && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">language</InlineIcon>
+                              {TrainingPageStrings.otherLanguagesServiceLabel}
+                            </span>
+                          </p>
+                        )}
+                        {training.isWheelchairAccessible && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">accessible</InlineIcon>
+                              {TrainingPageStrings.wheelchairAccessibleServiceLabel}
+                            </span>
+                          </p>
+                        )}
+                        {training.hasChildcareAssistance && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">family_restroom</InlineIcon>
+                              {TrainingPageStrings.childcareAssistanceServiceLabel}
+                            </span>
+                          </p>
+                        )}
+                        {training.hasJobPlacementAssistance && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">work_outline</InlineIcon>
+                              {TrainingPageStrings.jobAssistanceServiceLabel}
+                            </span>
+                          </p>
+                        )}
+                        <p>{TrainingPageStrings.providerServicesDisclaimerLabel}</p>
+                      </>
+                    </Grouping>
                   </div>
                 </div>
               </div>
