@@ -2,8 +2,7 @@ import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } fro
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
-import { FormControlLabel, FormGroup } from "@material-ui/core";
-import { SpacedCheckbox } from "../components/SpacedCheckbox";
+import { FormControlLabel, FormGroup, Switch } from "@material-ui/core";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
 interface ProgramServices {
@@ -107,7 +106,7 @@ export const ProgramServicesFilter = (): ReactElement => {
       <FormGroup id="programServices">
         <FormControlLabel
           control={
-            <SpacedCheckbox
+            <Switch
               checked={programServices.isWheelchairAccessible}
               onChange={handleCheckboxChange}
               name="isWheelchairAccessible"
@@ -118,7 +117,7 @@ export const ProgramServicesFilter = (): ReactElement => {
         />
         <FormControlLabel
           control={
-            <SpacedCheckbox
+            <Switch
               checked={programServices.hasChildcareAssistance}
               onChange={handleCheckboxChange}
               name="hasChildcareAssistance"
@@ -129,7 +128,7 @@ export const ProgramServicesFilter = (): ReactElement => {
         />
         <FormControlLabel
           control={
-            <SpacedCheckbox
+            <Switch
               checked={programServices.hasEveningCourses}
               onChange={handleCheckboxChange}
               name="hasEveningCourses"
@@ -140,7 +139,7 @@ export const ProgramServicesFilter = (): ReactElement => {
         />
         <FormControlLabel
           control={
-            <SpacedCheckbox
+            <Switch
               checked={programServices.hasJobPlacementAssistance}
               onChange={handleCheckboxChange}
               name="hasJobPlacementAssistance"
