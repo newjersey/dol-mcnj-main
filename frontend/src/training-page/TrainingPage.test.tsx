@@ -27,11 +27,8 @@ function mockReachRouter() {
 jest.mock("@reach/router", () => mockReachRouter());
 
 const { inDemandTag } = SearchResultsPageStrings;
-const {
-  missingProviderUrl,
-  missingProviderAddress,
-  associatedOccupationsText,
-} = TrainingPageStrings;
+const { missingProviderUrl, missingProviderAddress, associatedOccupationsText } =
+  TrainingPageStrings;
 const { notFoundHeader, somethingWentWrongHeader } = ErrorPageStrings;
 
 describe("<TrainingPage />", () => {
@@ -333,5 +330,99 @@ describe("<TrainingPage />", () => {
     );
     expect(subject.getByText("some first line")).toBeInTheDocument();
     expect(subject.getByText("some second line")).toBeInTheDocument();
+  });
+
+  it("displays evening courses text if training has evening courses", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ hasEveningCourses: true });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(subject.getByText(TrainingPageStrings.eveningCoursesServiceLabel)).toBeInTheDocument();
+  });
+
+  it("does not display evening courses text if training does not have evening courses", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ hasEveningCourses: false });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.queryByText(TrainingPageStrings.eveningCoursesServiceLabel)
+    ).not.toBeInTheDocument();
+  });
+
+  it("displays languages text if training has languages", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ languages: ["Spanish"] });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(subject.getByText(TrainingPageStrings.otherLanguagesServiceLabel)).toBeInTheDocument();
+  });
+
+  it("does not display languages text if training does not have languages", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ languages: [] });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.queryByText(TrainingPageStrings.otherLanguagesServiceLabel)
+    ).not.toBeInTheDocument();
+  });
+
+  it("displays wheelchair accessible text if training is wheelchair accessible", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ isWheelchairAccessible: true });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.getByText(TrainingPageStrings.wheelchairAccessibleServiceLabel)
+    ).toBeInTheDocument();
+  });
+
+  it("does not display wheelchair accessible text if training is not wheelchair accessible", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ isWheelchairAccessible: false });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.queryByText(TrainingPageStrings.wheelchairAccessibleServiceLabel)
+    ).not.toBeInTheDocument();
+  });
+
+  it("displays childcare assistance text if training has childcare assistance", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ hasChildcareAssistance: true });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.getByText(TrainingPageStrings.childcareAssistanceServiceLabel)
+    ).toBeInTheDocument();
+  });
+
+  it("does not display childcare assistance text if training does not have childcare assistance", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ hasChildcareAssistance: false });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.queryByText(TrainingPageStrings.childcareAssistanceServiceLabel)
+    ).not.toBeInTheDocument();
+  });
+
+  it("displays job assistance text if training has job assistance", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ hasJobPlacementAssistance: true });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(subject.getByText(TrainingPageStrings.jobAssistanceServiceLabel)).toBeInTheDocument();
+  });
+
+  it("does not display job assistance text if training does not have job assistance", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const training = buildTraining({ hasJobPlacementAssistance: false });
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(
+      subject.queryByText(TrainingPageStrings.jobAssistanceServiceLabel)
+    ).not.toBeInTheDocument();
   });
 });

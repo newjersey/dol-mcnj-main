@@ -34,4 +34,13 @@ export const TrainingPageStrings: Record<string, string> = {
   missingProviderUrl: "--",
   missingProviderAddress: "--",
   onlineClass: "Online Class",
+  providerServicesGroupHeader: "Provider Services",
+  eveningCoursesServiceLabel: "This provider offers evening courses",
+  otherLanguagesServiceLabel: "Programs may be available in other languages",
+  wheelchairAccessibleServiceLabel: "The facility is wheelchair accessible",
+  childcareAssistanceServiceLabel:
+    "This provider has childcare at the facility or provides assistance with finding childcare",
+  jobAssistanceServiceLabel: "Job placement and/or career assistance is available at this provider",
+  providerServicesDisclaimerLabel:
+    "Services are subject to provider details, contact this provider for more information on services",
 };
