@@ -86,9 +86,11 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "build")));
 app.use("/api", router);
 app.get("/", (req: Request, res: Response) => {
+  res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 app.get("*", (req: Request, res: Response) => {
+  res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
