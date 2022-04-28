@@ -28,7 +28,7 @@ export const Header = (): ReactElement => {
     return (
       <header className="header" role="banner">
         <div className="container height-100">
-          <div className="fdr fac fjb pts">
+          <div className="fdr fac fjb height-100">
             <a href="/" className="link-format-black fin fac width-content">
               <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
               <h1 className="text-m bold">Training Explorer</h1>
@@ -97,7 +97,7 @@ export const Header = (): ReactElement => {
   const nav = (): ReactElement => {
     return (
       <header className="header" role="banner">
-        <div className="container height-100 pts">
+        <div className="container height-100">
           <nav className="nav">
             <div>
               <a href="/" className="link-format-black fin fac width-content">
