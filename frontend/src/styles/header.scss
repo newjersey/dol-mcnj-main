@@ -1,44 +1,10 @@
-.nj-logo-header {
-  width: 2rem;
-}
-
 .header {
-  background-color: $navy;
-  line-height: 1.2;
-  color: white;
+  background-color: white;
   position: fixed;
   top: 0;
   width: 100%;
   height: $header-height;
   z-index: 12;
-
-  &--is-open {
-    background-color: white;
-    color: $navy;
-  }
-
-  .header-container {
-    display: grid;
-    grid-template-columns: 78px 1fr;
-    grid-template-rows: 1fr;
-    align-items: center;
-  }
-
-  .menu-btn {
-    grid-area: 1 / 1;
-    padding: 0;
-    color: inherit;
-  }
-
-  .logo {
-    grid-area: 1 / 1 / 1 / -1;
-    justify-self: end;
-    z-index: 14;
-
-    @media (min-width: 768px) {
-      justify-self: center;
-    }
-  }
 
   .nav-mobile {
     background: white;
@@ -55,29 +21,11 @@
   }
 
   @media (min-width: 992px) {
-    .header-container {
-      grid-template-columns: 1fr;
-
-      .logo {
-        column-span: all;
-        grid-area: 1 / 1;
-        justify-content: center;
-      }
-
-      .nav {
-        display: inline-grid;
-        grid-template-columns: auto auto 1fr auto auto;
-        grid-column-gap: 1.5rem;
-        grid-area: 1 / 1;
-        align-items: center;
-      }
-
-      .funding {
-        grid-column-start: 4;
-      }
-      .counseling {
-        grid-column-start: 5;
-      }
+    .nav {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto auto;
+      grid-column-gap: 1.5rem;
+      align-items: center;
     }
   }
 

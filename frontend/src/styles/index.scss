@@ -9,17 +9,13 @@
 @import "css/bootstrap.css";
 @import "landing-page";
 @import "header";
-@import "footer";
 @import "search-results-page";
 @import "training-page";
 @import "not-found-page";
 @import "in-demand-page";
-@import "components";
 @import "occupation-page";
 @import "training-comparison";
 @import "faq-breadcrumb";
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 * {
   -webkit-box-sizing: border-box;
@@ -50,17 +46,8 @@ body {
 }
 
 body {
-  line-height: 1.5rem;
   margin: 0;
-  font-size: 100%;
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
-}
-
-a {
-  color: $blue;
 }
 
 button {
@@ -71,16 +58,16 @@ button {
   cursor: pointer;
 }
 
+p {
+  max-width: none !important;
+}
+
 .width-100 {
   width: 100%;
 }
 
 .height-100 {
   height: 100%;
-}
-
-.height-full {
-  min-height: 100vh;
 }
 
 .align-center {
@@ -101,15 +88,15 @@ button {
   visibility: hidden;
 }
 
-a.no-link-format {
-  color: inherit;
-  text-decoration: inherit;
+a.link-format-black {
+  color: black !important;
+  text-decoration: none;
 }
 
 button.link-format-blue,
 a.link-format-blue {
-  color: $blue;
-  text-decoration: inherit;
+  color: $blue !important;
+  text-decoration: none !important;
 }
 
 .button-size-full {
@@ -150,4 +137,9 @@ a.link-format-blue {
 .two-column-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+}
+
+.tag {
+  border-radius: 10px;
+  width: max-content;
 }

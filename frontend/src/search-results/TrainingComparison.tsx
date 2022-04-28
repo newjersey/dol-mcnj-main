@@ -1,11 +1,12 @@
 import React, { ReactElement, useState, useContext } from "react";
-import { TertiaryButton } from "../components/TertiaryButton";
 import { TrainingResult } from "../domain/Training";
-import { Button, useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import { ComparisonTable } from "./ComparisonTable";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { UnstyledButton } from "../components/UnstyledButton";
+import { Button } from "../components/Button";
 
 interface Props {
   className?: string;
@@ -63,12 +64,12 @@ export const TrainingComparison = (props: Props): ReactElement => {
                 <h4 className={isTabletAndUp ? "" : "truncated"}>{item.name}</h4>
                 <p className={isTabletAndUp ? "mbs" : "truncated mbs"}>{item.providerName}</p>
 
-                <Button className="btn-remove" onClick={(): void => removeItem(item)}>
+                <UnstyledButton className="btn-remove" onClick={(): void => removeItem(item)}>
                   <Icon fontSize="inherit">cancel</Icon>
                   <span className="visually-hidden">
                     {SearchResultsPageStrings.comparisonRemove}
                   </span>
-                </Button>
+                </UnstyledButton>
               </div>
             );
           } else {
@@ -117,19 +118,19 @@ export const TrainingComparison = (props: Props): ReactElement => {
 
             <div className={`button-container fdc fje ${!isTabletAndUp && "ptm"}`}>
               {showComparison && (
-                <TertiaryButton className="btn-collapse" onClick={collapseItems}>
+                <Button variant="outline" className="btn-collapse" onClick={collapseItems}>
                   {SearchResultsPageStrings.comparisonCollapse}
-                </TertiaryButton>
+                </Button>
               )}
 
               {!showComparison && (
-                <TertiaryButton className="btn-compare" onClick={compareItems}>
+                <Button variant="outline" className="btn-compare" onClick={compareItems}>
                   {SearchResultsPageStrings.comparisonCompare}
-                </TertiaryButton>
+                </Button>
               )}
-              <TertiaryButton className="btn-clear-all" onClick={clearItems}>
+              <Button variant="outline" className="btn-clear-all" onClick={clearItems}>
                 {SearchResultsPageStrings.comparisonClear}
-              </TertiaryButton>
+              </Button>
             </div>
           </div>
         </div>

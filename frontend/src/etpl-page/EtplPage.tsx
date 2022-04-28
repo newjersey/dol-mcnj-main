@@ -49,7 +49,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.cosmetologyText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.cosmetologyLink}>
+            <a
+              target="_blank"
+              className="link-format-blue"
+              rel="noopener noreferrer"
+              href={EtplPageStrings.cosmetologyLink}
+            >
               {EtplPageStrings.cosmetologyLinkText}
             </a>
             &nbsp;
@@ -61,7 +66,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.nursingText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.nursingLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.nursingLink}
+            >
               {EtplPageStrings.nursingLinkText}
             </a>
             &nbsp;
@@ -73,7 +83,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.higherEdText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.higherEdLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.higherEdLink}
+            >
               {EtplPageStrings.higherEdLinkText}
             </a>
             &nbsp;
@@ -88,7 +103,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.insuranceText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.insuranceLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.insuranceLink}
+            >
               {EtplPageStrings.insuranceLinkText}
             </a>
             &nbsp;
@@ -105,7 +125,12 @@ export const EtplPage = (_props: Props): ReactElement => {
             <p>
               {EtplPageStrings.realEstateText2.split("{link}")[0].trim()}
               &nbsp;
-              <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.realEstateLink}>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-format-blue"
+                href={EtplPageStrings.realEstateLink}
+              >
                 {EtplPageStrings.realEstateLinkText}
               </a>
               &nbsp;
@@ -154,7 +179,12 @@ export const EtplPage = (_props: Props): ReactElement => {
             <p>
               {EtplPageStrings.laborGranteesText2.split("{link}")[0].trim()}
               &nbsp;
-              <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.laborGranteesLink}>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-format-blue"
+                href={EtplPageStrings.laborGranteesLink}
+              >
                 {EtplPageStrings.laborGranteesLinkText}
               </a>
               &nbsp;
@@ -167,7 +197,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.publicSchoolsText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.publicSchoolsLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.publicSchoolsLink}
+            >
               {EtplPageStrings.publicSchoolsLinkText}
             </a>
             &nbsp;
@@ -182,7 +217,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.xraysText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.xraysLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.xraysLink}
+            >
               {EtplPageStrings.xraysLinkText}
             </a>
             &nbsp;
@@ -197,7 +237,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.longTermCareText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.longTermCareLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.longTermCareLink}
+            >
               {EtplPageStrings.longTermCareLinkText}
             </a>
             &nbsp;
@@ -212,7 +257,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.indoorEnvText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.indoorEnvLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.indoorEnvLink}
+            >
               {EtplPageStrings.indoorEnvLinkText}
             </a>
             &nbsp;
@@ -227,7 +277,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.emergencyMedText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.emergencyMedLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.emergencyMedLink}
+            >
               {EtplPageStrings.emergencyMedLinkText}
             </a>
             &nbsp;
@@ -239,7 +294,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.aviationText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.aviationLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.aviationLink}
+            >
               {EtplPageStrings.aviationLinkText}
             </a>
             &nbsp;
@@ -251,7 +311,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.motorVehiclesText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.motorVehiclesLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.motorVehiclesLink}
+            >
               {EtplPageStrings.motorVehiclesLinkText}
             </a>
             &nbsp;
@@ -285,7 +350,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.securityOfficerText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.securityOfficerLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.securityOfficerLink}
+            >
               {EtplPageStrings.securityOfficerLinkText}
             </a>
             &nbsp;
@@ -297,7 +367,12 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {EtplPageStrings.proLiteracyText.split("{link}")[0].trim()}
             &nbsp;
-            <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.proLiteracyLink}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={EtplPageStrings.proLiteracyLink}
+            >
               {EtplPageStrings.proLiteracyLinkText}
             </a>
             &nbsp;
@@ -340,6 +415,7 @@ export const EtplPage = (_props: Props): ReactElement => {
               <p className="mbl">
                 <a
                   target="_blank"
+                  className="link-format-blue"
                   rel="noopener noreferrer"
                   href={EtplPageStrings.applicationPacketLink}
                 >
@@ -350,6 +426,7 @@ export const EtplPage = (_props: Props): ReactElement => {
               <p className="mbl">
                 <a
                   target="_blank"
+                  className="link-format-blue"
                   rel="noopener noreferrer"
                   href={EtplPageStrings.renewalPacketLink}
                 >
@@ -360,6 +437,7 @@ export const EtplPage = (_props: Props): ReactElement => {
               <p className="mbl">
                 <a
                   target="_blank"
+                  className="link-format-blue"
                   rel="noopener noreferrer"
                   href={EtplPageStrings.apprenticeshipPacketLinkText}
                 >
@@ -372,6 +450,7 @@ export const EtplPage = (_props: Props): ReactElement => {
               <p>
                 <a
                   target="_blank"
+                  className="link-format-blue"
                   rel="noopener noreferrer"
                   href={EtplPageStrings.workforceInnovationLink}
                 >
@@ -379,7 +458,12 @@ export const EtplPage = (_props: Props): ReactElement => {
                 </a>
               </p>
               <p>
-                <a target="_blank" rel="noopener noreferrer" href={EtplPageStrings.wioaYouthLink}>
+                <a
+                  target="_blank"
+                  className="link-format-blue"
+                  rel="noopener noreferrer"
+                  href={EtplPageStrings.wioaYouthLink}
+                >
                   {EtplPageStrings.wioaYouthLinkText}
                 </a>
               </p>
@@ -388,6 +472,7 @@ export const EtplPage = (_props: Props): ReactElement => {
               <p className="mbl">
                 <a
                   target="_blank"
+                  className="link-format-blue"
                   rel="noopener noreferrer"
                   href={EtplPageStrings.additionModificationLink}
                 >

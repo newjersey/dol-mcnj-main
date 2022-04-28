@@ -58,18 +58,12 @@
 
   .btn-compare,
   .btn-collapse {
-    margin-bottom: 16px;
+    margin-bottom: 0.5rem;
   }
 
   @media (max-width: $xs) {
     .icon-flip {
       transform: scaleX(-1);
-    }
-
-    .btn-compare,
-    .btn-collapse,
-    .btn-clear-all {
-      padding: 4px;
     }
   }
 
@@ -85,11 +79,11 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 80px;
+      grid-template-columns: 1fr 1fr 1fr auto;
       grid-column-gap: 5.75%;
 
       &.expanded {
-        grid-template-columns: 1fr 80px;
+        grid-template-columns: 1fr auto;
         overflow: none;
       }
     }
@@ -100,7 +94,7 @@
 
     .btn-compare,
     .btn-collapse {
-      margin-bottom: 16px;
+      margin-bottom: 0.5rem;
     }
 
     .button-container {

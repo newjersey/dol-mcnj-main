@@ -1,10 +1,9 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState, useContext } from "react";
 import { InputAdornment, Icon } from "@material-ui/core";
-import { PrimaryButton } from "./PrimaryButton";
 import { Input } from "./Input";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
-import { SecondaryButton } from "../components/SecondaryButton";
 import { FilterActionType, FilterContext } from "../filtering/FilterContext";
+import { Button } from "./Button";
 interface Props {
   onSearch: (searchQuery: string) => void;
   initialValue?: string;
@@ -62,16 +61,18 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
             : SearchAndFilterStrings.searchBarDefaultPlaceholderText
         }
       />
-      <div className={`${marginDirection} ${buttonWidth}`}>
-        <PrimaryButton variant="contained" onClick={(): void => props.onSearch(searchQuery)}>
+      <div className={`${marginDirection} ${buttonWidth} fdc fac`}>
+        <Button
+          variant="primary"
+          className="width-full"
+          onClick={(): void => props.onSearch(searchQuery)}
+        >
           {props.buttonText ? props.buttonText : SearchAndFilterStrings.searchButtonDefaultText}
-        </PrimaryButton>
+        </Button>
         {props.isLandingPage !== true && (
-          <div className="mts">
-            <SecondaryButton variant="contained" onClick={handleClearAll}>
-              {SearchAndFilterStrings.clearAllFiltersButtonLabel}
-            </SecondaryButton>
-          </div>
+          <Button variant="outline" className="width-full mvs" onClick={handleClearAll}>
+            {SearchAndFilterStrings.clearAllFiltersButtonLabel}
+          </Button>
         )}
       </div>
     </div>

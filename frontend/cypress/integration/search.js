@@ -131,7 +131,7 @@ describe("Search", () => {
       cy.get("[data-testid='card']")
         .first()
         .within(() => {
-          cy.get('[type="checkbox"][name="compare"]').focus().check();
+          cy.get('[type="checkbox"][name="compare"]').focus().check({ force: true });
         });
 
       cy.get(".training-comparison").within(() => {

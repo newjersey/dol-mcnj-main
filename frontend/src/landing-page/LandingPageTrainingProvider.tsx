@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react";
-import { RouteComponentProps, Link } from "@reach/router";
+import { RouteComponentProps, Link, navigate } from "@reach/router";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { LinkButton } from "../components/LinkButton";
 import { LandingCard } from "./LandingCard";
 import IconChecklist from "./landing-icons/checklist.svg";
 import IconPortfolio from "./landing-icons/portfolio.svg";
@@ -11,6 +10,7 @@ import IconOccupation from "./landing-icons/occupations.svg";
 import { useMediaQuery } from "@material-ui/core";
 import { TrainingProviderPageStrings } from "../localizations/TrainingProviderPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
+import { Button } from "../components/Button";
 
 export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
@@ -49,9 +49,9 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     {TrainingProviderPageStrings.etplDescription}
                   </p>
-                  <LinkButton secondary to="/etpl">
+                  <Button variant="secondary" onClick={() => navigate("/etpl")}>
                     {TrainingProviderPageStrings.etplButton}
-                  </LinkButton>
+                  </Button>
                 </div>
               </>
             </LandingCard>
@@ -64,9 +64,9 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     {TrainingProviderPageStrings.applicationDescription}
                   </p>
-                  <LinkButton secondary to="/etpl#apply">
+                  <Button variant="secondary" onClick={() => navigate("/etpl#apply")}>
                     {TrainingProviderPageStrings.applicationButton}
-                  </LinkButton>
+                  </Button>
                 </div>
               </>
             </LandingCard>
@@ -79,9 +79,9 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     {TrainingProviderPageStrings.occupationDescription}
                   </p>
-                  <LinkButton secondary to="/in-demand-occupations">
+                  <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
                     {TrainingProviderPageStrings.occupationButton}
-                  </LinkButton>
+                  </Button>
                 </div>
               </>
             </LandingCard>
@@ -91,27 +91,27 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
             {TrainingProviderPageStrings.sectionFourHeader}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <Link className="no-link-format" to="/etpl">
+            <Link className="link-format-blue" to="/etpl">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {TrainingProviderPageStrings.etplFaq}
               </LandingCard>
             </Link>
-            <Link className="no-link-format" to="/faq/registered-apprenticeship">
+            <Link className="link-format-blue" to="/faq/registered-apprenticeship">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {TrainingProviderPageStrings.apprenticeshipFaq}
               </LandingCard>
             </Link>
-            <Link className="no-link-format" to="/faq/etpl-out-of-state-provider">
+            <Link className="link-format-blue" to="/faq/etpl-out-of-state-provider">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {TrainingProviderPageStrings.outOfStateFaq}
               </LandingCard>
             </Link>
-            <Link className="no-link-format" to="/faq/etpl-performance-standards">
+            <Link className="link-format-blue" to="/faq/etpl-performance-standards">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {TrainingProviderPageStrings.performanceFaq}
               </LandingCard>
             </Link>
-            <Link className="no-link-format" to="/faq/labor-demand-occupations">
+            <Link className="link-format-blue" to="/faq/labor-demand-occupations">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {TrainingProviderPageStrings.laborDemandFaq}
               </LandingCard>

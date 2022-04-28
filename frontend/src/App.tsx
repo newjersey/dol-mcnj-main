@@ -34,6 +34,8 @@ import {
   initialContextualInfoState,
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
+import "njwds/dist/css/styles.css";
+
 interface Props {
   client: Client;
 }

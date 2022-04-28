@@ -4,11 +4,11 @@ import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { LinkButton } from "../components/LinkButton";
 import IconOccupation from "./landing-icons/occupations.svg";
 import IconGear from "./landing-icons/gear.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
 import { LandingPageStrings } from "../localizations/LandingPageStrings";
+import { Button } from "../components/Button";
 
 export const LandingPage = (_props: RouteComponentProps): ReactElement => {
   return (
@@ -39,37 +39,39 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             <div className="landing-image mbs">
               <img alt="icon-occupation" src={IconOccupation} />
             </div>
-            <h3 className="text-l weight-400">{LandingPageStrings.columnOneHeader}</h3>
+            <h3 className="text-l weight-400 align-center">{LandingPageStrings.columnOneHeader}</h3>
             <p className="phm align-center options-desc">
               {LandingPageStrings.columnOneDescription}
             </p>
-            <LinkButton to="/explorer" secondary>
+            <Button variant="secondary" onClick={() => navigate("/explorer")}>
               {LandingPageStrings.columnOneButtonText}
-            </LinkButton>
+            </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
               <img alt="icon-counseling" src={IconCounseling} />
             </div>
-            <h3 className="text-l weight-400">{LandingPageStrings.columnTwoHeader}</h3>
+            <h3 className="text-l weight-400 align-center">{LandingPageStrings.columnTwoHeader}</h3>
             <p className="phm align-center options-desc">
               {LandingPageStrings.columnTwoDescription}
             </p>
-            <LinkButton to="/counselor" secondary>
+            <Button variant="secondary" onClick={() => navigate("/counselor")}>
               {LandingPageStrings.columnTwoButtonText}
-            </LinkButton>
+            </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
               <img alt="icon-workforce" src={IconGear} />
             </div>
-            <h3 className="text-l weight-400">{LandingPageStrings.columnThreeHeader}</h3>
+            <h3 className="text-l weight-400 align-center">
+              {LandingPageStrings.columnThreeHeader}
+            </h3>
             <p className="phm align-center options-desc">
               {LandingPageStrings.columnThreeDescription}
             </p>
-            <LinkButton to="/training-provider" secondary>
+            <Button variant="secondary" onClick={() => navigate("/training-provider")}>
               {LandingPageStrings.columnThreeButtonText}
-            </LinkButton>
+            </Button>
           </div>
         </div>
       </main>

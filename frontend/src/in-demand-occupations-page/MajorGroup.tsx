@@ -62,10 +62,10 @@ export const MajorGroup = (props: Props): ReactElement => {
       </button>
 
       {isOpen && (
-        <div className="mts mlxl">
+        <div className="mts mlxl pbd">
           {props.occupations.map((it) => (
             <div key={it.soc} className="pbs">
-              <Link className="no-link-format" to={`/occupation/${it.soc}`}>
+              <Link className="link-format-blue" to={`/occupation/${it.soc}`}>
                 {it.title}
               </Link>
             </div>
@@ -78,8 +78,10 @@ export const MajorGroup = (props: Props): ReactElement => {
 
 const industryIconLookup: Record<string, string> = {
   "Architecture and Engineering": ArchitectureandEngineeringOccupations,
-  "Arts, Design, Entertainment, Sports, and Media": ArtsDesignEntertainmentSportsandMediaOccupations,
-  "Building and Grounds Cleaning and Maintenance": BuildingandGroundsCleaningandMaintenanceOccupations,
+  "Arts, Design, Entertainment, Sports, and Media":
+    ArtsDesignEntertainmentSportsandMediaOccupations,
+  "Building and Grounds Cleaning and Maintenance":
+    BuildingandGroundsCleaningandMaintenanceOccupations,
   "Business and Financial Operations": BusinessandFinancialOperationsOccupations,
   "Community and Social Service": CommunityandSocialServiceOccupations,
   "Computer and Mathematical": ComputerandMathematicalOccupations,

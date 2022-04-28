@@ -31,7 +31,7 @@ export const SearchAndFilterStrings: Record<string, string> = {
   cipCodeFilterLabel: "Filter by CIP Code",
   invalidCipCodeError: "Please enter a 6-digit CIP code.",
   countyFilterLabel: "Filter by County",
-  programServicesFilterLabel: "Filter by Training Provider Services",
+  programServicesFilterLabel: "Filter by Provider Services",
   eveningCoursesLabel: "Offers evening courses",
   wheelChairAccessibleLabel: "Wheelchair accessible",
   jobPlacementAssistLabel: "Job placement assistance",

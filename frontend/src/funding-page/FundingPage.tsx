@@ -29,15 +29,15 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
             <p>
               {FundingPageStrings.sectionTwoText.split("{link}")[0].trim()}
               &nbsp;
-              <Link to="/in-demand-occupations">{FundingPageStrings.sectionTwoLinkText}</Link>
+              <Link className="link-format-blue" to="/in-demand-occupations">
+                {FundingPageStrings.sectionTwoLinkText}
+              </Link>
               &nbsp;
               {FundingPageStrings.sectionTwoText.split("{link}")[1].trim()}
             </p>
 
             <h3 className="text-l ptd weight-500">{FundingPageStrings.sectionThreeHeader}</h3>
             <p>
-              {FundingPageStrings.sectionThreeText.split("{link}")[0].trim()}
-              &nbsp;
               <a
                 className="link-format-blue"
                 target="_blank"
