@@ -87,7 +87,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       <div className="row mbd">
         <div className="col-xs-8">
           <h2 className="blue text-m weight-500">
-            <Link className="no-link-format" to={`/training/${props.trainingResult.id}`}>
+            <Link className="link-format-blue" to={`/training/${props.trainingResult.id}`}>
               {props.trainingResult.name}
             </Link>
           </h2>

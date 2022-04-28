@@ -2,8 +2,7 @@
 
 import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { FilterContext } from "./FilterContext";
-import { SecondaryButton } from "../components/SecondaryButton";
-import { Icon, useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";
 import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 import { Searchbar } from "../components/Searchbar";
@@ -18,6 +17,7 @@ import { SocCodeFilter } from "./SocCodeFilter";
 import { CipCodeFilter } from "./CipCodeFilter";
 import { ProgramServicesFilter } from "./ProgramServicesFilter";
 import { LanguagesFilter } from "./LanguagesFilter";
+import { Button } from "../components/Button";
 
 interface Props {
   searchQuery?: string;
@@ -120,16 +120,13 @@ export const FilterBox = ({
   const MobileFilterDropdown = (): ReactElement => {
     return (
       <div className={`fdr mbd ${filterIsOpen && "phl"}`}>
-        <SecondaryButton
-          className="filter-dropdown"
-          onClick={toggleFilterVisibility}
-          endIcon={<Icon>{getArrowIcon()}</Icon>}
-        >
+        <Button variant="outline" className="filter-dropdown" onClick={toggleFilterVisibility}>
           <span className={`fin pls ${blueWhenFilterApplied()}`}>
             <InlineIcon className="mrs">filter_list</InlineIcon>
             {SearchAndFilterStrings.mobileFilterText}
+            <InlineIcon className="mls">{getArrowIcon()}</InlineIcon>
           </span>
-        </SecondaryButton>
+        </Button>
       </div>
     );
   };

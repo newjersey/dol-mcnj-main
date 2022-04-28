@@ -8,7 +8,7 @@ interface Props {
 
 export const InDemandTag = (props: Props): ReactElement => {
   return (
-    <span className={`fin fas bg-orange tag pvxxs phd mrs ${props.className}`}>
+    <span className={`fin fas bg-orange-tag tag pvxxs phd mrs ${props.className}`}>
       <InlineIcon className="mrxs">local_fire_department</InlineIcon>
       {SearchResultsPageStrings.inDemandTag}
     </span>

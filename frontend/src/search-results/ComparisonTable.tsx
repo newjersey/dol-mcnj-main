@@ -5,8 +5,9 @@ import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { InDemandTag } from "../components/InDemandTag";
-import { LinkButton } from "../components/LinkButton";
 import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { Button } from "../components/Button";
+import { navigate } from "@reach/router";
 
 interface Props {
   data: TrainingResult[];
@@ -211,23 +212,35 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             {item1 && (
               <td className="align-center ptd pbs bhdcg" key={`${item1.id}-det`}>
-                <LinkButton className=" btn-details" to={`/training/${item1.id}`}>
+                <Button
+                  className="btn-details"
+                  variant="secondary"
+                  onClick={() => navigate(`/training/${item1.id}`)}
+                >
                   {SearchResultsPageStrings.comparisonSeeDetails}
-                </LinkButton>
+                </Button>
               </td>
             )}
             {item2 && (
               <td className="align-center ptd pbs bhdcg" key={`${item2.id}-det`}>
-                <LinkButton className=" btn-details" to={`/training/${item2.id}`}>
+                <Button
+                  className="btn-details"
+                  variant="secondary"
+                  onClick={() => navigate(`/training/${item2.id}`)}
+                >
                   {SearchResultsPageStrings.comparisonSeeDetails}
-                </LinkButton>
+                </Button>
               </td>
             )}
             {item3 && (
               <td className="align-center ptd pbs bhdcg" key={`${item3.id}-det`}>
-                <LinkButton className=" btn-details" to={`/training/${item3.id}`}>
+                <Button
+                  className="btn-details"
+                  variant="secondary"
+                  onClick={() => navigate(`/training/${item3.id}`)}
+                >
                   {SearchResultsPageStrings.comparisonSeeDetails}
-                </LinkButton>
+                </Button>
               </td>
             )}
           </tr>
@@ -392,23 +405,35 @@ export const ComparisonTable = (props: Props): ReactElement => {
             <td className="tbl-header"></td>
             {item1 && (
               <td className="align-center align-bottom ptd pbz bldcg" key={`${item1.id}-det`}>
-                <LinkButton className=" btn-details" to={`/training/${item1.id}`}>
+                <Button
+                  className="btn-details"
+                  variant="secondary"
+                  onClick={() => navigate(`/training/${item1.id}`)}
+                >
                   {SearchResultsPageStrings.comparisonSeeDetails}
-                </LinkButton>
+                </Button>
               </td>
             )}
             {item2 && (
               <td className="align-center align-bottom ptd pbz bldcg" key={`${item2.id}-det`}>
-                <LinkButton className=" btn-details" to={`/training/${item2.id}`}>
+                <Button
+                  className="btn-details"
+                  variant="secondary"
+                  onClick={() => navigate(`/training/${item2.id}`)}
+                >
                   {SearchResultsPageStrings.comparisonSeeDetails}
-                </LinkButton>
+                </Button>
               </td>
             )}
             {item3 && (
               <td className="align-center align-bottom ptd pbz bldcg" key={`${item3.id}-det`}>
-                <LinkButton className=" btn-details" to={`/training/${item3.id}`}>
+                <Button
+                  className="btn-details"
+                  variant="secondary"
+                  onClick={() => navigate(`/training/${item3.id}`)}
+                >
                   {SearchResultsPageStrings.comparisonSeeDetails}
-                </LinkButton>
+                </Button>
               </td>
             )}
           </tr>

@@ -8,7 +8,7 @@ interface Props {
 
 export const LocalWaiverTag = (props: Props): ReactElement => {
   return (
-    <span className="fin fas bg-orange tag pvxxs phd mrs">
+    <span className="fin fas bg-orange-tag tag pvxxs phd mrs">
       <InlineIcon className="mrxs">local_fire_department</InlineIcon>
       {SearchResultsPageStrings.localWaiverTag.replace("{county}", props.county)}
     </span>

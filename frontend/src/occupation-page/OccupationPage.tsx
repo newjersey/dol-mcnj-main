@@ -97,7 +97,7 @@ export const OccupationPage = (props: Props): ReactElement => {
         <>
           {occupations.map((occupation) => (
             <Link
-              className="no-link-format"
+              className="link-format-blue"
               to={`/occupation/${occupation.soc}`}
               key={occupation.soc}
             >

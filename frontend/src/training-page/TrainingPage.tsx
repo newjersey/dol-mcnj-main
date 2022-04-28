@@ -17,7 +17,7 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { StatBlock } from "../components/StatBlock";
 import { Icon } from "@material-ui/core";
-import { Button } from "../components/Button";
+import { UnstyledButton } from "../components/UnstyledButton";
 import { useReactToPrint } from "react-to-print";
 import { TrainingPageStrings } from "../localizations/TrainingPageStrings";
 import { StatBlockStrings } from "../localizations/StatBlockStrings";
@@ -96,7 +96,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        className="break-text"
+        className="break-text link-format-blue"
         href={getHttpUrl(training.provider.url)}
       >
         {training.provider.url}
@@ -120,7 +120,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
     return (
-      <a href={googleUrl} target="_blank" rel="noopener noreferrer">
+      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
         <div className="inline">
           <span>{address.street1}</span>
           <div>{address.street2}</div>
@@ -175,7 +175,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     return (
       <>
         {training?.occupations.map((occupation, i) => (
-          <Link className="no-link-format" to={`/occupation/${occupation.soc}`} key={i}>
+          <Link className="link-format-blue" to={`/occupation/${occupation.soc}`} key={i}>
             <p key={i} className="blue weight-500">
               {occupation.title}
             </p>
@@ -275,12 +275,12 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </p>
                         )}
                         <p>
-                          <Button className="link-format-blue" onClick={copyHandler}>
+                          <UnstyledButton className="link-format-blue" onClick={copyHandler}>
                             <Icon className="accessible-gray weight-500">link</Icon>
                             <span className="mlxs weight-500">
                               {TrainingPageStrings.copyLinkText}
                             </span>
-                          </Button>
+                          </UnstyledButton>
                           {copy && (
                             <span className={`text-s weight-500 mls ${copy?.class}`}>
                               {copy?.text}
@@ -288,15 +288,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                           )}
                         </p>
                         <p>
-                          <Button className="link-format-blue" onClick={printHandler}>
+                          <UnstyledButton className="link-format-blue" onClick={printHandler}>
                             <Icon className="accessible-gray weight-500">print</Icon>
                             <span className="mlxs weight-500">
                               {TrainingPageStrings.savePrintLinkText}
                             </span>
-                          </Button>
+                          </UnstyledButton>
                         </p>
                         <p>
-                          <Link className="no-link-format weight-500 fin" to="/funding">
+                          <Link className="link-format-blue weight-500 fin" to="/funding">
                             <Icon className="accessible-gray">attach_money</Icon>
                             <span className="blue">{TrainingPageStrings.fundingLinkText}</span>
                           </Link>

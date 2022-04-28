@@ -34,7 +34,7 @@ export const MajorGroup = (props: Props): ReactElement => {
         </div>
       </button>
 
-      {isOpen && <div className="mts mlm mrxl plm">{props.children}</div>}
+      {isOpen && <div className="mts mlm mrxl plm pbm">{props.children}</div>}
     </div>
   );
 };

@@ -1,15 +1,15 @@
 import React, { ReactElement } from "react";
-import { RouteComponentProps, Link } from "@reach/router";
+import { RouteComponentProps, Link, navigate } from "@reach/router";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { LinkButton } from "../components/LinkButton";
 import { LandingCard } from "./LandingCard";
 import IconList from "./landing-icons/list.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
 import { useMediaQuery } from "@material-ui/core";
 import { CounselorPageStrings } from "../localizations/CounselorPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
+import { Button } from "../components/Button";
 
 export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
@@ -46,9 +46,9 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     {CounselorPageStrings.searchDescription}
                   </p>
-                  <LinkButton secondary to="/search">
+                  <Button variant="secondary" onClick={() => navigate("/search")}>
                     {CounselorPageStrings.searchButton}
-                  </LinkButton>
+                  </Button>
                 </div>
               </>
             </LandingCard>
@@ -61,9 +61,9 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                   <p className={`mtz ${!isTablet && "phl"}`}>
                     {CounselorPageStrings.occupationDescription}
                   </p>
-                  <LinkButton secondary to="/in-demand-occupations">
+                  <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
                     {CounselorPageStrings.occupationButton}
-                  </LinkButton>
+                  </Button>
                 </div>
               </>
             </LandingCard>
@@ -73,17 +73,17 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
             {CounselorPageStrings.sectionFourHeader}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <Link className="no-link-format" to="/faq/data-sources">
+            <Link className="link-format-blue" to="/faq/data-sources">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {CounselorPageStrings.dataFaq}
               </LandingCard>
             </Link>
-            <Link className="no-link-format" to="/faq/labor-demand-occupations">
+            <Link className="link-format-blue" to="/faq/labor-demand-occupations">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {CounselorPageStrings.occupationsFaq}
               </LandingCard>
             </Link>
-            <Link className="no-link-format" to="/faq/funding-opportunities">
+            <Link className="link-format-blue" to="/faq/funding-opportunities">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
                 {CounselorPageStrings.fundingFaq}
               </LandingCard>

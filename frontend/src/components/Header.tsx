@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
 import { Link } from "@reach/router";
 import { useState } from "react";
-import { Icon, useMediaQuery, Button } from "@material-ui/core";
+import { Icon, useMediaQuery } from "@material-ui/core";
+import { UnstyledButton } from "../components/UnstyledButton";
 import njLogo from "../njlogo.svg";
 import { HeaderStrings } from "../localizations/HeaderStrings";
 
@@ -25,19 +26,22 @@ export const Header = (): ReactElement => {
 
   const mobileNav = (): ReactElement => {
     return (
-      <header className={`header ${isOpen && "header--is-open"}`} role="banner">
-        <div className="container header-container height-100">
-          <Button onClick={toggleIsOpen} className="menu-btn no-link-format">
-            <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
-            {HeaderStrings.mobileMenuText}
-          </Button>
-          <a href="/" className="logo no-link-format fin fac">
-            <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
-            <h1 className="text-m bold">Training Explorer</h1>
-          </a>
+      <header className="header" role="banner">
+        <div className="container height-100">
+          <div className="fdr fac fjb pts">
+            <a href="/" className="link-format-black fin fac width-content">
+              <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
+              <h1 className="text-m bold">Training Explorer</h1>
+            </a>
+            <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
+              <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
+              {HeaderStrings.mobileMenuText}
+            </UnstyledButton>
+          </div>
+
           {isOpen && (
             <nav className="nav nav-mobile">
-              <Link to="/" className="no-link-format nav-item pvm phd bvdcg" onClick={pageCheck}>
+              <Link to="/" className="link-format-black nav-item pvm phd bvdcg" onClick={pageCheck}>
                 <span className="container flex fac fjb">
                   Home
                   <Icon className="mla">chevron_right</Icon>
@@ -45,7 +49,7 @@ export const Header = (): ReactElement => {
               </Link>
               <Link
                 to="/search"
-                className="no-link-format nav-item pvm phd bbdcg"
+                className="link-format-black nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
@@ -55,7 +59,7 @@ export const Header = (): ReactElement => {
               </Link>
               <Link
                 to="/explorer"
-                className="no-link-format nav-item pvm phd bbdcg"
+                className="link-format-black nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
@@ -65,7 +69,7 @@ export const Header = (): ReactElement => {
               </Link>
               <Link
                 to="/counselor"
-                className="no-link-format nav-item pvm phd bbdcg"
+                className="link-format-black nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
@@ -75,7 +79,7 @@ export const Header = (): ReactElement => {
               </Link>
               <Link
                 to="/training-provider"
-                className="no-link-format nav-item pvm phd bbdcg"
+                className="link-format-black nav-item pvm phd bbdcg"
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
@@ -92,36 +96,37 @@ export const Header = (): ReactElement => {
 
   const nav = (): ReactElement => {
     return (
-      <>
-        <header className="header" role="banner">
-          <div className="container header-container height-100">
-            <a href="/" className="logo no-link-format fin fac">
-              <img className="nj-logo-header mrd" src={njLogo} alt="New Jersey innovation logo" />
-              <h1 className="text-m bold">{HeaderStrings.title}</h1>
-            </a>
-            <nav className="nav fac">
-              <Link to="/search" className="no-link-format">
-                {HeaderStrings.linkToSearch}
-              </Link>
-              <Link to="/in-demand-occupations" className="no-link-format">
-                {HeaderStrings.linkToInDemandOccupations}
-              </Link>
-              <Link to="/funding" className="no-link-format funding">
-                {HeaderStrings.linkToFunding}
-              </Link>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={HeaderStrings.linkToCounseling}
-                className="no-link-format fin fac counseling"
-              >
-                {HeaderStrings.linkToCounselingText}&nbsp;
-                <Icon>launch</Icon>
+      <header className="header" role="banner">
+        <div className="container height-100 pts">
+          <nav className="nav">
+            <div>
+              <a href="/" className="link-format-black fin fac width-content">
+                <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
+                <h1 className="text-m bold">{HeaderStrings.title}</h1>
               </a>
-            </nav>
-          </div>
-        </header>
-      </>
+            </div>
+
+            <Link to="/search" className="link-format-black">
+              {HeaderStrings.linkToSearch}
+            </Link>
+            <Link to="/in-demand-occupations" className="link-format-black">
+              {HeaderStrings.linkToInDemandOccupations}
+            </Link>
+            <Link to="/funding" className="link-format-black">
+              {HeaderStrings.linkToFunding}
+            </Link>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={HeaderStrings.linkToCounseling}
+              className="link-format-black fin fac"
+            >
+              {HeaderStrings.linkToCounselingText}&nbsp;
+              <Icon>launch</Icon>
+            </a>
+          </nav>
+        </div>
+      </header>
     );
   };
 

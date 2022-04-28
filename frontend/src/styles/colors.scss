@@ -13,6 +13,11 @@ $lighter-purple: #f9f4fe;
 $lightest-purple: #fcf9ff;
 $purple: #cdc9e6;
 $red: #b11818;
+$footer-grey: #f0f0f0;
+
+.bg-footer-grey {
+  background-color: $footer-grey;
+}
 
 .bg-light-green {
   background-color: $light-green;
@@ -74,6 +79,6 @@ $red: #b11818;
   color: $accessible-gray;
 }
 
-.bg-orange {
+.bg-orange-tag {
   background-color: $orange;
 }
