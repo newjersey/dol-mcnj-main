@@ -99,7 +99,7 @@ export const Header = (): ReactElement => {
       <header className="header" role="banner">
         <div className="container height-100">
           <nav className="nav">
-            <div>
+            <div className="height-100 display-flex flex-align-center">
               <a href="/" className="link-format-black fin fac width-content">
                 <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
                 <h1 className="text-m bold">{HeaderStrings.title}</h1>
