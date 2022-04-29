@@ -5,6 +5,12 @@ import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 
+const INPUT_PROPS = {
+  style: {
+    padding: "6px 12px",
+  },
+};
+
 export const CostFilter = (): ReactElement => {
   const [maxCost, setMaxCost] = useState<string>("");
   const { state, dispatch } = useContext(FilterContext);
@@ -32,15 +38,20 @@ export const CostFilter = (): ReactElement => {
   };
 
   const applyMaxCostFilter = (): void => {
-    dispatch({
-      type: maxCost !== "" ? FilterActionType.ADD : FilterActionType.REMOVE,
-      filter: {
-        element: FilterableElement.MAX_COST,
-        value: parseInt(maxCost),
-        func: (trainingResults): TrainingResult[] =>
-          trainingResults.filter((it) => it.totalCost <= parseInt(maxCost)),
-      },
-    });
+    if (
+      (maxCost === "" &&
+        state.filters.find((filter) => filter.element === FilterableElement.MAX_COST)) ||
+      maxCost.length > 0
+    )
+      dispatch({
+        type: maxCost !== "" ? FilterActionType.ADD : FilterActionType.REMOVE,
+        filter: {
+          element: FilterableElement.MAX_COST,
+          value: parseInt(maxCost),
+          func: (trainingResults): TrainingResult[] =>
+            trainingResults.filter((it) => it.totalCost <= parseInt(maxCost)),
+        },
+      });
   };
 
   return (
@@ -53,13 +64,13 @@ export const CostFilter = (): ReactElement => {
         <span className="fin mld">
           <Input
             id="maxCost"
-            inputProps={{ className: "" }}
             type="number"
             value={maxCost}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             onBlur={applyMaxCostFilter}
             placeholder="$"
+            inputProps={INPUT_PROPS}
           />
         </span>
       </label>

@@ -14,13 +14,13 @@ export const Button = (props: Props): ReactElement => {
   let variantClassNames = "";
   switch (props.variant) {
     case "primary":
-      variantClassNames = "usa-button";
+      variantClassNames = "usa-button margin-right-0";
       break;
     case "secondary":
-      variantClassNames = "usa-button usa-button--secondary";
+      variantClassNames = "usa-button usa-button--secondary margin-right-0";
       break;
     case "outline":
-      variantClassNames = "usa-button usa-button--outline bg-white";
+      variantClassNames = "usa-button usa-button--outline bg-white margin-right-0";
       break;
   }
 

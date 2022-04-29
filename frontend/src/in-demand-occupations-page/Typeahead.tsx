@@ -52,6 +52,7 @@ export const Typeahead = (props: Props): ReactElement => {
               borderRadius: 10,
               borderColor: "#7B7777",
               height: 38,
+              padding: "4px 12px",
             },
             startAdornment: (
               <>

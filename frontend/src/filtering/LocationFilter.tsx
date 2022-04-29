@@ -17,6 +17,9 @@ const MILES_VALUES = [5, 10, 25, 50];
 const DEFAULT_MILES = 10;
 const ZIP_CODE_INPUT_PROPS = {
   "aria-label": SearchAndFilterStrings.locationFilterZipCodePlaceholder,
+  style: {
+    padding: "6px 12px",
+  },
 };
 
 const checkValidZipCode = (value: string) => {

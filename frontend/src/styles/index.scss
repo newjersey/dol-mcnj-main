@@ -103,10 +103,6 @@ a.link-format-blue {
   min-width: 100%;
 }
 
-.button-size-small {
-  min-width: 114px;
-}
-
 .contextual-info-panel {
   width: 33vw;
   padding-left: 3em;
@@ -142,4 +138,8 @@ a.link-format-blue {
 .tag {
   border-radius: 10px;
   width: max-content;
+}
+
+.MuiOutlinedInput.input {
+  padding: 0px 0px;
 }

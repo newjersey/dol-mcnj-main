@@ -11,6 +11,12 @@ function isValidCipCode(cip: string): boolean {
   return /^[0-9]{6}$/.test(cip);
 }
 
+const INPUT_PROPS = {
+  style: {
+    padding: "6px 12px",
+  },
+};
+
 export const CipCodeFilter = (): ReactElement => {
   const [cipCode, setCipCode] = useState<string>("");
   const { state, dispatch } = useContext(FilterContext);
@@ -70,6 +76,7 @@ export const CipCodeFilter = (): ReactElement => {
             onBlur={applyFilter}
             placeholder="i.e. 011102"
             error={!validCipCode}
+            inputProps={INPUT_PROPS}
           />
         </span>
       </label>

@@ -18,7 +18,7 @@ const INPUT_STYLE = {
   borderColor: "#7B7777",
   height: 38,
   backgroundColor: "#fff",
-  paddingLeft: "10px",
+  padding: "4px 10px",
 };
 
 const renderInput = (params: AutocompleteRenderInputParams): ReactElement => (
