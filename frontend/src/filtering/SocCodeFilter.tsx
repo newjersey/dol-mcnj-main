@@ -11,6 +11,12 @@ function isValidSocCode(soc: string): boolean {
   return /(^\d{2}-\d{4}$)/.test(soc);
 }
 
+const INPUT_PROPS = {
+  style: {
+    padding: "6px 12px",
+  },
+};
+
 export const SocCodeFilter = (): ReactElement => {
   const [socCode, setSocCode] = useState<string>("");
   const { state, dispatch } = useContext(FilterContext);
@@ -64,13 +70,13 @@ export const SocCodeFilter = (): ReactElement => {
         <span className="fin mld">
           <Input
             id="socCode"
-            inputProps={{ className: "" }}
             value={socCode}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             onBlur={applyFilter}
             placeholder="i.e. 43-9041"
             error={!validSocCode}
+            inputProps={INPUT_PROPS}
           />
         </span>
       </label>

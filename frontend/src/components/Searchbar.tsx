@@ -8,12 +8,18 @@ interface Props {
   onSearch: (searchQuery: string) => void;
   initialValue?: string;
   stacked?: boolean;
-  smallButton?: boolean;
   buttonText?: string;
   placeholder?: string;
   className?: string;
   isLandingPage?: boolean;
 }
+
+const INPUT_PROPS = {
+  "aria-label": "search",
+  style: {
+    padding: "6px 10px",
+  },
+};
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -41,12 +47,11 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
 
   const flexDirection = props.stacked ? "fdc" : "fdr";
   const marginDirection = props.stacked ? "mtd" : "mld";
-  const buttonWidth = props.smallButton ? "button-size-small" : "button-size-full";
 
   return (
     <div className={`${flexDirection} fac ${props.className}`}>
       <Input
-        inputProps={{ "aria-label": "search" }}
+        inputProps={INPUT_PROPS}
         value={searchQuery}
         onChange={handleSearchInput}
         onKeyDown={handleKeyDown}
@@ -61,7 +66,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
             : SearchAndFilterStrings.searchBarDefaultPlaceholderText
         }
       />
-      <div className={`${marginDirection} ${buttonWidth} fdc fac`}>
+      <div className={`${marginDirection} button-size-full fdc fac`}>
         <Button
           variant="primary"
           className="width-full"
