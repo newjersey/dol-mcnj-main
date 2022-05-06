@@ -1,9 +1,9 @@
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { Searchbar } from "./Searchbar";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { en as Content } from "../locales/en";
 
-const { searchBarDefaultPlaceholderText } = SearchAndFilterStrings;
+const { searchBarDefaultPlaceholderText } = Content.SearchAndFilterStrings;
 
 describe("<Searchbar />", () => {
   it("sets an initial value to the input if provided", () => {

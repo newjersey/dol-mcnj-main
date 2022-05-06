@@ -14,8 +14,7 @@ import { SortContext } from "../sorting/SortContext";
 import { FilterContext } from "../filtering/FilterContext";
 import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -24,6 +23,7 @@ interface Props extends RouteComponentProps {
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
@@ -41,9 +41,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   useEffect(() => {
     document.title = props.searchQuery
-      ? SearchResultsPageStrings.pageTitle.replace("{query}", props.searchQuery)
-      : SearchResultsPageStrings.noSearchTermPageTitle;
-  }, [props.searchQuery]);
+      ? t("SearchResultsPageStrings.pageTitle", { query: props.searchQuery })
+      : t("SearchResultsPageStrings.noSearchTermPageTitle");
+  }, [props.searchQuery, t]);
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
@@ -100,19 +100,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     let message;
 
     if (!props.searchQuery) {
-      message = SearchResultsPageStrings.noSearchTermHeader;
+      message = t("SearchResultsPageStrings.noSearchTermHeader");
     } else {
       const query = decodeURIComponent(props.searchQuery);
-
-      if (filteredTrainings.length === 1) {
-        message = SearchResultsPageStrings.singularResultsString
-          .replace("{count}", filteredTrainings.length.toString())
-          .replace("{query}", query);
-      } else {
-        message = SearchResultsPageStrings.pluralResultsString
-          .replace("{count}", filteredTrainings.length.toString())
-          .replace("{query}", query);
-      }
+      message = t("SearchResultsPageStrings.resultsString", {
+        count: filteredTrainings.length,
+        query,
+      });
     }
 
     return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
@@ -136,23 +130,25 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     <>
       {filteredTrainings.length > 0 && (
         <FormControl variant="outlined" className="mla width-100">
-          <InputLabel htmlFor="sortby">{SearchAndFilterStrings.sortByLabel}</InputLabel>
+          <InputLabel htmlFor="sortby">{t("SearchAndFilterStrings.sortByLabel")}</InputLabel>
           <WhiteSelect
             native={true}
             value={sortState.sortOrder}
             onChange={handleSortChange}
-            label={SearchAndFilterStrings.sortByLabel}
+            label={t("SearchAndFilterStrings.sortByLabel")}
             id="sortby"
           >
-            <option value={SortOrder.BEST_MATCH}>{SearchAndFilterStrings.sortByBestMatch}</option>
+            <option value={SortOrder.BEST_MATCH}>
+              {t("SearchAndFilterStrings.sortByBestMatch")}
+            </option>
             <option value={SortOrder.COST_LOW_TO_HIGH}>
-              {SearchAndFilterStrings.sortByCostLowToHigh}
+              {t("SearchAndFilterStrings.sortByCostLowToHigh")}
             </option>
             <option value={SortOrder.COST_HIGH_TO_LOW}>
-              {SearchAndFilterStrings.sortByCostHighToLow}
+              {t("SearchAndFilterStrings.sortByCostHighToLow")}
             </option>
             <option value={SortOrder.EMPLOYMENT_RATE}>
-              {SearchAndFilterStrings.sortByEmploymentRate}
+              {t("SearchAndFilterStrings.sortByEmploymentRate")}
             </option>
           </WhiteSelect>
         </FormControl>
@@ -162,28 +158,30 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getSearchTips = (): ReactElement => (
     <div className="mbm" data-testid="searchTips">
-      <p>{SearchResultsPageStrings.searchTips1}</p>
-      <p>{SearchResultsPageStrings.searchTips2}</p>
-      <p>{SearchResultsPageStrings.searchTips3}</p>
+      <p>{t("SearchResultsPageStrings.searchTips1")}</p>
+      <p>{t("SearchResultsPageStrings.searchTips2")}</p>
+      <p>{t("SearchResultsPageStrings.searchTips3")}</p>
       <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
-        {isOpen ? SearchResultsPageStrings.seeLessText : SearchResultsPageStrings.seeMoreText}
+        {isOpen
+          ? t("SearchResultsPageStrings.seeLessText")
+          : t("SearchResultsPageStrings.seeMoreText")}
         <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>
       </button>
 
       {isOpen && (
         <div>
-          <p>{SearchResultsPageStrings.searchHelperText}</p>
+          <p>{t("SearchResultsPageStrings.searchHelperText")}</p>
           <p>
-            <span className="bold">{SearchResultsPageStrings.boldText1}&nbsp;</span>
-            {SearchResultsPageStrings.helperText1}
+            <span className="bold">{t("SearchResultsPageStrings.boldText1")}&nbsp;</span>
+            {t("SearchResultsPageStrings.helperText1")}
           </p>
           <p>
-            <span className="bold">{SearchResultsPageStrings.boldText2}&nbsp;</span>
-            {SearchResultsPageStrings.helperText2}
+            <span className="bold">{t("SearchResultsPageStrings.boldText2")}&nbsp;</span>
+            {t("SearchResultsPageStrings.helperText2")}
           </p>
           <p>
-            <span className="bold">{SearchResultsPageStrings.boldText3}&nbsp;</span>
-            {SearchResultsPageStrings.helperText3}
+            <span className="bold">{t("SearchResultsPageStrings.boldText3")}&nbsp;</span>
+            {t("SearchResultsPageStrings.helperText3")}
           </p>
         </div>
       )}
@@ -273,38 +271,40 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
                 {!isTabletAndUp && (
                   <h3 className="text-l mts">
-                    {SearchResultsPageStrings.sectionOneHeaderSmallScreen}
+                    {t("SearchResultsPageStrings.sectionOneHeaderSmallScreen")}
                   </h3>
                 )}
                 {isTabletAndUp && (
-                  <h3 className="text-l mts">{SearchResultsPageStrings.sectionOneHeader}</h3>
+                  <h3 className="text-l mts">{t("SearchResultsPageStrings.sectionOneHeader")}</h3>
                 )}
 
                 <p className="mbl">
-                  {SearchResultsPageStrings.introText}
+                  {t("SearchResultsPageStrings.introText")}
                   &nbsp;
                   <Link className="link-format-blue" to="/funding">
-                    {SearchResultsPageStrings.introTextLink}
+                    {t("SearchResultsPageStrings.introTextLink")}
                   </Link>
                   .
                 </p>
-                <h3 className="text-l">{SearchResultsPageStrings.searchHelperHeader}</h3>
-                <p>{SearchResultsPageStrings.searchHelperText}</p>
+                <h3 className="text-l">{t("SearchResultsPageStrings.searchHelperHeader")}</h3>
+                <p>{t("SearchResultsPageStrings.searchHelperText")}</p>
                 <p>
-                  <span className="bold">{SearchResultsPageStrings.boldText1}&nbsp;</span>
-                  {SearchResultsPageStrings.helperText1}
+                  <span className="bold">{t("SearchResultsPageStrings.boldText1")}&nbsp;</span>
+                  {t("SearchResultsPageStrings.helperText1")}
                 </p>
                 <p>
-                  <span className="bold">{SearchResultsPageStrings.boldText2}&nbsp;</span>
-                  {SearchResultsPageStrings.helperText2}
+                  <span className="bold">{t("SearchResultsPageStrings.boldText2")}&nbsp;</span>
+                  {t("SearchResultsPageStrings.helperText2")}
                 </p>
                 <p>
-                  <span className="bold">{SearchResultsPageStrings.boldText3}&nbsp;</span>
-                  {SearchResultsPageStrings.helperText3}
+                  <span className="bold">{t("SearchResultsPageStrings.boldText3")}&nbsp;</span>
+                  {t("SearchResultsPageStrings.helperText3")}
                 </p>
                 {!isTabletAndUp && (
                   <div className="mtl mbd">
-                    <h3 className="text-l">{SearchResultsPageStrings.smallScreenSearchHeader}</h3>
+                    <h3 className="text-l">
+                      {t("SearchResultsPageStrings.smallScreenSearchHeader")}
+                    </h3>
                     <FilterBox
                       searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
                       resultCount={filteredTrainings.length}

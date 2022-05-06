@@ -3,9 +3,11 @@ import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { FormControlLabel, Switch } from "@material-ui/core";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { useTranslation } from "react-i18next";
 
 export const InDemandOnlyFilter = (): ReactElement => {
+  const { t } = useTranslation();
+
   const [inDemandOnly, setInDemandOnly] = useState<boolean>(false);
   const { state, dispatch } = useContext(FilterContext);
 
@@ -43,7 +45,7 @@ export const InDemandOnlyFilter = (): ReactElement => {
           color="primary"
         />
       }
-      label={SearchAndFilterStrings.inDemandFilterLabel}
+      label={t("SearchAndFilterStrings.inDemandFilterLabel")}
     />
   );
 };

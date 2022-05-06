@@ -4,7 +4,7 @@ import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { CalendarLength, TrainingResult } from "../domain/Training";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { useTranslation } from "react-i18next";
 
 interface TimeToComplete {
   days: boolean;
@@ -36,6 +36,8 @@ const INITIAL_STATE = {
 };
 
 export const TimeToCompleteFilter = (): ReactElement => {
+  const { t } = useTranslation();
+
   const [timeToComplete, setTimeToComplete] = useState<TimeToComplete>(INITIAL_STATE);
 
   const { state, dispatch } = useContext(FilterContext);
@@ -84,7 +86,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="timeToComplete">
-      {SearchAndFilterStrings.timeToCompleteFilterLabel}
+      {t("SearchAndFilterStrings.timeToCompleteFilterLabel")}
       <FormGroup id="timeToComplete">
         <FormControlLabel
           control={
@@ -95,7 +97,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.timeToCompleteDaysLabel}
+          label={t("SearchAndFilterStrings.timeToCompleteDaysLabel")}
         />
         <FormControlLabel
           control={
@@ -106,7 +108,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.timeToCompleteWeeksLabel}
+          label={t("SearchAndFilterStrings.timeToCompleteWeeksLabel")}
         />
         <FormControlLabel
           control={
@@ -117,7 +119,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.timeToCompleteMonthsLabel}
+          label={t("SearchAndFilterStrings.timeToCompleteMonthsLabel")}
         />
         <FormControlLabel
           control={
@@ -128,7 +130,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.timeToCompleteYearsLabel}
+          label={t("SearchAndFilterStrings.timeToCompleteYearsLabel")}
         />
       </FormGroup>
     </label>

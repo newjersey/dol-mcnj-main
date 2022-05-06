@@ -3,7 +3,7 @@ import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { FormControlLabel, FormGroup, Switch } from "@material-ui/core";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { useTranslation } from "react-i18next";
 
 interface ProgramServices {
   hasEveningCourses: boolean;
@@ -27,6 +27,7 @@ const SERVICE_TO_FILTER = {
 };
 
 export const ProgramServicesFilter = (): ReactElement => {
+  const { t } = useTranslation();
   const { state, dispatch } = useContext(FilterContext);
   const [programServices, setProgramServices] = useState<ProgramServices>(INITIAL_STATE);
 
@@ -102,7 +103,7 @@ export const ProgramServicesFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="programServices">
-      {SearchAndFilterStrings.programServicesFilterLabel}
+      {t("SearchAndFilterStrings.programServicesFilterLabel")}
       <FormGroup id="programServices">
         <FormControlLabel
           control={
@@ -113,7 +114,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.wheelChairAccessibleLabel}
+          label={t("SearchAndFilterStrings.wheelChairAccessibleLabel")}
         />
         <FormControlLabel
           control={
@@ -124,7 +125,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.childcareAssistLabel}
+          label={t("SearchAndFilterStrings.childcareAssistLabel")}
         />
         <FormControlLabel
           control={
@@ -135,7 +136,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.eveningCoursesLabel}
+          label={t("SearchAndFilterStrings.eveningCoursesLabel")}
         />
         <FormControlLabel
           control={
@@ -146,7 +147,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={SearchAndFilterStrings.jobPlacementAssistLabel}
+          label={t("SearchAndFilterStrings.jobPlacementAssistLabel")}
         />
       </FormGroup>
     </label>

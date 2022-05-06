@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Icon, useMediaQuery } from "@material-ui/core";
 import { UnstyledButton } from "../components/UnstyledButton";
 import njLogo from "../njlogo.svg";
-import { HeaderStrings } from "../localizations/HeaderStrings";
+import { useTranslation } from "react-i18next";
+
+const COUNSELING_URL = "https://nj.gov/labor/career-services/";
 
 interface HandleClickInterface {
   currentTarget: HTMLAnchorElement;
@@ -12,6 +14,8 @@ interface HandleClickInterface {
 
 export const Header = (): ReactElement => {
   const isDesktop = useMediaQuery("(min-width:992px)");
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleIsOpen = (): void => {
@@ -35,7 +39,7 @@ export const Header = (): ReactElement => {
             </a>
             <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
               <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
-              {HeaderStrings.mobileMenuText}
+              {t("HeaderStrings.mobileMenuText")}
             </UnstyledButton>
           </div>
 
@@ -53,7 +57,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {HeaderStrings.linkToSearch}
+                  {t("HeaderStrings.linkToSearch")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -63,7 +67,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {HeaderStrings.mobileLinkToExplorers}
+                  {t("HeaderStrings.mobileLinkToExplorers")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -73,7 +77,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {HeaderStrings.mobileLinkToCounselors}
+                  {t("HeaderStrings.mobileLinkToCounselors")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -83,7 +87,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {HeaderStrings.mobileLinkToTrainingProviders}
+                  {t("HeaderStrings.mobileLinkToTrainingProviders")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -102,26 +106,26 @@ export const Header = (): ReactElement => {
             <div className="height-100 display-flex flex-align-center">
               <a href="/" className="link-format-black fin fac width-content">
                 <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
-                <h1 className="text-m bold">{HeaderStrings.title}</h1>
+                <h1 className="text-m bold">{t("HeaderStrings.title")}</h1>
               </a>
             </div>
 
             <Link to="/search" className="link-format-black">
-              {HeaderStrings.linkToSearch}
+              {t("HeaderStrings.linkToSearch")}
             </Link>
             <Link to="/in-demand-occupations" className="link-format-black">
-              {HeaderStrings.linkToInDemandOccupations}
+              {t("HeaderStrings.linkToInDemandOccupations")}
             </Link>
             <Link to="/funding" className="link-format-black">
-              {HeaderStrings.linkToFunding}
+              {t("HeaderStrings.linkToFunding")}
             </Link>
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={HeaderStrings.linkToCounseling}
+              href={COUNSELING_URL}
               className="link-format-black fin fac"
             >
-              {HeaderStrings.linkToCounselingText}&nbsp;
+              {t("HeaderStrings.linkToCounselingText")}&nbsp;
               <Icon>launch</Icon>
             </a>
           </nav>

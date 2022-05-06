@@ -1,9 +1,9 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState, useContext } from "react";
 import { InputAdornment, Icon } from "@material-ui/core";
 import { Input } from "./Input";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { FilterActionType, FilterContext } from "../filtering/FilterContext";
 import { Button } from "./Button";
+import { useTranslation } from "react-i18next";
 interface Props {
   onSearch: (searchQuery: string) => void;
   initialValue?: string;
@@ -22,6 +22,8 @@ const INPUT_PROPS = {
 };
 
 export const Searchbar = (props: Props): ReactElement<Props> => {
+  const { t } = useTranslation();
+
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { dispatch } = useContext(FilterContext);
 
@@ -63,7 +65,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         placeholder={
           props.placeholder
             ? props.placeholder
-            : SearchAndFilterStrings.searchBarDefaultPlaceholderText
+            : t("SearchAndFilterStrings.searchBarDefaultPlaceholderText")
         }
       />
       <div className={`${marginDirection} button-size-full fdc fac`}>
@@ -72,11 +74,13 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
           className="width-full"
           onClick={(): void => props.onSearch(searchQuery)}
         >
-          {props.buttonText ? props.buttonText : SearchAndFilterStrings.searchButtonDefaultText}
+          {props.buttonText
+            ? props.buttonText
+            : t("SearchAndFilterStrings.searchButtonDefaultText")}
         </Button>
         {props.isLandingPage !== true && (
           <Button variant="outline" className="width-full mvs" onClick={handleClearAll}>
-            {SearchAndFilterStrings.clearAllFiltersButtonLabel}
+            {t("SearchAndFilterStrings.clearAllFiltersButtonLabel")}
           </Button>
         )}
       </div>

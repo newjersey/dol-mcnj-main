@@ -9,15 +9,12 @@ import {
 import { act } from "react-dom/test-utils";
 import { StubClient } from "../test-objects/StubClient";
 import { Error } from "../domain/Error";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
-import { OccupationPageStrings } from "../localizations/OccupationPageStrings";
-import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
-import { StatBlockStrings } from "../localizations/StatBlockStrings";
+import { STAT_MISSING_DATA_INDICATOR } from "../constants";
+import { en as Content } from "../locales/en";
 
-const { inDemandTag } = SearchResultsPageStrings;
-const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } = OccupationPageStrings;
-const { notFoundHeader, somethingWentWrongHeader } = ErrorPageStrings;
-const { missingDataIndicator } = StatBlockStrings;
+const { inDemandTag } = Content.SearchResultsPageStrings;
+const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } =
+  Content.OccupationPageStrings;
 
 describe("<OccupationPage />", () => {
   let stubClient: StubClient;
@@ -154,7 +151,9 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(subject.getByText(notFoundHeader, { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.ErrorPageStrings.notFoundHeader, { exact: false })
+    ).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", () => {
@@ -162,7 +161,9 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(subject.getByText(somethingWentWrongHeader, { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.ErrorPageStrings.somethingWentWrongHeader, { exact: false })
+    ).toBeInTheDocument();
   });
 
   it("displays -- message if open jobs count is null", () => {
@@ -171,7 +172,7 @@ describe("<OccupationPage />", () => {
     });
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
-    expect(subject.getByText(missingDataIndicator)).toBeInTheDocument();
+    expect(subject.getByText(STAT_MISSING_DATA_INDICATOR)).toBeInTheDocument();
   });
 
   it("displays -- message if median salary is not available", () => {
@@ -183,7 +184,7 @@ describe("<OccupationPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.getByText(missingDataIndicator)).toBeInTheDocument();
+    expect(subject.getByText(STAT_MISSING_DATA_INDICATOR)).toBeInTheDocument();
   });
 
   it("displays data missing message if related trainings is not available", () => {

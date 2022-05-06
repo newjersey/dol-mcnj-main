@@ -1,16 +1,18 @@
 import React, { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { ErrorPage } from "./ErrorPage";
-import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
+import { useTranslation } from "react-i18next";
 
 export const NotFoundPage = (_props: RouteComponentProps): ReactElement => {
+  const { t } = useTranslation();
+
   return (
-    <ErrorPage headerText={ErrorPageStrings.notFoundHeader}>
+    <ErrorPage headerText={t("ErrorPageStrings.notFoundHeader")}>
       <>
-        <p>{ErrorPageStrings.notFoundText}</p>
+        <p>{t("ErrorPageStrings.notFoundText")}</p>
         <p>
           <a className="link-format-blue" href="/">
-            {ErrorPageStrings.notFoundLink1}
+            {t("ErrorPageStrings.notFoundLink1")}
           </a>
         </p>
         <p>
@@ -18,7 +20,7 @@ export const NotFoundPage = (_props: RouteComponentProps): ReactElement => {
             className="link-format-blue"
             href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
           >
-            {ErrorPageStrings.notFoundLink2}
+            {t("ErrorPageStrings.notFoundLink2")}
           </a>
         </p>
       </>

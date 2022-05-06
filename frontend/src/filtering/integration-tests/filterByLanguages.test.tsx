@@ -5,7 +5,7 @@ import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
 describe("filtering by languages", () => {
   const training1 = buildTrainingResult({
@@ -91,7 +91,7 @@ describe("filtering by languages", () => {
     fireEvent.click(subject.getByLabelText("Chinese"));
     expect(subject.getByLabelText("Chinese")).toBeChecked();
 
-    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

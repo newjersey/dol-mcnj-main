@@ -4,10 +4,10 @@ import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { FormControl, InputLabel } from "@material-ui/core";
 import { WhiteSelect } from "../components/WhiteSelect";
 import { getZipCodesInRadius } from "./findZipCodesInRadius";
+import { useTranslation } from "react-i18next";
 export interface SearchArea {
   center: string;
   radius: number;
@@ -16,7 +16,7 @@ export interface SearchArea {
 const MILES_VALUES = [5, 10, 25, 50];
 const DEFAULT_MILES = 10;
 const ZIP_CODE_INPUT_PROPS = {
-  "aria-label": SearchAndFilterStrings.locationFilterZipCodePlaceholder,
+  "aria-label": "Search by ZIP code",
   style: {
     padding: "6px 12px",
   },
@@ -35,6 +35,7 @@ const INITIAL_STATE = {
 
 export const LocationFilter = (): ReactElement => {
   const { state, dispatch } = useContext(FilterContext);
+  const { t } = useTranslation();
 
   const [searchArea, setSearchArea] = useState<SearchArea>(INITIAL_STATE);
   const [isValidZipCode, setIsValidZipCode] = useState<boolean>(true);
@@ -105,18 +106,18 @@ export const LocationFilter = (): ReactElement => {
   return (
     <section>
       <header>
-        <div className="bold">{SearchAndFilterStrings.locationFilterLabel}</div>
+        <div className="bold">{t("SearchAndFilterStrings.locationFilterLabel")}</div>
       </header>
       <div className="fin mts fac ">
         <FormControl variant="outlined" className="mla width-100">
           <InputLabel htmlFor="miles">
-            {SearchAndFilterStrings.locationFilterMilesInputLabel}
+            {t("SearchAndFilterStrings.locationFilterMilesInputLabel")}
           </InputLabel>
           <WhiteSelect
             native={true}
             value={searchArea.radius}
             onChange={handleMilesInput}
-            label={SearchAndFilterStrings.locationFilterMilesInputLabel}
+            label={t("SearchAndFilterStrings.locationFilterMilesInputLabel")}
             id="miles"
           >
             {MILES_VALUES.map((val) => (
@@ -135,14 +136,14 @@ export const LocationFilter = (): ReactElement => {
           onChange={handleZipCodeInput}
           onKeyDown={handleKeyDown}
           onBlur={() => applyLocationFilter(searchArea)}
-          placeholder={SearchAndFilterStrings.locationFilterZipCodePlaceholder}
+          placeholder={t("SearchAndFilterStrings.locationFilterZipCodePlaceholder")}
           error={!isValidZipCode}
         />
       </div>
       {!isValidZipCode && (
         <div className="red fin mts">
           <InlineIcon className="mrxs">error</InlineIcon>{" "}
-          {SearchAndFilterStrings.locationFilterZipCodeInvalid}
+          {t("SearchAndFilterStrings.locationFilterZipCodeInvalid")}
         </div>
       )}
     </section>

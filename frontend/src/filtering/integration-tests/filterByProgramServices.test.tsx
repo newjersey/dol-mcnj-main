@@ -5,7 +5,7 @@ import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
 describe("filtering by program services", () => {
   const training1 = buildTrainingResult({
@@ -109,7 +109,7 @@ describe("filtering by program services", () => {
     fireEvent.click(subject.getByLabelText("Childcare assistance"));
     expect(subject.getByLabelText("Childcare assistance")).toBeChecked();
 
-    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

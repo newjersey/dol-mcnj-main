@@ -11,13 +11,13 @@ import { ClassFormatFilter } from "./ClassFormatFilter";
 import { LocationFilter } from "./LocationFilter";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { CountyFilter } from "./CountyFilter";
 import { SocCodeFilter } from "./SocCodeFilter";
 import { CipCodeFilter } from "./CipCodeFilter";
 import { ProgramServicesFilter } from "./ProgramServicesFilter";
 import { LanguagesFilter } from "./LanguagesFilter";
 import { Button } from "../components/Button";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   searchQuery?: string;
@@ -44,6 +44,8 @@ export const FilterBox = ({
   children,
   fixedContainer,
 }: Props): ReactElement => {
+  const { t } = useTranslation();
+
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const previousWasTabletAndUp = usePrevious(isTabletAndUp);
   const isMobile = !isTabletAndUp;
@@ -89,17 +91,7 @@ export const FilterBox = ({
   };
 
   const getResultCountText = (): string => {
-    if (resultCount === 1) {
-      return SearchAndFilterStrings.singularResultCountString.replace(
-        "{count}",
-        resultCount.toString()
-      );
-    } else {
-      return SearchAndFilterStrings.pluralResultCountString.replace(
-        "{count}",
-        resultCount.toString()
-      );
-    }
+    return t("SearchAndFilterStrings.resultCountString", { count: resultCount });
   };
 
   const executeSearch = (newQuery: string): void => {
@@ -123,7 +115,7 @@ export const FilterBox = ({
         <Button variant="outline" className="filter-dropdown" onClick={toggleFilterVisibility}>
           <span className={`fin pls ${blueWhenFilterApplied()}`}>
             <InlineIcon className="mrs">filter_list</InlineIcon>
-            {SearchAndFilterStrings.mobileFilterText}
+            {t("SearchAndFilterStrings.mobileFilterText")}
             <InlineIcon className="mls">{getArrowIcon()}</InlineIcon>
           </span>
         </Button>
@@ -140,7 +132,7 @@ export const FilterBox = ({
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
-          buttonText={SearchAndFilterStrings.searchButtonDefaultText}
+          buttonText={t("SearchAndFilterStrings.searchButtonDefaultText")}
         />
       )}
 
@@ -151,8 +143,8 @@ export const FilterBox = ({
           stacked={true}
           buttonText={
             !searchQuery
-              ? SearchAndFilterStrings.searchButtonDefaultText
-              : SearchAndFilterStrings.searchButtonUpdateResultsText
+              ? t("SearchAndFilterStrings.searchButtonDefaultText")
+              : t("SearchAndFilterStrings.searchButtonUpdateResultsText")
           }
         />
 

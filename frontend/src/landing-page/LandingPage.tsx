@@ -7,10 +7,12 @@ import { Footer } from "../components/Footer";
 import IconOccupation from "./landing-icons/occupations.svg";
 import IconGear from "./landing-icons/gear.svg";
 import IconCounseling from "./landing-icons/counseling.svg";
-import { LandingPageStrings } from "../localizations/LandingPageStrings";
 import { Button } from "../components/Button";
+import { useTranslation } from "react-i18next";
 
 export const LandingPage = (_props: RouteComponentProps): ReactElement => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Header />
@@ -20,14 +22,14 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
         <div className="bg-light-green pvl">
           <div className="container search-container fdc fac fjc mtm mbl">
             <h2 className="text-xl weight-400 align-center mbd title">
-              {LandingPageStrings.headerText}
+              {t("LandingPageStrings.headerText")}
             </h2>
             <Searchbar
               className="width-100 phm"
               onSearch={(searchQuery: string): Promise<void> =>
                 navigate(`/search/${encodeURIComponent(searchQuery)}`)
               }
-              placeholder={LandingPageStrings.searchBoxPlaceholder}
+              placeholder={t("LandingPageStrings.searchBoxPlaceholder")}
               stacked={true}
               isLandingPage={true}
             />
@@ -39,24 +41,28 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             <div className="landing-image mbs">
               <img alt="icon-occupation" src={IconOccupation} />
             </div>
-            <h3 className="text-l weight-400 align-center">{LandingPageStrings.columnOneHeader}</h3>
+            <h3 className="text-l weight-400 align-center">
+              {t("LandingPageStrings.columnOneHeader")}
+            </h3>
             <p className="phm align-center options-desc">
-              {LandingPageStrings.columnOneDescription}
+              {t("LandingPageStrings.columnOneDescription")}
             </p>
             <Button variant="secondary" onClick={() => navigate("/explorer")}>
-              {LandingPageStrings.columnOneButtonText}
+              {t("LandingPageStrings.columnOneButtonText")}
             </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
               <img alt="icon-counseling" src={IconCounseling} />
             </div>
-            <h3 className="text-l weight-400 align-center">{LandingPageStrings.columnTwoHeader}</h3>
+            <h3 className="text-l weight-400 align-center">
+              {t("LandingPageStrings.columnTwoHeader")}
+            </h3>
             <p className="phm align-center options-desc">
-              {LandingPageStrings.columnTwoDescription}
+              {t("LandingPageStrings.columnTwoDescription")}
             </p>
             <Button variant="secondary" onClick={() => navigate("/counselor")}>
-              {LandingPageStrings.columnTwoButtonText}
+              {t("LandingPageStrings.columnTwoButtonText")}
             </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
@@ -64,13 +70,13 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               <img alt="icon-workforce" src={IconGear} />
             </div>
             <h3 className="text-l weight-400 align-center">
-              {LandingPageStrings.columnThreeHeader}
+              {t("LandingPageStrings.columnThreeHeader")}
             </h3>
             <p className="phm align-center options-desc">
-              {LandingPageStrings.columnThreeDescription}
+              {t("LandingPageStrings.columnThreeDescription")}
             </p>
             <Button variant="secondary" onClick={() => navigate("/training-provider")}>
-              {LandingPageStrings.columnThreeButtonText}
+              {t("LandingPageStrings.columnThreeButtonText")}
             </Button>
           </div>
         </div>

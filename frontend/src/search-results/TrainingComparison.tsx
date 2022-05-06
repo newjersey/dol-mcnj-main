@@ -4,9 +4,9 @@ import { useMediaQuery } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import { ComparisonTable } from "./ComparisonTable";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
 import { UnstyledButton } from "../components/UnstyledButton";
 import { Button } from "../components/Button";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   className?: string;
@@ -17,6 +17,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
   const [showComparison, setShowComparison] = useState<boolean>(false);
   const [scrollEnd, setScrollEnd] = useState<boolean>(true);
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   const { dispatch } = useContext(ComparisonContext);
 
@@ -67,7 +68,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
                 <UnstyledButton className="btn-remove" onClick={(): void => removeItem(item)}>
                   <Icon fontSize="inherit">cancel</Icon>
                   <span className="visually-hidden">
-                    {SearchResultsPageStrings.comparisonRemove}
+                    {t("SearchResultsPageStrings.comparisonRemove")}
                   </span>
                 </UnstyledButton>
               </div>
@@ -119,17 +120,17 @@ export const TrainingComparison = (props: Props): ReactElement => {
             <div className={`button-container fdc fje ${!isTabletAndUp && "ptm"}`}>
               {showComparison && (
                 <Button variant="outline" className="btn-collapse" onClick={collapseItems}>
-                  {SearchResultsPageStrings.comparisonCollapse}
+                  {t("SearchResultsPageStrings.comparisonCollapse")}
                 </Button>
               )}
 
               {!showComparison && (
                 <Button variant="outline" className="btn-compare" onClick={compareItems}>
-                  {SearchResultsPageStrings.comparisonCompare}
+                  {t("SearchResultsPageStrings.comparisonCompare")}
                 </Button>
               )}
               <Button variant="outline" className="btn-clear-all" onClick={clearItems}>
-                {SearchResultsPageStrings.comparisonClear}
+                {t("SearchResultsPageStrings.comparisonClear")}
               </Button>
             </div>
           </div>

@@ -8,12 +8,13 @@ import IconChecklist from "./landing-icons/checklist.svg";
 import IconPortfolio from "./landing-icons/portfolio.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
 import { useMediaQuery } from "@material-ui/core";
-import { TrainingProviderPageStrings } from "../localizations/TrainingProviderPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Button } from "../components/Button";
+import { useTranslation } from "react-i18next";
 
 export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   return (
     <>
@@ -23,21 +24,21 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
       <main className="container below-banners" role="main">
         <div className="landing-container mla mra">
           <h2 className="mvm text-xl weight-500 align-center">
-            {TrainingProviderPageStrings.header}
+            {t("TrainingProviderPageStrings.header")}
           </h2>
 
           <h3 className="mbd text-l weight-500 align-center">
-            {TrainingProviderPageStrings.sectionOneHeader}
+            {t("TrainingProviderPageStrings.sectionOneHeader")}
           </h3>
-          <p className="mbl align-center">{TrainingProviderPageStrings.sectionOneText}</p>
+          <p className="mbl align-center">{t("TrainingProviderPageStrings.sectionOneText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {TrainingProviderPageStrings.sectionTwoHeader}
+            {t("TrainingProviderPageStrings.sectionTwoHeader")}
           </h3>
-          <p className="mbl align-center">{TrainingProviderPageStrings.sectionTwoText}</p>
+          <p className="mbl align-center">{t("TrainingProviderPageStrings.sectionTwoText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {TrainingProviderPageStrings.sectionThreeHeader}
+            {t("TrainingProviderPageStrings.sectionThreeHeader")}
           </h3>
           <div className="landing-card-container mla mra">
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
@@ -47,10 +48,10 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {TrainingProviderPageStrings.etplDescription}
+                    {t("TrainingProviderPageStrings.etplDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/etpl")}>
-                    {TrainingProviderPageStrings.etplButton}
+                    {t("TrainingProviderPageStrings.etplButton")}
                   </Button>
                 </div>
               </>
@@ -62,10 +63,10 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {TrainingProviderPageStrings.applicationDescription}
+                    {t("TrainingProviderPageStrings.applicationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/etpl#apply")}>
-                    {TrainingProviderPageStrings.applicationButton}
+                    {t("TrainingProviderPageStrings.applicationButton")}
                   </Button>
                 </div>
               </>
@@ -77,10 +78,10 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {TrainingProviderPageStrings.occupationDescription}
+                    {t("TrainingProviderPageStrings.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
-                    {TrainingProviderPageStrings.occupationButton}
+                    {t("TrainingProviderPageStrings.occupationButton")}
                   </Button>
                 </div>
               </>
@@ -88,32 +89,32 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
           </div>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {TrainingProviderPageStrings.sectionFourHeader}
+            {t("TrainingProviderPageStrings.sectionFourHeader")}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
             <Link className="link-format-blue" to="/etpl">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {TrainingProviderPageStrings.etplFaq}
+                {t("TrainingProviderPageStrings.etplFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/registered-apprenticeship">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {TrainingProviderPageStrings.apprenticeshipFaq}
+                {t("TrainingProviderPageStrings.apprenticeshipFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/etpl-out-of-state-provider">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {TrainingProviderPageStrings.outOfStateFaq}
+                {t("TrainingProviderPageStrings.outOfStateFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/etpl-performance-standards">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {TrainingProviderPageStrings.performanceFaq}
+                {t("TrainingProviderPageStrings.performanceFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/labor-demand-occupations">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {TrainingProviderPageStrings.laborDemandFaq}
+                {t("TrainingProviderPageStrings.laborDemandFaq")}
               </LandingCard>
             </Link>
           </div>
