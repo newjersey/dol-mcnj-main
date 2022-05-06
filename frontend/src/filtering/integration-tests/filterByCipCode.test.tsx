@@ -5,7 +5,7 @@ import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
 describe("filtering by cip code", () => {
   const training1 = buildTrainingResult({ name: "training1", cipCode: "123456" });
@@ -13,7 +13,9 @@ describe("filtering by cip code", () => {
   const training3 = buildTrainingResult({ name: "training3", cipCode: "345678" });
 
   const getCipCodeInput = (subject: RenderResult): HTMLElement => {
-    return subject.getByLabelText(SearchAndFilterStrings.cipCodeFilterLabel, { exact: false });
+    return subject.getByLabelText(Content.SearchAndFilterStrings.cipCodeFilterLabel, {
+      exact: false,
+    });
   };
 
   let stubClient: StubClient;
@@ -102,7 +104,7 @@ describe("filtering by cip code", () => {
     });
     fireEvent.blur(getCipCodeInput(subject));
 
-    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 
@@ -119,36 +121,48 @@ describe("filtering by cip code", () => {
       target: { value: "12" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidCipCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "abcdef" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidCipCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "123456" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.queryByText(SearchAndFilterStrings.invalidCipCodeError)).not.toBeInTheDocument();
+    expect(
+      subject.queryByText(Content.SearchAndFilterStrings.invalidCipCodeError)
+    ).not.toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "1234567" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidCipCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "12345" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidCipCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {
       target: { value: "12-3456" },
     });
     fireEvent.blur(getCipCodeInput(subject));
-    expect(subject.queryByText(SearchAndFilterStrings.invalidCipCodeError)).toBeInTheDocument();
+    expect(
+      subject.queryByText(Content.SearchAndFilterStrings.invalidCipCodeError)
+    ).toBeInTheDocument();
   });
 });

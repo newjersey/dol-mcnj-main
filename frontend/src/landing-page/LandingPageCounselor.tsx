@@ -7,12 +7,13 @@ import { LandingCard } from "./LandingCard";
 import IconList from "./landing-icons/list.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
 import { useMediaQuery } from "@material-ui/core";
-import { CounselorPageStrings } from "../localizations/CounselorPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Button } from "../components/Button";
+import { useTranslation } from "react-i18next";
 
 export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   return (
     <>
@@ -21,20 +22,22 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
 
       <main className="container below-banners" role="main">
         <div className="landing-container mla mra">
-          <h2 className="mvm text-xl weight-500 align-center">{CounselorPageStrings.header}</h2>
+          <h2 className="mvm text-xl weight-500 align-center">
+            {t("CounselorPageStrings.header")}
+          </h2>
 
           <h3 className="mbd text-l weight-500 align-center">
-            {CounselorPageStrings.sectionOneHeader}
+            {t("CounselorPageStrings.sectionOneHeader")}
           </h3>
-          <p className="mbl align-center">{CounselorPageStrings.sectionOneText}</p>
+          <p className="mbl align-center">{t("CounselorPageStrings.sectionOneText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {CounselorPageStrings.sectionTwoHeader}
+            {t("CounselorPageStrings.sectionTwoHeader")}
           </h3>
-          <p className="mbl align-center">{CounselorPageStrings.sectionTwoText}</p>
+          <p className="mbl align-center">{t("CounselorPageStrings.sectionTwoText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {CounselorPageStrings.sectionThreeHeader}
+            {t("CounselorPageStrings.sectionThreeHeader")}
           </h3>
           <div className="landing-card-container mla mra">
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
@@ -44,10 +47,10 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {CounselorPageStrings.searchDescription}
+                    {t("CounselorPageStrings.searchDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/search")}>
-                    {CounselorPageStrings.searchButton}
+                    {t("CounselorPageStrings.searchButton")}
                   </Button>
                 </div>
               </>
@@ -59,10 +62,10 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {CounselorPageStrings.occupationDescription}
+                    {t("CounselorPageStrings.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
-                    {CounselorPageStrings.occupationButton}
+                    {t("CounselorPageStrings.occupationButton")}
                   </Button>
                 </div>
               </>
@@ -70,22 +73,22 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
           </div>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {CounselorPageStrings.sectionFourHeader}
+            {t("CounselorPageStrings.sectionFourHeader")}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
             <Link className="link-format-blue" to="/faq/data-sources">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {CounselorPageStrings.dataFaq}
+                {t("CounselorPageStrings.dataFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/labor-demand-occupations">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {CounselorPageStrings.occupationsFaq}
+                {t("CounselorPageStrings.occupationsFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/funding-opportunities">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {CounselorPageStrings.fundingFaq}
+                {t("CounselorPageStrings.fundingFaq")}
               </LandingCard>
             </Link>
           </div>

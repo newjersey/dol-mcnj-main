@@ -6,7 +6,7 @@ import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
 describe("filtering by time to complete", () => {
   const lessThanOneDay = buildTrainingResult({
@@ -216,7 +216,7 @@ describe("filtering by time to complete", () => {
     fireEvent.click(subject.getByLabelText("Weeks"));
     expect(subject.getByLabelText("Weeks")).toBeChecked();
 
-    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

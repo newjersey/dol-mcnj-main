@@ -4,14 +4,16 @@ import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { UnstyledLinkButton } from "../components/UnstyledLinkButton";
 import { InlineIcon } from "../components/InlineIcon";
 import { ALL_LANGUAGES, DATA_VALUE_TO_LANGUAGE } from "./trainingLanguages";
+import { useTranslation } from "react-i18next";
 
 const COLLAPSED_LIST_LENGTH = 4;
 
 export const LanguagesFilter = (): ReactElement => {
+  const { t } = useTranslation();
+
   const [languages, setLanguages] = useState<string[]>([]);
   const [showFullList, setShowFullList] = useState<boolean>(false);
   const { state, dispatch } = useContext(FilterContext);
@@ -62,7 +64,7 @@ export const LanguagesFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="languages">
-      {SearchAndFilterStrings.languagesFilterLabel}
+      {t("SearchAndFilterStrings.languagesFilterLabel")}
       <FormGroup id="languages">
         <div>
           <div className="two-column-list">
@@ -89,8 +91,8 @@ export const LanguagesFilter = (): ReactElement => {
       >
         <span className="underline">
           {showFullList
-            ? SearchAndFilterStrings.filterListCollapseLabel
-            : SearchAndFilterStrings.filterListExpandLabel}
+            ? t("SearchAndFilterStrings.filterListCollapseLabel")
+            : t("SearchAndFilterStrings.filterListExpandLabel")}
         </span>
         <InlineIcon className="mlxs">
           {showFullList ? "arrow_drop_up" : "arrow_drop_down"}

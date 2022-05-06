@@ -7,11 +7,11 @@ import {
   AutocompleteChangeReason,
   AutocompleteRenderInputParams,
 } from "@material-ui/lab";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { COUNTIES, getCountyName } from "./newJerseyCounties";
+import { useTranslation } from "react-i18next";
 
 const INPUT_STYLE = {
   borderRadius: 10,
@@ -43,6 +43,8 @@ const renderInput = (params: AutocompleteRenderInputParams): ReactElement => (
 );
 
 export const CountyFilter = (): ReactElement => {
+  const { t } = useTranslation();
+
   const { state, dispatch } = useContext(FilterContext);
   const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
 
@@ -88,7 +90,7 @@ export const CountyFilter = (): ReactElement => {
 
   return (
     <>
-      <div className="bold">{SearchAndFilterStrings.countyFilterLabel}</div>
+      <div className="bold">{t("SearchAndFilterStrings.countyFilterLabel")}</div>
       <label htmlFor="county">
         <Autocomplete
           data-testid="county-search"

@@ -6,9 +6,9 @@ import { fireEvent, RenderResult } from "@testing-library/react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { SortOrder } from "../SortOrder";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
-const { sortByLabel } = SearchAndFilterStrings;
+const { sortByLabel } = Content.SearchAndFilterStrings;
 
 describe("sorting", () => {
   let stubClient: StubClient;

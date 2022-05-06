@@ -8,9 +8,7 @@ import { StubClient } from "../test-objects/StubClient";
 import { CalendarLength } from "../domain/Training";
 import { useMediaQuery } from "@material-ui/core";
 import { Error } from "../domain/Error";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
-import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { en as Content } from "../locales/en";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
@@ -33,9 +31,9 @@ function mockMaterialUI() {
 jest.mock("@material-ui/core", () => mockMaterialUI());
 jest.mock("@reach/router", () => mockReachRouter());
 
-const { searchBarDefaultPlaceholderText } = SearchAndFilterStrings;
+const { searchBarDefaultPlaceholderText } = Content.SearchAndFilterStrings;
 
-const { inDemandTag, percentEmployedUnavailable } = SearchResultsPageStrings;
+const { inDemandTag, percentEmployedUnavailable } = Content.SearchResultsPageStrings;
 
 describe("<SearchResultsPage />", () => {
   let stubClient: StubClient;
@@ -48,7 +46,7 @@ describe("<SearchResultsPage />", () => {
     it("uses the url parameter in the search bar input", () => {
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
       expect(
-        subject.getByPlaceholderText(SearchAndFilterStrings.searchBarDefaultPlaceholderText)
+        subject.getByPlaceholderText(Content.SearchAndFilterStrings.searchBarDefaultPlaceholderText)
       ).toHaveValue("octopods");
     });
 
@@ -57,7 +55,7 @@ describe("<SearchResultsPage />", () => {
         <SearchResultsPage client={stubClient} searchQuery={"octopods%2Foctopi"} />
       );
       expect(
-        subject.getByPlaceholderText(SearchAndFilterStrings.searchBarDefaultPlaceholderText)
+        subject.getByPlaceholderText(Content.SearchAndFilterStrings.searchBarDefaultPlaceholderText)
       ).toHaveValue("octopods/octopi");
     });
 
@@ -77,7 +75,9 @@ describe("<SearchResultsPage />", () => {
 
       act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-      expect(subject.queryByText(ErrorPageStrings.somethingWentWrongHeader)).toBeInTheDocument();
+      expect(
+        subject.queryByText(Content.ErrorPageStrings.somethingWentWrongHeader)
+      ).toBeInTheDocument();
     });
   });
 
@@ -118,7 +118,9 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText("Camden", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Camden County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
-      expect(subject.getByText("4-11 weeks to complete", { exact: false })).toBeInTheDocument();
+      expect(
+        subject.getByText(Content.CalendarLengthLookup["5"] + " to complete", { exact: false })
+      ).toBeInTheDocument();
       expect(subject.getByText('"...', { exact: false }).parentElement?.innerHTML).toEqual(
         '<span>"...</span><span>some </span><b>text</b><span> here</span><span>..."</span>'
       );
@@ -130,7 +132,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText("Essex County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("New'rk School", { exact: false })).toBeInTheDocument();
       expect(
-        subject.getByText("Less than 1 day to complete", { exact: false })
+        subject.getByText(Content.CalendarLengthLookup["1"] + " to complete", { exact: false })
       ).toBeInTheDocument();
     });
 
@@ -185,7 +187,9 @@ describe("<SearchResultsPage />", () => {
         ])
       );
 
-      expect(subject.getByText("--", { exact: false })).toBeInTheDocument();
+      expect(
+        subject.getByText(Content.CalendarLengthLookup["0"], { exact: false })
+      ).toBeInTheDocument();
     });
   });
 

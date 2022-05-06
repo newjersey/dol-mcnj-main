@@ -24,8 +24,45 @@ import MotorVehicleCommission from "./agency-icons/motor-vehicle-commission.svg"
 import NJBoardObjectfRealEstateAppraisers from "./agency-icons/nj-board-of-real-estate-appraisers.svg";
 import NJStatePoliceSecurityOfficerTrainingSORA from "./agency-icons/nj-state-police_security-officer-training-sora.svg";
 import ProLiteracy from "./agency-icons/proliteracy.svg";
-import { EtplPageStrings } from "../localizations/EtplPageStrings";
 import { ContactUsSection } from "../components/ContactUsSection";
+import { Trans, useTranslation } from "react-i18next";
+
+const LINKS = {
+  applicationPacketLink:
+    "http://lwd.dol.state.nj.us/labor/forms_pdfs/coei/ETPL/ETPLInitialApplicationPacket.pdf",
+  renewalPacketLink:
+    "http://lwd.dol.state.nj.us/labor/forms_pdfs/coei/ETPL/ETPLRenewalApplicationPacket.pdf",
+  apprenticeshipPacketLink:
+    "https://www.nj.gov/labor/forms_pdfs/coei/ETPL/ETPL%20Apprenticeship%20Application.pdf",
+  workforceInnovationLink:
+    "http://www.nj.gov/labor/forms_pdfs/coei/ETPL/Youth_WFNJ%20Procedure.pdf",
+  wioaYouthLink:
+    "http://www.nj.gov/labor/forms_pdfs/coei/ETPL/ETPL%20Initial%20Service%20Provider%20Application%20Packet.pdf",
+  additionModificationLink:
+    "http://lwd.dol.state.nj.us/labor/forms_pdfs/coei/ETPL/ETPLProgramAdditionModification.pdf",
+  cosmetologyLink: "https://www.njconsumeraffairs.gov/cos",
+  nursingLink: "https://www.njconsumeraffairs.gov/nur/Pages/default.aspx",
+  higherEdLink:
+    "https://www.state.nj.us/highereducation/documents/pdf/Licensure/LicensureRules.pdf",
+  insuranceLink: "https://www.state.nj.us/dobi/inslic.htm#ApplicationsandForms",
+  realEstateLink: "https://www.state.nj.us/dobi/division_rec/index.htm",
+  laborTrainingEvalLink1: "mailto:TrainingEvaluationUnit@dol.nj.gov",
+  laborTrainingEvalLink2: "https://www.nj.gov/labor/lwdhome/coei/teu.html",
+  laborGranteesLink:
+    "https://www.nj.gov/labor/career-services/special-services/individuals-with-disabilities/",
+  publicSchoolsLink: "https://nj.gov/education/license/",
+  xraysLink: "https://www.state.nj.us/dep/rpp/brh/index.htm",
+  longTermCareLink: "https://www.state.nj.us/health/healthfacilities/certification-licensing/",
+  indoorEnvLink:
+    "https://www.nj.gov/health/ceohs/environmental-occupational/child-care-edu/index.shtml",
+  emergencyMedLink: "https://www.state.nj.us/health/ems/education/",
+  aviationLink: "https://www.faa.gov/pilots/training/",
+  motorVehiclesLink: "https://www.state.nj.us/mvcbiz/BusinessServices/DrivingSchool.htm",
+  realEstateAppraiserLink: "https://www.njconsumeraffairs.gov/rea/Pages/default.aspx",
+  securityOfficerLink: "https://www.njsp.org/private-detective/sora.shtml",
+  proLiteracyLink: "https://www.proliteracy.org/",
+  step3Link: "mailto:njtopps@dol.nj.gov",
+};
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -33,6 +70,7 @@ interface Props extends RouteComponentProps {
 
 export const EtplPage = (_props: Props): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   useEffect(() => {
     document.title = "ETPL";
@@ -45,338 +83,316 @@ export const EtplPage = (_props: Props): ReactElement => {
   const displayAgencyList = (): ReactElement => {
     return (
       <>
-        <MajorGroup title={EtplPageStrings.cosmetology} icon={BoardOfCosmetology}>
+        <MajorGroup title={t("EtplPageStrings.cosmetology")} icon={BoardOfCosmetology}>
           <p>
-            {EtplPageStrings.cosmetologyText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.cosmetologyText")}
             &nbsp;
             <a
               target="_blank"
               className="link-format-blue"
               rel="noopener noreferrer"
-              href={EtplPageStrings.cosmetologyLink}
+              href={LINKS.cosmetologyLink}
             >
-              {EtplPageStrings.cosmetologyLinkText}
+              {t("EtplPageStrings.cosmetologyLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.cosmetologyText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
-        <MajorGroup title={EtplPageStrings.nursing} icon={BoardOfNursing}>
+        <MajorGroup title={t("EtplPageStrings.nursing")} icon={BoardOfNursing}>
           <p>
-            {EtplPageStrings.nursingText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.nursingText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.nursingLink}
+              href={LINKS.nursingLink}
             >
-              {EtplPageStrings.nursingLinkText}
+              {t("EtplPageStrings.nursingLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.nursingText.split("{link}")[1].trim()}
-          </p>
-        </MajorGroup>
-
-        <MajorGroup title={EtplPageStrings.higherEd} icon={OfficeOfTheSecretaryOfHigherEducation}>
-          <p>
-            {EtplPageStrings.higherEdText.split("{link}")[0].trim()}
-            &nbsp;
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-format-blue"
-              href={EtplPageStrings.higherEdLink}
-            >
-              {EtplPageStrings.higherEdLinkText}
-            </a>
-            &nbsp;
-            {EtplPageStrings.higherEdText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.insurance}
+          title={t("EtplPageStrings.higherEd")}
+          icon={OfficeOfTheSecretaryOfHigherEducation}
+        >
+          <p>
+            {t("EtplPageStrings.higherEdText")}
+            &nbsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-format-blue"
+              href={LINKS.higherEdLink}
+            >
+              {t("EtplPageStrings.higherEdLinkText")}
+            </a>
+          </p>
+        </MajorGroup>
+
+        <MajorGroup
+          title={t("EtplPageStrings.insurance")}
           icon={DepartmentOfBankingAndInsuranceInsuranceLicensing}
         >
           <p>
-            {EtplPageStrings.insuranceText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.insuranceText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.insuranceLink}
+              href={LINKS.insuranceLink}
             >
-              {EtplPageStrings.insuranceLinkText}
+              {t("EtplPageStrings.insuranceLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.insuranceText.split("{link}")[1].trim()}
+            .
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.realEstate}
+          title={t("EtplPageStrings.realEstate")}
           icon={DepartmentOfBankingAndInsuranceRealEstateCommission}
         >
           <>
-            <p>{EtplPageStrings.realEstateText1}</p>
+            <p>{t("EtplPageStrings.realEstateText1")}</p>
             <p>
-              {EtplPageStrings.realEstateText2.split("{link}")[0].trim()}
+              {t("EtplPageStrings.realEstateText2")}
               &nbsp;
               <a
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
-                href={EtplPageStrings.realEstateLink}
+                href={LINKS.realEstateLink}
               >
-                {EtplPageStrings.realEstateLinkText}
+                {t("EtplPageStrings.realEstateLinkText")}
               </a>
-              &nbsp;
-              {EtplPageStrings.realEstateText2.split("{link}")[1].trim()}
             </p>
           </>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.laborTrainingEval}
+          title={t("EtplPageStrings.laborTrainingEval")}
           icon={DepartmentOfLaborWorkforceDevelopmentTrainingEvaluationUnit}
         >
           <p>
-            {EtplPageStrings.laborTrainingEvalText.split("{link1}")[0].trim()}
-            &nbsp;
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={EtplPageStrings.laborTrainingEvalLink1}
-            >
-              {EtplPageStrings.laborTrainingEvalLinkText1}
-            </a>
-            &nbsp;
-            {EtplPageStrings.laborTrainingEvalText.split("{link1}")[1].split("{link2}")[0].trim()}
-            &nbsp;
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={EtplPageStrings.laborTrainingEvalLink2}
-            >
-              {EtplPageStrings.laborTrainingEvalLinkText2}
-            </a>
-            &nbsp;
-            {EtplPageStrings.laborTrainingEvalText.split("{link1}")[1].split("{link2}")[1].trim()}
+            <Trans i18nKey="laborTrainingEvalText">
+              The Training Evaluation Unit works in conjunction with the Department of Education's
+              Office of Career Readiness (PCSU) to evaluate and approve private career schools and
+              correspondence schools that wish to operate within New Jersey's workforce readiness
+              system. All approved providers require biannual reviews in order to maintain continued
+              approval. TEU staff provides technical assistance to approved and prospective
+              providers as well as customers of the New Jersey workforce readiness system. For more
+              information, please contact the Training Evaluation Unit by e-mail at:{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-format-blue"
+                href={LINKS.laborTrainingEvalLink1}
+              >
+                TrainingEvaluationUnit@dol.nj.gov
+              </a>{" "}
+              or{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-format-blue"
+                href={LINKS.laborTrainingEvalLink2}
+              >
+                visit the website
+              </a>
+              .
+            </Trans>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.laborGrantees}
+          title={t("EtplPageStrings.laborGrantees")}
           icon={
             DepartmentOfLaborWorkforceDevelopmentGranteesForCustomizedTrainingYouthAndDVRSPrograms
           }
         >
           <>
-            <p>{EtplPageStrings.laborGranteesText1}</p>
+            <p>{t("EtplPageStrings.laborGranteesText1")}</p>
             <p>
-              {EtplPageStrings.laborGranteesText2.split("{link}")[0].trim()}
+              {t("EtplPageStrings.laborGranteesText2")}
               &nbsp;
               <a
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
-                href={EtplPageStrings.laborGranteesLink}
+                href={LINKS.laborGranteesLink}
               >
-                {EtplPageStrings.laborGranteesLinkText}
+                {t("EtplPageStrings.laborGranteesLinkText")}
               </a>
-              &nbsp;
-              {EtplPageStrings.laborGranteesText2.split("{link}")[1].trim()}
             </p>
           </>
         </MajorGroup>
 
-        <MajorGroup title={EtplPageStrings.publicSchools} icon={DepartmentOfEducationPublicSchools}>
+        <MajorGroup
+          title={t("EtplPageStrings.publicSchools")}
+          icon={DepartmentOfEducationPublicSchools}
+        >
           <p>
-            {EtplPageStrings.publicSchoolsText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.publicSchoolsText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.publicSchoolsLink}
+              href={LINKS.publicSchoolsLink}
             >
-              {EtplPageStrings.publicSchoolsLinkText}
+              {t("EtplPageStrings.publicSchoolsLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.publicSchoolsText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.xrays}
+          title={t("EtplPageStrings.xrays")}
           icon={DepartmentOfEnvironmentalProtectionRadiologyXrayPrograms}
         >
           <p>
-            {EtplPageStrings.xraysText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.xraysText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.xraysLink}
+              href={LINKS.xraysLink}
             >
-              {EtplPageStrings.xraysLinkText}
+              {t("EtplPageStrings.xraysLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.xraysText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.longTermCare}
+          title={t("EtplPageStrings.longTermCare")}
           icon={DepartmentOfHealthLongTermCareFacilitiesLicensing}
         >
           <p>
-            {EtplPageStrings.longTermCareText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.longTermCareText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.longTermCareLink}
+              href={LINKS.longTermCareLink}
             >
-              {EtplPageStrings.longTermCareLinkText}
+              {t("EtplPageStrings.longTermCareLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.longTermCareText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.indoorEnv}
+          title={t("EtplPageStrings.indoorEnv")}
           icon={DepartmentOfHealthIndoorEnvironmentsProgram}
         >
           <p>
-            {EtplPageStrings.indoorEnvText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.indoorEnvText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.indoorEnvLink}
+              href={LINKS.indoorEnvLink}
             >
-              {EtplPageStrings.indoorEnvLinkText}
+              {t("EtplPageStrings.indoorEnvLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.indoorEnvText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.emergencyMed}
+          title={t("EtplPageStrings.emergencyMed")}
           icon={DepartmentOfHealthNJOfficeOfEmergencyMedicalServices}
         >
           <p>
-            {EtplPageStrings.emergencyMedText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.emergencyMedText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.emergencyMedLink}
+              href={LINKS.emergencyMedLink}
             >
-              {EtplPageStrings.emergencyMedLinkText}
+              {t("EtplPageStrings.emergencyMedLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.emergencyMedText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
-        <MajorGroup title={EtplPageStrings.aviation} icon={FederalAviationAdministration}>
+        <MajorGroup title={t("EtplPageStrings.aviation")} icon={FederalAviationAdministration}>
           <p>
-            {EtplPageStrings.aviationText.split("{link}")[0].trim()}
-            &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.aviationLink}
+              href={LINKS.aviationLink}
             >
-              {EtplPageStrings.aviationLinkText}
+              {t("EtplPageStrings.aviationLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.aviationText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
-        <MajorGroup title={EtplPageStrings.motorVehicles} icon={MotorVehicleCommission}>
+        <MajorGroup title={t("EtplPageStrings.motorVehicles")} icon={MotorVehicleCommission}>
           <p>
-            {EtplPageStrings.motorVehiclesText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.motorVehiclesText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.motorVehiclesLink}
+              href={LINKS.motorVehiclesLink}
             >
-              {EtplPageStrings.motorVehiclesLinkText}
+              {t("EtplPageStrings.motorVehiclesLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.motorVehiclesText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.realEstateAppraiser}
+          title={t("EtplPageStrings.realEstateAppraiser")}
           icon={NJBoardObjectfRealEstateAppraisers}
         >
           <p>
-            {EtplPageStrings.realEstateAppraiserText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.realEstateAppraiserText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={EtplPageStrings.realEstateAppraiserLink}
+              className="link-format-blue"
+              href={LINKS.realEstateAppraiserLink}
             >
-              {EtplPageStrings.realEstateAppraiserLinkText}
+              {t("EtplPageStrings.realEstateAppraiserLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.realEstateAppraiserText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={EtplPageStrings.securityOfficer}
+          title={t("EtplPageStrings.securityOfficer")}
           icon={NJStatePoliceSecurityOfficerTrainingSORA}
         >
           <p>
-            {EtplPageStrings.securityOfficerText.split("{link}")[0].trim()}
-            &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.securityOfficerLink}
+              href={LINKS.securityOfficerLink}
             >
-              {EtplPageStrings.securityOfficerLinkText}
+              {t("EtplPageStrings.securityOfficerLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.securityOfficerText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
 
-        <MajorGroup title={EtplPageStrings.proLiteracy} icon={ProLiteracy}>
+        <MajorGroup title={t("EtplPageStrings.proLiteracy")} icon={ProLiteracy}>
           <p>
-            {EtplPageStrings.proLiteracyText.split("{link}")[0].trim()}
+            {t("EtplPageStrings.proLiteracyText")}
             &nbsp;
             <a
               target="_blank"
               rel="noopener noreferrer"
               className="link-format-blue"
-              href={EtplPageStrings.proLiteracyLink}
+              href={LINKS.proLiteracyLink}
             >
-              {EtplPageStrings.proLiteracyLinkText}
+              {t("EtplPageStrings.proLiteracyLinkText")}
             </a>
-            &nbsp;
-            {EtplPageStrings.proLiteracyText.split("{link}")[1].trim()}
           </p>
         </MajorGroup>
       </>
@@ -391,12 +407,12 @@ export const EtplPage = (_props: Props): ReactElement => {
       <main className="container below-banners">
         <div className="row">
           <div className="col-md-10">
-            <h2 className="text-xl mvd">{EtplPageStrings.header}</h2>
-            <h3 className="text-l">{EtplPageStrings.sectionOneHeader}</h3>
-            <p className="mbm">{EtplPageStrings.sectionOneText}</p>
+            <h2 className="text-xl mvd">{t("EtplPageStrings.header")}</h2>
+            <h3 className="text-l">{t("EtplPageStrings.sectionOneHeader")}</h3>
+            <p className="mbm">{t("EtplPageStrings.sectionOneText")}</p>
 
-            <h3 className="text-l"> {EtplPageStrings.step1Header}</h3>
-            <p className="mbm">{EtplPageStrings.step1Text}</p>
+            <h3 className="text-l"> {t("EtplPageStrings.step1Header")}</h3>
+            <p className="mbm">{t("EtplPageStrings.step1Text")}</p>
           </div>
         </div>
 
@@ -408,53 +424,53 @@ export const EtplPage = (_props: Props): ReactElement => {
 
         <div id="#apply" className="row">
           <div className="col-md-10">
-            <h3 className="text-l"> {EtplPageStrings.step2Header}</h3>
-            <p className="mbm">{EtplPageStrings.step2Text}</p>
+            <h3 className="text-l"> {t("EtplPageStrings.step2Header")}</h3>
+            <p className="mbm">{t("EtplPageStrings.step2Text")}</p>
             <div className={isTablet ? "plxl" : ""}>
-              <h4 className="weight-500 mtl">{EtplPageStrings.newApplicants}</h4>
+              <h4 className="weight-500 mtl">{t("EtplPageStrings.newApplicants")}</h4>
               <p className="mbl">
                 <a
                   target="_blank"
                   className="link-format-blue"
                   rel="noopener noreferrer"
-                  href={EtplPageStrings.applicationPacketLink}
+                  href={LINKS.applicationPacketLink}
                 >
-                  {EtplPageStrings.applicationPacketLinkText}
+                  {t("EtplPageStrings.applicationPacketLinkText")}
                 </a>
-                <span className="flex">{EtplPageStrings.applicationPacketDescription}</span>
+                <span className="flex">{t("EtplPageStrings.applicationPacketDescription")}</span>
               </p>
               <p className="mbl">
                 <a
                   target="_blank"
                   className="link-format-blue"
                   rel="noopener noreferrer"
-                  href={EtplPageStrings.renewalPacketLink}
+                  href={LINKS.renewalPacketLink}
                 >
-                  {EtplPageStrings.renewalPacketLinkText}
+                  {t("EtplPageStrings.renewalPacketLinkText")}
                 </a>
-                <span className="flex">{EtplPageStrings.renewalPacketDescription}</span>
+                <span className="flex">{t("EtplPageStrings.renewalPacketDescription")}</span>
               </p>
               <p className="mbl">
                 <a
                   target="_blank"
                   className="link-format-blue"
                   rel="noopener noreferrer"
-                  href={EtplPageStrings.apprenticeshipPacketLinkText}
+                  href={LINKS.apprenticeshipPacketLink}
                 >
-                  {EtplPageStrings.apprenticeshipPacketLinkText}
+                  {t("EtplPageStrings.apprenticeshipPacketLinkText")}
                 </a>
-                <span className="flex">{EtplPageStrings.apprenticeshipPacketDescription}</span>
+                <span className="flex">{t("EtplPageStrings.apprenticeshipPacketDescription")}</span>
               </p>
 
-              <h4 className="weight-500 mtl">{EtplPageStrings.wioaWfnj}</h4>
+              <h4 className="weight-500 mtl">{t("EtplPageStrings.wioaWfnj")}</h4>
               <p>
                 <a
                   target="_blank"
                   className="link-format-blue"
                   rel="noopener noreferrer"
-                  href={EtplPageStrings.workforceInnovationLink}
+                  href={LINKS.workforceInnovationLink}
                 >
-                  {EtplPageStrings.workforceInnovationLinkText}
+                  {t("EtplPageStrings.workforceInnovationLinkText")}
                 </a>
               </p>
               <p>
@@ -462,40 +478,40 @@ export const EtplPage = (_props: Props): ReactElement => {
                   target="_blank"
                   className="link-format-blue"
                   rel="noopener noreferrer"
-                  href={EtplPageStrings.wioaYouthLink}
+                  href={LINKS.wioaYouthLink}
                 >
-                  {EtplPageStrings.wioaYouthLinkText}
+                  {t("EtplPageStrings.wioaYouthLinkText")}
                 </a>
               </p>
 
-              <h4 className="weight-500 mtl">{EtplPageStrings.existingProviders}</h4>
+              <h4 className="weight-500 mtl">{t("EtplPageStrings.existingProviders")}</h4>
               <p className="mbl">
                 <a
                   target="_blank"
                   className="link-format-blue"
                   rel="noopener noreferrer"
-                  href={EtplPageStrings.additionModificationLink}
+                  href={LINKS.additionModificationLink}
                 >
-                  {EtplPageStrings.additionModificationLinkText}
+                  {t("EtplPageStrings.additionModificationLinkText")}
                 </a>
-                <span className="flex">{EtplPageStrings.additionModificationDescription}</span>
+                <span className="flex">{t("EtplPageStrings.additionModificationDescription")}</span>
               </p>
             </div>
 
-            <h3 className="text-l">{EtplPageStrings.step3Header}</h3>
+            <h3 className="text-l">{t("EtplPageStrings.step3Header")}</h3>
             <p className="mbm">
-              {EtplPageStrings.step3Text.split("{link}")[0].trim()}
-              &nbsp;
-              <a
-                className="link-format-blue"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={EtplPageStrings.step3Link}
-              >
-                {EtplPageStrings.step3LinkText}
-              </a>
-              &nbsp;
-              {EtplPageStrings.step3Text.split("{link}")[1].trim()}
+              <Trans i18nKey="EtplPageStrings.step3Text">
+                Submit your application to COEI at
+                <a
+                  className="link-format-blue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={LINKS.step3Link}
+                >
+                  njtopps@dol.nj.gov
+                </a>
+                and COEI will follow up if there are any questions regarding your application.
+              </Trans>
             </p>
           </div>
         </div>

@@ -2,8 +2,7 @@ import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { LandingPage } from "./LandingPage";
 import { navigate } from "@reach/router";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
-import { LandingPageStrings } from "../localizations/LandingPageStrings";
+import { en as Content } from "../locales/en";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
@@ -16,8 +15,8 @@ function mockReachRouter() {
 
 jest.mock("@reach/router", () => mockReachRouter());
 
-const { searchButtonDefaultText } = SearchAndFilterStrings;
-const { searchBoxPlaceholder } = LandingPageStrings;
+const { searchButtonDefaultText } = Content.SearchAndFilterStrings;
+const { searchBoxPlaceholder } = Content.LandingPageStrings;
 
 describe("<LandingPage />", () => {
   it("links to search results page when search is executed", () => {

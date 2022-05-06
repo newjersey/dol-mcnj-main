@@ -5,7 +5,7 @@ import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
 describe("filtering by soc code", () => {
   const training1 = buildTrainingResult({ name: "training1", socCodes: ["12-1234", "34-3456"] });
@@ -13,7 +13,9 @@ describe("filtering by soc code", () => {
   const training3 = buildTrainingResult({ name: "training3", socCodes: [] });
 
   const getSocCodeInput = (subject: RenderResult): HTMLElement => {
-    return subject.getByLabelText(SearchAndFilterStrings.socCodeFilterLabel, { exact: false });
+    return subject.getByLabelText(Content.SearchAndFilterStrings.socCodeFilterLabel, {
+      exact: false,
+    });
   };
 
   let stubClient: StubClient;
@@ -102,7 +104,7 @@ describe("filtering by soc code", () => {
     });
     fireEvent.blur(getSocCodeInput(subject));
 
-    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 
@@ -119,36 +121,48 @@ describe("filtering by soc code", () => {
       target: { value: "12" },
     });
     fireEvent.blur(getSocCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidSocCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {
       target: { value: "12-" },
     });
     fireEvent.blur(getSocCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidSocCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {
       target: { value: "12-1234" },
     });
     fireEvent.blur(getSocCodeInput(subject));
-    expect(subject.queryByText(SearchAndFilterStrings.invalidSocCodeError)).not.toBeInTheDocument();
+    expect(
+      subject.queryByText(Content.SearchAndFilterStrings.invalidSocCodeError)
+    ).not.toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {
       target: { value: "12-12345" },
     });
     fireEvent.blur(getSocCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidSocCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {
       target: { value: "12-123" },
     });
     fireEvent.blur(getSocCodeInput(subject));
-    expect(subject.getByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.SearchAndFilterStrings.invalidSocCodeError)
+    ).toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {
       target: { value: "121234" },
     });
     fireEvent.blur(getSocCodeInput(subject));
-    expect(subject.queryByText(SearchAndFilterStrings.invalidSocCodeError)).toBeInTheDocument();
+    expect(
+      subject.queryByText(Content.SearchAndFilterStrings.invalidSocCodeError)
+    ).toBeInTheDocument();
   });
 });

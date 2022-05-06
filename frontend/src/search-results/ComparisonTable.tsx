@@ -3,11 +3,10 @@ import { useMediaQuery } from "@material-ui/core";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { InDemandTag } from "../components/InDemandTag";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
 import { Button } from "../components/Button";
 import { navigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data: TrainingResult[];
@@ -16,6 +15,8 @@ interface Props {
 
 export const ComparisonTable = (props: Props): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
+
   const item1 = props.data[0];
   const item2 = props.data[1];
   const item3 = props.data[2];
@@ -109,7 +110,9 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && (
-                  <span className="weight-500">{SearchResultsPageStrings.comparisonCostLabel}</span>
+                  <span className="weight-500">
+                    {t("SearchResultsPageStrings.comparisonCostLabel")}
+                  </span>
                 )}
               </td>
             )}
@@ -134,13 +137,13 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
-              <span>{SearchResultsPageStrings.comparisonEmploymentRateLabelMobile}</span>
+              <span>{t("SearchResultsPageStrings.comparisonEmploymentRateLabelMobile")}</span>
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && (
                   <span className="weight-500">
-                    {SearchResultsPageStrings.comparisonEmploymentRateLabel}
+                    {t("SearchResultsPageStrings.comparisonEmploymentRateLabel")}
                   </span>
                 )}
               </td>
@@ -150,42 +153,39 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="align-center pas bhdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
-                ? SearchResultsPageStrings.percentEmployed.replace(
-                    "{percent}",
-                    formatPercentEmployed(item1.percentEmployed)
-                  )
-                : SearchResultsPageStrings.percentEmployedUnavailable}
+                ? t("SearchResultsPageStrings.percentEmployed", {
+                    percent: formatPercentEmployed(item1.percentEmployed),
+                  })
+                : t("SearchResultsPageStrings.percentEmployedUnavailable")}
             </td>
             {item2 && (
               <td className="align-center pas bhdcg" key={`${item2.id}-emp`}>
                 {item2.percentEmployed
-                  ? SearchResultsPageStrings.percentEmployed.replace(
-                      "{percent}",
-                      formatPercentEmployed(item2.percentEmployed)
-                    )
-                  : SearchResultsPageStrings.percentEmployedUnavailable}
+                  ? t("SearchResultsPageStrings.percentEmployed", {
+                      percent: formatPercentEmployed(item2.percentEmployed),
+                    })
+                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
               </td>
             )}
             {item3 && (
               <td className="align-center pas bhdcg" key={`${item3.id}-emp`}>
                 {item3.percentEmployed
-                  ? SearchResultsPageStrings.percentEmployed.replace(
-                      "{percent}",
-                      formatPercentEmployed(item3.percentEmployed)
-                    )
-                  : SearchResultsPageStrings.percentEmployedUnavailable}
+                  ? t("SearchResultsPageStrings.percentEmployed", {
+                      percent: formatPercentEmployed(item3.percentEmployed),
+                    })
+                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
               </td>
             )}
           </tr>
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
-              <span>{SearchResultsPageStrings.comparisonTimeToCompleteLabel}</span>
+              <span>{t("SearchResultsPageStrings.comparisonTimeToCompleteLabel")}</span>
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && (
                   <span className="weight-500">
-                    {SearchResultsPageStrings.comparisonTimeToCompleteLabel}
+                    {t("SearchResultsPageStrings.comparisonTimeToCompleteLabel")}
                   </span>
                 )}
               </td>
@@ -195,17 +195,17 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             {item1 && (
               <td className="align-center ptd pbxl bhdcg" key={`${item1.id}-cal`}>
-                {CalendarLengthLookup[item1.calendarLength]}
+                {t(`CalendarLengthLookup.${item1.calendarLength}`)}
               </td>
             )}
             {item2 && (
               <td className="align-center ptd pbxl bhdcg" key={`${item2.id}-cal`}>
-                {CalendarLengthLookup[item2.calendarLength]}
+                {t(`CalendarLengthLookup.${item2.calendarLength}`)}
               </td>
             )}
             {item3 && (
               <td className="align-center ptd pbxl bhdcg" key={`${item3.id}-cal`}>
-                {CalendarLengthLookup[item3.calendarLength]}
+                {t(`CalendarLengthLookup.${item3.calendarLength}`)}
               </td>
             )}
           </tr>
@@ -217,7 +217,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item1.id}`)}
                 >
-                  {SearchResultsPageStrings.comparisonSeeDetails}
+                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -228,7 +228,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item2.id}`)}
                 >
-                  {SearchResultsPageStrings.comparisonSeeDetails}
+                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -239,7 +239,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item3.id}`)}
                 >
-                  {SearchResultsPageStrings.comparisonSeeDetails}
+                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -330,7 +330,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
           )}
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>{SearchResultsPageStrings.comparisonCostLabel}</span>
+              <span>{t("SearchResultsPageStrings.comparisonCostLabel")}</span>
             </td>
             {item1 && (
               <td className="align-center pvd btdcg" key={`${item1.id}-cos`}>
@@ -350,54 +350,51 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>{SearchResultsPageStrings.comparisonEmploymentRateLabel}</span>
+              <span>{t("SearchResultsPageStrings.comparisonEmploymentRateLabel")}</span>
             </td>
             <td className="align-center pvd btdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
-                ? SearchResultsPageStrings.percentEmployed.replace(
-                    "{percent}",
-                    formatPercentEmployed(item1.percentEmployed)
-                  )
-                : SearchResultsPageStrings.percentEmployedUnavailable}
+                ? t("SearchResultsPageStrings.percentEmployed", {
+                    percent: formatPercentEmployed(item1.percentEmployed),
+                  })
+                : t("SearchResultsPageStrings.percentEmployedUnavailable")}
             </td>
             {item2 && (
               <td className="align-center pvd btdcg bldcg" key={`${item2.id}-emp`}>
                 {item2.percentEmployed
-                  ? SearchResultsPageStrings.percentEmployed.replace(
-                      "{percent}",
-                      formatPercentEmployed(item2.percentEmployed)
-                    )
-                  : SearchResultsPageStrings.percentEmployedUnavailable}
+                  ? t("SearchResultsPageStrings.percentEmployed", {
+                      percent: formatPercentEmployed(item2.percentEmployed),
+                    })
+                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
               </td>
             )}
             {item3 && (
               <td className="align-center pvd btdcg bldcg" key={`${item3.id}-emp`}>
                 {item3.percentEmployed
-                  ? SearchResultsPageStrings.percentEmployed.replace(
-                      "{percent}",
-                      formatPercentEmployed(item3.percentEmployed)
-                    )
-                  : SearchResultsPageStrings.percentEmployedUnavailable}
+                  ? t("SearchResultsPageStrings.percentEmployed", {
+                      percent: formatPercentEmployed(item3.percentEmployed),
+                    })
+                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
               </td>
             )}
           </tr>
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>{SearchResultsPageStrings.comparisonTimeToCompleteLabel}</span>
+              <span>{t("SearchResultsPageStrings.comparisonTimeToCompleteLabel")}</span>
             </td>
             {item1 && (
               <td className="align-center ptd pbl btdcg" key={`${item1.id}-cal`}>
-                {CalendarLengthLookup[item1.calendarLength]}
+                {t(`CalendarLengthLookup.${item1.calendarLength}`)}
               </td>
             )}
             {item2 && (
               <td className="align-center ptd pbl btdcg bldcg" key={`${item2.id}-cal`}>
-                {CalendarLengthLookup[item2.calendarLength]}
+                {t(`CalendarLengthLookup.${item2.calendarLength}`)}
               </td>
             )}
             {item3 && (
               <td className="align-center ptd pbl btdcg bldcg" key={`${item3.id}-cal`}>
-                {CalendarLengthLookup[item3.calendarLength]}
+                {t(`CalendarLengthLookup.${item3.calendarLength}`)}
               </td>
             )}
           </tr>
@@ -410,7 +407,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item1.id}`)}
                 >
-                  {SearchResultsPageStrings.comparisonSeeDetails}
+                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -421,7 +418,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item2.id}`)}
                 >
-                  {SearchResultsPageStrings.comparisonSeeDetails}
+                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -432,7 +429,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item3.id}`)}
                 >
-                  {SearchResultsPageStrings.comparisonSeeDetails}
+                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
                 </Button>
               </td>
             )}

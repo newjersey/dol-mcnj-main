@@ -5,7 +5,7 @@ import { FilterContext } from "./FilterContext";
 import React from "react";
 import { FilterBox } from "./FilterBox";
 import { useMediaQuery } from "@material-ui/core";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
+import { en as Content } from "../locales/en";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockFunctions() {
@@ -19,7 +19,7 @@ function mockFunctions() {
 jest.mock("@material-ui/core", () => mockFunctions());
 
 const { mobileFilterText, maxCostLabel, searchButtonDefaultText, searchButtonUpdateResultsText } =
-  SearchAndFilterStrings;
+  Content.SearchAndFilterStrings;
 
 describe("<FilterBox />", () => {
   const renderWithFilters = (filters: Filter[]): RenderResult => {

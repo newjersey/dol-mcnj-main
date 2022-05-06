@@ -2,9 +2,9 @@ import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } fro
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
-import { SearchAndFilterStrings } from "../localizations/SearchAndFilterStrings";
 import { Input } from "../components/Input";
 import { InlineIcon } from "../components/InlineIcon";
+import { useTranslation } from "react-i18next";
 
 function isValidSocCode(soc: string): boolean {
   if (soc === "") return true;
@@ -18,6 +18,7 @@ const INPUT_PROPS = {
 };
 
 export const SocCodeFilter = (): ReactElement => {
+  const { t } = useTranslation();
   const [socCode, setSocCode] = useState<string>("");
   const { state, dispatch } = useContext(FilterContext);
 
@@ -66,7 +67,7 @@ export const SocCodeFilter = (): ReactElement => {
   return (
     <>
       <label htmlFor="socCode" className="fin">
-        {SearchAndFilterStrings.socCodeFilterLabel}
+        {t("SearchAndFilterStrings.socCodeFilterLabel")}
         <span className="fin mld">
           <Input
             id="socCode"
@@ -83,7 +84,7 @@ export const SocCodeFilter = (): ReactElement => {
       {!validSocCode && (
         <div className="red fin mts">
           <InlineIcon className="mrxs">error</InlineIcon>{" "}
-          {SearchAndFilterStrings.invalidSocCodeError}
+          {t("SearchAndFilterStrings.invalidSocCodeError")}
         </div>
       )}
     </>

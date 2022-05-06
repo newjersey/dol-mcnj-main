@@ -11,9 +11,8 @@ import {
 } from "../test-objects/factories";
 import { CalendarLength } from "../domain/Training";
 import { Error } from "../domain/Error";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
-import { TrainingPageStrings } from "../localizations/TrainingPageStrings";
-import { ErrorPageStrings } from "../localizations/ErrorPageStrings";
+import { PROVIDER_MISSING_INFO } from "../constants";
+import { en as Content } from "../locales/en";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
@@ -26,11 +25,7 @@ function mockReachRouter() {
 
 jest.mock("@reach/router", () => mockReachRouter());
 
-const { inDemandTag } = SearchResultsPageStrings;
-const { missingProviderUrl, missingProviderAddress, associatedOccupationsText } =
-  TrainingPageStrings;
-const { notFoundHeader, somethingWentWrongHeader } = ErrorPageStrings;
-
+const { inDemandTag } = Content.SearchResultsPageStrings;
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
 
@@ -88,7 +83,9 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
-    expect(subject.getByText("Completion time: 6-12 months", { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText("Completion time: " + Content.CalendarLengthLookup["7"], { exact: false })
+    ).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Senator", { exact: false })).toBeInTheDocument();
@@ -125,7 +122,9 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.TrainingPageStrings.onlineClass, { exact: false })
+    ).toBeInTheDocument();
     expect(subject.queryByText("Newark", { exact: false })).not.toBeInTheDocument();
   });
 
@@ -205,7 +204,8 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(buildTraining({ online: true })));
 
     expect(
-      subject.getByText("Online Class", { exact: false }).parentElement?.parentElement
+      subject.getByText(Content.TrainingPageStrings.onlineClass, { exact: false }).parentElement
+        ?.parentElement
     ).not.toHaveAttribute("href");
   });
 
@@ -252,8 +252,8 @@ describe("<TrainingPage />", () => {
       stubClient.capturedObserver.onSuccess(buildTraining({ provider: buildProvider({ url: "" }) }))
     );
 
-    expect(subject.getByText(missingProviderUrl)).toBeInTheDocument();
-    expect(subject.getByText(missingProviderUrl)).not.toHaveAttribute("href");
+    expect(subject.getByText(PROVIDER_MISSING_INFO)).toBeInTheDocument();
+    expect(subject.getByText(PROVIDER_MISSING_INFO)).not.toHaveAttribute("href");
   });
 
   it("displays helper text if training has no occupations or NO MATCH", () => {
@@ -268,9 +268,13 @@ describe("<TrainingPage />", () => {
         buildTraining({ occupations: [buildOccupation({ title: "NO MATCH" })] })
       )
     );
-
     expect(
-      subject.getByText(associatedOccupationsText.substring(0, 10), { exact: false })
+      subject.getByText(
+        "This is a general training that might prepare you for a wide variety of career paths Browse",
+        {
+          exact: false,
+        }
+      )
     ).toBeInTheDocument();
   });
 
@@ -286,7 +290,7 @@ describe("<TrainingPage />", () => {
       )
     );
 
-    expect(subject.getByText(missingProviderAddress)).toBeInTheDocument();
+    expect(subject.getByText(PROVIDER_MISSING_INFO)).toBeInTheDocument();
   });
 
   it("displays share training text if training is in-demand", () => {
@@ -310,7 +314,9 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(subject.getByText(notFoundHeader, { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.ErrorPageStrings.notFoundHeader, { exact: false })
+    ).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", () => {
@@ -318,7 +324,9 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(subject.getByText(somethingWentWrongHeader, { exact: false })).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.ErrorPageStrings.somethingWentWrongHeader, { exact: false })
+    ).toBeInTheDocument();
   });
 
   it("converts carriage returns to newlines in the description", () => {
@@ -337,7 +345,9 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({ hasEveningCourses: true });
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText(TrainingPageStrings.eveningCoursesServiceLabel)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.TrainingPageStrings.eveningCoursesServiceLabel)
+    ).toBeInTheDocument();
   });
 
   it("does not display evening courses text if training does not have evening courses", () => {
@@ -346,7 +356,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(TrainingPageStrings.eveningCoursesServiceLabel)
+      subject.queryByText(Content.TrainingPageStrings.eveningCoursesServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -355,7 +365,9 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({ languages: ["Spanish"] });
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText(TrainingPageStrings.otherLanguagesServiceLabel)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.TrainingPageStrings.otherLanguagesServiceLabel)
+    ).toBeInTheDocument();
   });
 
   it("does not display languages text if training does not have languages", () => {
@@ -364,7 +376,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(TrainingPageStrings.otherLanguagesServiceLabel)
+      subject.queryByText(Content.TrainingPageStrings.otherLanguagesServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -374,7 +386,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(TrainingPageStrings.wheelchairAccessibleServiceLabel)
+      subject.getByText(Content.TrainingPageStrings.wheelchairAccessibleServiceLabel)
     ).toBeInTheDocument();
   });
 
@@ -384,7 +396,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(TrainingPageStrings.wheelchairAccessibleServiceLabel)
+      subject.queryByText(Content.TrainingPageStrings.wheelchairAccessibleServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -394,7 +406,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(TrainingPageStrings.childcareAssistanceServiceLabel)
+      subject.getByText(Content.TrainingPageStrings.childcareAssistanceServiceLabel)
     ).toBeInTheDocument();
   });
 
@@ -404,7 +416,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(TrainingPageStrings.childcareAssistanceServiceLabel)
+      subject.queryByText(Content.TrainingPageStrings.childcareAssistanceServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -413,7 +425,9 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({ hasJobPlacementAssistance: true });
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText(TrainingPageStrings.jobAssistanceServiceLabel)).toBeInTheDocument();
+    expect(
+      subject.getByText(Content.TrainingPageStrings.jobAssistanceServiceLabel)
+    ).toBeInTheDocument();
   });
 
   it("does not display job assistance text if training does not have job assistance", () => {
@@ -422,7 +436,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(TrainingPageStrings.jobAssistanceServiceLabel)
+      subject.queryByText(Content.TrainingPageStrings.jobAssistanceServiceLabel)
     ).not.toBeInTheDocument();
   });
 });

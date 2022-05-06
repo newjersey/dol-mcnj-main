@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext } from "react";
 import { TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
-import { CalendarLengthLookup } from "../localizations/CalendarLengthLookup";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
@@ -9,7 +8,7 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -19,6 +18,7 @@ interface Props {
 export const TrainingResultCard = (props: Props): ReactElement => {
   const { state, dispatch } = useContext(ComparisonContext);
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   const handleCheckboxChange = (checked: boolean): void => {
     dispatch({
@@ -30,7 +30,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
 
   const getLocationOrOnline = (): string => {
     if (props.trainingResult.online) {
-      return SearchResultsPageStrings.onlineClassLabel;
+      return t("SearchResultsPageStrings.onlineClassLabel");
     }
 
     return `${props.trainingResult.city}, ${props.trainingResult.county}`;
@@ -75,7 +75,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 disabled={props.comparisonItems && props.comparisonItems.length >= 3 && !isChecked}
               />
             }
-            label={SearchResultsPageStrings.comparisonCheckLabel}
+            label={t("SearchResultsPageStrings.comparisonCheckLabel")}
           />
         </FormGroup>
       </label>
@@ -102,11 +102,10 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <span className="fin fas">
               <InlineIcon className="hide-when-lg mrs">card_travel</InlineIcon>
               {props.trainingResult.percentEmployed
-                ? SearchResultsPageStrings.percentEmployed.replace(
-                    "{percent}",
-                    formatPercentEmployed(props.trainingResult.percentEmployed)
-                  )
-                : SearchResultsPageStrings.percentEmployedUnavailable}
+                ? t("SearchResultsPageStrings.percentEmployed", {
+                    percent: formatPercentEmployed(props.trainingResult.percentEmployed),
+                  })
+                : t("SearchResultsPageStrings.percentEmployedUnavailable")}
             </span>
           </p>
         </div>
@@ -126,10 +125,9 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {SearchResultsPageStrings.timeToComplete.replace(
-                "{time}",
-                CalendarLengthLookup[props.trainingResult.calendarLength]
-              )}
+              {t("SearchResultsPageStrings.timeToComplete", {
+                time: t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`),
+              })}
             </span>
           </p>
         </div>

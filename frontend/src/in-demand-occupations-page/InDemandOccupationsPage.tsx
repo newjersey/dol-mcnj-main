@@ -7,7 +7,7 @@ import { Client } from "../domain/Client";
 import { InDemandOccupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
 import { Typeahead } from "./Typeahead";
-import { InDemandPageStrings } from "../localizations/InDemandPageStrings";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,13 +16,14 @@ interface Props extends RouteComponentProps {
 type MajorGroupName = string;
 
 export const InDemandOccupationsPage = (props: Props): ReactElement => {
+  const { t } = useTranslation();
   const [occupationLookup, setOccupationLookup] = useState<
     Record<MajorGroupName, InDemandOccupation[]>
   >({});
 
   useEffect(() => {
-    document.title = InDemandPageStrings.pageTitle;
-  }, []);
+    document.title = t("InDemandPageStrings.pageTitle");
+  }, [t]);
 
   useEffect(() => {
     props.client.getInDemandOccupations({
@@ -61,8 +62,8 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
       <BetaBanner />
 
       <main className="container below-banners">
-        <h2 className="text-xl ptd weight-500">{InDemandPageStrings.header}</h2>
-        <p>{InDemandPageStrings.description}</p>
+        <h2 className="text-xl ptd weight-500">{t("InDemandPageStrings.header")}</h2>
+        <p>{t("InDemandPageStrings.description")}</p>
 
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />

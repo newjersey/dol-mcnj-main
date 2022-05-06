@@ -5,7 +5,7 @@ import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { SearchAndFilterStrings } from "../../localizations/SearchAndFilterStrings";
+import { en as Content } from "../../locales/en";
 
 describe("filtering by max cost", () => {
   const training1999 = buildTrainingResult({ name: "training1999", totalCost: 1999 });
@@ -129,7 +129,7 @@ describe("filtering by max cost", () => {
     });
     fireEvent.blur(getMaxCostInput(subject));
 
-    fireEvent.click(subject.getByText(SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

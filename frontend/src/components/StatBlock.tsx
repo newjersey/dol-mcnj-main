@@ -1,6 +1,7 @@
 import { useMediaQuery } from "@material-ui/core";
 import React, { ReactElement, useContext, useCallback } from "react";
-import { StatBlockStrings } from "../localizations/StatBlockStrings";
+import { useTranslation } from "react-i18next";
+import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
 
 interface Props {
@@ -12,14 +13,16 @@ interface Props {
 }
 
 export const StatBlock = (props: Props): ReactElement => {
+  const { t } = useTranslation();
+
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const { setContextualInfo } = useContext(ContextualInfoContext);
 
   const dataMissingOrSource =
-    props.data === StatBlockStrings.missingDataIndicator
-      ? StatBlockStrings.missingDataExplanation
-      : `${StatBlockStrings.dataSourceLabel} ${
-          props.dataSource ?? StatBlockStrings.defaultDataSource
+    props.data === STAT_MISSING_DATA_INDICATOR
+      ? t("StatBlockStrings.missingDataExplanation")
+      : `${t("StatBlockStrings.dataSourceLabel")} ${
+          props.dataSource ?? t("StatBlockStrings.defaultDataSource")
         }`;
 
   const onClickInfo = useCallback(() => {

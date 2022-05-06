@@ -1,13 +1,12 @@
 import React, { ReactElement } from "react";
-import { HeaderStrings } from "../localizations/HeaderStrings";
-
+import { Trans } from "react-i18next";
 interface Props {
   noHeader?: boolean;
 }
 
-export const BetaBanner = (props: Props): ReactElement => {
-  const feedbackLink = HeaderStrings.betaBannerFeedbackLink;
+const FEEDBACK_URL = "https://forms.gle/XSmLCPHBctFVSGsA6";
 
+export const BetaBanner = (props: Props): ReactElement => {
   const getHeaderMarginClass = (): string => {
     if (props.noHeader) {
       return "no-header-margin";
@@ -18,11 +17,18 @@ export const BetaBanner = (props: Props): ReactElement => {
 
   return (
     <aside className={`beta-banner ${getHeaderMarginClass()}`}>
-      {HeaderStrings.betaBannerText}&nbsp;
-      <a className="link-format-blue" target="_blank" rel="noopener noreferrer" href={feedbackLink}>
-        {HeaderStrings.betaBannerLinkText}
-      </a>
-      .
+      <Trans i18nKey="HeaderStrings.betaBannerText">
+        This site is in beta. Feedback welcome
+        <a
+          className="link-format-blue"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={FEEDBACK_URL}
+        >
+          here
+        </a>
+        .
+      </Trans>
     </aside>
   );
 };

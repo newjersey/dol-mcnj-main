@@ -2,9 +2,9 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { TrainingComparison } from "./TrainingComparison";
 import { buildTrainingResult } from "../test-objects/factories";
-import { SearchResultsPageStrings } from "../localizations/SearchResultsPageStrings";
+import { en as Content } from "../locales/en";
 
-const { comparisonCompare, comparisonCollapse, comparisonClear } = SearchResultsPageStrings;
+const { comparisonCompare, comparisonCollapse, comparisonClear } = Content.SearchResultsPageStrings;
 
 // @todo: update test
 xdescribe("<TrainingComparison />", () => {

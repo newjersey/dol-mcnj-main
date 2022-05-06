@@ -5,6 +5,8 @@ import * as serviceWorker from "./serviceWorker";
 import { App } from "./App";
 import { ApiClient } from "./ApiClient";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+// import i18n (needs to be bundled)
+import "./i18n";
 
 const apiClient = new ApiClient();
 
