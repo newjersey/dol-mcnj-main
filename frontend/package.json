@@ -70,7 +70,7 @@
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
-    "good-fences": "^0.9.2",
+    "good-fences": "^1.0.2",
     "napa": "^3.0.0",
     "prettier": "2.6.2",
     "react-to-print": "^2.14.7"
