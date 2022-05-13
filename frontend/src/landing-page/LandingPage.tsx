@@ -5,7 +5,7 @@ import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import IconOccupation from "./landing-icons/occupations.svg";
-import IconGear from "./landing-icons/gear.svg";
+import IconWorkforce from "./landing-icons/workforce.png";
 import IconCounseling from "./landing-icons/counseling.svg";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
@@ -66,8 +66,8 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
-            <div className="landing-image mbs">
-              <img alt="icon-workforce" src={IconGear} />
+            <div className="landing-image-workforce mbs">
+              <img alt="Cartoon of three workers" src={IconWorkforce} />
             </div>
             <h3 className="text-l weight-400 align-center">
               {t("LandingPageStrings.columnThreeHeader")}
