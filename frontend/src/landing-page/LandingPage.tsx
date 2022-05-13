@@ -47,7 +47,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               {t("LandingPageStrings.columnOneDescription")}
             </p>
-            <Button variant="secondary" onClick={() => navigate("/explorer")}>
+            <Button className="mtd" variant="secondary" onClick={() => navigate("/explorer")}>
               {t("LandingPageStrings.columnOneButtonText")}
             </Button>
           </div>
@@ -61,7 +61,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               {t("LandingPageStrings.columnTwoDescription")}
             </p>
-            <Button variant="secondary" onClick={() => navigate("/counselor")}>
+            <Button className="mtd" variant="secondary" onClick={() => navigate("/counselor")}>
               {t("LandingPageStrings.columnTwoButtonText")}
             </Button>
           </div>
@@ -75,7 +75,11 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             <p className="phm align-center options-desc">
               {t("LandingPageStrings.columnThreeDescription")}
             </p>
-            <Button variant="secondary" onClick={() => navigate("/training-provider")}>
+            <Button
+              className="mtd"
+              variant="secondary"
+              onClick={() => navigate("/training-provider")}
+            >
               {t("LandingPageStrings.columnThreeButtonText")}
             </Button>
           </div>
