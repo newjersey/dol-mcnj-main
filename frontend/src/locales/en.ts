@@ -168,6 +168,12 @@ export const en = {
     unemploymentInsuranceFaq: "I need help applying for unemployment insurance",
     healthInsuranceFaq: "I need help applying for health insurance",
   },
+  FAQ: {
+    searchOccupationsScreenshot: "Screenshot of In-Demand Occupations page on Training Explorer ",
+    occupationDetailsScreenshot: "Screenshot of Phlebotomy occupation page on Training Explorer",
+    searchHelpScreenshot: "Screenshot of search bar on Training Explorer",
+    searchFilterScreenshot: "Screenshot of filter box on Training Explorer",
+  },
   Footer: {
     privacyPolicyLinkLabel: "Privacy Policy",
     termsOfServiceLinkLabel: "Terms of Service",
@@ -204,6 +210,19 @@ export const en = {
     mobileLinkToCounselors: "For Counselors & Coaches",
     mobileLinkToTrainingProviders: "For Training Providers",
     betaBannerText: "This site is in beta. Feedback welcome <1>here</1>.",
+  },
+  IconAlt: {
+    njLogo: "Official state logo for New Jersey",
+    occupationGroup: "Icon representing specific group of occupations",
+    etplGroup: "Icon representing specific government agency",
+    landingPageWorkforce: "Cartoon of three workers",
+    landingPageOccupation: "Icon showing person making connections",
+    landingPageCounseling: "Icon showing conversation bubbles",
+    etplList: "Icon showing checklist",
+    explorerCustomize: "Icon representating customization",
+    explorerFunding: "Dollar sign",
+    providerApplication: "Icon showing folder with documents",
+    careerOneStopLogo: "Official logo for Career One Stop organization",
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",

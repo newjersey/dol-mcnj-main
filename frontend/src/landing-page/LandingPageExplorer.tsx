@@ -42,7 +42,7 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrs">
-                  <img className="" alt="icon-customize" src={IconCustomize} />
+                  <img className="" alt={t("IconAlt.explorerCustomize")} src={IconCustomize} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
@@ -57,7 +57,7 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrd">
-                  <img alt="icon-funding" src={IconFunding} />
+                  <img alt={t("IconAlt.explorerFunding")} src={IconFunding} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
@@ -72,7 +72,7 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrd">
-                  <img className="" alt="icon-occupation" src={IconOccupation} />
+                  <img className="" alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>

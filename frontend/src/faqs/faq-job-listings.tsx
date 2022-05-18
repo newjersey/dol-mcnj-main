@@ -6,12 +6,14 @@ import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import SearchOccupationScreenshot from "./search-occupation-screenshot.png";
 import OccupationDetailsScreenshot from "./occupation-details-screenshot.png";
+import { useTranslation } from "react-i18next";
 
 export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Job Listings";
     window.scrollTo(0, 0);
   }, []);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -44,7 +46,7 @@ export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
               <img
                 width="300"
                 src={SearchOccupationScreenshot}
-                alt="search-occupation-screenshot"
+                alt={t("FAQ.searchOccupationsScreenshot")}
               />
             </p>
             <p>
@@ -57,7 +59,7 @@ export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
               <img
                 width="345"
                 src={OccupationDetailsScreenshot}
-                alt="occupation-details-screenshot"
+                alt={t("FAQ.searchOccupationsScreenshot")}
               />
             </p>
           </div>

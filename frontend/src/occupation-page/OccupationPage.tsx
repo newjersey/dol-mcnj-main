@@ -266,7 +266,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               &nbsp;{t("OccupationPage.blsSource")}
             </p>
             <p>
-              <img src={careeronestop} alt="Source: CareerOneStop" />
+              <img src={careeronestop} alt={t("IconAlt.careerOneStopLogo")} />
             </p>
           </div>
         </main>

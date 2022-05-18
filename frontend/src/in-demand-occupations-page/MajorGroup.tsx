@@ -26,6 +26,7 @@ import ProductionOccupations from "./industry-icons/Production Occupations.svg";
 import ProtectiveServiceOccupations from "./industry-icons/Protective Service Occupations.svg";
 import SalesandRelatedOccupations from "./industry-icons/Sales and Related Occupations.svg";
 import TransportationandMaterialMovingOccupations from "./industry-icons/Transportation and Material Moving Occupations.svg";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   majorGroupName: string;
@@ -33,6 +34,7 @@ interface Props {
 }
 
 export const MajorGroup = (props: Props): ReactElement => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleIsOpen = (): void => {
@@ -51,7 +53,11 @@ export const MajorGroup = (props: Props): ReactElement => {
         className="pas color-blue width-100"
       >
         <div className="fdr fac weight-500">
-          <img className="mrs" alt="" src={industryIconLookup[props.majorGroupName]} />
+          <img
+            className="mrs"
+            alt={t("IconAlt.occupationGroup")}
+            src={industryIconLookup[props.majorGroupName]}
+          />
 
           <span className="blue">{props.majorGroupName}</span>
 
