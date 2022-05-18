@@ -24,21 +24,21 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
       <main className="container below-banners" role="main">
         <div className="landing-container mla mra">
           <h2 className="mvm text-xl weight-500 align-center">
-            {t("TrainingProviderPageStrings.header")}
+            {t("TrainingProviderPage.header")}
           </h2>
 
           <h3 className="mbd text-l weight-500 align-center">
-            {t("TrainingProviderPageStrings.sectionOneHeader")}
+            {t("TrainingProviderPage.sectionOneHeader")}
           </h3>
-          <p className="mbl align-center">{t("TrainingProviderPageStrings.sectionOneText")}</p>
+          <p className="mbl align-center">{t("TrainingProviderPage.sectionOneText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("TrainingProviderPageStrings.sectionTwoHeader")}
+            {t("TrainingProviderPage.sectionTwoHeader")}
           </h3>
-          <p className="mbl align-center">{t("TrainingProviderPageStrings.sectionTwoText")}</p>
+          <p className="mbl align-center">{t("TrainingProviderPage.sectionTwoText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("TrainingProviderPageStrings.sectionThreeHeader")}
+            {t("TrainingProviderPage.sectionThreeHeader")}
           </h3>
           <div className="landing-card-container mla mra">
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
@@ -48,10 +48,10 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("TrainingProviderPageStrings.etplDescription")}
+                    {t("TrainingProviderPage.etplDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/etpl")}>
-                    {t("TrainingProviderPageStrings.etplButton")}
+                    {t("TrainingProviderPage.etplButton")}
                   </Button>
                 </div>
               </>
@@ -63,10 +63,10 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("TrainingProviderPageStrings.applicationDescription")}
+                    {t("TrainingProviderPage.applicationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/etpl#apply")}>
-                    {t("TrainingProviderPageStrings.applicationButton")}
+                    {t("TrainingProviderPage.applicationButton")}
                   </Button>
                 </div>
               </>
@@ -78,10 +78,10 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("TrainingProviderPageStrings.occupationDescription")}
+                    {t("TrainingProviderPage.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
-                    {t("TrainingProviderPageStrings.occupationButton")}
+                    {t("TrainingProviderPage.occupationButton")}
                   </Button>
                 </div>
               </>
@@ -89,32 +89,32 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
           </div>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("TrainingProviderPageStrings.sectionFourHeader")}
+            {t("TrainingProviderPage.sectionFourHeader")}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
             <Link className="link-format-blue" to="/etpl">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("TrainingProviderPageStrings.etplFaq")}
+                {t("TrainingProviderPage.etplFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/registered-apprenticeship">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("TrainingProviderPageStrings.apprenticeshipFaq")}
+                {t("TrainingProviderPage.apprenticeshipFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/etpl-out-of-state-provider">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("TrainingProviderPageStrings.outOfStateFaq")}
+                {t("TrainingProviderPage.outOfStateFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/etpl-performance-standards">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("TrainingProviderPageStrings.performanceFaq")}
+                {t("TrainingProviderPage.performanceFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/labor-demand-occupations">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("TrainingProviderPageStrings.laborDemandFaq")}
+                {t("TrainingProviderPage.laborDemandFaq")}
               </LandingCard>
             </Link>
           </div>

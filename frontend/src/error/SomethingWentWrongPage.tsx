@@ -6,8 +6,8 @@ export const SomethingWentWrongPage = (): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <ErrorPage headerText={t("ErrorPageStrings.somethingWentWrongHeader")}>
-      <p>{t("ErrorPageStrings.somethingWentWrongText")}</p>
+    <ErrorPage headerText={t("ErrorPage.somethingWentWrongHeader")}>
+      <p>{t("ErrorPage.somethingWentWrongText")}</p>
     </ErrorPage>
   );
 };

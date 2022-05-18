@@ -59,14 +59,14 @@ export const OccupationPage = (props: Props): ReactElement => {
     if (tasks.length > 5 && !isOpen) {
       return (
         <button className="weight-500 blue fin" onClick={(): void => setIsOpen(true)}>
-          {t("OccupationPageStrings.seeMore")}
+          {t("OccupationPage.seeMore")}
           <InlineIcon>keyboard_arrow_down</InlineIcon>
         </button>
       );
     } else if (tasks.length > 5 && isOpen) {
       return (
         <button className="weight-500 blue fin" onClick={(): void => setIsOpen(false)}>
-          {t("OccupationPageStrings.seeLess")}
+          {t("OccupationPage.seeLess")}
           <InlineIcon>keyboard_arrow_up</InlineIcon>
         </button>
       );
@@ -82,7 +82,7 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
 
     if (tasks.length === 0) {
-      return <p>{t("OccupationPageStrings.dataUnavailableText")}</p>;
+      return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
         <ul>
@@ -96,7 +96,7 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   const getRelatedOccupations = (occupations: Occupation[]): ReactElement => {
     if (occupations.length === 0) {
-      return <p>{t("OccupationPageStrings.dataUnavailableText")}</p>;
+      return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
         <>
@@ -118,7 +118,7 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   const getRelatedTrainings = (trainings: TrainingResult[], occupation: string): ReactElement => {
     if (trainings.length === 0) {
-      return <p>{t("OccupationPageStrings.dataUnavailableText")}</p>;
+      return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       const trainingsToShow = trainings.slice(0, 3);
       const seeMore = trainings.length > 3;
@@ -128,7 +128,7 @@ export const OccupationPage = (props: Props): ReactElement => {
         <>
           {seeMore && (
             <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
-              {t("OccupationPageStrings.relatedTrainingSeeMore")}
+              {t("OccupationPage.relatedTrainingSeeMore")}
             </Link>
           )}
 
@@ -147,7 +147,7 @@ export const OccupationPage = (props: Props): ReactElement => {
         <BetaBanner />
         <main className="container below-banners" role="main">
           <div className="ptm weight-500 fin all-caps border-bottom-dark">
-            {t("OccupationPageStrings.header")}
+            {t("OccupationPage.header")}
           </div>
           <h2 data-testid="title" className="text-xl ptd pbs weight-500">
             {occupationDetail.title}
@@ -156,9 +156,9 @@ export const OccupationPage = (props: Props): ReactElement => {
 
           <div className="stat-block-stack mtm">
             <StatBlock
-              title={t("OccupationPageStrings.jobsOpenTitle")}
-              tooltipText={t("OccupationPageStrings.jobsOpenTooltip")}
-              dataSource={t("OccupationPageStrings.jobsOpenSource")}
+              title={t("OccupationPage.jobsOpenTitle")}
+              tooltipText={t("OccupationPage.jobsOpenTooltip")}
+              dataSource={t("OccupationPage.jobsOpenSource")}
               data={
                 occupationDetail.openJobsCount
                   ? occupationDetail.openJobsCount.toLocaleString()
@@ -167,8 +167,8 @@ export const OccupationPage = (props: Props): ReactElement => {
               backgroundColorClass="bg-lightest-purple"
             />
             <StatBlock
-              title={t("OccupationPageStrings.salaryTitle")}
-              tooltipText={t("OccupationPageStrings.salaryTooltip")}
+              title={t("OccupationPage.salaryTitle")}
+              tooltipText={t("OccupationPage.salaryTooltip")}
               data={
                 occupationDetail.medianSalary
                   ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
@@ -190,7 +190,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                   (occupationDetail.openJobsSoc || "").toString()
                 )}
               >
-                {t("OccupationPageStrings.searchOpenJobsText")}
+                {t("OccupationPage.searchOpenJobsText")}
               </a>
             </div>
           )}
@@ -200,14 +200,14 @@ export const OccupationPage = (props: Props): ReactElement => {
               <div className="container-fluid">
                 <div className="row">
                   <Grouping
-                    title={t("OccupationPageStrings.descriptionGroupHeader")}
+                    title={t("OccupationPage.descriptionGroupHeader")}
                     backgroundColorClass="bg-purple"
                   >
                     <p>{occupationDetail.description}</p>
                   </Grouping>
 
                   <Grouping
-                    title={t("OccupationPageStrings.dayInTheLifeGroupHeader")}
+                    title={t("OccupationPage.dayInTheLifeGroupHeader")}
                     backgroundColorClass="bg-purple"
                   >
                     <>
@@ -227,13 +227,13 @@ export const OccupationPage = (props: Props): ReactElement => {
                       dangerouslySetInnerHTML={{
                         __html: occupationDetail.education
                           ? occupationDetail.education
-                          : t("OccupationPageStrings.dataUnavailableText"),
+                          : t("OccupationPage.dataUnavailableText"),
                       }}
                     />
                   </Grouping>
 
                   <Grouping
-                    title={t("OccupationPageStrings.relatedOccupationsGroupHeader")}
+                    title={t("OccupationPage.relatedOccupationsGroupHeader")}
                     backgroundColorClass="bg-purple"
                   >
                     {getRelatedOccupations(occupationDetail.relatedOccupations)}
@@ -248,7 +248,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               <div className="container-fluid">
                 <div className="row">
                   <h2 className="text-xl ptd pbs weight-500 fin">
-                    {t("OccupationPageStrings.relatedTrainingGroupHeader")}
+                    {t("OccupationPage.relatedTrainingGroupHeader")}
                   </h2>
                   {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
                 </div>
@@ -258,12 +258,12 @@ export const OccupationPage = (props: Props): ReactElement => {
 
           <div className="container-full ptxl">
             <p className="accessible-gray">
-              <span className="bold">{t("OccupationPageStrings.sourceLabel")}</span>
-              &nbsp;{t("OccupationPageStrings.onetSource")}
+              <span className="bold">{t("OccupationPage.sourceLabel")}</span>
+              &nbsp;{t("OccupationPage.onetSource")}
             </p>
             <p className="accessible-gray">
-              <span className="bold">{t("OccupationPageStrings.sourceLabel")}</span>
-              &nbsp;{t("OccupationPageStrings.blsSource")}
+              <span className="bold">{t("OccupationPage.sourceLabel")}</span>
+              &nbsp;{t("OccupationPage.blsSource")}
             </p>
             <p>
               <img src={careeronestop} alt="Source: CareerOneStop" />

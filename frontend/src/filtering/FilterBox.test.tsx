@@ -19,7 +19,7 @@ function mockFunctions() {
 jest.mock("@material-ui/core", () => mockFunctions());
 
 const { mobileFilterText, maxCostLabel, searchButtonDefaultText, searchButtonUpdateResultsText } =
-  Content.SearchAndFilterStrings;
+  Content.SearchAndFilter;
 
 describe("<FilterBox />", () => {
   const renderWithFilters = (filters: Filter[]): RenderResult => {

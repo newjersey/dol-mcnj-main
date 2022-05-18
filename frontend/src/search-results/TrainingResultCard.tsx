@@ -30,7 +30,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
 
   const getLocationOrOnline = (): string => {
     if (props.trainingResult.online) {
-      return t("SearchResultsPageStrings.onlineClassLabel");
+      return t("SearchResultsPage.onlineClassLabel");
     }
 
     return `${props.trainingResult.city}, ${props.trainingResult.county}`;
@@ -75,7 +75,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 disabled={props.comparisonItems && props.comparisonItems.length >= 3 && !isChecked}
               />
             }
-            label={t("SearchResultsPageStrings.comparisonCheckLabel")}
+            label={t("SearchResultsPage.comparisonCheckLabel")}
           />
         </FormGroup>
       </label>
@@ -102,10 +102,10 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <span className="fin fas">
               <InlineIcon className="hide-when-lg mrs">card_travel</InlineIcon>
               {props.trainingResult.percentEmployed
-                ? t("SearchResultsPageStrings.percentEmployed", {
+                ? t("SearchResultsPage.percentEmployed", {
                     percent: formatPercentEmployed(props.trainingResult.percentEmployed),
                   })
-                : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                : t("SearchResultsPage.percentEmployedUnavailable")}
             </span>
           </p>
         </div>
@@ -125,7 +125,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {t("SearchResultsPageStrings.timeToComplete", {
+              {t("SearchResultsPage.timeToComplete", {
                 time: t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`),
               })}
             </span>

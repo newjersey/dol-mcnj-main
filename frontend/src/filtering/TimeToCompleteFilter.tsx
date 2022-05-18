@@ -86,7 +86,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="timeToComplete">
-      {t("SearchAndFilterStrings.timeToCompleteFilterLabel")}
+      {t("SearchAndFilter.timeToCompleteFilterLabel")}
       <FormGroup id="timeToComplete">
         <FormControlLabel
           control={
@@ -97,7 +97,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.timeToCompleteDaysLabel")}
+          label={t("SearchAndFilter.timeToCompleteDaysLabel")}
         />
         <FormControlLabel
           control={
@@ -108,7 +108,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.timeToCompleteWeeksLabel")}
+          label={t("SearchAndFilter.timeToCompleteWeeksLabel")}
         />
         <FormControlLabel
           control={
@@ -119,7 +119,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.timeToCompleteMonthsLabel")}
+          label={t("SearchAndFilter.timeToCompleteMonthsLabel")}
         />
         <FormControlLabel
           control={
@@ -130,7 +130,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.timeToCompleteYearsLabel")}
+          label={t("SearchAndFilter.timeToCompleteYearsLabel")}
         />
       </FormGroup>
     </label>

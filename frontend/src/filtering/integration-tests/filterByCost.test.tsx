@@ -129,7 +129,7 @@ describe("filtering by max cost", () => {
     });
     fireEvent.blur(getMaxCostInput(subject));
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

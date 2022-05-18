@@ -44,7 +44,7 @@ export const Typeahead = (props: Props): ReactElement => {
       renderInput={(params): ReactElement => (
         <TextField
           {...params}
-          placeholder={t("InDemandPageStrings.typeaheadPlaceholder")}
+          placeholder={t("InDemandPage.typeaheadPlaceholder")}
           variant="outlined"
           margin="dense"
           InputProps={{

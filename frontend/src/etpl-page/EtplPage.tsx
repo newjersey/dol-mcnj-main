@@ -83,9 +83,9 @@ export const EtplPage = (_props: Props): ReactElement => {
   const displayAgencyList = (): ReactElement => {
     return (
       <>
-        <MajorGroup title={t("EtplPageStrings.cosmetology")} icon={BoardOfCosmetology}>
+        <MajorGroup title={t("EtplPage.cosmetology")} icon={BoardOfCosmetology}>
           <p>
-            {t("EtplPageStrings.cosmetologyText")}
+            {t("EtplPage.cosmetologyText")}
             &nbsp;
             <a
               target="_blank"
@@ -93,14 +93,14 @@ export const EtplPage = (_props: Props): ReactElement => {
               rel="noopener noreferrer"
               href={LINKS.cosmetologyLink}
             >
-              {t("EtplPageStrings.cosmetologyLinkText")}
+              {t("EtplPage.cosmetologyLinkText")}
             </a>
           </p>
         </MajorGroup>
 
-        <MajorGroup title={t("EtplPageStrings.nursing")} icon={BoardOfNursing}>
+        <MajorGroup title={t("EtplPage.nursing")} icon={BoardOfNursing}>
           <p>
-            {t("EtplPageStrings.nursingText")}
+            {t("EtplPage.nursingText")}
             &nbsp;
             <a
               target="_blank"
@@ -108,17 +108,14 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.nursingLink}
             >
-              {t("EtplPageStrings.nursingLinkText")}
+              {t("EtplPage.nursingLinkText")}
             </a>
           </p>
         </MajorGroup>
 
-        <MajorGroup
-          title={t("EtplPageStrings.higherEd")}
-          icon={OfficeOfTheSecretaryOfHigherEducation}
-        >
+        <MajorGroup title={t("EtplPage.higherEd")} icon={OfficeOfTheSecretaryOfHigherEducation}>
           <p>
-            {t("EtplPageStrings.higherEdText")}
+            {t("EtplPage.higherEdText")}
             &nbsp;
             <a
               target="_blank"
@@ -126,17 +123,17 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.higherEdLink}
             >
-              {t("EtplPageStrings.higherEdLinkText")}
+              {t("EtplPage.higherEdLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.insurance")}
+          title={t("EtplPage.insurance")}
           icon={DepartmentOfBankingAndInsuranceInsuranceLicensing}
         >
           <p>
-            {t("EtplPageStrings.insuranceText")}
+            {t("EtplPage.insuranceText")}
             &nbsp;
             <a
               target="_blank"
@@ -144,20 +141,20 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.insuranceLink}
             >
-              {t("EtplPageStrings.insuranceLinkText")}
+              {t("EtplPage.insuranceLinkText")}
             </a>
             .
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.realEstate")}
+          title={t("EtplPage.realEstate")}
           icon={DepartmentOfBankingAndInsuranceRealEstateCommission}
         >
           <>
-            <p>{t("EtplPageStrings.realEstateText1")}</p>
+            <p>{t("EtplPage.realEstateText1")}</p>
             <p>
-              {t("EtplPageStrings.realEstateText2")}
+              {t("EtplPage.realEstateText2")}
               &nbsp;
               <a
                 target="_blank"
@@ -165,14 +162,14 @@ export const EtplPage = (_props: Props): ReactElement => {
                 className="link-format-blue"
                 href={LINKS.realEstateLink}
               >
-                {t("EtplPageStrings.realEstateLinkText")}
+                {t("EtplPage.realEstateLinkText")}
               </a>
             </p>
           </>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.laborTrainingEval")}
+          title={t("EtplPage.laborTrainingEval")}
           icon={DepartmentOfLaborWorkforceDevelopmentTrainingEvaluationUnit}
         >
           <p>
@@ -207,15 +204,15 @@ export const EtplPage = (_props: Props): ReactElement => {
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.laborGrantees")}
+          title={t("EtplPage.laborGrantees")}
           icon={
             DepartmentOfLaborWorkforceDevelopmentGranteesForCustomizedTrainingYouthAndDVRSPrograms
           }
         >
           <>
-            <p>{t("EtplPageStrings.laborGranteesText1")}</p>
+            <p>{t("EtplPage.laborGranteesText1")}</p>
             <p>
-              {t("EtplPageStrings.laborGranteesText2")}
+              {t("EtplPage.laborGranteesText2")}
               &nbsp;
               <a
                 target="_blank"
@@ -223,18 +220,15 @@ export const EtplPage = (_props: Props): ReactElement => {
                 className="link-format-blue"
                 href={LINKS.laborGranteesLink}
               >
-                {t("EtplPageStrings.laborGranteesLinkText")}
+                {t("EtplPage.laborGranteesLinkText")}
               </a>
             </p>
           </>
         </MajorGroup>
 
-        <MajorGroup
-          title={t("EtplPageStrings.publicSchools")}
-          icon={DepartmentOfEducationPublicSchools}
-        >
+        <MajorGroup title={t("EtplPage.publicSchools")} icon={DepartmentOfEducationPublicSchools}>
           <p>
-            {t("EtplPageStrings.publicSchoolsText")}
+            {t("EtplPage.publicSchoolsText")}
             &nbsp;
             <a
               target="_blank"
@@ -242,17 +236,17 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.publicSchoolsLink}
             >
-              {t("EtplPageStrings.publicSchoolsLinkText")}
+              {t("EtplPage.publicSchoolsLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.xrays")}
+          title={t("EtplPage.xrays")}
           icon={DepartmentOfEnvironmentalProtectionRadiologyXrayPrograms}
         >
           <p>
-            {t("EtplPageStrings.xraysText")}
+            {t("EtplPage.xraysText")}
             &nbsp;
             <a
               target="_blank"
@@ -260,17 +254,17 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.xraysLink}
             >
-              {t("EtplPageStrings.xraysLinkText")}
+              {t("EtplPage.xraysLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.longTermCare")}
+          title={t("EtplPage.longTermCare")}
           icon={DepartmentOfHealthLongTermCareFacilitiesLicensing}
         >
           <p>
-            {t("EtplPageStrings.longTermCareText")}
+            {t("EtplPage.longTermCareText")}
             &nbsp;
             <a
               target="_blank"
@@ -278,17 +272,17 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.longTermCareLink}
             >
-              {t("EtplPageStrings.longTermCareLinkText")}
+              {t("EtplPage.longTermCareLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.indoorEnv")}
+          title={t("EtplPage.indoorEnv")}
           icon={DepartmentOfHealthIndoorEnvironmentsProgram}
         >
           <p>
-            {t("EtplPageStrings.indoorEnvText")}
+            {t("EtplPage.indoorEnvText")}
             &nbsp;
             <a
               target="_blank"
@@ -296,17 +290,17 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.indoorEnvLink}
             >
-              {t("EtplPageStrings.indoorEnvLinkText")}
+              {t("EtplPage.indoorEnvLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.emergencyMed")}
+          title={t("EtplPage.emergencyMed")}
           icon={DepartmentOfHealthNJOfficeOfEmergencyMedicalServices}
         >
           <p>
-            {t("EtplPageStrings.emergencyMedText")}
+            {t("EtplPage.emergencyMedText")}
             &nbsp;
             <a
               target="_blank"
@@ -314,12 +308,12 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.emergencyMedLink}
             >
-              {t("EtplPageStrings.emergencyMedLinkText")}
+              {t("EtplPage.emergencyMedLinkText")}
             </a>
           </p>
         </MajorGroup>
 
-        <MajorGroup title={t("EtplPageStrings.aviation")} icon={FederalAviationAdministration}>
+        <MajorGroup title={t("EtplPage.aviation")} icon={FederalAviationAdministration}>
           <p>
             <a
               target="_blank"
@@ -327,14 +321,14 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.aviationLink}
             >
-              {t("EtplPageStrings.aviationLinkText")}
+              {t("EtplPage.aviationLinkText")}
             </a>
           </p>
         </MajorGroup>
 
-        <MajorGroup title={t("EtplPageStrings.motorVehicles")} icon={MotorVehicleCommission}>
+        <MajorGroup title={t("EtplPage.motorVehicles")} icon={MotorVehicleCommission}>
           <p>
-            {t("EtplPageStrings.motorVehiclesText")}
+            {t("EtplPage.motorVehiclesText")}
             &nbsp;
             <a
               target="_blank"
@@ -342,17 +336,17 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.motorVehiclesLink}
             >
-              {t("EtplPageStrings.motorVehiclesLinkText")}
+              {t("EtplPage.motorVehiclesLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.realEstateAppraiser")}
+          title={t("EtplPage.realEstateAppraiser")}
           icon={NJBoardObjectfRealEstateAppraisers}
         >
           <p>
-            {t("EtplPageStrings.realEstateAppraiserText")}
+            {t("EtplPage.realEstateAppraiserText")}
             &nbsp;
             <a
               target="_blank"
@@ -360,13 +354,13 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.realEstateAppraiserLink}
             >
-              {t("EtplPageStrings.realEstateAppraiserLinkText")}
+              {t("EtplPage.realEstateAppraiserLinkText")}
             </a>
           </p>
         </MajorGroup>
 
         <MajorGroup
-          title={t("EtplPageStrings.securityOfficer")}
+          title={t("EtplPage.securityOfficer")}
           icon={NJStatePoliceSecurityOfficerTrainingSORA}
         >
           <p>
@@ -376,14 +370,14 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.securityOfficerLink}
             >
-              {t("EtplPageStrings.securityOfficerLinkText")}
+              {t("EtplPage.securityOfficerLinkText")}
             </a>
           </p>
         </MajorGroup>
 
-        <MajorGroup title={t("EtplPageStrings.proLiteracy")} icon={ProLiteracy}>
+        <MajorGroup title={t("EtplPage.proLiteracy")} icon={ProLiteracy}>
           <p>
-            {t("EtplPageStrings.proLiteracyText")}
+            {t("EtplPage.proLiteracyText")}
             &nbsp;
             <a
               target="_blank"
@@ -391,7 +385,7 @@ export const EtplPage = (_props: Props): ReactElement => {
               className="link-format-blue"
               href={LINKS.proLiteracyLink}
             >
-              {t("EtplPageStrings.proLiteracyLinkText")}
+              {t("EtplPage.proLiteracyLinkText")}
             </a>
           </p>
         </MajorGroup>
@@ -407,12 +401,12 @@ export const EtplPage = (_props: Props): ReactElement => {
       <main className="container below-banners">
         <div className="row">
           <div className="col-md-10">
-            <h2 className="text-xl mvd">{t("EtplPageStrings.header")}</h2>
-            <h3 className="text-l">{t("EtplPageStrings.sectionOneHeader")}</h3>
-            <p className="mbm">{t("EtplPageStrings.sectionOneText")}</p>
+            <h2 className="text-xl mvd">{t("EtplPage.header")}</h2>
+            <h3 className="text-l">{t("EtplPage.sectionOneHeader")}</h3>
+            <p className="mbm">{t("EtplPage.sectionOneText")}</p>
 
-            <h3 className="text-l"> {t("EtplPageStrings.step1Header")}</h3>
-            <p className="mbm">{t("EtplPageStrings.step1Text")}</p>
+            <h3 className="text-l"> {t("EtplPage.step1Header")}</h3>
+            <p className="mbm">{t("EtplPage.step1Text")}</p>
           </div>
         </div>
 
@@ -424,10 +418,10 @@ export const EtplPage = (_props: Props): ReactElement => {
 
         <div id="#apply" className="row">
           <div className="col-md-10">
-            <h3 className="text-l"> {t("EtplPageStrings.step2Header")}</h3>
-            <p className="mbm">{t("EtplPageStrings.step2Text")}</p>
+            <h3 className="text-l"> {t("EtplPage.step2Header")}</h3>
+            <p className="mbm">{t("EtplPage.step2Text")}</p>
             <div className={isTablet ? "plxl" : ""}>
-              <h4 className="weight-500 mtl">{t("EtplPageStrings.newApplicants")}</h4>
+              <h4 className="weight-500 mtl">{t("EtplPage.newApplicants")}</h4>
               <p className="mbl">
                 <a
                   target="_blank"
@@ -435,9 +429,9 @@ export const EtplPage = (_props: Props): ReactElement => {
                   rel="noopener noreferrer"
                   href={LINKS.applicationPacketLink}
                 >
-                  {t("EtplPageStrings.applicationPacketLinkText")}
+                  {t("EtplPage.applicationPacketLinkText")}
                 </a>
-                <span className="flex">{t("EtplPageStrings.applicationPacketDescription")}</span>
+                <span className="flex">{t("EtplPage.applicationPacketDescription")}</span>
               </p>
               <p className="mbl">
                 <a
@@ -446,9 +440,9 @@ export const EtplPage = (_props: Props): ReactElement => {
                   rel="noopener noreferrer"
                   href={LINKS.renewalPacketLink}
                 >
-                  {t("EtplPageStrings.renewalPacketLinkText")}
+                  {t("EtplPage.renewalPacketLinkText")}
                 </a>
-                <span className="flex">{t("EtplPageStrings.renewalPacketDescription")}</span>
+                <span className="flex">{t("EtplPage.renewalPacketDescription")}</span>
               </p>
               <p className="mbl">
                 <a
@@ -457,12 +451,12 @@ export const EtplPage = (_props: Props): ReactElement => {
                   rel="noopener noreferrer"
                   href={LINKS.apprenticeshipPacketLink}
                 >
-                  {t("EtplPageStrings.apprenticeshipPacketLinkText")}
+                  {t("EtplPage.apprenticeshipPacketLinkText")}
                 </a>
-                <span className="flex">{t("EtplPageStrings.apprenticeshipPacketDescription")}</span>
+                <span className="flex">{t("EtplPage.apprenticeshipPacketDescription")}</span>
               </p>
 
-              <h4 className="weight-500 mtl">{t("EtplPageStrings.wioaWfnj")}</h4>
+              <h4 className="weight-500 mtl">{t("EtplPage.wioaWfnj")}</h4>
               <p>
                 <a
                   target="_blank"
@@ -470,7 +464,7 @@ export const EtplPage = (_props: Props): ReactElement => {
                   rel="noopener noreferrer"
                   href={LINKS.workforceInnovationLink}
                 >
-                  {t("EtplPageStrings.workforceInnovationLinkText")}
+                  {t("EtplPage.workforceInnovationLinkText")}
                 </a>
               </p>
               <p>
@@ -480,11 +474,11 @@ export const EtplPage = (_props: Props): ReactElement => {
                   rel="noopener noreferrer"
                   href={LINKS.wioaYouthLink}
                 >
-                  {t("EtplPageStrings.wioaYouthLinkText")}
+                  {t("EtplPage.wioaYouthLinkText")}
                 </a>
               </p>
 
-              <h4 className="weight-500 mtl">{t("EtplPageStrings.existingProviders")}</h4>
+              <h4 className="weight-500 mtl">{t("EtplPage.existingProviders")}</h4>
               <p className="mbl">
                 <a
                   target="_blank"
@@ -492,15 +486,15 @@ export const EtplPage = (_props: Props): ReactElement => {
                   rel="noopener noreferrer"
                   href={LINKS.additionModificationLink}
                 >
-                  {t("EtplPageStrings.additionModificationLinkText")}
+                  {t("EtplPage.additionModificationLinkText")}
                 </a>
-                <span className="flex">{t("EtplPageStrings.additionModificationDescription")}</span>
+                <span className="flex">{t("EtplPage.additionModificationDescription")}</span>
               </p>
             </div>
 
-            <h3 className="text-l">{t("EtplPageStrings.step3Header")}</h3>
+            <h3 className="text-l">{t("EtplPage.step3Header")}</h3>
             <p className="mbm">
-              <Trans i18nKey="EtplPageStrings.step3Text">
+              <Trans i18nKey="EtplPage.step3Text">
                 Submit your application to COEI at
                 <a
                   className="link-format-blue"

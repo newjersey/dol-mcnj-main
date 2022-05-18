@@ -109,7 +109,7 @@ describe("filtering by program services", () => {
     fireEvent.click(subject.getByLabelText("Childcare assistance"));
     expect(subject.getByLabelText("Childcare assistance")).toBeChecked();
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

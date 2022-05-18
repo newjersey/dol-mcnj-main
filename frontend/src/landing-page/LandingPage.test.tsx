@@ -15,8 +15,8 @@ function mockReachRouter() {
 
 jest.mock("@reach/router", () => mockReachRouter());
 
-const { searchButtonDefaultText } = Content.SearchAndFilterStrings;
-const { searchBoxPlaceholder } = Content.LandingPageStrings;
+const { searchButtonDefaultText } = Content.SearchAndFilter;
+const { searchBoxPlaceholder } = Content.LandingPage;
 
 describe("<LandingPage />", () => {
   it("links to search results page when search is executed", () => {

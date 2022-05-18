@@ -22,7 +22,7 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   >({});
 
   useEffect(() => {
-    document.title = t("InDemandPageStrings.pageTitle");
+    document.title = t("InDemandPage.pageTitle");
   }, [t]);
 
   useEffect(() => {
@@ -62,8 +62,8 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
       <BetaBanner />
 
       <main className="container below-banners">
-        <h2 className="text-xl ptd weight-500">{t("InDemandPageStrings.header")}</h2>
-        <p>{t("InDemandPageStrings.description")}</p>
+        <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
+        <p>{t("InDemandPage.description")}</p>
 
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />

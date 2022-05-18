@@ -83,7 +83,7 @@ describe("filtering by county", () => {
   it("removes filter when clear all button is clicked", async () => {
     selectCounty(subject, COUNTY_NAMES[0]);
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

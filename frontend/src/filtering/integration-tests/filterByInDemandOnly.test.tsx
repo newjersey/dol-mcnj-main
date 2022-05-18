@@ -48,7 +48,7 @@ describe("filtering by In-Demand Only", () => {
     fireEvent.click(subject.getByLabelText("Show In-Demand Trainings Only"));
     expect(subject.getByLabelText("Show In-Demand Trainings Only")).toBeChecked();
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

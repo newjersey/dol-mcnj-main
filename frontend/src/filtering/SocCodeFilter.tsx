@@ -67,7 +67,7 @@ export const SocCodeFilter = (): ReactElement => {
   return (
     <>
       <label htmlFor="socCode" className="fin">
-        {t("SearchAndFilterStrings.socCodeFilterLabel")}
+        {t("SearchAndFilter.socCodeFilterLabel")}
         <span className="fin mld">
           <Input
             id="socCode"
@@ -83,8 +83,7 @@ export const SocCodeFilter = (): ReactElement => {
       </label>
       {!validSocCode && (
         <div className="red fin mts">
-          <InlineIcon className="mrxs">error</InlineIcon>{" "}
-          {t("SearchAndFilterStrings.invalidSocCodeError")}
+          <InlineIcon className="mrxs">error</InlineIcon> {t("SearchAndFilter.invalidSocCodeError")}
         </div>
       )}
     </>

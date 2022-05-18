@@ -64,7 +64,7 @@ export const LanguagesFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="languages">
-      {t("SearchAndFilterStrings.languagesFilterLabel")}
+      {t("SearchAndFilter.languagesFilterLabel")}
       <FormGroup id="languages">
         <div>
           <div className="two-column-list">
@@ -91,8 +91,8 @@ export const LanguagesFilter = (): ReactElement => {
       >
         <span className="underline">
           {showFullList
-            ? t("SearchAndFilterStrings.filterListCollapseLabel")
-            : t("SearchAndFilterStrings.filterListExpandLabel")}
+            ? t("SearchAndFilter.filterListCollapseLabel")
+            : t("SearchAndFilter.filterListExpandLabel")}
         </span>
         <InlineIcon className="mlxs">
           {showFullList ? "arrow_drop_up" : "arrow_drop_down"}

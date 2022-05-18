@@ -23,20 +23,20 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
 
       <main className="container below-banners" role="main">
         <div className="landing-container mla mra">
-          <h2 className="mvm text-xl weight-500 align-center">{t("ExplorerPageStrings.header")}</h2>
+          <h2 className="mvm text-xl weight-500 align-center">{t("ExplorerPage.header")}</h2>
 
           <h3 className="mbd text-l weight-500 align-center">
-            {t("ExplorerPageStrings.sectionOneHeader")}
+            {t("ExplorerPage.sectionOneHeader")}
           </h3>
-          <p className="mbl align-center">{t("ExplorerPageStrings.sectionOneText")}</p>
+          <p className="mbl align-center">{t("ExplorerPage.sectionOneText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("ExplorerPageStrings.sectionTwoHeader")}
+            {t("ExplorerPage.sectionTwoHeader")}
           </h3>
-          <p className="mbl align-center">{t("ExplorerPageStrings.sectionTwoText")}</p>
+          <p className="mbl align-center">{t("ExplorerPage.sectionTwoText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("ExplorerPageStrings.sectionThreeHeader")}
+            {t("ExplorerPage.sectionThreeHeader")}
           </h3>
           <div className="landing-card-container mla mra">
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
@@ -46,10 +46,10 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("ExplorerPageStrings.searchDescription")}
+                    {t("ExplorerPage.searchDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/search")}>
-                    {t("ExplorerPageStrings.searchButton")}
+                    {t("ExplorerPage.searchButton")}
                   </Button>
                 </div>
               </>
@@ -61,10 +61,10 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("ExplorerPageStrings.fundingDescription")}
+                    {t("ExplorerPage.fundingDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/funding")}>
-                    {t("ExplorerPageStrings.fundingButton")}
+                    {t("ExplorerPage.fundingButton")}
                   </Button>
                 </div>
               </>
@@ -76,10 +76,10 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("ExplorerPageStrings.occupationDescription")}
+                    {t("ExplorerPage.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
-                    {t("ExplorerPageStrings.occupationButton")}
+                    {t("ExplorerPage.occupationButton")}
                   </Button>
                 </div>
               </>
@@ -87,42 +87,42 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
           </div>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("ExplorerPageStrings.sectionFourHeader")}
+            {t("ExplorerPage.sectionFourHeader")}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
             <Link className="link-format-blue" to="/faq/enroll-program">
               <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.enrollFaq")}
+                {t("ExplorerPage.enrollFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/search-help">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.searchHelpFaq")}
+                {t("ExplorerPage.searchHelpFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/child-care">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.childCareFaq")}
+                {t("ExplorerPage.childCareFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/funding-opportunities">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.fundingFaq")}
+                {t("ExplorerPage.fundingFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/job-listings">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.jobListingsFaq")}
+                {t("ExplorerPage.jobListingsFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/unemployment-insurance">
               <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.unemploymentInsuranceFaq")}
+                {t("ExplorerPage.unemploymentInsuranceFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/health-insurance">
               <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPageStrings.healthInsuranceFaq")}
+                {t("ExplorerPage.healthInsuranceFaq")}
               </LandingCard>
             </Link>
           </div>

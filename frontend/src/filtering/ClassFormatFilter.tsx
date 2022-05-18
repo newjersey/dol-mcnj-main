@@ -60,7 +60,7 @@ export const ClassFormatFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="classFormat">
-      {t("SearchAndFilterStrings.classFormatFilterLabel")}
+      {t("SearchAndFilter.classFormatFilterLabel")}
       <FormGroup id="classFormat">
         <FormControlLabel
           control={
@@ -71,7 +71,7 @@ export const ClassFormatFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.classFormatInPersonLabel")}
+          label={t("SearchAndFilter.classFormatInPersonLabel")}
         />
         <FormControlLabel
           control={
@@ -82,7 +82,7 @@ export const ClassFormatFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.classFormatOnlineLabel")}
+          label={t("SearchAndFilter.classFormatOnlineLabel")}
         />
       </FormGroup>
     </label>

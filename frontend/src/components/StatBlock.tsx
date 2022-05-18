@@ -20,10 +20,8 @@ export const StatBlock = (props: Props): ReactElement => {
 
   const dataMissingOrSource =
     props.data === STAT_MISSING_DATA_INDICATOR
-      ? t("StatBlockStrings.missingDataExplanation")
-      : `${t("StatBlockStrings.dataSourceLabel")} ${
-          props.dataSource ?? t("StatBlockStrings.defaultDataSource")
-        }`;
+      ? t("StatBlock.missingDataExplanation")
+      : `${t("StatBlock.dataSourceLabel")} ${props.dataSource ?? t("StatBlock.defaultDataSource")}`;
 
   const onClickInfo = useCallback(() => {
     setContextualInfo((prevValue) => ({

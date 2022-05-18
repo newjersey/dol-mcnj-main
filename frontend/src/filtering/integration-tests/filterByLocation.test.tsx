@@ -23,7 +23,7 @@ describe("filtering by location", () => {
   });
 
   const getDistanceInput = (subject: RenderResult): HTMLElement => {
-    return subject.getByLabelText(Content.SearchAndFilterStrings.locationFilterMilesInputLabel);
+    return subject.getByLabelText(Content.SearchAndFilter.locationFilterMilesInputLabel);
   };
 
   const getZipInput = (subject: RenderResult): HTMLElement => {
@@ -72,7 +72,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilterStrings.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
     ).toBeInTheDocument();
     expect(spy).not.toHaveBeenCalled();
 
@@ -81,7 +81,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilterStrings.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
     ).toBeInTheDocument();
     expect(spy).not.toHaveBeenCalled();
 
@@ -90,7 +90,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilterStrings.locationFilterZipCodeInvalid)
+      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
     ).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -99,7 +99,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilterStrings.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
     ).toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -108,7 +108,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilterStrings.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
     ).toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -117,7 +117,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilterStrings.locationFilterZipCodeInvalid)
+      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
     ).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(2);
 
@@ -373,7 +373,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 
