@@ -66,13 +66,13 @@ export const TrainingPage = (props: Props): ReactElement => {
     } catch {
       setCopy({
         class: "red",
-        text: t("TrainingPageStrings.unsuccessfulCopy"),
+        text: t("TrainingPage.unsuccessfulCopy"),
       });
     }
 
     setCopy({
       class: "green",
-      text: t("TrainingPageStrings.successfulCopy"),
+      text: t("TrainingPage.successfulCopy"),
     });
 
     setTimeout((): void => {
@@ -107,7 +107,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-      return <>{t("TrainingPageStrings.onlineClass")}</>;
+      return <>{t("TrainingPage.onlineClass")}</>;
     }
 
     if (!training || !training.provider.address.city) {
@@ -162,7 +162,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     ) {
       return (
         <p>
-          <Trans i18nKey="TrainingPageStrings.associatedOccupationsText">
+          <Trans i18nKey="TrainingPage.associatedOccupationsText">
             This is a general training that might prepare you for a wide variety of career paths
             Browse
             <Link className="link-format-blue" to="/in-demand-occupations">
@@ -195,7 +195,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <BetaBanner />
           <main className="container below-banners" role="main">
             <div className="ptm weight-500 fin all-caps border-bottom-dark">
-              {t("TrainingPageStrings.header")}
+              {t("TrainingPage.header")}
             </div>
             <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
@@ -203,8 +203,8 @@ export const TrainingPage = (props: Props): ReactElement => {
 
             <div className="stat-block-stack mtm">
               <StatBlock
-                title={t("TrainingPageStrings.avgSalaryTitle")}
-                tooltipText={t("TrainingPageStrings.avgSalaryTooltip")}
+                title={t("TrainingPage.avgSalaryTitle")}
+                tooltipText={t("TrainingPage.avgSalaryTooltip")}
                 data={
                   training.averageSalary
                     ? formatMoney(training.averageSalary, { precision: 0 })
@@ -213,8 +213,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                 backgroundColorClass="bg-lightest-purple"
               />
               <StatBlock
-                title={t("TrainingPageStrings.employmentRateTitle")}
-                tooltipText={t("TrainingPageStrings.employmentRateTooltip")}
+                title={t("TrainingPage.employmentRateTitle")}
+                tooltipText={t("TrainingPage.employmentRateTooltip")}
                 data={
                   training.percentEmployed
                     ? formatPercentEmployed(training.percentEmployed)
@@ -228,7 +228,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="col-md-8">
                 <div className="container-fluid">
                   <div className="row">
-                    <Grouping title={t("TrainingPageStrings.descriptionGroupHeader")}>
+                    <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
                       <>
                         {training.description.split("\n").map((line, i) => (
                           <p key={i}>{line}</p>
@@ -236,13 +236,13 @@ export const TrainingPage = (props: Props): ReactElement => {
                       </>
                     </Grouping>
 
-                    <Grouping title={t("TrainingPageStrings.quickStatsGroupHeader")}>
+                    <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
                       <>
                         {training.certifications && (
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">school</InlineIcon>
-                              {t("TrainingPageStrings.certificationsLabel")}&nbsp;
+                              {t("TrainingPage.certificationsLabel")}&nbsp;
                               {training.certifications}
                             </span>
                           </p>
@@ -251,36 +251,36 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              {t("TrainingPageStrings.prereqsLabel")}&nbsp;{training.prerequisites}
+                              {t("TrainingPage.prereqsLabel")}&nbsp;{training.prerequisites}
                             </span>
                           </p>
                         )}
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
-                            {t("TrainingPageStrings.completionTimeLabel")}&nbsp;
+                            {t("TrainingPage.completionTimeLabel")}&nbsp;
                             {t(`CalendarLengthLookup.${training.calendarLength}`)}
                           </span>
                         </p>
                       </>
                     </Grouping>
 
-                    <Grouping title={t("TrainingPageStrings.associatedOccupationsGroupHeader")}>
+                    <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
                       <>{getAssociatedOccupations()}</>
                     </Grouping>
 
-                    <Grouping title={t("TrainingPageStrings.shareGroupHeader")}>
+                    <Grouping title={t("TrainingPage.shareGroupHeader")}>
                       <>
                         {training.inDemand && (
                           <p className="mvd" data-testid="shareInDemandTraining">
-                            {t("TrainingPageStrings.inDemandDescription")}
+                            {t("TrainingPage.inDemandDescription")}
                           </p>
                         )}
                         <p>
                           <UnstyledButton className="link-format-blue" onClick={copyHandler}>
                             <Icon className="accessible-gray weight-500">link</Icon>
                             <span className="mlxs weight-500">
-                              {t("TrainingPageStrings.copyLinkText")}
+                              {t("TrainingPage.copyLinkText")}
                             </span>
                           </UnstyledButton>
                           {copy && (
@@ -293,14 +293,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <UnstyledButton className="link-format-blue" onClick={printHandler}>
                             <Icon className="accessible-gray weight-500">print</Icon>
                             <span className="mlxs weight-500">
-                              {t("TrainingPageStrings.savePrintLinkText")}
+                              {t("TrainingPage.savePrintLinkText")}
                             </span>
                           </UnstyledButton>
                         </p>
                         <p>
                           <Link className="link-format-blue weight-500 fin" to="/funding">
                             <Icon className="accessible-gray">attach_money</Icon>
-                            <span className="blue">{t("TrainingPageStrings.fundingLinkText")}</span>
+                            <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
                           </Link>
                         </p>
                       </>
@@ -312,12 +312,10 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="col-md-4">
                 <div className="container-fluid mbm">
                   <div className="row">
-                    <Grouping title={t("TrainingPageStrings.costGroupHeader")}>
+                    <Grouping title={t("TrainingPage.costGroupHeader")}>
                       <>
                         <p>
-                          <span className="weight-500">
-                            {t("TrainingPageStrings.totalCostLabel")}
-                          </span>
+                          <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                           <span className="text-l pull-right weight-500">
                             {formatMoney(training.totalCost)}
                           </span>
@@ -325,34 +323,34 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="grey-line" />
                         <div className="mvd">
                           <div>
-                            <span>{t("TrainingPageStrings.tuitionCostLabel")}</span>
+                            <span>{t("TrainingPage.tuitionCostLabel")}</span>
                             <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
                           </div>
                           <div>
-                            <span>{t("TrainingPageStrings.feesCostLabel")}</span>
+                            <span>{t("TrainingPage.feesCostLabel")}</span>
                             <span className="pull-right">{formatMoney(training.feesCost)}</span>
                           </div>
                           <div>
-                            <span>{t("TrainingPageStrings.materialsCostLabel")}</span>
+                            <span>{t("TrainingPage.materialsCostLabel")}</span>
                             <span className="pull-right">
                               {formatMoney(training.booksMaterialsCost)}
                             </span>
                           </div>
                           <div>
-                            <span>{t("TrainingPageStrings.suppliesCostLabel")}</span>
+                            <span>{t("TrainingPage.suppliesCostLabel")}</span>
                             <span className="pull-right">
                               {formatMoney(training.suppliesToolsCost)}
                             </span>
                           </div>
                           <div>
-                            <span>{t("TrainingPageStrings.otherCostLabel")}</span>
+                            <span>{t("TrainingPage.otherCostLabel")}</span>
                             <span className="pull-right">{formatMoney(training.otherCost)}</span>
                           </div>
                         </div>
                       </>
                     </Grouping>
 
-                    <Grouping title={t("TrainingPageStrings.providerGroupHeader")}>
+                    <Grouping title={t("TrainingPage.providerGroupHeader")}>
                       <>
                         <p>
                           <span className="fin fas">
@@ -381,13 +379,13 @@ export const TrainingPage = (props: Props): ReactElement => {
                       </>
                     </Grouping>
 
-                    <Grouping title={t("TrainingPageStrings.providerServicesGroupHeader")}>
+                    <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
                       <>
                         {training.hasEveningCourses && (
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">nightlight_round</InlineIcon>
-                              {t("TrainingPageStrings.eveningCoursesServiceLabel")}
+                              {t("TrainingPage.eveningCoursesServiceLabel")}
                             </span>
                           </p>
                         )}
@@ -395,7 +393,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">language</InlineIcon>
-                              {t("TrainingPageStrings.otherLanguagesServiceLabel")}
+                              {t("TrainingPage.otherLanguagesServiceLabel")}
                             </span>
                           </p>
                         )}
@@ -403,7 +401,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">accessible_forward</InlineIcon>
-                              {t("TrainingPageStrings.wheelchairAccessibleServiceLabel")}
+                              {t("TrainingPage.wheelchairAccessibleServiceLabel")}
                             </span>
                           </p>
                         )}
@@ -411,7 +409,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">family_restroom</InlineIcon>
-                              {t("TrainingPageStrings.childcareAssistanceServiceLabel")}
+                              {t("TrainingPage.childcareAssistanceServiceLabel")}
                             </span>
                           </p>
                         )}
@@ -419,11 +417,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">work_outline</InlineIcon>
-                              {t("TrainingPageStrings.jobAssistanceServiceLabel")}
+                              {t("TrainingPage.jobAssistanceServiceLabel")}
                             </span>
                           </p>
                         )}
-                        <p>{t("TrainingPageStrings.providerServicesDisclaimerLabel")}</p>
+                        <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                       </>
                     </Grouping>
                   </div>

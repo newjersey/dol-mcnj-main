@@ -17,7 +17,7 @@ export const BetaBanner = (props: Props): ReactElement => {
 
   return (
     <aside className={`beta-banner ${getHeaderMarginClass()}`}>
-      <Trans i18nKey="HeaderStrings.betaBannerText">
+      <Trans i18nKey="Header.betaBannerText">
         This site is in beta. Feedback welcome
         <a
           className="link-format-blue"

@@ -65,7 +65,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         placeholder={
           props.placeholder
             ? props.placeholder
-            : t("SearchAndFilterStrings.searchBarDefaultPlaceholderText")
+            : t("SearchAndFilter.searchBarDefaultPlaceholderText")
         }
       />
       <div className={`${marginDirection} button-size-full fdc fac`}>
@@ -74,13 +74,11 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
           className="width-full"
           onClick={(): void => props.onSearch(searchQuery)}
         >
-          {props.buttonText
-            ? props.buttonText
-            : t("SearchAndFilterStrings.searchButtonDefaultText")}
+          {props.buttonText ? props.buttonText : t("SearchAndFilter.searchButtonDefaultText")}
         </Button>
         {props.isLandingPage !== true && (
           <Button variant="outline" className="width-full mvs" onClick={handleClearAll}>
-            {t("SearchAndFilterStrings.clearAllFiltersButtonLabel")}
+            {t("SearchAndFilter.clearAllFiltersButtonLabel")}
           </Button>
         )}
       </div>

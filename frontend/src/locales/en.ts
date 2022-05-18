@@ -12,12 +12,12 @@ export const en = {
     "9": "3-4 years",
     "10": "More than 4 years",
   },
-  ContactUsStrings: {
+  ContactUs: {
     header: "Have More Questions?",
     getInTouchText: "Get in Touch",
     contactUsButtonText: "Contact Us",
   },
-  CounselorPageStrings: {
+  CounselorPage: {
     header: "Find Training and Educational Opportunities in New Jersey",
     sectionOneHeader: "Get Started",
     sectionOneText:
@@ -35,7 +35,7 @@ export const en = {
     occupationsFaq: "Where can I find the in-demand occupations list?",
     fundingFaq: "What are funding opportunities that my customers can apply for?",
   },
-  ErrorPageStrings: {
+  ErrorPage: {
     notFoundHeader: "Sorry, we can't seem to find that page",
     notFoundText: "Try one of these instead:",
     notFoundLink1: "Search for a training opportunity",
@@ -43,7 +43,7 @@ export const en = {
     somethingWentWrongHeader: "Sorry, something went wrong",
     somethingWentWrongText: "Please try again later",
   },
-  EtplPageStrings: {
+  EtplPage: {
     header: "A checklist of steps to get on the Eligible Training Provider List (ETPL)",
     sectionOneHeader: "Why get your organization listed on the ETPL?",
     sectionOneText:
@@ -144,7 +144,7 @@ export const en = {
       "ProLiteracy's mission is to change lives and communities through the power of adult literacy.",
     proLiteracyLinkText: "Learn more about ProLiteracy",
   },
-  ExplorerPageStrings: {
+  ExplorerPage: {
     header: "Power up your search to find your next training opportunity",
     sectionOneHeader: "Get Started",
     sectionOneText:
@@ -168,12 +168,12 @@ export const en = {
     unemploymentInsuranceFaq: "I need help applying for unemployment insurance",
     healthInsuranceFaq: "I need help applying for health insurance",
   },
-  FooterStrings: {
+  Footer: {
     privacyPolicyLinkLabel: "Privacy Policy",
     termsOfServiceLinkLabel: "Terms of Service",
     madeWithMessage: "Made with ❤️ by the Office of Innovation",
   },
-  FundingPageStrings: {
+  FundingPage: {
     pageTitle: "Fund Your Training",
     header: "Ways to Fund Your Training in New Jersey",
     sectionOneHeader: "How does funding work?",
@@ -193,7 +193,7 @@ export const en = {
     greenBoxText:
       "In-Demand occupations are expected to have the most openings in the future in the State of New Jersey. Trainings related to <0>occupations on this list</0> can be eligible for funding by the State.",
   },
-  HeaderStrings: {
+  Header: {
     title: "Training Explorer",
     linkToSearch: "Find Training",
     linkToInDemandOccupations: "In-Demand Occupations",
@@ -205,14 +205,14 @@ export const en = {
     mobileLinkToTrainingProviders: "For Training Providers",
     betaBannerText: "This site is in beta. Feedback welcome <1>here</1>.",
   },
-  InDemandPageStrings: {
+  InDemandPage: {
     pageTitle: "In-Demand Occupations",
     header: "In-Demand Occupations",
     description:
       "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State.",
     typeaheadPlaceholder: "Search for occupations",
   },
-  LandingPageStrings: {
+  LandingPage: {
     headerText:
       "Find training to better prepare you for a promotion, better job, or even a career change",
     searchBoxPlaceholder: "Enter occupation, certification, or provider",
@@ -227,7 +227,7 @@ export const en = {
       "Learn about the process to get on NJ's Eligible Training Provider List",
     columnThreeButtonText: "Find More Information",
   },
-  OccupationPageStrings: {
+  OccupationPage: {
     header: "Occupation",
     dataUnavailableText: "This data is not yet available for this occupation.",
     jobsOpenTitle: "Jobs Open in NJ",
@@ -249,7 +249,7 @@ export const en = {
     blsSource:
       "Bureau of Labor Statistics, U.S. Department of Labor, Occupational Outlook Handbook",
   },
-  SearchAndFilterStrings: {
+  SearchAndFilter: {
     searchButtonDefaultText: "Search",
     searchButtonUpdateResultsText: "Update Results",
     searchBarDefaultPlaceholderText: "Search for training courses",
@@ -291,7 +291,7 @@ export const en = {
     filterListExpandLabel: "Show more",
     filterListCollapseLabel: "Show less",
   },
-  SearchResultsPageStrings: {
+  SearchResultsPage: {
     pageTitle: "{{query}} - Search Results",
     noSearchTermPageTitle: "Search for Training",
     noSearchTermHeader: "Getting Started - Search For Training",
@@ -339,13 +339,13 @@ export const en = {
     comparisonTimeToCompleteLabel: "Time to Complete",
     comparisonSeeDetails: "See Details",
   },
-  StatBlockStrings: {
+  StatBlock: {
     dataSourceLabel: "Data source: ",
     defaultDataSource: "NJ Dept of Labor",
     missingDataExplanation:
       "* This information is missing because we haven't received enough data from this institute.",
   },
-  TrainingPageStrings: {
+  TrainingPage: {
     header: "Training Opportunity",
     avgSalaryTitle: "Avg Salary after Program",
     avgSalaryTooltip:
@@ -389,7 +389,7 @@ export const en = {
     providerServicesDisclaimerLabel:
       "Services are subject to provider details, contact this provider for more information on services",
   },
-  TrainingProviderPageStrings: {
+  TrainingProviderPage: {
     header:
       "Register or renew your organization's offerings on the Eligible Training Provider List",
     sectionOneHeader: "Get Started",

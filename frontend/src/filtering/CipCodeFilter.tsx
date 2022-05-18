@@ -68,7 +68,7 @@ export const CipCodeFilter = (): ReactElement => {
   return (
     <>
       <label htmlFor="cipCode" className="fin">
-        {t("SearchAndFilterStrings.cipCodeFilterLabel")}
+        {t("SearchAndFilter.cipCodeFilterLabel")}
         <span className="fin mld">
           <Input
             id="cipCode"
@@ -84,8 +84,7 @@ export const CipCodeFilter = (): ReactElement => {
       </label>
       {!validCipCode && (
         <div className="red fin mts">
-          <InlineIcon className="mrxs">error</InlineIcon>{" "}
-          {t("SearchAndFilterStrings.invalidCipCodeError")}
+          <InlineIcon className="mrxs">error</InlineIcon> {t("SearchAndFilter.invalidCipCodeError")}
         </div>
       )}
     </>

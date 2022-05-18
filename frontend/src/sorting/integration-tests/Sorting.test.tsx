@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import { SortOrder } from "../SortOrder";
 import { en as Content } from "../../locales/en";
 
-const { sortByLabel } = Content.SearchAndFilterStrings;
+const { sortByLabel } = Content.SearchAndFilter;
 
 describe("sorting", () => {
   let stubClient: StubClient;

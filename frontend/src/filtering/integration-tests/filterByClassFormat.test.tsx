@@ -64,7 +64,7 @@ describe("filtering by online or in-person", () => {
     fireEvent.click(subject.getByLabelText("In-Person"));
     expect(subject.getByLabelText("In-Person")).toBeChecked();
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

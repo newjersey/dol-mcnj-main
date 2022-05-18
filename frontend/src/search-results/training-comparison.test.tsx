@@ -4,7 +4,7 @@ import { TrainingComparison } from "./TrainingComparison";
 import { buildTrainingResult } from "../test-objects/factories";
 import { en as Content } from "../locales/en";
 
-const { comparisonCompare, comparisonCollapse, comparisonClear } = Content.SearchResultsPageStrings;
+const { comparisonCompare, comparisonCollapse, comparisonClear } = Content.SearchResultsPage;
 
 // @todo: update test
 xdescribe("<TrainingComparison />", () => {

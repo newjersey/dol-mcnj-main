@@ -39,7 +39,7 @@ export const Header = (): ReactElement => {
             </a>
             <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
               <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
-              {t("HeaderStrings.mobileMenuText")}
+              {t("Header.mobileMenuText")}
             </UnstyledButton>
           </div>
 
@@ -57,7 +57,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {t("HeaderStrings.linkToSearch")}
+                  {t("Header.linkToSearch")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -67,7 +67,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {t("HeaderStrings.mobileLinkToExplorers")}
+                  {t("Header.mobileLinkToExplorers")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -77,7 +77,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {t("HeaderStrings.mobileLinkToCounselors")}
+                  {t("Header.mobileLinkToCounselors")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -87,7 +87,7 @@ export const Header = (): ReactElement => {
                 onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {t("HeaderStrings.mobileLinkToTrainingProviders")}
+                  {t("Header.mobileLinkToTrainingProviders")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
@@ -106,18 +106,18 @@ export const Header = (): ReactElement => {
             <div className="height-100 display-flex flex-align-center">
               <a href="/" className="link-format-black fin fac width-content">
                 <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
-                <h1 className="text-m bold">{t("HeaderStrings.title")}</h1>
+                <h1 className="text-m bold">{t("Header.title")}</h1>
               </a>
             </div>
 
             <Link to="/search" className="link-format-black">
-              {t("HeaderStrings.linkToSearch")}
+              {t("Header.linkToSearch")}
             </Link>
             <Link to="/in-demand-occupations" className="link-format-black">
-              {t("HeaderStrings.linkToInDemandOccupations")}
+              {t("Header.linkToInDemandOccupations")}
             </Link>
             <Link to="/funding" className="link-format-black">
-              {t("HeaderStrings.linkToFunding")}
+              {t("Header.linkToFunding")}
             </Link>
             <a
               target="_blank"
@@ -125,7 +125,7 @@ export const Header = (): ReactElement => {
               href={COUNSELING_URL}
               className="link-format-black fin fac"
             >
-              {t("HeaderStrings.linkToCounselingText")}&nbsp;
+              {t("Header.linkToCounselingText")}&nbsp;
               <Icon>launch</Icon>
             </a>
           </nav>

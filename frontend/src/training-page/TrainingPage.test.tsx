@@ -25,7 +25,7 @@ function mockReachRouter() {
 
 jest.mock("@reach/router", () => mockReachRouter());
 
-const { inDemandTag } = Content.SearchResultsPageStrings;
+const { inDemandTag } = Content.SearchResultsPage;
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
 
@@ -123,7 +123,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(Content.TrainingPageStrings.onlineClass, { exact: false })
+      subject.getByText(Content.TrainingPage.onlineClass, { exact: false })
     ).toBeInTheDocument();
     expect(subject.queryByText("Newark", { exact: false })).not.toBeInTheDocument();
   });
@@ -204,7 +204,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(buildTraining({ online: true })));
 
     expect(
-      subject.getByText(Content.TrainingPageStrings.onlineClass, { exact: false }).parentElement
+      subject.getByText(Content.TrainingPage.onlineClass, { exact: false }).parentElement
         ?.parentElement
     ).not.toHaveAttribute("href");
   });
@@ -315,7 +315,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
     expect(
-      subject.getByText(Content.ErrorPageStrings.notFoundHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false })
     ).toBeInTheDocument();
   });
 
@@ -325,7 +325,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
     expect(
-      subject.getByText(Content.ErrorPageStrings.somethingWentWrongHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false })
     ).toBeInTheDocument();
   });
 
@@ -345,9 +345,7 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({ hasEveningCourses: true });
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(
-      subject.getByText(Content.TrainingPageStrings.eveningCoursesServiceLabel)
-    ).toBeInTheDocument();
+    expect(subject.getByText(Content.TrainingPage.eveningCoursesServiceLabel)).toBeInTheDocument();
   });
 
   it("does not display evening courses text if training does not have evening courses", () => {
@@ -356,7 +354,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPageStrings.eveningCoursesServiceLabel)
+      subject.queryByText(Content.TrainingPage.eveningCoursesServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -365,9 +363,7 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({ languages: ["Spanish"] });
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(
-      subject.getByText(Content.TrainingPageStrings.otherLanguagesServiceLabel)
-    ).toBeInTheDocument();
+    expect(subject.getByText(Content.TrainingPage.otherLanguagesServiceLabel)).toBeInTheDocument();
   });
 
   it("does not display languages text if training does not have languages", () => {
@@ -376,7 +372,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPageStrings.otherLanguagesServiceLabel)
+      subject.queryByText(Content.TrainingPage.otherLanguagesServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -386,7 +382,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(Content.TrainingPageStrings.wheelchairAccessibleServiceLabel)
+      subject.getByText(Content.TrainingPage.wheelchairAccessibleServiceLabel)
     ).toBeInTheDocument();
   });
 
@@ -396,7 +392,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPageStrings.wheelchairAccessibleServiceLabel)
+      subject.queryByText(Content.TrainingPage.wheelchairAccessibleServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -406,7 +402,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(Content.TrainingPageStrings.childcareAssistanceServiceLabel)
+      subject.getByText(Content.TrainingPage.childcareAssistanceServiceLabel)
     ).toBeInTheDocument();
   });
 
@@ -416,7 +412,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPageStrings.childcareAssistanceServiceLabel)
+      subject.queryByText(Content.TrainingPage.childcareAssistanceServiceLabel)
     ).not.toBeInTheDocument();
   });
 
@@ -425,9 +421,7 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({ hasJobPlacementAssistance: true });
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(
-      subject.getByText(Content.TrainingPageStrings.jobAssistanceServiceLabel)
-    ).toBeInTheDocument();
+    expect(subject.getByText(Content.TrainingPage.jobAssistanceServiceLabel)).toBeInTheDocument();
   });
 
   it("does not display job assistance text if training does not have job assistance", () => {
@@ -436,7 +430,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPageStrings.jobAssistanceServiceLabel)
+      subject.queryByText(Content.TrainingPage.jobAssistanceServiceLabel)
     ).not.toBeInTheDocument();
   });
 });

@@ -91,7 +91,7 @@ export const FilterBox = ({
   };
 
   const getResultCountText = (): string => {
-    return t("SearchAndFilterStrings.resultCountString", { count: resultCount });
+    return t("SearchAndFilter.resultCountString", { count: resultCount });
   };
 
   const executeSearch = (newQuery: string): void => {
@@ -115,7 +115,7 @@ export const FilterBox = ({
         <Button variant="outline" className="filter-dropdown" onClick={toggleFilterVisibility}>
           <span className={`fin pls ${blueWhenFilterApplied()}`}>
             <InlineIcon className="mrs">filter_list</InlineIcon>
-            {t("SearchAndFilterStrings.mobileFilterText")}
+            {t("SearchAndFilter.mobileFilterText")}
             <InlineIcon className="mls">{getArrowIcon()}</InlineIcon>
           </span>
         </Button>
@@ -132,7 +132,7 @@ export const FilterBox = ({
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
-          buttonText={t("SearchAndFilterStrings.searchButtonDefaultText")}
+          buttonText={t("SearchAndFilter.searchButtonDefaultText")}
         />
       )}
 
@@ -143,8 +143,8 @@ export const FilterBox = ({
           stacked={true}
           buttonText={
             !searchQuery
-              ? t("SearchAndFilterStrings.searchButtonDefaultText")
-              : t("SearchAndFilterStrings.searchButtonUpdateResultsText")
+              ? t("SearchAndFilter.searchButtonDefaultText")
+              : t("SearchAndFilter.searchButtonUpdateResultsText")
           }
         />
 

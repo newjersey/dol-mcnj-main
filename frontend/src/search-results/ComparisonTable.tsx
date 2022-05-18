@@ -110,9 +110,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && (
-                  <span className="weight-500">
-                    {t("SearchResultsPageStrings.comparisonCostLabel")}
-                  </span>
+                  <span className="weight-500">{t("SearchResultsPage.comparisonCostLabel")}</span>
                 )}
               </td>
             )}
@@ -137,13 +135,13 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
-              <span>{t("SearchResultsPageStrings.comparisonEmploymentRateLabelMobile")}</span>
+              <span>{t("SearchResultsPage.comparisonEmploymentRateLabelMobile")}</span>
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && (
                   <span className="weight-500">
-                    {t("SearchResultsPageStrings.comparisonEmploymentRateLabel")}
+                    {t("SearchResultsPage.comparisonEmploymentRateLabel")}
                   </span>
                 )}
               </td>
@@ -153,39 +151,39 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="align-center pas bhdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
-                ? t("SearchResultsPageStrings.percentEmployed", {
+                ? t("SearchResultsPage.percentEmployed", {
                     percent: formatPercentEmployed(item1.percentEmployed),
                   })
-                : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                : t("SearchResultsPage.percentEmployedUnavailable")}
             </td>
             {item2 && (
               <td className="align-center pas bhdcg" key={`${item2.id}-emp`}>
                 {item2.percentEmployed
-                  ? t("SearchResultsPageStrings.percentEmployed", {
+                  ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item2.percentEmployed),
                     })
-                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                  : t("SearchResultsPage.percentEmployedUnavailable")}
               </td>
             )}
             {item3 && (
               <td className="align-center pas bhdcg" key={`${item3.id}-emp`}>
                 {item3.percentEmployed
-                  ? t("SearchResultsPageStrings.percentEmployed", {
+                  ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item3.percentEmployed),
                     })
-                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                  : t("SearchResultsPage.percentEmployedUnavailable")}
               </td>
             )}
           </tr>
           <tr>
             <td className="weight-500 pas bhdcg bg-light-purple">
-              <span>{t("SearchResultsPageStrings.comparisonTimeToCompleteLabel")}</span>
+              <span>{t("SearchResultsPage.comparisonTimeToCompleteLabel")}</span>
             </td>
             {item2 && (
               <td className="weight-500 pas bhdcg bg-light-purple">
                 {!props.scrollEnd && (
                   <span className="weight-500">
-                    {t("SearchResultsPageStrings.comparisonTimeToCompleteLabel")}
+                    {t("SearchResultsPage.comparisonTimeToCompleteLabel")}
                   </span>
                 )}
               </td>
@@ -217,7 +215,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item1.id}`)}
                 >
-                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
+                  {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -228,7 +226,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item2.id}`)}
                 >
-                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
+                  {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -239,7 +237,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item3.id}`)}
                 >
-                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
+                  {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -330,7 +328,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
           )}
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>{t("SearchResultsPageStrings.comparisonCostLabel")}</span>
+              <span>{t("SearchResultsPage.comparisonCostLabel")}</span>
             </td>
             {item1 && (
               <td className="align-center pvd btdcg" key={`${item1.id}-cos`}>
@@ -350,37 +348,37 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>{t("SearchResultsPageStrings.comparisonEmploymentRateLabel")}</span>
+              <span>{t("SearchResultsPage.comparisonEmploymentRateLabel")}</span>
             </td>
             <td className="align-center pvd btdcg" key={`${item1.id}-emp`}>
               {item1.percentEmployed
-                ? t("SearchResultsPageStrings.percentEmployed", {
+                ? t("SearchResultsPage.percentEmployed", {
                     percent: formatPercentEmployed(item1.percentEmployed),
                   })
-                : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                : t("SearchResultsPage.percentEmployedUnavailable")}
             </td>
             {item2 && (
               <td className="align-center pvd btdcg bldcg" key={`${item2.id}-emp`}>
                 {item2.percentEmployed
-                  ? t("SearchResultsPageStrings.percentEmployed", {
+                  ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item2.percentEmployed),
                     })
-                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                  : t("SearchResultsPage.percentEmployedUnavailable")}
               </td>
             )}
             {item3 && (
               <td className="align-center pvd btdcg bldcg" key={`${item3.id}-emp`}>
                 {item3.percentEmployed
-                  ? t("SearchResultsPageStrings.percentEmployed", {
+                  ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item3.percentEmployed),
                     })
-                  : t("SearchResultsPageStrings.percentEmployedUnavailable")}
+                  : t("SearchResultsPage.percentEmployedUnavailable")}
               </td>
             )}
           </tr>
           <tr>
             <td className="weight-500 tbl-header btdcg">
-              <span>{t("SearchResultsPageStrings.comparisonTimeToCompleteLabel")}</span>
+              <span>{t("SearchResultsPage.comparisonTimeToCompleteLabel")}</span>
             </td>
             {item1 && (
               <td className="align-center ptd pbl btdcg" key={`${item1.id}-cal`}>
@@ -407,7 +405,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item1.id}`)}
                 >
-                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
+                  {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -418,7 +416,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item2.id}`)}
                 >
-                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
+                  {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
@@ -429,7 +427,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                   variant="secondary"
                   onClick={() => navigate(`/training/${item3.id}`)}
                 >
-                  {t("SearchResultsPageStrings.comparisonSeeDetails")}
+                  {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}

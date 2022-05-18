@@ -7,12 +7,12 @@ export const NotFoundPage = (_props: RouteComponentProps): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <ErrorPage headerText={t("ErrorPageStrings.notFoundHeader")}>
+    <ErrorPage headerText={t("ErrorPage.notFoundHeader")}>
       <>
-        <p>{t("ErrorPageStrings.notFoundText")}</p>
+        <p>{t("ErrorPage.notFoundText")}</p>
         <p>
           <a className="link-format-blue" href="/">
-            {t("ErrorPageStrings.notFoundLink1")}
+            {t("ErrorPage.notFoundLink1")}
           </a>
         </p>
         <p>
@@ -20,7 +20,7 @@ export const NotFoundPage = (_props: RouteComponentProps): ReactElement => {
             className="link-format-blue"
             href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
           >
-            {t("ErrorPageStrings.notFoundLink2")}
+            {t("ErrorPage.notFoundLink2")}
           </a>
         </p>
       </>

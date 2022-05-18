@@ -91,7 +91,7 @@ describe("filtering by languages", () => {
     fireEvent.click(subject.getByLabelText("Chinese"));
     expect(subject.getByLabelText("Chinese")).toBeChecked();
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

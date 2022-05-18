@@ -31,9 +31,9 @@ function mockMaterialUI() {
 jest.mock("@material-ui/core", () => mockMaterialUI());
 jest.mock("@reach/router", () => mockReachRouter());
 
-const { searchBarDefaultPlaceholderText } = Content.SearchAndFilterStrings;
+const { searchBarDefaultPlaceholderText } = Content.SearchAndFilter;
 
-const { inDemandTag, percentEmployedUnavailable } = Content.SearchResultsPageStrings;
+const { inDemandTag, percentEmployedUnavailable } = Content.SearchResultsPage;
 
 describe("<SearchResultsPage />", () => {
   let stubClient: StubClient;
@@ -46,7 +46,7 @@ describe("<SearchResultsPage />", () => {
     it("uses the url parameter in the search bar input", () => {
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
       expect(
-        subject.getByPlaceholderText(Content.SearchAndFilterStrings.searchBarDefaultPlaceholderText)
+        subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText)
       ).toHaveValue("octopods");
     });
 
@@ -55,7 +55,7 @@ describe("<SearchResultsPage />", () => {
         <SearchResultsPage client={stubClient} searchQuery={"octopods%2Foctopi"} />
       );
       expect(
-        subject.getByPlaceholderText(Content.SearchAndFilterStrings.searchBarDefaultPlaceholderText)
+        subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText)
       ).toHaveValue("octopods/octopi");
     });
 
@@ -75,9 +75,7 @@ describe("<SearchResultsPage />", () => {
 
       act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-      expect(
-        subject.queryByText(Content.ErrorPageStrings.somethingWentWrongHeader)
-      ).toBeInTheDocument();
+      expect(subject.queryByText(Content.ErrorPage.somethingWentWrongHeader)).toBeInTheDocument();
     });
   });
 

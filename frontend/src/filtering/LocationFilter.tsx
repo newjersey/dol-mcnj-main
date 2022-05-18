@@ -106,18 +106,18 @@ export const LocationFilter = (): ReactElement => {
   return (
     <section>
       <header>
-        <div className="bold">{t("SearchAndFilterStrings.locationFilterLabel")}</div>
+        <div className="bold">{t("SearchAndFilter.locationFilterLabel")}</div>
       </header>
       <div className="fin mts fac ">
         <FormControl variant="outlined" className="mla width-100">
           <InputLabel htmlFor="miles">
-            {t("SearchAndFilterStrings.locationFilterMilesInputLabel")}
+            {t("SearchAndFilter.locationFilterMilesInputLabel")}
           </InputLabel>
           <WhiteSelect
             native={true}
             value={searchArea.radius}
             onChange={handleMilesInput}
-            label={t("SearchAndFilterStrings.locationFilterMilesInputLabel")}
+            label={t("SearchAndFilter.locationFilterMilesInputLabel")}
             id="miles"
           >
             {MILES_VALUES.map((val) => (
@@ -136,14 +136,14 @@ export const LocationFilter = (): ReactElement => {
           onChange={handleZipCodeInput}
           onKeyDown={handleKeyDown}
           onBlur={() => applyLocationFilter(searchArea)}
-          placeholder={t("SearchAndFilterStrings.locationFilterZipCodePlaceholder")}
+          placeholder={t("SearchAndFilter.locationFilterZipCodePlaceholder")}
           error={!isValidZipCode}
         />
       </div>
       {!isValidZipCode && (
         <div className="red fin mts">
           <InlineIcon className="mrxs">error</InlineIcon>{" "}
-          {t("SearchAndFilterStrings.locationFilterZipCodeInvalid")}
+          {t("SearchAndFilter.locationFilterZipCodeInvalid")}
         </div>
       )}
     </section>

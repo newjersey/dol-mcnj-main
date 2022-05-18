@@ -22,22 +22,20 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
 
       <main className="container below-banners" role="main">
         <div className="landing-container mla mra">
-          <h2 className="mvm text-xl weight-500 align-center">
-            {t("CounselorPageStrings.header")}
-          </h2>
+          <h2 className="mvm text-xl weight-500 align-center">{t("CounselorPage.header")}</h2>
 
           <h3 className="mbd text-l weight-500 align-center">
-            {t("CounselorPageStrings.sectionOneHeader")}
+            {t("CounselorPage.sectionOneHeader")}
           </h3>
-          <p className="mbl align-center">{t("CounselorPageStrings.sectionOneText")}</p>
+          <p className="mbl align-center">{t("CounselorPage.sectionOneText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("CounselorPageStrings.sectionTwoHeader")}
+            {t("CounselorPage.sectionTwoHeader")}
           </h3>
-          <p className="mbl align-center">{t("CounselorPageStrings.sectionTwoText")}</p>
+          <p className="mbl align-center">{t("CounselorPage.sectionTwoText")}</p>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("CounselorPageStrings.sectionThreeHeader")}
+            {t("CounselorPage.sectionThreeHeader")}
           </h3>
           <div className="landing-card-container mla mra">
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
@@ -47,10 +45,10 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("CounselorPageStrings.searchDescription")}
+                    {t("CounselorPage.searchDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/search")}>
-                    {t("CounselorPageStrings.searchButton")}
+                    {t("CounselorPage.searchButton")}
                   </Button>
                 </div>
               </>
@@ -62,10 +60,10 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
-                    {t("CounselorPageStrings.occupationDescription")}
+                    {t("CounselorPage.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>
-                    {t("CounselorPageStrings.occupationButton")}
+                    {t("CounselorPage.occupationButton")}
                   </Button>
                 </div>
               </>
@@ -73,22 +71,22 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
           </div>
 
           <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("CounselorPageStrings.sectionFourHeader")}
+            {t("CounselorPage.sectionFourHeader")}
           </h3>
           <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
             <Link className="link-format-blue" to="/faq/data-sources">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPageStrings.dataFaq")}
+                {t("CounselorPage.dataFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/labor-demand-occupations">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPageStrings.occupationsFaq")}
+                {t("CounselorPage.occupationsFaq")}
               </LandingCard>
             </Link>
             <Link className="link-format-blue" to="/faq/funding-opportunities">
               <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPageStrings.fundingFaq")}
+                {t("CounselorPage.fundingFaq")}
               </LandingCard>
             </Link>
           </div>

@@ -10,13 +10,13 @@ export const ContactUsSection = (): ReactElement => {
 
   return (
     <div className="align-center">
-      <div className="mbs text-m weight-500">{t("ContactUsStrings.getInTouchText")}</div>
+      <div className="mbs text-m weight-500">{t("ContactUs.getInTouchText")}</div>
       <Button
         variant="secondary"
         className="mbl margin-right-0"
         onClick={() => navigate(CONTACT_URL)}
       >
-        {t("ContactUsStrings.contactUsButtonText")}
+        {t("ContactUs.contactUsButtonText")}
       </Button>
     </div>
   );

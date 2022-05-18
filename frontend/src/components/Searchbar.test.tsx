@@ -3,7 +3,7 @@ import React from "react";
 import { Searchbar } from "./Searchbar";
 import { en as Content } from "../locales/en";
 
-const { searchBarDefaultPlaceholderText } = Content.SearchAndFilterStrings;
+const { searchBarDefaultPlaceholderText } = Content.SearchAndFilter;
 
 describe("<Searchbar />", () => {
   it("sets an initial value to the input if provided", () => {

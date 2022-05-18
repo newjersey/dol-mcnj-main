@@ -216,7 +216,7 @@ describe("filtering by time to complete", () => {
     fireEvent.click(subject.getByLabelText("Weeks"));
     expect(subject.getByLabelText("Weeks")).toBeChecked();
 
-    fireEvent.click(subject.getByText(Content.SearchAndFilterStrings.clearAllFiltersButtonLabel));
+    fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
     await waitForEffect();
 

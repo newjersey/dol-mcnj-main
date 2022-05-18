@@ -90,7 +90,7 @@ export const CountyFilter = (): ReactElement => {
 
   return (
     <>
-      <div className="bold">{t("SearchAndFilterStrings.countyFilterLabel")}</div>
+      <div className="bold">{t("SearchAndFilter.countyFilterLabel")}</div>
       <label htmlFor="county">
         <Autocomplete
           data-testid="county-search"

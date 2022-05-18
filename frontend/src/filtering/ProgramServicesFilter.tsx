@@ -103,7 +103,7 @@ export const ProgramServicesFilter = (): ReactElement => {
 
   return (
     <label className="bold" htmlFor="programServices">
-      {t("SearchAndFilterStrings.programServicesFilterLabel")}
+      {t("SearchAndFilter.programServicesFilterLabel")}
       <FormGroup id="programServices">
         <FormControlLabel
           control={
@@ -114,7 +114,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.wheelChairAccessibleLabel")}
+          label={t("SearchAndFilter.wheelChairAccessibleLabel")}
         />
         <FormControlLabel
           control={
@@ -125,7 +125,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.childcareAssistLabel")}
+          label={t("SearchAndFilter.childcareAssistLabel")}
         />
         <FormControlLabel
           control={
@@ -136,7 +136,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.eveningCoursesLabel")}
+          label={t("SearchAndFilter.eveningCoursesLabel")}
         />
         <FormControlLabel
           control={
@@ -147,7 +147,7 @@ export const ProgramServicesFilter = (): ReactElement => {
               color="primary"
             />
           }
-          label={t("SearchAndFilterStrings.jobPlacementAssistLabel")}
+          label={t("SearchAndFilter.jobPlacementAssistLabel")}
         />
       </FormGroup>
     </label>

@@ -12,7 +12,7 @@ export const LocalWaiverTag = (props: Props): ReactElement => {
   return (
     <span className="fin fas bg-orange-tag tag pvxxs phd mrs">
       <InlineIcon className="mrxs">local_fire_department</InlineIcon>
-      {t("SearchResultsPageStrings.localWaiverTag", { county: props.county })}
+      {t("SearchResultsPage.localWaiverTag", { county: props.county })}
     </span>
   );
 };

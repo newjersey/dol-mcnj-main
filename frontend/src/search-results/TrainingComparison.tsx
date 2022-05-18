@@ -67,9 +67,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
 
                 <UnstyledButton className="btn-remove" onClick={(): void => removeItem(item)}>
                   <Icon fontSize="inherit">cancel</Icon>
-                  <span className="visually-hidden">
-                    {t("SearchResultsPageStrings.comparisonRemove")}
-                  </span>
+                  <span className="visually-hidden">{t("SearchResultsPage.comparisonRemove")}</span>
                 </UnstyledButton>
               </div>
             );
@@ -120,17 +118,17 @@ export const TrainingComparison = (props: Props): ReactElement => {
             <div className={`button-container fdc fje ${!isTabletAndUp && "ptm"}`}>
               {showComparison && (
                 <Button variant="outline" className="btn-collapse" onClick={collapseItems}>
-                  {t("SearchResultsPageStrings.comparisonCollapse")}
+                  {t("SearchResultsPage.comparisonCollapse")}
                 </Button>
               )}
 
               {!showComparison && (
                 <Button variant="outline" className="btn-compare" onClick={compareItems}>
-                  {t("SearchResultsPageStrings.comparisonCompare")}
+                  {t("SearchResultsPage.comparisonCompare")}
                 </Button>
               )}
               <Button variant="outline" className="btn-clear-all" onClick={clearItems}>
-                {t("SearchResultsPageStrings.comparisonClear")}
+                {t("SearchResultsPage.comparisonClear")}
               </Button>
             </div>
           </div>

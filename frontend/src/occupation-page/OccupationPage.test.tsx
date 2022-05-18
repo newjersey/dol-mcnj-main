@@ -12,9 +12,8 @@ import { Error } from "../domain/Error";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { en as Content } from "../locales/en";
 
-const { inDemandTag } = Content.SearchResultsPageStrings;
-const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } =
-  Content.OccupationPageStrings;
+const { inDemandTag } = Content.SearchResultsPage;
+const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } = Content.OccupationPage;
 
 describe("<OccupationPage />", () => {
   let stubClient: StubClient;
@@ -152,7 +151,7 @@ describe("<OccupationPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
     expect(
-      subject.getByText(Content.ErrorPageStrings.notFoundHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false })
     ).toBeInTheDocument();
   });
 
@@ -162,7 +161,7 @@ describe("<OccupationPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
     expect(
-      subject.getByText(Content.ErrorPageStrings.somethingWentWrongHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false })
     ).toBeInTheDocument();
   });
 

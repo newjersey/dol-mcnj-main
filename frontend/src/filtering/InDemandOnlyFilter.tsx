@@ -45,7 +45,7 @@ export const InDemandOnlyFilter = (): ReactElement => {
           color="primary"
         />
       }
-      label={t("SearchAndFilterStrings.inDemandFilterLabel")}
+      label={t("SearchAndFilter.inDemandFilterLabel")}
     />
   );
 };
