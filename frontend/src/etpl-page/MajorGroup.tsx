@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { Icon } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 
 export const MajorGroup = (props: Props): ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
@@ -26,7 +28,11 @@ export const MajorGroup = (props: Props): ReactElement => {
         className="pas color-blue width-100 weight-500 blue"
       >
         <div className={`fdr fac weight-500 ${isOpen ? "bbdcg" : ""}`}>
-          <img className={`mrs ${isOpen ? "mbs" : ""}`} alt="" src={props.icon} />
+          <img
+            className={`mrs ${isOpen ? "mbs" : ""}`}
+            alt={t("IconAlt.etplGroup")}
+            src={props.icon}
+          />
           <span className={`blue ${isOpen ? "mbs" : ""}`}>{props.title}</span>
           <span className="mla">
             <Icon>{getArrowIcon()}</Icon>

@@ -34,7 +34,7 @@ export const Header = (): ReactElement => {
         <div className="container height-100">
           <div className="fdr fac fjb height-100">
             <a href="/" className="link-format-black fin fac width-content">
-              <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
+              <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
               <h1 className="text-m bold">Training Explorer</h1>
             </a>
             <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
@@ -105,7 +105,7 @@ export const Header = (): ReactElement => {
           <nav className="nav">
             <div className="height-100 display-flex flex-align-center">
               <a href="/" className="link-format-black fin fac width-content">
-                <img className="mrd" src={njLogo} alt="New Jersey innovation logo" />
+                <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
                 <h1 className="text-m bold">{t("Header.title")}</h1>
               </a>
             </div>

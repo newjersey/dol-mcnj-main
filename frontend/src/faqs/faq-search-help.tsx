@@ -6,12 +6,14 @@ import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import SearchScreenshot from "./search-screenshot.png";
 import FilterScreenshot from "./filter-screenshot.png";
+import { useTranslation } from "react-i18next";
 
 export const FaqSearchHelp = (_props: RouteComponentProps): ReactElement => {
   useEffect(() => {
     document.title = "FAQ - Search Help";
     window.scrollTo(0, 0);
   }, []);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -38,7 +40,7 @@ export const FaqSearchHelp = (_props: RouteComponentProps): ReactElement => {
               via this website’s “Find Training” search feature.
             </p>
             <p>
-              <img width="345" src={SearchScreenshot} alt="search screenshot" />
+              <img width="345" src={SearchScreenshot} alt={t("FAQ.searchHelpScreenshot")} />
             </p>
             <p>
               The types of training you will find on this website range from private career schools,
@@ -54,7 +56,7 @@ export const FaqSearchHelp = (_props: RouteComponentProps): ReactElement => {
               button.
             </p>
             <p>
-              <img width="119" src={FilterScreenshot} alt="search filter screenshot" />
+              <img width="119" src={FilterScreenshot} alt={t("FAQ.searchFilterScreenshot")} />
             </p>
             <p>
               The filters available will allow you to refine your search from a location, set a cost

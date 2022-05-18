@@ -41,7 +41,7 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrs">
-                  <img alt="icon-list" src={IconList} />
+                  <img alt={t("IconAlt.etplList")} src={IconList} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
@@ -56,7 +56,7 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrd">
-                  <img alt="icon-occupation" src={IconOccupation} />
+                  <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>

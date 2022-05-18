@@ -44,7 +44,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrs">
-                  <img alt="icon-checklist" src={IconChecklist} />
+                  <img alt={t("IconAlt.etplList")} src={IconChecklist} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
@@ -59,7 +59,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrd">
-                  <img alt="icon-portfolio" src={IconPortfolio} />
+                  <img alt={t("IconAlt.providerApplication")} src={IconPortfolio} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>
@@ -74,7 +74,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
             <LandingCard hideBorderMobile className={`mbl ${isTablet ? "flex" : "align-center"}`}>
               <>
                 <div className="landing-image mrd">
-                  <img alt="icon-occupation" src={IconOccupation} />
+                  <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
                 </div>
                 <div>
                   <p className={`mtz ${!isTablet && "phl"}`}>

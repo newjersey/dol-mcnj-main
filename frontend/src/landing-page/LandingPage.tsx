@@ -39,7 +39,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
         <div className="container options-container">
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
-              <img alt="icon-occupation" src={IconOccupation} />
+              <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnOneHeader")}</h3>
             <p className="phm align-center options-desc">{t("LandingPage.columnOneDescription")}</p>
@@ -49,7 +49,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
-              <img alt="icon-counseling" src={IconCounseling} />
+              <img alt={t("IconAlt.landingPageCounseling")} src={IconCounseling} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnTwoHeader")}</h3>
             <p className="phm align-center options-desc">{t("LandingPage.columnTwoDescription")}</p>
@@ -59,7 +59,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
           </div>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image-workforce mbs">
-              <img alt="Cartoon of three workers" src={IconWorkforce} />
+              <img alt={t("IconAlt.landingPageWorkforce")} src={IconWorkforce} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnThreeHeader")}</h3>
             <p className="phm align-center options-desc">
