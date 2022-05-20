@@ -174,12 +174,57 @@ export const es = {
     unemploymentInsuranceFaq: "Necesito ayuda para solicitar seguro de desempleo",
     healthInsuranceFaq: "Necesito ayuda para solicitar un seguro médico",
   },
-  // FAQ: {
-  //   searchOccupationsScreenshot: "Screenshot of In-Demand Occupations page on Training Explorer ",
-  //   occupationDetailsScreenshot: "Screenshot of Phlebotomy occupation page on Training Explorer",
-  //   searchHelpScreenshot: "Screenshot of search bar on Training Explorer",
-  //   searchFilterScreenshot: "Screenshot of filter box on Training Explorer",
-  // },
+  FAQ: {
+    // searchOccupationsScreenshot: "Screenshot of In-Demand Occupations page on Training Explorer ",
+    // occupationDetailsScreenshot: "Screenshot of Phlebotomy occupation page on Training Explorer",
+    searchHelpScreenshot: "Captura de pantalla de búsqueda",
+    searchFilterScreenshot: "Captura de pantalla del filtro de búsqueda",
+    breadcrumbHomeLink: "Inicio",
+    breadcrumbResourcesLink: "Recursos",
+  },
+  FAQEnrollProgram: {
+    // pageTitle: "FAQ - Enroll Program",
+    breadcrumbLink: "Inscríbase en un programa",
+    header: "Inscríbase en un programa que aparece en este sitio web",
+    contactHeader: "Cómo encontrar la información de contacto de la escuela",
+    contactBody:
+      'Si tiene preguntas sobre un programa específico o para inscribirse en un programa específico, debe ponerse en contacto con la escuela u organización directamente. La información de contacto de cada programa está disponible en la sección ""detalles del proveedor"" dentro de cada lista de programas. Este sitio web sólo tiene fines informativos.',
+    inDemandHeader: "Formación de alta demanda",
+    inDemandBody:
+      "Formaciones profesionales listadas que le ponen en camino a una ocupación de alta demanda tendrá una etiqueta como ésta.",
+    inDemandBodyTwo:
+      "Formaciones con esta etiqueta de alta demanda pueden ser elegibles para recibir apoyo financiero publico.",
+    counselorAdviceHeader: "Obtenga asesoramiento de un consejero de OneStop Center",
+    counselorAdviceBodyStart:
+      "Para obtener más información sobre posibilidades de financiación, por favor póngase en contacto con su OneStop Center local, que le ayudará a determinar su elegibilidad para poder recibir financiación. Puede ponerse en contacto virtualmente ",
+    counselorAdviceBodyLink: "en este enlace",
+    counselorAdviceBodyEnd:
+      ". Atención, habrá un enlace que puede copiar en la página de formación y después pueda compartir con ellos.",
+  },
+  FAQSearchHelp: {
+    // pageTitle: "FAQ - Search Help",
+    breadcrumbLink: "Buscar Ayuda",
+    header: "Cómo iniciar su búsqueda en Training Explorer",
+    searchBarHeader: "Usando la barra de búsqueda",
+    searchBarBodyStart: "La barra de búsqueda en ",
+    searchBarBodyLink: "la página inicial",
+    searchBarBodyEnd:
+      ' le permitirá hacer búsquedas de oportunidades de capacitación que son parte de la Lista de proveedores de capacitación elegibles (ETPL) del Estado de Nueva Jersey. El ETPL es una lista completa de todas las escuelas y organizaciones que ofrecen educación ocupacional y programas de capacitación laboral que son elegibles para recibir asistencia de matriculación financiada con fondos públicos. La lista está disponible a través de la función de búsqueda ""Find Training"" de este sitio web.',
+    searchBarBodyTwo:
+      "Los tipos de entrenamientos que encontrará en esta pagina varían desde escuelas profesionales privadas, escuelas sin fines de lucro, universidades comunitarias, escuelas vocacionales, programas de alfabetización, credenciales a corto plazo y aprendizajes registrados.",
+    filtersHeader: "Uso de los filtros de búsqueda y ordenación",
+    filtersBody:
+      'El cuadro de filtro estará disponible para las personas que utilizan tabletas o dispositivos de escritorio en el lado izquierdo de la página de resultados de búsqueda después de realizar una búsqueda. Si está utilizando un móvil, podrá acceder al cuadro de filtro haciendo clic en el botón ""Editar búsqueda o filtro"".',
+    filtersBodyTwo:
+      "Los filtros disponibles le permitirán refinar su búsqueda - identificación de ubicaciones, establecer un límite de costo para los programas de capacitación, averiguar si las clases son en persona o de forma remota y establecer un período de tiempo para completar un curso. Finalmente, hay un interruptor disponible para mostrar un programa que conducirá a una ocupación en demanda. Al seleccionar este filtro, solo se mostrarán los resultados de búsqueda con la etiqueta amarilla en demanda. Estos filtros se pueden usar en combinación entre sí para crear resultados de búsqueda más específicos.",
+    filtersBodyThree:
+      "El menú desplegable ordenar por en la parte superior de la página ordenará los resultados de la búsqueda de entrenamiento de acuerdo con el filtro seleccionado en el menú desplegable. Puede ordenar los resultados de la búsqueda por costo máximo, tasa de empleo o el mejor resultado de búsqueda.",
+    careerExplorationHeader: "Exploración de carrera",
+    careerExplorationBodyStart: "Para obtener información sobre ",
+    careerExplorationBodyLink: "ocupaciones de alta demanda",
+    careerExplorationBodyEnd:
+      ' por el estado de Nueva Jersey, seleccione el enlace ""Ocupaciones en alta demanda"" en la parte superior de la página. Este enlace lo llevará a una lista de todas las ocupaciones que se prevé que experimenten grandes aumentos en el crecimiento y las ofertas de trabajo. En esta página, puede usar la barra de búsqueda en la parte superior de la página para buscar una ocupación o puede usar las categorías de industria para buscar ocupaciones en demanda. La página cada ocupación detallará estadísticas sobre cuántos trabajos hay actualmente en el estado a través de la Bolsa de Trabajo Nacional, así como el salario medio para esa carrera. También encontrará una breve descripción de esa ocupación, cómo es un día en la vida de ese trabajo, así como los requisitos de educación o credenciales para ingresar a esa ocupación. Por último, verá la formación relacionada y las carreras relacionadas con la ocupación.',
+  },
   Footer: {
     privacyPolicyLinkLabel: "Política de privacidad",
     termsOfServiceLinkLabel: "Términos de servicio",
