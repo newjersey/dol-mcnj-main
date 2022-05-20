@@ -44,7 +44,7 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                   <img alt={t("IconAlt.etplList")} src={IconList} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("CounselorPage.searchDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/search")}>
@@ -59,7 +59,7 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
                   <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("CounselorPage.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>

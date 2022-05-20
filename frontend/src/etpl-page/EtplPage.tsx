@@ -173,7 +173,7 @@ export const EtplPage = (_props: Props): ReactElement => {
           icon={DepartmentOfLaborWorkforceDevelopmentTrainingEvaluationUnit}
         >
           <p>
-            <Trans i18nKey="laborTrainingEvalText">
+            <Trans i18nKey="EtplPage.laborTrainingEvalText">
               The Training Evaluation Unit works in conjunction with the Department of Education's
               Office of Career Readiness (PCSU) to evaluate and approve private career schools and
               correspondence schools that wish to operate within New Jersey's workforce readiness

@@ -59,7 +59,7 @@ export const CostFilter = (): ReactElement => {
   return (
     <>
       <div className="bold">{t("SearchAndFilter.costFilterLabel")}</div>
-      <label htmlFor="maxCost" className="fin label-height">
+      <label htmlFor="maxCost" className="fin">
         {t("SearchAndFilter.maxCostLabel")}
         <span className="fin mld">
           <Input
