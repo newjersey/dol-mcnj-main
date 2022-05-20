@@ -176,6 +176,68 @@ export const en = {
     breadcrumbHomeLink: "Home",
     breadcrumbResourcesLink: "Resources",
   },
+  FAQChildCare: {
+    pageTitle: "FAQ - Child Care",
+    breadcrumbLink: "Child Care",
+    header: "Child & Family Care",
+    covidHeader: "COVID-19",
+    covidBody:
+      "New information for parents and child care providers is available on the NJ Department of Human Services Division of Family Development <1>Coronavirus Disease 2019 (COVID-19) page</1>.",
+    covidBodyTwo:
+      "Please reference the <1>NJ COVID Information Hub website</1> for any of your questions or concerns during this challenging time.",
+    resourceAgencyHeader: "New Jersey Child Care Resource and Referral Agencies (CCR&Rs)",
+    resourceAgencyBody:
+      "New Jersey's CCR&Rs have trained staff to provide information to parents, the public, and providers about the availability of child care services provided through the New Jersey's Child Care Subsidy Program and other programs for which a family may be eligible. They also provide information about different types of child care providers and how to apply for financial assistance to obtain child care.",
+    resourceAgencyLink: "To learn more about New Jersey's CCR&Rs, visit this <1>website</1>.",
+    homeOptionHeader: "Home-based Child Care Options",
+    familyCareHeader: "Family Child Care",
+    familyCareBodyOne:
+      "This type of care is provided in someone's home. In New Jersey, a provider can care for no more than five children, with an additional three children of their own.",
+    familyCareBodyLinkOne:
+      "Home providers can choose to be <1>registered</1>, which requires them to meet basic safety standards outlined under state law.",
+    familyCareBodyTwo:
+      "This registration also allows these in-home providers to accept payments from families participating in government-subsidized child care assistance programs.",
+    familyCareBodyLinkTwo: "For additional details, click <1>here</1>.",
+    homeCareHeader: "In-Home Care",
+    homeCareBody:
+      "In this type of care, a person comes to your home to care for your child.. Although you may use an agency to find such a provider, they are neither regulated nor licensed by the state and cannot participate in Grow NJ Kids.",
+    homeCareLink: "To learn more about in-home child care, please click <1>here</1>.",
+    schoolCenterHeader: "Center and School-based Child Care Options",
+    childCentersHeader: "Child Care Centers",
+    childCentersBody:
+      "Licensed by the state of New Jersey, these facilities are inspected every two years and must meet basic health, safety, program and staffing requirements. They can care for six or more children from the age of 6 weeks to 13 years.",
+    headStartHeader: "Head Start & Early Head Start",
+    headStartBody:
+      "Head Start and Early Head Start programs support the mental, social and emotional development of children from birth to age 5. In addition to education services, programs provide children and their families with health, nutrition, social and other services.",
+    preschoolHeader: "School District Preschool Programs",
+    preschoolBody:
+      "School districts provide research-based preschool programs for 3- and 4-year-olds, that may be located within a school district site, a private provider, or a local Head Start agency.",
+    specialServicesHeader: "Special Services School Districts",
+    specialServicesBody:
+      "These districts provide options for preschool students with special needs ages 3-5.",
+    applySubsidyHeader: "Applying for a Child Care Subsidy*",
+    applySubsidyBody:
+      "When applying for a child care subsidy, you will be required to provide the following: proof of income, training/school hours and household size. All required documents must be submitted to be considered for a subsidy.",
+    applySubsidyLinkOne:
+      "Eligibility requirements for both applicant(s)/parents and children are listed <1>here</1>.",
+    applySubsidyLinkTwo:
+      "To apply, complete and submit the following <1>forms</1> to the <4>Child Care Resource and Referral (CCR&R) agency</4> in your county.",
+    supportHeader: "New Jersey Child Support*",
+    supportBodyOne:
+      "The Office of Child Support Services assists parents in obtaining the financial support necessary for their children to prosper in a stable setting.",
+    supportLink: "For more information, click <1>here</1> or call 1 (877)-NJKIDS1.",
+    supportBodyTwo:
+      "If you have any questions, please contact your county's CCR&R agency or call the Child Care Helpline at 1-800-332-9227.",
+    federalResourcesHeader: "Federal Resources*",
+    federalResourcesLink:
+      "In addition, the U.S. Department of Health and Human Services' <1>Administration for Children and Families</1> partners with programs that encourage strong, healthy, supportive communities that promote economic independence, productivity, and childhood development.",
+    federalResourcesLinkTwo:
+      "For more information on their hotlines to reach them directly, click <1>here</1>.",
+    federalResourcesAsterisk:
+      "* For more information about any of these child care programs, download this <1>brochure</1>.",
+    federalResourcesLinkThree:
+      "For all other family, dependent, and senior / elder care resources, please visit <1>NJ 2-1-1</1> or with your phone dial 2-1-1.",
+  },
   FAQEnrollProgram: {
     pageTitle: "FAQ - Enroll Program",
     breadcrumbLink: "Enroll Program",
