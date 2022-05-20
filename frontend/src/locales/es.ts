@@ -182,6 +182,71 @@ export const es = {
     breadcrumbHomeLink: "Inicio",
     breadcrumbResourcesLink: "Recursos",
   },
+  FAQChildCare: {
+    // pageTitle: "FAQ - Child Care",
+    breadcrumbLink: "Cuidados de niños",
+    header: "Cuidados de niños y familias",
+    covidHeader: "COVID-19",
+    covidBody:
+      "Nueva información para padres y proveedores de cuidado infantil está disponible en <1>la página de la División de Desarrollo Familiar de la Enfermedad por Coronavirus 2019</1> del Departamento de Servicios Humanos de Nueva Jersey (COVID-19).",
+    covidBodyTwo:
+      "Consulte <1>el sitio web del Centro de información de COVID de NJ</1> si tiene alguna pregunta o preocupación durante este momento difícil.",
+    resourceAgencyHeader:
+      "Agencias de Recursos y Referencias de Cuidado Infantil de Nueva Jersey (CCR&Rs)",
+    resourceAgencyBody:
+      "Las Agencias de Recursos y Referencias de Cuidado Infantil de Nueva Jersey (CCR&R) cuentan con especialistas capacitado para brindar información a padres, el público y proveedores sobre la disponibilidad de los servicios de cuidado infantil proporcionados a través del Programa de Subsidio de Cuidado Infantil de Nueva Jersey y otros programas para los cuales una familia puede ser elegible. También brindan información sobre diferentes tipos de proveedores de cuidado infantil y cómo solicitar asistencia financiera para obtener cuidado infantil.",
+    resourceAgencyLink:
+      "Para obtener más información sobre los CCR & R de Nueva Jersey, visite <1>este sitio web</1>.",
+    homeOptionHeader: "Opciones de cuidado infantil en el hogar",
+    familyCareHeader: "Cuidado infantil familiar",
+    familyCareBodyOne:
+      "Este tipo de servicio se ofrece directamente a hogares privados. En Nueva Jersey, un proveedor no puede cuidar a más de cinco niños, con tres niños adicionales propios.",
+    familyCareBodyLinkOne:
+      "Los proveedores de servicios domésticos pueden optar por <1>registrarse</1>, lo que les exige que cumplan con los estándares básicos de seguridad descritos en la ley estatal.",
+    familyCareBodyTwo:
+      "Este registro también permite que estos proveedores en el hogar acepten pagos de familias que participan en programas de asistencia para el cuidado de niños subsidiados por el gobierno.",
+    familyCareBodyLinkTwo: "Para más detalles, haga clic <1>aquí</1>.",
+    homeCareHeader: "Cuidado en el hogar",
+    homeCareBody:
+      "Este tipo de servicio, una persona llega a su hogar para cuidar a su hijo. Aunque puede usar una agencia para encontrar dicho proveedor, no están regulados ni autorizados por el estado y no pueden participar en Grow NJ Kids.",
+    homeCareLink:
+      "Para obtener más información sobre el cuidado infantil en el hogar, haga clic <1>aquí</1>.",
+    schoolCenterHeader: "Opciones de cuidado infantil en centros y escuelas",
+    childCentersHeader: "Centros de cuidado infantil",
+    childCentersBody:
+      "Con licencia del estado de Nueva Jersey, estas instalaciones son inspeccionadas cada dos años y deben cumplir con los requisitos básicos de salud, seguridad, programas y requisitos de sus empleados. Pueden cuidar a seis o más niños desde las 6 semanas hasta los 13 años.",
+    headStartHeader: "Head Start y Early Head Start",
+    headStartBody:
+      "Los programas Head Start y Early Head Start apoyan el desarrollo mental, social y emocional de los niños desde el nacimiento hasta los 5 años. Además de los servicios educativos, los programas brindan a los niños y sus familias servicios de salud, nutrición, sociales y otros.",
+    preschoolHeader: "Programas preescolares del distrito escolar",
+    preschoolBody:
+      "Los distritos escolares ofrecen programas preescolares basados en la investigación para niños de 3 y 4 años, que pueden estar ubicados dentro de un sitio del distrito escolar, un proveedor privado o una agencia local de Head Start.",
+    specialServicesHeader: "Distritos escolares de servicios especiales",
+    specialServicesBody:
+      "Estos distritos ofrecen opciones para estudiantes de preescolar con necesidades especiales de 3 a 5 años.",
+    applySubsidyHeader: "Solicitar un subsidio de cuidado infantil *",
+    applySubsidyBody:
+      "Al solicitar un subsidio de cuidado infantil, se le pedirá que proporcione lo siguiente: comprobante de ingresos, horario de capacitación/escuela y tamaño del hogar. Todos los documentos requeridos deben presentarse para ser considerados para una subvención.",
+    applySubsidyLinkOne:
+      "Los requisitos de elegibilidad tanto para los solicitantes / padres como para los niños se enumeran <1>aquí</1>.",
+    applySubsidyLinkTwo:
+      "Para presentar una solicitud, complete y envíe los siguientes <1>formularios</1> a la <4>agencia de Recursos y Referencias de Cuidado Infantil (CCR & R)</4> de su condado.",
+    supportHeader: "Manutención de menores de Nueva Jersey *",
+    supportBodyOne:
+      "La Oficina de Servicios de Manutención de Niños ayuda a los padres a obtener el apoyo financiero necesario para que sus hijos prosperen en un entorno estable.",
+    supportLink: "Para obtener más información, haga clic <1>aquí</1> o llame al 1 (877) -NJKIDS1.",
+    supportBodyTwo:
+      "Si tiene alguna pregunta, comuníquese con la agencia CCR & R de su condado o llame a la Línea de ayuda de cuidado infantil al 1-800-332-9227.",
+    federalResourcesHeader: "Recursos federales *",
+    federalResourcesLink:
+      "Además, la <1>Administración para Niños y Familias</1> del Departamento de Salud y Servicios Humanos de EE. UU. Se asocia con programas que fomentan comunidades sólidas, saludables y de apoyo que promueven la independencia económica, la productividad y el desarrollo infantil.",
+    federalResourcesLinkTwo:
+      "Para obtener más información sobre sus líneas directas para comunicarse con ellos directamente, haga clic <1>aquí</1>.",
+    federalResourcesAsterisk:
+      "* Para obtener más información sobre cualquiera de estos programas de cuidado infantil, descargue este <1>folleto</1>.",
+    federalResourcesLinkThree:
+      "Para todos los demás recursos para el cuidado de familiares, dependientes y ancianos / ancianos, visite <1>NJ 2-1-1</1> o con su teléfono marque 2-1-1.",
+  },
   FAQEnrollProgram: {
     // pageTitle: "FAQ - Enroll Program",
     breadcrumbLink: "Inscríbase en un programa",
