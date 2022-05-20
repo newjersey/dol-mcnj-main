@@ -45,7 +45,7 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
                   <img className="" alt={t("IconAlt.explorerCustomize")} src={IconCustomize} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("ExplorerPage.searchDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/search")}>
@@ -60,7 +60,7 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
                   <img alt={t("IconAlt.explorerFunding")} src={IconFunding} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("ExplorerPage.fundingDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/funding")}>
@@ -75,7 +75,7 @@ export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement =
                   <img className="" alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("ExplorerPage.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>

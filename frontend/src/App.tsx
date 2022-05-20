@@ -35,6 +35,7 @@ import {
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "njwds/dist/css/styles.css";
+import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 
 interface Props {
   client: Client;
@@ -74,6 +75,7 @@ export const App = (props: Props): ReactElement => {
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default />
             </Router>
+            <LanguageSwitchButton />
             <ContextualInfoPanel />
           </ContextualInfoContext.Provider>
         </FilterContext.Provider>

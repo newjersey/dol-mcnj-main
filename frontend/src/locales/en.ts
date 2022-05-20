@@ -21,7 +21,7 @@ export const en = {
     header: "Find Training and Educational Opportunities in New Jersey",
     sectionOneHeader: "Get Started",
     sectionOneText:
-      "The training explorer is a comprehensive list of all schools and organizations offering education and job training programs that are eligible to receive publicly funded tuition assistance. To search for training, enter a training name, Provider or job title in the search bar below.",
+      "The training explorer is a comprehensive list of all schools and organizations offering education and job training programs that are eligible to receive publicly funded tuition assistance. To search for training, enter a training name, provider or job title in the search bar below.",
     sectionTwoHeader: "In-Demand Occupations List",
     sectionTwoText:
       "This list of occupations are expected to have the most openings in the future in the state of New Jersey. In addition to the list, you can view labor and job information on for occupation aggregated from resources such as O*Net, BLS and CareerOneStop.",
@@ -73,7 +73,7 @@ export const en = {
       "This application is to be used by providers who are already ETPL approved and wish to add new programs or modify existing programs on the ETPL.",
     step3Header: "Step 3: Submit your application",
     step3Text:
-      "Submit your application to COEI at <0>njtopps@dol.nj.gov</0> COEI will follow up if there are any questions regarding your application.",
+      "Submit your application to COEI at <1>njtopps@dol.nj.gov</1> and COEI will follow up if there are any questions regarding your application.",
     // agencies
     cosmetology: "Board of Cosmetology",
     cosmetologyText:
@@ -186,8 +186,10 @@ export const en = {
     sectionOneText:
       'There is funding available for individuals looking for new occupations that fall within the State\'s "in-demand" list of occupations. In-demand occupations are expected to have the most openings in the future in the State of New Jersey.',
     sectionTwoHeader: "How do I know what qualifies for funding?",
-    sectionTwoText:
-      "Training that leads to an <0>in-demand occupation</0> can qualify for funding but your local One Stop will make the final determination. As we mentioned under “How Does Funding Work”, these types of occupations are expected to have the most openings in the future in the State of New Jersey. This list of occupations can be used by career counselors to help you make decisions about careers advancements and training.",
+    sectionTwoTextStart: "Training that leads to an ",
+    sectionTwoTextLink: "in-demand occupation",
+    sectionTwoTextEnd:
+      " can qualify for funding but your local One Stop will make the final determination As we mentioned under “How Does Funding Work”, these types of occupations are expected to have the most openings in the future in the State of New Jersey This list of occupations can be used by career counselors to help you make decisions about careers advancements and training.",
     sectionThreeHeader: "Interested in funding? Here's what to do next.",
     sectionThreeText: " at your local One-Stop Career Center to explore funding opportunities.",
     sectionThreeLinkText: "Contact a career counselor",
@@ -196,8 +198,10 @@ export const en = {
       "To learn more about any of these options or to start your application process, ",
     purpleBoxLinkText: "please contact your local one-stop",
     greenBoxHeader: "Browse In-Demand Occupations",
-    greenBoxText:
-      "In-Demand occupations are expected to have the most openings in the future in the State of New Jersey. Trainings related to <0>occupations on this list</0> can be eligible for funding by the State.",
+    greenBoxTextStart:
+      "In-Demand occupations are expected to have the most openings in the future in the State of New Jersey Trainings related to ",
+    greenBoxTextLink: "occupations on this list",
+    greenBoxTextEnd: " can be eligible for funding by the State.",
   },
   Header: {
     title: "Training Explorer",

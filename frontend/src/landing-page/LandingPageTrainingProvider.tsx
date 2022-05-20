@@ -47,7 +47,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                   <img alt={t("IconAlt.etplList")} src={IconChecklist} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("TrainingProviderPage.etplDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/etpl")}>
@@ -62,7 +62,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                   <img alt={t("IconAlt.providerApplication")} src={IconPortfolio} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("TrainingProviderPage.applicationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/etpl#apply")}>
@@ -77,7 +77,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
                   <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
                 </div>
                 <div>
-                  <p className={`mtz ${!isTablet && "phl"}`}>
+                  <p className={`mtz mbs ${!isTablet && "phl"}`}>
                     {t("TrainingProviderPage.occupationDescription")}
                   </p>
                   <Button variant="secondary" onClick={() => navigate("/in-demand-occupations")}>

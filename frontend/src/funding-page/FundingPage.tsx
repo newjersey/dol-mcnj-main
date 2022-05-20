@@ -3,7 +3,7 @@ import { Footer } from "../components/Footer";
 import { BetaBanner } from "../components/BetaBanner";
 import React, { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const LINKS = {
   sectionThreeLink:
@@ -36,17 +36,11 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
 
             <h3 className="text-l ptd weight-500">{t("FundingPage.sectionTwoHeader")}</h3>
             <p>
-              <Trans i18nkey="FundingPage.sectionTwoText">
-                Training that leads to an{" "}
-                <Link className="link-format-blue" to="/in-demand-occupations">
-                  in-demand occupation
-                </Link>
-              </Trans>{" "}
-              can qualify for funding but your local One Stop will make the final determination. As
-              we mentioned under “How Does Funding Work”, these types of occupations are expected to
-              have the most openings in the future in the State of New Jersey. This list of
-              occupations can be used by career counselors to help you make decisions about careers
-              advancements and training.
+              {t("FundingPage.sectionTwoTextStart")}
+              <Link className="link-format-blue" to="/in-demand-occupations">
+                {t("FundingPage.sectionTwoTextLink")}
+              </Link>
+              {t("FundingPage.sectionTwoTextEnd")}
             </p>
 
             <h3 className="text-l ptd weight-500">{t("FundingPage.sectionThreeHeader")}</h3>
@@ -81,16 +75,13 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
             </div>
 
             <div className="bg-light-green pam mtm bradl">
-              <h3 className="text-l ptd weight-500">{t("FundingPage.greenBoxHeader")}</h3>
+              <h3 className="text-l weight-500">{t("FundingPage.greenBoxHeader")}</h3>
               <p>
-                <Trans i18nkey="FundingPage.greenBoxText">
-                  In-Demand occupations are expected to have the most openings in the future in the
-                  State of New Jersey. Trainings related to{" "}
-                  <Link className="link-format-blue" to="/in-demand-occupations">
-                    occupations on this list
-                  </Link>
-                </Trans>{" "}
-                can be eligible for funding by the State.
+                {t("FundingPage.greenBoxTextStart")}
+                <Link className="link-format-blue" to="/in-demand-occupations">
+                  {t("FundingPage.greenBoxTextLink")}
+                </Link>
+                {t("FundingPage.greenBoxTextEnd")}
               </p>
             </div>
           </div>
