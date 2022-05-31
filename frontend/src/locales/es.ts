@@ -266,6 +266,19 @@ export const es = {
     counselorAdviceBodyEnd:
       ". Atención, habrá un enlace que puede copiar en la página de formación y después pueda compartir con ellos.",
   },
+  FAQFundingOpportunities: {
+    // pageTitle: "FAQ - Funding Opportunities",
+    breadcrumbLink: "Oportunidades de Financiamiento",
+    header: "Quiero saber más sobre oportunidades de financiación",
+    introBody:
+      'Hay fondos disponibles para personas que buscan nuevas ocupaciones que se encuentran dentro de la lista de ocupaciones ""en demanda"" del estado. Se espera que las ocupaciones en demanda tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey.',
+    qualifyHeader: "¿Cómo sé qué califica para financiación?",
+    qualifyBody:
+      'La capacitación que conduce a una <1>ocupación en demanda</1> puede calificar para financiamiento, pero su One Stop local tomará la determinación final. Como mencionamos en ""Cómo funciona el financiamiento"", se espera que este tipo de ocupaciones tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Esta lista de ocupaciones puede ser utilizada por los consejeros profesionales para ayudarlo a tomar decisiones sobre avances profesionales y capacitación.',
+    nextStepsHeader: "¿Interesado en la financiación? Esto es lo que debe hacer a continuación.",
+    nextStepsBody:
+      "<0>Comuníquese con un consejero de carrera</0> en su One-Stop Career Center local para explorar oportunidades de financiamiento.",
+  },
   FAQSearchHelp: {
     // pageTitle: "FAQ - Search Help",
     breadcrumbLink: "Buscar Ayuda",

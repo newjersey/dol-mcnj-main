@@ -256,6 +256,19 @@ export const en = {
     counselorAdviceBodyEnd:
       ". There will be a link you can copy on the training page that you can share with them.",
   },
+  FAQFundingOpportunities: {
+    pageTitle: "FAQ - Funding Opportunities",
+    breadcrumbLink: "Funding Opportunities",
+    header: "I want to learn more about funding opportunities",
+    introBody:
+      "There is funding available for individuals looking for new occupations that fall within the State's “in-demand” list of occupations. In-demand occupations are expected to have the most openings in the future in the State of New Jersey.",
+    qualifyHeader: "How do I know what qualifies for funding?",
+    qualifyBody:
+      "Training that leads to an <1>in-demand occupation</1> can qualify for funding but your local One Stop will make the final determination. As we mentioned under “How Does Funding Work”, these types of occupations are expected to have the most openings in the future in the State of New Jersey. This list of occupations can be used by career counselors to help you make decisions about careers advancements and training.",
+    nextStepsHeader: "Interested in funding? Here's what to do next.",
+    nextStepsBody:
+      "<0>Contact a career counselor</0> at your local One-Stop Career Center to explore funding opportunities.",
+  },
   FAQSearchHelp: {
     pageTitle: "FAQ - Search Help",
     breadcrumbLink: "Search Help",
