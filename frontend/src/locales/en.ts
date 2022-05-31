@@ -269,6 +269,19 @@ export const en = {
     nextStepsBody:
       "<0>Contact a career counselor</0> at your local One-Stop Career Center to explore funding opportunities.",
   },
+  FAQJobListings: {
+    pageTitle: "FAQ - Job Listings",
+    header: "Job Listings",
+    trainingExplorerHeader: "Finding job listings on the Training Explorer",
+    trainingExplorerBodyOneStart:
+      "The Training Explorer links to job listings on occupation pages. ",
+    trainingExplorerBodyOneLink:
+      'To search for an in-demand occupation, click on the "in-demand occupations" at the top of this page or visit: <1>https://training.njcareers.org/in-demand-occupations</1>.',
+    trainingExplorerBodyTwo:
+      "On this page, you search for any occupation that is projected by the State to have the most growth in job openings. Once you find an occupation, for example Phlebotomy, you can see the number of job listings currently available for that occupation as well as the median salary for that occupation.",
+    trainingExplorerBodyThree:
+      'To view the job listings, select the link "Search current job openings posted for this occupation >". This link will take you to Career OneStop to view listings for this occupation throughout the State of New Jersey. To refine your search, use the filter options to find jobs near you.',
+  },
   FAQSearchHelp: {
     pageTitle: "FAQ - Search Help",
     breadcrumbLink: "Search Help",

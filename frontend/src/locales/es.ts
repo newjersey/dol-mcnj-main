@@ -279,6 +279,19 @@ export const es = {
     nextStepsBody:
       "<0>Comuníquese con un consejero de carrera</0> en su One-Stop Career Center local para explorar oportunidades de financiamiento.",
   },
+  FAQJobListings: {
+    // pageTitle: "FAQ - Job Listings",
+    header: "Listado de trabajos",
+    trainingExplorerHeader: "Búsqueda de ofertas de trabajo en Training Explorer",
+    trainingExplorerBodyOneStart:
+      "El Training Explorer enlaza con listados de trabajos en páginas de ocupación. ",
+    trainingExplorerBodyOneLink:
+      'Para buscar una ocupación en demanda, haga clic en ""ocupaciones en demanda"" en la parte superior de esta página o visite: <1>https://training.njcareers.org/in-demand-occupations</1>.',
+    trainingExplorerBodyTwo:
+      "En esta página, busca cualquier ocupación que el estado proyecte para tener el mayor crecimiento en las ofertas de trabajo. Una vez que encuentre una ocupación, por ejemplo, flebotomía, puede ver la cantidad de ofertas de trabajo disponibles actualmente para esa ocupación, así como el salario medio para esa ocupación.",
+    trainingExplorerBodyThree:
+      'Para ver las ofertas de trabajo, seleccione el enlace ""Buscar ofertas de trabajo actuales publicadas para esta ocupación >"". Este enlace lo llevará a Career OneStop para ver los listados de esta ocupación en todo el estado de Nueva Jersey. Para refinar su búsqueda, use las opciones de filtro para encontrar trabajos cerca de usted.',
+  },
   FAQSearchHelp: {
     // pageTitle: "FAQ - Search Help",
     breadcrumbLink: "Buscar Ayuda",
