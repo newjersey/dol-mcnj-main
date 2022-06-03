@@ -269,6 +269,48 @@ export const en = {
     nextStepsBody:
       "<0>Contact a career counselor</0> at your local One-Stop Career Center to explore funding opportunities.",
   },
+  FAQHealth: {
+    pageTitle: "FAQ - Health Insurance",
+    header: "Health Insurance",
+    intro:
+      "Here is some information based on NJ state resources that we think may be useful to you:",
+    familyCareIntro:
+      "NJ FamilyCare, the State's Medicaid program, covers COVID-19 testing, visits for testing, and testing-related services without cost to members. The program will also cover 90-day supplies of prescriptions for maintenance medications and early refills of prescriptions.",
+    familyCareIntroLink: "For more information, click <1>here</1>.",
+    dhs: "The Department of Human Services Novel Coronavirus page has information on NJFamilyCare/Medicaid waivers as well as temporary telehealth guidelines for providers.",
+    dhsLink: "The information can be found <1>here</1>.",
+    covidHubLink:
+      "Please reference the <1>NJ COVID Information Hub website</1> for any of your questions or concerns during this challenging time.",
+    familyCareHeader: "NJ FamilyCare",
+    familyCareBodyOne:
+      "NJ FamilyCare is a state health insurance program that provides qualified NJ residents with free or low cost health insurance that covers doctor visits, prescriptions, vision, dental care, mental health and substance use services, and hospitalization. Each county has at least three Health Plans that will help you get these services once enrolled.",
+    familyCareIncomeLink:
+      "Depending on your family's income, there may be restrictions on certain services, which can be viewed <1>here</1>.",
+    familyCareBodyTwo:
+      "<0>Groups that are eligible</0> for coverage under NJ FamilyCare include children, pregnant women, parents/caretaker relatives, single adults and childless couples. Financial eligibility will be determined by the latest federal tax return which, when filed, will be electronically verified.",
+    familyCareBodyThree:
+      "To apply for NJ FamilyCare, click <1>here</1>. If you have any questions or would like additional information about NJ FamilyCare please contact 1 (800)-701-0710 and a Health Benefits Coordinator will assist you.",
+    medicaidHeader: "NJ Medicaid",
+    medicaidBody:
+      "NJ Medicaid provides health insurance to parents, caretakers, and dependent children, pregnant women, and people who are aged, blind, or disabled depending on a range of income and other criteria. These programs pay for hospital services, doctor visits, prescriptions, nursing home care, and other health care needs. To be eligible for NJ Medicaid, you must be a NJ resident, a U.S. citizen or qualified alien, and meet a specific financial income. In addition, you must fall into one of these groups: families with dependent children, pregnant women, and individuals who are 65 or older, blind, or permanently disabled.",
+    medicaidContact:
+      "For questions about NJ Medicaid, please call 1 (800) 356-1561 or contact your county's <1>Board of Social Services</1>.",
+    njMedicareHeader: "NJ Medicare Information and Referral Service",
+    njMedicareBody:
+      "New Jersey's Medicare Information and Referral Service provides free, unbiased counseling for seniors regarding <1>Medicare</1> and other insurance issues. Individuals with concerns that cannot be addressed over the phone are referred to the State Health Insurance Assistance Program (SHIP) office in their county for assistance.",
+    njMedicareADRC:
+      "The unit also administers, and is the out-of-state default service for, the <1>ADRC</1> hotline at 877-222-3737. This number connects people calling from a landline within the state to their <3>county office on aging</3> where they can learn about and apply for a broad range of services.",
+    medicareHeader: "Medicare",
+    medicareSignup:
+      "To sign up for federal Medicare coverage, please visit <1>medicare.gov</1>, which provides information on how to get started with Medicare, your Medicare coverage choices, and when and how to apply.",
+    medicareContact:
+      "If you have any questions or would like additional information about any of the above, please visit the Department of Health's <1>website</1> or call 1 (800) 701-0710.",
+    cobraHeader: "Federal Program: Continuation of Health Coverage - COBRA",
+    cobraBody:
+      "In addition, if you recently lost your job, you may be eligible to temporarily keep the insurance you had with your previous employer through the U.S. Department Of Labor program COBRA, though it may cost you more than when you were an employee. COBRA generally applies to all private-sector group health plans maintained by employers that had at least 20 employees.",
+    cobraContact:
+      "To learn about COBRA, please visit the U.S. Department of Labor's <1>website</1> or call 1 (866) 487-2365.",
+  },
   FAQJobListings: {
     pageTitle: "FAQ - Job Listings",
     header: "Job Listings",
