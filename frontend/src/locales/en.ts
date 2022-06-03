@@ -238,6 +238,26 @@ export const en = {
     federalResourcesLinkThree:
       "For all other family, dependent, and senior / elder care resources, please visit <1>NJ 2-1-1</1> or with your phone dial 2-1-1.",
   },
+  FAQDataSources: {
+    pageTitle: "FAQ - Data Sources",
+    breadcrumbLink: "Data Sources",
+    header: "The Data Sources used for this website",
+    body1:
+      "The Training Explorer is home to New Jersey's Eligible Training Provider List (ETPL) and Consumer Report Card (CRC). The ETPL is a comprehensive listing of all schools and organizations offering occupational education and job training programs that are eligible to receive publicly funded tuition assistance. The listing is made available via this website's “Find Training” search feature. This dataset is updated on a weekly basis and is transitioning to real-time availability.",
+    body2:
+      "The types of training you will find on this website range from private career schools, non-profit schools, community colleges, vocational schools, literacy programs, short-term credentials, and registered apprenticeships.",
+    occupationalHeader: "Occupational Data",
+    occupationalBody1:
+      "Informational data related to occupations, which is available through the in-demand occupations link at the top of the page, come from a variety of data sources. These data are updated from a real-time to annual basis.",
+    occupationalBody2:
+      "The job listings and link to the jobs count is from the <1>National Labor Exchange</1> through <3>Career OneStop's API</3>. Median Salary for the State of New Jersey is provided by the New Jersey Department of Labor.",
+    occupationalBody3:
+      "The description and day in the life content are from <1>ONet Online</1>. The educational and certification sections are from the Bureau of Labor Statistics.",
+    occupationalBody4:
+      "The related training and related career sections are a crosswalk of training that lead to that occupation on the page.",
+    occupationalBody5:
+      "All of the occupation data are pulled via real-time API and are showing the most up to date information.",
+  },
   FAQEnrollProgram: {
     pageTitle: "FAQ - Enroll Program",
     breadcrumbLink: "Enroll Program",
