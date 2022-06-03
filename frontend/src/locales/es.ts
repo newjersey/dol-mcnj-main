@@ -279,6 +279,47 @@ export const es = {
     nextStepsBody:
       "<0>Comuníquese con un consejero de carrera</0> en su One-Stop Career Center local para explorar oportunidades de financiamiento.",
   },
+  FAQHealth: {
+    // pageTitle: "FAQ - Health Insurance",
+    header: "Seguro de salud",
+    intro:
+      "Aquí hay información basada en los recursos del estado de NJ que creemos que puede ser útil para usted:",
+    familyCareIntro:
+      "NJ FamilyCare, el programa estatal de Medicaid, cubre las pruebas de COVID-19, las visitas para las pruebas y los servicios relacionados con las pruebas sin costo para los miembros. El programa también cubrirá suministros de recetas para 90 días para medicamentos de mantenimiento y resurtidos anticipados de recetas.",
+    familyCareIntroLink: "Para obtener más información, haga clic <1>aquí</1>.",
+    dhs: "La página del nuevo coronavirus del Departamento de Servicios Humanos tiene información sobre las exenciones de NJFamilyCare/Medicaid, así como pautas temporales de telesalud para los proveedores.",
+    dhsLink: "La información se puede encontrar <1>aquí</1>.",
+    covidHubLink:
+      "Consulte el <1>sitio web del NJ COVID Information Hub</1> para cualquier pregunta o inquietud durante este momento difícil.",
+    familyCareBodyOne:
+      "NJ FamilyCare es un programa estatal de seguro de salud que brinda a los residentes calificados de NJ un seguro de salud gratuito o de bajo costo que cubre visitas al médico, recetas, cuidado de la vista, atención dental, servicios de salud mental y uso de sustancias, y hospitalización. Cada condado tiene al menos tres planes de salud que lo ayudarán a obtener estos servicios una vez que se inscriba.",
+    familyCareIncomeLink:
+      "Dependiendo de los ingresos de su familia, puede haber restricciones en ciertos servicios, que se pueden ver <1>aquí</1>.",
+    familyCareBodyTwo:
+      "<0>Los grupos que son elegibles</0> para la cobertura de NJ FamilyCare incluyen niños, mujeres embarazadas, padres/parientes encargados del cuidado, adultos solteros y parejas sin hijos. La elegibilidad financiera estará determinada por la última declaración de impuestos federales que, cuando se presente, se verificará electrónicamente.",
+    familyCareBodyThree:
+      "Para solicitar NJ FamilyCare, haga clic <1>aquí</1>. Si tiene alguna pregunta o desea obtener información adicional sobre NJ FamilyCare, comuníquese al 1 (800)-701-0710 y un coordinador de beneficios de salud lo ayudará.",
+    medicaidHeader: "Medicaid de Nueva Jersey",
+    medicaidBody:
+      "NJ Medicaid brinda seguro de salud a padres, cuidadores y niños dependientes, mujeres embarazadas y personas mayores, ciegas o discapacitadas según un rango de ingresos y otros criterios. Estos programas pagan los servicios hospitalarios, las visitas al médico, las recetas, la atención en un asilo de ancianos y otras necesidades de atención médica. Para ser elegible para NJ Medicaid, debe ser residente de NJ, ciudadano estadounidense o extranjero calificado y cumplir con un ingreso financiero específico. Además, debe pertenecer a uno de estos grupos: familias con hijos dependientes, mujeres embarazadas y personas mayores de 65 años, ciegas o discapacitadas permanentemente.",
+    medicaidContact:
+      "Si tiene preguntas sobre NJ Medicaid, llame al 1 (800) 356-1561 o comuníquese con la <1>Junta de Servicios Sociales de su condado</1>.",
+    njMedicareHeader: "Servicio de Información y Referencia de NJ Medicare",
+    njMedicareBody:
+      "El Servicio de Información y Referencia de Medicare de Nueva Jersey brinda asesoramiento gratuito e imparcial para personas mayores sobre <1>Medicare</1> y otros temas de seguros. Las personas con inquietudes que no se pueden abordar por teléfono se derivan a la oficina del Programa Estatal de Asistencia sobre Seguros de Salud (SHIP) en su condado para recibir asistencia.",
+    njMedicareADRC:
+      "La unidad también administra y es el servicio predeterminado fuera del estado para la línea directa de <1>ADRC</1> en el 877-222-3737. Este número conecta a las personas que llaman desde un teléfono fijo dentro del estado con la <3>oficina de envejecimiento de su condado</3>, donde pueden obtener información y solicitar una amplia gama de servicios.",
+    medicareHeader: "Seguro médico del estado",
+    medicareSignup:
+      "Para inscribirse en la cobertura federal de Medicare, visite <1>medicare.gov</1>, que brinda información sobre cómo comenzar con Medicare, sus opciones de cobertura de Medicare y cuándo y cómo presentar la solicitud.",
+    medicareContact:
+      "Si tiene alguna pregunta o desea obtener información adicional sobre cualquiera de los puntos anteriores, visite el <1>sitio web</1> del Departamento de Salud o llame al 1 (800) 701-0710.",
+    cobraHeader: "Programa Federal: Continuación de Cobertura de Salud - COBRA",
+    cobraBody:
+      "Además, si perdió su trabajo recientemente, puede ser elegible para mantener temporalmente el seguro que tenía con su empleador anterior a través del programa COBRA del Departamento de Trabajo de los EE. UU., aunque puede costarle más que cuando era empleado. COBRA generalmente se aplica a todos los planes de salud grupales del sector privado mantenidos por empleadores que tenían al menos 20 empleados.",
+    cobraContact:
+      "Para obtener más información sobre COBRA, visite el <1>sitio web</1> del Departamento de Trabajo de EE. UU. o llame al 1 (866) 487-2365.",
+  },
   FAQJobListings: {
     // pageTitle: "FAQ - Job Listings",
     header: "Listado de trabajos",
