@@ -247,6 +247,26 @@ export const es = {
     federalResourcesLinkThree:
       "Para todos los demás recursos para el cuidado de familiares, dependientes y ancianos / ancianos, visite <1>NJ 2-1-1</1> o con su teléfono marque 2-1-1.",
   },
+  FAQDataSources: {
+    // pageTitle: "FAQ - Data Sources",
+    breadcrumbLink: "Fuentes de datos",
+    header: "Las fuentes de datos utilizadas para este sitio web",
+    body1:
+      'El New Jersey Training Explorer alberga la Lista de proveedores de capacitación elegibles (ETPL) y la Tarjeta de informe del consumidor (CRC) de Nueva Jersey. El ETPL es una lista completa de todas las escuelas y organizaciones que ofrecen educación ocupacional y programas de capacitación laboral que son elegibles para recibir asistencia financiera para la matrícula. La lista está disponible a través de la función de búsqueda ""Buscar capacitación"" de este sitio web. Este conjunto de datos se actualiza semanalmente y está en transición a disponibilidad en tiempo real.',
+    body2:
+      "Los tipos de capacitación que encontrará en este sitio web van desde escuelas profesionales privadas, escuelas sin fines de lucro, colegios comunitarios, escuelas vocacionales, programas de alfabetización, credenciales a corto plazo y aprendizajes registrados.",
+    occupationalHeader: "Datos Ocupacionales",
+    occupationalBody1:
+      "Los datos informativos relacionados con las ocupaciones, que están disponibles a través del enlace de ocupaciones en demanda en la parte superior de la página, provienen de una variedad de fuentes de datos. Estos datos se actualizan en tiempo real a una base anual.",
+    occupationalBody2:
+      "Las listas de trabajos y el enlace al conteo de trabajos provienen de la <1>Bolsa Nacional de Trabajo</1> a través de la API de <3>Career OneStop</3>. El salario medio para el estado de Nueva Jersey lo proporciona el Departamento de Trabajo de Nueva Jersey.",
+    occupationalBody3:
+      "La descripción y el contenido del día en la vida son de <1>ONet Online</1>. Las secciones de educación y certificación son de la Oficina de Estadísticas Laborales.",
+    occupationalBody4:
+      "Las secciones relacionadas con la capacitación y la carrera relacionada son un cruce de capacitaciones que conducen a esa ocupación en la página.",
+    occupationalBody5:
+      "Todos los datos de ocupación se extraen a través de una API en tiempo real y muestran la información más actualizada.",
+  },
   FAQEnrollProgram: {
     // pageTitle: "FAQ - Enroll Program",
     breadcrumbLink: "Inscríbase en un programa",
