@@ -316,6 +316,122 @@ export const es = {
     careerExplorationBodyEnd:
       ' por el estado de Nueva Jersey, seleccione el enlace ""Ocupaciones en alta demanda"" en la parte superior de la página. Este enlace lo llevará a una lista de todas las ocupaciones que se prevé que experimenten grandes aumentos en el crecimiento y las ofertas de trabajo. En esta página, puede usar la barra de búsqueda en la parte superior de la página para buscar una ocupación o puede usar las categorías de industria para buscar ocupaciones en demanda. La página cada ocupación detallará estadísticas sobre cuántos trabajos hay actualmente en el estado a través de la Bolsa de Trabajo Nacional, así como el salario medio para esa carrera. También encontrará una breve descripción de esa ocupación, cómo es un día en la vida de ese trabajo, así como los requisitos de educación o credenciales para ingresar a esa ocupación. Por último, verá la formación relacionada y las carreras relacionadas con la ocupación.',
   },
+  FAQUnemployment: {
+    // pageTitle: "FAQ - Unemployment Insurance",
+    header: "Seguro de desempleo",
+    intro:
+      "Aquí hay información basada en los recursos del estado de NJ que creemos que puede ser útil para usted:",
+    // covidHeader: "COVID-19",
+    eligibilityToolIntro:
+      "El Departamento de Trabajo de Nueva Jersey ha desarrollado el <1>NJDOL Benefits Eligibility Tool</1> para que le resulte más fácil comprender qué programas de beneficios relacionados con el trabajo y protecciones laborales están disponibles para ayudar a estabilizar su hogar durante este momento difícil.",
+    eligibilityToolVisit: "Visite esta herramienta en <1>https://getstarted.nj.gov/labor/</1>.",
+    covidImportantInfo:
+      "Puede encontrar información importante para reclamar beneficios semanales debido a la emergencia de COVID-19 <1>aquí</1>.",
+    covidAdditionalInfo:
+      "Puede encontrar orientación adicional del Departamento de Trabajo de NJ sobre beneficios y COVID-19 <1>aquí</1>.",
+    covidHub:
+      "Consulte el sitio web del <1>NJ COVID Information Hub</1> para cualquier pregunta o inquietud durante este momento difícil.",
+    applyingHeader: "Solicitar Seguro de Desempleo en Línea",
+    applyingOnline:
+      "Muchos solicitantes de empleo solicitan en línea el Seguro de Desempleo, lo cual puede hacer <1>aquí</1>.",
+    applyingSteps:
+      "Según el Departamento de Trabajo de Nueva Jersey, se deben seguir estos pasos para solicitar en línea el Seguro de Desempleo:",
+    applyingStepOne:
+      "Verifique la elegibilidad: Para solicitar los beneficios de desempleo en línea, debe cumplir con uno de los siguientes <1>requisitos</1>.",
+    applyingStepTwo:
+      "Prepare los documentos gubernamentales: una vez que determine la elegibilidad en línea, tenga a mano los siguientes <1>documentos gubernamentales</1>.",
+    applyingStepThree:
+      "Prepare la información del empleador: tenga a mano la siguiente <1>información del empleador</1> (de los últimos 18 meses) cuando presente la solicitud.",
+    applyingStepFour:
+      "Crear una cuenta: Para solicitar beneficios de desempleo en línea, haga clic <1>aquí</1>. ¡Tenga a mano una dirección de correo electrónico principal cuando cree su cuenta!",
+    applyingStepFive:
+      "Haga clic en el enlace de la aplicación en el panel: una vez que su cuenta esté configurada y haya iniciado sesión, habrá un <1>panel</1> que incluye el enlace de la aplicación, el estado de la aplicación y una pestaña de información.",
+    applyingPhoneHeader: "Solicitud de seguro de desempleo por teléfono",
+    applyingPhoneIntro:
+      "Para solicitar por teléfono el Seguro de Desempleo, el Departamento de Trabajo y Desarrollo de la Fuerza Laboral señala que debe seguir estos pasos:",
+    applyingPhoneStepOne:
+      "Prepare documentos gubernamentales/información laboral: <1>aquí</1> se incluye una lista completa de los documentos requeridos.",
+    applyingPhoneStepTwoPartOne:
+      "Llame a un centro de llamadas de reempleo: los agentes de servicio al cliente en el centro de llamadas pueden aceptar su reclamo de seguro de desempleo por teléfono.",
+    applyingPhoneStepTwoPartTwo:
+      "La información de contacto depende de la región del estado, que se puede ver <1>aquí</1>.",
+    applyingPhoneStepThreePartOne:
+      "Revise su correo: tenga cuidado y esté atento al correo de la Oficina de Trabajo y Desarrollo de la Fuerza Laboral. También pueden enviar información por correo electrónico, así que revise su bandeja de entrada regularmente.",
+    applyingPhoneStepThreePartTwo:
+      "Para obtener más información sobre cartas y formularios que se le pueden enviar, haga clic <1>aquí</1>.",
+    eligibilityHeader: "Requisitos de elegibilidad para Beneficios de Desempleo",
+    eligibilityIntro:
+      "Para seguir siendo elegible para los beneficios de desempleo, el Departamento de Trabajo de Nueva Jersey requiere que cumpla con lo siguiente:",
+    eligibilityListOne:
+      "Debe asistir a todas las citas programadas con el Departamento de Trabajo.",
+    eligibilityListTwo: "Debes poder trabajar.",
+    eligibilityListThree: "Debes estar disponible para trabajar.",
+    eligibilityListFour: "Debe buscar trabajo activamente.",
+    eligibilityListFive: "No debe rechazar una oferta de trabajo adecuado.",
+    eligibilityListSix:
+      "Debe reclamar sus beneficios del seguro de desempleo cada semana en línea o cada dos semanas por teléfono.",
+    eligibilityLink:
+      "Haga clic <1>aquí</1> para obtener información completa sobre sus derechos y responsabilidades mientras recibe beneficios de UI.",
+    claimingHeader: "Reclamación de beneficios del seguro de desempleo",
+    claimingIntro:
+      "Hay dos formas en las que puede reclamar sus beneficios de seguro de desempleo semanales o quincenales.",
+    claimingOnlineHeader: "Instrucciones en línea",
+    claimingOnlineLink:
+      "Puede reclamar sus beneficios de UI en línea creando una <1>cuenta</1> con el Departamento de Trabajo y Desarrollo de la Fuerza Laboral.",
+    claimingOnlineMoreInfoLink:
+      "Para obtener más información sobre la certificación de beneficios en línea, haga clic <1>aquí</1>.",
+    claimingOnlineScheduleIntro:
+      "Nuestras horas de operacion para certificar beneficios en línea es:",
+    claimingOnlineScheduleListOne: "Lunes-Viernes 7:00 a.m. - 18:00",
+    claimingOnlineScheduleListTwo: "Sábado 8:00 a.m. - 3:00 pm.",
+    claimingOnlineScheduleListThree: "Domingo 8:00 a.m. - 5:00 pm.",
+    claimingPhoneScheduleHeader: "Instrucciones telefónicas",
+    claimingPhoneScheduleIntro:
+      "Necesitará su PIN de 4 dígitos para certificar sus beneficios (consulte a continuación). El horario de atención para reclamos de beneficios telefónicos es de 8:30 a. m. a 6:00 p. m., de lunes a viernes (incluidos los feriados). El horario para certificar beneficios por teléfono es:",
+    claimingPhoneScheduleListOne:
+      "Lunes: para personas cuyo número de Seguro Social termina en un número impar (1,3,5,7,9).",
+    claimingPhoneScheduleListTwo:
+      "Martes: para personas cuyo número de Seguro Social termina en número par (0, 2, 4, 6, 8).",
+    claimingPhoneScheduleListThree:
+      "Miércoles a viernes - para aquellos que no pudieron certificar en el día asignado.",
+    claimingPhoneContactIntro: "Números de contacto para radicar por teléfono:",
+    claimingPhoneContactListOne: "Norte de Nueva Jersey (201) 601-4100",
+    claimingPhoneContactListTwo: "Sur de Nueva Jersey (856) 507-2340",
+    claimingPhoneContactListThree: "Centro de Nueva Jersey (732) 761-2020",
+    claimingPhoneContactListFour: "Reclamaciones fuera del estado (888) 795-6672",
+    pinHeader: "Obtención de su número de identificación personal (PIN)",
+    pinBody:
+      "Cuando certifique sus beneficios por primera vez, elegirá un número de identificación personal (PIN) de 4 dígitos. Necesitará su PIN cada vez que certifique sus beneficios. Anote su PIN y guárdelo en un lugar seguro. Su PIN es válido por un año.",
+    pinLink:
+      "Si olvida su PIN, llame a su <1>Centro de Llamadas de Reempleo local</1> y pídale al representante que restablezca su PIN.",
+    paymentHeader: "Recibir pago",
+    paymentIntro:
+      "Hay dos formas de recibir pagos de beneficios de UI: con tarjeta de débito o mediante depósito directo.",
+    paymentLink:
+      "Si desea recibir sus pagos de beneficios mediante depósito directo, elija esa opción cuando presente su reclamo por primera vez o complete la solicitud de depósito directo <1>en línea</1>.",
+    paymentPrepaidInfo:
+      "Si no elige el depósito directo, recibirá una tarjeta de débito prepaga de Bank of America. Bank of America le envía la tarjeta por correo en un sobre común y sin marcas dentro de los 7 a 10 días posteriores a la presentación de su reclamo inicial.",
+    paymentMoreInfoLink:
+      "Haga clic <1>aquí</1> para obtener más información sobre los pagos de beneficios de UI.",
+    additionalProgramsHeader: "Programas adicionales de apoyo a los ingresos",
+    additionalProgramsDHSLink:
+      "El <1>Departamento de Servicios Humanos de Nueva Jersey</1> ofrece una variedad de programas para personas y familias que necesitan asistencia económica. Las actividades dirigidas al empleo de WorkFirst New Jersey (WFNJ) brindan servicios de educación y capacitación laboral para las personas que reciben Asistencia Temporal para Familias Necesitadas (TANF) y Asistencia General (GA). Los servicios incluyen asesoramiento laboral, evaluación, asistencia en la búsqueda de empleo, experiencia laboral, capacitación en el trabajo, educación vocacional, desarrollo de habilidades de educación básica, capacitación en informática y otros servicios para ayudar a los beneficiarios de WFNJ a encontrar y mantener un trabajo.",
+    additionalProgramsDHSMoreInfoLink:
+      "Para obtener más información, llame al 800-792-9773, envíe este <1>formulario</1> en línea o visite <3>NJHelps</3> para ver si es elegible para recibir asistencia.",
+    additionalProgramsTDILink:
+      "Si no puede trabajar debido a una enfermedad o lesión no causada por su trabajo, puede ser elegible para los beneficios del <1>Seguro de Incapacidad Temporal</1>.",
+    additionalProgramsTDIFileLink:
+      "Presente su reclamo <1>en línea</1> para un servicio más rápido.",
+    additionalProgramsSocialSecurity:
+      "Además, puede ser elegible para los beneficios del <1>Seguro Social</1>, como el <3>Seguro de Incapacidad</3> o la <5>Seguridad de Ingreso Suplementario</5>.",
+    supportHeader: "Apoyo del seguro de desempleo e información de contacto",
+    supportAddressHeader: "Dirección de envio",
+    supportOnlineHeader: "Soporte en línea y telefónico",
+    supportOnlineWebsite:
+      "Para obtener más información sobre el seguro de desempleo, visite el <1>sitio web de la División de Seguro de Desempleo</1>.",
+    supportPhoneMail:
+      "Para contacto directo, llame a su <1>Centro de Llamadas de Reempleo local</1> o comuníquese con la División de Seguro de Desempleo al (609) 292-24660 o a <3>UIhelp@dol.nj.gov</3>.",
+  },
   Footer: {
     privacyPolicyLinkLabel: "Política de privacidad",
     termsOfServiceLinkLabel: "Términos de servicio",

@@ -307,6 +307,118 @@ export const en = {
     careerExplorationBodyEnd:
       " link at the top of the page. This link will navigate you to a listing of all the occupations that are projected to experience large increases in growth and job listings. On this page, you can use the search bar at the top of the page to look for an occupation or you can use the industry categories to look for in-demand occupations. An occupation's page will detail statistics about how many jobs are currently listed in the State through the National Labor Exchange as well as the median salary for that career. You will also find a short description of that occupation, what a day in the life of that job looks like, as well as the education or credential requirements to get into that occupation. Finally, you will see related training and related careers for the occupation.",
   },
+  FAQUnemployment: {
+    pageTitle: "FAQ - Unemployment Insurance",
+    header: "Unemployment Insurance",
+    intro:
+      "Here is some information based on NJ state resources that we think may be useful to you:",
+    covidHeader: "COVID-19",
+    eligibilityToolIntro:
+      "The New Jersey Department of Labor has developed the <1>NJDOL Benefits Eligibility Tool</1> to make it easier for you to understand what work-related benefits programs, and job protections, are available to you to help stabilize your household during this difficult time.",
+    eligibilityToolVisit: "Visit this tool at <1>https://getstarted.nj.gov/labor/</1>.",
+    covidImportantInfo:
+      "Important information for claiming weekly benefits due to the COVID-19 emergency can be found <1>here</1>.",
+    covidAdditionalInfo:
+      "Additional guidance from the NJ Department of Labor on benefits and COVID-19 can be found <1>here</1>.",
+    covidHub:
+      "Please reference the <1>NJ COVID Information Hub website</1> for any of your questions or concerns during this challenging time.",
+    applyingHeader: "Applying for Unemployment Insurance Online",
+    applyingOnline:
+      "Many job seekers apply online for Unemployment Insurance, which you can do <1>here</1>.",
+    applyingSteps:
+      "According to the New Jersey Department of Labor, these steps must be taken to apply online for Unemployment Insurance:",
+    applyingStepOne:
+      "Check eligibility: In order to apply for unemployment benefits online, you must meet one of the following <1>requirements</1>.",
+    applyingStepTwo:
+      "Prepare government documents: Once you determine online eligibility, please have the following <1>government documents</1> with you.",
+    applyingStepThree:
+      "Prepare employer information: Please have the following <1>employer information</1> (from the last 18 months) ready when you are applying.",
+    applyingStepFour:
+      "Create an account: To apply for unemployment benefits online, click <1>here</1>. Please have a primary email address ready when creating your account!",
+    applyingStepFive:
+      "Click application link on dashboard: Once your account is set up and you are logged in, there will be a <1>dashboard</1> that includes the application link, application status, and an information tab.",
+    applyingPhoneHeader: "Applying for Unemployment Insurance by Phone",
+    applyingPhoneIntro:
+      "In order to apply by phone for Unemployment Insurance, the Department of Labor and Workforce Development notes that you must follow these steps:",
+    applyingPhoneStepOne:
+      "Prepare government documents/employment information: A full list of required documents is listed <1>here</1>.",
+    applyingPhoneStepTwoPartOne:
+      "Call a Reemployment Call Center: Customer service agents at the call center can accept your Unemployment Insurance claim over the phone.",
+    applyingPhoneStepTwoPartTwo:
+      "Contact information is dependent by state region, which can be viewed <1>here</1>.",
+    applyingPhoneStepThreePartOne:
+      "Check your mail: Please be mindful and on the look out for mail from The Office of Labor and Workforce Development. They may also send information via email, so please check your inbox regularly.",
+    applyingPhoneStepThreePartTwo:
+      "For more information on letters and forms that may be sent you, please click <1>here</1>.",
+    eligibilityHeader: "Eligibility requirements for Unemployment Benefits",
+    eligibilityIntro:
+      "To remain eligible for unemployment benefits, the New Jersey Department of Labor requires that you adhere to the following:",
+    eligibilityListOne: "You must keep all scheduled appointments with the Department of Labor.",
+    eligibilityListTwo: "You must be able to work.",
+    eligibilityListThree: "You must be available for work.",
+    eligibilityListFour: "You must actively seek work.",
+    eligibilityListFive: "You must not refuse an offer of suitable work.",
+    eligibilityListSix:
+      "You must claim your unemployment insurance benefits every week online or every two weeks by phone.",
+    eligibilityLink:
+      "Click <1>here</1> for complete information about your rights and responsibilities while receiving UI benefits.",
+    claimingHeader: "Claiming Unemployment Insurance Benefits",
+    claimingIntro:
+      "There are two ways in which you can claim your weekly or biweekly unemployment insurance benefits.",
+    claimingOnlineHeader: "Online Instructions",
+    claimingOnlineLink:
+      "You can claim your UI benefits online by creating an <1>account</1> with the Department of Labor and Workforce Development.",
+    claimingOnlineMoreInfoLink:
+      "For more information about certifying benefits online, click <1>here</1>.",
+    claimingOnlineScheduleIntro: "The schedule for certifying benefits online is:",
+    claimingOnlineScheduleListOne: "Monday-Friday 7:00a.m. - 6:00p.m.",
+    claimingOnlineScheduleListTwo: "Saturday 8:00a.m. - 3:00p.m.",
+    claimingOnlineScheduleListThree: "Sunday 8:00a.m. - 5:00p.m.",
+    claimingPhoneScheduleHeader: "Phone Instructions",
+    claimingPhoneScheduleIntro:
+      "You will need your 4-digit PIN to certify your benefits (see below). The hours of operation for phone benefit claims are 8:30am-6:00pm, Monday to Friday (including holidays). The schedule for certifying benefits by phone is:",
+    claimingPhoneScheduleListOne:
+      "Mondays - for individuals whose Social Security number ends with an odd number (1,3,5,7,9).",
+    claimingPhoneScheduleListTwo:
+      "Tuesdays - for individuals whose Social Security number ends with an even number (0, 2, 4, 6, 8).",
+    claimingPhoneScheduleListThree:
+      "Wednesday through Friday - for those who missed certifying on the assigned day.",
+    claimingPhoneContactIntro: "Contact numbers to file by phone:",
+    claimingPhoneContactListOne: "North New Jersey (201) 601-4100",
+    claimingPhoneContactListTwo: "South New Jersey (856) 507-2340",
+    claimingPhoneContactListThree: "Central New Jersey (732) 761-2020",
+    claimingPhoneContactListFour: "Out-of-State Claims (888) 795-6672",
+    pinHeader: "Obtaining Your Personal Identification Number (PIN)",
+    pinBody:
+      "When you first certify your benefits, you will choose a 4-digit personal identification number (PIN). You will need your PIN every time you certify for you benefits. Write down your PIN and keep it in a safe, secure place. Your PIN is valid for one year.",
+    pinLink:
+      "If you forget your PIN, please call your local <1>Reemployment Call Center</1>, and ask the representative to reset your PIN.",
+    paymentHeader: "Receiving Payment",
+    paymentIntro:
+      "There are two ways to receive UI benefit payments: by debit card or by direct deposit.",
+    paymentLink:
+      "If you would like to receive your benefit payments via direct deposit, choose that option when you first file your claim, or complete the direct deposit application <1>online</1>.",
+    paymentPrepaidInfo:
+      "If you do not choose direct deposit, you will receive a prepaid Bank of America debit card. Bank of America mails the card to you in a plain, unmarked envelope within 7-10 days after filing your initial claim.",
+    paymentMoreInfoLink: "Click <1>here</1> for more information about UI benefit payments.",
+    additionalProgramsHeader: "Additional Income Support Programs",
+    additionalProgramsDHSLink:
+      "The <1>New Jersey Department of Human Services</1> offers a variety of programs for individuals and families who need income assistance. WorkFirst New Jersey (WFNJ) employment-directed activities provide employment education and training services for people who receive Temporary Assistance for Needy Families (TANF) and General Assistance (GA). Services include employment counseling, assessment, job search assistance, work experience, on-the-job training, vocational education, basic education skill development, computer literacy training, and other services to help WFNJ recipients find and keep a job.",
+    additionalProgramsDHSMoreInfoLink:
+      "For more information, please call 800-792-9773, submit this online <1>form</1>, or visit <3>NJHelps</3> to see if you are eligible for assistance.",
+    additionalProgramsTDILink:
+      "If you cannot work because of sickness or injury not caused by your job, you may be eligible for <1>Temporary Disability Insurance benefits</1>.",
+    additionalProgramsTDIFileLink: "File your claim <1>online</1> for faster service.",
+    additionalProgramsSocialSecurity:
+      "In addition, you may be eligible for <1>Social Security</1> benefits such as <3>Disability Insurance</3> or <5>Supplemental Security Income</5>.",
+    supportHeader: "Unemployment Insurance Support and Contact Information",
+    supportAddressHeader: "Mailing Address",
+    supportOnlineHeader: "Online and phone support",
+    supportOnlineWebsite:
+      "For more information about unemployment insurance, visit the <1>Division of Unemployment Insurance's website</1>.",
+    supportPhoneMail:
+      "For direct contact, please call your local <1>Reemployment Call Center</1> or contact the Division of Unemployment Insurance at (609) 292-24660 or at <3>UIhelp@dol.nj.gov</3>.",
+  },
   Footer: {
     privacyPolicyLinkLabel: "Privacy Policy",
     termsOfServiceLinkLabel: "Terms of Service",
