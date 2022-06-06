@@ -420,6 +420,21 @@ export const es = {
     careerExplorationBodyEnd:
       ' por el estado de Nueva Jersey, seleccione el enlace ""Ocupaciones en alta demanda"" en la parte superior de la página. Este enlace lo llevará a una lista de todas las ocupaciones que se prevé que experimenten grandes aumentos en el crecimiento y las ofertas de trabajo. En esta página, puede usar la barra de búsqueda en la parte superior de la página para buscar una ocupación o puede usar las categorías de industria para buscar ocupaciones en demanda. La página cada ocupación detallará estadísticas sobre cuántos trabajos hay actualmente en el estado a través de la Bolsa de Trabajo Nacional, así como el salario medio para esa carrera. También encontrará una breve descripción de esa ocupación, cómo es un día en la vida de ese trabajo, así como los requisitos de educación o credenciales para ingresar a esa ocupación. Por último, verá la formación relacionada y las carreras relacionadas con la ocupación.',
   },
+  FAQOutOfState: {
+    // pageTitle: "FAQ - ETPL Out of State Provider",
+    breadcrumbLink: "Proveedor de ETPL localizado a fuera del estado",
+    header: "Proveedores de formacion fuera del estado",
+    body: "Un proveedor de formacion de otro estado que se haya determinado que es un proveedor de formacion elegible según los procedimientos de elegibilidad de ETPL en el estado de origen del proveedor se considera elegible para ser parte del ETPL en Nueva Jersey. Los proveedores de formacion elegibles de fuera del estado aún deben enviar una solicitud ETPL al COEI e incluir prueba de elegibilidad ETPL en el estado de origen del proveedor.",
+  },
+  // FAQETPLStandards: {
+  //   pageTitle: "FAQ - ETPL Performance Standards",
+  //   breadcrumbLink: "ETPL Performance Standards",
+  //   header: "Minimum Performance Standards for Training Providers",
+  //   body1:
+  //     "Statewide minimum performance standards will not be set during the implementation year (beginning August 1, 2016) as eligibility criteria for training programs to be placed on the ETPL. In subsequent years, COEI will report to the State Employment and Training Commission on the status of the performance data available and submit a recommendation regarding whether statewide minimum performance standards should be set for ETPL eligibility.",
+  //   body2:
+  //     "However, the local areas may establish additional criteria for program eligibility within a local area, including the establishment of minimum required levels of performance as criteria for training providers to become or remain eligible to provide services in that particular local area. Training providers should be aware that programs may be approved for some local areas and denied for others based on local criteria and the approved local areas for each training provider will be listed on this page as local areas are instructed to notify COEI if performance standards are created.",
+  // },
   FAQUnemployment: {
     // pageTitle: "FAQ - Unemployment Insurance",
     header: "Seguro de desempleo",

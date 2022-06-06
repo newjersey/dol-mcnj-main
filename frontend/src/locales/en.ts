@@ -412,6 +412,21 @@ export const en = {
     careerExplorationBodyEnd:
       " link at the top of the page. This link will navigate you to a listing of all the occupations that are projected to experience large increases in growth and job listings. On this page, you can use the search bar at the top of the page to look for an occupation or you can use the industry categories to look for in-demand occupations. An occupation's page will detail statistics about how many jobs are currently listed in the State through the National Labor Exchange as well as the median salary for that career. You will also find a short description of that occupation, what a day in the life of that job looks like, as well as the education or credential requirements to get into that occupation. Finally, you will see related training and related careers for the occupation.",
   },
+  FAQOutOfState: {
+    pageTitle: "FAQ - ETPL Out of State Provider",
+    breadcrumbLink: "ETPL Out of State Provider",
+    header: "Out of State Training Providers",
+    body: "An out-of-state training provider that has been determined an eligible training provider under ETPL eligibility procedures in the provider's home state is considered eligible for ETPL placement in New Jersey. Out-of-state eligible training providers must still submit an ETPL application to COEI and include proof of ETPL eligibility in the provider's home state.",
+  },
+  FAQETPLStandards: {
+    pageTitle: "FAQ - ETPL Performance Standards",
+    breadcrumbLink: "ETPL Performance Standards",
+    header: "Minimum Performance Standards for Training Providers",
+    body1:
+      "Statewide minimum performance standards will not be set during the implementation year (beginning August 1, 2016) as eligibility criteria for training programs to be placed on the ETPL. In subsequent years, COEI will report to the State Employment and Training Commission on the status of the performance data available and submit a recommendation regarding whether statewide minimum performance standards should be set for ETPL eligibility.",
+    body2:
+      "However, the local areas may establish additional criteria for program eligibility within a local area, including the establishment of minimum required levels of performance as criteria for training providers to become or remain eligible to provide services in that particular local area. Training providers should be aware that programs may be approved for some local areas and denied for others based on local criteria and the approved local areas for each training provider will be listed on this page as local areas are instructed to notify COEI if performance standards are created.",
+  },
   FAQUnemployment: {
     pageTitle: "FAQ - Unemployment Insurance",
     header: "Unemployment Insurance",
