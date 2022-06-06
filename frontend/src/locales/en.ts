@@ -258,6 +258,29 @@ export const en = {
     occupationalBody5:
       "All of the occupation data are pulled via real-time API and are showing the most up to date information.",
   },
+  FAQDemandOccupations: {
+    pageTitle: "FAQ - Labor Demand Occupations",
+    breadcrumbLink: "Labor Demand Occupations",
+    header: "What is the Labor Demand Occupation List?",
+    intro:
+      'Find occupations in "in demand" across the State, and identify training programs for "in demand" jobs to help accomplish your goals. The Demand Occupations List brings together information about current job openings, trends and projections in employment and labor supply, and other current indicators of the labor market.',
+    listHeader: "Demand Occupations List",
+    listBody:
+      "The Demand Occupations List can help career counselors and their clients find relevant skills training programs; shows you where skills gaps are present in the current economy, as well as the size of the skills shortage; and, anticipated employer need for trained workers in the listed fields.",
+    counselorsHeader: "For Career Counselors",
+    counselorsBody1:
+      "Use this list as a starting point when approving individual training programs in the Workforce Development Partnership (WDP) Act, Workforce Investment Act (WIA), and all other occupational training initiatives within New Jersey's Workforce Investment System.",
+    counselorsBody2:
+      "The Demand Occupations List is NOT meant to be a final, stand-alone authority for approval or denial of training in Workforce Development Partnership or any other program. When making training decisions, it is also important to consider the individual's:",
+    counselorsBody2List1: "employability development plan",
+    counselorsBody2List2: "local and regional labor market conditions",
+    counselorsBody2List3: "the labor market area where the trainee is likely to seek employment",
+    counselorsBody2List4:
+      "the impact of training on the individual's marketable skills and earning power",
+    exceptionsHeader: "Exceptions to Demand Approval",
+    exceptionsBody:
+      "If a Workforce Investment Board (WIB) believes that an occupation is not listed as in demand in its area, it can designate such an occupation as being in demand and allow program participants under its jurisdiction to be placed in training, after consultation with the Department of Labor and Workforce Development. This is done in accordance with the procedures outlined in the Department's To Work Bulletin 2005-01 dated April 14, 2005.",
+  },
   FAQEnrollProgram: {
     pageTitle: "FAQ - Enroll Program",
     breadcrumbLink: "Enroll Program",
