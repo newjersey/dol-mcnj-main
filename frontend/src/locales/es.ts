@@ -183,7 +183,7 @@ export const es = {
     breadcrumbResourcesLink: "Recursos",
   },
   FAQApprenticeship: {
-    // pageTitle: "FAQ - Registered Apprenticeship",
+    pageTitle: "Preguntas más frecuentes - Aprendizaje registrado",
     breadcrumbLink: "Aprendizaje registrado",
     header: "Opero un programa de aprendizaje registrado. ¿Mi programa debe estar en la ETPL?",
     body1:
@@ -202,7 +202,7 @@ export const es = {
       "Los programas de preaprendizaje no tienen el mismo estado ETPL automático bajo WIOA que los programas de aprendizaje registrado y deben seguir el proceso de solicitud inicial para obtener la ubicación ETPL.",
   },
   FAQChildCare: {
-    // pageTitle: "FAQ - Child Care",
+    pageTitle: "Preguntas más frecuentes - Cuidados de niños",
     breadcrumbLink: "Cuidados de niños",
     header: "Cuidados de niños y familias",
     covidHeader: "COVID-19",
@@ -267,7 +267,7 @@ export const es = {
       "Para todos los demás recursos para el cuidado de familiares, dependientes y ancianos / ancianos, visite <1>NJ 2-1-1</1> o con su teléfono marque 2-1-1.",
   },
   FAQDataSources: {
-    // pageTitle: "FAQ - Data Sources",
+    pageTitle: "Preguntas más frecuentes - Fuentes de datos",
     breadcrumbLink: "Fuentes de datos",
     header: "Las fuentes de datos utilizadas para este sitio web",
     body1:
@@ -287,7 +287,7 @@ export const es = {
       "Todos los datos de ocupación se extraen a través de una API en tiempo real y muestran la información más actualizada.",
   },
   FAQDemandOccupations: {
-    // pageTitle: "FAQ - Labor Demand Occupations",
+    pageTitle: "Preguntas más frecuentes - Demanda Laboral de Ocupaciones",
     breadcrumbLink: "Demanda Laboral de Ocupaciones",
     header: "¿Qué es la Lista de Ocupaciónes Laborales en Demanda?",
     intro:
@@ -311,7 +311,7 @@ export const es = {
       "Si una Junta de Inversión en la Fuerza Laboral (WIB, por sus siglas en inglés) cree que una ocupación no está listada como demandada en su área, puede designar dicha ocupación como demandada y permitir que los participantes del programa bajo su jurisdicción reciban capacitación, después de consultar con el Departamento. de Trabajo y Desarrollo de la Fuerza Laboral. Esto se hace de acuerdo con los procedimientos descritos en el Boletín Para Trabajar del Departamento 2005-01 del 14 de abril de 2005.",
   },
   FAQEnrollProgram: {
-    // pageTitle: "FAQ - Enroll Program",
+    pageTitle: "Preguntas más frecuentes - Inscríbase en un programa",
     breadcrumbLink: "Inscríbase en un programa",
     header: "Inscríbase en un programa que aparece en este sitio web",
     contactHeader: "Cómo encontrar la información de contacto de la escuela",
@@ -330,7 +330,7 @@ export const es = {
       ". Atención, habrá un enlace que puede copiar en la página de formación y después pueda compartir con ellos.",
   },
   FAQFundingOpportunities: {
-    // pageTitle: "FAQ - Funding Opportunities",
+    pageTitle: "Preguntas más frecuentes - Oportunidades de Financiamiento",
     breadcrumbLink: "Oportunidades de Financiamiento",
     header: "Quiero saber más sobre oportunidades de financiación",
     introBody:
@@ -343,7 +343,7 @@ export const es = {
       "<0>Comuníquese con un consejero de carrera</0> en su One-Stop Career Center local para explorar oportunidades de financiamiento.",
   },
   FAQHealth: {
-    // pageTitle: "FAQ - Health Insurance",
+    pageTitle: "Preguntas más frecuentes - Seguro de salud",
     header: "Seguro de salud",
     intro:
       "Aquí hay información basada en los recursos del estado de NJ que creemos que puede ser útil para usted:",
@@ -384,7 +384,7 @@ export const es = {
       "Para obtener más información sobre COBRA, visite el <1>sitio web</1> del Departamento de Trabajo de EE. UU. o llame al 1 (866) 487-2365.",
   },
   FAQJobListings: {
-    // pageTitle: "FAQ - Job Listings",
+    pageTitle: "Preguntas más frecuentes - Listado de trabajos",
     header: "Listado de trabajos",
     trainingExplorerHeader: "Búsqueda de ofertas de trabajo en Training Explorer",
     trainingExplorerBodyOneStart:
@@ -397,7 +397,7 @@ export const es = {
       'Para ver las ofertas de trabajo, seleccione el enlace ""Buscar ofertas de trabajo actuales publicadas para esta ocupación >"". Este enlace lo llevará a Career OneStop para ver los listados de esta ocupación en todo el estado de Nueva Jersey. Para refinar su búsqueda, use las opciones de filtro para encontrar trabajos cerca de usted.',
   },
   FAQSearchHelp: {
-    // pageTitle: "FAQ - Search Help",
+    pageTitle: "Preguntas más frecuentes - Buscar Ayuda",
     breadcrumbLink: "Buscar Ayuda",
     header: "Cómo iniciar su búsqueda en Training Explorer",
     searchBarHeader: "Usando la barra de búsqueda",
@@ -421,7 +421,7 @@ export const es = {
       ' por el estado de Nueva Jersey, seleccione el enlace ""Ocupaciones en alta demanda"" en la parte superior de la página. Este enlace lo llevará a una lista de todas las ocupaciones que se prevé que experimenten grandes aumentos en el crecimiento y las ofertas de trabajo. En esta página, puede usar la barra de búsqueda en la parte superior de la página para buscar una ocupación o puede usar las categorías de industria para buscar ocupaciones en demanda. La página cada ocupación detallará estadísticas sobre cuántos trabajos hay actualmente en el estado a través de la Bolsa de Trabajo Nacional, así como el salario medio para esa carrera. También encontrará una breve descripción de esa ocupación, cómo es un día en la vida de ese trabajo, así como los requisitos de educación o credenciales para ingresar a esa ocupación. Por último, verá la formación relacionada y las carreras relacionadas con la ocupación.',
   },
   FAQOutOfState: {
-    // pageTitle: "FAQ - ETPL Out of State Provider",
+    pageTitle: "Preguntas más frecuentes - Proveedor de ETPL localizado a fuera del estado",
     breadcrumbLink: "Proveedor de ETPL localizado a fuera del estado",
     header: "Proveedores de formacion fuera del estado",
     body: "Un proveedor de formacion de otro estado que se haya determinado que es un proveedor de formacion elegible según los procedimientos de elegibilidad de ETPL en el estado de origen del proveedor se considera elegible para ser parte del ETPL en Nueva Jersey. Los proveedores de formacion elegibles de fuera del estado aún deben enviar una solicitud ETPL al COEI e incluir prueba de elegibilidad ETPL en el estado de origen del proveedor.",
@@ -436,7 +436,7 @@ export const es = {
   //     "However, the local areas may establish additional criteria for program eligibility within a local area, including the establishment of minimum required levels of performance as criteria for training providers to become or remain eligible to provide services in that particular local area. Training providers should be aware that programs may be approved for some local areas and denied for others based on local criteria and the approved local areas for each training provider will be listed on this page as local areas are instructed to notify COEI if performance standards are created.",
   // },
   FAQUnemployment: {
-    // pageTitle: "FAQ - Unemployment Insurance",
+    pageTitle: "Preguntas más frecuentes - Seguro de desempleo",
     header: "Seguro de desempleo",
     intro:
       "Aquí hay información basada en los recursos del estado de NJ que creemos que puede ser útil para usted:",
