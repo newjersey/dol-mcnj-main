@@ -267,6 +267,30 @@ export const es = {
     occupationalBody5:
       "Todos los datos de ocupación se extraen a través de una API en tiempo real y muestran la información más actualizada.",
   },
+  FAQDemandOccupations: {
+    // pageTitle: "FAQ - Labor Demand Occupations",
+    breadcrumbLink: "Demanda Laboral de Ocupaciones",
+    header: "¿Qué es la Lista de Ocupaciónes Laborales en Demanda?",
+    intro:
+      'Encuentre ocupaciones ""en demanda"" en todo el estado e identifique programas de capacitación para trabajos ""en demanda"" para ayudarlo a lograr sus objetivos. La Lista de Ocupaciones de Demanda reúne información sobre ofertas de trabajo actuales, tendencias y proyecciones en el empleo y la oferta laboral, y otros indicadores actuales del mercado laboral.',
+    listHeader: "Lista de ocupaciones en demanda",
+    listBody:
+      "La Lista de Ocupaciones de Demanda puede ayudar a los consejeros de carrera y sus clientes a encontrar programas de capacitación de habilidades relevantes; le muestra dónde están presentes las brechas de habilidades en la economía actual, así como el tamaño de la escasez de habilidades; y, la necesidad anticipada del empleador de trabajadores capacitados en los campos enumerados.",
+    counselorsHeader: "Para consejeros de carrera",
+    counselorsBody1:
+      "Utilice esta lista como punto de partida cuando apruebe programas de capacitación individuales en la Ley de Asociación para el Desarrollo de la Fuerza Laboral (WDP), la Ley de Inversión en la Fuerza Laboral (WIA) y todas las demás iniciativas de capacitación ocupacional dentro del Sistema de Inversión en la Fuerza Laboral de New Jersey.",
+    counselorsBody2:
+      "La Lista de ocupaciones en demanda NO pretende ser una autoridad final e independiente para la aprobación o denegación de capacitación en Workforce Development Partnership o cualquier otro programa. Al tomar decisiones de capacitación, también es importante tener en cuenta lo siguiente:",
+    counselorsBody2List1: "plan de desarrollo de la empleabilidad",
+    counselorsBody2List2: "condiciones del mercado laboral local y regional",
+    counselorsBody2List3:
+      "el área del mercado laboral donde es probable que el aprendiz busque empleo",
+    counselorsBody2List4:
+      "el impacto de la capacitación en las habilidades comercializables del individuo y el poder adquisitivo",
+    exceptionsHeader: "Excepciones a la Aprobación de la Lista de Ocupaciones en Demanda",
+    exceptionsBody:
+      "Si una Junta de Inversión en la Fuerza Laboral (WIB, por sus siglas en inglés) cree que una ocupación no está listada como demandada en su área, puede designar dicha ocupación como demandada y permitir que los participantes del programa bajo su jurisdicción reciban capacitación, después de consultar con el Departamento. de Trabajo y Desarrollo de la Fuerza Laboral. Esto se hace de acuerdo con los procedimientos descritos en el Boletín Para Trabajar del Departamento 2005-01 del 14 de abril de 2005.",
+  },
   FAQEnrollProgram: {
     // pageTitle: "FAQ - Enroll Program",
     breadcrumbLink: "Inscríbase en un programa",
