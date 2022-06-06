@@ -182,6 +182,25 @@ export const es = {
     breadcrumbHomeLink: "Inicio",
     breadcrumbResourcesLink: "Recursos",
   },
+  FAQApprenticeship: {
+    // pageTitle: "FAQ - Registered Apprenticeship",
+    breadcrumbLink: "Aprendizaje registrado",
+    header: "Opero un programa de aprendizaje registrado. ¿Mi programa debe estar en la ETPL?",
+    body1:
+      "Solo se requiere que los programas de aprendizaje registrados se incluyan en la ETPL si buscan recibir fondos estatales o federales para capacitación laboral. De lo contrario, la participación en ETPL es opcional.",
+    body2:
+      "Los programas de aprendizaje registrado no están sujetos a los mismos requisitos de solicitud que todos los demás proveedores de capacitación. Los patrocinadores de programas de aprendizaje registrados que solicitan ser incluidos en la ETPL se incluyen automáticamente en la lista y permanecerán mientras el programa esté registrado o hasta que el patrocinador del programa notifique al estado que ya no desea estar incluido en la lista.",
+    body3:
+      "COEI trabajará directamente con la Oficina de aprendizaje para obtener semestralmente una lista de todos los programas de aprendizaje recientemente registrados en Nueva Jersey. La Oficina de aprendizaje se comunicará con todos los programas de aprendizaje registrados en la lista para obtener el interés de los programas en la colocación de ETPL.",
+    body3Link:
+      "Los programas de aprendizaje registrado contactados que deseen figurar en la ETPL deben enviar la <1>solicitud de aprendizaje registrado</1>.",
+    body4:
+      "Si bien WIOA no requiere que los programas de aprendizaje registrados presenten información sobre el rendimiento del programa para ser colocados o seguir siendo elegibles para la colocación de ETPL, la presentación de la información del estudiante es obligatoria de conformidad con la ley estatal de Nueva Jersey. Cualquier programa de aprendizaje registrado que elija agregarse a la ETPL debe aceptar y adherirse a los requisitos de informes de registros de estudiantes contenidos en N.J.S.A. 34:15C-10.2.d.",
+    body5:
+      "El COEI trabajará directamente con la Oficina de Aprendizaje para obtener una lista de todos los programas de aprendizaje dados de baja por lo menos cada dos años. Todos los programas incluidos activamente en la ETPL que ya no estén registrados en la Oficina de aprendizaje serán eliminados de la ETPL.",
+    body6:
+      "Los programas de preaprendizaje no tienen el mismo estado ETPL automático bajo WIOA que los programas de aprendizaje registrado y deben seguir el proceso de solicitud inicial para obtener la ubicación ETPL.",
+  },
   FAQChildCare: {
     // pageTitle: "FAQ - Child Care",
     breadcrumbLink: "Cuidados de niños",

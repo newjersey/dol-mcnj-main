@@ -176,6 +176,26 @@ export const en = {
     breadcrumbHomeLink: "Home",
     breadcrumbResourcesLink: "Resources",
   },
+  FAQApprenticeship: {
+    pageTitle: "FAQ - Registered Apprenticeship",
+    breadcrumbLink: "Registered Apprenticeship",
+    header:
+      "I operate a Registered Apprenticeship Program. Does my program need to be on the ETPL?",
+    body1:
+      "Registered Apprenticeship programs are only required to be listed on the ETPL if they are seeking to receive any state or federal job training funds. Otherwise, ETPL participation is optional.",
+    body2:
+      "Registered Apprenticeship programs are not subject to the same application requirements as all other training providers. Registered Apprenticeship program sponsors that request to be listed on the ETPL are automatically included on the list and will remain as long as the program is registered or until the program sponsor notifies the State that it no longer wants to be included on the list.",
+    body3:
+      "COEI shall work directly with the Office of Apprenticeship to semi-annually obtain a listing of all newly Registered Apprenticeship programs in New Jersey. Office of Apprenticeship shall contact all Registered Apprenticeship programs on the list to obtain the programs' interest in ETPL placement.",
+    body3Link:
+      "Contacted Registered Apprenticeship programs who wish to be listed on the ETPL must submit the <1>Registered Apprenticeship Application</1>.",
+    body4:
+      "Although WIOA does not require Registered Apprenticeship programs to submit program performance information in order to be placed on or remain eligible for ETPL placement, the submission of student information is required pursuant to New Jersey state law. Any Registered Apprenticeship program electing to be added to the ETPL must agree to and adhere to the student record reporting requirements contained in N.J.S.A. 34:15C-10.2.d.",
+    body5:
+      "COEI shall work directly with the Office of Apprenticeship to obtain a listing of all deregistered apprenticeship programs at least every two years. Any programs actively listed on the ETPL that are no longer registered with the Office of Apprenticeship will be removed from the ETPL.",
+    body6:
+      "Pre-apprenticeship programs do not have the same automatic ETPL status under WIOA as do Registered Apprenticeship programs and must follow the initial application process in order to obtain ETPL placement.",
+  },
   FAQChildCare: {
     pageTitle: "FAQ - Child Care",
     breadcrumbLink: "Child Care",
