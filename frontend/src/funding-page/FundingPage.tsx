@@ -5,12 +5,8 @@ import React, { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { useTranslation } from "react-i18next";
 
-const LINKS = {
-  sectionThreeLink:
-    "https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml",
-  purpleBoxLink:
-    "https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml",
-};
+const CONTACT_LINK =
+  "https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCpyMAsRmL_iZGuS3yTOduNF1UMFE1VUIxTU9MTDdXSDZNWlBHU0s4S0lQNSQlQCN0PWcu";
 
 export const FundingPage = (_props: RouteComponentProps): ReactElement => {
   const { t } = useTranslation();
@@ -49,7 +45,7 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
                 className="link-format-blue"
                 target="_blank"
                 rel="noopener noreferrer"
-                href={LINKS.sectionThreeLink}
+                href={CONTACT_LINK}
               >
                 {t("FundingPage.sectionThreeLinkText")}
               </a>
@@ -66,7 +62,7 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
                   className="link-format-blue"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={LINKS.purpleBoxLink}
+                  href={CONTACT_LINK}
                 >
                   {t("FundingPage.purpleBoxLinkText")}
                 </a>
