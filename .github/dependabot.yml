@@ -12,6 +12,7 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    open-pull-requests-limit: 20
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:
@@ -19,3 +20,4 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    open-pull-requests-limit: 20
