@@ -6,7 +6,7 @@ import { OccupationPage } from "./occupation-page/OccupationPage";
 import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
 import { Client } from "./domain/Client";
-import { Router } from "@reach/router";
+import { Router, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
 import { FundingPage } from "./funding-page/FundingPage";
@@ -36,10 +36,19 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
-
 interface Props {
   client: Client;
 }
+
+// Logs each Reach Router page as a separate pageview on Google Analytics
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const window: any;
+const GA_TRACKING_ID = "UA-140253594-9";
+globalHistory.listen(({ location }) => {
+  if (typeof window.gtag === "function") {
+    window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
+  }
+});
 
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
