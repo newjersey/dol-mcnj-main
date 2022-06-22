@@ -22,7 +22,19 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
 
       <main className="container below-banners" role="main">
         <div className="landing-container mla mra">
-          <h2 className="mvm text-xl weight-500 align-center">{t("CounselorPage.header")}</h2>
+          <h2 className="mtm mbd text-xl weight-500 align-center">{t("CounselorPage.header")}</h2>
+
+          <div className="embed-youtube">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/FarEy_eoNFE"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
 
           <h3 className="mbd text-l weight-500 align-center">
             {t("CounselorPage.sectionOneHeader")}
