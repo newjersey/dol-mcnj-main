@@ -7,6 +7,7 @@ import { ComparisonActionType, ComparisonContext } from "../comparison/Compariso
 import { UnstyledButton } from "../components/UnstyledButton";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
+import { logEvent } from "../analytics";
 
 interface Props {
   className?: string;
@@ -23,6 +24,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
 
   const compareItems = (): void => {
     setShowComparison(true);
+    logEvent("Search", "Clicked Compare button", props.comparisonItems.map((i) => i.id).join(","));
   };
 
   const collapseItems = (): void => {

@@ -19,6 +19,7 @@ import { TrainingResult } from "../domain/Training";
 import { CircularProgress } from "@material-ui/core";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
+import { logEvent } from "../analytics";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -189,6 +190,13 @@ export const OccupationPage = (props: Props): ReactElement => {
                   "{SOC_CODE}",
                   (occupationDetail.openJobsSoc || "").toString()
                 )}
+                onClick={() =>
+                  logEvent(
+                    "Occupation page",
+                    "Clicked job opening link",
+                    String(occupationDetail.openJobsSoc)
+                  )
+                }
               >
                 {t("OccupationPage.searchOpenJobsText")}
               </a>

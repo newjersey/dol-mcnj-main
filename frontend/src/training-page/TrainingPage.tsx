@@ -20,6 +20,7 @@ import { UnstyledButton } from "../components/UnstyledButton";
 import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
+import { logEvent } from "../analytics";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -56,9 +57,14 @@ export const TrainingPage = (props: Props): ReactElement => {
     });
   }, [props.id, props.client]);
 
-  const printHandler = useReactToPrint({
+  const printReactContent = useReactToPrint({
     content: () => componentRef.current,
   });
+
+  const printHandler = (): void => {
+    printReactContent();
+    logEvent("Training page", "Clicked print link", training?.id);
+  };
 
   const copyHandler = (): void => {
     try {
@@ -78,6 +84,8 @@ export const TrainingPage = (props: Props): ReactElement => {
     setTimeout((): void => {
       setCopy(null);
     }, 5000);
+
+    logEvent("Training page", "Clicked copy link", training?.id);
   };
 
   const getHttpUrl = (url: string): string => {
@@ -99,6 +107,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         rel="noopener noreferrer"
         className="break-text link-format-blue"
         href={getHttpUrl(training.provider.url)}
+        onClick={() => logEvent("Training page", "Clicked provider link", training?.id)}
       >
         {training.provider.url}
       </a>

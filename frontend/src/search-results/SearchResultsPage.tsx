@@ -15,6 +15,7 @@ import { FilterContext } from "../filtering/FilterContext";
 import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
+import { logEvent } from "../analytics";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -124,6 +125,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as SortOrder;
     sortDispatch(newSortOrder);
+    logEvent("Search", "Updated sort", newSortOrder);
   };
 
   const getSortDropdown = (): ReactElement => (
