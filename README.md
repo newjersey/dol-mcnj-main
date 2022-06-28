@@ -105,7 +105,7 @@ Generally, developers won't have to do this - we have automated deploys to dev a
 ./scripts/deploy.sh
 ```
 
-### Testing and Linting
+### Testing and linting
 
 Use these two scripts below in order to run our normal testing flows, which include:
 
@@ -134,7 +134,7 @@ Run [cypress](https://www.cypress.io/) feature tests:
 - **Accessibility**: We have automated a11y tests that run as part of our [Cypress](https://www.cypress.io/) feature tests using the [`cypress-axe`](https://www.npmjs.com/package/cypress-axe) package. We also use tools such as [axe DevTools](https://www.deque.com/axe/devtools/) and [WAVE](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh) Chrome extensions to do manual checks.
 - **External APIs**: We fetch data from the following Web APIs: [O\*NET Web API](https://services.onetcenter.org/), [CareerOneStop](https://www.careeronestop.org/Developers/WebAPI/web-api.aspx). To access the development URLs and API keys to set as environment variables, request access for the NJInnovation Bitwarden account, and check the "Training Explorer Secrets" file in it.
 
-### Fences
+### Structure with fences
 
 This repo uses [good-fences](https://github.com/smikula/good-fences) to enforce module boundaries.
 Most importantly, the `backend` and `frontend` cannot import from each other.
