@@ -95,17 +95,15 @@ Start the production server (frontend & backend)
 
 #### Deploying to GCP
 
-First, make sure that [Google Cloud SDK](https://cloud.google.com/sdk/install) is installed
+Generally, developers won't have to do this - we have automated deploys to dev and prod via [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master).
 
-Ensure you are logged in to the CLI and pointing to the correct project.
-
-This script generates the `app.yaml` and deploys the app:
+1. Ensure that [Google Cloud SDK](https://cloud.google.com/sdk/install) is installed
+2. Ensure you are logged in to the CLI and pointing to the correct project.
+3. Run this script generates the `app.yaml` and deploys the app:
 
 ```shell script
 ./scripts/deploy.sh
 ```
-
-Generally, developers won't have to do this - we have automated deploys to dev and prod via [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master).
 
 ### Testing and Linting
 
@@ -162,7 +160,7 @@ Training Explorer has data coming from different sources (see [`data_model`](htt
 npm --prefix=backend run db-migrate create [migration-name] -- --sql-file
 ```
 
-#### Seeding
+### Seeding
 
 When you want to add a DB migration that is a **seed** operation (that is, inserting data from a CSV), there's a specific process for this:
 
@@ -206,7 +204,7 @@ exports.up/down = function(db) {
   empty line at the end of your CSV, so your migration full of insert statements has a broken INSERT with `null` in it at the end.
   Remove this from the CSV and the migration, and it should work.
 
-#### Updating Seeds
+### Updating Seeds
 
 When you want to add a DB migration that is a **seed update** operation (that is, replacing data
 in a table new fresher data from a CSV), here is what to do:
