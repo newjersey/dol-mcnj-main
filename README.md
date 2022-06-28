@@ -93,8 +93,6 @@ Start the production server (frontend & backend)
 ./scripts/prod-start.sh
 ```
 
-#### Deploying to GCP
-
 Generally, developers won't have to do this - we have automated deploys to dev and prod via [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master).
 
 1. Ensure that [Google Cloud SDK](https://cloud.google.com/sdk/install) is installed
