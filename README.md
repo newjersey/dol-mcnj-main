@@ -4,8 +4,8 @@
 
 ## Overview
 
-Production URL: training.njcareers.org
-Development URL: _please contact lead developer!_
+- Production URL: training.njcareers.org
+- Development URL: _please contact lead developer!_
 
 This [Typescript](https://www.typescriptlang.org/) repo is structured with two primary sub-folders:
 
