@@ -4,15 +4,19 @@
 
 ## Overview
 
-- Production URL: training.njcareers.org
+This repo is the home for the Training Explorer web app, a one-stop shop for individuals seeking training opportunities and related funding to further their employment potential across the State of New Jersey.
+
+- Production URL: [training.njcareers.org](https://training.njcareers.org/)
 - Development URL: _please contact lead developer!_
 
-This [Typescript](https://www.typescriptlang.org/) repo is structured with two primary sub-folders:
+### Architecture
 
-- **backend** - the [Express](https://expressjs.com/) API server
-- **frontend** - the [React](https://reactjs.org/) web UI, based on [`create-react-app`](https://create-react-app.dev/) skeleton
+- The frontend is written in [Typescript](https://www.typescriptlang.org/), built with [React](https://reactjs.org/) using the [`create-react-app`](https://create-react-app.dev/) setup.
+- The backend is written in [Typescript](https://www.typescriptlang.org/), with a web server API built with [Express](https://expressjs.com/).
+- The databases include multiple PostgreSQL tables (which are imported from raw CSV files stored in `backend/data` directory). For more information on the tables, see the [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) guide.
+- The entire app is deployed to a Google Cloud Platform (GCP) instance. We use [CircleCI](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for continuous integration/deployment.
 
-It also includes some resource documents:
+### References
 
 - [`decision_log`](https://github.com/newjersey/d4ad/blob/master/decision_log.md) lists architectural decisions and their rationale
 - [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) details data tables and columns
