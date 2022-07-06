@@ -115,7 +115,9 @@ export const es = {
     realEstateText2:
       "El REC emite licencias para corredores y vendedores de bienes raíces, escuelas de bienes raíces e instructores de cursos, y también establece normas de práctica para la profesión de corretaje de bienes raíces. También regula y registra las ventas fuera del estado a través de corredores de New Jersey.",
     laborTrainingEvalText:
-      "La Unidad de Evaluación de Capacitación trabaja en conjunto con la Oficina de Preparación Profesional (PCSU, por sus siglas en inglés) del Departamento de Educación para evaluar y aprobar escuelas profesionales privadas y escuelas por correspondencia que deseen operar dentro del sistema de preparación laboral de New Jersey. Todos los proveedores aprobados requieren revisiones semestrales para mantener la aprobación continua. El personal de TEU brinda asistencia técnica a los proveedores aprobados y potenciales, así como a los clientes del sistema de preparación de la fuerza laboral de Nueva Jersey. Para obtener más información, comuníquese con la Unidad de evaluación de capacitación por correo electrónico a: <0>TrainingEvaluationUnit@dol.nj.gov</0> o <1>visite el sitio web</1>.",
+      "La Unidad de Evaluación de Capacitación trabaja en conjunto con la Oficina de Preparación Profesional (PCSU, por sus siglas en inglés) del Departamento de Educación para evaluar y aprobar escuelas profesionales privadas y escuelas por correspondencia que deseen operar dentro del sistema de preparación laboral de New Jersey. Todos los proveedores aprobados requieren revisiones semestrales para mantener la aprobación continua. El personal de TEU brinda asistencia técnica a los proveedores aprobados y potenciales, así como a los clientes del sistema de preparación de la fuerza laboral de Nueva Jersey.",
+    laborTrainingEvalLink:
+      "Para obtener más información, comuníquese con la Unidad de evaluación de capacitación por correo electrónico a <0>TrainingEvaluationUnit@dol.nj.gov</0> o <2>visite el sitio web</2>.",
     laborGranteesText1:
       "Cualquier persona con una discapacidad física, mental, cognitiva o de otro tipo que tenga un impedimento sustancial para trabajar puede calificar para los siguientes servicios a través de la División de Servicios de Rehabilitación Vocacional de Nueva Jersey (DVRS).",
     laborGranteesText2:
@@ -611,7 +613,7 @@ export const es = {
     pageTitle: "Ocupaciones en demanda",
     header: "Ocupaciones en demanda",
     description:
-      "Esta es una lista de ocupaciones que se espera que tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con <0>las ocupaciones en esta lista</0> pueden ser elegibles para recibir financiamiento del Estado.",
+      "Esta es una lista de ocupaciones que se espera que tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con las ocupaciones en esta lista pueden ser elegibles para recibir financiamiento del Estado.",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
