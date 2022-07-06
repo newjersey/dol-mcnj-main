@@ -99,7 +99,9 @@ export const en = {
     laborTrainingEval:
       "Department of Labor & Workforce Development, Training Evaluation Unit (TEU)",
     laborTrainingEvalText:
-      "The Training Evaluation Unit works in conjunction with the Department of Education's Office of Career Readiness (PCSU) to evaluate and approve private career schools and correspondence schools that wish to operate within New Jersey's workforce readiness system. All approved providers require biannual reviews in order to maintain continued approval. TEU staff provides technical assistance to approved and prospective providers as well as customers of the New Jersey workforce readiness system. For more information, please contact the Training Evaluation Unit by e-mail at: <0>TrainingEvaluationUnit@dol.nj.gov</0> or <1>visit the website</1>.",
+      "The Training Evaluation Unit works in conjunction with the Department of Education's Office of Career Readiness (PCSU) to evaluate and approve private career schools and correspondence schools that wish to operate within New Jersey's workforce readiness system. All approved providers require biannual reviews in order to maintain continued approval. TEU staff provides technical assistance to approved and prospective providers as well as customers of the New Jersey workforce readiness system.",
+    laborTrainingEvalLink:
+      "For more information, please contact the Training Evaluation Unit by e-mail at <0>TrainingEvaluationUnit@dol.nj.gov</0> or <2>visit the website</2>.",
     laborGrantees:
       "Department of Labor & Workforce Development (grantees for customized training, youth and DVRS programs)",
     laborGranteesText1:

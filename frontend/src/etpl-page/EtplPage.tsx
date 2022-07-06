@@ -173,32 +173,26 @@ export const EtplPage = (_props: Props): ReactElement => {
           icon={DepartmentOfLaborWorkforceDevelopmentTrainingEvaluationUnit}
         >
           <p>
-            <Trans i18nKey="EtplPage.laborTrainingEvalText">
-              The Training Evaluation Unit works in conjunction with the Department of Education's
-              Office of Career Readiness (PCSU) to evaluate and approve private career schools and
-              correspondence schools that wish to operate within New Jersey's workforce readiness
-              system. All approved providers require biannual reviews in order to maintain continued
-              approval. TEU staff provides technical assistance to approved and prospective
-              providers as well as customers of the New Jersey workforce readiness system. For more
-              information, please contact the Training Evaluation Unit by e-mail at:{" "}
+            {t("EtplPage.laborTrainingEvalText")}{" "}
+            <Trans i18nKey="EtplPage.laborTrainingEvalLink">
               <a
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
                 href={LINKS.laborTrainingEvalLink1}
               >
-                TrainingEvaluationUnit@dol.nj.gov
-              </a>{" "}
-              or{" "}
+                link1
+              </a>
+              middle
               <a
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-format-blue"
                 href={LINKS.laborTrainingEvalLink2}
               >
-                visit the website
+                link2
               </a>
-              .
+              end
             </Trans>
           </p>
         </MajorGroup>
