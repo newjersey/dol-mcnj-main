@@ -175,6 +175,7 @@ export const EtplPage = (_props: Props): ReactElement => {
           <p>
             {t("EtplPage.laborTrainingEvalText")}{" "}
             <Trans i18nKey="EtplPage.laborTrainingEvalLink">
+              start
               <a
                 target="_blank"
                 rel="noopener noreferrer"
