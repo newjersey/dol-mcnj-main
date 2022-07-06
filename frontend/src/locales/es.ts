@@ -1,17 +1,17 @@
 export const es = {
-  // CalendarLengthLookup: {
-  //   "0": "--",
-  //   "1": "Less than 1 day",
-  //   "2": "1-2 days",
-  //   "3": "3-7 days",
-  //   "4": "2-3 weeks",
-  //   "5": "4-11 weeks",
-  //   "6": "3-5 months",
-  //   "7": "6-12 months",
-  //   "8": "13 months-2 years",
-  //   "9": "3-4 years",
-  //   "10": "More than 4 years",
-  // },
+  CalendarLengthLookup: {
+    "0": "--",
+    "1": "Menos de un día",
+    "2": "1-2 días",
+    "3": "3-7 días",
+    "4": "2-3 semanas",
+    "5": "4-11 semanas",
+    "6": "3-5 meses",
+    "7": "6-12 meses",
+    "8": "13 meses-2 años",
+    "9": "3-4 años",
+    "10": "Mas de 4 años",
+  },
   ContactUs: {
     header: "¿Tiene más preguntas?",
     getInTouchText: "Ponerse en contacto",
@@ -78,75 +78,74 @@ export const es = {
     step3Header: "Paso 3: Envíe su solicitud",
     step3Text:
       "Envíe su solicitud a COEI a <1>njtopps@dol.nj.gov</1>. COEI hará un seguimiento si hay alguna pregunta con respecto a su solicitud.",
-    // agencies
     cosmetology: "Junta de Cosmetología",
-    // cosmetologyText:
-    //   "The New Jersey State Board of Cosmetology and Hairstyling board licenses and regulates barbers, beauticians, cosmetology-hairstylists, manicurists, skin care specialists, teachers, shops and schools and registers students who attend these schools.",
     cosmetologyLinkText: "Aprende más",
     nursing: "Junta de Enfermería",
-    // nursingText:
-    //   "The New Jersey Board of Nursing was established in 1912 to protect the health, safety and welfare of New Jersey's residents by ensuring that those who practice nursing are qualified and competent to do so. This board licenses registered nurses and practical nurses, and regulates the nursing profession in New Jersey. The board certifies advanced practice nurses, sexual assault forensic nurses, and certified homemaker-home health aides. The board accredits nursing schools and approves clinical affiliates.",
     nursingLinkText: "Aprende más",
     higherEd: "Secretaría de Educación Superior",
-    // higherEdText:
-    //   "An institution seeking to offer academic degree programs and/or college credit-bearing courses with a physical presence in New Jersey shall first provide evidence of incorporation and petition the Secretary for licensure. No institution shall offer or advertise the availability of college credit-bearing course(s) or academic degree program(s) with a physical presence in New Jersey before receiving formal approval of its petition.",
-    // higherEdLinkText: "Learn more about licensing",
     insurance: "Departamento de Banca y Seguros: Licencias de Seguros",
-    // insuranceText: "Learn more about Banking and Insurance",
-    // insuranceLinkText: "licensing education forms",
     realEstate: "Departamento de Banca y Seguros: Comisión de Bienes Raíces",
-    // realEstateText1:
-    //   "Established in 1921, the New Jersey Real Estate Commission (REC), a division of the New Jersey Department of Banking and Insurance, was created to administer and enforce New Jersey's real estate licensing law, N.J.S.A. 45:15-1 et seq.",
-    // realEstateText2:
-    //   "The REC issues licenses to real estate brokers and salespersons, real estate schools, and course instructors, as well as establishes standards of practice for the real estate brokerage profession. It also regulates and registers out-of-state sales through New Jersey brokers.",
     realEstateLinkText: "Aprende más",
     laborTrainingEval:
       "Departamento de Trabajo y Desarrollo de la Fuerza Laboral, Unidad de Evaluación de Capacitación (TEU)",
-    // laborTrainingEvalText:
-    //   "The Training Evaluation Unit works in conjunction with the Department of Education's Office of Career Readiness (PCSU) to evaluate and approve private career schools and correspondence schools that wish to operate within New Jersey's workforce readiness system. All approved providers require biannual reviews in order to maintain continued approval. TEU staff provides technical assistance to approved and prospective providers as well as customers of the New Jersey workforce readiness system. For more information, please contact the Training Evaluation Unit by e-mail at: <0>TrainingEvaluationUnit@dol.nj.gov</0> or <1>visit the website</1>.",
     laborGrantees:
       "Departamento de Trabajo y Desarrollo de la Fuerza Laboral (beneficiarios para programas personalizados de capacitación, jóvenes y DVRS)",
-    // laborGranteesText1:
-    //   "Any individual with a physical, mental, cognitive, or other form of disability who has a substantial impediment to employment may qualify for the following services through the New Jersey Division of Vocational Rehabilitation Services (DVRS).",
-    // laborGranteesText2:
-    //   "The mission of the New Jersey Division of Vocational Rehabilitation Services is to enable eligible individuals with disabilities to achieve an employment outcome consistent with their strengths, priorities, needs, abilities, and capabilities.",
     laborGranteesLinkText: "Aprende más",
     publicSchools: "Departamento de Educación, Escuelas Públicas",
-    // publicSchoolsText:
-    //   "The New Jersey Department of Education supports schools, educators and districts to ensure all of New Jersey's 1.4 million students have equitable access to high quality education and achieve academic excellence.",
-    // publicSchoolsLinkText: "Learn more about licensing",
     xrays: "Departamento de Protección Ambiental (Programas de Radiología/Rayos X)",
-    // xraysText:
-    //   "The mission of the Bureau of X-Ray Compliance (Bureau) is to improve the quality of life by protecting the public and radiation workers from unnecessary exposure to ionizing radiation from x-ray machines and reducing medical misdiagnosis caused by faulty x-ray equipment and operator error.",
-    // xraysLinkText: "Learn more about licensing",
     longTermCare: "Departamento de Salud - Licencias para Centros de Atención a Largo Plazo",
-    // longTermCareText:
-    //   "The Health Systems Branch of the New Jersey Department of Health works to ensure citizens receive appropriate levels of care in more than 2,000 regulated facilities statewide. These include hospitals, nursing homes, assisted living residences, ambulatory care centers, home health care, medical day care and other types of healthcare facilities.",
-    // longTermCareLinkText: "Learn more about licensing",
     indoorEnv: "Departamento de Salud - Programa de Ambientes Interiores",
-    // indoorEnvText:
-    //   "The quality of the environment you experience every day, such as the air you breathe indoors and the water you drink, can affect your health. The New Jersey Department of Health provides information about environmental health, and regulates some indoor air quality in certain settings.",
-    // indoorEnvLinkText: "Learn more about indoor health assessments",
     emergencyMed: "Departamento de Salud - Oficina de Servicios Médicos de Emergencia de NJ",
-    // emergencyMedText:
-    //   "The Office of Emergency Medical Services (OEMS) certifies more than 26,000 Emergency Medical Technician (EMTs) and 1,700 Mobile Intensive Care Paramedics (MICP's) as well as licensing mobility assistance vehicles, ambulances, mobile intensive care units, specialty care transport units and air medical units totaling more than 4,500 vehicles.",
-    // emergencyMedLinkText: "Learn more about licensing",
     aviation: "Administración Federal de Aviación",
-    // aviationLinkText: "Learn more about pilot school certification",
     motorVehicles: "Comisión de Vehículos Motorizados",
-    // motorVehiclesText:
-    //   "MVC issues licenses that authorize driving schools and instructors to operate within the state of New Jersey. They also allow driving school owners and specified instructors or agents to purchase student learner's permits, examination permits, schedule road tests and administer state-approved knowledge and vision tests.",
-    // motorVehiclesLinkText: "Learn more about driving school licensing",
     realEstateAppraiser: "Junta de Tasadores de Bienes Raíces de NJ",
-    // realEstateAppraiserText:
-    //   "The New Jersey Legislature created the State Real Estate Appraiser Board to regulate the appraisal profession and evaluate the credentials of applicants for licensure and certification. This board is responsible for the regulation of real estate appraisers in New Jersey. The category of licenses issued by the board include licensed real estate appraisers, residential appraisers, certified general appraisers and apprentice appraisers.",
-    // realEstateAppraiserLinkText: "Learn more about licensing",
     securityOfficer: "Policía Estatal de NJ (Entrenamiento de Oficiales de Seguridad - SORA)",
-    // securityOfficerLinkText: "Learn more about Security Officer Licensing",
     proLiteracy: "ProLiteracy",
-    // proLiteracyText:
-    //   "ProLiteracy's mission is to change lives and communities through the power of adult literacy.",
-    // proLiteracyLinkText: "Learn more about ProLiteracy",
+    cosmetologyText:
+      "La Junta de Cosmetología y Peluquería del Estado de Nueva Jersey otorga licencias y regula a los peluqueros, esteticistas, cosmetólogos-peluqueros, manicuristas, especialistas en cuidado de la piel, maestros, tiendas y escuelas, y registra a los estudiantes que asisten a estas escuelas.",
+    nursingText:
+      "La Junta de Enfermería de Nueva Jersey se estableció en 1912 para proteger la salud, la seguridad y el bienestar de los residentes de Nueva Jersey al garantizar que quienes practican la enfermería estén calificados y sean competentes para hacerlo. Esta junta otorga licencias a enfermeras registradas y enfermeras prácticas, y regula la profesión de enfermería en Nueva Jersey. La junta certifica enfermeras de práctica avanzada, enfermeras forenses de agresión sexual y asistentes certificados de salud en el hogar. La junta acredita las escuelas de enfermería y aprueba las clínicas afiliadas.",
+    higherEdText:
+      "Una institución que busque ofrecer programas académicos de grado y/o cursos universitarios que otorguen créditos con presencia física en New Jersey deberá primero proporcionar evidencia de incorporación y solicitar la licencia al Secretario. Ninguna institución ofrecerá ni anunciará la disponibilidad de cursos con créditos universitarios o programas de títulos académicos con presencia física en Nueva Jersey antes de recibir la aprobación formal de su petición.",
+    higherEdLinkText: "Más información sobre licencias",
+    insuranceText: "Más información sobre Banca y Seguros",
+    insuranceLinkText: "formularios de educación de licencias",
+    realEstateText1:
+      "Establecida en 1921, la Comisión de Bienes Raíces de Nueva Jersey (REC), una división del Departamento de Banca y Seguros de Nueva Jersey, fue creada para administrar y hacer cumplir la ley de licencias de bienes raíces de Nueva Jersey, N.J.S.A. 45:15-1 y siguientes.",
+    realEstateText2:
+      "El REC emite licencias para corredores y vendedores de bienes raíces, escuelas de bienes raíces e instructores de cursos, y también establece normas de práctica para la profesión de corretaje de bienes raíces. También regula y registra las ventas fuera del estado a través de corredores de New Jersey.",
+    laborTrainingEvalText:
+      "La Unidad de Evaluación de Capacitación trabaja en conjunto con la Oficina de Preparación Profesional (PCSU, por sus siglas en inglés) del Departamento de Educación para evaluar y aprobar escuelas profesionales privadas y escuelas por correspondencia que deseen operar dentro del sistema de preparación laboral de New Jersey. Todos los proveedores aprobados requieren revisiones semestrales para mantener la aprobación continua. El personal de TEU brinda asistencia técnica a los proveedores aprobados y potenciales, así como a los clientes del sistema de preparación de la fuerza laboral de Nueva Jersey. Para obtener más información, comuníquese con la Unidad de evaluación de capacitación por correo electrónico a: <0>TrainingEvaluationUnit@dol.nj.gov</0> o <1>visite el sitio web</1>.",
+    laborGranteesText1:
+      "Cualquier persona con una discapacidad física, mental, cognitiva o de otro tipo que tenga un impedimento sustancial para trabajar puede calificar para los siguientes servicios a través de la División de Servicios de Rehabilitación Vocacional de Nueva Jersey (DVRS).",
+    laborGranteesText2:
+      "La misión de la División de Servicios de Rehabilitación Vocacional de Nueva Jersey es permitir que las personas discapacitadas elegibles logren un resultado laboral consistente con sus fortalezas, prioridades, necesidades, habilidades y capacidades.",
+    publicSchoolsText:
+      "El Departamento de Educación de New Jersey apoya a las escuelas, educadores y distritos para garantizar que todos los 1,4 millones de estudiantes de New Jersey tengan acceso equitativo a una educación de alta calidad y alcancen la excelencia académica.",
+    publicSchoolsLinkText: "Más información sobre licencias",
+    xraysText:
+      "La misión de la Oficina de Cumplimiento de Rayos X (Oficina) es mejorar la calidad de vida al proteger al público y a los trabajadores de radiación de la exposición innecesaria a la radiación ionizante de las máquinas de rayos X y reducir los diagnósticos médicos erróneos causados por equipos de rayos X defectuosos y error del operador.",
+    xraysLinkText: "Más información sobre licencias",
+    longTermCareText:
+      "La Rama de Sistemas de Salud del Departamento de Salud de New Jersey trabaja para garantizar que los ciudadanos reciban los niveles adecuados de atención en más de 2,000 instalaciones reguladas en todo el estado. Estos incluyen hospitales, hogares de ancianos, residencias de vida asistida, centros de atención ambulatoria, atención médica domiciliaria, atención médica diurna y otros tipos de instalaciones de atención médica.",
+    longTermCareLinkText: "Más información sobre licencias",
+    indoorEnvText:
+      "La calidad del medio ambiente que experimenta todos los días, como el aire que respira en el interior y el agua que bebe, puede afectar su salud. El Departamento de Salud de Nueva Jersey brinda información sobre la salud ambiental y regula la calidad del aire interior en ciertos lugares.",
+    indoorEnvLinkText: "Obtenga más información sobre las evaluaciones de salud en interiores",
+    emergencyMedText:
+      "La Oficina de Servicios Médicos de Emergencia (OEMS, por sus siglas en inglés) certifica a más de 26,000 Técnicos en Emergencias Médicas (EMT, por sus siglas en inglés) y 1,700 Paramédicos Móviles de Cuidados Intensivos (MICP, por sus siglas en inglés), así como también otorga licencias para vehículos de asistencia de movilidad, ambulancias, unidades móviles de cuidados intensivos, unidades de transporte de atención especializada y servicios médicos aéreos. unidades que suman más de 4.500 vehículos.",
+    emergencyMedLinkText: "Más información sobre licencias",
+    aviationLinkText: "Obtenga más información sobre la certificación de la escuela de pilotos",
+    motorVehiclesText:
+      "MVC emite licencias que autorizan a las escuelas de manejo y a los instructores a operar dentro del estado de Nueva Jersey. También permiten a los propietarios de escuelas de manejo y a los instructores o agentes específicos comprar permisos de aprendizaje para estudiantes, permisos de examen, programar exámenes prácticos y administrar exámenes de conocimiento y visión aprobados por el estado.",
+    motorVehiclesLinkText: "Obtenga más información sobre la licencia de la escuela de manejo",
+    realEstateAppraiserText:
+      "La Legislatura de Nueva Jersey creó la Junta Estatal de Tasadores de Bienes Raíces para regular la profesión de tasador y evaluar las credenciales de los solicitantes de licencia y certificación. Esta junta es responsable de la regulación de los tasadores de bienes raíces en Nueva Jersey. La categoría de licencias emitidas por la junta incluye tasadores de bienes raíces con licencia, tasadores residenciales, tasadores generales certificados y tasadores aprendices.",
+    realEstateAppraiserLinkText: "Más información sobre licencias",
+    securityOfficerLinkText: "Obtenga más información sobre las licencias de oficial de seguridad",
+    proLiteracyText:
+      "La misión de ProLiteracy es cambiar vidas y comunidades a través del poder de la alfabetización de adultos.",
+    proLiteracyLinkText: "Obtenga más información sobre ProLiteracy",
   },
   ExplorerPage: {
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
@@ -175,8 +174,10 @@ export const es = {
     healthInsuranceFaq: "Necesito ayuda para solicitar un seguro médico",
   },
   FAQ: {
-    // searchOccupationsScreenshot: "Screenshot of In-Demand Occupations page on Training Explorer ",
-    // occupationDetailsScreenshot: "Screenshot of Phlebotomy occupation page on Training Explorer",
+    searchOccupationsScreenshot:
+      "Captura de pantalla de la página Ocupaciones en demanda en Training Explorer",
+    occupationDetailsScreenshot:
+      "Captura de pantalla de la página de ocupación de flebotomía en Training Explorer",
     searchHelpScreenshot: "Captura de pantalla de búsqueda",
     searchFilterScreenshot: "Captura de pantalla del filtro de búsqueda",
     breadcrumbHomeLink: "Inicio",
@@ -426,15 +427,15 @@ export const es = {
     header: "Proveedores de formacion fuera del estado",
     body: "Un proveedor de formacion de otro estado que se haya determinado que es un proveedor de formacion elegible según los procedimientos de elegibilidad de ETPL en el estado de origen del proveedor se considera elegible para ser parte del ETPL en Nueva Jersey. Los proveedores de formacion elegibles de fuera del estado aún deben enviar una solicitud ETPL al COEI e incluir prueba de elegibilidad ETPL en el estado de origen del proveedor.",
   },
-  // FAQETPLStandards: {
-  //   pageTitle: "FAQ - ETPL Performance Standards",
-  //   breadcrumbLink: "ETPL Performance Standards",
-  //   header: "Minimum Performance Standards for Training Providers",
-  //   body1:
-  //     "Statewide minimum performance standards will not be set during the implementation year (beginning August 1, 2016) as eligibility criteria for training programs to be placed on the ETPL. In subsequent years, COEI will report to the State Employment and Training Commission on the status of the performance data available and submit a recommendation regarding whether statewide minimum performance standards should be set for ETPL eligibility.",
-  //   body2:
-  //     "However, the local areas may establish additional criteria for program eligibility within a local area, including the establishment of minimum required levels of performance as criteria for training providers to become or remain eligible to provide services in that particular local area. Training providers should be aware that programs may be approved for some local areas and denied for others based on local criteria and the approved local areas for each training provider will be listed on this page as local areas are instructed to notify COEI if performance standards are created.",
-  // },
+  FAQETPLStandards: {
+    pageTitle: "Preguntas frecuentes - Estándares de desempeño del ETPL",
+    breadcrumbLink: "Estándares de desempeño del ETPL",
+    header: "Estándares Mínimos de Desempeño para Proveedores de Capacitación",
+    body1:
+      "Los estándares mínimos de desempeño a nivel estatal no se establecerán durante el año de implementación (a partir del 1 de agosto de 2016) como criterios de elegibilidad para los programas de capacitación que se colocarán en la ETPL. En los años siguientes, COEI informará a la Comisión Estatal de Empleo y Capacitación sobre el estado de los datos de desempeño disponibles y presentará una recomendación sobre si se deben establecer estándares mínimos de desempeño en todo el estado para la elegibilidad de ETPL.",
+    body2:
+      "Sin embargo, las áreas locales pueden establecer criterios adicionales para la elegibilidad del programa dentro de un área local, incluido el establecimiento de niveles mínimos de desempeño requeridos como criterios para que los proveedores de capacitación sean o sigan siendo elegibles para brindar servicios en esa área local en particular. Los proveedores de capacitación deben tener en cuenta que los programas pueden aprobarse para algunas áreas locales y negarse para otras según los criterios locales y las áreas locales aprobadas para cada proveedor de capacitación se enumerarán en esta página, ya que las áreas locales tienen instrucciones de notificar al COEI si se crean estándares de desempeño.",
+  },
   FAQUnemployment: {
     pageTitle: "Preguntas más frecuentes - Seguro de desempleo",
     header: "Seguro de desempleo",
@@ -557,7 +558,7 @@ export const es = {
     madeWithMessage: "Hecho con ❤️ por la Oficina de Innovación",
   },
   FundingPage: {
-    // pageTitle: "Fund Your Training",
+    pageTitle: "Financia tu formación",
     header: "Formas de financiar su capacitación en Nueva Jersey",
     sectionOneHeader: "¿Cómo funciona la financiación?",
     sectionOneText:
@@ -594,17 +595,17 @@ export const es = {
     betaBannerText: "Este sitio está en beta. Comentarios bienvenidos <1>aquí</1>.",
   },
   IconAlt: {
-    // njLogo: "Official state logo for New Jersey",
-    // occupationGroup: "Icon representing specific group of occupations",
-    // etplGroup: "Icon representing specific government agency",
-    // landingPageWorkforce: "Cartoon of three workers",
-    // landingPageOccupation: "Icon showing person making connections",
-    // landingPageCounseling: "Icon showing conversation bubbles",
-    // etplList: "Icon showing checklist",
-    // explorerCustomize: "Icon representating customization",
-    // explorerFunding: "Dollar sign",
-    // providerApplication: "Icon showing folder with documents",
-    // careerOneStopLogo: "Official logo for Career One Stop organization",
+    njLogo: "Logotipo oficial del estado de Nueva Jersey",
+    occupationGroup: "Icono que representa un grupo específico de ocupaciones",
+    etplGroup: "Ícono que representa una agencia gubernamental específica",
+    landingPageWorkforce: "Caricatura de tres trabajadores",
+    landingPageOccupation: "Ícono que muestra a una persona haciendo conexiones",
+    landingPageCounseling: "Ícono que muestra burbujas de conversación",
+    etplList: "Icono que muestra la lista de verificación",
+    explorerCustomize: "Icono que representa la personalización",
+    explorerFunding: "Signo de dólar",
+    providerApplication: "Icono que muestra la carpeta con documentos",
+    careerOneStopLogo: "Logotipo oficial de la organización Career One Stop",
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
@@ -630,26 +631,28 @@ export const es = {
     columnThreeButtonText: "Encuentre más información",
   },
   OccupationPage: {
-    // header: "Occupation",
-    // dataUnavailableText: "This data is not yet available for this occupation.",
-    // jobsOpenTitle: "Jobs Open in NJ",
-    // jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
-    // jobsOpenSource: "National Labor Exchange",
-    // salaryTitle: "Median Salary",
-    // salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
-    // searchOpenJobsText: "Search current job openings posted for this occupation >",
-    // descriptionGroupHeader: "Description",
-    // dayInTheLifeGroupHeader: "A Day in the Life",
-    // seeMore: "See More",
-    // seeLess: "See Less",
-    // relatedOccupationsGroupHeader: "Related Occupations",
-    // relatedTrainingGroupHeader: "Related Training",
-    // relatedTrainingSeeMore: "See More Results >",
-    // sourceLabel: "Source:",
-    // onetSource:
-    //   "O*NET OnLine by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of USDOL/ETA.",
-    // blsSource:
-    //   "Bureau of Labor Statistics, U.S. Department of Labor, Occupational Outlook Handbook",
+    header: "Ocupación",
+    dataUnavailableText: "Estos datos aún no están disponibles para esta ocupación.",
+    jobsOpenTitle: "Trabajos abiertos en NJ",
+    jobsOpenTooltip:
+      "El número de puestos de trabajo publicados actualmente para esta ocupación en el estado de NJ.",
+    jobsOpenSource: "Bolsa Nacional de Trabajo",
+    salaryTitle: "Salario medio",
+    salaryTooltip:
+      "En promedio, los trabajadores en esta ocupación ganan esta cantidad en el estado de NJ.",
+    searchOpenJobsText: "Buscar ofertas de trabajo actuales publicadas para esta ocupación >",
+    descriptionGroupHeader: "Descripción",
+    dayInTheLifeGroupHeader: "Un día en la vida",
+    seeMore: "Ver más",
+    seeLess: "Ver menos",
+    relatedOccupationsGroupHeader: "Ocupaciones relacionadas",
+    relatedTrainingGroupHeader: "Formación relacionada",
+    relatedTrainingSeeMore: "Ver más resultados>",
+    sourceLabel: "Fuente:",
+    onetSource:
+      "O*NET OnLine del Departamento de Trabajo, Administración de Empleo y Capacitación de EE. UU. (USDOL/ETA). Usado bajo la licencia CC BY 4.0. O*NET® es una marca registrada de USDOL/ETA.",
+    blsSource:
+      "Oficina de Estadísticas Laborales, Departamento de Trabajo de EE. UU., Manual de Perspectivas Ocupacionales",
   },
   SearchAndFilter: {
     searchButtonDefaultText: "Búsqueda",
@@ -694,11 +697,11 @@ export const es = {
     filterListCollapseLabel: "Muestra menos",
   },
   SearchResultsPage: {
-    // pageTitle: "{{query}} - Search Results",
-    // noSearchTermPageTitle: "Search for Training",
-    // noSearchTermHeader: "Getting Started - Search For Training",
+    pageTitle: "{{query}} - Resultados de la búsqueda",
+    noSearchTermPageTitle: "Buscar Entrenamiento",
+    noSearchTermHeader: "Primeros pasos - Buscar capacitación",
     sectionOneHeader: "¿Qué es el New Jersey Training Explorer?",
-    // sectionOneHeaderSmallScreen: "Getting Started",
+    sectionOneHeaderSmallScreen: "Empezando",
     introText:
       "El New Jersey Training Explorer es una lista completa de todas las escuelas y organizaciones que ofrecen educación y capacitación laboral que pueden ser elegibles para recibir",
     introTextLink: "asistencia financiera",
@@ -713,83 +716,84 @@ export const es = {
     boldText3: "Licencia:",
     helperText3:
       'si conoce el nombre de la licencia para la que se está capacitando, use el acrónimo para ver más resultados. Por ejemplo, para la licencia de conducir comercial, intente buscar "CDL".',
-    // smallScreenSearchHeader: "Search for Training",
-    // searchTips1:
-    //   "Are you not seeing the results you were looking for? We recommend that you try these search tips to enhance your results:",
-    // searchTips2:
-    //   "Are your search results too small? Your search may be too specific. Try searching with less words.",
-    // searchTips3:
-    //   "Are your search results too long? Your search results may be too broad, so try using more terms that describe what you are searching for.",
-    // seeMoreText: "See more examples",
-    // seeLessText: "See less",
-    // resultsString_one: '{{count}} result found for "{{query}}"',
-    // resultsString_other: '{{count}} results found for "{{query}}"',
-    // percentEmployed: "{{percent}} employed",
-    // percentEmployedUnavailable: "--",
-    // onlineClassLabel: "Online Class",
-    // timeToComplete: "{{time}} to complete",
-    // inDemandTag: "In Demand",
-    // localWaiverTag: "Waiver for {{county}} County",
-    // comparisonCheckLabel: "Compare",
-    // comparisonCollapse: "Collapse",
-    // comparisonCompare: "Compare",
-    // comparisonRemove: "Cancel",
-    // comparisonClear: "Clear all",
-    // comparisonCostLabel: "Cost",
-    // comparisonEmploymentRateLabel: "Employment Rate %",
-    // comparisonEmploymentRateLabelMobile: "Employment Rate",
-    // comparisonTimeToCompleteLabel: "Time to Complete",
-    // comparisonSeeDetails: "See Details",
+    smallScreenSearchHeader: "Buscar Entrenamiento",
+    searchTips1:
+      "¿No estás viendo los resultados que buscabas? Le recomendamos que pruebe estos consejos de búsqueda para mejorar sus resultados:",
+    searchTips2:
+      "¿Los resultados de su búsqueda son demasiado cortos? Capaz de que su búsqueda puede ser demasiado específica. Intenta buscar con menos palabras.",
+    searchTips3:
+      "¿Los resultados de su búsqueda son demasiado largos? Los resultados de su búsqueda pueden ser demasiado amplios, así que intente usar más términos que describan lo que está buscando.",
+    seeMoreText: "Ver más ejemplos",
+    seeLessText: "Ver menos",
+    resultsString_one: '{{count}} resultado encontrado para "{{query}}"',
+    resultsString_other: '{{count}} resultado encontrado para "{{query}}"',
+    percentEmployed: "{{percent}} empleado",
+    percentEmployedUnavailable: "--",
+    onlineClassLabel: "Clase en línea",
+    timeToComplete: "{{time}} para completar",
+    inDemandTag: "En demanda",
+    localWaiverTag: "Exención para el condado de {{county}}",
+    comparisonCheckLabel: "Comparar",
+    comparisonCollapse: "Colapsar",
+    comparisonCompare: "Comparar",
+    comparisonRemove: "Cancelar",
+    comparisonClear: "Limpiar todo",
+    comparisonCostLabel: "Costo",
+    comparisonEmploymentRateLabel: "Tasa de empleo %",
+    comparisonEmploymentRateLabelMobile: "Tasa de empleo",
+    comparisonTimeToCompleteLabel: "Tiempo para completar",
+    comparisonSeeDetails: "Ver detalles",
   },
   StatBlock: {
-    // dataSourceLabel: "Data source: ",
-    // defaultDataSource: "NJ Dept of Labor",
-    // missingDataExplanation:
-    //   "* This information is missing because we haven't received enough data from this institute.",
+    dataSourceLabel: "Fuente de datos: ",
+    defaultDataSource: "Departamento de Trabajo de Nueva Jersey",
+    missingDataExplanation:
+      "* Falta esta información porque no hemos recibido suficientes datos de este instituto.",
   },
   TrainingPage: {
-    // header: "Training Opportunity",
-    // avgSalaryTitle: "Avg Salary after Program",
-    // avgSalaryTooltip:
-    //   "Average salary 6 months after completion of this class or classes like it at this provider",
-    // employmentRateTitle: "Program Employment Rate",
-    // employmentRateTooltip:
-    //   "Percentage of enrolled students employed within 6 months of this class or classes like it at this provider",
-    // descriptionGroupHeader: "Description",
-    // quickStatsGroupHeader: "Quick Stats",
-    // certificationsLabel: "Certifications:",
-    // prereqsLabel: "Prerequisites:",
-    // completionTimeLabel: "Completion time:",
-    // associatedOccupationsGroupHeader: "Associated Occupations",
-    // associatedOccupationsText:
-    //   "This is a general training that might prepare you for a wide variety of career paths. Browse <1>in-demand occupations</1> to see how you might apply this training.",
-    // shareGroupHeader: "Share this Training",
-    // inDemandDescription:
-    //   "This training leads to an occupation that is in-demand, which may qualify for funding. Contact your NJ County One-Stop Career, who will help determine funding eligibility, and share this training page with them.",
-    // copyLinkText: "Copy a link to this training opportunity >",
-    // successfulCopy: "Successfully copied",
-    // unsuccessfulCopy: "Unsuccessful, try again later",
-    // savePrintLinkText: "Save and print this training opportunity >",
-    // fundingLinkText: "Learn more about funding options and One-Stop Centers >",
     costGroupHeader: "Costo",
-    // totalCostLabel: "Total Cost",
-    // tuitionCostLabel: "Tuition",
-    // feesCostLabel: "Fees",
-    // materialsCostLabel: "Books & Materials",
-    // suppliesCostLabel: "Supplies & Tools",
-    // otherCostLabel: "Other",
-    // providerGroupHeader: "Provider Details",
-    // onlineClass: "Online Class",
-    // providerServicesGroupHeader: "Provider Services",
-    // eveningCoursesServiceLabel: "This provider offers evening courses",
-    // otherLanguagesServiceLabel: "Programs may be available in other languages",
-    // wheelchairAccessibleServiceLabel: "The facility is wheelchair accessible",
-    // childcareAssistanceServiceLabel:
-    //   "This provider has childcare at the facility or provides assistance with finding childcare",
-    // jobAssistanceServiceLabel:
-    //   "Job placement and/or career assistance is available at this provider",
-    // providerServicesDisclaimerLabel:
-    //   "Services are subject to provider details, contact this provider for more information on services",
+    header: "Oportunidad de entrenamiento",
+    avgSalaryTitle: "Salario promedio después del programa",
+    avgSalaryTooltip:
+      "Salario promedio 6 meses después de completar esta clase o clases similares en este proveedor",
+    employmentRateTitle: "Tasa de empleo del programa",
+    employmentRateTooltip:
+      "Porcentaje de estudiantes matriculados empleados dentro de los 6 meses de esta clase o clases similares en este proveedor",
+    descriptionGroupHeader: "Descripción",
+    quickStatsGroupHeader: "Estadísticas rápidas",
+    certificationsLabel: "Certifications:",
+    prereqsLabel: "Requisitos previos:",
+    completionTimeLabel: "Tiempo de finalización:",
+    associatedOccupationsGroupHeader: "Ocupaciones asociadas",
+    associatedOccupationsText:
+      "Esta es una capacitación general que podría prepararlo para una amplia variedad de trayectorias profesionales. Busque <1>ocupaciones en demanda</1> para ver cómo podría aplicar esta capacitación.",
+    shareGroupHeader: "Comparte esta formación",
+    inDemandDescription:
+      "Esta formación conduce a una ocupación que está en demanda, que puede calificar para la financiación. Comuníquese con su One-Stop Career del condado de NJ, quien lo ayudará a determinar la elegibilidad para recibir fondos y compartir esta página de capacitación con ellos.",
+    copyLinkText: "Copiar un enlace a esta oportunidad de capacitación>",
+    successfulCopy: "Copiado con éxito",
+    unsuccessfulCopy: "Error, inténtalo de nuevo más tarde",
+    savePrintLinkText: "Guarde e imprima esta oportunidad de capacitación>",
+    fundingLinkText:
+      "Obtenga más información sobre las opciones de financiación y los centros integrales>",
+    totalCostLabel: "Coste total",
+    tuitionCostLabel: "Matrícula",
+    feesCostLabel: "Tarifa",
+    materialsCostLabel: "Libros y Materiales",
+    suppliesCostLabel: "Suministros y herramientas",
+    otherCostLabel: "Otro",
+    providerGroupHeader: "Detalles del proveedor",
+    onlineClass: "Clase en línea",
+    providerServicesGroupHeader: "Servicios del proveedor",
+    eveningCoursesServiceLabel: "Este proveedor ofrece cursos nocturnos.",
+    otherLanguagesServiceLabel: "Los programas pueden estar disponibles en otros idiomas.",
+    wheelchairAccessibleServiceLabel: "La instalación es accesible para sillas de ruedas.",
+    childcareAssistanceServiceLabel:
+      "Este proveedor tiene cuidado de niños en la instalación o brinda asistencia para encontrar cuidado de niños",
+    jobAssistanceServiceLabel:
+      "La colocación laboral y/o asistencia profesional está disponible en este proveedor",
+    providerServicesDisclaimerLabel:
+      "Los servicios están sujetos a los detalles del proveedor, comuníquese con este proveedor para obtener más información sobre los servicios",
   },
   TrainingProviderPage: {
     header:
@@ -810,11 +814,12 @@ export const es = {
     occupationButton: "Vea ocupaciones",
     sectionFourHeader:
       "Aprenda a utilizar el New Jersey Training Explorer leyendo nuestra seccion de preguntas frecuentes",
-    // etplFaq: "How can my school become an approved provider listed on the ETPL?",
-    // apprenticeshipFaq:
-    //   "I operate a Registered Apprenticeship program. Does my program have to be on the ETPL?",
-    // outOfStateFaq: "How can my out-of-state school become an approved provider listed on the ETPL?",
-    // performanceFaq: "Are there minimum performance standards in place for ETPL eligibility?",
-    // laborDemandFaq: "What is the Labor Demand Occupations List?",
+    etplFaq: "¿Cómo puede mi escuela convertirse en un proveedor aprobado que figura en la ETPL?",
+    apprenticeshipFaq:
+      "Opero un programa de aprendizaje registrado. ¿Mi programa tiene que estar en la ETPL?",
+    outOfStateFaq:
+      "¿Cómo puede mi escuela fuera del estado convertirse en un proveedor aprobado que figura en la ETPL?",
+    performanceFaq: "¿Existen estándares mínimos de desempeño para la elegibilidad de ETPL?",
+    laborDemandFaq: "¿Qué es la Lista de Ocupaciones de Demanda Laboral?",
   },
 };
