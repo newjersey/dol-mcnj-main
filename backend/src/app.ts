@@ -83,7 +83,7 @@ const app = express();
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use("/api", router);
 app.get("/", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
