@@ -43,7 +43,7 @@ def addCredentials(maindf):
     df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('AAS', 'A.A.S.')
 
     # Certification
-    df.loc[df['LEADTOINDUSTRYCREDENTIAL'] == 1.0, 'CREDENTIALTYPE'] = 'Certification'
+    df.loc[df['LEADTOINDUSTRYCREDENTIAL'] == "1", 'CREDENTIALTYPE'] = 'Certification'
 
     # GED
     df.loc[df['OFFICIALNAME'].str.contains('GED'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
@@ -77,8 +77,8 @@ def addCredentials(maindf):
         df['DEGREEAWARDEDNAME'].str.contains('Master')), 'CREDENTIALTYPE'] = 'Masters Degree'
 
     # License
-    df.loc[(df['LEADTOLICENSE'] == 1.0) & (
-                df['LEADTOINDUSTRYCREDENTIAL'] == 0.0), 'CREDENTIALTYPE'] = 'License'
+    df.loc[(df['LEADTOLICENSE'] == "1") & (
+                df['LEADTOINDUSTRYCREDENTIAL'] == "0"), 'CREDENTIALTYPE'] = 'License'
 
     # Certificate of Completion
     df.loc[df['CREDENTIALTYPE'] == '', 'CREDENTIALTYPE'] = 'Certificate of Completion'
@@ -94,10 +94,33 @@ def main():
     yyyymmdd = sys.argv[1]
 
     # Read in source data files
-    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv")
-    degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'])
-    industry_credentials_lookup_df = pd.read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'])
-    license_lookup_df = pd.read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'])
+    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv", dtype={
+        # Read enum and lookup fields from csv as strings to preserve
+        # value for comparison and prevent type coercion to floating point
+        # types.
+        "LEADTODEGREE": "str",
+        "DEGREEAWARDED": "str",
+        "LEADTOLICENSE": "str",
+        "LICENSEAWARDED": "str",
+        "LEADTOINDUSTRYCREDENTIAL": "str",
+        "INDUSTRYCREDENTIAL": "str",
+        "FINANCIALAID": "str",
+        "CREDIT": "str",
+        "CALENDARLENGTHID": "str",
+        "PHONEEXTENSION": "str"
+    })
+    degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+        'ID': "str", # match type for DEGREEAWARDED
+        'Name': "str"
+    })
+    industry_credentials_lookup_df = pd.read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+        'ID': "str", # match type for INDUSTRYCREDENTIAL
+        'Name': "str"
+    })
+    license_lookup_df = pd.read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+        'ID': "str", # match type for LICENSEAWARDED
+        'Name': "str"
+    })
 
     # Remove private data from programs file
     programs_df.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
