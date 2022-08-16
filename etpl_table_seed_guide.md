@@ -28,6 +28,7 @@ mv oldProviders.csv "backend/data/providers_${date}.csv"
 
 ```shell script
 cd backend/data/program-credentials
+pip3 install -r requirements.txt
 python3 merge-credentials.py $date
 ```
 

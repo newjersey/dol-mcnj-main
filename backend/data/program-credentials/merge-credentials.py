@@ -8,28 +8,29 @@ Created on Thu Feb 18 13:59:05 2021
 import pandas as pd
 import sys
 
-def input_source(*args):
-    df = {}
-    for i in range(len(args[0])):
-        df["df{0}".format(i)] = args[0][i]
-    for j in df:
-        if df[j].rsplit('.', 1)[1] == 'csv':
-            df[j] = pd.read_csv(df[j])
-        elif df[j].rsplit('.', 1)[1] in ('xls', 'xlsx'):
-            df[j] = pd.read_excel(df[j])
+def merge_lookup_label(result: pd.DataFrame, lookup_df: pd.DataFrame, column: str, lookup_id_column: str = "ID", lookup_label_column: str = "NAME"):
+    """
+    Returns a new dataframe with the same values as df, but with an additional column added that provides the
+    descriptive label for the value in the provided column based on the provided lookup dataframe.
 
-    # print(df['df0'])
-    return df
+    The new column will be named "{column}{lookup_label_column}" based on the values of column and lookup_label_column,
+    and will be inserted directly after column in the dataframe.
 
-
-def mergedf(leftdf, rightdf, jointype, leftcol, rightcol):
-    df = pd.merge(left=leftdf, right=rightdf, how=jointype, left_on=leftcol, right_on=rightcol)
-    # drop all columns except NAME column
-    rightdf = rightdf.loc[:, rightdf.columns != 'NAME']
-    drop_list = rightdf.columns.values.tolist()
-    df.drop(drop_list, axis=1, inplace=True)
-    add_column = df.pop('NAME')
-    return df, add_column
+    Parameters:
+    df (pandas.Dataframe): dataframe base for merge
+    lookup_df (pandas.Dataframe): dataframe for lookup table with and id and label column
+    column (str): name of column in df that contains id values from the lookup dataframe
+    lookup_id_column (str): optional name for column in lookup_df that contains id value. Defaults to "ID"
+    lookup_label_column (str): optional name for column in lookup_df that contains label value. Defaults to "NAME"
+    """
+    # Left merge df and just the id and label columns from the lookup data frame
+    result = result.merge(right=lookup_df[[lookup_id_column, lookup_label_column]], how='left', left_on=column, right_on=lookup_id_column)
+    # Remove the ID column from the result
+    result.drop(columns=[lookup_id_column], inplace=True)
+    # Reorder label column to be immediately after the original column used for the merge
+    label_col = result.pop(lookup_label_column)
+    result.insert(result.columns.get_loc(column)+1, f"{column}{lookup_label_column}", label_col)
+    return result
 
 
 def addCredentials(maindf):
@@ -91,43 +92,27 @@ def export(df, yyyymmdd):
 
 def main():
     yyyymmdd = sys.argv[1]
-    from_filepath = f"../programs_{yyyymmdd}.csv"
-    input_file1 = "./TBLDEGREELU_DATA_TABLE.csv"
-    input_file2 = "./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv"
-    input_file3 = "./TBLLICENSE_DATA_TABLE.csv"
 
-    # create dataframes equivalent to number of files.
-    files_list = [from_filepath, input_file1, input_file2, input_file3]
-    mydf = input_source(files_list)
-    maindf = mydf['df0']
-    df1, df2, df3 = mydf['df1'], mydf['df2'], mydf['df3']
+    # Read in source data files
+    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv")
+    degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'])
+    industry_credentials_lookup_df = pd.read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'])
+    license_lookup_df = pd.read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'])
 
     # Remove private data from programs file
-    maindf.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
+    programs_df.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
 
     # merge degree
-    leftcolslist = maindf.columns.values.tolist()
-    rightcolslist = df1.columns.values.tolist()
-    maindf, maindfcol = mergedf(maindf, df1, 'left', leftcolslist[15], rightcolslist[0])
-    maindf.insert(16, 'NAME', maindfcol)
-    maindf.rename(columns={maindf.columns[16]: "DEGREEAWARDEDNAME"}, inplace=True)
+    programs_df = merge_lookup_label(result=programs_df,lookup_df=degree_lookup_df, column="DEGREEAWARDED")
 
     # merge industry credential
-    leftcolslist = maindf.columns.values.tolist()
-    rightcolslist = df2.columns.values.tolist()
-    maindf, maindfcol = mergedf(maindf, df2, 'left', leftcolslist[20], rightcolslist[0])
-    maindf.insert(21, 'NAME', maindfcol)
-    maindf.rename(columns={maindf.columns[21]: "INDUSTRYCREDENTIALNAME"}, inplace=True)
+    programs_df = merge_lookup_label(result=programs_df,lookup_df=industry_credentials_lookup_df, column="INDUSTRYCREDENTIAL")
 
     # merge license
-    leftcolslist = maindf.columns.values.tolist()
-    rightcolslist = df3.columns.values.tolist()
-    maindf, maindfcol = mergedf(maindf, df3, 'left', leftcolslist[18], rightcolslist[0])
-    maindf.insert(19, 'NAME', maindfcol)
-    maindf.rename(columns={maindf.columns[19]: "LICENSEAWARDEDNAME"}, inplace=True)
-
+    programs_df = merge_lookup_label(result=programs_df,lookup_df=license_lookup_df, column="LICENSEAWARDED")
+    
     # add Credential Types
-    finaldf = addCredentials(maindf)
+    finaldf = addCredentials(programs_df)
     # remove special characters " and * from officialname field
     # maindf['OFFICIALNAME'] = maindf['OFFICIALNAME'].str.replace('[*,"]', '')
 
