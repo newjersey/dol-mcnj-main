@@ -2,3 +2,17 @@
 
 .idea/
 .DS_store
+
+# Python Environments
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Seed Data Files
+backend/data/programs_*.csv
+backend/data/providers_*.csv
