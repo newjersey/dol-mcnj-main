@@ -15,7 +15,7 @@
     "@types/react-dom": "^18.0.0",
     "accounting": "^0.4.1",
     "axios": "^0.27.2",
-    "i18next": "^21.9.0",
+    "i18next": "^21.9.1",
     "i18next-http-backend": "^1.4.1",
     "libphonenumber-js": "^1.10.12",
     "node-sass": "^7.0.1",
