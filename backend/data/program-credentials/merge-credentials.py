@@ -52,8 +52,8 @@ def label_credential_type(row: pd.Series):
     if 'A.S.' in official_name:
         return 'Associate Degree'
 
-    ESL_TOKENS = { 'ESL', 'English as a Second Language'}
-    if any(map(official_name.__contains__, ESL_TOKENS)):
+    ESL_NAME_TOKENS = { 'ESL', 'English as a Second Language'}
+    if any(map(official_name.__contains__, ESL_NAME_TOKENS)):
         return 'ESL'
 
     if 'High School Diploma - Adults' in official_name:
