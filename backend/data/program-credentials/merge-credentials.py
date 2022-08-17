@@ -32,58 +32,47 @@ def merge_lookup_label(result: pd.DataFrame, lookup_df: pd.DataFrame, column: st
     result.insert(result.columns.get_loc(column)+1, f"{column}{lookup_label_column}", label_col)
     return result
 
-
-def addCredentials(maindf):
-    df = maindf
-    # new column credential type
-    df['CREDENTIALTYPE'] = ''
-
+def clean_official_name(df: pd.DataFrame):
     # replace special characters " and *
-    df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('[*,"]', '')
+    df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('[*,"]', '', regex=True)
     df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('AAS', 'A.A.S.')
-
-    # Certification
-    df.loc[df['LEADTOINDUSTRYCREDENTIAL'] == "1", 'CREDENTIALTYPE'] = 'Certification'
-
-    # GED
-    df.loc[df['OFFICIALNAME'].str.contains('GED'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
-    df.loc[df['OFFICIALNAME'].str.contains(
-        'General Education Diploma'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
-    df.loc[df['OFFICIALNAME'].str.contains(
-        'High School Equivalence'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
-    df.loc[df['OFFICIALNAME'].str.contains(
-        'High School Equivalency'), 'CREDENTIALTYPE'] = 'General Education Diploma (GED)'
-
-    # Pre-Apprenticeship
-    df.loc[df['OFFICIALNAME'].str.contains('Pre-Apprentice'), 'CREDENTIALTYPE'] = 'Pre-Apprenticeship'
-
-    # Apprenticeship
-    df.loc[(df['OFFICIALNAME'].str.contains('Apprentice')) & (
-                df['CREDENTIALTYPE'] != 'Pre-Apprenticeship'), 'CREDENTIALTYPE'] = 'Apprenticeship'
-
-    # Secondary School Diploma
-    df.loc[df['OFFICIALNAME'].str.contains(
-        'High School Diploma - Adults'), 'CREDENTIALTYPE'] = 'Secondary School Diploma'
-
-    # ESL
-    df.loc[df['OFFICIALNAME'].str.contains('ESL'), 'CREDENTIALTYPE'] = 'ESL'
-    df.loc[df['OFFICIALNAME'].str.contains('English as a Second Language'), 'CREDENTIALTYPE'] = 'ESL'
-
-    # Associate
-    df.loc[df['OFFICIALNAME'].str.contains('A.S.', regex=False), 'CREDENTIALTYPE'] = 'Associate Degree'
-
-    # Masters
-    df.loc[(df['OFFICIALNAME'].str.contains('M.', regex=False)) & (
-        df['DEGREEAWARDEDNAME'].str.contains('Master')), 'CREDENTIALTYPE'] = 'Masters Degree'
-
-    # License
-    df.loc[(df['LEADTOLICENSE'] == "1") & (
-                df['LEADTOINDUSTRYCREDENTIAL'] == "0"), 'CREDENTIALTYPE'] = 'License'
-
-    # Certificate of Completion
-    df.loc[df['CREDENTIALTYPE'] == '', 'CREDENTIALTYPE'] = 'Certificate of Completion'
-
     return df
+
+
+def label_credential_type(row: pd.Series):
+    # Certification
+    official_name : str = row['OFFICIALNAME']
+
+    if row['LEADTOLICENSE'] == "1" and row['LEADTOINDUSTRYCREDENTIAL'] == "0":
+        return 'License'
+
+    if 'M.' in official_name and 'Master' in row['DEGREEAWARDEDNAME']:
+        return 'Masters Degree'
+
+    if 'A.S.' in official_name:
+        return 'Associate Degree'
+
+    ESL_NAME_TOKENS = { 'ESL', 'English as a Second Language'}
+    if any(map(official_name.__contains__, ESL_NAME_TOKENS)):
+        return 'ESL'
+
+    if 'High School Diploma - Adults' in official_name:
+        return 'Secondary School Diploma'
+
+    if 'Apprentice' in official_name and 'Pre-Apprentice' not in official_name:
+        return 'Apprenticeship'
+
+    if 'Pre-Apprentice' in official_name:
+        return 'Pre-Apprenticeship'
+
+    GED_NAME_TOKENS = { 'GED', 'General Education Diploma', 'High School Equivalence', 'High School Equivalency'}
+    if any(map(official_name.__contains__, GED_NAME_TOKENS)):
+        return 'General Education Diploma (GED)'
+
+    if (row['LEADTOINDUSTRYCREDENTIAL'] == "1"):
+        return 'Certification'
+
+    return 'Certificate of Completion'
 
 
 def export(df, yyyymmdd):
@@ -133,14 +122,13 @@ def main():
 
     # merge license
     programs_df = merge_lookup_label(result=programs_df,lookup_df=license_lookup_df, column="LICENSEAWARDED")
-    
-    # add Credential Types
-    finaldf = addCredentials(programs_df)
-    # remove special characters " and * from officialname field
-    # maindf['OFFICIALNAME'] = maindf['OFFICIALNAME'].str.replace('[*,"]', '')
 
+    # Clean up Official Name
+    programs_df = programs_df.pipe(clean_official_name)
+    # add Credential Types
+    programs_df['CREDENTIALTYPE'] = programs_df.apply(label_credential_type, axis=1)
     # export to csv
-    export(finaldf, yyyymmdd)
+    export(programs_df, yyyymmdd)
 
 
 if __name__ == '__main__':
