@@ -198,6 +198,7 @@ def main():
         'ID': "str", # match type for LICENSEAWARDED
         'Name': "str"
     })
+    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv").add_prefix("PROVIDERS_")
 
     # Remove private data from programs file
     programs_df.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
@@ -213,8 +214,11 @@ def main():
 
     # Clean up Official Name
     programs_df = programs_df.pipe(clean_official_name)
+
+    # merge providers information for use in credential type labeling
+    merged_programs_providers = programs_df.merge(providers_df, how='left', left_on='PROVIDERID', right_on='PROVIDERS_PROVIDERID')
     # add Credential Types
-    programs_df['CREDENTIALTYPE'] = programs_df.apply(label_credential_type, axis=1)
+    programs_df['CREDENTIALTYPE'] = merged_programs_providers.apply(label_credential_type, axis=1)
     # export to csv
     export(programs_df, yyyymmdd)
 
