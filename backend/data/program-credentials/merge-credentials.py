@@ -160,6 +160,28 @@ def label_credential_type(row: pd.Series):
     if (row['LEADTOINDUSTRYCREDENTIAL'] == "1"):
         return CredentialType.Certification
 
+    # TODO: Track Down Lookup Values for Provider TYPEIDs.
+    # However, data analysis of our current dataset showed looking at the degree awarded field
+    # for providers with these TYPEIDs where true postitives for that credential type while
+    # providers with other TYPEIDs where false postitives for degree credential types
+    TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS = { "3", "4" }
+
+    # Label Associate Degree awarded from degree granting provider
+    if row['DEGREEAWARDED'] == "200" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
+        return CredentialType.AssociateDegree
+
+    # Label Bachelor Degree awarded from degree granting provider
+    if row['DEGREEAWARDED'] == "300" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
+        return CredentialType.BachelorDegree
+
+    # Label Master Degree awarded from degree granting provider
+    if row['DEGREEAWARDED'] == "500" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
+        return CredentialType.MasterDegree
+
+    # Label Doctoral Degree awarded from degree granting provider
+    if row['DEGREEAWARDED'] == "700" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
+        return CredentialType.DoctoralDegree
+
     return CredentialType.CertificateOfCompletion
 
 
@@ -198,7 +220,9 @@ def main():
         'ID': "str", # match type for LICENSEAWARDED
         'Name': "str"
     })
-    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv").add_prefix("PROVIDERS_")
+    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv", dtype={
+        "TYPEID": "str"
+    }).add_prefix("PROVIDERS_")
 
     # Remove private data from programs file
     programs_df.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
