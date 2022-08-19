@@ -114,10 +114,12 @@ class CredentialType(Enum):
     # Credential assuring that an organization, program, or awarded credential meets prescribed requirements and may include development and administration of qualifying examinations.
     QualityAssuranceCredential = 'Quality Assurance Credential'
 
-    # TODO: How to handle ESL when it is not a type in CredentialEngine
-    ESL = 'ESL'
-    # TODO: How to handle PreApprenticeship when it is not a type in CredentialEngine
-    PreApprenticeship = 'Pre-Apprenticeship'
+    # We want to seperately detect ESL, but credential enginer does not currently support this type,
+    # until it does, we will treat it the same as CertificateOfCompletion in the output.
+    ESL = CertificateOfCompletion
+    # We want to seperately detect Pre-Apprenticeships, but credential enginer does not currently support this type,
+    # until it does, we will treat it the same as CertificateOfCompletion in the output.
+    PreApprenticeship = CertificateOfCompletion
 
     def __str__(self) -> str:
         return str(self.value)
