@@ -126,6 +126,17 @@ class CredentialType(Enum):
     def __str__(self) -> str:
         return str(self.value)
 
+
+# Lookup dictionary mapping a subset of IDs from the degree lookup table that map to
+# specific Credential Types in Credential Engine.
+DEGREE_AWARDED_TO_CREDENTIAL_TYPE : dict[str, CredentialType]= {
+    "200": CredentialType.AssociateDegree,
+    "300": CredentialType.BachelorDegree,
+    "500": CredentialType.MasterDegree,
+    "700": CredentialType.DoctoralDegree,
+}
+
+
 def label_credential_type(row: pd.Series):
     # Certification
     official_name : str = row['OFFICIALNAME']
@@ -166,21 +177,10 @@ def label_credential_type(row: pd.Series):
     # providers with other TYPEIDs where false postitives for degree credential types
     TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS = { "3", "4" }
 
-    # Label Associate Degree awarded from degree granting provider
-    if row['DEGREEAWARDED'] == "200" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
-        return CredentialType.AssociateDegree
-
-    # Label Bachelor Degree awarded from degree granting provider
-    if row['DEGREEAWARDED'] == "300" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
-        return CredentialType.BachelorDegree
-
-    # Label Master Degree awarded from degree granting provider
-    if row['DEGREEAWARDED'] == "500" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
-        return CredentialType.MasterDegree
-
-    # Label Doctoral Degree awarded from degree granting provider
-    if row['DEGREEAWARDED'] == "700" and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
-        return CredentialType.DoctoralDegree
+    # Label academic degrees awarded from degree granting providers
+    degree_awarded_id = row['DEGREEAWARDED']
+    if DEGREE_AWARDED_TO_CREDENTIAL_TYPE.get(degree_awarded_id) and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
+        return DEGREE_AWARDED_TO_CREDENTIAL_TYPE[degree_awarded_id]
 
     return CredentialType.CertificateOfCompletion
 
