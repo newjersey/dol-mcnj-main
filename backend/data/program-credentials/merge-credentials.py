@@ -172,6 +172,7 @@ def label_credential_type(row: pd.Series):
         return CredentialType.Certification
 
     # TODO: Track Down Lookup Values for Provider TYPEIDs.
+    # https://github.com/newjersey/d4ad/issues/411
     # However, data analysis of our current dataset showed looking at the degree awarded field
     # for providers with these TYPEIDs where true postitives for that credential type while
     # providers with other TYPEIDs where false postitives for degree credential types
