@@ -126,6 +126,17 @@ class CredentialType(Enum):
     def __str__(self) -> str:
         return str(self.value)
 
+
+# Lookup dictionary mapping a subset of IDs from the degree lookup table that map to
+# specific Credential Types in Credential Engine.
+DEGREE_AWARDED_TO_CREDENTIAL_TYPE : dict[str, CredentialType]= {
+    "200": CredentialType.AssociateDegree,
+    "300": CredentialType.BachelorDegree,
+    "500": CredentialType.MasterDegree,
+    "700": CredentialType.DoctoralDegree,
+}
+
+
 def label_credential_type(row: pd.Series):
     # Certification
     official_name : str = row['OFFICIALNAME']
@@ -159,6 +170,18 @@ def label_credential_type(row: pd.Series):
 
     if (row['LEADTOINDUSTRYCREDENTIAL'] == "1"):
         return CredentialType.Certification
+
+    # TODO: Track Down Lookup Values for Provider TYPEIDs.
+    # https://github.com/newjersey/d4ad/issues/411
+    # However, data analysis of our current dataset showed looking at the degree awarded field
+    # for providers with these TYPEIDs where true postitives for that credential type while
+    # providers with other TYPEIDs where false postitives for degree credential types
+    TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS = { "3", "4" }
+
+    # Label academic degrees awarded from degree granting providers
+    degree_awarded_id = row['DEGREEAWARDED']
+    if DEGREE_AWARDED_TO_CREDENTIAL_TYPE.get(degree_awarded_id) and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
+        return DEGREE_AWARDED_TO_CREDENTIAL_TYPE[degree_awarded_id]
 
     return CredentialType.CertificateOfCompletion
 
@@ -198,7 +221,9 @@ def main():
         'ID': "str", # match type for LICENSEAWARDED
         'Name': "str"
     })
-    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv").add_prefix("PROVIDERS_")
+    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv", dtype={
+        "TYPEID": "str"
+    }).add_prefix("PROVIDERS_")
 
     # Remove private data from programs file
     programs_df.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
