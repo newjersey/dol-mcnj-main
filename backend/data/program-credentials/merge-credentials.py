@@ -45,48 +45,48 @@ class CredentialType(Enum):
     Certificate = 'Certificate'
     # http://credreg.net/ctdl/terms/credentialType#ApprenticeshipCertificate
     # Credential earned through work-based learning and earn-and-learn models that meet standards and are applicable to industry trades and professions.
-    ApprenticeshipCertificate = 'Apprenticeship'
+    ApprenticeshipCertificate = 'ApprenticeshipCertificate'
     # http://credreg.net/ctdl/terms/credentialType#JourneymanCertificate
     # Credential awarded to skilled workers on successful completion of an apprenticeship in industry trades and professions.
-    JourneymanCertificate = 'Journeyman Certificate'
+    JourneymanCertificate = 'JourneymanCertificate'
     # http://credreg.net/ctdl/terms/credentialType#MasterCertificate
     # Credential awarded upon demonstration through apprenticeship of the highest level of skills and performance in industry trades and professions.
-    MasterCertificate = 'Master Certificate'
+    MasterCertificate = 'MasterCertificate'
 
     # http://credreg.net/ctdl/terms/credentialType#Degree
     # Academic credential conferred upon completion of a program or course of study, typically over multiple years at a college or university.
     Degree = 'Degree'
     # http://credreg.net/ctdl/terms/credentialType#AssociateDegree
     # College/university award for students typically completing the first one to two years of post secondary school education.
-    AssociateDegree = 'Associate Degree'
+    AssociateDegree = 'AssociateDegree'
     # http://credreg.net/ctdl/terms/credentialType#BachelorDegree
     # College/university award for students typically completing three to five years of education where course work and activities advance skills beyond those of the first one to two years of college/university study.
-    BachelorDegree = 'Bachelor Degree'
+    BachelorDegree = 'BachelorDegree'
     # http://credreg.net/ctdl/terms/credentialType#MasterDegree
     # Credential awarded for a graduate level course of study where course work and activities advance skills beyond those of the bachelor's degree or its equivalent.
-    MasterDegree = 'Masters Degree'
+    MasterDegree = 'MasterDegree'
     # http://credreg.net/ctdl/terms/credentialType#DoctoralDegree
     # Highest credential award for students who have completed both a bachelor's degree and a master's degree or their equivalent as well as independent research and/or a significant project or paper.
-    DoctoralDegree = 'Doctoral Degree'
+    DoctoralDegree = 'DoctoralDegree'
     # http://credreg.net/ctdl/terms/credentialType#ProfessionalDoctorate
     # Doctoral degree conferred upon completion of a program providing the knowledge and skills for the recognition, credential, or license required for professional practice.
-    ProfessionalDoctorate = 'Professional Doctorate'
+    ProfessionalDoctorate = 'ProfessionalDoctorate'
     # http://credreg.net/ctdl/terms/credentialType#ResearchDoctorate
     # Doctoral degree conferred for advanced work beyond the master level, including the preparation and defense of a thesis or dissertation based on original research, or the planning and execution of an original project demonstrating substantial artistic or scholarly achievement.
-    ResearchDoctorate = 'Research Doctorate'
+    ResearchDoctorate = 'ResearchDoctorate'
     # http://credreg.net/ctdl/terms/credentialType#Badge
     # Recognition designed to be displayed as a marker of accomplishment, activity, achievement, skill, interest, association, or identity.
     Badge = 'Badge'
     # http://credreg.net/ctdl/terms/credentialType#DigitalBadge
     # Badge offered in digital form.
-    DigitalBadge = 'Digital Badge'
+    DigitalBadge = 'DigitalBadge'
     # http://credreg.net/ctdl/terms/credentialType#OpenBadge
     # Visual symbol containing verifiable claims in accordance with the Open Badges specification and delivered digitally.
-    OpenBadge = 'Open Badge'
+    OpenBadge = 'OpenBadge'
 
     # http://credreg.net/ctdl/terms/credentialType#CertificateOfCompletion
     # Credential that acknowledges completion of an assignment, training or other activity.
-    CertificateOfCompletion = 'Certificate of Completion'
+    CertificateOfCompletion = 'CertificateOfCompletion'
 
     # http://credreg.net/ctdl/terms/credentialType#Certification
     # Time-limited, revocable, renewable credential awarded by an authoritative body for demonstrating the knowledge, skills, and abilities to perform specific tasks or an occupation.
@@ -97,10 +97,10 @@ class CredentialType(Enum):
     Diploma = 'Diploma'
     # http://credreg.net/ctdl/terms/credentialType#GeneralEducationDevelopment
     # Credential awarded by examination that demonstrates that an individual has acquired secondary school-level academic skills.
-    GeneralEducationDevelopment = 'General Education Diploma (GED)'
+    GeneralEducationDevelopment = 'GeneralEducationDevelopment'
     # http://credreg.net/ctdl/terms/credentialType#SecondarySchoolDiploma
     # Diploma awarded by secondary education institutions for successful completion of a secondary school program of study.
-    SecondarySchoolDiploma = 'Secondary School Diploma'
+    SecondarySchoolDiploma = 'SecondarySchoolDiploma'
 
     # http://credreg.net/ctdl/terms/credentialType#License
     # Credential awarded by a government agency or other authorized organization that constitutes legal authority to do a specific job and/or utilize a specific item, system or infrastructure and are typically earned through some combination of degree or certificate attainment, certifications, assessments, work experience, and/or fees, and are time-limited and must be renewed periodically.
@@ -112,7 +112,7 @@ class CredentialType(Enum):
 
     # http://credreg.net/ctdl/terms/credentialType#QualityAssuranceCredential
     # Credential assuring that an organization, program, or awarded credential meets prescribed requirements and may include development and administration of qualifying examinations.
-    QualityAssuranceCredential = 'Quality Assurance Credential'
+    QualityAssuranceCredential = 'QualityAssuranceCredential'
 
     # We want to seperately detect ESL, but credential engine does not currently support this type,
     # until it does, we will treat it the same as CertificateOfCompletion in the output.
