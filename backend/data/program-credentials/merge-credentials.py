@@ -64,7 +64,7 @@ class CredentialType(Enum):
     BachelorDegree = 'BachelorDegree'
     # http://credreg.net/ctdl/terms/credentialType#MasterDegree
     # Credential awarded for a graduate level course of study where course work and activities advance skills beyond those of the bachelor's degree or its equivalent.
-    MasterDegree = 'Masters Degree'
+    MasterDegree = 'MasterDegree'
     # http://credreg.net/ctdl/terms/credentialType#DoctoralDegree
     # Highest credential award for students who have completed both a bachelor's degree and a master's degree or their equivalent as well as independent research and/or a significant project or paper.
     DoctoralDegree = 'DoctoralDegree'
