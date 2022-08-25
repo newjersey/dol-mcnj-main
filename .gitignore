@@ -16,3 +16,6 @@ venv.bak/
 # Seed Data Files
 backend/data/programs_*.csv
 backend/data/providers_*.csv
+
+# Old ETPL File when running through etpl table seed guide
+backend/data/standardized_etpl_old.csv
