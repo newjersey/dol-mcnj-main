@@ -82,14 +82,14 @@ describe("Search", () => {
 
   it("links to a training detail page", () => {
     cy.visit("/search/digital%20marketing");
-    cy.contains("Certified Digital Marketing Professional").click({ force: true });
-    cy.location("pathname").should("eq", "/training/51389");
+    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
+    cy.location("pathname").should("eq", "/training/51388");
 
     // removes search results
     cy.contains("Rutgers Virtual Live Mini MBA").should("not.exist");
 
     // shows program
-    cy.contains("Certified Digital Marketing Professional").should("exist");
+    cy.contains("Certified Digital Marketing Fundamental").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
@@ -107,7 +107,7 @@ describe("Search", () => {
       cy.contains("In Demand").should("not.exist");
     });
 
-    cy.contains("Certified Digital Marketing Professional").click({ force: true });
+    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
     cy.contains("In Demand").should("exist");
   });
 
