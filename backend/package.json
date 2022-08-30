@@ -44,9 +44,9 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/cors": "^2.8.7",
-    "@types/express": "^4.17.6",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
-    "@types/node": "^14.0.9",
+    "@types/node": "^16.11.56",
     "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.9",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
