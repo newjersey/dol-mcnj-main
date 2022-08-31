@@ -54,6 +54,12 @@ mv standardized_etpl.csv standardized_etpl_old.csv
 ./run-standardization.sh
 ```
 
+  6.1 To support the data migration to Credential Engine, we also need to create a modified form of `standardized_etpl.csv` that does not contain linefeed characters within the rows of the CSV file (This is a limitation in the import process to the system consumming this content for the data migration). To support this, we run an additional script to create `standardized_etpl_for_data_migration.csv`
+
+```shell script
+python3 transform-for-migration.py
+```
+
 ## Create migrations to update Postgres DB
 
 To learn more about database migrations and seed updates, see the README.
