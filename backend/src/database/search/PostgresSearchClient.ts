@@ -1,12 +1,12 @@
 import knex from "knex";
-import Knex, { PgConnectionConfig } from "knex";
+import { type Knex } from "knex";
 import { CareerTrackEntity, HeadlineEntity, SearchEntity } from "./Entities";
 import { SearchClient, SearchResult } from "../../domain/search/SearchClient";
 
 export class PostgresSearchClient implements SearchClient {
   kdb: Knex;
 
-  constructor(connection: PgConnectionConfig) {
+  constructor(connection: Knex.PgConnectionConfig) {
     this.kdb = knex({
       client: "pg",
       connection: connection,
