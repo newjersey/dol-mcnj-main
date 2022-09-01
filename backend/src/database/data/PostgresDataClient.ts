@@ -1,5 +1,5 @@
 import knex from "knex";
-import Knex, { PgConnectionConfig } from "knex";
+import { type Knex } from "knex";
 import {
   LocalException,
   SocDefinition,
@@ -19,7 +19,7 @@ const APPROVED = "Approved";
 export class PostgresDataClient implements DataClient {
   kdb: Knex;
 
-  constructor(connection: PgConnectionConfig) {
+  constructor(connection: Knex.PgConnectionConfig) {
     this.kdb = knex({
       client: "pg",
       connection: connection,
