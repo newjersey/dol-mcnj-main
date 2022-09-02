@@ -17,15 +17,6 @@ function mockReachRouter() {
 
 jest.mock("@reach/router", () => mockReachRouter());
 
-global.document.createRange = () => ({
-  setStart: () => {},
-  setEnd: () => {},
-  commonAncestorContainer: {
-    nodeName: "BODY",
-    ownerDocument: document,
-  },
-});
-
 describe("<InDemandOccupationsPage />", () => {
   let stubClient: StubClient;
 
