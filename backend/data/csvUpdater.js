@@ -27,10 +27,8 @@ fs.readFile(path.join(__dirname, csvFilenameOld), function (err, fileContentsOld
 
     let output = "";
 
-    fileContentsOld = fileContentsOld.toString().replace(`'`, `"`);
-    fileContentsNew = fileContentsNew.toString().replace(`'`, `"`);
-    const dataOld = Papa.parse(fileContentsOld, { header: true }).data;
-    const dataNew = Papa.parse(fileContentsNew, { header: true }).data;
+    const dataOld = Papa.parse(fileContentsOld.toString(), { header: true }).data;
+    const dataNew = Papa.parse(fileContentsNew.toString(), { header: true }).data;
 
     const columnsOld = Object.keys(dataOld[0]);
     const columnsNew = Object.keys(dataNew[0]);
