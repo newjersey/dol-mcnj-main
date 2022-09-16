@@ -134,7 +134,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       </div>
       <div className="row">
         <div className="col-md-12">
-          {isTabletAndUp && <p className="result-highlight">{boldHighlightedSection(props.trainingResult.highlight)}</p>}
+          {isTabletAndUp && <p data-testid="result-highlight">{boldHighlightedSection(props.trainingResult.highlight)}</p>}
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
             {props.comparisonItems && <ComparisonCheckbox />}
