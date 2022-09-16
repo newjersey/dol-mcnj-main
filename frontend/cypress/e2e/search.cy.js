@@ -131,6 +131,7 @@ describe("Search", () => {
       cy.get("[data-testid='card']")
         .first()
         .within(() => {
+          cy.get('.result-highlight').should("exist");
           cy.get('[type="checkbox"][name="compare"]').should("exist");
           cy.get('[type="checkbox"][name="compare"]').check({ force: true });
         });
