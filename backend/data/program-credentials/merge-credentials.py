@@ -39,6 +39,12 @@ def clean_official_name(df: pd.DataFrame):
     df['OFFICIALNAME'] = df['OFFICIALNAME'].str.replace('AAS', 'A.A.S.')
     return df
 
+
+def clean_excessive_line_wraps(df: pd.DataFrame):
+    df['DESCRIPTION'] = df['DESCRIPTION'].str.replace(r'([A-Za-z])\n([A-Za-z])', r'\1 \2', regex=True)
+    return df
+
+
 class CredentialType(Enum):
     # http://credreg.net/ctdl/terms/credentialType#Certificate
     # Credential that designates requisite knowledge and skills of an occupation, profession, or academic program.
@@ -239,6 +245,9 @@ def main():
 
     # Clean up Official Name
     programs_df = programs_df.pipe(clean_official_name)
+
+    # Clean up excessive line wraps
+    programs_df = programs_df.pipe(clean_excessive_line_wraps)
 
     # merge providers information for use in credential type labeling
     merged_programs_providers = programs_df.merge(providers_df, how='left', left_on='PROVIDERID', right_on='PROVIDERS_PROVIDERID')
