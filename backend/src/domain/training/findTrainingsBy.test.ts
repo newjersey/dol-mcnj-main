@@ -252,6 +252,7 @@ describe("findTrainingsBy", () => {
     expect(training.percentEmployed).toEqual(null);
     expect(training.averageSalary).toEqual(null);
     expect(training.online).toEqual(false);
+    expect(training.description).toEqual("");
   });
 
   it("returns null if percent employed is -99999", async () => {
