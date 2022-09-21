@@ -230,6 +230,7 @@ describe("findTrainingsBy", () => {
       peremployed2: null,
       avgquarterlywage2: null,
       onlineprogramid: null,
+      description: null,
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
 
