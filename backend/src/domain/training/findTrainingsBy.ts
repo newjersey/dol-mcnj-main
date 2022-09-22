@@ -48,7 +48,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               zipCode: program.zip ? formatZip(program.zip) : "",
             },
           },
-          description: stripSurroundingQuotes(stripUnicode(program.description)),
+          description: stripSurroundingQuotes(stripUnicode(program.description ?? "")),
           certifications: program.industrycredentialname,
           prerequisites: formatPrerequisites(program.prerequisites),
           calendarLength: program.calendarlengthid

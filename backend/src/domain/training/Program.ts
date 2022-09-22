@@ -2,7 +2,7 @@ export interface Program {
   programid: string;
   cipcode: string;
   officialname: string;
-  description: string;
+  description: string | null;
   industrycredentialname: string;
   prerequisites: string;
   providerid: string;
