@@ -34,7 +34,7 @@ import {
   initialContextualInfoState,
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
-import "njwds/dist/css/styles.css";
+import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 interface Props {
   client: Client;
