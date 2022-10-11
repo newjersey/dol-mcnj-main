@@ -622,11 +622,9 @@ export const es = {
     searchBoxPlaceholder: "Ingrese ocupación, certificación o proveedor",
     swimLaneHeader: "Instrucciones útiles",
     columnOneHeader: "Para exploradores de entrenamiento",
-    columnOneButtonText: "Aprende más",
     columnTwoHeader: "Para consejeros y entrenadores",
-    columnTwoButtonText: "Explora la herramienta",
     columnThreeHeader: "Para proveedores de capacitación",
-    columnThreeButtonText: "Encuentre más información",
+    columnButtonText: "Aprende más",
   },
   OccupationPage: {
     header: "Ocupación",
