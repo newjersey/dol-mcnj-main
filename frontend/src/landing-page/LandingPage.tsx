@@ -44,7 +44,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnOneHeader")}</h3>
             <Button className="mtd" variant="secondary" onClick={() => navigate("/explorer")}>
-              {t("LandingPage.columnOneButtonText")}
+              {t("LandingPage.columnButtonText")}
             </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
@@ -53,7 +53,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnTwoHeader")}</h3>
             <Button className="mtd" variant="secondary" onClick={() => navigate("/counselor")}>
-              {t("LandingPage.columnTwoButtonText")}
+              {t("LandingPage.columnButtonText")}
             </Button>
           </div>
           <div className="col-md-4 fdc fac mvl">
@@ -66,7 +66,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               variant="secondary"
               onClick={() => navigate("/training-provider")}
             >
-              {t("LandingPage.columnThreeButtonText")}
+              {t("LandingPage.columnButtonText")}
             </Button>
           </div>
         </div>
