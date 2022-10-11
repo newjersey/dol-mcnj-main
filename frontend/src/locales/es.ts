@@ -621,7 +621,7 @@ export const es = {
       "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
     searchBoxPlaceholder: "Ingrese ocupación, certificación o proveedor",
     swimLaneHeader: "Instrucciones útiles",
-    columnOneHeader: "Para exploradores de entrenamiento",
+    columnOneHeader: "Solicitantes de formación",
     columnTwoHeader: "Para consejeros y entrenadores",
     columnThreeHeader: "Para proveedores de capacitación",
     columnButtonText: "Aprende más",
