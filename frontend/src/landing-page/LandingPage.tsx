@@ -4,9 +4,9 @@ import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import IconOccupation from "./landing-icons/occupations.svg";
-import IconWorkforce from "./landing-icons/workforce.png";
-import IconCounseling from "./landing-icons/counseling.svg";
+import IconOccupation from "./landing-icons/swimlane-rocket.svg";
+import IconWorkforce from "./landing-icons/swimlane-bulb.svg";
+import IconCounseling from "./landing-icons/swimlane-heart.svg";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 
@@ -37,8 +37,8 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
         </div>
 
         <div className="container options-container">
-          <h2 className="text-l weight-400 align-center mtd">{t("LandingPage.swimLaneHeader")}</h2>
-          <div className="col-md-4 fdc fac mvl">
+          <h2 className="text-l weight-400 align-center mvd">{t("LandingPage.swimLaneHeader")}</h2>
+          <div className="col-md-4 fdc fac mbl">
             <div className="landing-image mbs">
               <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
             </div>
@@ -47,7 +47,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               {t("LandingPage.columnButtonText")}
             </Button>
           </div>
-          <div className="col-md-4 fdc fac mvl">
+          <div className="col-md-4 fdc fac mbl">
             <div className="landing-image mbs">
               <img alt={t("IconAlt.landingPageCounseling")} src={IconCounseling} />
             </div>
@@ -56,7 +56,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               {t("LandingPage.columnButtonText")}
             </Button>
           </div>
-          <div className="col-md-4 fdc fac mvl">
+          <div className="col-md-4 fdc fac mbl">
             <div className="landing-image-workforce mbs">
               <img alt={t("IconAlt.landingPageWorkforce")} src={IconWorkforce} />
             </div>
