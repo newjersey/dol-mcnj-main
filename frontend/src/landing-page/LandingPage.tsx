@@ -43,7 +43,6 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnOneHeader")}</h3>
-            <p className="phm align-center options-desc">{t("LandingPage.columnOneDescription")}</p>
             <Button className="mtd" variant="secondary" onClick={() => navigate("/explorer")}>
               {t("LandingPage.columnOneButtonText")}
             </Button>
@@ -53,7 +52,6 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               <img alt={t("IconAlt.landingPageCounseling")} src={IconCounseling} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnTwoHeader")}</h3>
-            <p className="phm align-center options-desc">{t("LandingPage.columnTwoDescription")}</p>
             <Button className="mtd" variant="secondary" onClick={() => navigate("/counselor")}>
               {t("LandingPage.columnTwoButtonText")}
             </Button>
@@ -63,9 +61,6 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
               <img alt={t("IconAlt.landingPageWorkforce")} src={IconWorkforce} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnThreeHeader")}</h3>
-            <p className="phm align-center options-desc">
-              {t("LandingPage.columnThreeDescription")}
-            </p>
             <Button
               className="mtd"
               variant="secondary"
