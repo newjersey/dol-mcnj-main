@@ -608,11 +608,9 @@ export const en = {
     searchBoxPlaceholder: "Enter occupation, certification, or provider",
     swimLaneHeader: "Helpful how-to’s",
     columnOneHeader: "For Training Explorers",
-    columnOneButtonText: "Learn More",
     columnTwoHeader: "For Counselors and Coaches",
-    columnTwoButtonText: "Explore the Tool",
     columnThreeHeader: "For Training Providers",
-    columnThreeButtonText: "Find More Information",
+    columnButtonText: "Learn More",
   },
   OccupationPage: {
     header: "Occupation",
