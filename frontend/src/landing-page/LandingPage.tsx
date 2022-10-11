@@ -57,7 +57,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
             </Button>
           </div>
           <div className="col-md-4 fdc fac mbl">
-            <div className="landing-image-workforce mbs">
+            <div className="landing-image mbs">
               <img alt={t("IconAlt.landingPageWorkforce")} src={IconWorkforce} />
             </div>
             <h3 className="text-l weight-400 align-center">{t("LandingPage.columnThreeHeader")}</h3>
