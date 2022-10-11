@@ -606,6 +606,7 @@ export const en = {
     headerText:
       "Find training to better prepare you for a promotion, better job, or even a career change",
     searchBoxPlaceholder: "Enter occupation, certification, or provider",
+    swimLaneHeader: "Helpful how-to’s",
     columnOneHeader: "For Training Explorers",
     columnOneDescription: "Find New Jersey's fastest growing occupations",
     columnOneButtonText: "Learn More",

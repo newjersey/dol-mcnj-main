@@ -620,6 +620,7 @@ export const es = {
     headerText:
       "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
     searchBoxPlaceholder: "Ingrese ocupación, certificación o proveedor",
+    swimLaneHeader: "Instrucciones útiles",
     columnOneHeader: "Para exploradores de entrenamiento",
     columnOneDescription: "Encuentre las ocupaciones de más rápido crecimiento en Nueva Jersey",
     columnOneButtonText: "Aprende más",
