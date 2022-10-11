@@ -607,7 +607,7 @@ export const en = {
       "Find training to better prepare you for a promotion, better job, or even a career change",
     searchBoxPlaceholder: "Enter occupation, certification, or provider",
     swimLaneHeader: "Helpful how-to’s",
-    columnOneHeader: "For Training Explorers",
+    columnOneHeader: "For Training Seekers",
     columnTwoHeader: "For Counselors and Coaches",
     columnThreeHeader: "For Training Providers",
     columnButtonText: "Learn More",
