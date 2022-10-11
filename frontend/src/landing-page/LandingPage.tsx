@@ -37,6 +37,7 @@ export const LandingPage = (_props: RouteComponentProps): ReactElement => {
         </div>
 
         <div className="container options-container">
+          <h2 className="text-l weight-400 align-center mtd">{t("LandingPage.swimLaneHeader")}</h2>
           <div className="col-md-4 fdc fac mvl">
             <div className="landing-image mbs">
               <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
