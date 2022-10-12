@@ -620,17 +620,11 @@ export const es = {
     headerText:
       "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
     searchBoxPlaceholder: "Ingrese ocupación, certificación o proveedor",
-    columnOneHeader: "Para exploradores de entrenamiento",
-    columnOneDescription: "Encuentre las ocupaciones de más rápido crecimiento en Nueva Jersey",
-    columnOneButtonText: "Aprende más",
+    swimLaneHeader: "Instrucciones útiles",
+    columnOneHeader: "Solicitantes de formación",
     columnTwoHeader: "Para consejeros y entrenadores",
-    columnTwoDescription:
-      "Potencie su búsqueda para encontrar información de capacitación más rápidamente",
-    columnTwoButtonText: "Explora la herramienta",
     columnThreeHeader: "Para proveedores de capacitación",
-    columnThreeDescription:
-      "Conozca el proceso para ingresar a la Lista de proveedores de capacitación elegibles de NJ",
-    columnThreeButtonText: "Encuentre más información",
+    columnButtonText: "Aprende más",
   },
   OccupationPage: {
     header: "Ocupación",
