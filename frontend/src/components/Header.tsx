@@ -62,35 +62,38 @@ export const Header = (): ReactElement => {
                 </span>
               </Link>
               <Link
-                to="/explorer"
-                className="link-format-black nav-item pvm phd bbdcg"
-                onClick={pageCheck}
+                  to="/in-demand-occupations"
+                  className="link-format-black nav-item pvm phd bbdcg"
+                  onClick={pageCheck}
               >
                 <span className="container flex fac fjb">
-                  {t("Header.mobileLinkToExplorers")}
+                  {t("Header.linkToInDemandOccupations")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
               <Link
-                to="/counselor"
-                className="link-format-black nav-item pvm phd bbdcg"
-                onClick={pageCheck}
+                  to="/funding"
+                  className="link-format-black nav-item pvm phd bbdcg"
+                  onClick={pageCheck}
+              >
+                <span className="container flex fac fjb">
+                  {t("Header.linkToFunding")}
+                  <Icon className="mla">chevron_right</Icon>
+                </span>
+              </Link>
+              <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={COUNSELING_URL}
+                  className="link-format-black fin fac"
               >
                 <span className="container flex fac fjb">
                   {t("Header.mobileLinkToCounselors")}
+                  <Icon>launch</Icon>
                   <Icon className="mla">chevron_right</Icon>
                 </span>
-              </Link>
-              <Link
-                to="/training-provider"
-                className="link-format-black nav-item pvm phd bbdcg"
-                onClick={pageCheck}
-              >
-                <span className="container flex fac fjb">
-                  {t("Header.mobileLinkToTrainingProviders")}
-                  <Icon className="mla">chevron_right</Icon>
-                </span>
-              </Link>
+
+              </a>
             </nav>
           )}
         </div>
