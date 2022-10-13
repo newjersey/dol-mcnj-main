@@ -578,7 +578,7 @@ export const en = {
     linkToCounselingText: "Counseling",
     mobileMenuText: "Menu",
     mobileLinkToExplorers: "For Training Explorers",
-    mobileLinkToCounselors: "For Counselors & Coaches",
+    mobileLinkToCounselors: "Counseling",
     mobileLinkToTrainingProviders: "For Training Providers",
     betaBannerText: "This site is in beta. Feedback welcome <1>here</1>.",
   },
