@@ -81,10 +81,11 @@ export const Header = (): ReactElement => {
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <Link
-                to="/counselor"
-                className="link-format-black nav-item pvm phd bbdcg"
-                onClick={pageCheck}
+              <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={COUNSELING_URL}
+                  className="link-format-black fin fac"
               >
                 <span className="container flex fac fjb">
                   {t("Header.mobileLinkToCounselors")}
@@ -92,7 +93,7 @@ export const Header = (): ReactElement => {
                   <Icon className="mla">chevron_right</Icon>
                 </span>
 
-              </Link>
+              </a>
             </nav>
           )}
         </div>
