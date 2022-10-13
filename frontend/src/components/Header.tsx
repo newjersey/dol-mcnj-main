@@ -85,7 +85,7 @@ export const Header = (): ReactElement => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href={COUNSELING_URL}
-                  className="link-format-black fin fac"
+                  className="link-format-black nav-item pvm phd bbdcg"
               >
                 <span className="container flex fac fjb">
                   {t("Header.mobileLinkToCounselors")}
