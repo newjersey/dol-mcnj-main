@@ -592,7 +592,7 @@ export const es = {
     linkToCounselingText: "Asesoramiento",
     mobileMenuText: "Menú",
     mobileLinkToExplorers: "Exploradores de entrenamiento",
-    mobileLinkToCounselors: "Consejeros y entrenadores",
+    mobileLinkToCounselors: "Asesoramiento",
     mobileLinkToTrainingProviders: "Proveedores de capacitación",
     betaBannerText: "Este sitio está en beta. Comentarios bienvenidos <1>aquí</1>.",
   },
