@@ -13,7 +13,7 @@ export const Header = (): ReactElement => {
     return (
       <header className="header usa-header usa-header--basic" role="banner">
         <div className="usa-nav-container height-100">
-          <nav className="usa-navbar">
+          <nav className="usa-navbar nav-training-explorer">
             <div className="usa-logo" id="basic-logo">
               <a href="/" className="flex-align-center link-format-black fin fac width-content">
                 <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
@@ -35,7 +35,7 @@ export const Header = (): ReactElement => {
                 <a className="usa-nav__link" href="/funding"><span>{t("Header.linkToFunding")}</span></a>
               </li>
               <li className="usa-nav__primary-item">
-                <a className="usa-nav__link" href={COUNSELING_URL} target={"_blank"} rel={"noreferrer"}><span>{t("Header.linkToCounselingText")} <Icon fontSize={"inherit"}>launch</Icon></span></a>
+                <a className="usa-nav__link" href={COUNSELING_URL} target={"_blank"} rel={"noreferrer"}><span>{t("Header.linkToCounselingText")} <Icon style={{ fontSize: 12 }}>launch</Icon></span></a>
               </li>
             </ul>
           </nav>
