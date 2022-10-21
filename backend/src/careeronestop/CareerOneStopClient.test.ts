@@ -12,9 +12,9 @@ describe("CareerOneStopClient", () => {
   beforeEach(() => {
     mockedAxios = axios as jest.Mocked<typeof axios>;
     getOpenJobsCount = CareerOneStopClient(
-        "wwww.some-cool-url.com",
-        "FAKE-USERID",
-        "FAKE-AUTH-TOKEN"
+      "wwww.some-cool-url.com",
+      "FAKE-USERID",
+      "FAKE-AUTH-TOKEN"
     );
   });
 
@@ -25,13 +25,13 @@ describe("CareerOneStopClient", () => {
     expect(jobsCount).toEqual(1710);
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
-        "wwww.some-cool-url.com/v1/jobsearch/FAKE-USERID/15-1134/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer FAKE-AUTH-TOKEN",
-          },
-        }
+      "wwww.some-cool-url.com/v1/jobsearch/FAKE-USERID/15-1134/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer FAKE-AUTH-TOKEN",
+        },
+      }
     );
   });
 
