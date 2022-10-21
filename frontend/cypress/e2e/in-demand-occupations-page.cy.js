@@ -22,7 +22,7 @@ describe("In Demand Occupations page", () => {
     cy.visit("/in-demand-occupations");
 
     cy.contains("Computer and Mathematical").click();
-    cy.contains("Web Developers").click();
+    cy.contains("Web Developers").click({force: true});
     cy.location("pathname").should("eq", "/occupation/15-1254");
   });
 
@@ -30,7 +30,7 @@ describe("In Demand Occupations page", () => {
     cy.visit("/in-demand-occupations");
 
     cy.get('input[aria-label="occupation-search"]').type("web");
-    cy.contains("Web Developers").click();
+    cy.contains("Web Developers").click({force: true});
     cy.location("pathname").should("eq", "/occupation/15-1254");
   });
 });
