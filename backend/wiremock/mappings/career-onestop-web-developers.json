@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/v1/jobsearch/CAREER_ONESTOP_USERID/15-1134.00/NJ/1000/0",
+    "url": "/v1/jobsearch/CAREER_ONESTOP_USERID/15-1254/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false",
     "headers": {
       "Authorization": {
         "equalTo": "Bearer CAREER_ONESTOP_AUTH_TOKEN"
