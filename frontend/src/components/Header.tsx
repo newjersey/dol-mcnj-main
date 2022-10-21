@@ -14,7 +14,7 @@ interface HandleClickInterface {
 }
 
 export const Header = (): ReactElement => {
-  const isDesktop = useMediaQuery("(min-width:992px)");
+  const isDesktop = useMediaQuery("(min-width:1025px)");
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
