@@ -4,6 +4,7 @@ import njLogo from "../njlogo.svg";
 import navCloseButton from "@newjersey/njwds/dist/img/usa-icons/close.svg"
 import { useTranslation } from "react-i18next";
 import "@newjersey/njwds/dist/css/styles.css";
+import "@newjersey/njwds/dist/js/uswds.min.js";
 const COUNSELING_URL = "https://nj.gov/labor/career-services/";
 
 export const Header = (): ReactElement => {
