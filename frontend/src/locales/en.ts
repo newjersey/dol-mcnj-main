@@ -679,7 +679,7 @@ export const en = {
   SearchResultsPage: {
     pageTitle: "{{query}} - Search Results",
     noSearchTermPageTitle: "Search for Training",
-    noSearchTermHeader: "Getting Started - Search For Training",
+    noSearchTermHeader: "Find Training",
     sectionOneHeader: "What is the Training Explorer?",
     sectionOneHeaderSmallScreen: "Getting Started",
     introText:

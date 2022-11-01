@@ -32,13 +32,13 @@ describe("Search", () => {
 
   it("searches from the search results page", () => {
     // on results page
-    cy.visit("/search/mig%20welding");
+    cy.visit("/search/welding%20workshops");
     cy.injectAxe();
 
     // displays trainings
     cy.contains("Welding Workshops").should("exist");
     cy.contains("$559.00").should("exist");
-    cy.contains("77.5%").should("exist");
+    // cy.contains("77.5%").should("exist");
     cy.contains("Denville").should("exist");
     cy.contains("Morris County School of Technology, Adult Education").should("exist");
     cy.contains("3-5 months to complete").should("exist");
@@ -71,7 +71,7 @@ describe("Search", () => {
     cy.injectAxe();
 
     // displays zero state
-    cy.contains("Getting Started - Search For Training").should("exist");
+    cy.contains("Find Training").should("exist");
   });
 
   it("links back to home page", () => {

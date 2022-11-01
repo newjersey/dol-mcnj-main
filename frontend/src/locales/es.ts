@@ -695,7 +695,7 @@ export const es = {
   SearchResultsPage: {
     pageTitle: "{{query}} - Resultados de la búsqueda",
     noSearchTermPageTitle: "Buscar Entrenamiento",
-    noSearchTermHeader: "Primeros pasos - Buscar capacitación",
+    noSearchTermHeader: "Buscar formación",
     sectionOneHeader: "¿Qué es el New Jersey Training Explorer?",
     sectionOneHeaderSmallScreen: "Empezando",
     introText:
