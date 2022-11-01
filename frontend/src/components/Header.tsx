@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import { useState } from "react";
 import { Icon, useMediaQuery } from "@material-ui/core";
 import njLogo from "../njlogo.svg";
-import navCloseButton from "@newjersey/njwds/dist/img/usa-icons/close.svg"
+import navCloseButton from "@newjersey/njwds/dist/img/usa-icons/close.svg";
 import { useTranslation } from "react-i18next";
 import {UnstyledButton} from "./UnstyledButton";
 
@@ -43,7 +43,7 @@ export const Header = (): ReactElement => {
                 {t("Header.mobileMenuText")}
               </UnstyledButton>
             </div>
-
+            
             {isOpen && (
                 <nav className="nav nav-mobile">
                   <Link to="/" className="link-format-black nav-item pvm phd bvdcg" onClick={pageCheck}>
