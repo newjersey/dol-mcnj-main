@@ -10,7 +10,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@types/accounting": "^0.4.2",
-    "@types/jest": "^29.2.1",
+    "@types/jest": "^29.2.2",
     "@types/react": "^16.14.31",
     "@types/react-dom": "^16.9.16",
     "accounting": "^0.4.1",
