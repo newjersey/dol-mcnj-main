@@ -64,7 +64,7 @@
     "axe-core": "^4.5.2",
     "cypress": "^10.11.0",
     "cypress-axe": "^1.0.0",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "good-fences": "^1.1.2",
