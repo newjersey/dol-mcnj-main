@@ -15,6 +15,11 @@
     "fences": "gf",
     "start:wiremock": "wiremock --root-dir ./wiremock --port 8090"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  },
   "prettier": {
     "printWidth": 100
   },
