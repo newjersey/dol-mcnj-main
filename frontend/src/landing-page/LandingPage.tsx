@@ -1,5 +1,6 @@
 import { navigate, RouteComponentProps } from "@reach/router";
 import React, { ReactElement } from "react";
+import { useEffect, useState } from "react"
 import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
@@ -9,9 +10,18 @@ import IconWorkforce from "./landing-icons/swimlane-bulb.svg";
 import IconCounseling from "./landing-icons/swimlane-heart.svg";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
+import { credentialEngineAPI } from "../credentialengine/CredentialEngineAPI";
 
 export const LandingPage = (_props: RouteComponentProps): ReactElement => {
   const { t } = useTranslation();
+
+  const [ceList, setCeList] = useState([])
+
+  useEffect(() => {
+    credentialEngineAPI.getAllCertificates(0, 1, '^search:recordCreated', false).then((ceList) => {
+      console.log(`CE API OBJECT: ${credentialEngineAPI.getAllCertificates}`);
+    })
+  });
 
   return (
     <>
