@@ -1,6 +1,7 @@
 import { navigate, RouteComponentProps } from "@reach/router";
 import React, { ReactElement } from "react";
 import { useEffect, useState } from "react"
+import { Client } from "../domain/Client";
 import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
 import { Header } from "../components/Header";
@@ -11,16 +12,31 @@ import IconCounseling from "./landing-icons/swimlane-heart.svg";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 import { credentialEngineAPI } from "../credentialengine/CredentialEngineAPI";
+import { AxiosResponse } from "axios";
 
-export const LandingPage = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const LandingPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
   const [ceList, setCeList] = useState([])
 
   useEffect(() => {
-    credentialEngineAPI.getAllCertificates(0, 1, '^search:recordCreated', false).then((ceList) => {
-      console.log(`CE API OBJECT: ${credentialEngineAPI.getAllCertificates}`);
-    })
+    props.client.getAllCertificates(
+      {'Query': { '@type': 'ceterms:Certificate' }}, 
+      0, 
+      5, 
+      '^search:recordCreated', 
+      false, {
+      onSuccess: (data: AxiosResponse) => {
+        console.log(data);
+      },
+      onError: (e) => {
+        console.log(e);
+      },
+    });
   });
 
   return (
