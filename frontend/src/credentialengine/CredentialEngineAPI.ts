@@ -7,9 +7,10 @@ export const credentialEngineAPI = {
   /**
    * 
    * @param query this should be a JSON-LD blob representing specific CE term collections.
-   * @param limit part of pagination, number of results to return
-   * @param offset part of pagination, number of results to skip
+   * @param skip part of pagination, number of results to skip
+   * @param take part of pagination, number of results to return
    * @param sort CE provides several sorting methods
+   * @param cancel boolean value for canceling API request
    * 
    * @return a collection of results from Credential Engine.
    * 
