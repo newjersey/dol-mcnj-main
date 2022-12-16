@@ -12,6 +12,9 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import { GetAllCertificates } from "./domain/types";
+import { credentialEngineFactory } from "./domain/credentialengine/CredentialEngineFactory";
+import { Axios, AxiosResponse } from "axios";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -77,6 +80,7 @@ const router = routerFactory({
     findTrainingsBy,
     postgresDataClient
   ),
+  getAllCertificates: credentialEngineFactory,
 });
 
 const app = express();
