@@ -19,3 +19,6 @@ backend/data/providers_*.csv
 
 # Old ETPL File when running through etpl table seed guide
 backend/data/standardized_etpl_old.csv
+
+# Code Editor
+.vscode/*
