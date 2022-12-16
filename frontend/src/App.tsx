@@ -68,7 +68,7 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
-              <LandingPage path="/" />
+              <LandingPage path="/" client={props.client} />
               <LandingPageCounselor path="/counselor" />
               <LandingPageExplorer path="/explorer" />
               <LandingPageTrainingProvider path="/training-provider" />
