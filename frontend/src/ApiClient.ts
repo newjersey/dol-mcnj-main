@@ -20,6 +20,9 @@ export class ApiClient implements Client {
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.get(`/api/occupations/${soc}`, observer);
   }
+  getAllCertificates(query: object, skip: number, take: number, sort: string, cancel: boolean, observer: Observer<AxiosResponse>): void {
+    this.get(`/api/ce/getallcredentials/:skip/:take/:sort/:cancel`, observer);
+  }
 
   private get<T>(endpoint: string, observer: Observer<T>): void {
     axios
