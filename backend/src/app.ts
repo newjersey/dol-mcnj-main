@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
@@ -14,7 +17,6 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { GetAllCertificates } from "./domain/types";
 import { credentialEngineFactory } from "./domain/credentialengine/CredentialEngineFactory";
-import { Axios, AxiosResponse } from "axios";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -80,7 +82,7 @@ const router = routerFactory({
     findTrainingsBy,
     postgresDataClient
   ),
-  getAllCertificates: credentialEngineFactory,
+  getAllCertificates: credentialEngineFactory(),
 });
 
 const app = express();
