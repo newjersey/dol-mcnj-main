@@ -1,6 +1,6 @@
 import { navigate, RouteComponentProps } from "@reach/router";
 import React, { ReactElement } from "react";
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Client } from "../domain/Client";
 import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
@@ -11,8 +11,7 @@ import IconWorkforce from "./landing-icons/swimlane-bulb.svg";
 import IconCounseling from "./landing-icons/swimlane-heart.svg";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
-import { credentialEngineAPI } from "../credentialengine/CredentialEngineAPI";
-import { AxiosResponse } from "axios";
+import { Certificates } from "../domain/CredentialEngine";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -21,22 +20,21 @@ interface Props extends RouteComponentProps {
 export const LandingPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
-  const [ceList, setCeList] = useState([])
-
   useEffect(() => {
     props.client.getAllCertificates(
-      {'Query': { '@type': 'ceterms:Certificate' }}, 
       0, 
       5, 
       '^search:recordCreated', 
-      false, {
-      onSuccess: (data: AxiosResponse) => {
-        console.log(data);
-      },
-      onError: (e) => {
-        console.log(e);
-      },
-    });
+      false,
+      {
+        onSuccess: (data: Certificates) => {
+          console.log(`Some JSON, maybe: ${data}`);
+        },
+        onError: (e) => {
+          console.log(`An error, maybe an error code: ${e}`);
+        },
+      }
+    );
   });
 
   return (
