@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export const api = axios.create({
   withCredentials: false, 
-  baseURL: `https://${process.env.REACT_APP_CE_ENVIRONMENT}.credentialengine.org`,
+  baseURL: `https://${process.env.CE_ENVIRONMENT}.credentialengine.org`,
   responseType: 'json',
   headers: {
     'Access-Control-Request-Method': 'POST',
     'Access-Control-Request-Headers': 'Content-Type, Authorization',
-    'Authorization': `Bearer ${process.env.REACT_APP_CE_AUTH_TOKEN}`,
+    'Authorization': `Bearer ${process.env.CE_AUTH_TOKEN}`,
     'Content-type': 'application/json',
   },
 });

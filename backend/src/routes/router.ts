@@ -1,5 +1,4 @@
 import { Request, Response, Router } from "express";
-import { api } from '../credentialengine/CredentialEngineConfig';
 import {
   FindTrainingsBy,
   GetInDemandOccupations,
@@ -9,11 +8,10 @@ import {
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
-import { Certificates } from "../domain/credentialengine/CredentialEngine";
+import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
-import { AxiosResponse } from "axios";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -35,33 +33,12 @@ export const routerFactory = ({
   /**
    * 
    */
-  router.get("/ce/getallcredentials/:skip/:take/:sort/:cancel", async (req: Request, res: Response<AxiosResponse>) => {
-    
-    getAllCertificates(req.query.query as string)
-      .then(async (allCertificates: AxiosResponse) => {
-
-        const gateway = `/assistant/search/ctdl`;
-
-        await api.request({
-          url: `${gateway}`,
-          method: 'post',
-          data: {
-            'Query': req.body,
-            'Skip': req.params.skip,
-            'Take': req.params.take,
-            'Sort': req.params.sort
-          },
-          // retrieving the signal value by using the property name
-          // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
-          
-        })
-        // .then(allCertificates => res.status(200).json(allCertificates))
-        // .catch(e => next(e));
-
-        res.status(200).json(allCertificates);
-
+  router.get("/ce/getallcredentials/:skip/:take/:sort/:cancel", async (req: Request, res: Response<Certificates>) => {    
+    getAllCertificates( req.params.skip as unknown as number, req.params.take as unknown as number, req.params.sort as string, req.params.cancel as unknown as boolean )
+      .then(( certificates: Certificates ) => {
+        res.status( 200 ).json( certificates );
       })
-      .catch((e) => res.status(500).send(e));
+      .catch(( e ) => res.status( 500 ).send( e ));
   });
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
