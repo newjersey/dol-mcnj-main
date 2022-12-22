@@ -1,4 +1,4 @@
-import { Certificates } from "./credentialengine/CredentialEngine"
+import { Certificates } from "./credentialengine/CredentialEngineInterface"
 import { TrainingResult } from "./training/TrainingResult";
 import { Training } from "./training/Training";
 import { Selector } from "./training/Selector";
@@ -8,7 +8,6 @@ import {
   OccupationDetailPartial,
   Occupation,
 } from "./occupations/Occupation";
-import { AxiosResponse } from "axios";
 
 export type SearchTrainings = (searchQuery: string) => Promise<TrainingResult[]>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
@@ -20,4 +19,4 @@ export type GetSalaryEstimate = (soc: string) => Promise<number | null>;
 export type GetOpenJobsCount = (soc: string) => Promise<number | null>;
 export type Convert2010SocTo2018Occupations = (soc2010: string) => Promise<Occupation[]>;
 
-export type GetAllCertificates = (searchQuery: string) => Promise<AxiosResponse>;
+export type GetAllCertificates = ( skip: number, take: number, sort: string, cancel: boolean ) => Promise<Certificates>;
