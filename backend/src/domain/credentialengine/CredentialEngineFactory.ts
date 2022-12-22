@@ -1,33 +1,25 @@
-import { AxiosResponse } from "axios";
 import { GetAllCertificates } from "../types";
+import { Certificates } from "./CredentialEngineInterface";
 import { api } from '../../credentialengine/CredentialEngineConfig'
 
-export const credentialEngineFactory = (
-  getAllCertificates: GetAllCertificates
-): GetAllCertificates => {
-  return async (searchQuery: string): Promise<AxiosResponse> => {
-
+export const credentialEngineFactory = ( ): GetAllCertificates => {
+  return async ( skip: number, take: number, sort: string, cancel: boolean ): Promise<Certificates> => {
+    
     const gateway = `/assistant/search/ctdl`;
-    
-    return (
 
-      await api.request({
-        url: `${gateway}`,
-        method: 'post',
-        data: {
-          'Query': {
-            '@type': 'ceterms:Certificate'
-          },
-          'Skip': 0,
-          'Take': 5,
-          'Sort': '^search:recordCreated'
+    return await api.request({
+      url: `${gateway}`,
+      method: 'POST',
+      data: {
+        'Query': {
+          '@type': 'ceterms:Certificate'
         },
-        // retrieving the signal value by using the property name
-        // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
-        
-      })
-
-    )
-    
+        'Skip': skip,
+        'Take': take,
+        'Sort': sort
+      },
+      // retrieving the signal value by using the property name
+      // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
+    })
   };
 };
