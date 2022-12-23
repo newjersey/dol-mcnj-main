@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosResponse } from "axios";
 import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
-import { Certificate, Certificates } from "../domain/CredentialEngine";
+import { Certificates } from "../domain/CredentialEngine";
 
 export class StubClient implements Client {
   capturedObserver: Observer<any> = {
