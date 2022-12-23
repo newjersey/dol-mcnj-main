@@ -28,7 +28,7 @@ export const LandingPage = (props: Props): ReactElement<Props> => {
       false,
       {
         onSuccess: (data: Certificates) => {
-          console.log(`Some JSON, maybe: ${data}`);
+          console.log(`Some JSON, maybe: ${JSON.stringify(data, null, 2)}`);
         },
         onError: (e) => {
           console.log(`An error, maybe an error code: ${e}`);
