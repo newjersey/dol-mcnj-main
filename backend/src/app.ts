@@ -15,7 +15,6 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
-import { GetAllCertificates } from "./domain/types";
 import { credentialEngineFactory } from "./domain/credentialengine/CredentialEngineFactory";
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
