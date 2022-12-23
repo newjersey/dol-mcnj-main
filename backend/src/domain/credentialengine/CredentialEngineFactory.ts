@@ -7,7 +7,7 @@ export const credentialEngineFactory = ( ): GetAllCertificates => {
     
     const gateway = `/assistant/search/ctdl`;
 
-    return await api.request({
+    const response = await api.request({
       url: `${gateway}`,
       method: 'POST',
       data: {
@@ -21,5 +21,7 @@ export const credentialEngineFactory = ( ): GetAllCertificates => {
       // retrieving the signal value by using the property name
       // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
     })
+
+    return response.data;
   };
 };
