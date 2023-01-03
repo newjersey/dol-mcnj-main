@@ -39,6 +39,10 @@
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/axios.js"
+  },
   "prettier": {
     "printWidth": 100
   },
