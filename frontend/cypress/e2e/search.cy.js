@@ -122,8 +122,7 @@ describe("Search", () => {
   });
 
   it("shows comparison items when checked", () => {
-    cy.server();
-    cy.route("/api/trainings/search?query=painting").as("getSearch");
+    cy.intercept("/api/trainings/search?query=painting").as("getSearch");
 
     cy.visit("/search/painting");
 
