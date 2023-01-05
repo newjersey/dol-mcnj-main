@@ -79,7 +79,7 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 1. `npm install` (frontend and backend)
 1. run all unit tests (frontend and backend)
 1. build code and run feature tests
-1. deploy to GCP Dev environment (reach out to developer for dev URL)
+1. deploy to GCP Dev environment (reach out to developer for dev URL or look in D4AD Dev App Engine settings)
 1. _Manual approval step_ - go to CircleCI build and "prod-approval" step, and click "Approve" button.
 1. deploy to GCP Prod environment
 
