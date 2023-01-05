@@ -10,6 +10,7 @@ i18n
   .init({
     lng: "en",
     fallbackLng: "en",
+    returnNull: false,
     resources: {
       en: {
         translation: en,
