@@ -17,7 +17,7 @@
     "axios": "^1.2.2",
     "i18next": "^22.4.9",
     "i18next-http-backend": "^2.1.1",
-    "libphonenumber-js": "^1.10.16",
+    "libphonenumber-js": "^1.10.17",
     "node-sass": "^8.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
