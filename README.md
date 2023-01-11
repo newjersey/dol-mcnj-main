@@ -87,10 +87,10 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 
 ##### Google Cloud Platform
 
-* `GCLOUD_SERVICE_KEY` - base64-encoded service account key (JSON formatted) for dev environment
-* `GCLOUD_SERVICE_KEY_PROD` - base64-encoded service account key (JSON formatted) for production environment
-* `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list]([url](https://cloud.google.com/compute/docs/regions-zones))
-* `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects]([url](https://cloud.google.com/compute/docs/regions-zones))
+* `GCLOUD_SERVICE_KEY` - base64-encoded CircleCI service account key (JSON formatted) for dev environment
+* `GCLOUD_SERVICE_KEY_PROD` - base64-encoded CircleCI service account key (JSON formatted) for production environment
+* `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list](https://cloud.google.com/compute/docs/regions-zones)
+* `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
 * `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
 
 ##### Database
