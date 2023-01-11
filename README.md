@@ -87,11 +87,34 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 
 ##### Google Cloud Platform
 
+* `GCLOUD_SERVICE_KEY`
+* `GCLOUD_SERVICE_KEY_PROD`
+* `GOOGLE_COMPUTE_ZONE`
+* `GOOGLE_PROJECT_ID`
+* `GOOGLE_PROJECT_ID_PROD`
+
 ##### Database
+
+* `DB_DEV_PASS`
+* `DB_PROD_PASS`
 
 ##### CareerOneStop
 
+* `CAREER_ONESTOP_USERID`
+* `CAREER_ONESTOP_AUTH_TOKEN`
+
 ##### O*NET
+
+* `ONET_BASEURL`
+* `ONET_USERNAME`
+* `ONET_PASSWORD`
+
+##### General
+
+* `IS_CI`
+* `NO_COLOR`
+* `ZIPCODE_BASEURL`
+* `ZIPCODE_API_KEY`
 
 
 ### Deployment
