@@ -79,9 +79,47 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 1. `npm install` (frontend and backend)
 1. run all unit tests (frontend and backend)
 1. build code and run feature tests
-1. deploy to GCP Dev environment (reach out to developer for dev URL)
+1. deploy to GCP Dev environment (reach out to developer for dev URL or look in D4AD Dev App Engine settings)
 1. _Manual approval step_ - go to CircleCI build and "prod-approval" step, and click "Approve" button.
 1. deploy to GCP Prod environment
+
+#### Environment Variables
+
+##### Google Cloud Platform
+
+* `GCLOUD_SERVICE_KEY` - base64-encoded CircleCI service account key (JSON formatted) for dev environment
+* `GCLOUD_SERVICE_KEY_PROD` - base64-encoded CircleCI service account key (JSON formatted) for production environment
+* `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list](https://cloud.google.com/compute/docs/regions-zones)
+* `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
+* `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
+
+##### Database
+
+Dev and production databases are hosted in GCP as SQL instances running PostgreSQL.
+
+* `DB_DEV_PASS` - Password for `postgres` user in dev environment
+* `DB_PROD_PASS`Password for `postgres` user in production environment
+
+##### CareerOneStop
+
+Dev and prod environments use a CareerOneStop account owned by NJ Office of Innovation.
+
+* `CAREER_ONESTOP_USERID` - account username used both in dev and prod
+* `CAREER_ONESTOP_AUTH_TOKEN` - account auth token used both in dev and prod
+
+##### O*NET
+
+* `ONET_BASEURL` - O*NET account base URL (dev + prod)
+* `ONET_USERNAME`- O*NET account username (dev + prod)
+* `ONET_PASSWORD`- O*NET account password (dev + prod)
+
+##### General
+
+* `IS_CI` - boolean flag for whether environment is deployed using continuous integration
+* `NO_COLOR`
+* `ZIPCODE_BASEURL`
+* `ZIPCODE_API_KEY`
+
 
 ### Deployment
 
