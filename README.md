@@ -95,23 +95,27 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 
 ##### Database
 
-* `DB_DEV_PASS`
-* `DB_PROD_PASS`
+Dev and production databases are hosted in GCP as SQL instances running PostgreSQL.
+
+* `DB_DEV_PASS` - Password for `postgres` user in dev environment
+* `DB_PROD_PASS`Password for `postgres` user in production environment
 
 ##### CareerOneStop
 
-* `CAREER_ONESTOP_USERID`
-* `CAREER_ONESTOP_AUTH_TOKEN`
+Dev and prod environments use a CareerOneStop account owned by NJ Office of Innovation.
+
+* `CAREER_ONESTOP_USERID` - account username used both in dev and prod
+* `CAREER_ONESTOP_AUTH_TOKEN` - account auth token used both in dev and prod
 
 ##### O*NET
 
-* `ONET_BASEURL`
-* `ONET_USERNAME`
-* `ONET_PASSWORD`
+* `ONET_BASEURL` - O*NET account base URL (dev + prod)
+* `ONET_USERNAME`- O*NET account username (dev + prod)
+* `ONET_PASSWORD`- O*NET account password (dev + prod)
 
 ##### General
 
-* `IS_CI`
+* `IS_CI` - boolean flag for whether environment is deployed using continuous integration
 * `NO_COLOR`
 * `ZIPCODE_BASEURL`
 * `ZIPCODE_API_KEY`
