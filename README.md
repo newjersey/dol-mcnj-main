@@ -83,6 +83,17 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 1. _Manual approval step_ - go to CircleCI build and "prod-approval" step, and click "Approve" button.
 1. deploy to GCP Prod environment
 
+#### Environment Variables
+
+##### Google Cloud Platform
+
+##### Database
+
+##### CareerOneStop
+
+##### O*NET
+
+
 ### Deployment
 
 Generally, developers won't have to do this - we have automated deploys to dev and prod via [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master).
