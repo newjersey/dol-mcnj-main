@@ -14,7 +14,7 @@ export const credentialEngineAPI = {
    * @return a collection of results from Credential Engine.
    *
    */
-  getAllCertificates: async function (skip: number, take: number, sort: string, cancel = false) {
+  getAllCertificates: async function (skip: number, take: number, sort: string) {
     const response = await api.request({
       url: `${gateway}`,
       method: "post",
@@ -30,11 +30,11 @@ export const credentialEngineAPI = {
       // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
     });
 
-    return "Connection works.";
-    // return response.data.getAllCredentials;
+    // return "Connection works.";
+    return response.data.getAllCredentials;
   },
 
-  getCertificate: async function (cancel = false) {
+  getCertificate: async function () {
     const response = await api.request({
       url: `${gateway}`,
       method: "POST",

@@ -7,7 +7,7 @@ export const credentialEngineFactory = (): GetAllCertificates => {
     skip: number,
     take: number,
     sort: string,
-    cancel: boolean
+    // cancel: boolean
   ): Promise<Certificates> => {
     const gateway = `/assistant/search/ctdl`;
 
