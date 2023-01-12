@@ -8,10 +8,35 @@ import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
+import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const programs = await dataClient.findProgramsBy(selector, values);
+    const query = {
+      '@type': [
+        'ceterms:Certificate',
+      ],
+      'ceterms:credentialStatusType': {
+        'ceterms:targetNode': 'credentialStat:Active'
+      },
+      'ceterms:requires': {
+        'ceterms:targetAssessment': {
+          'ceterms:availableOnlineAt': 'search:anyValue',
+          'ceterms:availableAt': {
+            'ceterms:addressRegion': [
+              'New Jersey',
+              'NJ'
+            ]
+          },
+          'search:operator': 'search:orTerms'
+        }
+      }
+    }
+    const skip = 0;
+    const take = 10;
+    const sort = "^search:recordCreated"
+    const programs2 = await credentialEngineAPI.getResults(query, skip, take, sort, false);
 
     return Promise.all(
       programs.map(async (program: Program) => {
