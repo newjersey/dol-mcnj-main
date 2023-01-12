@@ -1,6 +1,6 @@
 import { GetAllCertificates } from "../types";
 import { Certificates } from "./CredentialEngineInterface";
-import { api } from "../../credentialengine/CredentialEngineConfig";
+import { api } from "./CredentialEngineConfig";
 
 export const credentialEngineFactory = (): GetAllCertificates => {
   return async (
