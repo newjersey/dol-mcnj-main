@@ -20,8 +20,25 @@ export const credentialEngineAPI = {
       url: `${gateway}`,
       method: 'post',
       data: {
-        'Query': {
-          '@type': 'ceterms:Certificate'
+        "Query": {
+          "@type": [
+            "ceterms:Certificate",
+          ],
+          "ceterms:credentialStatusType": {
+            "ceterms:targetNode": "credentialStat:Active"
+          },
+          "ceterms:requires": {
+            "ceterms:targetAssessment": {
+              "ceterms:availableOnlineAt": "search:anyValue",
+              "ceterms:availableAt": {
+                "ceterms:addressRegion": [
+                  "New Jersey",
+                  "NJ"
+                ]
+              },
+              "search:operator": "search:orTerms"
+            }
+          }
         },
         'Skip': skip,
         'Take': take,
@@ -31,8 +48,7 @@ export const credentialEngineAPI = {
       // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
     })
     
-    return 'Connection works.';
-    // return response.data.getAllCredentials;
+    return response.data;
   },
 
   getCertificate: async function (cancel = false) {
@@ -40,8 +56,25 @@ export const credentialEngineAPI = {
       url: `${gateway}`,
       method: 'POST',
       data: {
-        'Query': {
-          '@type': 'ceterms:Certificate'
+        "Query": {
+          "@type": [
+            "ceterms:Certificate",
+          ],
+          "ceterms:credentialStatusType": {
+            "ceterms:targetNode": "credentialStat:Active"
+          },
+          "ceterms:requires": {
+            "ceterms:targetAssessment": {
+              "ceterms:availableOnlineAt": "search:anyValue",
+              "ceterms:availableAt": {
+                "ceterms:addressRegion": [
+                  "New Jersey",
+                  "NJ"
+                ]
+              },
+              "search:operator": "search:orTerms"
+            }
+          }
         },
         'Skip': 0,
         'Take': 5,
@@ -51,6 +84,6 @@ export const credentialEngineAPI = {
       // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
     })
 
-    return response.data.getAllCredentials;
+    return response.data;
   },
 }
