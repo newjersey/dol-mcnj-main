@@ -34,8 +34,14 @@ export class StubClient implements Client {
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.capturedObserver = observer;
   }
-  
-  getAllCertificates(skip: number, take: number, sort: string, cancel: boolean, observer: Observer<Certificates>): void {
+
+  getAllCertificates(
+    skip: number,
+    take: number,
+    sort: string,
+    cancel: boolean,
+    observer: Observer<Certificates>
+  ): void {
     this.capturedObserver = observer;
   }
 }

@@ -25,7 +25,7 @@ describe("<LandingPage />", () => {
   beforeEach(() => {
     stubClient = new StubClient();
   });
-  
+
   it("links to search results page when search is executed", () => {
     const subject = render(<LandingPage client={stubClient} />);
     fireEvent.change(subject.getByPlaceholderText(searchBoxPlaceholder), {
