@@ -1,32 +1,30 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const api = axios.create({
-  withCredentials: false, 
+  withCredentials: false,
   baseURL: `https://${process.env.CE_ENVIRONMENT}.credentialengine.org`,
-  responseType: 'json',
+  responseType: "json",
   headers: {
-    'Access-Control-Request-Method': 'POST',
-    'Access-Control-Request-Headers': 'Content-Type, Authorization',
-    'Authorization': `Bearer ${process.env.CE_AUTH_TOKEN}`,
-    'Content-type': 'application/json',
+    "Access-Control-Request-Method": "POST",
+    "Access-Control-Request-Headers": "Content-Type, Authorization",
+    Authorization: `Bearer ${process.env.CE_AUTH_TOKEN}`,
+    "Content-type": "application/json",
   },
 });
 
-const errorHandler = (error: { response: { status: unknown; }; }) => {
-  const statusCode = error.response?.status
+const errorHandler = (error: { response: { status: unknown } }) => {
+  const statusCode = error.response?.status;
 
   if (statusCode && statusCode !== 401) {
-    console.error(error)
+    console.error(error);
   }
 
-  return Promise.reject(error)
-}
+  return Promise.reject(error);
+};
 
 api.interceptors.response.use(undefined, (error) => {
-  return errorHandler(error)
-})
-
-
+  return errorHandler(error);
+});
 
 /*
 
