@@ -31,15 +31,23 @@ export const routerFactory = ({
   const router = Router();
 
   /**
-   * 
+   *
    */
-  router.get("/ce/getallcredentials/:skip/:take/:sort/:cancel", async (req: Request, res: Response<Certificates>) => {    
-    getAllCertificates( req.params.skip as unknown as number, req.params.take as unknown as number, req.params.sort as string, req.params.cancel as unknown as boolean )
-      .then(( certificates: Certificates ) => {
-        res.status( 200 ).json( certificates );
-      })
-      .catch(( e ) => res.status( 500 ).send( e ));
-  });
+  router.get(
+    "/ce/getallcredentials/:skip/:take/:sort/:cancel",
+    async (req: Request, res: Response<Certificates>) => {
+      getAllCertificates(
+        req.params.skip as unknown as number,
+        req.params.take as unknown as number,
+        req.params.sort as string,
+        req.params.cancel as unknown as boolean
+      )
+        .then((certificates: Certificates) => {
+          res.status(200).json(certificates);
+        })
+        .catch((e) => res.status(500).send(e));
+    }
+  );
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
     searchTrainings(req.query.query as string)
