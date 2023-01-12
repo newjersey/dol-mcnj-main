@@ -1,6 +1,6 @@
 import { navigate, RouteComponentProps } from "@reach/router";
 import React, { ReactElement } from "react";
-import { useEffect } from "react"
+import { useEffect } from "react";
 import { Client } from "../domain/Client";
 import { Searchbar } from "../components/Searchbar";
 import { BetaBanner } from "../components/BetaBanner";
@@ -21,20 +21,14 @@ export const LandingPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    props.client.getAllCertificates(
-      0, 
-      5, 
-      '^search:recordCreated', 
-      false,
-      {
-        onSuccess: (data: Certificates) => {
-          console.log(`Some JSON, maybe: ${JSON.stringify(data, null, 2)}`);
-        },
-        onError: (e) => {
-          console.log(`An error, maybe an error code: ${e}`);
-        },
-      }
-    );
+    props.client.getAllCertificates(0, 5, "^search:recordCreated", false, {
+      onSuccess: (data: Certificates) => {
+        console.log(`Some JSON, maybe: ${JSON.stringify(data, null, 2)}`);
+      },
+      onError: (e) => {
+        console.log(`An error, maybe an error code: ${e}`);
+      },
+    });
   });
 
   return (
