@@ -1,6 +1,10 @@
-import { api } from "./CredentialEngineConfig";
+import { searchAPI } from "./CredentialEngineConfig";
+import { getRecordAPI } from "./CredentialEngineConfig";
+import { credentialEngineFactory } from "../domain/credentialengine/CredentialEngineFactory";
 
-const gateway = `/assistant/search/ctdl`;
+const searchGateway = `/assistant/search/ctdl`;
+const graphGateway = `/graph`;
+const resourcesGateway = `/resources`;
 
 export const credentialEngineAPI = {
   /**
@@ -15,8 +19,9 @@ export const credentialEngineAPI = {
    */
    
   getResults: async function (query: object, skip: number, take: number, sort: string) {
-    const response = await api.request({
-      url: `${gateway}`,
+
+    const response = await searchAPI.request({
+      url: `${searchGateway}`,
       method: "post",
       data: {
         Query: query,
@@ -29,6 +34,24 @@ export const credentialEngineAPI = {
     });
 
     // return "Connection works.";
+    return response;
+  },
+
+  getGraphByCTID: async function (ctid: string) {
+    const response = await getRecordAPI({
+      url: `${graphGateway}/${ctid}`,
+      method: "get",
+    });
+
+    return response.data;
+  },
+
+  getResourceByCTID: async function (ctid: string) {
+    const response = await getRecordAPI({
+      url: `${resourcesGateway}/${ctid}`,
+      method: "get",
+    });
+
     return response.data;
   }
 }
