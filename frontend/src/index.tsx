@@ -5,32 +5,61 @@ import * as serviceWorker from "./serviceWorker";
 import { App } from "./App";
 import { ApiClient } from "./ApiClient";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-// import i18n (needs to be bundled)
 import "./i18n";
+import ReactDOMServer from 'react-dom/server';
 
-const apiClient = new ApiClient();
+const password = "foo";
+const isCI = process.env.IS_CI;
+const isProd = process.env.IS_PROD;
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#12263A",
+if (isCI && !isProd) {
+  if (prompt("Enter password:") == password) {
+    const apiClient = new ApiClient();
+
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: "#12263A",
+        },
+        secondary: {
+          main: "#1668B4",
+        },
+      },
+    });
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <ThemeProvider theme={theme}>
+          <App client={apiClient} />
+        </ThemeProvider>
+      </React.StrictMode>,
+      document.getElementById("root")
+    );
+
+    serviceWorker.unregister();
+  }
+} else {
+  const apiClient = new ApiClient();
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#12263A",
+      },
+      secondary: {
+        main: "#1668B4",
+      },
     },
-    secondary: {
-      main: "#1668B4",
-    },
-  },
-});
+  });
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App client={apiClient} />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+  ReactDOM.render(
+    <React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <App client={apiClient} />
+      </ThemeProvider>
+    </React.StrictMode>,
+    document.getElementById("root")
+  );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  serviceWorker.unregister();
+}
