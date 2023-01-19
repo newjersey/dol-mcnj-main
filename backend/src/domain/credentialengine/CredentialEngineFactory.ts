@@ -17,6 +17,21 @@ export const credentialEngineFactory = (): GetAllCertificates => {
       data: {
         Query: {
           "@type": "ceterms:Certificate",
+          "ceterms:credentialStatusType": {
+            "ceterms:targetNode": "credentialStat:Active"
+          },
+          "ceterms:requires": {
+            "ceterms:targetAssessment": {
+              "ceterms:availableOnlineAt": "search:anyValue",
+              "ceterms:availableAt": {
+                "ceterms:addressRegion": [
+                  "New Jersey",
+                  "NJ"
+                ]
+              },
+              "search:operator": "search:orTerms"
+            }
+          }
         },
         Skip: skip,
         Take: take,

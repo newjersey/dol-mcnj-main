@@ -2,21 +2,23 @@ import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { stripUnicode } from "../utils/stripUnicode";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { formatZip } from "../utils/formatZipCode";
-import { FindTrainingsBy } from "../types";
+import { FindTrainingsBy, GetAllCertificates } from "../types";
 import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
+import { Certificate, Certificates, Keypair } from "../credentialengine/CredentialEngineInterface";
+import { type } from "os";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import { credentialEngineFactory } from "../credentialengine/CredentialEngineFactory";
+
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
-    const programs = await dataClient.findProgramsBy(selector, values);
+   const programs = await dataClient.findProgramsBy(selector, values);
     const query = {
-      '@type': [
-        'ceterms:Certificate',
-      ],
       'ceterms:credentialStatusType': {
         'ceterms:targetNode': 'credentialStat:Active'
       },
@@ -34,23 +36,32 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
       }
     }
     const skip = 0;
-    const take = 10;
-    const sort = "^search:recordCreated"
-    const programs2 = await credentialEngineAPI.getResults(query, skip, take, sort, false);
-
+    const take = 100;
+    const sort = "^search:recordCreated";
+    const ceRecordsResponse = await credentialEngineAPI.getResults(query, skip, take, sort);
+    const ownedByResponse = await credentialEngineAPI.getResourceByCTID("ce-9fe93f5f-e0cf-40b2-9194-2ed178e115bb");
+    console.log(ownedByResponse['ceterms:name']['en-US']);
     return Promise.all(
-      programs.map(async (program: Program) => {
-        const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
-        const localExceptionCounties = (await dataClient.getLocalExceptions())
-          .filter((localException: LocalException) => localException.cipcode === program.cipcode)
-          .map((localException: LocalException) =>
-            convertToTitleCaseIfUppercase(localException.county)
-          );
+      ceRecordsResponse.data.map(async (certificate : any) => {
+        let cip = null;
+        const instructionalProgramType = certificate["ceterms:instructionalProgramType"];
+        if (instructionalProgramType != null) {
+          if (instructionalProgramType["ceterms:frameworkName"].equals("Classification of Instructional Programs")) {
+            cip = instructionalProgramType["ceterms:codedNotation"];
+          }
+        }
 
+        // //const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
+        // const localExceptionCounties = (await dataClient.getLocalExceptions())
+        //   .filter((localException: LocalException) => localException.cipcode === certificate.cipcode)
+        //   .map((localException: LocalException) =>
+        //     convertToTitleCaseIfUppercase(localException.county)
+        //   );
+
+/*
         return {
-          id: program.programid,
-          name: stripSurroundingQuotes(convertToTitleCaseIfUppercase(program.officialname)),
-          cipCode: program.cipcode,
+          name: certificate["ceterms:name"],
+          cipCode: cip,
           provider: {
             id: program.providerid,
             name: program.providername ? stripSurroundingQuotes(program.providername) : "",
@@ -101,6 +112,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasChildcareAssistance:
             mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
         };
+*/
       })
     );
   };
