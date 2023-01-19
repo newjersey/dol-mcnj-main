@@ -119,7 +119,7 @@ Dev and prod environments use a CareerOneStop account owned by NJ Office of Inno
 * `NO_COLOR`
 * `ZIPCODE_BASEURL`
 * `ZIPCODE_API_KEY`
-
+* `DEV_PASS` - password for simple password auth on non-prod environments if publicly available
 
 ### Deployment
 
