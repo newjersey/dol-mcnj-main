@@ -6,39 +6,13 @@ import { App } from "./App";
 import { ApiClient } from "./ApiClient";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import "./i18n";
-import ReactDOMServer from 'react-dom/server';
 
-const password = "foo";
+const password = process.env.DEV_PASS;
 const isCI = process.env.IS_CI;
-const isProd = process.env.IS_PROD;
+const isProd = process.env.DB_NAME === "d4adprod" ? true : false;
 
-if (isCI && !isProd) {
-  if (prompt("Enter password:") == password) {
-    const apiClient = new ApiClient();
-
-    const theme = createMuiTheme({
-      palette: {
-        primary: {
-          main: "#12263A",
-        },
-        secondary: {
-          main: "#1668B4",
-        },
-      },
-    });
-
-    ReactDOM.render(
-      <React.StrictMode>
-        <ThemeProvider theme={theme}>
-          <App client={apiClient} />
-        </ThemeProvider>
-      </React.StrictMode>,
-      document.getElementById("root")
-    );
-
-    serviceWorker.unregister();
-  }
-} else {
+// If env is running in CI and is not a prod environment, prompt for password in env var DEV_PASS
+if ((isCI && !isProd) ? prompt("Enter password:") === password : true) {
   const apiClient = new ApiClient();
 
   const theme = createMuiTheme({
