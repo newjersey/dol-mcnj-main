@@ -14,7 +14,7 @@ export const searchAPI = axios.create({
 
 export const getRecordAPI = axios.create({
   withCredentials: false,
-  baseURL: `https://credentialengineregistry.org`,
+  baseURL: `https://${process.env.CE_ENVIRONMENT}.credentialengineregistry.org`,
   responseType: "json"
 })
 
