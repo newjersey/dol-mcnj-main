@@ -2,22 +2,20 @@ import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { stripUnicode } from "../utils/stripUnicode";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { formatZip } from "../utils/formatZipCode";
-import { FindTrainingsBy, GetAllCertificates } from "../types";
+import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
-import { Certificate, Certificates, Keypair } from "../credentialengine/CredentialEngineInterface";
-import { type } from "os";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import { credentialEngineFactory } from "../credentialengine/CredentialEngineFactory";
 
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
    const programs = await dataClient.findProgramsBy(selector, values);
+
     const query = {
       'ceterms:credentialStatusType': {
         'ceterms:targetNode': 'credentialStat:Active'
@@ -36,14 +34,18 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
       }
     }
     const skip = 0;
-    const take = 100;
+    const take = 3;
     const sort = "^search:recordCreated";
     const ceRecordsResponse = await credentialEngineAPI.getResults(query, skip, take, sort);
-    const ownedByResponse = await credentialEngineAPI.getResourceByCTID("ce-9fe93f5f-e0cf-40b2-9194-2ed178e115bb");
-    console.log(ownedByResponse['ceterms:name']['en-US']);
+    const ceRecords = ceRecordsResponse.data.data;
+
     return Promise.all(
-      ceRecordsResponse.data.map(async (certificate : any) => {
+      ceRecords.map(async (certificate : any) => {
+        console.log(`RECORDS RESPONSE: ${certificate["ceterms:ctid"]}`)
         let cip = null;
+        const ownedBy = certificate["ceterms:ownedBy"][0];
+        const ownedByCtid:string = await credentialEngineUtils.getCtidFromURL(ownedBy);
+        const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"];
         if (instructionalProgramType != null) {
           if (instructionalProgramType["ceterms:frameworkName"].equals("Classification of Instructional Programs")) {
@@ -51,68 +53,65 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        // //const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
-        // const localExceptionCounties = (await dataClient.getLocalExceptions())
-        //   .filter((localException: LocalException) => localException.cipcode === certificate.cipcode)
-        //   .map((localException: LocalException) =>
-        //     convertToTitleCaseIfUppercase(localException.county)
-        //   );
-
-/*
-        return {
+/*        const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
+        const localExceptionCounties = (await dataClient.getLocalExceptions())
+          .filter((localException: LocalException) => localException.cipcode === certificate.cipCode)
+          .map((localException: LocalException) =>
+            convertToTitleCaseIfUppercase(localException.county)
+          );*/
+        const training = {
+          id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"],
           cipCode: cip,
           provider: {
-            id: program.providerid,
-            name: program.providername ? stripSurroundingQuotes(program.providername) : "",
-            url: program.website ? program.website : "",
-            contactName:
-              program.contactfirstname && program.contactlastname
-                ? `${stripSurroundingQuotes(program.contactfirstname)} ${stripSurroundingQuotes(
-                    program.contactlastname
-                  )}`
-                : "",
-            contactTitle: program.contacttitle ? stripSurroundingQuotes(program.contacttitle) : "",
-            phoneNumber: program.phone ? program.phone : "",
-            phoneExtension: program.phoneextension ? program.phoneextension : "",
-            county: formatCounty(program.county),
+            id: ownedByRecord["ceterms:ctid"],
+            name: ownedByRecord['ceterms:name']['en-US'],
+            url: ownedByRecord['ceterms:subjectWebpage'],
+
+            contactName:"",
+            contactTitle: "",
+            phoneNumber: "",
+            phoneExtension: "",
+            county: "",
             address: {
-              street1: program.street1 ? stripSurroundingQuotes(program.street1) : "",
-              street2: program.street2 ? stripSurroundingQuotes(program.street2) : "",
-              city: program.city ? program.city : "",
-              state: program.state ? program.state : "",
-              zipCode: program.zip ? formatZip(program.zip) : "",
+              street1: "",
+              street2: "",
+              city: "",
+              state: "",
+              zipCode: "",
             },
           },
-          description: stripSurroundingQuotes(stripUnicode(program.description ?? "")),
-          certifications: program.industrycredentialname,
-          prerequisites: formatPrerequisites(program.prerequisites),
-          calendarLength: program.calendarlengthid
-            ? parseInt(program.calendarlengthid)
-            : CalendarLength.NULL,
-          occupations: matchingOccupations.map((it) => ({
+          description: "",
+          certifications: "",
+          prerequisites: "",
+          calendarLength: CalendarLength.NULL,
+          /*occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
-          })),
-          inDemand: !!program.indemandcip,
-          localExceptionCounty: localExceptionCounties,
-          tuitionCost: parseFloat(program.tuition),
-          feesCost: parseFloat(program.fees),
-          booksMaterialsCost: parseFloat(program.booksmaterialscost),
-          suppliesToolsCost: parseFloat(program.suppliestoolscost),
-          otherCost: parseFloat(program.othercosts),
-          totalCost: parseFloat(program.totalcost),
-          online: !!program.onlineprogramid,
-          percentEmployed: formatPercentEmployed(program.peremployed2),
-          averageSalary: formatAverageSalary(program.avgquarterlywage2),
-          hasEveningCourses: mapStrNumToBool(program.eveningcourses),
-          languages: formatLanguages(program.languages),
-          isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
-          hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
-          hasChildcareAssistance:
-            mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
-        };
-*/
+          })),*/
+          occupations: {title: "", soc: 555},
+          inDemand: false,
+          //inDemand: !!program.indemandcip,
+          //localExceptionCounty: localExceptionCounties,
+          localExceptionCounty: [""],
+          tuitionCost: 0,
+          feesCost: 0,
+          booksMaterialsCost: 0,
+          suppliesToolsCost: 0,
+          otherCost: 0,
+          totalCost: 0,
+          online: false,
+          percentEmployed: 0,
+          averageSalary: 0,
+          hasEveningCourses: false,
+          languages: [""],
+          isWheelchairAccessible: false,
+          hasJobPlacementAssistance: false,
+          hasChildcareAssistance: false,
+        }
+        console.log(training);
+        return training;
+
       })
     );
   };
