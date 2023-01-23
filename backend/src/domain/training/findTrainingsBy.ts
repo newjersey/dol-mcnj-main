@@ -14,7 +14,8 @@ import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUt
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
-   const programs = await dataClient.findProgramsBy(selector, values);
+   const inDemandCIPs = await dataClient.getCIPsInDemand();
+  const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
 
     const query = {
       'ceterms:credentialStatusType': {
@@ -42,19 +43,19 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     return Promise.all(
       ceRecords.map(async (certificate : any) => {
         console.log(`RECORDS RESPONSE: ${certificate["ceterms:ctid"]}`)
-        let cip = null;
+        let cip:any = null;
         const ownedBy = certificate["ceterms:ownedBy"][0];
         const ownedByCtid:string = await credentialEngineUtils.getCtidFromURL(ownedBy);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"];
         if (instructionalProgramType != null) {
           if (instructionalProgramType["ceterms:frameworkName"].equals("Classification of Instructional Programs")) {
-            cip = instructionalProgramType["ceterms:codedNotation"];
+            cip = instructionalProgramType["ceterms:codedNotation"].toString();
           }
         }
 
-/*        const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
-        const localExceptionCounties = (await dataClient.getLocalExceptions())
+        const matchingOccupations = (cip != null) ? await dataClient.findOccupationsByCip(certificate.cipcode) : [];
+        /*const localExceptionCounties = (await dataClient.getLocalExceptions())
           .filter((localException: LocalException) => localException.cipcode === certificate.cipCode)
           .map((localException: LocalException) =>
             convertToTitleCaseIfUppercase(localException.county)
@@ -81,17 +82,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               zipCode: "",
             },
           },
-          description: "",
+          description: certificate['ceterms:description']['en-US'],
           certifications: "",
           prerequisites: "",
           calendarLength: CalendarLength.NULL,
-          /*occupations: matchingOccupations.map((it) => ({
+          occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
-          })),*/
-          occupations: {title: "", soc: 555},
-          inDemand: false,
-          //inDemand: !!program.indemandcip,
+          })),
+          inDemand: inDemandCIPCodes.includes(cip),
           //localExceptionCounty: localExceptionCounties,
           localExceptionCounty: [""],
           tuitionCost: 0,
