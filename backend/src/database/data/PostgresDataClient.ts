@@ -121,6 +121,8 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
+
+
   findOccupationsByCip = (cip: string): Promise<Occupation[]> => {
     return this.kdb("soccipcrosswalk")
       .select("soc2018code as soc", "soc2018title as title")
@@ -181,6 +183,15 @@ export class PostgresDataClient implements DataClient {
     return this.kdb("indemandsocs")
       .select("soc", "socdefinitions.soctitle as title")
       .leftOuterJoin("socdefinitions", "socdefinitions.soccode", "indemandsocs.soc")
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
+  getCIPsInDemand = async (): Promise<CipDefinition[]> => {
+    return this.kdb("indemandcips")
+      .select("cip as cip")
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();
