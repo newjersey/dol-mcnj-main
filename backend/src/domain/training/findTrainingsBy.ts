@@ -40,7 +40,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
     return Promise.all(
       ceRecords.map(async (certificate : any) => {
-        console.log(`RECORDS RESPONSE: ${JSON.stringify(certificate, null, 2)}`)
+        //console.log(`RECORDS RESPONSE: ${JSON.stringify(certificate, null, 2)}`)
         let cip:any = null;
         let totalCost:any = null;
         let exactDuration:any = null;
@@ -68,11 +68,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        // If record contains "ceterms:instructionalProgramType" object, get frameworkName and set values if CIP or SOC
+        // If record contains "ceterms:instructionalProgramType" object, get frameworkName and set values if CIP
         if (instructionalProgramType != null) {
           if (instructionalProgramType["ceterms:frameworkName"].equals("Classification of Instructional Programs")) {
             cip = instructionalProgramType["ceterms:codedNotation"].toString();
-            // TODO: check if SOC available and implement lookup from db crosswalk
           }
         }
 
@@ -91,13 +90,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               totalCost = Number(costProfile["ceterms:price"])
             }
           }
-        } else {
-          // Conflicting data!!!
         }
 
-/*        if (occupationType != null) {
+        if (occupationType != null) {
+          // get SOCs from ceterms:occupationType instead of from the database
 
-        }*/
+        }
 
         if (scheduleTimingType != null) {
           console.log(JSON.stringify(scheduleTimingType, null, 2));
@@ -121,7 +119,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
             contactName: "",
             contactTitle: "",
-            phoneNumber: "",
+            phoneNumber: "", // TODO: phone numbers, phone exts, counties associated with addresses (yes, multiple in CE now)
             phoneExtension: "",
             county: "",
             address: {
@@ -134,28 +132,28 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           },
           description: certificate['ceterms:description']['en-US'],
           certifications: "",
-          prerequisites: "", // ceterms:CommonConditions,
-          calendarLength: calendarLength, // WHY ISN't THIS WORKING
+          prerequisites: "", // TODO: ceterms:CommonConditions,
+          calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
           })),
           inDemand: inDemandCIPCodes.includes(cip),
-          localExceptionCounty: localExceptionCounties,
-          tuitionCost: 0,
-          feesCost: 0,
-          booksMaterialsCost: 0,
-          suppliesToolsCost: 0,
-          otherCost: 0,
+          localExceptionCounty: localExceptionCounties, // TODO: Confirm that this works
+          tuitionCost: 0, // TODO: pull from costProfile
+          feesCost: 0, // TODO: pull from costProfile
+          booksMaterialsCost: 0, // TODO: pull from costProfile
+          suppliesToolsCost: 0, // TODO: pull from costProfile
+          otherCost: 0, // TODO: pull from costProfile
           totalCost: parseFloat(totalCost),
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0,
-          averageSalary: 0,
-          hasEveningCourses: false,
+          percentEmployed: 0, // TODO: Get from QData?
+          averageSalary: 0, // TODO: Get from QData?
+          hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
           languages: certificate["ceterms:inLanguage"],
-          isWheelchairAccessible: false,
-          hasJobPlacementAssistance: false,
-          hasChildcareAssistance: false,
+          isWheelchairAccessible: false, // TODO: this field doesn't exist in CE!
+          hasJobPlacementAssistance: false, // TODO: this field may or may not exist in CE
+          hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
         console.log(training);
         return training;
