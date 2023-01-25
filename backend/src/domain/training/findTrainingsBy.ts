@@ -131,8 +131,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             },
           },
           description: certificate['ceterms:description']['en-US'],
-          certifications: "",
-          prerequisites: "", // TODO: ceterms:CommonConditions,
+          certifications: "", // TODO: invgestigate how this is to derived (currently as select industrycredentialname from etpl)
+          prerequisites: "", // TODO: ceterms:CommonConditions / ceterms:prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
@@ -140,7 +140,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           })),
           inDemand: inDemandCIPCodes.includes(cip),
           localExceptionCounty: localExceptionCounties, // TODO: Confirm that this works
-          tuitionCost: 0, // TODO: pull from costProfile
+          tuitionCost: 0, // TODO: pull from costProfile - ceterms:directCostType with name "Tuition"
           feesCost: 0, // TODO: pull from costProfile
           booksMaterialsCost: 0, // TODO: pull from costProfile
           suppliesToolsCost: 0, // TODO: pull from costProfile
