@@ -36,7 +36,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const skip = 0;
     const take = 10;
     const sort = "^search:recordCreated"
-    const programs2 = await credentialEngineAPI.getResults(query, skip, take, sort, false);
+    const programs2 = await credentialEngineAPI.getResults(query, skip, take, sort);
 
     return Promise.all(
       programs.map(async (program: Program) => {
