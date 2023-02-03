@@ -2,8 +2,10 @@
   "name": "d4ad",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "aws-sdk": "^2.1308.0",
+    "dotenv": "^16.0.3"
+  },
   "scripts": {
     "start": "./scripts/prod-start.sh",
     "build": "./scripts/build.sh",
