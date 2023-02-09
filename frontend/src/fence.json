@@ -16,6 +16,8 @@
     "@material-ui/lab",
     "react-to-print",
     "i18next",
-    "react-i18next"
+    "react-i18next",
+    "@contentful/rich-text-types",
+    "@contentful/rich-text-react-renderer"
   ]
 }
