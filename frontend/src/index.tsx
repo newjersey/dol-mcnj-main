@@ -12,7 +12,7 @@ const isCI = process.env.IS_CI;
 const isProd = process.env.DB_NAME === "d4adprod" ? true : false;
 
 // If env is running in CI and is not a prod environment, prompt for password in env var DEV_PASS
-if ((isCI && !isProd) ? prompt("Enter password:") === password : true) {
+if (isCI && !isProd ? prompt("Enter password:") === password : true) {
   const apiClient = new ApiClient();
 
   const theme = createMuiTheme({
