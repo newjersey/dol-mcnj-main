@@ -16,19 +16,40 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
 
     const query = {
-      'ceterms:credentialStatusType': {
-        'ceterms:targetNode': 'credentialStat:Active'
-      },
-      'ceterms:requires': {
-        'ceterms:targetAssessment': {
-          'ceterms:availableOnlineAt': 'search:anyValue',
-          'ceterms:availableAt': {
-            'ceterms:addressRegion': [
-              'New Jersey',
-              'NJ'
+      "@type": [
+        "ceterms:ApprenticeshipCertificate",
+        "ceterms:AssociateDegree",
+        "ceterms:BachelorDegree",
+        "ceterms:Badge",
+        "ceterms:Certificate",
+        "ceterms:CertificateOfCompletion",
+        "ceterms:Certification",
+        "ceterms:Degree",
+        "ceterms:DigitalBadge",
+        "ceterms:Diploma",
+        "ceterms:DoctoralDegree",
+        "ceterms:GeneralEducationDevelopment",
+        "ceterms:JourneymanCertificate",
+        "ceterms:License",
+        "ceterms:MasterCertificate",
+        "ceterms:MasterDegree",
+        "ceterms:MicroCredential",
+        "ceterms:OpenBadge",
+        "ceterms:ProfessionalDoctorate",
+        "ceterms:QualityAssuranceCredential",
+        "ceterms:ResearchDoctorate",
+        "ceterms:SecondarySchoolDiploma"
+      ],
+      "ceterms:requires": {
+        "ceterms:targetAssessment": {
+          "ceterms:availableOnlineAt": "search:anyValue",
+          "ceterms:availableAt": {
+            "ceterms:addressRegion": [
+              "New Jersey",
+              "NJ"
             ]
           },
-          'search:operator': 'search:orTerms'
+          "search:operator": "search:orTerms"
         }
       }
     }
@@ -111,7 +132,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"],
-          cipCode: cip,
+          cipCode: cip ? cip : "",
           provider: {
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord['ceterms:name']['en-US'],
@@ -145,7 +166,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           booksMaterialsCost: 0, // TODO: pull from costProfile
           suppliesToolsCost: 0, // TODO: pull from costProfile
           otherCost: 0, // TODO: pull from costProfile
-          totalCost: parseFloat(totalCost),
+          totalCost: totalCost ? (totalCost): 0,
           online: availableOnlineAt != null ? true : false,
           percentEmployed: 0, // TODO: Get from QData?
           averageSalary: 0, // TODO: Get from QData?
@@ -155,7 +176,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: false, // TODO: this field may or may not exist in CE
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
-        console.log(training);
+        //console.log(training);
         return training;
 
       })
