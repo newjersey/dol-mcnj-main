@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const api = axios.create({
+export const searchAPI = axios.create({
   withCredentials: false,
   baseURL: `https://${process.env.CE_ENVIRONMENT}.credentialengine.org`,
   responseType: "json",
@@ -12,6 +12,12 @@ export const api = axios.create({
   },
 });
 
+export const getRecordAPI = axios.create({
+  withCredentials: false,
+  baseURL: `https://${process.env.CE_ENVIRONMENT}.credentialengineregistry.org`,
+  responseType: "json"
+})
+
 const errorHandler = (error: { response: { status: unknown } }) => {
   const statusCode = error.response?.status;
 
@@ -22,7 +28,11 @@ const errorHandler = (error: { response: { status: unknown } }) => {
   return Promise.reject(error);
 };
 
-api.interceptors.response.use(undefined, (error) => {
+searchAPI.interceptors.response.use(undefined, (error) => {
+  return errorHandler(error);
+});
+
+getRecordAPI.interceptors.response.use(undefined, (error) => {
   return errorHandler(error);
 });
 

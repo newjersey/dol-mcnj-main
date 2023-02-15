@@ -19,6 +19,7 @@ export interface DataClient {
   find2010OccupationsBySoc2018: (soc2018: string) => Promise<Occupation[]>;
   getLocalExceptions: () => Promise<LocalException[]>;
   getOccupationsInDemand: () => Promise<NullableOccupation[]>;
+  getCIPsInDemand: () => Promise<CipDefinition[]>;
   getEducationTextBySoc: (soc: string) => Promise<EducationText>;
   getSalaryEstimateBySoc: (soc: string) => Promise<SalaryEstimate>;
   getOESOccupationBySoc: (soc: string) => Promise<Occupation>;

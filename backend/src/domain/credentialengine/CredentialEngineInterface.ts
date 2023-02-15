@@ -11,7 +11,9 @@ export interface CredentialEngineObject {
 
 export interface Keypair {
   key: string;
-  value: string | Keypair | Keypair[];
+  //value: string | Keypair | Keypair[];
+  [propName: string]: string | string[] | Keypair | Keypair[];
+
 }
 
 export interface Certificate {
