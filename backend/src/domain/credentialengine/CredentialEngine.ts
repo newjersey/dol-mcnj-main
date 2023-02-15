@@ -5,28 +5,41 @@
 //   const cTDLResource = Convert.toCTDLResource(json);
 
 export interface CTDLResource {
-  "@id"?:                          string;
-  "@type"?:                        string;
-  "ceterms:ctid"?:                 string;
-  "ceterms:name"?:                 Ceterms;
-  "ceterms:image"?:                string;
-  "ceterms:naics"?:                string[];
-  "ceterms:keyword"?:              CetermsKeyword;
-  "ceterms:ownedBy"?:              string[];
-  "ceterms:subject"?:              CetermsSubject[];
-  "ceterms:requires"?:             CetermsRequire[];
-  "ceterms:offeredBy"?:            string[];
-  "ceterms:inLanguage"?:           string[];
-  "ceterms:description"?:          Ceterms;
-  "ceterms:industryType"?:         CetermsIndustryType[];
-  "ceterms:dateEffective"?:        Date;
-  "ceterms:estimatedCost"?:        CetermsEstimatedCost[];
-  "ceterms:occupationType"?:       CetermsOccupationType[];
-  "ceterms:subjectWebpage"?:       string;
-  "ceterms:copyrightHolder"?:      string[];
-  "ceterms:audienceLevelType"?:    CetermsType[];
-  "ceterms:availableOnlineAt"?:    string[];
-  "ceterms:credentialStatusType"?: CetermsType;
+  "@id"?:                               string;
+  "@type"?:                             string;
+  "ceterms:ctid"?:                      string;
+  "ceterms:name"?:                      Ceterms;
+  "ceterms:image"?:                     string;
+  "ceterms:naics"?:                     string[];
+  "ceterms:keyword"?:                   CetermsKeyword;
+  "ceterms:ownedBy"?:                   string[];
+  "ceterms:subject"?:                   CetermsSubject[];
+  "ceterms:requires"?:                  CetermsRequire[];
+  "ceterms:offeredBy"?:                 string[];
+  "ceterms:revokedBy"?:                 string[];
+  "ceterms:availableAt"?:               CetermsAvailableAt[];
+  "ceterms:degreeMajor"?:               CetermsDegree[];
+  "ceterms:inLanguage"?:                string[];
+  "ceterms:description"?:               Ceterms;
+  "ceterms:accreditedBy"?:              string[];
+  "ceterms:audienceType"?:              CetermsType[];
+  "ceterms:industryType"?:              CetermsIndustryType[];
+  "ceterms:jurisdiction"?:              CetermsJurisdiction[];
+  "ceterms:dateEffective"?:             Date;
+  "ceterms:estimatedCost"?:             CetermsEstimatedCost[];
+  "ceterms:occupationType"?:            CetermsOccupationType[];
+  "ceterms:subjectWebpage"?:            string;
+  "ceterms:copyrightHolder"?:           string[];
+  "ceterms:audienceLevelType"?:         CetermsType[];
+  "ceterms:availableOnlineAt"?:         string[];
+  "ceterms:estimatedDuration"?:         CetermsEstimatedDuration[];
+  "ceterms:versionIdentifier"?:         CetermsVersionIdentifier[];
+  "ceterms:availabilityListing"?:       string[];
+  "ceterms:degreeConcentration"?:       CetermsDegree[];
+  "ceterms:credentialStatusType"?:      CetermsType;
+  "ceterms:learningDeliveryType"?:      CetermsType[];
+  "ceterms:assessmentDeliveryType"?:    CetermsType[];
+  "ceterms:instructionalProgramType"?:  CetermsInstructionalProgramType[];
 }
 
 export interface CetermsType {
@@ -44,6 +57,30 @@ export enum Type {
 
 export interface Ceterms {
   "en-US"?: string;
+}
+
+export interface CetermsAvailableAt {
+  "@type"?:                   string;
+  "ceterms:name"?:            Ceterms;
+  "ceterms:latitude"?:        number;
+  "ceterms:longitude"?:       number;
+  "ceterms:postalCode"?:      string;
+  "ceterms:addressRegion"?:   Ceterms;
+  "ceterms:streetAddress"?:   Ceterms;
+  "ceterms:addressCountry"?:  Ceterms;
+  "ceterms:addressLocality"?: Ceterms;
+}
+
+export interface CetermsDegree {
+  "@type"?:                  string;
+  "ceterms:targetNodeName"?: Ceterms;
+}
+
+export interface CetermsEstimatedDuration {
+  "@type"?:                   string;
+  "ceterms:description"?:     Ceterms;
+  "ceterms:maximumDuration"?: string;
+  "ceterms:minimumDuration"?: string;
 }
 
 export interface CetermsEstimatedCost {
@@ -66,12 +103,36 @@ export interface CetermsIndustryType {
   "ceterms:targetNodeDescription"?: Ceterms;
 }
 
+export interface CetermsJurisdiction {
+  "@type"?:                      string;
+  "ceterms:mainJurisdiction"?:   CetermsMainJurisdiction[];
+  "ceterms:globalJurisdiction"?: boolean;
+}
+
+export interface CetermsMainJurisdiction {
+  "@type"?:                  string;
+  "ceterms:geoURI"?:         string;
+  "ceterms:latitude"?:       number;
+  "ceterms:longitude"?:      number;
+  "ceterms:addressCountry"?: Ceterms;
+}
+
 export interface CetermsKeyword {
   "en-US"?: string[];
 }
 
 export interface CetermsOccupationType {
   "@type"?:                         Type;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:codedNotation"?:         string;
+  "ceterms:frameworkName"?:         Ceterms;
+  "ceterms:targetNodeName"?:        Ceterms;
+  "ceterms:targetNodeDescription"?: Ceterms;
+}
+
+export interface CetermsInstructionalProgramType {
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:codedNotation"?:         string;
@@ -95,6 +156,13 @@ export interface CetermsSubject {
   "@type"?:                  Type;
   "ceterms:targetNodeName"?: Ceterms;
 }
+
+export interface CetermsVersionIdentifier {
+  "@type"?:                       string;
+  "ceterms:identifierValueCode"?: string;
+}
+
+
 
 // Converts JSON strings to/from your types
 export class Convert {
