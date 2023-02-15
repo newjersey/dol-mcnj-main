@@ -37,6 +37,8 @@ export interface CTDLResource {
   "ceterms:estimatedDuration"?:         CetermsEstimatedDuration[];
   "ceterms:learningMethodType"?:        CetermsLearningMethodType[];
   "ceterms:financialAssistance"?:       CetermsFinancialAssistance[];
+  "ceterms:lifeCycleStatusType"?:       CetermsLifeCycleStatusType;
+  "ceterms:deliveryTypeDescription"?:   Ceterms;
   "ceterms:versionIdentifier"?:         CetermsVersionIdentifier[];
   "ceterms:availabilityListing"?:       string[];
   "ceterms:degreeConcentration"?:       CetermsDegree[];
@@ -189,6 +191,15 @@ export interface CetermsLearningMethodType {
   "ceterms:targetNodeDescription"?: Ceterms;
 }
 
+export interface CetermsLifeCycleStatusType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         Ceterms;
+  "ceterms:targetNodeName"?:        Ceterms;
+  "ceterms:targetNodeDescription"?: Ceterms;
+}
+
 export interface CetermsRequire {
   "@type"?:                             string;
   "ceterms:name"?:                      Ceterms;
@@ -207,6 +218,7 @@ export interface CetermsSubject {
 
 export interface CetermsVersionIdentifier {
   "@type"?:                       string;
+  "ceterms:identifierTypeName"?:  Ceterms;
   "ceterms:identifierValueCode"?: string;
 }
 
