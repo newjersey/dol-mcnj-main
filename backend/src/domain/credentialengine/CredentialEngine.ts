@@ -21,18 +21,22 @@ export interface CTDLResource {
   "ceterms:degreeMajor"?:               CetermsDegree[];
   "ceterms:inLanguage"?:                string[];
   "ceterms:description"?:               Ceterms;
+  "ceterms:deliveryType"?:              CetermsDeliveryType[];
   "ceterms:accreditedBy"?:              string[];
   "ceterms:audienceType"?:              CetermsType[];
   "ceterms:industryType"?:              CetermsIndustryType[];
   "ceterms:jurisdiction"?:              CetermsJurisdiction[];
   "ceterms:dateEffective"?:             Date;
   "ceterms:estimatedCost"?:             CetermsEstimatedCost[];
+  "ceterms:entryCondition"?:            CetermsEntryCondition[];
   "ceterms:occupationType"?:            CetermsOccupationType[];
   "ceterms:subjectWebpage"?:            string;
   "ceterms:copyrightHolder"?:           string[];
   "ceterms:audienceLevelType"?:         CetermsType[];
   "ceterms:availableOnlineAt"?:         string[];
   "ceterms:estimatedDuration"?:         CetermsEstimatedDuration[];
+  "ceterms:learningMethodType"?:        CetermsLearningMethodType[];
+  "ceterms:financialAssistance"?:       CetermsFinancialAssistance[];
   "ceterms:versionIdentifier"?:         CetermsVersionIdentifier[];
   "ceterms:availabilityListing"?:       string[];
   "ceterms:degreeConcentration"?:       CetermsDegree[];
@@ -59,6 +63,25 @@ export interface Ceterms {
   "en-US"?: string;
 }
 
+export interface CetermsDeliveryType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         Ceterms;
+  "ceterms:targetNodeName"?:        Ceterms;
+  "ceterms:targetNodeDescription"?: Ceterms;
+}
+
+export interface CetermsEntryCondition {
+  "@type"?:               string;
+  "ceterms:condition"?:   CetermsCondition;
+  "ceterms:description"?: Ceterms;
+}
+
+export interface CetermsCondition {
+  "en-US"?: string[];
+}
+
 export interface CetermsAvailableAt {
   "@type"?:                   string;
   "ceterms:name"?:            Ceterms;
@@ -81,6 +104,22 @@ export interface CetermsEstimatedDuration {
   "ceterms:description"?:     Ceterms;
   "ceterms:maximumDuration"?: string;
   "ceterms:minimumDuration"?: string;
+}
+
+export interface CetermsFinancialAssistance {
+  "@type"?:                           string;
+  "ceterms:name"?:                    Ceterms;
+  "ceterms:financialAssistanceType"?: CetermsFinancialAssistanceType[];
+  "ceterms:description"?:             Ceterms;
+}
+
+export interface CetermsFinancialAssistanceType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         Ceterms;
+  "ceterms:targetNodeName"?:        Ceterms;
+  "ceterms:targetNodeDescription"?: Ceterms;
 }
 
 export interface CetermsEstimatedCost {
@@ -141,6 +180,15 @@ export interface CetermsInstructionalProgramType {
   "ceterms:targetNodeDescription"?: Ceterms;
 }
 
+export interface CetermsLearningMethodType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         Ceterms;
+  "ceterms:targetNodeName"?:        Ceterms;
+  "ceterms:targetNodeDescription"?: Ceterms;
+}
+
 export interface CetermsRequire {
   "@type"?:                             string;
   "ceterms:name"?:                      Ceterms;
@@ -162,9 +210,6 @@ export interface CetermsVersionIdentifier {
   "ceterms:identifierValueCode"?: string;
 }
 
-
-
-// Converts JSON strings to/from your types
 export class Convert {
   public static toCTDLResource(json: string): CTDLResource {
     return JSON.parse(json);
