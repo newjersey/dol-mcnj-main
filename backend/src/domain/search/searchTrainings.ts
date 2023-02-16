@@ -6,6 +6,7 @@ import { SearchClient } from "./SearchClient";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 
 import { Selector } from "../training/Selector";
+import { CTDLResource } from "../credentialengine/CredentialEngine";
 
 export const searchTrainingsFactory = (
   findTrainingsBy: FindTrainingsBy,
@@ -95,12 +96,19 @@ export const searchTrainingsFactory = (
     const skip = 0;
     const take = 3;
     const sort = "^search:recordCreated";
-    const ceRecordsResponse = await credentialEngineAPI.getResults(query, skip, take, sort);
-    const trainings = ceRecordsResponse.data.data
+    const ceRecordsResponse = await credentialEngineAPI.getResults(JSON.parse(query), skip, take, sort);
+    const ceRecords = ceRecordsResponse.data.data as CTDLResource[];
+
+    const trainings = await findTrainingsBy(
+      Selector.ID,
+      ceRecords.map((it) => it["@id"])
+    )
+
+    console.log(JSON.stringify(trainings, null, 2))
 
     return Promise.all(
       trainings.map(async (training: Training) => {
-/*        let highlight = "";
+        /*let highlight = "";
         let rank = 0;
 
         if (searchQuery) {
@@ -113,7 +121,7 @@ export const searchTrainingsFactory = (
             rank = foundRank;
           }
         }*/
-        
+
         return {
           id: training.id,
           name: training.name,
@@ -129,8 +137,10 @@ export const searchTrainingsFactory = (
           zipCode: training.provider.address.zipCode,
           county: training.provider.county,
           inDemand: training.inDemand,
-          highlight: stripUnicode(highlight),
-          rank: rank,
+          //highlight: stripUnicode(highlight),
+          highlight: "",
+          //rank: rank,
+          rank: 0,
           socCodes: training.occupations.map((o) => o.soc),
           hasEveningCourses: training.hasEveningCourses,
           languages: training.languages,
