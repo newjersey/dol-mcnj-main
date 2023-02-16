@@ -46,6 +46,9 @@ export interface CTDLResource {
   "ceterms:learningDeliveryType"?:      CetermsType[];
   "ceterms:assessmentDeliveryType"?:    CetermsType[];
   "ceterms:instructionalProgramType"?:  CetermsInstructionalProgramType[];
+  "ceterms:offerFrequencyType"?:        CetermsOfferFrequencyType[];
+  "ceterms:scheduleTimingType"?:        CetermsScheduleTimingType[];
+  "ceterms:scheduleFrequencyType"?:     CetermsScheduleFrequencyType[];
 }
 
 export interface CetermsType {
@@ -198,6 +201,37 @@ export interface CetermsLifeCycleStatusType {
   "ceterms:frameworkName"?:         Ceterms;
   "ceterms:targetNodeName"?:        Ceterms;
   "ceterms:targetNodeDescription"?: Ceterms;
+}
+
+export interface CetermsFrameworkNameClass {
+  "en-US"?: string;
+}
+
+export interface CetermsOfferFrequencyType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         CetermsFrameworkNameClass;
+  "ceterms:targetNodeName"?:        CetermsFrameworkNameClass;
+  "ceterms:targetNodeDescription"?: CetermsFrameworkNameClass;
+}
+
+export interface CetermsScheduleFrequencyType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         CetermsFrameworkNameClass;
+  "ceterms:targetNodeName"?:        CetermsFrameworkNameClass;
+  "ceterms:targetNodeDescription"?: CetermsFrameworkNameClass;
+}
+
+export interface CetermsScheduleTimingType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         CetermsFrameworkNameClass;
+  "ceterms:targetNodeName"?:        CetermsFrameworkNameClass;
+  "ceterms:targetNodeDescription"?: CetermsFrameworkNameClass;
 }
 
 export interface CetermsRequire {
