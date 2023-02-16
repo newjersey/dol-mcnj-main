@@ -8,11 +8,22 @@ import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import {
+  CetermsEstimatedCost,
+  CetermsEstimatedDuration,
+  CetermsFinancialAssistance,
+  CetermsInstructionalProgramType,
+  CetermsLearningMethodType,
+  CetermsOccupationType,
+  CetermsScheduleTimingType,
+  CetermsType,
+  CTDLResource
+} from "../credentialengine/CredentialEngine";
 
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
-   const inDemandCIPs = await dataClient.getCIPsInDemand();
+    const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
 
     const query = {
@@ -60,25 +71,25 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const ceRecords = ceRecordsResponse.data.data;
 
     return Promise.all(
-      ceRecords.map(async (certificate : any) => {
+      ceRecords.map(async (certificate : CTDLResource) => {
         //console.log(`RECORDS RESPONSE: ${JSON.stringify(certificate, null, 2)}`)
         let cip:any = null;
         let totalCost:any = null;
         let exactDuration:any = null;
         let calendarLength:CalendarLength = CalendarLength.NULL;
 
-        const ownedBy = certificate["ceterms:ownedBy"][0];
-        const ownedByCtid:string = await credentialEngineUtils.getCtidFromURL(ownedBy);
+        const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
+        const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
 
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
-        const estimatedCost = certificate["ceterms:estimatedCost"];
-        const estimatedDuration = certificate["ceterms:estimatedDuration"];
-        const financialAssistance = certificate["ceterms:financialAssistance"];
-        const instructionalProgramType = certificate["ceterms:instructionalProgramType"];
-        const learningDeliveryType = certificate["ceterms:learningDeliveryType"];
-        const occupationType = certificate["ceterms:occupationType"];
-        const scheduleTimingType = certificate["ceterms:scheduleTimingType"];
+        const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
+        const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
+        const financialAssistance = certificate["ceterms:financialAssistance"] as CetermsFinancialAssistance;
+        const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
+        const learningDeliveryType = certificate["ceterms:learningDeliveryType"] as CetermsType;
+        const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
+        const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
         const targetLearningOpportunity = certificate["ceterms:targetLearningOpportunity"];
 
         if (estimatedDuration != null) {
@@ -90,24 +101,23 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         // If record contains "ceterms:instructionalProgramType" object, get frameworkName and set values if CIP
-        if (instructionalProgramType != null) {
-          if (instructionalProgramType["ceterms:frameworkName"].equals("Classification of Instructional Programs")) {
-            cip = instructionalProgramType["ceterms:codedNotation"].toString();
+        if (instructionalProgramType["ceterms:frameworkName"] != null) {
+          const frameworkName = instructionalProgramType["ceterms:frameworkName"]["en-US"];
+          if (frameworkName == "Classification of Instructional Programs") {
+            cip = instructionalProgramType["ceterms:codedNotation"];
           }
+          // TODO : handle other frameworkName values
         }
 
-        if (targetLearningOpportunity != null) {
-          // Look for total cost in targetLearningOpportunity
-          const estimatedCostForTarget = targetLearningOpportunity["estimatedCost"];
-          if (estimatedCostForTarget != null) {
-            totalCost = Number(estimatedCostForTarget["ceterms:price"]);
-          }
-        }
         else if (estimatedCost != null) {
+          /* This is getting the first costProfile it sees under estimatedCost... we get a lot more
+          fields at our disposal here like costDetails, description, directCostType that we should
+          look through here - TODO: Show other costProfiles?
+           */
           // Look for total cost in estimatedCost
-          const costProfile = estimatedCost[0];
-          if (costProfile != null) {
-            if (costProfile["ceterms:currency"].equals("US Dollar")) {
+          const costProfile = estimatedCost[0]
+          if (costProfile["ceterms:currency"] != null) {
+            if (costProfile["ceterms:currency"] == "US Dollar") {
               totalCost = Number(costProfile["ceterms:price"])
             }
           }
@@ -132,7 +142,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"],
-          cipCode: cip ? cip : "",
+          cipCode: cip,
           provider: {
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord['ceterms:name']['en-US'],
@@ -151,7 +161,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               zipCode: "",
             },
           },
-          description: certificate['ceterms:description']['en-US'],
+          description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null,
           certifications: "", // TODO: invgestigate how this is to derived (currently as select industrycredentialname from etpl)
           prerequisites: "", // TODO: ceterms:CommonConditions / ceterms:prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
