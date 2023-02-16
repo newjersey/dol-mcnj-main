@@ -20,14 +20,21 @@ export interface CTDLResource {
   "ceterms:availableAt"?:               CetermsAvailableAt[];
   "ceterms:degreeMajor"?:               CetermsDegree[];
   "ceterms:inLanguage"?:                string[];
+  "ceterms:creditValue"?:               CetermsCreditValue[];
+  "ceterms:creditUnitTypeDescription"?: Ceterms;
+  "ceterms:targetLearningOpportunity"?: string[];
   "ceterms:description"?:               Ceterms;
+  "ceterms:isNonCredit"?:               boolean;
+  "ceterms:prerequisite"?:              string[];
   "ceterms:deliveryType"?:              CetermsDeliveryType[];
   "ceterms:accreditedBy"?:              string[];
   "ceterms:audienceType"?:              CetermsType[];
   "ceterms:industryType"?:              CetermsIndustryType[];
   "ceterms:jurisdiction"?:              CetermsJurisdiction[];
+  "ceterms:alternateName"?:             CetermsAlternateName;
   "ceterms:dateEffective"?:             Date;
   "ceterms:estimatedCost"?:             CetermsEstimatedCost[];
+  "ceterms:directCost"?:                CetermsDirectCostType[];
   "ceterms:entryCondition"?:            CetermsEntryCondition[];
   "ceterms:occupationType"?:            CetermsOccupationType[];
   "ceterms:subjectWebpage"?:            string;
@@ -35,9 +42,11 @@ export interface CTDLResource {
   "ceterms:audienceLevelType"?:         CetermsType[];
   "ceterms:availableOnlineAt"?:         string[];
   "ceterms:estimatedDuration"?:         CetermsEstimatedDuration[];
+  "ceterms:targetAssessment"?:          string[];
   "ceterms:learningMethodType"?:        CetermsLearningMethodType[];
   "ceterms:financialAssistance"?:       CetermsFinancialAssistance[];
   "ceterms:lifeCycleStatusType"?:       CetermsLifeCycleStatusType;
+  "ceterms:targetLearningResource"?:    string[];
   "ceterms:deliveryTypeDescription"?:   Ceterms;
   "ceterms:versionIdentifier"?:         CetermsVersionIdentifier[];
   "ceterms:availabilityListing"?:       string[];
@@ -68,6 +77,18 @@ export interface Ceterms {
   "en-US"?: string;
 }
 
+export interface CetermsCreditValue {
+  "@type"?:                   string;
+  "schema:value"?:            number;
+  "ceterms:subject"?:         CetermsSubject[];
+  "schema:description"?:      CetermsCreditUnitTypeDescription;
+  "ceterms:creditUnitType"?:  CetermsCreditUnitType[];
+  "schema:maxValue"?:         number;
+  "schema:minValue"?:         number;
+  "qdata:percentage"?:        number;
+  "ceterms:creditLevelType"?: CetermsCreditLevelType[];
+}
+
 export interface CetermsDeliveryType {
   "@type"?:                         string;
   "ceterms:framework"?:             string;
@@ -87,6 +108,10 @@ export interface CetermsCondition {
   "en-US"?: string[];
 }
 
+export interface CetermsAlternateName {
+  "en-US"?: string[];
+}
+
 export interface CetermsAvailableAt {
   "@type"?:                   string;
   "ceterms:name"?:            Ceterms;
@@ -99,6 +124,28 @@ export interface CetermsAvailableAt {
   "ceterms:addressLocality"?: Ceterms;
 }
 
+export interface CetermsCreditUnitType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         CetermsCreditUnitTypeDescription;
+  "ceterms:targetNodeName"?:        CetermsCreditUnitTypeDescription;
+  "ceterms:targetNodeDescription"?: CetermsCreditUnitTypeDescription;
+}
+
+export interface CetermsCreditLevelType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         CetermsCreditUnitTypeDescription;
+  "ceterms:targetNodeName"?:        CetermsCreditUnitTypeDescription;
+  "ceterms:targetNodeDescription"?: CetermsCreditUnitTypeDescription;
+}
+
+export interface CetermsCreditUnitTypeDescription {
+  "en-US"?: string;
+}
+
 export interface CetermsDegree {
   "@type"?:                  string;
   "ceterms:targetNodeName"?: Ceterms;
@@ -107,6 +154,7 @@ export interface CetermsDegree {
 export interface CetermsEstimatedDuration {
   "@type"?:                   string;
   "ceterms:description"?:     Ceterms;
+  "ceterms:exactDuration"?:   string;
   "ceterms:maximumDuration"?: string;
   "ceterms:minimumDuration"?: string;
 }
@@ -135,6 +183,15 @@ export interface CetermsEstimatedCost {
   "ceterms:costDetails"?:    string;
   "ceterms:description"?:    Ceterms;
   "ceterms:directCostType"?: CetermsType;
+}
+
+export interface CetermsDirectCostType {
+  "@type"?:                         string;
+  "ceterms:framework"?:             string;
+  "ceterms:targetNode"?:            string;
+  "ceterms:frameworkName"?:         CetermsCreditUnitTypeDescription;
+  "ceterms:targetNodeName"?:        CetermsCreditUnitTypeDescription;
+  "ceterms:targetNodeDescription"?: CetermsCreditUnitTypeDescription;
 }
 
 export interface CetermsIndustryType {
