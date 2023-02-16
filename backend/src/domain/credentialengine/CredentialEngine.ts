@@ -5,7 +5,7 @@
 //   const cTDLResource = Convert.toCTDLResource(json);
 
 export interface CTDLResource {
-  "@id"?:                               string;
+  "@id":                                string;
   "@type"?:                             string;
   "ceterms:ctid"?:                      string;
   "ceterms:name"?:                      Ceterms;
