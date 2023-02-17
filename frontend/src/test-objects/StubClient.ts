@@ -4,6 +4,7 @@ import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
+import { ContentfulFAQQuery } from "../domain/Contentful";
 
 export class StubClient implements Client {
   capturedObserver: Observer<any> = {
@@ -32,6 +33,10 @@ export class StubClient implements Client {
   }
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFAQ(query: string, observer: Observer<ContentfulFAQQuery>): void {
     this.capturedObserver = observer;
   }
 }
