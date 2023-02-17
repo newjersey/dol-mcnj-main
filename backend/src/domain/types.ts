@@ -7,6 +7,7 @@ import {
   OccupationDetailPartial,
   Occupation,
 } from "./occupations/Occupation";
+import { ContentfulFAQQuery } from "./contentful/ContentfulInterface";
 
 export type SearchTrainings = (searchQuery: string) => Promise<TrainingResult[]>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
@@ -17,3 +18,4 @@ export type GetEducationText = (soc: string) => Promise<string>;
 export type GetSalaryEstimate = (soc: string) => Promise<number | null>;
 export type GetOpenJobsCount = (soc: string) => Promise<number | null>;
 export type Convert2010SocTo2018Occupations = (soc2010: string) => Promise<Occupation[]>;
+export type GetContentfulFAQ = (query: string) => Promise<ContentfulFAQQuery>;
