@@ -6,7 +6,7 @@ import {
 } from "@contentful/rich-text-types";
 import { documentToReactComponents, Options } from "@contentful/rich-text-react-renderer";
 
-type Props = {
+export type Props = {
   document: {
     nodeType: BLOCKS.DOCUMENT;
     content: any[];
