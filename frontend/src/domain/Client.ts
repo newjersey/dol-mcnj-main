@@ -1,12 +1,14 @@
 import { Training, TrainingResult } from "./Training";
 import { Error } from "./Error";
 import { InDemandOccupation, OccupationDetail } from "./Occupation";
+import { ContentfulFAQQuery } from "./Contentful";
 
 export interface Client {
   getTrainingsByQuery: (query: string, observer: Observer<TrainingResult[]>) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;
   getOccupationDetailBySoc: (soc: string, observer: Observer<OccupationDetail>) => void;
+  getContentfulFAQ: (query: string, observer: Observer<ContentfulFAQQuery>) => void;
 }
 
 export interface Observer<T> {

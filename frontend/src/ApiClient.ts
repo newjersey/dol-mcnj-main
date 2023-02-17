@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
+import { ContentfulFAQQuery } from "./domain/Contentful";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
@@ -19,6 +20,10 @@ export class ApiClient implements Client {
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.get(`/api/occupations/${soc}`, observer);
+  }
+
+  getContentfulFAQ(query: string, observer: Observer<ContentfulFAQQuery>): void {
+    this.get(`/api/contentful/faq/${query}`, observer);
   }
 
   private get<T>(endpoint: string, observer: Observer<T>): void {
