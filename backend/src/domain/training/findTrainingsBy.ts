@@ -23,8 +23,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
-
-    const query = {
+/*    console.log("VALUES");
+    console.log(values)*/
+ /*   const query = {
       "@type": [
         "ceterms:ApprenticeshipCertificate",
         "ceterms:AssociateDegree",
@@ -66,11 +67,18 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const take = 3;
     const sort = "^search:recordCreated";
     const ceRecordsResponse = await credentialEngineAPI.getResults(query, skip, take, sort);
-    const ceRecords = ceRecordsResponse.data.data;
+    const ceRecords = ceRecordsResponse.data.data;*/
+    const ceRecords:any = []
+    for (const value of values) {
+      const ctid = await credentialEngineUtils.getCtidFromURL(value)
+      const record = await credentialEngineAPI.getResourceByCTID(ctid);
+      // console.log(record)
+      ceRecords.push(record);
+    }
 
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
-        //console.log(`RECORDS RESPONSE: ${JSON.stringify(certificate, null, 2)}`)
+        console.log(`RECORDS RESPONSE: ${JSON.stringify(certificate, null, 2)}`)
         let cip:any = null;
         let totalCost:any = null;
         let exactDuration:any = null;
@@ -140,7 +148,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const training = {
           id: certificate["ceterms:ctid"],
-          name: certificate["ceterms:name"],
+          name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipCode: cip,
           provider: {
             id: ownedByRecord["ceterms:ctid"],
@@ -185,7 +193,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: false, // TODO: this field may or may not exist in CE
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
-        console.log(training);
+        // console.log(training);
         return training;
 
       })

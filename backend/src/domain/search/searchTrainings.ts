@@ -96,14 +96,18 @@ export const searchTrainingsFactory = (
     const skip = 0;
     const take = 3;
     const sort = "^search:recordCreated";
-    const ceRecordsResponse = await credentialEngineAPI.getResults(JSON.parse(query), skip, take, sort);
+    const queryObj = JSON.parse(query);
+    const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
+
     const ceRecords = ceRecordsResponse.data.data as CTDLResource[];
+/*     console.log("HELLO");
+    console.log(ceRecords);*/
 
     const trainings = await findTrainingsBy(
       Selector.ID,
       ceRecords.map((it) => it["@id"])
     )
-
+    console.log("HELLO")
     console.log(JSON.stringify(trainings, null, 2))
 
     return Promise.all(
