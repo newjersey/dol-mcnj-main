@@ -83,8 +83,8 @@ export const App = (props: Props): ReactElement => {
               <FundingPage path="/funding" />
               <PrivacyPolicyPage path="/privacy-policy" />
               <TermsOfServicePage path="/terms-of-service" />
-              <FaqPage path="/faq" />
-              <TrainingProviderPage path="/training-provider-resources" />
+              <FaqPage path="/faq" client={props.client} />
+              <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default />
             </Router>
