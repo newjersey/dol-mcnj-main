@@ -38,6 +38,8 @@ export interface CTDLResource {
   "ceterms:entryCondition"?:            CetermsEntryCondition[];
   "ceterms:occupationType"?:            CetermsOccupationType[];
   "ceterms:subjectWebpage"?:            string;
+  "ceterms:commonConditions"?:          string[];
+  "ceterms:isPreparationFor"?:          CetermsIsPreparationFor[];
   "ceterms:copyrightHolder"?:           string[];
   "ceterms:audienceLevelType"?:         CetermsType[];
   "ceterms:availableOnlineAt"?:         string[];
@@ -151,6 +153,14 @@ export interface CetermsDegree {
   "ceterms:targetNodeName"?: Ceterms;
 }
 
+export interface CetermsIsPreparationFor {
+  "@type"?:                    string;
+  "ceterms:name"?:             Ceterms;
+  "ceterms:assertedBy"?:       string[];
+  "ceterms:description"?:      Ceterms;
+  "ceterms:targetCredential"?: string[];
+}
+
 export interface CetermsEstimatedDuration {
   "@type"?:                   string;
   "ceterms:description"?:     Ceterms;
@@ -231,6 +241,8 @@ export interface CetermsOccupationType {
   "ceterms:targetNodeName"?:        Ceterms;
   "ceterms:targetNodeDescription"?: Ceterms;
 }
+
+
 
 export interface CetermsInstructionalProgramType {
   "@type"?:                         string;
