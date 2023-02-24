@@ -94,8 +94,8 @@ export const searchTrainingsFactory = (
       }
     }`
     const skip = 0;
-    const take = 3;
-    const sort = "^search:recordCreated";
+    const take = 10;
+    const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
     const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
 
