@@ -9,100 +9,67 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
+  Ceterms,
   CetermsEstimatedCost,
   CetermsEstimatedDuration,
-  CetermsInstructionalProgramType,
-  CetermsLearningMethodType,
+  CetermsInstructionalProgramType, CetermsIsPreparationFor,
   CetermsOccupationType,
   CetermsScheduleTimingType,
   CTDLResource
 } from "../credentialengine/CredentialEngine";
+import { util } from "prettier";
+import skip = util.skip;
 
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
-/*    console.log("VALUES");
-    console.log(values)*/
- /*   const query = {
-      "@type": [
-        "ceterms:ApprenticeshipCertificate",
-        "ceterms:AssociateDegree",
-        "ceterms:BachelorDegree",
-        "ceterms:Badge",
-        "ceterms:Certificate",
-        "ceterms:CertificateOfCompletion",
-        "ceterms:Certification",
-        "ceterms:Degree",
-        "ceterms:DigitalBadge",
-        "ceterms:Diploma",
-        "ceterms:DoctoralDegree",
-        "ceterms:GeneralEducationDevelopment",
-        "ceterms:JourneymanCertificate",
-        "ceterms:License",
-        "ceterms:MasterCertificate",
-        "ceterms:MasterDegree",
-        "ceterms:MicroCredential",
-        "ceterms:OpenBadge",
-        "ceterms:ProfessionalDoctorate",
-        "ceterms:QualityAssuranceCredential",
-        "ceterms:ResearchDoctorate",
-        "ceterms:SecondarySchoolDiploma"
-      ],
-      "ceterms:requires": {
-        "ceterms:targetAssessment": {
-          "ceterms:availableOnlineAt": "search:anyValue",
-          "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-              "New Jersey",
-              "NJ"
-            ]
-          },
-          "search:operator": "search:orTerms"
-        }
-      }
-    }
-    const skip = 0;
-    const take = 3;
-    const sort = "^search:recordCreated";
-    const ceRecordsResponse = await credentialEngineAPI.getResults(query, skip, take, sort);
-    const ceRecords = ceRecordsResponse.data.data;*/
     const ceRecords:any = []
+    const prerequisites:any = []
+
     for (const value of values) {
       const ctid = await credentialEngineUtils.getCtidFromURL(value)
       const record = await credentialEngineAPI.getResourceByCTID(ctid);
-      // console.log(record)
       ceRecords.push(record);
     }
 
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
-        console.log(`RECORDS RESPONSE: ${JSON.stringify(certificate, null, 2)}`)
         let cip:any = null;
         let totalCost:any = null;
         let exactDuration:any = null;
+        let prerequisites = null;
+        let credential = null;
         let calendarLength:CalendarLength = CalendarLength.NULL;
 
+        // GET provider record
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
 
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
+        const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
-        // const financialAssistance = certificate["ceterms:financialAssistance"] as CetermsFinancialAssistance;
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
-        //const learningDeliveryType = certificate["ceterms:learningDeliveryType"] as CetermsType;
+        const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
         const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
-        //const targetLearningOpportunity = certificate["ceterms:targetLearningOpportunity"];
+
+        // GET prerequisites - could be in ceterms:CommonConditions, could be in ceterms:prerequisites
+        if (commonConditions != null) {
+          // TODO: Modify to handle multiple commonconditions, which can have multiple requirements
+          const conditionUrl = commonConditions[0];
+          const conditionCtid = await credentialEngineUtils.getCtidFromURL(conditionUrl);
+          const conditionRecord = await credentialEngineAPI.getResourceByCTID(conditionCtid);
+        }
 
         if (estimatedDuration != null) {
           const durationProfile = estimatedDuration[0];
           if (durationProfile != null) {
             exactDuration = durationProfile["ceterms:exactDuration"];
-            calendarLength = convertDuration(exactDuration)
+            calendarLength = convertDuration(exactDuration);
           }
         }
 
@@ -119,13 +86,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         else if (estimatedCost != null) {
           /* This is getting the first costProfile it sees under estimatedCost... we get a lot more
           fields at our disposal here like costDetails, description, directCostType that we should
-          look through here - TODO: Show other costProfiles?
+          look through here
            */
           // Look for total cost in estimatedCost
-          const costProfile = estimatedCost[0]
+          // TODO: Modify to handle multiple costProfiles
+          const costProfile = estimatedCost[0];
           if (costProfile["ceterms:currency"] != null) {
             if (costProfile["ceterms:currency"] == "US Dollar") {
-              totalCost = Number(costProfile["ceterms:price"])
+              totalCost = Number(costProfile["ceterms:price"]);
             }
           }
         }
@@ -135,6 +103,27 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         }
 
+        // GET credentials and certifications this prepares for
+        if (isPreparationFor != null) {
+          // TODO: Modify to handle multiple conditionProfiles
+          const conditionProfile = isPreparationFor[0];
+          if (conditionProfile != null) {
+            // TODO: Modify to handle multiple targetCredentials per conditionProfile
+            const targetCredential = conditionProfile["ceterms:targetCredential"]
+            if (targetCredential != null) {
+              const credentialUrl = targetCredential[0]
+              const credentialCtid = await credentialEngineUtils.getCtidFromURL(credentialUrl);
+              const credentialRecord = await credentialEngineAPI.getResourceByCTID(credentialCtid) as CTDLResource;
+              if (credentialRecord["ceterms:name"] != null) {
+                if (credentialRecord["ceterms:name"]["en-US"] != null) {
+                  credential = credentialRecord["ceterms:name"]["en-US"];
+                }
+              }
+            }
+          }
+        }
+
+        // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
@@ -169,15 +158,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             },
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
-          certifications: "", // TODO: invgestigate how this is to derived (currently as select industrycredentialname from etpl)
-          prerequisites: "", // TODO: ceterms:CommonConditions / ceterms:prerequisites,
+          certifications: credential,
+          prerequisites: null, // TODO: ceterms:CommonConditions / ceterms:prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
           })),
-          inDemand: inDemandCIPCodes.includes(cip),
-          localExceptionCounty: localExceptionCounties, // TODO: Confirm that this works
+          inDemand: inDemandCIPCodes.includes(cip), // TODO: Test
+          localExceptionCounty: localExceptionCounties, // TODO: Test
           tuitionCost: 0, // TODO: pull from costProfile - ceterms:directCostType with name "Tuition"
           feesCost: 0, // TODO: pull from costProfile
           booksMaterialsCost: 0, // TODO: pull from costProfile
@@ -190,7 +179,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
           languages: certificate["ceterms:inLanguage"],
           isWheelchairAccessible: false, // TODO: this field doesn't exist in CE!
-          hasJobPlacementAssistance: false, // TODO: this field may or may not exist in CE
+          hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
         // console.log(training);
