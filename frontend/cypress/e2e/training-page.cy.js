@@ -62,7 +62,7 @@ describe("Training Page", () => {
   });
 
   it("does not display share training description text for non in-demand training", () => {
-    cy.visit("/training/50649");
+    cy.visit("/training/37431");
     cy.injectAxe();
 
     cy.contains("Copy a link to this training opportunity").should("exist");
