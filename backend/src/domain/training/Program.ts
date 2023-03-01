@@ -50,6 +50,7 @@ export interface SocDefinition {
 }
 
 export interface CipDefinition {
+  cip: string;
   cipcode: string;
   ciptitle: string;
 }
