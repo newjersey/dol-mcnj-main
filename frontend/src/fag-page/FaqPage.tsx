@@ -9,6 +9,7 @@ import { useContentfulClient } from "../utils/useContentfulClient";
 import { PageBanner } from "../components/PageBanner";
 import { QuestionBubble } from "../svg/QuestionBubble";
 import { FaqCollection } from "../components/FaqCollection";
+import { ResourceLinks } from "../components/ResourceLinks";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -26,6 +27,10 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     },
   ];
 
+  //TODO: Add in the contentful data for resource links
+  //TODO: Use #anchor tags to link to the FAQ topics
+  //TODO: Create mobiles styles for the FAQ page/components
+
   return (
     <>
       <Header />
@@ -36,7 +41,25 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
           heading="Frequently Asked Questions"
           svg={<QuestionBubble />}
         />
-        <FaqCollection topicHeading="Top Questions" content={data} />
+        <FaqCollection topicHeading="Top Questions" content={data}>
+          <ResourceLinks
+            heading="Top Resource Links"
+            links={[
+              {
+                copy: "In-Demand Occupation List",
+                href: "https://www.google.com",
+              },
+              {
+                copy: "Financial and Tuition Resources",
+                href: "https://www.google.com",
+              },
+              {
+                copy: "Career Services",
+                href: "https://www.google.com",
+              },
+            ]}
+          />
+        </FaqCollection>
       </main>
       <Footer />
     </>
