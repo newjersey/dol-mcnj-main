@@ -5,7 +5,6 @@ import { Client } from "../domain/Client";
 import { Header } from "../components/Header";
 import { BetaBanner } from "../components/BetaBanner";
 import { Footer } from "../components/Footer";
-import { ContentfulFAQQuery } from "../domain/Contentful";
 interface Props extends RouteComponentProps {
   client: Client;
 }
