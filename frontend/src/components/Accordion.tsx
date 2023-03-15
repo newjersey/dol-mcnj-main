@@ -11,37 +11,34 @@ interface AccordionData {
 export const Accordion = (data: AccordionData): ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const contentId = `a${data.keyValue + 1}`;
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
+    const contentBlock = document.getElementById(contentId);
+    if (contentBlock) {
+      const height = contentBlock?.scrollHeight;
+      contentBlock.style.height = !isOpen ? `${height}px` : "0px";
+    }
   };
 
   return (
-    <div key={data.keyValue} className="">
-      <h2 className="">
+    <div key={data.keyValue} className={`accordion ${isOpen ? "open" : "closed"}`}>
+      <h3>
         <button
           onClick={toggleIsOpen}
           onMouseDown={(e): void => e.preventDefault()}
-          className=""
-          aria-controls={`a${data.keyValue + 1}`}
+          aria-controls={contentId}
           aria-expanded={isOpen ? "true" : "false"}
           data-expand={isOpen ? "true" : null}
         >
           {data.title}
         </button>
-      </h2>
-      <div id={`a${data.keyValue + 1}`} className="" hidden={isOpen ? false : true}>
-        <ContentfulRichText document={data.content} key={data.keyValue} />
+      </h3>
+      <div id={contentId} className="content">
+        <div className="inner">
+          <ContentfulRichText document={data.content} key={data.keyValue} />
+        </div>
       </div>
     </div>
   );
 };
-
-/*
-<div className="accordion-item">
-  <div className="accordion-title" onClick={() => setIsOpen(!isOpen)}>
-    <div>{title}</div>
-    <div>{isOpen ? '-' : '+'}</div>
-  </div>
-  {isOpen && <div className="accordion-content">{content}</div>}
-</div>
-*/

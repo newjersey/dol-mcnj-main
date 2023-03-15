@@ -2,14 +2,17 @@ import { gql } from "graphql-request";
 
 export const FAQ_PAGE_QUERY = gql`
   {
-    faqTopicCollection {
-      items {
-        topic
-        itemsCollection {
-          items {
-            question
-            answer {
-              json
+    faqCollection(id: "2CV0DOWvRHwiQ821b2VseR") {
+      title
+      topicsCollection {
+        items {
+          topic
+          itemsCollection {
+            items {
+              question
+              answer {
+                json
+              }
             }
           }
         }

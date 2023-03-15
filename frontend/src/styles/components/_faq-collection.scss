@@ -1,0 +1,94 @@
+@mixin boldItem {
+  font-weight: bold;
+  color: $dark-green;
+  width: 100%;
+  padding: 0.6rem 0.4rem;
+}
+
+.faq-collection {
+  margin-top: 4rem;
+
+  .container {
+    display: flex;
+  }
+
+  nav {
+    width: 262px;
+    ul {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    li {
+      &.heading {
+        @include boldItem;
+      }
+      &.active {
+        button {
+          background: $light-green;
+        }
+      }
+    }
+    button {
+      @include boldItem;
+    }
+  }
+
+  .questions {
+    width: calc(100% - 262px);
+    padding-left: 1.8rem;
+    // position: relative;
+    // z-index: -1;
+  }
+
+  .accordion {
+    margin-bottom: 1rem;
+
+    button {
+      font-weight: bold;
+      color: $dark-green;
+      background-color: $light-green;
+      width: 100%;
+      padding: 1.2rem 1rem;
+      position: relative;
+
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        height: 2px;
+        border-radius: 2px;
+        width: 15px;
+        background: $dark-green;
+        top: 50%;
+        right: 24px;
+        z-index: 1;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+      }
+      &:after {
+        transform: rotate(90deg);
+      }
+    }
+
+    &.open {
+      button {
+        &:after {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    .content {
+      height: 0px;
+      overflow: hidden;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+
+      .inner {
+        max-width: 35rem;
+        padding: 1rem 1.5rem;
+      }
+    }
+  }
+}
