@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { FaqPageProps, FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
 import { OverlayTool } from "./OverlayTool";
@@ -7,9 +7,11 @@ import IMAGE from "../overlayImages/Faq.png";
 export const FaqCollection = ({
   topicHeading,
   content,
+  children,
 }: {
   topicHeading?: string;
   content: FaqPageProps;
+  children?: ReactNode;
 }) => {
   const { faqCollection } = content;
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
@@ -50,6 +52,7 @@ export const FaqCollection = ({
               key={item.question}
             />
           ))}
+          {children}
         </div>
       </div>
     </div>
