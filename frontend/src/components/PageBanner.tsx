@@ -1,6 +1,4 @@
 import { ReactElement } from "react";
-import { OverlayTool } from "./OverlayTool";
-import OVERLAY from "../overlayImages/Hero.png";
 import { RightArrow } from "../svg/RightArrow";
 
 interface PageBannerProps {
@@ -14,7 +12,6 @@ interface PageBannerProps {
 export const PageBanner = ({ heading, svg, breadCrumbs }: PageBannerProps) => {
   return (
     <section className="page-banner">
-      <OverlayTool img={OVERLAY} />
       <div>
         <div className="copy">
           <ul>
@@ -25,7 +22,6 @@ export const PageBanner = ({ heading, svg, breadCrumbs }: PageBannerProps) => {
               </>
             ))}
           </ul>
-
           <h1>{heading}</h1>
         </div>
         {svg}

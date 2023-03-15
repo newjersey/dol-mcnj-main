@@ -33,31 +33,12 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     <>
       <Header />
       <BetaBanner />
-      <main className="" role="main">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <code>
-          <pre
-            style={{
-              fontFamily: "monospace",
-              display: "block",
-              padding: "50px",
-              color: "#88ffbf",
-              backgroundColor: "black",
-              textAlign: "left",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {JSON.stringify(data, null, "    ")}
-          </pre>
-        </code>
+      <main className="below-banners" role="main">
+        <PageBanner
+          breadCrumbs={breadCrumbs}
+          heading="Frequently Asked Questions"
+          svg={<QuestionBubble />}
+        />
       </main>
 
       <Footer />
