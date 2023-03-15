@@ -8,6 +8,8 @@ import { Footer } from "../components/Footer";
 import { FAQ_PAGE_QUERY } from "../queries/faqQuery";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { FaqPageProps } from "../types/contentful";
+import { PageBanner } from "../components/PageBanner";
+import { QuestionBubble } from "../svg/QuestionBubble";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -15,6 +17,17 @@ interface Props extends RouteComponentProps {
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
   const data: never[] | FaqPageProps = useContentfulClient({ query: FAQ_PAGE_QUERY });
+  const breadCrumbs = [
+    {
+      text: "Home",
+      href: "/",
+    },
+    {
+      text: "FAQs",
+    },
+  ];
+
+  console.log({ data });
 
   return (
     <>
