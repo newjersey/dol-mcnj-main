@@ -35,8 +35,11 @@ export interface FaqTopic {
 }
 
 export interface FaqPageProps {
-  faqTopicCollection: {
-    items: FaqTopic[];
+  faqCollection: {
+    title: string;
+    topicsCollection: {
+      items: FaqTopic[];
+    };
   };
 }
 

@@ -3,20 +3,19 @@ import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Header } from "../components/Header";
 import { BetaBanner } from "../components/BetaBanner";
-import { Accordion } from "../components/Accordion";
 import { Footer } from "../components/Footer";
 import { FAQ_PAGE_QUERY } from "../queries/faqQuery";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { FaqPageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
 import { QuestionBubble } from "../svg/QuestionBubble";
+import { FaqCollection } from "../components/FaqCollection";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
-  const data: never[] | FaqPageProps = useContentfulClient({ query: FAQ_PAGE_QUERY });
+  const data: any = useContentfulClient({ query: FAQ_PAGE_QUERY });
   const breadCrumbs = [
     {
       text: "Home",
@@ -26,8 +25,6 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
       text: "FAQs",
     },
   ];
-
-  console.log({ data });
 
   return (
     <>
@@ -39,8 +36,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
           heading="Frequently Asked Questions"
           svg={<QuestionBubble />}
         />
+        <FaqCollection topicHeading="Top Questions" content={data} />
       </main>
-
       <Footer />
     </>
   );
