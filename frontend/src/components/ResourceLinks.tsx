@@ -1,22 +1,17 @@
 /* eslint-disable react/jsx-no-target-blank */
-interface ResourceLinksProps {
-  heading: string;
-  links: {
-    copy: string;
-    href: string;
-  }[];
-}
-export const ResourceLinks = ({ heading, links }: ResourceLinksProps) => {
+import { LinkGroupProps } from "../types/contentful";
+
+export const ResourceLinks = ({ heading, linksCollection }: LinkGroupProps) => {
   return (
     <div className="resource-links">
       <h4>{heading}</h4>
       <ul>
-        {links.map(({ copy, href }, index) => {
-          const newTab = href.startsWith("http");
+        {linksCollection?.items.map(({ copy, url, sys }) => {
+          const newTab = url.startsWith("http");
           return (
-            <li key={copy + index}>
+            <li key={sys?.id}>
               <a
-                href={href}
+                href={url}
                 target={newTab ? "_blank" : undefined}
                 rel={newTab ? "noopener noreferrer" : undefined}
               >

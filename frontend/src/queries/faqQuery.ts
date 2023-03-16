@@ -6,14 +6,32 @@ export const FAQ_PAGE_QUERY = gql`
       title
       topicsCollection {
         items {
+          sys {
+            id
+          }
           topic
           itemsCollection {
             items {
+              sys {
+                id
+              }
               question
               answer {
                 json
               }
             }
+          }
+        }
+      }
+      linkGroup {
+        heading
+        linksCollection {
+          items {
+            sys {
+              id
+            }
+            copy
+            url
           }
         }
       }

@@ -1,40 +1,55 @@
 import { ReactNode, useEffect, useState } from "react";
-import { FaqPageProps, FaqTopic } from "../types/contentful";
+import { FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
-import { OverlayTool } from "./OverlayTool";
-import IMAGE from "../overlayImages/Faq.png";
+import { slugify } from "../utils/slugify";
 
 export const FaqCollection = ({
   topicHeading,
-  content,
   children,
+  items,
 }: {
   topicHeading?: string;
-  content: FaqPageProps;
   children?: ReactNode;
+  items?: FaqTopic[];
 }) => {
-  const { faqCollection } = content;
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
+  const [anchor, setAnchor] = useState<string>("");
+
+  const handleClick = (newAnchor: string) => {
+    setAnchor(newAnchor);
+    const newUrl = window.location.href.replace(/#.*/, "") + "#" + newAnchor;
+    window.history.replaceState({}, "", newUrl);
+  };
+
   useEffect(() => {
-    if (faqCollection?.topicsCollection?.items.length) {
-      setActiveTopic(faqCollection?.topicsCollection?.items[0]);
+    if (items?.length) {
+      if (window.location.href.split("#")[1]) {
+        setAnchor(window.location.href.split("#")[1]);
+      }
+
+      if (anchor) {
+        const currentTopic = items.find((item) => slugify(item.topic) === anchor);
+        setActiveTopic(currentTopic);
+      } else {
+        setActiveTopic(items[0]);
+      }
     }
-  }, [faqCollection]);
+  }, [items, anchor]);
   return (
     <div className="faq-collection">
-      <OverlayTool img={IMAGE} />
       <div className="container">
         <nav>
           <ul>
             {topicHeading && <li className="heading">{topicHeading}</li>}
-            {faqCollection?.topicsCollection?.items.map((item, index) => (
+            {items?.map((item: FaqTopic) => (
               <li
-                key={item.topic + index}
+                key={item.sys?.id}
                 className={activeTopic?.topic === item.topic ? "active" : undefined}
               >
                 <button
                   onClick={() => {
                     setActiveTopic(item);
+                    handleClick(`${slugify(item.topic)}`);
                   }}
                 >
                   {item.topic}
@@ -49,7 +64,7 @@ export const FaqCollection = ({
               keyValue={index}
               content={item.answer.json}
               title={item.question}
-              key={item.question}
+              key={item.sys?.id}
             />
           ))}
           {children}
