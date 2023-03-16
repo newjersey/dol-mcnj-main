@@ -11,6 +11,8 @@ import { QuestionBubble } from "../svg/QuestionBubble";
 import { FaqCollection } from "../components/FaqCollection";
 import { ResourceLinks } from "../components/ResourceLinks";
 import { FaqPageProps } from "../types/contentful";
+import { OverlayTool } from "../components/OverlayTool";
+import IMAGE from "../overlayImages/mobile.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -31,13 +33,12 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
   const topics = data?.faqCollection?.topicsCollection?.items;
   const linkGroup = data?.faqCollection?.linkGroup;
 
-  //TODO: Create mobiles styles for the FAQ page/components
-
   return (
     <>
       <Header />
       <BetaBanner />
       <main className="below-banners" role="main">
+        <OverlayTool img={IMAGE} />
         <PageBanner
           breadCrumbs={breadCrumbs}
           heading="Frequently Asked Questions"

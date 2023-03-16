@@ -8,20 +8,56 @@
 .faq-collection {
   margin-top: 4rem;
 
+  @media screen and (max-width: ($tabPort - 1)) {
+    margin-top: 1rem;
+  }
+
   .container {
-    display: flex;
+    @media screen and (min-width: ($tabPort)) {
+      display: flex;
+    }
   }
 
   nav {
-    width: 262px;
+    @media screen and (min-width: ($tabPort)) {
+      width: 262px;
+    }
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
     ul {
       padding: 0;
       list-style-type: none;
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        display: none;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tabPort - 1)) {
+          display: block;
+          position: absolute;
+          z-index: 2;
+          background: white;
+          width: 100%;
+          margin: 0;
+          border-left: 1px solid $dark-green;
+          border-right: 1px solid $dark-green;
+          border-bottom: 1px solid $dark-green;
+        }
+      }
     }
 
     li {
       &.heading {
         @include boldItem;
+
+        @media screen and (max-width: ($tabPort - 1)) {
+          display: none;
+        }
       }
       &.active {
         button {
@@ -35,10 +71,10 @@
   }
 
   .questions {
-    width: calc(100% - 262px);
-    padding-left: 1.8rem;
-    // position: relative;
-    // z-index: -1;
+    @media screen and (min-width: ($tabPort)) {
+      width: calc(100% - 262px);
+      padding-left: 1.8rem;
+    }
   }
 
   .accordion {
@@ -49,7 +85,7 @@
       color: $dark-green;
       background-color: $light-green;
       width: 100%;
-      padding: 1.2rem 1rem;
+      padding: 1.2rem 4rem 1.2rem 1rem;
       position: relative;
 
       &:before,
@@ -89,6 +125,22 @@
         max-width: 35rem;
         padding: 1rem 1.5rem;
       }
+    }
+  }
+
+  .topic-selector {
+    display: none;
+    width: 100%;
+    padding: 0.6rem 0.4rem;
+    font-weight: normal;
+    color: $dark-green;
+    border: 1px solid $dark-green;
+    border-radius: 0;
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }

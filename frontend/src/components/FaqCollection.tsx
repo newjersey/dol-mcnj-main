@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
 import { slugify } from "../utils/slugify";
+import { Select } from "../svg/Select";
 
 export const FaqCollection = ({
   topicHeading,
@@ -14,6 +15,7 @@ export const FaqCollection = ({
 }) => {
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
   const [anchor, setAnchor] = useState<string>("");
+  const [openNav, setOpenNav] = useState<boolean>(false);
 
   const handleClick = (newAnchor: string) => {
     setAnchor(newAnchor);
@@ -39,7 +41,16 @@ export const FaqCollection = ({
     <div className="faq-collection">
       <div className="container">
         <nav>
-          <ul>
+          <button
+            className="topic-selector"
+            onClick={() => {
+              setOpenNav(!openNav);
+            }}
+          >
+            {activeTopic?.topic}
+            <Select />
+          </button>
+          <ul className={openNav ? "open" : undefined}>
             {topicHeading && <li className="heading">{topicHeading}</li>}
             {items?.map((item: FaqTopic) => (
               <li
@@ -49,6 +60,7 @@ export const FaqCollection = ({
                 <button
                   onClick={() => {
                     setActiveTopic(item);
+                    setOpenNav(false);
                     handleClick(`${slugify(item.topic)}`);
                   }}
                 >

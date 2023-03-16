@@ -1,6 +1,12 @@
 export const QuestionBubble = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="215" height="203" fill="none">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="215"
+      height="203"
+      fill="none"
+      viewBox={"0 0 215 203"}
+    >
       <path
         fill="#F4EAFE"
         d="M202.781 53.03c-8.225-15.007-20.485-27.383-34.763-36.975C143.497-.498 109.354-3.438 81.264 3.524 24.464 17.757-18.99 76.08 10.341 133.321c20.64 40.223 66.888 70.081 112.515 68.688 74.183-2.011 113.757-86.789 79.925-148.98Z"
