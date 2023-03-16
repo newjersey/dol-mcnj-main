@@ -41,6 +41,11 @@
       font-size: 2rem;
       line-height: 1.2;
     }
+
+    + p {
+      color: $accessible-gray;
+      font-size: 1rem;
+    }
   }
 
   .copy {

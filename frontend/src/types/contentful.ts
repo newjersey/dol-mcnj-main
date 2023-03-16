@@ -65,31 +65,26 @@ export interface FaqPageProps {
   };
 }
 
-export interface ContentfulFAQQuery {
-  status: number;
-  data: {
-    data: {
-      faqTopicCollection: { items: FaqTopic[] };
-    };
-  };
-}
-
 /* ********************
  *  TRAINING
  ******************** */
-interface TrainingProviderTopic {
-  topic: string;
-  order: number;
+
+export interface TabItemProps {
+  sys: {
+    id: string;
+  };
+  heading: string;
+  copy: ContentfulRichText;
 }
 
-interface TrainingProviderItem {
-  title: string;
-  hide: boolean;
-  description: JSON;
-  order: number;
-  topic: TrainingProviderTopic;
+export interface TrainingProviderPageProps {
+  tabContent: {
+    title: string;
+    sys: {
+      publishedAt: Date;
+    };
+    tabsCollection: {
+      items: TabItemProps[];
+    };
+  };
 }
-
-// export interface ContentfulQuery {
-//   [propName: string]: string | string[] | Keypair | Keypair[] | faqItemCollection | TrainingProviderItem | TrainingProviderItem[];
-// }
