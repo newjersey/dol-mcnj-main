@@ -9,7 +9,7 @@ export const useContentfulClient = ({
   query: string;
   variables?: string;
 }) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {

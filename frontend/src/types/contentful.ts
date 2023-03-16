@@ -21,6 +21,9 @@ export interface ContentfulRichText {
 }
 
 export interface FaqItem {
+  sys?: {
+    id: string;
+  };
   question: string;
   answer: ContentfulRichText;
   order: number;
@@ -28,9 +31,27 @@ export interface FaqItem {
 }
 
 export interface FaqTopic {
+  sys?: {
+    id: string;
+  };
   topic: string;
   itemsCollection: {
     items: FaqItem[];
+  };
+}
+
+export interface LinkObjectProps {
+  sys?: {
+    id: string;
+  };
+  copy: string;
+  url: string;
+}
+
+export interface LinkGroupProps {
+  heading: string;
+  linksCollection: {
+    items: LinkObjectProps[];
   };
 }
 
@@ -40,6 +61,7 @@ export interface FaqPageProps {
     topicsCollection: {
       items: FaqTopic[];
     };
+    linkGroup: LinkGroupProps;
   };
 }
 

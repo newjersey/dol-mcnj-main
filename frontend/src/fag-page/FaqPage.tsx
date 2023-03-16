@@ -10,13 +10,14 @@ import { PageBanner } from "../components/PageBanner";
 import { QuestionBubble } from "../svg/QuestionBubble";
 import { FaqCollection } from "../components/FaqCollection";
 import { ResourceLinks } from "../components/ResourceLinks";
+import { FaqPageProps } from "../types/contentful";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
-  const data: any = useContentfulClient({ query: FAQ_PAGE_QUERY });
+  const data: FaqPageProps = useContentfulClient({ query: FAQ_PAGE_QUERY });
   const breadCrumbs = [
     {
       text: "Home",
@@ -27,8 +28,9 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     },
   ];
 
-  //TODO: Add in the contentful data for resource links
-  //TODO: Use #anchor tags to link to the FAQ topics
+  const topics = data?.faqCollection?.topicsCollection?.items;
+  const linkGroup = data?.faqCollection?.linkGroup;
+
   //TODO: Create mobiles styles for the FAQ page/components
 
   return (
@@ -41,25 +43,11 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
           heading="Frequently Asked Questions"
           svg={<QuestionBubble />}
         />
-        <FaqCollection topicHeading="Top Questions" content={data}>
-          <ResourceLinks
-            heading="Top Resource Links"
-            links={[
-              {
-                copy: "In-Demand Occupation List",
-                href: "https://www.google.com",
-              },
-              {
-                copy: "Financial and Tuition Resources",
-                href: "https://www.google.com",
-              },
-              {
-                copy: "Career Services",
-                href: "https://www.google.com",
-              },
-            ]}
-          />
-        </FaqCollection>
+        {data && (
+          <FaqCollection topicHeading="Top Questions" items={topics}>
+            {linkGroup && <ResourceLinks {...linkGroup} />}
+          </FaqCollection>
+        )}
       </main>
       <Footer />
     </>
