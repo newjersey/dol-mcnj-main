@@ -43,7 +43,7 @@ export const FaqCollection = ({
         <nav>
           <button
             className="drop-selector"
-            data-testid="drop-selector"
+            data-testid="topic-selector"
             onClick={() => {
               setOpenNav(!openNav);
             }}
