@@ -155,6 +155,16 @@ export const Header = (): ReactElement => {
                 </a>
               </li>
               <li className="usa-nav__primary-item">
+                <a className="usa-nav__link" href="/faq">
+                  <span>{t("Header.linkToFAQ")}</span>
+                </a>
+              </li>
+              <li className="usa-nav__primary-item">
+                <a className="usa-nav__link" href="/training-provider-resources">
+                  <span>{t("Header.linkToTPResources")}</span>
+                </a>
+              </li>
+              <li className="usa-nav__primary-item">
                 <a
                   className="usa-nav__link"
                   href={COUNSELING_URL}
