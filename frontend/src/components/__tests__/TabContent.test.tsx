@@ -39,9 +39,9 @@ describe("TabContent", () => {
     const { getAllByRole } = render(<TabContent items={mockItems} />);
     const tabButtons = getAllByRole("button");
 
-    expect(tabButtons).toHaveLength(2);
-    expect(tabButtons[0]).toHaveTextContent("Tab 1");
-    expect(tabButtons[1]).toHaveTextContent("Tab 2");
+    expect(tabButtons).toHaveLength(3);
+    expect(tabButtons[1]).toHaveTextContent("Tab 1");
+    expect(tabButtons[2]).toHaveTextContent("Tab 2");
   });
 
   it("renders the content of the active tab", () => {
