@@ -32,7 +32,7 @@ export interface Training {
 export interface Provider {
   id: string;
   url: string;
-  address: Address;
+  addresses: Address[];
   name: string;
   contactName: string;
   contactTitle: string;
