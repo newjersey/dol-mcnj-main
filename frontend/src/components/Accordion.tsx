@@ -2,7 +2,7 @@ import { useState, ReactElement } from "react";
 import { Document } from "@contentful/rich-text-types";
 import { ContentfulRichText } from "../components/ContentfulRichText";
 
-interface AccordionData {
+export interface AccordionData {
   title: string;
   content: Document;
   keyValue: number;
@@ -22,9 +22,14 @@ export const Accordion = (data: AccordionData): ReactElement => {
   };
 
   return (
-    <div key={data.keyValue} className={`accordion ${isOpen ? "open" : "closed"}`}>
+    <div
+      key={data.keyValue}
+      data-testid="accordion"
+      className={`accordion ${isOpen ? "open" : "closed"}`}
+    >
       <h3>
         <button
+          data-testid="accordion-button"
           onClick={toggleIsOpen}
           onMouseDown={(e): void => e.preventDefault()}
           aria-controls={contentId}
@@ -34,7 +39,7 @@ export const Accordion = (data: AccordionData): ReactElement => {
           {data.title}
         </button>
       </h3>
-      <div id={contentId} className="content">
+      <div id={contentId} className="content" data-testid="accordion-content">
         <div className="inner">
           <ContentfulRichText document={data.content} key={data.keyValue} />
         </div>
