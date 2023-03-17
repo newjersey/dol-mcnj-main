@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { TabItemProps } from "../types/contentful";
 import { slugify } from "../utils/slugify";
 import { ContentfulRichText } from "../components/ContentfulRichText";
+import { Select } from "../svg/Select";
 
 interface TabContentProps {
   items: TabItemProps[];
@@ -10,6 +11,7 @@ interface TabContentProps {
 export const TabContent = ({ items }: TabContentProps) => {
   const [activeTab, setActiveTab] = useState<TabItemProps>();
   const [anchor, setAnchor] = useState<string>("");
+  const [openNav, setOpenNav] = useState<boolean>(false);
 
   const handleClick = (newAnchor: string) => {
     setAnchor(newAnchor);
@@ -36,13 +38,26 @@ export const TabContent = ({ items }: TabContentProps) => {
     <section className="tab-content">
       <div className="container">
         <nav>
-          <ul className="tab-list">
+          <button
+            className="drop-selector"
+            data-testid="drop-selector"
+            onClick={() => {
+              setOpenNav(!openNav);
+            }}
+          >
+            {activeTab?.heading}
+            <Select />
+          </button>
+          <ul className={`tab-list${openNav ? " open" : ""}`}>
             {items?.map((item) => {
               return (
                 <li key={item.sys.id}>
                   <button
+                    data-testid={`tab-${item.sys.id}`}
+                    className={activeTab?.sys.id === item.sys.id ? "active" : ""}
                     onClick={() => {
                       setActiveTab(item);
+                      setOpenNav(false);
                       handleClick(`${slugify(item.heading)}`);
                     }}
                   >
@@ -54,10 +69,10 @@ export const TabContent = ({ items }: TabContentProps) => {
           </ul>
         </nav>
         {activeTab && (
-          <>
+          <div className="content">
             <h2>{activeTab.heading}</h2>
             <ContentfulRichText document={activeTab.copy.json} />
-          </>
+          </div>
         )}
       </div>
     </section>
