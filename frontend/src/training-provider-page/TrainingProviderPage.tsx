@@ -4,8 +4,6 @@ import { Client } from "../domain/Client";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { PageBanner } from "../components/PageBanner";
 import { TrainingProviderPageProps } from "../types/contentful";
-import { OverlayTool } from "../components/OverlayTool";
-import IMAGE from "../overlayImages/provider.png";
 import { Layout } from "../components/Layout";
 import { LightBulb } from "../svg/LightBulb";
 import { TRAINING_PROVIDER_PAGE_QUERY } from "../queries/trainingProviderQuery";
@@ -23,7 +21,6 @@ export const TrainingProviderPage = (_props: Props): ReactElement<Props> => {
 
   return (
     <Layout>
-      <OverlayTool img={IMAGE} />
       <PageBanner
         heading="Training Provider Resources"
         svg={<LightBulb />}
