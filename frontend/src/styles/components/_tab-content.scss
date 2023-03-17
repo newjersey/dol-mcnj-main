@@ -1,5 +1,98 @@
 .tab-content {
+  margin-top: 2.5rem;
+
   .container {
     max-width: 750px;
+  }
+
+  nav {
+    @media screen and (max-width: ($tabPort - 1)) {
+      margin-bottom: 2rem;
+    }
+    ul {
+      padding: 0;
+      list-style-type: none;
+
+      @media screen and (min-width: ($tabPort)) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 5rem;
+      }
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        display: none;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tabPort - 1)) {
+          @include mobileDropItems;
+        }
+      }
+    }
+
+    button {
+      @media screen and (max-width: ($tabPort - 1)) {
+        width: 100%;
+        padding: 0.5rem;
+      }
+
+      &.active {
+        position: relative;
+        color: white;
+
+        @media screen and (max-width: ($tabPort - 1)) {
+          background-color: $green;
+        }
+
+        &:before {
+          @media screen and (min-width: ($tabPort)) {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            transform: translateX(-50%) translateY(-50%);
+            width: calc(100% + 10px);
+            height: calc(100% + 25px);
+            z-index: -1;
+            background-color: $green;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    > h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    > div {
+      h1,
+      h2,
+      h3 {
+        font-size: 1.5rem;
+      }
+      h4,
+      h5 {
+        font-size: 1.2rem;
+      }
+
+      table {
+        margin: 1rem 0;
+        tr {
+          th {
+            text-align: left;
+          }
+          td,
+          th {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid $light-grey;
+          }
+        }
+      }
+    }
   }
 }
