@@ -47,7 +47,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+        const ownedByAddresses:object[] = [];
 
+        const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
@@ -56,6 +58,19 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
         const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
+
+        if (ownedByAddressObject != null) {
+          for (let i=0; i < ownedByAddressObject.length; i++) {
+            const address = {
+              street1: ownedByAddressObject[i]["ceterms:streetAddress"],
+              street2: "",
+              city: ownedByAddressObject[i]["ceterms:addressLocality"],
+              state: ownedByAddressObject[i]["ceterms:addressRegion"],
+              zipCode: ownedByAddressObject[i]["ceterms:postalCode"],
+            }
+            ownedByAddresses.push(address);
+          }
+        }
 
         // GET prerequisites - could be in ceterms:CommonConditions, could be in ceterms:prerequisites
         if (commonConditions != null) {
@@ -149,13 +164,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             phoneNumber: "", // TODO: phone numbers, phone exts, counties associated with addresses (yes, multiple in CE now)
             phoneExtension: "",
             county: "",
-            address: {
-              street1: "",
-              street2: "",
-              city: "",
-              state: "",
-              zipCode: "",
-            },
+            addresses: ownedByAddresses,
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: credential,
