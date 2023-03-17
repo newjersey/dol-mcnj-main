@@ -4,21 +4,18 @@ import {
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
-  GetContentfulFAQ,
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
-import { ContentfulFAQQuery } from "src/domain/contentful/ContentfulInterface";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
-  getContentfulFAQ: GetContentfulFAQ;
 }
 
 export const routerFactory = ({
@@ -26,7 +23,6 @@ export const routerFactory = ({
   findTrainingsBy,
   getInDemandOccupations,
   getOccupationDetail,
-  getContentfulFAQ,
 }: RouterActions): Router => {
   const router = Router();
 
@@ -65,20 +61,7 @@ export const routerFactory = ({
         res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
-  });  
-  
-  router.get(
-    "/contentful/faq/:query",
-    async (req: Request, res: Response<ContentfulFAQQuery>) => {
-      getContentfulFAQ(
-        req.params.query as string
-      )
-        .then((content: ContentfulFAQQuery) => {
-          res.status(200).json(content);
-        })
-        .catch((e) => res.status(500).send(e));
-    }
-  );
+  });
 
   return router;
 };
