@@ -1,0 +1,18 @@
+@mixin mobileDropItems {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  background: white;
+  width: 100%;
+  margin: 0;
+  border-left: 1px solid $dark-green;
+  border-right: 1px solid $dark-green;
+  border-bottom: 1px solid $dark-green;
+}
+
+@mixin boldItem {
+  font-weight: bold;
+  color: $dark-green;
+  width: 100%;
+  padding: 0.6rem 0.4rem;
+}

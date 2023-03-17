@@ -1,4 +1,4 @@
-import React, { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useReducer, useState } from "react";
 import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
@@ -43,7 +43,7 @@ interface Props {
 }
 
 // Logs each Reach Router page as a separate pageview on Google Analytics
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line
 declare const window: any;
 const GA_TRACKING_ID = "UA-140253594-9";
 globalHistory.listen(({ location }) => {

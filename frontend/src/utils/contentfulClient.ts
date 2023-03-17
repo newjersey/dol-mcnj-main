@@ -6,7 +6,7 @@ export const contentfulClient = ({
   excludeInvalid,
 }: {
   query: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   variables?: any;
   includeDrafts?: boolean;
   excludeInvalid?: boolean;
