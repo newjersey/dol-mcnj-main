@@ -64,7 +64,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             const address = {
               street1: ownedByAddressObject[i]["ceterms:streetAddress"],
               street2: "",
-              city: ownedByAddressObject[i]["ceterms:addressLocality"],
+              city: ownedByAddressObject[i]["ceterms:addressLocality"]["en-US"],
               state: ownedByAddressObject[i]["ceterms:addressRegion"],
               zipCode: ownedByAddressObject[i]["ceterms:postalCode"],
             }

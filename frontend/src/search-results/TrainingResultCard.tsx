@@ -33,7 +33,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       return t("SearchResultsPage.onlineClassLabel");
     }
 
-    return `${props.trainingResult.city}, ${props.trainingResult.county}`;
+    return `${JSON.stringify(props.trainingResult.cities, null, 2)}, ${props.trainingResult.county}`;
   };
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
