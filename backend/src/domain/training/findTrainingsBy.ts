@@ -143,7 +143,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord['ceterms:name']['en-US'],
             url: ownedByRecord['ceterms:subjectWebpage'],
-
+            email: ownedByRecord['ceterms:email']? ownedByRecord['ceterms:email'][0] : null,
             contactName: "",
             contactTitle: "",
             phoneNumber: "", // TODO: phone numbers, phone exts, counties associated with addresses (yes, multiple in CE now)
