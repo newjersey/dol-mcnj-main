@@ -1,7 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Training } from "./Training";
+import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -47,7 +47,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-        const ownedByAddresses:object[] = [];
+        const ownedByAddresses:any[] = [];
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
@@ -64,7 +64,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             const address = {
               street1: ownedByAddressObject[i]["ceterms:streetAddress"],
               street2: "",
-              city: ownedByAddressObject[i]["ceterms:addressLocality"]["en-US"],
+              city: ownedByAddressObject[i]["ceterms:addressLocality"],
               state: ownedByAddressObject[i]["ceterms:addressRegion"],
               zipCode: ownedByAddressObject[i]["ceterms:postalCode"],
             }
@@ -191,7 +191,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
-        // console.log(training);
+        console.log(training);
         return training;
 
       })
