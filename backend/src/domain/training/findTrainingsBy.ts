@@ -61,14 +61,16 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         if (ownedByAddressObject != null) {
           for (let i=0; i < ownedByAddressObject.length; i++) {
-            const address = {
-              street1: ownedByAddressObject[i]["ceterms:streetAddress"],
-              street2: "",
-              city: ownedByAddressObject[i]["ceterms:addressLocality"],
-              state: ownedByAddressObject[i]["ceterms:addressRegion"],
-              zipCode: ownedByAddressObject[i]["ceterms:postalCode"],
+            if (ownedByAddressObject[i]["@type"] == "ceterms:Place") {
+              const address = {
+                street1: ownedByAddressObject[i]["ceterms:streetAddress"],
+                street2: "",
+                city: ownedByAddressObject[i]["ceterms:addressLocality"],
+                state: ownedByAddressObject[i]["ceterms:addressRegion"],
+                zipCode: ownedByAddressObject[i]["ceterms:postalCode"],
+              }
+              ownedByAddresses.push(address);
             }
-            ownedByAddresses.push(address);
           }
         }
 
