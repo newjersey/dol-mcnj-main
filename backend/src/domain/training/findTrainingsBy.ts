@@ -48,6 +48,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddresses:any[] = [];
+        const targetContactPoints:any[] = [];
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
@@ -62,12 +63,34 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         if (ownedByAddressObject != null) {
           for (let i=0; i < ownedByAddressObject.length; i++) {
             if (ownedByAddressObject[i]["@type"] == "ceterms:Place") {
+              const targetContactPointObject = ownedByAddressObject[i]["ceterms:targetContactPoint"];
+
+              if (targetContactPointObject != null) {
+                for (let i=0; i < targetContactPointObject.length; i++) {
+                  if (targetContactPointObject[i]["@type"] == "ceterms:ContactPoint") {
+                    const thisContactPoint = targetContactPointObject[i];
+                    const targetContactPoint = {
+                      alternateName: thisContactPoint["ceterms:alternateName"],
+                      contactType: thisContactPoint["ceterms:contactType"],
+                      email: thisContactPoint["ceterms:email"],
+                      faxNumber: thisContactPoint["ceterms:faxNumber"],
+                      name: thisContactPoint["ceterms:name"],
+                      socialMedia: thisContactPoint["ceterms:socialMedia"],
+                      telephone: thisContactPoint[i]["ceterms:telephone"]
+                    }
+
+                    targetContactPoints.push(targetContactPoint);
+                  }
+                }
+              }
               const address = {
+                name: ownedByAddressObject[i]["ceterms:name"],
                 street1: ownedByAddressObject[i]["ceterms:streetAddress"],
                 street2: "",
                 city: ownedByAddressObject[i]["ceterms:addressLocality"],
                 state: ownedByAddressObject[i]["ceterms:addressRegion"],
                 zipCode: ownedByAddressObject[i]["ceterms:postalCode"],
+                targetContactPoints: targetContactPoints
               }
               ownedByAddresses.push(address);
             }
@@ -101,10 +124,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
         else if (estimatedCost != null) {
-          /* This is getting the first costProfile it sees under estimatedCost... we get a lot more
+/*          This is getting the first costProfile it sees under estimatedCost... we get a lot more
           fields at our disposal here like costDetails, description, directCostType that we should
-          look through here
-           */
+          look through here*/
+
           // Look for total cost in estimatedCost
           // TODO: Modify to handle multiple costProfiles
           const costProfile = estimatedCost[0];
@@ -119,9 +142,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // get SOCs from ceterms:occupationType instead of from the database
 
         }
-
+        // fix bug here
         // GET credentials and certifications this prepares for
-        if (isPreparationFor != null) {
+        /*if (isPreparationFor != null) {
           // TODO: Modify to handle multiple conditionProfiles
           const conditionProfile = isPreparationFor[0];
           if (conditionProfile != null) {
@@ -138,7 +161,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               }
             }
           }
-        }
+        }*/
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
@@ -188,7 +211,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           percentEmployed: 0, // TODO: Get from QData?
           averageSalary: 0, // TODO: Get from QData?
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
-          languages: certificate["ceterms:inLanguage"],
+          languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
           isWheelchairAccessible: false, // TODO: this field doesn't exist in CE!
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!

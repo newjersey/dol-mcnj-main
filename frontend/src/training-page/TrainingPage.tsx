@@ -119,27 +119,36 @@ export const TrainingPage = (props: Props): ReactElement => {
       return <>{t("TrainingPage.onlineClass")}</>;
     }
 
-    if (!training || !training.provider.address.city) {
+    alert(JSON.stringify(training));
+
+    if (!training || !training.provider.addresses) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const address = training.provider.address;
-    const nameAndAddressEncoded = encodeURIComponent(
-      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`
-    );
-    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+    const addresses = training.provider.addresses;
+    const addressBlocks = [];
 
-    return (
-      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
-        <div className="inline">
-          <span>{address.street1}</span>
-          <div>{address.street2}</div>
-          <div>
-            {address.city}, {address.state} {address.zipCode}
+    for (let i=0; i < addresses.length; i++) {
+      const nameAndAddressEncoded = encodeURIComponent(
+        `${training.provider.name} ${addresses[i].street1} ${addresses[i].street2} ${addresses[i].city} ${addresses[i].state} ${addresses[i].zipCode}`
+      );
+
+      const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+
+      addressBlocks.push(
+        <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+          <div className="inline">
+            <span>{addresses[i].street1}</span>
+            <div>{addresses[i].street2}</div>
+            <div>
+              {addresses[i].city}, {addresses[i].state} {addresses[i].zipCode}
+            </div>
           </div>
-        </div>
-      </a>
-    );
+        </a>
+      );
+    }
+
+    return <div>{addressBlocks}</div>;
   };
 
   const getProviderContact = (): ReactElement => {

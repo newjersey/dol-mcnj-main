@@ -56,8 +56,9 @@ export interface Training {
 export interface Provider {
   id: string;
   name: string;
+  email: string;
   url: string;
-  address: Address;
+  addresses: Address[];
   contactName: string;
   contactTitle: string;
   phoneNumber: string;
@@ -65,6 +66,7 @@ export interface Provider {
 }
 
 export interface Address {
+  name: string;
   street1: string;
   street2: string;
   city: string;
