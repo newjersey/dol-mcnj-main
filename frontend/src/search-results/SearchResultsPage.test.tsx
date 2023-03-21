@@ -90,7 +90,7 @@ describe("<SearchResultsPage />", () => {
         totalCost: 1000,
         percentEmployed: 0.6018342,
         calendarLength: CalendarLength.FOUR_TO_ELEVEN_WEEKS,
-        city: "Camden",
+        cities: ["Camden"],
         county: "Camden County",
         providerName: "Cammy Community College",
         highlight: "some [[text]] here",
@@ -101,7 +101,7 @@ describe("<SearchResultsPage />", () => {
         totalCost: 333.33,
         percentEmployed: 0.8,
         calendarLength: CalendarLength.LESS_THAN_ONE_DAY,
-        city: "Newark",
+        cities: ["Newark"],
         county: "Essex County",
         providerName: "New'rk School",
         highlight: "",
@@ -138,7 +138,7 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       const training = buildTrainingResult({
-        city: "Camden",
+        cities: ["Camden"],
         county: "My Cool County",
         online: true,
       });
@@ -274,7 +274,7 @@ describe("<SearchResultsPage />", () => {
         totalCost: 1000,
         percentEmployed: 0.6018342,
         calendarLength: CalendarLength.FOUR_TO_ELEVEN_WEEKS,
-        city: "Camden",
+        cities: ["Camden"],
         county: "Camden County",
         providerName: "Cammy Community College",
         highlight: "some [[text]] here",

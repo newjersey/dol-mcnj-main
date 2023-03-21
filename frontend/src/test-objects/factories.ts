@@ -17,8 +17,8 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     online: randomBool(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    zipCode: "some-zipcode-" + randomInt(),
+    cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
+    zipCodes: ["some-zipcode-" + randomInt(), "some-zipcode-" + randomInt()],
     county: "some-county-" + randomInt(),
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
@@ -67,8 +67,9 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-provider-name-" + randomInt(),
+    email: "some-provider-email-" + randomInt() + "@" + "FAKE-PROVIDER-DOMAIN.com",
     url: "some-url-" + randomInt(),
-    address: buildAddress({}),
+    addresses: [buildAddress({}), buildAddress({})],
     contactName: "some-contactName-" + randomInt(),
     contactTitle: "some-contactTitle-" + randomInt(),
     phoneNumber: "some-phoneNumber-" + randomInt(),
@@ -79,6 +80,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
+    name: "some-location-name-" + randomInt(),
     street1: "some-street1-" + randomInt(),
     street2: "some-street2-" + randomInt(),
     city: "some-city-" + randomInt(),
