@@ -35,10 +35,7 @@ export interface Provider {
   email: string;
   addresses: Address[];
   name: string;
-  contactName: string;
-  contactTitle: string;
-  phoneNumber: string;
-  phoneExtension: string;
+  targetContactPoints: ContactPoint[];
   county: string;
 }
 
@@ -49,7 +46,7 @@ export interface Address {
   city: string;
   state: string;
   zipCode: string;
-  targetContactPoints: ContactPoint[];
+  targeteContactPoints: ContactPoint[];
 }
 
 export interface ContactPoint {
