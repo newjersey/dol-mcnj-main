@@ -41,7 +41,7 @@ export interface CTDLResource {
   "ceterms:audienceType"?:              CetermsType[];
   "ceterms:credentialId"?:              string;
   "ceterms:industryType"?:              CetermsIndustryType[];
-  "ceterms:jurisdiction"?:              CetermsJurisdiction[];
+  "ceterms:jurisdiction"?:              CetermsPlace[];
   "ceterms:alternateName"?:             CetermsAlternateName;
   "ceterms:dateEffective"?:             Date;
   "ceterms:estimatedCost"?:             CetermsEstimatedCost[];
@@ -226,23 +226,36 @@ export interface CetermsIndustryType {
 }
 
 export interface CetermsJurisdictionProfile {
-  "@type"?:                      string;
-  "ceterms:globalJurisdiction"?: boolean;
+  "@type"?:                           string;
+  "ceterms:description"?:             Ceterms;
+  "ceterms:mainJurisdiction"?:        CetermsPlace[];
+  "ceterms:globalJurisdiction"?:      boolean;
+  "ceterms:jurisdictionExceiption"?:  CetermsPlace
 
 }
 
-export interface CetermsJurisdiction {
-  "@type"?:                      string;
-  "ceterms:mainJurisdiction"?:   CetermsMainJurisdiction[];
-  "ceterms:globalJurisdiction"?: boolean;
+export interface CetermsPlace {
+  "@type"?:                       string;
+  "ceterms:name"?:                Ceterms;
+  "ceterms:geoURI"?:              string;
+  "ceterms:latitude"?:            number;
+  "ceterms:longitude"?:           number;
+  "ceterms:streetAddress"?:       Ceterms;
+  "ceterms:postOfficeBoxNumber"?: string;
+  "ceterms:addressLocality"?:     Ceterms;
+  "ceterms:addressRegion"?:       Ceterms;
+  "ceterms:addressCountry"?:      Ceterms;
+  "ceterms:targetContactPoint"?:  CetermsContactPoint[];
 }
 
-export interface CetermsMainJurisdiction {
-  "@type"?:                  string;
-  "ceterms:geoURI"?:         string;
-  "ceterms:latitude"?:       number;
-  "ceterms:longitude"?:      number;
-  "ceterms:addressCountry"?: Ceterms;
+export interface CetermsContactPoint {
+  "@type"?:                       string;
+  "ceterms:name"?:                Ceterms;
+  "ceterms:email"?:               string[];
+  "ceterms:telephone"?:           string[];
+  "ceterms:contactType?":         Ceterms;
+  "ceterms:socialMedia?":
+
 }
 
 export interface CetermsKeyword {
