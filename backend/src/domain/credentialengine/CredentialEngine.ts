@@ -251,11 +251,12 @@ export interface CetermsPlace {
 export interface CetermsContactPoint {
   "@type"?:                       string;
   "ceterms:name"?:                Ceterms;
+  "ceterms:alernateName"?:        Ceterms;
   "ceterms:email"?:               string[];
   "ceterms:telephone"?:           string[];
+  "ceterms:faxNumber"?:           string[];
   "ceterms:contactType?":         Ceterms;
-  "ceterms:socialMedia?":
-
+  "ceterms:socialMedia?":         string[];
 }
 
 export interface CetermsKeyword {
