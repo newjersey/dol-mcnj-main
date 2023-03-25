@@ -21,6 +21,7 @@ import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { randomInt } from "crypto";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -119,18 +120,21 @@ export const TrainingPage = (props: Props): ReactElement => {
       return <>{t("TrainingPage.onlineClass")}</>;
     }
 
-    alert(JSON.stringify(training));
-
     if (!training || !training.provider.addresses) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
     const addresses = training.provider.addresses;
     const addressBlocks = [];
-
     for (let i=0; i < addresses.length; i++) {
+      const thisAddressStreet1 = addresses[i].street1;
+      const thisAddressStreet2 = "";
+      const thisAddressCity = addresses[i].city;
+      const thisAddressState = addresses[i].state;
+      const thisAddressZipCode = addresses[i].zipCode;
+
       const nameAndAddressEncoded = encodeURIComponent(
-        `${training.provider.name} ${addresses[i].street1} ${addresses[i].street2} ${addresses[i].city} ${addresses[i].state} ${addresses[i].zipCode}`
+        `${training.provider.name} ${thisAddressStreet1} ${thisAddressStreet2} ${thisAddressCity} ${thisAddressState} ${thisAddressZipCode}`
       );
 
       const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
@@ -138,17 +142,15 @@ export const TrainingPage = (props: Props): ReactElement => {
       addressBlocks.push(
         <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
           <div className="inline">
-            <span>{addresses[i].street1}</span>
-            <div>{addresses[i].street2}</div>
+            <span>{thisAddressStreet1}</span>
             <div>
-              {addresses[i].city}, {addresses[i].state} {addresses[i].zipCode}
+              {thisAddressCity}, {thisAddressState} {thisAddressZipCode}
             </div>
           </div>
         </a>
       );
     }
-
-    return <div>{addressBlocks}</div>;
+    return <div key={"addresses"}>{addressBlocks}</div>;
   };
 
   const getProviderContact = (): ReactElement => {
@@ -385,7 +387,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="mvd">
                           <span className="fin">
                             <InlineIcon className="mrxs">person</InlineIcon>
+{/*
                             {getProviderContact()}
+*/}
                           </span>
                         </div>
                         <p>

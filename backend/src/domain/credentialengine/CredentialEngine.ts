@@ -74,16 +74,12 @@ export interface CTDLResource {
 }
 
 export interface CetermsType {
-  "@type"?:                         Type;
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:frameworkName"?:         Ceterms;
   "ceterms:targetNodeName"?:        Ceterms;
   "ceterms:targetNodeDescription"?: Ceterms;
-}
-
-export enum Type {
-  CetermsCredentialAlignmentObject = "ceterms:CredentialAlignmentObject",
 }
 
 export interface Ceterms {
@@ -216,7 +212,7 @@ export interface CetermsDirectCostType {
 }
 
 export interface CetermsIndustryType {
-  "@type"?:                         Type;
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:codedNotation"?:         string;
@@ -264,7 +260,7 @@ export interface CetermsKeyword {
 }
 
 export interface CetermsRenewal {
-  "@type"?:                           Type;
+  "@type"?:                           string;
   "ceterms:name"?:                    Ceterms;
   "ceterms:condition"?:               CetermsCondition;
   "ceterms:assertedBy"?:              string[];
@@ -276,7 +272,7 @@ export interface CetermsRenewal {
 }
 
 export interface CetermsOccupationType {
-  "@type"?:                         Type;
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:codedNotation"?:         string;
@@ -355,11 +351,12 @@ export interface CetermsRequire {
   "ceterms:alternativeCondition"?:      CetermsCondition[]
   "ceterms:subjectWebpage"?:            string;
   "ceterms:targetAssessment"?:          string[];
+  "ceterms:targetCompetency"?:          CetermsType[];
   "ceterms:targetLearningOpportunity"?: string[];
 }
 
 export interface CetermsSubject {
-  "@type"?:                  Type;
+  "@type"?:                  string;
   "ceterms:targetNodeName"?: Ceterms;
 }
 
