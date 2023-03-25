@@ -79,12 +79,13 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                   addressContactPoints.push(targetContactPoint);
                 }
               }
+
               const address = {
                 name: element["ceterms:name"],
-                street1: element["ceterms:streetAddress"],
+                street1: element["ceterms:streetAddress"] ? element["ceterms:streetAddress"]["en-US"] : null,
                 street2: "",
-                city: element["ceterms:addressLocality"],
-                state: element["ceterms:addressRegion"],
+                city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
+                state: element["ceterms:addressRegion"] ? element["ceterms:addressRegion"]["en-US"] : null,
                 zipCode: element["ceterms:postalCode"],
                 targetContactPoints: addressContactPoints
               }
