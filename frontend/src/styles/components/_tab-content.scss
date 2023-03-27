@@ -6,6 +6,7 @@
   }
 
   nav {
+    position: relative;
     @media screen and (max-width: ($tabPort - 1)) {
       margin-bottom: 2rem;
     }
