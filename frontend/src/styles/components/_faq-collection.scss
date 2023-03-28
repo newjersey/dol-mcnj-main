@@ -1,0 +1,115 @@
+.faq-collection {
+  margin-top: 4rem;
+
+  @media screen and (max-width: ($tabPort - 1)) {
+    margin-top: 1rem;
+  }
+
+  .container {
+    @media screen and (min-width: ($tabPort)) {
+      display: flex;
+    }
+  }
+
+  nav {
+    @media screen and (min-width: ($tabPort)) {
+      width: 262px;
+    }
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        display: none;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tabPort - 1)) {
+          @include mobileDropItems;
+        }
+      }
+    }
+
+    li {
+      &.heading {
+        @include boldItem;
+
+        @media screen and (max-width: ($tabPort - 1)) {
+          display: none;
+        }
+      }
+      &.active {
+        button {
+          background: $light-green;
+        }
+      }
+    }
+    button {
+      @include boldItem;
+    }
+  }
+
+  .questions {
+    @media screen and (min-width: ($tabPort)) {
+      width: calc(100% - 262px);
+      padding-left: 1.8rem;
+    }
+  }
+
+  .accordion {
+    margin-bottom: 1rem;
+
+    button {
+      font-weight: bold;
+      color: $dark-green;
+      background-color: $light-green;
+      width: 100%;
+      padding: 1.2rem 4rem 1.2rem 1rem;
+      position: relative;
+
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        height: 2px;
+        border-radius: 2px;
+        width: 15px;
+        background: $dark-green;
+        top: 50%;
+        right: 24px;
+        z-index: 1;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+      }
+      &:after {
+        transform: rotate(90deg);
+      }
+    }
+
+    &.open {
+      button {
+        &:after {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    .content {
+      height: 0px;
+      overflow: hidden;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+
+      .inner {
+        max-width: 35rem;
+        padding: 1rem 1.5rem;
+      }
+    }
+  }
+}
