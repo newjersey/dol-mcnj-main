@@ -1,16 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { Header } from "../components/Header";
-import { BetaBanner } from "../components/BetaBanner";
-import { Footer } from "../components/Footer";
+import { Layout } from "../components/Layout";
 
 export const TermsOfServicePage = (_props: RouteComponentProps): ReactElement => {
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout>
+      <div className="container">
         <div className="row mbm">
           <div className="col-sm-12">
             <h2 className="text-xl mvd">TERMS OF CONDITIONS AND USE</h2>
@@ -296,9 +291,7 @@ export const TermsOfServicePage = (_props: RouteComponentProps): ReactElement =>
             </ol>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };

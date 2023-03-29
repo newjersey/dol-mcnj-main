@@ -1,8 +1,5 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { RouteComponentProps, Link, navigate } from "@reach/router";
-import { BetaBanner } from "../components/BetaBanner";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { LandingCard } from "./LandingCard";
 import IconList from "./landing-icons/list.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
@@ -10,17 +7,15 @@ import { useMediaQuery } from "@material-ui/core";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
 
 export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
   const { t } = useTranslation();
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout>
+      <div className="container">
         <div className="landing-container mla mra">
           <h2 className="mtm mbd text-xl weight-500 align-center">{t("CounselorPage.header")}</h2>
 
@@ -105,9 +100,7 @@ export const LandingPageCounselor = (_props: RouteComponentProps): ReactElement 
 
           <ContactUsSection />
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };

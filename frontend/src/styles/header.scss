@@ -1,7 +1,7 @@
 .header {
   background-color: white;
   position: fixed;
-  top: 0;
+  top: 40px;
   width: 100%;
   height: $header-height;
   z-index: 12;
@@ -13,7 +13,7 @@
     left: 0;
     width: 100%;
     min-height: 100%;
-    margin-top: $header-height;
+    margin-top: $header-height + $beta-banner-height;
 
     .nav-item {
       display: block;
@@ -46,7 +46,7 @@
   line-height: $beta-banner-height;
   text-align: center;
   position: fixed;
-  top: $header-height;
+  top: 0;
   width: 100%;
   height: $beta-banner-height;
   z-index: 10;

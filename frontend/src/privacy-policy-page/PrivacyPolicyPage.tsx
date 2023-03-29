@@ -1,16 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { Header } from "../components/Header";
-import { BetaBanner } from "../components/BetaBanner";
-import { Footer } from "../components/Footer";
+import { Layout } from "../components/Layout";
 
 export const PrivacyPolicyPage = (_props: RouteComponentProps): ReactElement => {
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout>
+      <div className="container">
         <div className="row mbm">
           <div className="col-sm-12">
             <h2 className="text-xl mvd">Privacy Policy and Information Collection Statement</h2>
@@ -269,9 +264,7 @@ export const PrivacyPolicyPage = (_props: RouteComponentProps): ReactElement => 
             </ul>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };

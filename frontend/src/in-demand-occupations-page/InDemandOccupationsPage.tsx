@@ -8,6 +8,7 @@ import { InDemandOccupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
 import { Typeahead } from "./Typeahead";
 import { useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -57,11 +58,8 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   };
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners">
+    <Layout>
+      <div className="container">
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
         <p>{t("InDemandPage.description")}</p>
 
@@ -70,9 +68,7 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
         </div>
 
         <div className="fdc pbm">{displayMajorGroups()}</div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };
