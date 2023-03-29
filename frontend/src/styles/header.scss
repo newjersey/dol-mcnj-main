@@ -1,7 +1,7 @@
 .header {
   background-color: white;
   position: fixed;
-  top: 40px;
+  top: 0;
   width: 100%;
   z-index: 12;
 
@@ -48,8 +48,6 @@
   background-color: $light-red;
   line-height: $beta-banner-height;
   text-align: center;
-  position: fixed;
-  top: 0;
   width: 100%;
   height: $beta-banner-height;
   z-index: 10;
@@ -71,7 +69,7 @@
     min-height: calc(100% - #{$footer-height-mobile});
 
     &:not(.no-footer) {
-      padding-bottom: $footer-height-mobile;
+      padding-bottom: $below-banners-height;
     }
   }
 

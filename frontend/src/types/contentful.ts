@@ -69,6 +69,8 @@ export interface TopLevelNavItemProps {
   sys: {
     id: string;
   };
+  screenReaderOnlyCopy?: string;
+  classes?: string;
   copy: string;
   url: string;
   subItemsCollection?: {

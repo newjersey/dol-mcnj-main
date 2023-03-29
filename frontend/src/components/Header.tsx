@@ -7,6 +7,7 @@ import navCloseButton from "@newjersey/njwds/dist/img/usa-icons/close.svg";
 import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
 import GlobalHeader from "./GlobalHeader";
+import { BetaBanner } from "./BetaBanner";
 
 const COUNSELING_URL = "https://nj.gov/labor/career-services/";
 
@@ -33,6 +34,8 @@ export const Header = (): ReactElement => {
   const mobileNav = (): ReactElement => {
     return (
       <header className="header" role="banner">
+        <BetaBanner />
+        <GlobalHeader />
         <div className="container height-100">
           <div className="fdr fac fjb height-100">
             <a href="/" className="link-format-black fin fac width-content">
@@ -125,6 +128,7 @@ export const Header = (): ReactElement => {
   const nav = (): ReactElement => {
     return (
       <header className="header usa-header usa-header--basic" role="banner">
+        <BetaBanner />
         <GlobalHeader />
         <div className="usa-nav-container height-100">
           <nav className="usa-navbar nav-training-explorer">

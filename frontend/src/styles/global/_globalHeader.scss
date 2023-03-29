@@ -3,7 +3,12 @@
   min-height: 54px;
   color: white;
   padding: 4px 0;
-  font-size: 0.75rem;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+
+  @media screen and (max-width: ($tabLand)) {
+    padding: 10px 0 4px;
+  }
 
   .logo {
     display: flex;
@@ -16,21 +21,52 @@
     font-weight: normal;
     text-transform: uppercase;
     color: #fff;
+    font-size: 12px;
+
+    @media screen and (max-width: ($tabLand)) {
+      gap: 0.2rem;
+    }
+
+    img {
+      @media screen and (max-width: ($tabLand)) {
+        width: 25px;
+      }
+    }
   }
 
-  .usa-nav-container {
-    display: flex;
+  .container {
+    max-width: 1230px;
+    width: 100%;
+
+    @media screen and (min-width: ($tabLand + 1)) {
+      display: flex;
+      align-items: center;
+    }
+
+    @media screen and (max-width: ($tabLand)) {
+      padding: 0;
+    }
 
     > * {
-      width: 50%;
+      @media screen and (min-width: ($tabLand + 1)) {
+        width: 50%;
+      }
     }
   }
 
   nav {
     text-align: right;
+    font-size: 14px;
+
+    @media screen and (max-width: ($tabLand)) {
+      padding-top: 10px;
+      font-size: 11px;
+    }
+
     ul {
       text-align: left;
       display: flex;
+      flex-wrap: wrap;
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
@@ -40,16 +76,31 @@
 
       li {
         border-right: 1px solid #fff;
-        padding: 0 6px;
+        padding: 0 10px;
+
+        @media screen and (max-width: ($tabLand)) {
+          padding: 0 5px;
+        }
+
+        &.desktop-only {
+          @media screen and (max-width: ($tabLand)) {
+            display: none;
+          }
+        }
 
         &:last-of-type {
           border-right: none;
+          padding: 0 0 0 10px;
         }
 
         a {
           color: #fff;
           text-decoration: none;
           font-weight: normal;
+
+          &:hover {
+            color: $purple;
+          }
         }
       }
     }
@@ -60,15 +111,19 @@
     font-weight: bold;
     color: white;
     text-decoration: none;
+
+    @media screen and (max-width: ($tabLand)) {
+      display: none;
+    }
   }
 
   .has-icon {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.2rem;
 
     svg {
-      width: 0.75rem;
+      width: 0.85rem;
       height: auto;
     }
   }
