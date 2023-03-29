@@ -6,6 +6,7 @@ import njLogo from "../njlogo.svg";
 import navCloseButton from "@newjersey/njwds/dist/img/usa-icons/close.svg";
 import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
+import GlobalHeader from "./GlobalHeader";
 
 const COUNSELING_URL = "https://nj.gov/labor/career-services/";
 
@@ -124,6 +125,7 @@ export const Header = (): ReactElement => {
   const nav = (): ReactElement => {
     return (
       <header className="header usa-header usa-header--basic" role="banner">
+        <GlobalHeader />
         <div className="usa-nav-container height-100">
           <nav className="usa-navbar nav-training-explorer">
             <div className="usa-logo" id="basic-logo">

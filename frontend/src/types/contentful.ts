@@ -65,6 +65,25 @@ export interface FaqPageProps {
   };
 }
 
+export interface TopLevelNavItemProps {
+  sys: {
+    id: string;
+  };
+  copy: string;
+  url: string;
+  subItemsCollection?: {
+    items: LinkObjectProps[];
+  };
+}
+
+export interface GlobalHeaderProps {
+  navMenus: {
+    topLevelItemsCollection: {
+      items: TopLevelNavItemProps[];
+    };
+  };
+}
+
 /* ********************
  *  TRAINING
  ******************** */
