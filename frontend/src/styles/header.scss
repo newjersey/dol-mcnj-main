@@ -3,7 +3,6 @@
   position: fixed;
   top: 40px;
   width: 100%;
-  height: $header-height;
   z-index: 12;
 
   .nav-mobile {
@@ -38,6 +37,10 @@
 
   @media print {
     position: static;
+  }
+
+  > .usa-nav-container {
+    height: $header-height;
   }
 }
 
