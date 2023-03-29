@@ -5,7 +5,7 @@ import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
 import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
-import { FaqPage } from "./fag-page/FaqPage";
+import { FaqPage } from "./faq-page/FaqPage";
 import { TrainingProviderPage } from "./training-provider-page/TrainingProviderPage";
 import { Client } from "./domain/Client";
 import { Router, globalHistory } from "@reach/router";
