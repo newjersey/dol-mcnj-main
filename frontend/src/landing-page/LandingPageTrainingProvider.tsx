@@ -11,17 +11,15 @@ import { useMediaQuery } from "@material-ui/core";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
 
 export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
   const { t } = useTranslation();
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout>
+      <div className="container">
         <div className="landing-container mla mra">
           <h2 className="mtm mbd text-xl weight-500 align-center">
             {t("TrainingProviderPage.header")}
@@ -133,9 +131,7 @@ export const LandingPageTrainingProvider = (_props: RouteComponentProps): ReactE
 
           <ContactUsSection />
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };

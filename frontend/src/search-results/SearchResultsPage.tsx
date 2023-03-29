@@ -1,12 +1,10 @@
-import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps, Link } from "@reach/router";
-import { Header } from "../components/Header";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { CircularProgress, FormControl, InputLabel, useMediaQuery, Icon } from "@material-ui/core";
 import { FilterBox } from "../filtering/FilterBox";
-import { BetaBanner } from "../components/BetaBanner";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { WhiteSelect } from "../components/WhiteSelect";
 import { SortOrder } from "../sorting/SortOrder";
@@ -16,6 +14,7 @@ import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { Layout } from "../components/Layout";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -187,135 +186,128 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   );
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="below-banners no-footer" role="main">
-        {isTabletAndUp && (
-          <div className="container results-count-container">
-            <div className="row ptd fixed-wrapper">
-              <div className="col-md-12 fdr fac">
-                <div className="result-count-text">{!isLoading && getResultCount()}</div>
-                {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
-              </div>
+    <Layout noFooter>
+      {isTabletAndUp && (
+        <div className="container results-count-container">
+          <div className="row ptd fixed-wrapper">
+            <div className="col-md-12 fdr fac">
+              <div className="result-count-text">{!isLoading && getResultCount()}</div>
+              {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {shouldShowTrainings && (
-          <>
-            <div
-              className={`container ${
-                comparisonState.comparison.length > 0 ? "space-for-comparison" : "pbm"
-              }`}
-            >
-              <div className="row">
-                <div className="col-sm-4">
-                  {
-                    <FilterBox
-                      searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
-                      resultCount={filteredTrainings.length}
-                      setShowTrainings={setShouldShowTrainings}
-                      resetStateForReload={resetState}
-                      fixedContainer={true}
-                    >
-                      {getSortDropdown()}
-                    </FilterBox>
-                  }
-                </div>
-                <div className="col-sm-8 space-for-filterbox">
-                  {isLoading && (
-                    <div className="fdr fjc ptl">
-                      <CircularProgress color="secondary" />
-                    </div>
-                  )}
-
-                  {!isLoading && !isTabletAndUp && getResultCount()}
-                  {!isLoading && showSearchTips && getSearchTips()}
-
-                  {filteredTrainings.map((training) => (
-                    <TrainingResultCard
-                      key={training.id}
-                      trainingResult={training}
-                      comparisonItems={comparisonState.comparison}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-            <TrainingComparison comparisonItems={comparisonState.comparison} />
-          </>
-        )}
-
-        {!shouldShowTrainings && (
-          <div className="container" data-testid="gettingStarted">
+      {shouldShowTrainings && (
+        <>
+          <div
+            className={`container ${
+              comparisonState.comparison.length > 0 ? "space-for-comparison" : "pbm"
+            }`}
+          >
             <div className="row">
-              {isTabletAndUp && (
-                <div className="col-sm-4">
-                  {
-                    <FilterBox
-                      searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
-                      resultCount={filteredTrainings.length}
-                      setShowTrainings={setShouldShowTrainings}
-                      resetStateForReload={resetState}
-                      fixedContainer={true}
-                    >
-                      {getSortDropdown()}
-                    </FilterBox>
-                  }
-                </div>
-              )}
-              <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
-                {!isTabletAndUp && (
-                  <h3 className="text-l mts">
-                    {t("SearchResultsPage.sectionOneHeaderSmallScreen")}
-                  </h3>
-                )}
-                {isTabletAndUp && (
-                  <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeader")}</h3>
-                )}
-
-                <p className="mbl">
-                  {t("SearchResultsPage.introText")}
-                  &nbsp;
-                  <Link className="link-format-blue" to="/funding">
-                    {t("SearchResultsPage.introTextLink")}
-                  </Link>
-                  .
-                </p>
-                <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
-                <p>{t("SearchResultsPage.searchHelperText")}</p>
-                <p>
-                  <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
-                  {t("SearchResultsPage.helperText1")}
-                </p>
-                <p>
-                  <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
-                  {t("SearchResultsPage.helperText2")}
-                </p>
-                <p>
-                  <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
-                  {t("SearchResultsPage.helperText3")}
-                </p>
-                {!isTabletAndUp && (
-                  <div className="mtl mbd">
-                    <h3 className="text-l">{t("SearchResultsPage.smallScreenSearchHeader")}</h3>
-                    <FilterBox
-                      searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
-                      resultCount={filteredTrainings.length}
-                      setShowTrainings={setShouldShowTrainings}
-                      resetStateForReload={resetState}
-                    >
-                      {getSortDropdown()}
-                    </FilterBox>
+              <div className="col-sm-4">
+                {
+                  <FilterBox
+                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    resultCount={filteredTrainings.length}
+                    setShowTrainings={setShouldShowTrainings}
+                    resetStateForReload={resetState}
+                    fixedContainer={true}
+                  >
+                    {getSortDropdown()}
+                  </FilterBox>
+                }
+              </div>
+              <div className="col-sm-8 space-for-filterbox">
+                {isLoading && (
+                  <div className="fdr fjc ptl">
+                    <CircularProgress color="secondary" />
                   </div>
                 )}
+
+                {!isLoading && !isTabletAndUp && getResultCount()}
+                {!isLoading && showSearchTips && getSearchTips()}
+
+                {filteredTrainings.map((training) => (
+                  <TrainingResultCard
+                    key={training.id}
+                    trainingResult={training}
+                    comparisonItems={comparisonState.comparison}
+                  />
+                ))}
               </div>
             </div>
           </div>
-        )}
-      </main>
-    </>
+          <TrainingComparison comparisonItems={comparisonState.comparison} />
+        </>
+      )}
+
+      {!shouldShowTrainings && (
+        <div className="container" data-testid="gettingStarted">
+          <div className="row">
+            {isTabletAndUp && (
+              <div className="col-sm-4">
+                {
+                  <FilterBox
+                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    resultCount={filteredTrainings.length}
+                    setShowTrainings={setShouldShowTrainings}
+                    resetStateForReload={resetState}
+                    fixedContainer={true}
+                  >
+                    {getSortDropdown()}
+                  </FilterBox>
+                }
+              </div>
+            )}
+            <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
+              {!isTabletAndUp && (
+                <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeaderSmallScreen")}</h3>
+              )}
+              {isTabletAndUp && (
+                <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeader")}</h3>
+              )}
+
+              <p className="mbl">
+                {t("SearchResultsPage.introText")}
+                &nbsp;
+                <Link className="link-format-blue" to="/funding">
+                  {t("SearchResultsPage.introTextLink")}
+                </Link>
+                .
+              </p>
+              <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
+              <p>{t("SearchResultsPage.searchHelperText")}</p>
+              <p>
+                <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
+                {t("SearchResultsPage.helperText1")}
+              </p>
+              <p>
+                <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
+                {t("SearchResultsPage.helperText2")}
+              </p>
+              <p>
+                <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
+                {t("SearchResultsPage.helperText3")}
+              </p>
+              {!isTabletAndUp && (
+                <div className="mtl mbd">
+                  <h3 className="text-l">{t("SearchResultsPage.smallScreenSearchHeader")}</h3>
+                  <FilterBox
+                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    resultCount={filteredTrainings.length}
+                    setShowTrainings={setShouldShowTrainings}
+                    resetStateForReload={resetState}
+                  >
+                    {getSortDropdown()}
+                  </FilterBox>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </Layout>
   );
 };

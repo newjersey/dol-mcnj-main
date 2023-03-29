@@ -1,7 +1,6 @@
-import React, { ReactElement } from "react";
-import { Header } from "../components/Header";
-import { BetaBanner } from "../components/BetaBanner";
+import { ReactElement } from "react";
 import { Icon } from "@material-ui/core";
+import { Layout } from "../components/Layout";
 
 interface Props {
   headerText: string;
@@ -10,10 +9,8 @@ interface Props {
 
 export const ErrorPage = (props: Props): ReactElement => {
   return (
-    <>
-      <Header />
-      <BetaBanner />
-      <main role="main" className="container below-banners">
+    <Layout noFooter>
+      <div className="container">
         <div className="row">
           <div className="col-md-6 col-md-offset-3">
             <div className="alert-box mtxl">
@@ -27,7 +24,7 @@ export const ErrorPage = (props: Props): ReactElement => {
             </div>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </Layout>
   );
 };

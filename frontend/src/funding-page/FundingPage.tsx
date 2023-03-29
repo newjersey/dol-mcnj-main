@@ -1,9 +1,7 @@
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { BetaBanner } from "../components/BetaBanner";
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
 
 const CONTACT_LINK =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCpyMAsRmL_iZGuS3yTOduNF1UMFE1VUIxTU9MTDdXSDZNWlBHU0s4S0lQNSQlQCN0PWcu";
@@ -16,11 +14,8 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners">
+    <Layout>
+      <div className="container">
         <div className="row">
           <div className="col-sm-12">
             <h2 className="text-xl pvd weight-500">{t("FundingPage.header")}</h2>
@@ -82,9 +77,7 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };

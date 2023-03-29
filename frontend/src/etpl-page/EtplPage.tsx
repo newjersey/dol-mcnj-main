@@ -1,9 +1,6 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { useMediaQuery } from "@material-ui/core";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { BetaBanner } from "../components/BetaBanner";
 import { Client } from "../domain/Client";
 import { MajorGroup } from "./MajorGroup";
 
@@ -26,6 +23,7 @@ import NJStatePoliceSecurityOfficerTrainingSORA from "./agency-icons/nj-state-po
 import ProLiteracy from "./agency-icons/proliteracy.svg";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Trans, useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
 
 const LINKS = {
   applicationPacketLink:
@@ -389,11 +387,8 @@ export const EtplPage = (_props: Props): ReactElement => {
   };
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners">
+    <Layout>
+      <div className="container">
         <div className="row">
           <div className="col-md-10">
             <h2 className="text-xl mvd">{t("EtplPage.header")}</h2>
@@ -508,9 +503,7 @@ export const EtplPage = (_props: Props): ReactElement => {
         <div className="row">
           <ContactUsSection />
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };
