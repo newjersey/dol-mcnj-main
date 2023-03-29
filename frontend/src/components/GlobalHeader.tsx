@@ -3,6 +3,8 @@ import { EnvelopeSm } from "../svg/EnvelopeSm";
 import { SearchSm } from "../svg/SearchSm";
 import { GlobalHeaderProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
+import { OverlayTool } from "./OverlayTool";
+import image from "../overlayImages/WE Homepage.png";
 
 const GlobalHeader = () => {
   const data: GlobalHeaderProps = useContentfulClient({ query: NEW_JERSEY_NAV_QUERY });
@@ -28,7 +30,8 @@ const GlobalHeader = () => {
 
   return (
     <div className="global-header">
-      <div className="usa-nav-container">
+      <OverlayTool img={image} />
+      <div className="container">
         <div className="logo">
           <img src="state_seal_white.png" alt="New Jersey State Seal" />
           Official Site Of The State Of New Jersey
@@ -44,7 +47,7 @@ const GlobalHeader = () => {
           </a>
           <ul>
             {data?.navMenus.topLevelItemsCollection.items?.map((item) => (
-              <li key={item.sys.id}>
+              <li key={item.sys.id} className={item.classes || undefined}>
                 <a href={item.url}>
                   <HasIcon string={item.copy} />
                 </a>

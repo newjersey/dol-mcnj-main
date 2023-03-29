@@ -6,6 +6,8 @@ export const NEW_JERSEY_NAV_QUERY = `{
           id
         }
         copy
+        screenReaderOnlyCopy
+        classes
         url
         subItemsCollection {
           items {
