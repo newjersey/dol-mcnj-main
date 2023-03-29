@@ -5,16 +5,17 @@ import { Footer } from "./Footer";
 
 interface LayoutProps {
   children: ReactNode;
+  noFooter?: boolean;
 }
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, noFooter }: LayoutProps) => {
   return (
     <>
-      <Header />
       <BetaBanner />
+      <Header />
       <main className="below-banners" role="main">
         {children}
       </main>
-      <Footer />
+      {!noFooter && <Footer />}
     </>
   );
 };
