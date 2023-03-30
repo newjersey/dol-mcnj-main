@@ -1,9 +1,8 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Link } from "@reach/router";
 import { useState } from "react";
 import { Icon, useMediaQuery } from "@material-ui/core";
 import njLogo from "../njlogo.svg";
-import navCloseButton from "@newjersey/njwds/dist/img/usa-icons/close.svg";
 import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
 import GlobalHeader from "./GlobalHeader";
@@ -44,7 +43,7 @@ export const Header = (): ReactElement => {
             </a>
             <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
               <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
-              {t("Header.mobileMenuText")}
+              <span className="sr-only">{t("Header.mobileMenuText")}</span>
             </UnstyledButton>
           </div>
 
@@ -127,64 +126,64 @@ export const Header = (): ReactElement => {
 
   const nav = (): ReactElement => {
     return (
-      <header className="header usa-header usa-header--basic" role="banner">
+      <header className="header" role="banner">
         <BetaBanner />
         <GlobalHeader />
-        <div className="usa-nav-container height-100">
-          <nav className="usa-navbar nav-training-explorer">
-            <div className="usa-logo" id="basic-logo">
-              <a href="/" className="flex-align-center link-format-black fin fac width-content">
-                <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-                <h1 className="text-m bold">{t("Header.title")}</h1>
-              </a>
-            </div>
-            <button className="usa-menu-btn">Menu</button>
-          </nav>
-          <nav aria-label="Primary navigation" className="usa-nav">
-            <button className="usa-nav__close">
-              <img src={navCloseButton} alt="close" />
-            </button>
-            <ul className="usa-nav__primary usa-accordion">
-              <li className="usa-nav__primary-item">
-                <a className="usa-nav__link" href="/search">
+
+        <nav className="usa-nav-container">
+          <div className="basic-logo" id="basic-logo">
+            <a href="/">
+              <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
+              <h1 className="bold">{t("Header.title")}</h1>
+            </a>
+          </div>
+        </nav>
+        <nav aria-label="Primary navigation" className="main-nav">
+          <div className="usa-nav-container">
+            <ul>
+              <li className="nav-item">
+                <a href="/">
+                  <span>
+                    Home
+                    <Icon>home</Icon>
+                  </span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/search">
                   <span>{t("Header.linkToSearch")}</span>
                 </a>
               </li>
-              <li className="usa-nav__primary-item">
-                <a className="usa-nav__link" href="/in-demand-occupations">
+              <li>
+                <a href="/in-demand-occupations">
                   <span>{t("Header.linkToInDemandOccupations")}</span>
                 </a>
               </li>
-              <li className="usa-nav__primary-item">
-                <a className="usa-nav__link" href="/funding">
+              <li className="nav-item">
+                <a href="/funding">
                   <span>{t("Header.linkToFunding")}</span>
                 </a>
               </li>
-              <li className="usa-nav__primary-item">
-                <a className="usa-nav__link" href="/faq">
+              <li className="nav-item">
+                <a href="/faq">
                   <span>{t("Header.linkToFAQ")}</span>
                 </a>
               </li>
-              <li className="usa-nav__primary-item">
-                <a className="usa-nav__link" href="/training-provider-resources">
+              <li className="nav-item">
+                <a href="/training-provider-resources">
                   <span>{t("Header.linkToTPResources")}</span>
                 </a>
               </li>
-              <li className="usa-nav__primary-item">
-                <a
-                  className="usa-nav__link"
-                  href={COUNSELING_URL}
-                  target={"_blank"}
-                  rel={"noreferrer"}
-                >
+              <li className="nav-item">
+                <a href={COUNSELING_URL} target={"_blank"} rel={"noreferrer"}>
                   <span>
-                    {t("Header.linkToCounselingText")} <Icon style={{ fontSize: 12 }}>launch</Icon>
+                    {t("Header.linkToCounselingText")} <Icon>launch</Icon>
                   </span>
                 </a>
               </li>
             </ul>
-          </nav>
-        </div>
+          </div>
+        </nav>
       </header>
     );
   };

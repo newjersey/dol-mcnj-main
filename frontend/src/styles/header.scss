@@ -1,59 +1,75 @@
-.header {
-  background-color: white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 12;
-
-  .nav-mobile {
-    background: white;
+header {
+  &.header {
+    background-color: white;
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
-    min-height: 100%;
-    margin-top: $header-height + $beta-banner-height;
-
-    .nav-item {
-      display: block;
-    }
+    z-index: 12;
   }
 
-  @media (min-width: 1023px) {
-    .nav {
-      display: grid;
-      grid-template-columns: 1fr auto auto auto auto;
-      grid-column-gap: 1.5rem;
-      align-items: center;
-      height: 100%;
-    }
-
-    .nav-training-explorer {
+  .basic-logo {
+    a {
       display: flex;
-      height: 120%;
-      align-items: center;
+      width: 50%;
+      color: black;
+      text-decoration: none;
+      padding: 1.5rem 0 0.8rem;
+    }
+
+    h1 {
+      width: calc(100% - 45px);
+      margin-left: 10px;
+      font-size: 28px;
+    }
+
+    img {
+      width: 48px;
+      height: auto;
     }
   }
 
-  @media print {
-    position: static;
-  }
+  .main-nav {
+    background-color: $dark-blue;
 
-  > .usa-nav-container {
-    height: $header-height;
-  }
-}
+    ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      gap: 2.5rem;
+    }
 
-.beta-banner {
-  background-color: $light-red;
-  line-height: $beta-banner-height;
-  text-align: center;
-  width: 100%;
-  height: $beta-banner-height;
-  z-index: 10;
+    a {
+      color: white;
+      display: block;
+      text-decoration: none;
+      padding: 1.4rem 0;
+      font-size: 0.9rem;
+      position: relative;
 
-  @media print {
-    position: static;
+      > span {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: 16px;
+          margin-top: -2px;
+          margin-left: 2px;
+        }
+      }
+
+      &:hover {
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 10px;
+          width: 100%;
+          left: 0;
+          height: 3px;
+          background-color: white;
+        }
+      }
+    }
   }
 }
 

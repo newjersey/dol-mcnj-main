@@ -21,7 +21,7 @@
     font-weight: normal;
     text-transform: uppercase;
     color: #fff;
-    font-size: 12px;
+    font-size: 0.89rem;
 
     @media screen and (max-width: ($tabLand)) {
       gap: 0.2rem;
@@ -40,7 +40,7 @@
 
     @media screen and (min-width: ($tabLand + 1)) {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
 
     @media screen and (max-width: ($tabLand)) {
@@ -71,12 +71,23 @@
       justify-content: flex-end;
       align-items: center;
       margin: 0;
-      padding: 0;
+      padding: 10px 0 0;
       list-style: none;
 
       li {
-        border-right: 1px solid #fff;
         padding: 0 10px;
+        position: relative;
+
+        &:before {
+          content: "";
+          width: 1px;
+          height: calc(100% - 5px);
+          background: white;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 0;
+        }
 
         @media screen and (max-width: ($tabLand)) {
           padding: 0 5px;
@@ -89,8 +100,11 @@
         }
 
         &:last-of-type {
-          border-right: none;
           padding: 0 0 0 10px;
+
+          &:before {
+            content: none;
+          }
         }
 
         a {
@@ -122,9 +136,19 @@
     align-items: center;
     gap: 0.2rem;
 
-    svg {
-      width: 0.85rem;
-      height: auto;
+    > span {
+      font-size: 1em;
     }
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

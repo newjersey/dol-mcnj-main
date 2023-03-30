@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Trans } from "react-i18next";
 interface Props {
   noHeader?: boolean;
@@ -18,14 +18,9 @@ export const BetaBanner = (props: Props): ReactElement => {
   return (
     <aside className={`beta-banner ${getHeaderMarginClass()}`}>
       <Trans i18nKey="Header.betaBannerText">
-        This site is in beta. Feedback welcome
-        <a
-          className="link-format-blue"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={FEEDBACK_URL}
-        >
-          here
+        This site is in beta.
+        <a target="_blank" rel="noopener noreferrer" href={FEEDBACK_URL}>
+          Share your feedback!
         </a>
         .
       </Trans>
