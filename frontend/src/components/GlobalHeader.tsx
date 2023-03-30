@@ -1,11 +1,9 @@
 import { NEW_JERSEY_NAV_QUERY } from "../queries/newJerseyNavQuery";
 import { GlobalHeaderProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { OverlayTool } from "./OverlayTool";
-import image from "../overlayImages/Gov Banner.png";
 import { Icon } from "@material-ui/core";
 
-const GlobalHeader = () => {
+export const GlobalHeader = () => {
   const data: GlobalHeaderProps = useContentfulClient({ query: NEW_JERSEY_NAV_QUERY });
 
   const HasIcon = ({ string }: { string: string }) => {
@@ -29,7 +27,6 @@ const GlobalHeader = () => {
 
   return (
     <div className="global-header">
-      <OverlayTool img={image} />
       <div className="container">
         <div className="logo">
           <img src="state_seal_white.png" alt="New Jersey State Seal" />
@@ -58,5 +55,3 @@ const GlobalHeader = () => {
     </div>
   );
 };
-
-export default GlobalHeader;
