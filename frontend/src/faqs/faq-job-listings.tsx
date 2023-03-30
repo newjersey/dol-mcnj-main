@@ -1,12 +1,10 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { BetaBanner } from "../components/BetaBanner";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import SearchOccupationScreenshot from "./search-occupation-screenshot.png";
 import OccupationDetailsScreenshot from "./occupation-details-screenshot.png";
 import { Trans, useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
 
 export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
   const { t } = useTranslation();
@@ -17,11 +15,8 @@ export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout>
+      <div className="container">
         <FaqBreadcrumb current={t("FAQJobListings.header")} />
 
         <div className="row mbm">
@@ -56,9 +51,7 @@ export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
             </p>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };
