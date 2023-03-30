@@ -69,7 +69,7 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
-    "@types/node": "^16.18.21",
+    "@types/node": "^16.18.23",
     "@types/reach__router": "^1.3.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "axe-core": "^4.6.3",
