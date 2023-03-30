@@ -2,13 +2,7 @@
 import { useEffect, useState } from "react";
 import { contentfulClient } from "./contentfulClient";
 
-export const useContentfulClient = ({
-  query,
-  variables,
-}: {
-  query: string;
-  variables?: string;
-}) => {
+export const useContentfulClient = ({ query, variables }: { query: string; variables?: any }) => {
   const [data, setData] = useState<any>();
 
   useEffect(() => {
