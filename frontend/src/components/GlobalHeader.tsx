@@ -1,10 +1,9 @@
 import { NEW_JERSEY_NAV_QUERY } from "../queries/newJerseyNavQuery";
-import { EnvelopeSm } from "../svg/EnvelopeSm";
-import { SearchSm } from "../svg/SearchSm";
 import { GlobalHeaderProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { OverlayTool } from "./OverlayTool";
-import image from "../overlayImages/WE Homepage.png";
+import image from "../overlayImages/Gov Banner.png";
+import { Icon } from "@material-ui/core";
 
 const GlobalHeader = () => {
   const data: GlobalHeaderProps = useContentfulClient({ query: NEW_JERSEY_NAV_QUERY });
@@ -13,13 +12,13 @@ const GlobalHeader = () => {
     const isEnvelope = string.includes("[envelope]");
     const isSearch = string.includes("[search]");
     const newString = string.replace("[envelope]", "").replace("[search]", "");
-    const Icon = isEnvelope ? EnvelopeSm : isSearch ? SearchSm : null;
+    const iconString = isEnvelope ? "mail" : isSearch ? "search" : null;
 
     return (
       <>
-        {Icon ? (
+        {iconString ? (
           <span className="has-icon">
-            {newString} {Icon && <Icon />}
+            {newString} {Icon && <Icon>{iconString}</Icon>}
           </span>
         ) : (
           <>{newString}</>

@@ -582,7 +582,7 @@ export const en = {
     mobileLinkToExplorers: "For Training Explorers",
     mobileLinkToCounselors: "Counseling",
     mobileLinkToTrainingProviders: "For Training Providers",
-    betaBannerText: "This site is in beta. Feedback welcome <1>here</1>.",
+    betaBannerText: "This site is in beta. <1>Share your feedback!</1>",
   },
   IconAlt: {
     njLogo: "Official state logo for New Jersey",
