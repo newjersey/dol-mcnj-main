@@ -3,7 +3,7 @@ footer {
   color: white;
   padding: 1.5rem 0;
 
-  .container {
+  > .container {
     @media screen and (min-width: ($tabPort + 1)) {
       display: flex;
       max-width: 1136px;
@@ -22,6 +22,10 @@ footer {
       &:last-of-type {
         @media screen and (min-width: ($tabPort + 1)) {
           width: 210px;
+        }
+
+        @media screen and (max-width: ($tabPort)) {
+          padding-bottom: 2rem;
         }
       }
     }

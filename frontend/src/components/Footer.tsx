@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { NavMenuProps } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 import logo from "../images/jerseyLogoFooter.png";
+import { SubFooter } from "./SubFooter";
 
 export const Footer = ({
   items,
@@ -24,6 +25,7 @@ export const Footer = ({
           <img src={logo} alt="New Jersey logo" />
         </div>
       </div>
+      <SubFooter />
     </footer>
   );
 };
