@@ -62,8 +62,13 @@ header {
     }
   }
 
+  .mobile-menu {
+    min-height: 64px;
+  }
+
   .main-nav {
     background-color: $dark-blue;
+    min-height: 61px;
 
     ul {
       display: flex;

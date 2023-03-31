@@ -4,9 +4,11 @@
   color: white;
   padding: 4px 0;
   font-size: 15px;
+  min-height: 54px;
   letter-spacing: 0.1px;
 
   @media screen and (max-width: ($tabLand)) {
+    min-height: 61px;
     padding: 10px 0 4px;
   }
 

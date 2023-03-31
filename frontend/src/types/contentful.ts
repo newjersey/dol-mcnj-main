@@ -1,4 +1,5 @@
 import { Document } from "@contentful/rich-text-types";
+import { ReactNode } from "react";
 
 /* ********************
  *  GENERIC
@@ -44,8 +45,11 @@ export interface LinkObjectProps {
   sys?: {
     id: string;
   };
-  copy: string;
+  copy?: string;
   url: string;
+  screenReaderOnlyCopy?: string;
+  children?: ReactNode;
+  icons?: boolean;
 }
 
 export interface LinkGroupProps {
@@ -78,8 +82,10 @@ export interface TopLevelNavItemProps {
   };
 }
 
-export interface GlobalHeaderProps {
+export interface NavMenuProps {
   navMenus: {
+    heading?: string;
+    url?: string;
     topLevelItemsCollection: {
       items: TopLevelNavItemProps[];
     };
