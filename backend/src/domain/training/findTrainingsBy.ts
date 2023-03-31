@@ -81,7 +81,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               }
 
               const address = {
-                name: element["ceterms:name"],
+                name: element["ceterms:name"] ? element["ceterms:name"]["en-US"] : null,
                 street1: element["ceterms:streetAddress"] ? element["ceterms:streetAddress"]["en-US"] : null,
                 street2: "",
                 city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
