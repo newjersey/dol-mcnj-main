@@ -1,11 +1,7 @@
-import { NEW_JERSEY_NAV_QUERY } from "../queries/newJerseyNavQuery";
-import { GlobalHeaderProps } from "../types/contentful";
-import { useContentfulClient } from "../utils/useContentfulClient";
+import { NavMenuProps } from "../types/contentful";
 import { Icon } from "@material-ui/core";
 
-export const GlobalHeader = () => {
-  const data: GlobalHeaderProps = useContentfulClient({ query: NEW_JERSEY_NAV_QUERY });
-
+export const GlobalHeader = ({ items }: { items?: NavMenuProps }) => {
   const HasIcon = ({ string }: { string: string }) => {
     const isEnvelope = string.includes("[envelope]");
     const isSearch = string.includes("[search]");
@@ -42,7 +38,7 @@ export const GlobalHeader = () => {
             Governor Phil Murphy • Lt. Governor Sheila Oliver
           </a>
           <ul>
-            {data?.navMenus.topLevelItemsCollection.items?.map((item) => (
+            {items?.navMenus.topLevelItemsCollection.items?.map((item) => (
               <li key={item.sys.id} className={item.classes || undefined}>
                 <a href={item.url}>
                   <HasIcon string={item.copy} />

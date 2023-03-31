@@ -1,23 +1,29 @@
-import React, { ReactElement } from "react";
-import { Link } from "@reach/router";
 import { useTranslation } from "react-i18next";
+import { NavMenuProps } from "../types/contentful";
+import { NavMenu } from "./modules/NavMenu";
+import logo from "../images/jerseyLogoFooter.png";
 
-export const Footer = (): ReactElement => {
+export const Footer = ({
+  items,
+}: {
+  items: {
+    footerNav1?: NavMenuProps;
+    footerNav2?: NavMenuProps;
+  };
+}) => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-footer-grey pvm width-100 fdc fac">
-      <div>
-        <Link className="link-format-blue text-s" to="/privacy-policy">
-          {t("Footer.privacyPolicyLinkLabel")}
-        </Link>
-        {" | "}
-        <Link className="link-format-blue text-s" to="/terms-of-service">
-          {t("Footer.termsOfServiceLinkLabel")}
-        </Link>
+    <footer>
+      <div className="container">
+        <div>
+          <NavMenu menu={items.footerNav1} className="footer-nav-l" />
+        </div>
+        <div>
+          <NavMenu menu={items.footerNav2} className="footer-nav-r" />
+          <img src={logo} alt="New Jersey logo" />
+        </div>
       </div>
-
-      <p className="text-s">{t("Footer.madeWithMessage")}</p>
     </footer>
   );
 };
