@@ -1,5 +1,5 @@
 import { TrainingResult } from "../training/TrainingResult";
-import { Address, Provider, Training } from "../training/Training";
+import { Address, ContactPoint, Provider, Training } from "../training/Training";
 import {
   InDemandOccupation,
   Occupation,
@@ -75,19 +75,16 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
     url: "some-url-" + randomInt(),
-    address: buildAddress({}),
+    addresses: [buildAddress({})],
     name: "some-name-" + randomInt(),
-    contactName: "some-contactName-" + randomInt(),
-    contactTitle: "some-contactTitle-" + randomInt(),
-    phoneNumber: "some-phoneNumber-" + randomInt(),
-    phoneExtension: "some-phoneExtension-" + randomInt(),
-    county: "some-county-" + randomInt(),
+    targetContactPoints: [buildTargetContactPoint({})],
     ...overrides,
   };
 };
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
+    name: "some-name-" + randomInt(),
     street1: "some-street1-" + randomInt(),
     street2: "some-street2-" + randomInt(),
     city: "some-city-" + randomInt(),
@@ -96,6 +93,16 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     ...overrides,
   };
 };
+
+export const buildContactPoint = (overrides: Partial<ContactPoint>): ContactPoint => {
+  return {
+    name: "some-name-" + randomInt(),
+    alternateName: "some-alertnateName-" + randomInt(),
+    contactType: "some-contactType-" + randomInt(),
+    email: ["some-email@a" + randomInt() + ".com"],
+    telephone: ["(973) 555-5555"]
+  }
+}
 
 export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
   return {

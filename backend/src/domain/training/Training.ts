@@ -31,29 +31,29 @@ export interface Training {
 
 export interface Provider {
   id: string;
-  url: string;
-  email: string;
-  addresses: Address[];
+  url?: string;
+  email?: string;
+  addresses?: Address[];
   name: string;
-  targetContactPoints: ContactPoint[];
-  county: string;
+  targetContactPoints?: ContactPoint[];
 }
 
 export interface Address {
-  name: string;
-  street1: string;
-  street2: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  targeteContactPoints: ContactPoint[];
+  name?: string;
+  street1?: string;
+  street2?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  targetContactPoints?: ContactPoint[];
 }
 
 export interface ContactPoint {
-  alternateName: string;
-  contactType: string;
-  faxNumber: string;
-  name: string;
-  socialMedia: string;
-  telephone: string;
+  alternateName?: string;
+  contactType?: string;
+  faxNumber?: string[];
+  name?: string;
+  socialMedia?: string[];
+  email?: string[];
+  telephone?: string[];
 }
