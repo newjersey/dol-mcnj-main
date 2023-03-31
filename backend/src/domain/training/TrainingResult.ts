@@ -14,7 +14,6 @@ export interface TrainingResult {
   providerName: string;
   cities: string[];
   zipCodes: string[];
-  county: string;
   highlight: string;
   rank: number;
   socCodes: string[];

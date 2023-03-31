@@ -25,9 +25,8 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     localExceptionCounty: [],
     highlight: "some-hightlight-" + randomInt(),
     rank: randomInt(),
-    city: "some-city-" + randomInt(),
-    zipCode: "some-zipcode-" + randomInt(),
-    county: "some-county-" + randomInt(),
+    cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
+    zipCodes: [randomInt().toString(), randomInt().toString()],
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
     socCodes: ["some-soc-" + randomInt()],
@@ -77,7 +76,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     url: "some-url-" + randomInt(),
     addresses: [buildAddress({})],
     name: "some-name-" + randomInt(),
-    targetContactPoints: [buildTargetContactPoint({})],
+    targetContactPoints: [buildContactPoint({})],
     ...overrides,
   };
 };
