@@ -109,14 +109,16 @@ header {
       }
 
       &:hover {
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 10px;
-          width: 100%;
-          left: 0;
-          height: 3px;
-          background-color: white;
+        @media screen and (min-width: ($tabLand + 1)) {
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            left: 0;
+            height: 3px;
+            background-color: white;
+          }
         }
       }
     }
