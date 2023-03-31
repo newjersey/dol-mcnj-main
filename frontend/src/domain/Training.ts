@@ -72,6 +72,17 @@ export interface Address {
   city: string;
   state: string;
   zipCode: string;
+  targetContactPoints: ContactPoint[];
+}
+
+export interface ContactPoint {
+  name: string;
+  alternateName: string;
+  contactType: string;
+  email: string[];
+  telephone: string[];
+  faxNumber: string[];
+  socialMedia: string[];
 }
 
 export enum CalendarLength {

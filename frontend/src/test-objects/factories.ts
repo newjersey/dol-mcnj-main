@@ -86,6 +86,7 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    targetContactPoints: [],
     ...overrides,
   };
 };

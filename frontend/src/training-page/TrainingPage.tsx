@@ -126,12 +126,37 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     const addresses = training.provider.addresses;
     const addressBlocks = [];
+
     for (let i=0; i < addresses.length; i++) {
+
+      // assign individual address object properties to variables
+      const thisAddressName = addresses[i].name;
       const thisAddressStreet1 = addresses[i].street1;
       const thisAddressStreet2 = "";
       const thisAddressCity = addresses[i].city;
       const thisAddressState = addresses[i].state;
       const thisAddressZipCode = addresses[i].zipCode;
+      const thisAddressTargetContactPoints = addresses[i].targetContactPoints;
+
+      // build target contact points HTML blocks
+      const thisAddressTargetContactPointsBlocks:any = [];
+      for (let j=0; j < thisAddressTargetContactPoints.length; j++) {
+
+        // assign individual contact point object properties to variables
+        const thisContactPointName = thisAddressTargetContactPoints[j].name
+        const thisContactPointContactType = thisAddressTargetContactPoints[j].contactType
+        const thisContactPointEmail = thisAddressTargetContactPoints[j].email
+        const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
+        const thisContactPointSocialMedia = thisAddressTargetContactPoints[j].socialMedia
+
+
+        // push to HTML content blocks
+        thisAddressTargetContactPointsBlocks.push(
+          <div>
+            <div><InlineIcon className="mrxs">person</InlineIcon>{thisContactPointName}</div>
+          </div>
+        );
+      }
 
       const nameAndAddressEncoded = encodeURIComponent(
         `${training.provider.name} ${thisAddressStreet1} ${thisAddressStreet2} ${thisAddressCity} ${thisAddressState} ${thisAddressZipCode}`
@@ -140,14 +165,19 @@ export const TrainingPage = (props: Props): ReactElement => {
       const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
       addressBlocks.push(
-        <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
-          <div className="inline">
-            <span>{thisAddressStreet1}</span>
-            <div>
-              {thisAddressCity}, {thisAddressState} {thisAddressZipCode}
+        <div>
+          <div><InlineIcon className="mrxs">location_on</InlineIcon>{thisAddressName}</div>
+          <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+            <div className="inline">
+              <span>{thisAddressStreet1}</span>
+              <div>
+                {thisAddressCity}, {thisAddressState} {thisAddressZipCode}
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+          <span>{thisAddressTargetContactPointsBlocks}</span>
+          <hr></hr>
+        </div>
       );
     }
     return <div key={"addresses"}>{addressBlocks}</div>;
@@ -375,12 +405,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <p>
                           <span className="fin fas">
                             <InlineIcon className="mrxs">school</InlineIcon>
-                            {training.provider.name}
+                            <b>{training.provider.name}</b>
                           </span>
                         </p>
                         <div className="mvd">
                           <span className="fin">
-                            <InlineIcon className="mrxs">location_on</InlineIcon>
                             {getProviderAddress()}
                           </span>
                         </div>
