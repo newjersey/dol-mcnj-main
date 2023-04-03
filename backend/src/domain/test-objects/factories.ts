@@ -96,7 +96,7 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
 export const buildContactPoint = (overrides: Partial<ContactPoint>): ContactPoint => {
   return {
     name: "some-name-" + randomInt(),
-    alternateName: "some-alertnateName-" + randomInt(),
+    alternateName: "some-alternateName-" + randomInt(),
     contactType: "some-contactType-" + randomInt(),
     email: ["some-email@a" + randomInt() + ".com"],
     telephone: ["(973) 555-5555"]
