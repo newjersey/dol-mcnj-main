@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
 import { GlobalHeader } from "./GlobalHeader";
 import { BetaBanner } from "./BetaBanner";
-import { NavMenuProps } from "../types/contentful";
+import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 
-export const Header = (data: { mainNav: NavMenuProps; globalNav: NavMenuProps }) => {
+export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData }) => {
   const isDesktop = useMediaQuery("(min-width:1025px)");
   const { t } = useTranslation();
 

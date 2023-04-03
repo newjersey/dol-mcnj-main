@@ -1,5 +1,5 @@
 import { api } from "./api";
-import { FAQ_PAGE_QUERY, TRAINING_PROVIDER_PAGE_QUERY } from "./queries";
+import { FAQ_PAGE_QUERY, NAV_QUERY, TRAINING_PROVIDER_PAGE_QUERY } from "./queries";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const contentfulFactory = (query: string): any => {
@@ -10,6 +10,22 @@ export const contentfulFactory = (query: string): any => {
     }
     case "tpr": {
       query = TRAINING_PROVIDER_PAGE_QUERY;
+      break;
+    }
+    case "gnav": {
+      query = NAV_QUERY("7ARTjtRYG7ctcjPd1nbCHr");
+      break;
+    }
+    case "mnav": {
+      query = NAV_QUERY("3z2JQqwp9gcolHLILD57PY");
+      break;
+    }
+    case "footNav": {
+      query = NAV_QUERY("voDscWxEvggHqcXPzUtpR");
+      break;
+    }
+    case "footNav2": {
+      query = NAV_QUERY("3WHbfXiLFSBXRC24QCq8H6");
       break;
     }
     default:
