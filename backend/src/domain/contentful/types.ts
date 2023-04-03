@@ -44,8 +44,12 @@ export interface LinkObjectProps {
   sys?: {
     id: string;
   };
-  copy: string;
+  copy?: string;
   url: string;
+  screenReaderOnlyCopy?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children?: any;
+  icons?: boolean;
 }
 
 export interface LinkGroupProps {
@@ -55,20 +59,54 @@ export interface LinkGroupProps {
   };
 }
 
+export interface FaqPageData {
+  faqCollection: {
+    title: string;
+    topicsCollection: {
+      items: FaqTopic[];
+    };
+    linkGroup: LinkGroupProps;
+  };
+}
+
 export interface FaqPageProps {
-  status?: number;
   data: {
-    data: {
-      faqCollection: {
-        title: string;
-        topicsCollection: {
-          items: FaqTopic[];
-        };
-        linkGroup: LinkGroupProps;
-      };
+    data: FaqPageData;
+  };
+}
+
+export interface TopLevelNavItemProps {
+  sys: {
+    id: string;
+  };
+  screenReaderOnlyCopy?: string;
+  classes?: string;
+  copy: string;
+  url: string;
+  subItemsCollection?: {
+    items: LinkObjectProps[];
+  };
+}
+
+export interface NavMenuData {
+  navMenus: {
+    heading?: string;
+    url?: string;
+    topLevelItemsCollection: {
+      items: TopLevelNavItemProps[];
     };
   };
 }
+
+export interface NavMenuProps {
+  data: {
+    data: NavMenuData;
+  };
+}
+
+/* ********************
+ *  TRAINING
+ ******************** */
 
 export interface TabItemProps {
   sys: {
@@ -78,19 +116,20 @@ export interface TabItemProps {
   copy: ContentfulRichText;
 }
 
-export interface TrainingProviderPageProps {
-  status?: number;
-  data: {
-    data: {
-      tabContent: {
-        title: string;
-        sys: {
-          publishedAt: Date;
-        };
-        tabsCollection: {
-          items: TabItemProps[];
-        };
-      };
+export interface TrainingProviderData {
+  tabContent: {
+    title: string;
+    sys: {
+      publishedAt: Date;
     };
+    tabsCollection: {
+      items: TabItemProps[];
+    };
+  };
+}
+
+export interface TrainingProviderPageProps {
+  data: {
+    data: TrainingProviderData;
   };
 }

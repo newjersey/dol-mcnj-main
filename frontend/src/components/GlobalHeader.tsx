@@ -1,7 +1,7 @@
-import { NavMenuProps } from "../types/contentful";
+import { NavMenuData } from "../types/contentful";
 import { Icon } from "@material-ui/core";
 
-export const GlobalHeader = ({ items }: { items?: NavMenuProps }) => {
+export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
   const HasIcon = ({ string }: { string: string }) => {
     const isEnvelope = string.includes("[envelope]");
     const isSearch = string.includes("[search]");

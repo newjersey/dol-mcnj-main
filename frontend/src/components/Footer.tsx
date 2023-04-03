@@ -1,4 +1,4 @@
-import { NavMenuProps } from "../types/contentful";
+import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 import logo from "../images/jerseyLogoFooter.png";
 import { SubFooter } from "./SubFooter";
@@ -6,19 +6,19 @@ import { SubFooter } from "./SubFooter";
 export const Footer = ({
   items,
 }: {
-  items: {
-    footerNav1?: NavMenuProps;
-    footerNav2?: NavMenuProps;
+  items?: {
+    footerNav1?: NavMenuData;
+    footerNav2?: NavMenuData;
   };
 }) => {
   return (
     <footer>
       <div className="container">
         <div>
-          <NavMenu menu={items.footerNav1} className="footer-nav-l" />
+          {items?.footerNav1 && <NavMenu menu={items.footerNav1} className="footer-nav-l" />}
         </div>
         <div>
-          <NavMenu menu={items.footerNav2} className="footer-nav-r" />
+          {items?.footerNav2 && <NavMenu menu={items.footerNav2} className="footer-nav-r" />}
           <img src={logo} alt="New Jersey logo" />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { NavMenuProps } from "../../types/contentful";
+import { NavMenuData } from "../../types/contentful";
 import { LinkObject } from "./LinkObject";
 
 export const NavMenu = ({
@@ -9,7 +9,7 @@ export const NavMenu = ({
   icons = false,
   headingLevel,
 }: {
-  menu?: NavMenuProps;
+  menu?: NavMenuData;
   className?: string;
   innerClassName?: string;
   label?: string;
