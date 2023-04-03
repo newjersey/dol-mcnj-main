@@ -5,7 +5,7 @@ import { ContentfulRichText } from "../components/ContentfulRichText";
 import { Select } from "../svg/Select";
 
 interface TabContentProps {
-  items: TabItemProps[];
+  items?: TabItemProps[];
 }
 
 export const TabContent = ({ items }: TabContentProps) => {
