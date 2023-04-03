@@ -38,6 +38,7 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
+import { FinancialPage } from "./financial-page/FinancialPage";
 interface Props {
   client: Client;
 }
@@ -80,6 +81,7 @@ export const App = (props: Props): ReactElement => {
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
+              <FinancialPage path="/financial-resources" />
               <FundingPage path="/funding" />
               <PrivacyPolicyPage path="/privacy-policy" />
               <TermsOfServicePage path="/terms-of-service" />
