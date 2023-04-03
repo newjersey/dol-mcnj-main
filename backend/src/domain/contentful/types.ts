@@ -55,25 +55,20 @@ export interface LinkGroupProps {
   };
 }
 
-export interface FaqPageData {
-  faqCollection: {
-    title: string;
-    topicsCollection: {
-      items: FaqTopic[];
-    };
-    linkGroup: LinkGroupProps;
-  };
-}
-
 export interface FaqPageProps {
+  status?: number;
   data: {
-    data: FaqPageData;
+    data: {
+      faqCollection: {
+        title: string;
+        topicsCollection: {
+          items: FaqTopic[];
+        };
+        linkGroup: LinkGroupProps;
+      };
+    };
   };
 }
-
-/* ********************
- *  TRAINING
- ******************** */
 
 export interface TabItemProps {
   sys: {
@@ -83,20 +78,19 @@ export interface TabItemProps {
   copy: ContentfulRichText;
 }
 
-export interface TrainingProviderData {
-  tabContent: {
-    title: string;
-    sys: {
-      publishedAt: Date;
-    };
-    tabsCollection: {
-      items: TabItemProps[];
-    };
-  };
-}
-
 export interface TrainingProviderPageProps {
+  status?: number;
   data: {
-    data: TrainingProviderData;
+    data: {
+      tabContent: {
+        title: string;
+        sys: {
+          publishedAt: Date;
+        };
+        tabsCollection: {
+          items: TabItemProps[];
+        };
+      };
+    };
   };
 }

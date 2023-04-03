@@ -4,6 +4,7 @@ import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
+import { FaqPageProps, TrainingProviderPageProps } from "../types/contentful";
 
 export class StubClient implements Client {
   capturedObserver: Observer<any> = {
@@ -32,6 +33,14 @@ export class StubClient implements Client {
   }
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
     this.capturedObserver = observer;
   }
 }
