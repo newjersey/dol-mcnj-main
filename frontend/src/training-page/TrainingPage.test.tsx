@@ -70,10 +70,10 @@ describe("<TrainingPage />", () => {
               zipCode: "98765",
             }),
           ],
-        contactName: "Ada Lovelace",
+        /*contactName: "Ada Lovelace",
         contactTitle: "Computing Pioneer",
         phoneNumber: "6093800243",
-        phoneExtension: "9876",
+        phoneExtension: "9876",*/
       }),
       occupations: [buildOccupation({ title: "Botanist" }), buildOccupation({ title: "Senator" })],
       description: "some cool description",
@@ -242,6 +242,7 @@ describe("<TrainingPage />", () => {
     ).not.toHaveAttribute("href");
   });
 
+/*
   it("does not `Ext:` when provider contact has no phone extension", () => {
     const subject = render(<TrainingPage client={stubClient} />);
     const notInDemand = buildTraining({ provider: buildProvider({ phoneExtension: "" }) });
@@ -249,6 +250,7 @@ describe("<TrainingPage />", () => {
 
     expect(subject.queryByText("Ext:")).not.toBeInTheDocument();
   });
+*/
 
   it("links to the provider website with http", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);

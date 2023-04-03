@@ -76,7 +76,6 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     url: "some-url-" + randomInt(),
     addresses: [buildAddress({})],
     name: "some-name-" + randomInt(),
-    targetContactPoints: [buildContactPoint({})],
     ...overrides,
   };
 };
