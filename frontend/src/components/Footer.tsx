@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { NavMenuProps } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 import logo from "../images/jerseyLogoFooter.png";
@@ -12,8 +11,6 @@ export const Footer = ({
     footerNav2?: NavMenuProps;
   };
 }) => {
-  const { t } = useTranslation();
-
   return (
     <footer>
       <div className="container">
