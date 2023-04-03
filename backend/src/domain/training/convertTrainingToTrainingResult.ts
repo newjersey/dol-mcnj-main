@@ -20,7 +20,6 @@ export const convertTrainingToTrainingResult = (
     providerName: training.provider.name,
     cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],
     zipCodes: training.provider.addresses ? training.provider.addresses.map(a => a.zipCode) : [],
-    county: training.provider.county,
     inDemand: training.inDemand,
     highlight: stripUnicode(highlight),
     rank: rank,
