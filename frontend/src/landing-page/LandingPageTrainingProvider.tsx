@@ -1,8 +1,5 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { RouteComponentProps, Link, navigate } from "@reach/router";
-import { BetaBanner } from "../components/BetaBanner";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { LandingCard } from "./LandingCard";
 import IconChecklist from "./landing-icons/checklist.svg";
 import IconPortfolio from "./landing-icons/portfolio.svg";
