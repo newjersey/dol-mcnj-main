@@ -59,10 +59,6 @@ export interface Provider {
   email: string;
   url: string;
   addresses: Address[];
-  contactName: string;
-  contactTitle: string;
-  phoneNumber: string;
-  phoneExtension: string;
 }
 
 export interface Address {

@@ -117,7 +117,13 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-      return <>{t("TrainingPage.onlineClass")}</>;
+
+      return (
+        <div>
+          <div><InlineIcon className="mrxs">location_on</InlineIcon>{t("TrainingPage.onlineClass")}</div>
+        </div>
+      );
+
     }
 
     if (!training || !training.provider.addresses) {
@@ -183,7 +189,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     return <div key={"addresses"}>{addressBlocks}</div>;
   };
 
-  const getProviderContact = (): ReactElement => {
+  /*const getProviderContact = (): ReactElement => {
     if (!training) {
       return <></>;
     }
@@ -203,7 +209,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         <div>{phoneNumber}</div>
       </div>
     );
-  };
+  };*/
 
   const getAssociatedOccupations = (): ReactElement => {
     if (
@@ -406,6 +412,12 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span className="fin fas">
                             <InlineIcon className="mrxs">school</InlineIcon>
                             <b>{training.provider.name}</b>
+                          </span>
+                        </p>
+                        <p>
+                          <span className="fin fas">
+                            <InlineIcon className="mrxs">email</InlineIcon>
+                            <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
                           </span>
                         </p>
                         <div className="mvd">

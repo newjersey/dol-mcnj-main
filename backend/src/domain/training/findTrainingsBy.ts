@@ -60,7 +60,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
-            if (element["@type"] == "ceterms:Place") {
+            if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
               const addressContactPoints:any[] = [];
 
               const targetContactPointObject = element["ceterms:targetContactPoint"];
@@ -194,7 +194,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             name: ownedByRecord['ceterms:name']['en-US'],
             url: ownedByRecord['ceterms:subjectWebpage'],
             email: ownedByRecord['ceterms:email']? ownedByRecord['ceterms:email'][0] : null,
-            targetContactPoints: providerContactPoints,
             county: "",
             addresses: ownedByAddresses,
           },

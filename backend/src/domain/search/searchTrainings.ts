@@ -13,13 +13,6 @@ export const searchTrainingsFactory = (
   searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
-/*    console.log(searchQuery);
-    const searchResults = await searchClient.search(searchQuery);
-    const trainings = await findTrainingsBy(
-      Selector.,
-      searchResults.map((it) => it.id)
-    );*/
-
     const query = `{
       "@type": [
             "ceterms:ApprenticeshipCertificate",
@@ -105,8 +98,9 @@ export const searchTrainingsFactory = (
         "search:operator": "search:andTerms"
       }
     }`
+
     const skip = 0;
-    const take = 10;
+    const take = 100;
     const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
     const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
@@ -149,8 +143,9 @@ export const searchTrainingsFactory = (
           online: training.online,
           providerId: training.provider.id,
           providerName: training.provider.name,
-          cities: training.provider.addresses ? training.provider.addresses.flatMap(a => a.city == null ? [] : a.city) : [],
-          zipCodes: training.provider.addresses ? training.provider.addresses.flatMap(a => a.zipCode == null ? [] : a.zipCode) : [],
+          cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],
+          //           zipCodes: training.provider.addresses ? training.provider.addresses.flatMap(a => a.zipCode == null ? [] : a.zipCode) : [],
+          zipCodes: training.provider.addresses ? training.provider.addresses.map(a => a.zipCode) : [],
           inDemand: training.inDemand,
           //highlight: stripUnicode(highlight),
           highlight: "",
