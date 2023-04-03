@@ -4,18 +4,23 @@ import {
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
+  GetContentfulFAQ,
+  GetContentfulTPR,
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
+import { FaqPageProps, TrainingProviderPageProps } from "src/domain/contentful/types";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
+  getContentfulFAQ: GetContentfulFAQ;
+  getContentfulTPR: GetContentfulTPR;
 }
 
 export const routerFactory = ({
@@ -23,6 +28,8 @@ export const routerFactory = ({
   findTrainingsBy,
   getInDemandOccupations,
   getOccupationDetail,
+  getContentfulFAQ,
+  getContentfulTPR,
 }: RouterActions): Router => {
   const router = Router();
 
@@ -61,6 +68,22 @@ export const routerFactory = ({
         res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
+  });
+
+  router.get("/contentful/faq", async (req: Request, res: Response<FaqPageProps>) => {
+    getContentfulFAQ(req.params.query as string)
+      .then((content: FaqPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+
+  router.get("/contentful/tpr", async (req: Request, res: Response<TrainingProviderPageProps>) => {
+    getContentfulTPR(req.params.query as string)
+      .then((content: TrainingProviderPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
   });
 
   return router;

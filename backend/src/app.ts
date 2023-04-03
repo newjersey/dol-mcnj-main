@@ -15,6 +15,7 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import { contentfulFactory } from "./domain/contentful/getContentful";
 
 // console.log(process.env);
 
@@ -63,6 +64,8 @@ const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
+  getContentfulTPR: contentfulFactory("tpr"),
+  getContentfulFAQ: contentfulFactory("faq"),
   searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
