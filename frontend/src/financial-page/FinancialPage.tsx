@@ -1,11 +1,11 @@
 import { RouteComponentProps } from "@reach/router";
 import { ReactElement, useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
-import { OverlayTool } from "../components/OverlayTool";
-import image from "../overlayImages/Financial Resources - Mobile.png";
 import { Client } from "../domain/Client";
 import { FinancialResourcePageData, FinancialResourcePageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
+import { OverlayTool } from "../components/OverlayTool";
+import image from "../overlayImages/Financial Resources - Mobile.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -36,7 +36,7 @@ export const FinancialPage = (props: Props): ReactElement => {
   ];
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <OverlayTool img={image} />
 
       {/* <code>
