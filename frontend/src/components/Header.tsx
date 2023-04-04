@@ -82,7 +82,7 @@ export const Header = (): ReactElement => {
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
-              <Link
+              {/* <Link
                 to="/faq"
                 className="link-format-black nav-item pvm phd bbdcg"
                 onClick={pageCheck}
@@ -101,7 +101,19 @@ export const Header = (): ReactElement => {
                   {t("Header.linkToTPResources")}
                   <Icon className="mla">chevron_right</Icon>
                 </span>
-              </Link>
+              </Link> */}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.nj.gov/labor/labormarketinformation/assets/PDFs/coei/ETPL/IGXinstructions.pdf"
+                className="link-format-black nav-item pvm phd bbdcg"
+              >
+                <span className="container flex fac fjb">
+                  Intelligrants (IGX)
+                  <Icon>launch</Icon>
+                  <Icon className="mla">chevron_right</Icon>
+                </span>
+              </a>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -154,7 +166,7 @@ export const Header = (): ReactElement => {
                   <span>{t("Header.linkToFunding")}</span>
                 </a>
               </li>
-              <li className="usa-nav__primary-item">
+              {/* <li className="usa-nav__primary-item">
                 <a className="usa-nav__link" href="/faq">
                   <span>{t("Header.linkToFAQ")}</span>
                 </a>
@@ -162,6 +174,18 @@ export const Header = (): ReactElement => {
               <li className="usa-nav__primary-item">
                 <a className="usa-nav__link" href="/training-provider-resources">
                   <span>{t("Header.linkToTPResources")}</span>
+                </a>
+              </li> */}
+              <li className="usa-nav__primary-item">
+                <a
+                  className="usa-nav__link"
+                  href="https://www.nj.gov/labor/labormarketinformation/assets/PDFs/coei/ETPL/IGXinstructions.pdf"
+                  target={"_blank"}
+                  rel={"noreferrer"}
+                >
+                  <span>
+                    Intelligrants (IGX) <Icon style={{ fontSize: 12 }}>launch</Icon>
+                  </span>
                 </a>
               </li>
               <li className="usa-nav__primary-item">
