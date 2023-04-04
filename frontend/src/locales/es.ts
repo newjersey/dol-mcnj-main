@@ -596,7 +596,7 @@ export const es = {
     mobileLinkToExplorers: "Exploradores de entrenamiento",
     mobileLinkToCounselors: "Asesoramiento",
     mobileLinkToTrainingProviders: "Proveedores de capacitación",
-    betaBannerText: "Este sitio está en beta. Comentarios bienvenidos <1>aquí</1>.",
+    betaBannerText: "Este sitio está en beta. <1>¡Comparta sus comentarios!<1>",
   },
   IconAlt: {
     njLogo: "Logotipo oficial del estado de Nueva Jersey",

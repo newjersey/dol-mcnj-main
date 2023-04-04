@@ -1,10 +1,7 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Occupation, OccupationDetail } from "../domain/Occupation";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { BetaBanner } from "../components/BetaBanner";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
 import { InDemandTag } from "../components/InDemandTag";
@@ -20,6 +17,7 @@ import { CircularProgress } from "@material-ui/core";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { Layout } from "../components/Layout";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -143,10 +141,8 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   if (occupationDetail) {
     return (
-      <>
-        <Header />
-        <BetaBanner />
-        <main className="container below-banners" role="main">
+      <Layout client={props.client}>
+        <div className="container">
           <div className="ptm weight-500 fin all-caps border-bottom-dark">
             {t("OccupationPage.header")}
           </div>
@@ -277,25 +273,22 @@ export const OccupationPage = (props: Props): ReactElement => {
               <img src={careeronestop} alt={t("IconAlt.careerOneStopLogo")} />
             </p>
           </div>
-        </main>
-        <Footer />
-      </>
+        </div>
+      </Layout>
     );
   } else if (error === Error.SYSTEM_ERROR) {
-    return <SomethingWentWrongPage />;
+    return <SomethingWentWrongPage client={props.client} />;
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage />;
+    return <NotFoundPage client={props.client} />;
   } else if (isLoading) {
     return (
-      <>
-        <Header />
-        <BetaBanner />
+      <Layout noFooter client={props.client}>
         <div className="fdc page">
           <main className="container page fdr fjc fac ptl" role="main">
             <CircularProgress color="secondary" />
           </main>
         </div>
-      </>
+      </Layout>
     );
   } else {
     return <></>;
