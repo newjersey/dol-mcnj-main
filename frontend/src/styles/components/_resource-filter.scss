@@ -1,0 +1,98 @@
+.resource-filter {
+  @media screen and (min-width: ($tabPort + 1)) {
+    padding: 2rem 0;
+  }
+  .container {
+    @media screen and (min-width: ($tabPort + 1)) {
+      width: 100%;
+      max-width: 1050px;
+    }
+  }
+
+  .resource-controller {
+    margin: 0 -15px;
+
+    @media screen and (min-width: ($tabPort + 1)) {
+      width: 292px;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      overflow: hidden;
+    }
+
+    @media screen and (max-width: ($tabPort)) {
+      border-top: 1px solid black;
+    }
+
+    .toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 15px;
+      width: 100%;
+      background-color: $green;
+      color: white;
+      font-size: 1.4rem;
+
+      @media screen and (min-width: ($tabPort + 1)) {
+        padding: 2rem;
+      }
+
+      span {
+        transform: rotate(90deg);
+
+        @media screen and (min-width: ($tabPort + 1)) {
+          display: none;
+        }
+      }
+    }
+
+    .inner {
+      padding: 1rem 15px;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+
+      @media screen and (min-width: ($tabPort + 1)) {
+        border-color: $green;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 2rem;
+      }
+
+      button {
+        display: block;
+        margin: 0 0 1.2rem;
+        padding: 0;
+
+        &.item {
+          position: relative;
+          padding-left: 30px;
+
+          &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            height: 23px;
+            width: 23px;
+            border: 2px solid black;
+          }
+        }
+
+        &.reset {
+          margin: 1.5rem 0.5rem 0;
+          color: $accessible-gray;
+          border-bottom: 1px solid $accessible-gray;
+        }
+      }
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 0 0 1rem;
+    }
+  }
+}
