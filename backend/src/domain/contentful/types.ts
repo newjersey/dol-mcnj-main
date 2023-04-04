@@ -1,16 +1,10 @@
 import { Document } from "@contentful/rich-text-types";
 
-/* ********************
- *  GENERIC
- ******************** */
 export interface Keypair {
   key: string;
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
 export interface FaqItemTopic {
   topic: string;
   order: number;
@@ -89,6 +83,61 @@ export interface TrainingProviderPageProps {
         };
         tabsCollection: {
           items: TabItemProps[];
+        };
+      };
+    };
+  };
+}
+
+export interface FinancialResourcePageProps {
+  status?: number;
+  data: {
+    data: {
+      page: {
+        title: string;
+        bannerHeading: string;
+        bannerCopy: ContentfulRichText;
+        bannerImage?: {
+          url: string;
+        };
+        footerBannerTitle?: string;
+        footerBannerCopy?: ContentfulRichText;
+      };
+      education: {
+        items: {
+          sys?: {
+            id: string;
+          };
+          title: string;
+          type: string;
+        }[];
+      };
+      funding: {
+        items: {
+          sys?: {
+            id: string;
+          };
+          title: string;
+          type: string;
+        }[];
+      };
+      resources: {
+        items: {
+          sys?: {
+            id: string;
+          };
+          title: string;
+          details: ContentfulRichText;
+          link: string;
+          taggedCatsCollection: {
+            items: {
+              sys?: {
+                id: string;
+              };
+              title: string;
+              color: string;
+            }[];
+          };
         };
       };
     };

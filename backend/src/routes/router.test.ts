@@ -19,6 +19,7 @@ describe("router", () => {
   let stubGetOccupationDetail: jest.Mock;
   let stubGetContentfulFAQ: jest.Mock;
   let stubGetContentfulTPR: jest.Mock;
+  let stubGetContentfulFRP: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
@@ -27,6 +28,7 @@ describe("router", () => {
     stubGetOccupationDetail = jest.fn();
     stubGetContentfulFAQ = jest.fn();
     stubGetContentfulTPR = jest.fn();
+    stubGetContentfulFRP = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
@@ -35,6 +37,7 @@ describe("router", () => {
       getOccupationDetail: stubGetOccupationDetail,
       getContentfulFAQ: stubGetContentfulFAQ,
       getContentfulTPR: stubGetContentfulTPR,
+      getContentfulFRP: stubGetContentfulFRP,
     });
     app = express();
     app.use(router);
