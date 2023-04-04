@@ -17,18 +17,24 @@ describe("router", () => {
   let stubFindTrainingsBy: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
   let stubGetOccupationDetail: jest.Mock;
+  let stubGetContentfulFAQ: jest.Mock;
+  let stubGetContentfulTPR: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
     stubFindTrainingsBy = jest.fn();
     stubGetInDemandOccupations = jest.fn();
     stubGetOccupationDetail = jest.fn();
+    stubGetContentfulFAQ = jest.fn();
+    stubGetContentfulTPR = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
       findTrainingsBy: stubFindTrainingsBy,
       getInDemandOccupations: stubGetInDemandOccupations,
       getOccupationDetail: stubGetOccupationDetail,
+      getContentfulFAQ: stubGetContentfulFAQ,
+      getContentfulTPR: stubGetContentfulTPR,
     });
     app = express();
     app.use(router);

@@ -1,21 +1,21 @@
-import { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { FAQ_PAGE_QUERY } from "../queries/faqQuery";
-import { useContentfulClient } from "../utils/useContentfulClient";
 import { PageBanner } from "../components/PageBanner";
 import { QuestionBubble } from "../svg/QuestionBubble";
 import { FaqCollection } from "../components/FaqCollection";
 import { ResourceLinks } from "../components/ResourceLinks";
-import { FaqPageProps } from "../types/contentful";
+import { FaqPageData } from "../types/contentful";
 import { Layout } from "../components/Layout";
 
 interface Props extends RouteComponentProps {
   client: Client;
+  id?: string;
 }
 
-export const FaqPage = (_props: Props): ReactElement<Props> => {
-  const data: FaqPageProps = useContentfulClient({ query: FAQ_PAGE_QUERY });
+export const FaqPage = (props: Props): ReactElement<Props> => {
+  const [data, setData] = useState<FaqPageData>();
+
   const breadCrumbs = [
     {
       text: "Home",
@@ -29,6 +29,21 @@ export const FaqPage = (_props: Props): ReactElement<Props> => {
   const topics = data?.faqCollection?.topicsCollection?.items;
   const linkGroup = data?.faqCollection?.linkGroup;
 
+  useEffect(() => {
+    props.client.getContentfulFAQ("faq", {
+      onSuccess: (response: {
+        data: {
+          data: FaqPageData;
+        };
+      }) => {
+        setData(response.data.data);
+      },
+      onError: (e) => {
+        console.log(`An error, maybe an error code: ${e}`);
+      },
+    });
+  }, [props.client]);
+
   return (
     <Layout>
       <PageBanner
@@ -36,6 +51,7 @@ export const FaqPage = (_props: Props): ReactElement<Props> => {
         heading="Frequently Asked Questions"
         svg={<QuestionBubble />}
       />
+
       {data && (
         <FaqCollection topicHeading="Top Questions" items={topics}>
           {linkGroup && <ResourceLinks {...linkGroup} />}
