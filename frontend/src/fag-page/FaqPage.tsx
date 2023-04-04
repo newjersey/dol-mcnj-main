@@ -39,7 +39,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
         setData(response.data.data);
       },
       onError: (e) => {
-        console.log(`An error, maybe an error code: ${e}`);
+        console.log(`An error, maybe an error code: ${JSON.stringify(e)}`);
       },
     });
   }, [props.client]);
