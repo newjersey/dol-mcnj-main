@@ -1,12 +1,10 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { useContentfulClient } from "../utils/useContentfulClient";
 import { PageBanner } from "../components/PageBanner";
-import { TrainingProviderPageProps } from "../types/contentful";
+import { TrainingProviderData } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { LightBulb } from "../svg/LightBulb";
-import { TRAINING_PROVIDER_PAGE_QUERY } from "../queries/trainingProviderQuery";
 import { TabContent } from "../components/TabContent";
 import dayjs from "dayjs";
 
@@ -14,10 +12,22 @@ interface Props extends RouteComponentProps {
   client: Client;
 }
 
-export const TrainingProviderPage = (_props: Props): ReactElement<Props> => {
-  const data: TrainingProviderPageProps = useContentfulClient({
-    query: TRAINING_PROVIDER_PAGE_QUERY,
-  });
+export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
+  const [data, setData] = useState<TrainingProviderData>();
+  useEffect(() => {
+    props.client.getContentfulTPR("tpr", {
+      onSuccess: (response: {
+        data: {
+          data: TrainingProviderData;
+        };
+      }) => {
+        setData(response.data.data);
+      },
+      onError: (e) => {
+        console.log(`An error, maybe an error code: ${e}`);
+      },
+    });
+  }, [props.client]);
 
   return (
     <Layout>
