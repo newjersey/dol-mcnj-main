@@ -29,7 +29,7 @@ export const Layout = (props: LayoutProps) => {
           data: NavMenuData;
         };
       }) => {
-        setGlobalNav(response.data.data);
+        setGlobalNav(response?.data?.data);
       },
       onError: (e) => {
         console.log(`An error, maybe an error code: ${e}`);
@@ -41,7 +41,7 @@ export const Layout = (props: LayoutProps) => {
           data: NavMenuData;
         };
       }) => {
-        setMainNav(response.data.data);
+        setMainNav(response?.data?.data);
       },
       onError: (e) => {
         console.log(`An error, maybe an error code: ${e}`);
@@ -53,7 +53,7 @@ export const Layout = (props: LayoutProps) => {
           data: NavMenuData;
         };
       }) => {
-        setFooterNav1(response.data.data);
+        setFooterNav1(response?.data?.data);
       },
       onError: (e) => {
         console.log(`An error, maybe an error code: ${e}`);
@@ -65,7 +65,7 @@ export const Layout = (props: LayoutProps) => {
           data: NavMenuData;
         };
       }) => {
-        setFooterNav2(response.data.data);
+        setFooterNav2(response?.data?.data);
       },
       onError: (e) => {
         console.log(`An error, maybe an error code: ${e}`);
