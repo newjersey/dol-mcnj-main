@@ -4,7 +4,11 @@ import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
-import { FaqPageProps, TrainingProviderPageProps } from "../types/contentful";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+} from "../types/contentful";
 
 export class StubClient implements Client {
   capturedObserver: Observer<any> = {
@@ -41,6 +45,10 @@ export class StubClient implements Client {
   }
 
   getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFRP(query: string, observer: Observer<FinancialResourcePageProps>): void {
     this.capturedObserver = observer;
   }
 }

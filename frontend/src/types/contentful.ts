@@ -100,3 +100,50 @@ export interface TrainingProviderPageProps {
     data: TrainingProviderData;
   };
 }
+
+export interface FinResourcePageProps {
+  title: string;
+  bannerHeading: string;
+  bannerCopy: ContentfulRichText;
+  bannerImage?: {
+    url: string;
+  };
+  footerBannerTitle?: string;
+  footerBannerCopy?: ContentfulRichText;
+}
+
+export interface FinResourceTypeProps {
+  items: {
+    sys?: {
+      id: string;
+    };
+    title: string;
+    type: string;
+  }[];
+}
+
+export interface FinResourceProps {
+  items: {
+    sys?: {
+      id: string;
+    };
+    title: string;
+    details: ContentfulRichText;
+    link: string;
+    taggedCatsCollection: FinResourceTypeProps;
+  }[];
+}
+
+export interface FinancialResourcePageData {
+  page: FinResourcePageProps;
+  education: FinResourceTypeProps;
+  funding: FinResourceTypeProps;
+  resources: FinResourceProps;
+}
+
+export interface FinancialResourcePageProps {
+  status?: number;
+  data: {
+    data: FinancialResourcePageData;
+  };
+}

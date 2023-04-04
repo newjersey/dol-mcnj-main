@@ -1,10 +1,30 @@
 import { RouteComponentProps } from "@reach/router";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
 import { OverlayTool } from "../components/OverlayTool";
 import image from "../overlayImages/Financial Resources - Mobile.png";
+import { Client } from "../domain/Client";
+import { FinancialResourcePageData, FinancialResourcePageProps } from "../types/contentful";
 
-export const FinancialPage = (props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FinancialPage = (props: Props): ReactElement => {
+  const [data, setData] = useState<FinancialResourcePageData>();
+
+  useEffect(() => {
+    props.client.getContentfulFRP("frp", {
+      onSuccess: (response: FinancialResourcePageProps) => {
+        console.log({ response });
+        setData(response.data.data);
+      },
+      onError: (e) => {
+        console.log(`An error, maybe an error code: ${e}`);
+      },
+    });
+  }, [props.client]);
+
   return (
     <Layout>
       <OverlayTool img={image} />
@@ -21,7 +41,7 @@ export const FinancialPage = (props: RouteComponentProps): ReactElement => {
               whiteSpace: "pre-wrap",
             }}
           >
-            {JSON.stringify(props, null, "    ")}
+            {JSON.stringify(data, null, "    ")}
           </pre>
         </code>
 

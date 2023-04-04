@@ -1,5 +1,9 @@
 import { api } from "./api";
-import { FAQ_PAGE_QUERY, TRAINING_PROVIDER_PAGE_QUERY } from "./queries";
+import {
+  FAQ_PAGE_QUERY,
+  FINANCIAL_RESOURCES_PAGE_QUERY,
+  TRAINING_PROVIDER_PAGE_QUERY,
+} from "./queries";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const contentfulFactory = (query: string): any => {
@@ -10,6 +14,10 @@ export const contentfulFactory = (query: string): any => {
     }
     case "tpr": {
       query = TRAINING_PROVIDER_PAGE_QUERY;
+      break;
+    }
+    case "frp": {
+      query = FINANCIAL_RESOURCES_PAGE_QUERY;
       break;
     }
     default:
@@ -31,6 +39,8 @@ export const contentfulFactory = (query: string): any => {
         console.log(res);
       }
     });
+
+    console.log({ response });
     return response;
   };
 };

@@ -3,7 +3,11 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
-import { FaqPageProps, TrainingProviderPageProps } from "./types/contentful";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+} from "./types/contentful";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
@@ -27,6 +31,10 @@ export class ApiClient implements Client {
   }
 
   getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulFRP(query: string, observer: Observer<FinancialResourcePageProps>): void {
     this.get(`/api/contentful/${query}`, observer);
   }
 
