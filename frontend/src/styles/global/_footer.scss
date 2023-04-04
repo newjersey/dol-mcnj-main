@@ -1,7 +1,7 @@
 footer {
   background-color: $footer-grey;
   color: white;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0;
 
   > .container {
     @media screen and (min-width: ($tabPort + 1)) {
