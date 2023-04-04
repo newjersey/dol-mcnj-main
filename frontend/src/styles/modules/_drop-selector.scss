@@ -7,7 +7,7 @@
   border: 1px solid $dark-green;
   border-radius: 0;
 
-  @media screen and (max-width: ($tabPort - 1)) {
+  @media screen and (max-width: ($tabPort)) {
     display: flex;
     align-items: center;
     justify-content: space-between;

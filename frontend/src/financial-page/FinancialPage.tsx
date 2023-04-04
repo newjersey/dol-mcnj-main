@@ -5,6 +5,7 @@ import { OverlayTool } from "../components/OverlayTool";
 import image from "../overlayImages/Financial Resources - Mobile.png";
 import { Client } from "../domain/Client";
 import { FinancialResourcePageData, FinancialResourcePageProps } from "../types/contentful";
+import { PageBanner } from "../components/PageBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,7 +17,6 @@ export const FinancialPage = (props: Props): ReactElement => {
   useEffect(() => {
     props.client.getContentfulFRP("frp", {
       onSuccess: (response: FinancialResourcePageProps) => {
-        console.log({ response });
         setData(response.data.data);
       },
       onError: (e) => {
@@ -25,26 +25,43 @@ export const FinancialPage = (props: Props): ReactElement => {
     });
   }, [props.client]);
 
+  const breadCrumbs = [
+    {
+      text: "Home",
+      href: "/",
+    },
+    {
+      text: "Financial Resources",
+    },
+  ];
+
   return (
     <Layout>
       <OverlayTool img={image} />
-      <div className="container">
-        <code>
-          <pre
-            style={{
-              fontFamily: "monospace",
-              display: "block",
-              padding: "50px",
-              color: "#88ffbf",
-              backgroundColor: "black",
-              textAlign: "left",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {JSON.stringify(data, null, "    ")}
-          </pre>
-        </code>
 
+      {/* <code>
+        <pre
+          style={{
+            fontFamily: "monospace",
+            display: "block",
+            padding: "50px",
+            color: "#88ffbf",
+            backgroundColor: "black",
+            textAlign: "left",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {JSON.stringify(data?.page.bannerImage, null, "    ")}
+        </pre>
+      </code> */}
+
+      <PageBanner
+        breadCrumbs={breadCrumbs}
+        heading={`${data?.page.bannerHeading}`}
+        image={`${data?.page.bannerImage?.url}`}
+        message={data?.page.bannerCopy}
+      />
+      <div className="container">
         <h1>Financial Page</h1>
       </div>
     </Layout>
