@@ -40,7 +40,6 @@ export const contentfulFactory = (query: string): any => {
       }
     });
 
-    console.log({ response });
     return response;
   };
 };
