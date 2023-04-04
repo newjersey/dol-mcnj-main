@@ -43,18 +43,22 @@ export const PageBanner = ({
               </a>
             </>
           )}
-          <h1>{heading}</h1>
-          <div className="icon">
-            {subheading && <p>{subheading}</p>}
-            {message && (
-              <>
-                <ContentfulRichText document={message.json} />
-              </>
-            )}
-          </div>
+          <h1>
+            <span>{heading}</span>
+            {svg && !image && svg}
+            {image && !svg && <img src={image} alt={`Icon for ${heading}`} />}
+          </h1>
+          {subheading && <p>{subheading}</p>}
+          {message && (
+            <>
+              <ContentfulRichText document={message.json} />
+            </>
+          )}
         </div>
-        {svg}
-        {image && <img src={image} alt={`Icon for ${heading}`} />}
+        <div className="icon">
+          {svg && !image && svg}
+          {image && !svg && <img src={image} alt={`Icon for ${heading}`} />}
+        </div>
       </div>
     </section>
   );
