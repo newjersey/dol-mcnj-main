@@ -7,12 +7,17 @@ import IconCounseling from "./landing-icons/swimlane-heart.svg";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const LandingPage = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const LandingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="bg-light-green pvl">
         <div className="container search-container fdc fac fjc mtm mbl">
           <h2 className="text-xl weight-400 align-center mbd title">

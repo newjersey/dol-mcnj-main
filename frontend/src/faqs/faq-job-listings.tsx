@@ -5,8 +5,13 @@ import SearchOccupationScreenshot from "./search-occupation-screenshot.png";
 import OccupationDetailsScreenshot from "./occupation-details-screenshot.png";
 import { Trans, useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqJobListings = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -15,7 +20,7 @@ export const FaqJobListings = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <FaqBreadcrumb current={t("FAQJobListings.header")} />
 

@@ -55,7 +55,7 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   };
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
         <p>{t("InDemandPage.description")}</p>

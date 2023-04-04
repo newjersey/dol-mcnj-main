@@ -3,8 +3,13 @@ import { RouteComponentProps } from "@reach/router";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqLaborDemandOccupations = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqLaborDemandOccupations = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -13,7 +18,7 @@ export const FaqLaborDemandOccupations = (_props: RouteComponentProps): ReactEle
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <FaqBreadcrumb current={t("FAQDemandOccupations.breadcrumbLink")} />
 

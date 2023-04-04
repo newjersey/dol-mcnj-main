@@ -1,10 +1,15 @@
 import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const TermsOfServicePage = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const TermsOfServicePage = (props: Props): ReactElement => {
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <div className="row mbm">
           <div className="col-sm-12">

@@ -5,8 +5,13 @@ import SearchScreenshot from "./search-screenshot.png";
 import FilterScreenshot from "./filter-screenshot.png";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqSearchHelp = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqSearchHelp = (props: Props): ReactElement => {
   const { t } = useTranslation();
   useEffect(() => {
     document.title = t("FAQSearchHelp.pageTitle");
@@ -14,7 +19,7 @@ export const FaqSearchHelp = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <FaqBreadcrumb current={t("FAQSearchHelp.breadcrumbLink")} />
 

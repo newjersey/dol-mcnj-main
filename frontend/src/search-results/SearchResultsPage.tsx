@@ -118,7 +118,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   };
 
   if (isError) {
-    return <SomethingWentWrongPage />;
+    return <SomethingWentWrongPage client={props.client} />;
   }
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
@@ -186,7 +186,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   );
 
   return (
-    <Layout noFooter>
+    <Layout noFooter client={props.client}>
       {isTabletAndUp && (
         <div className="container results-count-container">
           <div className="row ptd fixed-wrapper">

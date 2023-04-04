@@ -141,7 +141,7 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   if (occupationDetail) {
     return (
-      <Layout>
+      <Layout client={props.client}>
         <div className="container">
           <div className="ptm weight-500 fin all-caps border-bottom-dark">
             {t("OccupationPage.header")}
@@ -277,12 +277,12 @@ export const OccupationPage = (props: Props): ReactElement => {
       </Layout>
     );
   } else if (error === Error.SYSTEM_ERROR) {
-    return <SomethingWentWrongPage />;
+    return <SomethingWentWrongPage client={props.client} />;
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage />;
+    return <NotFoundPage client={props.client} />;
   } else if (isLoading) {
     return (
-      <Layout noFooter>
+      <Layout noFooter client={props.client}>
         <div className="fdc page">
           <main className="container page fdr fjc fac ptl" role="main">
             <CircularProgress color="secondary" />
