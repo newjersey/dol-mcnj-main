@@ -20,6 +20,10 @@ describe("router", () => {
   let stubGetContentfulFAQ: jest.Mock;
   let stubGetContentfulTPR: jest.Mock;
   let stubGetContentfulFRP: jest.Mock;
+  let stubGetContentfulGNav: jest.Mock;
+  let stubGetContentfulMNav: jest.Mock;
+  let stubGetContentfulFootNav: jest.Mock;
+  let stubGetContentfulFootNav2: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
@@ -29,6 +33,10 @@ describe("router", () => {
     stubGetContentfulFAQ = jest.fn();
     stubGetContentfulTPR = jest.fn();
     stubGetContentfulFRP = jest.fn();
+    stubGetContentfulGNav = jest.fn();
+    stubGetContentfulMNav = jest.fn();
+    stubGetContentfulFootNav = jest.fn();
+    stubGetContentfulFootNav2 = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
@@ -38,6 +46,10 @@ describe("router", () => {
       getContentfulFAQ: stubGetContentfulFAQ,
       getContentfulTPR: stubGetContentfulTPR,
       getContentfulFRP: stubGetContentfulFRP,
+      getContentfulGNav: stubGetContentfulGNav,
+      getContentfulMNav: stubGetContentfulMNav,
+      getContentfulFootNav: stubGetContentfulFootNav,
+      getContentfulFootNav2: stubGetContentfulFootNav2,
     });
     app = express();
     app.use(router);

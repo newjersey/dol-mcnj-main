@@ -30,7 +30,7 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
   }, [props.client]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <PageBanner
         heading="Training Provider Resources"
         svg={<LightBulb />}

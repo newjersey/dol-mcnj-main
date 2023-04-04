@@ -1,0 +1,157 @@
+.global-header {
+  background-color: $header-black;
+  min-height: 54px;
+  color: white;
+  padding: 4px 0;
+  font-size: 15px;
+  min-height: 54px;
+  letter-spacing: 0.1px;
+
+  @media screen and (max-width: ($tabLand)) {
+    min-height: 61px;
+    padding: 10px 0 4px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0 0 0 0;
+    line-height: 1;
+    width: auto;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 0.89rem;
+
+    @media screen and (max-width: ($tabLand)) {
+      font-size: 0.8rem;
+      gap: 0.2rem;
+    }
+
+    img {
+      @media screen and (max-width: ($tabLand)) {
+        width: 25px;
+      }
+    }
+  }
+
+  .container {
+    max-width: 1230px;
+    width: 100%;
+
+    @media screen and (min-width: ($tabLand + 1)) {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    @media screen and (max-width: ($tabLand)) {
+      padding: 0;
+    }
+
+    > * {
+      @media screen and (min-width: ($tabLand + 1)) {
+        width: 50%;
+      }
+    }
+  }
+
+  nav {
+    text-align: right;
+    font-size: 14px;
+
+    @media screen and (max-width: ($tabLand)) {
+      padding-top: 0;
+      font-size: 11px;
+    }
+
+    ul {
+      text-align: left;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 0;
+      padding: 10px 0 0;
+      list-style: none;
+
+      li {
+        padding: 0 10px;
+        position: relative;
+
+        &:before {
+          content: "";
+          width: 1px;
+          height: calc(100% - 5px);
+          background: white;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 0;
+        }
+
+        @media screen and (max-width: ($tabLand)) {
+          padding: 0 5px;
+        }
+
+        &.desktop-only {
+          @media screen and (max-width: ($tabLand)) {
+            display: none;
+          }
+        }
+
+        &:last-of-type {
+          padding: 0 0 0 10px;
+
+          &:before {
+            content: none;
+          }
+        }
+
+        a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: normal;
+
+          &:hover {
+            color: $purple;
+          }
+        }
+      }
+    }
+  }
+
+  .gov {
+    display: block;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+
+    @media screen and (max-width: ($tabLand)) {
+      display: none;
+    }
+  }
+
+  .has-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+
+    > span {
+      font-size: 1em;
+    }
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

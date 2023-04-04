@@ -5,6 +5,7 @@ import {
   FaqPageProps,
   FinancialResourcePageProps,
   TrainingProviderPageProps,
+  NavMenuProps,
 } from "../types/contentful";
 
 export interface Client {
@@ -15,6 +16,10 @@ export interface Client {
   getContentfulFAQ: (query: string, observer: Observer<FaqPageProps>) => void;
   getContentfulTPR: (query: string, observer: Observer<TrainingProviderPageProps>) => void;
   getContentfulFRP: (query: string, observer: Observer<FinancialResourcePageProps>) => void;
+  getContentfulGNav: (query: string, observer: Observer<NavMenuProps>) => void;
+  getContentfulMNav: (query: string, observer: Observer<NavMenuProps>) => void;
+  getContentfulFootNav1: (query: string, observer: Observer<NavMenuProps>) => void;
+  getContentfulFootNav2: (query: string, observer: Observer<NavMenuProps>) => void;
 }
 
 export interface Observer<T> {

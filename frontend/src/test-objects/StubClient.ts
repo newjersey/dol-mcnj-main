@@ -8,6 +8,7 @@ import {
   FaqPageProps,
   FinancialResourcePageProps,
   TrainingProviderPageProps,
+  NavMenuProps,
 } from "../types/contentful";
 
 export class StubClient implements Client {
@@ -49,6 +50,22 @@ export class StubClient implements Client {
   }
 
   getContentfulFRP(query: string, observer: Observer<FinancialResourcePageProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulGNav(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulMNav(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFootNav1(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFootNav2(query: string, observer: Observer<NavMenuProps>): void {
     this.capturedObserver = observer;
   }
 }

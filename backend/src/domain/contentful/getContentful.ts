@@ -3,6 +3,7 @@ import {
   FAQ_PAGE_QUERY,
   FINANCIAL_RESOURCES_PAGE_QUERY,
   TRAINING_PROVIDER_PAGE_QUERY,
+  NAV_QUERY,
 } from "./queries";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -18,6 +19,22 @@ export const contentfulFactory = (query: string): any => {
     }
     case "frp": {
       query = FINANCIAL_RESOURCES_PAGE_QUERY;
+      break;
+    }
+    case "gnav": {
+      query = NAV_QUERY("7ARTjtRYG7ctcjPd1nbCHr");
+      break;
+    }
+    case "mnav": {
+      query = NAV_QUERY("3z2JQqwp9gcolHLILD57PY");
+      break;
+    }
+    case "footNav": {
+      query = NAV_QUERY("voDscWxEvggHqcXPzUtpR");
+      break;
+    }
+    case "footNav2": {
+      query = NAV_QUERY("3WHbfXiLFSBXRC24QCq8H6");
       break;
     }
     default:
