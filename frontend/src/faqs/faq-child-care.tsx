@@ -3,8 +3,13 @@ import { RouteComponentProps } from "@reach/router";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { Trans, useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqChildcare = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqChildcare = (props: Props): ReactElement => {
   const { t } = useTranslation();
   useEffect(() => {
     document.title = t("FAQChildCare.pageTitle");
@@ -12,7 +17,7 @@ export const FaqChildcare = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <FaqBreadcrumb current={t("FAQChildCare.breadcrumbLink")} />
 

@@ -3,6 +3,7 @@ import React from "react";
 import { LandingPage } from "./LandingPage";
 import { navigate } from "@reach/router";
 import { en as Content } from "../locales/en";
+import { StubClient } from "../test-objects/StubClient";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
@@ -19,8 +20,14 @@ const { searchButtonDefaultText } = Content.SearchAndFilter;
 const { searchBoxPlaceholder } = Content.LandingPage;
 
 describe("<LandingPage />", () => {
+  let stubClient: StubClient;
+
+  beforeEach(() => {
+    stubClient = new StubClient();
+  });
+
   it("links to search results page when search is executed", () => {
-    const subject = render(<LandingPage />);
+    const subject = render(<LandingPage client={stubClient} />);
     fireEvent.change(subject.getByPlaceholderText(searchBoxPlaceholder), {
       target: { value: "penguins" },
     });
@@ -29,7 +36,7 @@ describe("<LandingPage />", () => {
   });
 
   it("encodes uri components in search query", () => {
-    const subject = render(<LandingPage />);
+    const subject = render(<LandingPage client={stubClient} />);
     fireEvent.change(subject.getByPlaceholderText(searchBoxPlaceholder), {
       target: { value: "penguins / penglings" },
     });

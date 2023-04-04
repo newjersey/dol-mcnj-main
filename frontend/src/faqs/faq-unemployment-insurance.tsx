@@ -3,8 +3,13 @@ import { RouteComponentProps } from "@reach/router";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { Trans, useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqUnemploymentInsurance = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqUnemploymentInsurance = (props: Props): ReactElement => {
   const { t } = useTranslation();
   useEffect(() => {
     document.title = t("FAQUnemployment.pageTitle");
@@ -12,7 +17,7 @@ export const FaqUnemploymentInsurance = (_props: RouteComponentProps): ReactElem
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <FaqBreadcrumb current={t("FAQUnemployment.header")} />
 

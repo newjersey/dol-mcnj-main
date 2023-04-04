@@ -2,11 +2,16 @@ import { ReactElement, useEffect } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
+
+interface Props extends RouteComponentProps {
+  client: Client;
+}
 
 const CONTACT_LINK =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCpyMAsRmL_iZGuS3yTOduNF1UMFE1VUIxTU9MTDdXSDZNWlBHU0s4S0lQNSQlQCN0PWcu";
 
-export const FundingPage = (_props: RouteComponentProps): ReactElement => {
+export const FundingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -14,7 +19,7 @@ export const FundingPage = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <div className="row">
           <div className="col-sm-12">

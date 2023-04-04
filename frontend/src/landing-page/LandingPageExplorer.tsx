@@ -9,13 +9,18 @@ import { ContactUsSection } from "../components/ContactUsSection";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const LandingPageExplorer = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const LandingPageExplorer = (props: Props): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
   const { t } = useTranslation();
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <div className="landing-container mla mra">
           <h2 className="mtm mbd text-xl weight-500 align-center">{t("ExplorerPage.header")}</h2>

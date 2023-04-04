@@ -3,8 +3,13 @@ import { RouteComponentProps } from "@reach/router";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { Trans, useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqDataSources = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqDataSources = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -13,7 +18,7 @@ export const FaqDataSources = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <div className="container">
         <FaqBreadcrumb current={t("FAQDataSources.breadcrumbLink")} />
         <div className="row mbm">

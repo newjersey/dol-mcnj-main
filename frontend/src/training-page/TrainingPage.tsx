@@ -197,7 +197,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   if (training) {
     return (
       <div ref={componentRef}>
-        <Layout>
+        <Layout client={props.client}>
           <div className="container">
             <div className="ptm weight-500 fin all-caps border-bottom-dark">
               {t("TrainingPage.header")}
@@ -438,9 +438,9 @@ export const TrainingPage = (props: Props): ReactElement => {
       </div>
     );
   } else if (error === Error.SYSTEM_ERROR) {
-    return <SomethingWentWrongPage />;
+    return <SomethingWentWrongPage client={props.client} />;
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage />;
+    return <NotFoundPage client={props.client} />;
   } else {
     return <></>;
   }

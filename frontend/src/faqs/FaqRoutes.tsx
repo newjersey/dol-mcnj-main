@@ -11,22 +11,23 @@ import { FaqLaborDemandOccupations } from "./labor-demand-occupations";
 import { FaqRegisteredApprenticeship } from "./registered-apprenticeship";
 import { FaqEtplPerformanceStandards } from "./etpl-performance-standards";
 import { FaqEtplOosProvider } from "./etpl-out-of-state-provider";
+import { Client } from "../domain/Client";
 
-export const FaqRoutes = (): ReactElement => {
+export const FaqRoutes = ({ client }: { client: Client }): ReactElement => {
   return (
     <>
-      <FaqChildcare path="/faq/child-care" />
-      <FaqEnrollProgram path="/faq/enroll-program" />
-      <FaqHealthInsurance path="/faq/health-insurance" />
-      <FaqJobListings path="/faq/job-listings" />
-      <FaqSearchHelp path="/faq/search-help" />
-      <FaqUnemploymentInsurance path="/faq/unemployment-insurance" />
-      <FaqFundingOpportunities path="/faq/funding-opportunities" />
-      <FaqDataSources path="/faq/data-sources" />
-      <FaqLaborDemandOccupations path="/faq/labor-demand-occupations" />
-      <FaqRegisteredApprenticeship path="/faq/registered-apprenticeship" />
-      <FaqEtplPerformanceStandards path="/faq/etpl-performance-standards" />
-      <FaqEtplOosProvider path="/faq/etpl-out-of-state-provider" />
+      <FaqChildcare path="/faq/child-care" client={client} />
+      <FaqEnrollProgram path="/faq/enroll-program" client={client} />
+      <FaqHealthInsurance path="/faq/health-insurance" client={client} />
+      <FaqJobListings path="/faq/job-listings" client={client} />
+      <FaqSearchHelp path="/faq/search-help" client={client} />
+      <FaqUnemploymentInsurance path="/faq/unemployment-insurance" client={client} />
+      <FaqFundingOpportunities path="/faq/funding-opportunities" client={client} />
+      <FaqDataSources path="/faq/data-sources" client={client} />
+      <FaqLaborDemandOccupations path="/faq/labor-demand-occupations" client={client} />
+      <FaqRegisteredApprenticeship path="/faq/registered-apprenticeship" client={client} />
+      <FaqEtplPerformanceStandards path="/faq/etpl-performance-standards" client={client} />
+      <FaqEtplOosProvider path="/faq/etpl-out-of-state-provider" client={client} />
     </>
   );
 };

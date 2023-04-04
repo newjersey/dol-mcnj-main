@@ -1,15 +1,17 @@
 import { ReactElement } from "react";
 import { Icon } from "@material-ui/core";
 import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
 interface Props {
+  client: Client;
   headerText: string;
   children: ReactElement;
 }
 
 export const ErrorPage = (props: Props): ReactElement => {
   return (
-    <Layout noFooter>
+    <Layout noFooter client={props.client}>
       <div className="container">
         <div className="row">
           <div className="col-md-6 col-md-offset-3">
