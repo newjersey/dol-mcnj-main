@@ -64,23 +64,6 @@
         margin: 0 0 1.2rem;
         padding: 0;
 
-        &.item {
-          position: relative;
-          padding-left: 30px;
-
-          &:before {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0;
-            height: 23px;
-            width: 23px;
-            border: 2px solid black;
-          }
-        }
-
         &.reset {
           margin: 1.5rem 0.5rem 0;
           color: $accessible-gray;
@@ -89,10 +72,8 @@
       }
     }
 
-    h2 {
+    legend {
       font-size: 1.4rem;
-      font-weight: bold;
-      margin: 0 0 1rem;
     }
   }
 }

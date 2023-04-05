@@ -53,18 +53,9 @@
     }
   }
 
-  .breadcrumbs {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-
-    svg {
-      margin: auto 0.5rem;
-    }
-
-    @media screen and (max-width: ($tabPort)) {
-      display: none;
-    }
+  .usa-breadcrumb {
+    background-color: transparent;
+    padding: 0;
   }
 
   .back {
