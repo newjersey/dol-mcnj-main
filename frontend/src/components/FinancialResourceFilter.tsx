@@ -5,18 +5,37 @@ import { useState } from "react";
 export const FinancialResourceFilter = ({
   education,
   funding,
+  className,
 }: {
   education?: FinResourceTypeProps;
   funding?: FinResourceTypeProps;
+  className?: string;
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const toggleIsOpen = (): void => {
+    setOpen(!open);
+    const contentBlock = document.getElementById("innerFilter");
+    if (contentBlock) {
+      const height = contentBlock?.scrollHeight;
+      contentBlock.style.height = !open ? `${height}px` : "0px";
+    }
+  };
 
   return (
-    <aside className={`resource-controller${open ? " open" : ""}`}>
-      <button className="toggle" onClick={() => setOpen(!open)}>
+    <aside
+      className={`resource-controller${open ? " open" : ""}${className ? ` ${className}` : ""}`}
+    >
+      <button
+        className="toggle"
+        onClick={toggleIsOpen}
+        aria-controls="innerFilter"
+        data-expand={open ? "true" : null}
+        aria-expanded={open ? "true" : "false"}
+      >
         Filter Options <Icon>chevron_right</Icon>
       </button>
-      <div id="innerFilter" className="inner">
+      <div id="innerFilter" className="inner" style={{ height: 0 }}>
         <form className="usa-form">
           <fieldset className="usa-fieldset">
             <legend className="usa-legend">Funding Type</legend>

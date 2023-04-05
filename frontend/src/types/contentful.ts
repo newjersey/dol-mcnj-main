@@ -46,6 +46,7 @@ export interface LinkObjectProps {
     id: string;
   };
   copy?: string;
+  className?: string;
   url: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
@@ -152,19 +153,21 @@ export interface FinResourceTypeProps {
     };
     title: string;
     type: string;
+    color: string;
   }[];
 }
 
+export interface FinResourceItemProps {
+  sys?: {
+    id: string;
+  };
+  title: string;
+  details: ContentfulRichText;
+  link: string;
+  taggedCatsCollection: FinResourceTypeProps;
+}
 export interface FinResourceProps {
-  items: {
-    sys?: {
-      id: string;
-    };
-    title: string;
-    details: ContentfulRichText;
-    link: string;
-    taggedCatsCollection: FinResourceTypeProps;
-  }[];
+  items: FinResourceItemProps[];
 }
 
 export interface FinancialResourcePageData {
