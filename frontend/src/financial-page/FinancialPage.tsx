@@ -14,6 +14,7 @@ interface Props extends RouteComponentProps {
 
 export const FinancialPage = (props: Props): ReactElement => {
   const [data, setData] = useState<FinancialResourcePageData>();
+  const [activeTags, setActiveTags] = useState<string[]>([]);
 
   useEffect(() => {
     props.client.getContentfulFRP("frp", {
@@ -36,6 +37,20 @@ export const FinancialPage = (props: Props): ReactElement => {
     },
   ];
 
+  // function that filters data.resources based on activeTags
+
+  const getFilteredResources = () => {
+    if (activeTags.length === 0) {
+      return data?.resources.items;
+    }
+
+    return data?.resources.items.filter((resource) => {
+      return resource.taggedCatsCollection.items.some((tag) => {
+        return activeTags.includes(`${tag.sys?.id}`);
+      });
+    });
+  };
+
   return (
     <Layout
       client={props.client}
@@ -56,14 +71,23 @@ export const FinancialPage = (props: Props): ReactElement => {
         image={`${data?.page.bannerImage?.url}`}
         message={data?.page.bannerCopy}
       />
+
       <section className="resource-filter">
         <div className="container">
-          <FinancialResourceFilter education={data?.education} funding={data?.funding} />
+          <FinancialResourceFilter
+            education={data?.education}
+            funding={data?.funding}
+            activeTags={activeTags}
+            setActiveTags={setActiveTags}
+          />
+
           <div className="content">
             <div className="heading">
-              <h3>showing 11 out of 11</h3>
+              <h3>
+                showing {getFilteredResources()?.length} out of {data?.resources.items.length}
+              </h3>
             </div>
-            {data?.resources.items.map((resource) => (
+            {getFilteredResources()?.map((resource) => (
               <FinancialResource key={resource.sys?.id} {...resource} />
             ))}
           </div>
