@@ -24,6 +24,8 @@
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
       overflow: hidden;
+      position: sticky;
+      top: $below-banners-height + 15;
     }
 
     .toggle {
