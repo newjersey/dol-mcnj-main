@@ -15,18 +15,20 @@
 @import "occupation-page";
 @import "training-comparison";
 @import "faq-breadcrumb";
-@import "modules/mixins";
 @import "modules/drop-selector";
-@import "components/page-banner";
+@import "modules/financial-resource";
+@import "modules/footer-banner";
+@import "modules/mixins";
 @import "components/faq-collection";
+@import "components/page-banner";
+@import "components/resource-filter";
 @import "components/resource-links";
 @import "components/tab-content";
-@import "components/resource-filter";
+@import "global/betaBanner";
+@import "global/footer";
 @import "global/globalHeader";
 @import "global/header";
-@import "global/footer";
 @import "global/subFooter";
-@import "global/betaBanner";
 
 * {
   -webkit-box-sizing: border-box;
