@@ -4,8 +4,6 @@ import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { FinancialResourcePageData, FinancialResourcePageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
-import { OverlayTool } from "../components/OverlayTool";
-import image from "../overlayImages/Financial Resources - Mobile.png";
 import { FinancialResourceFilter } from "../components/FinancialResourceFilter";
 import { FinancialResource } from "../components/FinancialResource";
 import { ContentfulRichText } from "../components/ContentfulRichText";
@@ -52,8 +50,6 @@ export const FinancialPage = (props: Props): ReactElement => {
         ) : undefined
       }
     >
-      {/* <OverlayTool img={image} /> */}
-
       <PageBanner
         breadCrumbs={breadCrumbs}
         heading={`${data?.page.bannerHeading}`}
