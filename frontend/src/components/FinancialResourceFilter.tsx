@@ -33,6 +33,7 @@ export const FinancialResourceFilter = ({
       <button
         className="toggle"
         onClick={toggleIsOpen}
+        data-testid="toggle"
         aria-controls="innerFilter"
         data-expand={open ? "true" : null}
         aria-expanded={open ? "true" : "false"}
@@ -48,6 +49,7 @@ export const FinancialResourceFilter = ({
                 <input
                   className="usa-checkbox__input"
                   id={sys?.id}
+                  data-testid={sys?.id}
                   type="checkbox"
                   onChange={() => {
                     if (activeTags.includes(`${sys?.id}`)) {
@@ -69,6 +71,7 @@ export const FinancialResourceFilter = ({
                 <input
                   className="usa-checkbox__input"
                   id={sys?.id}
+                  data-testid={sys?.id}
                   type="checkbox"
                   onChange={() => {
                     if (activeTags.includes(`${sys?.id}`)) {
@@ -85,6 +88,7 @@ export const FinancialResourceFilter = ({
             ))}
             <button
               className="reset"
+              data-testid="reset"
               onClick={(e) => {
                 e.preventDefault();
                 const checkboxes = document.querySelectorAll("input[type=checkbox]");
