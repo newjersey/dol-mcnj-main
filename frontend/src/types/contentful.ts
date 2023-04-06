@@ -50,6 +50,7 @@ export interface LinkObjectProps {
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
   icons?: boolean;
+  label?: string;
 }
 
 export interface LinkGroupProps {

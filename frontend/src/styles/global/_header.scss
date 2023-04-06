@@ -60,6 +60,50 @@ header {
         font-size: 2rem;
       }
     }
+
+    button {
+      .toggle {
+        height: 32px;
+        width: 51px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+        transform-origin: center;
+        &.open {
+          transform: rotate(90deg);
+          > span {
+            &:nth-child(1) {
+              transform: rotate(45deg);
+              top: 7px;
+            }
+
+            &:nth-child(2) {
+              transform: scale(0);
+            }
+
+            &:nth-child(3) {
+              transform: rotate(-45deg);
+              top: -7px;
+            }
+          }
+        }
+
+        > span {
+          display: block;
+          width: 25px;
+          height: 3px;
+          position: relative;
+          border-radius: 5px;
+          top: 0;
+          background-color: white;
+          margin: 2px auto;
+          transition-duration: 0.3s;
+          transition-timing-function: ease-in-out;
+        }
+      }
+    }
   }
 
   .mobile-menu {

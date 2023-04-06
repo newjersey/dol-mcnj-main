@@ -7,13 +7,14 @@ export const LinkObject = ({
   screenReaderOnlyCopy,
   children,
   icons,
+  label,
 }: LinkObjectProps) => {
   const isRelative = url.startsWith("/") || url.startsWith("#");
   const isHome = url === "/";
   return (
     <>
       {isRelative ? (
-        <a href={url}>
+        <a href={url} aria-label={screenReaderOnlyCopy || copy || label}>
           <span>
             {copy || children}
             {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}
@@ -21,7 +22,12 @@ export const LinkObject = ({
           </span>
         </a>
       ) : (
-        <a href={url} target="_blank" rel="noopener noreferrer">
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={screenReaderOnlyCopy || copy || label}
+        >
           <span>
             {copy || children}
             {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}

@@ -21,7 +21,7 @@ export const NavMenu = ({
     ? (`h${headingLevel}` as keyof JSX.IntrinsicElements)
     : ("span" as keyof JSX.IntrinsicElements);
   return (
-    <nav className={className} aria-label={label}>
+    <nav id="navMenu" className={`main-nav ${className ? ` ${className}` : ""}`} aria-label={label}>
       <div className={innerClassName}>
         {menu?.navMenus.heading && (
           <Heading className="nav-heading">
