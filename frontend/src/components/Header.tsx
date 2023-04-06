@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { useState } from "react";
-import { Icon, useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 import njLogo from "../njlogo.svg";
 import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
@@ -23,12 +23,20 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
     return (
       <div className="mobile-menu container height-100">
         <div className="basic-logo fdr fac fjb height-100">
-          <a href="/" className="link-format-black fin fac width-content">
+          <a
+            href="/"
+            className="link-format-black fin fac width-content"
+            aria-label="Training Explorer"
+          >
             <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
             <h1 className="text-m">Training Explorer</h1>
           </a>
           <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
-            <Icon className="mrs">{isOpen ? "close" : "menu"}</Icon>
+            <div className={`toggle ${isOpen ? "open" : "closed"}`}>
+              <span />
+              <span />
+              <span />
+            </div>
             <span className="sr-only">{t("Header.mobileMenuText")}</span>
           </UnstyledButton>
         </div>
@@ -42,7 +50,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
       <>
         <nav className="usa-nav-container">
           <div className="basic-logo" id="basic-logo">
-            <a href="/">
+            <a href="/" aria-label={t("Header.title")}>
               <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
               <h1 className="bold">{t("Header.title")}</h1>
             </a>
