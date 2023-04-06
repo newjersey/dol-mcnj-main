@@ -32,6 +32,7 @@ export const SubFooter = () => {
                   href="https://twitter.com/NJGov"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Twitter"
                 >
                   <Twitter />
                 </a>
@@ -42,6 +43,7 @@ export const SubFooter = () => {
                   href="https://www.facebook.com/NJGov"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Facebook"
                 >
                   <Facebook />
                 </a>
@@ -52,6 +54,7 @@ export const SubFooter = () => {
                   href="https://www.youtube.com/user/NewJerseyGovernment"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="YouTube"
                 >
                   <YouTube />
                 </a>
@@ -62,6 +65,7 @@ export const SubFooter = () => {
                   href="https://www.linkedin.com/company/state-of-new-jersey/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn"
                 >
                   <LinkedIn />
                 </a>

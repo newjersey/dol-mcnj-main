@@ -16,7 +16,7 @@ export const BetaBanner = (props: Props): ReactElement => {
   };
 
   return (
-    <aside className={`beta-banner ${getHeaderMarginClass()}`}>
+    <div className={`beta-banner ${getHeaderMarginClass()}`}>
       <Trans i18nKey="Header.betaBannerText">
         This site is in beta.
         <a target="_blank" rel="noopener noreferrer" href={FEEDBACK_URL}>
@@ -24,6 +24,6 @@ export const BetaBanner = (props: Props): ReactElement => {
         </a>
         .
       </Trans>
-    </aside>
+    </div>
   );
 };
