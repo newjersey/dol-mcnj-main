@@ -245,7 +245,7 @@ describe("PostgresDataClient", () => {
       const education = await dataClient.getEducationTextBySoc("15-2011");
       expect(education.howtobecomeone.replace(/\s+/g, " ").trim()).toEqual(
         "<h4>How to Become an Actuary</h4> " +
-          "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>"
+        "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>"
       );
     });
   });
