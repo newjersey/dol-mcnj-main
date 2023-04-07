@@ -8,8 +8,10 @@ export const NavMenu = ({
   innerClassName,
   icons = false,
   headingLevel,
+  id,
 }: {
   menu?: NavMenuData;
+  id?: string;
   className?: string;
   innerClassName?: string;
   label?: string;
@@ -21,7 +23,7 @@ export const NavMenu = ({
     ? (`h${headingLevel}` as keyof JSX.IntrinsicElements)
     : ("span" as keyof JSX.IntrinsicElements);
   return (
-    <nav id="navMenu" className={`main-nav ${className ? ` ${className}` : ""}`} aria-label={label}>
+    <nav id={id} className={`main-nav ${className ? ` ${className}` : ""}`} aria-label={label}>
       <div className={innerClassName}>
         {menu?.navMenus.heading && (
           <Heading className="nav-heading">

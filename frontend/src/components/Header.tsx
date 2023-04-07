@@ -40,7 +40,14 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
             <span className="sr-only">{t("Header.mobileMenuText")}</span>
           </UnstyledButton>
         </div>
-        {isOpen && <NavMenu menu={data?.mainNav} className="main-nav nav nav-mobile" icons />}
+        {isOpen && (
+          <NavMenu
+            id="headerNavMobile"
+            menu={data?.mainNav}
+            className="main-nav nav nav-mobile"
+            icons
+          />
+        )}
       </div>
     );
   };
@@ -48,7 +55,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
   const nav = (): ReactElement => {
     return (
       <>
-        <nav className="usa-nav-container">
+        <nav id="usaNav" className="usa-nav-container">
           <div className="basic-logo" id="basic-logo">
             <a href="/" aria-label={t("Header.title")}>
               <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
@@ -57,6 +64,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
           </div>
         </nav>
         <NavMenu
+          id="headerNavDesktop"
           menu={data?.mainNav}
           label="Primary navigation"
           className="main-nav"
