@@ -40,7 +40,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - .
+            - frontend/cypress
   deploy:
     docker:
       - image: google/cloud-sdk
