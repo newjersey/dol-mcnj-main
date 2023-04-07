@@ -32,8 +32,15 @@ export const TrainingResultCard = (props: Props): ReactElement => {
     if (props.trainingResult.online) {
       return t("SearchResultsPage.onlineClassLabel");
     }
-
-    return `${props.trainingResult.city}, ${props.trainingResult.county}`;
+    else if (props.trainingResult.cities.length > 1) {
+      return `${props.trainingResult.cities.length} Provider Locations`;
+    }
+    else if (props.trainingResult.cities.length == 1) {
+      return props.trainingResult.cities[0];
+    }
+    else {
+      return "No Provider Locations Listed3"
+    }
   };
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {

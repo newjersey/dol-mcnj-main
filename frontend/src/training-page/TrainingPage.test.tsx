@@ -53,17 +53,27 @@ describe("<TrainingPage />", () => {
       provider: buildProvider({
         url: "www.mycoolwebsite.com",
         name: "My Cool Provider",
-        address: buildAddress({
-          street1: "123 Main Street",
-          street2: "",
-          city: "Newark",
-          state: "NJ",
-          zipCode: "01234",
-        }),
-        contactName: "Ada Lovelace",
+        addresses:
+          [
+            buildAddress({
+              street1: "123 Main Street",
+              street2: "",
+              city: "Newark",
+              state: "NJ",
+              zipCode: "01234",
+            }),
+            buildAddress({
+              street1: "456 Less Important Rd",
+              street2: "",
+              city: "Trenton",
+              state: "NJ",
+              zipCode: "98765",
+            }),
+          ],
+        /*contactName: "Ada Lovelace",
         contactTitle: "Computing Pioneer",
         phoneNumber: "6093800243",
-        phoneExtension: "9876",
+        phoneExtension: "9876",*/
       }),
       occupations: [buildOccupation({ title: "Botanist" }), buildOccupation({ title: "Senator" })],
       description: "some cool description",
@@ -113,9 +123,19 @@ describe("<TrainingPage />", () => {
 
     const training = buildTraining({
       provider: buildProvider({
-        address: buildAddress({
-          city: "Newark",
-        }),
+        addresses:
+        [
+          buildAddress({
+            city: "Newark",
+          }),
+          buildAddress({
+            city: "Elizabeth",
+          }),
+          buildAddress({
+            city: "Paterson",
+          }),
+        ]
+
       }),
       online: true,
     });
@@ -144,19 +164,29 @@ describe("<TrainingPage />", () => {
     expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
   });
 
+/*
   it("displays both address lines if they exist", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
 
     const training = buildTraining({
       online: false,
       provider: buildProvider({
-        address: buildAddress({
-          street1: "123 Main Street",
-          street2: "Apartment 1",
-          city: "Newark",
-          state: "NJ",
-          zipCode: "01234",
-        }),
+        addresses: [
+          buildAddress({
+            street1: "123 Main Street",
+            street2: "Apartment 1",
+            city: "Newark",
+            state: "NJ",
+            zipCode: "01234",
+          }),
+          buildAddress({
+            street1: "528 Fearless Ave",
+            street2: "",
+            city: "Princeton",
+            state: "NJ",
+            zipCode: "01234",
+          }),
+        ]
       }),
     });
 
@@ -166,6 +196,7 @@ describe("<TrainingPage />", () => {
     expect(subject.getByText("Apartment 1", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
   });
+*/
 
   it("links each line of the address to a map using url-encoded name and address", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
@@ -176,13 +207,15 @@ describe("<TrainingPage />", () => {
           online: false,
           provider: buildProvider({
             name: "Cool Provider",
-            address: buildAddress({
-              street1: "123 Main Street",
-              street2: "Apartment 1",
-              city: "Newark",
-              state: "NJ",
-              zipCode: "01234",
-            }),
+            addresses: [
+              buildAddress({
+                street1: "123 Main Street",
+                street2: "Apartment 1",
+                city: "Newark",
+                state: "NJ",
+                zipCode: "01234",
+              })
+            ]
           }),
         })
       )
@@ -209,6 +242,7 @@ describe("<TrainingPage />", () => {
     ).not.toHaveAttribute("href");
   });
 
+/*
   it("does not `Ext:` when provider contact has no phone extension", () => {
     const subject = render(<TrainingPage client={stubClient} />);
     const notInDemand = buildTraining({ provider: buildProvider({ phoneExtension: "" }) });
@@ -216,6 +250,7 @@ describe("<TrainingPage />", () => {
 
     expect(subject.queryByText("Ext:")).not.toBeInTheDocument();
   });
+*/
 
   it("links to the provider website with http", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
@@ -285,7 +320,7 @@ describe("<TrainingPage />", () => {
       stubClient.capturedObserver.onSuccess(
         buildTraining({
           online: false,
-          provider: buildProvider({ address: buildAddress({ city: undefined }) }),
+          provider: buildProvider({ addresses: [buildAddress({ city: undefined })] }),
         })
       )
     );

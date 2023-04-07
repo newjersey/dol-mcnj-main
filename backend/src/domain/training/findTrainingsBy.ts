@@ -1,7 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Training } from "./Training";
+import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -33,7 +33,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
       const record = await credentialEngineAPI.getResourceByCTID(ctid);
       ceRecords.push(record);
     }
-
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
         let cip:any = null;
@@ -47,7 +46,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+        const ownedByAddresses:any[] = [];
+        const providerContactPoints:any[] = [];
 
+        const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
@@ -56,6 +58,54 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
         const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
+        if (ownedByAddressObject != null) {
+          for (const element of ownedByAddressObject) {
+            if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
+              const addressContactPoints:any[] = [];
+
+              const targetContactPointObject = element["ceterms:targetContactPoint"];
+              if (targetContactPointObject != null) {
+                for (const contactPoint of targetContactPointObject) {
+                  const targetContactPoint = {
+                    alternateName: element["ceterms:alternateName"],
+                    contactType: element["ceterms:contactType"],
+                    email: element["ceterms:email"],
+                    faxNumber: element["ceterms:faxNumber"],
+                    name: element["ceterms:name"],
+                    socialMedia: element["ceterms:socialMedia"],
+                    telephone: element["ceterms:telephone"]
+                  };
+
+                  addressContactPoints.push(targetContactPoint);
+                }
+              }
+
+              const address = {
+                name: element["ceterms:name"] ? element["ceterms:name"]["en-US"] : null,
+                street1: element["ceterms:streetAddress"] ? element["ceterms:streetAddress"]["en-US"] : null,
+                street2: "",
+                city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
+                state: element["ceterms:addressRegion"] ? element["ceterms:addressRegion"]["en-US"] : null,
+                zipCode: element["ceterms:postalCode"],
+                targetContactPoints: addressContactPoints
+              }
+              ownedByAddresses.push(address);
+            }
+            else if (element["@type"] == "ceterms:ContactPoint") {
+                const targetContactPoint = {
+                  alternateName: element["ceterms:alternateName"],
+                  contactType: element["ceterms:contactType"],
+                  email: element["ceterms:email"],
+                  faxNumber: element["ceterms:faxNumber"],
+                  name: element["ceterms:name"],
+                  socialMedia: element["ceterms:socialMedia"],
+                  telephone: element["ceterms:telephone"]
+                };
+
+                providerContactPoints.push(targetContactPoint);
+            }
+          }
+        }
 
         // GET prerequisites - could be in ceterms:CommonConditions, could be in ceterms:prerequisites
         if (commonConditions != null) {
@@ -84,10 +134,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
         else if (estimatedCost != null) {
-          /* This is getting the first costProfile it sees under estimatedCost... we get a lot more
+/*          This is getting the first costProfile it sees under estimatedCost... we get a lot more
           fields at our disposal here like costDetails, description, directCostType that we should
-          look through here
-           */
+          look through here*/
+
           // Look for total cost in estimatedCost
           // TODO: Modify to handle multiple costProfiles
           const costProfile = estimatedCost[0];
@@ -102,9 +152,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // get SOCs from ceterms:occupationType instead of from the database
 
         }
-
+        // fix bug here
         // GET credentials and certifications this prepares for
-        if (isPreparationFor != null) {
+        /*if (isPreparationFor != null) {
           // TODO: Modify to handle multiple conditionProfiles
           const conditionProfile = isPreparationFor[0];
           if (conditionProfile != null) {
@@ -121,7 +171,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               }
             }
           }
-        }
+        }*/
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
@@ -143,19 +193,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord['ceterms:name']['en-US'],
             url: ownedByRecord['ceterms:subjectWebpage'],
-
-            contactName: "",
-            contactTitle: "",
-            phoneNumber: "", // TODO: phone numbers, phone exts, counties associated with addresses (yes, multiple in CE now)
-            phoneExtension: "",
+            email: ownedByRecord['ceterms:email']? ownedByRecord['ceterms:email'][0] : null,
             county: "",
-            address: {
-              street1: "",
-              street2: "",
-              city: "",
-              state: "",
-              zipCode: "",
-            },
+            addresses: ownedByAddresses,
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: credential,
@@ -177,12 +217,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           percentEmployed: 0, // TODO: Get from QData?
           averageSalary: 0, // TODO: Get from QData?
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
-          languages: certificate["ceterms:inLanguage"],
+          languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
           isWheelchairAccessible: false, // TODO: this field doesn't exist in CE!
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
-        // console.log(training);
+        console.log(training);
         return training;
 
       })

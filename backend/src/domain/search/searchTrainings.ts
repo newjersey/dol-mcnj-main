@@ -13,88 +13,94 @@ export const searchTrainingsFactory = (
   searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
-/*    console.log(searchQuery);
-    const searchResults = await searchClient.search(searchQuery);
-    const trainings = await findTrainingsBy(
-      Selector.,
-      searchResults.map((it) => it.id)
-    );*/
-
     const query = `{
       "@type": [
-        "ceterms:ApprenticeshipCertificate",
-        "ceterms:AssociateDegree",
-        "ceterms:BachelorDegree",
-        "ceterms:Badge",
-        "ceterms:Certificate",
-        "ceterms:CertificateOfCompletion",
-        "ceterms:Certification",
-        "ceterms:Degree",
-        "ceterms:DigitalBadge",
-        "ceterms:Diploma",
-        "ceterms:DoctoralDegree",
-        "ceterms:GeneralEducationDevelopment",
-        "ceterms:JourneymanCertificate",
-        "ceterms:License",
-        "ceterms:MasterCertificate",
-        "ceterms:MasterDegree",
-        "ceterms:MicroCredential",
-        "ceterms:OpenBadge",
-        "ceterms:ProfessionalDoctorate",
-        "ceterms:QualityAssuranceCredential",
-        "ceterms:ResearchDoctorate",
-        "ceterms:SecondarySchoolDiploma"
+            "ceterms:ApprenticeshipCertificate",
+            "ceterms:AssociateDegree",
+            "ceterms:BachelorDegree",
+            "ceterms:Badge",
+            "ceterms:Certificate",
+            "ceterms:CertificateOfCompletion",
+            "ceterms:Certification",
+            "ceterms:Degree",
+            "ceterms:DigitalBadge",
+            "ceterms:Diploma",
+            "ceterms:DoctoralDegree",
+            "ceterms:GeneralEducationDevelopment",
+            "ceterms:JourneymanCertificate",
+            "ceterms:License",
+            "ceterms:MasterCertificate",
+            "ceterms:MasterDegree",
+            "ceterms:MicroCredential",
+            "ceterms:OpenBadge",
+            "ceterms:ProfessionalDoctorate",
+            "ceterms:QualityAssuranceCredential",
+            "ceterms:ResearchDoctorate",
+            "ceterms:SecondarySchoolDiploma"
       ],
       "ceterms:credentialStatusType": {
-        "ceterms:targetNode": "credentialStat:Active"
-      },
+            "ceterms:targetNode": "credentialStat:Active"
+          },
       "search:termGroup": {
-        "ceterms:name": "${searchQuery}",
-        "ceterms:description": "${searchQuery}",
-        "ceterms:ownedBy": {
-          "ceterms:name": "${searchQuery}"
-        },
-        "search:operator": "search:orTerms",
-        "ceterms:availableOnlineAt": "search:anyValue",
-        "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-                "New Jersey",
-                {
+        "search:value": [
+          {
+            "ceterms:name": "${searchQuery}",
+                    "ceterms:description": "${searchQuery}",
+                    "ceterms:ownedBy": {
+                        "ceterms:name": "${searchQuery}"
+                    },
+            "search:operator": "search:orTerms"
+          },
+          {
+            "ceterms:availableOnlineAt": "search:anyValue",
+            "ceterms:ownedBy": {
+              "ceterms:address": {
+                "ceterms:addressRegion": [
+                  {
                     "search:value": "NJ",
                     "search:matchType": "search:exactMatch"
-                }
-            ]
-        },
-        "ceterms:requires": {
-            "ceterms:targetLearningOpportunity": {
-                "ceterms:availableAt": {
-                    "ceterms:name": "${searchQuery}",
-                    "ceterms:addressRegion": [
-                        "New Jersey",
-                        {
-                            "search:value": "NJ",
-                            "search:matchType": "search:exactMatch"
-                        }
-                    ]
-                }
-            }
-        },
-        "ceterms:offeredBy": {
-            "ceterms:name": "${searchQuery}",
-            "ceterms:address": {
-                "ceterms:addressRegion": [
-                    "New Jersey",
-                    {
-                        "search:value": "NJ",
-                        "search:matchType": "search:exactMatch"
-                    }
+                  },
+                  {
+                    "search:value": "jersey"
+                  }
                 ]
-            }
-        }     
+              }
+            },
+            "ceterms:offeredBy": {
+              "ceterms:address": {
+                "ceterms:addressRegion": [
+                  {
+                    "search:value": "NJ",
+                    "search:matchType": "search:exactMatch"
+                  },
+                  {
+                    "search:value": "jersey"
+                  }
+                ]
+              }
+            },
+            "ceterms:availableAt": {
+              "ceterms:address": {
+                "ceterms:addressRegion": [
+                  {
+                    "search:value": "NJ",
+                    "search:matchType": "search:exactMatch"
+                  },
+                  {
+                    "search:value": "jersey"
+                  }
+                ]
+              }
+            },
+            "search:operator": "search:orTerms"
+          }
+        ],
+        "search:operator": "search:andTerms"
       }
     }`
+
     const skip = 0;
-    const take = 10;
+    const take = 100;
     const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
     const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
@@ -137,9 +143,9 @@ export const searchTrainingsFactory = (
           online: training.online,
           providerId: training.provider.id,
           providerName: training.provider.name,
-          city: training.provider.address.city,
-          zipCode: training.provider.address.zipCode,
-          county: training.provider.county,
+          cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],
+          //           zipCodes: training.provider.addresses ? training.provider.addresses.flatMap(a => a.zipCode == null ? [] : a.zipCode) : [],
+          zipCodes: training.provider.addresses ? training.provider.addresses.map(a => a.zipCode) : [],
           inDemand: training.inDemand,
           //highlight: stripUnicode(highlight),
           highlight: "",

@@ -12,9 +12,8 @@ export interface TrainingResult {
   online: boolean;
   providerId: string;
   providerName: string;
-  city: string;
-  zipCode: string;
-  county: string;
+  cities: (string|undefined)[];
+  zipCodes: (string|undefined)[];
   highlight: string;
   rank: number;
   socCodes: string[];
