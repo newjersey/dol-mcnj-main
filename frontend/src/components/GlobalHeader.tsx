@@ -1,5 +1,6 @@
 import { NavMenuData } from "../types/contentful";
 import { Icon } from "@material-ui/core";
+import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png"
 
 export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
   const HasIcon = ({ string }: { string: string }) => {
@@ -25,7 +26,7 @@ export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
     <div className="global-header">
       <div className="container">
         <div className="logo">
-          <img src="state_seal_white.png" alt="New Jersey State Seal" />
+          <img src={stateSeal} alt="New Jersey State Seal" />
           Official Site Of The State Of New Jersey
         </div>
         <nav>
