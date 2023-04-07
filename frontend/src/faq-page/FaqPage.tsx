@@ -52,7 +52,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
       />
 
       {data && (
-        <FaqCollection topicHeading="Top Questions" items={topics}>
+        <FaqCollection items={topics}>
           {linkGroup && <ResourceLinks {...linkGroup} />}
         </FaqCollection>
       )}
