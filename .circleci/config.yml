@@ -39,9 +39,9 @@ jobs:
       - store_artifacts:
           path: feature-test-output.txt
       - persist_to_workspace:
-          root: ~/project
+          root: ~/frontend/cypress/videos
           paths:
-            - /frontend/cypress/videos
+            - .
   deploy:
     docker:
       - image: google/cloud-sdk
