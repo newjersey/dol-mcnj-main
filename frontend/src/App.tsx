@@ -27,7 +27,6 @@ import {
 } from "./comparison/ComparisonContext";
 import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
 import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
-import { LandingPageTrainingProvider } from "./landing-page/LandingPageTrainingProvider";
 import { EtplPage } from "./etpl-page/EtplPage";
 import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
@@ -74,7 +73,6 @@ export const App = (props: Props): ReactElement => {
               <LandingPage path="/" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
-              <LandingPageTrainingProvider path="/training-provider" client={props.client} />
               {FaqRoutes({ client: props.client })}
               <SearchResultsPage path="/search" client={props.client} />
               <SearchResultsPage path="/search/:searchQuery" client={props.client} />
