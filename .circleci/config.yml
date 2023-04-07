@@ -41,7 +41,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - ~/frontend/cypress/videos
+            - /frontend/cypress/videos
   deploy:
     docker:
       - image: google/cloud-sdk
