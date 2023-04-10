@@ -590,6 +590,8 @@ export const es = {
     linkToInDemandOccupations: "Ocupaciones en demanda",
     linkToFunding: "Recursos financieros",
     linkToCounselingText: "Servicios de carrera",
+    linkToFAQ: "FAQ",
+    linkToTPResources: "TPR",
     mobileMenuText: "Menú",
     mobileLinkToExplorers: "Exploradores de entrenamiento",
     mobileLinkToCounselors: "Asesoramiento",

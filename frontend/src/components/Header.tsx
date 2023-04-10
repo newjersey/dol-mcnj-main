@@ -82,6 +82,26 @@ export const Header = (): ReactElement => {
                   <Icon className="mla">chevron_right</Icon>
                 </span>
               </Link>
+              <Link
+                to="/faq"
+                className="link-format-black nav-item pvm phd bbdcg"
+                onClick={pageCheck}
+              >
+                <span className="container flex fac fjb">
+                  {t("Header.linkToFAQ")}
+                  <Icon className="mla">chevron_right</Icon>
+                </span>
+              </Link>
+              <Link
+                to="/training-provider-resources"
+                className="link-format-black nav-item pvm phd bbdcg"
+                onClick={pageCheck}
+              >
+                <span className="container flex fac fjb">
+                  {t("Header.linkToTPResources")}
+                  <Icon className="mla">chevron_right</Icon>
+                </span>
+              </Link>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -132,6 +152,16 @@ export const Header = (): ReactElement => {
               <li className="usa-nav__primary-item">
                 <a className="usa-nav__link" href="/funding">
                   <span>{t("Header.linkToFunding")}</span>
+                </a>
+              </li>
+              <li className="usa-nav__primary-item">
+                <a className="usa-nav__link" href="/faq">
+                  <span>{t("Header.linkToFAQ")}</span>
+                </a>
+              </li>
+              <li className="usa-nav__primary-item">
+                <a className="usa-nav__link" href="/training-provider-resources">
+                  <span>{t("Header.linkToTPResources")}</span>
                 </a>
               </li>
               <li className="usa-nav__primary-item">

@@ -19,7 +19,8 @@ const PROGRAM_TOKENS_SQL_CODE = `\ndelete from programtokens;
 
 insert into programtokens(programid, tokens)
 select etpl.programid,
-       to_tsvector(coalesce(etpl.standardized_name, etpl.officialname)) ||
+       to_tsvector(coalesce(etpl.officialname, etpl.officialname)) ||
+       to_tsvector(coalesce(etpl.standardized_name_1, etpl.name)) ||
        to_tsvector(coalesce(etpl.standardized_description, etpl.description, '')) ||
        to_tsvector(coalesce((string_agg(soccipcrosswalk.soc2018title, ' ')), ''))
 from etpl

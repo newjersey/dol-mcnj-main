@@ -4,7 +4,9 @@ import {
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
-  GetAllCertificates,
+  GetContentfulFAQ,
+  GetContentfulTPR,
+  GetAllCertificates
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
@@ -12,6 +14,7 @@ import { Certificates } from "../domain/credentialengine/CredentialEngineInterfa
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
+import { FaqPageProps, TrainingProviderPageProps } from "src/domain/contentful/types";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -19,15 +22,19 @@ interface RouterActions {
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
   getAllCertificates: GetAllCertificates;
+  getContentfulFAQ: GetContentfulFAQ;
+  getContentfulTPR: GetContentfulTPR;
 }
 
 export const routerFactory = ({
-  searchTrainings,
-  findTrainingsBy,
-  getInDemandOccupations,
-  getOccupationDetail,
-  getAllCertificates,
-}: RouterActions): Router => {
+                                searchTrainings,
+                                findTrainingsBy,
+                                getInDemandOccupations,
+                                getOccupationDetail,
+                                getAllCertificates,
+                                getContentfulFAQ,
+                                getContentfulTPR,
+                              }: RouterActions): Router => {
   const router = Router();
 
   /**
@@ -48,6 +55,7 @@ export const routerFactory = ({
         .catch((e) => res.status(500).send(e));
     }
   );
+
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
     searchTrainings(req.query.query as string)
@@ -84,6 +92,22 @@ export const routerFactory = ({
         res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
+  });
+
+  router.get("/contentful/faq", async (req: Request, res: Response<FaqPageProps>) => {
+    getContentfulFAQ(req.params.query as string)
+      .then((content: FaqPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+
+  router.get("/contentful/tpr", async (req: Request, res: Response<TrainingProviderPageProps>) => {
+    getContentfulTPR(req.params.query as string)
+      .then((content: TrainingProviderPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
   });
 
   return router;
