@@ -19,7 +19,7 @@ describe("PostgresDataClient", () => {
   const testProgram1 = {
     programid: "1",
     cipcode: "123456",
-    officialname: "Standardized Tree Identification Class",
+    officialname: "Tree Identification Class",
     description:
       "Standardized This program is designed for clients who are interested in learning skills necessary " +
       "for todays modern tree identification jobs. Students will learn to distinguish types of trees by " +
@@ -66,8 +66,8 @@ describe("PostgresDataClient", () => {
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
         expect.arrayContaining([
-          "Standardized Tree Identification Class",
-          "Standardized Tree Identification Class Level 2",
+          "Tree Identification Class",
+          "Tree Identification Class Level 2",
         ])
       );
     });
@@ -78,8 +78,8 @@ describe("PostgresDataClient", () => {
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
         expect.arrayContaining([
-          "Standardized Tree Identification Class",
-          "Standardized Tree Identification Class Level 2",
+          "Tree Identification Class",
+          "Tree Identification Class Level 2",
         ])
       );
     });
@@ -99,8 +99,8 @@ describe("PostgresDataClient", () => {
     it("preserves order of input list of ids", async () => {
       const programs = await dataClient.findProgramsBy(Selector.ID, ["2", "1"]);
       expect(programs.length).toEqual(2);
-      expect(programs[0].officialname).toEqual("Standardized Tree Identification Class Level 2");
-      expect(programs[1].officialname).toEqual("Standardized Tree Identification Class");
+      expect(programs[0].officialname).toEqual("Tree Identification Class Level 2");
+      expect(programs[1].officialname).toEqual("Tree Identification Class");
     });
 
     it("returns empty when list is empty", async () => {
@@ -245,7 +245,7 @@ describe("PostgresDataClient", () => {
       const education = await dataClient.getEducationTextBySoc("15-2011");
       expect(education.howtobecomeone.replace(/\s+/g, " ").trim()).toEqual(
         "<h4>How to Become an Actuary</h4> " +
-          "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>"
+        "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>"
       );
     });
   });

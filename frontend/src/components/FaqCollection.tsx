@@ -40,7 +40,7 @@ export const FaqCollection = ({
   return (
     <div className="faq-collection">
       <div className="container">
-        <nav>
+        <nav aria-label="FAQ Navigation">
           <button
             className="drop-selector"
             data-testid="topic-selector"
