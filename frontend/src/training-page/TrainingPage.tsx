@@ -13,7 +13,6 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "../components/Grouping";
 import { formatMoney } from "accounting";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { StatBlock } from "../components/StatBlock";
 import { Icon } from "@material-ui/core";
 import { UnstyledButton } from "../components/UnstyledButton";
@@ -21,7 +20,6 @@ import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
-import { randomInt } from "crypto";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -145,7 +143,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       const thisAddressTargetContactPoints = addresses[i].targetContactPoints;
 
       // build target contact points HTML blocks
-      const thisAddressTargetContactPointsBlocks:any = [];
+      const thisAddressTargetContactPointsBlocks = [];
       for (let j=0; j < thisAddressTargetContactPoints.length; j++) {
 
         // assign individual contact point object properties to variables
