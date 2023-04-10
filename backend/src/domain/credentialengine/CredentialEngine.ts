@@ -11,26 +11,37 @@ export interface CTDLResource {
   "ceterms:name"?:                      Ceterms;
   "ceterms:image"?:                     string;
   "ceterms:naics"?:                     string[];
+  "ceterms:isicV4"?:                    string;
+  "ceterms:hasPart"?:                   string[];
   "ceterms:keyword"?:                   CetermsKeyword;
   "ceterms:ownedBy"?:                   string[];
+  "ceterms:renewal"?:                   CetermsRenewal[]
   "ceterms:subject"?:                   CetermsSubject[];
   "ceterms:requires"?:                  CetermsRequire[];
   "ceterms:offeredBy"?:                 string[];
+  "ceterms:renewedBy"?:                 string[];
+  "ceterms:approvedBy"?:                string[];
   "ceterms:revokedBy"?:                 string[];
   "ceterms:availableAt"?:               CetermsAvailableAt[];
   "ceterms:degreeMajor"?:               CetermsDegree[];
   "ceterms:inLanguage"?:                string[];
+  "ceterms:recommends"?:                CetermsConditionProfile[];
+  "ceterms:revocation"?:                CetermsRecovationProfile[];
+  "ceterms:supersedes"?:                string;
   "ceterms:creditValue"?:               CetermsCreditValue[];
   "ceterms:creditUnitTypeDescription"?: Ceterms;
   "ceterms:targetLearningOpportunity"?: string[];
   "ceterms:description"?:               Ceterms;
+  "ceterms:nextVersion"?:               string;
+  "ceterms:regulatedBy"?:               string[];
   "ceterms:isNonCredit"?:               boolean;
   "ceterms:prerequisite"?:              string[];
   "ceterms:deliveryType"?:              CetermsDeliveryType[];
   "ceterms:accreditedBy"?:              string[];
   "ceterms:audienceType"?:              CetermsType[];
+  "ceterms:credentialId"?:              string;
   "ceterms:industryType"?:              CetermsIndustryType[];
-  "ceterms:jurisdiction"?:              CetermsJurisdiction[];
+  "ceterms:jurisdiction"?:              CetermsPlace[];
   "ceterms:alternateName"?:             CetermsAlternateName;
   "ceterms:dateEffective"?:             Date;
   "ceterms:estimatedCost"?:             CetermsEstimatedCost[];
@@ -63,16 +74,12 @@ export interface CTDLResource {
 }
 
 export interface CetermsType {
-  "@type"?:                         Type;
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:frameworkName"?:         Ceterms;
   "ceterms:targetNodeName"?:        Ceterms;
   "ceterms:targetNodeDescription"?: Ceterms;
-}
-
-export enum Type {
-  CetermsCredentialAlignmentObject = "ceterms:CredentialAlignmentObject",
 }
 
 export interface Ceterms {
@@ -205,7 +212,7 @@ export interface CetermsDirectCostType {
 }
 
 export interface CetermsIndustryType {
-  "@type"?:                         Type;
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:codedNotation"?:         string;
@@ -214,26 +221,58 @@ export interface CetermsIndustryType {
   "ceterms:targetNodeDescription"?: Ceterms;
 }
 
-export interface CetermsJurisdiction {
-  "@type"?:                      string;
-  "ceterms:mainJurisdiction"?:   CetermsMainJurisdiction[];
-  "ceterms:globalJurisdiction"?: boolean;
+export interface CetermsJurisdictionProfile {
+  "@type"?:                           string;
+  "ceterms:description"?:             Ceterms;
+  "ceterms:mainJurisdiction"?:        CetermsPlace[];
+  "ceterms:globalJurisdiction"?:      boolean;
+  "ceterms:jurisdictionExceiption"?:  CetermsPlace
+
 }
 
-export interface CetermsMainJurisdiction {
-  "@type"?:                  string;
-  "ceterms:geoURI"?:         string;
-  "ceterms:latitude"?:       number;
-  "ceterms:longitude"?:      number;
-  "ceterms:addressCountry"?: Ceterms;
+export interface CetermsPlace {
+  "@type"?:                       string;
+  "ceterms:name"?:                Ceterms;
+  "ceterms:geoURI"?:              string;
+  "ceterms:latitude"?:            number;
+  "ceterms:longitude"?:           number;
+  "ceterms:streetAddress"?:       Ceterms;
+  "ceterms:postOfficeBoxNumber"?: string;
+  "ceterms:addressLocality"?:     Ceterms;
+  "ceterms:addressRegion"?:       Ceterms;
+  "ceterms:addressCountry"?:      Ceterms;
+  "ceterms:targetContactPoint"?:  CetermsContactPoint[];
+}
+
+export interface CetermsContactPoint {
+  "@type"?:                       string;
+  "ceterms:name"?:                Ceterms;
+  "ceterms:alernateName"?:        Ceterms;
+  "ceterms:email"?:               string[];
+  "ceterms:telephone"?:           string[];
+  "ceterms:faxNumber"?:           string[];
+  "ceterms:contactType?":         Ceterms;
+  "ceterms:socialMedia?":         string[];
 }
 
 export interface CetermsKeyword {
   "en-US"?: string[];
 }
 
+export interface CetermsRenewal {
+  "@type"?:                           string;
+  "ceterms:name"?:                    Ceterms;
+  "ceterms:condition"?:               CetermsCondition;
+  "ceterms:assertedBy"?:              string[];
+  "ceterms:creditValue"?:             CetermsCreditValue[];
+  "ceterms:description"?:             Ceterms;
+  "ceterms:audienceType"?:            CetermsType[];
+  "ceterms:audienceLevelType"?:       CetermsType[];
+  "ceterms:submissionOfDescription"?: Ceterms;
+}
+
 export interface CetermsOccupationType {
-  "@type"?:                         Type;
+  "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
   "ceterms:codedNotation"?:         string;
@@ -309,13 +348,15 @@ export interface CetermsRequire {
   "ceterms:assertedBy"?:                string[];
   "ceterms:experience"?:                Ceterms;
   "ceterms:description"?:               Ceterms;
+  "ceterms:alternativeCondition"?:      CetermsCondition[]
   "ceterms:subjectWebpage"?:            string;
   "ceterms:targetAssessment"?:          string[];
+  "ceterms:targetCompetency"?:          CetermsType[];
   "ceterms:targetLearningOpportunity"?: string[];
 }
 
 export interface CetermsSubject {
-  "@type"?:                  Type;
+  "@type"?:                  string;
   "ceterms:targetNodeName"?: Ceterms;
 }
 
@@ -325,76 +366,20 @@ export interface CetermsVersionIdentifier {
   "ceterms:identifierValueCode"?: string;
 }
 
-export class Convert {
-  public static toCTDLResource(json: string): CTDLResource {
-    return JSON.parse(json);
-  }
+export interface CetermsConditionProfile {
+  "@type"?:                       string;
+  "ceterms:name"?:                Ceterms;
+  "ceterms:assertedBy"?:          string[];
+  "ceterms:experience"?:          string;
+  "ceterms:description"?:         Ceterms;
+  "ceterms:yearsofExperience"?:   number;
+}
 
-  public static cTDLResourceToJson(value: CTDLResource): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsType(json: string): CetermsType {
-    return JSON.parse(json);
-  }
-
-  public static cetermsTypeToJson(value: CetermsType): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCeterms(json: string): Ceterms {
-    return JSON.parse(json);
-  }
-
-  public static cetermsToJson(value: Ceterms): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsEstimatedCost(json: string): CetermsEstimatedCost {
-    return JSON.parse(json);
-  }
-
-  public static cetermsEstimatedCostToJson(value: CetermsEstimatedCost): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsIndustryType(json: string): CetermsIndustryType {
-    return JSON.parse(json);
-  }
-
-  public static cetermsIndustryTypeToJson(value: CetermsIndustryType): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsKeyword(json: string): CetermsKeyword {
-    return JSON.parse(json);
-  }
-
-  public static cetermsKeywordToJson(value: CetermsKeyword): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsOccupationType(json: string): CetermsOccupationType {
-    return JSON.parse(json);
-  }
-
-  public static cetermsOccupationTypeToJson(value: CetermsOccupationType): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsRequire(json: string): CetermsRequire {
-    return JSON.parse(json);
-  }
-
-  public static cetermsRequireToJson(value: CetermsRequire): string {
-    return JSON.stringify(value);
-  }
-
-  public static toCetermsSubject(json: string): CetermsSubject {
-    return JSON.parse(json);
-  }
-
-  public static cetermsSubjectToJson(value: CetermsSubject): string {
-    return JSON.stringify(value);
-  }
+export interface CetermsRecovationProfile {
+  "@type"?:                                 string;
+  "ceterms:description"?:                   Ceterms;
+  "ceterms:jurisdiction"?:                  CetermsJurisdictionProfile;
+  "ceterms:dateEffective"?:                 string;
+  "ceterms:revocationCriteria"?:            string;
+  "ceterms:revocationCriteriaDescription?": Ceterms;
 }

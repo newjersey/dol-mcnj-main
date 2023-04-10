@@ -21,6 +21,7 @@ import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { randomInt } from "crypto";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -116,33 +117,79 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-      return <>{t("TrainingPage.onlineClass")}</>;
+
+      return (
+        <div>
+          <div><InlineIcon className="mrxs">location_on</InlineIcon>{t("TrainingPage.onlineClass")}</div>
+        </div>
+      );
+
     }
 
-    if (!training || !training.provider.address.city) {
+    if (!training || !training.provider.addresses) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const address = training.provider.address;
-    const nameAndAddressEncoded = encodeURIComponent(
-      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`
-    );
-    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+    const addresses = training.provider.addresses;
+    const addressBlocks = [];
 
-    return (
-      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
-        <div className="inline">
-          <span>{address.street1}</span>
-          <div>{address.street2}</div>
+    for (let i=0; i < addresses.length; i++) {
+
+      // assign individual address object properties to variables
+      const thisAddressName = addresses[i].name;
+      const thisAddressStreet1 = addresses[i].street1;
+      const thisAddressStreet2 = "";
+      const thisAddressCity = addresses[i].city;
+      const thisAddressState = addresses[i].state;
+      const thisAddressZipCode = addresses[i].zipCode;
+      const thisAddressTargetContactPoints = addresses[i].targetContactPoints;
+
+      // build target contact points HTML blocks
+      const thisAddressTargetContactPointsBlocks:any = [];
+      for (let j=0; j < thisAddressTargetContactPoints.length; j++) {
+
+        // assign individual contact point object properties to variables
+        const thisContactPointName = thisAddressTargetContactPoints[j].name
+        const thisContactPointContactType = thisAddressTargetContactPoints[j].contactType
+        const thisContactPointEmail = thisAddressTargetContactPoints[j].email
+        const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
+        const thisContactPointSocialMedia = thisAddressTargetContactPoints[j].socialMedia
+
+
+        // push to HTML content blocks
+        thisAddressTargetContactPointsBlocks.push(
           <div>
-            {address.city}, {address.state} {address.zipCode}
+            <div><InlineIcon className="mrxs">person</InlineIcon>{thisContactPointName}</div>
           </div>
+        );
+      }
+
+      const nameAndAddressEncoded = encodeURIComponent(
+        `${training.provider.name} ${thisAddressStreet1} ${thisAddressStreet2} ${thisAddressCity} ${thisAddressState} ${thisAddressZipCode}`
+      );
+
+      const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+
+      addressBlocks.push(
+        <div>
+          <div><InlineIcon className="mrxs">location_on</InlineIcon>{thisAddressName}</div>
+          <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+            <div className="inline">
+              <span>{thisAddressStreet1}</span>
+              <div>
+                {thisAddressCity}, {thisAddressState} {thisAddressZipCode}
+              </div>
+            </div>
+          </a>
+          <span>{thisAddressTargetContactPointsBlocks}</span>
+          <hr></hr>
         </div>
-      </a>
-    );
+      );
+    }
+    return <div key={"addresses"}>{addressBlocks}</div>;
   };
 
-  const getProviderContact = (): ReactElement => {
+  /*const getProviderContact = (): ReactElement => {
     if (!training) {
       return <></>;
     }
@@ -162,7 +209,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         <div>{phoneNumber}</div>
       </div>
     );
-  };
+  };*/
 
   const getAssociatedOccupations = (): ReactElement => {
     if (
@@ -364,19 +411,26 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <p>
                           <span className="fin fas">
                             <InlineIcon className="mrxs">school</InlineIcon>
-                            {training.provider.name}
+                            <b>{training.provider.name}</b>
+                          </span>
+                        </p>
+                        <p>
+                          <span className="fin fas">
+                            <InlineIcon className="mrxs">email</InlineIcon>
+                            <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
                           </span>
                         </p>
                         <div className="mvd">
                           <span className="fin">
-                            <InlineIcon className="mrxs">location_on</InlineIcon>
                             {getProviderAddress()}
                           </span>
                         </div>
                         <div className="mvd">
                           <span className="fin">
                             <InlineIcon className="mrxs">person</InlineIcon>
+                            {/*
                             {getProviderContact()}
+*/}
                           </span>
                         </div>
                         <p>
