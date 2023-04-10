@@ -35,7 +35,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
     else if (props.trainingResult.cities.length > 1) {
       return `${props.trainingResult.cities.length} Provider Locations`;
     }
-    else if (props.trainingResult.cities.length == 1) {
+    else if (props.trainingResult.cities.length === 1) {
       return props.trainingResult.cities[0];
     }
     else {
