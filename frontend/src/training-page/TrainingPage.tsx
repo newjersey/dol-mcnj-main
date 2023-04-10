@@ -428,7 +428,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="mvd">
                           <span className="fin">
                             <InlineIcon className="mrxs">person</InlineIcon>
-                            {/*
+{/*
                             {getProviderContact()}
 */}
                           </span>

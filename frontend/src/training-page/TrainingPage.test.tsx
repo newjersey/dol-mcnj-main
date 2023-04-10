@@ -124,17 +124,17 @@ describe("<TrainingPage />", () => {
     const training = buildTraining({
       provider: buildProvider({
         addresses:
-          [
-            buildAddress({
-              city: "Newark",
-            }),
-            buildAddress({
-              city: "Elizabeth",
-            }),
-            buildAddress({
-              city: "Paterson",
-            }),
-          ]
+        [
+          buildAddress({
+            city: "Newark",
+          }),
+          buildAddress({
+            city: "Elizabeth",
+          }),
+          buildAddress({
+            city: "Paterson",
+          }),
+        ]
 
       }),
       online: true,
@@ -164,39 +164,39 @@ describe("<TrainingPage />", () => {
     expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
   });
 
-  /*
-    it("displays both address lines if they exist", () => {
-      const subject = render(<TrainingPage client={stubClient} id="12345" />);
+/*
+  it("displays both address lines if they exist", () => {
+    const subject = render(<TrainingPage client={stubClient} id="12345" />);
 
-      const training = buildTraining({
-        online: false,
-        provider: buildProvider({
-          addresses: [
-            buildAddress({
-              street1: "123 Main Street",
-              street2: "Apartment 1",
-              city: "Newark",
-              state: "NJ",
-              zipCode: "01234",
-            }),
-            buildAddress({
-              street1: "528 Fearless Ave",
-              street2: "",
-              city: "Princeton",
-              state: "NJ",
-              zipCode: "01234",
-            }),
-          ]
-        }),
-      });
-
-      act(() => stubClient.capturedObserver.onSuccess(training));
-
-      expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
-      expect(subject.getByText("Apartment 1", { exact: false })).toBeInTheDocument();
-      expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
+    const training = buildTraining({
+      online: false,
+      provider: buildProvider({
+        addresses: [
+          buildAddress({
+            street1: "123 Main Street",
+            street2: "Apartment 1",
+            city: "Newark",
+            state: "NJ",
+            zipCode: "01234",
+          }),
+          buildAddress({
+            street1: "528 Fearless Ave",
+            street2: "",
+            city: "Princeton",
+            state: "NJ",
+            zipCode: "01234",
+          }),
+        ]
+      }),
     });
-  */
+
+    act(() => stubClient.capturedObserver.onSuccess(training));
+
+    expect(subject.getByText("123 Main Street", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Apartment 1", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Newark, NJ 01234", { exact: false })).toBeInTheDocument();
+  });
+*/
 
   it("links each line of the address to a map using url-encoded name and address", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
@@ -242,15 +242,15 @@ describe("<TrainingPage />", () => {
     ).not.toHaveAttribute("href");
   });
 
-  /*
-    it("does not `Ext:` when provider contact has no phone extension", () => {
-      const subject = render(<TrainingPage client={stubClient} />);
-      const notInDemand = buildTraining({ provider: buildProvider({ phoneExtension: "" }) });
-      act(() => stubClient.capturedObserver.onSuccess(notInDemand));
+/*
+  it("does not `Ext:` when provider contact has no phone extension", () => {
+    const subject = render(<TrainingPage client={stubClient} />);
+    const notInDemand = buildTraining({ provider: buildProvider({ phoneExtension: "" }) });
+    act(() => stubClient.capturedObserver.onSuccess(notInDemand));
 
-      expect(subject.queryByText("Ext:")).not.toBeInTheDocument();
-    });
-  */
+    expect(subject.queryByText("Ext:")).not.toBeInTheDocument();
+  });
+*/
 
   it("links to the provider website with http", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
