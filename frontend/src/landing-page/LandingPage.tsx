@@ -63,7 +63,7 @@ export const LandingPage = (props: Props): ReactElement => {
           <Button
             className="mtd"
             variant="secondary"
-            onClick={() => navigate("/training-provider")}
+            onClick={() => navigate("/training-provider-resources")}
           >
             {t("LandingPage.columnButtonText")}
           </Button>

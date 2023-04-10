@@ -15,10 +15,24 @@ export const Footer = ({
     <footer>
       <div className="container">
         <div>
-          {items?.footerNav1 && <NavMenu menu={items.footerNav1} className="footer-nav-l" />}
+          {items?.footerNav1 && (
+            <NavMenu
+              id="footer1"
+              menu={items.footerNav1}
+              className="footer-nav-l"
+              label="Footer Navigation 1"
+            />
+          )}
         </div>
         <div>
-          {items?.footerNav2 && <NavMenu menu={items.footerNav2} className="footer-nav-r" />}
+          {items?.footerNav2 && (
+            <NavMenu
+              id="footer2"
+              menu={items.footerNav2}
+              className="footer-nav-r"
+              label="Footer Navigation 2"
+            />
+          )}
           <img src={logo} alt="New Jersey logo" />
         </div>
       </div>

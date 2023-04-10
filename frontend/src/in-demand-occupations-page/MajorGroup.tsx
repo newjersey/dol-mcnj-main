@@ -48,6 +48,7 @@ export const MajorGroup = (props: Props): ReactElement => {
   return (
     <div data-testid="majorGroup" className="major-group mbs weight-500 blue">
       <button
+        type="button"
         onClick={toggleIsOpen}
         onMouseDown={(e): void => e.preventDefault()}
         className="pas color-blue width-100"
