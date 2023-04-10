@@ -5,6 +5,7 @@ export const LinkObject = ({
   children,
   className,
   copy,
+  arrow,
   icons,
   screenReaderOnlyCopy,
   url,
@@ -25,6 +26,7 @@ export const LinkObject = ({
             {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}
             {isHome && icons && <Icon>home</Icon>}
           </span>
+          {arrow && <Icon className="indicator">arrow_drop_down</Icon>}
         </a>
       ) : (
         <a

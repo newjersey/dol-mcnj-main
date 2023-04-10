@@ -47,7 +47,7 @@ export const NavMenu = ({
                   hasSub ? " has-sub" : " no-sub"
                 }`}
               >
-                <LinkObject icons={icons} {...item} />
+                <LinkObject icons={icons} {...item} arrow={hasSub} />
                 {hasSub && (
                   <ul className="unstyled">
                     {item.subItemsCollection?.items.map((subItem) => (
