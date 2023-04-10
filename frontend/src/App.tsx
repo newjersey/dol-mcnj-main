@@ -1,10 +1,12 @@
-import React, { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useReducer, useState } from "react";
 import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
 import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
+import { FaqPage } from "./fag-page/FaqPage";
+import { TrainingProviderPage } from "./training-provider-page/TrainingProviderPage";
 import { Client } from "./domain/Client";
 import { Router, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
@@ -25,7 +27,6 @@ import {
 } from "./comparison/ComparisonContext";
 import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
 import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
-import { LandingPageTrainingProvider } from "./landing-page/LandingPageTrainingProvider";
 import { EtplPage } from "./etpl-page/EtplPage";
 import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
@@ -41,7 +42,7 @@ interface Props {
 }
 
 // Logs each Reach Router page as a separate pageview on Google Analytics
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line
 declare const window: any;
 const GA_TRACKING_ID = "UA-140253594-9";
 globalHistory.listen(({ location }) => {
@@ -71,7 +72,6 @@ export const App = (props: Props): ReactElement => {
               <LandingPage path="/" client={props.client} />
               <LandingPageCounselor path="/counselor" />
               <LandingPageExplorer path="/explorer" />
-              <LandingPageTrainingProvider path="/training-provider" />
               {FaqRoutes()}
               <SearchResultsPage path="/search" client={props.client} />
               <SearchResultsPage path="/search/:searchQuery" client={props.client} />
@@ -81,6 +81,8 @@ export const App = (props: Props): ReactElement => {
               <FundingPage path="/funding" />
               <PrivacyPolicyPage path="/privacy-policy" />
               <TermsOfServicePage path="/terms-of-service" />
+              <FaqPage path="/faq" client={props.client} />
+              <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default />
             </Router>

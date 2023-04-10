@@ -1,4 +1,12 @@
 {
   "tags": ["backend"],
-  "dependencies": ["knex", "express", "cors", "supertest", "axios", "dotenv"]
+  "dependencies": [
+    "@contentful/rich-text-types",
+    "axios",
+    "cors",
+    "dotenv",
+    "express",
+    "knex",
+    "supertest"
+  ]
 }

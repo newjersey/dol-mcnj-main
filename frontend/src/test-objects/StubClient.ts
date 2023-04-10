@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
+import { FaqPageProps, TrainingProviderPageProps } from "../types/contentful";
 import { Certificates } from "../domain/CredentialEngine";
 
 export class StubClient implements Client {
@@ -42,6 +44,14 @@ export class StubClient implements Client {
     cancel: boolean,
     observer: Observer<Certificates>
   ): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
     this.capturedObserver = observer;
   }
 }

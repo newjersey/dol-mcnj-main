@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
+import { FaqPageProps, TrainingProviderPageProps } from "./types/contentful";
 import { Certificates } from "./domain/CredentialEngine";
 
 export class ApiClient implements Client {
@@ -20,6 +21,14 @@ export class ApiClient implements Client {
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.get(`/api/occupations/${soc}`, observer);
+  }
+
+  getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
   }
 
   getAllCertificates(

@@ -44,7 +44,7 @@ export class PostgresDataClient implements DataClient {
       .select(
         "etpl.programid",
         "etpl.providerid",
-        "etpl.standardized_name as officialname",
+        "etpl.officialname",
         "etpl.calendarlengthid",
         "etpl.standardized_description as description",
         "etpl.industrycredentialname",

@@ -16,6 +16,12 @@
 @import "occupation-page";
 @import "training-comparison";
 @import "faq-breadcrumb";
+@import "modules/mixins";
+@import "modules/drop-selector";
+@import "components/page-banner";
+@import "components/faq-collection";
+@import "components/resource-links";
+@import "components/tab-content";
 
 * {
   -webkit-box-sizing: border-box;
@@ -169,4 +175,10 @@ a.link-format-blue {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+header {
+  .usa-nav-container {
+    max-width: $tabLrg;
+  }
 }
