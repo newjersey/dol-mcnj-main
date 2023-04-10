@@ -72,7 +72,7 @@ export const LocationFilter = (): ReactElement => {
           element: FilterableElement.LOCATION,
           value: currentSearchArea,
           func: (trainingResults): TrainingResult[] =>
-            trainingResults.filter((it) => it.online || zipCodesInRadius.includes(it.zipCode)),
+            trainingResults.filter((it) => it.online || zipCodesInRadius.some(z => it.zipCodes.includes(z))),
         },
       });
     } else if (state.filters.some((filter) => filter.element === FilterableElement.LOCATION)) {

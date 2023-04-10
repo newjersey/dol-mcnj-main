@@ -9,16 +9,16 @@ import { en as Content } from "../../locales/en";
 import * as findZipCodesInRadiusModule from "../findZipCodesInRadius";
 
 describe("filtering by location", () => {
-  const training1 = buildTrainingResult({ name: "training1", zipCode: "07021", online: false }); // 0 mi from 07021
-  const training2 = buildTrainingResult({ name: "training2", zipCode: "07004", online: false }); // 4.91 mi from 07021
-  const training3 = buildTrainingResult({ name: "training3", zipCode: "07930", online: false }); // 21 mi from 07021
-  const training4 = buildTrainingResult({ name: "training4", zipCode: "08514", online: false }); // 49 mi from 07021
-  const training5 = buildTrainingResult({ name: "training5", zipCode: "08212", online: false }); // 135 mi from 07021
-  const training6 = buildTrainingResult({ name: "training6", zipCode: "07014", online: false }); // 7.91 mi from 07021
+  const training1 = buildTrainingResult({ name: "training1", zipCodes: ["07021"], online: false }); // 0 mi from 07021
+  const training2 = buildTrainingResult({ name: "training2", zipCodes: ["07004"], online: false }); // 4.91 mi from 07021
+  const training3 = buildTrainingResult({ name: "training3", zipCodes: ["07930"], online: false }); // 21 mi from 07021
+  const training4 = buildTrainingResult({ name: "training4", zipCodes: ["08514"], online: false }); // 49 mi from 07021
+  const training5 = buildTrainingResult({ name: "training5", zipCodes: ["08212"], online: false }); // 135 mi from 07021
+  const training6 = buildTrainingResult({ name: "training6", zipCodes: ["07014"], online: false }); // 7.91 mi from 07021
 
   const onlineTraining = buildTrainingResult({
     name: "online training",
-    zipCode: "random-zipcode",
+    zipCodes: ["random-zipcode"],
     online: true,
   });
 
