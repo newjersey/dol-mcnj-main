@@ -7,6 +7,7 @@ import { Client } from "../domain/Client";
 interface LayoutProps {
   client: Client;
   children?: ReactNode;
+  footerComponent?: ReactNode;
   noFooter?: boolean;
 }
 export const Layout = (props: LayoutProps) => {
@@ -79,6 +80,7 @@ export const Layout = (props: LayoutProps) => {
       <main className="below-banners" role="main">
         {children}
       </main>
+      {props.footerComponent}
       {!noFooter && (
         <Footer
           items={{

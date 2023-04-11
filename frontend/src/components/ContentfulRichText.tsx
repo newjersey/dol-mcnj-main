@@ -7,6 +7,7 @@ import {
 import { documentToReactComponents, Options } from "@contentful/rich-text-react-renderer";
 
 export type Props = {
+  className?: string;
   document: {
     nodeType: BLOCKS.DOCUMENT;
     content: any[];
@@ -23,7 +24,7 @@ function getObjectKeyArray(obj: any): string[] {
   return arr;
 }
 
-export const ContentfulRichText: React.FC<Props> = ({ document }: Props) => {
+export const ContentfulRichText: React.FC<Props> = ({ document, className }: Props) => {
   const options: Options = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
@@ -36,5 +37,7 @@ export const ContentfulRichText: React.FC<Props> = ({ document }: Props) => {
       },
     },
   };
-  return <div>{documentToReactComponents(document, options)}</div>;
+  return (
+    <div className={className || undefined}>{documentToReactComponents(document, options)}</div>
+  );
 };

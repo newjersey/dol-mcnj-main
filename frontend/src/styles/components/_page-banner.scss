@@ -1,74 +1,93 @@
 .page-banner {
   background-color: $light-green;
+  padding: 4.5rem 0;
+
+  @media screen and (max-width: ($tabPort)) {
+    padding: 2.2rem 0 2rem;
+  }
 
   > div {
     max-width: 750px;
-    margin: 0 auto;
+    margin: auto;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 32px 15px;
+    align-items: center;
+    padding: 0 1rem;
 
-    @media screen and (max-width: ($mobile)) {
-      flex-direction: column-reverse;
+    @media screen and (max-width: ($tabPort)) {
       align-items: flex-start;
     }
   }
 
-  ul {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 0 0 1.1rem;
-    align-items: center;
+  h1 {
+    font-size: 2.4rem;
+    font-weight: bold;
+    line-height: 1.3;
 
-    @media screen and (max-width: ($tabPort)) {
-      display: none;
+    @media screen and (min-width: ($tabPort + 1)) {
+      margin: 1rem 0;
     }
 
+    @media screen and (max-width: ($tabPort)) {
+      margin: 1.8rem 0 1rem;
+      font-size: 1.55rem;
+      line-height: 1.2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    > span {
+      @media screen and (max-width: ($tabPort)) {
+        width: calc(100% - 60px);
+      }
+    }
+
+    img,
     svg {
-      margin: 0 1rem;
+      width: 50px;
+
+      @media screen and (min-width: ($tabPort + 1)) {
+        display: none;
+      }
     }
   }
 
-  h1 {
-    font-weight: bold;
-    font-size: 2.4rem;
-    line-height: 1.3;
-    margin: 0;
+  .usa-breadcrumb {
+    background-color: transparent;
+    padding: 0;
+  }
 
-    @media screen and (max-width: ($mobTab)) {
-      font-size: 2rem;
-      line-height: 1.2;
-    }
+  .back {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
 
-    + p {
-      color: $accessible-gray;
-      font-size: 1rem;
+    @media screen and (min-width: ($tabPort + 1)) {
+      display: none;
     }
   }
 
   .copy {
-    max-width: 350px;
+    @media screen and (min-width: ($tabPort + 1)) {
+      width: calc(100% - 287px);
+    }
+  }
 
-    @media screen and (min-width: ($mobile + 1)) {
-      width: calc(100% - 100px);
+  .icon {
+    width: 215px;
+
+    @media screen and (max-width: ($tabPort)) {
+      width: 50px;
+      margin-top: 4rem;
+      display: none;
     }
 
-    + svg {
-      @media screen and (max-width: ($tabPort)) {
-        width: 120px;
-
-        height: auto;
-      }
-
-      @media screen and (max-width: ($mobTab)) {
-        width: 75px;
-      }
-
-      @media screen and (max-width: ($mobile)) {
-        margin-bottom: 0.5rem;
-      }
+    svg,
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 }

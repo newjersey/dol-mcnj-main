@@ -1,7 +1,12 @@
 import { Training, TrainingResult } from "./Training";
 import { Error } from "./Error";
 import { InDemandOccupation, OccupationDetail } from "./Occupation";
-import { FaqPageProps, NavMenuProps, TrainingProviderPageProps } from "../types/contentful";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+  NavMenuProps,
+} from "../types/contentful";
 
 export interface Client {
   getTrainingsByQuery: (query: string, observer: Observer<TrainingResult[]>) => void;
@@ -10,6 +15,7 @@ export interface Client {
   getOccupationDetailBySoc: (soc: string, observer: Observer<OccupationDetail>) => void;
   getContentfulFAQ: (query: string, observer: Observer<FaqPageProps>) => void;
   getContentfulTPR: (query: string, observer: Observer<TrainingProviderPageProps>) => void;
+  getContentfulFRP: (query: string, observer: Observer<FinancialResourcePageProps>) => void;
   getContentfulGNav: (query: string, observer: Observer<NavMenuProps>) => void;
   getContentfulMNav: (query: string, observer: Observer<NavMenuProps>) => void;
   getContentfulFootNav1: (query: string, observer: Observer<NavMenuProps>) => void;

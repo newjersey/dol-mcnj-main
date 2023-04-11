@@ -2,12 +2,13 @@ import { Icon } from "@material-ui/core";
 import { LinkObjectProps } from "../../types/contentful";
 
 export const LinkObject = ({
-  url,
-  copy,
-  screenReaderOnlyCopy,
   children,
+  className,
+  copy,
   arrow,
   icons,
+  screenReaderOnlyCopy,
+  url,
   label,
 }: LinkObjectProps) => {
   const isRelative = url.startsWith("/") || url.startsWith("#");
@@ -15,7 +16,11 @@ export const LinkObject = ({
   return (
     <>
       {isRelative ? (
-        <a href={url} aria-label={screenReaderOnlyCopy || copy || label}>
+        <a
+          href={url}
+          aria-label={screenReaderOnlyCopy || copy || label}
+          className={className || undefined}
+        >
           <span>
             {copy || children}
             {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}
@@ -29,6 +34,7 @@ export const LinkObject = ({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={screenReaderOnlyCopy || copy || label}
+          className={className || undefined}
         >
           <span>
             {copy || children}
