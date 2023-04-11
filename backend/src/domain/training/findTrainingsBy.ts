@@ -9,7 +9,7 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
-  Ceterms,
+  Ceterms, CetermsConditionProfile,
   CetermsEstimatedCost,
   CetermsEstimatedDuration,
   CetermsInstructionalProgramType, CetermsIsPreparationFor,
@@ -39,7 +39,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         let totalCost:any = null;
         let exactDuration:any = null;
         let prerequisites = null;
-        let credential = null;
         let calendarLength:CalendarLength = CalendarLength.NULL;
 
         // GET provider record
@@ -58,6 +57,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
         const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
+
+        let certifications:CetermsConditionProfile[] = isPreparationFor;
+
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -113,6 +115,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           const conditionUrl = commonConditions[0];
           const conditionCtid = await credentialEngineUtils.getCtidFromURL(conditionUrl);
           const conditionRecord = await credentialEngineAPI.getResourceByCTID(conditionCtid);
+        }
+
+        // Get certifications from "ceterms:isPreparationFor"
+        if (isPreparationFor != null) {
+          certifications = isPreparationFor
         }
 
         if (estimatedDuration != null) {
@@ -198,7 +205,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             addresses: ownedByAddresses,
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
-          certifications: credential,
+          certifications: certifications,
           prerequisites: null, // TODO: ceterms:CommonConditions / ceterms:prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
