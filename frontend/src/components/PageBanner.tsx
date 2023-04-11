@@ -1,9 +1,6 @@
-import { Fragment, ReactElement } from "react";
-import { RightArrow } from "../svg/RightArrow";
+import { ReactElement } from "react";
 import { ContentfulRichText as RichTextProps } from "../types/contentful";
 import { ContentfulRichText } from "./ContentfulRichText";
-import { Icon } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 
 interface PageBannerProps {
   heading: string;
