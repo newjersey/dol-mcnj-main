@@ -1,3 +1,28 @@
+const NavMenuFields = `
+heading
+url
+topLevelItemsCollection {
+  items {
+    sys {
+      id
+    }
+    copy
+    screenReaderOnlyCopy
+    classes
+    url
+    subItemsCollection {
+      items {
+        sys {
+          id
+        }
+        copy
+        url
+      }
+    }
+  }
+}
+`;
+
 export const FAQ_PAGE_QUERY = `
   {
     faqCollection(id: "2CV0DOWvRHwiQ821b2VseR") {
@@ -58,3 +83,9 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
     }
   }
 `;
+
+export const NAV_QUERY = (id: string) => `{
+  navMenus(id: "${id}") {
+    ${NavMenuFields}
+  }
+}`;

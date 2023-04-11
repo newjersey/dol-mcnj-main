@@ -5,7 +5,7 @@ import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
 import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
-import { FaqPage } from "./fag-page/FaqPage";
+import { FaqPage } from "./faq-page/FaqPage";
 import { TrainingProviderPage } from "./training-provider-page/TrainingProviderPage";
 import { Client } from "./domain/Client";
 import { Router, globalHistory } from "@reach/router";
@@ -37,6 +37,7 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
+
 interface Props {
   client: Client;
 }
@@ -69,22 +70,22 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
-              <LandingPage path="/" />
-              <LandingPageCounselor path="/counselor" />
-              <LandingPageExplorer path="/explorer" />
-              {FaqRoutes()}
+              <LandingPage path="/" client={props.client} />
+              <LandingPageCounselor path="/counselor" client={props.client} />
+              <LandingPageExplorer path="/explorer" client={props.client} />
+              {FaqRoutes({ client: props.client })}
               <SearchResultsPage path="/search" client={props.client} />
               <SearchResultsPage path="/search/:searchQuery" client={props.client} />
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
-              <FundingPage path="/funding" />
-              <PrivacyPolicyPage path="/privacy-policy" />
-              <TermsOfServicePage path="/terms-of-service" />
+              <FundingPage path="/funding" client={props.client} />
+              <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
+              <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
-              <NotFoundPage default />
+              <NotFoundPage default client={props.client} />
             </Router>
             <LanguageSwitchButton />
             <ContextualInfoPanel />

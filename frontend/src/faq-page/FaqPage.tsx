@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { PageBanner } from "../components/PageBanner";
@@ -15,7 +15,6 @@ interface Props extends RouteComponentProps {
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<FaqPageData>();
-
   const breadCrumbs = [
     {
       text: "Home",
@@ -45,7 +44,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
   }, [props.client]);
 
   return (
-    <Layout>
+    <Layout client={props.client}>
       <PageBanner
         breadCrumbs={breadCrumbs}
         heading="Frequently Asked Questions"
@@ -53,7 +52,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
       />
 
       {data && (
-        <FaqCollection topicHeading="Top Questions" items={topics}>
+        <FaqCollection items={topics}>
           {linkGroup && <ResourceLinks {...linkGroup} />}
         </FaqCollection>
       )}

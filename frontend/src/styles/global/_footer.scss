@@ -1,0 +1,121 @@
+footer {
+  background-color: $footer-grey;
+  color: white;
+  padding: 1.5rem 0 0;
+
+  > .container {
+    @media screen and (min-width: ($tabPort + 1)) {
+      display: flex;
+      max-width: 1136px;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    > div {
+      &:first-of-type {
+        @media screen and (min-width: ($tabPort + 1)) {
+          width: calc(100% - 250px);
+          margin-right: 40px;
+        }
+      }
+
+      &:last-of-type {
+        @media screen and (min-width: ($tabPort + 1)) {
+          width: 210px;
+        }
+
+        @media screen and (max-width: ($tabPort)) {
+          padding-bottom: 2rem;
+        }
+      }
+    }
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      @media screen and (min-width: ($tabPort + 1)) {
+        text-decoration: underline;
+        color: $light-grey;
+      }
+    }
+
+    &:visited {
+      color: white;
+    }
+  }
+
+  .nav-heading {
+    border-bottom: 1px solid white;
+    display: block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .nav-item {
+    font-size: 14px;
+
+    > a {
+      border-bottom: 1px solid white;
+      display: block;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    > ul {
+      padding: 0 0 2rem;
+
+      li {
+        margin-bottom: 0.3rem;
+      }
+    }
+  }
+
+  .no-sub {
+    margin-bottom: 2.2rem;
+  }
+
+  .footer-nav-l {
+    > div {
+      > ul {
+        @media screen and (min-width: ($tabPort + 1)) {
+          column-count: 2;
+          column-gap: 1.25rem;
+          perspective: 1;
+        }
+
+        @media screen and (min-width: ($tabLand + 1)) {
+          column-count: 3;
+        }
+      }
+    }
+
+    .nav-item {
+      @media screen and (min-width: ($tabPort + 1)) {
+        break-inside: avoid-column;
+      }
+    }
+  }
+  .footer-nav-r {
+    margin-bottom: 1rem;
+    .nav-heading {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-item {
+      font-size: 14px;
+
+      > a {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0.3rem;
+      }
+    }
+
+    .no-sub {
+      margin-bottom: 0;
+    }
+  }
+}

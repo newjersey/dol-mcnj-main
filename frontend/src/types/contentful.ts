@@ -1,4 +1,5 @@
 import { Document } from "@contentful/rich-text-types";
+import { ReactNode } from "react";
 
 /* ********************
  *  GENERIC
@@ -44,8 +45,13 @@ export interface LinkObjectProps {
   sys?: {
     id: string;
   };
-  copy: string;
+  arrow?: boolean;
+  copy?: string;
   url: string;
+  screenReaderOnlyCopy?: string;
+  children?: ReactNode;
+  icons?: boolean;
+  label?: string;
 }
 
 export interface LinkGroupProps {
@@ -68,6 +74,35 @@ export interface FaqPageData {
 export interface FaqPageProps {
   data: {
     data: FaqPageData;
+  };
+}
+
+export interface TopLevelNavItemProps {
+  sys: {
+    id: string;
+  };
+  screenReaderOnlyCopy?: string;
+  classes?: string;
+  copy: string;
+  url: string;
+  subItemsCollection?: {
+    items: LinkObjectProps[];
+  };
+}
+
+export interface NavMenuData {
+  navMenus: {
+    heading?: string;
+    url?: string;
+    topLevelItemsCollection: {
+      items: TopLevelNavItemProps[];
+    };
+  };
+}
+
+export interface NavMenuProps {
+  data: {
+    data: NavMenuData;
   };
 }
 

@@ -8,7 +8,6 @@
 @import "table";
 @import "css/bootstrap.css";
 @import "landing-page";
-@import "header";
 @import "search-results-page";
 @import "training-page";
 @import "not-found-page";
@@ -22,6 +21,11 @@
 @import "components/faq-collection";
 @import "components/resource-links";
 @import "components/tab-content";
+@import "global/globalHeader";
+@import "global/header";
+@import "global/footer";
+@import "global/subFooter";
+@import "global/betaBanner";
 
 * {
   -webkit-box-sizing: border-box;
@@ -180,5 +184,14 @@ a.link-format-blue {
 header {
   .usa-nav-container {
     max-width: $tabLrg;
+  }
+}
+
+ul,
+ol {
+  &.unstyled {
+    margin: 0;
+    list-style: none;
+    padding-left: 0;
   }
 }

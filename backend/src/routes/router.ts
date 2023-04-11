@@ -6,13 +6,17 @@ import {
   GetOccupationDetail,
   GetContentfulFAQ,
   GetContentfulTPR,
+  GetContentfulGNav,
+  GetContentfulMNav,
+  GetContentfulFootNav,
+  GetContentfulFootNav2,
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
-import { FaqPageProps, TrainingProviderPageProps } from "src/domain/contentful/types";
+import { FaqPageProps, NavMenuProps, TrainingProviderPageProps } from "src/domain/contentful/types";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -21,6 +25,10 @@ interface RouterActions {
   getOccupationDetail: GetOccupationDetail;
   getContentfulFAQ: GetContentfulFAQ;
   getContentfulTPR: GetContentfulTPR;
+  getContentfulGNav: GetContentfulGNav;
+  getContentfulMNav: GetContentfulMNav;
+  getContentfulFootNav: GetContentfulFootNav;
+  getContentfulFootNav2: GetContentfulFootNav2;
 }
 
 export const routerFactory = ({
@@ -30,6 +38,10 @@ export const routerFactory = ({
   getOccupationDetail,
   getContentfulFAQ,
   getContentfulTPR,
+  getContentfulGNav,
+  getContentfulMNav,
+  getContentfulFootNav,
+  getContentfulFootNav2,
 }: RouterActions): Router => {
   const router = Router();
 
@@ -68,6 +80,35 @@ export const routerFactory = ({
         res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
+  });
+
+  router.get("/contentful/gnav", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulGNav(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+  router.get("/contentful/mnav", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulMNav(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+  router.get("/contentful/footNav", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulFootNav(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+  router.get("/contentful/footNav2", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulFootNav2(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
   });
 
   router.get("/contentful/faq", async (req: Request, res: Response<FaqPageProps>) => {
