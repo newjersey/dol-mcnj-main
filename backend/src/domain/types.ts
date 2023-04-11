@@ -7,7 +7,7 @@ import {
   OccupationDetailPartial,
   Occupation,
 } from "./occupations/Occupation";
-import { FaqPageProps, TrainingProviderPageProps } from "./contentful/types";
+import { FaqPageProps, NavMenuProps, TrainingProviderPageProps } from "./contentful/types";
 
 export type SearchTrainings = (searchQuery: string) => Promise<TrainingResult[]>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
@@ -20,3 +20,7 @@ export type GetOpenJobsCount = (soc: string) => Promise<number | null>;
 export type Convert2010SocTo2018Occupations = (soc2010: string) => Promise<Occupation[]>;
 export type GetContentfulFAQ = (query: string) => Promise<FaqPageProps>;
 export type GetContentfulTPR = (query: string) => Promise<TrainingProviderPageProps>;
+export type GetContentfulGNav = (query: string) => Promise<NavMenuProps>;
+export type GetContentfulMNav = (query: string) => Promise<NavMenuProps>;
+export type GetContentfulFootNav = (query: string) => Promise<NavMenuProps>;
+export type GetContentfulFootNav2 = (query: string) => Promise<NavMenuProps>;

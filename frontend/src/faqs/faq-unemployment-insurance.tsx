@@ -1,12 +1,15 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { BetaBanner } from "../components/BetaBanner";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { Trans, useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqUnemploymentInsurance = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqUnemploymentInsurance = (props: Props): ReactElement => {
   const { t } = useTranslation();
   useEffect(() => {
     document.title = t("FAQUnemployment.pageTitle");
@@ -14,11 +17,8 @@ export const FaqUnemploymentInsurance = (_props: RouteComponentProps): ReactElem
   }, [t]);
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout client={props.client}>
+      <div className="container">
         <FaqBreadcrumb current={t("FAQUnemployment.header")} />
 
         <div className="row mbm">
@@ -487,9 +487,7 @@ export const FaqUnemploymentInsurance = (_props: RouteComponentProps): ReactElem
             </p>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };
