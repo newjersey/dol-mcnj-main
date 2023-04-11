@@ -1,0 +1,140 @@
+.resource-filter {
+  @media screen and (min-width: ($tabPort + 1)) {
+    padding: 2rem 0;
+  }
+  .container {
+    @media screen and (min-width: ($tabPort + 1)) {
+      width: 100%;
+      max-width: 1070px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+
+  .resource-controller {
+    @media screen and (max-width: ($tabPort)) {
+      margin: 0 -15px;
+      position: relative;
+    }
+
+    @media screen and (min-width: ($tabPort + 1)) {
+      max-width: 292px;
+      width: 100%;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      overflow: hidden;
+      position: sticky;
+      top: $below-banners-height + 15;
+    }
+
+    .toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 15px;
+      width: 100%;
+      background-color: $green;
+      color: white;
+      font-size: 1.4rem;
+
+      @media screen and (min-width: ($tabPort + 1)) {
+        padding: 2rem;
+      }
+
+      span {
+        transform: rotate(90deg);
+
+        @media screen and (min-width: ($tabPort + 1)) {
+          display: none;
+        }
+      }
+    }
+
+    .inner {
+      @media screen and (max-width: ($tabPort)) {
+        overflow: hidden;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+      }
+
+      @media screen and (min-width: ($tabPort + 1)) {
+        height: auto !important;
+      }
+
+      form {
+        width: 100%;
+        max-width: none;
+        padding: 1rem 15px;
+        border-bottom: 1px solid black;
+
+        @media screen and (min-width: ($tabPort + 1)) {
+          border-left: 1px solid;
+          border-right: 1px solid;
+          border-color: $green;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+          padding: 2rem;
+        }
+      }
+
+      button {
+        display: block;
+        margin: 0 0 1.2rem;
+        padding: 0;
+
+        &.reset {
+          margin: 1.5rem 0.5rem 0;
+          color: $accessible-gray;
+          border-bottom: 1px solid $accessible-gray;
+        }
+      }
+    }
+
+    legend {
+      font-size: 1.4rem;
+    }
+  }
+
+  .content {
+    @media screen and (max-width: ($tabPort)) {
+      margin-top: 1.8rem;
+    }
+
+    @media screen and (min-width: ($tabPort + 1)) {
+      width: calc(100% - 292px);
+      padding: 3rem 0 0 1.7rem;
+    }
+
+    h3 {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .usa-tag {
+      text-transform: none;
+
+      &.green {
+        background-color: $green;
+      }
+      &.blue {
+        background-color: $blue;
+      }
+      &.red {
+        background-color: $tag-red;
+      }
+      &.yellow {
+        background-color: $tag-yellow;
+      }
+      &.navy {
+        background-color: $tag-navy;
+      }
+      &.black {
+        background-color: black;
+      }
+      &.gray {
+        background-color: $tag-gray;
+      }
+    }
+  }
+}

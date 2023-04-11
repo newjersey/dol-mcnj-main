@@ -64,6 +64,7 @@ const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
+  getContentfulFRP: contentfulFactory("frp"),
   getContentfulFootNav2: contentfulFactory("footNav2"),
   getContentfulFootNav: contentfulFactory("footNav"),
   getContentfulMNav: contentfulFactory("mnav"),

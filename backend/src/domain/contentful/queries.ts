@@ -84,6 +84,62 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
   }
 `;
 
+export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
+  page: financialResourcePage(id: "4WDrIZ71LCksX9Q63rbIwq") {
+    title
+    bannerHeading
+    bannerCopy {
+      json
+    }
+    bannerImage {
+      url
+    }
+    footerBannerTitle
+    footerBannerCopy {
+      json
+    }
+  }
+  education: financialResourceCategoryCollection(where: {type: "education"}) {
+    items {
+      sys {
+        id
+      }
+      type
+      title
+    }
+  }
+  funding: financialResourceCategoryCollection(where: {type: "funding"}) {
+    items {
+      sys {
+        id
+      }
+      type
+      title
+    }
+  }
+  resources: financialResourceEntryCollection {
+    items {
+      sys {
+        id
+      }
+      title
+      details {
+        json
+      }
+      link
+      taggedCatsCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          color
+        }
+      }
+    }
+  }
+}`;
+
 export const NAV_QUERY = (id: string) => `{
   navMenus(id: "${id}") {
     ${NavMenuFields}

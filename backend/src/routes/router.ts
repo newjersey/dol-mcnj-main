@@ -6,6 +6,7 @@ import {
   GetOccupationDetail,
   GetContentfulFAQ,
   GetContentfulTPR,
+  GetContentfulFRP,
   GetContentfulGNav,
   GetContentfulMNav,
   GetContentfulFootNav,
@@ -16,7 +17,12 @@ import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
-import { FaqPageProps, NavMenuProps, TrainingProviderPageProps } from "src/domain/contentful/types";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+  NavMenuProps,
+} from "src/domain/contentful/types";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -25,6 +31,7 @@ interface RouterActions {
   getOccupationDetail: GetOccupationDetail;
   getContentfulFAQ: GetContentfulFAQ;
   getContentfulTPR: GetContentfulTPR;
+  getContentfulFRP: GetContentfulFRP;
   getContentfulGNav: GetContentfulGNav;
   getContentfulMNav: GetContentfulMNav;
   getContentfulFootNav: GetContentfulFootNav;
@@ -38,6 +45,7 @@ export const routerFactory = ({
   getOccupationDetail,
   getContentfulFAQ,
   getContentfulTPR,
+  getContentfulFRP,
   getContentfulGNav,
   getContentfulMNav,
   getContentfulFootNav,
@@ -122,6 +130,14 @@ export const routerFactory = ({
   router.get("/contentful/tpr", async (req: Request, res: Response<TrainingProviderPageProps>) => {
     getContentfulTPR(req.params.query as string)
       .then((content: TrainingProviderPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+
+  router.get("/contentful/frp", async (req: Request, res: Response<FinancialResourcePageProps>) => {
+    getContentfulFRP(req.params.query as string)
+      .then((content: FinancialResourcePageProps) => {
         res.status(200).json(content);
       })
       .catch((e) => res.status(500).send(e));
