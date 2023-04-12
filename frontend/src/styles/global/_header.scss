@@ -127,7 +127,8 @@ header {
       }
     }
 
-    a {
+    a,
+    button {
       color: white;
       display: block;
       text-decoration: none;
@@ -173,6 +174,51 @@ header {
             height: 2px;
             background-color: white;
           }
+        }
+      }
+    }
+  }
+
+  li {
+    &.has-sub {
+      position: relative;
+
+      .sub-menu {
+        background: white;
+        flex-direction: column;
+        gap: 0;
+
+        @media screen and (min-width: ($tabLand + 1)) {
+          width: 300px;
+          position: absolute;
+        }
+
+        @media screen and (max-width: ($tabLand)) {
+          margin-bottom: 1rem;
+        }
+
+        a {
+          color: $header-black;
+          padding: 0.5rem 1rem;
+
+          &:hover {
+            @media screen and (min-width: ($tabLand + 1)) {
+              background-color: $header-black;
+              color: white;
+            }
+
+            &:after {
+              @media screen and (min-width: ($tabLand + 1)) {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+
+      button {
+        @media screen and (max-width: ($tabLand)) {
+          width: 100%;
         }
       }
     }
