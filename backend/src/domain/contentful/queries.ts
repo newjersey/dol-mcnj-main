@@ -65,25 +65,29 @@ export const FAQ_PAGE_QUERY = `
 `;
 
 export const TRAINING_PROVIDER_PAGE_QUERY = `
-  {
-    tabContent(id: "7urTmhpBev7jt9zxEWU4UH") {
-      title
-      sys {
-        publishedAt
-      }
-      tabsCollection {
-        items {
-          sys {
-            id
-          }
-          heading
-          copy {
-            json
-          }
+{
+  page: trainingProviderResourcesPage(id: "4GrMLVPYkDCMzMLCxEgy9s") {
+    sys {
+      publishedAt
+    }
+    title
+    bannerHeading
+    bannerImage {
+      url
+    }
+    tabs: tabsCollection {
+      items {
+        sys {
+          id
+        }
+        heading
+        copy {
+          json
         }
       }
     }
   }
+}
 `;
 
 export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
