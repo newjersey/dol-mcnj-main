@@ -32,7 +32,7 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
   return (
     <Layout client={props.client}>
       <PageBanner
-        heading="Training Provider Resources"
+        heading={`${data?.page.bannerHeading}`}
         svg={<LightBulb />}
         subheading={`last updated ${dayjs(data?.page.sys.publishedAt).format("MMMM D, YYYY")}`}
       />
