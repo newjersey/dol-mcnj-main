@@ -26,6 +26,9 @@ topLevelItemsCollection {
 export const FAQ_PAGE_QUERY = `
   {
     page: faqPage(id: "22fMmVDetJRhCbRltoS68") {
+      sys {
+        publishedAt
+      }
       title
       bannerHeading
       bannerImage {
@@ -92,6 +95,9 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
 
 export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
   page: financialResourcePage(id: "4WDrIZ71LCksX9Q63rbIwq") {
+    sys {
+      publishedAt
+    }
     title
     bannerHeading
     bannerCopy {
