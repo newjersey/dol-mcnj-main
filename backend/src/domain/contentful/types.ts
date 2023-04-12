@@ -48,7 +48,11 @@ export interface LinkObjectProps {
 
 export interface FaqPageData {
   page: {
+    sys: {
+      publishedAt: Date;
+    };
     title: string;
+    bannerHeading: string;
     topics: {
       items: FaqTopic[];
     };
@@ -127,9 +131,11 @@ export interface FinancialResourcePageProps {
   data: {
     data: {
       page: {
+        sys: {
+          publishedAt: Date;
+        };
         title: string;
         bannerHeading: string;
-        bannerCopy: ContentfulRichText;
         bannerImage?: {
           url: string;
         };

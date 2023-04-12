@@ -56,6 +56,9 @@ export interface LinkObjectProps {
 
 export interface FaqPageData {
   page: {
+    sys: {
+      publishedAt: Date;
+    };
     title: string;
     bannerHeading: string;
     bannerImage?: {
@@ -141,6 +144,9 @@ export interface TrainingProviderPageProps {
 }
 
 export interface FinResourcePageProps {
+  sys: {
+    publishedAt: Date;
+  };
   title: string;
   bannerHeading: string;
   bannerCopy: ContentfulRichText;
