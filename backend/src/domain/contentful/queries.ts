@@ -1,3 +1,34 @@
+const fragments = {
+  pageBanner: `fragment PageBanner on PageBanner {
+    title
+    breadcrumbIcon {
+      url
+    }
+    breadcrumbsCollection {
+      items {
+        sys {
+          id
+        }
+        copy
+        url
+      }
+    }
+    message {
+      json
+    }
+    ctaHeading
+    ctaLinksCollection {
+      items {
+        sys {
+          id
+        }
+        copy
+        url
+      }
+    }
+  }`,
+};
+
 const NavMenuFields = `
 heading
 url
@@ -34,6 +65,9 @@ export const FAQ_PAGE_QUERY = `
       bannerImage {
         url
       }
+      pageBanner {
+        ...PageBanner
+      }
       topics: questionTopicsCollection {
         items {
           sys {
@@ -65,6 +99,7 @@ export const FAQ_PAGE_QUERY = `
       }
     }
   }
+  ${fragments.pageBanner}
 `;
 
 export const TRAINING_PROVIDER_PAGE_QUERY = `

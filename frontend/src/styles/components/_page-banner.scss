@@ -1,93 +1,72 @@
 .page-banner {
-  background-color: $light-green;
-  padding: 4.5rem 0;
+  background-color: $lighter-green;
+  padding: 3.1rem 0 0.7rem;
 
-  @media screen and (max-width: ($tabPort)) {
-    padding: 2.2rem 0 2rem;
-  }
-
-  > div {
-    max-width: 750px;
-    margin: auto;
+  .top-nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-
-    @media screen and (max-width: ($tabPort)) {
-      align-items: flex-start;
-    }
-  }
-
-  h1 {
-    font-size: 2.4rem;
-    font-weight: bold;
-    line-height: 1.3;
-
-    @media screen and (min-width: ($tabPort + 1)) {
-      margin: 1rem 0;
-    }
-
-    @media screen and (max-width: ($tabPort)) {
-      margin: 1.8rem 0 1rem;
-      font-size: 1.55rem;
-      line-height: 1.2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    > span {
-      @media screen and (max-width: ($tabPort)) {
-        width: calc(100% - 60px);
-      }
-    }
-
-    img,
-    svg {
-      width: 50px;
-
-      @media screen and (min-width: ($tabPort + 1)) {
-        display: none;
-      }
-    }
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid black;
   }
 
   .usa-breadcrumb {
+    padding: 0;
+    display: flex;
     background-color: transparent;
+    gap: 1rem;
+    width: calc(100% - 140px);
+    align-items: center;
+
+    img {
+      width: 32px;
+    }
+
+    a {
+      color: $indigo;
+    }
+  }
+
+  .date {
+    width: 140px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 3.7rem;
+    font-weight: bold;
+    margin: 0 0 0.2rem;
     padding: 0;
   }
 
-  .back {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-
-    @media screen and (min-width: ($tabPort + 1)) {
-      display: none;
-    }
-  }
-
   .copy {
-    @media screen and (min-width: ($tabPort + 1)) {
-      width: calc(100% - 287px);
-    }
+    padding: 4.2rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
   }
 
-  .icon {
-    width: 215px;
+  .heading {
+    width: calc(100% - 260px);
+  }
 
-    @media screen and (max-width: ($tabPort)) {
-      width: 50px;
-      margin-top: 4rem;
-      display: none;
+  .cta-block {
+    text-align: center;
+    width: 260px;
+    font-weight: bold;
+    font-size: 1.4rem;
+
+    p {
+      line-height: 1.1;
     }
 
-    svg,
-    img {
-      width: 100%;
-      height: auto;
+    a {
+      margin-top: 1rem;
+      display: block;
+      padding-top: 17px;
+      padding-bottom: 17px;
+      background-color: $blue;
+      font-weight: normal;
     }
   }
 }

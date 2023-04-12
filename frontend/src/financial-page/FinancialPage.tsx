@@ -65,12 +65,12 @@ export const FinancialPage = (props: Props): ReactElement => {
         ) : undefined
       }
     >
-      <PageBanner
+      {/* <PageBanner
         breadCrumbs={breadCrumbs}
         heading={`${data?.page.bannerHeading}`}
         image={`${data?.page.bannerImage?.url}`}
         message={data?.page.bannerCopy}
-      />
+      /> */}
 
       <section className="resource-filter">
         <div className="container">

@@ -2,11 +2,12 @@ import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { PageBanner } from "../components/PageBanner";
-import { QuestionBubble } from "../svg/QuestionBubble";
 import { FaqCollection } from "../components/FaqCollection";
 import { ResourceLinks } from "../components/ResourceLinks";
 import { FaqPageData } from "../types/contentful";
 import { Layout } from "../components/Layout";
+import { OverlayTool } from "../components/OverlayTool";
+import image from "../overlayImages/FAQ_Desktop.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -15,15 +16,6 @@ interface Props extends RouteComponentProps {
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<FaqPageData>();
-  const breadCrumbs = [
-    {
-      text: "Home",
-      href: "/",
-    },
-    {
-      text: "FAQs",
-    },
-  ];
 
   useEffect(() => {
     props.client.getContentfulFAQ("faq", {
@@ -42,11 +34,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
 
   return (
     <Layout client={props.client}>
-      <PageBanner
-        breadCrumbs={breadCrumbs}
-        heading={`${data?.page.bannerHeading}`}
-        svg={<QuestionBubble />}
-      />
+      <OverlayTool img={image} />
+      {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
 
       {data && (
         <FaqCollection items={data?.page.topics.items}>

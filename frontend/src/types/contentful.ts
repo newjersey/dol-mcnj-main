@@ -17,6 +17,21 @@ export interface FaqItemTopic {
   order: number;
 }
 
+export interface PageBannerProps {
+  date?: Date;
+  title: string;
+  breadcrumbsCollection: {
+    items: LinkObjectProps[];
+  };
+  breadcrumbIcon: {
+    url: string;
+  };
+  message?: ContentfulRichText;
+  ctaHeading?: string;
+  ctaLinksCollection?: {
+    items: LinkObjectProps[];
+  };
+}
 export interface ContentfulRichText {
   json: Document;
 }
@@ -59,6 +74,7 @@ export interface FaqPageData {
     sys: {
       publishedAt: Date;
     };
+    pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
     bannerImage?: {

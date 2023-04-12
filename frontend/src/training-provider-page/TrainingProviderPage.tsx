@@ -31,11 +31,11 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
 
   return (
     <Layout client={props.client}>
-      <PageBanner
+      {/* <PageBanner
         heading={`${data?.page.bannerHeading}`}
         svg={<LightBulb />}
         subheading={`last updated ${dayjs(data?.page.sys.publishedAt).format("MMMM D, YYYY")}`}
-      />
+      /> */}
       <TabContent items={data?.page.tabs.items} />
     </Layout>
   );
