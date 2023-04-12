@@ -1,8 +1,6 @@
 header {
   &.header {
     background-color: white;
-    position: fixed;
-    top: 0;
     width: 100%;
     z-index: 12;
 
@@ -183,11 +181,7 @@ header {
 
 .below-banners {
   min-height: calc(100% - #{$footer-height});
-  padding: $below-banners-height-mobile 0 5rem;
-
-  @media screen and (min-width: ($tabLand + 1)) {
-    padding: $below-banners-height 0 5rem;
-  }
+  padding: 0 0 5rem;
 
   @media print {
     min-height: auto;
