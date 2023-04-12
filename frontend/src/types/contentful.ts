@@ -45,7 +45,6 @@ export interface LinkObjectProps {
   sys?: {
     id: string;
   };
-  arrow?: boolean;
   copy?: string;
   className?: string;
   url: string;

@@ -1,5 +1,6 @@
 import { NavMenuData } from "../../types/contentful";
 import { LinkObject } from "./LinkObject";
+import { NavSubMenu } from "./NavSubMenu";
 
 export const NavMenu = ({
   menu,
@@ -47,15 +48,10 @@ export const NavMenu = ({
                   hasSub ? " has-sub" : " no-sub"
                 }`}
               >
-                <LinkObject icons={icons} {...item} arrow={hasSub} />
-                {hasSub && (
-                  <ul className="unstyled">
-                    {item.subItemsCollection?.items.map((subItem) => (
-                      <li key={subItem.sys?.id}>
-                        <LinkObject icons={icons} {...subItem} />
-                      </li>
-                    ))}
-                  </ul>
+                {hasSub ? (
+                  <NavSubMenu icons={icons} {...item} />
+                ) : (
+                  <LinkObject icons={icons} {...item} />
                 )}
               </li>
             );
