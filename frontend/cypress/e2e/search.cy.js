@@ -62,7 +62,7 @@ describe("Search", () => {
     // removes others
     cy.contains("Welding Workshops").should("not.exist");
 
-    // cy.checkA11y();
+    cy.checkA11y();
   });
 
   it("shows getting started messaging when no search", () => {
