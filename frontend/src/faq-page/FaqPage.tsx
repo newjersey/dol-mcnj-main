@@ -25,9 +25,6 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     },
   ];
 
-  const topics = data?.faqCollection?.topicsCollection?.items;
-  const linkGroup = data?.faqCollection?.linkGroup;
-
   useEffect(() => {
     props.client.getContentfulFAQ("faq", {
       onSuccess: (response: {
@@ -47,13 +44,18 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     <Layout client={props.client}>
       <PageBanner
         breadCrumbs={breadCrumbs}
-        heading="Frequently Asked Questions"
+        heading={`${data?.page.bannerHeading}`}
         svg={<QuestionBubble />}
       />
 
       {data && (
-        <FaqCollection items={topics}>
-          {linkGroup && <ResourceLinks {...linkGroup} />}
+        <FaqCollection items={data?.page.topics.items}>
+          {data?.page.resourceLinks && (
+            <ResourceLinks
+              heading={data?.page.resourceLinkHeading}
+              links={data?.page.resourceLinks}
+            />
+          )}
         </FaqCollection>
       )}
     </Layout>

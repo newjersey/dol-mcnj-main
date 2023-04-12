@@ -25,9 +25,13 @@ topLevelItemsCollection {
 
 export const FAQ_PAGE_QUERY = `
   {
-    faqCollection(id: "2CV0DOWvRHwiQ821b2VseR") {
+    page: faqPage(id: "22fMmVDetJRhCbRltoS68") {
       title
-      topicsCollection {
+      bannerHeading
+      bannerImage {
+        url
+      }
+      topics: questionTopicsCollection {
         items {
           sys {
             id
@@ -46,16 +50,14 @@ export const FAQ_PAGE_QUERY = `
           }
         }
       }
-      linkGroup {
-        heading
-        linksCollection {
-          items {
-            sys {
-              id
-            }
-            copy
-            url
+      resourceLinkHeading
+      resourceLinks: resourceLinksCollection {
+        items {
+          sys {
+            id
           }
+          copy
+          url
         }
       }
     }
