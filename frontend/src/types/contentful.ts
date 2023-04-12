@@ -120,12 +120,16 @@ export interface TabItemProps {
 }
 
 export interface TrainingProviderData {
-  tabContent: {
-    title: string;
+  page: {
     sys: {
       publishedAt: Date;
     };
-    tabsCollection: {
+    title: string;
+    bannerHeading: string;
+    bannerImage: {
+      url: string;
+    };
+    tabs: {
       items: TabItemProps[];
     };
   };

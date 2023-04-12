@@ -34,11 +34,9 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
       <PageBanner
         heading="Training Provider Resources"
         svg={<LightBulb />}
-        subheading={`last updated ${dayjs(data?.tabContent.sys.publishedAt).format(
-          "MMMM D, YYYY"
-        )}`}
+        subheading={`last updated ${dayjs(data?.page.sys.publishedAt).format("MMMM D, YYYY")}`}
       />
-      <TabContent items={data?.tabContent.tabsCollection.items} />
+      <TabContent items={data?.page.tabs.items} />
     </Layout>
   );
 };
