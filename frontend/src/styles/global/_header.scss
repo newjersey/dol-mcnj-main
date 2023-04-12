@@ -19,7 +19,7 @@ header {
       width: calc(100% - 55px);
 
       @media screen and (min-width: ($tabLand + 1)) {
-        padding: 1.5rem 0 0.8rem;
+        padding: 1.5rem 0 0.7rem;
         width: 50%;
       }
     }
@@ -110,7 +110,7 @@ header {
 
   .main-nav {
     background-color: $dark-blue;
-    min-height: 61px;
+    min-height: 54px;
 
     ul {
       display: flex;
@@ -132,7 +132,7 @@ header {
       color: white;
       display: block;
       text-decoration: none;
-      padding: 1.4rem 0;
+      padding: 1.18rem 0;
       font-size: 0.9rem;
       position: relative;
 
