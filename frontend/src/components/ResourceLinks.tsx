@@ -1,12 +1,21 @@
 /* eslint-disable react/jsx-no-target-blank */
-import { LinkGroupProps } from "../types/contentful";
 
-export const ResourceLinks = ({ heading, linksCollection }: LinkGroupProps) => {
+import { LinkObjectProps } from "../types/contentful";
+
+export const ResourceLinks = ({
+  heading,
+  links,
+}: {
+  heading?: string;
+  links?: {
+    items: LinkObjectProps[];
+  };
+}) => {
   return (
     <div className="resource-links">
       <h4>{heading}</h4>
       <ul>
-        {linksCollection?.items.map(({ copy, url, sys }) => {
+        {links?.items.map(({ copy, url, sys }) => {
           const newTab = url.startsWith("http");
           return (
             <li key={sys?.id}>

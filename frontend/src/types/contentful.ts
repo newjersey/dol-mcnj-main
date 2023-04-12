@@ -55,20 +55,20 @@ export interface LinkObjectProps {
   label?: string;
 }
 
-export interface LinkGroupProps {
-  heading: string;
-  linksCollection: {
-    items: LinkObjectProps[];
-  };
-}
-
 export interface FaqPageData {
-  faqCollection: {
+  page: {
     title: string;
-    topicsCollection: {
+    bannerHeading: string;
+    bannerImage?: {
+      url: string;
+    };
+    topics: {
       items: FaqTopic[];
     };
-    linkGroup: LinkGroupProps;
+    resourceLinkHeading?: string;
+    resourceLinks: {
+      items: LinkObjectProps[];
+    };
   };
 }
 

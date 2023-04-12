@@ -46,20 +46,16 @@ export interface LinkObjectProps {
   icons?: boolean;
 }
 
-export interface LinkGroupProps {
-  heading: string;
-  linksCollection: {
-    items: LinkObjectProps[];
-  };
-}
-
 export interface FaqPageData {
-  faqCollection: {
+  page: {
     title: string;
-    topicsCollection: {
+    topics: {
       items: FaqTopic[];
     };
-    linkGroup: LinkGroupProps;
+    resourceLinkHeading?: string;
+    resourceLinks: {
+      items: LinkObjectProps[];
+    };
   };
 }
 
