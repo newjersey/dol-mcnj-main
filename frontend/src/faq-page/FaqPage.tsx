@@ -7,7 +7,7 @@ import { ResourceLinks } from "../components/ResourceLinks";
 import { FaqPageData } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { OverlayTool } from "../components/OverlayTool";
-import image from "../overlayImages/FAQ_Desktop.png";
+import image from "../overlayImages/mobile.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -33,7 +33,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
   }, [props.client]);
 
   return (
-    <Layout client={props.client}>
+    <Layout client={props.client} theme="navy">
       <OverlayTool img={image} />
       {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
 
