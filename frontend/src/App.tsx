@@ -80,7 +80,7 @@ export const App = (props: Props): ReactElement => {
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
-              <FinancialPage path="/financial-resources" client={props.client} />
+              <FinancialPage path="/tuition-assistance" client={props.client} />
               <FundingPage path="/funding" client={props.client} />
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
