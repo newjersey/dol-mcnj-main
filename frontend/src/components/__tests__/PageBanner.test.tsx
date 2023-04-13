@@ -1,4 +1,4 @@
-import { getByTestId, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { PageBanner } from "../PageBanner";
 
 describe("PageBanner", () => {
@@ -21,7 +21,7 @@ describe("PageBanner", () => {
     };
     const date = new Date("2023-04-13");
 
-    const { getByTestId, getByText, getAllByRole, getByLabelText } = render(
+    const { getByTestId, getByText, getByLabelText } = render(
       <PageBanner
         title={title}
         breadcrumbsCollection={breadcrumbsCollection}
