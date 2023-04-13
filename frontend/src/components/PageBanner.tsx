@@ -31,12 +31,12 @@ export const PageBanner = ({
                 );
               })}
               <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                <span>{title}</span>
+                <span data-testid="title">{title}</span>
               </li>
             </ol>
           </nav>
           {date && (
-            <div className="date">
+            <div data-testid="date" className="date">
               Last Updated
               <br />
               {dayjs(date).format("MM/DD/YYYY")}
