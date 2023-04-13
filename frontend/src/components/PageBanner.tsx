@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { PageBannerProps } from "../types/contentful";
 import { ContentfulRichText } from "./ContentfulRichText";
+import { Icon } from "@material-ui/core";
 
 export const PageBanner = ({
   title,
@@ -16,6 +17,7 @@ export const PageBanner = ({
       <div className="container">
         <div className="top-nav">
           <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+            <Icon>keyboard_backspace</Icon>
             {breadcrumbIcon && <img src={breadcrumbIcon.url} alt="" />}
             <ol className="usa-breadcrumb__list">
               {breadcrumbsCollection.items.map((crumb) => {

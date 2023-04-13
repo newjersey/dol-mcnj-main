@@ -2,11 +2,23 @@
   background-color: $lighter-green;
   padding: 3.1rem 0 0.7rem;
 
+  @media screen and (max-width: ($mobTab)) {
+    padding: 1rem 0;
+  }
+
   .top-nav {
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid black;
+
+    @media screen and (min-width: ($mobMed + 1)) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media screen and (max-width: ($mobMed)) {
+      padding-bottom: 0;
+    }
   }
 
   .usa-breadcrumb {
@@ -17,12 +29,51 @@
     width: calc(100% - 140px);
     align-items: center;
 
-    img {
-      width: 32px;
+    @media screen and (max-width: ($mobMed)) {
+      gap: 0.5rem;
     }
 
-    a {
-      color: $indigo;
+    .material-icons {
+      color: $accessible-gray;
+      font-size: 1.2rem;
+      @media screen and (min-width: ($mobMed + 1)) {
+        display: none;
+      }
+    }
+
+    img {
+      width: 32px;
+      position: relative;
+    }
+
+    .usa-breadcrumb__list {
+      .usa-breadcrumb__list-item {
+        a {
+          &.usa-breadcrumb__link:visited,
+          &.usa-breadcrumb__link {
+            @media screen and (max-width: ($mobMed)) {
+              padding-top: 0.8rem;
+              padding-bottom: 0.8rem;
+            }
+
+            &:before {
+              content: none;
+            }
+            .navy-theme & {
+              color: $indigo;
+            }
+            .blue-theme & {
+              color: $blue;
+            }
+            .green-theme & {
+              color: $green;
+            }
+            .purple-theme & {
+              color: $purple;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -30,6 +81,10 @@
     width: 140px;
     font-size: 0.8rem;
     line-height: 1.5;
+
+    @media screen and (max-width: ($mobMed)) {
+      padding: 0 0 0.5rem;
+    }
   }
 
   h1 {
@@ -37,6 +92,10 @@
     font-weight: bold;
     margin: 0 0 0.2rem;
     padding: 0;
+    @media screen and (max-width: ($mobMed)) {
+      font-size: 2.45rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .copy {
@@ -44,10 +103,22 @@
     display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
+
+    @media screen and (max-width: ($sm - 1)) {
+      display: block;
+    }
+
+    @media screen and (max-width: ($mobMed)) {
+      padding: 1.8rem 0;
+      font-size: 1rem;
+    }
   }
 
   .heading {
     width: calc(100% - 260px);
+    @media screen and (max-width: ($sm - 1)) {
+      width: 100%;
+    }
   }
 
   .cta-block {
@@ -55,6 +126,10 @@
     width: 260px;
     font-weight: bold;
     font-size: 1.4rem;
+
+    @media screen and (max-width: ($sm - 1)) {
+      display: none;
+    }
 
     p {
       line-height: 1.1;
