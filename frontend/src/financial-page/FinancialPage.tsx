@@ -27,16 +27,6 @@ export const FinancialPage = (props: Props): ReactElement => {
     });
   }, [props.client]);
 
-  const breadCrumbs = [
-    {
-      text: "Home",
-      href: "/",
-    },
-    {
-      text: "Financial Resources",
-    },
-  ];
-
   // function that filters data.resources based on activeTags
 
   const getFilteredResources = () => {
