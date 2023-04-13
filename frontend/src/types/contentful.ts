@@ -23,9 +23,7 @@ export interface PageBannerProps {
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
-  breadcrumbIcon: {
-    url: string;
-  };
+  section: "explore" | "jobs" | "support" | "training";
   message?: ContentfulRichText;
   ctaHeading?: string;
   ctaLinksCollection?: {
@@ -142,6 +140,7 @@ export interface TrainingProviderData {
     sys: {
       publishedAt: Date;
     };
+    pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
     bannerImage: {

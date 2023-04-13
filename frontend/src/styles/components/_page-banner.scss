@@ -26,8 +26,11 @@
     display: flex;
     background-color: transparent;
     gap: 1rem;
-    width: calc(100% - 140px);
     align-items: center;
+
+    @media screen and (min-width: ($mobMed + 1)) {
+      width: calc(100% - 140px);
+    }
 
     @media screen and (max-width: ($mobMed)) {
       gap: 0.5rem;
@@ -41,7 +44,8 @@
       }
     }
 
-    img {
+    svg {
+      height: auto;
       width: 32px;
       position: relative;
     }
@@ -59,16 +63,16 @@
             &:before {
               content: none;
             }
-            .navy-theme & {
+            .support-theme & {
               color: $indigo;
             }
-            .blue-theme & {
+            .jobs-theme & {
               color: $blue;
             }
-            .green-theme & {
+            .training-theme & {
               color: $green;
             }
-            .purple-theme & {
+            .explore-theme & {
               color: $purple;
             }
           }
