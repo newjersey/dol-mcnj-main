@@ -1,9 +1,7 @@
 const fragments = {
   pageBanner: `fragment PageBanner on PageBanner {
     title
-    breadcrumbIcon {
-      url
-    }
+    section
     breadcrumbsCollection {
       items {
         sys {
@@ -109,6 +107,9 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
       publishedAt
     }
     title
+    pageBanner {
+      ...PageBanner
+    }
     bannerHeading
     bannerImage {
       url
@@ -126,6 +127,7 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
     }
   }
 }
+${fragments.pageBanner}
 `;
 
 export const FINANCIAL_RESOURCES_PAGE_QUERY = `{

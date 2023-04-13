@@ -4,9 +4,7 @@ import { Client } from "../domain/Client";
 import { PageBanner } from "../components/PageBanner";
 import { TrainingProviderData } from "../types/contentful";
 import { Layout } from "../components/Layout";
-import { LightBulb } from "../svg/LightBulb";
 import { TabContent } from "../components/TabContent";
-import dayjs from "dayjs";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -31,11 +29,7 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
 
   return (
     <Layout client={props.client}>
-      {/* <PageBanner
-        heading={`${data?.page.bannerHeading}`}
-        svg={<LightBulb />}
-        subheading={`last updated ${dayjs(data?.page.sys.publishedAt).format("MMMM D, YYYY")}`}
-      /> */}
+      {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
       <TabContent items={data?.page.tabs.items} />
     </Layout>
   );

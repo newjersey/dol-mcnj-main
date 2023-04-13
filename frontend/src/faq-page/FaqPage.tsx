@@ -31,9 +31,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
   }, [props.client]);
 
   return (
-    <Layout client={props.client} theme="navy">
+    <Layout client={props.client} theme="support">
       {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
-
       {data && (
         <FaqCollection items={data?.page.topics.items}>
           {data?.page.resourceLinks && (

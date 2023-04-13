@@ -9,7 +9,7 @@ interface LayoutProps {
   children?: ReactNode;
   footerComponent?: ReactNode;
   noFooter?: boolean;
-  theme?: "blue" | "purple" | "green" | "navy";
+  theme?: "explore" | "jobs" | "support" | "training";
 }
 export const Layout = (props: LayoutProps) => {
   const [globalNav, setGlobalNav] = useState<NavMenuData>();
