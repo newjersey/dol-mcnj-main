@@ -1,7 +1,7 @@
 import { api } from "./api";
 import {
   FAQ_PAGE_QUERY,
-  FINANCIAL_RESOURCES_PAGE_QUERY,
+  TUITION_ASSISTANCE_PAGE_QUERY,
   TRAINING_PROVIDER_PAGE_QUERY,
   NAV_QUERY,
 } from "./queries";
@@ -18,7 +18,7 @@ export const contentfulFactory = (query: string): any => {
       break;
     }
     case "frp": {
-      query = FINANCIAL_RESOURCES_PAGE_QUERY;
+      query = TUITION_ASSISTANCE_PAGE_QUERY;
       break;
     }
     case "gnav": {

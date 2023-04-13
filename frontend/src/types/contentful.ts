@@ -162,6 +162,7 @@ export interface FinResourcePageProps {
   sys: {
     publishedAt: Date;
   };
+  pageBanner: PageBannerProps;
   title: string;
   bannerHeading: string;
   bannerCopy: ContentfulRichText;

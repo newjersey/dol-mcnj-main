@@ -19,10 +19,7 @@ export const PageBanner = ({
         <div className="top-nav">
           <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
             <Icon>keyboard_backspace</Icon>
-
             <Selector name={section} />
-
-            {/* {breadcrumbIcon && <img src={breadcrumbIcon.url} alt="" />} */}
             <ol className="usa-breadcrumb__list">
               {breadcrumbsCollection.items.map((crumb) => {
                 return (

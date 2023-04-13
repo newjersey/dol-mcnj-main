@@ -28,7 +28,7 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
   }, [props.client]);
 
   return (
-    <Layout client={props.client}>
+    <Layout client={props.client} theme="training">
       {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
       <TabContent items={data?.page.tabs.items} />
     </Layout>
