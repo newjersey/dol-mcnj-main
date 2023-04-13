@@ -130,12 +130,15 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
 ${fragments.pageBanner}
 `;
 
-export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
+export const TUITION_ASSISTANCE_PAGE_QUERY = `{
   page: financialResourcePage(id: "4WDrIZ71LCksX9Q63rbIwq") {
     sys {
       publishedAt
     }
     title
+    pageBanner {
+      ...PageBanner
+    }
     bannerHeading
     bannerCopy {
       json
@@ -187,7 +190,9 @@ export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
       }
     }
   }
-}`;
+}
+${fragments.pageBanner}
+`;
 
 export const NAV_QUERY = (id: string) => `{
   navMenus(id: "${id}") {

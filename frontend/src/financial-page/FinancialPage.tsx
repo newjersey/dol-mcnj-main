@@ -53,6 +53,7 @@ export const FinancialPage = (props: Props): ReactElement => {
 
   return (
     <Layout
+      theme="support"
       client={props.client}
       footerComponent={
         data?.page.footerBannerTitle && data?.page.footerBannerCopy ? (
@@ -65,13 +66,7 @@ export const FinancialPage = (props: Props): ReactElement => {
         ) : undefined
       }
     >
-      {/* <PageBanner
-        breadCrumbs={breadCrumbs}
-        heading={`${data?.page.bannerHeading}`}
-        image={`${data?.page.bannerImage?.url}`}
-        message={data?.page.bannerCopy}
-      /> */}
-
+      {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
       <section className="resource-filter">
         <div className="container">
           <FinancialResourceFilter
