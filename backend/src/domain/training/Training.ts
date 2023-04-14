@@ -1,5 +1,6 @@
 import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
+import { Ceterms } from "../credentialengine/CredentialEngine";
 
 export interface Training {
   id: string;
@@ -56,4 +57,16 @@ export interface ContactPoint {
   socialMedia?: string[];
   email?: string[];
   telephone?: string[];
+}
+
+export interface ConditionProfile {
+  name?: string;
+  experience?: string;
+  description?: string;
+  yearsOfExperience?: string;
+  targetAssessment?: Training[];
+  targetCompetency?: Training[];
+  targetCredential?: Training[];
+  targetLearningOpportunity?: Training[];
+
 }
