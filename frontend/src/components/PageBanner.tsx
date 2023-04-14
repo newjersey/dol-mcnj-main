@@ -37,9 +37,7 @@ export const PageBanner = ({
           </nav>
           {date && (
             <div data-testid="date" className="date">
-              Last Updated
-              <br />
-              {dayjs(date).format("MM/DD/YYYY")}
+              Last Updated {dayjs(date).format("MM/DD/YYYY")}
             </div>
           )}
         </div>
