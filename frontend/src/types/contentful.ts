@@ -94,6 +94,30 @@ export interface FaqPageProps {
   };
 }
 
+export interface IndustryProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  slug: string;
+  description: ContentfulRichText;
+  photo: {
+    url: string;
+  };
+  industryAccordionCollection: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      copy: ContentfulRichText;
+      icon?: {
+        url: string;
+      };
+    }[];
+  };
+}
+
 export interface CareerPathwaysPageData {
   page: {
     sys: {
@@ -105,13 +129,7 @@ export interface CareerPathwaysPageData {
     FooterCtaLink: LinkObjectProps;
   };
   industries: {
-    items: {
-      sys: {
-        id: string;
-      };
-      title: string;
-      slug: string;
-    }[];
+    items: IndustryProps[];
   };
 }
 
