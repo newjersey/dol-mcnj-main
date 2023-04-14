@@ -1,7 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Address, Training } from "./Training";
+import { Address, ConditionProfile, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -54,11 +54,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
-        const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
+        const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
         const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
 
-        let certifications:CetermsConditionProfile[] = isPreparationFor;
+        let certifications:ConditionProfile[] = [];
 
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
@@ -117,11 +117,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           const conditionRecord = await credentialEngineAPI.getResourceByCTID(conditionCtid);
         }
 
-        // Get certifications from "ceterms:isPreparationFor"
-        if (isPreparationFor != null) {
-          certifications = isPreparationFor
-        }
-
         if (estimatedDuration != null) {
           const durationProfile = estimatedDuration[0];
           if (durationProfile != null) {
@@ -159,26 +154,38 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // get SOCs from ceterms:occupationType instead of from the database
 
         }
-        // fix bug here
-        // GET credentials and certifications this prepares for
-        /*if (isPreparationFor != null) {
-          // TODO: Modify to handle multiple conditionProfiles
-          const conditionProfile = isPreparationFor[0];
-          if (conditionProfile != null) {
-            // TODO: Modify to handle multiple targetCredentials per conditionProfile
-            const targetCredential = conditionProfile["ceterms:targetCredential"]
-            if (targetCredential != null) {
-              const credentialUrl = targetCredential[0]
-              const credentialCtid = await credentialEngineUtils.getCtidFromURL(credentialUrl);
-              const credentialRecord = await credentialEngineAPI.getResourceByCTID(credentialCtid) as CTDLResource;
-              if (credentialRecord["ceterms:name"] != null) {
-                if (credentialRecord["ceterms:name"]["en-US"] != null) {
-                  credential = credentialRecord["ceterms:name"]["en-US"];
-                }
-              }
+
+        // Get certificaitons from "ceterms:isPreparationFor"
+        if (isPreparationFor != null) {
+          for (let i=0; i < isPreparationFor.length; i++) {
+            const conditionObj = isPreparationFor[i] as CetermsConditionProfile;
+            const conditionProfile = {
+              name: conditionObj["ceterms:name"] ? conditionObj["ceterms:name"]['en-US'] : null,
+              experience: conditionObj["ceterms:experience"],
+              description: conditionObj["ceterms:description"] ? conditionObj["ceterms:description"]['en-US'] : null,
+            };
+            const targetAssessments = isPreparationFor[i]["ceterms:targetAssessment"];
+            const targetCompetencies = isPreparationFor[i]["ceterms:targetCompetency"];
+            const targetCredentials = isPreparationFor[i]["ceterms:targetCredential"];
+            const targetLearningOpportunities = isPreparationFor[i]["ceterms:targetLearningOpportunity"];
+
+            for (const url in targetAssessments) {
+
+            }
+
+            for (const url in targetCompetencies) {
+
+            }
+
+            for (const url in targetCredentials) {
+
+            }
+
+            for (const url in targetLearningOpportunities) {
+
             }
           }
-        }*/
+        }
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {

@@ -50,7 +50,7 @@ export interface CTDLResource {
   "ceterms:occupationType"?:            CetermsOccupationType[];
   "ceterms:subjectWebpage"?:            string;
   "ceterms:commonConditions"?:          string[];
-  "ceterms:isPreparationFor"?:          CetermsIsPreparationFor[];
+  "ceterms:isPreparationFor"?:          CetermsConditionProfile[];
   "ceterms:copyrightHolder"?:           string[];
   "ceterms:audienceLevelType"?:         CetermsType[];
   "ceterms:availableOnlineAt"?:         string[];
@@ -367,12 +367,16 @@ export interface CetermsVersionIdentifier {
 }
 
 export interface CetermsConditionProfile {
-  "@type"?:                       string;
-  "ceterms:name"?:                Ceterms;
-  "ceterms:assertedBy"?:          string[];
-  "ceterms:experience"?:          string;
-  "ceterms:description"?:         Ceterms;
-  "ceterms:yearsofExperience"?:   number;
+  "@type"?:                             string;
+  "ceterms:name"?:                      Ceterms;
+  "ceterms:assertedBy"?:                string[];
+  "ceterms:experience"?:                string;
+  "ceterms:description"?:               Ceterms;
+  "ceterms:yearsofExperience"?:         number;
+  "ceterms:targetAssessment"?:          string[];
+  "ceterms:targetCompetency"?:          string[];
+  "ceterms:targetCredential"?:          string[];
+  "ceterms:targetLearningOpportunity"?: string[];
 }
 
 export interface CetermsRecovationProfile {
