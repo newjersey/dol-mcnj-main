@@ -39,6 +39,7 @@ import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { FinancialPage } from "./financial-page/FinancialPage";
 import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
+import { CareerPathwaysRoutes } from "./career-pathways-page/CareerPathwaysRoutes";
 
 interface Props {
   client: Client;
@@ -82,8 +83,8 @@ export const App = (props: Props): ReactElement => {
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
               <FinancialPage path="/tuition-assistance" client={props.client} />
-              <CareerPathwaysPage path="/career-pathways/:industry" client={props.client} />
               <CareerPathwaysPage path="/career-pathways" client={props.client} />
+              {CareerPathwaysRoutes({ client: props.client })}
               <FundingPage path="/funding" client={props.client} />
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />

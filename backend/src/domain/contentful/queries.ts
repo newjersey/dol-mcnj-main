@@ -145,35 +145,7 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
       url
     }
   }
-  industries: industryCollection {
-    items {
-      title
-      slug
-      sys {
-        id
-      }
-    }
-  }
-}
-${fragments.pageBanner}
-`;
-
-export const INDUSTRY_DATA_QUERY = `query Pathways($industry: String!) {
-  page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
-    sys {
-      publishedAt
-    }
-    title
-    pageBanner {
-      ...PageBanner
-    }
-    footerCtaHeading
-    footerCtaLink {
-      copy
-      url
-    }
-  }
-  industries: industryCollection(where: { slug: $industry }, limit: 1) {
+  industries: industryCollection(limit: 20) {
     items {
       title
       slug
@@ -199,6 +171,7 @@ export const INDUSTRY_DATA_QUERY = `query Pathways($industry: String!) {
       }
     }
   }
+}
 ${fragments.pageBanner}
 `;
 
