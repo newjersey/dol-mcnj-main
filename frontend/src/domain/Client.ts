@@ -6,6 +6,7 @@ import {
   FinancialResourcePageProps,
   TrainingProviderPageProps,
   NavMenuProps,
+  CareerPathwaysPageProps,
 } from "../types/contentful";
 
 export interface Client {
@@ -13,6 +14,7 @@ export interface Client {
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;
   getOccupationDetailBySoc: (soc: string, observer: Observer<OccupationDetail>) => void;
+  getContentfulCPW: (query: string, observer: Observer<CareerPathwaysPageProps>) => void;
   getContentfulFAQ: (query: string, observer: Observer<FaqPageProps>) => void;
   getContentfulTPR: (query: string, observer: Observer<TrainingProviderPageProps>) => void;
   getContentfulFRP: (query: string, observer: Observer<FinancialResourcePageProps>) => void;

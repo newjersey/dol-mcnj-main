@@ -94,6 +94,33 @@ export interface FaqPageProps {
   };
 }
 
+export interface CareerPathwaysPageData {
+  page: {
+    sys: {
+      publishedAt: Date;
+    };
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    FooterCtaLink: LinkObjectProps;
+  };
+  industries: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+    }[];
+  };
+}
+
+export interface CareerPathwaysPageProps {
+  data: {
+    data: CareerPathwaysPageData;
+  };
+}
+
 export interface TopLevelNavItemProps {
   sys: {
     id: string;
