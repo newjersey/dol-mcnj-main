@@ -29,7 +29,6 @@ jobs:
           key: node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.npm
-            - ~/.cache
       - run:
           command: npm test
       - run:
