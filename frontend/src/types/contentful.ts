@@ -99,7 +99,7 @@ export interface IndustryProps {
     id: string;
   };
   title: string;
-  slug: string;
+  slug: "manufacturing" | "healthcare" | "tdl";
   description: ContentfulRichText;
   photo: {
     url: string;
@@ -126,7 +126,7 @@ export interface CareerPathwaysPageData {
     title: string;
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
-    FooterCtaLink: LinkObjectProps;
+    footerCtaLink: LinkObjectProps;
   };
   industries: {
     items: IndustryProps[];
