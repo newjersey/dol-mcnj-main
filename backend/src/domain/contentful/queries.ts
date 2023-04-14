@@ -155,6 +155,9 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
       photo {
         url
       }
+      sys{
+        id
+      }
       industryAccordionCollection {
         items {
           sys {
