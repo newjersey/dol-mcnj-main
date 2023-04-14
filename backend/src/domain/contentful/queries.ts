@@ -53,7 +53,7 @@ topLevelItemsCollection {
 `;
 
 export const FAQ_PAGE_QUERY = `
-  {
+  query FaqPage {
     page: faqPage(id: "22fMmVDetJRhCbRltoS68") {
       sys {
         publishedAt
@@ -101,7 +101,7 @@ export const FAQ_PAGE_QUERY = `
 `;
 
 export const TRAINING_PROVIDER_PAGE_QUERY = `
-{
+query TrainingProviderPage {
   page: trainingProviderResourcesPage(id: "4GrMLVPYkDCMzMLCxEgy9s") {
     sys {
       publishedAt
@@ -130,7 +130,79 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
 ${fragments.pageBanner}
 `;
 
-export const TUITION_ASSISTANCE_PAGE_QUERY = `{
+export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
+	page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
+    sys {
+      publishedAt
+    }
+    title
+    pageBanner {
+      ...PageBanner
+    }
+    footerCtaHeading
+    footerCtaLink {
+      copy
+      url
+    }
+  }
+  industries: industryCollection {
+    items {
+      title
+      slug
+      sys {
+        id
+      }
+    }
+  }
+}
+${fragments.pageBanner}
+`;
+
+export const INDUSTRY_DATA_QUERY = `query Pathways($industry: String!) {
+  page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
+    sys {
+      publishedAt
+    }
+    title
+    pageBanner {
+      ...PageBanner
+    }
+    footerCtaHeading
+    footerCtaLink {
+      copy
+      url
+    }
+  }
+  industries: industryCollection(where: { slug: $industry }, limit: 1) {
+    items {
+      title
+      slug
+      description {
+        json
+      }
+      photo {
+        url
+      }
+      industryAccordionCollection {
+        items {
+          sys {
+            id
+          }
+          icon {
+            url
+          }
+          title
+          copy {
+            json
+          }
+        }
+      }
+    }
+  }
+${fragments.pageBanner}
+`;
+
+export const TUITION_ASSISTANCE_PAGE_QUERY = `query TuitionAssistance {
   page: financialResourcePage(id: "4WDrIZ71LCksX9Q63rbIwq") {
     sys {
       publishedAt

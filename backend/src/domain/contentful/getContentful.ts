@@ -4,11 +4,16 @@ import {
   TUITION_ASSISTANCE_PAGE_QUERY,
   TRAINING_PROVIDER_PAGE_QUERY,
   NAV_QUERY,
+  CAREER_PATHWAYS_PAGE_QUERY,
 } from "./queries";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const contentfulFactory = (query: string): any => {
   switch (query) {
+    case "cpw": {
+      query = CAREER_PATHWAYS_PAGE_QUERY;
+      break;
+    }
     case "faq": {
       query = FAQ_PAGE_QUERY;
       break;

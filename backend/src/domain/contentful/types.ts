@@ -14,6 +14,19 @@ export interface ContentfulRichText {
   json: Document;
 }
 
+export interface PageBannerProps {
+  date?: Date;
+  title: string;
+  breadcrumbsCollection: {
+    items: LinkObjectProps[];
+  };
+  section: "explore" | "jobs" | "support" | "training";
+  message?: ContentfulRichText;
+  ctaHeading?: string;
+  ctaLinksCollection?: {
+    items: LinkObjectProps[];
+  };
+}
 export interface FaqItem {
   sys?: {
     id: string;
@@ -66,6 +79,33 @@ export interface FaqPageData {
 export interface FaqPageProps {
   data: {
     data: FaqPageData;
+  };
+}
+
+export interface CareerPathwaysPageData {
+  page: {
+    sys: {
+      publishedAt: Date;
+    };
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    FooterCtaLink: LinkObjectProps;
+  };
+  industries: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+    }[];
+  };
+}
+
+export interface CareerPathwaysPageProps {
+  data: {
+    data: CareerPathwaysPageData;
   };
 }
 
