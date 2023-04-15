@@ -4,6 +4,7 @@ import { TrainingResult } from "../training/TrainingResult";
 import { Training } from "../training/Training";
 import { SearchClient } from "./SearchClient";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 
 import { Selector } from "../training/Selector";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
@@ -113,8 +114,8 @@ export const searchTrainingsFactory = (
       Selector.ID,
       ceRecords.map((it) => it["@id"])
     )
-    console.log("HELLO")
-    console.log(JSON.stringify(trainings, null, 2))
+    console.log(JSON.stringify(trainings, null, 2));
+
 
     return Promise.all(
       trainings.map(async (training: Training) => {
@@ -132,6 +133,9 @@ export const searchTrainingsFactory = (
           }
         }*/
 
+
+        const highlight = await credentialEngineUtils.getHighlight(training.description, searchQuery);
+
         return {
           id: training.id,
           name: training.name,
@@ -144,11 +148,9 @@ export const searchTrainingsFactory = (
           providerId: training.provider.id,
           providerName: training.provider.name,
           cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],
-          //           zipCodes: training.provider.addresses ? training.provider.addresses.flatMap(a => a.zipCode == null ? [] : a.zipCode) : [],
           zipCodes: training.provider.addresses ? training.provider.addresses.map(a => a.zipCode) : [],
           inDemand: training.inDemand,
-          //highlight: stripUnicode(highlight),
-          highlight: "",
+          highlight: highlight ? highlight : "",
           //rank: rank,
           rank: 0,
           socCodes: training.occupations.map((o) => o.soc),
