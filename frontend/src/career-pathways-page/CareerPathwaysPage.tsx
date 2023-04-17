@@ -5,9 +5,8 @@ import { PageBanner } from "../components/PageBanner";
 import { CareerPathwaysPageData, IndustryProps } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
-import { OverlayTool } from "../components/OverlayTool";
-import image from "../overlayImages/career-pathways.png";
 import { FooterCta } from "../components/FooterCta";
+import { IndustryBlock } from "../components/IndustryBlock";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -47,11 +46,11 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
         data && <FooterCta heading={data.page.footerCtaHeading} link={data.page.footerCtaLink} />
       }
     >
-      <OverlayTool img={image} />
       {data && (
         <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
-          <IndustrySelector industries={data.industries.items} />
+          <IndustrySelector industries={data.industries.items} current={industry?.slug} />
+          {industry && <IndustryBlock {...industry} />}
         </>
       )}
     </Layout>
