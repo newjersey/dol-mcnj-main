@@ -13,6 +13,13 @@ export const IndustryBlock = ({
   sys,
   title,
 }: IndustryProps) => {
+  const scrollToIndustry = () => {
+    const industryContainer = document.getElementById("industry-container");
+    if (industryContainer) {
+      industryContainer.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const numberedLists = document.querySelectorAll(".accordion-wrapper ol");
@@ -29,13 +36,19 @@ export const IndustryBlock = ({
 
   return (
     <section className="industry-block">
-      <button type="button" className="explore-button">
+      <button
+        type="button"
+        className="explore-button"
+        onClick={() => {
+          scrollToIndustry();
+        }}
+      >
         <ArrowCircleDown size={32} color="#000" />
         <span>
           Explore <span>{title.toLowerCase()}</span> pathways below
         </span>
       </button>
-      <div className="container">
+      <div className="container" id="industry-container">
         <div className="heading">
           <h2>
             <Selector name={slug} />
