@@ -1,11 +1,12 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useEffect } from "react";
 import { Document } from "@contentful/rich-text-types";
 import { ContentfulRichText } from "../components/ContentfulRichText";
 
 export interface AccordionData {
-  title: string;
+  title: string | ReactElement;
   content: Document;
   keyValue: number;
+  open?: boolean;
 }
 
 export const Accordion = (data: AccordionData): ReactElement => {
@@ -20,6 +21,12 @@ export const Accordion = (data: AccordionData): ReactElement => {
       contentBlock.style.height = !isOpen ? `${height}px` : "0px";
     }
   };
+
+  useEffect(() => {
+    if (data.open) {
+      toggleIsOpen();
+    }
+  }, []);
 
   return (
     <div

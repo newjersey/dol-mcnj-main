@@ -43,6 +43,17 @@
     text-align: center;
     max-width: 200px;
 
+    @media screen and (max-width: ($mobTab)) {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &.active {
+      a {
+        background: $lightest-grey;
+      }
+    }
+
     + li {
       @media screen and (max-width: ($mobTab)) {
         margin-top: 1rem;
@@ -56,6 +67,7 @@
       display: block;
       border: 2px solid $light-grey;
       border-radius: 20px;
+      color: $text;
 
       @media screen and (min-width: ($mobTab + 1)) {
         height: 160px;

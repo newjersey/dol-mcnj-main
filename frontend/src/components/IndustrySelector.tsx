@@ -1,7 +1,13 @@
 import { Selector } from "../svg/Selector";
 import { IndustryProps } from "../types/contentful";
 
-export const IndustrySelector = ({ industries }: { industries: IndustryProps[] }) => {
+export const IndustrySelector = ({
+  industries,
+  current,
+}: {
+  industries: IndustryProps[];
+  current?: string;
+}) => {
   return (
     <section className="industry-selector">
       <div className="container">
@@ -11,10 +17,10 @@ export const IndustrySelector = ({ industries }: { industries: IndustryProps[] }
         <nav id="industry-nav">
           <ul className="unstyled">
             {industries.map(({ sys, title, slug }) => (
-              <li key={sys.id}>
-                <a href={`/${slug}`}>
+              <li key={sys.id} className={current === slug ? "active" : undefined}>
+                <a href={`/career-pathways/${slug}`}>
                   <div className="icon">
-                    <Selector name={slug} />
+                    <Selector name={slug} color="#000" />
                   </div>
                   <span>{title}</span>
                 </a>
