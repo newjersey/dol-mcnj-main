@@ -91,7 +91,7 @@
       }
     }
 
-    .usa-legend {
+    legend {
       font-size: 1.4rem;
     }
   }
@@ -106,7 +106,7 @@
       padding: 3rem 0 0 1.7rem;
     }
 
-    .showing {
+    h3 {
       font-weight: bold;
       font-size: 1.4rem;
     }
@@ -121,11 +121,10 @@
         background-color: $blue;
       }
       &.red {
-        background-color: $red;
+        background-color: $tag-red;
       }
       &.yellow {
         background-color: $tag-yellow;
-        color: black;
       }
       &.navy {
         background-color: $tag-navy;

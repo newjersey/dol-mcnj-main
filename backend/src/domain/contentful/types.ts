@@ -14,19 +14,6 @@ export interface ContentfulRichText {
   json: Document;
 }
 
-export interface PageBannerProps {
-  date?: Date;
-  title: string;
-  breadcrumbsCollection: {
-    items: LinkObjectProps[];
-  };
-  section: "explore" | "jobs" | "support" | "training";
-  message?: ContentfulRichText;
-  ctaHeading?: string;
-  ctaLinksCollection?: {
-    items: LinkObjectProps[];
-  };
-}
 export interface FaqItem {
   sys?: {
     id: string;
@@ -59,53 +46,26 @@ export interface LinkObjectProps {
   icons?: boolean;
 }
 
+export interface LinkGroupProps {
+  heading: string;
+  linksCollection: {
+    items: LinkObjectProps[];
+  };
+}
+
 export interface FaqPageData {
-  page: {
-    sys: {
-      publishedAt: Date;
-    };
+  faqCollection: {
     title: string;
-    bannerHeading: string;
-    topics: {
+    topicsCollection: {
       items: FaqTopic[];
     };
-    resourceLinkHeading?: string;
-    resourceLinks: {
-      items: LinkObjectProps[];
-    };
+    linkGroup: LinkGroupProps;
   };
 }
 
 export interface FaqPageProps {
   data: {
     data: FaqPageData;
-  };
-}
-
-export interface CareerPathwaysPageData {
-  page: {
-    sys: {
-      publishedAt: Date;
-    };
-    title: string;
-    pageBanner: PageBannerProps;
-    footerCtaHeading: string;
-    FooterCtaLink: LinkObjectProps;
-  };
-  industries: {
-    items: {
-      sys: {
-        id: string;
-      };
-      title: string;
-      slug: string;
-    }[];
-  };
-}
-
-export interface CareerPathwaysPageProps {
-  data: {
-    data: CareerPathwaysPageData;
   };
 }
 
@@ -151,16 +111,12 @@ export interface TabItemProps {
 }
 
 export interface TrainingProviderData {
-  page: {
+  tabContent: {
+    title: string;
     sys: {
       publishedAt: Date;
     };
-    title: string;
-    bannerHeading: string;
-    bannerImage: {
-      url: string;
-    };
-    tabs: {
+    tabsCollection: {
       items: TabItemProps[];
     };
   };
@@ -171,11 +127,9 @@ export interface FinancialResourcePageProps {
   data: {
     data: {
       page: {
-        sys: {
-          publishedAt: Date;
-        };
         title: string;
         bannerHeading: string;
+        bannerCopy: ContentfulRichText;
         bannerImage?: {
           url: string;
         };
