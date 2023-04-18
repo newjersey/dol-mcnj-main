@@ -6,7 +6,6 @@
     "@contentful/rich-text-types",
     "@material-ui/core",
     "@material-ui/lab",
-    "@phosphor-icons/react",
     "@reach/router",
     "@testing-library/jest-dom/extend-expect",
     "@testing-library/react",

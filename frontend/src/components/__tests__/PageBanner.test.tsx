@@ -2,57 +2,40 @@ import { render } from "@testing-library/react";
 import { PageBanner } from "../PageBanner";
 
 describe("PageBanner", () => {
-  it("renders correctly with given props", () => {
-    const title = "Test Title";
-    const breadcrumbsCollection = {
-      items: [
-        { sys: { id: "1" }, copy: "Breadcrumb 1", url: "/breadcrumb1" },
-        { sys: { id: "2" }, copy: "Breadcrumb 2", url: "/breadcrumb2" },
-      ],
-    };
-    const section = "explore";
-    const message = undefined;
-    const ctaHeading = "CTA Heading";
-    const ctaLinksCollection = {
-      items: [
-        { sys: { id: "1" }, copy: "CTA Link 1", url: "/cta1" },
-        { sys: { id: "2" }, copy: "CTA Link 2", url: "/cta2" },
-      ],
-    };
-    const date = new Date("2023-04-13");
+  it("renders the heading and subheading", () => {
+    const heading = "Page Title";
+    const subheading = "Page subtitle";
+    const { getByText } = render(<PageBanner heading={heading} subheading={subheading} />);
+    expect(getByText(heading)).toBeInTheDocument();
+    expect(getByText(subheading)).toBeInTheDocument();
+  });
 
-    const { getByTestId, getByText, getByLabelText } = render(
-      <PageBanner
-        title={title}
-        breadcrumbsCollection={breadcrumbsCollection}
-        section={section}
-        message={message}
-        ctaHeading={ctaHeading}
-        ctaLinksCollection={ctaLinksCollection}
-        date={date}
-      />
-    );
-
-    // Assert title is rendered
-    expect(getByTestId("title")).toBeInTheDocument();
-
-    // Assert breadcrumbs are rendered
-    breadcrumbsCollection.items.forEach((crumb) => {
-      expect(getByText(crumb.copy)).toHaveAttribute("href", crumb.url);
+  it("renders the breadcrumb links", () => {
+    const breadCrumbs = [
+      { text: "Home", href: "/" },
+      { text: "Products", href: "/products" },
+      { text: "Product 1" },
+    ];
+    const { getByText } = render(<PageBanner heading="Page Title" breadCrumbs={breadCrumbs} />);
+    breadCrumbs.forEach((crumb) => {
+      const breadcrumbLink = getByText(crumb.text);
+      if (crumb.href) {
+        expect(breadcrumbLink).toHaveAttribute("href", crumb.href);
+      }
     });
+  });
 
-    // Assert section selector is rendered
-    expect(getByLabelText("Breadcrumbs")).toBeInTheDocument();
+  it("does not render the subheading when it is not provided", () => {
+    const heading = "Page Title";
+    const { queryByText } = render(<PageBanner heading={heading} />);
+    expect(queryByText("Page subtitle")).toBeNull();
+  });
 
-    // Assert message content is rendered
-    expect(getByText("CTA Heading")).toBeInTheDocument();
-
-    // Assert CTA links are rendered
-    ctaLinksCollection.items.forEach((link) => {
-      expect(getByText(link.copy)).toHaveAttribute("href", link.url);
-    });
-
-    // Assert date is rendered
-    expect(getByTestId("date")).toBeInTheDocument();
+  it("does not render the breadcrumb list when it is not provided", () => {
+    const heading = "Page Title";
+    const { queryByText } = render(<PageBanner heading={heading} />);
+    expect(queryByText("Home")).toBeNull();
+    expect(queryByText("Products")).toBeNull();
+    expect(queryByText("Product 1")).toBeNull();
   });
 });

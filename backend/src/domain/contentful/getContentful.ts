@@ -1,19 +1,14 @@
 import { api } from "./api";
 import {
   FAQ_PAGE_QUERY,
-  TUITION_ASSISTANCE_PAGE_QUERY,
+  FINANCIAL_RESOURCES_PAGE_QUERY,
   TRAINING_PROVIDER_PAGE_QUERY,
   NAV_QUERY,
-  CAREER_PATHWAYS_PAGE_QUERY,
 } from "./queries";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const contentfulFactory = (query: string): any => {
   switch (query) {
-    case "cpw": {
-      query = CAREER_PATHWAYS_PAGE_QUERY;
-      break;
-    }
     case "faq": {
       query = FAQ_PAGE_QUERY;
       break;
@@ -23,7 +18,7 @@ export const contentfulFactory = (query: string): any => {
       break;
     }
     case "frp": {
-      query = TUITION_ASSISTANCE_PAGE_QUERY;
+      query = FINANCIAL_RESOURCES_PAGE_QUERY;
       break;
     }
     case "gnav": {
