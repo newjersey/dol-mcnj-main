@@ -1,93 +1,156 @@
 .page-banner {
-  background-color: $light-green;
-  padding: 4.5rem 0;
+  background-color: $lighter-green;
+  padding: 3.1rem 0 0.7rem;
 
-  @media screen and (max-width: ($tabPort)) {
-    padding: 2.2rem 0 2rem;
+  @media screen and (max-width: ($mobTab)) {
+    padding: 1rem 0;
   }
 
-  > div {
-    max-width: 750px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
+  .top-nav {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid black;
 
-    @media screen and (max-width: ($tabPort)) {
-      align-items: flex-start;
-    }
-  }
-
-  h1 {
-    font-size: 2.4rem;
-    font-weight: bold;
-    line-height: 1.3;
-
-    @media screen and (min-width: ($tabPort + 1)) {
-      margin: 1rem 0;
-    }
-
-    @media screen and (max-width: ($tabPort)) {
-      margin: 1.8rem 0 1rem;
-      font-size: 1.55rem;
-      line-height: 1.2;
+    @media screen and (min-width: ($mobMed + 1)) {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
-    > span {
-      @media screen and (max-width: ($tabPort)) {
-        width: calc(100% - 60px);
-      }
-    }
-
-    img,
-    svg {
-      width: 50px;
-
-      @media screen and (min-width: ($tabPort + 1)) {
-        display: none;
-      }
+    @media screen and (max-width: ($mobMed)) {
+      padding-bottom: 0;
     }
   }
 
   .usa-breadcrumb {
-    background-color: transparent;
     padding: 0;
+    display: flex;
+    background-color: transparent;
+    gap: 1rem;
+    align-items: center;
+
+    @media screen and (min-width: ($mobMed + 1)) {
+      width: calc(100% - 140px);
+    }
+
+    @media screen and (max-width: ($mobMed)) {
+      gap: 0.5rem;
+    }
+
+    .material-icons {
+      color: $accessible-gray;
+      font-size: 1.2rem;
+      @media screen and (min-width: ($mobMed + 1)) {
+        display: none;
+      }
+    }
+
+    svg {
+      height: auto;
+      width: 32px;
+      position: relative;
+    }
+
+    .usa-breadcrumb__list {
+      .usa-breadcrumb__list-item {
+        a {
+          &.usa-breadcrumb__link:visited,
+          &.usa-breadcrumb__link {
+            @media screen and (max-width: ($mobMed)) {
+              padding-top: 0.8rem;
+              padding-bottom: 0.8rem;
+            }
+
+            &:before {
+              content: none;
+            }
+            .support-theme & {
+              color: $indigo;
+            }
+            .jobs-theme & {
+              color: $blue;
+            }
+            .training-theme & {
+              color: $green;
+            }
+            .explore-theme & {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }
   }
 
-  .back {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
+  .date {
+    width: 140px;
+    font-size: 0.8rem;
+    line-height: 1.5;
 
-    @media screen and (min-width: ($tabPort + 1)) {
-      display: none;
+    @media screen and (max-width: ($mobMed)) {
+      padding: 0 0 0.5rem;
+      width: 100%;
+    }
+  }
+
+  h1 {
+    font-size: 3.7rem;
+    font-weight: bold;
+    margin: 0 0 0.2rem;
+    padding: 0;
+    line-height: 1;
+    @media screen and (max-width: ($mobMed)) {
+      font-size: 2.45rem;
+      margin-bottom: 1rem;
     }
   }
 
   .copy {
-    @media screen and (min-width: ($tabPort + 1)) {
-      width: calc(100% - 287px);
+    padding: 4.2rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    gap: 3rem;
+
+    @media screen and (max-width: ($sm - 1)) {
+      display: block;
+    }
+
+    @media screen and (max-width: ($mobMed)) {
+      padding: 1.8rem 0;
+      font-size: 1rem;
     }
   }
 
-  .icon {
-    width: 215px;
+  .heading {
+    width: calc(100% - 335px);
+    line-height: 0.4;
+    @media screen and (max-width: ($sm - 1)) {
+      width: 100%;
+    }
+  }
 
-    @media screen and (max-width: ($tabPort)) {
-      width: 50px;
-      margin-top: 4rem;
+  .cta-block {
+    text-align: center;
+    width: 260px;
+    font-weight: bold;
+    font-size: 1.4rem;
+
+    @media screen and (max-width: ($sm - 1)) {
       display: none;
     }
 
-    svg,
-    img {
-      width: 100%;
-      height: auto;
+    p {
+      line-height: 1.1;
+    }
+
+    a {
+      margin-top: 1rem;
+      display: block;
+      padding-top: 17px;
+      padding-bottom: 17px;
+      background-color: $blue;
+      font-weight: normal;
     }
   }
 }

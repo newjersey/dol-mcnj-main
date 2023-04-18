@@ -19,7 +19,7 @@ header {
       width: calc(100% - 55px);
 
       @media screen and (min-width: ($tabLand + 1)) {
-        padding: 1.5rem 0 0.8rem;
+        padding: 1.5rem 0 0.7rem;
         width: 50%;
       }
     }
@@ -110,7 +110,7 @@ header {
 
   .main-nav {
     background-color: $dark-blue;
-    min-height: 61px;
+    min-height: 54px;
 
     ul {
       display: flex;
@@ -127,11 +127,12 @@ header {
       }
     }
 
-    a {
+    a,
+    button {
       color: white;
       display: block;
       text-decoration: none;
-      padding: 1.4rem 0;
+      padding: 1.18rem 0;
       font-size: 0.9rem;
       position: relative;
 
@@ -177,6 +178,51 @@ header {
       }
     }
   }
+
+  li {
+    &.has-sub {
+      position: relative;
+
+      .sub-menu {
+        background: white;
+        flex-direction: column;
+        gap: 0;
+
+        @media screen and (min-width: ($tabLand + 1)) {
+          width: 300px;
+          position: absolute;
+        }
+
+        @media screen and (max-width: ($tabLand)) {
+          margin-bottom: 1rem;
+        }
+
+        a {
+          color: $header-black;
+          padding: 0.5rem 1rem;
+
+          &:hover {
+            @media screen and (min-width: ($tabLand + 1)) {
+              background-color: $header-black;
+              color: white;
+            }
+
+            &:after {
+              @media screen and (min-width: ($tabLand + 1)) {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+
+      button {
+        @media screen and (max-width: ($tabLand)) {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 .below-banners {
@@ -187,5 +233,10 @@ header {
     min-height: auto;
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  .footer-banner,
+  .footer-cta {
+    margin: 5rem 0 -5rem;
   }
 }

@@ -1,3 +1,32 @@
+const fragments = {
+  pageBanner: `fragment PageBanner on PageBanner {
+    title
+    section
+    breadcrumbsCollection {
+      items {
+        sys {
+          id
+        }
+        copy
+        url
+      }
+    }
+    message {
+      json
+    }
+    ctaHeading
+    ctaLinksCollection {
+      items {
+        sys {
+          id
+        }
+        copy
+        url
+      }
+    }
+  }`,
+};
+
 const NavMenuFields = `
 heading
 url
@@ -24,10 +53,20 @@ topLevelItemsCollection {
 `;
 
 export const FAQ_PAGE_QUERY = `
-  {
-    faqCollection(id: "2CV0DOWvRHwiQ821b2VseR") {
+  query FaqPage {
+    page: faqPage(id: "22fMmVDetJRhCbRltoS68") {
+      sys {
+        publishedAt
+      }
       title
-      topicsCollection {
+      bannerHeading
+      bannerImage {
+        url
+      }
+      pageBanner {
+        ...PageBanner
+      }
+      topics: questionTopicsCollection {
         items {
           sys {
             id
@@ -46,35 +85,88 @@ export const FAQ_PAGE_QUERY = `
           }
         }
       }
-      linkGroup {
-        heading
-        linksCollection {
-          items {
-            sys {
-              id
-            }
-            copy
-            url
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const TRAINING_PROVIDER_PAGE_QUERY = `
-  {
-    tabContent(id: "7urTmhpBev7jt9zxEWU4UH") {
-      title
-      sys {
-        publishedAt
-      }
-      tabsCollection {
+      resourceLinkHeading
+      resourceLinks: resourceLinksCollection {
         items {
           sys {
             id
           }
-          heading
+          copy
+          url
+        }
+      }
+    }
+  }
+  ${fragments.pageBanner}
+`;
+
+export const TRAINING_PROVIDER_PAGE_QUERY = `
+query TrainingProviderPage {
+  page: trainingProviderResourcesPage(id: "4GrMLVPYkDCMzMLCxEgy9s") {
+    sys {
+      publishedAt
+    }
+    title
+    pageBanner {
+      ...PageBanner
+    }
+    bannerHeading
+    bannerImage {
+      url
+    }
+    tabs: tabsCollection {
+      items {
+        sys {
+          id
+        }
+        heading
+        copy {
+          json
+        }
+      }
+    }
+  }
+}
+${fragments.pageBanner}
+`;
+
+export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
+	page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
+    sys {
+      publishedAt
+    }
+    title
+    pageBanner {
+      ...PageBanner
+    }
+    footerCtaHeading
+    footerCtaLink {
+      copy
+      url
+    }
+  }
+  industries: industryCollection(limit: 20) {
+    items {
+      title
+      slug
+      description {
+        json
+      }
+      photo {
+        url
+      }
+      sys{
+        id
+      }
+      industryAccordionCollection {
+        items {
+          sys {
+            id
+          }
+          icon {
+            url
+          }
+          title
           copy {
             json
           }
@@ -82,11 +174,19 @@ export const TRAINING_PROVIDER_PAGE_QUERY = `
       }
     }
   }
+}
+${fragments.pageBanner}
 `;
 
-export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
+export const TUITION_ASSISTANCE_PAGE_QUERY = `query TuitionAssistance {
   page: financialResourcePage(id: "4WDrIZ71LCksX9Q63rbIwq") {
+    sys {
+      publishedAt
+    }
     title
+    pageBanner {
+      ...PageBanner
+    }
     bannerHeading
     bannerCopy {
       json
@@ -138,7 +238,9 @@ export const FINANCIAL_RESOURCES_PAGE_QUERY = `{
       }
     }
   }
-}`;
+}
+${fragments.pageBanner}
+`;
 
 export const NAV_QUERY = (id: string) => `{
   navMenus(id: "${id}") {
