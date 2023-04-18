@@ -64,9 +64,8 @@ export interface ConditionProfile {
   experience?: string;
   description?: string;
   yearsOfExperience?: string;
-  targetAssessment?: Training[];
-  targetCompetency?: Training[];
-  targetCredential?: Training[];
-  targetLearningOpportunity?: Training[];
-
+  targetAssessment: Training[];
+  targetCompetency: Training[];
+  targetCredential: Training[];
+  targetLearningOpportunity: Training[];
 }

@@ -97,7 +97,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderUrl = (): ReactElement => {
     if (!training?.provider?.url) {
-      return <>{PROVIDER_MISSING_INFO}</>;
+      return <></>;
     }
 
     return (
@@ -112,6 +112,21 @@ export const TrainingPage = (props: Props): ReactElement => {
       </a>
     );
   };
+
+  const getProviderEmail = (): ReactElement => {
+    if (!training?.provider?.email) {
+      return <></>;
+    }
+
+    return (
+      <p>
+        <span className="fin fas">
+          <InlineIcon className="mrxs">email</InlineIcon>
+            <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
+        </span>
+      </p>
+    )
+  }
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
@@ -412,12 +427,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <b>{training.provider.name}</b>
                           </span>
                         </p>
-                        <p>
-                          <span className="fin fas">
-                            <InlineIcon className="mrxs">email</InlineIcon>
-                            <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
-                          </span>
-                        </p>
+                        {getProviderEmail()}
                         <div className="mvd">
                           <span className="fin">
                             {getProviderAddress()}
