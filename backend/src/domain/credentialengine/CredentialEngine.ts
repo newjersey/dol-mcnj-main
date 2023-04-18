@@ -5,81 +5,76 @@
 //   const cTDLResource = Convert.toCTDLResource(json);
 
 export interface CTDLResource {
-  "@id":                                string;
-  "@type"?:                             string;
-  "ceterms:ctid"?:                      string;
-  "ceterms:name"?:                      Ceterms;
-  "ceterms:image"?:                     string;
-  "ceterms:naics"?:                     string[];
-  "ceterms:isicV4"?:                    string;
-  "ceterms:hasPart"?:                   string[];
-  "ceterms:keyword"?:                   CetermsKeyword;
-  "ceterms:ownedBy"?:                   string[];
-  "ceterms:renewal"?:                   CetermsRenewal[]
-  "ceterms:subject"?:                   CetermsSubject[];
-  "ceterms:requires"?:                  CetermsRequire[];
-  "ceterms:offeredBy"?:                 string[];
-  "ceterms:renewedBy"?:                 string[];
-  "ceterms:approvedBy"?:                string[];
-  "ceterms:revokedBy"?:                 string[];
-  "ceterms:availableAt"?:               CetermsAvailableAt[];
-  "ceterms:degreeMajor"?:               CetermsDegree[];
-  "ceterms:inLanguage"?:                string[];
-  "ceterms:recommends"?:                CetermsConditionProfile[];
-  "ceterms:revocation"?:                CetermsRecovationProfile[];
-  "ceterms:supersedes"?:                string;
-  "ceterms:creditValue"?:               CetermsCreditValue[];
-  "ceterms:creditUnitTypeDescription"?: Ceterms;
-  "ceterms:targetLearningOpportunity"?: string[];
-  "ceterms:description"?:               Ceterms;
-  "ceterms:nextVersion"?:               string;
-  "ceterms:regulatedBy"?:               string[];
-  "ceterms:isNonCredit"?:               boolean;
-  "ceterms:prerequisite"?:              string[];
-  "ceterms:deliveryType"?:              CetermsDeliveryType[];
-  "ceterms:accreditedBy"?:              string[];
-  "ceterms:audienceType"?:              CetermsType[];
-  "ceterms:credentialId"?:              string;
-  "ceterms:industryType"?:              CetermsIndustryType[];
-  "ceterms:jurisdiction"?:              CetermsPlace[];
-  "ceterms:alternateName"?:             CetermsAlternateName;
-  "ceterms:dateEffective"?:             Date;
-  "ceterms:estimatedCost"?:             CetermsEstimatedCost[];
-  "ceterms:directCost"?:                CetermsDirectCostType[];
-  "ceterms:entryCondition"?:            CetermsEntryCondition[];
-  "ceterms:occupationType"?:            CetermsOccupationType[];
-  "ceterms:subjectWebpage"?:            string;
-  "ceterms:commonConditions"?:          string[];
-  "ceterms:isPreparationFor"?:          CetermsConditionProfile[];
-  "ceterms:copyrightHolder"?:           string[];
-  "ceterms:audienceLevelType"?:         CetermsType[];
-  "ceterms:availableOnlineAt"?:         string[];
-  "ceterms:estimatedDuration"?:         CetermsEstimatedDuration[];
-  "ceterms:targetAssessment"?:          string[];
-  "ceterms:learningMethodType"?:        CetermsLearningMethodType[];
-  "ceterms:financialAssistance"?:       CetermsFinancialAssistance[];
-  "ceterms:lifeCycleStatusType"?:       CetermsLifeCycleStatusType;
-  "ceterms:targetLearningResource"?:    string[];
-  "ceterms:deliveryTypeDescription"?:   Ceterms;
-  "ceterms:versionIdentifier"?:         CetermsVersionIdentifier[];
-  "ceterms:availabilityListing"?:       string[];
-  "ceterms:degreeConcentration"?:       CetermsDegree[];
-  "ceterms:credentialStatusType"?:      CetermsType;
-  "ceterms:learningDeliveryType"?:      CetermsType[];
-  "ceterms:assessmentDeliveryType"?:    CetermsType[];
-  "ceterms:instructionalProgramType"?:  CetermsInstructionalProgramType[];
-  "ceterms:offerFrequencyType"?:        CetermsOfferFrequencyType[];
-  "ceterms:scheduleTimingType"?:        CetermsScheduleTimingType[];
-  "ceterms:scheduleFrequencyType"?:     CetermsScheduleFrequencyType[];
-}
-
-export interface CetermsType {
-  "@type"?:                         string;
-  "ceterms:framework"?:             string;
-  "ceterms:targetNode"?:            string;
-  "ceterms:frameworkName"?:         Ceterms;
-  "ceterms:targetNodeName"?:        Ceterms;
-  "ceterms:targetNodeDescription"?: Ceterms;
+  "@id":                                  string;
+  "@type"?:                               string;
+  "ceterms:ctid"?:                        string;
+  "ceterms:name"?:                        Ceterms;
+  "ceterms:image"?:                       string;
+  "ceterms:naics"?:                       string[];
+  "ceterms:isicV4"?:                      string;
+  "ceterms:hasPart"?:                     string[];
+  "ceterms:keyword"?:                     CetermsKeyword;
+  "ceterms:ownedBy"?:                     string[];
+  "ceterms:renewal"?:                     CetermsRenewal[]
+  "ceterms:renewalFrequency"?:            string;
+  "ceterms:processStandards"?:            string;
+  "ceterms:subject"?:                     CetermsSubject[];
+  "ceterms:requires"?:                    CetermsRequire[];
+  "ceterms:offeredBy"?:                   string[];
+  "ceterms:renewedBy"?:                   string[];
+  "ceterms:approvedBy"?:                  string[];
+  "ceterms:revokedBy"?:                   string[];
+  "ceterms:availableAt"?:                 CetermsAvailableAt[];
+  "ceterms:degreeMajor"?:                 CetermsDegree[];
+  "ceterms:inLanguage"?:                  string[];
+  "ceterms:recommends"?:                  CetermsConditionProfile[];
+  "ceterms:revocation"?:                  CetermsRecovationProfile[];
+  "ceterms:supersedes"?:                  string;
+  "ceterms:creditValue"?:                 CetermsCreditValue[];
+  "ceterms:creditUnitTypeDescription"?:   Ceterms;
+  "ceterms:targetLearningOpportunity"?:   string[];
+  "ceterms:description"?:                 Ceterms;
+  "ceterms:nextVersion"?:                 string;
+  "ceterms:regulatedBy"?:                 string[];
+  "ceterms:isNonCredit"?:                 boolean;
+  "ceterms:prerequisite"?:                string[];
+  "ceterms:deliveryType"?:                CetermsDeliveryType[];
+  "ceterms:accreditedBy"?:                string[];
+  "ceterms:audienceType"?:                CetermsCredentialAlignmentObject[];
+  "ceterms:credentialId"?:                string;
+  "ceterms:industryType"?:                CetermsIndustryType[];
+  "ceterms:jurisdiction"?:                CetermsPlace[];
+  "ceterms:alternateName"?:               CetermsAlternateName;
+  "ceterms:dateEffective"?:               Date;
+  "ceterms:estimatedCost"?:               CetermsEstimatedCost[];
+  "ceterms:directCost"?:                  CetermsDirectCostType[];
+  "ceterms:entryCondition"?:              CetermsEntryCondition[];
+  "ceterms:occupationType"?:              CetermsCredentialAlignmentObject[];
+  "ceterms:subjectWebpage"?:              string;
+  "ceterms:commonConditions"?:            string[];
+  "ceterms:isPreparationFor"?:            CetermsConditionProfile[];
+  "ceterms:isRequiredFor"?:               CetermsConditionProfile[];
+  "ceterms:copyrightHolder"?:             string[];
+  "ceterms:audienceLevelType"?:           CetermsCredentialAlignmentObject[];
+  "ceterms:availableOnlineAt"?:           string[];
+  "ceterms:estimatedDuration"?:           CetermsEstimatedDuration[];
+  "ceterms:targetAssessment"?:            string[];
+  "ceterms:learningMethodType"?:          CetermsLearningMethodType[];
+  "ceterms:financialAssistance"?:         CetermsFinancialAssistance[];
+  "ceterms:lifeCycleStatusType"?:         CetermsLifeCycleStatusType;
+  "ceterms:targetLearningResource"?:      string[];
+  "ceterms:deliveryTypeDescription"?:     Ceterms;
+  "ceterms:versionIdentifier"?:           CetermsVersionIdentifier[];
+  "ceterms:availabilityListing"?:         string[];
+  "ceterms:degreeConcentration"?:         CetermsDegree[];
+  "ceterms:credentialStatusType"?:        CetermsCredentialAlignmentObject;
+  "ceterms:learningDeliveryType"?:        CetermsCredentialAlignmentObject[];
+  "ceterms:assessmentDeliveryType"?:      CetermsCredentialAlignmentObject[];
+  "ceterms:instructionalProgramType"?:    CetermsInstructionalProgramType[];
+  "ceterms:offerFrequencyType"?:          CetermsOfferFrequencyType[];
+  "ceterms:scheduleTimingType"?:          CetermsScheduleTimingType[];
+  "ceterms:scheduleFrequencyType"?:       CetermsScheduleFrequencyType[];
+  "ceterms:processStandardsDescription"?: Ceterms;
 }
 
 export interface Ceterms {
@@ -160,14 +155,6 @@ export interface CetermsDegree {
   "ceterms:targetNodeName"?: Ceterms;
 }
 
-export interface CetermsIsPreparationFor {
-  "@type"?:                    string;
-  "ceterms:name"?:             Ceterms;
-  "ceterms:assertedBy"?:       string[];
-  "ceterms:description"?:      Ceterms;
-  "ceterms:targetCredential"?: string[];
-}
-
 export interface CetermsEstimatedDuration {
   "@type"?:                   string;
   "ceterms:description"?:     Ceterms;
@@ -199,7 +186,7 @@ export interface CetermsEstimatedCost {
   "ceterms:currency"?:       string;
   "ceterms:costDetails"?:    string;
   "ceterms:description"?:    Ceterms;
-  "ceterms:directCostType"?: CetermsType;
+  "ceterms:directCostType"?: CetermsCredentialAlignmentObject;
 }
 
 export interface CetermsDirectCostType {
@@ -266,12 +253,12 @@ export interface CetermsRenewal {
   "ceterms:assertedBy"?:              string[];
   "ceterms:creditValue"?:             CetermsCreditValue[];
   "ceterms:description"?:             Ceterms;
-  "ceterms:audienceType"?:            CetermsType[];
-  "ceterms:audienceLevelType"?:       CetermsType[];
+  "ceterms:audienceType"?:            CetermsCredentialAlignmentObject[];
+  "ceterms:audienceLevelType"?:       CetermsCredentialAlignmentObject[];
   "ceterms:submissionOfDescription"?: Ceterms;
 }
 
-export interface CetermsOccupationType {
+export interface CetermsCredentialAlignmentObject {
   "@type"?:                         string;
   "ceterms:framework"?:             string;
   "ceterms:targetNode"?:            string;
@@ -351,7 +338,7 @@ export interface CetermsRequire {
   "ceterms:alternativeCondition"?:      CetermsCondition[]
   "ceterms:subjectWebpage"?:            string;
   "ceterms:targetAssessment"?:          string[];
-  "ceterms:targetCompetency"?:          CetermsType[];
+  "ceterms:targetCompetency"?:          CetermsCredentialAlignmentObject[];
   "ceterms:targetLearningOpportunity"?: string[];
 }
 

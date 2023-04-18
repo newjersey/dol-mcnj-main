@@ -61,13 +61,12 @@ if (!isCI) {
 }
 
 const postgresDataClient = new PostgresDataClient(connection);
-const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
   getContentfulTPR: contentfulFactory("tpr"),
   getContentfulFAQ: contentfulFactory("faq"),
-  searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
+  searchTrainings: searchTrainingsFactory(findTrainingsBy),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getOccupationDetail: getOccupationDetailFactory(

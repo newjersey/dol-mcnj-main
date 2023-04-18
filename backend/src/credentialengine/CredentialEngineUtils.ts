@@ -12,7 +12,7 @@ export const credentialEngineUtils = {
 
     if (queryIndex === -1) {
       // query is not found in the input string
-      return '';
+      return words.slice(0, 19).join(' ');
     }
 
     const startIndex = Math.max(queryIndex - 10, 0);
