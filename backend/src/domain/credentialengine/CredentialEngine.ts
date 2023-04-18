@@ -18,14 +18,15 @@ export interface CTDLResource {
   "ceterms:renewal"?:                     CetermsRenewal[]
   "ceterms:renewalFrequency"?:            string;
   "ceterms:processStandards"?:            string;
-  "ceterms:subject"?:                     CetermsSubject[];
+  "ceterms:subject"?:                     CetermsCredentialAlignmentObject[];
   "ceterms:requires"?:                    CetermsRequire[];
   "ceterms:offeredBy"?:                   string[];
   "ceterms:renewedBy"?:                   string[];
   "ceterms:approvedBy"?:                  string[];
   "ceterms:revokedBy"?:                   string[];
   "ceterms:availableAt"?:                 CetermsAvailableAt[];
-  "ceterms:degreeMajor"?:                 CetermsDegree[];
+  "ceterms:degreeMajor"?:                 CetermsCredentialAlignmentObject[];
+  "ceterms:degreeMinor"?:                 CetermsCredentialAlignmentObject[];
   "ceterms:inLanguage"?:                  string[];
   "ceterms:recommends"?:                  CetermsConditionProfile[];
   "ceterms:revocation"?:                  CetermsRecovationProfile[];
@@ -42,7 +43,7 @@ export interface CTDLResource {
   "ceterms:accreditedBy"?:                string[];
   "ceterms:audienceType"?:                CetermsCredentialAlignmentObject[];
   "ceterms:credentialId"?:                string;
-  "ceterms:industryType"?:                CetermsIndustryType[];
+  "ceterms:industryType"?:                CetermsCredentialAlignmentObject[];
   "ceterms:jurisdiction"?:                CetermsPlace[];
   "ceterms:alternateName"?:               CetermsAlternateName;
   "ceterms:dateEffective"?:               Date;
@@ -66,7 +67,7 @@ export interface CTDLResource {
   "ceterms:deliveryTypeDescription"?:     Ceterms;
   "ceterms:versionIdentifier"?:           CetermsVersionIdentifier[];
   "ceterms:availabilityListing"?:         string[];
-  "ceterms:degreeConcentration"?:         CetermsDegree[];
+  "ceterms:degreeConcentration"?:         CetermsCredentialAlignmentObject[];
   "ceterms:credentialStatusType"?:        CetermsCredentialAlignmentObject;
   "ceterms:learningDeliveryType"?:        CetermsCredentialAlignmentObject[];
   "ceterms:assessmentDeliveryType"?:      CetermsCredentialAlignmentObject[];
@@ -75,6 +76,7 @@ export interface CTDLResource {
   "ceterms:scheduleTimingType"?:          CetermsScheduleTimingType[];
   "ceterms:scheduleFrequencyType"?:       CetermsScheduleFrequencyType[];
   "ceterms:processStandardsDescription"?: Ceterms;
+  "ceterms:latestVersion"?:               string;
 }
 
 export interface Ceterms {
@@ -84,7 +86,7 @@ export interface Ceterms {
 export interface CetermsCreditValue {
   "@type"?:                   string;
   "schema:value"?:            number;
-  "ceterms:subject"?:         CetermsSubject[];
+  "ceterms:subject"?:         CetermsCredentialAlignmentObject[];
   "schema:description"?:      CetermsCreditUnitTypeDescription;
   "ceterms:creditUnitType"?:  CetermsCreditUnitType[];
   "schema:maxValue"?:         number;
@@ -150,11 +152,6 @@ export interface CetermsCreditUnitTypeDescription {
   "en-US"?: string;
 }
 
-export interface CetermsDegree {
-  "@type"?:                  string;
-  "ceterms:targetNodeName"?: Ceterms;
-}
-
 export interface CetermsEstimatedDuration {
   "@type"?:                   string;
   "ceterms:description"?:     Ceterms;
@@ -196,16 +193,6 @@ export interface CetermsDirectCostType {
   "ceterms:frameworkName"?:         CetermsCreditUnitTypeDescription;
   "ceterms:targetNodeName"?:        CetermsCreditUnitTypeDescription;
   "ceterms:targetNodeDescription"?: CetermsCreditUnitTypeDescription;
-}
-
-export interface CetermsIndustryType {
-  "@type"?:                         string;
-  "ceterms:framework"?:             string;
-  "ceterms:targetNode"?:            string;
-  "ceterms:codedNotation"?:         string;
-  "ceterms:frameworkName"?:         Ceterms;
-  "ceterms:targetNodeName"?:        Ceterms;
-  "ceterms:targetNodeDescription"?: Ceterms;
 }
 
 export interface CetermsJurisdictionProfile {
@@ -340,11 +327,6 @@ export interface CetermsRequire {
   "ceterms:targetAssessment"?:          string[];
   "ceterms:targetCompetency"?:          CetermsCredentialAlignmentObject[];
   "ceterms:targetLearningOpportunity"?: string[];
-}
-
-export interface CetermsSubject {
-  "@type"?:                  string;
-  "ceterms:targetNodeName"?: Ceterms;
 }
 
 export interface CetermsVersionIdentifier {

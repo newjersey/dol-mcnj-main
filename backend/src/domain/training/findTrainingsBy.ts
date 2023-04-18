@@ -1,7 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Address, ConditionProfile, Training } from "./Training";
+import { ConditionProfile, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -9,7 +9,6 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
-  Ceterms,
   CetermsConditionProfile,
   CetermsEstimatedCost,
   CetermsEstimatedDuration,
@@ -69,15 +68,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               if (targetContactPointObject != null) {
                 for (const contactPoint of targetContactPointObject) {
                   const targetContactPoint = {
-                    alternateName: element["ceterms:alternateName"],
-                    contactType: element["ceterms:contactType"],
+                    alternateName: element["ceterms:alternateName"]["en-US"],
+                    contactType: element["ceterms:contactType"]["en-US"],
                     email: element["ceterms:email"],
                     faxNumber: element["ceterms:faxNumber"],
-                    name: element["ceterms:name"],
+                    name: element["ceterms:name"]["en-US"],
                     socialMedia: element["ceterms:socialMedia"],
                     telephone: element["ceterms:telephone"]
                   };
-
+                  console.log(JSON.stringify(targetContactPoint));
                   addressContactPoints.push(targetContactPoint);
                 }
               }
@@ -95,11 +94,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             }
             else if (element["@type"] == "ceterms:ContactPoint") {
               const targetContactPoint = {
-                alternateName: element["ceterms:alternateName"],
-                contactType: element["ceterms:contactType"],
+                alternateName: element["ceterms:alternateName"]["en-US"],
+                contactType: element["ceterms:contactType"]["en-US"],
                 email: element["ceterms:email"],
                 faxNumber: element["ceterms:faxNumber"],
-                name: element["ceterms:name"],
+                name: element["ceterms:name"]["en-US"],
                 socialMedia: element["ceterms:socialMedia"],
                 telephone: element["ceterms:telephone"]
               };
