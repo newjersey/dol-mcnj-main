@@ -34,18 +34,17 @@ export const Accordion = (data: AccordionData): ReactElement => {
       data-testid="accordion"
       className={`accordion ${isOpen ? "open" : "closed"}`}
     >
-      <h3>
-        <button
-          data-testid="accordion-button"
-          onClick={toggleIsOpen}
-          onMouseDown={(e): void => e.preventDefault()}
-          aria-controls={contentId}
-          aria-expanded={isOpen ? "true" : "false"}
-          data-expand={isOpen ? "true" : null}
-        >
-          {data.title}
-        </button>
-      </h3>
+      <button
+        data-testid="accordion-button"
+        onClick={toggleIsOpen}
+        onMouseDown={(e): void => e.preventDefault()}
+        aria-controls={contentId}
+        aria-expanded={isOpen ? "true" : "false"}
+        data-expand={isOpen ? "true" : null}
+      >
+        {data.title}
+      </button>
+
       <div id={contentId} className="content" data-testid="accordion-content">
         <div className="inner">
           <ContentfulRichText document={data.content} key={data.keyValue} />

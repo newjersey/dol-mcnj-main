@@ -80,8 +80,8 @@ export const Layout = (props: LayoutProps) => {
       <Header {...headerProps} />
       <main className={`below-banners${props.theme ? ` ${props.theme}-theme` : ""}`} role="main">
         {children}
+        {props.footerComponent}
       </main>
-      {props.footerComponent}
       {!noFooter && (
         <Footer
           items={{
