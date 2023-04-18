@@ -13,7 +13,7 @@ export const ResourceLinks = ({
 }) => {
   return (
     <div className="resource-links">
-      <h4>{heading}</h4>
+      <p className="heading">{heading}</p>
       <ul>
         {links?.items.map(({ copy, url, sys }) => {
           const newTab = url.startsWith("http");

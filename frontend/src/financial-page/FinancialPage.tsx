@@ -47,12 +47,12 @@ export const FinancialPage = (props: Props): ReactElement => {
       client={props.client}
       footerComponent={
         data?.page.footerBannerTitle && data?.page.footerBannerCopy ? (
-          <div className="footer-banner">
+          <section className="footer-banner">
             <div className="container">
-              <h3>{data?.page.footerBannerTitle}</h3>
+              <p>{data?.page.footerBannerTitle}</p>
               <ContentfulRichText document={data?.page.footerBannerCopy?.json} />
             </div>
-          </div>
+          </section>
         ) : undefined
       }
     >
@@ -68,9 +68,9 @@ export const FinancialPage = (props: Props): ReactElement => {
 
           <div className="content">
             <div className="heading">
-              <h3>
+              <p className="showing">
                 showing {getFilteredResources()?.length} out of {data?.resources.items.length}
-              </h3>
+              </p>
             </div>
             {getFilteredResources()?.map((resource) => (
               <FinancialResource key={resource.sys?.id} {...resource} />
