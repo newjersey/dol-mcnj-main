@@ -135,7 +135,6 @@ export const routerFactory = ({
   );
 
   router.get("/contentful/cpw", async (req: Request, res: Response<CareerPathwaysPageProps>) => {
-    console.log({ req: req.params.query });
     getContentfulCPW(req.params.query as string)
       .then((content: CareerPathwaysPageProps) => {
         res.status(200).json(content);
