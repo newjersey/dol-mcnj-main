@@ -132,7 +132,7 @@ export const searchTrainingsFactory = (
 
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
-            if (element["@type"] == "ceterms:Place") {
+            if (element["@type"] == "ceterms:Place" && element["ceterms:addressLocality"] != null) {
 
               const address = {
                 city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
