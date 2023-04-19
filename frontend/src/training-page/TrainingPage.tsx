@@ -130,7 +130,6 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-
       return (
         <div>
           <div><InlineIcon className="mrxs">location_on</InlineIcon>{t("TrainingPage.onlineClass")}</div>
@@ -147,7 +146,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     const addressBlocks = [];
 
     for (let i=0; i < addresses.length; i++) {
-
       // assign individual address object properties to variables
       const thisAddressName = addresses[i].name;
       const thisAddressStreet1 = addresses[i].street1;
@@ -167,7 +165,6 @@ export const TrainingPage = (props: Props): ReactElement => {
         const thisContactPointEmail = thisAddressTargetContactPoints[j].email
         const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
         const thisContactPointSocialMedia = thisAddressTargetContactPoints[j].socialMedia
-
 
         // push to HTML content blocks
         thisAddressTargetContactPointsBlocks.push(
@@ -223,6 +220,43 @@ export const TrainingPage = (props: Props): ReactElement => {
       </div>
     );
   };*/
+
+  const getCertifications = (): ReactElement => {
+    if (!training?.certifications) {
+      return <></>;
+    }
+
+    const conditionProfileBlocks = [];
+    for (let i=0; i < training?.certifications.length; i++) {
+      const conditionProfile = training.certifications[i];
+      const conditionProfileBlock = [];
+      const targetAssessmentBlocks = [];
+
+      const targetAssessments = conditionProfile.targetAssessment;
+      if (targetAssessments != null) {
+        targetAssessmentBlocks.push(<h2>Assessments</h2>);
+        for (let j=0; j < conditionProfile.targetAssessment.length; j++) {
+          targetAssessmentBlocks.push(targetAssessments[i].name);
+        }
+
+        conditionProfileBlock.push(targetAssessmentBlocks)
+      }
+
+      conditionProfileBlocks.push(conditionProfileBlock);
+    }
+
+    return (
+      <div key={"certifications"}>
+        <p>
+          <span className="fin">
+            <InlineIcon className="mrxs">school</InlineIcon>
+            {t("TrainingPage.certificationsLabel")}&nbsp;
+            {conditionProfileBlocks}
+          </span>
+        </p>
+      </div>
+    );
+  };
 
   const getAssociatedOccupations = (): ReactElement => {
     if (
@@ -307,7 +341,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                     <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
                       <>
-                        {training.certifications && (
+                        {/*{training.certifications && (
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">school</InlineIcon>
@@ -315,7 +349,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                               {training.certifications}
                             </span>
                           </p>
-                        )}
+                        )}*/}
+                        {getCertifications()};
                         {training.prerequisites && (
                           <p>
                             <span className="fin">
