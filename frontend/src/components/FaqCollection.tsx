@@ -52,7 +52,7 @@ export const FaqCollection = ({
             <Select />
           </button>
           <ul className={openNav ? "open" : undefined}>
-            {topicHeading && <li className="heading">{topicHeading}</li>}
+            {topicHeading && <li className="heading">test{topicHeading}</li>}
             {items?.map((item: FaqTopic) => (
               <li
                 key={item.sys?.id}
@@ -72,14 +72,17 @@ export const FaqCollection = ({
           </ul>
         </nav>
         <div className="questions">
-          {activeTopic?.itemsCollection.items.map((item, index) => (
-            <Accordion
-              keyValue={index}
-              content={item.answer.json}
-              title={item.question}
-              key={item.sys?.id}
-            />
-          ))}
+          {activeTopic?.itemsCollection.items.map(
+            (item, index) =>
+              item !== null && (
+                <Accordion
+                  keyValue={index}
+                  content={item.answer.json}
+                  title={item.question}
+                  key={item.sys?.id}
+                />
+              )
+          )}
           {children}
         </div>
       </div>

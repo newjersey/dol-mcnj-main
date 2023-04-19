@@ -10,7 +10,7 @@ export const FinancialResource = ({
 }: FinResourceItemProps) => {
   return (
     <div className="financial-resource">
-      <h4>{title}</h4>
+      <p className="heading">{title}</p>
       <ContentfulRichText document={details.json} className="details" />
       <div className="tags">
         {taggedCatsCollection.items.map((tag) => (
