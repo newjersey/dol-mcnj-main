@@ -37,9 +37,8 @@ export const TabContent = ({ items }: TabContentProps) => {
   return (
     <section className="tab-content">
       <div className="container">
-        <nav aria-label="Tab Navigation">
+        <nav>
           <button
-            type="button"
             className="drop-selector"
             data-testid="drop-selector"
             onClick={() => {
@@ -54,7 +53,6 @@ export const TabContent = ({ items }: TabContentProps) => {
               return (
                 <li key={item.sys.id}>
                   <button
-                    type="button"
                     data-testid={`tab-${item.sys.id}`}
                     className={activeTab?.sys.id === item.sys.id ? "active" : ""}
                     onClick={() => {

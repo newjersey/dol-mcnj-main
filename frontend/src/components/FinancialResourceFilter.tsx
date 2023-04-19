@@ -31,7 +31,6 @@ export const FinancialResourceFilter = ({
       className={`resource-controller${open ? " open" : ""}${className ? ` ${className}` : ""}`}
     >
       <button
-        type="button"
         className="toggle"
         onClick={toggleIsOpen}
         data-testid="toggle"
@@ -42,13 +41,7 @@ export const FinancialResourceFilter = ({
         Filter Options <Icon>chevron_right</Icon>
       </button>
       <div id="innerFilter" className="inner" style={{ height: 0 }}>
-        <form
-          className="usa-form"
-          action="/"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <form className="usa-form">
           <fieldset className="usa-fieldset">
             <legend className="usa-legend">Funding Type</legend>
             {funding?.items.map(({ title, sys }) => (
@@ -72,7 +65,7 @@ export const FinancialResourceFilter = ({
               </div>
             ))}
 
-            <div className="usa-legend">Education Type</div>
+            <legend className="usa-legend">Education Type</legend>
             {education?.items.map(({ title, sys }) => (
               <div className="usa-checkbox" key={sys?.id}>
                 <input

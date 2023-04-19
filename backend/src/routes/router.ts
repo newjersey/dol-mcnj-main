@@ -11,7 +11,6 @@ import {
   GetContentfulMNav,
   GetContentfulFootNav,
   GetContentfulFootNav2,
-  GetContentfulCPW,
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
@@ -23,7 +22,6 @@ import {
   FinancialResourcePageProps,
   TrainingProviderPageProps,
   NavMenuProps,
-  CareerPathwaysPageProps,
 } from "src/domain/contentful/types";
 
 interface RouterActions {
@@ -31,7 +29,6 @@ interface RouterActions {
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
-  getContentfulCPW: GetContentfulCPW;
   getContentfulFAQ: GetContentfulFAQ;
   getContentfulTPR: GetContentfulTPR;
   getContentfulFRP: GetContentfulFRP;
@@ -46,7 +43,6 @@ export const routerFactory = ({
   findTrainingsBy,
   getInDemandOccupations,
   getOccupationDetail,
-  getContentfulCPW,
   getContentfulFAQ,
   getContentfulTPR,
   getContentfulFRP,
@@ -118,25 +114,6 @@ export const routerFactory = ({
   router.get("/contentful/footNav2", async (req: Request, res: Response<NavMenuProps>) => {
     getContentfulFootNav2(req.params.query as string)
       .then((content: NavMenuProps) => {
-        res.status(200).json(content);
-      })
-      .catch((e) => res.status(500).send(e));
-  });
-
-  router.get(
-    "/contentful/cpw/:industry",
-    async (req: Request, res: Response<CareerPathwaysPageProps>) => {
-      getContentfulCPW(req.params.query as string)
-        .then((content: CareerPathwaysPageProps) => {
-          res.status(200).json(content);
-        })
-        .catch((e) => res.status(500).send(e));
-    }
-  );
-
-  router.get("/contentful/cpw", async (req: Request, res: Response<CareerPathwaysPageProps>) => {
-    getContentfulCPW(req.params.query as string)
-      .then((content: CareerPathwaysPageProps) => {
         res.status(200).json(content);
       })
       .catch((e) => res.status(500).send(e));
