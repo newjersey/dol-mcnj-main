@@ -31,7 +31,7 @@ export interface Training {
   cipCode: string;
   calendarLength: CalendarLength;
   description: string;
-  certifications: string;
+  certifications: ConditionProfile[];
   prerequisites: string;
   occupations: Occupation[];
   provider: Provider;
@@ -79,6 +79,23 @@ export interface ContactPoint {
   telephone: string[];
   faxNumber: string[];
   socialMedia: string[];
+}
+
+export interface ConditionProfile {
+  name?: string;
+  experience?: string;
+  description?: string;
+  yearsOfExperience?: string;
+  targetAssessment: ConditionProfileItem[];
+  targetCompetency: ConditionProfileItem[];
+  targetCredential: ConditionProfileItem[];
+  targetLearningOpportunity: ConditionProfileItem[];
+}
+
+export interface ConditionProfileItem {
+  name?: string;
+  provider?: Provider;
+  description?: string;
 }
 
 export enum CalendarLength {
