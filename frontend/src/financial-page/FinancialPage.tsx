@@ -27,16 +27,6 @@ export const FinancialPage = (props: Props): ReactElement => {
     });
   }, [props.client]);
 
-  const breadCrumbs = [
-    {
-      text: "Home",
-      href: "/",
-    },
-    {
-      text: "Financial Resources",
-    },
-  ];
-
   // function that filters data.resources based on activeTags
 
   const getFilteredResources = () => {
@@ -53,25 +43,20 @@ export const FinancialPage = (props: Props): ReactElement => {
 
   return (
     <Layout
+      theme="support"
       client={props.client}
       footerComponent={
         data?.page.footerBannerTitle && data?.page.footerBannerCopy ? (
-          <div className="footer-banner">
+          <section className="footer-banner">
             <div className="container">
-              <h3>{data?.page.footerBannerTitle}</h3>
+              <p>{data?.page.footerBannerTitle}</p>
               <ContentfulRichText document={data?.page.footerBannerCopy?.json} />
             </div>
-          </div>
+          </section>
         ) : undefined
       }
     >
-      <PageBanner
-        breadCrumbs={breadCrumbs}
-        heading={`${data?.page.bannerHeading}`}
-        image={`${data?.page.bannerImage?.url}`}
-        message={data?.page.bannerCopy}
-      />
-
+      {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
       <section className="resource-filter">
         <div className="container">
           <FinancialResourceFilter
@@ -83,9 +68,9 @@ export const FinancialPage = (props: Props): ReactElement => {
 
           <div className="content">
             <div className="heading">
-              <h3>
+              <p className="showing">
                 showing {getFilteredResources()?.length} out of {data?.resources.items.length}
-              </h3>
+              </p>
             </div>
             {getFilteredResources()?.map((resource) => (
               <FinancialResource key={resource.sys?.id} {...resource} />
