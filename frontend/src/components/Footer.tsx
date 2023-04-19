@@ -17,6 +17,7 @@ export const Footer = ({
         <div>
           {items?.footerNav1 && (
             <NavMenu
+              noDropdowns
               id="footer1"
               menu={items.footerNav1}
               className="footer-nav-l"
@@ -27,6 +28,7 @@ export const Footer = ({
         <div>
           {items?.footerNav2 && (
             <NavMenu
+              noDropdowns
               id="footer2"
               menu={items.footerNav2}
               className="footer-nav-r"

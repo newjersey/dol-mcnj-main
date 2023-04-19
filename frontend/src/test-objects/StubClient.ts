@@ -9,6 +9,7 @@ import {
   FinancialResourcePageProps,
   TrainingProviderPageProps,
   NavMenuProps,
+  CareerPathwaysPageProps,
 } from "../types/contentful";
 
 export class StubClient implements Client {
@@ -38,6 +39,10 @@ export class StubClient implements Client {
   }
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulCPW(query: string, observer: Observer<CareerPathwaysPageProps>): void {
     this.capturedObserver = observer;
   }
 

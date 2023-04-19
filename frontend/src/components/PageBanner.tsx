@@ -1,73 +1,66 @@
-import { ReactElement } from "react";
-import { ContentfulRichText as RichTextProps } from "../types/contentful";
+import dayjs from "dayjs";
+import { PageBannerProps } from "../types/contentful";
 import { ContentfulRichText } from "./ContentfulRichText";
+import { Icon } from "@material-ui/core";
+import { Selector } from "../svg/Selector";
 
-interface PageBannerProps {
-  heading: string;
-  subheading?: string;
-  svg?: ReactElement;
-  image?: string;
-  message?: RichTextProps;
-  breadCrumbs?: {
-    text: string;
-    href?: string;
-  }[];
-}
 export const PageBanner = ({
-  heading,
-  svg,
+  title,
   message,
-  image,
-  breadCrumbs,
-  subheading,
+  breadcrumbsCollection,
+  section,
+  ctaHeading,
+  ctaLinksCollection,
+  date,
 }: PageBannerProps) => {
-  const isLoading = heading === "undefined" ? true : false;
-
   return (
     <section className="page-banner">
-      <div>
-        <div className="copy">
-          {breadCrumbs && (
-            <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-              <ol className="usa-breadcrumb__list">
-                {breadCrumbs.map((crumb, index: number) => {
-                  const isCurrent = breadCrumbs.length - 1 === index;
-                  return (
-                    <li
-                      className={`usa-breadcrumb__list-item${isCurrent ? " usa-current" : ""}`}
-                      aria-current={isCurrent ? "page" : undefined}
-                      key={crumb.text + index}
-                    >
-                      {crumb.href ? (
-                        <a className="usa-breadcrumb__link" href={crumb.href}>
-                          {crumb.text}
-                        </a>
-                      ) : (
-                        <span>{crumb.text}</span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ol>
-            </nav>
-          )}
-          {!isLoading && (
-            <h1>
-              <span>{heading}</span>
-              {svg && !image && svg}
-              {image && !svg && <img src={image} alt={`Icon for ${heading}`} />}
-            </h1>
-          )}
-          {subheading && <p>{subheading}</p>}
-          {message && (
-            <>
-              <ContentfulRichText document={message.json} />
-            </>
+      <div className="container">
+        <div className="top-nav">
+          <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+            <Icon>keyboard_backspace</Icon>
+            <Selector name={section} />
+            <ol className="usa-breadcrumb__list">
+              {breadcrumbsCollection.items.map((crumb) => {
+                return (
+                  <li className="usa-breadcrumb__list-item" key={crumb.sys?.id}>
+                    <a className="usa-breadcrumb__link" href={crumb.url}>
+                      {crumb.copy}
+                    </a>
+                  </li>
+                );
+              })}
+              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                <span data-testid="title">{title}</span>
+              </li>
+            </ol>
+          </nav>
+          {date && (
+            <div data-testid="date" className="date">
+              Last Updated {dayjs(date).format("MM/DD/YYYY")}
+            </div>
           )}
         </div>
-        <div className="icon">
-          {svg && !image && !isLoading && svg}
-          {image && !svg && !isLoading && <img src={image} alt={`Icon for ${heading}`} />}
+
+        <div className="copy">
+          <div className="heading">
+            <h1>{title}</h1>
+            {message && <ContentfulRichText document={message.json} />}
+          </div>
+          {ctaHeading && ctaLinksCollection && (
+            <div className="cta-block">
+              <p>{ctaHeading}</p>
+              <ul className="unstyled">
+                {ctaLinksCollection.items.map((link) => (
+                  <li key={link.sys?.id}>
+                    <a className="usa-button usa-button--secondary" href={link.url}>
+                      {link.copy}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </section>
