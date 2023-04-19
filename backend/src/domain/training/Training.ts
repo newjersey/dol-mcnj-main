@@ -8,7 +8,7 @@ export interface Training {
   cipCode: string;
   provider: Provider;
   description: string;
-  certifications: string;
+  certifications: ConditionProfile[];
   prerequisites: string;
   calendarLength: CalendarLength;
   occupations: Occupation[];
@@ -64,8 +64,14 @@ export interface ConditionProfile {
   experience?: string;
   description?: string;
   yearsOfExperience?: string;
-  targetAssessment: Training[];
-  targetCompetency: Training[];
-  targetCredential: Training[];
-  targetLearningOpportunity: Training[];
+  targetAssessment: ConditionProfileItem[];
+  targetCompetency: ConditionProfileItem[];
+  targetCredential: ConditionProfileItem[];
+  targetLearningOpportunity: ConditionProfileItem[];
+}
+
+export interface ConditionProfileItem {
+  name?: string;
+  provider?: Provider;
+  description?: string;
 }
