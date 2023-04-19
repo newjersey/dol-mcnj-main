@@ -9,25 +9,24 @@ export interface AccordionData {
   open?: boolean;
 }
 
-const toggleOpen = (isOpen: boolean, contentId: string): void => {
-  const contentBlock = document.getElementById(contentId);
-  if (contentBlock) {
-    const height = contentBlock?.scrollHeight;
-    contentBlock.style.height = !isOpen ? `${height}px` : "0px";
-  }
-};
-
 export const Accordion = (data: AccordionData): ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const contentId = `a${data.keyValue + 1}`;
+  const toggleIsOpen = (): void => {
+    setIsOpen(!isOpen);
+    const contentBlock = document.getElementById(contentId);
+    if (contentBlock) {
+      const height = contentBlock?.scrollHeight;
+      contentBlock.style.height = !isOpen ? `${height}px` : "0px";
+    }
+  };
 
   useEffect(() => {
     if (data.open) {
-      setIsOpen(!isOpen);
-      toggleOpen(isOpen, contentId);
+      toggleIsOpen();
     }
-  }, [data.open, contentId, isOpen]);
+  }, []);
 
   return (
     <div
@@ -37,10 +36,7 @@ export const Accordion = (data: AccordionData): ReactElement => {
     >
       <button
         data-testid="accordion-button"
-        onClick={() => {
-          setIsOpen(!isOpen);
-          toggleOpen(isOpen, contentId);
-        }}
+        onClick={toggleIsOpen}
         onMouseDown={(e): void => e.preventDefault()}
         aria-controls={contentId}
         aria-expanded={isOpen ? "true" : "false"}
