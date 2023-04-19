@@ -2,7 +2,6 @@ import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { PageBanner } from "../components/PageBanner";
-import { QuestionBubble } from "../svg/QuestionBubble";
 import { FaqCollection } from "../components/FaqCollection";
 import { ResourceLinks } from "../components/ResourceLinks";
 import { FaqPageData } from "../types/contentful";
@@ -15,18 +14,6 @@ interface Props extends RouteComponentProps {
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<FaqPageData>();
-  const breadCrumbs = [
-    {
-      text: "Home",
-      href: "/",
-    },
-    {
-      text: "FAQs",
-    },
-  ];
-
-  const topics = data?.faqCollection?.topicsCollection?.items;
-  const linkGroup = data?.faqCollection?.linkGroup;
 
   useEffect(() => {
     props.client.getContentfulFAQ("faq", {
@@ -44,16 +31,16 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
   }, [props.client]);
 
   return (
-    <Layout client={props.client}>
-      <PageBanner
-        breadCrumbs={breadCrumbs}
-        heading="Frequently Asked Questions"
-        svg={<QuestionBubble />}
-      />
-
+    <Layout client={props.client} theme="support">
+      {data && <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />}
       {data && (
-        <FaqCollection items={topics}>
-          {linkGroup && <ResourceLinks {...linkGroup} />}
+        <FaqCollection items={data?.page.topics.items}>
+          {data?.page.resourceLinks && (
+            <ResourceLinks
+              heading={data?.page.resourceLinkHeading}
+              links={data?.page.resourceLinks}
+            />
+          )}
         </FaqCollection>
       )}
     </Layout>
