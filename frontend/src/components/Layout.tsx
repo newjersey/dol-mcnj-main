@@ -9,7 +9,6 @@ interface LayoutProps {
   children?: ReactNode;
   footerComponent?: ReactNode;
   noFooter?: boolean;
-  theme?: "explore" | "jobs" | "support" | "training";
 }
 export const Layout = (props: LayoutProps) => {
   const [globalNav, setGlobalNav] = useState<NavMenuData>();
@@ -78,10 +77,10 @@ export const Layout = (props: LayoutProps) => {
   return (
     <>
       <Header {...headerProps} />
-      <main className={`below-banners${props.theme ? ` ${props.theme}-theme` : ""}`} role="main">
+      <main className="below-banners" role="main">
         {children}
-        {props.footerComponent}
       </main>
+      {props.footerComponent}
       {!noFooter && (
         <Footer
           items={{
