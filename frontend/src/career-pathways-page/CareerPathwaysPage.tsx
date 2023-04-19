@@ -7,6 +7,8 @@ import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
 import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
+import { OccupationDetail } from "../domain/Occupation";
+import { Error } from "../domain/Error";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,6 +18,9 @@ interface Props extends RouteComponentProps {
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
+  const [occupation, setOccupation] = useState<string>();
+  const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
+  const [error, setError] = useState<Error | null>();
 
   useEffect(() => {
     props.client.getContentfulCPW("cpw", {
@@ -30,6 +35,16 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             (industry) => industry.slug === props.id
           );
           setIndustry(industry);
+
+          if (occupation) {
+            props.client.getOccupationDetailBySoc(occupation, {
+              onSuccess: (result: OccupationDetail) => {
+                setError(undefined);
+                setOccupationDetail(result);
+              },
+              onError: (error: Error) => setError(error),
+            });
+          }
         }
       },
       onError: (e) => {
