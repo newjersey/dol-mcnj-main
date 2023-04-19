@@ -231,6 +231,9 @@ export const TrainingPage = (props: Props): ReactElement => {
       const conditionProfile = training.certifications[i];
       const conditionProfileBlock = [];
       const targetAssessmentBlocks = [];
+      const targetCompetencyBlocks = [];
+      const targetCertificationBlocks = [];
+      const targetLearningOpportunityBlocks = [];
 
       const targetAssessments = conditionProfile.targetAssessment;
       if (targetAssessments != null) {
@@ -242,6 +245,20 @@ export const TrainingPage = (props: Props): ReactElement => {
         conditionProfileBlock.push(targetAssessmentBlocks)
       }
 
+      const targetCompetencies = conditionProfile.targetCompetency;
+      if (targetCompetencies != null) {
+
+      }
+
+      const targetCredentials = conditionProfile.targetCredential;
+      if (targetCredentials != null) {
+
+      }
+
+      const targetLearningOpportunities = conditionProfile.targetLearningOpportunity;
+      if (targetLearningOpportunities != null) {
+
+      }
       conditionProfileBlocks.push(conditionProfileBlock);
     }
 
