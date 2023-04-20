@@ -9,6 +9,9 @@ import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
+import image from "../overlayImages/healthcare.png";
+import { OverlayTool } from "../components/OverlayTool";
+import { OccupationBlock } from "../components/OccupationBlock";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -18,7 +21,7 @@ interface Props extends RouteComponentProps {
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
-  const [occupation, setOccupation] = useState<string>();
+  const [occupation, setOccupation] = useState<string>("31-9092");
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
   const [error, setError] = useState<Error | null>();
 
@@ -61,11 +64,19 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
         data && <FooterCta heading={data.page.footerCtaHeading} link={data.page.footerCtaLink} />
       }
     >
+      <OverlayTool img={image} />
       {data && (
         <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
           <IndustrySelector industries={data.industries.items} current={industry?.slug} />
-          {industry && <IndustryBlock {...industry} />}
+          {industry && (
+            <>
+              <IndustryBlock {...industry} />
+              {occupationDetail && (
+                <OccupationBlock {...occupationDetail} industry={industry.title} />
+              )}
+            </>
+          )}
         </>
       )}
     </Layout>
