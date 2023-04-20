@@ -9,7 +9,7 @@ import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
-import image from "../overlayImages/healthcare.png";
+import image from "../overlayImages/healthcare-mobile.png";
 import { OverlayTool } from "../components/OverlayTool";
 import { OccupationBlock } from "../components/OccupationBlock";
 

@@ -4,6 +4,7 @@ import { ContentfulRichText } from "./ContentfulRichText";
 import { Selector } from "../svg/Selector";
 import { Accordion } from "./Accordion";
 import { useEffect } from "react";
+import { useWindowWidth } from "../utils/useWindowWidth";
 
 export const IndustryBlock = ({
   description,
@@ -33,6 +34,8 @@ export const IndustryBlock = ({
       });
     }
   }, []);
+
+  const windowWidth = useWindowWidth();
 
   return (
     <section className="industry-block">
@@ -64,7 +67,7 @@ export const IndustryBlock = ({
             {accordionData.items.map((item, index) => (
               <Accordion
                 key={item.sys.id}
-                open={index === 0}
+                open={windowWidth > 650 ? index === 0 : undefined}
                 title={
                   <>
                     {item.icon ? (
