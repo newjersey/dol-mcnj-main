@@ -158,6 +158,15 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
       sys{
         id
       }
+      inDemandCollection {
+				items {
+          sys {
+            id
+          }
+          title
+          idNumber
+        }
+      }
       industryAccordionCollection {
         items {
           sys {
