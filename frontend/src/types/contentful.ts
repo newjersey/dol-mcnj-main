@@ -104,6 +104,15 @@ export interface IndustryProps {
   photo: {
     url: string;
   };
+  inDemandCollection?: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      idNumber: string;
+    }[];
+  };
   industryAccordionCollection: {
     items: {
       sys: {

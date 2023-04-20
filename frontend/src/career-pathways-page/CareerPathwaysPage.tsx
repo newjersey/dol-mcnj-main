@@ -9,8 +9,8 @@ import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
-import image from "../overlayImages/healthcare-mobile.png";
-import { OverlayTool } from "../components/OverlayTool";
+// import image from "../overlayImages/healthcare-mobile.png";
+// import { OverlayTool } from "../components/OverlayTool";
 import { OccupationBlock } from "../components/OccupationBlock";
 
 interface Props extends RouteComponentProps {
@@ -21,7 +21,7 @@ interface Props extends RouteComponentProps {
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
-  const [occupation, setOccupation] = useState<string>("31-9092");
+  const [occupation, setOccupation] = useState<string>();
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
   const [error, setError] = useState<Error | null>();
 
@@ -54,7 +54,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
         console.log(`An error, maybe an error code: ${JSON.stringify(e)}`);
       },
     });
-  }, [props.client, props.id]);
+  }, [props.client, props.id, occupation]);
 
   return (
     <Layout
@@ -64,7 +64,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
         data && <FooterCta heading={data.page.footerCtaHeading} link={data.page.footerCtaLink} />
       }
     >
-      <OverlayTool img={image} />
       {data && (
         <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
@@ -72,9 +71,13 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           {industry && (
             <>
               <IndustryBlock {...industry} />
-              {occupationDetail && (
-                <OccupationBlock {...occupationDetail} industry={industry.title} />
-              )}
+
+              <OccupationBlock
+                content={occupationDetail}
+                industry={industry.title}
+                inDemandList={industry.inDemandCollection?.items}
+                setOccupation={setOccupation}
+              />
             </>
           )}
         </>
