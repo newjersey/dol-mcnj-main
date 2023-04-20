@@ -1,11 +1,13 @@
 import { NavMenuData } from "../../types/contentful";
 import { LinkObject } from "./LinkObject";
+import { NavSubMenu } from "./NavSubMenu";
 
 export const NavMenu = ({
   menu,
   className,
   label,
   innerClassName,
+  noDropdowns = false,
   icons = false,
   headingLevel,
   id,
@@ -13,6 +15,7 @@ export const NavMenu = ({
   menu?: NavMenuData;
   id?: string;
   className?: string;
+  noDropdowns?: boolean;
   innerClassName?: string;
   label?: string;
   icons?: boolean;
@@ -29,7 +32,7 @@ export const NavMenu = ({
           <Heading className="nav-heading">
             {menu?.navMenus.url ? (
               <LinkObject icons={icons} url={menu?.navMenus.url}>
-                {menu?.navMenus.heading}
+                {menu?.navMenus.heading}test
               </LinkObject>
             ) : (
               menu?.navMenus.heading
@@ -47,15 +50,21 @@ export const NavMenu = ({
                   hasSub ? " has-sub" : " no-sub"
                 }`}
               >
-                <LinkObject icons={icons} {...item} arrow={hasSub} />
-                {hasSub && (
-                  <ul className="unstyled">
-                    {item.subItemsCollection?.items.map((subItem) => (
-                      <li key={subItem.sys?.id}>
-                        <LinkObject icons={icons} {...subItem} />
-                      </li>
-                    ))}
-                  </ul>
+                {hasSub && !noDropdowns ? (
+                  <NavSubMenu icons={icons} {...item} />
+                ) : (
+                  <>
+                    <LinkObject icons={icons} {...item} />
+                    {hasSub && (
+                      <ul className="unstyled">
+                        {item.subItemsCollection?.items.map((subItem) => (
+                          <li key={subItem.sys?.id}>
+                            <LinkObject icons={icons} {...subItem} />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
                 )}
               </li>
             );

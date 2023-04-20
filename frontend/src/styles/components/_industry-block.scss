@@ -1,0 +1,177 @@
+.industry-block {
+  margin-top: -1rem;
+
+  .explore-button {
+    margin: 0 auto;
+    display: inline-block;
+    border-radius: 20px;
+    border: 2px solid $light-grey;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1.2rem;
+    color: $text;
+
+    @media screen and (max-width: ($mobTab)) {
+      max-width: 360px;
+    }
+
+    svg {
+      display: block;
+      margin: 0 auto;
+      background: $light-purple;
+      border-radius: 100%;
+      overflow: hidden;
+      padding: 0.4rem;
+      box-sizing: content-box;
+    }
+  }
+
+  .heading {
+    margin-bottom: 3rem;
+
+    @media screen and (max-width: ($mobTab)) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .container {
+    margin-top: 3.1rem;
+  }
+
+  .content-wrapper {
+    @media screen and (min-width: ($mobTab + 1)) {
+      display: flex;
+      gap: 3.5rem;
+    }
+  }
+
+  .copy {
+    @media screen and (min-width: ($mobTab + 1)) {
+      width: 40%;
+    }
+  }
+
+  .accordion-wrapper {
+    @media screen and (min-width: ($mobTab + 1)) {
+      width: 60%;
+    }
+  }
+
+  .photo {
+    margin-top: 1.5rem;
+
+    @media screen and (max-width: ($mobTab)) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .accordion {
+    border: 1px solid black;
+    border-radius: 7px;
+    overflow: hidden;
+
+    &.closed {
+      button {
+        &:before {
+          transform: rotate(-45deg);
+          right: 18px;
+        }
+        &:after {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 0.7rem 1.2rem;
+      font-weight: normal;
+
+      img,
+      svg {
+        height: 32px;
+        width: auto;
+      }
+
+      span {
+        width: calc(100% - 32px);
+      }
+
+      &:before,
+      &:after {
+        width: 10px;
+      }
+      &:before {
+        transform: rotate(45deg);
+        right: 18px;
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .content {
+    .inner {
+      padding: 1rem;
+      max-width: none;
+
+      ol {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: flex;
+          gap: 1.5rem;
+          align-items: center;
+
+          + li {
+            margin-top: 1rem;
+          }
+
+          b {
+            display: block;
+          }
+
+          > * {
+            width: calc(100% - 3.5rem);
+          }
+
+          &:before {
+            content: attr(data-number);
+            color: black;
+            font-size: 1.2rem;
+            display: block;
+            background: $light-green;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+  h2 {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 1rem;
+    border-bottom: 0.5rem solid black;
+
+    svg {
+      width: 32px;
+    }
+
+    span {
+      display: block;
+      width: calc(100% - 32px);
+    }
+  }
+}

@@ -17,6 +17,19 @@ export interface FaqItemTopic {
   order: number;
 }
 
+export interface PageBannerProps {
+  date?: Date;
+  title: string;
+  breadcrumbsCollection: {
+    items: LinkObjectProps[];
+  };
+  section: "explore" | "jobs" | "support" | "training";
+  message?: ContentfulRichText;
+  ctaHeading?: string;
+  ctaLinksCollection?: {
+    items: LinkObjectProps[];
+  };
+}
 export interface ContentfulRichText {
   json: Document;
 }
@@ -45,7 +58,6 @@ export interface LinkObjectProps {
   sys?: {
     id: string;
   };
-  arrow?: boolean;
   copy?: string;
   className?: string;
   url: string;
@@ -55,26 +67,75 @@ export interface LinkObjectProps {
   label?: string;
 }
 
-export interface LinkGroupProps {
-  heading: string;
-  linksCollection: {
-    items: LinkObjectProps[];
-  };
-}
-
 export interface FaqPageData {
-  faqCollection: {
+  page: {
+    sys: {
+      publishedAt: Date;
+    };
+    pageBanner: PageBannerProps;
     title: string;
-    topicsCollection: {
+    bannerHeading: string;
+    bannerImage?: {
+      url: string;
+    };
+    topics: {
       items: FaqTopic[];
     };
-    linkGroup: LinkGroupProps;
+    resourceLinkHeading?: string;
+    resourceLinks: {
+      items: LinkObjectProps[];
+    };
   };
 }
 
 export interface FaqPageProps {
   data: {
     data: FaqPageData;
+  };
+}
+
+export interface IndustryProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  slug: "manufacturing" | "healthcare" | "tdl";
+  description: ContentfulRichText;
+  photo: {
+    url: string;
+  };
+  industryAccordionCollection: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      copy: ContentfulRichText;
+      icon?: {
+        url: string;
+      };
+    }[];
+  };
+}
+
+export interface CareerPathwaysPageData {
+  page: {
+    sys: {
+      publishedAt: Date;
+    };
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+  };
+  industries: {
+    items: IndustryProps[];
+  };
+}
+
+export interface CareerPathwaysPageProps {
+  data: {
+    data: CareerPathwaysPageData;
   };
 }
 
@@ -120,12 +181,17 @@ export interface TabItemProps {
 }
 
 export interface TrainingProviderData {
-  tabContent: {
-    title: string;
+  page: {
     sys: {
       publishedAt: Date;
     };
-    tabsCollection: {
+    pageBanner: PageBannerProps;
+    title: string;
+    bannerHeading: string;
+    bannerImage: {
+      url: string;
+    };
+    tabs: {
       items: TabItemProps[];
     };
   };
@@ -138,6 +204,10 @@ export interface TrainingProviderPageProps {
 }
 
 export interface FinResourcePageProps {
+  sys: {
+    publishedAt: Date;
+  };
+  pageBanner: PageBannerProps;
   title: string;
   bannerHeading: string;
   bannerCopy: ContentfulRichText;
