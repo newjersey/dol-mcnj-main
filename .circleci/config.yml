@@ -38,8 +38,6 @@ jobs:
             scripts/feature-tests.sh > feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
-      - store_artifacts:
-          path: ~/project/
       - persist_to_workspace:
           root: ~/project
           paths:
