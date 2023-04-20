@@ -9,6 +9,7 @@ import {
   RocketLaunch,
 } from "@phosphor-icons/react";
 import { OccupationDetail } from "../domain/Occupation";
+import { toUsCurrency } from "../utils/toUsCurreny";
 
 interface OccupationBlockProps extends OccupationDetail {
   industry?: string;
@@ -27,6 +28,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
           <label htmlFor="occupation-selector">
             Select and in-demand {props.industry?.toLocaleLowerCase()} career
             <select id="occupation-selector">
+              <option>Please choose an occupation</option>
               <option>Medical Assitant</option>
             </select>
           </label>
@@ -55,13 +57,13 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
             <div className="meta">
               <div>
                 <p className="title">
-                  Avg. Salary <Info size={32} />
+                  Avg. Salary <Info size={15} />
                 </p>
-                <p>{props.medianSalary}</p>
+                <p>{props.medianSalary && toUsCurrency(props.medianSalary)}</p>
               </div>
               <div>
-                <p>
-                  Jobs Available <Info size={32} />
+                <p className="title">
+                  Jobs Available <Info size={15} />
                 </p>
                 <p>{props.openJobsCount || "N/A"}</p>
               </div>
@@ -83,7 +85,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <Briefcase size={32} />
                   Related Occupations
                 </div>
-                <div className="content">
+                <div className="content related-occupations">
                   <ul className="unstyled">
                     {props.relatedOccupations?.map((occupation) => (
                       <li key={occupation.soc}>
@@ -100,7 +102,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <RocketLaunch size={32} />
                   Related Training Opportunities
                 </div>
-                <div className="content">
+                <div className="content related-training">
                   <ul className="unstyled">
                     {uniqueTrainings.slice(0, 3).map((train) => (
                       <li key={train.id}>
@@ -119,52 +121,39 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                             </span>
                           </span>
                           <span className="right">
-                            <span className="salary">{train.totalCost}</span>
+                            <span className="salary">
+                              {train.totalCost && toUsCurrency(train.totalCost)}
+                            </span>
                           </span>
                         </span>
                       </li>
                     ))}
                   </ul>
-                  <a className="outline" href="/search">
+                  <a className="outline usa-button usa-button--outline" href="/search">
                     See more trainings on the Training Explorer
-                    <ArrowSquareOut size={32} />
+                    <ArrowSquareOut size={20} />
                   </a>
-                  <a className="outline" href="/tuition-assistance">
+                  <a className="outline usa-button usa-button--outline" href="/tuition-assistance">
                     Learn more financial assistance opportunities
-                    <ArrowSquareOut size={32} />
+                    <ArrowSquareOut size={20} />
                   </a>
                 </div>
               </div>
               <div className="box">
                 <div className="heading-bar">
-                  <RocketLaunch size={32} />
+                  <Briefcase size={32} />
                   Related Job Opportunities
                 </div>
                 <div className="content">
-                  <a className="solid" href="/tuition-assistance">
+                  <a className="solid usa-button" href="/tuition-assistance">
                     Check out related jobs on Career One Stop
-                    <ArrowSquareOut size={32} />
+                    <ArrowSquareOut size={20} />
                   </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <code>
-          <pre
-            style={{
-              fontFamily: "monospace",
-              display: "block",
-              padding: "50px",
-              color: "#88ffbf",
-              backgroundColor: "black",
-              textAlign: "left",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {JSON.stringify(props, null, "    ")}
-          </pre>
-        </code>
       </div>
     </section>
   );
