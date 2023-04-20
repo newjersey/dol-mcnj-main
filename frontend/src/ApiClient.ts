@@ -8,6 +8,7 @@ import {
   FinancialResourcePageProps,
   TrainingProviderPageProps,
   NavMenuProps,
+  CareerPathwaysPageProps,
 } from "./types/contentful";
 
 export class ApiClient implements Client {
@@ -25,6 +26,10 @@ export class ApiClient implements Client {
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.get(`/api/occupations/${soc}`, observer);
+  }
+
+  getContentfulCPW(query: string, observer: Observer<CareerPathwaysPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
   }
 
   getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
