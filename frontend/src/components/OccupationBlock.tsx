@@ -1,6 +1,9 @@
 import {
   ArrowSquareOut,
   Briefcase,
+  CalendarCheck,
+  CaretDown,
+  CaretUp,
   Fire,
   GraduationCap,
   Hourglass,
@@ -10,15 +13,19 @@ import {
 } from "@phosphor-icons/react";
 import { OccupationDetail } from "../domain/Occupation";
 import { toUsCurrency } from "../utils/toUsCurreny";
+import { useState } from "react";
 
 interface OccupationBlockProps extends OccupationDetail {
   industry?: string;
 }
 
 export const OccupationBlock = (props: OccupationBlockProps) => {
+  const [showMore, setShowMore] = useState<boolean>(false);
   const uniqueTrainings = props.relatedTrainings?.filter(
     (training, index, self) => index === self.findIndex((t) => t.name === training.name)
   );
+
+  const tasks = props.tasks?.slice(0, showMore ? undefined : 3);
 
   return (
     <section className="occupation-block">
@@ -33,6 +40,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
             </select>
           </label>
         </div>
+      </div>
+      <div className="container">
         <div className="occupation-box">
           <div className="heading">
             <h3>{props.title}</h3>
@@ -47,11 +56,38 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
           <div className="occu-row info">
             <div className="box description">
               <div className="heading-bar">
-                <Briefcase size={32} />
-                Job Description
+                <CalendarCheck size={32} />A Day in the Life
               </div>
               <div className="content">
-                <p>{!props.description || "This data is not yet available for this occupation"}</p>
+                {props.tasks ? (
+                  <ul>
+                    {tasks.map((task) => (
+                      <li key={task}>
+                        <p>{task}</p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  "This data is not yet available for this occupation"
+                )}
+
+                <button
+                  className="usa-button  usa-button--unstyled"
+                  onClick={() => {
+                    setShowMore(!showMore);
+                  }}
+                >
+                  See
+                  {showMore ? (
+                    <>
+                      &nbsp;Less <CaretUp size={20} />
+                    </>
+                  ) : (
+                    <>
+                      &nbsp;More <CaretDown size={20} />
+                    </>
+                  )}
+                </button>
               </div>
             </div>
             <div className="meta">

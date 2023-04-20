@@ -1,5 +1,26 @@
 .occupation-block {
-  margin-top: 6.5rem;
+  margin-top: 6rem;
+
+  @media screen and (min-width: ($mobTab + 1)) {
+    margin-top: 6.5rem;
+  }
+
+  button {
+    &.usa-button--unstyled {
+      color: $blue;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+  }
+
+  .container {
+    + .container {
+      @media screen and (max-width: ($mobTab - 1)) {
+        padding: 0;
+      }
+    }
+  }
 
   .section-heading {
     font-size: 2rem;
@@ -7,6 +28,11 @@
     padding-bottom: 0.6rem;
     margin-bottom: 2.2rem;
     border-bottom: 0.5rem solid black;
+
+    @media screen and (max-width: ($mobTab)) {
+      line-height: 1.2;
+      margin-bottom: 2.5;
+    }
   }
   .occupation-selector {
     max-width: 36rem;
@@ -36,9 +62,11 @@
   }
 
   .occupation-box {
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 4.5rem 2rem;
+    @media screen and (min-width: ($mobTab + 1)) {
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: 4.5rem 2rem;
+    }
 
     .heading {
       display: flex;
@@ -47,6 +75,14 @@
       gap: 0.5rem;
       max-width: 42rem;
       margin-bottom: 3rem;
+
+      @media screen and (max-width: ($mobTab - 1)) {
+        padding: 0 1rem;
+      }
+
+      @media screen and (max-width: ($mobMed - 1)) {
+        flex-direction: column;
+      }
 
       h3 {
         font-size: 1.3rem;
@@ -68,6 +104,10 @@
       padding: 5px 9px;
       font-size: 0.9rem;
       font-weight: bold;
+
+      @media screen and (max-width: ($mobMed - 1)) {
+        margin: 0 0 0.5rem;
+      }
     }
   }
   .occu-row {
@@ -76,26 +116,61 @@
     gap: 2rem;
     align-items: start;
 
+    @media screen and (max-width: ($mobTab - 1)) {
+      flex-direction: column;
+    }
+
     > div {
-      width: 50%;
+      width: 100%;
+      @media screen and (min-width: ($mobTab)) {
+        width: 50%;
+      }
     }
 
     &.info {
-      .box {
-        width: calc(100% - 25rem);
+      @media screen and (max-width: ($sm - 1)) {
+        flex-direction: column-reverse;
       }
+
+      > div {
+        @media screen and (max-width: ($sm - 1)) {
+          width: 100%;
+        }
+      }
+
+      .box {
+        @media screen and (min-width: ($sm)) {
+          width: calc(100% - 25rem);
+        }
+      }
+
       .meta {
-        width: 25rem;
         display: flex;
         gap: 2rem;
 
-        > div {
-          width: 50%;
+        @media screen and (max-width: ($mobMed - 1)) {
+          gap: 1rem;
+          flex-direction: column;
+        }
 
+        @media screen and (min-width: ($sm)) {
+          width: 25rem;
+        }
+
+        @media screen and (max-width: ($mobTab - 1)) {
+          padding: 0 1rem;
+        }
+
+        > div {
+          width: 100%;
           background-color: $light-purple;
           border-radius: 10px;
           overflow: hidden;
           padding: 0.5rem;
+
+          @media screen and (min-width: ($mobMed)) {
+            width: 50%;
+          }
 
           p {
             font-size: 1.5rem;
@@ -115,16 +190,27 @@
   }
 
   .box {
-    border-radius: 10px;
-    overflow: hidden;
     width: 100%;
     margin-bottom: 2rem;
 
+    @media screen and (min-width: ($mobTab)) {
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    @media screen and (max-width: ($mobTab - 1)) {
+      display: flex;
+      flex-direction: column;
+    }
+
     .content {
-      border: 1px solid $light-grey;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
       padding: 1rem;
+
+      @media screen and (min-width: ($mobTab)) {
+        border: 1px solid $light-grey;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
 
       a {
         &.usa-button {
@@ -132,6 +218,7 @@
           align-items: center;
           gap: 1rem;
           justify-content: center;
+          text-align: left;
 
           + .usa-button {
             margin-top: 1rem;
@@ -205,5 +292,10 @@
     gap: 0.5rem;
     font-weight: bold;
     padding: 0.5rem 0.6rem;
+
+    @media screen and (max-width: ($mobTab - 1)) {
+      position: sticky;
+      top: 0;
+    }
   }
 }
