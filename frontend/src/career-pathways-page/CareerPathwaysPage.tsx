@@ -85,7 +85,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                 industry.inDemandCollection?.items.length > 0 && (
                   <OccupationBlock
                     content={occupationDetail}
-                    industry={industry.title}
+                    industry={industry.shorthandTitle || industry.title}
                     inDemandList={industry.inDemandCollection?.items}
                     setOccupation={setOccupation}
                     error={error}
