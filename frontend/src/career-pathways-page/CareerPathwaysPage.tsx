@@ -23,7 +23,8 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [industry, setIndustry] = useState<IndustryProps>();
   const [occupation, setOccupation] = useState<string>();
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
-  const [error, setError] = useState<Error | null>();
+  const [error, setError] = useState<Error | undefined>();
+  const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     props.client.getContentfulCPW("cpw", {
@@ -39,13 +40,21 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           );
           setIndustry(industry);
 
-          if (occupation) {
+          if (
+            (occupation !== undefined || occupation !== null || occupation !== "") &&
+            occupation
+          ) {
+            setLoading(true);
             props.client.getOccupationDetailBySoc(occupation, {
               onSuccess: (result: OccupationDetail) => {
+                setLoading(false);
                 setError(undefined);
                 setOccupationDetail(result);
               },
-              onError: (error: Error) => setError(error),
+              onError: (error: Error) => {
+                setLoading(false);
+                setError(error);
+              },
             });
           }
         }
@@ -77,6 +86,8 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                 industry={industry.title}
                 inDemandList={industry.inDemandCollection?.items}
                 setOccupation={setOccupation}
+                error={error}
+                loading={loading}
               />
             </>
           )}
