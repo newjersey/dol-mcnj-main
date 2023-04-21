@@ -99,6 +99,7 @@ export interface IndustryProps {
     id: string;
   };
   title: string;
+  shorthandTitle?: string;
   slug: "manufacturing" | "healthcare" | "tdl";
   description: ContentfulRichText;
   photo: {

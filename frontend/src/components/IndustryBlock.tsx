@@ -11,8 +11,8 @@ export const IndustryBlock = ({
   industryAccordionCollection: accordionData,
   photo,
   slug,
-  sys,
   title,
+  shorthandTitle,
 }: IndustryProps) => {
   const scrollToIndustry = () => {
     const industryContainer = document.getElementById("industry-container");
@@ -48,14 +48,14 @@ export const IndustryBlock = ({
       >
         <ArrowCircleDown size={32} color="#000" />
         <span>
-          Explore <span>{title.toLowerCase()}</span> pathways below
+          Explore <span>{shorthandTitle || title.toLowerCase()}</span> pathways below
         </span>
       </button>
       <div className="container" id="industry-container">
         <div className="heading">
           <h2>
             <Selector name={slug} />
-            <span>{title} Industry Information</span>
+            <span>{shorthandTitle || title.toLowerCase() || title} Industry Information</span>
           </h2>
         </div>
         <div className="content-wrapper">
