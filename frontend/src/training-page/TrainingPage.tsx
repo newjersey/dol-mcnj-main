@@ -230,35 +230,51 @@ export const TrainingPage = (props: Props): ReactElement => {
     for (let i=0; i < training?.certifications.length; i++) {
       const conditionProfile = training.certifications[i];
       const conditionProfileBlock = [];
-      const targetAssessmentBlocks = [];
-      const targetCompetencyBlocks = [];
-      const targetCertificationBlocks = [];
-      const targetLearningOpportunityBlocks = [];
 
       const targetAssessments = conditionProfile.targetAssessment;
+      const targetAssessmentBlocks = [];
       if (targetAssessments != null) {
         targetAssessmentBlocks.push(<h2>Assessments</h2>);
         for (let j=0; j < conditionProfile.targetAssessment.length; j++) {
           targetAssessmentBlocks.push(targetAssessments[i].name);
         }
 
-        conditionProfileBlock.push(targetAssessmentBlocks)
+        conditionProfileBlock.push(targetAssessmentBlocks);
       }
 
       const targetCompetencies = conditionProfile.targetCompetency;
+      const targetCompetencyBlocks = [];
       if (targetCompetencies != null) {
+        targetCompetencies.push(<h2>Competencies</h2>);
+        for (let j=0; j < conditionProfile.targetCompetency.length; j++) {
+          targetCompetencyBlocks.push(targetCompetencies[i].name);
+        }
 
+        conditionProfileBlock.push(targetCompetencyBlocks);
       }
 
       const targetCredentials = conditionProfile.targetCredential;
+      const targetCredentialBlocks = [];
       if (targetCredentials != null) {
+        targetCredentials.push(<h2>Credentials</h2>);
+        for (let j=0; j < conditionProfile.targetCredential.length; j++) {
+          targetCredentialBlocks.push(targetCredentials[i].name);
+        }
 
+        conditionProfileBlock.push(targetCredentialBlocks);
       }
 
       const targetLearningOpportunities = conditionProfile.targetLearningOpportunity;
+      const targetLearningOpportunityBlocks = [];
       if (targetLearningOpportunities != null) {
+        targetLearningOpportunities.push(<h2>Learning Opportunities</h2>);
+        for (let j=0; j < conditionProfile.targetLearningOpportunity.length; j++) {
+          targetLearningOpportunityBlocks.push(targetLearningOpportunities[i].name);
+        }
 
+        conditionProfileBlock.push(targetCredentialBlocks);
       }
+
       conditionProfileBlocks.push(conditionProfileBlock);
     }
 
