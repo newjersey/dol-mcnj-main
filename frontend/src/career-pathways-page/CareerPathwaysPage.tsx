@@ -81,14 +81,17 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             <>
               <IndustryBlock {...industry} />
 
-              <OccupationBlock
-                content={occupationDetail}
-                industry={industry.title}
-                inDemandList={industry.inDemandCollection?.items}
-                setOccupation={setOccupation}
-                error={error}
-                loading={loading}
-              />
+              {industry.inDemandCollection?.items &&
+                industry.inDemandCollection?.items.length > 0 && (
+                  <OccupationBlock
+                    content={occupationDetail}
+                    industry={industry.title}
+                    inDemandList={industry.inDemandCollection?.items}
+                    setOccupation={setOccupation}
+                    error={error}
+                    loading={loading}
+                  />
+                )}
             </>
           )}
         </>
