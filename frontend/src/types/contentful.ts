@@ -111,6 +111,8 @@ export interface IndustryProps {
       };
       title: string;
       idNumber: string;
+      hourlyRate?: number;
+      numberOfJobs?: number;
     }[];
   };
   industryAccordionCollection: {

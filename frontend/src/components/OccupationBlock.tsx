@@ -18,6 +18,7 @@ import { Error } from "../domain/Error";
 import { ErrorBlock } from "../error/ErrorPage";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
+import { numberWithCommas } from "../utils/numberWithCommas";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -31,6 +32,8 @@ interface OccupationBlockProps {
     };
     title: string;
     idNumber: string;
+    hourlyRate?: number;
+    numberOfJobs?: number;
   }[];
 }
 
@@ -160,7 +163,14 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       <p className="title">
                         Jobs Available <Info size={15} />
                       </p>
-                      <p>{props.content.openJobsCount || "N/A"}</p>
+                      <p>
+                        {props.content.openJobsCount ||
+                          numberWithCommas(
+                            props.inDemandList?.filter(
+                              (ind) => ind.idNumber === props.content?.soc
+                            )[0].numberOfJobs
+                          )}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -212,7 +222,12 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                 <span className="left">
                                   <span>
                                     <Hourglass size={32} />
-                                    This data is not yet available
+                                    {props.inDemandList &&
+                                      toUsCurrency(
+                                        props.inDemandList?.filter(
+                                          (ind) => ind.idNumber === props.content?.soc
+                                        )[0].hourlyRate || 0
+                                      )}
                                   </span>
                                   <span>
                                     <MapPinLine size={32} />
