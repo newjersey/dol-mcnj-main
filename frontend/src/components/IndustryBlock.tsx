@@ -55,7 +55,7 @@ export const IndustryBlock = ({
         <div className="heading">
           <h2>
             <Selector name={slug} />
-            <span>{shorthandTitle || title.toLowerCase() || title} Industry Information</span>
+            <span>{shorthandTitle || title} Industry Information</span>
           </h2>
         </div>
         <div className="content-wrapper">
