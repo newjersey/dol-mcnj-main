@@ -1,5 +1,6 @@
 import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
+import {Ceterms } from "../credentialengine/CredentialEngine";
 
 export interface Training {
   id: string;
@@ -20,7 +21,7 @@ export interface Training {
   otherCost: number;
   totalCost: number;
   online: boolean;
-  percentEmployed: number | null;
+  percentEmployed: AggregateDataProfile[] | null;
   averageSalary: number | null;
   hasEveningCourses: boolean;
   languages: string[];
@@ -56,4 +57,27 @@ export interface ContactPoint {
   socialMedia?: string[];
   email?: string[];
   telephone?: string[];
+}
+
+export interface AggregateDataProfile {
+  dateEffective?:     string;
+  description?:       string;
+  expirationDate?:    string;
+  jobsObtained?:      SchemaQuantitativeValue[];
+  highEarnings?:      number;
+  lowEarnings?:       number;
+  medianEarnings?:    number;
+  name?:              string;
+  numberAwarded?:     number;
+  postReceiptMonths?: number;
+  source?:            string;
+}
+
+export interface SchemaQuantitativeValue {
+  percentage:  number;
+  description: Ceterms;
+  maxValue:    number;
+  minValue:    number;
+  unitText:    string;
+  value:       number;
 }

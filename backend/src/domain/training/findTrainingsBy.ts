@@ -1,7 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Address, Training } from "./Training";
+import { Address, AggregateDataProfile, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -10,6 +10,7 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
   Ceterms,
+  CetermsAggregateDataProfile,
   CetermsEstimatedCost,
   CetermsEstimatedDuration,
   CetermsInstructionalProgramType, CetermsIsPreparationFor,
@@ -40,6 +41,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         let exactDuration:any = null;
         let prerequisites = null;
         let credential = null;
+        let employmentRateProfiles = [] as AggregateDataProfile[];
         let calendarLength:CalendarLength = CalendarLength.NULL;
 
         // GET provider record
@@ -51,14 +53,16 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
-        const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
-        const aggregateData = certificate["ceterms:aggregateData"];
+        const aggregateData = certificate["ceterms:aggregateData"] as CetermsAggregateDataProfile[];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
         const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
         const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
+        const requires = certificate["ceterms:requires"];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
+
+        // Get provider addresses
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -108,14 +112,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        // GET prerequisites - could be in ceterms:CommonConditions, could be in ceterms:prerequisites
-        if (commonConditions != null) {
+        // GET prerequisites
+        if (requires != null) {
           // TODO: Modify to handle multiple commonconditions, which can have multiple requirements
           const conditionUrl = commonConditions[0];
           const conditionCtid = await credentialEngineUtils.getCtidFromURL(conditionUrl);
           const conditionRecord = await credentialEngineAPI.getResourceByCTID(conditionCtid);
         }
 
+        // Get estimated duration info
         if (estimatedDuration != null) {
           const durationProfile = estimatedDuration[0];
           if (durationProfile != null) {
@@ -149,30 +154,36 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
+        // Get occupation info
         if (occupationType != null) {
           // get SOCs from ceterms:occupationType instead of from the database
 
         }
-        // fix bug here
-        // GET credentials and certifications this prepares for
-        /*if (isPreparationFor != null) {
-          // TODO: Modify to handle multiple conditionProfiles
-          const conditionProfile = isPreparationFor[0];
-          if (conditionProfile != null) {
-            // TODO: Modify to handle multiple targetCredentials per conditionProfile
-            const targetCredential = conditionProfile["ceterms:targetCredential"]
-            if (targetCredential != null) {
-              const credentialUrl = targetCredential[0]
-              const credentialCtid = await credentialEngineUtils.getCtidFromURL(credentialUrl);
-              const credentialRecord = await credentialEngineAPI.getResourceByCTID(credentialCtid) as CTDLResource;
-              if (credentialRecord["ceterms:name"] != null) {
-                if (credentialRecord["ceterms:name"]["en-US"] != null) {
-                  credential = credentialRecord["ceterms:name"]["en-US"];
+
+        if (aggregateData != null) {
+          for (let i=0; i < aggregateData.length; i++) {
+            const thisAggregateDataProfile = aggregateData[i];
+            if (thisAggregateDataProfile["@type"] === "ceterms:AggregateDataProfile") {
+              // Get employment rate data if available
+              const jobsObtained = thisAggregateDataProfile["ceterms:jobsObtained"];
+              if (jobsObtained != null) {
+                for (let j=0; j < jobsObtained.length; j++) {
+                  const thisJobsObtainedObj = jobsObtained[j];
+                  if (thisJobsObtainedObj["@type"] == "schema:QuantitativeValue") {
+
+                  }
+
                 }
+
+                const employmentRateProfile = {
+                  name: thisAggregateDataProfile["ceterms:name"] ? thisAggregateDataProfile["ceterms:name"]['en-US'] : null,
+                  description: thisAggregateDataProfile["ceterms:description"] ? thisAggregateDataProfile["ceterms:description"]['en-US'] : null,
+                } as AggregateDataProfile;
+                employmentRateProfiles.push(employmentRateProfile);
               }
             }
           }
-        }*/
+        }
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
@@ -215,7 +226,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: 0, // TODO: pull from costProfile
           totalCost: totalCost ? (totalCost): 0,
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0, // HERE
+          percentEmployed: employmentRateProfiles,
           averageSalary: 0, // TODO: Get from QData?
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
           languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
