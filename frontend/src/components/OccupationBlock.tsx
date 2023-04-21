@@ -36,7 +36,6 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
   );
 
   const tasks = props.content?.tasks?.slice(0, showMore ? undefined : 3);
-  console.log({ props });
   return (
     <section className="occupation-block">
       <div className="container">
