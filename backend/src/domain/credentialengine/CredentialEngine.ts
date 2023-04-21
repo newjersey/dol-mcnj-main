@@ -32,6 +32,7 @@ export interface CTDLResource {
   "ceterms:creditUnitTypeDescription"?: Ceterms;
   "ceterms:targetLearningOpportunity"?: string[];
   "ceterms:description"?:               Ceterms;
+  "ceterms:aggregateData"?:             CetermsAggregateDataProfile[];
   "ceterms:nextVersion"?:               string;
   "ceterms:regulatedBy"?:               string[];
   "ceterms:isNonCredit"?:               boolean;
@@ -131,6 +132,37 @@ export interface CetermsAvailableAt {
   "ceterms:streetAddress"?:   Ceterms;
   "ceterms:addressCountry"?:  Ceterms;
   "ceterms:addressLocality"?: Ceterms;
+}
+
+export interface CetermsAggregateDataProfile {
+  "@type"?:                           string;
+  "ceterms:alternateName"?:           Ceterms;
+  "ceterms:currency"?:                string;
+  "ceterms:dateEffective"?:           string;
+  "ceterms:demographicInformation"?:  Ceterms;
+  "ceterms:description"?:             Ceterms;
+  "ceterms:expirationDate"?:          string;
+  "ceterms:jobsObtained"?:            SchemaQuantitativeValue[];
+  "ceterms:jurisdicton"?:             CetermsJurisdictionProfile;
+  "ceterms:highEarnings"?:            number;
+  "ceterms:lowEarnings"?:             number;
+  "ceterms:medianEarnings"?:          number;
+  "ceterms:name"?:                    Ceterms;
+  "ceterms:numberAwarded"?:           number;
+  "ceterms:postReceiptMonths"?:       number;
+  "ceterms:source"?:                  string;
+  "qdata:facultyToStudentRatio"?:   string;
+  "qdata:relevantDataSet"?:           string[];
+}
+
+export interface SchemaQuantitativeValue {
+  "@type"?:                   string;
+  "qdata:percentage"?:        number;
+  "schema:description"?:      Ceterms;
+  "schema:maxValue"?:         number;
+  "schema:minValue"?:         number;
+  "schema:unitText"?:         string;
+  "schema:value"?:            number;
 }
 
 export interface CetermsCreditUnitType {

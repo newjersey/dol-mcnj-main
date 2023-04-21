@@ -53,6 +53,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
+        const aggregateData = certificate["ceterms:aggregateData"];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
         const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
@@ -214,7 +215,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: 0, // TODO: pull from costProfile
           totalCost: totalCost ? (totalCost): 0,
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0, // TODO: Get from QData?
+          percentEmployed: 0, // HERE
           averageSalary: 0, // TODO: Get from QData?
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
           languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
