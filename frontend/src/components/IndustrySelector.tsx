@@ -14,7 +14,7 @@ export const IndustrySelector = ({
         <div className="heading">
           <h2>Select an Industry</h2>
         </div>
-        <nav id="industry-nav">
+        <nav aria-label="industry-nav" id="industry-nav">
           <ul className="unstyled">
             {industries.map(({ sys, title, slug }) => (
               <li key={sys.id} className={current === slug ? "active" : undefined}>

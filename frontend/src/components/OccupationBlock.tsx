@@ -14,6 +14,7 @@ import {
 import { OccupationDetail } from "../domain/Occupation";
 import { toUsCurrency } from "../utils/toUsCurreny";
 import { useState } from "react";
+import { cp } from "fs";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -35,7 +36,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
   );
 
   const tasks = props.content?.tasks?.slice(0, showMore ? undefined : 3);
-
+  console.log({ props });
   return (
     <section className="occupation-block">
       <div className="container">
@@ -114,7 +115,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <p className="title">
                     Avg. Salary <Info size={15} />
                   </p>
-                  <p>{props.content.medianSalary && toUsCurrency(props.content.medianSalary)}</p>
+                  <p>
+                    {props.content.medianSalary ? toUsCurrency(props.content.medianSalary) : "N/A"}
+                  </p>
                 </div>
                 <div>
                   <p className="title">
