@@ -30,9 +30,7 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run:
-          name: Print tmp directory structure
-          command: ls -R /home
+      
       - run:
           command: npm test
       - run:
@@ -45,6 +43,12 @@ jobs:
           root: ~/project
           paths:
             - .
+      - run:
+          name: Print / directory structure
+          command: ls /
+      - run:
+          name: Print home directory structure recursive
+          command: ls -R /home
   deploy:
     docker:
       - image: google/cloud-sdk
