@@ -32,7 +32,7 @@ jobs:
             - ~/.cache
       - run:
           name: Print tmp directory structure
-          command: ls -R /
+          command: ls -R /home
       - run:
           command: npm test
       - run:
