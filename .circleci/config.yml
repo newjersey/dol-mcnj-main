@@ -31,14 +31,14 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
+          name: Print workspace directory structure
+          command: ls /workspace/
+      - run:
           command: npm test
       - run:
           name: Run feature tests
           command: |
             scripts/feature-tests.sh > feature-test-output.txt
-      - run:
-          name: Print workspace directory structure
-          command: ls ~/workspace/
       - store_artifacts:
           path: feature-test-output.txt
       - persist_to_workspace:
