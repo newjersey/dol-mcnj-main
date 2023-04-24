@@ -37,10 +37,8 @@ jobs:
           command: |
             scripts/feature-tests.sh > feature-test-output.txt
       - run:
-        name: Print workspace directory structure
-        command: |
-          echo "Workspace directory structure:"
-          ls -R ~/project
+          name: Print workspace directory structure
+          command: ls -R ~/project
       - store_artifacts:
           path: feature-test-output.txt
       - persist_to_workspace:
