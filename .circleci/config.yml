@@ -36,11 +36,9 @@ jobs:
           name: Run feature tests
           command: |
             scripts/feature-tests.sh > feature-test-output.txt
-      - store_artifacts:
-          path: ~project/frontend/public
-      -run:
-          name: Print workspace directory structure
-          command: |
+      - run:
+        name: Print workspace directory structure
+        command: |
           echo "Workspace directory structure:"
           ls -R ~/project
       - store_artifacts:
