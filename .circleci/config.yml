@@ -31,8 +31,8 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
-          name: Print workspace directory structure
-          command: ls /workspace/
+          name: Print tmp directory structure
+          command: ls /tmp
       - run:
           command: npm test
       - run:
