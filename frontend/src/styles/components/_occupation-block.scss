@@ -164,6 +164,7 @@
         > div {
           width: 100%;
           background-color: $light-purple;
+          margin-bottom: 2rem;
           border-radius: 10px;
           overflow: hidden;
           padding: 0.5rem;
@@ -183,6 +184,10 @@
               gap: 0.5rem;
               margin-bottom: 0.6rem;
             }
+          }
+
+          a {
+            color: $blue;
           }
         }
       }

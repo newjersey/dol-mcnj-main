@@ -12,13 +12,15 @@ import {
   RocketLaunch,
 } from "@phosphor-icons/react";
 import { OccupationDetail } from "../domain/Occupation";
-import { toUsCurrency } from "../utils/toUsCurreny";
-import { useState } from "react";
+import { toUsCurrency } from "../utils/toUsCurrency";
+import { useEffect, useState } from "react";
 import { Error } from "../domain/Error";
 import { ErrorBlock } from "../error/ErrorPage";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
+import { TrainingResult } from "../domain/Training";
+import { calendarLength } from "../utils/calendarLength";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -39,9 +41,35 @@ interface OccupationBlockProps {
 
 export const OccupationBlock = (props: OccupationBlockProps) => {
   const [showMore, setShowMore] = useState<boolean>(false);
-  const uniqueTrainings = props.content?.relatedTrainings?.filter(
-    (training, index, self) => index === self.findIndex((t) => t.name === training.name)
-  );
+  const [sortedTraining, setSortedTraining] = useState<TrainingResult[]>([]);
+
+  useEffect(() => {
+    setShowMore(false);
+    if (props.content && props.content.relatedTrainings) {
+      const sortedCourses = props.content.relatedTrainings.sort((a, b) => {
+        if (a.percentEmployed === null && b.percentEmployed === null) {
+          return a.name.localeCompare(b.name);
+        } else if (a.percentEmployed === null) {
+          return 1;
+        } else if (b.percentEmployed === null) {
+          return -1;
+        } else if (a.percentEmployed !== b.percentEmployed) {
+          return b.percentEmployed - a.percentEmployed;
+        } else if (a.percentEmployed === b.percentEmployed && a.name !== b.name) {
+          return a.name.localeCompare(b.name);
+        } else {
+          return 0;
+        }
+      });
+
+      const uniqueTrainings = sortedCourses?.filter(
+        (training, index, self) => index === self.findIndex((t) => t.name === training.name)
+      );
+
+      setSortedTraining(uniqueTrainings);
+    }
+  }, [props.content]);
+
   const { t } = useTranslation();
 
   const tasks = props.content?.tasks?.slice(0, showMore ? undefined : 3);
@@ -113,12 +141,12 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <p>{props.content.description}</p>
                 </div>
                 <div className="occu-row info">
-                  <div className="box description">
-                    <div className="heading-bar">
-                      <CalendarCheck size={32} />A Day in the Life
-                    </div>
-                    <div className="content">
-                      {props.content.tasks ? (
+                  {props.content.tasks.length > 0 && (
+                    <div className="box description">
+                      <div className="heading-bar">
+                        <CalendarCheck size={32} />A Day in the Life
+                      </div>
+                      <div className="content">
                         <ul>
                           {tasks?.map((task: string) => (
                             <li key={task}>
@@ -126,28 +154,27 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                             </li>
                           ))}
                         </ul>
-                      ) : (
-                        "This data is not yet available for this occupation"
-                      )}
-                      <button
-                        className="usa-button  usa-button--unstyled"
-                        onClick={() => {
-                          setShowMore(!showMore);
-                        }}
-                      >
-                        See
-                        {showMore ? (
-                          <>
-                            &nbsp;Less <CaretUp size={20} />
-                          </>
-                        ) : (
-                          <>
-                            &nbsp;More <CaretDown size={20} />
-                          </>
-                        )}
-                      </button>
+
+                        <button
+                          className="usa-button  usa-button--unstyled"
+                          onClick={() => {
+                            setShowMore(!showMore);
+                          }}
+                        >
+                          See
+                          {showMore ? (
+                            <>
+                              &nbsp;Less <CaretUp size={20} />
+                            </>
+                          ) : (
+                            <>
+                              &nbsp;More <CaretDown size={20} />
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className="meta">
                     <div>
                       <p className="title">
@@ -164,12 +191,18 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         Jobs Available <Info size={15} />
                       </p>
                       <p>
-                        {props.content.openJobsCount ||
-                          numberWithCommas(
-                            props.inDemandList?.filter(
-                              (ind) => ind.idNumber === props.content?.soc
-                            )[0].numberOfJobs
-                          )}
+                        <a
+                          href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {props.content.openJobsCount ||
+                            numberWithCommas(
+                              props.inDemandList?.filter(
+                                (ind) => ind.idNumber === props.content?.soc
+                              )[0].numberOfJobs
+                            )}
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -213,7 +246,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       </div>
                       <div className="content related-training">
                         <ul className="unstyled">
-                          {uniqueTrainings?.slice(0, 3).map((train) => (
+                          {sortedTraining?.slice(0, 3).map((train) => (
                             <li key={train.id}>
                               <p>
                                 <a href={`/training/${train.id}`}>{train.name}</a>
@@ -222,12 +255,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                 <span className="left">
                                   <span>
                                     <Hourglass size={32} />
-                                    {props.inDemandList &&
-                                      toUsCurrency(
-                                        props.inDemandList?.filter(
-                                          (ind) => ind.idNumber === props.content?.soc
-                                        )[0].hourlyRate || 0
-                                      )}
+                                    {train.calendarLength
+                                      ? `${calendarLength(train.calendarLength)} to complete`
+                                      : "--"}
                                   </span>
                                   <span>
                                     <MapPinLine size={32} />
@@ -262,7 +292,10 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         Related Job Opportunities
                       </div>
                       <div className="content">
-                        <a className="solid usa-button" href="/tuition-assistance">
+                        <a
+                          className="solid usa-button"
+                          href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+                        >
                           Check out related jobs on Career One Stop
                           <ArrowSquareOut size={20} />
                         </a>
