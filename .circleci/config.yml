@@ -31,10 +31,6 @@ jobs:
             - node-deps-v3
       - run:
           command: npm install
-      - save_cache:
-          key: node-deps-v3-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-      
       - run:
           command: npm test
       - run:
