@@ -1,4 +1,5 @@
 import { PostgresSearchClient } from "./PostgresSearchClient";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 
 describe("PostgresSearchClient", () => {
   let dataClient: PostgresSearchClient;
@@ -15,34 +16,34 @@ describe("PostgresSearchClient", () => {
   });
 
   it("fetches description highlight for an id", async () => {
-    const highlight = await dataClient.getHighlight("1", "tree");
+    const highlight = await credentialEngineUtils.getHighlight("1", "tree");
     expect(highlight).toEqual(
       "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]"
     );
   });
 
   it("uses occupation for highlight if no match in description", async () => {
-    const highlight = await dataClient.getHighlight("3", "botanist");
+    const highlight = await credentialEngineUtils.getHighlight("3", "botanist");
     expect(highlight).toEqual("Career track: [[Botanists]], Chefs");
   });
 
   it("uses description for highlight if there's a match on occupation and description", async () => {
-    const highlight = await dataClient.getHighlight("4", "chef");
+    const highlight = await credentialEngineUtils.getHighlight("4", "chef");
     expect(highlight).toEqual(
       "mushrooms; they are good for you. Become a [[chef]] to help others eat mushrooms"
     );
   });
 
   it("returns empty highlight when a result does not have a match", async () => {
-    const highlight = await dataClient.getHighlight("1", "class");
+    const highlight = await credentialEngineUtils.getHighlight("1", "class");
     expect(highlight).toEqual("");
 
-    const highlightNoDescription = await dataClient.getHighlight("6", "class");
+    const highlightNoDescription = await credentialEngineUtils.getHighlight("6", "class");
     expect(highlightNoDescription).toEqual("");
   });
 
   it("returns a partial highlight when only one word is in the description", async () => {
-    const highlight = await dataClient.getHighlight("3", "leaf chef");
+    const highlight = await credentialEngineUtils.getHighlight("3", "leaf chef");
     expect(highlight).toEqual(
       "designed to prepare students for jobs where edible [[leaf]] eating is required.  Software includes Microsoft Office including PowerPoint. Prior experience"
     );
