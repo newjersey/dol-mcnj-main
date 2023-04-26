@@ -39,9 +39,6 @@ jobs:
             scripts/feature-tests.sh > feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
-      - run:
-          name: Run build script
-          command: scripts/build.sh
       - persist_to_workspace:
           root: ~/project
           paths:
