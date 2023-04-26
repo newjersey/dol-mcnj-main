@@ -40,7 +40,6 @@ interface OccupationBlockProps {
 }
 
 export const ErrorMessage = ({ children, heading }: { children?: ReactNode; heading?: string }) => {
-  const { t } = useTranslation();
   return (
     <div className="error-message container">
       <div className="inner">
