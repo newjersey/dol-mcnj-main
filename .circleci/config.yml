@@ -10,6 +10,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Print / directory structure
+          command: ls /
+      - run:
+          name: Print home directory structure recursive
+          command: ls -R /home
+      - run:
           name: Setup postgres
           command: |
             sudo apt-get update
@@ -20,16 +26,11 @@ jobs:
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - restore_cache:
           keys:
-            - node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
-            - node-deps-v2-{{ .Branch }}
-            - node-deps-v2
+            - node-deps-v3-{{ .Branch }}-{{ checksum "package.json" }}
+            - node-deps-v3-{{ .Branch }}
+            - node-deps-v3
       - run:
           command: npm install
-      - save_cache:
-          key: node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - ~/.npm
-            - ~/.cache
       - run:
           command: npm test
       - run:
@@ -42,6 +43,12 @@ jobs:
           root: ~/project
           paths:
             - .
+      - run:
+          name: Print / directory structure
+          command: ls /
+      - run:
+          name: Print home directory structure recursive
+          command: ls -R /home
   deploy:
     docker:
       - image: google/cloud-sdk
