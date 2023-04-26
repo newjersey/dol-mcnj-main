@@ -12,7 +12,7 @@ export const convertTrainingToTrainingResult = (
     name: training.name,
     cipCode: training.cipCode,
     totalCost: training.totalCost,
-    percentEmployed: training.percentEmployed,
+    // percentEmployed: training.percentEmployed,
     calendarLength: training.calendarLength,
     localExceptionCounty: training.localExceptionCounty,
     online: training.online,

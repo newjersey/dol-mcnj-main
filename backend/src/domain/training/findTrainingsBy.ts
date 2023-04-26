@@ -112,13 +112,13 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        // GET prerequisites
+/*        // GET prerequisites
         if (requires != null) {
           // TODO: Modify to handle multiple commonconditions, which can have multiple requirements
           const conditionUrl = commonConditions[0];
           const conditionCtid = await credentialEngineUtils.getCtidFromURL(conditionUrl);
           const conditionRecord = await credentialEngineAPI.getResourceByCTID(conditionCtid);
-        }
+        }*/
 
         // Get estimated duration info
         if (estimatedDuration != null) {
@@ -170,16 +170,18 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 for (let j=0; j < jobsObtained.length; j++) {
                   const thisJobsObtainedObj = jobsObtained[j];
                   if (thisJobsObtainedObj["@type"] == "schema:QuantitativeValue") {
-
+                    const employmentRateProfile = {
+                      name: thisAggregateDataProfile["ceterms:name"] ? thisAggregateDataProfile["ceterms:name"]['en-US'] : null,
+                      description: thisAggregateDataProfile["ceterms:description"] ? thisAggregateDataProfile["ceterms:description"]['en-US'] : null,
+                      source: thisAggregateDataProfile["ceterms:source"],
+                      jobsObtained: thisJobsObtainedObj
+                    } as AggregateDataProfile;
+                    employmentRateProfiles.push(employmentRateProfile);
                   }
 
                 }
 
-                const employmentRateProfile = {
-                  name: thisAggregateDataProfile["ceterms:name"] ? thisAggregateDataProfile["ceterms:name"]['en-US'] : null,
-                  description: thisAggregateDataProfile["ceterms:description"] ? thisAggregateDataProfile["ceterms:description"]['en-US'] : null,
-                } as AggregateDataProfile;
-                employmentRateProfiles.push(employmentRateProfile);
+
               }
             }
           }

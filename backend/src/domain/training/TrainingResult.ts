@@ -5,7 +5,7 @@ export interface TrainingResult {
   name: string;
   cipCode: string;
   totalCost: number;
-  percentEmployed: number | null;
+  // percentEmployed: AggregateDataProfile[] | null;
   calendarLength: CalendarLength;
   inDemand: boolean;
   localExceptionCounty: string[];
