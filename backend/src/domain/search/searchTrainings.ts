@@ -4,13 +4,15 @@ import { TrainingResult } from "../training/TrainingResult";
 import { Training } from "../training/Training";
 import { SearchClient } from "./SearchClient";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 
 import { Selector } from "../training/Selector";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
+import { CalendarLength } from "../CalendarLength";
+import any = jasmine.any;
 
 export const searchTrainingsFactory = (
   findTrainingsBy: FindTrainingsBy,
-  searchClient: SearchClient
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
     const query = `{
@@ -52,7 +54,6 @@ export const searchTrainingsFactory = (
             "search:operator": "search:orTerms"
           },
           {
-            "ceterms:availableOnlineAt": "search:anyValue",
             "ceterms:ownedBy": {
               "ceterms:address": {
                 "ceterms:addressRegion": [
@@ -100,64 +101,81 @@ export const searchTrainingsFactory = (
     }`
 
     const skip = 0;
-    const take = 100;
+    const take = 5;
     const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
     const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
 
     const ceRecords = ceRecordsResponse.data.data as CTDLResource[];
-    /*     console.log("HELLO");
-        console.log(ceRecords);*/
+      console.log(ceRecords.map(r => r["ceterms:ctid"]));
 
-    const trainings = await findTrainingsBy(
+/*    const trainings = await findTrainingsBy(
       Selector.ID,
       ceRecords.map((it) => it["@id"])
     )
-    console.log("HELLO")
-    console.log(JSON.stringify(trainings, null, 2))
+    console.log(JSON.stringify(trainings, null, 2));*/
+
 
     return Promise.all(
-      trainings.map(async (training: Training) => {
-        /*let highlight = "";
-        let rank = 0;
-
-        if (searchQuery) {
-          highlight = await searchClient.getHighlight(training.id, searchQuery);
+      ceRecords.map(async (certificate: CTDLResource) => {
+        const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
+        let highlight:string = "";
+        if (desc) {
+          highlight = await credentialEngineUtils.getHighlight(desc, searchQuery);
         }
 
-        if (searchResults) {
-          const foundRank = searchResults.find((it) => it.id === training.id)?.rank;
-          if (foundRank) {
-            rank = foundRank;
-          }
-        }*/
+        const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
+        const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
+        const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+        const ownedByAddressObject = ownedByRecord["ceterms:address"];
+        const ownedByAddresses:any[] = [];
 
-        return {
-          id: training.id,
-          name: training.name,
-          cipCode: training.cipCode,
-          totalCost: training.totalCost,
-          percentEmployed: training.percentEmployed,
-          calendarLength: training.calendarLength,
-          localExceptionCounty: training.localExceptionCounty,
-          online: training.online,
-          providerId: training.provider.id,
-          providerName: training.provider.name,
-          cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],
-          //           zipCodes: training.provider.addresses ? training.provider.addresses.flatMap(a => a.zipCode == null ? [] : a.zipCode) : [],
-          zipCodes: training.provider.addresses ? training.provider.addresses.map(a => a.zipCode) : [],
+        if (ownedByAddressObject != null) {
+          for (const element of ownedByAddressObject) {
+            if (element["@type"] == "ceterms:Place" && element["ceterms:addressLocality"] != null) {
+
+              const address = {
+                city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
+                zipCode: element["ceterms:postalCode"],
+              }
+              ownedByAddresses.push(address);
+            }
+          }
+        }
+
+
+        const result = {
+          id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
+          name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
+          cipCode: "",
+          totalCost: 0,
+          percentEmployed: 0,
+          calendarLength: CalendarLength.NULL,
+          localExceptionCounty: [],
+
+         /*
           inDemand: training.inDemand,
-          //highlight: stripUnicode(highlight),
-          highlight: "",
-          //rank: rank,
-          rank: 0,
           socCodes: training.occupations.map((o) => o.soc),
-          hasEveningCourses: training.hasEveningCourses,
           languages: training.languages,
-          isWheelchairAccessible: training.isWheelchairAccessible,
-          hasJobPlacementAssistance: training.hasJobPlacementAssistance,
-          hasChildcareAssistance: training.hasChildcareAssistance,
+         */
+
+          online: certificate["ceterms:availableOnlineAt"] != null ? true : false,
+          providerId: ownedByCtid,
+          providerName: ownedByRecord['ceterms:name']['en-US'],
+          cities: ownedByAddresses.map(a => a.city),
+          zipCodes: ownedByAddresses.map(a => a.zipCode),
+          inDemand: false,
+          highlight: highlight,
+          socCodes: [],
+          hasEveningCourses: false,
+          languages: [],
+          isWheelchairAccessible: false,
+          hasJobPlacementAssistance: false,
+          hasChildcareAssistance: false,
         };
+
+        console.log(JSON.stringify(result));
+        return result;
       })
     );
   };

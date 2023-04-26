@@ -1,7 +1,7 @@
 import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Address, Training } from "./Training";
+import { ConditionProfile, ConditionProfileItem, Provider, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -9,11 +9,11 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
-  Ceterms,
+  CetermsConditionProfile,
   CetermsEstimatedCost,
   CetermsEstimatedDuration,
-  CetermsInstructionalProgramType, CetermsIsPreparationFor,
-  CetermsOccupationType,
+  CetermsInstructionalProgramType,
+  CetermsCredentialAlignmentObject,
   CetermsScheduleTimingType,
   CTDLResource
 } from "../credentialengine/CredentialEngine";
@@ -39,7 +39,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         let totalCost:any = null;
         let exactDuration:any = null;
         let prerequisites = null;
-        let credential = null;
         let calendarLength:CalendarLength = CalendarLength.NULL;
 
         // GET provider record
@@ -48,6 +47,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddresses:any[] = [];
         const providerContactPoints:any[] = [];
+        const isPreparationFor:ConditionProfile[] = [];
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
@@ -55,9 +55,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
-        const isPreparationFor = certificate["ceterms:isPreparationFor"] as CetermsIsPreparationFor[]
-        const occupationType = certificate["ceterms:occupationType"] as CetermsOccupationType;
+        const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
+        const occupationType = certificate["ceterms:occupationType"] as CetermsCredentialAlignmentObject[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
+
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -67,15 +68,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               if (targetContactPointObject != null) {
                 for (const contactPoint of targetContactPointObject) {
                   const targetContactPoint = {
-                    alternateName: element["ceterms:alternateName"],
-                    contactType: element["ceterms:contactType"],
+                    alternateName: element["ceterms:alternateName"]["en-US"],
+                    contactType: element["ceterms:contactType"]["en-US"],
                     email: element["ceterms:email"],
                     faxNumber: element["ceterms:faxNumber"],
-                    name: element["ceterms:name"],
+                    name: element["ceterms:name"]["en-US"],
                     socialMedia: element["ceterms:socialMedia"],
                     telephone: element["ceterms:telephone"]
                   };
-
+                  console.log(JSON.stringify(targetContactPoint));
                   addressContactPoints.push(targetContactPoint);
                 }
               }
@@ -93,11 +94,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             }
             else if (element["@type"] == "ceterms:ContactPoint") {
               const targetContactPoint = {
-                alternateName: element["ceterms:alternateName"],
-                contactType: element["ceterms:contactType"],
+                alternateName: element["ceterms:alternateName"]["en-US"],
+                contactType: element["ceterms:contactType"]["en-US"],
                 email: element["ceterms:email"],
                 faxNumber: element["ceterms:faxNumber"],
-                name: element["ceterms:name"],
+                name: element["ceterms:name"]["en-US"],
                 socialMedia: element["ceterms:socialMedia"],
                 telephone: element["ceterms:telephone"]
               };
@@ -119,7 +120,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           const durationProfile = estimatedDuration[0];
           if (durationProfile != null) {
             exactDuration = durationProfile["ceterms:exactDuration"];
-            calendarLength = convertDuration(exactDuration);
+            if (exactDuration) {
+              calendarLength = convertDuration(exactDuration)
+            }
           }
         }
 
@@ -152,26 +155,132 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // get SOCs from ceterms:occupationType instead of from the database
 
         }
-        // fix bug here
-        // GET credentials and certifications this prepares for
-        /*if (isPreparationFor != null) {
-          // TODO: Modify to handle multiple conditionProfiles
-          const conditionProfile = isPreparationFor[0];
-          if (conditionProfile != null) {
-            // TODO: Modify to handle multiple targetCredentials per conditionProfile
-            const targetCredential = conditionProfile["ceterms:targetCredential"]
-            if (targetCredential != null) {
-              const credentialUrl = targetCredential[0]
-              const credentialCtid = await credentialEngineUtils.getCtidFromURL(credentialUrl);
-              const credentialRecord = await credentialEngineAPI.getResourceByCTID(credentialCtid) as CTDLResource;
-              if (credentialRecord["ceterms:name"] != null) {
-                if (credentialRecord["ceterms:name"]["en-US"] != null) {
-                  credential = credentialRecord["ceterms:name"]["en-US"];
+
+        // Get certificaitons from "ceterms:isPreparationFor"
+        if (isPreparationForObject != null) {
+          for (let i=0; i < isPreparationForObject.length; i++) {
+            const conditionObj = isPreparationForObject[i] as CetermsConditionProfile;
+            const conditionProfile = {
+              name: conditionObj["ceterms:name"] ? conditionObj["ceterms:name"]['en-US'] : null,
+              experience: conditionObj["ceterms:experience"],
+              description: conditionObj["ceterms:description"] ? conditionObj["ceterms:description"]['en-US'] : null,
+              targetAssessment: [] as ConditionProfileItem[],
+              targetCompetency: [] as ConditionProfileItem[],
+              targetCredential: [] as ConditionProfileItem[],
+              targetLearningOpportunity: [] as ConditionProfileItem[],
+            } as ConditionProfile;
+
+            const cetermsTargetAssessment = isPreparationForObject[i]["ceterms:targetAssessment"];
+            if (cetermsTargetAssessment != null) {
+              for (let j=0; j < cetermsTargetAssessment.length; j++) {
+                const url = cetermsTargetAssessment[j];
+                const ctid = await credentialEngineUtils.getCtidFromURL(url);
+                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
+
+                if (record != null) {
+                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
+                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
+                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
+
+                  const provider = {
+                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
+                  } as Provider;
+
+                  const assessment = {
+                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
+                    provider: provider,
+                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
+                  } as ConditionProfileItem;
+
+                  conditionProfile.targetAssessment.push(assessment);
                 }
               }
             }
+
+            const cetermsTargetCompetency = isPreparationForObject[i]["ceterms:targetCompetency"];
+            if (cetermsTargetCompetency != null) {
+              for (let j=0; j < cetermsTargetCompetency.length; j++) {
+                const url = cetermsTargetCompetency[j];
+                const ctid = await credentialEngineUtils.getCtidFromURL(url);
+                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
+
+                if (record != null) {
+                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
+                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
+                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
+
+                  const provider = {
+                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
+                  } as Provider;
+
+                  const competency = {
+                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
+                    provider: provider,
+                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
+                  } as ConditionProfileItem;
+
+                  conditionProfile.targetCompetency.push(competency);
+                }
+              }
+            }
+            const cetermsTargetCredential = isPreparationForObject[i]["ceterms:targetCredential"];
+            if (cetermsTargetCredential != null) {
+              for (let j=0; j < cetermsTargetCredential.length; j++) {
+                const url = cetermsTargetCredential[j];
+                const ctid = await credentialEngineUtils.getCtidFromURL(url);
+                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
+
+                if (record != null) {
+                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
+                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
+                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
+
+                  const provider = {
+                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
+                  } as Provider;
+
+                  const credential = {
+                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
+                    provider: provider,
+                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
+                  } as ConditionProfileItem;
+
+                  conditionProfile.targetCredential.push(credential);
+                }
+              }
+            }
+
+            const cetermsTargetLearningOpportunity = isPreparationForObject[i]["ceterms:targetLearningOpportunity"];
+            if (cetermsTargetLearningOpportunity != null) {
+              for (let j=0; j < cetermsTargetLearningOpportunity.length; j++) {
+                const url = cetermsTargetLearningOpportunity[j];
+                const ctid = await credentialEngineUtils.getCtidFromURL(url);
+                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
+
+                if (record != null) {
+                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
+                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
+                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
+
+                  const provider = {
+                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
+                  } as Provider;
+
+                  const learningOpportunity = {
+                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
+                    provider: provider,
+                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
+                  } as ConditionProfileItem;
+
+                  conditionProfile.targetLearningOpportunity.push(learningOpportunity);
+                }
+              }
+            }
+
+            isPreparationFor.push(conditionProfile);
+
           }
-        }*/
+        }
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
@@ -198,7 +307,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             addresses: ownedByAddresses,
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
-          certifications: credential,
+          certifications: isPreparationFor,
           prerequisites: null, // TODO: ceterms:CommonConditions / ceterms:prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
@@ -222,7 +331,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         }
-        console.log(training);
+        console.log(JSON.stringify(training));
         return training;
 
       })
