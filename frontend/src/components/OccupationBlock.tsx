@@ -10,12 +10,12 @@ import {
   Info,
   MapPinLine,
   RocketLaunch,
+  Warning,
 } from "@phosphor-icons/react";
 import { OccupationDetail } from "../domain/Occupation";
 import { toUsCurrency } from "../utils/toUsCurrency";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Error } from "../domain/Error";
-import { ErrorBlock } from "../error/ErrorPage";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
@@ -38,6 +38,22 @@ interface OccupationBlockProps {
     numberOfJobs?: number;
   }[];
 }
+
+export const ErrorMessage = ({ children, heading }: { children?: ReactNode; heading?: string }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="error-message container">
+      <div className="inner">
+        <Warning size={51} />
+        <p>
+          <strong>Oh no. Looks like there was an error.</strong>
+        </p>
+        <p className="heading">{heading}</p>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 export const OccupationBlock = (props: OccupationBlockProps) => {
   const [showMore, setShowMore] = useState<boolean>(false);
@@ -102,7 +118,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
         </div>
       ) : props.error === Error.NOT_FOUND ? (
         <>
-          <ErrorBlock headerText={t("ErrorPage.notFoundHeader")}>
+          <ErrorMessage heading={t("ErrorPage.notFoundHeader")}>
             <>
               <p>{t("ErrorPage.notFoundText")}</p>
               <p>
@@ -119,12 +135,12 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                 </a>
               </p>
             </>
-          </ErrorBlock>
+          </ErrorMessage>
         </>
       ) : props.error === Error.SYSTEM_ERROR ? (
-        <ErrorBlock headerText={t("ErrorPage.somethingWentWrongHeader")}>
+        <ErrorMessage heading={t("ErrorPage.somethingWentWrongHeader")}>
           <p>{t("ErrorPage.somethingWentWrongText")}</p>
-        </ErrorBlock>
+        </ErrorMessage>
       ) : (
         <>
           {props.content && (
