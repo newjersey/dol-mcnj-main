@@ -104,6 +104,8 @@ export interface IndustryProps {
   description: ContentfulRichText;
   photo: {
     url: string;
+    width: number;
+    height: number;
   };
   inDemandCollection?: {
     items: {
@@ -139,9 +141,9 @@ export interface CareerPathwaysPageData {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-  };
-  industries: {
-    items: IndustryProps[];
+    industries: {
+      items: IndustryProps[];
+    };
   };
 }
 
