@@ -12,6 +12,9 @@ import { Error } from "../domain/Error";
 // import image from "../overlayImages/healthcare-mobile.png";
 // import { OverlayTool } from "../components/OverlayTool";
 import { OccupationBlock } from "../components/OccupationBlock";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
+import { INDUSTRY_QUERY } from "../queries/industry";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -19,51 +22,46 @@ interface Props extends RouteComponentProps {
 }
 
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
-  const [data, setData] = useState<CareerPathwaysPageData>();
+  // const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
   const [occupation, setOccupation] = useState<string>();
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState<boolean>();
 
-  useEffect(() => {
-    props.client.getContentfulCPW("cpw", {
-      onSuccess: (response: {
-        data: {
-          data: CareerPathwaysPageData;
-        };
-      }) => {
-        setData(response.data.data);
-        if (props.id) {
-          const industry = response.data.data.industries.items.find(
-            (industry) => industry.slug === props.id
-          );
-          setIndustry(industry);
+  const data: CareerPathwaysPageData = useContentfulClient({ query: CAREER_PATHWAYS_PAGE_QUERY });
+  const industryData: {
+    industryCollection: {
+      items: IndustryProps[];
+    };
+  } = useContentfulClient({
+    disable: !props.id,
+    query: INDUSTRY_QUERY,
+    variables: { slug: props.id },
+  });
 
-          if (
-            (occupation !== undefined || occupation !== null || occupation !== "") &&
-            occupation
-          ) {
-            setLoading(true);
-            props.client.getOccupationDetailBySoc(occupation, {
-              onSuccess: (result: OccupationDetail) => {
-                setLoading(false);
-                setError(undefined);
-                setOccupationDetail(result);
-              },
-              onError: (error: Error) => {
-                setLoading(false);
-                setError(error);
-              },
-            });
-          }
-        }
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${JSON.stringify(e)}`);
-      },
-    });
-  }, [props.client, props.id, occupation]);
+  useEffect(() => {
+    if (industryData) {
+      setIndustry(industryData?.industryCollection.items[0]);
+    }
+  }, [industryData]);
+
+  useEffect(() => {
+    if ((occupation !== undefined || occupation !== null || occupation !== "") && occupation) {
+      setLoading(true);
+      props.client.getOccupationDetailBySoc(occupation, {
+        onSuccess: (result: OccupationDetail) => {
+          setLoading(false);
+          setError(undefined);
+          setOccupationDetail(result);
+        },
+        onError: (error: Error) => {
+          setLoading(false);
+          setError(error);
+        },
+      });
+    }
+  }, [occupation]);
 
   return (
     <Layout
@@ -76,11 +74,11 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
       {data && (
         <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
-          <IndustrySelector industries={data.industries.items} current={industry?.slug} />
+          <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
+
           {industry && (
             <>
               <IndustryBlock {...industry} />
-
               {industry.inDemandCollection?.items &&
                 industry.inDemandCollection?.items.length > 0 && (
                   <OccupationBlock
