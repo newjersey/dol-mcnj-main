@@ -1,32 +1,67 @@
-import { Fragment, ReactElement } from "react";
-import { RightArrow } from "../svg/RightArrow";
+import dayjs from "dayjs";
+import { PageBannerProps } from "../types/contentful";
+import { ContentfulRichText } from "./ContentfulRichText";
+import { Icon } from "@material-ui/core";
+import { Selector } from "../svg/Selector";
 
-interface PageBannerProps {
-  heading: string;
-  subheading?: string;
-  svg?: ReactElement;
-  breadCrumbs?: {
-    text: string;
-    href?: string;
-  }[];
-}
-export const PageBanner = ({ heading, svg, breadCrumbs, subheading }: PageBannerProps) => {
+export const PageBanner = ({
+  title,
+  message,
+  breadcrumbsCollection,
+  section,
+  ctaHeading,
+  ctaLinksCollection,
+  date,
+}: PageBannerProps) => {
   return (
     <section className="page-banner">
-      <div>
-        <div className="copy">
-          <ul>
-            {breadCrumbs?.map((crumb, index: number) => (
-              <Fragment key={crumb.text + index}>
-                {index > 0 && <RightArrow />}
-                <li>{crumb.href ? <a href={crumb.href}>{crumb.text}</a> : crumb.text}</li>
-              </Fragment>
-            ))}
-          </ul>
-          <h1>{heading}</h1>
-          {subheading && <p>{subheading}</p>}
+      <div className="container">
+        <div className="top-nav">
+          <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+            <Icon>keyboard_backspace</Icon>
+            <Selector name={section} />
+            <ol className="usa-breadcrumb__list">
+              {breadcrumbsCollection.items.map((crumb) => {
+                return (
+                  <li className="usa-breadcrumb__list-item" key={crumb.sys?.id}>
+                    <a className="usa-breadcrumb__link" href={crumb.url}>
+                      {crumb.copy}
+                    </a>
+                  </li>
+                );
+              })}
+              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                <span data-testid="title">{title}</span>
+              </li>
+            </ol>
+          </nav>
+          {date && (
+            <div data-testid="date" className="date">
+              Last Updated {dayjs(date).format("MM/DD/YYYY")}
+            </div>
+          )}
         </div>
-        {svg}
+
+        <div className="copy">
+          <div className="heading">
+            <h1>{title}</h1>
+            {message && <ContentfulRichText document={message.json} />}
+          </div>
+          {ctaHeading && ctaLinksCollection && (
+            <div className="cta-block">
+              <p>{ctaHeading}</p>
+              <ul className="unstyled">
+                {ctaLinksCollection.items.map((link) => (
+                  <li key={link.sys?.id}>
+                    <a className="usa-button usa-button--secondary" href={link.url}>
+                      {link.copy}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,8 @@
-import React, { ReactElement, useEffect, useState, useRef } from "react";
+import { ReactElement, useEffect, useState, useRef } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { InlineIcon } from "../components/InlineIcon";
-import { BetaBanner } from "../components/BetaBanner";
 import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
@@ -20,6 +17,7 @@ import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { Layout } from "../components/Layout";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -325,11 +323,9 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   if (training) {
     return (
-      <>
-        <div ref={componentRef}>
-          <Header />
-          <BetaBanner />
-          <main className="container below-banners" role="main">
+      <div ref={componentRef}>
+        <Layout client={props.client}>
+          <div className="container">
             <div className="ptm weight-500 fin all-caps border-bottom-dark">
               {t("TrainingPage.header")}
             </div>
@@ -567,15 +563,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                 </div>
               </div>
             </div>
-          </main>
-          <Footer />
-        </div>
-      </>
+          </div>
+        </Layout>
+      </div>
     );
   } else if (error === Error.SYSTEM_ERROR) {
-    return <SomethingWentWrongPage />;
+    return <SomethingWentWrongPage client={props.client} />;
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage />;
+    return <NotFoundPage client={props.client} />;
   } else {
     return <></>;
   }

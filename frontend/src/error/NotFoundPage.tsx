@@ -2,12 +2,17 @@ import React, { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { ErrorPage } from "./ErrorPage";
 import { useTranslation } from "react-i18next";
+import { Client } from "../domain/Client";
 
-export const NotFoundPage = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const NotFoundPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <ErrorPage headerText={t("ErrorPage.notFoundHeader")}>
+    <ErrorPage headerText={t("ErrorPage.notFoundHeader")} client={props.client}>
       <>
         <p>{t("ErrorPage.notFoundText")}</p>
         <p>

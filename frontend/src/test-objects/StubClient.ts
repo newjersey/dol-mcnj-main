@@ -6,6 +6,13 @@ import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
 import { FaqPageProps, TrainingProviderPageProps } from "../types/contentful";
 import { Certificates } from "../domain/CredentialEngine";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+  NavMenuProps,
+  CareerPathwaysPageProps,
+} from "../types/contentful";
 
 export class StubClient implements Client {
   capturedObserver: Observer<any> = {
@@ -46,12 +53,36 @@ export class StubClient implements Client {
   ): void {
     this.capturedObserver = observer;
   }
+  
+  getContentfulCPW(query: string, observer: Observer<CareerPathwaysPageProps>): void {
+    this.capturedObserver = observer;
+  }
 
   getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
     this.capturedObserver = observer;
   }
 
   getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFRP(query: string, observer: Observer<FinancialResourcePageProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulGNav(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulMNav(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFootNav1(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getContentfulFootNav2(query: string, observer: Observer<NavMenuProps>): void {
     this.capturedObserver = observer;
   }
 }

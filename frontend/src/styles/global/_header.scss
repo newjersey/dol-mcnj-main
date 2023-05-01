@@ -1,0 +1,242 @@
+header {
+  &.header {
+    background-color: white;
+    width: 100%;
+    z-index: 12;
+
+    @media screen and (max-width: ($tabLand)) {
+      background-color: $dark-blue;
+      color: white;
+    }
+  }
+
+  .basic-logo {
+    a {
+      display: flex;
+      color: black;
+      text-decoration: none;
+      padding: 1rem 0 0.8rem;
+      width: calc(100% - 55px);
+
+      @media screen and (min-width: ($tabLand + 1)) {
+        padding: 1.5rem 0 0.7rem;
+        width: 50%;
+      }
+    }
+
+    h1 {
+      font-size: 28px;
+
+      @media screen and (min-width: ($tabLand + 1)) {
+        width: calc(100% - 45px);
+        margin-left: 10px;
+      }
+
+      @media screen and (max-width: ($tabLand)) {
+        color: white;
+        font-size: 14px;
+      }
+    }
+
+    img {
+      width: 48px;
+      height: auto;
+
+      @media screen and (max-width: ($tabLand)) {
+        display: none;
+      }
+    }
+
+    button {
+      width: 55px;
+      border: 2px solid white;
+      padding: 2px;
+      border-radius: 5px;
+
+      span {
+        margin: 0 auto;
+        font-size: 2rem;
+      }
+    }
+
+    button {
+      .toggle {
+        height: 32px;
+        width: 51px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+        transform-origin: center;
+        &.open {
+          transform: rotate(90deg);
+          > span {
+            &:nth-child(1) {
+              transform: rotate(45deg);
+              top: 7px;
+            }
+
+            &:nth-child(2) {
+              transform: scale(0);
+            }
+
+            &:nth-child(3) {
+              transform: rotate(-45deg);
+              top: -7px;
+            }
+          }
+        }
+
+        > span {
+          display: block;
+          width: 25px;
+          height: 3px;
+          position: relative;
+          border-radius: 5px;
+          top: 0;
+          background-color: white;
+          margin: 2px auto;
+          transition-duration: 0.3s;
+          transition-timing-function: ease-in-out;
+        }
+      }
+    }
+  }
+
+  .mobile-menu {
+    min-height: 64px;
+  }
+
+  .main-nav {
+    background-color: $dark-blue;
+    min-height: 54px;
+
+    ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      @media screen and (min-width: ($tabLand + 1)) {
+        gap: 2.5rem;
+      }
+
+      @media screen and (max-width: ($tabLand)) {
+        flex-direction: column;
+      }
+    }
+
+    a,
+    button {
+      color: white;
+      display: block;
+      text-decoration: none;
+      padding: 1.18rem 0;
+      font-size: 0.9rem;
+      position: relative;
+
+      @media screen and (max-width: ($tabLand)) {
+        padding: 0.95rem 0;
+      }
+
+      > span {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: 16px;
+          margin-top: -2px;
+          margin-left: 2px;
+        }
+
+        + .indicator {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 20px;
+          right: 0;
+
+          @media screen and (min-width: ($tabLand + 1)) {
+            right: -20px;
+          }
+        }
+      }
+
+      &:hover {
+        @media screen and (min-width: ($tabLand + 1)) {
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            left: 0;
+            height: 2px;
+            background-color: white;
+          }
+        }
+      }
+    }
+  }
+
+  li {
+    &.has-sub {
+      position: relative;
+
+      .sub-menu {
+        background: white;
+        flex-direction: column;
+        gap: 0;
+
+        @media screen and (min-width: ($tabLand + 1)) {
+          width: 300px;
+          position: absolute;
+        }
+
+        @media screen and (max-width: ($tabLand)) {
+          margin-bottom: 1rem;
+        }
+
+        a {
+          color: $header-black;
+          padding: 0.5rem 1rem;
+
+          &:hover {
+            @media screen and (min-width: ($tabLand + 1)) {
+              background-color: $header-black;
+              color: white;
+            }
+
+            &:after {
+              @media screen and (min-width: ($tabLand + 1)) {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+
+      button {
+        @media screen and (max-width: ($tabLand)) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.below-banners {
+  min-height: calc(100% - #{$footer-height});
+  padding: 0 0 5rem;
+
+  @media print {
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .footer-banner,
+  .footer-cta {
+    margin: 5rem 0 -5rem;
+  }
+}

@@ -1,12 +1,15 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { BetaBanner } from "../components/BetaBanner";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { Trans, useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqDataSources = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqDataSources = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -15,11 +18,8 @@ export const FaqDataSources = (_props: RouteComponentProps): ReactElement => {
   }, [t]);
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout client={props.client}>
+      <div className="container">
         <FaqBreadcrumb current={t("FAQDataSources.breadcrumbLink")} />
         <div className="row mbm">
           <div className="col-sm-12 col-md-10 col-lg-8">
@@ -70,9 +70,7 @@ export const FaqDataSources = (_props: RouteComponentProps): ReactElement => {
             <p>{t("FAQDataSources.occupationalBody5")}</p>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };

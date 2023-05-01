@@ -1,5 +1,5 @@
 @import "sizes";
-@import "header";
+@import "global/header";
 @import "colors";
 
 .card {
@@ -15,7 +15,6 @@
   width: 100%;
 
   &.is-fixed {
-    position: fixed;
     height: $filterbox-height;
     z-index: 10;
     margin-left: -15px;
@@ -36,7 +35,6 @@
 }
 
 .full {
-  position: fixed;
   height: calc(100% - #{$below-banners-height});
   overflow-y: scroll;
   z-index: 10;
@@ -94,7 +92,6 @@
   }
 
   .fixed-wrapper {
-    position: fixed;
     background-color: white;
     z-index: 10;
     width: inherit;

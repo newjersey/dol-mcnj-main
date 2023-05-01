@@ -1,0 +1,32 @@
+.footer-banner {
+  background-color: $light-green;
+  padding: 2rem 0;
+
+  @media screen and (max-width: ($tabPort)) {
+    width: calc(100% - 30px);
+    margin: -65px auto 15px;
+  }
+
+  .container {
+    max-width: 855px;
+
+    > p {
+      &:first-of-type {
+        font-size: 1.32rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  a {
+    color: $blue;
+    text-decoration: none;
+
+    &:hover {
+      @media screen and (min-width: ($tabPort + 1)) {
+        text-decoration: underline;
+      }
+    }
+  }
+}

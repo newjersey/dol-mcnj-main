@@ -1,12 +1,15 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { BetaBanner } from "../components/BetaBanner";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { FaqBreadcrumb } from "../components/faq-breadcrumb";
 import { useTranslation } from "react-i18next";
+import { Layout } from "../components/Layout";
+import { Client } from "../domain/Client";
 
-export const FaqLaborDemandOccupations = (_props: RouteComponentProps): ReactElement => {
+interface Props extends RouteComponentProps {
+  client: Client;
+}
+
+export const FaqLaborDemandOccupations = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -15,11 +18,8 @@ export const FaqLaborDemandOccupations = (_props: RouteComponentProps): ReactEle
   }, [t]);
 
   return (
-    <>
-      <Header />
-      <BetaBanner />
-
-      <main className="container below-banners" role="main">
+    <Layout client={props.client}>
+      <div className="container">
         <FaqBreadcrumb current={t("FAQDemandOccupations.breadcrumbLink")} />
 
         <div className="row mbm">
@@ -47,9 +47,7 @@ export const FaqLaborDemandOccupations = (_props: RouteComponentProps): ReactEle
             <p>{t("FAQDemandOccupations.exceptionsBody")}</p>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </Layout>
   );
 };
