@@ -4,7 +4,7 @@ import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
 import { App } from "./App";
 import { ApiClient } from "./ApiClient";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createTheme, ThemeProvider } from "@material-ui/core";
 import "./i18n";
 
 const password = process.env.DEV_PASS;
@@ -15,7 +15,7 @@ const isProd = process.env.DB_NAME === "d4adprod" ? true : false;
 if (isCI && !isProd ? prompt("Enter password:") === password : true) {
   const apiClient = new ApiClient();
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       primary: {
         main: "#12263A",

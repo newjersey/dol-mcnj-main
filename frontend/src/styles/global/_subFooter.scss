@@ -1,0 +1,120 @@
+.sub-footer {
+  background-color: $header-black;
+  padding: 1rem 0;
+
+  .container {
+    display: block;
+    max-width: 1136px;
+    width: 100%;
+
+    > a {
+      @media screen and (min-width: ($tabPort + 1)) {
+        float: right;
+      }
+
+      @media screen and (max-width: ($tabPort)) {
+        display: block;
+        margin: 2rem auto;
+        text-align: center;
+      }
+    }
+  }
+
+  .links {
+    @media screen and (min-width: ($tabPort + 1)) {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    > div {
+      &:first-of-type {
+        img {
+          display: block;
+          margin-bottom: 0.5rem;
+
+          @media screen and (max-width: ($tabPort)) {
+            margin: 0 auto 0.5rem;
+          }
+        }
+      }
+      &:last-of-type {
+        ul {
+          display: flex;
+          gap: 5px;
+          width: 100%;
+          justify-content: flex-end;
+
+          @media screen and (max-width: ($tabPort)) {
+            justify-content: center;
+            margin: 2rem 0;
+          }
+        }
+      }
+    }
+  }
+
+  svg {
+    width: 25px;
+    height: auto;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+
+    @media screen and (max-width: ($tabPort)) {
+      text-align: center;
+    }
+  }
+
+  .socials {
+    a {
+      display: block;
+      opacity: 0.5;
+
+      &:hover {
+        @media screen and (min-width: ($tabLand + 1)) {
+          opacity: 1;
+        }
+      }
+
+      &.twitter {
+        &:hover {
+          svg {
+            * {
+              fill: #1da1f2;
+            }
+          }
+        }
+      }
+      &.facebook {
+        &:hover {
+          svg {
+            * {
+              fill: #3b5998;
+            }
+          }
+        }
+      }
+      &.youtube {
+        &:hover {
+          svg {
+            * {
+              fill: #ff0000;
+            }
+          }
+        }
+      }
+      &.linkedin {
+        &:hover {
+          svg {
+            * {
+              fill: #007bb5;
+            }
+          }
+        }
+      }
+    }
+  }
+}

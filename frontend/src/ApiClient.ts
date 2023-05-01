@@ -5,6 +5,13 @@ import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
 import { FaqPageProps, TrainingProviderPageProps } from "./types/contentful";
 import { Certificates } from "./domain/CredentialEngine";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+  NavMenuProps,
+  CareerPathwaysPageProps,
+} from "./types/contentful";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
@@ -22,15 +29,7 @@ export class ApiClient implements Client {
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.get(`/api/occupations/${soc}`, observer);
   }
-
-  getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
-    this.get(`/api/contentful/${query}`, observer);
-  }
-
-  getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
-    this.get(`/api/contentful/${query}`, observer);
-  }
-
+  
   getAllCertificates(
     skip: number,
     take: number,
@@ -39,6 +38,38 @@ export class ApiClient implements Client {
     observer: Observer<Certificates>
   ): void {
     this.get(`/api/ce/getallcredentials/${skip}/${take}/${sort}/${cancel}`, observer);
+  }
+
+  getContentfulCPW(query: string, observer: Observer<CareerPathwaysPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulFAQ(query: string, observer: Observer<FaqPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+  
+  getContentfulFRP(query: string, observer: Observer<FinancialResourcePageProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulGNav(query: string, observer: Observer<NavMenuProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulMNav(query: string, observer: Observer<NavMenuProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulFootNav1(query: string, observer: Observer<NavMenuProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getContentfulFootNav2(query: string, observer: Observer<NavMenuProps>): void {
+    this.get(`/api/contentful/${query}`, observer);
   }
 
   private get<T>(endpoint: string, observer: Observer<T>): void {

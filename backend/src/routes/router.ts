@@ -4,9 +4,15 @@ import {
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
+  GetAllCertificates,
   GetContentfulFAQ,
   GetContentfulTPR,
-  GetAllCertificates
+  GetContentfulFRP,
+  GetContentfulGNav,
+  GetContentfulMNav,
+  GetContentfulFootNav,
+  GetContentfulFootNav2,
+  GetContentfulCPW,
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
@@ -14,7 +20,13 @@ import { Certificates } from "../domain/credentialengine/CredentialEngineInterfa
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
-import { FaqPageProps, TrainingProviderPageProps } from "src/domain/contentful/types";
+import {
+  FaqPageProps,
+  FinancialResourcePageProps,
+  TrainingProviderPageProps,
+  NavMenuProps,
+  CareerPathwaysPageProps,
+} from "src/domain/contentful/types";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -22,19 +34,31 @@ interface RouterActions {
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
   getAllCertificates: GetAllCertificates;
+  getContentfulCPW: GetContentfulCPW;
   getContentfulFAQ: GetContentfulFAQ;
   getContentfulTPR: GetContentfulTPR;
+  getContentfulFRP: GetContentfulFRP;
+  getContentfulGNav: GetContentfulGNav;
+  getContentfulMNav: GetContentfulMNav;
+  getContentfulFootNav: GetContentfulFootNav;
+  getContentfulFootNav2: GetContentfulFootNav2;
 }
 
 export const routerFactory = ({
-                                searchTrainings,
-                                findTrainingsBy,
-                                getInDemandOccupations,
-                                getOccupationDetail,
-                                getAllCertificates,
-                                getContentfulFAQ,
-                                getContentfulTPR,
-                              }: RouterActions): Router => {
+  searchTrainings,
+  findTrainingsBy,
+  getInDemandOccupations,
+  getOccupationDetail,
+  getAllCertificates,
+  getContentfulCPW,
+  getContentfulFAQ,
+  getContentfulTPR,
+  getContentfulFRP,
+  getContentfulGNav,
+  getContentfulMNav,
+  getContentfulFootNav,
+  getContentfulFootNav2,
+}: RouterActions): Router => {
   const router = Router();
 
   /**
@@ -94,6 +118,54 @@ export const routerFactory = ({
       .catch(() => res.status(500).send());
   });
 
+  router.get("/contentful/gnav", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulGNav(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+  router.get("/contentful/mnav", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulMNav(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+  router.get("/contentful/footNav", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulFootNav(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+  router.get("/contentful/footNav2", async (req: Request, res: Response<NavMenuProps>) => {
+    getContentfulFootNav2(req.params.query as string)
+      .then((content: NavMenuProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+
+  router.get(
+    "/contentful/cpw/:industry",
+    async (req: Request, res: Response<CareerPathwaysPageProps>) => {
+      getContentfulCPW(req.params.query as string)
+        .then((content: CareerPathwaysPageProps) => {
+          res.status(200).json(content);
+        })
+        .catch((e) => res.status(500).send(e));
+    }
+  );
+
+  router.get("/contentful/cpw", async (req: Request, res: Response<CareerPathwaysPageProps>) => {
+    getContentfulCPW(req.params.query as string)
+      .then((content: CareerPathwaysPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+
   router.get("/contentful/faq", async (req: Request, res: Response<FaqPageProps>) => {
     getContentfulFAQ(req.params.query as string)
       .then((content: FaqPageProps) => {
@@ -105,6 +177,14 @@ export const routerFactory = ({
   router.get("/contentful/tpr", async (req: Request, res: Response<TrainingProviderPageProps>) => {
     getContentfulTPR(req.params.query as string)
       .then((content: TrainingProviderPageProps) => {
+        res.status(200).json(content);
+      })
+      .catch((e) => res.status(500).send(e));
+  });
+
+  router.get("/contentful/frp", async (req: Request, res: Response<FinancialResourcePageProps>) => {
+    getContentfulFRP(req.params.query as string)
+      .then((content: FinancialResourcePageProps) => {
         res.status(200).json(content);
       })
       .catch((e) => res.status(500).send(e));

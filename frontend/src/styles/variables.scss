@@ -1,4 +1,4 @@
-$beta-banner-height: 2.5rem;
+$beta-banner-height: 2.4rem;
 $filterbox-height: 5rem;
 $header-height: 3.8rem;
 $footer-height: 6.125rem;
@@ -6,4 +6,5 @@ $footer-height-mobile: 6.5rem;
 $result-count-height: 5.3rem;
 $comparison-height: 12rem;
 
-$below-banners-height: calc(#{$header-height} + #{$beta-banner-height});
+$below-banners-height: 260px;
+$below-banners-height-mobile: 165px;
