@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { CareerMaps } from "../CareerMaps";
+import { useContentfulClient } from "../../utils/useContentfulClient";
+import { CAREER_MAP_NODE_QUERY } from "../../queries/careerMapNode";
 
 export interface CareerMapNodeProps {
   sys: {
@@ -20,6 +23,19 @@ export interface CareerMapNodeProps {
     items: CareerMapNodeProps[];
   };
 }
+
+interface NextNodeProps extends CareerMapNodeProps {
+  level: number;
+}
+
+const NextNode = (props: NextNodeProps) => {
+  const data = useContentfulClient({
+    query: CAREER_MAP_NODE_QUERY,
+    variables: { id: props.sys.id },
+  });
+
+  return <>{data && <CareerMapNode {...data.careerMapObject} level={props.level} />}</>;
+};
 
 export const CareerMapNode = (props: CareerMapNodeProps) => {
   const [above, setAbove] = useState(false);
@@ -46,29 +62,24 @@ export const CareerMapNode = (props: CareerMapNodeProps) => {
         const relatedDivWidth = relatedDiv.getBoundingClientRect().width;
 
         if (left) {
-          console.log({ left });
           const mainEdge = mainDiv.getBoundingClientRect().left;
           const relatedEdge = relatedDiv.getBoundingClientRect().right;
           setHorizontal(mainEdge - relatedEdge + relatedDivWidth / 2 + 30);
         } else {
-          console.log({ left });
           const mainEdge = mainDiv.getBoundingClientRect().right;
           const relatedEdge = relatedDiv.getBoundingClientRect().left;
           setHorizontal(relatedEdge - mainEdge + relatedDivWidth / 2 + 30);
         }
 
         if (above) {
-          console.log({ above });
           const mainEdge = mainDiv.getBoundingClientRect().top;
           const relatedEdge = relatedDiv.getBoundingClientRect().bottom;
           setVertical(mainEdge - relatedEdge + relatedDivHeight / 2);
         } else {
-          console.log({ above });
           const mainEdge = mainDiv.getBoundingClientRect().bottom;
           const relatedEdge = relatedDiv.getBoundingClientRect().top;
           setVertical(relatedEdge - mainEdge + relatedDivHeight / 2);
         }
-        console.log({ horizontal, vertical });
       }
     }
   }, [horizontal, vertical]);
@@ -80,6 +91,7 @@ export const CareerMapNode = (props: CareerMapNodeProps) => {
       <div className="info" id={props?.sys?.id}>
         <div className="box">
           <strong>{props.shortTitle || props.title}</strong>
+
           {hasNextItems && <span />}
         </div>
       </div>
@@ -113,7 +125,7 @@ export const CareerMapNode = (props: CareerMapNodeProps) => {
           }`}
         >
           {props.nextItem.items.map((nextItem) => (
-            <CareerMapNode key={nextItem?.sys?.id} {...nextItem} level={level + 1} />
+            <NextNode key={nextItem?.sys?.id} {...nextItem} level={level + 1} />
           ))}
         </ul>
       )}

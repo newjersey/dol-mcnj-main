@@ -23,7 +23,6 @@ interface Props extends RouteComponentProps {
 }
 
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
-  // const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
   const [occupation, setOccupation] = useState<string>();
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
@@ -81,7 +80,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             <>
               <IndustryBlock {...industry} />
               {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                <CareerMaps careerMaps={industry.careerMaps.items} />
+                <CareerMaps careerMaps={industry.careerMaps.items} icon={industry?.slug} />
               ) : (
                 <>
                   {industry.inDemandCollection?.items &&
