@@ -10,20 +10,10 @@ export const CAREER_MAP_NODE_QUERY = `query MapNode($id:String!) {
         id
       }
     }
-    nextLevelItemsCollection {
+    nextItem: nextLevelItemsCollection {
       items {
         sys {
           id
-        }
-        title
-        shortTitle
-        description
-        salaryRangeEnd
-        salaryRangeStart
-        extendsTo {
-          sys {
-            id
-          }
         }
       }
     }

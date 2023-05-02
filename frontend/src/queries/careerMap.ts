@@ -22,16 +22,7 @@ export const CAREER_MAP_QUERY = `query Maps($id: String!) {
             sys {
               id
             }
-            title
-            shortTitle
-            description
-            salaryRangeEnd
-            salaryRangeStart
-            extendsTo {
-              sys {
-                id
-              }
-            }
+
           }
         }
       }
