@@ -4,7 +4,6 @@ import { Client, Observer } from "../domain/Client";
 import { Training, TrainingResult } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
-import { FaqPageProps, TrainingProviderPageProps } from "../types/contentful";
 import { Certificates } from "../domain/CredentialEngine";
 import {
   FaqPageProps,

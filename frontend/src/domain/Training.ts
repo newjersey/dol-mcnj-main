@@ -72,20 +72,20 @@ export interface Address {
 }
 
 export interface ContactPoint {
-  name: string;
-  alternateName: string;
-  contactType: string;
-  email: string[];
-  telephone: string[];
-  faxNumber: string[];
-  socialMedia: string[];
+  name?: string;
+  alternateName?: string;
+  contactType?: string;
+  email?: string[];
+  telephone?: string[];
+  faxNumber?: string[];
+  socialMedia?: string[];
 }
 
 export interface ConditionProfile {
   name?: string;
   experience?: string;
   description?: string;
-  yearsOfExperience?: string;
+  yearsOfExperience?: number;
   targetAssessment: ConditionProfileItem[];
   targetCompetency: ConditionProfileItem[];
   targetCredential: ConditionProfileItem[];

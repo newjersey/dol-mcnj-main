@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const searchAPI = axios.create({
-  withCredentials: false,
+  withCredentials: true,
   baseURL: `https://${process.env.CE_ENVIRONMENT}.credentialengine.org`,
   responseType: "json",
   headers: {

@@ -3,7 +3,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Training, TrainingResult } from "./domain/Training";
 import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
-import { FaqPageProps, TrainingProviderPageProps } from "./types/contentful";
 import { Certificates } from "./domain/CredentialEngine";
 import {
   FaqPageProps,
