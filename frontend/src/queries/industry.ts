@@ -15,6 +15,14 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
         width
         height
       }
+      careerMaps: mapsCollection {
+        items {
+          title
+          sys {
+            id
+          }
+        }
+      }
       inDemandCollection {
         items{
           sys {
@@ -48,7 +56,6 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
           title
           idNumber
           numberOfJobs
-          hourlyRate
         }
       }
     }

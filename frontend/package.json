@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.0.3",
