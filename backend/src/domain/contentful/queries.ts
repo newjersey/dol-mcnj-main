@@ -167,7 +167,6 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
           title
           idNumber
           numberOfJobs
-          hourlyRate
         }
       }
       industryAccordionCollection {

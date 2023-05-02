@@ -15,6 +15,7 @@ import { OccupationBlock } from "../components/OccupationBlock";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
 import { INDUSTRY_QUERY } from "../queries/industry";
+import { CareerMaps } from "../components/CareerMaps";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -79,17 +80,23 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           {industry && (
             <>
               <IndustryBlock {...industry} />
-              {industry.inDemandCollection?.items &&
-                industry.inDemandCollection?.items.length > 0 && (
-                  <OccupationBlock
-                    content={occupationDetail}
-                    industry={industry.shorthandTitle || industry.title}
-                    inDemandList={industry.inDemandCollection?.items}
-                    setOccupation={setOccupation}
-                    error={error}
-                    loading={loading}
-                  />
-                )}
+              {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
+                <CareerMaps careerMaps={industry.careerMaps.items} />
+              ) : (
+                <>
+                  {industry.inDemandCollection?.items &&
+                    industry.inDemandCollection?.items.length > 0 && (
+                      <OccupationBlock
+                        content={occupationDetail}
+                        industry={industry.shorthandTitle || industry.title}
+                        inDemandList={industry.inDemandCollection?.items}
+                        setOccupation={setOccupation}
+                        error={error}
+                        loading={loading}
+                      />
+                    )}
+                </>
+              )}
             </>
           )}
         </>

@@ -34,7 +34,6 @@ interface OccupationBlockProps {
     };
     title: string;
     idNumber: string;
-    hourlyRate?: number;
     numberOfJobs?: number;
   }[];
 }

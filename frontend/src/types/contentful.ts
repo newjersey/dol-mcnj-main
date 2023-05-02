@@ -94,6 +94,13 @@ export interface FaqPageProps {
   };
 }
 
+export interface CareerMapProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+}
+
 export interface IndustryProps {
   sys: {
     id: string;
@@ -107,6 +114,9 @@ export interface IndustryProps {
     width: number;
     height: number;
   };
+  careerMaps?: {
+    items: CareerMapProps[];
+  };
   inDemandCollection?: {
     items: {
       sys: {
@@ -114,7 +124,6 @@ export interface IndustryProps {
       };
       title: string;
       idNumber: string;
-      hourlyRate?: number;
       numberOfJobs?: number;
     }[];
   };
