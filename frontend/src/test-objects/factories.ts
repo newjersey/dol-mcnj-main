@@ -1,4 +1,12 @@
-import { Address, CalendarLength, Provider, Training, TrainingResult } from "../domain/Training";
+import {
+  Address,
+  CalendarLength,
+  ConditionProfile,
+  ConditionProfileItem,
+  Provider,
+  Training,
+  TrainingResult
+} from "../domain/Training";
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
@@ -41,7 +49,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     calendarLength: randomCalendarLength(),
     occupations: [buildOccupation({})],
     description: "some-description-" + randomInt(),
-    certifications: "some-certifications-" + randomInt(),
+    certifications: [buildConditionProfile({}), buildConditionProfile({})],
     prerequisites: "some-certifications-" + randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
@@ -126,6 +134,29 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
   };
 };
 
+export const buildConditionProfile = (overrides: Partial<ConditionProfile>): ConditionProfile => {
+  return {
+    name: "some-name-" + randomInt(),
+    experience: "some-experience-" + randomInt(),
+    description: "some-description-" + randomInt(),
+    yearsOfExperience: randomInt(),
+    targetAssessment: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
+    targetCompetency: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
+    targetCredential: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
+    targetLearningOpportunity: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
+    ...overrides,
+  };
+}
+
+export const buildConditionProfileItem = (overrides: Partial<ConditionProfileItem>): ConditionProfileItem => {
+  return {
+    name: "some-name-" + randomInt(),
+    provider: buildProvider({}),
+    description: "some-description-" + randomInt(),
+    ...overrides,
+  };
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const randomCalendarLength = (): CalendarLength => {
   const all: number[] = Object.keys(CalendarLength)
@@ -134,3 +165,5 @@ export const randomCalendarLength = (): CalendarLength => {
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex];
 };
+
+

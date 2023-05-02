@@ -19,7 +19,6 @@ export const credentialEngineAPI = {
    */
    
   getResults: async function (query: object, skip: number, take: number, sort: string) {
-
     const response = await searchAPI.request({
       url: `${searchGateway}`,
       method: "post",
