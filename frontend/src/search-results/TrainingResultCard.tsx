@@ -104,7 +104,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-4 col-md-push-8 align-right-when-lg">
+        {/*<div className="col-md-4 col-md-push-8 align-right-when-lg">
           <p className="mts mbxs">
             <span className="fin fas">
               <InlineIcon className="hide-when-lg mrs">card_travel</InlineIcon>
@@ -115,7 +115,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
                 : t("SearchResultsPage.percentEmployedUnavailable")}
             </span>
           </p>
-        </div>
+        </div>*/}
         <div className="col-md-8 col-md-pull-4">
           <p className="mtxs mbz">
             <span className="fin fas">

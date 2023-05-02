@@ -267,11 +267,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                 backgroundColorClass="bg-lightest-purple"
               />
               <StatBlock
-                title={t("TrainingPage.employmentRateTitle")}
-                tooltipText={t("TrainingPage.employmentRateTooltip")}
+                title={training.percentEmployedName ? training.percentEmployedName : t("TrainingPage.employmentRateTitle")}
+                tooltipText={training.percentEmployedDescription ? training.percentEmployedDescription : ("TrainingPage.employmentRateTooltip")}
                 data={
-                  training.percentEmployed
-                    ? formatPercentEmployed(training.percentEmployed)
+                  training.percentEmployedValue
+                    ? formatPercentEmployed(training.percentEmployedValue)
                     : STAT_MISSING_DATA_INDICATOR
                 }
                 backgroundColorClass="bg-lighter-purple"

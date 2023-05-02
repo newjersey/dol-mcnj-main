@@ -150,28 +150,40 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             <td className="align-center pas bhdcg" key={`${item1.id}-emp`}>
-              {item1.percentEmployed
-                ? t("SearchResultsPage.percentEmployed", {
-                    percent: formatPercentEmployed(item1.percentEmployed),
-                  })
+              {item1.percentEmployedName
+                ? item1.percentEmployedName
                 : t("SearchResultsPage.percentEmployedUnavailable")}
+              {item1.percentEmployedDescription
+                ? item1.percentEmployedDescription
+                : null}
+              {item1.percentEmployedValue
+                ? item1.percentEmployedValue
+                : null}
             </td>
             {item2 && (
               <td className="align-center pas bhdcg" key={`${item2.id}-emp`}>
-                {item2.percentEmployed
-                  ? t("SearchResultsPage.percentEmployed", {
-                      percent: formatPercentEmployed(item2.percentEmployed),
-                    })
+                {item2.percentEmployedName
+                  ? item2.percentEmployedName
                   : t("SearchResultsPage.percentEmployedUnavailable")}
+                {item2.percentEmployedDescription
+                  ? item2.percentEmployedDescription
+                  : null}
+                {item2.percentEmployedValue
+                  ? item2.percentEmployedValue
+                  : null}
               </td>
             )}
             {item3 && (
               <td className="align-center pas bhdcg" key={`${item3.id}-emp`}>
-                {item3.percentEmployed
-                  ? t("SearchResultsPage.percentEmployed", {
-                      percent: formatPercentEmployed(item3.percentEmployed),
-                    })
+                {item3.percentEmployedName
+                  ? item3.percentEmployedName
                   : t("SearchResultsPage.percentEmployedUnavailable")}
+                {item3.percentEmployedDescription
+                  ? item3.percentEmployedDescription
+                  : null}
+                {item3.percentEmployedValue
+                  ? item3.percentEmployedValue
+                  : null}
               </td>
             )}
           </tr>
@@ -351,28 +363,40 @@ export const ComparisonTable = (props: Props): ReactElement => {
               <span>{t("SearchResultsPage.comparisonEmploymentRateLabel")}</span>
             </td>
             <td className="align-center pvd btdcg" key={`${item1.id}-emp`}>
-              {item1.percentEmployed
-                ? t("SearchResultsPage.percentEmployed", {
-                    percent: formatPercentEmployed(item1.percentEmployed),
-                  })
+              {item1.percentEmployedName
+                ? item1.percentEmployedName
                 : t("SearchResultsPage.percentEmployedUnavailable")}
+              {item1.percentEmployedDescription
+                ? item1.percentEmployedDescription
+                : null}
+              {item1.percentEmployedValue
+                ? item1.percentEmployedValue
+                : null}
             </td>
             {item2 && (
               <td className="align-center pvd btdcg bldcg" key={`${item2.id}-emp`}>
-                {item2.percentEmployed
-                  ? t("SearchResultsPage.percentEmployed", {
-                      percent: formatPercentEmployed(item2.percentEmployed),
-                    })
+                {item2.percentEmployedName
+                  ? item2.percentEmployedName
                   : t("SearchResultsPage.percentEmployedUnavailable")}
+                {item2.percentEmployedDescription
+                  ? item2.percentEmployedDescription
+                  : null}
+                {item2.percentEmployedValue
+                  ? item2.percentEmployedValue
+                  : null}
               </td>
             )}
             {item3 && (
               <td className="align-center pvd btdcg bldcg" key={`${item3.id}-emp`}>
-                {item3.percentEmployed
-                  ? t("SearchResultsPage.percentEmployed", {
-                      percent: formatPercentEmployed(item3.percentEmployed),
-                    })
+                {item3.percentEmployedName
+                  ? item3.percentEmployedName
                   : t("SearchResultsPage.percentEmployedUnavailable")}
+                {item3.percentEmployedDescription
+                  ? item3.percentEmployedDescription
+                  : null}
+                {item3.percentEmployedValue
+                  ? item3.percentEmployedValue
+                  : null}
               </td>
             )}
           </tr>

@@ -5,7 +5,9 @@ export interface TrainingResult {
   name: string;
   cipCode: string;
   totalCost: number;
-  percentEmployed: number | null;
+  percentEmployedName: string | null;
+  percentEmployedDescription: string | null;
+  percentEmployedValue: number | null;
   calendarLength: CalendarLength;
   inDemand: boolean;
   localExceptionCounty: string[];
@@ -44,8 +46,9 @@ export interface Training {
   otherCost: number;
   totalCost: number;
   online: boolean;
-  percentEmployed: number | null;
-  averageSalary: number | null;
+  percentEmployedName: string | null | undefined;
+  percentEmployedDescription: string | null | undefined;
+  percentEmployedValue: number | null;  averageSalary: number | null;
   hasEveningCourses: boolean;
   languages: string[];
   isWheelchairAccessible: boolean;

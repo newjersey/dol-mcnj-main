@@ -137,7 +137,6 @@ export const searchTrainingsFactory = (
           name: training.name,
           cipCode: training.cipCode,
           totalCost: training.totalCost,
-          percentEmployed: training.percentEmployed,
           calendarLength: training.calendarLength,
           localExceptionCounty: training.localExceptionCounty,
           online: training.online,
