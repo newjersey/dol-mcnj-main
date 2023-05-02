@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { CAREER_MAP_NODE_QUERY } from "../../queries/careerMapNode";
-import { useContentfulClient } from "../../utils/useContentfulClient";
 
 export interface CareerMapNodeProps {
   sys: {
