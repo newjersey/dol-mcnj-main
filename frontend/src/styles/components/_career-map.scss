@@ -128,9 +128,16 @@ $borderWidth: 6px;
     padding: 5px;
     display: flex;
     justify-content: center;
+
     position: relative;
     align-items: center;
     z-index: 1;
+
+    .inner {
+      p {
+        font-size: 0.6rem;
+      }
+    }
 
     &.main {
       z-index: 2;
