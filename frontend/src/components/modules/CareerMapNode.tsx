@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useContentfulClient } from "../../utils/useContentfulClient";
 import { CAREER_MAP_NODE_QUERY } from "../../queries/careerMapNode";
+import { numberShorthand } from "../../utils/numberShorthand";
+import { EducationLevel } from "./EducationLevel";
 
 export interface CareerMapNodeProps {
   loading?: boolean;
@@ -93,8 +95,17 @@ export const CareerMapNode = (props: CareerMapNodeProps) => {
     <li className={`level-${level}${!hasNextItems ? " no-children" : ""}`}>
       <div className="info" id={props?.sys?.id}>
         <div className="box">
-          <strong>{props.shortTitle || props.title}</strong>
-
+          <div className="inner">
+            <strong>{props.shortTitle || props.title}</strong>
+            <br />
+            <p>
+              <strong>Salary:</strong> ${numberShorthand(props.salaryRangeStart)} - $
+              {numberShorthand(props.salaryRangeEnd)}
+            </p>
+            <p>
+              <strong>Education:</strong> <EducationLevel level={props.educationLevel} />
+            </p>
+          </div>
           {hasNextItems && <span />}
         </div>
       </div>

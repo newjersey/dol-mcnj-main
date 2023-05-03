@@ -7,6 +7,7 @@ export const CAREER_MAP_NODE_QUERY = `query MapNode($id:String!) {
     shortTitle
     description
     salaryRangeEnd
+    educationLevel
     salaryRangeStart
     extendsTo {
       sys {
