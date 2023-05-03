@@ -3,8 +3,10 @@ import { PathwayGroup } from "./PathwayGroup";
 
 export const CareerMaps = ({
   icon,
+  industry,
   careerMaps,
 }: {
+  industry: string;
   icon: "explore" | "jobs" | "support" | "training" | "healthcare" | "manufacturing" | "tdl";
   careerMaps: CareerMapProps[];
 }) => {
