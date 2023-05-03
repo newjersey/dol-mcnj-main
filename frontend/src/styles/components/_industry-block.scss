@@ -5,15 +5,24 @@
     margin: 0 auto;
     display: inline-block;
     border-radius: 20px;
-    border: 2px solid $light-grey;
+    border: 2px solid $purple;
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 0.5rem 1.2rem;
     color: $text;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
 
     @media screen and (max-width: ($mobTab)) {
       max-width: 360px;
+    }
+
+    &:hover {
+      @media screen and (min-width: ($mobTab)) {
+        box-shadow: 5px 4px 12px -3px $grey;
+        transform: scale(1.03);
+      }
     }
 
     svg {

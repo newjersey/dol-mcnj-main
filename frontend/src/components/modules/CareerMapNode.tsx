@@ -3,6 +3,8 @@ import { useContentfulClient } from "../../utils/useContentfulClient";
 import { CAREER_MAP_NODE_QUERY } from "../../queries/careerMapNode";
 
 export interface CareerMapNodeProps {
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
   sys: {
     id: string;
   };
@@ -82,7 +84,7 @@ export const CareerMapNode = (props: CareerMapNodeProps) => {
           }
         }
       }
-    }, 200);
+    }, 500);
   }, [horizontal, vertical]);
 
   const hasNextItems = !!props.nextItem && props.nextItem.items.length > 0;
