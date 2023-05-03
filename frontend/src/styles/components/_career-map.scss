@@ -108,6 +108,7 @@ $borderWidth: 6px;
     }
 
     &.no-children {
+      gap: 0;
       .box {
         &:after {
           content: none;

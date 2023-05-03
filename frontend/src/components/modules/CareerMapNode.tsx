@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { CareerMaps } from "../CareerMaps";
 import { useContentfulClient } from "../../utils/useContentfulClient";
 import { CAREER_MAP_NODE_QUERY } from "../../queries/careerMapNode";
 
@@ -46,42 +45,44 @@ export const CareerMapNode = (props: CareerMapNodeProps) => {
   const { level = 2 } = props;
 
   useEffect(() => {
-    if (props.extendsTo) {
-      const mainDiv = document.getElementById(props.sys.id);
-      const relatedDiv = document.getElementById(props.extendsTo.sys.id);
+    setTimeout(() => {
+      if (props.extendsTo) {
+        const mainDiv = document.getElementById(props.sys.id);
+        const relatedDiv = document.getElementById(props.extendsTo.sys.id);
 
-      if (mainDiv && relatedDiv) {
-        const mainDivY = mainDiv.getBoundingClientRect().y;
-        const relatedDivY = relatedDiv.getBoundingClientRect().y;
-        const mainDivX = mainDiv.getBoundingClientRect().x;
-        const relatedDivX = relatedDiv.getBoundingClientRect().x;
-        setAbove(mainDivY > relatedDivY);
-        setLeft(mainDivX > relatedDivX);
+        if (mainDiv && relatedDiv) {
+          const mainDivY = mainDiv.getBoundingClientRect().y;
+          const relatedDivY = relatedDiv.getBoundingClientRect().y;
+          const mainDivX = mainDiv.getBoundingClientRect().x;
+          const relatedDivX = relatedDiv.getBoundingClientRect().x;
+          setAbove(mainDivY > relatedDivY);
+          setLeft(mainDivX > relatedDivX);
 
-        const relatedDivHeight = relatedDiv.getBoundingClientRect().height;
-        const relatedDivWidth = relatedDiv.getBoundingClientRect().width;
+          const relatedDivHeight = relatedDiv.getBoundingClientRect().height;
+          const relatedDivWidth = relatedDiv.getBoundingClientRect().width;
 
-        if (left) {
-          const mainEdge = mainDiv.getBoundingClientRect().left;
-          const relatedEdge = relatedDiv.getBoundingClientRect().right;
-          setHorizontal(mainEdge - relatedEdge + relatedDivWidth / 2 + 30);
-        } else {
-          const mainEdge = mainDiv.getBoundingClientRect().right;
-          const relatedEdge = relatedDiv.getBoundingClientRect().left;
-          setHorizontal(relatedEdge - mainEdge + relatedDivWidth / 2 + 30);
-        }
+          if (left) {
+            const mainEdge = mainDiv.getBoundingClientRect().left;
+            const relatedEdge = relatedDiv.getBoundingClientRect().right;
+            setHorizontal(mainEdge - relatedEdge + relatedDivWidth - 2);
+          } else {
+            const mainEdge = mainDiv.getBoundingClientRect().right;
+            const relatedEdge = relatedDiv.getBoundingClientRect().left;
+            setHorizontal(relatedEdge - mainEdge + relatedDivWidth - 2);
+          }
 
-        if (above) {
-          const mainEdge = mainDiv.getBoundingClientRect().top;
-          const relatedEdge = relatedDiv.getBoundingClientRect().bottom;
-          setVertical(mainEdge - relatedEdge + relatedDivHeight / 2);
-        } else {
-          const mainEdge = mainDiv.getBoundingClientRect().bottom;
-          const relatedEdge = relatedDiv.getBoundingClientRect().top;
-          setVertical(relatedEdge - mainEdge + relatedDivHeight / 2);
+          if (above) {
+            const mainEdge = mainDiv.getBoundingClientRect().top;
+            const relatedEdge = relatedDiv.getBoundingClientRect().bottom;
+            setVertical(mainEdge - relatedEdge + relatedDivHeight / 2);
+          } else {
+            const mainEdge = mainDiv.getBoundingClientRect().bottom;
+            const relatedEdge = relatedDiv.getBoundingClientRect().top;
+            setVertical(relatedEdge - mainEdge + relatedDivHeight / 2);
+          }
         }
       }
-    }
+    }, 200);
   }, [horizontal, vertical]);
 
   const hasNextItems = !!props.nextItem && props.nextItem.items.length > 0;
