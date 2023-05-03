@@ -23,15 +23,8 @@ $borderWidth: 6px;
   position: relative;
   margin: $boxWidth / 2 0;
 
-  &:before {
-    content: "";
-    width: $borderWidth;
-    position: absolute;
-    height: 100%;
-    background-color: #909090;
-    left: $boxWidth / 2;
-    top: 0;
-    transform: translateX(-50%);
+  .medium-map & {
+    margin: $boxWidth 0 $boxWidth / 2;
   }
 
   ul {
@@ -90,7 +83,15 @@ $borderWidth: 6px;
         }
 
         .small-map & {
-          margin-left: $boxWidth - $gap;
+          margin-left: 0;
+
+          > .info {
+            > .box {
+              &:before {
+                content: "";
+              }
+            }
+          }
         }
       }
 
@@ -102,7 +103,15 @@ $borderWidth: 6px;
       &:last-of-type {
         .medium-map & {
           bottom: $boxWidth / 2 + $gap / 2;
-          margin-left: $boxWidth - $gap;
+          margin-left: 0;
+
+          > .info {
+            > .box {
+              &:before {
+                content: "";
+              }
+            }
+          }
         }
       }
     }
@@ -173,6 +182,16 @@ $borderWidth: 6px;
     &:after {
       left: calc(100% + $borderWidth / 2);
     }
+
+    .filler {
+      position: absolute;
+      background-color: #909090;
+      display: block;
+      width: $borderWidth;
+      left: 50%;
+      top: calc(100% + $borderWidth / 2);
+      transform: translateX(-50%);
+    }
   }
 
   .line {
@@ -185,9 +204,15 @@ $borderWidth: 6px;
     transform: translateY(-50%);
     z-index: -1;
 
+    &.above {
+      > div {
+        bottom: calc(50% - 3px);
+        top: auto;
+      }
+    }
     &.below {
       > div {
-        top: 50%;
+        top: calc(50% - 3px);
         bottom: auto;
       }
     }

@@ -9,8 +9,6 @@ import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
-// import image from "../overlayImages/healthcare-mobile.png";
-// import { OverlayTool } from "../components/OverlayTool";
 import { OccupationBlock } from "../components/OccupationBlock";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
@@ -80,7 +78,11 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             <>
               <IndustryBlock {...industry} />
               {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                <CareerMaps careerMaps={industry.careerMaps.items} icon={industry?.slug} />
+                <CareerMaps
+                  careerMaps={industry.careerMaps.items}
+                  icon={industry?.slug}
+                  industry={industry.title}
+                />
               ) : (
                 <>
                   {industry.inDemandCollection?.items &&
