@@ -6,6 +6,7 @@ import { Selector } from "../svg/Selector";
 
 export const PageBanner = ({
   title,
+  breadcrumbTitle,
   message,
   breadcrumbsCollection,
   section,
@@ -31,7 +32,7 @@ export const PageBanner = ({
                 );
               })}
               <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                <span data-testid="title">{title}</span>
+                <span data-testid="title">{breadcrumbTitle || title}</span>
               </li>
             </ol>
           </nav>

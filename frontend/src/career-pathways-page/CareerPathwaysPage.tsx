@@ -14,10 +14,11 @@ import { useContentfulClient } from "../utils/useContentfulClient";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
 import { INDUSTRY_QUERY } from "../queries/industry";
 import { CareerMaps } from "../components/CareerMaps";
+import { NotFoundPage } from "../error/NotFoundPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
-  id?: string;
+  slug?: string;
 }
 
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
@@ -33,9 +34,9 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
       items: IndustryProps[];
     };
   } = useContentfulClient({
-    disable: !props.id,
+    disable: !props.slug,
     query: INDUSTRY_QUERY,
-    variables: { slug: props.id },
+    variables: { slug: props.slug },
   });
 
   useEffect(() => {
@@ -61,6 +62,24 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     }
   }, [occupation]);
 
+  if (props.slug && industryData?.industryCollection?.items.length === 0) {
+    return <NotFoundPage client={props.client} />;
+  }
+
+  const breadcrumbs = data
+    ? { items: [...data.page.pageBanner.breadcrumbsCollection.items] }
+    : { items: [] };
+
+  if (props.slug && industry) {
+    breadcrumbs.items.push({
+      copy: "New Jersey Career Pathways",
+      url: `/career-pathways`,
+      sys: {
+        id: industry.sys.id,
+      },
+    });
+  }
+
   return (
     <Layout
       client={props.client}
@@ -71,7 +90,12 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     >
       {data && (
         <>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
+          <PageBanner
+            {...data.page.pageBanner}
+            breadcrumbsCollection={breadcrumbs}
+            breadcrumbTitle={industry?.title}
+            date={data.page.sys.publishedAt}
+          />
           <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
 
           {industry && (

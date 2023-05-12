@@ -20,6 +20,7 @@ export interface FaqItemTopic {
 export interface PageBannerProps {
   date?: Date;
   title: string;
+  breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
