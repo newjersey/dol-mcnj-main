@@ -101,27 +101,29 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           {industry && (
             <>
               <IndustryBlock {...industry} />
-              {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                <CareerMaps
-                  careerMaps={industry.careerMaps.items}
-                  icon={industry?.slug}
-                  industry={industry.title}
-                />
-              ) : (
-                <>
-                  {industry.inDemandCollection?.items &&
-                    industry.inDemandCollection?.items.length > 0 && (
-                      <OccupationBlock
-                        content={occupationDetail}
-                        industry={industry.shorthandTitle || industry.title}
-                        inDemandList={industry.inDemandCollection?.items}
-                        setOccupation={setOccupation}
-                        error={error}
-                        loading={loading}
-                      />
-                    )}
-                </>
-              )}
+              <div id="industry-container">
+                {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
+                  <CareerMaps
+                    careerMaps={industry.careerMaps.items}
+                    icon={industry?.slug}
+                    industry={industry.title}
+                  />
+                ) : (
+                  <>
+                    {industry.inDemandCollection?.items &&
+                      industry.inDemandCollection?.items.length > 0 && (
+                        <OccupationBlock
+                          content={occupationDetail}
+                          industry={industry.shorthandTitle || industry.title}
+                          inDemandList={industry.inDemandCollection?.items}
+                          setOccupation={setOccupation}
+                          error={error}
+                          loading={loading}
+                        />
+                      )}
+                  </>
+                )}
+              </div>
             </>
           )}
         </>
