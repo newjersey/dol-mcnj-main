@@ -50,7 +50,8 @@
 
     &.active {
       a {
-        background: $lightest-purple;
+        background: $light-purple;
+        border-color: $bright-purple;
       }
     }
 
@@ -65,7 +66,7 @@
       text-decoration: none;
       padding: 1.2rem;
       display: block;
-      border: 2px solid $purple;
+      border: 2px solid $grey;
       border-radius: 20px;
       color: $text;
       transition-duration: 0.3s;

@@ -45,6 +45,21 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
           }
           copy {
             json
+            links {
+              assets {
+                block {
+                  sys {
+                    id
+                  }
+                  url
+                  title
+                  description
+                  width
+                  height
+                  contentType
+                }
+              }
+            }
           }
         }
       }

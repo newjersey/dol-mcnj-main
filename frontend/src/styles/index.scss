@@ -207,3 +207,22 @@ ol {
     padding-left: 0;
   }
 }
+
+.image-text {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media screen and (max-width: ($mobTab - 1)) {
+    flex-direction: column;
+  }
+
+  .description {
+    max-width: 400px;
+    font-size: 1.5rem;
+
+    p {
+      line-height: 1.2;
+    }
+  }
+}

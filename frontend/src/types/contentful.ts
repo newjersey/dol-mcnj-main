@@ -31,8 +31,26 @@ export interface PageBannerProps {
     items: LinkObjectProps[];
   };
 }
+
+export interface AssetBlock {
+  sys: {
+    id: string;
+  };
+  url?: string;
+  title?: string;
+  description?: string;
+  width?: number;
+  height?: number;
+  contentType?: string;
+}
+
 export interface ContentfulRichText {
   json: Document;
+  links?: {
+    assets: {
+      block: AssetBlock[];
+    };
+  };
 }
 
 export interface FaqItem {
