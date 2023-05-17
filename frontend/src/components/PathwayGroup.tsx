@@ -1,4 +1,4 @@
-import { CAREER_MAP_QUERY } from "../queries/careerMap";
+import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { CareerMapNodeProps } from "./modules/CareerMapNode";
 
@@ -17,12 +17,12 @@ export const PathwayGroup = (props: {
       sys: {
         id: string;
       };
-      careerMapItemsCollection: {
+      careerPathwayItemsCollection: {
         items: CareerMapNodeProps[];
       };
     };
   } = useContentfulClient({
-    query: CAREER_MAP_QUERY,
+    query: CAREER_PATHWAY_QUERY,
     variables: { id: props.sys.id },
   });
 
@@ -70,7 +70,7 @@ export const PathwayGroup = (props: {
               }}
             >
               <option value="">---</option>
-              {data.careerMap.careerMapItemsCollection.items.map((mapItem) => (
+              {data.careerMap.careerPathwayItemsCollection.items.map((mapItem) => (
                 <option key={mapItem.sys.id} value={mapItem.sys.id}>
                   {mapItem.shortTitle || mapItem.title}
                 </option>
