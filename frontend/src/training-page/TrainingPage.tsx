@@ -205,6 +205,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
             {training.inDemand ? <InDemandTag className="mts" /> : <></>}
+            {training.localExceptionCounty ? <InDemandTag className="mts" counties={training.localExceptionCounty}/> : <></>}
 
             <div className="stat-block-stack mtm">
               <StatBlock
@@ -276,11 +277,11 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                     <Grouping title={t("TrainingPage.shareGroupHeader")}>
                       <>
-                        {training.inDemand && (
+                        {/*{training.localExceptionCounty && (
                           <p className="mvd" data-testid="shareInDemandTraining">
                             {t("TrainingPage.inDemandDescription")}
                           </p>
-                        )}
+                        )}*/}
                         <p>
                           <UnstyledButton className="link-format-blue" onClick={copyHandler}>
                             <Icon className="accessible-gray weight-500">link</Icon>
