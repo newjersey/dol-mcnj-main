@@ -12,7 +12,7 @@ const Menu = (props: {
   const data: {
     careerMap: {
       title: string;
-      careerMapItemsCollection: {
+      careerPathwayItemsCollection: {
         items: CareerMapNodeProps[];
       };
     };
@@ -35,7 +35,7 @@ const Menu = (props: {
       <h4>{props.title}</h4>
       <ul className="unstyled">
         {data &&
-          data.careerMap.careerMapItemsCollection.items.map((mapItem) => (
+          data.careerMap.careerPathwayItemsCollection.items.map((mapItem) => (
             <li key={mapItem.sys.id}>
               <input
                 type="radio"

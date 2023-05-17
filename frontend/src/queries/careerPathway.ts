@@ -1,10 +1,10 @@
-export const CAREER_MAP_QUERY = `query Maps($id: String!) {
+export const CAREER_PATHWAY_QUERY = `query Maps($id: String!) {
   careerMap(id: $id) {
     title
     sys {
       id
     }
-    careerMapItemsCollection {
+    careerPathwayItemsCollection {
       items {
         sys {
           id
@@ -15,17 +15,24 @@ export const CAREER_MAP_QUERY = `query Maps($id: String!) {
         salaryRangeStart
         salaryRangeEnd
         educationLevel
-        extendsTo {
-          sys {
-            id
-          }
+      }
+    }
+    pathways: pathwaysCollection {
+      items {
+        sys {
+          id
         }
-        nextItem: nextLevelItemsCollection(limit: 20) {
+        title
+        occupationsCollection {
           items {
             sys {
               id
             }
-
+            title
+            level
+            salaryRangeStart
+            salaryRangeEnd
+            educationLevel
           }
         }
       }

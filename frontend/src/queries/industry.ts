@@ -24,12 +24,13 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
         }
       }
       inDemandCollection {
-        items{
+        items {
           sys {
             id
           }
           title
           idNumber
+          numberOfJobs
         }
       }
       industryAccordionCollection(limit: 3) {
@@ -61,16 +62,6 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
               }
             }
           }
-        }
-      }
-      inDemandCollection {
-        items {
-          sys {
-            id
-          }
-          title
-          idNumber
-          numberOfJobs
         }
       }
     }
