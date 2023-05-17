@@ -27,7 +27,7 @@ export const fragments = {
   }`,
 };
 
-const NavMenuFields = `
+export const NavMenuFields = `
 heading
 url
 topLevelItemsCollection {
