@@ -141,6 +141,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           )}
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
+            {props.trainingResult.localExceptionCounty ? <InDemandTag counties={props.trainingResult.localExceptionCounty} /> : <></>}
             {props.comparisonItems && <ComparisonCheckbox />}
           </div>
         </div>
