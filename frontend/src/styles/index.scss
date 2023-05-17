@@ -38,6 +38,7 @@
 @import "components/resource-links";
 @import "components/tab-content";
 @import "components/career-map";
+@import "components/career-pathways";
 
 * {
   -webkit-box-sizing: border-box;
@@ -224,5 +225,12 @@ ol {
     p {
       line-height: 1.2;
     }
+  }
+}
+
+.container {
+  &.plus {
+    width: 100%;
+    max-width: 1294px;
   }
 }

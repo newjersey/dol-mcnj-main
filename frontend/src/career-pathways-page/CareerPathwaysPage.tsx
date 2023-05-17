@@ -13,7 +13,7 @@ import { OccupationBlock } from "../components/OccupationBlock";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
 import { INDUSTRY_QUERY } from "../queries/industry";
-import { CareerMaps } from "../components/CareerMaps";
+import { CareerPathways } from "../components/CareerPathways";
 import { NotFoundPage } from "../error/NotFoundPage";
 
 interface Props extends RouteComponentProps {
@@ -94,7 +94,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             {...data.page.pageBanner}
             breadcrumbsCollection={breadcrumbs}
             breadcrumbTitle={industry?.title}
-            date={data.page.sys.publishedAt}
           />
           <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
 
@@ -103,7 +102,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
               <IndustryBlock {...industry} />
               <div id="industry-container">
                 {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                  <CareerMaps
+                  <CareerPathways
                     careerMaps={industry.careerMaps.items}
                     icon={industry?.slug}
                     industry={industry.title}

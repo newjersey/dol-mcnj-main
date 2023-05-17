@@ -16,7 +16,7 @@ export const PageBanner = ({
 }: PageBannerProps) => {
   return (
     <section className="page-banner">
-      <div className="container">
+      <div className="container plus">
         <div className="top-nav">
           <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
             <Icon>keyboard_backspace</Icon>

@@ -1,5 +1,6 @@
 import { Selector } from "../svg/Selector";
 import { IndustryProps } from "../types/contentful";
+import moreBadge from "../images/moreBadge.png";
 
 export const IndustrySelector = ({
   industries,
@@ -20,9 +21,12 @@ export const IndustrySelector = ({
   });
   return (
     <section className="industry-selector">
-      <div className="container">
+      <div className="container plus">
         <div className="heading">
-          <h2>Select an Industry</h2>
+          <h2>
+            Select an Industry
+            <img src={moreBadge} alt="" className="moreBadge" />
+          </h2>
         </div>
         <nav aria-label="industry-nav" id="industry-nav">
           <ul className="unstyled">

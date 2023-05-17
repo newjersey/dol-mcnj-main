@@ -1,5 +1,5 @@
 .industry-selector {
-  padding: 2rem 0;
+  padding: 5rem 0 2rem;
 
   .heading {
     text-align: center;
@@ -26,6 +26,14 @@
       background-color: white;
       display: inline-block;
       padding: 0 1rem;
+      position: relative;
+    }
+
+    .moreBadge {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 9rem);
+      transform: translateY(-50%);
     }
   }
 

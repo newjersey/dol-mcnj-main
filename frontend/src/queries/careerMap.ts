@@ -1,6 +1,9 @@
 export const CAREER_MAP_QUERY = `query Maps($id: String!) {
   careerMap(id: $id) {
     title
+    sys {
+      id
+    }
     careerMapItemsCollection {
       items {
         sys {
