@@ -4,19 +4,6 @@ export const CAREER_PATHWAY_QUERY = `query Maps($id: String!) {
     sys {
       id
     }
-    careerPathwayItemsCollection {
-      items {
-        sys {
-          id
-        }
-        title
-        shortTitle
-        description
-        salaryRangeStart
-        salaryRangeEnd
-        educationLevel
-      }
-    }
     pathways: pathwaysCollection {
       items {
         sys {

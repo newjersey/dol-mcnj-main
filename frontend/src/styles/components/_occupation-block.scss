@@ -75,6 +75,8 @@
       gap: 0.5rem;
       max-width: 42rem;
       margin-bottom: 3rem;
+      padding-bottom: 0;
+      border-bottom: none;
 
       @media screen and (max-width: ($mobTab - 1)) {
         padding: 0 1rem;
@@ -233,7 +235,7 @@
 
       &.related-training,
       &.related-occupations {
-        a {
+        a:not(.usa-button) {
           color: $blue;
           text-decoration: none;
           display: block;
@@ -301,6 +303,55 @@
     @media screen and (max-width: ($mobTab - 1)) {
       position: sticky;
       top: 0;
+    }
+  }
+
+  &.career-detail {
+    margin-top: 2rem;
+    .occupation-box {
+      border: 0;
+      background: white;
+      padding: 2rem;
+    }
+
+    .box {
+      line-height: 1.6;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      ul:not(.unstyled) {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        li {
+          margin: 0;
+          background: $lightest-grey;
+          padding: 0.5rem;
+        }
+      }
+
+      .content {
+        &.related-training {
+          li {
+            border: 2px solid $light-grey;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 1rem;
+            margin-bottom: 1rem;
+          }
+          .span-grid {
+            border: none;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
     }
   }
 }

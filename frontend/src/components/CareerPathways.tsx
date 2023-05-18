@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { CareerMapProps } from "../types/contentful";
 import { PathwayGroup } from "./PathwayGroup";
-import { SinglePath } from "./SinglePath";
+import { Client } from "../domain/Client";
+import { CareerDetail } from "./CareerDetail";
 
 export const CareerPathways = ({
   icon,
   industry,
   careerMaps,
+  client,
 }: {
   industry: string;
   icon: "explore" | "jobs" | "support" | "training" | "healthcare" | "manufacturing" | "tdl";
   careerMaps: CareerMapProps[];
+  client: Client;
 }) => {
   const [selected, setSelected] = useState<string>();
 
@@ -37,7 +40,7 @@ export const CareerPathways = ({
           </div>
         </div>
 
-        {selected && <SinglePath mapId={selected} />}
+        {selected && <CareerDetail mapId={selected} client={client} />}
       </div>
     </div>
   );

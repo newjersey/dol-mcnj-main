@@ -9,9 +9,51 @@ export interface Keypair {
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
+export interface OccupationNodeProps {
+  sys: {
+    id: string;
+  };
+  level?: number;
+  title: string;
+  inDemand?: boolean;
+  shortTitle?: string;
+  description: string;
+  salaryRangeStart: number;
+  salaryRangeEnd: number;
+  educationLevel: 1 | 2 | 3 | 4;
+  advancement?: string;
+  tasks?: string;
+  education?: string;
+  credentials?: string;
+  skills?: string;
+  experience?: string;
+}
+
+export interface SinglePathwayProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  occupationsCollection: {
+    items: OccupationNodeProps[];
+  };
+}
+
+export interface CareerMapNodeProps extends OccupationNodeProps {
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
+}
+
+export interface PathwayGroupProps {
+  title: string;
+  sys: {
+    id: string;
+  };
+  pathways?: {
+    items: SinglePathwayProps[];
+  };
+}
+
 export interface FaqItemTopic {
   topic: string;
   order: number;
