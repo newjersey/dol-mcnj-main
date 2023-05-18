@@ -10,6 +10,7 @@ export const OCCUPATION_QUERY = `query Occupation($id: String!) {
     salaryRangeEnd
     description
     advancement
+    trainingSearchTerms
     tasks
     education
     credentials
