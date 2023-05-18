@@ -13,10 +13,10 @@ export const InDemandTag = (props: Props): ReactElement => {
   // Helper function to format array into human-readable string
   const formatCounties = (counties: string[] = []) => {
     if(counties.length === 0) return '';
-    if(counties.length === 1) return counties[0];
+    if(counties.length === 1) return `${counties[0]} County`;
 
     const lastCounty = counties.pop();
-    return `${counties.join(', ')}, and ${lastCounty}`;
+    return `${counties.join(', ')}, and ${lastCounty} Counties`;
   };
 
   // Formatted counties string
