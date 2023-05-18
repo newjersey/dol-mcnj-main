@@ -4,11 +4,17 @@ export interface InDemandOccupation {
   soc: string;
   title: string;
   majorGroup: string;
+  counties?: string[];
 }
 
 export interface Occupation {
   soc: string;
   title: string;
+  counties?: string[];
+}
+
+export interface ExpandedOccupation extends Occupation {
+  counties: string[];
 }
 
 export interface OccupationDetail {

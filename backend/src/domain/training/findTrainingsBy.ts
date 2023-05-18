@@ -16,7 +16,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     return Promise.all(
       programs.map(async (program: Program) => {
         const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
-        const localExceptionCounties = (await dataClient.getLocalExceptions())
+        const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === program.cipcode)
           .map((localException: LocalException) =>
             convertToTitleCaseIfUppercase(localException.county)

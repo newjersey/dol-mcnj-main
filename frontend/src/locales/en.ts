@@ -714,6 +714,7 @@ export const en = {
     onlineClassLabel: "Online Class",
     timeToComplete: "{{time}} to complete",
     inDemandTag: "In Demand",
+    inDemandCountiesTag: "In Demand in {{counties}} - tuition assistance may be available",
     localWaiverTag: "Waiver for {{county}} County",
     comparisonCheckLabel: "Compare",
     comparisonCollapse: "Collapse",

@@ -209,6 +209,8 @@ export const buildNullableOccupation = (
 
 export const buildLocalException = (overrides: Partial<LocalException>): LocalException => {
   return {
+    soc: "some-soc-" + randomInt(),
+    title: "some-soctitle-" + randomInt(),
     cipcode: "some-cipcode-" + randomInt(),
     county: "some-county-" + randomInt(),
     ...overrides,
