@@ -3,22 +3,10 @@ import { contentfulClient } from "../utils/contentfulClient";
 import { PATHWAY_QUERY } from "../queries/pathway";
 import { OccupationNodeProps, SinglePathwayProps } from "../types/contentful";
 import { OCCUPATION_QUERY } from "../queries/occupation";
-import {
-  ArrowSquareOut,
-  Briefcase,
-  Fire,
-  Hourglass,
-  MapPinLine,
-  RocketLaunch,
-  Warning,
-} from "@phosphor-icons/react";
+import { ArrowSquareOut, Briefcase, Fire, RocketLaunch } from "@phosphor-icons/react";
 import ReactMarkdown from "react-markdown";
-import { calendarLength } from "../utils/calendarLength";
 import { Client } from "../domain/Client";
-import { TrainingResult } from "../domain/Training";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
-import { toUsCurrency } from "../utils/toUsCurrency";
-import { CircularProgress } from "@material-ui/core";
 import { RelatedTrainingSearch } from "./modules/RelatedTrainingSearch";
 
 interface PathwayDataProps {
