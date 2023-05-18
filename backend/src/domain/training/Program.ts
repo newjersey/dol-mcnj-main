@@ -38,13 +38,10 @@ export interface Program {
   assistobtainingchildcare: string | null;
 }
 
-export interface LocalExceptionCip {
-  cipcode: string;
-  county: string;
-}
-
-export interface LocalExceptionSoc {
+export interface LocalException {
   soc: string;
+  title: string;
+  cipcode: string;
   county: string;
 }
 
