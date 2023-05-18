@@ -40,6 +40,7 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
     const localExceptions = await dataClient.getLocalExceptionsBySoc();
 
     // Add counties to local exceptions in the expandedInDemand array
+  if (localExceptions != null && localExceptions.length != 0) {
     for (const exception of localExceptions) {
       const matchingOccupation = expandedInDemand.find((occupation) => occupation.soc === exception.soc);
       if (matchingOccupation) {
@@ -55,6 +56,8 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
         });
       }
     }
+
+  }
 
     return Promise.all(
         expandedInDemand.map(async (occupationTitle) => {
