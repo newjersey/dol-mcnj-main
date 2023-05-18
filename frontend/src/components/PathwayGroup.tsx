@@ -2,8 +2,13 @@ import { Path } from "@phosphor-icons/react";
 import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
 import { OccupationNodeProps, PathwayGroupProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 
+interface CompleteMapProps {
+  title: string;
+  groups: OccupationNodeProps[][];
+}
 interface SelectProps {
   pathway?: OccupationNodeProps[];
   title?: string;
@@ -30,6 +35,25 @@ export const PathwayGroup = (props: {
     variables: { id: props.sys.id },
   });
   const [open, setOpen] = useState(false);
+  const [completeMap, setCompleteMap] = useState<CompleteMapProps[]>();
+
+  useEffect(() => {
+    if (data) {
+      const fullMap = () => {
+        if (data?.careerMap.pathways) {
+          const pathways = data.careerMap.pathways.items.map((path) => ({
+            title: path.title,
+
+            groups: groupObjectsByLevel(path.occupationsCollection.items),
+          }));
+
+          setCompleteMap(pathways);
+        }
+      };
+
+      fullMap();
+    }
+  }, [data]);
 
   return (
     <>
@@ -117,6 +141,21 @@ export const PathwayGroup = (props: {
               </div>
             )}
           </div>
+          <code>
+            <pre
+              style={{
+                fontFamily: "monospace",
+                display: "block",
+                padding: "50px",
+                color: "#88ffbf",
+                backgroundColor: "black",
+                textAlign: "left",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {JSON.stringify(completeMap, null, "    ")}
+            </pre>
+          </code>
         </div>
       )}
     </>

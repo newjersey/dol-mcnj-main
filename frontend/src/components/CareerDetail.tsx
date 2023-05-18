@@ -8,6 +8,7 @@ import { Client } from "../domain/Client";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
 import { RelatedTrainingSearch } from "./modules/RelatedTrainingSearch";
 import { toUsCurrency } from "../utils/toUsCurrency";
+import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -41,24 +42,6 @@ export const CareerDetail = ({
 
     fetchData();
   }, [detailsId]);
-
-  function groupObjectsByLevel(array: OccupationNodeProps[]): OccupationNodeProps[][] {
-    const result: OccupationNodeProps[][] = [];
-    const levels: number[] = [];
-
-    for (const obj of array) {
-      if (!levels.includes(obj.level)) {
-        levels.push(obj.level);
-      }
-    }
-
-    for (const level of levels) {
-      const groupedObjects = array.filter((obj) => obj.level === level);
-      result.push(groupedObjects);
-    }
-
-    return result;
-  }
 
   const groupedArray: OccupationNodeProps[][] = groupObjectsByLevel(pathway || []);
 
