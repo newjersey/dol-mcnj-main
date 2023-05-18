@@ -33,18 +33,23 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
     const inDemandOccupations = await dataClient.getOccupationsInDemand();
     const expandedInDemand = removeDuplicateSocs(await expand2010SocsTo2018(inDemandOccupations));
 
-    return Promise.all(
-      expandedInDemand.map(async (occupationTitle) => {
-        const initialCode = occupationTitle.soc.split("-")[0];
-        const majorGroupSoc = initialCode + "-0000";
+    const localExceptions = await dataClient.getLocalExceptions();
 
-        const majorGroup = await dataClient.findSocDefinitionBySoc(majorGroupSoc);
-        return {
-          soc: occupationTitle.soc,
-          title: occupationTitle.title,
-          majorGroup: stripOccupations(majorGroup.title),
-        };
-      })
+    return Promise.all(
+        expandedInDemand.map(async (occupationTitle) => {
+          const initialCode = occupationTitle.soc.split("-")[0];
+          const majorGroupSoc = initialCode + "-0000";
+
+          const majorGroup = await dataClient.findSocDefinitionBySoc(majorGroupSoc);
+          const exceptions = await dataClient.getLocalExceptions();
+
+          return {
+            soc: occupationTitle.soc,
+            title: occupationTitle.title,
+            majorGroup: stripOccupations(majorGroup.title),
+            counties: exceptions.map(ex => ex.county),
+          };
+        })
     );
   };
 };
