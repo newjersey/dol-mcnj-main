@@ -7,7 +7,7 @@ import { NullableOccupation } from "../training/Program";
 export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDemandOccupations => {
   const removeDuplicateSocs = (occupationTitles: Occupation[]): Occupation[] => {
     return occupationTitles.filter(
-      (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
+        (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
     );
   };
 
@@ -33,7 +33,8 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
     const inDemandOccupations = await dataClient.getOccupationsInDemand();
     const expandedInDemand = removeDuplicateSocs(await expand2010SocsTo2018(inDemandOccupations));
 
-    const localExceptions = await dataClient.getLocalExceptions();
+    // get local exceptions (SOCs and corresponding counties)
+    const localExceptions = await dataClient.getLocalExceptionsBySoc();
 
     return Promise.all(
         expandedInDemand.map(async (occupationTitle) => {
@@ -41,13 +42,15 @@ export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDema
           const majorGroupSoc = initialCode + "-0000";
 
           const majorGroup = await dataClient.findSocDefinitionBySoc(majorGroupSoc);
-          const exceptions = await dataClient.getLocalExceptions();
+
+          // find exceptions for the current SOC
+          const matchingExceptions = localExceptions.filter((ex) => ex.soc === initialCode);
 
           return {
             soc: occupationTitle.soc,
             title: occupationTitle.title,
             majorGroup: stripOccupations(majorGroup.title),
-            counties: exceptions.map(ex => ex.county),
+            counties: matchingExceptions.map((ex) => ex.county),
           };
         })
     );
