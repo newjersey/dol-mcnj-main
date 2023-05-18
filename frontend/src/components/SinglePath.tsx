@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { CAREER_MAP_NODE_QUERY } from "../queries/careerMapNode";
-import { CareerMapNode, CareerMapNodeProps } from "./modules/CareerMapNode";
+import { CareerMapNode } from "./modules/CareerMapNode";
 import { contentfulClient } from "../utils/contentfulClient";
+import { CareerMapNodeProps } from "../types/contentful";
 
 interface SinglePathObjectProps {
   careerMapObject: CareerMapNodeProps;

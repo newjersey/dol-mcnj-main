@@ -106,6 +106,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                     careerMaps={industry.careerMaps.items}
                     icon={industry?.slug}
                     industry={industry.title}
+                    client={props.client}
                   />
                 ) : (
                   <>

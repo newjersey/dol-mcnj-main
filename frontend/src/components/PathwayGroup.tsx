@@ -1,6 +1,6 @@
 import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
+import { PathwayGroupProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { CareerMapNodeProps } from "./modules/CareerMapNode";
 
 export const PathwayGroup = (props: {
   sys: {
@@ -12,15 +12,7 @@ export const PathwayGroup = (props: {
   icon: "explore" | "jobs" | "support" | "training" | "healthcare" | "manufacturing" | "tdl";
 }) => {
   const data: {
-    careerMap: {
-      title: string;
-      sys: {
-        id: string;
-      };
-      careerPathwayItemsCollection: {
-        items: CareerMapNodeProps[];
-      };
-    };
+    careerMap: PathwayGroupProps;
   } = useContentfulClient({
     query: CAREER_PATHWAY_QUERY,
     variables: { id: props.sys.id },
@@ -37,7 +29,6 @@ export const PathwayGroup = (props: {
             name={`${props.icon}-pathways`}
             defaultChecked={props.active}
             onChange={(e) => {
-              props.setSelected("");
               const selects = document.querySelectorAll("select");
               selects.forEach((select: HTMLSelectElement) => {
                 if (select.value !== e.target.value) {
@@ -70,9 +61,9 @@ export const PathwayGroup = (props: {
               }}
             >
               <option value="">---</option>
-              {data.careerMap.careerPathwayItemsCollection.items.map((mapItem) => (
-                <option key={mapItem.sys.id} value={mapItem.sys.id}>
-                  {mapItem.shortTitle || mapItem.title}
+              {data.careerMap.pathways?.items.map((pathItem) => (
+                <option key={pathItem.sys.id} value={pathItem.sys.id}>
+                  {pathItem.title || pathItem.title}
                 </option>
               ))}
             </select>

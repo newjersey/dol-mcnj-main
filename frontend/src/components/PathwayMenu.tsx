@@ -1,7 +1,7 @@
 import { Info, MapTrifold } from "@phosphor-icons/react";
 import { PATH_MENU_QUERY } from "../queries/pathMenu";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { CareerMapNodeProps } from "./modules/CareerMapNode";
+import { CareerMapNodeProps } from "../types/contentful";
 
 const Menu = (props: {
   sys: {

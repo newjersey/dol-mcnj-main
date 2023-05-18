@@ -20,6 +20,7 @@
     "react-dom/test-utils",
     "react-i18next",
     "react-to-print",
+    "react-markdown",
     "react-tooltip",
     "react"
   ]
