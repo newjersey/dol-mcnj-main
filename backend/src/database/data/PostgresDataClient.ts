@@ -1,14 +1,13 @@
 import knex from "knex";
 import { type Knex } from "knex";
 import {
-  LocalExceptionCip,
-  LocalExceptionSoc,
   SocDefinition,
   CipDefinition,
   Program,
   EducationText,
   SalaryEstimate,
   NullableOccupation,
+  LocalException,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
@@ -113,7 +112,7 @@ export class PostgresDataClient implements DataClient {
     return programs;
   };
 
-  getLocalExceptionsByCip = (): Promise<LocalExceptionCip[]> => {
+  getLocalExceptionsByCip = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
       .select("cipcode", "county")
       .catch((e) => {
@@ -122,9 +121,9 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
-  getLocalExceptionsBySoc = (): Promise<LocalExceptionSoc[]> => {
+  getLocalExceptionsBySoc = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
-        .select("soc", "county")
+        .select("soc", "county", "occupation as title")
         .catch((e) => {
           console.log("db error: ", e);
           return Promise.reject();
