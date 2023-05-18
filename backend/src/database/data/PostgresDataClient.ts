@@ -123,7 +123,7 @@ export class PostgresDataClient implements DataClient {
 
   getLocalExceptionsBySoc = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
-        .select("soc", "county", "occupation")
+        .select("soc", "county", "occupation as title")
         .then((result) => {
           console.log("Local exceptions:", result);
           return result;
