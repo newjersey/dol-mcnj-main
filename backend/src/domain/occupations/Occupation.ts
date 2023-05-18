@@ -4,6 +4,7 @@ export interface InDemandOccupation {
   soc: string;
   title: string;
   majorGroup: string;
+  counties: string[];
 }
 
 export interface Occupation {

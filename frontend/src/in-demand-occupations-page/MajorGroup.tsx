@@ -74,6 +74,7 @@ export const MajorGroup = (props: Props): ReactElement => {
             <div key={it.soc} className="pbs">
               <Link className="link-format-blue" to={`/occupation/${it.soc}`}>
                 {it.title}
+                {it.counties && it.counties.length > 0 && <span> ({it.counties.join(", ")})</span>}
               </Link>
             </div>
           ))}
