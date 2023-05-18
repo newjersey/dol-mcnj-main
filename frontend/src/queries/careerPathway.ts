@@ -16,6 +16,7 @@ export const CAREER_PATHWAY_QUERY = `query Maps($id: String!) {
               id
             }
             title
+            shortTitle
             level
             salaryRangeStart
             salaryRangeEnd

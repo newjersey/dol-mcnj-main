@@ -7,6 +7,7 @@ import { useState } from "react";
 interface SelectProps {
   pathway?: OccupationNodeProps[];
   title?: string;
+  shortTitle?: string;
   id?: string;
   groupId?: string;
 }
@@ -68,8 +69,11 @@ export const PathwayGroup = (props: {
                 setOpen(!open);
               }}
             >
-              {props.activeGroup ? props.selected?.title || "---" : "---"}
+              {props.activeGroup
+                ? props.selected?.shortTitle || props.selected?.title || "---"
+                : "---"}
             </button>
+
             {open && (
               <div className="dropdown-select">
                 {data.careerMap.pathways?.items.map((path) => (
@@ -89,6 +93,7 @@ export const PathwayGroup = (props: {
                             pathway: path.occupationsCollection?.items,
                             id: occupation.sys.id,
                             title: occupation.title,
+                            shortTitle: occupation.shortTitle,
                             groupId: data.careerMap.sys.id,
                           });
                           localStorage.setItem(
@@ -96,6 +101,7 @@ export const PathwayGroup = (props: {
                             JSON.stringify({
                               pathway: path.occupationsCollection?.items,
                               id: occupation.sys.id,
+                              shortTitle: occupation.shortTitle,
                               title: occupation.title,
                               groupId: data.careerMap.sys.id,
                             })
@@ -103,7 +109,7 @@ export const PathwayGroup = (props: {
                           setOpen(false);
                         }}
                       >
-                        {occupation.title}
+                        {occupation.shortTitle || occupation.title}
                       </button>
                     ))}
                   </div>

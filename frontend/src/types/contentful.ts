@@ -13,7 +13,7 @@ export interface OccupationNodeProps {
   sys: {
     id: string;
   };
-  level?: number;
+  level: number;
   title: string;
   inDemand?: boolean;
   shortTitle?: string;
@@ -21,7 +21,7 @@ export interface OccupationNodeProps {
   trainingSearchTerms?: string;
   salaryRangeStart: number;
   salaryRangeEnd: number;
-  educationLevel: 1 | 2 | 3 | 4;
+  educationLevel: number | string;
   advancement?: string;
   tasks?: string;
   education?: string;

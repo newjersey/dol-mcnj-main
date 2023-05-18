@@ -8,6 +8,7 @@ interface SelectedProps {
   pathway?: OccupationNodeProps[];
   id?: string;
   title?: string;
+  shortTitle?: string;
   groupId?: string;
 }
 
@@ -45,6 +46,7 @@ export const CareerPathways = ({
             <p>
               <strong>Select a {industry} Field</strong>
             </p>
+
             {careerMaps.map((map, index) => (
               <PathwayGroup
                 key={map.sys.id}
@@ -59,7 +61,13 @@ export const CareerPathways = ({
           </div>
         </div>
 
-        {details.id && <CareerDetail detailsId={details.id} client={client} />}
+        {details.id && (
+          <CareerDetail
+            detailsId={details.id}
+            client={client}
+            pathway={selected.id ? selected.pathway : localData?.pathway || []}
+          />
+        )}
       </div>
     </div>
   );
