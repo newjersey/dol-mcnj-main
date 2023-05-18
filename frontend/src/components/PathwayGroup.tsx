@@ -1,13 +1,24 @@
+import { Path } from "@phosphor-icons/react";
 import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
-import { PathwayGroupProps } from "../types/contentful";
+import { OccupationNodeProps, PathwayGroupProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
+import { useState } from "react";
+
+interface SelectProps {
+  pathway?: OccupationNodeProps[];
+  title?: string;
+  id?: string;
+  groupId?: string;
+}
 
 export const PathwayGroup = (props: {
   sys: {
     id: string;
   };
+  activeGroup?: boolean;
   active?: boolean;
-  setSelected: (id: string) => void;
+  setSelected: (id: SelectProps) => void;
+  selected?: SelectProps;
   title: string;
   icon: "explore" | "jobs" | "support" | "training" | "healthcare" | "manufacturing" | "tdl";
 }) => {
@@ -17,6 +28,7 @@ export const PathwayGroup = (props: {
     query: CAREER_PATHWAY_QUERY,
     variables: { id: props.sys.id },
   });
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -47,26 +59,57 @@ export const PathwayGroup = (props: {
             <p>
               <strong>Select an Occupation in {data.careerMap.title}</strong>
             </p>
-            <select
-              name={`${data.careerMap.title}`}
-              onChange={(e) => {
-                props.setSelected(e.target.value);
 
-                const selects = document.querySelectorAll("select");
-                selects.forEach((select) => {
-                  if (select.value !== e.target.value) {
-                    select.value = "";
-                  }
-                });
+            <button
+              type="button"
+              aria-label="occupation-selector"
+              className="select-button"
+              onClick={() => {
+                setOpen(!open);
               }}
             >
-              <option value="">---</option>
-              {data.careerMap.pathways?.items.map((pathItem) => (
-                <option key={pathItem.sys.id} value={pathItem.sys.id}>
-                  {pathItem.title || pathItem.title}
-                </option>
-              ))}
-            </select>
+              {props.activeGroup ? props.selected?.title || "---" : "---"}
+            </button>
+            {open && (
+              <div className="dropdown-select">
+                {data.careerMap.pathways?.items.map((path) => (
+                  <div key={path.sys.id}>
+                    <p className="path-title">
+                      <Path size={32} />
+                      {path.title}
+                    </p>
+                    {path.occupationsCollection?.items.map((occupation) => (
+                      <button
+                        aria-label="occupation-item"
+                        type="button"
+                        key={occupation.sys.id}
+                        className="occupation"
+                        onClick={() => {
+                          props.setSelected({
+                            pathway: path.occupationsCollection?.items,
+                            id: occupation.sys.id,
+                            title: occupation.title,
+                            groupId: data.careerMap.sys.id,
+                          });
+                          localStorage.setItem(
+                            "occupation",
+                            JSON.stringify({
+                              pathway: path.occupationsCollection?.items,
+                              id: occupation.sys.id,
+                              title: occupation.title,
+                              groupId: data.careerMap.sys.id,
+                            })
+                          );
+                          setOpen(false);
+                        }}
+                      >
+                        {occupation.title}
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
