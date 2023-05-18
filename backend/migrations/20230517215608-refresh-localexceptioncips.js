@@ -19,7 +19,11 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db) {
-  var filePath = path.join(__dirname, 'sqls', '20230517215608-refresh-localexceptioncips-up.sql');
+  const fileName =
+      process.env.NODE_ENV === "test"
+          ? "20230517215608-refresh-localexceptioncips-up-TEST.sql"
+          : "20230517215608-refresh-localexceptioncips-up.sql";
+  var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
@@ -34,7 +38,11 @@ exports.up = function(db) {
 };
 
 exports.down = function(db) {
-  var filePath = path.join(__dirname, 'sqls', '20230517215608-refresh-localexceptioncips-down.sql');
+  const fileName =
+      process.env.NODE_ENV === "test"
+          ? "20230517215608-refresh-localexceptioncips-down-TEST.sql"
+          : "20230517215608-refresh-localexceptioncips-down.sql";
+  var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
