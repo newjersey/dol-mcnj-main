@@ -124,7 +124,7 @@ describe("PostgresDataClient", () => {
 
   describe("getLocalExceptions", () => {
     it("gets cips and counties with local waiver exceptions", async () => {
-      const localExceptions = await dataClient.getLocalExceptions();
+      const localExceptions = await dataClient.getLocalExceptionsByCip();
       expect(localExceptions).toEqual([
         {
           cipcode: "123456",
