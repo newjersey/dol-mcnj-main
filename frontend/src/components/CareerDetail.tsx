@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { contentfulClient } from "../utils/contentfulClient";
-import { OccupationNodeProps } from "../types/contentful";
+import { OccupationNodeProps, SelectProps } from "../types/contentful";
 import { OCCUPATION_QUERY } from "../queries/occupation";
-import { ArrowSquareOut, Briefcase, Fire, RocketLaunch } from "@phosphor-icons/react";
+import { ArrowSquareOut, Briefcase, Fire, Info, RocketLaunch } from "@phosphor-icons/react";
 import ReactMarkdown from "react-markdown";
 import { Client } from "../domain/Client";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
@@ -14,16 +14,28 @@ interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
 }
 
+interface MapProps {
+  title: string;
+  groups: OccupationNodeProps[][];
+}
+
 export const CareerDetail = ({
   detailsId,
   client,
   pathway,
+  groupTitle,
+  setSelected,
 }: {
   detailsId: string;
   client: Client;
+  groupTitle: string;
   pathway?: OccupationNodeProps[];
+  setSelected: (id: SelectProps) => void;
+  selected?: SelectProps;
 }) => {
   const [data, setData] = useState<OccupationDataProps>();
+  const [map, setMap] = useState<MapProps[]>();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +53,11 @@ export const CareerDetail = ({
     };
 
     fetchData();
+
+    const fullMap = localStorage.getItem("fullMap");
+    if (fullMap) {
+      setMap(JSON.parse(fullMap));
+    }
   }, [detailsId]);
 
   const groupedArray: OccupationNodeProps[][] = groupObjectsByLevel(pathway || []);
@@ -49,6 +66,18 @@ export const CareerDetail = ({
     <>
       {data && (
         <div className="career-detail occupation-block">
+          {map && open && (
+            <div className="full-map">
+              <div className="inner">
+                <div className="container">
+                  {map.map((path) => (
+                    <SinglePath key={path.title} items={path.groups} setSelected={setSelected} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="container plus">
             <div className="occupation-box">
               <div className="heading">
@@ -62,7 +91,17 @@ export const CareerDetail = ({
                 {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
               </div>
 
-              <SinglePath items={groupedArray} />
+              <SinglePath items={groupedArray} setSelected={setSelected} />
+              <button
+                className="map-toggle"
+                type="button"
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              >
+                <Info size={25} />
+                View the full {groupTitle} pathway
+              </button>
 
               {data.careerMapObject.tasks && (
                 <div className="box">

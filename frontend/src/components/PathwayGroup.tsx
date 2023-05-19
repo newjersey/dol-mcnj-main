@@ -1,17 +1,9 @@
 import { Path } from "@phosphor-icons/react";
 import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
-import { OccupationNodeProps, PathwayGroupProps } from "../types/contentful";
+import { PathwayGroupProps, SelectProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { useEffect, useState } from "react";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
-
-interface SelectProps {
-  pathway?: OccupationNodeProps[];
-  title?: string;
-  shortTitle?: string;
-  id?: string;
-  groupId?: string;
-}
 
 export const PathwayGroup = (props: {
   sys: {
@@ -36,7 +28,7 @@ export const PathwayGroup = (props: {
     if (data?.careerMap.pathways) {
       const pathways = data.careerMap.pathways.items.map((path) => ({
         title: path.title,
-
+        collection: path.occupationsCollection,
         groups: groupObjectsByLevel(path.occupationsCollection.items),
       }));
 

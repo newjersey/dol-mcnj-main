@@ -192,6 +192,13 @@ $line-width: 6px;
     padding: 0.3rem 0.8rem;
     position: relative;
 
+    &:hover,
+    &.active {
+      background: $light-purple;
+      border-color: $bright-purple;
+      outline: 2px solid $bright-purple;
+    }
+
     &:before {
       content: "";
       position: absolute;
