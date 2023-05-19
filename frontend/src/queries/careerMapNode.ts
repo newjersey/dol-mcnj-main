@@ -14,12 +14,5 @@ export const CAREER_MAP_NODE_QUERY = `query MapNode($id:String!) {
         id
       }
     }
-    nextItem: nextLevelItemsCollection {
-      items {
-        sys {
-          id
-        }
-      }
-    }
   }
 }`;

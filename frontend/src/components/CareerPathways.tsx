@@ -52,9 +52,9 @@ export const CareerPathways = ({
                 key={map.sys.id}
                 {...map}
                 icon={icon}
+                selected={selected.id ? selected : localData || {}}
                 setSelected={setSelected}
                 active={details?.groupId === map.sys.id || index === 0}
-                selected={selected.id ? selected : localData || {}}
                 activeGroup={details?.groupId === map.sys.id}
               />
             ))}
@@ -66,6 +66,9 @@ export const CareerPathways = ({
             detailsId={details.id}
             client={client}
             pathway={selected.id ? selected.pathway : localData?.pathway || []}
+            selected={selected.id ? selected : localData || {}}
+            setSelected={setSelected}
+            groupTitle={careerMaps.filter((m) => m.sys.id === selected.groupId)[0]?.title || ""}
           />
         )}
       </div>

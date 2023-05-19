@@ -21,13 +21,22 @@ export interface OccupationNodeProps {
   trainingSearchTerms?: string;
   salaryRangeStart: number;
   salaryRangeEnd: number;
-  educationLevel: number | string;
+  educationLevel: string;
   advancement?: string;
   tasks?: string;
   education?: string;
   credentials?: string;
   skills?: string;
   experience?: string;
+}
+
+export interface SelectProps {
+  pathway?: OccupationNodeProps[];
+  title?: string;
+  shortTitle?: string;
+  id?: string;
+  groupId?: string;
+  groupTitle?: string;
 }
 
 export interface SinglePathwayProps {
