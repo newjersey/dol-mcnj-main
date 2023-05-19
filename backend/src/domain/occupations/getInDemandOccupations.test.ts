@@ -32,11 +32,13 @@ describe("getInDemandOccupations", () => {
         soc: "1",
         title: "soc 1",
         majorGroup: "soc group 1",
+        counties: []
       },
       {
         soc: "2",
         title: "soc 2",
         majorGroup: "soc group 2",
+        counties: []
       },
     ]);
   });

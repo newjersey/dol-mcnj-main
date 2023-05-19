@@ -6,6 +6,7 @@ $lighter-green: #f9fbfb;
 $dark-green: #243413;
 $green: #428100;
 $teal: #e7f6f8;
+$black: #000000;
 $blue: #1668b4;
 $dark-blue: #194185;
 $light-grey: #e5e5e5;
@@ -74,6 +75,10 @@ $light-blue: #e2f3ff;
 
 .bg-white {
   background-color: white;
+}
+
+.black {
+  color: $black;
 }
 
 .blue {
