@@ -170,6 +170,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         </ul>
 
                         <button
+                          title="See More"
                           className="usa-button  usa-button--unstyled"
                           onClick={() => {
                             setShowMore(!showMore);
