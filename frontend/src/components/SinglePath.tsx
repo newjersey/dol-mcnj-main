@@ -5,7 +5,9 @@ import { numberShorthand } from "../utils/numberShorthand";
 export const SinglePath = ({
   items,
   setSelected,
+  setOpen,
 }: {
+  setOpen?: (open: boolean) => void;
   setSelected: (id: SelectProps) => void;
   items: OccupationNodeProps[][];
 }) => {
@@ -24,6 +26,9 @@ export const SinglePath = ({
                 className={`path-stop${item.sys.id === occupation.id ? " active" : ""}`}
                 key={item.sys.id}
                 onClick={() => {
+                  if (setOpen) {
+                    setOpen(false);
+                  }
                   if (setSelected) {
                     setSelected({
                       id: item.sys.id,
