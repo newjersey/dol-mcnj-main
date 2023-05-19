@@ -730,7 +730,7 @@ export const es = {
     onlineClassLabel: "Clase en línea",
     timeToComplete: "{{time}} para completar",
     inDemandTag: "En demanda",
-    inDemandCountiesTag: "En demanda en {{counties}} - la asistencia de matrícula puede estar disponible",
+    inDemandCountiesTag: "En demanda en {{counties}}",
     localWaiverTag: "Exención para el condado de {{county}}",
     comparisonCheckLabel: "Comparar",
     comparisonCollapse: "Colapsar",

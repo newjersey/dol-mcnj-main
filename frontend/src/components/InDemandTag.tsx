@@ -15,6 +15,9 @@ export const InDemandTag = (props: Props): ReactElement => {
     if(counties.length === 0) return '';
     if(counties.length === 1) return `${counties[0]} County`;
 
+    // Handle case when there are two counties
+    if(counties.length === 2) return `${counties[0]} and ${counties[1]} Counties`;
+
     const lastCounty = counties.pop();
     return `${counties.join(', ')}, and ${lastCounty} Counties`;
   };
