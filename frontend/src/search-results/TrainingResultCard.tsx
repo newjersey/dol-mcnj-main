@@ -141,10 +141,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           )}
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
-            {(!props.trainingResult.inDemand && props.trainingResult.localExceptionCounty)
+            {
+              (
+              !props.trainingResult.inDemand &&
+              props.trainingResult.localExceptionCounty &&
+              (props.trainingResult.localExceptionCounty.includes(removeCountyFromEnd(props.trainingResult.county)) || props.trainingResult.online)
                 ? <InDemandTag counties={props.trainingResult.localExceptionCounty} />
                 : <></>
-            }
+            )}
             {props.comparisonItems && <ComparisonCheckbox />}
           </div>
         </div>
@@ -152,3 +156,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
     </div>
   );
 };
+
+function removeCountyFromEnd(str: string) {
+  const trimmedStr = str.trim();
+  const countyIndex = trimmedStr.lastIndexOf("County");
+
+  if (countyIndex !== -1 && countyIndex === trimmedStr.length - 6) {
+    return trimmedStr.substring(0, countyIndex).trim();
+  }
+
+  return trimmedStr;
+}
