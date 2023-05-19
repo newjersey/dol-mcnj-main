@@ -268,6 +268,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                             {t(`CalendarLengthLookup.${training.calendarLength}`)}
                           </span>
                           </p>
+                          {training.cipCode && (
+                              <p>
+                                <span className="fin">
+                                  <InlineIcon className="mrxs">qr_code</InlineIcon>
+                                  {t("TrainingPage.cipCodeLabel")}&nbsp;
+                                  {t(training.cipCode)}
+                                </span>
+                              </p>
+                          )}
                         </>
                       </Grouping>
 
