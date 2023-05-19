@@ -13,7 +13,7 @@ describe("Career Pathways Page", () => {
     cy.visit("/career-pathways/healthcare");
     cy.injectAxe();
 
-    cy.contains("Healthcare Industry Information").should("exist");
+    cy.contains("Select an Industry").should("exist");
     cy.checkA11y();
   });
 });
