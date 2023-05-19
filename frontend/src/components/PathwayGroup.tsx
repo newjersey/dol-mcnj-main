@@ -5,10 +5,6 @@ import { useContentfulClient } from "../utils/useContentfulClient";
 import { useEffect, useState } from "react";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 
-interface CompleteMapProps {
-  title: string;
-  groups: OccupationNodeProps[][];
-}
 interface SelectProps {
   pathway?: OccupationNodeProps[];
   title?: string;
@@ -35,25 +31,23 @@ export const PathwayGroup = (props: {
     variables: { id: props.sys.id },
   });
   const [open, setOpen] = useState(false);
-  const [completeMap, setCompleteMap] = useState<CompleteMapProps[]>();
 
+  const fullMap = () => {
+    if (data?.careerMap.pathways) {
+      const pathways = data.careerMap.pathways.items.map((path) => ({
+        title: path.title,
+
+        groups: groupObjectsByLevel(path.occupationsCollection.items),
+      }));
+
+      localStorage.setItem("fullMap", JSON.stringify(pathways));
+    }
+  };
   useEffect(() => {
-    if (data) {
-      const fullMap = () => {
-        if (data?.careerMap.pathways) {
-          const pathways = data.careerMap.pathways.items.map((path) => ({
-            title: path.title,
-
-            groups: groupObjectsByLevel(path.occupationsCollection.items),
-          }));
-
-          setCompleteMap(pathways);
-        }
-      };
-
+    if (data && props.activeGroup) {
       fullMap();
     }
-  }, [data]);
+  }, [data, props.activeGroup]);
 
   return (
     <>
@@ -74,6 +68,7 @@ export const PathwayGroup = (props: {
               });
             }}
           />
+
           <label
             className="usa-radio__label"
             htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}
@@ -141,21 +136,6 @@ export const PathwayGroup = (props: {
               </div>
             )}
           </div>
-          <code>
-            <pre
-              style={{
-                fontFamily: "monospace",
-                display: "block",
-                padding: "50px",
-                color: "#88ffbf",
-                backgroundColor: "black",
-                textAlign: "left",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {JSON.stringify(completeMap, null, "    ")}
-            </pre>
-          </code>
         </div>
       )}
     </>

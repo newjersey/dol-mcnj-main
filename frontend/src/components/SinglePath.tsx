@@ -1,33 +1,42 @@
-import { useEffect, useState } from "react";
-import { CAREER_MAP_NODE_QUERY } from "../queries/careerMapNode";
-import { CareerMapNode } from "./modules/CareerMapNode";
-import { contentfulClient } from "../utils/contentfulClient";
-import { CareerMapNodeProps } from "../types/contentful";
+import { OccupationNodeProps } from "../types/contentful";
+import { numberShorthand } from "../utils/numberShorthand";
 
-interface SinglePathObjectProps {
-  careerMapObject: CareerMapNodeProps;
-}
-
-export const SinglePath = ({ mapId }: { mapId: string }) => {
-  const [data, setData] = useState<SinglePathObjectProps>();
-  useEffect(() => {
-    if (mapId) {
-      const fetchData = async () => {
-        try {
-          /* eslint-disable-next-line  */
-          const result: any = await contentfulClient({
-            query: CAREER_MAP_NODE_QUERY,
-            variables: { id: mapId },
-          });
-          setData(result);
-        } catch (error) {
-          console.error(error);
-          return {};
-        }
-      };
-
-      fetchData();
-    }
-  }, [mapId]);
-  return <>{data && <CareerMapNode {...data.careerMapObject} />}</>;
+export const SinglePath = ({ items }: { items: OccupationNodeProps[][] }) => {
+  return (
+    <ul className="single-path">
+      {items.map((column, index: number) => {
+        const isTall = column.length > 1;
+        const isNotFirst = index > 0;
+        return (
+          <li key={column[0].sys.id} className={isTall ? "tall" : undefined}>
+            {column.map((item) => (
+              <button type="button" className="path-stop" key={item.sys.id}>
+                <span className="prev-path-connector" />
+                <span className="path-connector" />
+                <span className="arrow" />
+                <p className="title">
+                  <strong>{item.shortTitle || item.title}</strong>
+                </p>
+                <div className="salary">
+                  <p>Salary Range</p>
+                  <p>
+                    <strong>
+                      ${numberShorthand(item.salaryRangeStart)} - $
+                      {numberShorthand(item.salaryRangeEnd)}
+                    </strong>
+                  </p>
+                </div>
+                <div className="education">
+                  <p>Min. Education</p>
+                  <p>
+                    <strong>{item.educationLevel}</strong>
+                  </p>
+                </div>
+              </button>
+            ))}
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
