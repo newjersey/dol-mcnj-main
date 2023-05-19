@@ -51,6 +51,7 @@ export const IndustryBlock = ({
       <div className="buttons">
         <button
           type="button"
+          title="Explore Career Pathways"
           className="explore-button"
           onClick={() => {
             scrollToIndustry();
@@ -63,6 +64,7 @@ export const IndustryBlock = ({
         </button>
         <button
           type="button"
+          title="Explore Industry"
           className="explore-button"
           onClick={() => {
             setOpen(!open);
@@ -77,8 +79,9 @@ export const IndustryBlock = ({
 
       <div className={`overlay${open ? " open" : ""}`} />
       <div className={`panel${open ? " open" : ""}`}>
-        <button className="close" onClick={() => setOpen(false)} type="button">
+        <button title="Close" className="close" onClick={() => setOpen(false)} type="button">
           <X size={28} />
+          <div className="sr-only">Close</div>
         </button>
 
         <div className="heading">
