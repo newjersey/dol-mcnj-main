@@ -34,7 +34,7 @@ export const searchTrainingsFactory = (
               }
             }
 
-            return {
+            const result = {
               id: training.id,
               name: training.name,
               cipCode: training.cipCode,
@@ -57,7 +57,8 @@ export const searchTrainingsFactory = (
               isWheelchairAccessible: training.isWheelchairAccessible,
               hasJobPlacementAssistance: training.hasJobPlacementAssistance,
               hasChildcareAssistance: training.hasChildcareAssistance,
-            };
+            }
+            return result;
           })
       );
     } catch (error) {
