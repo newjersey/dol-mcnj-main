@@ -95,6 +95,7 @@ export const buildInDemandOccupation = (
     soc: "some-soc-" + randomInt(),
     title: "some-title-" + randomInt(),
     majorGroup: "some-group-" + randomInt(),
+    counties: ["ATLANTIC", "MERCER"],
     ...overrides,
   };
 };
