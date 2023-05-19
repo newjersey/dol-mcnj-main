@@ -8,6 +8,8 @@ $line-width: 6px;
   display: flex;
   align-items: center;
   gap: $gap;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   .arrow {
     width: 0;

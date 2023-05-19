@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { contentfulClient } from "../utils/contentfulClient";
 import { OccupationNodeProps, SelectProps } from "../types/contentful";
 import { OCCUPATION_QUERY } from "../queries/occupation";
-import { ArrowSquareOut, Briefcase, Fire, Info, RocketLaunch } from "@phosphor-icons/react";
+import { ArrowSquareOut, Briefcase, Fire, Info, RocketLaunch, X } from "@phosphor-icons/react";
 import ReactMarkdown from "react-markdown";
 import { Client } from "../domain/Client";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
@@ -68,10 +68,19 @@ export const CareerDetail = ({
         <div className="career-detail occupation-block">
           {map && open && (
             <div className="full-map">
+              <div className="close">
+                <X size={25} onClick={() => setOpen(false)} />
+              </div>
               <div className="inner">
                 <div className="container">
+                  <p className="map-title">{groupTitle} Career Pathways</p>
                   {map.map((path) => (
-                    <SinglePath key={path.title} items={path.groups} setSelected={setSelected} />
+                    <SinglePath
+                      key={path.title}
+                      items={path.groups}
+                      setSelected={setSelected}
+                      setOpen={setOpen}
+                    />
                   ))}
                 </div>
               </div>

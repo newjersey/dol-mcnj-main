@@ -34,6 +34,10 @@
       top: 50%;
       left: calc(100% + 9rem);
       transform: translateY(-50%);
+
+      @media screen and (max-width: ($tabLand - 1)) {
+        display: none;
+      }
     }
   }
 
