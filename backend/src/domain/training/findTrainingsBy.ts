@@ -11,73 +11,83 @@ import { Selector } from "./Selector";
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
-    const programs = await dataClient.findProgramsBy(selector, values);
+    try {
+      const programs = await dataClient.findProgramsBy(selector, values);
 
-    return Promise.all(
-      programs.map(async (program: Program) => {
-        const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
-        const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
-          .filter((localException: LocalException) => localException.cipcode === program.cipcode)
-          .map((localException: LocalException) =>
-            convertToTitleCaseIfUppercase(localException.county)
-          );
+      return (await Promise.all(
+          programs.map(async (program: Program) => {
+            try {
+              const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
+              const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
+                  .filter((localException: LocalException) => localException.cipcode === program.cipcode)
+                  .map((localException: LocalException) =>
+                      convertToTitleCaseIfUppercase(localException.county)
+                  );
 
-        return {
-          id: program.programid,
-          name: stripSurroundingQuotes(convertToTitleCaseIfUppercase(program.officialname)),
-          cipCode: program.cipcode,
-          provider: {
-            id: program.providerid,
-            name: program.providername ? stripSurroundingQuotes(program.providername) : "",
-            url: program.website ? program.website : "",
-            contactName:
-              program.contactfirstname && program.contactlastname
-                ? `${stripSurroundingQuotes(program.contactfirstname)} ${stripSurroundingQuotes(
-                    program.contactlastname
-                  )}`
-                : "",
-            contactTitle: program.contacttitle ? stripSurroundingQuotes(program.contacttitle) : "",
-            phoneNumber: program.phone ? program.phone : "",
-            phoneExtension: program.phoneextension ? program.phoneextension : "",
-            county: formatCounty(program.county),
-            address: {
-              street1: program.street1 ? stripSurroundingQuotes(program.street1) : "",
-              street2: program.street2 ? stripSurroundingQuotes(program.street2) : "",
-              city: program.city ? program.city : "",
-              state: program.state ? program.state : "",
-              zipCode: program.zip ? formatZip(program.zip) : "",
-            },
-          },
-          description: stripSurroundingQuotes(stripUnicode(program.description ?? "")),
-          certifications: program.industrycredentialname,
-          prerequisites: formatPrerequisites(program.prerequisites),
-          calendarLength: program.calendarlengthid
-            ? parseInt(program.calendarlengthid)
-            : CalendarLength.NULL,
-          occupations: matchingOccupations.map((it) => ({
-            title: it.title,
-            soc: it.soc,
-          })),
-          inDemand: !!program.indemandcip,
-          localExceptionCounty: localExceptionCounties,
-          tuitionCost: parseFloat(program.tuition),
-          feesCost: parseFloat(program.fees),
-          booksMaterialsCost: parseFloat(program.booksmaterialscost),
-          suppliesToolsCost: parseFloat(program.suppliestoolscost),
-          otherCost: parseFloat(program.othercosts),
-          totalCost: parseFloat(program.totalcost),
-          online: !!program.onlineprogramid,
-          percentEmployed: formatPercentEmployed(program.peremployed2),
-          averageSalary: formatAverageSalary(program.avgquarterlywage2),
-          hasEveningCourses: mapStrNumToBool(program.eveningcourses),
-          languages: formatLanguages(program.languages),
-          isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
-          hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
-          hasChildcareAssistance:
-            mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
-        };
-      })
-    );
+              return {
+                id: program.programid,
+                name: stripSurroundingQuotes(convertToTitleCaseIfUppercase(program.officialname)),
+                cipCode: program.cipcode,
+                provider: {
+                  id: program.providerid,
+                  name: program.providername ? stripSurroundingQuotes(program.providername) : "",
+                  url: program.website ?? "",
+                  contactName:
+                      program.contactfirstname && program.contactlastname
+                          ? `${stripSurroundingQuotes(program.contactfirstname)} ${stripSurroundingQuotes(
+                              program.contactlastname
+                          )}`
+                          : "",
+                  contactTitle: stripSurroundingQuotes(program.contacttitle ?? ""),
+                  phoneNumber: program.phone ?? "",
+                  phoneExtension: program.phoneextension ?? "",
+                  county: formatCounty(program.county),
+                  address: {
+                    street1: stripSurroundingQuotes(program.street1 ?? ""),
+                    street2: stripSurroundingQuotes(program.street2 ?? ""),
+                    city: program.city ?? "",
+                    state: program.state ?? "",
+                    zipCode: program.zip ? formatZip(program.zip) : "",
+                  },
+                },
+                description: stripSurroundingQuotes(stripUnicode(program.description ?? "")),
+                certifications: program.industrycredentialname,
+                prerequisites: formatPrerequisites(program.prerequisites),
+                calendarLength: program.calendarlengthid
+                    ? parseInt(program.calendarlengthid)
+                    : CalendarLength.NULL,
+                occupations: matchingOccupations.map((it) => ({
+                  title: it.title,
+                  soc: it.soc,
+                })),
+                inDemand: !!program.indemandcip,
+                localExceptionCounty: localExceptionCounties,
+                tuitionCost: parseFloat(program.tuition),
+                feesCost: parseFloat(program.fees),
+                booksMaterialsCost: parseFloat(program.booksmaterialscost),
+                suppliesToolsCost: parseFloat(program.suppliestoolscost),
+                otherCost: parseFloat(program.othercosts),
+                totalCost: parseFloat(program.totalcost),
+                online: !!program.onlineprogramid,
+                percentEmployed: formatPercentEmployed(program.peremployed2),
+                averageSalary: formatAverageSalary(program.avgquarterlywage2),
+                hasEveningCourses: mapStrNumToBool(program.eveningcourses),
+                languages: formatLanguages(program.languages),
+                isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
+                hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
+                hasChildcareAssistance:
+                    mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
+              };
+            } catch (error) {
+              console.error(`Error while processing program id ${program.programid}: `, error);
+              throw error;
+            }
+          })
+      )).filter((item): item is Training => item !== undefined);
+    } catch (error) {
+      console.error(`Error while fetching programs: `, error);
+      throw error;
+    }
   };
 };
 
