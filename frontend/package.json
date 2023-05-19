@@ -22,7 +22,7 @@
     "contentful": "^10.2.0",
     "dayjs": "^1.11.7",
     "graphql-request": "^6.0.0",
-    "i18next": "^22.4.15",
+    "i18next": "^22.5.0",
     "i18next-http-backend": "^2.2.1",
     "libphonenumber-js": "^1.10.30",
     "node-sass": "^8.0.0",
