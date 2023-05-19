@@ -7,8 +7,8 @@ import ReactMarkdown from "react-markdown";
 import { Client } from "../domain/Client";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
 import { RelatedTrainingSearch } from "./modules/RelatedTrainingSearch";
-import { toUsCurrency } from "../utils/toUsCurrency";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
+import { SinglePath } from "./SinglePath";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -61,46 +61,9 @@ export const CareerDetail = ({
                 )}
                 {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
               </div>
-              <ul>
-                <code>
-                  <pre
-                    style={{
-                      fontFamily: "monospace",
-                      display: "block",
-                      padding: "50px",
-                      color: "#88ffbf",
-                      backgroundColor: "black",
-                      textAlign: "left",
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {JSON.stringify(groupedArray, null, "    ")}
-                  </pre>
-                </code>
 
-                {groupedArray?.map((stop) => (
-                  <li key={stop[0].sys.id}>
-                    {stop.map((item) => (
-                      <div key={item.sys.id}>
-                        <p>
-                          <strong>{item.shortTitle || item.title}</strong>
-                        </p>
-                        <p>Salary Range</p>
-                        <p>
-                          <strong>
-                            {toUsCurrency(item.salaryRangeStart)} -{" "}
-                            {toUsCurrency(item.salaryRangeEnd)}
-                          </strong>
-                        </p>
-                        <p>Min. Education</p>
-                        <p>
-                          <strong>{item.educationLevel}</strong>
-                        </p>
-                      </div>
-                    ))}
-                  </li>
-                ))}
-              </ul>
+              <SinglePath items={groupedArray} />
+
               {data.careerMapObject.tasks && (
                 <div className="box">
                   <div className="heading-bar">
