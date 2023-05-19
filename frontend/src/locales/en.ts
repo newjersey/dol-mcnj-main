@@ -607,7 +607,7 @@ export const en = {
   LandingPage: {
     headerText:
       "Find training to better prepare you for a promotion, better job, or even a career change",
-    searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
+    searchBoxPlaceholder: "Enter occupation, certification, or provider",
     swimLaneHeader: "Helpful how-to’s",
     columnOneHeader: "For Training Seekers",
     columnTwoHeader: "For Counselors and Coaches",
