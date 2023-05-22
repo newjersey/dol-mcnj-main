@@ -1,8 +1,12 @@
 $gap: 60px;
 $boxHeight: 100px;
 $boxWidth: 120px;
+$boxWidthHalf: 60px;
 $fontSize: 14px;
 $borderWidth: 6px;
+$borderWidthHalf: 3px;
+$gapThird: 20px;
+$gapHalf: 30px;
 
 .career-map-container {
   padding-right: 15px;
@@ -21,10 +25,10 @@ $borderWidth: 6px;
   align-items: center;
   gap: $gap;
   position: relative;
-  margin: $boxWidth / 2 0;
+  margin: $boxWidthHalf 0;
 
   .medium-map & {
-    margin: $boxWidth 0 $boxWidth / 2;
+    margin: $boxWidth 0 $boxWidthHalf;
   }
 
   ul {
@@ -51,8 +55,8 @@ $borderWidth: 6px;
       content: "";
       position: absolute;
       background-color: #909090;
-      height: calc(100% - ($boxWidth - $gap / 3));
-      left: $boxWidth + ($boxWidth / 2) - $gap / 2;
+      height: calc(100% - ($boxWidth - $gapThird));
+      left: $boxWidth + ($boxWidthHalf) - $gapHalf;
       top: 50%;
       transform: translateY(-50%);
       width: $borderWidth;
@@ -65,7 +69,7 @@ $borderWidth: 6px;
       > .info {
         > .box {
           &:before {
-            width: $boxWidth + $borderWidth - $borderWidth / 2;
+            width: $boxWidth + $borderWidth - $borderWidthHalf;
           }
         }
       }
@@ -97,12 +101,12 @@ $borderWidth: 6px;
 
       &:first-of-type {
         .medium-map & {
-          bottom: $boxWidth / 2 + $gap / 2;
+          bottom: $boxWidthHalf + $gapHalf;
         }
       }
       &:last-of-type {
         .medium-map & {
-          bottom: $boxWidth / 2 + $gap / 2;
+          bottom: $boxWidthHalf + $gapHalf;
           margin-left: 0;
 
           > .info {
@@ -131,7 +135,7 @@ $borderWidth: 6px;
     width: $boxWidth;
     background-color: #ebf5ee;
     border-radius: 10px;
-    border: $borderWidth / 2 solid black;
+    border: $borderWidthHalf solid black;
     font-size: $fontSize;
     text-align: center;
     padding: 5px;
@@ -171,16 +175,16 @@ $borderWidth: 6px;
       position: absolute;
       background-color: #909090;
       height: $borderWidth;
-      width: ($boxWidth / 2) - $gap / 2;
+      width: ($boxWidthHalf) - $gapHalf;
 
       display: block;
       z-index: -1;
     }
     &:before {
-      right: calc(100% + $borderWidth / 2);
+      right: calc(100% + $borderWidthHalf);
     }
     &:after {
-      left: calc(100% + $borderWidth / 2);
+      left: calc(100% + $borderWidthHalf);
     }
 
     .filler {
@@ -189,13 +193,13 @@ $borderWidth: 6px;
       display: block;
       width: $borderWidth;
       left: 50%;
-      top: calc(100% + $borderWidth / 2);
+      top: calc(100% + $borderWidthHalf);
       transform: translateX(-50%);
     }
   }
 
   .line {
-    width: ($boxWidth / 2) + $borderWidth;
+    width: ($boxWidthHalf) + $borderWidth;
     position: absolute;
     height: $borderWidth;
     background-color: #909090;

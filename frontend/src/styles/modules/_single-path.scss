@@ -1,6 +1,8 @@
 $gap: 52px;
+$gapHalf: 26px;
 $column-gap: 32px;
 $line-width: 6px;
+$line-width-half: 3px;
 
 .single-path {
   list-style: none;
@@ -63,18 +65,18 @@ $line-width: 6px;
       &.tall {
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + ($gap / 2 - 3px));
+            right: calc(100% + ($gapHalf - 3px));
           }
 
           &:first-of-type,
           &:last-of-type {
             .path-connector {
-              left: calc(100% + ($gap / 2 + 1px));
+              left: calc(100% + ($gapHalf + 1px));
             }
           }
 
           .path-connector {
-            left: calc(100% + ($gap / 2 + 1px));
+            left: calc(100% + ($gapHalf + 1px));
           }
         }
       }
@@ -100,11 +102,11 @@ $line-width: 6px;
       + .tall {
         .path-stop {
           &:before {
-            width: $gap / 2;
+            width: $gapHalf;
           }
 
           .prev-path-connector {
-            right: calc(100% + ($gap / 2 - 3px));
+            right: calc(100% + ($gapHalf - 3px));
           }
         }
       }
@@ -124,7 +126,7 @@ $line-width: 6px;
         height: 130%;
         top: 50%;
         transform: translateY(-50%);
-        right: calc(100% + ($gap / 2 + 1px));
+        right: calc(100% + ($gapHalf + 1px));
         z-index: 10;
         position: absolute;
       }
@@ -135,7 +137,7 @@ $line-width: 6px;
         &:first-of-type {
           .path-connector,
           .prev-path-connector {
-            top: calc(50% - $line-width/2);
+            top: calc(50% - $line-width-half);
             transform: none;
             height: 100%;
           }
@@ -147,16 +149,16 @@ $line-width: 6px;
             top: auto;
             height: 100%;
             transform: none;
-            bottom: calc(50% - $line-width/2);
+            bottom: calc(50% - $line-width-half);
           }
         }
 
         &:before {
-          width: $gap / 2 - 5px;
+          width: $gapHalf - 5px;
         }
 
         &:after {
-          width: $gap / 2 + 1px;
+          width: $gapHalf + 1px;
         }
 
         .path-connector {
@@ -166,7 +168,7 @@ $line-width: 6px;
           height: 130%;
           top: 50%;
           transform: translateY(-50%);
-          left: calc(100% + ($gap / 2 - 3px));
+          left: calc(100% + ($gapHalf - 3px));
           z-index: 10;
         }
       }
@@ -174,7 +176,7 @@ $line-width: 6px;
       + li:not(.tall) {
         .path-stop {
           &:before {
-            width: $gap / 2 + 1px;
+            width: $gapHalf + 1px;
           }
         }
       }
@@ -206,7 +208,7 @@ $line-width: 6px;
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($gap / 2 + 5px);
+      width: calc($gapHalf + 5px);
       height: $line-width;
       display: block;
       background: $middle-gray;
@@ -218,7 +220,7 @@ $line-width: 6px;
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($gap / 2 + 5px);
+      width: calc($gapHalf + 5px);
       height: $line-width;
       display: block;
       background: $middle-gray;
