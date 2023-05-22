@@ -1,5 +1,5 @@
 import { Certificate, GraduationCap, ReadCvLogo, SealCheck } from "@phosphor-icons/react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import ReactMarkdown from "react-markdown";
 
 export const OccupationCopyColumn = ({
   education,
