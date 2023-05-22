@@ -729,6 +729,7 @@ export const es = {
     percentEmployedUnavailable: "--",
     onlineClassLabel: "Clase en línea",
     timeToComplete: "{{time}} para completar",
+    cipCode: "Código CIP",
     inDemandTag: "En demanda",
     inDemandCountiesTag: "En demanda en {{counties}}",
     localWaiverTag: "Exención para el condado de {{county}}",
@@ -763,6 +764,7 @@ export const es = {
     certificationsLabel: "Certifications:",
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
+    cipCodeLabel: "Código CIP:",
     associatedOccupationsGroupHeader: "Ocupaciones asociadas",
     associatedOccupationsText:
       "Esta es una capacitación general que podría prepararlo para una amplia variedad de trayectorias profesionales. Busque <1>ocupaciones en demanda</1> para ver cómo podría aplicar esta capacitación.",
