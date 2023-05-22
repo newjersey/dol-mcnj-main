@@ -19,7 +19,7 @@ export const CareerPathways = ({
   client,
 }: {
   industry: string;
-  icon: "explore" | "jobs" | "support" | "training" | "healthcare" | "manufacturing" | "tdl";
+  icon: string;
   careerMaps: CareerMapProps[];
   client: Client;
 }) => {
