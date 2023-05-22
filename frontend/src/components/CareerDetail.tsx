@@ -11,7 +11,6 @@ import {
   WarningCircle,
   X,
 } from "@phosphor-icons/react";
-import ReactMarkdown from "react-markdown";
 import { Client } from "../domain/Client";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
 import { RelatedTrainingSearch } from "./modules/RelatedTrainingSearch";
@@ -19,6 +18,7 @@ import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 import { SinglePath } from "./SinglePath";
 import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
+import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -181,9 +181,13 @@ export const CareerDetail = ({
                   <Briefcase size={25} />
                   What do they do?
                 </div>
-                <div className="content">
-                  <ReactMarkdown>{`${data.careerMapObject.tasks}`}</ReactMarkdown>
-                </div>
+
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{
+                    __html: parseMarkdownToHTML(data.careerMapObject.tasks),
+                  }}
+                />
               </div>
             )}
             <div className="occu-row related">

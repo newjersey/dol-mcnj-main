@@ -1,5 +1,6 @@
 import { Certificate, GraduationCap, ReadCvLogo, SealCheck } from "@phosphor-icons/react";
-import ReactMarkdown from "react-markdown";
+import MarkdownRenderer from "./MarkdownRenderer";
+import { parseMarkdownToHTML } from "../../utils/parseMarkdownToHTML";
 
 export const OccupationCopyColumn = ({
   education,
@@ -20,9 +21,12 @@ export const OccupationCopyColumn = ({
             <GraduationCap size={25} />
             Education
           </div>
-          <div className="content">
-            <ReactMarkdown>{`${education}`}</ReactMarkdown>
-          </div>
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(education),
+            }}
+          />
         </div>
       )}
       {credentials && (
@@ -31,9 +35,12 @@ export const OccupationCopyColumn = ({
             <Certificate size={25} />
             Credentials
           </div>
-          <div className="content">
-            <ReactMarkdown>{`${credentials}`}</ReactMarkdown>
-          </div>
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(credentials),
+            }}
+          />
         </div>
       )}
       {skills && (
@@ -42,9 +49,12 @@ export const OccupationCopyColumn = ({
             <SealCheck size={25} />
             Skills
           </div>
-          <div className="content">
-            <ReactMarkdown>{`${skills}`}</ReactMarkdown>
-          </div>
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(skills),
+            }}
+          />
         </div>
       )}
       {experience && (
@@ -53,9 +63,12 @@ export const OccupationCopyColumn = ({
             <ReadCvLogo size={25} />
             Experience
           </div>
-          <div className="content">
-            <ReactMarkdown>{`${experience}`}</ReactMarkdown>
-          </div>
+          <div
+            className="content"
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(experience),
+            }}
+          />
         </div>
       )}
     </>
