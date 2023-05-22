@@ -4,7 +4,7 @@ import {
   CalendarCheck,
   CaretDown,
   CaretUp,
-  Fire,
+  ChartLineUp,
   GraduationCap,
   Hourglass,
   Info,
@@ -148,7 +148,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <h3>{props.content.title}</h3>
                   {props.content.inDemand && (
                     <span className="tag">
-                      <Fire size={15} />
+                      <ChartLineUp size={15} />
                       &nbsp; In-Demand
                     </span>
                   )}

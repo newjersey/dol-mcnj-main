@@ -8,6 +8,7 @@ import {
   ChartLineUp,
   Info,
   RocketLaunch,
+  WarningCircle,
   X,
 } from "@phosphor-icons/react";
 import ReactMarkdown from "react-markdown";
@@ -16,6 +17,8 @@ import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
 import { RelatedTrainingSearch } from "./modules/RelatedTrainingSearch";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 import { SinglePath } from "./SinglePath";
+import { toUsCurrency } from "../utils/toUsCurrency";
+import { numberWithCommas } from "../utils/numberWithCommas";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -112,14 +115,47 @@ export const CareerDetail = ({
               <span>{breadcrumbs.pathway}</span>
             </div>
             <div className="heading">
-              <h3>{data.careerMapObject.title}</h3>
-              {data.careerMapObject.inDemand && (
-                <span className="tag">
-                  <ChartLineUp size={15} />
-                  &nbsp; In-Demand
-                </span>
-              )}
-              {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
+              <div>
+                <h3>{data.careerMapObject.title}</h3>
+                {data.careerMapObject.inDemand && (
+                  <span className="tag">
+                    <ChartLineUp size={15} />
+                    &nbsp; In-Demand
+                  </span>
+                )}
+                {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
+              </div>
+              <div className="meta">
+                <div>
+                  <p className="title">
+                    Median Salary <WarningCircle size={20} weight="fill" />
+                  </p>
+                  <p>
+                    {data.careerMapObject.medianSalary
+                      ? toUsCurrency(data.careerMapObject.medianSalary)
+                      : "---"}
+                  </p>
+                </div>
+                <div>
+                  <p className="title">
+                    Jobs Open in NJ <WarningCircle size={20} weight="fill" />
+                  </p>
+                  <p>
+                    {data.careerMapObject.numberOfAvailableJobs
+                      ? numberWithCommas(data.careerMapObject.numberOfAvailableJobs)
+                      : "---"}
+                  </p>
+                  <a
+                    href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
+                      data.careerMapObject.trainingSearchTerms || data.careerMapObject.title
+                    }&amp;location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    See current job openings
+                  </a>
+                </div>
+              </div>
             </div>
             <SinglePath items={groupedArray} setSelected={setSelected} />
             <button
