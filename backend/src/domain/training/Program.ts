@@ -39,7 +39,9 @@ export interface Program {
 }
 
 export interface LocalException {
-  cipcode: string;
+  soc: string;
+  title: string;
+  cipcode?: string;
   county: string;
 }
 
