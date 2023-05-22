@@ -14,7 +14,7 @@ export const PathwayGroup = (props: {
   setSelected: (id: SelectProps) => void;
   selected?: SelectProps;
   title: string;
-  icon: "explore" | "jobs" | "support" | "training" | "healthcare" | "manufacturing" | "tdl";
+  icon: string;
 }) => {
   const data: {
     careerMap: PathwayGroupProps;

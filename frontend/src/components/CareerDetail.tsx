@@ -169,7 +169,6 @@ export const CareerDetail = ({
                 setTimeout(() => {
                   element.focus();
                 }, 100);
-                console.log({ element: element.innerHTML });
               }}
             >
               <Info size={25} />
