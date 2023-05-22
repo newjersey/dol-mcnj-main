@@ -130,6 +130,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
               })}
             </span>
           </p>
+          <p className="mtxs mbz">
+            <span className="fin fas">
+              <InlineIcon className="mrs">qr_code</InlineIcon>
+              {props.trainingResult.cipCode
+                  ? t("SearchResultsPage.cipCode") +`: ${props.trainingResult.cipCode}`
+                  : t("SearchResultsPage.cipCodeUnavailable")}
+            </span>
+          </p>
         </div>
       </div>
       <div className="row">
@@ -141,6 +149,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           )}
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
+            {
+              (
+              !props.trainingResult.inDemand &&
+              props.trainingResult.localExceptionCounty &&
+              (props.trainingResult.localExceptionCounty.includes(removeCountyFromEnd(props.trainingResult.county)) || props.trainingResult.online)
+                ? <InDemandTag counties={props.trainingResult.localExceptionCounty} />
+                : <></>
+            )}
             {props.comparisonItems && <ComparisonCheckbox />}
           </div>
         </div>
@@ -148,3 +164,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
     </div>
   );
 };
+
+function removeCountyFromEnd(str: string) {
+  const trimmedStr = str.trim();
+  const countyIndex = trimmedStr.lastIndexOf("County");
+
+  if (countyIndex !== -1 && countyIndex === trimmedStr.length - 6) {
+    return trimmedStr.substring(0, countyIndex).trim();
+  }
+
+  return trimmedStr;
+}

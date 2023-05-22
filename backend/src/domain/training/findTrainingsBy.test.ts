@@ -15,7 +15,8 @@ describe("findTrainingsBy", () => {
     jest.resetAllMocks();
     stubDataClient = StubDataClient();
     findTrainingsBy = findTrainingsByFactory(stubDataClient);
-    stubDataClient.getLocalExceptions.mockResolvedValue([]);
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([]);
+    stubDataClient.getLocalExceptionsBySoc.mockResolvedValue([]);
     stubDataClient.findOccupationsByCip.mockResolvedValue([]);
   });
 
@@ -31,7 +32,7 @@ describe("findTrainingsBy", () => {
       buildOccupation({ title: "some job", soc: "123" }),
       buildOccupation({ title: "some other job", soc: "456" }),
     ]);
-    stubDataClient.getLocalExceptions.mockResolvedValue([
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
     ]);
 
@@ -96,7 +97,7 @@ describe("findTrainingsBy", () => {
       .mockResolvedValueOnce([buildOccupation({ title: "occupation 1" })])
       .mockResolvedValueOnce([buildOccupation({ title: "occupation 2" })]);
 
-    stubDataClient.getLocalExceptions
+    stubDataClient.getLocalExceptionsByCip
       .mockResolvedValueOnce([
         buildLocalException({ cipcode: program1.cipcode, county: "Atlantic" }),
       ])
@@ -136,7 +137,7 @@ describe("findTrainingsBy", () => {
       buildOccupation({ title: "some job", soc: "123" }),
       buildOccupation({ title: "some other job", soc: "456" }),
     ]);
-    stubDataClient.getLocalExceptions.mockResolvedValue([
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
     ]);
 
@@ -369,21 +370,21 @@ describe("findTrainingsBy", () => {
   it("title cases the local exception county", async () => {
     stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ cipcode: "123" })]);
 
-    stubDataClient.getLocalExceptions.mockResolvedValue([
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: "123", county: "ATLANTIC" }),
     ]);
     expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([
       "Atlantic",
     ]);
 
-    stubDataClient.getLocalExceptions.mockResolvedValue([
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: "123", county: "ATLANTIC COUNTY" }),
     ]);
     expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([
       "Atlantic County",
     ]);
 
-    stubDataClient.getLocalExceptions.mockResolvedValue([
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: "123", county: "ATLANTIC" }),
       buildLocalException({ cipcode: "123", county: "MIDDLESEX" }),
     ]);
@@ -392,7 +393,7 @@ describe("findTrainingsBy", () => {
       "Middlesex",
     ]);
 
-    stubDataClient.getLocalExceptions.mockResolvedValue([]);
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([]);
     expect((await findTrainingsBy(Selector.ID, ["123"]))[0].localExceptionCounty).toEqual([]);
   });
 
@@ -456,7 +457,7 @@ describe("findTrainingsBy", () => {
 
     it("rejects when local exception lookup is broken", (done) => {
       stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({})]);
-      stubDataClient.getLocalExceptions.mockRejectedValue({});
+      stubDataClient.getLocalExceptionsByCip.mockRejectedValue({});
       findTrainingsBy(Selector.ID, ["id"]).catch(() => done());
     });
 
