@@ -22,7 +22,8 @@ select etpl.programid,
        to_tsvector(coalesce(etpl.officialname, etpl.officialname)) ||
        to_tsvector(coalesce(etpl.standardized_name_1, etpl.name)) ||
        to_tsvector(coalesce(etpl.standardized_description, etpl.description, '')) ||
-       to_tsvector(coalesce((string_agg(soccipcrosswalk.soc2018title, ' ')), ''))
+       to_tsvector(coalesce((string_agg(soccipcrosswalk.soc2018title, ' ')), '')) ||
+       to_tsvector(coalesce((string_agg(soccipcrosswalk.soc2018code, ' ')), ''))
 from etpl
          left outer join soccipcrosswalk
                          on etpl.cipcode = soccipcrosswalk.cipcode

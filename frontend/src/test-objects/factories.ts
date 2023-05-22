@@ -73,6 +73,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     contactTitle: "some-contactTitle-" + randomInt(),
     phoneNumber: "some-phoneNumber-" + randomInt(),
     phoneExtension: "some-phoneExtension-" + randomInt(),
+    county: "some-county-" + randomInt(),
     ...overrides,
   };
 };
@@ -95,6 +96,7 @@ export const buildInDemandOccupation = (
     soc: "some-soc-" + randomInt(),
     title: "some-title-" + randomInt(),
     majorGroup: "some-group-" + randomInt(),
+    counties: ["ATLANTIC", "MERCER"],
     ...overrides,
   };
 };
