@@ -607,7 +607,7 @@ export const en = {
   LandingPage: {
     headerText:
       "Find training to better prepare you for a promotion, better job, or even a career change",
-    searchBoxPlaceholder: "Enter occupation, certification, or provider",
+    searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
     swimLaneHeader: "Helpful how-to’s",
     columnOneHeader: "For Training Seekers",
     columnTwoHeader: "For Counselors and Coaches",
@@ -713,7 +713,9 @@ export const en = {
     percentEmployedUnavailable: "--",
     onlineClassLabel: "Online Class",
     timeToComplete: "{{time}} to complete",
+    cipCode: "CIP Code",
     inDemandTag: "In Demand",
+    inDemandCountiesTag: "In Demand in {{counties}}",
     localWaiverTag: "Waiver for {{county}} County",
     comparisonCheckLabel: "Compare",
     comparisonCollapse: "Collapse",
@@ -745,6 +747,7 @@ export const en = {
     certificationsLabel: "Certifications:",
     prereqsLabel: "Prerequisites:",
     completionTimeLabel: "Completion time:",
+    cipCodeLabel: "CIP Code:",
     associatedOccupationsGroupHeader: "Associated Occupations",
     associatedOccupationsText:
       "This is a general training that might prepare you for a wide variety of career paths. Browse <1>in-demand occupations</1> to see how you might apply this training.",
