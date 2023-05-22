@@ -79,7 +79,7 @@
 
     .heading {
       display: flex;
-      align-items: start;
+      align-items: flex-start;
       flex-wrap: wrap;
       gap: 0.5rem;
       max-width: 42rem;
@@ -133,7 +133,7 @@
     display: flex;
     width: 100%;
     gap: 2rem;
-    align-items: start;
+    align-items: flex-start;
 
     @media screen and (max-width: ($mobTab - 1)) {
       flex-direction: column;
@@ -278,7 +278,7 @@
 
         .span-grid {
           display: flex;
-          align-items: end;
+          align-items: flex-end;
           width: 100%;
           justify-content: space-between;
           padding: 0 0.2rem 1rem;
