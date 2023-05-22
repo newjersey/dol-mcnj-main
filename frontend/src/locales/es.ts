@@ -621,7 +621,7 @@ export const es = {
   LandingPage: {
     headerText:
       "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
-    searchBoxPlaceholder: "Ingrese ocupación, certificación o proveedor",
+    searchBoxPlaceholder: "Ingrese ocupación, certificación, proveedor, o código SOC",
     swimLaneHeader: "Instrucciones útiles",
     columnOneHeader: "Solicitantes de formación",
     columnTwoHeader: "Para consejeros y entrenadores",
