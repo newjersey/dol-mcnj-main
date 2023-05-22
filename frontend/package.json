@@ -19,7 +19,7 @@
     "@types/react-dom": "^16.9.16",
     "accounting": "^0.4.1",
     "axios": "^1.4.0",
-    "contentful": "^10.2.0",
+    "contentful": "^10.2.1",
     "dayjs": "^1.11.7",
     "graphql-request": "^6.0.0",
     "i18next": "^22.5.0",
