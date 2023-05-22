@@ -10,6 +10,8 @@ export const parseMarkdownToHTML = (markdown: string): string => {
     { regex: /\[(.*?)\]\((.*?)\)/gm, replacement: '<a href="$2">$1</a>' },
     // Code blocks
     { regex: /```([\s\S]*?)```/gm, replacement: "<pre><code>$1</code></pre>" },
+    // Images
+    { regex: /!\[(.*?)\]\((.*?)\)/gm, replacement: '<img src="$2" alt="$1">' },
     // Lists
     {
       regex: /^(\s*[-*]\s+.+\n)+/gm,
@@ -24,6 +26,8 @@ export const parseMarkdownToHTML = (markdown: string): string => {
     },
     // Line breaks
     { regex: /(\n{2,})/gm, replacement: "<br><br>" },
+    // Paragraphs
+    { regex: /(.+)(\n|$)/gm, replacement: (match, p1) => p1 && `<p>${p1}</p>` },
   ];
 
   let html = markdown;
