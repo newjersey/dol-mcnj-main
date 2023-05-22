@@ -40,5 +40,6 @@ export const parseMarkdownToHTML = (markdown: string): string => {
 
 interface Rule {
   regex: RegExp;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   replacement: string | ((...args: any[]) => string);
 }
