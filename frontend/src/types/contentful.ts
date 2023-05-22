@@ -18,6 +18,8 @@ export interface OccupationNodeProps {
   inDemand?: boolean;
   shortTitle?: string;
   description: string;
+  medianSalary?: number;
+  numberOfAvailableJobs?: number;
   trainingSearchTerms?: string;
   salaryRangeStart: number;
   salaryRangeEnd: number;

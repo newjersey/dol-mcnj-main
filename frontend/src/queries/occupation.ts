@@ -6,6 +6,8 @@ export const OCCUPATION_QUERY = `query Occupation($id: String!) {
     title
     inDemand
     shortTitle
+    medianSalary
+    numberOfAvailableJobs
     salaryRangeStart
     salaryRangeEnd
     description
