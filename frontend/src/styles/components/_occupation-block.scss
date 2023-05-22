@@ -107,15 +107,16 @@
       }
 
       + .single-path {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 1rem 0.5rem 0.2rem;
       }
     }
 
     .tag {
       display: flex;
-      border-radius: 40px;
+      border-radius: 0;
       align-items: center;
-      background: $orange;
+      background: $light-orange;
+      border: 1px solid $warm-orange;
       padding: 5px 9px;
       font-size: 0.9rem;
       font-weight: bold;
@@ -324,11 +325,28 @@
 
     .occupation-box {
       border: 0;
+      border-radius: 0;
       background: white;
       padding: 2rem 0;
 
       @media screen and (min-width: ($mobTab)) {
         padding: 2rem;
+      }
+
+      .heading {
+        margin-bottom: 1.5rem;
+        align-items: center;
+
+        h3 {
+          margin: 0;
+        }
+
+        p {
+          margin-top: 1rem;
+          @media screen and (min-width: ($mobTab)) {
+            margin-right: 1.5rem;
+          }
+        }
       }
     }
 
@@ -349,7 +367,7 @@
 
         li {
           margin: 0;
-          background: $lightest-grey;
+          background: $off-white;
           padding: 0.5rem;
         }
       }
@@ -371,6 +389,12 @@
         }
       }
     }
+
+    .breadcrumbs {
+      color: $text;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
   }
 
   .full-map {
@@ -383,7 +407,18 @@
     z-index: 20;
     padding: 2rem;
     overflow: auto;
+    visibility: hidden;
     -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+
+    &.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+    }
 
     .map-title {
       font-size: 1.5rem;

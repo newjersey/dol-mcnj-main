@@ -67,7 +67,7 @@
     position: fixed;
     top: 0;
     right: -100%;
-    background: $lighter-green;
+    background: $off-white;
     padding: 3rem;
     max-width: 800px;
     width: 100%;
@@ -252,7 +252,7 @@
       font-size: 2rem;
       font-weight: 600;
       margin-bottom: 0;
-      background-color: $lighter-green;
+      background-color: $off-white;
       display: inline-block;
 
       @media screen and (min-width: ($mobTab)) {

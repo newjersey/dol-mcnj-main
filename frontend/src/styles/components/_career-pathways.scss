@@ -110,4 +110,13 @@
       }
     }
   }
+
+  .path-selector {
+    > .heading {
+      @media screen and (max-width: ($mobTab - 1)) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+    }
+  }
 }

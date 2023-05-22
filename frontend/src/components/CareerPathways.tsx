@@ -35,6 +35,12 @@ export const CareerPathways = ({
 
   const details = selected.id ? selected : localData || {};
 
+  const breadcrumbs = {
+    industry,
+    group: careerMaps.filter((m) => m.sys.id === details.groupId)[0]?.title || "",
+    pathway: details.title || "",
+  };
+
   return (
     <div className="career-pathways">
       <div className="container plus">
@@ -64,6 +70,7 @@ export const CareerPathways = ({
         {details.id && (
           <CareerDetail
             detailsId={details.id}
+            breadcrumbs={breadcrumbs}
             client={client}
             pathway={selected.id ? selected.pathway : localData?.pathway || []}
             selected={selected.id ? selected : localData || {}}
