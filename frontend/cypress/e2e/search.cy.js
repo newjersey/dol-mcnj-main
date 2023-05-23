@@ -16,17 +16,16 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Baking and Pastry Arts-Day").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Culinary Arts").should("exist");
+    cy.contains("Baking and Pastry Arts").should("exist");
 
     cy.contains(
-      "...This two-semester certificate in Baking and Pastry is designed " +
-        "to provide students with career training for entry-level positions..."
+      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language..."
     ).should("exist");
   });
 
