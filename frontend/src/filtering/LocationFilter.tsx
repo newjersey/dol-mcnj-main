@@ -52,6 +52,22 @@ export const LocationFilter = (): ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const miles = urlParams.get("miles");
+    const zipCode = urlParams.get("zip");
+
+    if (miles || zipCode) {
+      applyLocationFilter(
+        {
+          center: zipCode || "",
+          radius: miles ? parseInt(miles) : DEFAULT_MILES,
+        },
+        false
+      );
+    }
+  }, []);
+
   const applyLocationFilter = (currentSearchArea: SearchArea, validateZipCode = true): void => {
     if (validateZipCode && currentSearchArea.center !== "") {
       const validZipCode = checkValidZipCode(currentSearchArea.center);
@@ -108,6 +124,7 @@ export const LocationFilter = (): ReactElement => {
       <header>
         <div className="bold">{t("SearchAndFilter.locationFilterLabel")}</div>
       </header>
+
       <div className="fin mts fac ">
         <FormControl variant="outlined" className="mla width-100">
           <InputLabel htmlFor="miles">
