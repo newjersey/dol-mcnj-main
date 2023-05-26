@@ -8,6 +8,10 @@ import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { TRAINING_EXPLORER_PAGE_QUERY } from "../queries/trainingExplorer";
+import { TrainingExplorerPageProps } from "../types/contentful";
+import { PageBanner } from "../components/PageBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,8 +20,16 @@ interface Props extends RouteComponentProps {
 export const LandingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
+  const data: TrainingExplorerPageProps = useContentfulClient({
+    query: TRAINING_EXPLORER_PAGE_QUERY,
+  });
+
+  const pageData = data?.trainingExplorerPage;
+
   return (
     <Layout client={props.client}>
+      <PageBanner {...pageData.pageBanner} />
+
       <div className="bg-light-green pvl">
         <div className="container search-container fdc fac fjc mtm mbl">
           <h2 className="text-xl weight-400 align-center mbd title">

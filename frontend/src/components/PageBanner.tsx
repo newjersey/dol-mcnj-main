@@ -48,9 +48,9 @@ export const PageBanner = ({
             <h1>{title}</h1>
             {message && <ContentfulRichText document={message.json} />}
           </div>
-          {ctaHeading && ctaLinksCollection && (
+          {ctaLinksCollection && (
             <div className="cta-block">
-              <p>{ctaHeading}</p>
+              {ctaHeading && <p>{ctaHeading}</p>}
               <ul className="unstyled">
                 {ctaLinksCollection.items.map((link) => (
                   <li key={link.sys?.id}>
