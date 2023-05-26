@@ -351,3 +351,25 @@ export interface FinancialResourcePageProps {
     data: FinancialResourcePageData;
   };
 }
+
+export interface TrainingExplorerPageProps {
+  trainingExplorerPage: {
+    demoVideoUrl: string;
+    faqsCollection: { items: FaqItem[] };
+    footerCtaHeading: string;
+    footerCtaLinkCollection: { items: LinkObjectProps[] };
+    interrupterBannerHeading: string;
+    interrupterLinksCollection: { items: LinkObjectProps[] };
+    pageBanner: PageBannerProps;
+    stepOneHeading: string;
+    stepOneIcon: string;
+    stepOneText: string;
+    stepThreeHeading: string;
+    stepThreeIcon: string;
+    stepThreeText: string;
+    stepTwoHeading: string;
+    stepTwoIcon: string;
+    stepTwoText: string;
+    title: string;
+  };
+}
