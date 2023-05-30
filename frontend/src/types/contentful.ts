@@ -73,6 +73,7 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
+  theme?: "green" | "blue" | "purple" | "navy";
   title: string;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
