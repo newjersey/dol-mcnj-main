@@ -28,7 +28,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
   return (
     <Layout client={props.client}>
-      <PageBanner {...pageData.pageBanner} />
+      <PageBanner {...pageData?.pageBanner} theme="green" />
 
       <div className="bg-light-green pvl">
         <div className="container search-container fdc fac fjc mtm mbl">
