@@ -283,7 +283,13 @@
     font-size: 1.4rem;
 
     @media screen and (max-width: ($sm - 1)) {
-      display: none;
+      width: 100%;
+      max-width: 320px;
+      margin: 2rem 0 0;
+    }
+
+    @media screen and (max-width: ($mobMed - 1)) {
+      max-width: none;
     }
 
     > p {

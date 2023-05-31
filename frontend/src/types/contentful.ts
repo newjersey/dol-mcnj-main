@@ -1,5 +1,6 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
+import { IconNames } from "./icons";
 
 /* ********************
  *  GENERIC
@@ -363,13 +364,13 @@ export interface TrainingExplorerPageProps {
     interrupterLinksCollection: { items: LinkObjectProps[] };
     pageBanner: PageBannerProps;
     stepOneHeading: string;
-    stepOneIcon: string;
+    stepOneIcon: IconNames;
     stepOneText: string;
     stepThreeHeading: string;
-    stepThreeIcon: string;
+    stepThreeIcon: IconNames;
     stepThreeText: string;
     stepTwoHeading: string;
-    stepTwoIcon: string;
+    stepTwoIcon: IconNames;
     stepTwoText: string;
     title: string;
   };

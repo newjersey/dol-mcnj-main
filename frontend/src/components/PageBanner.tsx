@@ -61,7 +61,6 @@ export const PageBanner = ({
           {ctaLinksCollection && (
             <div className="cta-block">
               {ctaHeading && <p>{ctaHeading}</p>}
-
               <ul className="unstyled">
                 {ctaLinksCollection.items.map((link, index: number) => (
                   <li key={link.sys?.id}>

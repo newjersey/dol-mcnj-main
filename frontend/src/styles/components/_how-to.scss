@@ -1,0 +1,46 @@
+.how-to {
+  padding: 5rem 0;
+
+  @media screen and (max-width: ($mobTab)) {
+    padding: 3rem 0;
+  }
+
+  @media screen and (max-width: ($mobTab)) {
+    display: none;
+  }
+
+  h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 0.6rem;
+    margin-bottom: 3rem;
+    border-bottom: 0.5rem solid black;
+
+    @media screen and (max-width: ($mobTab)) {
+      line-height: 1.2;
+      margin-bottom: 2.5;
+    }
+  }
+
+  .video {
+    background-color: $light-green;
+    padding: 1rem 0;
+    text-align: center;
+
+    .player {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .usa-button {
+      display: flex;
+      background-color: $green;
+      align-items: center;
+      gap: 0.5rem;
+      width: 320px;
+      justify-content: center;
+      margin: 0 auto;
+    }
+  }
+}

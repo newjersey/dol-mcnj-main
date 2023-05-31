@@ -12,6 +12,7 @@ import { TRAINING_EXPLORER_PAGE_QUERY } from "../queries/trainingExplorer";
 import { TrainingExplorerPageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
 import { SearchBlock } from "../components/SearchBlock";
+import { HowTo } from "../components/HowTo";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -26,11 +27,37 @@ export const LandingPage = (props: Props): ReactElement => {
 
   const pageData = data?.trainingExplorerPage;
 
+  const howToContent = {
+    header: "How to use the Training Explorer",
+    video: pageData?.demoVideoUrl,
+    steps: [
+      {
+        header: pageData?.stepOneHeading,
+        icon: pageData?.stepOneIcon,
+        text: pageData?.stepOneText,
+      },
+      {
+        header: pageData?.stepTwoHeading,
+        icon: pageData?.stepTwoIcon,
+        text: pageData?.stepTwoText,
+      },
+      {
+        header: pageData?.stepThreeHeading,
+        icon: pageData?.stepThreeIcon,
+        text: pageData?.stepThreeText,
+      },
+    ],
+  };
+
   return (
     <Layout client={props.client}>
-      <PageBanner {...pageData?.pageBanner} theme="green" />
-
-      <SearchBlock />
+      {data && (
+        <>
+          <PageBanner {...pageData?.pageBanner} theme="green" />
+          <SearchBlock />
+          <HowTo {...howToContent} />
+        </>
+      )}
 
       <div className="container options-container">
         <h2 className="text-l weight-400 align-center mvd">{t("LandingPage.swimLaneHeader")}</h2>
