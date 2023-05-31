@@ -11,6 +11,25 @@ export const SearchBlock = () => {
   const [searchUrl, setSearchUrl] = useState<string>("");
 
   useEffect(() => {
+    setTimeout(() => {
+      // clear checkboxes
+      const checkboxes = document.querySelectorAll("input[type=checkbox]");
+      const checkboxArray: HTMLInputElement[] = Array.from(checkboxes) as HTMLInputElement[];
+      checkboxArray.forEach((checkbox: HTMLInputElement) => {
+        checkbox.checked = false;
+      });
+      const inputs = document.querySelectorAll("input");
+      const selects = document.querySelectorAll("select");
+      inputs.forEach((input) => {
+        input.value = "";
+      });
+      selects.forEach((select) => {
+        select.value = "Miles";
+      });
+    }, 200);
+  }, []);
+
+  useEffect(() => {
     const url = `/search/${searchTerm}?`;
 
     // Build the search parameters
