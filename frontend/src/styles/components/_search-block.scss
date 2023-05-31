@@ -1,0 +1,180 @@
+.search-block {
+  background-color: $light-green;
+  padding: 3rem 0;
+
+  .container {
+    max-width: 1080px;
+  }
+
+  h2,
+  h3 {
+    font-size: 1.35rem;
+
+    + p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .usa-button:not(.usa-button--unstyled) {
+    background-color: $green;
+    font-size: 1.3rem;
+    font-weight: normal;
+  }
+
+  .usa-button {
+    &.usa-button--unstyled {
+      color: $dark-green;
+      font-weight: bold;
+    }
+  }
+  input,
+  select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    height: 45px;
+    border: 1px solid $middlest-gray;
+  }
+
+  .search-input {
+    border-radius: 5px;
+    margin: 0;
+    width: calc(100% - 175px);
+    max-width: none;
+    height: 45px;
+
+    @media screen and (max-width: ($mobTab - 1)) {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .submit {
+    width: 100%;
+
+    @media screen and (min-width: ($mobTab)) {
+      width: 175px;
+      padding-left: 1rem;
+    }
+
+    a {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+
+      + a {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .row,
+  .checks {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .row {
+    @media screen and (max-width: ($mobTab - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .usa-checkbox,
+  .usa-checkbox__label::before {
+    background-color: transparent;
+  }
+
+  .filters {
+    margin-top: 2.5rem;
+
+    h3 {
+      margin-bottom: 1rem;
+      @media screen and (max-width: ($mobTab - 1)) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    input,
+    select {
+      height: 40px;
+      margin-top: 0.5rem;
+    }
+
+    .row {
+      @media screen and (max-width: ($sm - 1)) {
+        flex-direction: column;
+      }
+    }
+
+    .inputs {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      input,
+      select {
+        width: 8rem;
+
+        @media (max-width: ($sm - 1)) and (min-width: ($mobTab)) {
+          width: 15rem;
+        }
+
+        @media screen and (max-width: ($mobTab - 1)) {
+          width: 100%;
+        }
+      }
+    }
+
+    .cost {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+      @media screen and (max-width: ($sm - 1)) {
+        margin: 2rem 0;
+      }
+
+      @media screen and (min-width: ($sm)) {
+        align-items: center;
+        padding: 0 3rem;
+      }
+
+      svg {
+        position: absolute;
+        top: 2.35rem;
+        left: 3.5rem;
+
+        @media screen and (max-width: ($sm - 1)) {
+          left: 0.5rem;
+        }
+      }
+
+      .label {
+        text-align: left;
+        width: 100%;
+      }
+
+      input {
+        width: 20rem;
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+
+        @media screen and (max-width: ($mobTab - 1)) {
+          width: 100%;
+        }
+      }
+    }
+
+    .usa-checkbox {
+      + .usa-checkbox {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
