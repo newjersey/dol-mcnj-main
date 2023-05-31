@@ -1,10 +1,5 @@
-import { navigate, RouteComponentProps } from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import { ReactElement } from "react";
-import IconOccupation from "./landing-icons/swimlane-rocket.svg";
-import IconWorkforce from "./landing-icons/swimlane-bulb.svg";
-import IconCounseling from "./landing-icons/swimlane-heart.svg";
-import { Button } from "../components/Button";
-import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { useContentfulClient } from "../utils/useContentfulClient";
@@ -13,14 +8,14 @@ import { TrainingExplorerPageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
 import { SearchBlock } from "../components/SearchBlock";
 import { HowTo } from "../components/HowTo";
+import { Accordion } from "../components/Accordion";
+import { ArrowRight } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const LandingPage = (props: Props): ReactElement => {
-  const { t } = useTranslation();
-
   const data: TrainingExplorerPageProps = useContentfulClient({
     query: TRAINING_EXPLORER_PAGE_QUERY,
   });
@@ -56,43 +51,40 @@ export const LandingPage = (props: Props): ReactElement => {
           <PageBanner {...pageData?.pageBanner} theme="green" />
           <SearchBlock />
           <HowTo {...howToContent} />
+          <section className="landing-faq">
+            <div className="container">
+              <h3>Frequently Asked Questions</h3>
+              {pageData?.faqsCollection.items.map((item, index: number) => (
+                <Accordion
+                  keyValue={index}
+                  content={item.answer.json}
+                  title={item.question}
+                  key={item.sys?.id}
+                />
+              ))}
+              <div className="cta">
+                <h4>Don't see your question?</h4>
+                <a href="/faq" className="usa-button">
+                  See ll FAQs
+                  <ArrowRight color="#fff" size={20} />
+                </a>
+              </div>
+            </div>
+          </section>
+          <section className="footer-cta">
+            <h3>{pageData?.footerCtaHeading}</h3>
+            {pageData?.footerCtaLinkCollection.items.map((link) => (
+              <a
+                key={link.sys?.id}
+                href={link.url}
+                className={`usa-button${link.className ? ` ${link.className}` : ""}`}
+              >
+                {link.copy}
+              </a>
+            ))}
+          </section>
         </>
       )}
-
-      <div className="container options-container">
-        <h2 className="text-l weight-400 align-center mvd">{t("LandingPage.swimLaneHeader")}</h2>
-        <div className="col-md-4 fdc fac mbl">
-          <div className="landing-image mbs">
-            <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
-          </div>
-          <h3 className="text-l weight-400 align-center">{t("LandingPage.columnOneHeader")}</h3>
-          <Button className="mtd" variant="secondary" onClick={() => navigate("/explorer")}>
-            {t("LandingPage.columnButtonText")}
-          </Button>
-        </div>
-        <div className="col-md-4 fdc fac mbl">
-          <div className="landing-image mbs">
-            <img alt={t("IconAlt.landingPageCounseling")} src={IconCounseling} />
-          </div>
-          <h3 className="text-l weight-400 align-center">{t("LandingPage.columnTwoHeader")}</h3>
-          <Button className="mtd" variant="secondary" onClick={() => navigate("/counselor")}>
-            {t("LandingPage.columnButtonText")}
-          </Button>
-        </div>
-        <div className="col-md-4 fdc fac mbl">
-          <div className="landing-image mbs">
-            <img alt={t("IconAlt.landingPageWorkforce")} src={IconWorkforce} />
-          </div>
-          <h3 className="text-l weight-400 align-center">{t("LandingPage.columnThreeHeader")}</h3>
-          <Button
-            className="mtd"
-            variant="secondary"
-            onClick={() => navigate("/training-provider-resources")}
-          >
-            {t("LandingPage.columnButtonText")}
-          </Button>
-        </div>
-      </div>
     </Layout>
   );
 };
