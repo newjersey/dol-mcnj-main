@@ -57,7 +57,7 @@ export const LocationFilter = (): ReactElement => {
     const miles = urlParams.get("miles");
     const zipCode = urlParams.get("zip");
 
-    if (miles || zipCode) {
+    if (miles && zipCode) {
       applyLocationFilter(
         {
           center: zipCode || "",
