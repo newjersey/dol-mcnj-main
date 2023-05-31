@@ -1,9 +1,10 @@
 .footer-cta {
   text-align: center;
   padding: 0 0 2rem;
-  margin: -2rem auto 0;
+  margin: 0 auto;
 
-  h3 {
+  h3,
+  h4 {
     font-size: 1.9rem;
     font-weight: bold;
     line-height: 1.2;
@@ -15,8 +16,18 @@
     display: block;
     padding-top: 17px;
     padding-bottom: 17px;
-    background-color: $blue;
+    background-color: $navy;
     font-weight: normal;
     max-width: 255px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover {
+      @media screen and (min-width: ($sm)) {
+        background-color: $blue;
+      }
+    }
   }
 }
