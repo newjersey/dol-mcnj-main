@@ -51,7 +51,11 @@
 }
 
 .landing-faq {
-  margin-bottom: 5rem;
+  margin: 5rem 0;
+
+  @media screen and (max-width: ($sm)) {
+    margin-top: 3rem;
+  }
 
   h3 {
     font-size: 2rem;

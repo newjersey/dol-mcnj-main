@@ -10,6 +10,7 @@ import { SearchBlock } from "../components/SearchBlock";
 import { HowTo } from "../components/HowTo";
 import { Accordion } from "../components/Accordion";
 import { ArrowRight } from "@phosphor-icons/react";
+import { Interrupter } from "../components/Interrupter";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -44,6 +45,11 @@ export const LandingPage = (props: Props): ReactElement => {
     ],
   };
 
+  const interrupterContent = {
+    header: pageData?.interrupterBannerHeading,
+    links: pageData?.interrupterLinksCollection.items,
+  };
+
   return (
     <Layout client={props.client}>
       {data && (
@@ -51,6 +57,7 @@ export const LandingPage = (props: Props): ReactElement => {
           <PageBanner {...pageData?.pageBanner} theme="green" />
           <SearchBlock />
           <HowTo {...howToContent} />
+          <Interrupter {...interrupterContent} />
           <section className="landing-faq">
             <div className="container">
               <h3>Frequently Asked Questions</h3>
