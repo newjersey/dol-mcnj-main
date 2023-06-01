@@ -18,6 +18,7 @@ import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import {WaiversBlock} from "../components/WaiversBlock";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -152,6 +153,17 @@ export const OccupationPage = (props: Props): ReactElement => {
           {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
+            <WaiversBlock
+                title={t("OccupationPage.localExceptionCountiesTitle")}
+                tooltipText={t("OccupationPage.jobsOpenTooltip")}
+                dataSource={t("OccupationPage.jobsOpenSource")}
+                data={
+                  occupationDetail.openJobsCount
+                      ? occupationDetail.openJobsCount.toLocaleString()
+                      : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-light-yellow"
+            />
             <StatBlock
               title={t("OccupationPage.jobsOpenTitle")}
               tooltipText={t("OccupationPage.jobsOpenTooltip")}

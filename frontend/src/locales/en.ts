@@ -617,6 +617,7 @@ export const en = {
   OccupationPage: {
     header: "Occupation",
     dataUnavailableText: "This data is not yet available for this occupation.",
+    localExceptionCountiesTitle: "In-Demand in {{counties}}",
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
