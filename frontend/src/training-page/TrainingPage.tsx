@@ -460,14 +460,3 @@ export const TrainingPage = (props: Props): ReactElement => {
     return <></>;
   }
 };
-
-function removeCountyFromEnd(str: string) {
-  const trimmedStr = str.trim();
-  const countyIndex = trimmedStr.lastIndexOf("County");
-
-  if (countyIndex !== -1 && countyIndex === trimmedStr.length - 6) {
-    return trimmedStr.substring(0, countyIndex).trim();
-  }
-
-  return trimmedStr;
-}
