@@ -64,8 +64,13 @@ export const SearchBlock = () => {
         <h2>Find Training</h2>
         <p>Search by training, provider, certification, SOC code, or keyword</p>
         <div className="row">
+          <label htmlFor="search-input" className="sr-only">
+            Search
+          </label>
           <input
+            id="search-input"
             type="text"
+            aria-label="search"
             className="search-input usa-input"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               setSearchTerm(e.target.value);
@@ -76,7 +81,11 @@ export const SearchBlock = () => {
             <a href={searchUrl} className="usa-button">
               Search
             </a>
-            <a href={`/search/${searchTerm}`} className="usa-button usa-button--unstyled">
+            <a
+              id="search-button"
+              href={`/search/${searchTerm}`}
+              className="usa-button usa-button--unstyled"
+            >
               Advanced Search
               <ArrowRight />
             </a>
@@ -88,7 +97,11 @@ export const SearchBlock = () => {
             <div className="area">
               <div className="label">Miles from Zip Code</div>
               <div className="inputs">
+                <label htmlFor="miles" className="sr-only">
+                  Miles
+                </label>
                 <select
+                  id="miles"
                   onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                     if (e.target.value === "Miles") {
                       setMiles("");
@@ -116,7 +129,9 @@ export const SearchBlock = () => {
               </div>
             </div>
             <div className="cost">
-              <div className="label">Max Cost</div>
+              <label className="label" htmlFor="maxCost">
+                Max Cost
+              </label>
               <CurrencyDollarSimple />
               <input
                 type="number"
