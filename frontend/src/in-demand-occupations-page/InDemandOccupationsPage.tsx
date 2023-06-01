@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { RouteComponentProps } from "@reach/router";
+import {Link, RouteComponentProps} from "@reach/router";
 import { Client } from "../domain/Client";
 import { InDemandOccupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
@@ -58,8 +58,17 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
     <Layout client={props.client}>
       <div className="container">
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
+{/*
         <p>{t("InDemandPage.description")}</p>
-
+*/}
+        <p>
+          {t("InDemandPage.description")}
+          &nbsp;
+          <a className="link-format-blue" href="https://www.nj.gov/labor/career-services/tools-support/demand-occupations/waivers.shtml" target="_blank" rel="noreferrer">
+            {t("InDemandPage.descriptionTextLink")}
+          </a>
+          .
+        </p>
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />
         </div>
