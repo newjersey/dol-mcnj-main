@@ -5,11 +5,13 @@ describe("Search", () => {
     cy.injectAxe();
     cy.checkA11y();
 
-    cy.get("[placeholder='Enter occupation, certification, provider, or SOC code']").should("exist");
+    cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
+      "exist"
+    );
 
     // input search
     cy.get('input[aria-label="search"]').type("baking");
-    cy.get("button").contains("Search").click({ force: true });
+    cy.get("a#search-button").contains("Search").click({ force: true });
 
     // on search results page
     cy.location("pathname").should("eq", "/search/baking");
