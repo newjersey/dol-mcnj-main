@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import {Link, RouteComponentProps} from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { InDemandOccupation } from "../domain/Occupation";
 import { MajorGroup } from "./MajorGroup";
@@ -58,9 +58,7 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
     <Layout client={props.client}>
       <div className="container">
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
-{/*
-        <p>{t("InDemandPage.description")}</p>
-*/}
+
         <p>
           {t("InDemandPage.description")}
           &nbsp;
