@@ -99,10 +99,22 @@ export interface IndustryProps {
     id: string;
   };
   title: string;
+  shorthandTitle?: string;
   slug: "manufacturing" | "healthcare" | "tdl";
   description: ContentfulRichText;
   photo: {
     url: string;
+  };
+  inDemandCollection?: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      idNumber: string;
+      hourlyRate?: number;
+      numberOfJobs?: number;
+    }[];
   };
   industryAccordionCollection: {
     items: {
