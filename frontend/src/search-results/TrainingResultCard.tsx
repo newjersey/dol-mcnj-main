@@ -150,7 +150,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
             {(
-              !props.trainingResult.inDemand && props.trainingResult.localExceptionCounty
+              !props.trainingResult.inDemand && props.trainingResult.localExceptionCounty && props.trainingResult.localExceptionCounty.length !== 0
                 ? <InDemandTag counties={props.trainingResult.localExceptionCounty} />
                 : <></>
             )}
