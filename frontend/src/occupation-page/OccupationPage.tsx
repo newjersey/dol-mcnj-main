@@ -18,6 +18,7 @@ import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import { WaiverBlock } from "../components/WaiverBlock";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -25,7 +26,7 @@ interface Props extends RouteComponentProps {
 }
 
 const OPEN_JOBS_URL =
-  "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword={SOC_CODE}&location=New%20Jersey&radius=0&source=NLX&currentpage=1";
+    "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword={SOC_CODE}&location=New%20Jersey&radius=0&source=NLX&currentpage=1";
 
 export const OccupationPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
@@ -57,17 +58,17 @@ export const OccupationPage = (props: Props): ReactElement => {
   const seeMore = (tasks: string[]): ReactElement => {
     if (tasks.length > 5 && !isOpen) {
       return (
-        <button className="weight-500 blue fin" onClick={(): void => setIsOpen(true)}>
-          {t("OccupationPage.seeMore")}
-          <InlineIcon>keyboard_arrow_down</InlineIcon>
-        </button>
+          <button className="weight-500 blue fin" onClick={(): void => setIsOpen(true)}>
+            {t("OccupationPage.seeMore")}
+            <InlineIcon>keyboard_arrow_down</InlineIcon>
+          </button>
       );
     } else if (tasks.length > 5 && isOpen) {
       return (
-        <button className="weight-500 blue fin" onClick={(): void => setIsOpen(false)}>
-          {t("OccupationPage.seeLess")}
-          <InlineIcon>keyboard_arrow_up</InlineIcon>
-        </button>
+          <button className="weight-500 blue fin" onClick={(): void => setIsOpen(false)}>
+            {t("OccupationPage.seeLess")}
+            <InlineIcon>keyboard_arrow_up</InlineIcon>
+          </button>
       );
     } else {
       return <></>;
@@ -84,11 +85,11 @@ export const OccupationPage = (props: Props): ReactElement => {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
-        <ul>
-          {tasksToShow.map((task, key) => (
-            <li key={key}>{task}</li>
-          ))}
-        </ul>
+          <ul>
+            {tasksToShow.map((task, key) => (
+                <li key={key}>{task}</li>
+            ))}
+          </ul>
       );
     }
   };
@@ -98,19 +99,19 @@ export const OccupationPage = (props: Props): ReactElement => {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
-        <>
-          {occupations.map((occupation) => (
-            <Link
-              className="link-format-blue"
-              to={`/occupation/${occupation.soc}`}
-              key={occupation.soc}
-            >
-              <p key={occupation.soc} className="blue weight-500 mvs">
-                {occupation.title}
-              </p>
-            </Link>
-          ))}
-        </>
+          <>
+            {occupations.map((occupation) => (
+                <Link
+                    className="link-format-blue"
+                    to={`/occupation/${occupation.soc}`}
+                    key={occupation.soc}
+                >
+                  <p key={occupation.soc} className="blue weight-500 mvs">
+                    {occupation.title}
+                  </p>
+                </Link>
+            ))}
+          </>
       );
     }
   };
@@ -124,157 +125,162 @@ export const OccupationPage = (props: Props): ReactElement => {
       const resultsUrl = `/search/${occupation}`;
 
       return (
-        <>
-          {seeMore && (
-            <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
-              {t("OccupationPage.relatedTrainingSeeMore")}
-            </Link>
-          )}
+          <>
+            {seeMore && (
+                <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
+                  {t("OccupationPage.relatedTrainingSeeMore")}
+                </Link>
+            )}
 
-          {trainingsToShow.map((training) => (
-            <TrainingResultCard key={training.id} trainingResult={training} />
-          ))}
-        </>
+            {trainingsToShow.map((training) => (
+                <TrainingResultCard key={training.id} trainingResult={training} />
+            ))}
+          </>
       );
     }
   };
 
   if (occupationDetail) {
     return (
-      <Layout client={props.client}>
-        <div className="container">
-          <div className="ptm weight-500 fin all-caps border-bottom-dark">
-            {t("OccupationPage.header")}
-          </div>
-          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-            {occupationDetail.title}
-          </h2>
-          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
-
-          <div className="stat-block-stack mtm">
-            <StatBlock
-              title={t("OccupationPage.jobsOpenTitle")}
-              tooltipText={t("OccupationPage.jobsOpenTooltip")}
-              dataSource={t("OccupationPage.jobsOpenSource")}
-              data={
-                occupationDetail.openJobsCount
-                  ? occupationDetail.openJobsCount.toLocaleString()
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("OccupationPage.salaryTitle")}
-              tooltipText={t("OccupationPage.salaryTooltip")}
-              data={
-                occupationDetail.medianSalary
-                  ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-lighter-purple"
-            />
-          </div>
-
-          {occupationDetail.openJobsCount && (
-            <div>
-              <a
-                data-testid="jobOpenings"
-                className="link-format-blue weight-500 blue fin mtm"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={OPEN_JOBS_URL.replace(
-                  "{SOC_CODE}",
-                  (occupationDetail.openJobsSoc || "").toString()
-                )}
-                onClick={() =>
-                  logEvent(
-                    "Occupation page",
-                    "Clicked job opening link",
-                    String(occupationDetail.openJobsSoc)
-                  )
-                }
-              >
-                {t("OccupationPage.searchOpenJobsText")}
-              </a>
+        <Layout client={props.client}>
+          <div className="container">
+            <div className="ptm weight-500 fin all-caps border-bottom-dark">
+              {t("OccupationPage.header")}
             </div>
-          )}
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {occupationDetail.title}
+            </h2>
+            {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
-          <div className="row">
-            <div className="col-md-8">
-              <div className="container-fluid">
-                <div className="row">
-                  <Grouping
-                    title={t("OccupationPage.descriptionGroupHeader")}
-                    backgroundColorClass="bg-purple"
-                  >
-                    <p>{occupationDetail.description}</p>
-                  </Grouping>
+            <div className="stat-block-stack mtm">
+              <WaiverBlock
+                  title={t("OccupationPage.localExceptionCountiesTitle")}
+                  backgroundColorClass="bg-light-yellow"
+              />
 
-                  <Grouping
-                    title={t("OccupationPage.dayInTheLifeGroupHeader")}
-                    backgroundColorClass="bg-purple"
+              <StatBlock
+                  title={t("OccupationPage.jobsOpenTitle")}
+                  tooltipText={t("OccupationPage.jobsOpenTooltip")}
+                  dataSource={t("OccupationPage.jobsOpenSource")}
+                  data={
+                    occupationDetail.openJobsCount
+                        ? occupationDetail.openJobsCount.toLocaleString()
+                        : STAT_MISSING_DATA_INDICATOR
+                  }
+                  backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                  title={t("OccupationPage.salaryTitle")}
+                  tooltipText={t("OccupationPage.salaryTooltip")}
+                  data={
+                    occupationDetail.medianSalary
+                        ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
+                        : STAT_MISSING_DATA_INDICATOR
+                  }
+                  backgroundColorClass="bg-lighter-purple"
+              />
+            </div>
+
+            {occupationDetail.openJobsCount && (
+                <div>
+                  <a
+                      data-testid="jobOpenings"
+                      className="link-format-blue weight-500 blue fin mtm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={OPEN_JOBS_URL.replace(
+                          "{SOC_CODE}",
+                          (occupationDetail.openJobsSoc || "").toString()
+                      )}
+                      onClick={() =>
+                          logEvent(
+                              "Occupation page",
+                              "Clicked job opening link",
+                              String(occupationDetail.openJobsSoc)
+                          )
+                      }
                   >
-                    <>
-                      {getTasksList(occupationDetail.tasks)}
-                      {seeMore(occupationDetail.tasks)}
-                    </>
-                  </Grouping>
+                    {t("OccupationPage.searchOpenJobsText")}
+                  </a>
+                </div>
+            )}
+
+            <div className="row">
+              <div className="col-md-8">
+                <div className="container-fluid">
+                  <div className="row">
+                    <Grouping
+                        title={t("OccupationPage.descriptionGroupHeader")}
+                        backgroundColorClass="bg-purple"
+                    >
+                      <p>{occupationDetail.description}</p>
+                    </Grouping>
+
+                    <Grouping
+                        title={t("OccupationPage.dayInTheLifeGroupHeader")}
+                        backgroundColorClass="bg-purple"
+                    >
+                      <>
+                        {getTasksList(occupationDetail.tasks)}
+                        {seeMore(occupationDetail.tasks)}
+                      </>
+                    </Grouping>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                <div className="container-fluid">
+                  <div className="row">
+                    <Grouping title="Education" backgroundColorClass="bg-purple">
+                      <p
+                          dangerouslySetInnerHTML={{
+                            __html: occupationDetail.education
+                                ? occupationDetail.education
+                                : t("OccupationPage.dataUnavailableText"),
+                          }}
+                      />
+                    </Grouping>
+
+                    <Grouping
+                        title={t("OccupationPage.relatedOccupationsGroupHeader")}
+                        backgroundColorClass="bg-purple"
+                    >
+                      {getRelatedOccupations(occupationDetail.relatedOccupations)}
+                    </Grouping>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="col-md-4">
-              <div className="container-fluid">
-                <div className="row">
-                  <Grouping title="Education" backgroundColorClass="bg-purple">
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: occupationDetail.education
-                          ? occupationDetail.education
-                          : t("OccupationPage.dataUnavailableText"),
-                      }}
-                    />
-                  </Grouping>
-
-                  <Grouping
-                    title={t("OccupationPage.relatedOccupationsGroupHeader")}
-                    backgroundColorClass="bg-purple"
-                  >
-                    {getRelatedOccupations(occupationDetail.relatedOccupations)}
-                  </Grouping>
+            <div className="row">
+              <div className="col-md-9">
+                <div className="container-fluid">
+                  <div className="row">
+                    <h2 className="text-xl ptd pbs weight-500 fin">
+                      {t("OccupationPage.relatedTrainingGroupHeader")}
+                    </h2>
+                    {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="col-md-9">
-              <div className="container-fluid">
-                <div className="row">
-                  <h2 className="text-xl ptd pbs weight-500 fin">
-                    {t("OccupationPage.relatedTrainingGroupHeader")}
-                  </h2>
-                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
-                </div>
-              </div>
+            <div className="container-full ptxl">
+              <p className="accessible-gray">
+                <span className="bold">{t("OccupationPage.sourceLabel")}</span>
+                &nbsp;{t("OccupationPage.onetSource")}
+              </p>
+              <p className="accessible-gray">
+                <span className="bold">{t("OccupationPage.sourceLabel")}</span>
+                &nbsp;{t("OccupationPage.blsSource")}
+              </p>
+              <p>
+                <img src={careeronestop} alt={t("IconAlt.careerOneStopLogo")} />
+              </p>
             </div>
           </div>
-
-          <div className="container-full ptxl">
-            <p className="accessible-gray">
-              <span className="bold">{t("OccupationPage.sourceLabel")}</span>
-              &nbsp;{t("OccupationPage.onetSource")}
-            </p>
-            <p className="accessible-gray">
-              <span className="bold">{t("OccupationPage.sourceLabel")}</span>
-              &nbsp;{t("OccupationPage.blsSource")}
-            </p>
-            <p>
-              <img src={careeronestop} alt={t("IconAlt.careerOneStopLogo")} />
-            </p>
-          </div>
-        </div>
-      </Layout>
+        </Layout>
     );
   } else if (error === Error.SYSTEM_ERROR) {
     return <SomethingWentWrongPage client={props.client} />;
@@ -282,13 +288,13 @@ export const OccupationPage = (props: Props): ReactElement => {
     return <NotFoundPage client={props.client} />;
   } else if (isLoading) {
     return (
-      <Layout noFooter client={props.client}>
-        <div className="fdc page">
-          <main className="container page fdr fjc fac ptl" role="main">
-            <CircularProgress color="secondary" />
-          </main>
-        </div>
-      </Layout>
+        <Layout noFooter client={props.client}>
+          <div className="fdc page">
+            <main className="container page fdr fjc fac ptl" role="main">
+              <CircularProgress color="secondary" />
+            </main>
+          </div>
+        </Layout>
     );
   } else {
     return <></>;

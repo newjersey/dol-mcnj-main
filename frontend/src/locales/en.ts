@@ -601,8 +601,7 @@ export const en = {
     pageTitle: "In-Demand Occupations",
     header: "In-Demand Occupations",
     description:
-        "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
-    descriptionTextLink: "Learn more about local and regional waivers",
+        "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State.",
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
@@ -618,6 +617,8 @@ export const en = {
   OccupationPage: {
     header: "Occupation",
     dataUnavailableText: "This data is not yet available for this occupation.",
+    localExceptionCountiesTitle: "In-Demand in {{counties}}.",
+    localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
