@@ -78,7 +78,6 @@ export const FaqCollection = ({
                 <Accordion
                   keyValue={index}
                   content={item.answer.json}
-                  open={index === 0}
                   title={item.question}
                   key={item.sys?.id}
                 />

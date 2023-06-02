@@ -149,7 +149,6 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
     items {
       title
       slug
-      shorthandTitle
       description {
         json
       }
@@ -158,16 +157,6 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
       }
       sys{
         id
-      }
-      inDemandCollection {
-				items {
-          sys {
-            id
-          }
-          title
-          idNumber
-          numberOfJobs
-        }
       }
       industryAccordionCollection {
         items {

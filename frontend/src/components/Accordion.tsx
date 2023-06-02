@@ -41,7 +41,6 @@ export const Accordion = (data: AccordionData): ReactElement => {
           setIsOpen(!isOpen);
           toggleOpen(isOpen, contentId);
         }}
-        type="button"
         onMouseDown={(e): void => e.preventDefault()}
         aria-controls={contentId}
         aria-expanded={isOpen ? "true" : "false"}
