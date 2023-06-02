@@ -11,8 +11,8 @@
     justify-content: space-between;
     align-items: flex-start;
 
-    > * {
-      width: 100%;
+    h2 {
+      width: calc(100% - 100px);
     }
     button {
       text-align: right;
