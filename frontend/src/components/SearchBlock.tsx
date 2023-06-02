@@ -10,22 +10,32 @@ export const SearchBlock = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchUrl, setSearchUrl] = useState<string>("");
 
+  const clearAllInputs = () => {
+    const inputs = document.querySelectorAll("input");
+    const selects = document.querySelectorAll("select");
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    const checkboxArray: HTMLInputElement[] = Array.from(checkboxes) as HTMLInputElement[];
+    checkboxArray.forEach((checkbox: HTMLInputElement) => {
+      checkbox.checked = false;
+    });
+    inputs.forEach((input) => {
+      input.value = "";
+    });
+    selects.forEach((select) => {
+      select.value = "Miles";
+    });
+    // clear state
+    setInPerson(false);
+    setMaxCost("");
+    setMiles("");
+    setOnline(false);
+    setZipCode("");
+    setSearchTerm("");
+  };
+
   useEffect(() => {
     setTimeout(() => {
-      // clear checkboxes
-      const checkboxes = document.querySelectorAll("input[type=checkbox]");
-      const checkboxArray: HTMLInputElement[] = Array.from(checkboxes) as HTMLInputElement[];
-      checkboxArray.forEach((checkbox: HTMLInputElement) => {
-        checkbox.checked = false;
-      });
-      const inputs = document.querySelectorAll("input");
-      const selects = document.querySelectorAll("select");
-      inputs.forEach((input) => {
-        input.value = "";
-      });
-      selects.forEach((select) => {
-        select.value = "Miles";
-      });
+      clearAllInputs();
     }, 200);
   }, []);
 
@@ -61,7 +71,19 @@ export const SearchBlock = () => {
   return (
     <section className="search-block">
       <div className="container">
-        <h2>Find Training</h2>
+        <div className="heading">
+          <h2>Find Training</h2>
+          <button
+            type="button"
+            id="clearAll"
+            className="usa-button usa-button--unstyled"
+            onClick={() => {
+              clearAllInputs();
+            }}
+          >
+            Clear All
+          </button>
+        </div>
         <p>Search by training, provider, certification, SOC code, or keyword</p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">
