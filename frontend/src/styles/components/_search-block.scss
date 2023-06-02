@@ -6,6 +6,19 @@
     max-width: 1080px;
   }
 
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    > * {
+      width: 100%;
+    }
+    button {
+      text-align: right;
+    }
+  }
+
   h2,
   h3 {
     font-size: 1.35rem;
