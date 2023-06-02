@@ -208,7 +208,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
               {training.inDemand ? <InDemandTag className="mts" /> : <></>}
               {(
-                    !training.inDemand && training.localExceptionCounty
+                    !training.inDemand && training.localExceptionCounty && training.localExceptionCounty.length !== 0
                     ? <InDemandTag className="mts" counties={training.localExceptionCounty} />
                     : <></>
               )}
