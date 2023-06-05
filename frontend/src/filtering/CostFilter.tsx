@@ -19,7 +19,7 @@ export const CostFilter = (): ReactElement => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const cost = urlParams.get("cost");
+    const cost = urlParams.get("maxCost");
 
     if (cost) {
       setMaxCost(cost);
