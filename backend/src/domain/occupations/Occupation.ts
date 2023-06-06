@@ -10,11 +10,6 @@ export interface InDemandOccupation {
 export interface Occupation {
   soc: string;
   title: string;
-  counties?: string[];
-}
-
-export interface ExpandedOccupation extends Occupation {
-  counties: string[];
 }
 
 export interface OccupationDetail {
@@ -24,6 +19,7 @@ export interface OccupationDetail {
   tasks: string[];
   education: string;
   inDemand: boolean;
+  counties?: string[];
   medianSalary: number | null;
   openJobsCount: number | null;
   openJobsSoc?: string;

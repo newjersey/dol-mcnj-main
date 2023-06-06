@@ -12,6 +12,7 @@ import { Selector } from "../training/Selector";
 import { convertTrainingToTrainingResult } from "../training/convertTrainingToTrainingResult";
 import { Training } from "../training/Training";
 import { TrainingResult } from "../training/TrainingResult";
+import {LocalException} from "../training/Program";
 
 export const getOccupationDetailFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
@@ -25,6 +26,12 @@ export const getOccupationDetailFactory = (
     const isInDemand = async (soc: string): Promise<boolean> => {
       const inDemandOccupations = await dataClient.getOccupationsInDemand();
       return inDemandOccupations.map((it) => it.soc).includes(soc);
+    };
+
+    const getLocalExceptionCounties = async (soc: string): Promise<LocalException[]> => {
+      const result = await dataClient.findLocalExceptionsBySoc(soc);
+      console.log(JSON.stringify(result));
+      return result;
     };
 
     const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
@@ -41,15 +48,17 @@ export const getOccupationDetailFactory = (
       .then((onetOccupationDetail: OccupationDetailPartial) => {
         return Promise.all([
           isInDemand(soc),
+          getLocalExceptionCounties(soc),
           getOpenJobsCount(soc),
           getEducationText(soc),
           getSalaryEstimate(soc),
           getTrainingResults(soc),
-        ]).then(([inDemand, openJobsCount, education, medianSalary, relatedTrainings]) => {
+        ]).then(([inDemand, counties, openJobsCount, education, medianSalary, relatedTrainings]) => {
           return {
             ...onetOccupationDetail,
             education: education,
             inDemand: inDemand,
+            counties: counties.map(l => l.county),
             medianSalary: medianSalary,
             openJobsCount: openJobsCount,
             openJobsSoc: soc,
@@ -66,6 +75,7 @@ export const getOccupationDetailFactory = (
           return Promise.all([
             getOccupationDetailFromOnet(soc2010),
             isInDemand(soc2010),
+            getLocalExceptionCounties(soc2010),
             getOpenJobsCount(soc2010),
             getEducationText(soc),
             getSalaryEstimate(soc),
@@ -74,6 +84,7 @@ export const getOccupationDetailFactory = (
             ([
               onetOccupationDetail,
               inDemand,
+              counties,
               openJobsCount,
               education,
               medianSalary,
@@ -84,6 +95,7 @@ export const getOccupationDetailFactory = (
                 soc: soc,
                 education: education,
                 inDemand: inDemand,
+                localExceptionCounties: counties,
                 medianSalary: medianSalary,
                 openJobsCount: openJobsCount,
                 openJobsSoc: soc2010,
@@ -95,6 +107,7 @@ export const getOccupationDetailFactory = (
           return Promise.all([
             dataClient.findSocDefinitionBySoc(soc),
             isInDemand(soc),
+            getLocalExceptionCounties(soc),
             getOpenJobsCount(soc),
             getEducationText(soc),
             getSalaryEstimate(soc),
@@ -104,6 +117,7 @@ export const getOccupationDetailFactory = (
             ([
               socDefinition,
               inDemand,
+              counties,
               openJobsCount,
               education,
               medianSalary,
@@ -117,6 +131,7 @@ export const getOccupationDetailFactory = (
                 tasks: [],
                 education: education,
                 inDemand: inDemand,
+                localExceptionCounties: counties,
                 medianSalary: medianSalary,
                 openJobsCount: openJobsCount,
                 relatedOccupations: neighboringOccupations,

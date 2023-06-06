@@ -150,11 +150,13 @@ export const OccupationPage = (props: Props): ReactElement => {
           <h2 data-testid="title" className="text-xl ptd pbs weight-500">
             {occupationDetail.title}
           </h2>
-          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
+          {occupationDetail.inDemand ?
+              <InDemandTag/> : <></>
+          }
 
           <div className="stat-block-stack mtm">
             <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle")}
+                title={t("OccupationPage.localExceptionCountiesTitle", {counties: `${occupationDetail.counties} Counties`})}
                 backgroundColorClass="bg-light-yellow"
             />
 
