@@ -85,8 +85,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           })
       )).filter((item): item is Training => item !== undefined);
     } catch (error) {
-      console.error(`Error while fetching programs: `, error);
-      throw error;
+        console.error(`Error while fetching programs: `, error);
+        throw error;
     }
   };
 };
