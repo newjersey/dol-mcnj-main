@@ -12,6 +12,10 @@ export interface Occupation {
   title: string;
 }
 
+export interface ExpandedOccupation extends Occupation {
+  counties: string[];
+}
+
 export interface OccupationDetail {
   soc: string;
   title: string;
