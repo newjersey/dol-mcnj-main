@@ -6,13 +6,13 @@ import {
     GetOpenJobsCount,
     FindTrainingsBy,
 } from "../types";
-import {Occupation, OccupationDetail, OccupationDetailPartial } from "./Occupation";
+import { OccupationDetail, OccupationDetailPartial } from "./Occupation";
 import { DataClient } from "../DataClient";
 import { Selector } from "../training/Selector";
 import { convertTrainingToTrainingResult } from "../training/convertTrainingToTrainingResult";
 import { Training } from "../training/Training";
 import { TrainingResult } from "../training/TrainingResult";
-import {LocalException, NullableOccupation} from "../training/Program";
+import {LocalException} from "../training/Program";
 
 export const getOccupationDetailFactory = (
     getOccupationDetailFromOnet: GetOccupationDetailPartial,
@@ -25,41 +25,16 @@ export const getOccupationDetailFactory = (
     return async (soc: string): Promise<OccupationDetail> => {
         const isInDemand = async (soc: string): Promise<boolean> => {
             const inDemandOccupations = await dataClient.getOccupationsInDemand();
-
-            const expandedInDemand: (Occupation & { counties?: string[] })[] = removeDuplicateSocs(
-                await expand2010SocsTo2018(inDemandOccupations)
-            );
-
-            return expandedInDemand.map((it) => it.soc).includes(soc);
+            return inDemandOccupations.map((it) => it.soc).includes(soc);
         };
 
         const getLocalExceptionCounties = async (soc: string): Promise<LocalException[]> => {
-            const result = await dataClient.findLocalExceptionsBySoc(soc);
-            return result;
-        };
-
-        const expand2010SocsTo2018 = async (occupations: NullableOccupation[]): Promise<Occupation[]> => {
-            let expanded: Occupation[] = [];
-
-            for (const occupation of occupations) {
-                if (!occupation.title) {
-                    const socs2018 = await dataClient.find2018OccupationsBySoc2010(occupation.soc);
-                    expanded = [...expanded, ...socs2018];
-                } else {
-                    expanded.push({
-                        ...occupation,
-                        title: occupation.title as string,
-                    });
-                }
-            }
-
-            return expanded;
-        };
-
-        const removeDuplicateSocs = (occupationTitles: Occupation[]): Occupation[] => {
-            return occupationTitles.filter(
-                (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
-            );
+            //const result = await dataClient.findLocalExceptionsBySoc(soc);
+            const localExceptions = await dataClient.getLocalExceptionsBySoc();
+            const matches = localExceptions.filter(e => e.soc === soc);
+            // NOTE to chelsea for tomorrow: what local exceptions are being generated in the test db??
+            console.log(localExceptions);
+            return matches;
         };
 
         const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
@@ -81,7 +56,7 @@ export const getOccupationDetailFactory = (
                     getEducationText(soc),
                     getSalaryEstimate(soc),
                     getTrainingResults(soc),
-                ]).then(([inDemand, counties,openJobsCount, education, medianSalary, relatedTrainings]) => {
+                ]).then(([inDemand, counties, openJobsCount, education, medianSalary, relatedTrainings]) => {
                     return {
                         ...onetOccupationDetail,
                         education: education,
@@ -95,7 +70,6 @@ export const getOccupationDetailFactory = (
                 });
             })
             .catch(async () => {
-                console.log('getOccupationDetailFromOnet failed');
                 const occupationTitles2010 = await dataClient.find2010OccupationsBySoc2018(soc);
 
                 if (occupationTitles2010.length === 1) {
