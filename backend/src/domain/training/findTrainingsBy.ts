@@ -56,6 +56,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 calendarLength: program.calendarlengthid
                     ? parseInt(program.calendarlengthid)
                     : CalendarLength.NULL,
+                totalClockHours: parseInt(program.totalclockhours),
                 occupations: matchingOccupations.map((it) => ({
                   title: it.title,
                   soc: it.soc,

@@ -273,6 +273,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                             {t(`CalendarLengthLookup.${training.calendarLength}`)}
                           </span>
                           </p>
+                          {training.totalClockHours && (
+                              <p>
+                                <span className="fin">
+                                  <InlineIcon className="mrxs">hourglass_empty</InlineIcon>
+                                  {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                                  {training.totalClockHours}
+                                </span>
+                              </p>
+                          )}
                           {training.cipCode && (
                               <p>
                                 <span className="fin">

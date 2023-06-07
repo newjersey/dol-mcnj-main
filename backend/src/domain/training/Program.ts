@@ -14,6 +14,7 @@ export interface Program {
   totalcost: string;
   providername: string | null;
   calendarlengthid: string | null;
+  totalclockhours: string;
   website: string | null;
   street1: string | null;
   street2: string | null;
