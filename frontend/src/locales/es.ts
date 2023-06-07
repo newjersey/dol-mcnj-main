@@ -765,6 +765,7 @@ export const es = {
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
     cipCodeLabel: "Código CIP:",
+    totalClockHoursLabel: "Horas totales de reloj:",
     associatedOccupationsGroupHeader: "Ocupaciones asociadas",
     associatedOccupationsText:
       "Esta es una capacitación general que podría prepararlo para una amplia variedad de trayectorias profesionales. Busque <1>ocupaciones en demanda</1> para ver cómo podría aplicar esta capacitación.",

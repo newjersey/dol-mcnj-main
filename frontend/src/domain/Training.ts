@@ -7,6 +7,7 @@ export interface TrainingResult {
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
+  totalClockHours: number;
   inDemand: boolean;
   localExceptionCounty: string[];
   online: boolean;
@@ -30,6 +31,7 @@ export interface Training {
   name: string;
   cipCode: string;
   calendarLength: CalendarLength;
+  totalClockHours: number;
   description: string;
   certifications: string;
   prerequisites: string;
