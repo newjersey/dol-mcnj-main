@@ -3,93 +3,46 @@ import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { TRAINING_EXPLORER_PAGE_QUERY } from "../queries/trainingExplorer";
-import { TrainingExplorerPageProps } from "../types/contentful";
-import { PageBanner } from "../components/PageBanner";
-import { SearchBlock } from "../components/SearchBlock";
-import { HowTo } from "../components/HowTo";
-import { Accordion } from "../components/Accordion";
-import { ArrowRight } from "@phosphor-icons/react";
-import { Interrupter } from "../components/Interrupter";
+import { HomepageProps } from "../types/contentful";
+import { HOMEPAGE_QUERY } from "../queries/homePage";
+import { HomeBanner } from "../components/HomeBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const LandingPage = (props: Props): ReactElement => {
-  const data: TrainingExplorerPageProps = useContentfulClient({
-    query: TRAINING_EXPLORER_PAGE_QUERY,
+  const data: HomepageProps = useContentfulClient({
+    query: HOMEPAGE_QUERY,
   });
 
-  const pageData = data?.trainingExplorerPage;
-
-  const howToContent = {
-    header: "How to use the Training Explorer",
-    video: pageData?.demoVideoUrl,
-    steps: [
-      {
-        header: pageData?.stepOneHeading,
-        icon: pageData?.stepOneIcon,
-        text: pageData?.stepOneText,
-      },
-      {
-        header: pageData?.stepTwoHeading,
-        icon: pageData?.stepTwoIcon,
-        text: pageData?.stepTwoText,
-      },
-      {
-        header: pageData?.stepThreeHeading,
-        icon: pageData?.stepThreeIcon,
-        text: pageData?.stepThreeText,
-      },
-    ],
-  };
-
-  const interrupterContent = {
-    header: pageData?.interrupterBannerHeading,
-    links: pageData?.interrupterLinksCollection.items,
-  };
+  const pageData = data?.homePage;
 
   return (
     <Layout client={props.client}>
       {data && (
         <>
-          <PageBanner {...pageData?.pageBanner} theme="green" />
-          <SearchBlock />
-          <HowTo {...howToContent} />
-          <Interrupter {...interrupterContent} />
-          <section className="landing-faq">
-            <div className="container">
-              <h3>Frequently Asked Questions</h3>
-              {pageData?.faqsCollection.items.map((item, index: number) => (
-                <Accordion
-                  keyValue={index}
-                  content={item.answer.json}
-                  title={item.question}
-                  key={item.sys?.id}
-                />
-              ))}
-              <div className="cta">
-                <h4>Don't see your question?</h4>
-                <a href="/faq" className="usa-button">
-                  See ll FAQs
-                  <ArrowRight color="#fff" size={20} />
-                </a>
-              </div>
-            </div>
-          </section>
-          <section className="footer-cta">
-            <h3>{pageData?.footerCtaHeading}</h3>
-            {pageData?.footerCtaLinkCollection.items.map((link) => (
-              <a
-                key={link.sys?.id}
-                href={link.url}
-                className={`usa-button${link.className ? ` ${link.className}` : ""}`}
-              >
-                {link.copy}
-              </a>
-            ))}
-          </section>
+          <HomeBanner
+            heading={pageData.title}
+            buttonCopy={pageData.bannerButtonCopy}
+            image={pageData.bannerImage}
+            subheading={pageData.pageDescription}
+          />
+          <code>
+            <pre
+              style={{
+                fontFamily: "monospace",
+                display: "block",
+                padding: "50px",
+                color: "#88ffbf",
+                backgroundColor: "black",
+                textAlign: "left",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {JSON.stringify(pageData, null, "    ")}
+            </pre>
+          </code>
         </>
       )}
     </Layout>

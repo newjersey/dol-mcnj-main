@@ -39,6 +39,7 @@ import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { FinancialPage } from "./financial-page/FinancialPage";
 import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
+import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
 
 interface Props {
   client: Client;
@@ -73,6 +74,7 @@ export const App = (props: Props): ReactElement => {
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
               <LandingPage path="/" client={props.client} />
+              <TrainingExplorerPage path="/training-explorer" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}

@@ -10,6 +10,12 @@ export interface Keypair {
   value: string | Keypair | Keypair[];
 }
 
+export interface ImageProps {
+  url: string;
+  width?: number;
+  height?: number;
+}
+
 export interface OccupationNodeProps {
   sys: {
     id: string;
@@ -150,9 +156,7 @@ export interface FaqPageData {
     pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage?: {
-      url: string;
-    };
+    bannerImage?: ImageProps;
     topics: {
       items: FaqTopic[];
     };
@@ -286,9 +290,7 @@ export interface TrainingProviderData {
     pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage: {
-      url: string;
-    };
+    bannerImage: ImageProps;
     tabs: {
       items: TabItemProps[];
     };
@@ -373,5 +375,38 @@ export interface TrainingExplorerPageProps {
     stepTwoIcon: IconNames;
     stepTwoText: string;
     title: string;
+  };
+}
+
+export interface IconLinkProps {
+  sys: {
+    id: string;
+  };
+  icon: IconNames;
+  copy: string;
+  url: string;
+}
+
+export interface HomepageProps {
+  homePage: {
+    title: string;
+    pageDescription?: string;
+    bannerButtonCopy: string;
+    bannerImage?: ImageProps;
+    toolsCollection: {
+      items: IconLinkProps[];
+    };
+    jobSearchToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    trainingToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    careerExplorationToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    supportAndAssistanceLinksCollection: {
+      items: IconLinkProps[];
+    };
   };
 }
