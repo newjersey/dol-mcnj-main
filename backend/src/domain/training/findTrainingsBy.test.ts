@@ -62,6 +62,7 @@ describe("findTrainingsBy", () => {
         certifications: "tree identifier",
         prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
         calendarLength: parseInt(program.calendarlengthid!),
+        totalClockHours: parseInt(program.totalclockhours),
         occupations: [
           { soc: "123", title: "some job" },
           { soc: "456", title: "some other job" },
@@ -167,6 +168,7 @@ describe("findTrainingsBy", () => {
         certifications: "tree identifier",
         prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
         calendarLength: parseInt(program.calendarlengthid!),
+        totalClockHours: parseInt(program.totalclockhours),
         occupations: [
           { soc: "123", title: "some job" },
           { soc: "456", title: "some other job" },
