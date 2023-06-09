@@ -6,6 +6,7 @@ import { useContentfulClient } from "../utils/useContentfulClient";
 import { HomepageProps } from "../types/contentful";
 import { HOMEPAGE_QUERY } from "../queries/homePage";
 import { HomeBanner } from "../components/HomeBanner";
+import CardSlider from "../components/CardSlider";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -28,21 +29,44 @@ export const LandingPage = (props: Props): ReactElement => {
             image={pageData.bannerImage}
             subheading={pageData.pageDescription}
           />
-          <code>
-            <pre
-              style={{
-                fontFamily: "monospace",
-                display: "block",
-                padding: "50px",
-                color: "#88ffbf",
-                backgroundColor: "black",
-                textAlign: "left",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {JSON.stringify(pageData, null, "    ")}
-            </pre>
-          </code>
+          <div className="container">
+            <CardSlider
+              cards={[
+                {
+                  id: "1",
+                  title: "Card 1",
+                },
+                {
+                  id: "2",
+                  title: "Card 2",
+                },
+                {
+                  id: "3",
+                  title: "Card 3",
+                },
+                {
+                  id: "4",
+                  title: "Card 4",
+                },
+                {
+                  id: "5",
+                  title: "Card 5",
+                },
+                {
+                  id: "6",
+                  title: "Card 6",
+                },
+                {
+                  id: "7",
+                  title: "Card 7",
+                },
+                {
+                  id: "8",
+                  title: "Card 8",
+                },
+              ]}
+            />
+          </div>
         </>
       )}
     </Layout>
