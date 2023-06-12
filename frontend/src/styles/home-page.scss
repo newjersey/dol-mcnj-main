@@ -1,0 +1,34 @@
+.home-page {
+  .container {
+    width: 100%;
+    max-width: 1300px;
+  }
+
+  .tools {
+    padding: 6rem 0;
+
+    .sectionHeading {
+      margin-bottom: 2rem;
+    }
+
+    .tiles {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      gap: 2rem;
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        flex-wrap: wrap;
+      }
+
+      .iconCard {
+        width: 184px;
+
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

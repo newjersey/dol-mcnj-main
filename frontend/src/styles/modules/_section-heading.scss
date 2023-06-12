@@ -1,0 +1,44 @@
+.sectionHeading {
+  border-bottom: 8px solid $black;
+  padding-bottom: 0.5rem;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $black;
+    font-size: 2rem;
+    display: inline-block;
+  }
+
+  &.strikeThrough {
+    text-align: center;
+    padding-bottom: 0;
+    border: 0;
+    position: relative;
+
+    &:before {
+      content: "";
+      height: 8px;
+      width: 100%;
+      background: $black;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      background: $white;
+      position: relative;
+      padding: 0 1rem;
+    }
+  }
+}
