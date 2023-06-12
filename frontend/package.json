@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "^16.0.5",
+    "@contentful/rich-text-html-renderer": "^16.1.0",
     "@contentful/rich-text-react-renderer": "^15.16.5",
     "@contentful/rich-text-types": "^16.2.0",
     "@material-ui/core": "^4.12.4",
