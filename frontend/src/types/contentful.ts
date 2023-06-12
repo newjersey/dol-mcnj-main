@@ -383,6 +383,7 @@ export interface IconLinkProps {
     id: string;
   };
   icon: IconNames;
+  sectionIcon?: "explore" | "jobs" | "support" | "training";
   copy: string;
   url: string;
 }

@@ -14,6 +14,7 @@ export const HOMEPAGE_QUERY = `{
           id
         }
         icon
+        sectionIcon
         copy
         url
         description
@@ -24,6 +25,7 @@ export const HOMEPAGE_QUERY = `{
         sys {
           id
         }
+        sectionIcon
         icon
         copy
         url
@@ -35,6 +37,7 @@ export const HOMEPAGE_QUERY = `{
         sys {
           id
         }
+        sectionIcon
         icon
         copy
         url
@@ -47,6 +50,7 @@ export const HOMEPAGE_QUERY = `{
           id
         }
         icon
+        sectionIcon
         copy
         url
         description
@@ -58,6 +62,7 @@ export const HOMEPAGE_QUERY = `{
           id
         }
         icon
+        sectionIcon
         copy
         url
         description

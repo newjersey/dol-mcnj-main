@@ -1,0 +1,289 @@
+.iconCard {
+  p {
+    max-width: none;
+  }
+
+  a {
+    border: 2px solid $grey;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: $text;
+    background: $white;
+    text-decoration: none;
+    display: block;
+
+    @media screen and (min-width: ($tabPort)) {
+      transition-duration: 0.3s;
+      transition-timing-function: ease-in-out;
+      transition-property: transform, box-shadow, background-color, border-color;
+    }
+
+    &:hover {
+      color: $text;
+
+      @media screen and (min-width: ($tabPort)) {
+        transform: scale(1.03);
+        box-shadow: 0 5px 15px -10px $black;
+      }
+    }
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+
+    svg {
+      &:nth-of-type(2) {
+        color: $darkest-gray;
+      }
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &.fill {
+    .icons {
+      .icon-container {
+        &:nth-of-type(1) {
+          height: 30px;
+          width: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          padding: 4px;
+        }
+      }
+    }
+  }
+
+  &.blue {
+    a {
+      border: 2px solid $map-blue;
+    }
+
+    .icons {
+      .icon-container {
+        &:nth-of-type(1) {
+          svg {
+            color: $blue;
+          }
+        }
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: $light-blue;
+      }
+
+      .icons {
+        .icon-container {
+          &:nth-of-type(1) {
+            background-color: $sky-blue;
+
+            svg {
+              color: $darker-blue;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.green {
+    a {
+      border: 2px solid $green;
+    }
+
+    .icons {
+      .icon-container {
+        &:nth-of-type(1) {
+          svg {
+            color: $green;
+          }
+        }
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: $light-green;
+      }
+
+      .icons {
+        .icon-container {
+          &:nth-of-type(1) {
+            background-color: $mint;
+
+            svg {
+              color: $darker-green;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.purple {
+    a {
+      border: 2px solid $vibrant-purple;
+    }
+
+    .icons {
+      .icon-container {
+        &:nth-of-type(1) {
+          svg {
+            color: $deep-purple;
+          }
+        }
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: $lightest-purple;
+      }
+
+      .icons {
+        .icon-container {
+          &:nth-of-type(1) {
+            background-color: $mid-purple;
+
+            svg {
+              color: $darker-purple;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.navy {
+    a {
+      border: 2px solid $blue;
+    }
+
+    .icons {
+      .icon-container {
+        &:nth-of-type(1) {
+          svg {
+            color: $navy;
+          }
+        }
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: $light-blue;
+      }
+
+      .icons {
+        .icon-container {
+          &:nth-of-type(1) {
+            background-color: $bright-blue;
+
+            svg {
+              color: $dark-navy;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.orange {
+    a {
+      border: 2px solid $bright-orange;
+    }
+
+    .icons {
+      .icon-container {
+        &:nth-of-type(1) {
+          svg {
+            color: $dark-orange;
+          }
+        }
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: $light-orange;
+      }
+
+      .icons {
+        .icon-container {
+          &:nth-of-type(1) {
+            background-color: $bright-orange;
+
+            svg {
+              color: $darker-orange;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.centered {
+    text-align: center;
+
+    a {
+      padding: 1.5rem 1rem;
+    }
+
+    p {
+      margin: 1rem 0 0;
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .icons {
+      justify-content: center;
+
+      svg {
+        height: 45px;
+        width: auto;
+      }
+    }
+
+    &.large {
+      .icon-container {
+        background-color: $lightest-purple;
+        width: 50px;
+        height: 50px;
+        padding: 7px;
+        border-radius: 100%;
+        margin-bottom: 2rem;
+      }
+
+      svg {
+        width: auto;
+        height: 100%;
+      }
+
+      a {
+        &:hover {
+          @media screen and (min-width: ($tabPort)) {
+            background: $lightest-purple;
+            border-color: $bright-purple;
+          }
+        }
+      }
+    }
+  }
+}
