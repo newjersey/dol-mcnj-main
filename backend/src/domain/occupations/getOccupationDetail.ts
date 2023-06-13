@@ -13,6 +13,7 @@ import { convertTrainingToTrainingResult } from "../training/convertTrainingToTr
 import { Training } from "../training/Training";
 import { TrainingResult } from "../training/TrainingResult";
 import {LocalException} from "../training/Program";
+import {convertToTitleCaseIfUppercase} from "../utils/convertToTitleCaseIfUppercase";
 
 export const getOccupationDetailFactory = (
     getOccupationDetailFromOnet: GetOccupationDetailPartial,
@@ -29,12 +30,20 @@ export const getOccupationDetailFactory = (
         };
 
         const getLocalExceptionCounties = async (soc: string): Promise<LocalException[]> => {
-            //const result = await dataClient.findLocalExceptionsBySoc(soc);
             const localExceptions = await dataClient.getLocalExceptionsBySoc();
             const matches = localExceptions.filter(e => e.soc === soc);
-            // NOTE to chelsea for tomorrow: what local exceptions are being generated in the test db??
-            console.log(localExceptions);
-            return matches;
+
+            const transformedMatches = matches.map((match) => {
+                const { county, ...rest } = match;
+                const transformedCounty = convertToTitleCaseIfUppercase(county);
+
+                return {
+                    county: transformedCounty,
+                    ...rest
+                };
+            });
+
+            return transformedMatches;
         };
 
         const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
