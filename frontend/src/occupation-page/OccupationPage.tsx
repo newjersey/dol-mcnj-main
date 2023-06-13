@@ -154,10 +154,14 @@ export const OccupationPage = (props: Props): ReactElement => {
           {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
-            <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle", {counties: formatCountiesArrayToString(occupationDetail.counties)})}
-                backgroundColorClass="bg-light-yellow"
-            />
+            {
+              !occupationDetail.inDemand && occupationDetail.counties && occupationDetail.counties.length !== 0
+                  ? <WaiverBlock
+                      title={t("OccupationPage.localExceptionCountiesTitle", {counties: formatCountiesArrayToString(occupationDetail.counties)})}
+                      backgroundColorClass="bg-light-yellow"
+                  />
+                  : <></>
+            }
 
             <StatBlock
               title={t("OccupationPage.jobsOpenTitle")}
