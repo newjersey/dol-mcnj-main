@@ -1,6 +1,6 @@
 .sectionHeading {
   border-bottom: 8px solid $black;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
 
   h1,
   h2,
@@ -39,6 +39,58 @@
       background: $white;
       position: relative;
       padding: 0 1rem;
+    }
+  }
+
+  &.color-blue {
+    border-color: $blue;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $blue;
+    }
+  }
+
+  &.color-green {
+    border-color: $green;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $green;
+    }
+  }
+
+  &.color-purple {
+    border-color: $dark-purple;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $dark-purple;
+    }
+  }
+
+  &.color-navy {
+    border-color: $navy;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $navy;
     }
   }
 }

@@ -1,10 +1,12 @@
 .iconCard {
+  position: relative;
+
   p {
     max-width: none;
   }
 
   a {
-    border: 2px solid $grey;
+    border: 3px solid $grey;
     border-radius: 1rem;
     padding: 1rem;
     color: $text;
@@ -18,7 +20,8 @@
       transition-property: transform, box-shadow, background-color, border-color;
     }
 
-    &:hover {
+    &:hover,
+    &:visited {
       color: $text;
 
       @media screen and (min-width: ($tabPort)) {
@@ -41,7 +44,8 @@
   }
 
   .title {
-    font-weight: bold;
+    line-height: 1;
+    font-size: 1.3rem;
   }
 
   .description {
@@ -71,7 +75,7 @@
 
   &.blue {
     a {
-      border: 2px solid $map-blue;
+      border-color: $map-blue;
     }
 
     .icons {
@@ -105,7 +109,7 @@
 
   &.green {
     a {
-      border: 2px solid $green;
+      border-color: $green;
     }
 
     .icons {
@@ -139,7 +143,7 @@
 
   &.purple {
     a {
-      border: 2px solid $vibrant-purple;
+      border-color: $vibrant-purple;
     }
 
     .icons {
@@ -173,7 +177,7 @@
 
   &.navy {
     a {
-      border: 2px solid $blue;
+      border-color: $blue;
     }
 
     .icons {
@@ -207,7 +211,7 @@
 
   &.orange {
     a {
-      border: 2px solid $bright-orange;
+      border-color: $bright-orange;
     }
 
     .icons {
@@ -242,8 +246,13 @@
   &.centered {
     text-align: center;
 
+    .title {
+      font-weight: bold;
+    }
+
     a {
       padding: 1.5rem 1rem;
+      color: $text;
     }
 
     p {

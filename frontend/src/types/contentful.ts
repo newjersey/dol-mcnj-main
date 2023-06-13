@@ -382,10 +382,11 @@ export interface IconLinkProps {
   sys: {
     id: string;
   };
-  icon: IconNames;
+  icon?: IconNames;
   sectionIcon?: "explore" | "jobs" | "support" | "training";
   copy: string;
   url: string;
+  description?: string;
 }
 
 export interface HomepageProps {

@@ -1,7 +1,9 @@
 .home-page {
   .container {
-    width: 100%;
-    max-width: 1300px;
+    @media screen and (min-width: ($deskLrg)) {
+      width: 100%;
+      max-width: 1300px;
+    }
   }
 
   .tools {
@@ -27,6 +29,24 @@
 
         a {
           height: 100%;
+        }
+      }
+    }
+  }
+
+  .card-slider {
+    &:nth-child(2n - 1) {
+      background-color: $lighter-green;
+
+      .inner {
+        &:before {
+          border-color: $lighter-green;
+          background: linear-gradient(to right, $lighter-green, transparent);
+        }
+
+        &:after {
+          border-color: $lighter-green;
+          background: linear-gradient(to left, $lighter-green, transparent);
         }
       }
     }

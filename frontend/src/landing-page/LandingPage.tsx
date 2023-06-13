@@ -7,8 +7,6 @@ import { HomepageProps } from "../types/contentful";
 import { HOMEPAGE_QUERY } from "../queries/homePage";
 import { HomeBanner } from "../components/HomeBanner";
 import CardSlider from "../components/CardSlider";
-import { OverlayTool } from "../components/OverlayTool";
-import image from "../overlayImages/home.png";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 
@@ -25,7 +23,6 @@ export const LandingPage = (props: Props): ReactElement => {
 
   return (
     <Layout client={props.client}>
-      <OverlayTool img={image} />
       <div className="home-page">
         {data && (
           <>
@@ -52,44 +49,31 @@ export const LandingPage = (props: Props): ReactElement => {
                   })}
                 </div>
               </div>
-
-              <CardSlider
-                cards={[
-                  {
-                    id: "1",
-                    title: "Card 1",
-                  },
-                  {
-                    id: "2",
-                    title: "Card 2",
-                  },
-                  {
-                    id: "3",
-                    title: "Card 3",
-                  },
-                  {
-                    id: "4",
-                    title: "Card 4",
-                  },
-                  {
-                    id: "5",
-                    title: "Card 5",
-                  },
-                  {
-                    id: "6",
-                    title: "Card 6",
-                  },
-                  {
-                    id: "7",
-                    title: "Card 7",
-                  },
-                  {
-                    id: "8",
-                    title: "Card 8",
-                  },
-                ]}
-              />
             </div>
+            <CardSlider
+              sectionId="jobs"
+              cards={pageData.jobSearchToolLinksCollection.items}
+              heading="All Job Search Tools"
+              theme="blue"
+            />
+            <CardSlider
+              sectionId="training"
+              cards={pageData.trainingToolLinksCollection.items}
+              heading="All Training Tools"
+              theme="green"
+            />
+            <CardSlider
+              sectionId="explore"
+              cards={pageData.careerExplorationToolLinksCollection.items}
+              heading="All Career Exploration Tools"
+              theme="purple"
+            />
+            <CardSlider
+              sectionId="support"
+              cards={pageData.supportAndAssistanceLinksCollection.items}
+              heading="All Support and Assistance Resources"
+              theme="navy"
+            />
           </>
         )}
       </div>

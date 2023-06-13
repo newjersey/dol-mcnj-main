@@ -1,37 +1,104 @@
 .card-slider {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  padding: 6rem 0;
+
+  .container {
+    padding: 1rem;
+    position: relative;
+  }
+
+  .inner {
+    @media screen and (min-width: ($desk)) {
+      padding: 1rem;
+      position: relative;
+
+      overflow: hidden;
+    }
+
+    &:before,
+    &:after {
+      @media screen and (min-width: ($desk)) {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        height: 100%;
+        pointer-events: none;
+        width: 32px;
+        height: 220px;
+        z-index: 1;
+      }
+    }
+
+    &:before {
+      left: -1rem;
+      border-left: 1rem solid white;
+      background: linear-gradient(to right, white, transparent);
+    }
+    &:after {
+      right: 0rem;
+      border-right: 1rem solid white;
+      background: linear-gradient(to left, white, transparent);
+    }
+  }
+
+  .sectionHeading {
+    margin-bottom: 4rem;
+  }
 
   .slider-container {
     display: flex;
+    gap: 2rem;
     transition: transform 0.3s ease;
 
-    .card {
-      flex: 0 0 calc(100% / 4.5);
-      padding: 1rem;
-      border: 1px solid $grey;
+    @media screen and (max-width: ($desk - 1)) {
+      flex-wrap: wrap;
+    }
+
+    .iconCard {
+      @media screen and (min-width: ($desk)) {
+        flex: 0 0 calc(100% / 4.5 - 2rem);
+      }
+
+      @media screen and (max-width: ($desk - 1)) {
+        width: calc(33.333% - 2rem);
+      }
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        width: calc(50% - 2rem);
+      }
+
+      @media screen and (max-width: ($mobMed - 1)) {
+        width: 100%;
+      }
+
+      a {
+        height: 100%;
+      }
     }
   }
 
   .arrow {
     position: absolute;
-    top: 50%;
+    top: calc(50% + 4rem);
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
     font-size: 1.5rem;
-    background-color: $blue;
-    color: white;
     border: none;
     cursor: pointer;
+    z-index: 2;
+
+    @media screen and (max-width: ($desk - 1)) {
+      display: none;
+    }
 
     &.left {
-      left: 10px;
+      left: -2rem;
     }
 
     &.right {
-      right: 10px;
+      right: -2rem;
     }
   }
 }
