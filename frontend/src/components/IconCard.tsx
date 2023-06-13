@@ -1,22 +1,5 @@
-import * as Svg from "../svg/Icons";
 import { IconSelector } from "./IconSelector";
-import { IconNames } from "../types/icons";
-
-interface IconCardProps {
-  centered?: boolean;
-  large?: boolean;
-  className?: string;
-  alignLeft?: boolean;
-  description?: string;
-  icon?: string;
-  indicator?: string;
-  svg?: keyof typeof Svg;
-  theme?: "blue" | "green" | "purple" | "navy" | "orange";
-  title: string;
-  iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
-  fill?: boolean;
-  url: string;
-}
+import { IconCardProps, IconNames } from "../types/icons";
 
 export const IconCard = ({
   centered,
@@ -49,7 +32,7 @@ export const IconCard = ({
       <a href={url} target={linkTarget} rel={linkRel}>
         <div className="icons">
           <span className="icon-container">
-            <IconSelector weight={iconWeight} svgName={svg} name={iconName} size={25} />
+            <IconSelector weight={iconWeight} svgName={svg} name={iconName} size={32} />
           </span>
           {!centered && indicatorName && (
             <span className="icon-container">
