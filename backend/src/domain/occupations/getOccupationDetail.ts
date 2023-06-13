@@ -6,13 +6,13 @@ import {
     GetOpenJobsCount,
     FindTrainingsBy,
 } from "../types";
-import { OccupationDetail, OccupationDetailPartial } from "./Occupation";
+import {Occupation, OccupationDetail, OccupationDetailPartial } from "./Occupation";
 import { DataClient } from "../DataClient";
 import { Selector } from "../training/Selector";
 import { convertTrainingToTrainingResult } from "../training/convertTrainingToTrainingResult";
 import { Training } from "../training/Training";
 import { TrainingResult } from "../training/TrainingResult";
-import {LocalException} from "../training/Program";
+import {LocalException, NullableOccupation} from "../training/Program";
 import {convertToTitleCaseIfUppercase} from "../utils/convertToTitleCaseIfUppercase";
 
 export const getOccupationDetailFactory = (
@@ -26,11 +26,43 @@ export const getOccupationDetailFactory = (
     return async (soc: string): Promise<OccupationDetail> => {
         const isInDemand = async (soc: string): Promise<boolean> => {
             const inDemandOccupations = await dataClient.getOccupationsInDemand();
-            return inDemandOccupations.map((it) => it.soc).includes(soc);
+
+            const expandedInDemand: (Occupation & { counties?: string[] })[] = removeDuplicateSocs(
+                await expand2010SocsTo2018(inDemandOccupations)
+            );
+
+            return expandedInDemand.map((it) => it.soc).includes(soc);
+        };
+
+        const expand2010SocsTo2018 = async (occupations: NullableOccupation[]): Promise<Occupation[]> => {
+            let expanded: Occupation[] = [];
+
+            for (const occupation of occupations) {
+                if (!occupation.title) {
+                    const socs2018 = await dataClient.find2018OccupationsBySoc2010(occupation.soc);
+                    expanded = [...expanded, ...socs2018];
+                } else {
+                    expanded.push({
+                        ...occupation,
+                        title: occupation.title as string,
+                    });
+                }
+            }
+
+            return expanded;
+        };
+
+        const removeDuplicateSocs = (occupationTitles: Occupation[]): Occupation[] => {
+            return occupationTitles.filter(
+                (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
+            );
         };
 
         const getLocalExceptionCounties = async (soc: string): Promise<LocalException[]> => {
             const localExceptions = await dataClient.getLocalExceptionsBySoc();
+            if (!localExceptions || localExceptions.length == 0) {
+                return [];
+            }
             const matches = localExceptions.filter(e => e.soc === soc);
 
             const transformedMatches = matches.map((match) => {
@@ -79,6 +111,7 @@ export const getOccupationDetailFactory = (
                 });
             })
             .catch(async () => {
+                console.log('getOccupationDetailFromOnet failed');
                 const occupationTitles2010 = await dataClient.find2010OccupationsBySoc2018(soc);
 
                 if (occupationTitles2010.length === 1) {
