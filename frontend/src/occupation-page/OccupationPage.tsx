@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { WaiverBlock } from "../components/WaiverBlock";
+import {formatCountiesArrayToString} from "../utils/formatCountiesArrayToString";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -154,7 +155,7 @@ export const OccupationPage = (props: Props): ReactElement => {
 
           <div className="stat-block-stack mtm">
             <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle", {counties: `${occupationDetail.counties} Counties`})}
+                title={t("OccupationPage.localExceptionCountiesTitle", {counties: formatCountiesArrayToString(occupationDetail.counties)})}
                 backgroundColorClass="bg-light-yellow"
             />
 
