@@ -1,8 +1,7 @@
 // fix leak
 xdescribe("Occupation Page", () => {
   it("displays occupation details from ONET", () => {
-    cy.server();
-    cy.route("api/occupations/17-2051").as("getOccupation");
+    cy.intercept("api/occupations/17-2051").as("getOccupation");
 
     cy.visit("/occupation/17-2051");
 
@@ -107,8 +106,7 @@ xdescribe("Occupation Page", () => {
   });
 
   it("displays locally in-demand occupation details from ONET", () => {
-    cy.server();
-    cy.route("api/occupations/47-2031").as("getOccupation");
+    cy.intercept("api/occupations/47-2031").as("getOccupation");
     cy.visit("/occupation/47-2031");
 
     cy.wait("@getOccupation").then(() => {
@@ -120,8 +118,7 @@ xdescribe("Occupation Page", () => {
   });
 
   it("displays occupation details from ONET for previous 2010 socs", () => {
-    cy.server();
-    cy.route("api/occupations/15-1254").as("getOccupation");
+    cy.intercept("api/occupations/15-1254").as("getOccupation");
 
     cy.visit("/occupation/15-1254");
 
@@ -185,8 +182,7 @@ xdescribe("Occupation Page", () => {
   });
 
   it("displays occupation details for previous non-ONET socs", () => {
-    cy.server();
-    cy.route("api/occupations/15-1255").as("getOccupation");
+    cy.intercept("api/occupations/15-1255").as("getOccupation");
 
     cy.visit("/occupation/15-1255");
 
