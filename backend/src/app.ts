@@ -42,7 +42,7 @@ process.on('uncaughtException', function (exception) {
   Sentry.captureException(exception);
 });
 
-process.on('unhandledRejection', (reason, p) => {
+process.on('unhandledRejection', (reason) => {
   Sentry.captureException(reason);
 });
 
