@@ -22,7 +22,7 @@ dotenv.config();
 const app = express();
 
 Sentry.init({
-  dsn: "https://c155190768c6416f8622dde180634319@o4505190902202368.ingest.sentry.io/4505366015770624",
+  dsn: process.env.SENTRY_DSN,
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
@@ -36,6 +36,14 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
+});
+
+process.on('uncaughtException', function (exception) {
+  Sentry.captureException(exception);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  Sentry.captureException(reason);
 });
 
 // RequestHandler creates a separate execution context, so that all
@@ -133,13 +141,5 @@ app.use(cors());
 
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
-
-// Optional fallthrough error handler
-app.use(function onError(err, req, res, next) {
-  // The error id is attached to `res.sentry` to be returned
-  // and optionally displayed to the user for support.
-  res.statusCode = 500;
-  res.end(res.sentry + "\n");
-});
 
 export default app;
