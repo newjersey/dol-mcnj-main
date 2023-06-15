@@ -24,7 +24,7 @@
     "graphql-request": "^6.1.0",
     "i18next": "^22.5.1",
     "i18next-http-backend": "^2.2.1",
-    "libphonenumber-js": "^1.10.34",
+    "libphonenumber-js": "^1.10.36",
     "node-sass": "^9.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
