@@ -1,7 +1,7 @@
 describe("Search", () => {
-  it("searches from the homepage", () => {
+  it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/");
+    cy.visit("/training-explorer");
     cy.injectAxe();
     cy.checkA11y();
 
@@ -11,6 +11,8 @@ describe("Search", () => {
 
     // input search
     cy.get('input[aria-label="search"]').type("baking");
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.get("a#search-button").contains("Search").click({ force: true });
 
     // on search results page
