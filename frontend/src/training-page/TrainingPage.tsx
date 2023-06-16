@@ -204,14 +204,11 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
               <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
               <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
-{/*              {training.inDemand ? <InDemandTag className="mts" /> : <></>}
-              {training.localExceptionCounty ? <InDemandTag className="mts" counties={training.localExceptionCounty}/> : <></>}*/}
+
 
               {training.inDemand ? <InDemandTag className="mts" /> : <></>}
               {(
-                    !training.inDemand &&
-                    training.localExceptionCounty &&
-                    (training.localExceptionCounty.includes(removeCountyFromEnd(training.provider.county)) || training.online)
+                    !training.inDemand && training.localExceptionCounty && training.localExceptionCounty.length !== 0
                     ? <InDemandTag className="mts" counties={training.localExceptionCounty} />
                     : <></>
               )}
@@ -463,14 +460,3 @@ export const TrainingPage = (props: Props): ReactElement => {
     return <></>;
   }
 };
-
-function removeCountyFromEnd(str: string) {
-  const trimmedStr = str.trim();
-  const countyIndex = trimmedStr.lastIndexOf("County");
-
-  if (countyIndex !== -1 && countyIndex === trimmedStr.length - 6) {
-    return trimmedStr.substring(0, countyIndex).trim();
-  }
-
-  return trimmedStr;
-}
