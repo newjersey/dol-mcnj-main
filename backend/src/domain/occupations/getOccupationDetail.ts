@@ -74,18 +74,8 @@ export const getOccupationDetailFactory = (
                     ...rest
                 };
             });
-
-            const deduplicatedMatches: LocalException[] = transformedMatches.reduce((acc: LocalException[], current: LocalException) => {
-                const x = acc.find(item => item.county === current.county);
-                if (!x) {
-                    return acc.concat([current]);
-                } else {
-                    return acc;
-                }
-            }, [] as LocalException[]);
-
-
-            return deduplicatedMatches;
+            
+            return transformedMatches;
         };
 
         const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
