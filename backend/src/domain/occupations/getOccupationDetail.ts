@@ -60,23 +60,34 @@ export const getOccupationDetailFactory = (
 
         const getLocalExceptionCounties = async (soc: string): Promise<LocalException[]> => {
             const localExceptions = await dataClient.getLocalExceptionsBySoc();
+
             if (!localExceptions || localExceptions.length == 0) {
                 return [];
             }
-            const matches = localExceptions.filter(e => e.soc === soc);
 
-            const transformedMatches = matches.map((match) => {
-                const { county, ...rest } = match;
-                const transformedCounty = convertToTitleCaseIfUppercase(county);
+            const seenCounties = new Set();
+            const deduplicatedMatches: LocalException[] = [];
 
-                return {
-                    county: transformedCounty,
-                    ...rest
-                };
-            });
-            
-            return transformedMatches;
+            for (const exception of localExceptions) {
+                if (exception.soc === soc) {
+                    const transformedCounty = convertToTitleCaseIfUppercase(exception.county);
+
+                    if (!seenCounties.has(transformedCounty)) {
+                        seenCounties.add(transformedCounty);
+
+                        const { county, ...rest } = exception;
+
+                        deduplicatedMatches.push({
+                            county: transformedCounty,
+                            ...rest
+                        });
+                    }
+                }
+            }
+
+            return deduplicatedMatches;
         };
+
 
         const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
             const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
