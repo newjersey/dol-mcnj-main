@@ -82,14 +82,26 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               };
             } catch (error) {
                 console.error(`Error while processing program id ${program.programid}: `, error);
-                Sentry.captureException(error);
+
+                Sentry.withScope((scope) => {
+                  scope.setLevel("error");
+                  scope.setExtra('programId', program.programid);
+                  Sentry.captureException(error);
+                });
+
                 throw error;
             }
           })
       )).filter((item): item is Training => item !== undefined);
     } catch (error) {
         console.error(`Error while fetching programs: `, error);
-        Sentry.captureException(error);
+
+        Sentry.withScope((scope) => {
+          scope.setLevel("error");
+          scope.setExtra('selector', selector);
+          Sentry.captureException(error);
+        });
+
         throw error;
     }
   };
