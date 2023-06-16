@@ -19,5 +19,6 @@ env_variables:
   BASE_URL: \"$BASE_URL\"
   SPACE_ID: \"$SPACE_ID\"
   DELIVERY_API: \"$DELIVERY_API\"
+  SENTRY_DSN: \"$SENTRY_DSN\"
   NODE_OPTIONS: --max_old_space_size=4096
 """
