@@ -1,7 +1,7 @@
 .card-slider {
   position: relative;
   width: 100%;
-  padding: 6rem 0;
+  padding: 3rem 0;
 
   .container {
     padding: 1rem;
@@ -14,6 +14,11 @@
       position: relative;
 
       overflow: hidden;
+    }
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      display: flex;
+      flex-direction: column;
     }
 
     &:before,
@@ -43,16 +48,24 @@
   }
 
   .sectionHeading {
-    margin-bottom: 4rem;
+    @media screen and (max-width: ($tabPort - 1)) {
+      position: sticky;
+      top: 0;
+      left: 0;
+      padding-top: 1rem;
+      z-index: 1;
+    }
   }
 
   .slider-container {
     display: flex;
     gap: 2rem;
     transition: transform 0.3s ease;
+    margin-top: 4rem;
 
     @media screen and (max-width: ($desk - 1)) {
       flex-wrap: wrap;
+      transform: none !important;
     }
 
     .iconCard {

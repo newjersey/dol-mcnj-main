@@ -7,7 +7,7 @@
   }
 
   .tools {
-    padding: 6rem 0;
+    padding: 3rem 0;
 
     .sectionHeading {
       margin-bottom: 2rem;
@@ -21,11 +21,15 @@
       gap: 2rem;
 
       @media screen and (max-width: ($tabPort - 1)) {
+        gap: 1rem;
         flex-wrap: wrap;
       }
 
       .iconCard {
-        width: 184px;
+        width: 100%;
+        @media screen and (min-width: ($tabPort)) {
+          width: 184px;
+        }
 
         a {
           height: 100%;
@@ -35,8 +39,15 @@
   }
 
   .card-slider {
+    .sectionHeading {
+      background: white;
+    }
     &:nth-child(2n - 1) {
       background-color: $lighter-green;
+
+      .sectionHeading {
+        background: $lighter-green;
+      }
 
       .inner {
         &:before {
