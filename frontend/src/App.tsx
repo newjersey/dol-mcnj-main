@@ -1,4 +1,3 @@
-import * as dotenv from "dotenv";
 import { ReactElement, useReducer, useState } from "react";
 import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
@@ -42,8 +41,6 @@ import { FinancialPage } from "./financial-page/FinancialPage";
 import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
 import { CareerPathwaysRoutes } from "./career-pathways-page/CareerPathwaysRoutes";
 import * as Sentry from "@sentry/react";
-
-dotenv.config();
 
 interface Props {
   client: Client;

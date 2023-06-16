@@ -14,7 +14,6 @@
     "accounting",
     "axios",
     "dayjs",
-    "dotenv",
     "graphql-request",
     "i18next",
     "libphonenumber-js",
