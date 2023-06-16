@@ -75,11 +75,9 @@ export const getOccupationDetailFactory = (
                     if (!seenCounties.has(transformedCounty)) {
                         seenCounties.add(transformedCounty);
 
-                        const { county, ...rest } = exception;
-
                         deduplicatedMatches.push({
-                            county: transformedCounty,
-                            ...rest
+                            ...exception,
+                            county: transformedCounty
                         });
                     }
                 }
@@ -87,7 +85,6 @@ export const getOccupationDetailFactory = (
 
             return deduplicatedMatches;
         };
-
 
         const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
             const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
