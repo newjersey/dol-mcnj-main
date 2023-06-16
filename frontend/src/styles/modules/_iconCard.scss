@@ -253,12 +253,33 @@
     a {
       padding: 1.5rem 1rem;
       color: $text;
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        padding: 0.5rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .icons {
+        svg {
+          @media screen and (max-width: ($tabPort - 1)) {
+            height: 30px;
+            width: auto;
+          }
+        }
+      }
     }
 
     p {
-      margin: 1rem 0 0;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       line-height: 1;
+      margin: 0;
+
+      @media screen and (min-width: ($tabPort)) {
+        margin: 1rem 0 0;
+        font-size: 1.3rem;
+      }
     }
 
     .icons {

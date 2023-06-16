@@ -11,6 +11,10 @@
     color: $black;
     font-size: 2rem;
     display: inline-block;
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      font-size: 1.5rem;
+    }
   }
 
   &.strikeThrough {
