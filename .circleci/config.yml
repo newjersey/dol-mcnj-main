@@ -38,7 +38,7 @@ jobs:
       - store_artifacts:
           path: feature-test-output.txt
       - store_artifacts:
-          path: cypress/videos
+          path: ~/project/frontend/cypress/videos
       - persist_to_workspace:
           root: ~/project
           paths:
