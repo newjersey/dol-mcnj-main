@@ -4,6 +4,7 @@ import { TrainingResult } from "../training/TrainingResult";
 import { Training } from "../training/Training";
 import { SearchClient } from "./SearchClient";
 import { Selector } from "../training/Selector";
+import * as Sentry from "@sentry/node";
 
 export const searchTrainingsFactory = (
     findTrainingsBy: FindTrainingsBy,
@@ -62,8 +63,9 @@ export const searchTrainingsFactory = (
           })
       );
     } catch (error) {
-      console.error(`Failed to search for trainings with the query: ${searchQuery}`, error);
-      throw error;
+        console.error(`Failed to search for trainings with the query: ${searchQuery}`, error);
+        Sentry.captureException(error);
+        throw error;
     }
   };
 };
