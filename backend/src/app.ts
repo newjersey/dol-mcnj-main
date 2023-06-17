@@ -1,6 +1,5 @@
 import * as dotenv from "dotenv";
-dotenv.config();
-
+import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
@@ -17,7 +16,41 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { contentfulFactory } from "./domain/contentful/getContentful";
 
+dotenv.config();
 // console.log(process.env);
+
+const app = express();
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Sentry.Integrations.Express({ app }),
+    // Automatically instrument Node.js libraries and frameworks
+    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
+process.on('uncaughtException', function (exception) {
+  Sentry.captureException(exception);
+});
+
+process.on('unhandledRejection', (reason) => {
+  Sentry.captureException(reason);
+});
+
+// RequestHandler creates a separate execution context, so that all
+// transactions/spans/breadcrumbs are isolated across requests
+app.use(Sentry.Handlers.requestHandler());
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler());
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -45,7 +78,7 @@ const apiValues = {
 };
 
 // try to update to use env vars in all cases EXCEPT running feature tests in CI
-// because in CI, we want to use wiremock jsons, not the real APIs
+// because in CI,f we want to use wiremock jsons, not the real APIs
 if (!isCI) {
   apiValues.onetBaseUrl = process.env.ONET_BASEURL || "http://localhost:8090";
   apiValues.onetAuth = {
@@ -93,10 +126,6 @@ const router = routerFactory({
   ),
 });
 
-const app = express();
-
-app.use(cors());
-
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use("/api", router);
 app.get("/", (req: Request, res: Response) => {
@@ -107,5 +136,10 @@ app.get("*", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+
+app.use(cors());
+
+// The error handler must be before any other error middleware and after all controllers
+app.use(Sentry.Handlers.errorHandler());
 
 export default app;
