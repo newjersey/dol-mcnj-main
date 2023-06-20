@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
 interface Params {
   baseUrl: string;
   headers: any;
   method: string;
 }
+
 const config: Params = {
   baseUrl: `https://${process.env.BASE_URL}/${process.env.SPACE_ID}`,
   headers: {
