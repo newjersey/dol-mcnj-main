@@ -1,5 +1,6 @@
 import { ArrowRight, CurrencyDollarSimple } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 
 export const SearchBlock = () => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -9,6 +10,8 @@ export const SearchBlock = () => {
   const [zipCode, setZipCode] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchUrl, setSearchUrl] = useState<string>("");
+
+  const sanitizedValue = (value: string | Node) => DOMPurify.sanitize(value);
 
   const clearAllInputs = () => {
     const inputs = document.querySelectorAll("input");
@@ -95,7 +98,7 @@ export const SearchBlock = () => {
             aria-label="search"
             className="search-input usa-input"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value);
+              setSearchTerm(sanitizedValue(e.target.value));
             }}
             defaultValue={searchTerm}
           />
@@ -129,7 +132,8 @@ export const SearchBlock = () => {
                       setMiles("");
                       return;
                     }
-                    setMiles(e.target.value);
+
+                    setMiles(sanitizedValue(e.target.value));
                   }}
                 >
                   <option>Miles</option>
@@ -145,7 +149,7 @@ export const SearchBlock = () => {
                   id="zipCode"
                   placeholder="ZIP code"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setZipCode(e.target.value);
+                    setZipCode(sanitizedValue(e.target.value));
                   }}
                 />
               </div>
@@ -160,7 +164,7 @@ export const SearchBlock = () => {
                 name="Max Cost"
                 id="maxCost"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setMaxCost(e.target.value);
+                  setMaxCost(sanitizedValue(e.target.value));
                 }}
               />
               <a href="/tuition-assistance" className="usa-button usa-button--unstyled">
