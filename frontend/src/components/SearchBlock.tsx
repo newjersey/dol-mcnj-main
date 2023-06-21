@@ -73,7 +73,7 @@ export const SearchBlock = () => {
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
   return (
     <section className="search-block">
-      <form action={searchUrl} className="container">
+      <form action={searchUrl} className="container" data-testid="search-form">
         <div className="heading">
           <h2>Find Training</h2>
           <button
@@ -94,6 +94,7 @@ export const SearchBlock = () => {
           </label>
           <input
             id="search-input"
+            data-testid="search-input"
             type="text"
             aria-label="search"
             className="search-input usa-input"
@@ -103,7 +104,7 @@ export const SearchBlock = () => {
             defaultValue={searchTerm}
           />
           <div className="submit">
-            <button type="submit" className="usa-button">
+            <button type="submit" data-testid="search-submit" className="usa-button">
               Search
             </button>
             <a
