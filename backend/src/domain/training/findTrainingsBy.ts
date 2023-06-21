@@ -8,6 +8,8 @@ import { CalendarLength } from "../CalendarLength";
 import { LocalException, Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
+import * as Sentry from "@sentry/node";
+
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
@@ -79,14 +81,28 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                     mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
               };
             } catch (error) {
-              console.error(`Error while processing program id ${program.programid}: `, error);
-              throw error;
+                console.error(`Error while processing program id ${program.programid}: `, error);
+
+                Sentry.withScope((scope) => {
+                  scope.setLevel("error");
+                  scope.setExtra('programId', program.programid);
+                  Sentry.captureException(error);
+                });
+
+                throw error;
             }
           })
       )).filter((item): item is Training => item !== undefined);
     } catch (error) {
-      console.error(`Error while fetching programs: `, error);
-      throw error;
+        console.error(`Error while fetching programs: `, error);
+
+        Sentry.withScope((scope) => {
+          scope.setLevel("error");
+          scope.setExtra('selector', selector);
+          Sentry.captureException(error);
+        });
+
+        throw error;
     }
   };
 };

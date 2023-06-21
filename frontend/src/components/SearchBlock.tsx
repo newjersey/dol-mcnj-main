@@ -1,5 +1,6 @@
 import { ArrowRight, CurrencyDollarSimple } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 
 export const SearchBlock = () => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -9,6 +10,8 @@ export const SearchBlock = () => {
   const [zipCode, setZipCode] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchUrl, setSearchUrl] = useState<string>("");
+
+  const sanitizedValue = (value: string | Node) => DOMPurify.sanitize(value);
 
   const clearAllInputs = () => {
     const inputs = document.querySelectorAll("input");
@@ -70,7 +73,7 @@ export const SearchBlock = () => {
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
   return (
     <section className="search-block">
-      <div className="container">
+      <form action={searchUrl} className="container" data-testid="search-form">
         <div className="heading">
           <h2>Find Training</h2>
           <button
@@ -91,18 +94,19 @@ export const SearchBlock = () => {
           </label>
           <input
             id="search-input"
+            data-testid="search-input"
             type="text"
             aria-label="search"
             className="search-input usa-input"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value);
+              setSearchTerm(sanitizedValue(e.target.value));
             }}
             defaultValue={searchTerm}
           />
           <div className="submit">
-            <a href={searchUrl} className="usa-button">
+            <button type="submit" data-testid="search-submit" className="usa-button">
               Search
-            </a>
+            </button>
             <a
               id="search-button"
               href={`/search/${searchTerm}`}
@@ -129,7 +133,8 @@ export const SearchBlock = () => {
                       setMiles("");
                       return;
                     }
-                    setMiles(e.target.value);
+
+                    setMiles(sanitizedValue(e.target.value));
                   }}
                 >
                   <option>Miles</option>
@@ -145,7 +150,7 @@ export const SearchBlock = () => {
                   id="zipCode"
                   placeholder="ZIP code"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setZipCode(e.target.value);
+                    setZipCode(sanitizedValue(e.target.value));
                   }}
                 />
               </div>
@@ -160,7 +165,7 @@ export const SearchBlock = () => {
                 name="Max Cost"
                 id="maxCost"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setMaxCost(e.target.value);
+                  setMaxCost(sanitizedValue(e.target.value));
                 }}
               />
               <a href="/tuition-assistance" className="usa-button usa-button--unstyled">
@@ -200,7 +205,7 @@ export const SearchBlock = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </section>
   );
 };
