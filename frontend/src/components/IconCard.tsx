@@ -29,7 +29,21 @@ export const IconCard = ({
 
   return (
     <div className={classes}>
-      <a href={url} target={linkTarget} rel={linkRel}>
+      <a
+        href={url}
+        onClick={(e) => {
+          e.preventDefault();
+          // smooth scroll to element with id if the link starts with a hash
+          if (url.startsWith("#")) {
+            const element = document.getElementById(url.substring(1));
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        }}
+        target={linkTarget}
+        rel={linkRel}
+      >
         <div className="icons">
           <span className="icon-container">
             <IconSelector weight={iconWeight} svgName={svg} name={iconName} size={32} />
