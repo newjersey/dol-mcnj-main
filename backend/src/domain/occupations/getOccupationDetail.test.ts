@@ -1,15 +1,16 @@
-import { GetOccupationDetail } from "../types";
-import { StubDataClient } from "../test-objects/StubDataClient";
-import { getOccupationDetailFactory } from "./getOccupationDetail";
+import {GetOccupationDetail} from "../types";
+import {StubDataClient} from "../test-objects/StubDataClient";
+import {getOccupationDetailFactory} from "./getOccupationDetail";
 import {
-  buildOccupationDetailPartial,
+  buildAddress,
   buildOccupation,
+  buildOccupationDetailPartial,
+  buildProvider,
   buildSocDefinition,
   buildTraining,
-  buildProvider,
-  buildAddress,
 } from "../test-objects/factories";
-import { Error } from "../Error";
+import {Error} from "../Error";
+import {CalendarLength} from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -71,7 +72,7 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: 33,
+          calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -101,7 +102,7 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: 33,
+            calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
@@ -164,7 +165,7 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: 33,
+          calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -195,7 +196,7 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: 33,
+            calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
@@ -264,7 +265,7 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: 33,
+          calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -297,7 +298,7 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: 33,
+            calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
