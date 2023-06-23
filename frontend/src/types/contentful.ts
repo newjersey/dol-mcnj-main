@@ -88,6 +88,7 @@ export interface PageBannerProps {
   };
   section: "explore" | "jobs" | "support" | "training";
   message?: ContentfulRichText;
+  description?: string;
   ctaHeading?: string;
   ctaLinksCollection?: {
     items: LinkObjectProps[];
@@ -432,5 +433,49 @@ export interface AllSupportPageProps {
       slug: string;
       description?: string;
     }[];
+  };
+}
+
+export interface TagProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+}
+
+export interface ResourceCategoryPageProps {
+  page: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+    }[];
+  };
+  tags: {
+    items: TagProps[];
+  };
+  audience: {
+    items: TagProps[];
+  };
+  cta: {
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+  };
+}
+
+export interface ResourceListProps {
+  resources: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      tags: {
+        items: TagProps[];
+      };
+    };
   };
 }
