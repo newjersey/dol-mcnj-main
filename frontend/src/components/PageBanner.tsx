@@ -8,6 +8,7 @@ export const PageBanner = ({
   title,
   breadcrumbTitle,
   message,
+  description,
   breadcrumbsCollection,
   section,
   ctaHeading,
@@ -57,6 +58,7 @@ export const PageBanner = ({
           <div className="heading">
             <h1>{title}</h1>
             {message && <ContentfulRichText document={message.json} />}
+            {description && <p>{description}</p>}
           </div>
           {ctaLinksCollection && (
             <div className="cta-block">
