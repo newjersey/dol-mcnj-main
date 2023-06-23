@@ -41,6 +41,7 @@ import { FinancialPage } from "./financial-page/FinancialPage";
 import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
 import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
 import * as Sentry from "@sentry/react";
+import { AllSupportPage } from "./all-support-page/AllSupportPage";
 
 interface Props {
   client: Client;
@@ -108,6 +109,7 @@ export const App = (props: Props): ReactElement => {
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
+              <AllSupportPage path="/support-resources" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default client={props.client} />
             </Router>
