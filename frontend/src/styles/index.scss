@@ -244,3 +244,22 @@ ol {
     max-width: 1294px;
   }
 }
+
+.flex-card-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+
+  > * {
+    max-width: 260px;
+  }
+}
+
+.section-padding {
+  padding: 4rem 0;
+
+  @media screen and (max-width: ($tabPort - 1)) {
+    padding: 2rem 0;
+  }
+}

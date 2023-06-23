@@ -1,3 +1,4 @@
+import { AllSupportPage } from "./../all-support-page/AllSupportPage";
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
 import { IconNames } from "./icons";
@@ -410,5 +411,27 @@ export interface HomepageProps {
     supportAndAssistanceLinksCollection: {
       items: IconLinkProps[];
     };
+  };
+}
+
+export interface AllSupportPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+    industries: {
+      items: IndustryProps[];
+    };
+  };
+  categories: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+    }[];
   };
 }
