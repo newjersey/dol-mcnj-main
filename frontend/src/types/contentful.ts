@@ -441,6 +441,9 @@ export interface TagProps {
     id: string;
   };
   title: string;
+  category: {
+    slug: string;
+  };
 }
 
 export interface ResourceCategoryPageProps {
@@ -452,6 +455,7 @@ export interface ResourceCategoryPageProps {
       title: string;
       slug: string;
       description?: string;
+      infoBox?: string;
     }[];
   };
   tags: {
@@ -466,16 +470,19 @@ export interface ResourceCategoryPageProps {
   };
 }
 
+export interface ResourceItemProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  description: string;
+  link: string;
+  tags: {
+    items: TagProps[];
+  };
+}
 export interface ResourceListProps {
   resources: {
-    items: {
-      sys: {
-        id: string;
-      };
-      title: string;
-      tags: {
-        items: TagProps[];
-      };
-    };
+    items: ResourceItemProps[];
   };
 }

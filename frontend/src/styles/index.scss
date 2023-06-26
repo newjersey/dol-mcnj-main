@@ -31,6 +31,7 @@
 @import "modules/section-heading";
 @import "modules/path-menu";
 @import "modules/single-path";
+@import "modules/tags";
 @import "components/career-map";
 @import "components/career-pathways";
 @import "components/cardSlider";
@@ -45,10 +46,14 @@
 @import "components/pathway-menus";
 @import "components/resource-filter";
 @import "components/resource-links";
+@import "components/resourceList";
 @import "components/search-block";
 @import "components/stepper";
 @import "components/tab-content";
 @import "components/homeBanner";
+@import "components/labelBox";
+@import "components/filterControls";
+@import "components/resourceCard";
 
 * {
   -webkit-box-sizing: border-box;

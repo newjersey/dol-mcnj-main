@@ -1,0 +1,68 @@
+.resource-list {
+  padding: 6rem 0;
+
+  .labelBox {
+    .title {
+      justify-content: center;
+    }
+  }
+
+  .container {
+    display: flex;
+    gap: 2rem;
+
+    @media screen and (max-width: ($tabMed - 1)) {
+      flex-direction: column;
+    }
+
+    &:before,
+    &:after {
+      content: none;
+    }
+
+    .filterControls {
+      @media screen and (min-width: ($tabMed)) {
+        width: 411px;
+      }
+
+      @media screen and (max-width: ($tabMed - 1)) {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      @media screen and (min-width: ($tabMed)) {
+        width: calc(100% - 411px);
+      }
+    }
+  }
+
+  .list-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .label {
+      font-weight: bold;
+    }
+
+    .tags {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .tag-item {
+      padding: 0.5rem;
+      border-radius: 0.3rem;
+    }
+  }
+}
