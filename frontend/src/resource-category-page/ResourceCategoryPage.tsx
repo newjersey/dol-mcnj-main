@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { ResourceCategoryPageProps, ResourceListProps } from "../types/contentful";
+import { ResourceCategoryPageProps } from "../types/contentful";
 import { RESOURCE_CATEGORY_QUERY } from "../queries/resourceCategory";
 import { PageBanner } from "../components/PageBanner";
 import { ResourceList } from "../components/ResourceList";
@@ -40,8 +40,14 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
               ],
             }}
           />
+
           <section className="all-support-cards">
-            <ResourceList tags={data.tags.items} audience={data.audience.items} />
+            <ResourceList
+              category={data.page.items[0].title}
+              tags={data.tags.items}
+              info={data.page.items[0].infoBox}
+              audience={data.audience.items}
+            />
           </section>
         </>
       )}

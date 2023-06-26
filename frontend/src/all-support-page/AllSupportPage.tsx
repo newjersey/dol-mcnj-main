@@ -18,6 +18,22 @@ export const AllSupportPage = (props: Props): ReactElement => {
     query: ALL_SUPPORT_PAGE_QUERY,
   });
 
+  // sort categories by title
+  data.categories.items.sort((a, b) => a.title.localeCompare(b.title));
+
+  // filter out categories that is titled "Other Assistance"
+  const filteredCategories: AllSupportPageProps["categories"]["items"] =
+    data.categories.items.filter((category) => category.title !== "Other Assistance");
+
+  const otherAssistance = data.categories.items.find(
+    (category) => category.title === "Other Assistance"
+  );
+
+  // add "Other Assistance" to the end of the list
+  if (otherAssistance) {
+    filteredCategories.push(otherAssistance);
+  }
+
   return (
     <Layout
       client={props.client}
@@ -32,7 +48,7 @@ export const AllSupportPage = (props: Props): ReactElement => {
           <section className="all-support-cards">
             <div className="container">
               <div className="flex-card-row section-padding">
-                {data.categories.items.map((card) => (
+                {filteredCategories.map((card) => (
                   <IconCard
                     svg="SupportBold"
                     title={card.title}

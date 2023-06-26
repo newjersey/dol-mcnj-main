@@ -7,6 +7,7 @@ export const RESOURCE_CATEGORY_QUERY = `query ResourceCategory($slug: String!) {
       title
       description
       slug
+      infoBox
     }
   }
   tags: resourceTagCollection(where: {category: {slug: $slug}}) {
@@ -16,6 +17,7 @@ export const RESOURCE_CATEGORY_QUERY = `query ResourceCategory($slug: String!) {
       }
       title
       category {
+        title
         slug
       }
     }
@@ -27,6 +29,7 @@ export const RESOURCE_CATEGORY_QUERY = `query ResourceCategory($slug: String!) {
       }
       title
       category {
+        title
         slug
       }
     }
@@ -48,12 +51,18 @@ export const RESOURCE_LISTING_QUERY = `query ResourceListing($tags: [String!]) {
         id
       }
       title
+      description
+      link
       tags: tagsCollection(limit: 20) {
         items {
           sys {
             id
           }
           title
+          category {
+            title
+            slug
+          }
         }
       }
     }

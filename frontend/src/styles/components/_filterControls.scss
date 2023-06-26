@@ -1,0 +1,72 @@
+.filterControls {
+  .labelBox {
+    background-color: $lighter-green;
+
+    .heading-tag {
+      justify-content: center;
+    }
+  }
+
+  .group-heading {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .heading {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+  }
+
+  .clear {
+    margin: 1rem 0 0;
+  }
+
+  .clear-all {
+    padding: 0.8rem 1.3rem;
+  }
+
+  button {
+    width: auto;
+  }
+
+  label:before,
+  .usa-checkbox {
+    background-color: transparent;
+  }
+
+  .usa-checkbox__input:checked + [class*="__label"]::before {
+    background-color: $navy;
+    box-shadow: 0 0 0 2px $navy;
+  }
+
+  .usa-checkbox__input:focus + [class*="__label"]::before {
+    outline: 0.25rem solid $navy;
+  }
+
+  .usa-button--outline {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px $navy;
+    color: $navy;
+
+    &:hover {
+      box-shadow: inset 0 0 0 2px $blue;
+
+      color: $blue;
+    }
+
+    &:focus {
+      outline: 0.25rem solid $navy;
+    }
+  }
+
+  .usa-button.usa-button--unstyled {
+    color: $navy;
+
+    &:focus {
+      outline: 0.25rem solid $navy;
+    }
+  }
+}
