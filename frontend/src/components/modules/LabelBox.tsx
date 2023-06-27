@@ -44,7 +44,11 @@ export const LabelBox = ({
             {icon && <IconSelector name={icon} size={20} weight={iconWeight} />}
             {title}
           </Heading>
-          {open ? <CaretUp weight="bold" size={20} /> : <CaretDown weight="bold" size={20} />}
+          {open ? (
+            <CaretUp className="indicator" weight="bold" size={20} />
+          ) : (
+            <CaretDown className="indicator" weight="bold" size={20} />
+          )}
         </button>
       ) : (
         <Heading className="title" level={headingLevel}>

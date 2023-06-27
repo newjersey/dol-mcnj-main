@@ -15,17 +15,35 @@ export const ResourceListHeading = ({
   totalCount,
 }: ResourceListHeadingProps) => {
   const showing = count > 0 ? count : tags.length > 0 ? count : totalCount;
+
+  const inputClick = (inputId: string) => {
+    const input = document.getElementById(inputId) as HTMLInputElement | null;
+    if (!input) return;
+    input.focus();
+    input.click();
+  };
+
   return (
     <div className="list-heading">
       <div>
         <span className="label">filtered by:</span>
         <div className="tags">
           {tags.map((tag) => (
-            <Tag
+            <button
               key={tag.sys.id}
-              title={tag.title}
-              color={tag.category.slug === "audience" ? "blue" : theme}
-            />
+              onClick={() => {
+                inputClick(tag.sys.id);
+              }}
+            >
+              <Tag
+                title={tag.title}
+                color={tag.category.slug === "audience" ? "blue" : theme}
+                icon="X"
+                iconSize={20}
+                iconWeight="bold"
+                suffix
+              />
+            </button>
           ))}
         </div>
       </div>

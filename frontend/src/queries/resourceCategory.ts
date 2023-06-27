@@ -8,6 +8,15 @@ export const RESOURCE_CATEGORY_QUERY = `query ResourceCategory($slug: String!) {
       description
       slug
       infoBox
+      related: relatedCategoriesCollection(limit: 5) {
+        items {
+          sys {
+            id
+          }
+          title
+          slug
+        }
+      }
     }
   }
   tags: resourceTagCollection(where: {category: {slug: $slug}}) {

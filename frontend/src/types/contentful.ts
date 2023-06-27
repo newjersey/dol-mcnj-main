@@ -446,6 +446,14 @@ export interface TagProps {
   };
 }
 
+export interface RelatedCategoryProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  slug: string;
+}
+
 export interface ResourceCategoryPageProps {
   page: {
     items: {
@@ -456,6 +464,9 @@ export interface ResourceCategoryPageProps {
       slug: string;
       description?: string;
       infoBox?: string;
+      related?: {
+        items: RelatedCategoryProps[];
+      };
     }[];
   };
   tags: {
