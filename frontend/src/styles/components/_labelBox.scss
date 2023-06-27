@@ -7,13 +7,16 @@
     @media screen and (max-width: ($tabMed - 1)) {
       border-radius: 0;
     }
+
     .content {
       @media screen and (max-width: ($tabMed - 1)) {
         display: none;
       }
 
       &.open {
-        display: block;
+        @media screen and (max-width: ($tabMed - 1)) {
+          display: block;
+        }
       }
     }
   }
@@ -28,6 +31,20 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    @media screen and (min-width: ($tabMed)) {
+      cursor: auto;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    .indicator {
+      @media screen and (min-width: ($tabMed)) {
+        display: none;
+      }
+    }
   }
 
   .content {

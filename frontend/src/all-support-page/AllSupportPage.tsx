@@ -19,13 +19,13 @@ export const AllSupportPage = (props: Props): ReactElement => {
   });
 
   // sort categories by title
-  data.categories.items.sort((a, b) => a.title.localeCompare(b.title));
+  data?.categories.items.sort((a, b) => a.title.localeCompare(b.title));
 
   // filter out categories that is titled "Other Assistance"
   const filteredCategories: AllSupportPageProps["categories"]["items"] =
-    data.categories.items.filter((category) => category.title !== "Other Assistance");
+    data?.categories.items.filter((category) => category.title !== "Other Assistance");
 
-  const otherAssistance = data.categories.items.find(
+  const otherAssistance = data?.categories.items.find(
     (category) => category.title === "Other Assistance"
   );
 
@@ -39,7 +39,13 @@ export const AllSupportPage = (props: Props): ReactElement => {
       client={props.client}
       theme="support"
       footerComponent={
-        data && <FooterCta heading={data.page.footerCtaHeading} link={data.page.footerCtaLink} />
+        data && (
+          <FooterCta
+            heading={data.page.footerCtaHeading}
+            link={data.page.footerCtaLink}
+            headingLevel={2}
+          />
+        )
       }
     >
       {data && (

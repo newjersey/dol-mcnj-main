@@ -117,7 +117,7 @@ export const CareerDetail = ({
             <div className="heading">
               <div>
                 <h3>{data.careerMapObject.title}</h3>
-                {data.careerMapObject.inDemand && (
+                {breadcrumbs.industry !== "Manufacturing" && data.careerMapObject.inDemand && (
                   <span className="tag">
                     <ChartLineUp size={15} />
                     &nbsp; In-Demand

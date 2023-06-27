@@ -1,14 +1,31 @@
 .filterControls {
-  .labelBox {
-    background-color: $lighter-green;
+  width: 100%;
 
-    .heading-tag {
+  .labelBox {
+    .content {
+      background-color: $lighter-green;
+      width: 100%;
+
+      @media screen and (max-width: ($tabMed - 1)) {
+        border: 1px solid $grey;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tabMed - 1)) {
+          position: absolute;
+          left: 0;
+        }
+      }
+    }
+
+    .group-heading {
       justify-content: center;
     }
   }
 
   .group-heading {
     font-weight: 500;
+    font-size: 1.5rem;
     margin: 0;
   }
 
@@ -50,6 +67,7 @@
     background-color: transparent;
     box-shadow: inset 0 0 0 2px $navy;
     color: $navy;
+    border-radius: 5px;
 
     &:hover {
       box-shadow: inset 0 0 0 2px $blue;

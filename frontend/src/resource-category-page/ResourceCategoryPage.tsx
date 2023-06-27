@@ -25,6 +25,7 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
         <>
           <PageBanner
             title={data.page.items[0].title}
+            theme="navy"
             description={data.page.items[0].description}
             section="support"
             breadcrumbsCollection={{
@@ -47,6 +48,8 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
               tags={data.tags.items}
               info={data.page.items[0].infoBox}
               audience={data.audience.items}
+              cta={data.cta}
+              related={data.page.items[0].related?.items}
             />
           </section>
         </>
