@@ -26,10 +26,9 @@ For this reason, many tables have extraneous columns that are not used (or not _
 
 This is the ETPL source of truth. Has a row for every program and its provider
 (so provider data may be duplicated on many rows)
-Columns with no description are not yet used in the app.
 
 | column name                        | description                                          | CTDL Column         |
-| ---------------------------------- | ---------------------------------------------------- | ------------------- |
+|------------------------------------|------------------------------------------------------| ------------------- |
 | PROVIDERID                         |                                                      |
 | OFFICIALNAME                       | program title                                        |
 | CIPCODE                            | training category code                               |
@@ -127,6 +126,8 @@ Columns with no description are not yet used in the app.
 | mention_remote                     |                                                      |
 | commented_suspended_program_status |                                                      |
 | standardized_nongovapproval        |                                                      |
+| programnewtonjtopps                | for NJTOPPS => IGX migration                         |
+| providernewtonjtopps               | for NJTOPPS => IGX migration                                                     |
 
 ### soccipcrosswalk
 
