@@ -35,14 +35,14 @@
       left: calc(100% + 9rem);
       transform: translateY(-50%);
 
-      @media screen and (max-width: ($tabLand - 1)) {
+      @media screen and (max-width: ($desktop - 1)) {
         display: none;
       }
     }
   }
 
   ul {
-    @media screen and (min-width: ($mobTab + 1)) {
+    @media screen and (min-width: ($tablet + 1)) {
       display: flex;
       justify-content: center;
       width: 100%;
@@ -55,7 +55,7 @@
     text-align: center;
     max-width: $size-200;
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       max-width: 360px;
       margin: 0 auto;
     }
@@ -68,7 +68,7 @@
     }
 
     + li {
-      @media screen and (max-width: ($mobTab)) {
+      @media screen and (max-width: ($tablet)) {
         margin-top: $size-16;
       }
     }
@@ -84,7 +84,7 @@
       transition-duration: 0.3s;
       transition-timing-function: ease-in-out;
 
-      @media screen and (min-width: ($mobTab + 1)) {
+      @media screen and (min-width: ($tablet + 1)) {
         height: $size-160;
         display: flex;
         flex-direction: column;
@@ -93,14 +93,14 @@
       }
 
       &:hover {
-        @media screen and (min-width: ($mobTab)) {
+        @media screen and (min-width: ($tablet)) {
           box-shadow: 5px $size-4 $size-12 - $size-3 $grey;
           transform: scale(1.03);
         }
       }
 
       span {
-        @media screen and (min-width: ($mobTab + 1)) {
+        @media screen and (min-width: ($tablet + 1)) {
           display: block;
           padding-bottom: 1.2rem;
           height: calc(100% - 77px);
@@ -110,7 +110,7 @@
   }
 
   .icon {
-    @media screen and (min-width: ($mobTab + 1)) {
+    @media screen and (min-width: ($tablet + 1)) {
       height: 157px;
       display: flex;
       justify-content: center;
@@ -128,7 +128,7 @@
     padding: 0.4rem;
     box-sizing: content-box;
     margin-bottom: 1.3rem;
-    @media screen and (min-width: ($mobTab + 1)) {
+    @media screen and (min-width: ($tablet + 1)) {
       margin-bottom: 0;
     }
   }

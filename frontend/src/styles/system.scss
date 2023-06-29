@@ -463,7 +463,7 @@ $gray-warm-90: #171716;
 
 // THEME COLORS
 
-$base-lightest: $gray-5;
+$base-lightest: $gray-cool-5;
 $base-lighter: $gray-cool-10;
 $base-light: $gray-cool-30;
 $base: $gray-cool-50;
@@ -477,19 +477,25 @@ $primary: $blue-60v;
 $primary-vivid: $blue-warm-60v;
 $primary-dark: $blue-warm-70v;
 $primary-darker: $blue-warm-80v;
-$secondary-lighter: $red-cool-10v;
-$secondary-light: $red-30;
-$secondary: $red-50;
-$secondary-vivid: $red-cool-50v;
-$secondary-dark: $red-60v;
-$secondary-darker: $red-70v;
+$secondary-lighter: $green-cool-10v;
+$secondary-light: $green-cool-30;
+$secondary: $green-cool-50;
+$secondary-vivid: $green-cool-60;
+$secondary-dark: $green-cool-70;
+$secondary-darker: $green-cool-80;
+$tertiary-lighter: $indigo-cool-5v;
+$tertiary-light: $indigo-30;
+$tertiary: $indigo-50;
+$tertiary-vivid: $indigo-50v;
+$tertiary-dark: $indigo-60v;
+$tertiary-darker: $indigo-70v;
 $accent-cool-lighter: $blue-cool-5v;
 $accent-cool-light: $blue-cool-20v;
 $accent-cool: $cyan-30v;
 $accent-cool-dark: $blue-cool-40v;
 $accent-cool-darker: $blue-cool-60v;
 $accent-warm-lighter: $orange-10;
-$accent-warm-light: $orange-30;
+$accent-warm-light: $orange-20v;
 $accent-warm: $orange-30v;
 $accent-warm-dark: $orange-50v;
 $accent-warm-darker: $orange-60;
@@ -566,24 +572,26 @@ $size-1400: 87.5rem;
 
 // BREAKPOINTS
 
-$card: $size-160;
-$card-lg: $size-240;
-$mobile: $size-320;
-$mobile-lg: $size-480;
-$tablet: $size-640;
-$tablet-lg: $size-880;
-$desktop: $size-1024;
-$desktop-lg: $size-1200;
-$widescreen: $size-1400;
+$card: 160px;
+$card-lg: 240px;
+$mobile: 320px;
+$mobile-lg: 480px;
+$tablet: 640px;
+$tablet-md: 768px;
+$tablet-lg: 880px;
+$tablet-xl: 992px;
+$desktop: 1024px;
+$desktop-lg: 1200px;
+$widescreen: 1400px;
 
 // BOX SHADOWS
 
 $shadow-none: none;
-$shadow-1: 0 $size-1 $size-4 0 rgba(0, 0, 0, 0.1);
-$shadow-2: 0 $size-4 $size-8 0 rgba(0, 0, 0, 0.1);
-$shadow-3: 0 $size-8 $size-16 0 rgba(0, 0, 0, 0.1);
-$shadow-4: 0 $size-12 $size-24 0 rgba(0, 0, 0, 0.1);
-$shadow-5: 0 $size-16 $size-32 0 rgba(0, 0, 0, 0.1);
+$shadow-1: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+$shadow-2: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+$shadow-3: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+$shadow-4: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
+$shadow-5: 0 16px 32px 0 rgba(0, 0, 0, 0.1);
 
 // LINE HEIGHT
 
@@ -680,3 +688,89 @@ $font-ui-lg: 23.4px;
 $font-ui-xl: 34.1px;
 $font-ui-2xl: 42.6px;
 $font-ui-3xl: 51.1px;
+
+// CUSTOM COLORS
+
+$grey: #dadada;
+$navy: #12263a;
+$indigo: #21456a;
+$light-green: #e7f9ee;
+$light-yellow: #fff1e2;
+$lighter-green: #f9fbfb;
+$dark-green: #243413;
+$green: #198042;
+$teal: #e7f6f8;
+$black: #000000;
+$off-white: #f2f4f7;
+$white: #ffffff;
+
+// Purple
+$lightest-purple: #3c3641;
+$lighter-purple: #f9f4fe;
+$lightest-purple: #f0edff;
+$light-purple: #f4eafe;
+$purple: #cdc9e6;
+$mid-purple: #d3caff;
+$dark-purple: #5240aa;
+$bright-purple: #a795ff;
+$darker-purple: #292055;
+$deep-purple: #422d53;
+$vibrant-purple: #7b61ff;
+
+// Gray
+$lightest-grey: #f0f0f0;
+$light-grey: #e5e5e5;
+$grey: #dadada;
+$middlest-gray: #adadad;
+$middle-gray: #909090;
+$medium-gray: #71767b;
+$footer-grey: #53535d;
+$text: #5c5c5c;
+$darkest-gray: #757575;
+$accessible-gray: #5c5858;
+$header-black: #363636;
+$tag-gray: #4d6a63;
+$text: #222222;
+
+// Red
+$light-red: #fadee3;
+$tag-red: #dc5f53;
+$red: #b11818;
+
+// Blue
+$light-blue: #e2f3ff;
+$sky-blue: #aaddff;
+$teal: #e7f6f8;
+$bright-blue: #99deea;
+$blue: #1668b4;
+$bluer: #0066aa;
+$dark-blue: #194185;
+$indigo: #21456a;
+$darker-blue: #003355;
+$map-blue: #0099ff;
+$border-blue: #009ec1;
+$dark-navy: #12263a;
+$navy: #2e6276;
+$dark-navy: #134c57;
+$tag-navy: #4d6a80;
+$tag-drk-navy: #25495d;
+
+// Orange
+$light-orange: #fff1e2;
+$orange: #fcdbb6;
+$warm-orange: #ffd7aa;
+$tag-yellow: #ebaa46;
+$bright-orange: #ff8700;
+$tag-orange: #f58501;
+$dark-orange: #a6441a;
+$darker-orange: #552d00;
+
+// Green
+$light-green: #e7f9ee;
+$mint: #ebf5ee;
+$mintGreen: #b7eecd;
+$lighter-green: #f9fbfb;
+$bright-green: #29cc6a;
+$green: #198042;
+$dark-green: #243413;
+$darker-green: #0d4423;

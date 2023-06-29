@@ -4,7 +4,7 @@ header {
     width: 100%;
     z-index: 12;
 
-    @media screen and (max-width: ($tabLand)) {
+    @media screen and (max-width: ($desktop)) {
       background-color: $dark-blue;
       color: white;
     }
@@ -18,7 +18,7 @@ header {
       padding: $size-16 0 0.8rem;
       width: calc(100% - 55px);
 
-      @media screen and (min-width: ($tabLand + 1)) {
+      @media screen and (min-width: ($desktop + 1)) {
         padding: 1.5rem 0 0.7rem;
         width: 50%;
       }
@@ -27,12 +27,12 @@ header {
     h1 {
       font-size: 28px;
 
-      @media screen and (min-width: ($tabLand + 1)) {
+      @media screen and (min-width: ($desktop + 1)) {
         width: calc(100% - 45px);
         margin-left: 10px;
       }
 
-      @media screen and (max-width: ($tabLand)) {
+      @media screen and (max-width: ($desktop)) {
         color: white;
         font-size: $size-14;
       }
@@ -42,7 +42,7 @@ header {
       width: $size-48;
       height: auto;
 
-      @media screen and (max-width: ($tabLand)) {
+      @media screen and (max-width: ($desktop)) {
         display: none;
       }
     }
@@ -118,11 +118,11 @@ header {
       margin: 0;
       list-style-type: none;
 
-      @media screen and (min-width: ($tabLand + 1)) {
+      @media screen and (min-width: ($desktop + 1)) {
         gap: 2.5rem;
       }
 
-      @media screen and (max-width: ($tabLand)) {
+      @media screen and (max-width: ($desktop)) {
         flex-direction: column;
       }
     }
@@ -136,7 +136,7 @@ header {
       font-size: 0.9rem;
       position: relative;
 
-      @media screen and (max-width: ($tabLand)) {
+      @media screen and (max-width: ($desktop)) {
         padding: 0.95rem 0;
       }
 
@@ -157,14 +157,14 @@ header {
           font-size: $size-20;
           right: 0;
 
-          @media screen and (min-width: ($tabLand + 1)) {
+          @media screen and (min-width: ($desktop + 1)) {
             right: -$size-20;
           }
         }
       }
 
       &:hover {
-        @media screen and (min-width: ($tabLand + 1)) {
+        @media screen and (min-width: ($desktop + 1)) {
           &::after {
             content: "";
             position: absolute;
@@ -188,12 +188,12 @@ header {
         flex-direction: column;
         gap: 0;
 
-        @media screen and (min-width: ($tabLand + 1)) {
+        @media screen and (min-width: ($desktop + 1)) {
           width: 300px;
           position: absolute;
         }
 
-        @media screen and (max-width: ($tabLand)) {
+        @media screen and (max-width: ($desktop)) {
           margin-bottom: $size-16;
         }
 
@@ -202,13 +202,13 @@ header {
           padding: 0.5rem $size-16;
 
           &:hover {
-            @media screen and (min-width: ($tabLand + 1)) {
+            @media screen and (min-width: ($desktop + 1)) {
               background-color: $header-black;
               color: white;
             }
 
             &:after {
-              @media screen and (min-width: ($tabLand + 1)) {
+              @media screen and (min-width: ($desktop + 1)) {
                 content: none;
               }
             }
@@ -217,7 +217,7 @@ header {
       }
 
       button {
-        @media screen and (max-width: ($tabLand)) {
+        @media screen and (max-width: ($desktop)) {
           width: 100%;
         }
       }

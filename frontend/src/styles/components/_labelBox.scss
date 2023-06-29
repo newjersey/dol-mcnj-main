@@ -4,17 +4,17 @@
   border: $size-1 solid $grey;
 
   &.toggleBox {
-    @media screen and (max-width: ($tabMed - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
       border-radius: 0;
     }
 
     .content {
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         display: none;
       }
 
       &.open {
-        @media screen and (max-width: ($tabMed - 1)) {
+        @media screen and (max-width: ($tablet-lg - 1)) {
           display: block;
         }
       }
@@ -32,7 +32,7 @@
     align-items: center;
     gap: 0.5rem;
 
-    @media screen and (min-width: ($tabMed)) {
+    @media screen and (min-width: ($tablet-lg)) {
       cursor: auto;
     }
 
@@ -41,7 +41,7 @@
     }
 
     .indicator {
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         display: none;
       }
     }

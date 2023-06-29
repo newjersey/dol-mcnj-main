@@ -2,7 +2,7 @@
   background-color: $light-green;
   padding: 2rem 0;
 
-  @media screen and (max-width: ($tabPort)) {
+  @media screen and (max-width: ($tablet-md)) {
     width: calc(100% - 30px);
     margin: -65px auto 15px;
   }
@@ -24,7 +24,7 @@
     text-decoration: none;
 
     &:hover {
-      @media screen and (min-width: ($tabPort + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         text-decoration: underline;
       }
     }

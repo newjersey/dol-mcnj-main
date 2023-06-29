@@ -6,12 +6,12 @@
       background-color: $lighter-green;
       width: 100%;
 
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         border: $size-1 solid $grey;
       }
 
       &.open {
-        @media screen and (max-width: ($tabMed - 1)) {
+        @media screen and (max-width: ($tablet-lg - 1)) {
           position: absolute;
           left: 0;
         }

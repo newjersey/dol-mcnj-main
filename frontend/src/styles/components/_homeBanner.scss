@@ -1,11 +1,11 @@
 .homeBanner {
-  background-color: $darker-blue;
-  color: white;
+  background-color: $primary-darker;
+  color: $white;
   font-size: $size-16;
   line-height: 1;
   padding: 4rem 0;
 
-  @media screen and (max-width: ($tabPort - 1)) {
+  @media screen and (max-width: ($tablet-md - 1)) {
     padding: 2rem 0;
   }
 
@@ -13,11 +13,11 @@
     font-size: 1.3rem;
     line-height: 1.5;
 
-    @media screen and (min-width: ($tabPort)) {
+    @media screen and (min-width: ($tablet-md)) {
       padding-right: 8rem;
     }
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       font-size: 1.1rem;
     }
   }
@@ -26,13 +26,13 @@
     line-height: 1;
     font-weight: 400;
     margin: 0 0 $size-16;
-    color: $light-blue;
+    color: $primary-lighter;
 
-    @media screen and (min-width: ($tabPort)) {
+    @media screen and (min-width: ($tablet-md)) {
       font-size: 4.4rem;
     }
 
-    @media (max-width: ($desk)) and (min-width: ($tabPort + 1)) {
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
       font-size: 3rem;
     }
   }
@@ -46,7 +46,7 @@
     gap: 0.5rem;
     padding: $size-16 1.5rem;
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       width: 100%;
       justify-content: center;
     }
@@ -65,7 +65,7 @@
       content: none;
     }
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       flex-direction: column;
     }
   }
@@ -76,21 +76,21 @@
   }
 
   .copy {
-    @media screen and (min-width: ($desk)) {
+    @media screen and (min-width: ($desktop-lg)) {
       width: calc(100% - 555px);
     }
 
-    @media (max-width: ($desk)) and (min-width: ($tabPort + 1)) {
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
       width: 50%;
     }
   }
 
   .image {
-    @media screen and (min-width: ($desk)) {
+    @media screen and (min-width: ($desktop-lg)) {
       width: 555px;
     }
 
-    @media (max-width: ($desk)) and (min-width: ($tabPort + 1)) {
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
       width: 50%;
     }
   }

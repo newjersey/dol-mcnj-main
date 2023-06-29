@@ -44,7 +44,7 @@
 }
 
 // small and up
-@media (min-width: $xs) {
+@media (min-width: $tablet-md) {
   .stat-block {
     margin-top: 0rem;
     width: 190px;

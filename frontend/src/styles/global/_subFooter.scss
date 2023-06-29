@@ -8,11 +8,11 @@
     width: 100%;
 
     > a {
-      @media screen and (min-width: ($tabPort + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         float: right;
       }
 
-      @media screen and (max-width: ($tabPort)) {
+      @media screen and (max-width: ($tablet-md)) {
         display: block;
         margin: 2rem auto;
         text-align: center;
@@ -21,7 +21,7 @@
   }
 
   .links {
-    @media screen and (min-width: ($tabPort + 1)) {
+    @media screen and (min-width: ($tablet-md + 1)) {
       display: flex;
       width: 100%;
       justify-content: space-between;
@@ -33,7 +33,7 @@
           display: block;
           margin-bottom: 0.5rem;
 
-          @media screen and (max-width: ($tabPort)) {
+          @media screen and (max-width: ($tablet-md)) {
             margin: 0 auto 0.5rem;
           }
         }
@@ -45,7 +45,7 @@
           width: 100%;
           justify-content: flex-end;
 
-          @media screen and (max-width: ($tabPort)) {
+          @media screen and (max-width: ($tablet-md)) {
             justify-content: center;
             margin: 2rem 0;
           }
@@ -63,7 +63,7 @@
     margin: 0;
     font-size: $size-14;
 
-    @media screen and (max-width: ($tabPort)) {
+    @media screen and (max-width: ($tablet-md)) {
       text-align: center;
     }
   }
@@ -74,7 +74,7 @@
       opacity: 0.5;
 
       &:hover {
-        @media screen and (min-width: ($tabLand + 1)) {
+        @media screen and (min-width: ($desktop + 1)) {
           opacity: 1;
         }
       }

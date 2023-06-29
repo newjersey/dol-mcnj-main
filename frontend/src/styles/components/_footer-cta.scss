@@ -24,7 +24,7 @@
     gap: 0.5rem;
 
     &:hover {
-      @media screen and (min-width: ($sm)) {
+      @media screen and (min-width: ($tablet-xl)) {
         background-color: $blue;
       }
     }

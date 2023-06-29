@@ -14,7 +14,7 @@
     text-decoration: none;
     display: block;
 
-    @media screen and (min-width: ($tabPort)) {
+    @media screen and (min-width: ($tablet-md)) {
       transition-duration: 0.3s;
       transition-timing-function: ease-in-out;
       transition-property: transform, box-shadow, background-color, border-color;
@@ -24,7 +24,7 @@
     &:visited {
       color: $text;
 
-      @media screen and (min-width: ($tabPort)) {
+      @media screen and (min-width: ($tablet-md)) {
         transform: scale(1.03);
         box-shadow: 0 5px 15px -10px $black;
       }
@@ -99,7 +99,7 @@
             background-color: $sky-blue;
 
             svg {
-              color: $darker-blue;
+              color: $primary-darker;
             }
           }
         }
@@ -254,7 +254,7 @@
       padding: 1.5rem $size-16;
       color: $text;
 
-      @media screen and (max-width: ($tabPort - 1)) {
+      @media screen and (max-width: ($tablet-md - 1)) {
         padding: 0.5rem;
         display: flex;
         gap: $size-16;
@@ -263,7 +263,7 @@
 
       .icons {
         svg {
-          @media screen and (max-width: ($tabPort - 1)) {
+          @media screen and (max-width: ($tablet-md - 1)) {
             height: 30px;
             width: auto;
           }
@@ -276,7 +276,7 @@
       line-height: 1;
       margin: 0;
 
-      @media screen and (min-width: ($tabPort)) {
+      @media screen and (min-width: ($tablet-md)) {
         margin: $size-16 0 0;
         font-size: 1.3rem;
       }
@@ -308,7 +308,7 @@
 
       a {
         &:hover {
-          @media screen and (min-width: ($tabPort)) {
+          @media screen and (min-width: ($tablet-md)) {
             background: $lightest-purple;
             border-color: $bright-purple;
           }

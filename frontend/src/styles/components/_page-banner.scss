@@ -2,7 +2,7 @@
   background-color: $lighter-green;
   padding: 3.1rem 0 0.7rem;
 
-  @media screen and (max-width: ($mobTab)) {
+  @media screen and (max-width: ($tablet)) {
     padding: $size-16 0;
   }
 
@@ -156,14 +156,14 @@
     padding-bottom: 0.5rem;
     border-bottom: $size-2 solid black;
 
-    @media screen and (min-width: ($mobMed + 1)) {
+    @media screen and (min-width: ($mobile-lg + 1)) {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: $size-16;
     }
 
-    @media screen and (max-width: ($mobMed)) {
+    @media screen and (max-width: ($mobile-lg)) {
       padding-bottom: 0;
     }
   }
@@ -175,18 +175,18 @@
     gap: $size-16;
     align-items: center;
 
-    @media screen and (min-width: ($mobMed + 1)) {
+    @media screen and (min-width: ($mobile-lg + 1)) {
       width: calc(100% - 140px);
     }
 
-    @media screen and (max-width: ($mobMed)) {
+    @media screen and (max-width: ($mobile-lg)) {
       gap: 0.5rem;
     }
 
     .material-icons {
       color: $accessible-gray;
       font-size: 1.2rem;
-      @media screen and (min-width: ($mobMed + 1)) {
+      @media screen and (min-width: ($mobile-lg + 1)) {
         display: none;
       }
     }
@@ -202,7 +202,7 @@
         a {
           &.usa-breadcrumb__link:visited,
           &.usa-breadcrumb__link {
-            @media screen and (max-width: ($mobMed)) {
+            @media screen and (max-width: ($mobile-lg)) {
               padding-top: 0.8rem;
               padding-bottom: 0.8rem;
             }
@@ -233,7 +233,7 @@
     font-size: 0.8rem;
     line-height: 1.5;
 
-    @media screen and (max-width: ($mobMed)) {
+    @media screen and (max-width: ($mobile-lg)) {
       padding: 0 0 0.5rem;
       width: 100%;
     }
@@ -245,7 +245,7 @@
     margin: 0 0 $size-16;
     padding: 0;
     line-height: 1;
-    @media screen and (max-width: ($mobMed)) {
+    @media screen and (max-width: ($mobile-lg)) {
       font-size: 2.45rem;
       margin-bottom: $size-16;
     }
@@ -258,11 +258,11 @@
     font-size: 1.2rem;
     gap: 3rem;
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       display: block;
     }
 
-    @media screen and (max-width: ($mobMed)) {
+    @media screen and (max-width: ($mobile-lg)) {
       padding: 1.8rem 0;
       font-size: $size-16;
     }
@@ -271,7 +271,7 @@
   .heading {
     width: calc(100% - 335px);
     line-height: 0.4;
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       width: 100%;
     }
   }
@@ -282,13 +282,13 @@
     font-weight: bold;
     font-size: 1.4rem;
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       width: 100%;
       max-width: $size-320;
       margin: 2rem 0 0;
     }
 
-    @media screen and (max-width: ($mobMed - 1)) {
+    @media screen and (max-width: ($mobile-lg - 1)) {
       max-width: none;
     }
 
