@@ -16,16 +16,16 @@ $line-width-half: $size-3;
   .arrow {
     width: 0;
     height: 0;
-    border-top: $size-10 solid transparent;
-    border-bottom: $size-10 solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
     display: block;
     position: absolute;
     top: 50%;
     right: calc(100% + 0px);
     transform: translateY(-50%);
     z-index: 10;
-    border-top: $size-10 solid transparent;
-    border-bottom: $size-10 solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
     border-left: $size-20 solid $middle-gray;
   }
 

@@ -18,7 +18,7 @@
     text-decoration: none;
     display: inline-block;
     position: relative;
-    padding: $size-2 $size-10 $size-2 30px;
+    padding: $size-2 10px $size-2 30px;
     margin-left: $size-16;
     border-radius: $size-2;
 
@@ -36,7 +36,7 @@
       position: absolute;
       height: $size-12;
       width: 13px;
-      left: $size-10;
+      left: 10px;
       top: 50%;
       transform: translateY(-50%);
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAMCAYAAAC5tzfZAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEQSURBVHgBdVDLTcNAEH0ziuMcfcUnp4LQQjpwOqAEciQcEoQMEhegAqeDQAXQgdMBucRInHK0JbzDrpHj9cYZabWfN+/tewOcKZUnmfw8XfZh3BzkaxXYAIECVGXQhx9J8IdptU/SllbNUVTbmvD9uBTf+2iQQStNc4JsdEOkRGK9JuKxUV+LqJiIZ60LN8s+yfSrlYU+OVxMu9at+s3vYwZvXCEiNa2tjvyALm52VOUP19rWMwTvAmyJsHRJIrhjoolAYoGJ8R80QlEeMPJi3ZCe/ASaUbh467Vnxir+MNOnyHrecXg77oq4Vsz0lLpq7sy8NjnsngF6qpOrKF9cnE8IWlWUeq1/1TuNVwe35w+S3mz0prnVUwAAAABJRU5ErkJggg==");

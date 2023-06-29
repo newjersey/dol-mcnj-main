@@ -29,7 +29,7 @@ header {
 
       @media screen and (min-width: ($tabLand + 1)) {
         width: calc(100% - 45px);
-        margin-left: $size-10;
+        margin-left: 10px;
       }
 
       @media screen and (max-width: ($tabLand)) {
@@ -168,7 +168,7 @@ header {
           &::after {
             content: "";
             position: absolute;
-            bottom: $size-10;
+            bottom: 10px;
             width: 100%;
             left: 0;
             height: $size-2;
