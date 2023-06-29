@@ -2,19 +2,19 @@
   margin-top: 1.1rem;
 
   @media screen and (max-width: ($tabPort)) {
-    border: 1px solid $grey;
+    border: $size-1 solid $grey;
     padding: 1.5rem;
     border-radius: 5px;
   }
 
   @media screen and (min-width: ($tabPort + 1)) {
     padding: 1.5rem 0 1.2rem;
-    border-top: 1px solid $grey;
+    border-top: $size-1 solid $grey;
   }
 
   .heading {
     font-size: 1.3rem;
-    margin-bottom: 1rem;
+    margin-bottom: $size-16;
     font-weight: bold;
   }
 
@@ -26,7 +26,7 @@
     margin-bottom: 0.5rem;
 
     span {
-      padding: 3px 8px 2.5px;
+      padding: $size-3 $size-8 2.5px;
       margin: 0 0.65rem 0.5rem 0;
       display: inline-block;
     }
@@ -41,7 +41,7 @@
       align-items: center;
 
       > span {
-        font-size: 20px;
+        font-size: $size-20;
         margin-left: 0.5rem;
       }
     }

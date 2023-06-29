@@ -3,7 +3,7 @@
   padding: 3.1rem 0 0.7rem;
 
   @media screen and (max-width: ($mobTab)) {
-    padding: 1rem 0;
+    padding: $size-16 0;
   }
 
   &.theme-green {
@@ -31,11 +31,11 @@
         }
 
         a.usa-button--outline {
-          box-shadow: inset 0 0 0 2px $green;
+          box-shadow: inset 0 0 0 $size-2 $green;
           color: $green;
 
           &:hover {
-            box-shadow: inset 0 0 0 2px $dark-green;
+            box-shadow: inset 0 0 0 $size-2 $dark-green;
             color: $dark-green;
           }
         }
@@ -67,11 +67,11 @@
           }
         }
         a.usa-button--outline {
-          box-shadow: inset 0 0 0 2px $blue;
+          box-shadow: inset 0 0 0 $size-2 $blue;
           color: $blue;
 
           &:hover {
-            box-shadow: inset 0 0 0 2px $dark-blue;
+            box-shadow: inset 0 0 0 $size-2 $dark-blue;
             color: $dark-blue;
           }
         }
@@ -103,11 +103,11 @@
           }
         }
         a.usa-button--outline {
-          box-shadow: inset 0 0 0 2px $dark-purple;
+          box-shadow: inset 0 0 0 $size-2 $dark-purple;
           color: $dark-purple;
 
           &:hover {
-            box-shadow: inset 0 0 0 2px $purple;
+            box-shadow: inset 0 0 0 $size-2 $purple;
             color: $purple;
           }
         }
@@ -140,11 +140,11 @@
         }
 
         a.usa-button--outline {
-          box-shadow: inset 0 0 0 2px $navy;
+          box-shadow: inset 0 0 0 $size-2 $navy;
           color: $navy;
 
           &:hover {
-            box-shadow: inset 0 0 0 2px $blue;
+            box-shadow: inset 0 0 0 $size-2 $blue;
             color: $blue;
           }
         }
@@ -154,13 +154,13 @@
 
   .top-nav {
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid black;
+    border-bottom: $size-2 solid black;
 
     @media screen and (min-width: ($mobMed + 1)) {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: $size-16;
     }
 
     @media screen and (max-width: ($mobMed)) {
@@ -172,7 +172,7 @@
     padding: 0;
     display: flex;
     background-color: transparent;
-    gap: 1rem;
+    gap: $size-16;
     align-items: center;
 
     @media screen and (min-width: ($mobMed + 1)) {
@@ -193,7 +193,7 @@
 
     svg {
       height: auto;
-      width: 32px;
+      width: $size-32;
       position: relative;
     }
 
@@ -242,12 +242,12 @@
   h1 {
     font-size: 3.7rem;
 
-    margin: 0 0 1rem;
+    margin: 0 0 $size-16;
     padding: 0;
     line-height: 1;
     @media screen and (max-width: ($mobMed)) {
       font-size: 2.45rem;
-      margin-bottom: 1rem;
+      margin-bottom: $size-16;
     }
   }
 
@@ -264,7 +264,7 @@
 
     @media screen and (max-width: ($mobMed)) {
       padding: 1.8rem 0;
-      font-size: 1rem;
+      font-size: $size-16;
     }
   }
 
@@ -284,7 +284,7 @@
 
     @media screen and (max-width: ($sm - 1)) {
       width: 100%;
-      max-width: 320px;
+      max-width: $size-320;
       margin: 2rem 0 0;
     }
 
@@ -294,7 +294,7 @@
 
     > p {
       line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom: $size-16;
     }
 
     a {
@@ -306,7 +306,7 @@
 
     li {
       + li {
-        margin: 1rem 0 0;
+        margin: $size-16 0 0;
       }
     }
   }

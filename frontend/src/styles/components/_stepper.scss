@@ -6,12 +6,12 @@
 
   .step {
     background-color: $off-white;
-    padding: 0 3rem 1rem;
+    padding: 0 3rem $size-16;
     border-radius: 5px;
     width: 33.33%;
 
     @media screen and (max-width: ($sm - 1)) {
-      padding: 0 1rem 1rem;
+      padding: 0 $size-16 $size-16;
     }
 
     .number {
@@ -22,7 +22,7 @@
       border-radius: 50%;
       background-color: $green;
       color: white;
-      margin: -10px auto 0;
+      margin: -$size-10 auto 0;
       margin-bottom: 0.5rem;
     }
 

@@ -1,7 +1,7 @@
 .resource-links {
   background-color: $light-purple;
   padding: 1.5rem;
-  border-radius: 4px;
+  border-radius: $size-4;
   font-size: 1.22rem;
   margin-top: 3rem;
 
@@ -24,12 +24,12 @@
     letter-spacing: 0.3px;
     text-decoration: none;
     display: inline-block;
-    border-bottom: 2px solid $blue;
+    border-bottom: $size-2 solid $blue;
 
     &:visited,
     &:hover {
       color: $blue;
-      border-bottom: 2px solid $blue;
+      border-bottom: $size-2 solid $blue;
     }
   }
 }

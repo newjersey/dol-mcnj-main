@@ -15,7 +15,7 @@ header {
       display: flex;
       color: black;
       text-decoration: none;
-      padding: 1rem 0 0.8rem;
+      padding: $size-16 0 0.8rem;
       width: calc(100% - 55px);
 
       @media screen and (min-width: ($tabLand + 1)) {
@@ -29,17 +29,17 @@ header {
 
       @media screen and (min-width: ($tabLand + 1)) {
         width: calc(100% - 45px);
-        margin-left: 10px;
+        margin-left: $size-10;
       }
 
       @media screen and (max-width: ($tabLand)) {
         color: white;
-        font-size: 14px;
+        font-size: $size-14;
       }
     }
 
     img {
-      width: 48px;
+      width: $size-48;
       height: auto;
 
       @media screen and (max-width: ($tabLand)) {
@@ -49,8 +49,8 @@ header {
 
     button {
       width: 55px;
-      border: 2px solid white;
-      padding: 2px;
+      border: $size-2 solid white;
+      padding: $size-2;
       border-radius: 5px;
 
       span {
@@ -61,7 +61,7 @@ header {
 
     button {
       .toggle {
-        height: 32px;
+        height: $size-32;
         width: 51px;
         display: flex;
         flex-direction: column;
@@ -91,12 +91,12 @@ header {
         > span {
           display: block;
           width: 25px;
-          height: 3px;
+          height: $size-3;
           position: relative;
           border-radius: 5px;
           top: 0;
           background-color: white;
-          margin: 2px auto;
+          margin: $size-2 auto;
           transition-duration: 0.3s;
           transition-timing-function: ease-in-out;
         }
@@ -105,7 +105,7 @@ header {
   }
 
   .mobile-menu {
-    min-height: 64px;
+    min-height: $size-64;
   }
 
   .main-nav {
@@ -145,20 +145,20 @@ header {
         align-items: center;
 
         span {
-          font-size: 16px;
-          margin-top: -2px;
-          margin-left: 2px;
+          font-size: $size-16;
+          margin-top: -$size-2;
+          margin-left: $size-2;
         }
 
         + .indicator {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 20px;
+          font-size: $size-20;
           right: 0;
 
           @media screen and (min-width: ($tabLand + 1)) {
-            right: -20px;
+            right: -$size-20;
           }
         }
       }
@@ -168,10 +168,10 @@ header {
           &::after {
             content: "";
             position: absolute;
-            bottom: 10px;
+            bottom: $size-10;
             width: 100%;
             left: 0;
-            height: 2px;
+            height: $size-2;
             background-color: white;
           }
         }
@@ -194,12 +194,12 @@ header {
         }
 
         @media screen and (max-width: ($tabLand)) {
-          margin-bottom: 1rem;
+          margin-bottom: $size-16;
         }
 
         a {
           color: $header-black;
-          padding: 0.5rem 1rem;
+          padding: 0.5rem $size-16;
 
           &:hover {
             @media screen and (min-width: ($tabLand + 1)) {

@@ -1,7 +1,7 @@
 .homeBanner {
   background-color: $darker-blue;
   color: white;
-  font-size: 1rem;
+  font-size: $size-16;
   line-height: 1;
   padding: 4rem 0;
 
@@ -25,7 +25,7 @@
   h1 {
     line-height: 1;
     font-weight: 400;
-    margin: 0 0 1rem;
+    margin: 0 0 $size-16;
     color: $light-blue;
 
     @media screen and (min-width: ($tabPort)) {
@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 1rem 1.5rem;
+    padding: $size-16 1.5rem;
 
     @media screen and (max-width: ($tabPort - 1)) {
       width: 100%;

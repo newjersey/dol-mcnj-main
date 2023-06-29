@@ -53,8 +53,8 @@
     &:after {
       content: "";
       position: absolute;
-      right: 1rem;
-      bottom: 1rem;
+      right: $size-16;
+      bottom: $size-16;
       width: 0;
       height: 0;
       border-left: 0.35rem solid transparent;
@@ -72,8 +72,8 @@
 
   .occupation-box {
     @media screen and (min-width: ($mobTab + 1)) {
-      border: 1px solid black;
-      border-radius: 10px;
+      border: $size-1 solid black;
+      border-radius: $size-10;
       padding: 4.5rem 2rem;
     }
 
@@ -92,7 +92,7 @@
       }
 
       @media screen and (max-width: ($mobTab - 1)) {
-        padding: 0 1rem;
+        padding: 0 $size-16;
       }
 
       h3 {
@@ -107,10 +107,10 @@
       }
 
       + .single-path {
-        padding: 0.5rem 1rem 0.5rem 0.2rem;
+        padding: 0.5rem $size-16 0.5rem 0.2rem;
 
         @media screen and (max-width: ($mobTab - 1)) {
-          padding: 0.5rem 1rem;
+          padding: 0.5rem $size-16;
         }
       }
     }
@@ -120,8 +120,8 @@
       border-radius: 0;
       align-items: center;
       background: $light-orange;
-      border: 1px solid $warm-orange;
-      padding: 4px 6px;
+      border: $size-1 solid $warm-orange;
+      padding: $size-4 $size-6;
       font-size: 0.8rem;
 
       @media screen and (max-width: ($mobMed - 1)) {
@@ -170,7 +170,7 @@
     gap: 2rem;
 
     @media screen and (max-width: ($mobMed - 1)) {
-      gap: 1rem;
+      gap: $size-16;
       flex-direction: column;
     }
 
@@ -179,14 +179,14 @@
     }
 
     @media screen and (max-width: ($mobTab - 1)) {
-      padding: 0 1rem;
+      padding: 0 $size-16;
     }
 
     > div {
       width: 100%;
       background-color: $light-purple;
       margin-bottom: 2rem;
-      border-radius: 10px;
+      border-radius: $size-10;
       overflow: hidden;
       padding: 0.5rem;
 
@@ -199,7 +199,7 @@
         margin: 0;
 
         &.title {
-          font-size: 1rem;
+          font-size: $size-16;
           display: flex;
           align-items: center;
           gap: 0.5rem;
@@ -219,7 +219,7 @@
 
     @media screen and (min-width: ($mobTab)) {
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: $size-10;
     }
 
     @media screen and (max-width: ($mobTab - 1)) {
@@ -228,24 +228,24 @@
     }
 
     .content {
-      padding: 1rem;
+      padding: $size-16;
 
       @media screen and (min-width: ($mobTab)) {
-        border: 1px solid $light-grey;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border: $size-1 solid $light-grey;
+        border-bottom-left-radius: $size-10;
+        border-bottom-right-radius: $size-10;
       }
 
       a {
         &.usa-button {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: $size-16;
           justify-content: center;
           text-align: left;
 
           + .usa-button {
-            margin-top: 1rem;
+            margin-top: $size-16;
           }
         }
       }
@@ -262,7 +262,7 @@
       &.related-occupations {
         li {
           + li {
-            margin-top: 1rem;
+            margin-top: $size-16;
           }
         }
       }
@@ -281,8 +281,8 @@
           align-items: flex-end;
           width: 100%;
           justify-content: space-between;
-          padding: 0 0.2rem 1rem;
-          border-bottom: 2px solid;
+          padding: 0 0.2rem $size-16;
+          border-bottom: $size-2 solid;
           margin-bottom: 1.5rem;
 
           .left {
@@ -301,9 +301,9 @@
         .salary {
           background: $medium-gray;
           color: white;
-          font-size: 1rem;
+          font-size: $size-16;
           padding: 0.2rem 0.3rem;
-          border-radius: 2px;
+          border-radius: $size-2;
         }
       }
     }
@@ -368,15 +368,15 @@
         }
 
         .meta {
-          padding: 1rem 0;
-          gap: 1rem;
+          padding: $size-16 0;
+          gap: $size-16;
 
           @media screen and (min-width: ($tabLand)) {
             width: 37rem;
           }
 
           div {
-            padding: 0.5rem 1rem;
+            padding: 0.5rem $size-16;
             margin-bottom: 0;
 
             p {
@@ -395,7 +395,7 @@
       line-height: 1.6;
 
       p {
-        margin-bottom: 1rem;
+        margin-bottom: $size-16;
       }
 
       ul:not(.unstyled) {
@@ -416,11 +416,11 @@
       .content {
         &.related-training {
           li {
-            border: 2px solid $light-grey;
-            border-radius: 10px;
+            border: $size-2 solid $light-grey;
+            border-radius: $size-10;
             overflow: hidden;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            padding: $size-16;
+            margin-bottom: $size-16;
           }
           .span-grid {
             border: none;
@@ -437,7 +437,7 @@
       margin-bottom: 2rem;
 
       @media screen and (max-width: ($mobTab - 1)) {
-        padding: 0 1rem;
+        padding: 0 $size-16;
       }
     }
   }

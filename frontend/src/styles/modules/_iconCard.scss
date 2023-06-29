@@ -6,9 +6,9 @@
   }
 
   a {
-    border: 3px solid $grey;
-    border-radius: 1rem;
-    padding: 1rem;
+    border: $size-3 solid $grey;
+    border-radius: $size-16;
+    padding: $size-16;
     color: $text;
     background: $white;
     text-decoration: none;
@@ -67,7 +67,7 @@
           justify-content: center;
           align-items: center;
           border-radius: 100%;
-          padding: 4px;
+          padding: $size-4;
         }
       }
     }
@@ -251,13 +251,13 @@
     }
 
     a {
-      padding: 1.5rem 1rem;
+      padding: 1.5rem $size-16;
       color: $text;
 
       @media screen and (max-width: ($tabPort - 1)) {
         padding: 0.5rem;
         display: flex;
-        gap: 1rem;
+        gap: $size-16;
         align-items: center;
       }
 
@@ -277,7 +277,7 @@
       margin: 0;
 
       @media screen and (min-width: ($tabPort)) {
-        margin: 1rem 0 0;
+        margin: $size-16 0 0;
         font-size: 1.3rem;
       }
     }

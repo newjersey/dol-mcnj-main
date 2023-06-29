@@ -7,11 +7,11 @@
     font-size: 1.9rem;
     font-weight: bold;
     line-height: 1.2;
-    margin-bottom: 1rem;
+    margin-bottom: $size-16;
   }
 
   a {
-    margin: 1rem auto 0;
+    margin: $size-16 auto 0;
     display: block;
     padding-top: 17px;
     padding-bottom: 17px;

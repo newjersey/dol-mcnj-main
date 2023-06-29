@@ -1,6 +1,6 @@
 .sectionHeading {
-  border-bottom: 8px solid $black;
-  padding-bottom: 1rem;
+  border-bottom: $size-8 solid $black;
+  padding-bottom: $size-16;
 
   h1,
   h2,
@@ -25,7 +25,7 @@
 
     &:before {
       content: "";
-      height: 8px;
+      height: $size-8;
       width: 100%;
       background: $black;
       position: absolute;
@@ -42,7 +42,7 @@
     h6 {
       background: $white;
       position: relative;
-      padding: 0 1rem;
+      padding: 0 $size-16;
     }
   }
 

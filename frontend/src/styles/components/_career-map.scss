@@ -1,12 +1,12 @@
-$gap: 60px;
-$boxHeight: 100px;
-$boxWidth: 120px;
-$boxWidthHalf: 60px;
-$fontSize: 14px;
-$borderWidth: 6px;
-$borderWidthHalf: 3px;
-$gapThird: 20px;
-$gapHalf: 30px;
+$gap: $size-60;
+$boxHeight: $size-100;
+$boxWidth: $size-120;
+$boxWidthHalf: $size-60;
+$fontSize: $size-14;
+$borderWidth: $size-6;
+$borderWidthHalf: $size-3;
+$gapThird: $size-20;
+$gapHalf: $size-30;
 
 .career-map-container {
   padding-right: 15px;
@@ -134,7 +134,7 @@ $gapHalf: 30px;
     height: $boxHeight;
     width: $boxWidth;
     background-color: #ebf5ee;
-    border-radius: 10px;
+    border-radius: $size-10;
     border: $borderWidthHalf solid black;
     font-size: $fontSize;
     text-align: center;
@@ -210,13 +210,13 @@ $gapHalf: 30px;
 
     &.above {
       > div {
-        bottom: calc(50% - 3px);
+        bottom: calc(50% - $size-3);
         top: auto;
       }
     }
     &.below {
       > div {
-        top: calc(50% - 3px);
+        top: calc(50% - $size-3);
         bottom: auto;
       }
     }

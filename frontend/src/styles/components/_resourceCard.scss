@@ -1,6 +1,6 @@
 .resourceCard {
-  border-radius: 20px;
-  border: 2px solid $light-grey;
+  border-radius: $size-20;
+  border: $size-2 solid $light-grey;
   padding: 1.5rem;
 
   > a {
@@ -18,7 +18,7 @@
   }
 
   .tags {
-    margin-top: 1rem;
+    margin-top: $size-16;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;

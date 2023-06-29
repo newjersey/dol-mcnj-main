@@ -15,7 +15,7 @@ footer {
       &:first-of-type {
         @media screen and (min-width: ($tabPort + 1)) {
           width: calc(100% - 250px);
-          margin-right: 40px;
+          margin-right: $size-40;
         }
       }
 
@@ -48,17 +48,17 @@ footer {
   }
 
   .nav-heading {
-    border-bottom: 1px solid white;
+    border-bottom: $size-1 solid white;
     display: block;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
   }
 
   .nav-item {
-    font-size: 14px;
+    font-size: $size-14;
 
     > a {
-      border-bottom: 1px solid white;
+      border-bottom: $size-1 solid white;
       display: block;
       padding-bottom: 0.5rem;
       margin-bottom: 1.5rem;
@@ -99,13 +99,13 @@ footer {
     }
   }
   .footer-nav-r {
-    margin-bottom: 1rem;
+    margin-bottom: $size-16;
     .nav-heading {
       margin-bottom: 1.5rem;
     }
 
     .nav-item {
-      font-size: 14px;
+      font-size: $size-14;
 
       > a {
         border-bottom: none;
