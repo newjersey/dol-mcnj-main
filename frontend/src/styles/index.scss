@@ -1,5 +1,6 @@
 @import "sizes";
 @import "colors";
+@import "system";
 @import "spacing";
 @import "borders";
 @import "flex";
@@ -7,20 +8,26 @@
 @import "variables";
 @import "table";
 @import "css/bootstrap.css";
-@import "landing-page";
-@import "search-results-page";
-@import "home-page";
-@import "training-page";
-@import "not-found-page";
-@import "in-demand-page";
-@import "occupation-page";
-@import "training-comparison";
+
+// PAGES
 @import "faq-breadcrumb";
+@import "home-page";
+@import "in-demand-page";
+@import "landing-page";
+@import "not-found-page";
+@import "occupation-page";
+@import "search-results-page";
+@import "training-comparison";
+@import "training-page";
+
+// GLOBAL
 @import "global/betaBanner";
 @import "global/footer";
 @import "global/globalHeader";
 @import "global/header";
 @import "global/subFooter";
+
+// MODULES
 @import "modules/accordion";
 @import "modules/drop-selector";
 @import "modules/error-message";
@@ -28,32 +35,34 @@
 @import "modules/footer-banner";
 @import "modules/iconCard";
 @import "modules/mixins";
-@import "modules/section-heading";
 @import "modules/path-menu";
+@import "modules/section-heading";
 @import "modules/single-path";
 @import "modules/tags";
+
+// COMPONENTS
+@import "components/cardSlider";
 @import "components/career-map";
 @import "components/career-pathways";
-@import "components/cardSlider";
 @import "components/faq-collection";
+@import "components/filterControls";
 @import "components/footer-cta";
+@import "components/homeBanner";
 @import "components/how-to";
 @import "components/industry-block";
 @import "components/industry-selector";
 @import "components/interrupter";
+@import "components/labelBox";
 @import "components/occupation-block";
 @import "components/page-banner";
 @import "components/pathway-menus";
 @import "components/resource-filter";
 @import "components/resource-links";
+@import "components/resourceCard";
 @import "components/resourceList";
 @import "components/search-block";
 @import "components/stepper";
 @import "components/tab-content";
-@import "components/homeBanner";
-@import "components/labelBox";
-@import "components/filterControls";
-@import "components/resourceCard";
 
 * {
   -webkit-box-sizing: border-box;
