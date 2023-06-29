@@ -57,7 +57,7 @@ export const getOccupationDetailFactory = (
                 (value, index, array) => array.findIndex((it) => it.soc === value.soc) === index
             );
         };
-
+        
         const getLocalExceptionCounties = async (soc: string): Promise<LocalException[]> => {
             const localExceptions = await dataClient.getLocalExceptionsBySoc();
             if (!localExceptions || localExceptions.length == 0) {
@@ -65,17 +65,23 @@ export const getOccupationDetailFactory = (
             }
             const matches = localExceptions.filter(e => e.soc === soc);
 
-            const transformedMatches = matches.map((match) => {
+            const uniqueCounties = new Set();
+            const uniqueMatches: LocalException[] = [];
+
+            matches.forEach((match) => {
                 const { county, ...rest } = match;
                 const transformedCounty = convertToTitleCaseIfUppercase(county);
 
-                return {
-                    county: transformedCounty,
-                    ...rest
-                };
+                if (!uniqueCounties.has(transformedCounty)) {
+                    uniqueCounties.add(transformedCounty);
+                    uniqueMatches.push({
+                        county: transformedCounty,
+                        ...rest
+                    });
+                }
             });
 
-            return transformedMatches;
+            return uniqueMatches;
         };
 
         const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
