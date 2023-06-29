@@ -1,7 +1,7 @@
 .occupation-block {
   margin-top: 6rem;
 
-  @media screen and (min-width: ($mobTab + 1)) {
+  @media screen and (min-width: ($tablet + 1)) {
     margin-top: 6.5rem;
   }
 
@@ -16,7 +16,7 @@
 
   .container {
     + .container {
-      @media screen and (max-width: ($mobTab - 1)) {
+      @media screen and (max-width: ($tablet - 1)) {
         padding: 0;
       }
     }
@@ -38,7 +38,7 @@
     margin-bottom: 2.2rem;
     border-bottom: 0.5rem solid black;
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       line-height: 1.2;
       margin-bottom: 2.5;
     }
@@ -71,7 +71,7 @@
   }
 
   .occupation-box {
-    @media screen and (min-width: ($mobTab + 1)) {
+    @media screen and (min-width: ($tablet + 1)) {
       border: $size-1 solid black;
       border-radius: $size-10;
       padding: 4.5rem 2rem;
@@ -87,11 +87,11 @@
       padding-bottom: 0;
       border-bottom: none;
 
-      @media screen and (max-width: ($mobMed - 1)) {
+      @media screen and (max-width: ($mobile-lg - 1)) {
         flex-direction: column;
       }
 
-      @media screen and (max-width: ($mobTab - 1)) {
+      @media screen and (max-width: ($tablet - 1)) {
         padding: 0 $size-16;
       }
 
@@ -109,7 +109,7 @@
       + .single-path {
         padding: 0.5rem $size-16 0.5rem 0.2rem;
 
-        @media screen and (max-width: ($mobTab - 1)) {
+        @media screen and (max-width: ($tablet - 1)) {
           padding: 0.5rem $size-16;
         }
       }
@@ -124,7 +124,7 @@
       padding: $size-4 $size-6;
       font-size: 0.8rem;
 
-      @media screen and (max-width: ($mobMed - 1)) {
+      @media screen and (max-width: ($mobile-lg - 1)) {
         margin: 0 0 0.5rem;
       }
     }
@@ -135,30 +135,30 @@
     gap: 2rem;
     align-items: flex-start;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       flex-direction: column;
     }
 
     > div {
       width: 100%;
-      @media screen and (min-width: ($mobTab)) {
+      @media screen and (min-width: ($tablet)) {
         width: 50%;
       }
     }
 
     &.info {
-      @media screen and (max-width: ($sm - 1)) {
+      @media screen and (max-width: ($tablet-xl - 1)) {
         flex-direction: column-reverse;
       }
 
       > div {
-        @media screen and (max-width: ($sm - 1)) {
+        @media screen and (max-width: ($tablet-xl - 1)) {
           width: 100%;
         }
       }
 
       .box {
-        @media screen and (min-width: ($sm)) {
+        @media screen and (min-width: ($tablet-xl)) {
           width: calc(100% - 25rem);
         }
       }
@@ -169,16 +169,16 @@
     display: flex;
     gap: 2rem;
 
-    @media screen and (max-width: ($mobMed - 1)) {
+    @media screen and (max-width: ($mobile-lg - 1)) {
       gap: $size-16;
       flex-direction: column;
     }
 
-    @media screen and (min-width: ($sm)) {
+    @media screen and (min-width: ($tablet-xl)) {
       width: 25rem;
     }
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       padding: 0 $size-16;
     }
 
@@ -190,7 +190,7 @@
       overflow: hidden;
       padding: 0.5rem;
 
-      @media screen and (min-width: ($mobMed)) {
+      @media screen and (min-width: ($mobile-lg)) {
         width: 50%;
       }
 
@@ -217,12 +217,12 @@
     width: 100%;
     margin-bottom: 2rem;
 
-    @media screen and (min-width: ($mobTab)) {
+    @media screen and (min-width: ($tablet)) {
       overflow: hidden;
       border-radius: $size-10;
     }
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       display: flex;
       flex-direction: column;
     }
@@ -230,7 +230,7 @@
     .content {
       padding: $size-16;
 
-      @media screen and (min-width: ($mobTab)) {
+      @media screen and (min-width: ($tablet)) {
         border: $size-1 solid $light-grey;
         border-bottom-left-radius: $size-10;
         border-bottom-right-radius: $size-10;
@@ -317,7 +317,7 @@
     font-weight: bold;
     padding: 0.5rem 0.6rem;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       position: sticky;
       top: 0;
     }
@@ -332,7 +332,7 @@
       background: white;
       padding: 2rem 0;
 
-      @media screen and (min-width: ($mobTab)) {
+      @media screen and (min-width: ($tablet)) {
         padding: 2rem;
       }
 
@@ -340,7 +340,7 @@
         margin-bottom: 1.5rem;
         max-width: 100%;
 
-        @media screen and (max-width: ($tabLand - 1)) {
+        @media screen and (max-width: ($desktop - 1)) {
           display: block;
         }
 
@@ -351,7 +351,7 @@
         p {
           margin-top: 0.5rem;
           width: 100%;
-          @media screen and (min-width: ($tabLand)) {
+          @media screen and (min-width: ($desktop)) {
             margin-right: 1.5rem;
           }
         }
@@ -362,7 +362,7 @@
           flex-wrap: wrap;
           gap: 0.5rem;
 
-          @media screen and (min-width: ($tabLand)) {
+          @media screen and (min-width: ($desktop)) {
             width: calc(100% - 38rem);
           }
         }
@@ -371,7 +371,7 @@
           padding: $size-16 0;
           gap: $size-16;
 
-          @media screen and (min-width: ($tabLand)) {
+          @media screen and (min-width: ($desktop)) {
             width: 37rem;
           }
 
@@ -436,7 +436,7 @@
       font-size: 0.9rem;
       margin-bottom: 2rem;
 
-      @media screen and (max-width: ($mobTab - 1)) {
+      @media screen and (max-width: ($tablet - 1)) {
         padding: 0 $size-16;
       }
     }

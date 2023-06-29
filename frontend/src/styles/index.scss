@@ -1,6 +1,5 @@
-@import "sizes";
-@import "colors";
 @import "system";
+@import "colors";
 @import "spacing";
 @import "borders";
 @import "flex";
@@ -156,7 +155,7 @@ a.link-format-blue {
   padding-right: 2em;
 }
 
-@media (max-width: $xs) {
+@media (max-width: $tablet-md) {
   .contextual-info-panel {
     width: 66vw;
     padding-left: 2em;
@@ -220,7 +219,7 @@ a.link-format-blue {
 
 header {
   .usa-nav-container {
-    max-width: $tabLrg;
+    max-width: $desktop-lg;
   }
 }
 
@@ -238,7 +237,7 @@ ol {
   align-items: center;
   gap: 2rem;
 
-  @media screen and (max-width: ($mobTab)) {
+  @media screen and (max-width: ($tablet)) {
     flex-direction: column;
   }
 
@@ -273,7 +272,7 @@ ol {
 .section-padding {
   padding: 4rem 0;
 
-  @media screen and (max-width: ($tabPort - 1)) {
+  @media screen and (max-width: ($tablet-md - 1)) {
     padding: 2rem 0;
   }
 }

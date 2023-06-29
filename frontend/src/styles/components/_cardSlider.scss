@@ -9,21 +9,21 @@
   }
 
   .inner {
-    @media screen and (min-width: ($desk)) {
+    @media screen and (min-width: ($desktop-lg)) {
       padding: $size-16;
       position: relative;
 
       overflow: hidden;
     }
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       display: flex;
       flex-direction: column;
     }
 
     &:before,
     &:after {
-      @media screen and (min-width: ($desk)) {
+      @media screen and (min-width: ($desktop-lg)) {
         content: "";
         position: absolute;
         bottom: 0;
@@ -48,7 +48,7 @@
   }
 
   .sectionHeading {
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       position: sticky;
       top: 0;
       left: 0;
@@ -63,25 +63,25 @@
     transition: transform 0.3s ease;
     margin-top: 4rem;
 
-    @media screen and (max-width: ($desk - 1)) {
+    @media screen and (max-width: ($desktop-lg - 1)) {
       flex-wrap: wrap;
       transform: none !important;
     }
 
     .iconCard {
-      @media screen and (min-width: ($desk)) {
+      @media screen and (min-width: ($desktop-lg)) {
         flex: 0 0 calc(100% / 4.5 - 2rem);
       }
 
-      @media screen and (max-width: ($desk - 1)) {
+      @media screen and (max-width: ($desktop-lg - 1)) {
         width: calc(33.333% - 2rem);
       }
 
-      @media screen and (max-width: ($tabPort - 1)) {
+      @media screen and (max-width: ($tablet-md - 1)) {
         width: calc(50% - 2rem);
       }
 
-      @media screen and (max-width: ($mobMed - 1)) {
+      @media screen and (max-width: ($mobile-lg - 1)) {
         width: 100%;
       }
 
@@ -102,7 +102,7 @@
     cursor: pointer;
     z-index: 2;
 
-    @media screen and (max-width: ($desk - 1)) {
+    @media screen and (max-width: ($desktop-lg - 1)) {
       display: none;
     }
 

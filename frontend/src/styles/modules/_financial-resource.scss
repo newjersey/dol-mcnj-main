@@ -1,13 +1,13 @@
 .financial-resource {
   margin-top: 1.1rem;
 
-  @media screen and (max-width: ($tabPort)) {
+  @media screen and (max-width: ($tablet-md)) {
     border: $size-1 solid $grey;
     padding: 1.5rem;
     border-radius: 5px;
   }
 
-  @media screen and (min-width: ($tabPort + 1)) {
+  @media screen and (min-width: ($tablet-md + 1)) {
     padding: 1.5rem 0 1.2rem;
     border-top: $size-1 solid $grey;
   }

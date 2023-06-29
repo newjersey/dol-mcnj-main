@@ -9,7 +9,7 @@
 }
 
 // small and up
-@media (min-width: $xs) {
+@media (min-width: $tablet-md) {
   .search-bar {
     width: 335px;
   }

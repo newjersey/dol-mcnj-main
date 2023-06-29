@@ -7,14 +7,14 @@
 
   nav {
     position: relative;
-    @media screen and (max-width: ($tabPort)) {
+    @media screen and (max-width: ($tablet-md)) {
       margin-bottom: 2rem;
     }
     ul {
       padding: 0;
       list-style-type: none;
 
-      @media screen and (min-width: ($tabPort + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -22,19 +22,19 @@
         margin-bottom: 5rem;
       }
 
-      @media screen and (max-width: ($tabPort)) {
+      @media screen and (max-width: ($tablet-md)) {
         display: none;
       }
 
       &.open {
-        @media screen and (max-width: ($tabPort)) {
+        @media screen and (max-width: ($tablet-md)) {
           @include mobileDropItems;
         }
       }
     }
 
     button {
-      @media screen and (max-width: ($tabPort)) {
+      @media screen and (max-width: ($tablet-md)) {
         width: 100%;
         padding: 0.5rem;
       }
@@ -43,12 +43,12 @@
         position: relative;
         color: white;
 
-        @media screen and (max-width: ($tabPort)) {
+        @media screen and (max-width: ($tablet-md)) {
           background-color: $green;
         }
 
         &:before {
-          @media screen and (min-width: ($tabPort + 1)) {
+          @media screen and (min-width: ($tablet-md + 1)) {
             content: "";
             position: absolute;
             top: 50%;

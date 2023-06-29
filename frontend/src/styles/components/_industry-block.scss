@@ -8,7 +8,7 @@
     gap: $size-16;
     margin-bottom: 4rem;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       flex-direction: column;
       padding: 0 $size-16;
     }
@@ -28,12 +28,12 @@
     max-width: 310px;
     width: 100%;
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       max-width: 360px;
     }
 
     &:hover {
-      @media screen and (min-width: ($mobTab)) {
+      @media screen and (min-width: ($tablet)) {
         box-shadow: 5px $size-4 $size-12 - $size-3 $grey;
         transform: scale(1.03);
       }
@@ -76,7 +76,7 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       padding: 3rem $size-16;
     }
 
@@ -119,7 +119,7 @@
     margin: 1.5rem 0;
     width: 100%;
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       margin-bottom: $size-16;
     }
   }
@@ -185,7 +185,7 @@
           gap: 1.5rem;
           align-items: center;
 
-          @media screen and (max-width: ($mobMed - 1)) {
+          @media screen and (max-width: ($mobile-lg - 1)) {
             flex-direction: column;
             align-items: flex-start;
           }
@@ -199,7 +199,7 @@
           }
 
           > * {
-            @media screen and (min-width: ($mobMed)) {
+            @media screen and (min-width: ($mobile-lg)) {
               width: calc(100% - 3.5rem);
             }
           }
@@ -226,16 +226,16 @@
     position: relative;
     margin-bottom: 3rem;
 
-    @media screen and (min-width: ($mobTab)) {
+    @media screen and (min-width: ($tablet)) {
       text-align: center;
     }
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       margin-bottom: 1.5rem;
     }
 
     &:before {
-      @media screen and (min-width: ($mobTab)) {
+      @media screen and (min-width: ($tablet)) {
         content: "";
         position: absolute;
         top: 50%;
@@ -255,12 +255,12 @@
       background-color: $off-white;
       display: inline-block;
 
-      @media screen and (min-width: ($mobTab)) {
+      @media screen and (min-width: ($tablet)) {
         padding: 0 $size-16;
         text-align: center;
       }
 
-      @media screen and (max-width: ($mobTab - 1)) {
+      @media screen and (max-width: ($tablet - 1)) {
         font-size: 1.5rem;
       }
     }

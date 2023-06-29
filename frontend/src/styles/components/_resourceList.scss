@@ -12,7 +12,7 @@
     gap: 2rem;
     align-items: flex-start;
 
-    @media screen and (max-width: ($tabMed - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
       flex-direction: column;
     }
 
@@ -27,18 +27,18 @@
       left: 0;
       width: 100%;
 
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         width: 411px;
       }
 
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         top: 0;
         z-index: 1;
       }
 
       .footer-cta,
       .related {
-        @media screen and (max-width: ($tabMed - 1)) {
+        @media screen and (max-width: ($tablet-lg - 1)) {
           display: none;
         }
       }
@@ -49,13 +49,13 @@
       flex-direction: column;
       gap: 2rem;
 
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         width: calc(100% - 411px);
       }
 
       .footer-cta,
       .related {
-        @media screen and (min-width: ($tabMed)) {
+        @media screen and (min-width: ($tablet-lg)) {
           display: none;
         }
       }
@@ -92,29 +92,29 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @media screen and (max-width: ($tabMed - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
       flex-direction: column;
     }
 
     > .label {
       font-size: $size-22;
 
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         order: 1;
         margin-bottom: $size-16;
       }
 
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         text-align: right;
         width: 180px;
       }
     }
 
     > div {
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         order: 2;
       }
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         width: calc(100% - 180px);
       }
     }
@@ -169,13 +169,13 @@
         margin-top: 1.5rem;
       }
 
-      @media screen and (max-width: ($sm - 1)) {
+      @media screen and (max-width: ($tablet-xl - 1)) {
         display: flex;
         width: 100%;
       }
 
       &:hover {
-        @media screen and (min-width: ($sm + 1)) {
+        @media screen and (min-width: ($tablet-xl + 1)) {
           background: white;
         }
       }

@@ -8,7 +8,7 @@
     align-items: center;
     gap: $size-16;
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       flex-direction: column;
     }
   }
@@ -16,11 +16,11 @@
   h4 {
     font-size: 1.7rem;
 
-    @media screen and (min-width: ($sm)) {
+    @media screen and (min-width: ($tablet-xl)) {
       width: calc(100% - 300px);
     }
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       text-align: center;
     }
   }
@@ -30,19 +30,19 @@
     align-items: center;
     gap: $size-16;
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       flex-direction: column;
     }
 
     > * {
-      @media screen and (min-width: ($sm)) {
+      @media screen and (min-width: ($tablet-xl)) {
         width: 50%;
       }
     }
   }
 
   li {
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       width: 100%;
     }
     .usa-button {
@@ -55,13 +55,13 @@
       color: $navy;
       border-radius: $size-10;
 
-      @media screen and (max-width: ($sm - 1)) {
+      @media screen and (max-width: ($tablet-xl - 1)) {
         display: flex;
         width: 100%;
       }
 
       &:hover {
-        @media screen and (min-width: ($sm + 1)) {
+        @media screen and (min-width: ($tablet-xl + 1)) {
           background: white;
         }
       }

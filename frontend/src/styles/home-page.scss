@@ -1,6 +1,6 @@
 .home-page {
   .container {
-    @media screen and (min-width: ($deskLrg)) {
+    @media screen and (min-width: ($widescreen)) {
       width: 100%;
       max-width: 1300px;
     }
@@ -20,14 +20,14 @@
       width: 100%;
       gap: 2rem;
 
-      @media screen and (max-width: ($tabPort - 1)) {
+      @media screen and (max-width: ($tablet-md - 1)) {
         gap: $size-16;
         flex-wrap: wrap;
       }
 
       .iconCard {
         width: 100%;
-        @media screen and (min-width: ($tabPort)) {
+        @media screen and (min-width: ($tablet-md)) {
           width: 184px;
         }
 
