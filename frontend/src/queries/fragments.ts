@@ -25,6 +25,26 @@ export const fragments = {
       }
     }
   }`,
+  linkObject: `fragment LinkObject on LinkObject{
+    sys {
+      id
+    }
+    copy
+    screenReaderOnlyCopy
+    url
+    icon
+    customSvg
+    description
+  }`,
+  iconCard: `fragment IconCard on IconCard {
+    sys {
+      id
+    }
+    heading
+    icon
+    description
+    sectionIcon
+  }`,
 };
 
 export const NavMenuFields = `
