@@ -1,6 +1,6 @@
 .sub-footer {
   background-color: $header-black;
-  padding: 1rem 0;
+  padding: $size-16 0;
 
   .container {
     display: block;
@@ -61,7 +61,7 @@
 
   p {
     margin: 0;
-    font-size: 14px;
+    font-size: $size-14;
 
     @media screen and (max-width: ($tabPort)) {
       text-align: center;

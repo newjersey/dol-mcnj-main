@@ -1,7 +1,7 @@
 .labelBox {
-  border-radius: 10px;
+  border-radius: $size-10;
   overflow: hidden;
-  border: 1px solid $grey;
+  border: $size-1 solid $grey;
 
   &.toggleBox {
     @media screen and (max-width: ($tabMed - 1)) {
@@ -24,10 +24,10 @@
   .title {
     background: $bluer;
     color: $text;
-    padding: 10px 15px;
+    padding: $size-10 15px;
     width: 100%;
     margin: 0;
-    font-size: 1rem;
+    font-size: $size-16;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -48,7 +48,7 @@
   }
 
   .content {
-    padding: 1rem;
+    padding: $size-16;
   }
 
   &.color-blue {

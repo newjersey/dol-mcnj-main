@@ -25,14 +25,14 @@
       border-top-left-radius: 5px;
       overflow: hidden;
       position: sticky;
-      top: 1rem;
+      top: $size-16;
     }
 
     .toggle {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 15px;
+      padding: $size-16 15px;
       width: 100%;
       background-color: $green;
       color: white;
@@ -65,12 +65,12 @@
       form {
         width: 100%;
         max-width: none;
-        padding: 1rem 15px;
-        border-bottom: 1px solid black;
+        padding: $size-16 15px;
+        border-bottom: $size-1 solid black;
 
         @media screen and (min-width: ($tabPort + 1)) {
-          border-left: 1px solid;
-          border-right: 1px solid;
+          border-left: $size-1 solid;
+          border-right: $size-1 solid;
           border-color: $green;
           border-bottom-right-radius: 5px;
           border-bottom-left-radius: 5px;
@@ -86,7 +86,7 @@
         &.reset {
           margin: 1.5rem 0.5rem 0;
           color: $accessible-gray;
-          border-bottom: 1px solid $accessible-gray;
+          border-bottom: $size-1 solid $accessible-gray;
         }
       }
     }

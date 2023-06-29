@@ -24,12 +24,12 @@
 
   .video {
     background-color: $light-green;
-    padding: 1rem 0;
+    padding: $size-16 0;
     text-align: center;
 
     .player {
       width: 100%;
-      max-width: 320px;
+      max-width: $size-320;
       margin: 0 auto;
     }
 
@@ -38,7 +38,7 @@
       background-color: $green;
       align-items: center;
       gap: 0.5rem;
-      width: 320px;
+      width: $size-320;
       justify-content: center;
       margin: 0 auto;
     }

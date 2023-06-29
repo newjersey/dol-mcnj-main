@@ -1,12 +1,12 @@
 .interrupter {
   background-color: $navy;
   color: white;
-  padding: 1rem 0;
+  padding: $size-16 0;
 
   .container {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $size-16;
 
     @media screen and (max-width: ($sm - 1)) {
       flex-direction: column;
@@ -28,7 +28,7 @@
   ul {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $size-16;
 
     @media screen and (max-width: ($sm - 1)) {
       flex-direction: column;
@@ -48,12 +48,12 @@
     .usa-button {
       text-align: left;
       background-color: $teal;
-      border: 2px solid $bright-blue;
+      border: $size-2 solid $bright-blue;
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: $size-16;
       color: $navy;
-      border-radius: 10px;
+      border-radius: $size-10;
 
       @media screen and (max-width: ($sm - 1)) {
         display: flex;
@@ -67,7 +67,7 @@
       }
 
       svg {
-        width: 32px;
+        width: $size-32;
         height: auto;
       }
     }

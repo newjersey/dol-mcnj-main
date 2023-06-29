@@ -4,13 +4,13 @@
   padding: 3rem 0;
 
   .container {
-    padding: 1rem;
+    padding: $size-16;
     position: relative;
   }
 
   .inner {
     @media screen and (min-width: ($desk)) {
-      padding: 1rem;
+      padding: $size-16;
       position: relative;
 
       overflow: hidden;
@@ -29,20 +29,20 @@
         bottom: 0;
         height: 100%;
         pointer-events: none;
-        width: 32px;
+        width: $size-32;
         height: 220px;
         z-index: 1;
       }
     }
 
     &:before {
-      left: -1rem;
-      border-left: 1rem solid white;
+      left: -$size-16;
+      border-left: $size-16 solid white;
       background: linear-gradient(to right, white, transparent);
     }
     &:after {
       right: 0rem;
-      border-right: 1rem solid white;
+      border-right: $size-16 solid white;
       background: linear-gradient(to left, white, transparent);
     }
   }
@@ -52,7 +52,7 @@
       position: sticky;
       top: 0;
       left: 0;
-      padding-top: 1rem;
+      padding-top: $size-16;
       z-index: 1;
     }
   }
@@ -95,8 +95,8 @@
     position: absolute;
     top: calc(50% + 4rem);
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: $size-40;
+    height: $size-40;
     font-size: 1.5rem;
     border: none;
     cursor: pointer;

@@ -1,8 +1,8 @@
-$gap: 52px;
-$gapHalf: 26px;
-$column-gap: 32px;
-$line-width: 6px;
-$line-width-half: 3px;
+$gap: $size-52;
+$gapHalf: $size-26;
+$column-gap: $size-32;
+$line-width: $size-6;
+$line-width-half: $size-3;
 
 .single-path {
   list-style: none;
@@ -16,17 +16,17 @@ $line-width-half: 3px;
   .arrow {
     width: 0;
     height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
+    border-top: $size-10 solid transparent;
+    border-bottom: $size-10 solid transparent;
     display: block;
     position: absolute;
     top: 50%;
     right: calc(100% + 0px);
     transform: translateY(-50%);
     z-index: 10;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 20px solid $middle-gray;
+    border-top: $size-10 solid transparent;
+    border-bottom: $size-10 solid transparent;
+    border-left: $size-20 solid $middle-gray;
   }
 
   li {
@@ -65,18 +65,18 @@ $line-width-half: 3px;
       &.tall {
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + ($gapHalf - 3px));
+            right: calc(100% + ($gapHalf - $size-3));
           }
 
           &:first-of-type,
           &:last-of-type {
             .path-connector {
-              left: calc(100% + ($gapHalf + 1px));
+              left: calc(100% + ($gapHalf + $size-1));
             }
           }
 
           .path-connector {
-            left: calc(100% + ($gapHalf + 1px));
+            left: calc(100% + ($gapHalf + $size-1));
           }
         }
       }
@@ -106,7 +106,7 @@ $line-width-half: 3px;
           }
 
           .prev-path-connector {
-            right: calc(100% + ($gapHalf - 3px));
+            right: calc(100% + ($gapHalf - $size-3));
           }
         }
       }
@@ -126,7 +126,7 @@ $line-width-half: 3px;
         height: 130%;
         top: 50%;
         transform: translateY(-50%);
-        right: calc(100% + ($gapHalf + 1px));
+        right: calc(100% + ($gapHalf + $size-1));
         z-index: 10;
         position: absolute;
       }
@@ -154,11 +154,11 @@ $line-width-half: 3px;
         }
 
         &:before {
-          width: $gapHalf - 5px;
+          width: $gapHalf - $size-5;
         }
 
         &:after {
-          width: $gapHalf + 1px;
+          width: $gapHalf + $size-1;
         }
 
         .path-connector {
@@ -168,7 +168,7 @@ $line-width-half: 3px;
           height: 130%;
           top: 50%;
           transform: translateY(-50%);
-          left: calc(100% + ($gapHalf - 3px));
+          left: calc(100% + ($gapHalf - $size-3));
           z-index: 10;
         }
       }
@@ -176,7 +176,7 @@ $line-width-half: 3px;
       + li:not(.tall) {
         .path-stop {
           &:before {
-            width: $gapHalf + 1px;
+            width: $gapHalf + $size-1;
           }
         }
       }
@@ -188,11 +188,11 @@ $line-width-half: 3px;
   }
 
   .path-stop {
-    border: 2px solid $text;
+    border: $size-2 solid $text;
     border-radius: 0.3rem;
     background-color: $mint;
-    width: 200px;
-    min-height: 120px;
+    width: $size-200;
+    min-height: $size-120;
     padding: 0.3rem 0.8rem;
     position: relative;
 
@@ -200,7 +200,7 @@ $line-width-half: 3px;
     &.active {
       background: $light-purple;
       border-color: $bright-purple;
-      outline: 2px solid $bright-purple;
+      outline: $size-2 solid $bright-purple;
     }
 
     &:before {
@@ -208,11 +208,11 @@ $line-width-half: 3px;
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($gapHalf + 5px);
+      width: calc($gapHalf + $size-5);
       height: $line-width;
       display: block;
       background: $middle-gray;
-      right: calc(100% + 2px);
+      right: calc(100% + $size-2);
     }
 
     &:after {
@@ -220,11 +220,11 @@ $line-width-half: 3px;
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($gapHalf + 5px);
+      width: calc($gapHalf + $size-5);
       height: $line-width;
       display: block;
       background: $middle-gray;
-      left: calc(100% + 2px);
+      left: calc(100% + $size-2);
     }
 
     p {
@@ -235,7 +235,7 @@ $line-width-half: 3px;
 
     .title {
       line-height: 1.2;
-      font-size: 1rem;
+      font-size: $size-16;
       text-align: center;
       margin: 0.2rem 0 0.6rem;
     }

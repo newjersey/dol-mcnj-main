@@ -5,9 +5,9 @@
   background: white;
   width: 100%;
   margin: 0;
-  border-left: 1px solid $dark-green;
-  border-right: 1px solid $dark-green;
-  border-bottom: 1px solid $dark-green;
+  border-left: $size-1 solid $dark-green;
+  border-right: $size-1 solid $dark-green;
+  border-bottom: $size-1 solid $dark-green;
 }
 
 @mixin boldItem {

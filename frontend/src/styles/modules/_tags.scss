@@ -2,14 +2,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
-  padding: 2px 10px;
-  border-radius: 2px;
+  padding: $size-2 $size-10;
+  border-radius: $size-2;
   color: $text;
-  border: 1px solid;
+  border: $size-1 solid;
 
   &.chip {
     padding: 5px 15px;
-    border-radius: 20px;
+    border-radius: $size-20;
     border: none;
     font-weight: bold;
 

@@ -97,11 +97,11 @@
     }
 
     > .label {
-      font-size: 22px;
+      font-size: $size-22;
 
       @media screen and (max-width: ($tabMed - 1)) {
         order: 1;
-        margin-bottom: 1rem;
+        margin-bottom: $size-16;
       }
 
       @media screen and (min-width: ($tabMed)) {
@@ -124,10 +124,10 @@
     }
 
     .tags {
-      margin-top: 1rem;
+      margin-top: $size-16;
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: $size-16;
 
       button {
         padding: 0;
@@ -145,11 +145,11 @@
     color: $white;
     text-align: center;
     padding: 3rem 2rem;
-    border-radius: 10px;
+    border-radius: $size-10;
     margin-top: 3rem;
 
     h3 {
-      font-size: 22px;
+      font-size: $size-22;
       margin-bottom: 2rem;
     }
 
@@ -157,12 +157,12 @@
       text-align: left;
       background-color: $teal;
       width: 100%;
-      border: 2px solid $bright-blue;
+      border: $size-2 solid $bright-blue;
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: $size-16;
       color: $navy;
-      border-radius: 10px;
+      border-radius: $size-10;
       padding: 0.5rem;
 
       + .usa-button {
@@ -181,7 +181,7 @@
       }
 
       svg {
-        width: 32px;
+        width: $size-32;
         height: auto;
       }
     }

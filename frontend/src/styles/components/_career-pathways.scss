@@ -21,7 +21,7 @@
 
   .select {
     display: none;
-    margin: 1rem 0 2rem 3rem;
+    margin: $size-16 0 2rem 3rem;
     max-width: 36rem;
     font-weight: bold;
     position: relative;
@@ -44,7 +44,7 @@
 
   .groups {
     background: white;
-    padding: 1rem;
+    padding: $size-16;
 
     .select-button {
       margin-top: 0.7rem;
@@ -52,14 +52,14 @@
       appearance: none;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: 1px solid $grey;
+      border: $size-1 solid $grey;
       border-radius: 5px;
 
       &:after {
         content: "";
         position: absolute;
-        right: 1rem;
-        bottom: 1rem;
+        right: $size-16;
+        bottom: $size-16;
         width: 0;
         height: 0;
         border-left: 0.35rem solid transparent;
@@ -70,7 +70,7 @@
 
     .dropdown-select {
       font-weight: normal;
-      margin-top: 1rem;
+      margin-top: $size-16;
       box-shadow: 0 10px 20px -15px black;
 
       &[aria-expanded="true"] {
@@ -88,14 +88,14 @@
         align-items: center;
         gap: 0.5rem;
         background: $grey;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem $size-16;
       }
 
       button {
-        padding: 1rem;
+        padding: $size-16;
 
         @media screen and (min-width: ($mobTab)) {
-          padding: 1rem 1rem 1rem 5rem;
+          padding: $size-16 $size-16 $size-16 5rem;
         }
 
         &:nth-of-type(2n - 1) {
@@ -114,8 +114,8 @@
   .path-selector {
     > .heading {
       @media screen and (max-width: ($mobTab - 1)) {
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin-left: $size-16;
+        margin-right: $size-16;
       }
     }
   }

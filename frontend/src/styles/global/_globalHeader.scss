@@ -2,14 +2,14 @@
   background-color: $header-black;
   min-height: 54px;
   color: white;
-  padding: 4px 0;
+  padding: $size-4 0;
   font-size: 15px;
   min-height: 54px;
   letter-spacing: 0.1px;
 
   @media screen and (max-width: ($tabLand)) {
     min-height: 61px;
-    padding: 10px 0 4px;
+    padding: $size-10 0 $size-4;
   }
 
   .logo {
@@ -59,7 +59,7 @@
 
   nav {
     text-align: right;
-    font-size: 14px;
+    font-size: $size-14;
 
     @media screen and (max-width: ($tabLand)) {
       padding-top: 0;
@@ -74,16 +74,16 @@
       justify-content: flex-end;
       align-items: center;
       margin: 0;
-      padding: 10px 0 0;
+      padding: $size-10 0 0;
       list-style: none;
 
       li {
-        padding: 0 10px;
+        padding: 0 $size-10;
         position: relative;
 
         &:before {
           content: "";
-          width: 1px;
+          width: $size-1;
           height: calc(100% - 5px);
           background: white;
           position: absolute;
@@ -103,7 +103,7 @@
         }
 
         &:last-of-type {
-          padding: 0 0 0 10px;
+          padding: 0 0 0 $size-10;
 
           &:before {
             content: none;
@@ -147,10 +147,10 @@
 
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: $size-1;
+  height: $size-1;
   padding: 0;
-  margin: -1px;
+  margin: -$size-1;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
