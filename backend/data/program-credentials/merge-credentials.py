@@ -213,7 +213,8 @@ def main():
         "FINANCIALAID": "str",
         "CREDIT": "str",
         "CALENDARLENGTHID": "str",
-        "PHONEEXTENSION": "str"
+        "PHONEEXTENSION": "str",
+        "NEWTONJTOPPS": "str"
     })
     degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for DEGREEAWARDED
@@ -228,7 +229,8 @@ def main():
         'Name': "str"
     })
     providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv", dtype={
-        "TYPEID": "str"
+        "TYPEID": "str",
+        "NEWTONJTOPPS": "str"
     }).add_prefix("PROVIDERS_")
 
     # Remove private data from programs file

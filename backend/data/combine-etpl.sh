@@ -55,7 +55,8 @@ psql $DBNAME -c "CREATE TABLE $PROGRAMS_TABLE (
   PHONEEXTENSION character varying(8),
   PROGRAMID character varying(8) not null primary key,
   STATUSNAME character varying(16),
-  CREDENTIALTYPE text
+  CREDENTIALTYPE text,
+  PROGRAMNEWTONJTOPPS text
 );" -U postgres -h localhost -p 5432
 
 psql $DBNAME -c "CREATE TABLE providers (
@@ -105,7 +106,8 @@ psql $DBNAME -c "CREATE TABLE providers (
     WIBCOMMENT text,
     STATECOMMENT text,
     DTSUBMITTED timestamp,
-    STATUSNAME character varying(64)
+    STATUSNAME character varying(64),
+    PROVIDERNEWTONJTOPPS text
   );" -U postgres -h localhost -p 5432
 
 # copy data in
@@ -152,6 +154,7 @@ psql $DBNAME -c "\copy (select programs.PROVIDERID,
     programs.PROGRAMID,
     programs.STATUSNAME,
     programs.CREDENTIALTYPE,
+    programs.PROGRAMNEWTONJTOPPS,
     providers.NAME,
     providers.SCHOOLIDENTIFICATIONNUMBER,
     providers.STREET1,
@@ -197,7 +200,8 @@ psql $DBNAME -c "\copy (select programs.PROVIDERID,
     providers.WIBCOMMENT as providerwibcomment,
     providers.STATECOMMENT as providerstatecomment,
     providers.DTSUBMITTED,
-    providers.STATUSNAME as providerstatusname
+    providers.STATUSNAME as providerstatusname,
+    providers.PROVIDERNEWTONJTOPPS
      from $PROGRAMS_TABLE left outer join $PROVIDERS_TABLE on $PROGRAMS_TABLE.providerid = $PROVIDERS_TABLE.providerid) to $OUTPUT_FILENAME csv header;" -U postgres -h localhost -p 5432
 
 # cleanup
