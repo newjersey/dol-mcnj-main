@@ -95,8 +95,8 @@
 
   h1 {
     font-size: 3.7rem;
-    font-weight: bold;
-    margin: 0 0 0.2rem;
+
+    margin: 0 0 1rem;
     padding: 0;
     line-height: 1;
     @media screen and (max-width: ($mobMed)) {
@@ -106,7 +106,7 @@
   }
 
   .copy {
-    padding: 4.2rem 0;
+    padding: 2.8rem 0;
     display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
