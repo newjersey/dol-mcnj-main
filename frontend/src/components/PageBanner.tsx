@@ -6,7 +6,6 @@ import { Selector } from "../svg/Selector";
 
 export const PageBanner = ({
   title,
-  breadcrumbTitle,
   message,
   breadcrumbsCollection,
   section,
@@ -16,7 +15,7 @@ export const PageBanner = ({
 }: PageBannerProps) => {
   return (
     <section className="page-banner">
-      <div className="container plus">
+      <div className="container">
         <div className="top-nav">
           <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
             <Icon>keyboard_backspace</Icon>
@@ -32,7 +31,7 @@ export const PageBanner = ({
                 );
               })}
               <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                <span data-testid="title">{breadcrumbTitle || title}</span>
+                <span data-testid="title">{title}</span>
               </li>
             </ol>
           </nav>

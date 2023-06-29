@@ -1,6 +1,6 @@
 import { NavMenuData } from "../types/contentful";
 import { Icon } from "@material-ui/core";
-import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png";
+import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png"
 
 export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
   const HasIcon = ({ string }: { string: string }) => {

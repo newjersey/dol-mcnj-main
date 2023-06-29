@@ -1,20 +1,17 @@
 import { Document } from "@contentful/rich-text-types";
-import { ReactNode } from "react";
 
-/* ********************
- *  GENERIC
- ******************** */
 export interface Keypair {
   key: string;
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
 export interface FaqItemTopic {
   topic: string;
   order: number;
+}
+
+export interface ContentfulRichText {
+  json: Document;
 }
 
 export interface PageBannerProps {
@@ -30,10 +27,6 @@ export interface PageBannerProps {
     items: LinkObjectProps[];
   };
 }
-export interface ContentfulRichText {
-  json: Document;
-}
-
 export interface FaqItem {
   sys?: {
     id: string;
@@ -59,12 +52,11 @@ export interface LinkObjectProps {
     id: string;
   };
   copy?: string;
-  className?: string;
   url: string;
   screenReaderOnlyCopy?: string;
-  children?: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children?: any;
   icons?: boolean;
-  label?: string;
 }
 
 export interface FaqPageData {
@@ -72,12 +64,8 @@ export interface FaqPageData {
     sys: {
       publishedAt: Date;
     };
-    pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage?: {
-      url: string;
-    };
     topics: {
       items: FaqTopic[];
     };
@@ -94,30 +82,6 @@ export interface FaqPageProps {
   };
 }
 
-export interface IndustryProps {
-  sys: {
-    id: string;
-  };
-  title: string;
-  slug: "manufacturing" | "healthcare" | "tdl";
-  description: ContentfulRichText;
-  photo: {
-    url: string;
-  };
-  industryAccordionCollection: {
-    items: {
-      sys: {
-        id: string;
-      };
-      title: string;
-      copy: ContentfulRichText;
-      icon?: {
-        url: string;
-      };
-    }[];
-  };
-}
-
 export interface CareerPathwaysPageData {
   page: {
     sys: {
@@ -126,10 +90,16 @@ export interface CareerPathwaysPageData {
     title: string;
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
-    footerCtaLink: LinkObjectProps;
+    FooterCtaLink: LinkObjectProps;
   };
   industries: {
-    items: IndustryProps[];
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+    }[];
   };
 }
 
@@ -185,7 +155,6 @@ export interface TrainingProviderData {
     sys: {
       publishedAt: Date;
     };
-    pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
     bannerImage: {
@@ -197,61 +166,65 @@ export interface TrainingProviderData {
   };
 }
 
-export interface TrainingProviderPageProps {
-  data: {
-    data: TrainingProviderData;
-  };
-}
-
-export interface FinResourcePageProps {
-  sys: {
-    publishedAt: Date;
-  };
-  pageBanner: PageBannerProps;
-  title: string;
-  bannerHeading: string;
-  bannerCopy: ContentfulRichText;
-  bannerImage?: {
-    url: string;
-  };
-  footerBannerTitle?: string;
-  footerBannerCopy?: ContentfulRichText;
-}
-
-export interface FinResourceTypeProps {
-  items: {
-    sys?: {
-      id: string;
-    };
-    title: string;
-    type: string;
-    color: string;
-  }[];
-}
-
-export interface FinResourceItemProps {
-  sys?: {
-    id: string;
-  };
-  title: string;
-  details: ContentfulRichText;
-  link: string;
-  taggedCatsCollection: FinResourceTypeProps;
-}
-export interface FinResourceProps {
-  items: FinResourceItemProps[];
-}
-
-export interface FinancialResourcePageData {
-  page: FinResourcePageProps;
-  education: FinResourceTypeProps;
-  funding: FinResourceTypeProps;
-  resources: FinResourceProps;
-}
-
 export interface FinancialResourcePageProps {
   status?: number;
   data: {
-    data: FinancialResourcePageData;
+    data: {
+      page: {
+        sys: {
+          publishedAt: Date;
+        };
+        title: string;
+        bannerHeading: string;
+        bannerImage?: {
+          url: string;
+        };
+        footerBannerTitle?: string;
+        footerBannerCopy?: ContentfulRichText;
+      };
+      education: {
+        items: {
+          sys?: {
+            id: string;
+          };
+          title: string;
+          type: string;
+        }[];
+      };
+      funding: {
+        items: {
+          sys?: {
+            id: string;
+          };
+          title: string;
+          type: string;
+        }[];
+      };
+      resources: {
+        items: {
+          sys?: {
+            id: string;
+          };
+          title: string;
+          details: ContentfulRichText;
+          link: string;
+          taggedCatsCollection: {
+            items: {
+              sys?: {
+                id: string;
+              };
+              title: string;
+              color: string;
+            }[];
+          };
+        };
+      };
+    };
+  };
+}
+
+export interface TrainingProviderPageProps {
+  data: {
+    data: TrainingProviderData;
   };
 }

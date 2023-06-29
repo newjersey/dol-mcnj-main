@@ -77,9 +77,9 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
 
   return (
     <header className="header" role="banner">
+      <BetaBanner />
       <GlobalHeader items={data?.globalNav} />
       {isDesktop ? <>{nav()}</> : <>{mobileNav()}</>}
-      <BetaBanner />
     </header>
   );
 };

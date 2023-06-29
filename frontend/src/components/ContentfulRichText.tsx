@@ -5,16 +5,9 @@ import {
   //, MARKS, Document, Block
 } from "@contentful/rich-text-types";
 import { documentToReactComponents, Options } from "@contentful/rich-text-react-renderer";
-import { AssetBlock } from "../types/contentful";
 
 export type Props = {
   className?: string;
-  imageDescription?: boolean;
-  assets?: {
-    assets: {
-      block: AssetBlock[];
-    };
-  };
   document: {
     nodeType: BLOCKS.DOCUMENT;
     content: any[];
@@ -22,35 +15,26 @@ export type Props = {
   };
 };
 
-export const ContentfulRichText: React.FC<Props> = ({
-  document,
-  imageDescription,
-  assets,
-  className,
-}: Props) => {
+function getObjectKeyArray(obj: any): string[] {
+  if (typeof obj !== "object") return [];
+  const arr: string[] = [];
+  for (const key in obj) {
+    arr.push(key);
+  }
+  return arr;
+}
+
+export const ContentfulRichText: React.FC<Props> = ({ document, className }: Props) => {
   const options: Options = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        if (!node.data.target.sys.id) return;
-
-        const currentAsset = assets?.assets.block.find(
-          (asset) => asset.sys.id === node.data.target.sys.id
-        );
-
-        if (!currentAsset) return;
-
-        return (
-          <div className="image-text">
-            <img src={currentAsset.url} alt={currentAsset?.title} />
-            {imageDescription && (
-              <div className="description">
-                <p>{currentAsset?.description}</p>
-              </div>
-            )}
-          </div>
-        );
+        if (!node.data.target.fields) return;
+        const { file, description } = node.data.target.fields;
+        const locales = getObjectKeyArray(file);
+        return locales.map((locale) => (
+          <img src={file[locale].url} alt={description[locale]} data-locale={locale} key={locale} />
+        ));
       },
-      [BLOCKS.PARAGRAPH]: (node, children) => <p>{children}</p>,
     },
   };
   return (

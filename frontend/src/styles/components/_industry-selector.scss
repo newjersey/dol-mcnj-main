@@ -1,5 +1,5 @@
 .industry-selector {
-  padding: 5rem 0 2rem;
+  padding: 2rem 0;
 
   .heading {
     text-align: center;
@@ -26,18 +26,6 @@
       background-color: white;
       display: inline-block;
       padding: 0 1rem;
-      position: relative;
-    }
-
-    .moreBadge {
-      position: absolute;
-      top: 50%;
-      left: calc(100% + 9rem);
-      transform: translateY(-50%);
-
-      @media screen and (max-width: ($tabLand - 1)) {
-        display: none;
-      }
     }
   }
 
@@ -62,8 +50,7 @@
 
     &.active {
       a {
-        background: $light-purple;
-        border-color: $bright-purple;
+        background: $lightest-grey;
       }
     }
 
@@ -78,11 +65,9 @@
       text-decoration: none;
       padding: 1.2rem;
       display: block;
-      border: 2px solid $grey;
+      border: 2px solid $light-grey;
       border-radius: 20px;
       color: $text;
-      transition-duration: 0.3s;
-      transition-timing-function: ease-in-out;
 
       @media screen and (min-width: ($mobTab + 1)) {
         height: 160px;
@@ -90,13 +75,6 @@
         flex-direction: column;
         justify-content: center;
         padding: 0 1.2rem;
-      }
-
-      &:hover {
-        @media screen and (min-width: ($mobTab)) {
-          box-shadow: 5px 4px 12px -3px $grey;
-          transform: scale(1.03);
-        }
       }
 
       span {
