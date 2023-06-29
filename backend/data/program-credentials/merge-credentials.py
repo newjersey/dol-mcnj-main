@@ -195,12 +195,26 @@ def label_credential_type(row: pd.Series):
 def export(df, yyyymmdd):
     df.to_csv(f'../programs_{yyyymmdd}_merged.csv', index=False, encoding='utf-8-sig')
 
+def safe_read_csv(file_path, *args, **kwargs):
+    """
+    Safe read csv function that catches unicode decode errors and replaces the problematic characters
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
+            content = f.read()
+        from io import StringIO
+        s = StringIO(content)
+        return pd.read_csv(s, *args, **kwargs)
+    except UnicodeDecodeError as e:
+        print(f"UnicodeDecodeError caught while reading the file {file_path} : {e}")
+        return None
+
 
 def main():
     yyyymmdd = sys.argv[1]
 
     # Read in source data files
-    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv", dtype={
+    programs_df = safe_read_csv(f"../programs_{yyyymmdd}.csv", dtype={
         # Read enum and lookup fields from csv as strings to preserve
         # value for comparison and prevent type coercion to floating point
         # types.
@@ -216,19 +230,19 @@ def main():
         "PHONEEXTENSION": "str",
         "NEWTONJTOPPS": "str"
     })
-    degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+    degree_lookup_df = safe_read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for DEGREEAWARDED
         'Name': "str"
     })
-    industry_credentials_lookup_df = pd.read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+    industry_credentials_lookup_df = safe_read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for INDUSTRYCREDENTIAL
         'Name': "str"
     })
-    license_lookup_df = pd.read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+    license_lookup_df = safe_read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for LICENSEAWARDED
         'Name': "str"
     })
-    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv", dtype={
+    providers_df = safe_read_csv(f"../providers_{yyyymmdd}.csv", dtype={
         "TYPEID": "str",
         "NEWTONJTOPPS": "str"
     }).add_prefix("PROVIDERS_")
