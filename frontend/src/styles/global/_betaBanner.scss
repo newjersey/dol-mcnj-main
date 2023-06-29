@@ -6,14 +6,14 @@
   background-color: $light-green;
   width: 100%;
   font-size: 0.9rem;
-  color: black;
+  color: $ink;
 
   @media print {
     position: static;
   }
 
   a {
-    background-color: $blue;
+    background-color: $primary;
     color: white;
     text-decoration: none;
     display: inline-block;

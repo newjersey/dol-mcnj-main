@@ -9,7 +9,7 @@
   }
 
   .heading {
-    border-bottom: 0.5rem solid black;
+    border-bottom: 0.5rem solid $ink;
     padding-bottom: 0.8rem;
     margin-bottom: 2.5rem;
 
@@ -52,7 +52,7 @@
       appearance: none;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: $size-1 solid $grey;
+      border: $size-1 solid $base-lighter;
       border-radius: 5px;
 
       &:after {
@@ -64,14 +64,14 @@
         height: 0;
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
-        border-top: 0.35rem solid black;
+        border-top: 0.35rem solid $ink;
       }
     }
 
     .dropdown-select {
       font-weight: normal;
       margin-top: $size-16;
-      box-shadow: 0 10px 20px -15px black;
+      box-shadow: 0 10px 20px -15px $ink;
 
       &[aria-expanded="true"] {
         display: block;
@@ -87,7 +87,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        background: $grey;
+        background: $base-lighter;
         padding: 0.5rem $size-16;
       }
 

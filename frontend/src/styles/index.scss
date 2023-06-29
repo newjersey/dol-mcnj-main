@@ -135,13 +135,13 @@ p {
 }
 
 a.link-format-black {
-  color: black !important;
+  color: $ink !important;
   text-decoration: none;
 }
 
 button.link-format-blue,
 a.link-format-blue {
-  color: $blue !important;
+  color: $primary !important;
   text-decoration: none !important;
 }
 

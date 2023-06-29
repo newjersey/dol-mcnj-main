@@ -13,7 +13,7 @@ header {
   .basic-logo {
     a {
       display: flex;
-      color: black;
+      color: $ink;
       text-decoration: none;
       padding: $size-16 0 0.8rem;
       width: calc(100% - 55px);

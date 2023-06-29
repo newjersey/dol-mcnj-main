@@ -20,16 +20,16 @@
   }
 
   a {
-    color: $blue;
+    color: $primary;
     letter-spacing: 0.3px;
     text-decoration: none;
     display: inline-block;
-    border-bottom: $size-2 solid $blue;
+    border-bottom: $size-2 solid $primary;
 
     &:visited,
     &:hover {
-      color: $blue;
-      border-bottom: $size-2 solid $blue;
+      color: $primary;
+      border-bottom: $size-2 solid $primary;
     }
   }
 }

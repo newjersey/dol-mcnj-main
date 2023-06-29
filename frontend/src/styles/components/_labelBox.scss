@@ -1,7 +1,7 @@
 .labelBox {
   border-radius: $size-10;
   overflow: hidden;
-  border: $size-1 solid $grey;
+  border: $size-1 solid $base-lighter;
 
   &.toggleBox {
     @media screen and (max-width: ($tablet-lg - 1)) {
@@ -22,8 +22,8 @@
   }
 
   .title {
-    background: $bluer;
-    color: $text;
+    background: $primary;
+    color: $ink;
     padding: $size-10 15px;
     width: 100%;
     margin: 0;
@@ -53,7 +53,7 @@
 
   &.color-blue {
     .title {
-      background: $bluer;
+      background: $primary;
       color: $white;
     }
   }

@@ -49,7 +49,7 @@
         a {
           &.usa-breadcrumb__link:visited,
           &.usa-breadcrumb__link {
-            color: $blue;
+            color: $primary;
           }
         }
       }
@@ -59,7 +59,7 @@
       li {
         a:not(.usa-button--outline) {
           &.usa-button {
-            background-color: $blue;
+            background-color: $primary;
 
             &:hover {
               background-color: $dark-blue;
@@ -67,8 +67,8 @@
           }
         }
         a.usa-button--outline {
-          box-shadow: inset 0 0 0 $size-2 $blue;
-          color: $blue;
+          box-shadow: inset 0 0 0 $size-2 $primary;
+          color: $primary;
 
           &:hover {
             box-shadow: inset 0 0 0 $size-2 $dark-blue;
@@ -134,7 +134,7 @@
             background-color: $navy;
 
             &:hover {
-              background-color: $blue;
+              background-color: $primary;
             }
           }
         }
@@ -144,8 +144,8 @@
           color: $navy;
 
           &:hover {
-            box-shadow: inset 0 0 0 $size-2 $blue;
-            color: $blue;
+            box-shadow: inset 0 0 0 $size-2 $primary;
+            color: $primary;
           }
         }
       }
@@ -154,7 +154,7 @@
 
   .top-nav {
     padding-bottom: 0.5rem;
-    border-bottom: $size-2 solid black;
+    border-bottom: $size-2 solid $ink;
 
     @media screen and (min-width: ($mobile-lg + 1)) {
       display: flex;
@@ -214,7 +214,7 @@
               color: $indigo;
             }
             .jobs-theme & {
-              color: $blue;
+              color: $primary;
             }
             .training-theme & {
               color: $green;
