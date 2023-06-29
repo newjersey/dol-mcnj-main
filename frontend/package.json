@@ -11,7 +11,7 @@
     "@newjersey/njwds": "^0.3.0",
     "@phosphor-icons/react": "^2.0.10",
     "@reach/router": "^1.3.4",
-    "@sentry/react": "^7.56.0",
+    "@sentry/react": "^7.57.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@types/accounting": "^0.4.2",
