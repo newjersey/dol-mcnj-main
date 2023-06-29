@@ -9,9 +9,63 @@ export interface Keypair {
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
+export interface OccupationNodeProps {
+  sys: {
+    id: string;
+  };
+  level: number;
+  title: string;
+  inDemand?: boolean;
+  shortTitle?: string;
+  description: string;
+  medianSalary?: number;
+  numberOfAvailableJobs?: number;
+  trainingSearchTerms?: string;
+  salaryRangeStart: number;
+  salaryRangeEnd: number;
+  educationLevel: string;
+  advancement?: string;
+  tasks?: string;
+  education?: string;
+  credentials?: string;
+  skills?: string;
+  experience?: string;
+}
+
+export interface SelectProps {
+  pathway?: OccupationNodeProps[];
+  title?: string;
+  shortTitle?: string;
+  id?: string;
+  groupId?: string;
+  groupTitle?: string;
+}
+
+export interface SinglePathwayProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  occupationsCollection: {
+    items: OccupationNodeProps[];
+  };
+}
+
+export interface CareerMapNodeProps extends OccupationNodeProps {
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
+}
+
+export interface PathwayGroupProps {
+  title: string;
+  sys: {
+    id: string;
+  };
+  pathways?: {
+    items: SinglePathwayProps[];
+  };
+}
+
 export interface FaqItemTopic {
   topic: string;
   order: number;
@@ -20,6 +74,7 @@ export interface FaqItemTopic {
 export interface PageBannerProps {
   date?: Date;
   title: string;
+  breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
@@ -30,8 +85,26 @@ export interface PageBannerProps {
     items: LinkObjectProps[];
   };
 }
+
+export interface AssetBlock {
+  sys: {
+    id: string;
+  };
+  url?: string;
+  title?: string;
+  description?: string;
+  width?: number;
+  height?: number;
+  contentType?: string;
+}
+
 export interface ContentfulRichText {
   json: Document;
+  links?: {
+    assets: {
+      block: AssetBlock[];
+    };
+  };
 }
 
 export interface FaqItem {
@@ -94,15 +167,38 @@ export interface FaqPageProps {
   };
 }
 
+export interface CareerMapProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+}
+
 export interface IndustryProps {
   sys: {
     id: string;
   };
   title: string;
+  shorthandTitle?: string;
   slug: "manufacturing" | "healthcare" | "tdl";
   description: ContentfulRichText;
   photo: {
     url: string;
+    width: number;
+    height: number;
+  };
+  careerMaps?: {
+    items: CareerMapProps[];
+  };
+  inDemandCollection?: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      idNumber: string;
+      numberOfJobs?: number;
+    }[];
   };
   industryAccordionCollection: {
     items: {
@@ -127,9 +223,9 @@ export interface CareerPathwaysPageData {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-  };
-  industries: {
-    items: IndustryProps[];
+    industries: {
+      items: IndustryProps[];
+    };
   };
 }
 
