@@ -14,7 +14,7 @@
     font-weight: bold;
     padding-bottom: 0.6rem;
     margin-bottom: 3rem;
-    border-bottom: 0.5rem solid black;
+    border-bottom: 0.5rem solid $ink;
 
     @media screen and (max-width: ($tablet)) {
       line-height: 1.2;

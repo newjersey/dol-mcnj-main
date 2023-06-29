@@ -13,7 +13,7 @@
       left: 50%;
       transform: translateY(-50%) translateX(-50%);
       width: 100%;
-      background-color: black;
+      background-color: $ink;
       height: 0.5rem;
       z-index: -1;
     }
@@ -78,9 +78,9 @@
       text-decoration: none;
       padding: 1.2rem;
       display: block;
-      border: $size-2 solid $grey;
+      border: $size-2 solid $base-lighter;
       border-radius: $size-20;
-      color: $text;
+      color: $ink;
       transition-duration: 0.3s;
       transition-timing-function: ease-in-out;
 
@@ -94,7 +94,7 @@
 
       &:hover {
         @media screen and (min-width: ($tablet)) {
-          box-shadow: 5px $size-4 $size-12 - $size-3 $grey;
+          box-shadow: 5px $size-4 $size-12 - $size-3 $base-lighter;
           transform: scale(1.03);
         }
       }

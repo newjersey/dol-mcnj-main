@@ -135,7 +135,7 @@ $gapHalf: $size-30;
     width: $boxWidth;
     background-color: #ebf5ee;
     border-radius: 10px;
-    border: $borderWidthHalf solid black;
+    border: $borderWidthHalf solid $ink;
     font-size: $fontSize;
     text-align: center;
     padding: 5px;
@@ -154,7 +154,7 @@ $gapHalf: $size-30;
 
     &.main {
       z-index: 2;
-      background: black;
+      background: $ink;
       color: white;
       border-radius: 100%;
       height: $boxWidth;

@@ -4,7 +4,7 @@
   gap: 0.2rem;
   padding: $size-2 10px;
   border-radius: $size-2;
-  color: $text;
+  color: $ink;
   border: $size-1 solid;
 
   &.chip {
@@ -41,7 +41,7 @@
   }
 
   &.color-blue {
-    background-color: $teal;
+    background-color: $info-lighter;
     border-color: $sky-blue;
   }
 

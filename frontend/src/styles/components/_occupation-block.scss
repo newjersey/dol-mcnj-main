@@ -7,7 +7,7 @@
 
   button {
     &.usa-button--unstyled {
-      color: $blue;
+      color: $primary;
       display: flex;
       gap: 0.5rem;
       align-items: center;
@@ -23,7 +23,7 @@
   }
 
   .map-toggle {
-    color: $blue;
+    color: $primary;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -36,7 +36,7 @@
     font-weight: bold;
     padding-bottom: 0.6rem;
     margin-bottom: 2.2rem;
-    border-bottom: 0.5rem solid black;
+    border-bottom: 0.5rem solid $ink;
 
     @media screen and (max-width: ($tablet)) {
       line-height: 1.2;
@@ -59,7 +59,7 @@
       height: 0;
       border-left: 0.35rem solid transparent;
       border-right: 0.35rem solid transparent;
-      border-top: 0.35rem solid black;
+      border-top: 0.35rem solid $ink;
     }
 
     select {
@@ -72,7 +72,7 @@
 
   .occupation-box {
     @media screen and (min-width: ($tablet + 1)) {
-      border: $size-1 solid black;
+      border: $size-1 solid $ink;
       border-radius: $size-10;
       padding: 4.5rem 2rem;
     }
@@ -208,7 +208,7 @@
       }
 
       a {
-        color: $blue;
+        color: $primary;
       }
     }
   }
@@ -253,7 +253,7 @@
       &.related-training,
       &.related-occupations {
         a:not(.usa-button) {
-          color: $blue;
+          color: $primary;
           text-decoration: none;
           display: block;
         }
@@ -432,7 +432,7 @@
     }
 
     .breadcrumbs {
-      color: $text;
+      color: $ink;
       font-size: 0.9rem;
       margin-bottom: 2rem;
 

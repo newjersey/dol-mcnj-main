@@ -3,8 +3,8 @@
 
   button {
     font-weight: bold;
-    color: black;
-    background-color: $grey;
+    color: $ink;
+    background-color: $base-lighter;
     width: 100%;
     padding: 1.2rem 4rem 1.2rem $size-16;
     position: relative;
@@ -19,7 +19,7 @@
       height: $size-2;
       border-radius: $size-2;
       width: 15px;
-      background: black;
+      background: $ink;
       top: 50%;
       right: $size-24;
       z-index: 1;

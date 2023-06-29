@@ -22,7 +22,7 @@
 }
 
 .hover-shadow:hover {
-  box-shadow: 0 0 10px $grey;
+  box-shadow: 0 0 10px $base-lighter;
 }
 
 .space-for-filterbox {
@@ -57,7 +57,7 @@
 .grey-line {
   height: 1px;
   width: 100%;
-  background-color: $grey;
+  background-color: $base-lighter;
 }
 
 // small and up
