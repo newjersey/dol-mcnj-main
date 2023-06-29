@@ -145,7 +145,7 @@
     color: $white;
     text-align: center;
     padding: 3rem 2rem;
-    border-radius: $size-10;
+    border-radius: 10px;
     margin-top: 3rem;
 
     h3 {
@@ -162,7 +162,7 @@
       align-items: center;
       gap: $size-16;
       color: $navy;
-      border-radius: $size-10;
+      border-radius: 10px;
       padding: 0.5rem;
 
       + .usa-button {

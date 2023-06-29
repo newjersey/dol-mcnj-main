@@ -9,7 +9,7 @@
 
   @media screen and (max-width: ($tabLand)) {
     min-height: 61px;
-    padding: $size-10 0 $size-4;
+    padding: 10px 0 $size-4;
   }
 
   .logo {
@@ -74,11 +74,11 @@
       justify-content: flex-end;
       align-items: center;
       margin: 0;
-      padding: $size-10 0 0;
+      padding: 10px 0 0;
       list-style: none;
 
       li {
-        padding: 0 $size-10;
+        padding: 0 10px;
         position: relative;
 
         &:before {
@@ -103,7 +103,7 @@
         }
 
         &:last-of-type {
-          padding: 0 0 0 $size-10;
+          padding: 0 0 0 10px;
 
           &:before {
             content: none;
