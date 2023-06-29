@@ -1,6 +1,17 @@
+import { CareerNavigatorPage } from "./../career-navigator-page/CareerNavigatorPage";
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
 import { IconNames } from "./icons";
+
+export type SectionIcons =
+  | "explore"
+  | "jobs"
+  | "support"
+  | "training"
+  | "exploreBold"
+  | "jobsBold"
+  | "supportBold"
+  | "trainingBold";
 
 /* ********************
  *  GENERIC
@@ -86,7 +97,7 @@ export interface PageBannerProps {
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
-  section: "explore" | "jobs" | "support" | "training";
+  section: SectionIcons;
   message?: ContentfulRichText;
   description?: string;
   ctaHeading?: string;
@@ -145,7 +156,9 @@ export interface LinkObjectProps {
   url: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
-  icons?: boolean;
+  icon?: boolean;
+  customSvg?: string;
+  description?: string;
   label?: string;
 }
 
@@ -384,7 +397,7 @@ export interface IconLinkProps {
     id: string;
   };
   icon?: IconNames;
-  sectionIcon?: "explore" | "jobs" | "support" | "training";
+  sectionIcon?: SectionIcons;
   copy: string;
   url: string;
   description?: string;
@@ -495,5 +508,34 @@ export interface ResourceItemProps {
 export interface ResourceListProps {
   resources: {
     items: ResourceItemProps[];
+  };
+}
+
+export interface IconCardProps {
+  sys?: {
+    id: string;
+  };
+  heading: string;
+  icon: IconNames;
+  sectionItem?: SectionIcons;
+  description: string;
+}
+
+export interface CareerNavigatorPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+    stepsHeading: string;
+    midPageCtaHeading: string;
+    interrupterHeading: string;
+    infoHeading: string;
+    opportunityCardsCollection: {
+      items: LinkObjectProps[];
+    };
+    stepsCollection: {
+      items: IconCardProps[];
+    };
   };
 }
