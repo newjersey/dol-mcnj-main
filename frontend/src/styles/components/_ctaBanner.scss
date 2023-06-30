@@ -1,0 +1,113 @@
+.ctaBanner {
+  padding: $size-32 $size-16;
+  background: $white;
+
+  &.fullColor {
+    background-color: $primary;
+    color: $white;
+
+    .heading {
+      color: $white;
+      font-size: $size-32;
+      margin-bottom: 0;
+      line-height: 1.2;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-size: $size-24;
+      }
+    }
+
+    .container {
+      display: flex;
+      gap: $size-32;
+      align-items: center;
+      padding: 0;
+
+      @media screen and (max-width: ($desktop - 1)) {
+        flex-direction: column;
+      }
+
+      > * {
+        flex: 1;
+      }
+    }
+
+    .links {
+      display: flex;
+      gap: $size-16;
+      flex-wrap: wrap;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        flex-direction: column;
+      }
+
+      .link {
+        text-align: left;
+
+        @media screen and (min-width: ($tablet)) {
+          width: calc(50% - $size-16);
+        }
+      }
+    }
+
+    &.color-blue {
+      background: $primary;
+    }
+
+    &.color-green {
+      background: $secondary-dark;
+    }
+
+    &.color-navy {
+      background: $info-darker;
+    }
+
+    &.color-purple {
+      background: $tertiary;
+    }
+  }
+
+  &.contained {
+    max-width: $desktop-lg;
+    margin: 0 auto;
+
+    @media screen and (min-width: ($desktop)) {
+      border-radius: $size-20;
+      padding-left: $size-80;
+      padding-right: $size-80;
+    }
+
+    @media screen and (min-width: ($desktop-lg)) {
+      padding-left: $size-160;
+      padding-right: $size-160;
+    }
+
+    .heading {
+      color: $white;
+      font-size: $size-24;
+      margin-bottom: 0;
+      line-height: 1.2;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-size: $size-24;
+      }
+    }
+
+    .container {
+      > * {
+        flex: initial;
+      }
+
+      .heading {
+        @media screen and (min-width: ($desktop)) {
+          width: 40%;
+        }
+      }
+      .links {
+        @media screen and (min-width: ($desktop)) {
+          width: 60%;
+        }
+      }
+    }
+  }
+}

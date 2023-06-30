@@ -1,7 +1,8 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
 import { IconNames } from "./icons";
-import { Link } from "@reach/router";
+
+export type ThemeColors = "navy" | "blue" | "green" | "purple" | "orange";
 
 export type SectionIcons =
   | "explore"
