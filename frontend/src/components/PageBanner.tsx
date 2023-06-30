@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { PageBannerProps } from "../types/contentful";
+import { PageBannerProps, SectionIcons } from "../types/contentful";
 import { ContentfulRichText } from "./ContentfulRichText";
 import { Icon } from "@material-ui/core";
 import { Selector } from "../svg/Selector";
@@ -31,7 +31,11 @@ export const PageBanner = ({
         <div className="top-nav">
           <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
             <Icon>keyboard_backspace</Icon>
-            <Selector name={`${section}Bold`} color={svgColor} />
+            <Selector
+              // this is a temporary fix for the fact that the icons are named inconsistently
+              name={`${section.replace("Bold", "")}Bold` as SectionIcons}
+              color={svgColor}
+            />
             <ol className="usa-breadcrumb__list">
               {breadcrumbsCollection?.items.map((crumb) => {
                 return (

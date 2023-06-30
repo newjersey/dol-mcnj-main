@@ -1,36 +1,85 @@
 .stepper {
   display: flex;
   text-align: center;
-  padding: 2rem 0;
-  gap: 2rem;
+  padding: $size-32 0;
+  gap: $size-32;
+
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    flex-direction: column;
+  }
 
   .step {
-    background-color: $off-white;
-    padding: 0 3rem $size-16;
+    background-color: $base-lightest;
+    padding: 0 $size-48 $size-16;
     border-radius: 5px;
     width: 33.33%;
 
-    @media screen and (max-width: ($tablet-xl - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: 100%;
       padding: 0 $size-16 $size-16;
     }
 
     .number {
       display: block;
-      width: 2rem;
-      height: 2rem;
-      line-height: 2rem;
+      width: $size-32;
+      height: $size-32;
+      line-height: $size-32;
       border-radius: 50%;
-      background-color: $green;
+      background-color: $secondary;
       color: white;
-      margin: -$size-10 auto 0;
-      margin-bottom: 0.5rem;
+      margin: -10px auto 0;
+      margin-bottom: $size-8;
     }
 
     .title {
       display: block;
-      font-size: 1.2rem;
+      font-size: $size-20;
       font-weight: bold;
-      margin: 0.5rem 0;
+      margin: $size-8 0;
+    }
+  }
+
+  &.theme-green {
+    .step {
+      svg {
+        fill: $secondary;
+      }
+      .number {
+        background-color: $secondary;
+      }
+    }
+  }
+
+  &.theme-blue {
+    .step {
+      svg {
+        fill: $primary;
+      }
+      .number {
+        background-color: $primary;
+      }
+    }
+  }
+
+  &.theme-purple {
+    .step {
+      svg {
+        fill: $tertiary;
+      }
+      .number {
+        background-color: $tertiary;
+      }
+    }
+  }
+
+  &.theme-navy {
+    .step {
+      svg {
+        fill: $info-darker;
+      }
+      .number {
+        background-color: $info-darker;
+      }
     }
   }
 }

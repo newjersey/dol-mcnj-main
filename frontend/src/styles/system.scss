@@ -463,6 +463,7 @@ $gray-warm-90: #171716;
 
 // THEME COLORS
 
+$base-cool: $gray-2;
 $base-lightest: $gray-cool-5;
 $base-lighter: $gray-cool-10;
 $base-light: $gray-cool-30;
@@ -477,12 +478,12 @@ $primary: $blue-60v;
 $primary-vivid: $blue-warm-60v;
 $primary-dark: $blue-warm-70v;
 $primary-darker: $blue-warm-80v;
-$secondary-lighter: $green-cool-10v;
-$secondary-light: $green-cool-30;
-$secondary: $green-cool-50;
-$secondary-vivid: $green-cool-60;
-$secondary-dark: $green-cool-70;
-$secondary-darker: $green-cool-80;
+$secondary-lighter: $green-cool-10;
+$secondary-light: $green-cool-30v;
+$secondary: $green-cool-50v;
+$secondary-vivid: $green-cool-60v;
+$secondary-dark: $green-cool-70v;
+$secondary-darker: $green-cool-80v;
 $tertiary-lighter: $indigo-cool-5v;
 $tertiary-light: $indigo-30;
 $tertiary: $indigo-50;
@@ -774,3 +775,5 @@ $bright-green: #29cc6a;
 $green: #198042;
 $dark-green: #243413;
 $darker-green: #0d4423;
+
+$transition-speed: 0.2s;

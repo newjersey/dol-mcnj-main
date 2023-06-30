@@ -54,7 +54,7 @@ export const IconCard = ({
             </span>
           )}
         </div>
-        <p className="title">{title}</p>
+        {title && <p className="title">{title}</p>}
         {!centered && description && <p className="description">{description}</p>}
       </a>
     </div>

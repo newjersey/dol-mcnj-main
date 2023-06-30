@@ -60,7 +60,7 @@
   }
 
   &.color-green {
-    border-color: $green;
+    border-color: $secondary;
 
     h1,
     h2,
@@ -68,12 +68,12 @@
     h4,
     h5,
     h6 {
-      color: $green;
+      color: $secondary;
     }
   }
 
   &.color-purple {
-    border-color: $dark-purple;
+    border-color: $tertiary;
 
     h1,
     h2,
@@ -81,12 +81,12 @@
     h4,
     h5,
     h6 {
-      color: $dark-purple;
+      color: $tertiary;
     }
   }
 
   &.color-navy {
-    border-color: $navy;
+    border-color: $info-darker;
 
     h1,
     h2,
@@ -94,7 +94,7 @@
     h4,
     h5,
     h6 {
-      color: $navy;
+      color: $info-darker;
     }
   }
 }
