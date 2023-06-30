@@ -8,7 +8,7 @@ interface HowToProps {
   steps: {
     header: string;
     icon: IconNames;
-    text: string;
+    description: string;
   }[];
 }
 

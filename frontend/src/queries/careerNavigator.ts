@@ -6,7 +6,8 @@ export const CAREER_NAVIGATOR_QUERY = `query CareerNavigator {
     pageBanner {
       ...PageBanner
     }
-    opportunityCardsCollection(limit: 4) {
+    opportunitiesHeading
+    opportunityCards: opportunityCardsCollection(limit: 4) {
       items {
         ...LinkObject
       }
@@ -18,24 +19,24 @@ export const CAREER_NAVIGATOR_QUERY = `query CareerNavigator {
       }
     }
     midPageCtaHeading
-    midPageCtaLinksCollection(limit: 2) {
+    midPageCtaLinks: midPageCtaLinksCollection(limit: 2) {
       items {
         ...LinkObject
       }
     }
     interrupterHeading
-    interrupterLinksCollection(limit: 4) {
+    interrupterLinks: interrupterLinksCollection(limit: 4) {
       items {
         ...LinkObject
       }
     }
     infoHeading
-    infoCardsCollection(limit: 3) {
+    infoCards: infoCardsCollection(limit: 3) {
       items {
         ...IconCard
       }
     }
-    riverItemsCollection(limit: 4) {
+    river: riverItemsCollection(limit: 4) {
       items {
         image {
           url

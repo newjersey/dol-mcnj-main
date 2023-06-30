@@ -1279,7 +1279,7 @@ export interface IconCardProps {
   indicator?: string;
   svg?: keyof typeof Svg;
   theme?: "blue" | "green" | "purple" | "navy" | "orange";
-  title: string;
+  title?: string;
   iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
   fill?: boolean;
   url: string;

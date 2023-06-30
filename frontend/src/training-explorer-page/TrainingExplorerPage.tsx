@@ -30,17 +30,17 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
       {
         header: pageData?.stepOneHeading,
         icon: pageData?.stepOneIcon,
-        text: pageData?.stepOneText,
+        description: pageData?.stepOneText,
       },
       {
         header: pageData?.stepTwoHeading,
         icon: pageData?.stepTwoIcon,
-        text: pageData?.stepTwoText,
+        description: pageData?.stepTwoText,
       },
       {
         header: pageData?.stepThreeHeading,
         icon: pageData?.stepThreeIcon,
-        text: pageData?.stepThreeText,
+        description: pageData?.stepThreeText,
       },
     ],
   };

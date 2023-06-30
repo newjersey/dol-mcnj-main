@@ -1,7 +1,7 @@
-import { CareerNavigatorPage } from "./../career-navigator-page/CareerNavigatorPage";
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
 import { IconNames } from "./icons";
+import { Link } from "@reach/router";
 
 export type SectionIcons =
   | "explore"
@@ -156,7 +156,7 @@ export interface LinkObjectProps {
   url: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
-  icon?: boolean;
+  icon?: string;
   customSvg?: string;
   description?: string;
   label?: string;
@@ -527,15 +527,35 @@ export interface CareerNavigatorPageProps {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-    stepsHeading: string;
-    midPageCtaHeading: string;
-    interrupterHeading: string;
-    infoHeading: string;
-    opportunityCardsCollection: {
+    stepsHeading?: string;
+    midPageCtaHeading?: string;
+    interrupterHeading?: string;
+    interrupterLinks?: {
+      items: LinkObjectProps[];
+    };
+    infoHeading?: string;
+    infoCards?: {
+      items: IconCardProps[];
+    };
+    midPageCtaLinks?: {
+      items: LinkObjectProps[];
+    };
+    opportunitiesHeading?: string;
+    opportunityCards: {
       items: LinkObjectProps[];
     };
     stepsCollection: {
       items: IconCardProps[];
+    };
+    river?: {
+      items: {
+        sys: {
+          id: string;
+        };
+        image: ImageProps;
+        heading?: string;
+        copy?: string;
+      };
     };
   };
 }
