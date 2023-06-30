@@ -1,0 +1,65 @@
+.home-page {
+  .container {
+    @media screen and (min-width: ($widescreen)) {
+      width: 100%;
+      max-width: 1300px;
+    }
+  }
+
+  .tools {
+    padding: 3rem 0;
+
+    .sectionHeading {
+      margin-bottom: 2rem;
+    }
+
+    .tiles {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      gap: 2rem;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        gap: $size-16;
+        flex-wrap: wrap;
+      }
+
+      .iconCard {
+        width: 100%;
+        @media screen and (min-width: ($tablet-md)) {
+          width: 184px;
+        }
+
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .card-slider {
+    .sectionHeading {
+      background: white;
+    }
+    &:nth-child(2n - 1) {
+      background-color: $base-cool;
+
+      .sectionHeading {
+        background: $base-cool;
+      }
+
+      .inner {
+        &:before {
+          border-color: $base-cool;
+          background: linear-gradient(to right, $base-cool, transparent);
+        }
+
+        &:after {
+          border-color: $base-cool;
+          background: linear-gradient(to left, $base-cool, transparent);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.career-navigator {
+  .sectionHeading {
+    margin-bottom: $size-32;
+  }
+
+  .opportunity-cards {
+    padding: $size-80 0;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: $size-64 0;
+    }
+
+    .inner {
+      display: flex;
+      gap: $size-32;
+      width: 100%;
+
+      @media screen and (min-width: ($tablet)) {
+        justify-content: space-between;
+      }
+
+      @media screen and (max-width: ($tablet - 1)) {
+        flex-direction: column;
+      }
+
+      > .iconCard {
+        width: 100%;
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .steps {
+    padding: $size-48 0;
+  }
+}
