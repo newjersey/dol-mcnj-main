@@ -9,6 +9,7 @@ import { PageBanner } from "../components/PageBanner";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { Stepper } from "../components/Stepper";
+import { Cta } from "../components/modules/Cta";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -59,6 +60,16 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
                 )}
               </div>
             </div>
+          </section>
+          <section>
+            {data.page.midPageCtaLinks && (
+              <Cta
+                heading={data.page.midPageCtaHeading}
+                linkDirection="row"
+                theme="blue"
+                links={data.page.midPageCtaLinks?.items}
+              />
+            )}
           </section>
         </div>
       )}

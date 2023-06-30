@@ -1,13 +1,13 @@
 .career-navigator {
-  .sectionHeading {
-    margin-bottom: $size-32;
-  }
-
   .opportunity-cards {
     padding: $size-80 0;
 
     @media screen and (max-width: ($tablet - 1)) {
       padding: $size-64 0;
+    }
+
+    .sectionHeading {
+      margin-bottom: $size-32;
     }
 
     .inner {
