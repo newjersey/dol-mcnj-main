@@ -8,16 +8,18 @@
 @import "table";
 @import "css/bootstrap.css";
 
-// PAGES
 @import "faq-breadcrumb";
-@import "home-page";
-@import "in-demand-page";
-@import "landing-page";
-@import "not-found-page";
-@import "occupation-page";
-@import "search-results-page";
 @import "training-comparison";
-@import "training-page";
+
+// PAGES
+@import "pages/career-navigator";
+@import "pages/home-page";
+@import "pages/in-demand-page";
+@import "pages/landing-page";
+@import "pages/not-found-page";
+@import "pages/occupation-page";
+@import "pages/search-results-page";
+@import "pages/training-page";
 
 // GLOBAL
 @import "global/betaBanner";
