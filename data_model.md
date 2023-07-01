@@ -1,9 +1,8 @@
 # Data Model
 
-The purpose of this document is to represent the current data structure of tables. As the quantity of data
-we store increases, it seems to be more important to represent how the data is stored and where.
+The purpose of this document is to represent how the data is stored and where.
 
-As much as possible, I have attempted to minimize all pre-processing done to CSV files before importing
+The first developers of Training Explorer attempted to minimize all pre-processing done to CSV files before importing
 them into data tables, so that any data can be replaced with ease, without any special manual steps ahead of time.
 For this reason, many tables have extraneous columns that are not used (or not _yet_ used).
 
@@ -26,10 +25,9 @@ For this reason, many tables have extraneous columns that are not used (or not _
 
 This is the ETPL source of truth. Has a row for every program and its provider
 (so provider data may be duplicated on many rows)
-Columns with no description are not yet used in the app.
 
 | column name                        | description                                          | CTDL Column         |
-| ---------------------------------- | ---------------------------------------------------- | ------------------- |
+|------------------------------------|------------------------------------------------------| ------------------- |
 | PROVIDERID                         |                                                      |
 | OFFICIALNAME                       | program title                                        |
 | CIPCODE                            | training category code                               |
@@ -127,6 +125,8 @@ Columns with no description are not yet used in the app.
 | mention_remote                     |                                                      |
 | commented_suspended_program_status |                                                      |
 | standardized_nongovapproval        |                                                      |
+| programnewtonjtopps                | for NJTOPPS => IGX migration                         |
+| providernewtonjtopps               | for NJTOPPS => IGX migration                                                     |
 
 ### soccipcrosswalk
 
