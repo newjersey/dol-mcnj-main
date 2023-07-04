@@ -1,5 +1,6 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
+import { IconNames } from "./icons";
 
 /* ********************
  *  GENERIC
@@ -73,6 +74,7 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
+  theme?: "green" | "blue" | "purple" | "navy";
   title: string;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
@@ -349,5 +351,27 @@ export interface FinancialResourcePageProps {
   status?: number;
   data: {
     data: FinancialResourcePageData;
+  };
+}
+
+export interface TrainingExplorerPageProps {
+  trainingExplorerPage: {
+    demoVideoUrl: string;
+    faqsCollection: { items: FaqItem[] };
+    footerCtaHeading: string;
+    footerCtaLinkCollection: { items: LinkObjectProps[] };
+    interrupterBannerHeading: string;
+    interrupterLinksCollection: { items: LinkObjectProps[] };
+    pageBanner: PageBannerProps;
+    stepOneHeading: string;
+    stepOneIcon: IconNames;
+    stepOneText: string;
+    stepThreeHeading: string;
+    stepThreeIcon: IconNames;
+    stepThreeText: string;
+    stepTwoHeading: string;
+    stepTwoIcon: IconNames;
+    stepTwoText: string;
+    title: string;
   };
 }

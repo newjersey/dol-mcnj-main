@@ -1,0 +1,75 @@
+.interrupter {
+  background-color: $navy;
+  color: white;
+  padding: 1rem 0;
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media screen and (max-width: ($sm - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  h4 {
+    font-size: 1.7rem;
+
+    @media screen and (min-width: ($sm)) {
+      width: calc(100% - 300px);
+    }
+
+    @media screen and (max-width: ($sm - 1)) {
+      text-align: center;
+    }
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media screen and (max-width: ($sm - 1)) {
+      flex-direction: column;
+    }
+
+    > * {
+      @media screen and (min-width: ($sm)) {
+        width: 50%;
+      }
+    }
+  }
+
+  li {
+    @media screen and (max-width: ($sm - 1)) {
+      width: 100%;
+    }
+    .usa-button {
+      text-align: left;
+      background-color: $teal;
+      border: 2px solid $bright-blue;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      color: $navy;
+      border-radius: 10px;
+
+      @media screen and (max-width: ($sm - 1)) {
+        display: flex;
+        width: 100%;
+      }
+
+      &:hover {
+        @media screen and (min-width: ($sm + 1)) {
+          background: white;
+        }
+      }
+
+      svg {
+        width: 32px;
+        height: auto;
+      }
+    }
+  }
+}
