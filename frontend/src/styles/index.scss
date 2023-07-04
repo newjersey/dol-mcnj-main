@@ -20,26 +20,30 @@
 @import "global/globalHeader";
 @import "global/header";
 @import "global/subFooter";
-@import "modules/mixins";
 @import "modules/accordion";
-@import "modules/path-menu";
 @import "modules/drop-selector";
 @import "modules/error-message";
-@import "modules/single-path";
 @import "modules/financial-resource";
 @import "modules/footer-banner";
-@import "components/faq-collection";
-@import "components/footer-cta";
-@import "components/industry-block";
-@import "components/industry-selector";
-@import "components/occupation-block";
-@import "components/pathway-menus";
-@import "components/page-banner";
-@import "components/resource-filter";
-@import "components/resource-links";
-@import "components/tab-content";
+@import "modules/mixins";
+@import "modules/path-menu";
+@import "modules/single-path";
 @import "components/career-map";
 @import "components/career-pathways";
+@import "components/faq-collection";
+@import "components/footer-cta";
+@import "components/how-to";
+@import "components/industry-block";
+@import "components/industry-selector";
+@import "components/interrupter";
+@import "components/occupation-block";
+@import "components/page-banner";
+@import "components/pathway-menus";
+@import "components/resource-filter";
+@import "components/resource-links";
+@import "components/search-block";
+@import "components/stepper";
+@import "components/tab-content";
 
 * {
   -webkit-box-sizing: border-box;
@@ -215,7 +219,7 @@ ol {
   align-items: center;
   gap: 2rem;
 
-  @media screen and (max-width: ($mobTab - 1)) {
+  @media screen and (max-width: ($mobTab)) {
     flex-direction: column;
   }
 
