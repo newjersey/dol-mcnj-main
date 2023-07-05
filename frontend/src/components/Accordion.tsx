@@ -1,10 +1,16 @@
 import { useState, ReactElement, useEffect } from "react";
 import { Document } from "@contentful/rich-text-types";
 import { ContentfulRichText } from "../components/ContentfulRichText";
+import { AssetBlock } from "../types/contentful";
 
 export interface AccordionData {
   title: string | ReactElement;
   content: Document;
+  assets?: {
+    assets: {
+      block: AssetBlock[];
+    };
+  };
   keyValue: number;
   open?: boolean;
 }
@@ -52,7 +58,12 @@ export const Accordion = (data: AccordionData): ReactElement => {
 
       <div id={contentId} className="content" data-testid="accordion-content">
         <div className="inner">
-          <ContentfulRichText document={data.content} key={data.keyValue} />
+          <ContentfulRichText
+            assets={data.assets}
+            document={data.content}
+            key={data.keyValue}
+            imageDescription
+          />
         </div>
       </div>
     </div>

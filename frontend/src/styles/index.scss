@@ -26,14 +26,23 @@
 @import "modules/financial-resource";
 @import "modules/footer-banner";
 @import "modules/mixins";
+@import "modules/path-menu";
+@import "modules/single-path";
+@import "components/career-map";
+@import "components/career-pathways";
 @import "components/faq-collection";
 @import "components/footer-cta";
+@import "components/how-to";
 @import "components/industry-block";
 @import "components/industry-selector";
+@import "components/interrupter";
 @import "components/occupation-block";
 @import "components/page-banner";
+@import "components/pathway-menus";
 @import "components/resource-filter";
 @import "components/resource-links";
+@import "components/search-block";
+@import "components/stepper";
 @import "components/tab-content";
 
 * {
@@ -202,5 +211,31 @@ ol {
     margin: 0;
     list-style: none;
     padding-left: 0;
+  }
+}
+
+.image-text {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media screen and (max-width: ($mobTab)) {
+    flex-direction: column;
+  }
+
+  .description {
+    max-width: 400px;
+    font-size: 1.5rem;
+
+    p {
+      line-height: 1.2;
+    }
+  }
+}
+
+.container {
+  &.plus {
+    width: 100%;
+    max-width: 1294px;
   }
 }

@@ -10,58 +10,75 @@ import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
 import { OccupationBlock } from "../components/OccupationBlock";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
+import { INDUSTRY_QUERY } from "../queries/industry";
+import { CareerPathways } from "../components/CareerPathways";
+import { NotFoundPage } from "../error/NotFoundPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
-  id?: string;
+  slug?: string;
 }
 
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
-  const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
   const [occupation, setOccupation] = useState<string>();
   const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState<boolean>();
 
-  useEffect(() => {
-    props.client.getContentfulCPW("cpw", {
-      onSuccess: (response: {
-        data: {
-          data: CareerPathwaysPageData;
-        };
-      }) => {
-        setData(response.data.data);
-        if (props.id) {
-          const industry = response.data.data.industries.items.find(
-            (industry) => industry.slug === props.id
-          );
-          setIndustry(industry);
+  const data: CareerPathwaysPageData = useContentfulClient({ query: CAREER_PATHWAYS_PAGE_QUERY });
+  const industryData: {
+    industryCollection: {
+      items: IndustryProps[];
+    };
+  } = useContentfulClient({
+    disable: !props.slug,
+    query: INDUSTRY_QUERY,
+    variables: { slug: props.slug },
+  });
 
-          if (
-            (occupation !== undefined || occupation !== null || occupation !== "") &&
-            occupation
-          ) {
-            setLoading(true);
-            props.client.getOccupationDetailBySoc(occupation, {
-              onSuccess: (result: OccupationDetail) => {
-                setLoading(false);
-                setError(undefined);
-                setOccupationDetail(result);
-              },
-              onError: (error: Error) => {
-                setLoading(false);
-                setError(error);
-              },
-            });
-          }
-        }
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${JSON.stringify(e)}`);
+  useEffect(() => {
+    if (industryData) {
+      setIndustry(industryData?.industryCollection.items[0]);
+    }
+  }, [industryData]);
+
+  useEffect(() => {
+    if ((occupation !== undefined || occupation !== null || occupation !== "") && occupation) {
+      setLoading(true);
+      props.client.getOccupationDetailBySoc(occupation, {
+        onSuccess: (result: OccupationDetail) => {
+          setLoading(false);
+          setError(undefined);
+          setOccupationDetail(result);
+        },
+        onError: (error: Error) => {
+          setLoading(false);
+          setError(error);
+        },
+      });
+    }
+  }, [occupation]);
+
+  if (props.slug && industryData?.industryCollection?.items.length === 0) {
+    return <NotFoundPage client={props.client} />;
+  }
+
+  const breadcrumbs = data
+    ? { items: [...data.page.pageBanner.breadcrumbsCollection.items] }
+    : { items: [] };
+
+  if (props.slug && industry) {
+    breadcrumbs.items.push({
+      copy: "New Jersey Career Pathways",
+      url: `/career-pathways`,
+      sys: {
+        id: industry.sys.id,
       },
     });
-  }, [props.client, props.id, occupation]);
+  }
 
   return (
     <Layout
@@ -73,23 +90,40 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     >
       {data && (
         <>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
-          <IndustrySelector industries={data.industries.items} current={industry?.slug} />
+          <PageBanner
+            {...data.page.pageBanner}
+            breadcrumbsCollection={breadcrumbs}
+            breadcrumbTitle={industry?.title}
+          />
+          <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
+
           {industry && (
             <>
               <IndustryBlock {...industry} />
-
-              {industry.inDemandCollection?.items &&
-                industry.inDemandCollection?.items.length > 0 && (
-                  <OccupationBlock
-                    content={occupationDetail}
-                    industry={industry.shorthandTitle || industry.title}
-                    inDemandList={industry.inDemandCollection?.items}
-                    setOccupation={setOccupation}
-                    error={error}
-                    loading={loading}
+              <div id="industry-container">
+                {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
+                  <CareerPathways
+                    careerMaps={industry.careerMaps.items}
+                    icon={industry?.slug}
+                    industry={industry.title}
+                    client={props.client}
                   />
+                ) : (
+                  <>
+                    {industry.inDemandCollection?.items &&
+                      industry.inDemandCollection?.items.length > 0 && (
+                        <OccupationBlock
+                          content={occupationDetail}
+                          industry={industry.shorthandTitle || industry.title}
+                          inDemandList={industry.inDemandCollection?.items}
+                          setOccupation={setOccupation}
+                          error={error}
+                          loading={loading}
+                        />
+                      )}
+                  </>
                 )}
+              </div>
             </>
           )}
         </>

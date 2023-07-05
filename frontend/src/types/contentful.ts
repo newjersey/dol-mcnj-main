@@ -1,5 +1,6 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
+import { IconNames } from "./icons";
 
 /* ********************
  *  GENERIC
@@ -9,9 +10,63 @@ export interface Keypair {
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
+export interface OccupationNodeProps {
+  sys: {
+    id: string;
+  };
+  level: number;
+  title: string;
+  inDemand?: boolean;
+  shortTitle?: string;
+  description: string;
+  medianSalary?: number;
+  numberOfAvailableJobs?: number;
+  trainingSearchTerms?: string;
+  salaryRangeStart: number;
+  salaryRangeEnd: number;
+  educationLevel: string;
+  advancement?: string;
+  tasks?: string;
+  education?: string;
+  credentials?: string;
+  skills?: string;
+  experience?: string;
+}
+
+export interface SelectProps {
+  pathway?: OccupationNodeProps[];
+  title?: string;
+  shortTitle?: string;
+  id?: string;
+  groupId?: string;
+  groupTitle?: string;
+}
+
+export interface SinglePathwayProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  occupationsCollection: {
+    items: OccupationNodeProps[];
+  };
+}
+
+export interface CareerMapNodeProps extends OccupationNodeProps {
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
+}
+
+export interface PathwayGroupProps {
+  title: string;
+  sys: {
+    id: string;
+  };
+  pathways?: {
+    items: SinglePathwayProps[];
+  };
+}
+
 export interface FaqItemTopic {
   topic: string;
   order: number;
@@ -19,7 +74,9 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
+  theme?: "green" | "blue" | "purple" | "navy";
   title: string;
+  breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
@@ -30,8 +87,26 @@ export interface PageBannerProps {
     items: LinkObjectProps[];
   };
 }
+
+export interface AssetBlock {
+  sys: {
+    id: string;
+  };
+  url?: string;
+  title?: string;
+  description?: string;
+  width?: number;
+  height?: number;
+  contentType?: string;
+}
+
 export interface ContentfulRichText {
   json: Document;
+  links?: {
+    assets: {
+      block: AssetBlock[];
+    };
+  };
 }
 
 export interface FaqItem {
@@ -94,6 +169,13 @@ export interface FaqPageProps {
   };
 }
 
+export interface CareerMapProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+}
+
 export interface IndustryProps {
   sys: {
     id: string;
@@ -104,6 +186,11 @@ export interface IndustryProps {
   description: ContentfulRichText;
   photo: {
     url: string;
+    width: number;
+    height: number;
+  };
+  careerMaps?: {
+    items: CareerMapProps[];
   };
   inDemandCollection?: {
     items: {
@@ -112,7 +199,6 @@ export interface IndustryProps {
       };
       title: string;
       idNumber: string;
-      hourlyRate?: number;
       numberOfJobs?: number;
     }[];
   };
@@ -139,9 +225,9 @@ export interface CareerPathwaysPageData {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-  };
-  industries: {
-    items: IndustryProps[];
+    industries: {
+      items: IndustryProps[];
+    };
   };
 }
 
@@ -265,5 +351,27 @@ export interface FinancialResourcePageProps {
   status?: number;
   data: {
     data: FinancialResourcePageData;
+  };
+}
+
+export interface TrainingExplorerPageProps {
+  trainingExplorerPage: {
+    demoVideoUrl: string;
+    faqsCollection: { items: FaqItem[] };
+    footerCtaHeading: string;
+    footerCtaLinkCollection: { items: LinkObjectProps[] };
+    interrupterBannerHeading: string;
+    interrupterLinksCollection: { items: LinkObjectProps[] };
+    pageBanner: PageBannerProps;
+    stepOneHeading: string;
+    stepOneIcon: IconNames;
+    stepOneText: string;
+    stepThreeHeading: string;
+    stepThreeIcon: IconNames;
+    stepThreeText: string;
+    stepTwoHeading: string;
+    stepTwoIcon: IconNames;
+    stepTwoText: string;
+    title: string;
   };
 }
