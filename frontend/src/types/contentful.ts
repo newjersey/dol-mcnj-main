@@ -1,6 +1,7 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
 import { IconNames } from "./icons";
+import * as Svg from "../svg/Icons";
 
 export type ThemeColors = "navy" | "blue" | "green" | "purple" | "orange";
 
@@ -13,6 +14,8 @@ export type SectionIcons =
   | "jobsBold"
   | "supportBold"
   | "trainingBold";
+
+export type HeadingLevel = 2 | 3 | 4 | 5 | 6;
 
 /* ********************
  *  GENERIC
@@ -92,7 +95,7 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
-  theme?: "green" | "blue" | "purple" | "navy";
+  theme?: ThemeColors;
   title: string;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
@@ -154,13 +157,17 @@ export interface LinkObjectProps {
   };
   copy?: string;
   className?: string;
+  iconPrefix?: IconNames;
+  iconSuffix?: IconNames;
+  svgFill?: boolean;
+  svgName?: keyof typeof Svg;
+  highlight?: ThemeColors;
   url: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
-  icon?: string;
+  icon?: IconNames;
   customSvg?: string;
   description?: string;
-  label?: string;
 }
 
 export interface FaqPageData {

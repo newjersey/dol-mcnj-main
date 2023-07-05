@@ -1,16 +1,27 @@
-import { LinkObjectProps, ThemeColors } from "../../types/contentful";
+import { Button } from "./Button";
 import { Heading } from "./Heading";
+import { IconNames } from "../../types/icons";
+import { LinkObjectProps, ThemeColors } from "../../types/contentful";
 
 interface CtaProps {
   className?: string;
   heading?: string;
   headingLevel?: 2 | 3 | 4 | 5 | 6;
+  noIndicator?: boolean;
   linkDirection?: "row" | "column";
-  links: LinkObjectProps[];
+  links?: LinkObjectProps[];
   theme?: ThemeColors;
 }
 
-const Cta = ({ className, heading, headingLevel, linkDirection, links, theme }: CtaProps) => {
+const Cta = ({
+  className,
+  heading,
+  headingLevel,
+  linkDirection,
+  noIndicator,
+  links,
+  theme,
+}: CtaProps) => {
   return (
     <div className={`cta${className ? ` ${className}` : ""}${theme ? ` color-${theme}` : ""}`}>
       {heading ? (
@@ -25,20 +36,20 @@ const Cta = ({ className, heading, headingLevel, linkDirection, links, theme }: 
       <div className={`links${linkDirection ? ` ${linkDirection}` : ""}`}>
         {links?.map((link, index: number) => {
           const isExternal = link.url.startsWith("http");
-          const target = isExternal ? "_blank" : undefined;
-          const rel = isExternal ? "noopener noreferrer" : undefined;
           return (
-            <a
+            <Button
               key={link.sys?.id}
-              className={`usa-button usa-button--secondary${
-                index > 0 ? "usa-button--outline" : ""
-              }`}
-              target={target}
-              rel={rel}
-              href={link.url}
-            >
-              {link.copy}
-            </a>
+              className={index > 0 ? "usa-button--outline" : ""}
+              type="link"
+              url={link.url}
+              iconPrefix={link.iconPrefix}
+              iconSuffix={
+                isExternal && !noIndicator ? ("ArrowUpRight" as IconNames) : link.iconSuffix
+              }
+              svgFill={link.svgFill}
+              svgName={link.svgName}
+              copy={link.copy}
+            />
           );
         })}
       </div>
