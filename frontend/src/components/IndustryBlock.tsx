@@ -4,14 +4,15 @@ import { ContentfulRichText } from "./ContentfulRichText";
 import { Selector } from "../svg/Selector";
 import { Accordion } from "./Accordion";
 import { useEffect } from "react";
+import { useWindowWidth } from "../utils/useWindowWidth";
 
 export const IndustryBlock = ({
   description,
   industryAccordionCollection: accordionData,
   photo,
   slug,
-  sys,
   title,
+  shorthandTitle,
 }: IndustryProps) => {
   const scrollToIndustry = () => {
     const industryContainer = document.getElementById("industry-container");
@@ -34,6 +35,8 @@ export const IndustryBlock = ({
     }
   }, []);
 
+  const windowWidth = useWindowWidth();
+
   return (
     <section className="industry-block">
       <button
@@ -45,14 +48,14 @@ export const IndustryBlock = ({
       >
         <ArrowCircleDown size={32} color="#000" />
         <span>
-          Explore <span>{title.toLowerCase()}</span> pathways below
+          Explore <span>{shorthandTitle || title.toLowerCase()}</span> pathways below
         </span>
       </button>
       <div className="container" id="industry-container">
         <div className="heading">
           <h2>
             <Selector name={slug} />
-            <span>{title} Industry Information</span>
+            <span>{shorthandTitle || title} Industry Information</span>
           </h2>
         </div>
         <div className="content-wrapper">
@@ -64,7 +67,7 @@ export const IndustryBlock = ({
             {accordionData.items.map((item, index) => (
               <Accordion
                 key={item.sys.id}
-                open={index === 0}
+                open={windowWidth > 650 ? index === 0 : undefined}
                 title={
                   <>
                     {item.icon ? (
