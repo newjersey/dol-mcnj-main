@@ -1,0 +1,111 @@
+.usa-button {
+  display: inline-flex !important;
+  align-items: center;
+  gap: $size-8;
+  padding: $size-16 $size-24;
+
+  @media screen and (min-width: ($desktop)) {
+    transition-duration: $transition-speed;
+    transition-timing-function: ease-in-out;
+  }
+
+  &[class*="highlight-"] {
+    padding: $size-8 $size-16;
+    border-radius: $size-8;
+
+    svg {
+      height: auto;
+      width: 32px;
+    }
+  }
+
+  &.highlight-orange {
+    background: $accent-warm-lighter;
+    border: $size-1 solid $accent-warm-light;
+    color: $accent-warm-darker;
+
+    &:visited {
+      color: $accent-warm-darker;
+    }
+  }
+
+  &.highlight-blue {
+    background: $primary-lighter;
+    border: $size-1 solid $primary-light;
+    color: $primary-darker;
+
+    &:visited {
+      color: $primary-darker;
+    }
+  }
+
+  &.highlight-purple {
+    background: $tertiary-lighter;
+    border: $size-1 solid $tertiary-light;
+    color: $tertiary-darker;
+
+    &:visited {
+      color: $tertiary-darker;
+    }
+  }
+
+  &.highlight-green {
+    background: $secondary-lighter;
+    border: $size-1 solid $secondary-light;
+    color: $secondary-darker;
+
+    &:visited {
+      color: $secondary-darker;
+    }
+  }
+
+  &.info {
+    background: $white;
+  }
+
+  &.info,
+  &.svg {
+    padding: 0.6rem $size-16 $size-8;
+    color: $ink;
+    border-radius: $size-12;
+    border: $size-1 solid $base-lighter;
+
+    &:hover {
+      background: $white;
+      color: $ink;
+      border-radius: $size-12;
+      border: $size-1 solid $base-lighter;
+      opacity: 1;
+
+      @media screen and (min-width: ($desktop)) {
+        transform: scale(1.05);
+        box-shadow: $shadow-2;
+      }
+    }
+
+    &.fill {
+      .svg-container {
+        background-color: $primary-lighter;
+        border-radius: 100%;
+        padding: $size-4;
+        height: 30px;
+        width: 30px;
+      }
+    }
+
+    svg {
+      height: 30px;
+      width: auto;
+      color: $info-darker;
+    }
+  }
+  .svg-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.unstyled {
+    padding: 0;
+  }
+}

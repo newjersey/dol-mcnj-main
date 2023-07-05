@@ -1,5 +1,5 @@
 .ctaBanner {
-  padding: $size-32 $size-16;
+  padding: $size-48 $size-16;
   background: $white;
 
   &.fullColor {
@@ -63,7 +63,7 @@
     }
 
     &.color-purple {
-      background: $tertiary;
+      background: $tertiary-dark;
     }
   }
 
