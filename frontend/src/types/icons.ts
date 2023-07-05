@@ -1,3 +1,5 @@
+import * as Svg from "../svg/Icons";
+
 export enum IconNames {
   AddressBook = "AddressBook",
   AirTrafficControl = "AirTrafficControl",
@@ -1262,4 +1264,23 @@ export enum IconNames {
 export interface SvgProps {
   color?: string;
   size?: number;
+}
+
+export interface IconCardProps {
+  sys?: {
+    id: string;
+  };
+  centered?: boolean;
+  large?: boolean;
+  className?: string;
+  alignLeft?: boolean;
+  description?: string;
+  icon?: string;
+  indicator?: string;
+  svg?: keyof typeof Svg;
+  theme?: "blue" | "green" | "purple" | "navy" | "orange";
+  title: string;
+  iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+  fill?: boolean;
+  url: string;
 }
