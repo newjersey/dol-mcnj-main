@@ -1,0 +1,65 @@
+.home-page {
+  .container {
+    @media screen and (min-width: ($deskLrg)) {
+      width: 100%;
+      max-width: 1300px;
+    }
+  }
+
+  .tools {
+    padding: 3rem 0;
+
+    .sectionHeading {
+      margin-bottom: 2rem;
+    }
+
+    .tiles {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      gap: 2rem;
+
+      @media screen and (max-width: ($tabPort - 1)) {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .iconCard {
+        width: 100%;
+        @media screen and (min-width: ($tabPort)) {
+          width: 184px;
+        }
+
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .card-slider {
+    .sectionHeading {
+      background: white;
+    }
+    &:nth-child(2n - 1) {
+      background-color: $lighter-green;
+
+      .sectionHeading {
+        background: $lighter-green;
+      }
+
+      .inner {
+        &:before {
+          border-color: $lighter-green;
+          background: linear-gradient(to right, $lighter-green, transparent);
+        }
+
+        &:after {
+          border-color: $lighter-green;
+          background: linear-gradient(to left, $lighter-green, transparent);
+        }
+      }
+    }
+  }
+}
