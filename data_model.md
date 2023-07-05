@@ -1,6 +1,6 @@
 # Data Model
 
-The purpose of this document is to represent how the data is stored and where.
+The purpose of this document is to represent how the data is stored and where. 
 
 The first developers of Training Explorer attempted to minimize all pre-processing done to CSV files before importing
 them into data tables, so that any data can be replaced with ease, without any special manual steps ahead of time.
