@@ -1,0 +1,18 @@
+.error-message {
+  text-align: center;
+
+  .inner {
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 15px;
+  }
+
+  svg {
+    fill: $red;
+  }
+
+  .heading {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+}

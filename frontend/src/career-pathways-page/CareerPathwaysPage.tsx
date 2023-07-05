@@ -7,6 +7,9 @@ import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
 import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
+import { OccupationDetail } from "../domain/Occupation";
+import { Error } from "../domain/Error";
+import { OccupationBlock } from "../components/OccupationBlock";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,6 +19,10 @@ interface Props extends RouteComponentProps {
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
+  const [occupation, setOccupation] = useState<string>();
+  const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
+  const [error, setError] = useState<Error | undefined>();
+  const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     props.client.getContentfulCPW("cpw", {
@@ -30,13 +37,31 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             (industry) => industry.slug === props.id
           );
           setIndustry(industry);
+
+          if (
+            (occupation !== undefined || occupation !== null || occupation !== "") &&
+            occupation
+          ) {
+            setLoading(true);
+            props.client.getOccupationDetailBySoc(occupation, {
+              onSuccess: (result: OccupationDetail) => {
+                setLoading(false);
+                setError(undefined);
+                setOccupationDetail(result);
+              },
+              onError: (error: Error) => {
+                setLoading(false);
+                setError(error);
+              },
+            });
+          }
         }
       },
       onError: (e) => {
         console.log(`An error, maybe an error code: ${JSON.stringify(e)}`);
       },
     });
-  }, [props.client, props.id]);
+  }, [props.client, props.id, occupation]);
 
   return (
     <Layout
@@ -50,7 +75,23 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
         <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
           <IndustrySelector industries={data.industries.items} current={industry?.slug} />
-          {industry && <IndustryBlock {...industry} />}
+          {industry && (
+            <>
+              <IndustryBlock {...industry} />
+
+              {industry.inDemandCollection?.items &&
+                industry.inDemandCollection?.items.length > 0 && (
+                  <OccupationBlock
+                    content={occupationDetail}
+                    industry={industry.shorthandTitle || industry.title}
+                    inDemandList={industry.inDemandCollection?.items}
+                    setOccupation={setOccupation}
+                    error={error}
+                    loading={loading}
+                  />
+                )}
+            </>
+          )}
         </>
       )}
     </Layout>
