@@ -18,11 +18,21 @@ export const CostFilter = (): ReactElement => {
   const { state, dispatch } = useContext(FilterContext);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cost = urlParams.get("maxCost");
+
+    if (cost) {
+      setMaxCost(cost);
+      applyMaxCostFilter();
+    }
+
     const maxCostFilter = state.filters.find(
       (filter) => filter.element === FilterableElement.MAX_COST
     );
     if (maxCostFilter) {
       setMaxCost(maxCostFilter.value);
+    } else if (cost) {
+      setMaxCost(cost);
     } else if (maxCostFilter == null && maxCost !== "") {
       setMaxCost("");
     }

@@ -4,7 +4,7 @@ import {
   CalendarCheck,
   CaretDown,
   CaretUp,
-  Fire,
+  ChartLineUp,
   GraduationCap,
   Hourglass,
   Info,
@@ -34,7 +34,6 @@ interface OccupationBlockProps {
     };
     title: string;
     idNumber: string;
-    hourlyRate?: number;
     numberOfJobs?: number;
   }[];
 }
@@ -90,7 +89,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
   const tasks = props.content?.tasks?.slice(0, showMore ? undefined : 3);
   return (
     <section className="occupation-block">
-      <div className="container">
+      <div className="container plus">
         <p className="section-heading">{`In-Demand ${props.industry} Careers`}</p>
         <div className="occupation-selector">
           <label htmlFor="occupation-selector">
@@ -143,13 +142,13 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
       ) : (
         <>
           {props.content && (
-            <div className="container">
+            <div className="container plus">
               <div className="occupation-box">
                 <div className="heading">
                   <h3>{props.content.title}</h3>
                   {props.content.inDemand && (
                     <span className="tag">
-                      <Fire size={15} />
+                      <ChartLineUp size={15} />
                       &nbsp; In-Demand
                     </span>
                   )}
@@ -171,6 +170,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         </ul>
 
                         <button
+                          title="See More"
                           className="usa-button  usa-button--unstyled"
                           onClick={() => {
                             setShowMore(!showMore);

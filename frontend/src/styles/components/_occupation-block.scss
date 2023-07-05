@@ -22,6 +22,15 @@
     }
   }
 
+  .map-toggle {
+    color: $blue;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: underline;
+    margin-bottom: 2rem;
+  }
+
   .section-heading {
     font-size: 2rem;
     font-weight: bold;
@@ -75,13 +84,15 @@
       gap: 0.5rem;
       max-width: 42rem;
       margin-bottom: 3rem;
-
-      @media screen and (max-width: ($mobTab - 1)) {
-        padding: 0 1rem;
-      }
+      padding-bottom: 0;
+      border-bottom: none;
 
       @media screen and (max-width: ($mobMed - 1)) {
         flex-direction: column;
+      }
+
+      @media screen and (max-width: ($mobTab - 1)) {
+        padding: 0 1rem;
       }
 
       h3 {
@@ -94,16 +105,24 @@
         margin: 0;
         width: 100%;
       }
+
+      + .single-path {
+        padding: 0.5rem 1rem 0.5rem 0.2rem;
+
+        @media screen and (max-width: ($mobTab - 1)) {
+          padding: 0.5rem 1rem;
+        }
+      }
     }
 
     .tag {
       display: flex;
-      border-radius: 40px;
+      border-radius: 0;
       align-items: center;
-      background: $orange;
-      padding: 5px 9px;
-      font-size: 0.9rem;
-      font-weight: bold;
+      background: $light-orange;
+      border: 1px solid $warm-orange;
+      padding: 4px 6px;
+      font-size: 0.8rem;
 
       @media screen and (max-width: ($mobMed - 1)) {
         margin: 0 0 0.5rem;
@@ -143,53 +162,53 @@
           width: calc(100% - 25rem);
         }
       }
+    }
+  }
 
-      .meta {
-        display: flex;
-        gap: 2rem;
+  .meta {
+    display: flex;
+    gap: 2rem;
 
-        @media screen and (max-width: ($mobMed - 1)) {
-          gap: 1rem;
-          flex-direction: column;
+    @media screen and (max-width: ($mobMed - 1)) {
+      gap: 1rem;
+      flex-direction: column;
+    }
+
+    @media screen and (min-width: ($sm)) {
+      width: 25rem;
+    }
+
+    @media screen and (max-width: ($mobTab - 1)) {
+      padding: 0 1rem;
+    }
+
+    > div {
+      width: 100%;
+      background-color: $light-purple;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 0.5rem;
+
+      @media screen and (min-width: ($mobMed)) {
+        width: 50%;
+      }
+
+      p {
+        font-size: 1.5rem;
+        margin: 0;
+
+        &.title {
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.6rem;
         }
+      }
 
-        @media screen and (min-width: ($sm)) {
-          width: 25rem;
-        }
-
-        @media screen and (max-width: ($mobTab - 1)) {
-          padding: 0 1rem;
-        }
-
-        > div {
-          width: 100%;
-          background-color: $light-purple;
-          margin-bottom: 2rem;
-          border-radius: 10px;
-          overflow: hidden;
-          padding: 0.5rem;
-
-          @media screen and (min-width: ($mobMed)) {
-            width: 50%;
-          }
-
-          p {
-            font-size: 1.5rem;
-            margin: 0;
-
-            &.title {
-              font-size: 1rem;
-              display: flex;
-              align-items: center;
-              gap: 0.5rem;
-              margin-bottom: 0.6rem;
-            }
-          }
-
-          a {
-            color: $blue;
-          }
-        }
+      a {
+        color: $blue;
       }
     }
   }
@@ -233,7 +252,7 @@
 
       &.related-training,
       &.related-occupations {
-        a {
+        a:not(.usa-button) {
           color: $blue;
           text-decoration: none;
           display: block;
@@ -301,6 +320,165 @@
     @media screen and (max-width: ($mobTab - 1)) {
       position: sticky;
       top: 0;
+    }
+  }
+
+  &.career-detail {
+    margin-top: 2rem;
+
+    .occupation-box {
+      border: 0;
+      border-radius: 0;
+      background: white;
+      padding: 2rem 0;
+
+      @media screen and (min-width: ($mobTab)) {
+        padding: 2rem;
+      }
+
+      .heading {
+        margin-bottom: 1.5rem;
+        max-width: 100%;
+
+        @media screen and (max-width: ($tabLand - 1)) {
+          display: block;
+        }
+
+        h3 {
+          margin: 0;
+        }
+
+        p {
+          margin-top: 0.5rem;
+          width: 100%;
+          @media screen and (min-width: ($tabLand)) {
+            margin-right: 1.5rem;
+          }
+        }
+
+        > div:not(.meta) {
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+
+          @media screen and (min-width: ($tabLand)) {
+            width: calc(100% - 38rem);
+          }
+        }
+
+        .meta {
+          padding: 1rem 0;
+          gap: 1rem;
+
+          @media screen and (min-width: ($tabLand)) {
+            width: 37rem;
+          }
+
+          div {
+            padding: 0.5rem 1rem;
+            margin-bottom: 0;
+
+            p {
+              margin: 0;
+            }
+
+            a {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+
+    .box {
+      line-height: 1.6;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      ul:not(.unstyled) {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        li {
+          margin: 0;
+          background: $off-white;
+          padding: 0.5rem;
+        }
+      }
+
+      .content {
+        &.related-training {
+          li {
+            border: 2px solid $light-grey;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 1rem;
+            margin-bottom: 1rem;
+          }
+          .span-grid {
+            border: none;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    .breadcrumbs {
+      color: $text;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+
+      @media screen and (max-width: ($mobTab - 1)) {
+        padding: 0 1rem;
+      }
+    }
+  }
+
+  .full-map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 20;
+    padding: 2rem;
+    overflow: auto;
+    visibility: hidden;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+
+    &.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .map-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .single-path {
+      overflow: unset;
+    }
+
+    .close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      cursor: pointer;
     }
   }
 }
