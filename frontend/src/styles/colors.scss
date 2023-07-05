@@ -1,7 +1,8 @@
 $grey: #dbdada;
 $navy: #12263a;
 $indigo: #21456a;
-$light-green: #e7f9ee;
+$light-yellow: #fff1e2;
+$light-green: #ebf5ee;
 $lighter-green: #f9fbfb;
 $dark-green: #243413;
 $green: #428100;
@@ -35,6 +36,10 @@ $light-blue: #e2f3ff;
 
 .bg-footer-grey {
   background-color: $footer-grey;
+}
+
+.bg-light-yellow {
+  background-color: $light-yellow;
 }
 
 .bg-light-green {
