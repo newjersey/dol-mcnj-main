@@ -26,7 +26,6 @@
       color: $ink;
 
       @media screen and (min-width: ($desktop)) {
-        transform: scale(1.03);
         box-shadow: $shadow-2;
       }
     }
@@ -62,64 +61,92 @@
         font-size: $size-26;
       }
     }
+
+    a {
+      border: $size-2 solid;
+
+      &:hover {
+        color: $white;
+      }
+    }
   }
 
   &.blue {
     a {
-      border: $size-2 solid $primary;
+      border-color: $primary;
     }
 
     &.fill {
       a {
         background-color: $primary-lighter;
+
+        &:hover {
+          background-color: $primary;
+        }
       }
     }
   }
 
   &.green {
     a {
-      border: $size-2 solid $secondary-light;
+      border-color: $secondary-light;
     }
 
     &.fill {
       a {
         background-color: $secondary-lighter;
+
+        &:hover {
+          background-color: $secondary-light;
+        }
       }
     }
   }
 
   &.purple {
     a {
-      border: $size-2 solid $tertiary-vivid;
+      border-color: $tertiary-vivid;
     }
 
     &.fill {
       a {
         background-color: $tertiary-lighter;
+
+        &:hover {
+          background-color: $tertiary-vivid;
+        }
       }
     }
   }
 
   &.navy {
     a {
-      border: $size-2 solid $info-darker;
+      border-color: $info-darker;
     }
 
     &.fill {
       a {
         background-color: $info-lighter;
+
+        &:hover {
+          background-color: $info-darker;
+        }
       }
     }
   }
 
   &.orange {
     a {
-      border: $size-2 solid $accent-warm;
+      border-color: $accent-warm;
     }
 
     &.fill {
       a {
         background-color: $accent-warm-lighter;
+
+        &:hover {
+          background-color: $accent-warm;
+        }
       }
     }
   }

@@ -1,6 +1,5 @@
 import { IconSelector } from "./IconSelector";
 import { IconCardProps, IconNames } from "../types/icons";
-import { LinkObject } from "./modules/LinkObject";
 
 const CardContent = ({
   centered,

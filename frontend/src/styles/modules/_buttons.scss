@@ -12,20 +12,27 @@
   &[class*="highlight-"] {
     padding: $size-8 $size-16;
     border-radius: $size-8;
+    border: $size-2 solid;
 
     svg {
       height: auto;
       width: 32px;
     }
+
+    &:hover {
+      border-bottom: $size-2 solid;
+      box-shadow: $shadow-3;
+    }
   }
 
   &.highlight-orange {
     background: $accent-warm-lighter;
-    border: $size-1 solid $accent-warm-light;
+    border-color: $accent-warm-light;
     color: $accent-warm-darker;
 
     &:hover {
-      background: $accent-warm-light;
+      border-color: $accent-warm;
+      background: $accent-warm-lighter;
     }
 
     &:visited {
@@ -35,11 +42,12 @@
 
   &.highlight-blue {
     background: $primary-lighter;
-    border: $size-1 solid $primary-light;
+    border-color: $primary-light;
     color: $primary-darker;
 
     &:hover {
-      background: $primary-light;
+      border-color: $primary-vivid;
+      background: $primary-lighter;
     }
 
     &:visited {
@@ -49,11 +57,12 @@
 
   &.highlight-purple {
     background: $tertiary-lighter;
-    border: $size-1 solid $tertiary-light;
+    border-color: $tertiary-light;
     color: $tertiary-darker;
 
     &:hover {
-      background: $tertiary-light;
+      border-color: $tertiary-vivid;
+      background: $tertiary-lighter;
     }
 
     &:visited {
@@ -63,11 +72,12 @@
 
   &.highlight-green {
     background: $secondary-lighter;
-    border: $size-1 solid $secondary-light;
+    border-color: $secondary-light;
     color: $secondary-darker;
 
     &:hover {
-      background: $secondary-light;
+      border-color: $secondary-vivid;
+      background: $secondary-lighter;
     }
 
     &:visited {
@@ -94,8 +104,7 @@
       opacity: 1;
 
       @media screen and (min-width: ($desktop)) {
-        transform: scale(1.05);
-        box-shadow: $shadow-2;
+        box-shadow: $shadow-3;
       }
     }
 

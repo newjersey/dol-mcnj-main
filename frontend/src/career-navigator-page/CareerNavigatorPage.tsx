@@ -11,6 +11,8 @@ import { SectionHeading } from "../components/modules/SectionHeading";
 import { Stepper } from "../components/Stepper";
 import { Cta } from "../components/modules/Cta";
 import { CtaBanner } from "../components/CtaBanner";
+import { River } from "../components/River";
+import { FooterCta } from "../components/FooterCta";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -37,7 +39,17 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
     };
   });
   return (
-    <Layout client={props.client} theme="support">
+    <Layout
+      client={props.client}
+      theme="support"
+      footerComponent={
+        <FooterCta
+          headingLevel={4}
+          heading={data?.page.footerCtaHeading}
+          link={data?.page.footerCtaLink}
+        />
+      }
+    >
       {data && (
         <div className="career-navigator">
           <PageBanner {...data.page.pageBanner} />
@@ -122,6 +134,7 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
               </div>
             </div>
           </section>
+          {data.page.river && <River items={data.page.river.items} />}
         </div>
       )}
     </Layout>

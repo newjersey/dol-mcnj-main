@@ -38,6 +38,9 @@ export const CAREER_NAVIGATOR_QUERY = `query CareerNavigator {
     }
     river: riverItemsCollection(limit: 4) {
       items {
+        sys {
+          id
+        }
         image {
           url
           height
