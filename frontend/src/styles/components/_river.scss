@@ -1,0 +1,83 @@
+.river {
+  padding: $size-48 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: $size-100;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      gap: $size-48;
+    }
+
+    &:before,
+    &:after {
+      content: none;
+    }
+  }
+
+  .item {
+    display: flex;
+    gap: $size-32;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      flex-direction: column-reverse;
+    }
+
+    .image {
+      @media screen and (min-width: ($tablet-lg)) {
+        width: 60%;
+      }
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        padding-bottom: 56.25%;
+      }
+    }
+
+    .content {
+      @media screen and (min-width: ($tablet-lg)) {
+        width: 40%;
+      }
+    }
+
+    &:nth-child(2n) {
+      @media screen and (min-width: ($tablet-lg)) {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  .image {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .heading {
+    color: $tertiary-dark;
+    font-size: $size-32;
+    margin-bottom: $size-32;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      font-size: $size-22;
+      margin-bottom: $size-16;
+    }
+  }
+
+  .content {
+    @media screen and (min-width: ($tablet-lg)) {
+      padding: $size-80 0;
+    }
+  }
+}

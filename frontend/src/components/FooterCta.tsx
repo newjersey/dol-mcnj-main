@@ -1,4 +1,4 @@
-import { LinkObjectProps } from "../types/contentful";
+import { HeadingLevel, LinkObjectProps } from "../types/contentful";
 import { Heading } from "./modules/Heading";
 
 export const FooterCta = ({
@@ -6,19 +6,23 @@ export const FooterCta = ({
   headingLevel = 3,
   link,
 }: {
-  heading: string;
-  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  heading?: string;
+  headingLevel?: HeadingLevel;
   link: LinkObjectProps;
 }) => {
   return (
     <section className="footer-cta">
       <div className="container">
-        <Heading className="heading-tag" level={headingLevel}>
-          {heading}
-        </Heading>
-        <a className="usa-button usa-button--secondary" href={link.url}>
-          {link.copy}
-        </a>
+        {heading && (
+          <Heading className="heading-tag" level={headingLevel}>
+            {heading}
+          </Heading>
+        )}
+        {link && link.url && (
+          <a className="usa-button usa-button--secondary" href={link.url}>
+            {link.copy}
+          </a>
+        )}
       </div>
     </section>
   );

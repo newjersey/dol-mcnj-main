@@ -563,10 +563,10 @@ export interface CareerNavigatorPageProps {
         sys: {
           id: string;
         };
-        image: ImageProps;
-        heading?: string;
         copy?: string;
-      };
+        heading?: string;
+        image: ImageProps;
+      }[];
     };
   };
 }
