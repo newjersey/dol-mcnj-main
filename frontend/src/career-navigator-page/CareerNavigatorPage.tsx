@@ -78,7 +78,7 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
               </div>
             </div>
           </section>
-          <section>
+          <section className="mid-cta">
             {data.page.midPageCtaLinks && (
               <Cta
                 heading={data.page.midPageCtaHeading}
@@ -97,6 +97,31 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
             fullColor
             links={interrupterLinks}
           />
+          <section className="info-cards">
+            <div className="container plus">
+              {data.page.infoHeading && <SectionHeading heading={data.page.infoHeading} />}
+              <div className="info-card-row">
+                {data.page.infoCards?.items.map((card, index: number) => {
+                  const themeColor =
+                    (index + 1) % 4 === 1
+                      ? "blue"
+                      : (index + 1) % 4 === 2
+                      ? "green"
+                      : (index + 1) % 4 === 3
+                      ? "purple"
+                      : "navy";
+                  return (
+                    <IconCard
+                      {...card}
+                      theme={themeColor}
+                      title={card.heading}
+                      key={card.sys?.id}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </section>
         </div>
       )}
     </Layout>

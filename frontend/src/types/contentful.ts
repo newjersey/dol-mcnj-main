@@ -166,7 +166,10 @@ export interface LinkObjectProps {
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
   icon?: IconNames;
+  icons?: boolean;
+  onClick?: () => void;
   customSvg?: string;
+  label?: string;
   description?: string;
 }
 

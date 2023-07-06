@@ -24,6 +24,10 @@
     border: $size-1 solid $accent-warm-light;
     color: $accent-warm-darker;
 
+    &:hover {
+      background: $accent-warm-light;
+    }
+
     &:visited {
       color: $accent-warm-darker;
     }
@@ -33,6 +37,10 @@
     background: $primary-lighter;
     border: $size-1 solid $primary-light;
     color: $primary-darker;
+
+    &:hover {
+      background: $primary-light;
+    }
 
     &:visited {
       color: $primary-darker;
@@ -44,6 +52,10 @@
     border: $size-1 solid $tertiary-light;
     color: $tertiary-darker;
 
+    &:hover {
+      background: $tertiary-light;
+    }
+
     &:visited {
       color: $tertiary-darker;
     }
@@ -53,6 +65,10 @@
     background: $secondary-lighter;
     border: $size-1 solid $secondary-light;
     color: $secondary-darker;
+
+    &:hover {
+      background: $secondary-light;
+    }
 
     &:visited {
       color: $secondary-darker;
