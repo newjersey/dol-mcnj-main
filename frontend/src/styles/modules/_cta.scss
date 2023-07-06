@@ -39,7 +39,7 @@
       justify-content: center;
       gap: $size-16;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: ($mobile - 1)) {
         flex-direction: column;
       }
 
