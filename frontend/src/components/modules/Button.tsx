@@ -36,6 +36,10 @@ const Button = ({
 }: ButtonProps) => {
   const isCustom = customBgColor || customTextColor;
 
+  const isExternal = url && url.startsWith("http");
+  const target = isExternal ? "_blank" : undefined;
+  const rel = isExternal ? "noopener noreferrer" : undefined;
+
   // Constructing the classNames string for the button element based on different conditions
   const classNames = `usa-button${className ? ` ${className}` : ""}${
     highlight ? ` highlight-${highlight}` : ""
@@ -80,6 +84,8 @@ const Button = ({
     <a
       href={url || "#"}
       className={classNames}
+      target={target}
+      rel={rel}
       onClick={() => {
         if (onClick) {
           onClick();

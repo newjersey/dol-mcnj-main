@@ -22,8 +22,15 @@
       gap: $size-32;
       align-items: center;
       padding: 0;
+      width: 100%;
+      max-width: $desktop-lg;
 
-      @media screen and (max-width: ($desktop - 1)) {
+      &:before,
+      &:after {
+        content: none;
+      }
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
         flex-direction: column;
       }
 

@@ -161,4 +161,70 @@
       }
     }
   }
+
+  &.noLink {
+    background: $primary-lighter;
+    border-radius: $size-8;
+    padding: $size-32 $size-16;
+    text-align: center;
+
+    &.blue {
+      background-color: $primary-lighter;
+
+      svg {
+        color: $primary-dark;
+      }
+    }
+
+    &.green {
+      background-color: $secondary-lighter;
+
+      svg {
+        color: $secondary-dark;
+      }
+    }
+
+    &.purple {
+      background-color: $tertiary-lighter;
+
+      svg {
+        color: $tertiary-dark;
+      }
+    }
+
+    &.navy {
+      background-color: $info-lighter;
+
+      svg {
+        color: $info-dark;
+      }
+    }
+
+    &.orange {
+      background-color: $accent-warm-lighter;
+
+      svg {
+        color: $accent-warm-dark;
+      }
+    }
+
+    .icons {
+      justify-content: center;
+    }
+
+    .title {
+      margin: $size-8 0;
+      font-size: $size-22;
+    }
+
+    .description {
+      display: block;
+      overflow: visible;
+    }
+
+    svg {
+      height: auto;
+      width: 32px;
+    }
+  }
 }
