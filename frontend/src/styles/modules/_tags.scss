@@ -1,0 +1,62 @@
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 2px 10px;
+  border-radius: 2px;
+  color: $text;
+  border: 1px solid;
+
+  &.chip {
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+
+    &.color-green {
+      background-color: $mintGreen;
+    }
+
+    &.color-blue {
+      background-color: $sky-blue;
+    }
+
+    &.color-purple {
+      background-color: $mid-purple;
+    }
+
+    &.color-navy {
+      background-color: $bright-blue;
+      // color: $white;
+    }
+
+    &.color-orange {
+      background-color: $orange;
+    }
+  }
+
+  &.color-green {
+    background-color: $light-green;
+    border-color: $mintGreen;
+  }
+
+  &.color-blue {
+    background-color: $teal;
+    border-color: $sky-blue;
+  }
+
+  &.color-purple {
+    background-color: $lightest-purple;
+    border-color: $mid-purple;
+  }
+
+  &.color-navy {
+    background-color: $light-blue;
+    border-color: $navy;
+  }
+
+  &.color-orange {
+    background-color: $light-orange;
+    border-color: $orange;
+  }
+}

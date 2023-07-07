@@ -1,0 +1,189 @@
+.resource-list {
+  padding: 3rem 0;
+
+  .labelBox {
+    .title {
+      justify-content: center;
+    }
+  }
+
+  .container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+
+    @media screen and (max-width: ($tabMed - 1)) {
+      flex-direction: column;
+    }
+
+    &:before,
+    &:after {
+      content: none;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 2rem;
+      left: 0;
+      width: 100%;
+
+      @media screen and (min-width: ($tabMed)) {
+        width: 411px;
+      }
+
+      @media screen and (max-width: ($tabMed - 1)) {
+        top: 0;
+        z-index: 1;
+      }
+
+      .footer-cta,
+      .related {
+        @media screen and (max-width: ($tabMed - 1)) {
+          display: none;
+        }
+      }
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      @media screen and (min-width: ($tabMed)) {
+        width: calc(100% - 411px);
+      }
+
+      .footer-cta,
+      .related {
+        @media screen and (min-width: ($tabMed)) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .footer-cta {
+    margin-bottom: 0;
+
+    .usa-button {
+      background: $blue;
+
+      &:hover {
+        background: $navy;
+      }
+    }
+
+    .container {
+      flex-direction: column;
+      width: 100%;
+      margin: 0;
+      align-items: center;
+      gap: 0;
+
+      h3 {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .list-heading {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    @media screen and (max-width: ($tabMed - 1)) {
+      flex-direction: column;
+    }
+
+    > .label {
+      font-size: 22px;
+
+      @media screen and (max-width: ($tabMed - 1)) {
+        order: 1;
+        margin-bottom: 1rem;
+      }
+
+      @media screen and (min-width: ($tabMed)) {
+        text-align: right;
+        width: 180px;
+      }
+    }
+
+    > div {
+      @media screen and (max-width: ($tabMed - 1)) {
+        order: 2;
+      }
+      @media screen and (min-width: ($tabMed)) {
+        width: calc(100% - 180px);
+      }
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .tags {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      button {
+        padding: 0;
+      }
+    }
+
+    .tag-item {
+      padding: 0.5rem;
+      border-radius: 0.3rem;
+    }
+  }
+
+  .related {
+    background-color: $dark-navy;
+    color: $white;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    margin-top: 3rem;
+
+    h3 {
+      font-size: 22px;
+      margin-bottom: 2rem;
+    }
+
+    .usa-button {
+      text-align: left;
+      background-color: $teal;
+      width: 100%;
+      border: 2px solid $bright-blue;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      color: $navy;
+      border-radius: 10px;
+      padding: 0.5rem;
+
+      + .usa-button {
+        margin-top: 1.5rem;
+      }
+
+      @media screen and (max-width: ($sm - 1)) {
+        display: flex;
+        width: 100%;
+      }
+
+      &:hover {
+        @media screen and (min-width: ($sm + 1)) {
+          background: white;
+        }
+      }
+
+      svg {
+        width: 32px;
+        height: auto;
+      }
+    }
+  }
+}
