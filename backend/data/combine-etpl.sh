@@ -18,6 +18,7 @@ psql -c "create database $DBNAME;" -U postgres -h localhost -p 5432
 # create tables
 psql $DBNAME -c "CREATE TABLE $PROGRAMS_TABLE (
   PROVIDERID character varying(16),
+  NEWTONJTOPPS text,
   OFFICIALNAME character varying(256),
   CIPCODE character varying(16),
   APPROVINGAGENCYID character varying(8),
@@ -61,6 +62,7 @@ psql $DBNAME -c "CREATE TABLE $PROGRAMS_TABLE (
 psql $DBNAME -c "CREATE TABLE providers (
     PROVIDERID character varying(16) NOT NULL PRIMARY KEY,
     NAME character varying(256),
+    NEWTONJTOPPS text,
     SCHOOLIDENTIFICATIONNUMBER character varying(64),
     STREET1 character varying(128),
     STREET2 character varying(128),
@@ -114,6 +116,7 @@ psql $DBNAME -c "\COPY $PROVIDERS_TABLE FROM '`pwd`/$2' DELIMITER ',' CSV HEADER
 
 # export joined table as csv
 psql $DBNAME -c "\copy (select programs.PROVIDERID,
+    programs.NEWTONJTOPPS as PROGRAMNEWTONJTOPPS,
     programs.OFFICIALNAME,
     programs.CIPCODE,
     programs.APPROVINGAGENCYID,
@@ -153,6 +156,7 @@ psql $DBNAME -c "\copy (select programs.PROVIDERID,
     programs.STATUSNAME,
     programs.CREDENTIALTYPE,
     providers.NAME,
+    providers.NEWTONJTOPPS as PROVIDERNEWTONJTOPPS,
     providers.SCHOOLIDENTIFICATIONNUMBER,
     providers.STREET1,
     providers.STREET2,
