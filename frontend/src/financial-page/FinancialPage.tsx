@@ -1,31 +1,24 @@
 import { RouteComponentProps } from "@reach/router";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { FinancialResourcePageData, FinancialResourcePageProps } from "../types/contentful";
+import { FinancialResourcePageData } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
 import { FinancialResourceFilter } from "../components/FinancialResourceFilter";
 import { FinancialResource } from "../components/FinancialResource";
 import { ContentfulRichText } from "../components/ContentfulRichText";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { TUITION_ASSISTANCE_PAGE_QUERY } from "../queries/tuitionAssistance";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const FinancialPage = (props: Props): ReactElement => {
-  const [data, setData] = useState<FinancialResourcePageData>();
   const [activeTags, setActiveTags] = useState<string[]>([]);
-
-  useEffect(() => {
-    props.client.getContentfulFRP("frp", {
-      onSuccess: (response: FinancialResourcePageProps) => {
-        setData(response.data.data);
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${e}`);
-      },
-    });
-  }, [props.client]);
+  const data: FinancialResourcePageData = useContentfulClient({
+    query: TUITION_ASSISTANCE_PAGE_QUERY,
+  });
 
   // function that filters data.resources based on activeTags
 

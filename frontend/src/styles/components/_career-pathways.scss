@@ -1,0 +1,122 @@
+.career-pathways {
+  background-color: $lighter-green;
+  padding: 6rem 0;
+
+  .container {
+    @media screen and (max-width: ($mobTab - 1)) {
+      padding: 0;
+    }
+  }
+
+  .heading {
+    border-bottom: 0.5rem solid black;
+    padding-bottom: 0.8rem;
+    margin-bottom: 2.5rem;
+
+    h3 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  .select {
+    display: none;
+    margin: 1rem 0 2rem 3rem;
+    max-width: 36rem;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 2.2rem;
+
+    @media screen and (max-width: ($mobTab - 1)) {
+      margin-left: 0;
+    }
+  }
+
+  input[type="radio"] {
+    &:checked {
+      + label {
+        + .select {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .groups {
+    background: white;
+    padding: 1rem;
+
+    .select-button {
+      margin-top: 0.7rem;
+      width: 100%;
+      appearance: none;
+      padding: 0.7rem 2rem 0.7rem 0.7rem;
+      position: relative;
+      border: 1px solid $grey;
+      border-radius: 5px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        width: 0;
+        height: 0;
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-top: 0.35rem solid black;
+      }
+    }
+
+    .dropdown-select {
+      font-weight: normal;
+      margin-top: 1rem;
+      box-shadow: 0 10px 20px -15px black;
+
+      &[aria-expanded="true"] {
+        display: block;
+      }
+
+      .path-title,
+      button {
+        display: block;
+        width: 100%;
+      }
+
+      .path-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: $grey;
+        padding: 0.5rem 1rem;
+      }
+
+      button {
+        padding: 1rem;
+
+        @media screen and (min-width: ($mobTab)) {
+          padding: 1rem 1rem 1rem 5rem;
+        }
+
+        &:nth-of-type(2n - 1) {
+          background: $lighter-green;
+        }
+
+        &:hover {
+          @media screen and (min-width: ($mobTab)) {
+            background: $purple;
+          }
+        }
+      }
+    }
+  }
+
+  .path-selector {
+    > .heading {
+      @media screen and (max-width: ($mobTab - 1)) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
