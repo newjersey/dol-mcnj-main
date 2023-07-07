@@ -9,6 +9,7 @@
 @import "css/bootstrap.css";
 @import "landing-page";
 @import "search-results-page";
+@import "home-page";
 @import "training-page";
 @import "not-found-page";
 @import "in-demand-page";
@@ -25,11 +26,14 @@
 @import "modules/error-message";
 @import "modules/financial-resource";
 @import "modules/footer-banner";
+@import "modules/iconCard";
 @import "modules/mixins";
+@import "modules/section-heading";
 @import "modules/path-menu";
 @import "modules/single-path";
 @import "components/career-map";
 @import "components/career-pathways";
+@import "components/cardSlider";
 @import "components/faq-collection";
 @import "components/footer-cta";
 @import "components/how-to";
@@ -44,6 +48,7 @@
 @import "components/search-block";
 @import "components/stepper";
 @import "components/tab-content";
+@import "components/homeBanner";
 
 * {
   -webkit-box-sizing: border-box;
