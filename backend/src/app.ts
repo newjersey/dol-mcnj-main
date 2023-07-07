@@ -14,7 +14,6 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
-import { contentfulFactory } from "./domain/contentful/getContentful";
 
 dotenv.config();
 // console.log(process.env);
@@ -97,14 +96,6 @@ const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
-  getContentfulCPW: contentfulFactory("cpw"),
-  getContentfulFRP: contentfulFactory("frp"),
-  getContentfulFootNav2: contentfulFactory("footNav2"),
-  getContentfulFootNav: contentfulFactory("footNav"),
-  getContentfulMNav: contentfulFactory("mnav"),
-  getContentfulGNav: contentfulFactory("gnav"),
-  getContentfulTPR: contentfulFactory("tpr"),
-  getContentfulFAQ: contentfulFactory("faq"),
   searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),

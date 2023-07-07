@@ -4,7 +4,7 @@
   button {
     font-weight: bold;
     color: black;
-    background-color: $light-green;
+    background-color: $grey;
     width: 100%;
     padding: 1.2rem 4rem 1.2rem 1rem;
     position: relative;
@@ -29,6 +29,10 @@
 
     &:after {
       transform: rotate(90deg);
+    }
+
+    &:focus {
+      background: $light-purple;
     }
   }
 
