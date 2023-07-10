@@ -24,14 +24,11 @@
     "dayjs": "^1.11.9",
     "graphql-request": "^6.1.0",
     "i18next": "^23.2.8",
-    "i18next-http-backend": "^2.2.1",
     "libphonenumber-js": "^1.10.37",
-    "node-sass": "^9.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-i18next": "^13.0.1",
     "react-scripts": "5.0.1",
-    "sass": "^1.63.6",
     "typescript": "^5.1.6"
   },
   "scripts": {
