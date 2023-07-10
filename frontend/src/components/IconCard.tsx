@@ -32,9 +32,9 @@ export const IconCard = ({
       <a
         href={url}
         onClick={(e) => {
-          e.preventDefault();
           // smooth scroll to element with id if the link starts with a hash
           if (url.startsWith("#")) {
+            e.preventDefault();
             const element = document.getElementById(url.substring(1));
             if (element) {
               element.scrollIntoView({ behavior: "smooth" });
