@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: cimg/node:16.17-browsers
+      - image: cimg/node:18.16.1-browsers
       - image: circleci/postgres:12
         environment:
           POSTGRES_USER: postgres
