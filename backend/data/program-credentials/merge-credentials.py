@@ -195,12 +195,18 @@ def label_credential_type(row: pd.Series):
 def export(df, yyyymmdd):
     df.to_csv(f'../programs_{yyyymmdd}_merged.csv', index=False, encoding='utf-8-sig')
 
+def read_csv_file(file_path, encoding='utf-8-sig', usecols=None, dtype=None):
+    try:
+        df = pd.read_csv(file_path, encoding=encoding, usecols=usecols, dtype=dtype)
+    except UnicodeDecodeError:
+        df = pd.read_csv(file_path, encoding='ISO-8859-1', dtype=dtype)  # Try a different encoding
+    return df
 
 def main():
     yyyymmdd = sys.argv[1]
 
     # Read in source data files
-    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv", dtype={
+    programs_df = read_csv_file(f"../programs_{yyyymmdd}.csv", dtype={
         # Read enum and lookup fields from csv as strings to preserve
         # value for comparison and prevent type coercion to floating point
         # types.
@@ -215,19 +221,19 @@ def main():
         "CALENDARLENGTHID": "str",
         "PHONEEXTENSION": "str"
     })
-    degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+    degree_lookup_df = read_csv_file("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for DEGREEAWARDED
         'Name': "str"
     })
-    industry_credentials_lookup_df = pd.read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+    industry_credentials_lookup_df = read_csv_file("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for INDUSTRYCREDENTIAL
         'Name': "str"
     })
-    license_lookup_df = pd.read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
+    license_lookup_df = read_csv_file("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
         'ID': "str", # match type for LICENSEAWARDED
         'Name': "str"
     })
-    providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv", dtype={
+    providers_df = read_csv_file(f"../providers_{yyyymmdd}.csv", dtype={
         "TYPEID": "str"
     }).add_prefix("PROVIDERS_")
 
