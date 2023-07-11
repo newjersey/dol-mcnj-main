@@ -88,6 +88,7 @@ export interface PageBannerProps {
   };
   section: "explore" | "jobs" | "support" | "training";
   message?: ContentfulRichText;
+  description?: string;
   ctaHeading?: string;
   ctaLinksCollection?: {
     items: LinkObjectProps[];
@@ -410,5 +411,89 @@ export interface HomepageProps {
     supportAndAssistanceLinksCollection: {
       items: IconLinkProps[];
     };
+  };
+}
+
+export interface AllSupportPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+    industries: {
+      items: IndustryProps[];
+    };
+  };
+  categories: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+    }[];
+  };
+}
+
+export interface TagProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  category: {
+    slug: string;
+  };
+}
+
+export interface RelatedCategoryProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  slug: string;
+}
+
+export interface ResourceCategoryPageProps {
+  page: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+      infoBox?: string;
+      related?: {
+        items: RelatedCategoryProps[];
+      };
+    }[];
+  };
+  tags: {
+    items: TagProps[];
+  };
+  audience: {
+    items: TagProps[];
+  };
+  cta: {
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+  };
+}
+
+export interface ResourceItemProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  description: string;
+  link: string;
+  tags: {
+    items: TagProps[];
+  };
+}
+export interface ResourceListProps {
+  resources: {
+    items: ResourceItemProps[];
   };
 }

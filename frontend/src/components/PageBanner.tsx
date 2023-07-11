@@ -8,6 +8,7 @@ export const PageBanner = ({
   title,
   breadcrumbTitle,
   message,
+  description,
   breadcrumbsCollection,
   section,
   ctaHeading,
@@ -30,7 +31,7 @@ export const PageBanner = ({
         <div className="top-nav">
           <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
             <Icon>keyboard_backspace</Icon>
-            <Selector name={section} color={svgColor} />
+            <Selector name={`${section}Bold`} color={svgColor} />
             <ol className="usa-breadcrumb__list">
               {breadcrumbsCollection?.items.map((crumb) => {
                 return (
@@ -57,6 +58,7 @@ export const PageBanner = ({
           <div className="heading">
             <h1>{title}</h1>
             {message && <ContentfulRichText document={message.json} />}
+            {description && <p>{description}</p>}
           </div>
           {ctaLinksCollection && (
             <div className="cta-block">
