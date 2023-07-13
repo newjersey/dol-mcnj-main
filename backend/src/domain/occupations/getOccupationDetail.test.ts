@@ -10,7 +10,6 @@ import {
   buildTraining,
 } from "../test-objects/factories";
 import {Error} from "../Error";
-import {CalendarLength} from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
