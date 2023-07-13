@@ -2,6 +2,7 @@
   "tags": ["backend"],
   "dependencies": [
     "@contentful/rich-text-types",
+    "@sentry/node",
     "axios",
     "cors",
     "dotenv",

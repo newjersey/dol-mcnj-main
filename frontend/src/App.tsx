@@ -38,12 +38,29 @@ import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { FinancialPage } from "./financial-page/FinancialPage";
-import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
-import { CareerPathwaysRoutes } from "./career-pathways-page/CareerPathwaysRoutes";
+/*import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
+import { CareerPathwaysRoutes } from "./career-pathways-page/CareerPathwaysRoutes";*/
+import * as Sentry from "@sentry/react";
 
 interface Props {
   client: Client;
 }
+
+Sentry.init({
+  dsn: process.env.REACT_APP_SENTRY_DSN,
+  integrations: [
+    new Sentry.BrowserTracing({
+      // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+      tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+    }),
+    new Sentry.Replay(),
+  ],
+  // Performance Monitoring
+  tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!
+  // Session Replay
+  replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+  replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+});
 
 // Logs each Reach Router page as a separate pageview on Google Analytics
 // eslint-disable-next-line
@@ -83,8 +100,8 @@ export const App = (props: Props): ReactElement => {
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
               <FinancialPage path="/tuition-assistance" client={props.client} />
-              <CareerPathwaysPage path="/career-pathways" client={props.client} />
-              {CareerPathwaysRoutes({ client: props.client })}
+{/*              <CareerPathwaysPage path="/career-pathways" client={props.client} />
+              {CareerPathwaysRoutes({ client: props.client })}*/}
               <FundingPage path="/funding" client={props.client} />
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />

@@ -1,15 +1,16 @@
-import { GetOccupationDetail } from "../types";
-import { StubDataClient } from "../test-objects/StubDataClient";
-import { getOccupationDetailFactory } from "./getOccupationDetail";
+import {GetOccupationDetail} from "../types";
+import {StubDataClient} from "../test-objects/StubDataClient";
+import {getOccupationDetailFactory} from "./getOccupationDetail";
 import {
-  buildOccupationDetailPartial,
+  buildAddress,
   buildOccupation,
+  buildOccupationDetailPartial,
+  buildProvider,
   buildSocDefinition,
   buildTraining,
-  buildProvider,
-  buildAddress,
 } from "../test-objects/factories";
-import { Error } from "../Error";
+import {Error} from "../Error";
+import {CalendarLength} from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -92,6 +93,7 @@ describe("getOccupationDetail", () => {
         ...onetOccupationDetail,
         education: "some-string",
         inDemand: true,
+        counties: [],
         medianSalary: 38260,
         openJobsCount: 10,
         openJobsSoc: "some-soc",
@@ -187,6 +189,7 @@ describe("getOccupationDetail", () => {
         soc: "2018-soc",
         education: "some education text",
         inDemand: true,
+        localExceptionCounties: [],
         medianSalary: 38260,
         openJobsCount: 1000,
         openJobsSoc: "2010-soc",
@@ -290,6 +293,7 @@ describe("getOccupationDetail", () => {
         tasks: [],
         education: "some education text",
         inDemand: false,
+        localExceptionCounties: [],
         medianSalary: 38260,
         openJobsCount: 100,
         relatedOccupations: neighboringOccupations,
