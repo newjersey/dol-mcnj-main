@@ -6,6 +6,8 @@ describe("Career Support Page", () => {
     cy.checkA11y(null, null, (violations) => {
       cy.task('log', 'Accessibility violations found:');
       cy.task('table', violations);
+      cy.log('Accessibility violations found:');
+      cy.log(JSON.stringify(violations));
       assert.equal(violations.length, 0, 'No accessibility violations should be detected');
     });
   });
