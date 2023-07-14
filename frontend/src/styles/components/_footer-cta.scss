@@ -15,7 +15,7 @@
     display: block;
     padding-top: 17px;
     padding-bottom: 17px;
-    background-color: $navy;
+    background-color: $blue;
     font-weight: normal;
     max-width: 255px;
     display: flex;
@@ -25,7 +25,7 @@
 
     &:hover {
       @media screen and (min-width: ($sm)) {
-        background-color: $blue;
+        background-color: $navy;
       }
     }
   }

@@ -4,6 +4,10 @@
   padding: 2rem 0;
   gap: 2rem;
 
+  @media screen and (max-width: ($sm - 1)) {
+    flex-direction: column;
+  }
+
   .step {
     background-color: $off-white;
     padding: 0 3rem 1rem;
@@ -11,6 +15,7 @@
     width: 33.33%;
 
     @media screen and (max-width: ($sm - 1)) {
+      width: 100%;
       padding: 0 1rem 1rem;
     }
 
