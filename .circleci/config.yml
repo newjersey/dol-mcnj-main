@@ -60,7 +60,7 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run:
           name: deploy
-          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcpmvp CLOUD_SQL_CONNECTION_NAME=d4ad-mvp:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
+          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcpmvp CLOUD_SQL_CONNECTION_NAME=d4ad-research:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
