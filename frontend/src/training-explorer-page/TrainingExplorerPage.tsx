@@ -54,7 +54,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     <Layout client={props.client}>
       {data && (
         <>
-          <PageBanner {...pageData?.pageBanner} theme="green" />
+          <PageBanner noCrumbs {...pageData?.pageBanner} theme="green" />
           <SearchBlock />
           <HowTo {...howToContent} />
           <Interrupter {...interrupterContent} />

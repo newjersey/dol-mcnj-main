@@ -80,6 +80,7 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
+  noCrumbs?: boolean;
   theme?: "green" | "blue" | "purple" | "navy";
   title: string;
   breadcrumbTitle?: string;
