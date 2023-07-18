@@ -254,7 +254,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="fin">
                               <InlineIcon className="mrxs">school</InlineIcon>
                               {t("TrainingPage.certificationsLabel")}&nbsp;
-                              <b>{training.certifications}</b>
+                              <div className="bold">{training.certifications}</div>
                             </span>
                               </p>
                           )}
@@ -262,7 +262,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                               <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
+                              {t("TrainingPage.prereqsLabel")}&nbsp;<div className="bold">{training.prerequisites}</div>
                             </span>
                               </p>
                           )}
@@ -270,7 +270,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
                             {t("TrainingPage.completionTimeLabel")}&nbsp;
-                            <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
+                            <div className="bold">{t(`CalendarLengthLookup.${training.calendarLength}`)}</div>
                           </span>
                           </p>
                           {training.totalClockHours && (
@@ -278,7 +278,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                                 <span className="fin">
                                   <InlineIcon className="mrxs">schedule</InlineIcon>
                                   {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                                  <b>{t("TrainingPage.totalClockHours", { hours: training.totalClockHours })}</b>
+                                  <div className="bold">{t("TrainingPage.totalClockHours", { hours: training.totalClockHours })}</div>
                                 </span>
                               </p>
                           )}
