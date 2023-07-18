@@ -751,7 +751,8 @@ export const en = {
     prereqsLabel: "Prerequisites:",
     completionTimeLabel: "Completion time:",
     cipCodeLabel: "CIP Code:",
-    totalClockHoursLabel: "Total clock hours:",
+    totalClockHoursLabel: "Total Hours:",
+    totalClockHours: "{{hours}} hours",
     associatedOccupationsGroupHeader: "Associated Occupations",
     associatedOccupationsText:
         "This is a general training that might prepare you for a wide variety of career paths. Browse <1>in-demand occupations</1> to see how you might apply this training.",
