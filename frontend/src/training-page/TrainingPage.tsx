@@ -252,26 +252,26 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <>
                           {training.certifications && (
                               <p>
-                            <span className="fin">
-                              <InlineIcon className="mrxs">school</InlineIcon>
-                              {t("TrainingPage.certificationsLabel")}&nbsp;
-                              <div className="bold">{training.certifications}</div>
-                            </span>
+                                <span className="fin">
+                                  <InlineIcon className="mrxs">school</InlineIcon>
+                                  {t("TrainingPage.certificationsLabel")}&nbsp;
+                                  <b>{training.certifications}</b>
+                                </span>
                               </p>
                           )}
                           {training.prerequisites && (
                               <p>
-                            <span className="fin">
-                              <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              {t("TrainingPage.prereqsLabel")}&nbsp;<div className="bold">{training.prerequisites}</div>
-                            </span>
+                                <span className="fin">
+                                  <InlineIcon className="mrxs">list_alt</InlineIcon>
+                                  {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
+                                </span>
                               </p>
                           )}
                           <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
                             {t("TrainingPage.completionTimeLabel")}&nbsp;
-                            <div className="bold">{t(`CalendarLengthLookup.${training.calendarLength}`)}</div>
+                            <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
                           </span>
                           </p>
                           {training.totalClockHours && (
@@ -286,7 +286,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                                       info
                                   </InlineIcon>
                                   <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
-                                  <div className="bold">{t("TrainingPage.totalClockHours", { hours: training.totalClockHours })}</div>
+                                  <b>{t("TrainingPage.totalClockHours", { hours: training.totalClockHours })}</b>
                                 </span>
                               </p>
                           )}
