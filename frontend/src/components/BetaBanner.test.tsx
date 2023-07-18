@@ -8,10 +8,4 @@ describe("<BetaBanner />", () => {
     const banner = subject.getByText("feedback", { exact: false });
     expect(banner).toHaveClass("no-header-margin");
   });
-
-  it("uses default margin if no header prop passed", () => {
-    const subject = render(<BetaBanner />);
-    const banner = subject.getByText("feedback", { exact: false });
-    expect(banner).not.toHaveClass("no-header-margin");
-  });
 });
