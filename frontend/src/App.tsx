@@ -1,5 +1,5 @@
 import { ReactElement, useReducer, useState } from "react";
-import { LandingPage } from "./landing-page/LandingPage";
+// import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
