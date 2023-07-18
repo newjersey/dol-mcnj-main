@@ -254,7 +254,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="fin">
                               <InlineIcon className="mrxs">school</InlineIcon>
                               {t("TrainingPage.certificationsLabel")}&nbsp;
-                              {training.certifications}
+                              <b>{training.certifications}</b>
                             </span>
                               </p>
                           )}
@@ -262,7 +262,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                               <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              {t("TrainingPage.prereqsLabel")}&nbsp;{training.prerequisites}
+                              {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
                             </span>
                               </p>
                           )}
@@ -270,15 +270,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
                             {t("TrainingPage.completionTimeLabel")}&nbsp;
-                            {t(`CalendarLengthLookup.${training.calendarLength}`)}
+                            <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
                           </span>
                           </p>
                           {training.totalClockHours && (
                               <p>
                                 <span className="fin">
-                                  <InlineIcon className="mrxs">hourglass_empty</InlineIcon>
+                                  <InlineIcon className="mrxs">schedule</InlineIcon>
                                   {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                                  {training.totalClockHours}
+                                  <b>{t("TrainingPage.totalClockHours", { hours: training.totalClockHours })}</b>
                                 </span>
                               </p>
                           )}
@@ -287,7 +287,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                                 <span className="fin">
                                   <InlineIcon className="mrxs">qr_code</InlineIcon>
                                   {t("TrainingPage.cipCodeLabel")}&nbsp;
-                                  {t(training.cipCode)}
+                                  <b>{t(training.cipCode)}</b>
                                 </span>
                               </p>
                           )}
