@@ -765,7 +765,8 @@ export const es = {
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
     cipCodeLabel: "Código CIP:",
-    totalClockHoursLabel: "Horas Totales:",
+    totalClockHoursLabel: "Total de Horas:",
+    totalClockHoursTooltip: "El total de horas es el número total de horas reales dedicadas a asistir a clases o actividades educativas para completar el programa.",
     totalClockHours: "{{hours}} horas",
     associatedOccupationsGroupHeader: "Ocupaciones asociadas",
     associatedOccupationsText:
