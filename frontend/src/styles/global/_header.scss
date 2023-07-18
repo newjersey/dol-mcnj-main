@@ -182,6 +182,7 @@ header {
   li {
     &.has-sub {
       position: relative;
+      z-index: 1;
 
       .sub-menu {
         background: white;
