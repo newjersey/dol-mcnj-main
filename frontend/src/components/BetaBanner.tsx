@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import { Trans } from "react-i18next";
 interface Props {
   noHeader?: boolean;
 }
@@ -17,7 +16,6 @@ export const BetaBanner = (props: Props): ReactElement => {
 
   return (
     <div className={`beta-banner ${getHeaderMarginClass()}`}>
-      {" "}
       <a target="_blank" rel="noopener noreferrer" href={FEEDBACK_URL}>
         Share your feedback!
       </a>
