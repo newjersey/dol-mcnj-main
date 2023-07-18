@@ -752,6 +752,7 @@ export const en = {
     completionTimeLabel: "Completion time:",
     cipCodeLabel: "CIP Code:",
     totalClockHoursLabel: "Total Hours:",
+    totalClockHoursTooltip: "Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.",
     totalClockHours: "{{hours}} hours",
     associatedOccupationsGroupHeader: "Associated Occupations",
     associatedOccupationsText:

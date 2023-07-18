@@ -19,6 +19,7 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import { Tooltip } from 'react-tooltip';
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -278,6 +279,13 @@ export const TrainingPage = (props: Props): ReactElement => {
                                 <span className="fin">
                                   <InlineIcon className="mrxs">schedule</InlineIcon>
                                   {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                                  <InlineIcon className="mrxs"
+                                    data-tooltip-id="totalClockHours-tooltip"
+                                    data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                                    >
+                                      info
+                                  </InlineIcon>
+                                  <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
                                   <div className="bold">{t("TrainingPage.totalClockHours", { hours: training.totalClockHours })}</div>
                                 </span>
                               </p>
