@@ -26,6 +26,8 @@ describe("Training Page", () => {
     // quick stats
     cy.contains("Prerequisites: HS Diploma/GED").should("exist");
     cy.contains("Completion time: 6-12 months").should("exist");
+    cy.contains("Total Hours:").should("exist");
+    cy.contains("512 hours").should("exist");
 
     // associated occupations
     cy.contains("Health Specialties Teachers, Postsecondary").should("exist");
