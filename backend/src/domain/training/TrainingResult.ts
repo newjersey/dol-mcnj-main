@@ -7,6 +7,7 @@ export interface TrainingResult {
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
+  totalClockHours: number,
   inDemand: boolean;
   localExceptionCounty: string[];
   online: boolean;

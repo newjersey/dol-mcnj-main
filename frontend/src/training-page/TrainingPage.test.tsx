@@ -84,7 +84,10 @@ describe("<TrainingPage />", () => {
 
     expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
     expect(
-      subject.getByText("Completion time: " + Content.CalendarLengthLookup["7"], { exact: false })
+      subject.getByText("Completion time:", { exact: false })
+    ).toBeInTheDocument();
+    expect(
+        subject.getByText(Content.CalendarLengthLookup["7"], { exact: false })
     ).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
