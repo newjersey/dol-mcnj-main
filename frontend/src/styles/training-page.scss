@@ -43,6 +43,10 @@
   word-break: break-all;
 }
 
+.custom-tooltip {
+  text-transform: none;
+  max-width: 300px;
+}
 // small and up
 @media (min-width: $xs) {
   .stat-block {

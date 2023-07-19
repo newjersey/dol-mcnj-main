@@ -29,12 +29,12 @@ describe("getOccupationDetail", () => {
     mockFindTrainingsBy = jest.fn();
     stubDataClient = StubDataClient();
     getOccupationDetail = getOccupationDetailFactory(
-      mockOnet,
-      mockGetEducationText,
-      mockGetSalaryEstimate,
-      mockGetOpenJobsCount,
-      mockFindTrainingsBy,
-      stubDataClient
+        mockOnet,
+        mockGetEducationText,
+        mockGetSalaryEstimate,
+        mockGetOpenJobsCount,
+        mockFindTrainingsBy,
+        stubDataClient
     );
   });
 
@@ -73,6 +73,7 @@ describe("getOccupationDetail", () => {
           totalCost: 534,
           percentEmployed: 3454,
           calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
+          totalClockHours: 400,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -103,6 +104,7 @@ describe("getOccupationDetail", () => {
             totalCost: 534,
             percentEmployed: 3454,
             calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
+            totalClockHours: 400,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
@@ -130,8 +132,8 @@ describe("getOccupationDetail", () => {
     it("uses the 2010 soc code in the onet request to get an occupation detail from onet", async () => {
       const onetOccupationDetail = buildOccupationDetailPartial({ soc: "2010-soc" });
       mockOnet
-        .mockRejectedValueOnce(Error.SYSTEM_ERROR)
-        .mockResolvedValueOnce(onetOccupationDetail);
+          .mockRejectedValueOnce(Error.SYSTEM_ERROR)
+          .mockResolvedValueOnce(onetOccupationDetail);
 
       stubDataClient.find2010OccupationsBySoc2018.mockResolvedValue([
         buildOccupation({ soc: "2010-soc" }),
@@ -166,6 +168,7 @@ describe("getOccupationDetail", () => {
           totalCost: 534,
           percentEmployed: 3454,
           calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
+          totalClockHours: 20,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -197,6 +200,7 @@ describe("getOccupationDetail", () => {
             totalCost: 534,
             percentEmployed: 3454,
             calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
+            totalClockHours: 20,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
@@ -266,6 +270,7 @@ describe("getOccupationDetail", () => {
           totalCost: 534,
           percentEmployed: 3454,
           calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
+          totalClockHours: 2000,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -299,6 +304,7 @@ describe("getOccupationDetail", () => {
             totalCost: 534,
             percentEmployed: 3454,
             calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
+            totalClockHours: 2000,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
