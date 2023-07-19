@@ -1,10 +1,10 @@
 describe("Training Explorer Page", () => {
   it("is accessible", () => {
-    cy.visit("/training-explorer");
+    cy.visit("/");
     cy.injectAxe();
 
     cy.contains("Certifications, Professional Development, Apprenticeships & More!").should(
-      "exist"
+      "exist",
     );
     cy.checkA11y();
   });
