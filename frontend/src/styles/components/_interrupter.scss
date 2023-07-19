@@ -1,12 +1,17 @@
 .interrupter {
   background-color: $navy;
   color: white;
-  padding: 1rem 0;
+  padding: 3rem 0;
 
   .container {
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    &:before,
+    &:after {
+      content: none;
+    }
 
     @media screen and (max-width: ($sm - 1)) {
       flex-direction: column;
@@ -17,7 +22,7 @@
     font-size: 1.7rem;
 
     @media screen and (min-width: ($sm)) {
-      width: calc(100% - 300px);
+      width: calc(50% - 100px);
     }
 
     @media screen and (max-width: ($sm - 1)) {

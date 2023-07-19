@@ -5,10 +5,6 @@
     padding: 3rem 0;
   }
 
-  @media screen and (max-width: ($mobTab)) {
-    display: none;
-  }
-
   h3 {
     font-size: 2rem;
     font-weight: bold;
@@ -41,6 +37,12 @@
       width: 320px;
       justify-content: center;
       margin: 0 auto;
+    }
+  }
+
+  .stepper {
+    @media screen and (min-width: ($mobTab)) {
+      margin: 80px 0 0;
     }
   }
 }
