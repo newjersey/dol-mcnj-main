@@ -19,6 +19,8 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import {WaiverBlock} from "../components/WaiverBlock";
+import {formatCountiesArrayToString} from "../utils/formatCountiesArrayToString";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -206,14 +208,17 @@ export const TrainingPage = (props: Props): ReactElement => {
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
 
             {training.inDemand ? <InDemandTag className="mts" /> : <></>}
-            {!training.inDemand &&
-            training.localExceptionCounty &&
-            training.localExceptionCounty.length !== 0 ? (
-              <InDemandTag className="mts" counties={training.localExceptionCounty} />
-            ) : (
-              <></>
-            )}
+
             <div className="stat-block-stack mtm">
+              {
+                !training.inDemand && training.localExceptionCounty && training.localExceptionCounty.length !== 0
+                    ? <WaiverBlock
+                        title={t("TrainingPage.localExceptionCountiesTitle", {counties: formatCountiesArrayToString(training.localExceptionCounty)})}
+                        backgroundColorClass="bg-light-yellow"
+                    />
+                    : <></>
+              }
+
               <StatBlock
                 title={t("TrainingPage.avgSalaryTitle")}
                 tooltipText={t("TrainingPage.avgSalaryTooltip")}
