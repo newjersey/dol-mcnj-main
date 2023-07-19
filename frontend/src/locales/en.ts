@@ -753,6 +753,9 @@ export const en = {
     prereqsLabel: "Prerequisites:",
     completionTimeLabel: "Completion time:",
     cipCodeLabel: "CIP Code:",
+    totalClockHoursLabel: "Total Hours:",
+    totalClockHoursTooltip: "Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.",
+    totalClockHours: "{{hours}} hours",
     associatedOccupationsGroupHeader: "Associated Occupations",
     associatedOccupationsText:
         "This is a general training that might prepare you for a wide variety of career paths. Browse <1>in-demand occupations</1> to see how you might apply this training.",
