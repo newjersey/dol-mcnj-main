@@ -585,7 +585,7 @@ export const es = {
     greenBoxTextEnd: " pueden ser elegibles para recibir financiamiento del Estado.",
   },
   Header: {
-    title: "Training Explorer",
+    title: "Training sdf",
     linkToSearch: "Buscar formación",
     linkToInDemandOccupations: "Ocupaciones en demanda",
     linkToFunding: "Recursos financieros",
