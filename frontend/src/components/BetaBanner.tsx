@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import { Trans } from "react-i18next";
 interface Props {
   noHeader?: boolean;
 }
