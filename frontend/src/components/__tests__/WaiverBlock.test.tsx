@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { WaiverBlock } from '../WaiverBlock'; // Assuming this is the path to your component
+import { WaiverBlock } from '../WaiverBlock';
 import { useMediaQuery } from "@material-ui/core";
 
 jest.mock("@material-ui/core", () => ({
