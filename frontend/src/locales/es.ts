@@ -630,6 +630,8 @@ export const es = {
   },
   OccupationPage: {
     header: "Ocupación",
+    localExceptionCountiesTitle: "En demanda en {{counties}}.",
+    localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     dataUnavailableText: "Estos datos aún no están disponibles para esta ocupación.",
     jobsOpenTitle: "Trabajos abiertos en NJ",
     jobsOpenTooltip:
@@ -752,6 +754,8 @@ export const es = {
   },
   TrainingPage: {
     costGroupHeader: "Costo",
+    localExceptionCountiesTitle: "En demanda en {{counties}}.",
+    localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     header: "Oportunidad de entrenamiento",
     avgSalaryTitle: "Salario promedio después del programa",
     avgSalaryTooltip:
