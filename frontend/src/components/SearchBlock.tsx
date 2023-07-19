@@ -73,7 +73,14 @@ export const SearchBlock = () => {
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
   return (
     <section className="search-block">
-      <form action={searchUrl} className="container" data-testid="search-form">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          window.location.href = searchUrl;
+        }}
+        className="container"
+        data-testid="search-form"
+      >
         <div className="heading">
           <h2>Find Training</h2>
           <button
@@ -87,6 +94,7 @@ export const SearchBlock = () => {
             Clear All
           </button>
         </div>
+
         <p>Search by training, provider, certification, SOC code, or keyword</p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">
