@@ -25,7 +25,7 @@ export const ClassFormatFilter = (): ReactElement => {
 
   useEffect(() => {
     const classFormatFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.CLASS_FORMAT
+      (filter) => filter.element === FilterableElement.CLASS_FORMAT,
     );
     if (classFormatFilter) {
       setClassFormat(classFormatFilter.value);

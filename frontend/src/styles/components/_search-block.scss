@@ -127,7 +127,23 @@
       }
     }
 
+    .area {
+      &.extend {
+        input {
+          width: 323px;
+        }
+      }
+
+      .red {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+      }
+    }
+
     .inputs {
+      position: relative;
       display: flex;
       gap: 1rem;
       align-items: center;

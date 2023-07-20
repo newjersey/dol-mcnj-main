@@ -1,6 +1,8 @@
 import { ArrowRight, CurrencyDollarSimple } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
+import { checkValidZipCode } from "../utils/checkValidZipCode";
+import { InlineIcon } from "./InlineIcon";
 
 export const SearchBlock = () => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -10,6 +12,8 @@ export const SearchBlock = () => {
   const [zipCode, setZipCode] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchUrl, setSearchUrl] = useState<string>("");
+  const [zipValid, setZipValid] = useState<boolean>(false);
+  const [attempted, setAttempted] = useState<boolean>(false);
 
   const sanitizedValue = (value: string | Node) => DOMPurify.sanitize(value);
 
@@ -128,39 +132,65 @@ export const SearchBlock = () => {
         <div className="filters">
           <h3>Filters</h3>
           <div className="row">
-            <div className="area">
-              <div className="label">Miles from Zip Code</div>
+            <div className={`area${zipValid ? "" : " extend"}`}>
+              <div className="label">
+                {zipValid ? "Miles from Zip Code" : "Enter a New Jersey Zip Code"}
+              </div>
               <div className="inputs">
-                <label htmlFor="miles" className="sr-only">
-                  Miles
-                </label>
-                <select
-                  id="miles"
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                    if (e.target.value === "Miles") {
-                      setMiles("");
-                      return;
-                    }
+                {zipValid && (
+                  <>
+                    <label htmlFor="miles" className="sr-only">
+                      Miles
+                    </label>
+                    <select
+                      id="miles"
+                      onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                        if (e.target.value === "Miles") {
+                          setMiles("");
+                          return;
+                        }
 
-                    setMiles(sanitizedValue(e.target.value));
-                  }}
-                >
-                  <option>Miles</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>25</option>
-                  <option>50</option>
-                </select>
-                <span>from</span>
+                        setMiles(sanitizedValue(e.target.value));
+                      }}
+                    >
+                      <option>Miles</option>
+                      <option>5</option>
+                      <option>10</option>
+                      <option>25</option>
+                      <option>50</option>
+                    </select>
+                    <span>from</span>
+                  </>
+                )}
+
                 <input
                   type="number"
                   name="Zip"
                   id="zipCode"
                   placeholder="ZIP code"
+                  onBlur={(e: ChangeEvent<HTMLInputElement>) => {
+                    setZipValid(checkValidZipCode(zipCode));
+                    setAttempted(true);
+
+                    setTimeout(() => {
+                      const select = document.getElementById("miles") as HTMLSelectElement;
+                      if (select) {
+                        select.value = "10";
+                        setMiles("10");
+                      }
+                    }, 100);
+                  }}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     setZipCode(sanitizedValue(e.target.value));
+                    setAttempted(false);
                   }}
                 />
+                {!zipValid && attempted && (
+                  <div className="red fin mts">
+                    <InlineIcon className="mrxs">error</InlineIcon> Please enter a 5-digit New
+                    Jersey ZIP code.
+                  </div>
+                )}
               </div>
             </div>
             <div className="cost">
