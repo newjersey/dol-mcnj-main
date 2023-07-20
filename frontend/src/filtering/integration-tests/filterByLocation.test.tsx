@@ -72,7 +72,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).not.toHaveBeenCalled();
 
@@ -81,7 +81,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).not.toHaveBeenCalled();
 
@@ -90,7 +90,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -99,7 +99,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -108,7 +108,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -117,7 +117,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(2);
 
@@ -125,15 +125,15 @@ describe("filtering by location", () => {
   });
 
   it("uses zip code radius results to filter by radius of 5 miles", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "5" },
-    });
-
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
 
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "5" },
+    });
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
@@ -159,15 +159,15 @@ describe("filtering by location", () => {
   });
 
   it("uses zip code radius results to filter by radius of 25 miles", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "25" },
-    });
-
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
 
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "25" },
+    });
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
@@ -178,15 +178,15 @@ describe("filtering by location", () => {
   });
 
   it("uses zip code radius results to filter by radius of 50 miles", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "50" },
-    });
-
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
 
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "50" },
+    });
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
@@ -197,15 +197,15 @@ describe("filtering by location", () => {
   });
 
   it("filters on blur of either field if both are filled in", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "50" },
-    });
-
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
 
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "50" },
+    });
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
@@ -218,16 +218,17 @@ describe("filtering by location", () => {
   it("does not filter if ZIP field is empty", async () => {
     const spy = jest.spyOn(findZipCodesInRadiusModule, "getZipCodesInRadius").mockReturnValue([]);
 
+    fireEvent.change(getZipInput(subject), {
+      target: { value: "07001" },
+    });
+    fireEvent.blur(getZipInput(subject));
+
     fireEvent.change(getDistanceInput(subject), {
       target: { value: "10" },
     });
     fireEvent.blur(getDistanceInput(subject));
     expect(spy).not.toHaveBeenCalled();
 
-    fireEvent.change(getZipInput(subject), {
-      target: { value: "07001" },
-    });
-    fireEvent.blur(getZipInput(subject));
     expect(spy).toHaveBeenCalled();
 
     spy.mockRestore();
@@ -275,14 +276,15 @@ describe("filtering by location", () => {
   });
 
   it("updates a filter when radius changed", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "1" },
-    });
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
 
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "1" },
+    });
 
     fireEvent.change(getDistanceInput(subject), {
       target: { value: "5" },
@@ -298,14 +300,15 @@ describe("filtering by location", () => {
   });
 
   it("removes a filter when ZIP code is empty", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "5" },
-    });
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
 
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "5" },
+    });
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
     expect(subject.queryByText("training2")).toBeInTheDocument();
@@ -330,10 +333,6 @@ describe("filtering by location", () => {
   });
 
   it("filters on enter key", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "5" },
-    });
-
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
@@ -341,6 +340,12 @@ describe("filtering by location", () => {
     fireEvent.keyDown(getZipInput(subject), {
       key: "Enter",
       code: "Enter",
+    });
+
+    fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "5" },
     });
 
     expect(subject.queryByText("training1")).toBeInTheDocument();
@@ -353,25 +358,27 @@ describe("filtering by location", () => {
   });
 
   it("changes result count when filtering", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "5" },
-    });
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "5" },
+    });
 
     expect(subject.getByText('3 results found for "some-query"')).toBeInTheDocument();
   });
 
   it("removes filter when clear all button is clicked", async () => {
-    fireEvent.change(getDistanceInput(subject), {
-      target: { value: "5" },
-    });
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
     });
     fireEvent.blur(getZipInput(subject));
+
+    fireEvent.change(getDistanceInput(subject), {
+      target: { value: "5" },
+    });
 
     fireEvent.click(subject.getByText(Content.SearchAndFilter.clearAllFiltersButtonLabel));
 
