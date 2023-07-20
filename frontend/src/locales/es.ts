@@ -585,7 +585,7 @@ export const es = {
     greenBoxTextEnd: " pueden ser elegibles para recibir financiamiento del Estado.",
   },
   Header: {
-    title: "Training Explorer",
+    title: "Training sdf",
     linkToSearch: "Buscar formación",
     linkToInDemandOccupations: "Ocupaciones en demanda",
     linkToFunding: "Recursos financieros",
@@ -765,6 +765,9 @@ export const es = {
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
     cipCodeLabel: "Código CIP:",
+    totalClockHoursLabel: "Total de Horas:",
+    totalClockHoursTooltip: "El total de horas es el número total de horas reales dedicadas a asistir a clases o actividades educativas para completar el programa.",
+    totalClockHours: "{{hours}} horas",
     associatedOccupationsGroupHeader: "Ocupaciones asociadas",
     associatedOccupationsText:
       "Esta es una capacitación general que podría prepararlo para una amplia variedad de trayectorias profesionales. Busque <1>ocupaciones en demanda</1> para ver cómo podría aplicar esta capacitación.",
