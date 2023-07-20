@@ -444,9 +444,6 @@ export interface AllSupportPageProps {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-    industries: {
-      items: IndustryProps[];
-    };
   };
   categories: {
     items: {
