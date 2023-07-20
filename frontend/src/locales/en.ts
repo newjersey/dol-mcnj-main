@@ -739,6 +739,8 @@ export const en = {
   },
   TrainingPage: {
     header: "Training Opportunity",
+    localExceptionCountiesTitle: "In-Demand in {{counties}}.",
+    localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     avgSalaryTitle: "Avg Salary after Program",
     avgSalaryTooltip:
         "Average salary 6 months after completion of this class or classes like it at this provider",
