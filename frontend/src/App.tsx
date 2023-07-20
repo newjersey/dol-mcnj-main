@@ -1,4 +1,4 @@
-import { ReactElement, useReducer, useState } from "react";
+import React, { ReactElement, useReducer, useState } from "react";
 // import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
@@ -43,6 +43,7 @@ import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerP
 import * as Sentry from "@sentry/react";
 import { AllSupportPage } from "./all-support-page/AllSupportPage";
 import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
+import {LandingPage} from "./landing-page/LandingPage";
 
 interface Props {
   client: Client;
@@ -92,8 +93,8 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
-              {/* <LandingPage path="/" client={props.client} /> */}
-              <TrainingExplorerPage path="/" client={props.client} />
+              <LandingPage path="/" client={props.client} />
+              <TrainingExplorerPage path="/training-explorer" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}

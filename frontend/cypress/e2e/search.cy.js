@@ -78,9 +78,9 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/search");
+    cy.visit("/");
     cy.contains("Training Explorer").click({ force: true });
-    cy.location("pathname").should("eq", "/");
+    cy.location("pathname").should("eq", "/training-explorer");
   });
 
   it("links to a training detail page", () => {
