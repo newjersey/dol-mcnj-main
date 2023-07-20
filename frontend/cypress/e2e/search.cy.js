@@ -1,12 +1,12 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/training-explorer");
+    cy.visit("/");
     cy.injectAxe();
     cy.checkA11y();
 
     cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
-      "exist"
+      "exist",
     );
 
     // input search
@@ -29,7 +29,7 @@ describe("Search", () => {
     cy.contains("Baking and Pastry Arts").should("exist");
 
     cy.contains(
-      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language..."
+      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language...",
     ).should("exist");
   });
 
@@ -79,7 +79,7 @@ describe("Search", () => {
 
   it("links back to home page", () => {
     cy.visit("/search");
-    cy.contains("Training Explorer").click({ force: true });
+    cy.contains("New Jersey Career Central").click({ force: true });
     cy.location("pathname").should("eq", "/");
   });
 
@@ -120,7 +120,7 @@ describe("Search", () => {
     // search tips
     cy.get("[data-testid='searchTips']").should(
       "contain",
-      "Are you not seeing the results you were looking for?"
+      "Are you not seeing the results you were looking for?",
     );
   });
 

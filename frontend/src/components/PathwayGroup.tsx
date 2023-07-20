@@ -115,7 +115,7 @@ export const PathwayGroup = (props: {
                               shortTitle: occupation.shortTitle,
                               title: occupation.title,
                               groupId: data.careerMap.sys.id,
-                            })
+                            }),
                           );
                           setOpen(false);
                         }}
