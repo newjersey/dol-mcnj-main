@@ -87,7 +87,8 @@
   "overrides": {
     "react-scripts": {
       "typescript": "^5"
-    }
+    },
+    "nodegit": "npm:empty-npm-package@1.0.0"
   },
   "engines": {
     "node": "^16.0.0",
