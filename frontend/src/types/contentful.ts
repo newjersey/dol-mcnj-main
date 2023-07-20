@@ -83,6 +83,7 @@ export interface PageBannerProps {
   noCrumbs?: boolean;
   theme?: "green" | "blue" | "purple" | "navy";
   title: string;
+  noCrumbs?: boolean;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
