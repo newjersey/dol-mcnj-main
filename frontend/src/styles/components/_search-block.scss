@@ -119,6 +119,10 @@
     select {
       height: 40px;
       margin-top: 0.5rem;
+
+      &[disabled] {
+        background-color: $grey;
+      }
     }
 
     .row {

@@ -132,36 +132,33 @@ export const SearchBlock = () => {
         <div className="filters">
           <h3>Filters</h3>
           <div className="row">
-            <div className={`area${zipValid ? "" : " extend"}`}>
+            <div className="area">
               <div className="label">
                 {zipValid ? "Miles from Zip Code" : "Enter a New Jersey Zip Code"}
               </div>
               <div className="inputs">
-                {zipValid && (
-                  <>
-                    <label htmlFor="miles" className="sr-only">
-                      Miles
-                    </label>
-                    <select
-                      id="miles"
-                      onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                        if (e.target.value === "Miles") {
-                          setMiles("");
-                          return;
-                        }
+                <label htmlFor="miles" className="sr-only">
+                  Miles
+                </label>
+                <select
+                  disabled={!zipValid}
+                  id="miles"
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                    if (e.target.value === "Miles") {
+                      setMiles("");
+                      return;
+                    }
 
-                        setMiles(sanitizedValue(e.target.value));
-                      }}
-                    >
-                      <option>Miles</option>
-                      <option>5</option>
-                      <option>10</option>
-                      <option>25</option>
-                      <option>50</option>
-                    </select>
-                    <span>from</span>
-                  </>
-                )}
+                    setMiles(sanitizedValue(e.target.value));
+                  }}
+                >
+                  <option>Miles</option>
+                  <option>5</option>
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                </select>
+                <span>from</span>
 
                 <input
                   type="number"
