@@ -65,7 +65,6 @@ export const LocationFilter = (): ReactElement => {
   }, []);
 
   const applyLocationFilter = (currentSearchArea: SearchArea, validateZipCode = true): void => {
-    setAttempted(true);
     if (validateZipCode && currentSearchArea.center !== "") {
       const validZipCode = checkValidZipCode(currentSearchArea.center);
       setIsValidZipCode(validZipCode);
@@ -117,6 +116,8 @@ export const LocationFilter = (): ReactElement => {
     setSearchArea({ ...searchArea, center: event.target.value });
   };
 
+  const milesActive = isValidZipCode && attempted;
+
   return (
     <section>
       <header>
@@ -126,7 +127,7 @@ export const LocationFilter = (): ReactElement => {
       </header>
 
       <div className="fin mts fac ">
-        <FormControl variant="outlined" className="mla width-100">
+        <FormControl variant="outlined" disabled={!milesActive} className={`mla width-100`}>
           <InputLabel htmlFor="miles">
             {t("SearchAndFilter.locationFilterMilesInputLabel")}
           </InputLabel>
@@ -153,7 +154,12 @@ export const LocationFilter = (): ReactElement => {
           value={searchArea.center}
           onChange={handleZipCodeInput}
           onKeyDown={handleKeyDown}
-          onBlur={() => applyLocationFilter(searchArea)}
+          onBlur={(e) => {
+            if (e.target.value !== "") {
+              setAttempted(true);
+            }
+            applyLocationFilter(searchArea);
+          }}
           placeholder={t("SearchAndFilter.locationFilterZipCodePlaceholder")}
           error={!isValidZipCode && attempted}
         />
