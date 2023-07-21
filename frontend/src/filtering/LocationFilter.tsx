@@ -126,29 +126,26 @@ export const LocationFilter = (): ReactElement => {
       </header>
 
       <div className="fin mts fac ">
-        {isValidZipCode && (
-          <>
-            <FormControl variant="outlined" className="mla width-100">
-              <InputLabel htmlFor="miles">
-                {t("SearchAndFilter.locationFilterMilesInputLabel")}
-              </InputLabel>
-              <WhiteSelect
-                native={true}
-                value={searchArea.radius}
-                onChange={handleMilesInput}
-                label={t("SearchAndFilter.locationFilterMilesInputLabel")}
-                id="miles"
-              >
-                {MILES_VALUES.map((val) => (
-                  <option key={val} value={val}>
-                    {val}
-                  </option>
-                ))}
-              </WhiteSelect>
-            </FormControl>
-            <span className="phs">from</span>
-          </>
-        )}
+        <FormControl variant="outlined" className="mla width-100">
+          <InputLabel htmlFor="miles">
+            {t("SearchAndFilter.locationFilterMilesInputLabel")}
+          </InputLabel>
+          <WhiteSelect
+            native={true}
+            value={searchArea.radius}
+            onChange={handleMilesInput}
+            label={t("SearchAndFilter.locationFilterMilesInputLabel")}
+            id="miles"
+          >
+            {MILES_VALUES.map((val) => (
+              <option key={val} value={val}>
+                {val}
+              </option>
+            ))}
+          </WhiteSelect>
+        </FormControl>
+        <span className="phs">from</span>
+
         <Input
           id="zipcode"
           inputProps={ZIP_CODE_INPUT_PROPS}
