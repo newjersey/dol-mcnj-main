@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { WaiverBlock } from "../components/WaiverBlock";
-import {formatCountiesArrayToString} from "../utils/formatCountiesArrayToString";
+import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -154,14 +154,18 @@ export const OccupationPage = (props: Props): ReactElement => {
           {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
-            {
-              !occupationDetail.inDemand && occupationDetail.counties && occupationDetail.counties.length !== 0
-                  ? <WaiverBlock
-                      title={t("OccupationPage.localExceptionCountiesTitle", {counties: formatCountiesArrayToString(occupationDetail.counties)})}
-                      backgroundColorClass="bg-light-yellow"
-                  />
-                  : <></>
-            }
+            {!occupationDetail.inDemand &&
+            occupationDetail.counties &&
+            occupationDetail.counties.length !== 0 ? (
+              <WaiverBlock
+                title={t("OccupationPage.localExceptionCountiesTitle", {
+                  counties: formatCountiesArrayToString(occupationDetail.counties),
+                })}
+                backgroundColorClass="bg-light-yellow"
+              />
+            ) : (
+              <></>
+            )}
 
             <StatBlock
               title={t("OccupationPage.jobsOpenTitle")}
