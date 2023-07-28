@@ -1,0 +1,85 @@
+.labelBox {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid $grey;
+
+  &.toggleBox {
+    @media screen and (max-width: ($tabMed - 1)) {
+      border-radius: 0;
+    }
+
+    .content {
+      @media screen and (max-width: ($tabMed - 1)) {
+        display: none;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tabMed - 1)) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .title {
+    background: $bluer;
+    color: $text;
+    padding: 10px 15px;
+    width: 100%;
+    margin: 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @media screen and (min-width: ($tabMed)) {
+      cursor: auto;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    .indicator {
+      @media screen and (min-width: ($tabMed)) {
+        display: none;
+      }
+    }
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  &.color-blue {
+    .title {
+      background: $bluer;
+      color: $white;
+    }
+  }
+
+  &.color-green {
+    .title {
+      background: $mintGreen;
+    }
+  }
+
+  &.color-purple {
+    .title {
+      background: $mid-purple;
+    }
+  }
+
+  &.color-orange {
+    .title {
+      background: $orange;
+    }
+  }
+
+  &.color-navy {
+    .title {
+      background: $navy;
+      color: $white;
+    }
+  }
+}
