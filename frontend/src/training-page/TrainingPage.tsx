@@ -198,14 +198,6 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   if (training) {
-    const counties =
-      training.localExceptionCounty && training.localExceptionCounty.length > 0
-        ? training.localExceptionCounty.length > 1
-          ? training.localExceptionCounty.slice(0, -1).join(", ") +
-            " and " +
-            training.localExceptionCounty.slice(-1)
-          : training.localExceptionCounty[0]
-        : "N/A";
     return (
       <div ref={componentRef}>
         <Layout client={props.client}>
@@ -232,18 +224,6 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <></>
               )}
 
-              {training.localExceptionCounty.length > 0 && (
-                <div className="countyBlock">
-                  <span>Available in {counties}.</span>
-                  <a
-                    href="https://www.nj.gov/labor/career-services/tools-support/demand-occupations/waivers.shtml"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Learn about Local and Regional Waivers
-                  </a>
-                </div>
-              )}
               <StatBlock
                 title={t("TrainingPage.avgSalaryTitle")}
                 tooltipText={t("TrainingPage.avgSalaryTooltip")}
