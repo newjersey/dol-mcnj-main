@@ -10,6 +10,8 @@ describe("Search", () => {
     );
 
     // input search
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.get('input[aria-label="search"]').type("baking");
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);

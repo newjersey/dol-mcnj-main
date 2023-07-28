@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { Client } from "../domain/Client";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { NAV_MENU_QUERY } from "../queries/navMenu";
+import { BackToTop } from "./modules/BackToTop";
 
 interface LayoutProps {
   client: Client;
@@ -43,6 +44,7 @@ export const Layout = (props: LayoutProps) => {
       <main className={`below-banners${props.theme ? ` ${props.theme}-theme` : ""}`} role="main">
         {children}
         {props.footerComponent}
+        <BackToTop />
       </main>
       {!noFooter && (
         <Footer
