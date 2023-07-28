@@ -1,15 +1,19 @@
 describe("Search", () => {
-  it("searches from the homepage", () => {
+  it("searches from the training explorer page", () => {
     // on homepage
     cy.visit("/");
     cy.injectAxe();
     cy.checkA11y();
 
-    cy.get("[placeholder='Enter occupation, certification, provider, or SOC code']").should("exist");
+    cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
+      "exist",
+    );
 
     // input search
     cy.get('input[aria-label="search"]').type("baking");
-    cy.get("button").contains("Search").click({ force: true });
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
+    cy.get("a#search-button").contains("Search").click({ force: true });
 
     // on search results page
     cy.location("pathname").should("eq", "/search/baking");
@@ -25,7 +29,7 @@ describe("Search", () => {
     cy.contains("Baking and Pastry Arts").should("exist");
 
     cy.contains(
-      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language..."
+      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language...",
     ).should("exist");
   });
 
@@ -75,7 +79,7 @@ describe("Search", () => {
 
   it("links back to home page", () => {
     cy.visit("/search");
-    cy.contains("Training Explorer").click({ force: true });
+    cy.contains("New Jersey Career Central").click({ force: true });
     cy.location("pathname").should("eq", "/");
   });
 
@@ -116,7 +120,7 @@ describe("Search", () => {
     // search tips
     cy.get("[data-testid='searchTips']").should(
       "contain",
-      "Are you not seeing the results you were looking for?"
+      "Are you not seeing the results you were looking for?",
     );
   });
 

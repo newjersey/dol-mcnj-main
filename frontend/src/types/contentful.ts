@@ -1,5 +1,6 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
+import { IconNames } from "./icons";
 
 /* ********************
  *  GENERIC
@@ -9,9 +10,69 @@ export interface Keypair {
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
+export interface ImageProps {
+  url: string;
+  width?: number;
+  height?: number;
+}
+
+export interface OccupationNodeProps {
+  sys: {
+    id: string;
+  };
+  level: number;
+  title: string;
+  inDemand?: boolean;
+  shortTitle?: string;
+  description: string;
+  medianSalary?: number;
+  numberOfAvailableJobs?: number;
+  trainingSearchTerms?: string;
+  salaryRangeStart: number;
+  salaryRangeEnd: number;
+  educationLevel: string;
+  advancement?: string;
+  tasks?: string;
+  education?: string;
+  credentials?: string;
+  skills?: string;
+  experience?: string;
+}
+
+export interface SelectProps {
+  pathway?: OccupationNodeProps[];
+  title?: string;
+  shortTitle?: string;
+  id?: string;
+  groupId?: string;
+  groupTitle?: string;
+}
+
+export interface SinglePathwayProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  occupationsCollection: {
+    items: OccupationNodeProps[];
+  };
+}
+
+export interface CareerMapNodeProps extends OccupationNodeProps {
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
+}
+
+export interface PathwayGroupProps {
+  title: string;
+  sys: {
+    id: string;
+  };
+  pathways?: {
+    items: SinglePathwayProps[];
+  };
+}
+
 export interface FaqItemTopic {
   topic: string;
   order: number;
@@ -19,12 +80,17 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
+  noCrumbs?: boolean;
+  theme?: "green" | "blue" | "purple" | "navy";
   title: string;
+  noCrumbs?: boolean;
+  breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
   section: "explore" | "jobs" | "support" | "training";
   message?: ContentfulRichText;
+  description?: string;
   ctaHeading?: string;
   ctaLinksCollection?: {
     items: LinkObjectProps[];
@@ -93,9 +159,7 @@ export interface FaqPageData {
     pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage?: {
-      url: string;
-    };
+    bannerImage?: ImageProps;
     topics: {
       items: FaqTopic[];
     };
@@ -112,15 +176,38 @@ export interface FaqPageProps {
   };
 }
 
+export interface CareerMapProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+}
+
 export interface IndustryProps {
   sys: {
     id: string;
   };
   title: string;
+  shorthandTitle?: string;
   slug: "manufacturing" | "healthcare" | "tdl";
   description: ContentfulRichText;
   photo: {
     url: string;
+    width: number;
+    height: number;
+  };
+  careerMaps?: {
+    items: CareerMapProps[];
+  };
+  inDemandCollection?: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      idNumber: string;
+      numberOfJobs?: number;
+    }[];
   };
   industryAccordionCollection: {
     items: {
@@ -145,9 +232,9 @@ export interface CareerPathwaysPageData {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-  };
-  industries: {
-    items: IndustryProps[];
+    industries: {
+      items: IndustryProps[];
+    };
   };
 }
 
@@ -206,9 +293,7 @@ export interface TrainingProviderData {
     pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage: {
-      url: string;
-    };
+    bannerImage: ImageProps;
     tabs: {
       items: TabItemProps[];
     };
@@ -271,5 +356,146 @@ export interface FinancialResourcePageProps {
   status?: number;
   data: {
     data: FinancialResourcePageData;
+  };
+}
+
+export interface TrainingExplorerPageProps {
+  trainingExplorerPage: {
+    demoVideoUrl: string;
+    faqsCollection: { items: FaqItem[] };
+    footerCtaHeading: string;
+    footerCtaLinkCollection: { items: LinkObjectProps[] };
+    interrupterBannerHeading: string;
+    interrupterLinksCollection: { items: LinkObjectProps[] };
+    pageBanner: PageBannerProps;
+    stepOneHeading: string;
+    stepOneIcon: IconNames;
+    stepOneText: string;
+    stepThreeHeading: string;
+    stepThreeIcon: IconNames;
+    stepThreeText: string;
+    stepTwoHeading: string;
+    stepTwoIcon: IconNames;
+    stepTwoText: string;
+    title: string;
+  };
+}
+
+export interface IconLinkProps {
+  sys: {
+    id: string;
+  };
+  icon?: IconNames;
+  sectionIcon?: "explore" | "jobs" | "support" | "training";
+  copy: string;
+  url: string;
+  description?: string;
+}
+
+export interface HomepageProps {
+  homePage: {
+    title: string;
+    pageDescription?: string;
+    bannerButtonCopy: string;
+    bannerImage?: ImageProps;
+    toolsCollection: {
+      items: IconLinkProps[];
+    };
+    jobSearchToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    trainingToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    careerExplorationToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    supportAndAssistanceLinksCollection: {
+      items: IconLinkProps[];
+    };
+  };
+}
+
+export interface AllSupportPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+    industries: {
+      items: IndustryProps[];
+    };
+  };
+  categories: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+    }[];
+  };
+}
+
+export interface TagProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  category: {
+    slug: string;
+  };
+}
+
+export interface RelatedCategoryProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  slug: string;
+}
+
+export interface ResourceCategoryPageProps {
+  page: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+      infoBox?: string;
+      related?: {
+        items: RelatedCategoryProps[];
+      };
+    }[];
+  };
+  tags: {
+    items: TagProps[];
+  };
+  audience: {
+    items: TagProps[];
+  };
+  cta: {
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+  };
+}
+
+export interface ResourceItemProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  description: string;
+  link: string;
+  tags: {
+    items: TagProps[];
+  };
+}
+export interface ResourceListProps {
+  resources: {
+    items: ResourceItemProps[];
   };
 }
