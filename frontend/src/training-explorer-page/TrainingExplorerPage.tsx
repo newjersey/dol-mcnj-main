@@ -11,6 +11,7 @@ import { HowTo } from "../components/HowTo";
 import { Accordion } from "../components/Accordion";
 import { ArrowRight } from "@phosphor-icons/react";
 import { Interrupter } from "../components/Interrupter";
+import { Heading } from "../components/modules/Heading";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -60,7 +61,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
           <Interrupter {...interrupterContent} />
           <section className="landing-faq">
             <div className="container">
-              <h3>Frequently Asked Questions</h3>
+              <Heading level={3}>Frequently Asked Questions</Heading>
               {pageData?.faqsCollection.items.map((item, index: number) => (
                 <Accordion
                   keyValue={index}
@@ -70,7 +71,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                 />
               ))}
               <div className="cta">
-                <h4>Don't see your question?</h4>
+                <Heading level={4}>Don't see your question?</Heading>
                 <a href="/faq" className="usa-button">
                   See ll FAQs
                   <ArrowRight color="#fff" size={20} />
@@ -79,7 +80,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
             </div>
           </section>
           <section className="footer-cta">
-            <h3>{pageData?.footerCtaHeading}</h3>
+            <Heading level={4}>{pageData?.footerCtaHeading}</Heading>
             {pageData?.footerCtaLinkCollection.items.map((link) => (
               <a
                 key={link.sys?.id}
