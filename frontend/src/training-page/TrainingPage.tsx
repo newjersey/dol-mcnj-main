@@ -19,6 +19,8 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import {WaiverBlock} from "../components/WaiverBlock";
+import {formatCountiesArrayToString} from "../utils/formatCountiesArrayToString";
 import { Tooltip } from 'react-tooltip';
 
 interface Props extends RouteComponentProps {
@@ -197,44 +199,48 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   if (training) {
     return (
-        <div ref={componentRef}>
-          <Layout client={props.client}>
-            <div className="container">
-              <div className="ptm weight-500 fin all-caps border-bottom-dark">
-                {t("TrainingPage.header")}
-              </div>
-              <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
-              <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
+      <div ref={componentRef}>
+        <Layout client={props.client}>
+          <div className="container">
+            <div className="ptm weight-500 fin all-caps border-bottom-dark">
+              {t("TrainingPage.header")}
+            </div>
+            <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
+            <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
 
+            {training.inDemand ? <InDemandTag className="mts" /> : <></>}
 
-              {training.inDemand ? <InDemandTag className="mts" /> : <></>}
-              {(
-                    !training.inDemand && training.localExceptionCounty && training.localExceptionCounty.length !== 0
-                    ? <InDemandTag className="mts" counties={training.localExceptionCounty} />
+            <div className="stat-block-stack mtm">
+              {
+                !training.inDemand && training.localExceptionCounty && training.localExceptionCounty.length !== 0
+                    ? <WaiverBlock
+                        title={t("TrainingPage.localExceptionCountiesTitle", {counties: formatCountiesArrayToString(training.localExceptionCounty)})}
+                        backgroundColorClass="bg-light-yellow"
+                    />
                     : <></>
-              )}
-              <div className="stat-block-stack mtm">
-                <StatBlock
-                    title={t("TrainingPage.avgSalaryTitle")}
-                    tooltipText={t("TrainingPage.avgSalaryTooltip")}
-                    data={
-                      training.averageSalary
-                          ? formatMoney(training.averageSalary, { precision: 0 })
-                          : STAT_MISSING_DATA_INDICATOR
-                    }
-                    backgroundColorClass="bg-lightest-purple"
-                />
-                <StatBlock
-                    title={t("TrainingPage.employmentRateTitle")}
-                    tooltipText={t("TrainingPage.employmentRateTooltip")}
-                    data={
-                      training.percentEmployed
-                          ? formatPercentEmployed(training.percentEmployed)
-                          : STAT_MISSING_DATA_INDICATOR
-                    }
-                    backgroundColorClass="bg-lighter-purple"
-                />
-              </div>
+              }
+
+              <StatBlock
+                title={t("TrainingPage.avgSalaryTitle")}
+                tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                data={
+                  training.averageSalary
+                    ? formatMoney(training.averageSalary, { precision: 0 })
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("TrainingPage.employmentRateTitle")}
+                tooltipText={t("TrainingPage.employmentRateTooltip")}
+                data={
+                  training.percentEmployed
+                    ? formatPercentEmployed(training.percentEmployed)
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-lighter-purple"
+              />
+            </div>
 
               <div className="row pbm">
                 <div className="col-md-8">

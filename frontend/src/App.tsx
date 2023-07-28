@@ -1,5 +1,5 @@
 import { ReactElement, useReducer, useState } from "react";
-import { LandingPage } from "./landing-page/LandingPage";
+// import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -38,9 +38,11 @@ import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "@newjersey/njwds/dist/css/styles.css";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { FinancialPage } from "./financial-page/FinancialPage";
-/*import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
-import { CareerPathwaysRoutes } from "./career-pathways-page/CareerPathwaysRoutes";*/
+import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
+import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
 import * as Sentry from "@sentry/react";
+import { AllSupportPage } from "./all-support-page/AllSupportPage";
+import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
 
 interface Props {
   client: Client;
@@ -76,11 +78,11 @@ export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
   const [filterState, filterDispatch] = useReducer<FilterReducer>(
     filterReducer,
-    initialFilterState
+    initialFilterState,
   );
   const [comparisonState, comparisonDispatch] = useReducer<ComparisonReducer>(
     comparisonReducer,
-    initialComparisonState
+    initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
@@ -90,7 +92,8 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
-              <LandingPage path="/" client={props.client} />
+              {/* <LandingPage path="/" client={props.client} /> */}
+              <TrainingExplorerPage path="/" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}
@@ -100,13 +103,15 @@ export const App = (props: Props): ReactElement => {
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
               <FinancialPage path="/tuition-assistance" client={props.client} />
-{/*              <CareerPathwaysPage path="/career-pathways" client={props.client} />
-              {CareerPathwaysRoutes({ client: props.client })}*/}
+              <CareerPathwaysPage path="/career-pathways" client={props.client} />
+              <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />
               <FundingPage path="/funding" client={props.client} />
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
+              <AllSupportPage path="/support-resources" client={props.client} />
+              <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default client={props.client} />
             </Router>

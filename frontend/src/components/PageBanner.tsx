@@ -1,59 +1,59 @@
-import dayjs from "dayjs";
 import { PageBannerProps } from "../types/contentful";
 import { ContentfulRichText } from "./ContentfulRichText";
 import { Icon } from "@material-ui/core";
-import { Selector } from "../svg/Selector";
 
 export const PageBanner = ({
   title,
+  breadcrumbTitle,
   message,
+  noCrumbs = false,
+  description,
   breadcrumbsCollection,
-  section,
   ctaHeading,
   ctaLinksCollection,
-  date,
+  theme = "green",
 }: PageBannerProps) => {
   return (
-    <section className="page-banner">
-      <div className="container">
-        <div className="top-nav">
-          <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-            <Icon>keyboard_backspace</Icon>
-            <Selector name={section} />
-            <ol className="usa-breadcrumb__list">
-              {breadcrumbsCollection.items.map((crumb) => {
-                return (
-                  <li className="usa-breadcrumb__list-item" key={crumb.sys?.id}>
-                    <a className="usa-breadcrumb__link" href={crumb.url}>
-                      {crumb.copy}
-                    </a>
-                  </li>
-                );
-              })}
-              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                <span data-testid="title">{title}</span>
-              </li>
-            </ol>
-          </nav>
-          {date && (
-            <div data-testid="date" className="date">
-              Last Updated {dayjs(date).format("MM/DD/YYYY")}
-            </div>
-          )}
-        </div>
+    <section className={`page-banner theme-${theme}${noCrumbs ? " no-crumbs" : ""}`}>
+      <div className="container plus">
+        {!noCrumbs && (
+          <div className="top-nav">
+            <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+              <Icon>keyboard_backspace</Icon>
+              <ol className="usa-breadcrumb__list">
+                {breadcrumbsCollection?.items.map((crumb) => {
+                  return (
+                    <li className="usa-breadcrumb__list-item" key={crumb.sys?.id}>
+                      <a className="usa-breadcrumb__link" href={crumb.url}>
+                        {crumb.copy}
+                      </a>
+                    </li>
+                  );
+                })}
+                <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                  <span data-testid="title">{breadcrumbTitle || title}</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        )}
 
         <div className="copy">
           <div className="heading">
             <h1>{title}</h1>
             {message && <ContentfulRichText document={message.json} />}
+            {description && <p>{description}</p>}
           </div>
-          {ctaHeading && ctaLinksCollection && (
+          {ctaLinksCollection && (
             <div className="cta-block">
-              <p>{ctaHeading}</p>
+              {ctaHeading && <p>{ctaHeading}</p>}
               <ul className="unstyled">
-                {ctaLinksCollection.items.map((link) => (
+                {ctaLinksCollection.items.map((link, index: number) => (
                   <li key={link.sys?.id}>
-                    <a className="usa-button usa-button--secondary" href={link.url}>
+                    <a
+                      className={`usa-button ${index > 0 ? " usa-button--outline" : ""}`}
+                      href={link.url}
+                    >
                       {link.copy}
                     </a>
                   </li>
