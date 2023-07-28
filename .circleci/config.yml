@@ -61,26 +61,7 @@ jobs:
             aws configure set default.region $AWS_DEFAULT_REGION
       - run:
           name: deploy
-          command: DB_PASS=$DB_DEV_PASS DB_NAME=d4addev DB_ENV=awsdev scripts/deploy.sh
-  deploy-prod:
-    docker:
-      - image: circleci/python:3.7
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: install and configure aws cli
-          command: |
-            echo $AWS_ACCESS_KEY_ID_PROD
-            echo $AWS_SECRET_ACCESS_KEY_PROD
-            echo $AWS_DEFAULT_REGION_PROD
-            pip install awscli
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_PROD
-            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_PROD
-            aws configure set default.region $AWS_DEFAULT_REGION_PROD
-      - run:
-          name: deploy
-          command: DB_PASS=$DB_PROD_PASS DB_NAME=d4adprod DB_ENV=awsprod scripts/deploy.sh
+          command: DB_PASS=$DB_PASS_WRITER_PROD DB_NAME=d4adprod DB_ENV=awsprod scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
@@ -90,17 +71,4 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: master
-      - prod-approval:
-          type: approval
-          requires:
-            - deploy
-          filters:
-            branches:
-              only: master
-      - deploy-prod:
-          requires:
-            - prod-approval
-          filters:
-            branches:
-              only: master
+              only: pre-mvp
