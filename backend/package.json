@@ -70,6 +70,7 @@
     "node": "^16.0.0"
   },
   "overrides": {
-    "npm-java-runner": "^1.0.2"
+    "npm-java-runner": "^1.0.2",
+    "nodegit": "npm:empty-npm-package@1.0.0"
   }
 }
