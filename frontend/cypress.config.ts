@@ -4,8 +4,12 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       on("task", {
-        log(message) {
+        log(message: any) {
           console.log(message);
+          return null;
+        },
+        table(message: any) {
+          console.table(message);
           return null;
         },
       });

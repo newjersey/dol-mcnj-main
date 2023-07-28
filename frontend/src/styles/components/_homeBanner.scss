@@ -1,0 +1,102 @@
+.homeBanner {
+  background-color: $darker-blue;
+  color: white;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 4rem 0;
+
+  @media screen and (max-width: ($tabPort - 1)) {
+    padding: 2rem 0;
+  }
+
+  p {
+    font-size: 1.3rem;
+    line-height: 1.5;
+
+    @media screen and (min-width: ($tabPort)) {
+      padding-right: 8rem;
+    }
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      font-size: 1.1rem;
+    }
+  }
+
+  h1 {
+    line-height: 1;
+    font-weight: 400;
+    margin: 0 0 1rem;
+    color: $light-blue;
+
+    @media screen and (min-width: ($tabPort)) {
+      font-size: 4.4rem;
+    }
+
+    @media (max-width: ($desk)) and (min-width: ($tabPort + 1)) {
+      font-size: 3rem;
+    }
+  }
+
+  button {
+    background-color: $bright-green;
+    color: black;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+
+    &:before,
+    &:after {
+      content: none;
+    }
+
+    @media screen and (max-width: ($tabPort - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .copy,
+  .image {
+    width: 100%;
+  }
+
+  .copy {
+    @media screen and (min-width: ($desk)) {
+      width: calc(100% - 555px);
+    }
+
+    @media (max-width: ($desk)) and (min-width: ($tabPort + 1)) {
+      width: 50%;
+    }
+  }
+
+  .image {
+    @media screen and (min-width: ($desk)) {
+      width: 555px;
+    }
+
+    @media (max-width: ($desk)) and (min-width: ($tabPort + 1)) {
+      width: 50%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
