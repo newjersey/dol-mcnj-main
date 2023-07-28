@@ -26,10 +26,10 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
           <a
             href="/"
             className="link-format-black fin fac width-content"
-            aria-label="Training Explorer"
+            aria-label="New Jersey Career Central"
           >
             <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-            <h1 className="text-m">Training Explorer</h1>
+            <h1 className="text-m">New Jersey Career Central</h1>
           </a>
           <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
             <div className={`toggle ${isOpen ? "open" : "closed"}`}>
@@ -57,9 +57,9 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
       <>
         <nav id="usaNav" className="usa-nav-container">
           <div className="basic-logo" id="basic-logo">
-            <a href="/" aria-label={t("Header.title")}>
+            <a href="/" aria-label="New Jersey Career Central">
               <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-              <h1 className="bold">{t("Header.title")}</h1>
+              <h1 className="bold">New Jersey Career Central</h1>
             </a>
           </div>
         </nav>
@@ -77,9 +77,9 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
 
   return (
     <header className="header" role="banner">
-      <BetaBanner />
       <GlobalHeader items={data?.globalNav} />
       {isDesktop ? <>{nav()}</> : <>{mobileNav()}</>}
+      <BetaBanner />
     </header>
   );
 };
