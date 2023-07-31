@@ -79,11 +79,11 @@ export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
   const [filterState, filterDispatch] = useReducer<FilterReducer>(
     filterReducer,
-    initialFilterState
+    initialFilterState,
   );
   const [comparisonState, comparisonDispatch] = useReducer<ComparisonReducer>(
     comparisonReducer,
-    initialComparisonState
+    initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
@@ -107,7 +107,6 @@ export const App = (props: Props): ReactElement => {
               <CareerNavigatorPage path="/career-navigator" client={props.client} />
               <CareerPathwaysPage path="/career-pathways" client={props.client} />
               <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />
-              <FundingPage path="/funding" client={props.client} />
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
