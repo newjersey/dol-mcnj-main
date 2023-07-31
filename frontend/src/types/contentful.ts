@@ -97,6 +97,7 @@ export interface PageBannerProps {
   date?: Date;
   theme?: ThemeColors;
   title: string;
+  noCrumbs?: boolean;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
