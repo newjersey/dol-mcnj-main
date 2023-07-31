@@ -1,5 +1,5 @@
-import { ReactElement, useReducer, useState } from "react";
-import { LandingPage } from "./landing-page/LandingPage";
+import React, { ReactElement, useReducer, useState } from "react";
+// import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -44,6 +44,7 @@ import * as Sentry from "@sentry/react";
 import { AllSupportPage } from "./all-support-page/AllSupportPage";
 import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
 import { CareerNavigatorPage } from "./career-navigator-page/CareerNavigatorPage";
+import { LandingPage } from "./landing-page/LandingPage";
 
 interface Props {
   client: Client;

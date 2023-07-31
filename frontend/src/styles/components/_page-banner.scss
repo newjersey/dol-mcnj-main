@@ -199,6 +199,11 @@
 
     .usa-breadcrumb__list {
       .usa-breadcrumb__list-item {
+        &:not(:last-child) {
+          &:after {
+            margin: 0 0.5rem;
+          }
+        }
         a {
           &.usa-breadcrumb__link:visited,
           &.usa-breadcrumb__link {
@@ -209,18 +214,6 @@
 
             &:before {
               content: none;
-            }
-            .support-theme & {
-              color: $indigo;
-            }
-            .jobs-theme & {
-              color: $primary;
-            }
-            .training-theme & {
-              color: $green;
-            }
-            .explore-theme & {
-              color: $purple;
             }
           }
         }

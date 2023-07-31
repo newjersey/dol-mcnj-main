@@ -26,5 +26,12 @@
     "user": "postgres",
     "password": { "ENV": "DB_PASS" },
     "database": "d4adprod"
+  },
+  "gcpmvp": {
+    "driver": "pg",
+    "host": "/cloudsql/d4ad-research:us-east4:d4ad-mvp-gcp-pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS" },
+    "database": "d4admvp"
   }
 }
