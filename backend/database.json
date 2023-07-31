@@ -1,17 +1,35 @@
 {
   "dev": {
-    "driver": "pg",
-    "host": "localhost",
-    "user": "postgres",
-    "password": "",
-    "database": "d4adlocal"
+    "writer": {
+      "driver": "pg",
+      "host": "localhost",
+      "user": "postgres",
+      "password": "",
+      "database": "d4adlocal"
+    },
+    "reader": {
+      "driver": "pg",
+      "host": "localhost",
+      "user": "postgres",
+      "password": "",
+      "database": "d4adlocal"
+    }
   },
   "test": {
-    "driver": "pg",
-    "host": "localhost",
-    "user": "postgres",
-    "password": "",
-    "database": "d4adtest"
+    "writer": {
+      "driver": "pg",
+      "host": "localhost",
+      "user": "postgres",
+      "password": "",
+      "database": "d4adtest"
+    },
+    "reader": {
+      "driver": "pg",
+      "host": "localhost",
+      "user": "postgres",
+      "password": "",
+      "database": "d4adtest"
+    }
   },
   "awsdev": {
     "writer": {
