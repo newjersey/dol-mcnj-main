@@ -13,7 +13,7 @@ const csvFilenameNew = args[1];
 const tableName = args[2];
 const outfilePath = args[3];
 
-console.log(path.join(__dirname, csvFilenameOld));
+console.log(path.join(__dirname, csvFilenameOld), "info");
 
 fs.readFile(path.join(__dirname, csvFilenameOld), function (err, fileContentsOld) {
   if (err) {
@@ -63,7 +63,7 @@ fs.readFile(path.join(__dirname, csvFilenameOld), function (err, fileContentsOld
         });
 
         output += `INSERT INTO ${tableName} (${columnsNew.join(",")}) values (${values.join(
-          ","
+          ",",
         )});\n`;
       }
     });

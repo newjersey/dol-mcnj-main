@@ -10,5 +10,5 @@ try {
   // Transpile the typescript files
   childProcess.exec("tsc --build tsconfig.prod.json");
 } catch (err) {
-  console.log(err);
+  console.log(err, "error");
 }
