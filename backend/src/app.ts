@@ -14,6 +14,7 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import * as databaseConfig from '../database.json';
 
 dotenv.config();
 // console.log(process.env);
@@ -51,14 +52,25 @@ app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
-const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
-const connection = {
-  user: process.env.DB_USER || "postgres",
-  host: process.env.CLOUD_SQL_CONNECTION_NAME
-    ? `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`
-    : "localhost",
-  database: process.env.DB_NAME || "d4adlocal",
-  password: process.env.DB_PASS || "",
+const env = process.env.NODE_ENV || 'dev';
+const dbConfig = databaseConfig[env];
+
+const dbWriterConfig = dbConfig.writer;
+const dbReaderConfig = dbConfig.reader;
+
+const connectionWriter = {
+  user: process.env[dbWriterConfig.user] || dbWriterConfig.user,
+  host: process.env[dbWriterConfig.host.ENV] || dbWriterConfig.host,
+  database: dbWriterConfig.database,
+  password: process.env[dbWriterConfig.password.ENV] || dbWriterConfig.password,
+  port: 5432,
+};
+
+const connectionReader = {
+  user: process.env[dbReaderConfig.user] || dbReaderConfig.user,
+  host: process.env[dbReaderConfig.host.ENV] || dbReaderConfig.host,
+  database: dbReaderConfig.database,
+  password: process.env[dbReaderConfig.password.ENV] || dbReaderConfig.password,
   port: 5432,
 };
 
@@ -91,8 +103,8 @@ if (!isCI) {
     process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
 }
 
-const postgresDataClient = new PostgresDataClient(connection);
-const postgresSearchClient = new PostgresSearchClient(connection);
+const postgresDataClient = new PostgresDataClient(connectionWriter);
+const postgresSearchClient = new PostgresSearchClient(connectionReader);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
