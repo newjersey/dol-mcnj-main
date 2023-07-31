@@ -6,9 +6,11 @@ describe("Search", () => {
     cy.checkA11y();
 
     cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
-      "exist"
+      "exist",
     );
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
     // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -29,7 +31,7 @@ describe("Search", () => {
     cy.contains("Baking and Pastry Arts").should("exist");
 
     cy.contains(
-      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language..."
+      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language...",
     ).should("exist");
   });
 
@@ -120,7 +122,7 @@ describe("Search", () => {
     // search tips
     cy.get("[data-testid='searchTips']").should(
       "contain",
-      "Are you not seeing the results you were looking for?"
+      "Are you not seeing the results you were looking for?",
     );
   });
 
