@@ -18,14 +18,14 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_DEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_WRITER_DEV" },
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4addev"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_READER_DEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_READER_DEV" },
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4addev"
     }
   },
@@ -34,14 +34,14 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_TEST" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_WRITER_TEST" },
+      "password": { "ENV": "DB_PASS_TEST" },
       "database": "d4adtest"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_READER_TEST" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_READER_TEST" },
+      "password": { "ENV": "DB_PASS_TEST" },
       "database": "d4adtest"
     }
   },
@@ -50,14 +50,14 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_PROD" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_WRITER_PROD" },
+      "password": { "ENV": "DB_PASS_PROD" },
       "database": "d4adprod"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_READER_PROD" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_READER_PROD" },
+      "password": { "ENV": "DB_PASS_PROD" },
       "database": "d4adprod"
     }
   }
