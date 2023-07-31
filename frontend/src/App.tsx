@@ -11,7 +11,6 @@ import { Client } from "./domain/Client";
 import { Router, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
-import { FundingPage } from "./funding-page/FundingPage";
 import {
   initialFilterState,
   FilterReducer,
