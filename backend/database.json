@@ -27,32 +27,32 @@
   "awsdev": {
     "writer": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_DEV" },
+      "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
+      "password": { "ENV": "DB_PASS_AWSDEV" },
       "database": "d4addev"
     },
     "reader": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_DEV" },
+      "host": { "ENV": "DB_HOST_READER_AWSDEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
+      "password": { "ENV": "DB_PASS_AWSDEV" },
       "database": "d4addev"
     }
   },
   "awstest": {
     "writer": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_TEST" },
+      "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_TEST" },
+      "password": { "ENV": "DB_PASS_AWSTEST" },
       "database": "d4adtest"
     },
     "reader": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_TEST" },
+      "host": { "ENV": "DB_HOST_READER_AWSTEST" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_TEST" },
+      "password": { "ENV": "DB_PASS_AWSTEST" },
       "database": "d4adtest"
     }
   },
