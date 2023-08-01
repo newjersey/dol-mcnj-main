@@ -3,36 +3,26 @@
     "driver": "pg",
     "writer": {
       "driver": "pg",
-      "host": "localhost",
+      "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4adlocal"
     },
     "reader": {
       "driver": "pg",
-      "host": "localhost",
+      "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4adlocal"
     }
   },
   "test": {
     "driver": "pg",
+    "driver": "pg",
+    "host": { "ENV": "DB_HOST_TEST" },
     "user": "postgres",
-    "writer": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_TEST" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_TEST" },
-      "database": "d4adtest"
-    },
-    "reader": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_TEST" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_TEST" },
-      "database": "d4adtest"
-    }
+    "password": { "ENV": "DB_PASS_TEST" },
+    "database": "d4adtest"
   },
   "awsdev": {
     "writer": {
