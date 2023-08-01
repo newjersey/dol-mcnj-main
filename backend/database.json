@@ -1,5 +1,6 @@
 {
   "dev": {
+    "driver": "pg",
     "writer": {
       "driver": "pg",
       "host": "localhost",
@@ -16,18 +17,19 @@
     }
   },
   "test": {
+    "driver": "pg",
     "writer": {
       "driver": "pg",
-      "host": "localhost",
+      "host": { "ENV": "DB_HOST_TEST" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_TEST" },
       "database": "d4adtest"
     },
     "reader": {
       "driver": "pg",
-      "host": "localhost",
+      "host": { "ENV": "DB_HOST_TEST" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_TEST" },
       "database": "d4adtest"
     }
   },
@@ -66,16 +68,16 @@
   "awsprod": {
     "writer": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_PROD" },
+      "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_PROD" },
+      "password": { "ENV": "DB_PASS_AWSPROD" },
       "database": "d4adprod"
     },
     "reader": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_PROD" },
+      "host": { "ENV": "DB_HOST_READER_AWSPROD" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_PROD" },
+      "password": { "ENV": "DB_PASS_AWSPROD" },
       "database": "d4adprod"
     }
   }
