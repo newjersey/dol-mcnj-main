@@ -18,6 +18,7 @@
   },
   "test": {
     "driver": "pg",
+    "user": "postgres",
     "writer": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_TEST" },
