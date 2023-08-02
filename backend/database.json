@@ -12,7 +12,7 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
+      "password": "",
       "database": "d4adlocal"
     }
   },
@@ -21,7 +21,7 @@
     "driver": "pg",
     "host": { "ENV": "DB_HOST_TEST" },
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_TEST" },
+    "password": "",
     "database": "d4adtest"
   },
   "awsdev": {
