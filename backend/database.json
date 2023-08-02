@@ -5,7 +5,7 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
+      "password": "",
       "database": "d4adlocal"
     },
     "reader": {
@@ -29,14 +29,14 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSDEV" },
+      "password": "",
       "database": "d4addev"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_READER_AWSDEV" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSDEV" },
+      "password": "",
       "database": "d4addev"
     }
   },
