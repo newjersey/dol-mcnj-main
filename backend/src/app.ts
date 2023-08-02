@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import "./utils/global"
 import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";

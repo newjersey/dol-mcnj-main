@@ -47,7 +47,7 @@ export const ResourceList = ({
       if (selectedTags.length > 0) {
         const filtered = data.resources.items.filter((resource) => {
           const resourceTags = resource.tags.items.map((tag) => tag.title);
-          return selectedTags.every((tag) => resourceTags.includes(tag.title));
+          return selectedTags.some((tag) => resourceTags.includes(tag.title));
         });
         setFilteredResources(filtered);
       } else {
