@@ -67,4 +67,4 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: pre-mvp
+              only: gcp-mvp
