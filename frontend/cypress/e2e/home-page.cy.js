@@ -21,7 +21,7 @@ describe("Home Page", () => {
       {title: 'Labor Market Insights', link: '/market-insights'},
       {title: 'Apprenticeship Programs', link: 'https://google.com'},
       {title: 'Training Explorer', link: '/training-explorer'},
-      {title: 'Tuition assistance resources', link: '/tuition-assistance'},
+      {title: 'Tuition assistance resources', link: '/support-resources/tuition-assistance'},
       {title: 'SkillUp', link: 'https://explore.skillup.org/'},
       {title: 'Training Provider Resources', link: '/training-provider-resources'},
       {title: 'Career Pathways', link: '/career-pathways'},
