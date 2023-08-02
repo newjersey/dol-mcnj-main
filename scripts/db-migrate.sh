@@ -15,6 +15,11 @@ echo "Database name: $DB_NAME"
 DB_HOST=${!HOST_ENV_VAR}
 DB_PASSWORD=${!PASSWORD_ENV_VAR}
 
+# If PASSWORD_ENV_VAR is null or empty, fetch password directly
+if [[ -z "$PASSWORD_ENV_VAR" || "$PASSWORD_ENV_VAR" == "null" ]]; then
+  DB_PASSWORD=$(jq -r ".${ENV}.writer.password" backend/database.json)
+fi
+
 # Debug: Print the actual values fetched from the environment
 echo "Database host: $DB_HOST"
 echo "Database password: $DB_PASSWORD"
