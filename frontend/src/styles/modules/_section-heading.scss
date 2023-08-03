@@ -39,7 +39,8 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       background: $white;
       position: relative;
       padding: 0 $size-16;
@@ -54,7 +55,8 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       color: $primary;
     }
   }
@@ -67,7 +69,8 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       color: $secondary;
     }
   }
@@ -80,7 +83,8 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       color: $tertiary;
     }
   }
@@ -93,8 +97,14 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       color: $info-darker;
     }
+  }
+
+  .description {
+    margin: $size-8 0 0;
+    font-size: $size-16;
   }
 }
