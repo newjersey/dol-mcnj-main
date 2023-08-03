@@ -4,13 +4,13 @@
   padding: 3rem 0;
 
   .container {
-    padding: $size-16;
+    padding: 0 $size-16;
     position: relative;
   }
 
   .inner {
     @media screen and (min-width: ($desktop-lg)) {
-      padding: $size-16;
+      padding: 0 $size-16 $size-16;
       position: relative;
 
       overflow: hidden;
@@ -61,7 +61,7 @@
     display: flex;
     gap: 2rem;
     transition: transform 0.3s ease;
-    margin-top: 4rem;
+    margin-top: $size-32;
 
     @media screen and (max-width: ($desktop-lg - 1)) {
       flex-wrap: wrap;
@@ -93,7 +93,7 @@
 
   .arrow {
     position: absolute;
-    top: calc(50% + 4rem);
+    top: calc(50% + $size-40);
     transform: translateY(-50%);
     width: $size-40;
     height: $size-40;
