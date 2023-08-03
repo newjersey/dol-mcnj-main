@@ -36,10 +36,6 @@
       @media screen and (max-width: ($tablet-md - 1)) {
         flex-direction: column;
       }
-
-      > * {
-        flex: 1;
-      }
     }
 
     .links {
@@ -73,7 +69,7 @@
     }
 
     &.color-purple {
-      background: $tertiary-dark;
+      background: $tertiary;
     }
   }
 
