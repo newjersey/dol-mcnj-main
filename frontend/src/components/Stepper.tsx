@@ -7,7 +7,7 @@ export const Stepper = ({
   steps,
 }: {
   steps: {
-    header?: string;
+    heading?: string;
     icon: IconNames;
     description: string;
   }[];
@@ -15,12 +15,12 @@ export const Stepper = ({
 }) => {
   return (
     <div className={`stepper${theme ? ` theme-${theme}` : ""}`}>
-      {steps?.map(({ header, icon, description }, index: number) => (
-        <div className="step" key={header + icon + index}>
+      {steps?.map(({ heading, icon, description }, index: number) => (
+        <div className="step" key={heading + icon + index}>
           <span className="number">{index + 1}</span>
           <PhosphorIconSelector name={icon} size={32} />
 
-          <span className="title">{header}</span>
+          <span className="title">{heading}</span>
           <div
             dangerouslySetInnerHTML={{
               __html: parseMarkdownToHTML(description),
