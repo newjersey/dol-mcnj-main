@@ -9,7 +9,7 @@
   }
 
   .step {
-    background-color: $base-lightest;
+    background-color: $base-cool;
     padding: 0 $size-16 $size-16;
     border-radius: 5px;
     width: 33.33%;
@@ -41,9 +41,6 @@
 
   &.theme-green {
     .step {
-      svg {
-        fill: $secondary;
-      }
       .number {
         background-color: $secondary;
       }
@@ -52,9 +49,6 @@
 
   &.theme-blue {
     .step {
-      svg {
-        fill: $primary;
-      }
       .number {
         background-color: $primary;
       }
@@ -63,9 +57,6 @@
 
   &.theme-purple {
     .step {
-      svg {
-        fill: $tertiary;
-      }
       .number {
         background-color: $tertiary;
       }
@@ -74,9 +65,6 @@
 
   &.theme-navy {
     .step {
-      svg {
-        fill: $info-darker;
-      }
       .number {
         background-color: $info-darker;
       }
