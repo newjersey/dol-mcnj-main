@@ -17,7 +17,7 @@ export class PostgresSearchClient implements SearchClient {
     return this.kdb("programtokens")
       .select(
         "programid",
-        this.kdb.raw("ts_rank_cd(tokens, websearch_to_tsquery(?), 1) AS rank", [searchQuery])
+        this.kdb.raw("ts_rank_cd(tokens, websearch_to_tsquery(?), 1) AS rank", [searchQuery]),
       )
       .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
       .orderBy("rank", "desc")
@@ -25,10 +25,11 @@ export class PostgresSearchClient implements SearchClient {
         data.map((entity) => ({
           id: entity.programid,
           rank: entity.rank,
-        }))
+        })),
       )
       .catch((e) => {
-        console.log("db error: ", e);
+        console.log({ title: "db error: ", e }, "error");
+
         return Promise.reject();
       });
   };
@@ -39,7 +40,8 @@ export class PostgresSearchClient implements SearchClient {
       .whereRaw("soccipcrosswalk.cipcode = (select cipcode from etpl where programid = ?)", id)
       .then((data: CareerTrackEntity[]) => data.map((it) => it.soc2018title).join(", "))
       .catch((e) => {
-        console.log("db error: ", e);
+        console.log({ title: "db error: ", e }, "error");
+
         return Promise.reject();
       });
 
@@ -50,23 +52,23 @@ export class PostgresSearchClient implements SearchClient {
         this.kdb.raw(
           "ts_headline(standardized_description, websearch_to_tsquery(?)," +
             "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as descheadline",
-          [searchQuery]
+          [searchQuery],
         ),
         this.kdb.raw(
           "ts_headline(standardized_description, websearch_to_tsquery(?)," +
             "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as descheadlineors",
-          [queryJoinedWithOrs]
+          [queryJoinedWithOrs],
         ),
         this.kdb.raw(
           "ts_headline(?, websearch_to_tsquery(?)," +
             "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as careerheadline",
-          [careerTracksJoined, searchQuery]
+          [careerTracksJoined, searchQuery],
         ),
         this.kdb.raw(
           "ts_headline(?, websearch_to_tsquery(?)," +
             "'MaxFragments=1, MaxWords=20, MinWords=1, StartSel=[[, StopSel=]]') as careerheadlineors",
-          [careerTracksJoined, queryJoinedWithOrs]
-        )
+          [careerTracksJoined, queryJoinedWithOrs],
+        ),
       )
       .where("programid", id)
       .first()
@@ -83,7 +85,8 @@ export class PostgresSearchClient implements SearchClient {
         return "";
       })
       .catch((e) => {
-        console.log("db error: ", e);
+        console.log({ title: "db error: ", e }, "error");
+
         return Promise.reject();
       });
   };

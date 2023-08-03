@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 var dbm;
 var type;
 var seed;
-var fs = require('fs');
-var path = require('path');
+var fs = require("fs");
+var path = require("path");
 var Promise;
 
 /**
@@ -19,36 +19,45 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  const fileName = process.env.NODE_ENV === 'test' ? '20200706135840-seed-soc-cip-crosswalk-up-TEST.sql' : '20200706135840-seed-soc-cip-crosswalk-up.sql';
-  var filePath = path.join(__dirname, 'sqls', fileName);
+  const fileName =
+    process.env.NODE_ENV === "test"
+      ? "20200706135840-seed-soc-cip-crosswalk-up-TEST.sql"
+      : "20200706135840-seed-soc-cip-crosswalk-up.sql";
+  var filePath = path.join(__dirname, "sqls", fileName);
   return new Promise(function (resolve, reject) {
-    fs.readFile(filePath, {encoding: 'utf-8'}, function (err, data) {
+    fs.readFile(filePath, { encoding: "utf-8" }, function (err, data) {
       if (err) return reject(err);
-      console.log('received data: ' + data);
+      console.log("received data: " + data);
 
       resolve(data);
     });
   })
     .then(function (data) {
       return db.runSql(data);
+    })
+    .catch((error) => {
+      console.log(error, "error");
     });
 };
 
 exports.down = function (db) {
-  var filePath = path.join(__dirname, 'sqls', '20200706135840-seed-soc-cip-crosswalk-down.sql');
+  var filePath = path.join(__dirname, "sqls", "20200706135840-seed-soc-cip-crosswalk-down.sql");
   return new Promise(function (resolve, reject) {
-    fs.readFile(filePath, {encoding: 'utf-8'}, function (err, data) {
+    fs.readFile(filePath, { encoding: "utf-8" }, function (err, data) {
       if (err) return reject(err);
-      console.log('received data: ' + data);
+      console.log("received data: " + data);
 
       resolve(data);
     });
   })
     .then(function (data) {
       return db.runSql(data);
+    })
+    .catch((error) => {
+      console.log(error, "error");
     });
 };
 
 exports._meta = {
-  "version": 1
+  version: 1,
 };

@@ -1,6 +1,5 @@
 import * as dotenv from "dotenv";
-import "./utils/global"
-import * as Sentry from "@sentry/node";
+import "./utils/global";
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
@@ -15,42 +14,30 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import Sentry from "../middleware/sentry";
 
 dotenv.config();
 // console.log(process.env);
 
 const app = express();
 
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  integrations: [
-    // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-    // enable Express.js middleware tracing
-    new Sentry.Integrations.Express({ app }),
-    // Automatically instrument Node.js libraries and frameworks
-    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
-  ],
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
+app.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
 });
 
-process.on('uncaughtException', function (exception) {
+process.on("uncaughtException", function (exception) {
   Sentry.captureException(exception);
 });
 
-process.on('unhandledRejection', (reason) => {
+process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
 // RequestHandler creates a separate execution context, so that all
 // transactions/spans/breadcrumbs are isolated across requests
-app.use(Sentry.Handlers.requestHandler());
-// TracingHandler creates a trace for every incoming request
-app.use(Sentry.Handlers.tracingHandler());
+// app.use(Sentry.Handlers.requestHandler());
+// // TracingHandler creates a trace for every incoming request
+// app.use(Sentry.Handlers.tracingHandler());
 
 const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
 const connection = {
@@ -104,17 +91,17 @@ const router = routerFactory({
     OnetClient(
       apiValues.onetBaseUrl,
       apiValues.onetAuth,
-      postgresDataClient.find2018OccupationsBySoc2010
+      postgresDataClient.find2018OccupationsBySoc2010,
     ),
     getEducationTextFactory(postgresDataClient),
     getSalaryEstimateFactory(postgresDataClient),
     CareerOneStopClient(
       apiValues.careerOneStopBaseUrl,
       apiValues.careerOneStopUserId,
-      apiValues.careerOneStopAuthToken
+      apiValues.careerOneStopAuthToken,
     ),
     findTrainingsBy,
-    postgresDataClient
+    postgresDataClient,
   ),
 });
 
@@ -132,6 +119,7 @@ app.get("*", (req: Request, res: Response) => {
 app.use(cors());
 
 // The error handler must be before any other error middleware and after all controllers
+// this will send errors that are not handled via try and catch or send via console.log(message, status)
 app.use(Sentry.Handlers.errorHandler());
 
 export default app;

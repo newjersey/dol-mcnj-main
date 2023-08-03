@@ -29,6 +29,7 @@
   "license": "ISC",
   "dependencies": {
     "@contentful/rich-text-types": "^16.0.3",
+    "@sentry/cli": "^2.20.3",
     "@sentry/node": "^7.55.2",
     "axios": "^1.1.3",
     "cors": "^2.8.5",
@@ -45,7 +46,8 @@
     "winston": "^3.10.0",
     "winston-mail": "^2.0.0",
     "winston-sentry": "^0.2.1",
-    "winston-sentry-log": "^1.0.26"
+    "winston-sentry-log": "^1.0.26",
+    "winston-transport-sentry-node": "^2.7.0"
   },
   "devDependencies": {
     "@eslint-community/eslint-utils": "^4.4.0",
