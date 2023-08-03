@@ -87,49 +87,49 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 
 ##### Google Cloud Platform
 
-* `GCLOUD_SERVICE_KEY` - base64-encoded CircleCI service account key (JSON formatted) for dev environment
-* `GCLOUD_SERVICE_KEY_PROD` - base64-encoded CircleCI service account key (JSON formatted) for production environment
-* `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list](https://cloud.google.com/compute/docs/regions-zones)
-* `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
-* `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
+- `GCLOUD_SERVICE_KEY` - base64-encoded CircleCI service account key (JSON formatted) for dev environment
+- `GCLOUD_SERVICE_KEY_PROD` - base64-encoded CircleCI service account key (JSON formatted) for production environment
+- `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list](https://cloud.google.com/compute/docs/regions-zones)
+- `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
+- `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
 
 ##### Database
 
 Dev and production databases are hosted in GCP as SQL instances running PostgreSQL.
 
-* `DB_DEV_PASS` - Password for `postgres` user in dev environment
-* `DB_PROD_PASS` - Password for `postgres` user in production environment
+- `DB_DEV_PASS` - Password for `postgres` user in dev environment
+- `DB_PROD_PASS` - Password for `postgres` user in production environment
 
 ##### CareerOneStop
 
 Dev and prod environments use a CareerOneStop account owned by NJ Office of Innovation.
 
-* `CAREER_ONESTOP_USERID` - account username used both in dev and prod
-* `CAREER_ONESTOP_AUTH_TOKEN` - account auth token used both in dev and prod
+- `CAREER_ONESTOP_USERID` - account username used both in dev and prod
+- `CAREER_ONESTOP_AUTH_TOKEN` - account auth token used both in dev and prod
 
-##### O*NET
+##### O\*NET
 
-* `ONET_BASEURL` - O*NET account base URL (dev + prod)
-* `ONET_USERNAME`- O*NET account username (dev + prod)
-* `ONET_PASSWORD`- O*NET account password (dev + prod)
+- `ONET_BASEURL` - O\*NET account base URL (dev + prod)
+- `ONET_USERNAME`- O\*NET account username (dev + prod)
+- `ONET_PASSWORD`- O\*NET account password (dev + prod)
 
 ##### Contentful GraphQL Content API
 
-* `REACT_APP_BASE_URL` - Typically `https://graphql.contentful.com`
-* `REACT_APP_ENVIRONMENT` - `master`, unless you have [multiple environments](https://www.contentful.com/developers/docs/concepts/multiple-environments/)
-* `REACT_APP_SPACE_ID` - Your project's unique [space ID](https://www.contentful.com/help/find-space-id/)
+- `REACT_APP_BASE_URL` - Typically `https://graphql.contentful.com`
+- `REACT_APP_ENVIRONMENT` - `master`, unless you have [multiple environments](https://www.contentful.com/developers/docs/concepts/multiple-environments/)
+- `REACT_APP_SPACE_ID` - Your project's unique [space ID](https://www.contentful.com/help/find-space-id/)
 
 ##### Sentry
 
-* `SENTRY_DSN` - [Sentry Data Source Name (DSN)](https://docs.sentry.io/product/sentry-basics/dsn-explainer/)
+- `SENTRY_DSN` - [Sentry Data Source Name (DSN)](https://docs.sentry.io/product/sentry-basics/dsn-explainer/)
 
 ##### General
 
-* `IS_CI` - boolean flag for whether environment is deployed using continuous integration
-* `NO_COLOR`
-* `ZIPCODE_BASEURL`
-* `ZIPCODE_API_KEY`
-* `DEV_PASS` - optional password for simple password auth on non-prod environments if publicly available
+- `IS_CI` - boolean flag for whether environment is deployed using continuous integration
+- `NO_COLOR`
+- `ZIPCODE_BASEURL`
+- `ZIPCODE_API_KEY`
+- `DEV_PASS` - optional password for simple password auth on non-prod environments if publicly available
 
 ### Deployment
 
@@ -186,6 +186,63 @@ To run [cypress](https://www.cypress.io/) feature tests:
 - **User engagement**: We track user engagement using [Google Analytics](https://analytics.google.com/), including pageviews and specific event-based interactions that we implement manually in different parts of the app, such as tracking what filters a user clicks on the training search page. Please request access from the NJ Office of Innovation in order to view our analytics dashboards.
 - **Accessibility**: We have automated a11y tests that run as part of our [Cypress](https://www.cypress.io/) feature tests using the [`cypress-axe`](https://www.npmjs.com/package/cypress-axe) package. We also use tools such as [axe DevTools](https://www.deque.com/axe/devtools/) and [WAVE](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh) Chrome extensions to do manual checks.
 - **Data APIs**: We fetch data from the following Web APIs: [O\*NET Web API](https://services.onetcenter.org/), [CareerOneStop](https://www.careeronestop.org/Developers/WebAPI/web-api.aspx). To access API keys to set as environment variables, request access for the NJInnovation Bitwarden account, and see the "Training Explorer Secrets" file in it.
+
+### Error Handling
+
+#### Process
+
+- global console.log uses is switched to Winston Logging Features
+
+```
+  console.log = function (info, alt_status: ErrorStatus) {
+
+    .... handle
+  }
+
+```
+
+- therefor you can still use "console.log" but you must include the error status like so:
+
+```
+    console.log("message", "status")
+    console.log({message}, "status")
+
+```
+
+- here are the list of statuses
+
+```
+    const sentry_code_dict = ["error", "warn", "fatal"];
+    const status_dict = ["info", "http", "verbose", "debug", ...sentry_code_dict];
+
+```
+
+- As you can see from above, if the error fits the following: ["error", "warn", "fatal"], it would be send to sentry.
+- Unhandle errors will automatilcy be send to Sentry.io
+- Handled error must be console.log to be catched by sentry.
+
+#### Examples
+
+- Send Message as string and status to sentry
+
+```
+console.log("db error", "fatal")
+
+```
+
+- Send Message as an object and status to sentry
+
+```
+console.log({message: "db error", location: "/dir/dir2/file", ...}, "fatal")
+
+```
+
+- You can also send the status
+
+```
+console.log({message: "db error", location: "/dir/dir2/file", status: "fatal" ...})
+
+```
 
 ### Dependency inversion
 
