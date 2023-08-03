@@ -15,11 +15,10 @@ header {
       display: flex;
       color: $ink;
       text-decoration: none;
-      padding: $size-16 0 0.8rem;
+      padding: $size-16 0;
       width: calc(100% - 55px);
 
       @media screen and (min-width: ($desktop + 1)) {
-        padding: 1.5rem 0 0.7rem;
         width: 50%;
       }
     }
