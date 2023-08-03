@@ -71,5 +71,6 @@
       "password": { "ENV": "DB_PASS_AWSPROD" },
       "database": "d4adprod"
     }
+
   }
 }
