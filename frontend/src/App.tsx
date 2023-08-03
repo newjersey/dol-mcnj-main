@@ -117,7 +117,7 @@ export const App = (props: Props): ReactElement => {
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default client={props.client} />
             </Router>
-            <LanguageSwitchButton />
+            {/* <LanguageSwitchButton /> */}
             <ContextualInfoPanel />
           </ContextualInfoContext.Provider>
         </FilterContext.Provider>
