@@ -1,5 +1,4 @@
 import React, { ReactElement, useReducer, useState } from "react";
-// import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -35,7 +34,7 @@ import {
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import "@newjersey/njwds/dist/css/styles.css";
-import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
+// import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { FinancialPage } from "./financial-page/FinancialPage";
 import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
 import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
