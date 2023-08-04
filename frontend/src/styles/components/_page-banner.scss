@@ -6,6 +6,10 @@
     padding: $size-16 0;
   }
 
+  .detail-page & {
+    background-color: $white;
+  }
+
   .top-nav {
     padding-bottom: 0.5rem;
     border-bottom: $size-1 solid $base-lighter;
