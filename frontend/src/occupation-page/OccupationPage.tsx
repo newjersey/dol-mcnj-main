@@ -162,7 +162,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                       </a>
                     </li>
                     <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                      <span data-testid="title">{occupationDetail.title}</span>
+                      <span>{occupationDetail.title}</span>
                     </li>
                   </ol>
                 </nav>
