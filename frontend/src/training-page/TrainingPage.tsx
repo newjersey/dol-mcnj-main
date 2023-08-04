@@ -224,14 +224,16 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </a>
                       </li>
                       <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                        <span data-testid="title">{training.name}</span>
+                        <span>{training.name}</span>
                       </li>
                     </ol>
                   </nav>
                 </div>
               </div>
             </div>
-            <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
             {training.inDemand ? (
               <>
