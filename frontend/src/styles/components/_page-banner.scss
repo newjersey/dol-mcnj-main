@@ -157,14 +157,16 @@
 
     a {
       display: block;
-      padding-top: 17px;
-      padding-bottom: 17px;
-      font-weight: normal;
+      padding: $size-16;
     }
 
     li {
       + li {
         margin: $size-16 0 0;
+
+        a {
+          color: $secondary-dark;
+        }
       }
     }
   }
