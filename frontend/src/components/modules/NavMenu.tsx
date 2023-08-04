@@ -32,7 +32,7 @@ export const NavMenu = ({
           <Heading className="nav-heading">
             {menu?.navMenus.url ? (
               <LinkObject icons={icons} url={menu?.navMenus.url}>
-                {menu?.navMenus.heading}test
+                {menu?.navMenus.heading}
               </LinkObject>
             ) : (
               menu?.navMenus.heading

@@ -27,9 +27,16 @@
     "password": { "ENV": "DB_PASS" },
     "database": "d4adprod"
   },
-  "gcpmvp": {
+  "gcppremvp": {
     "driver": "pg",
     "host": "/cloudsql/d4ad-research:us-east4:d4ad-mvp-gcp-pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS" },
+    "database": "d4admvp"
+  },
+  "gcpmvp": {
+    "driver": "pg",
+    "host": "/cloudsql/d4ad-research2:us-east4:d4ad-mvp-gcp-pg",
     "user": "postgres",
     "password": { "ENV": "DB_PASS" },
     "database": "d4admvp"
