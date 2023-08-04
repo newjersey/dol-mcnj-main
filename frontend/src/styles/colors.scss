@@ -3,43 +3,43 @@
 }
 
 .bg-light-yellow {
-  background-color: $light-yellow;
+  background-color: $accent-warm-lighter;
 }
 
 .bg-light-green {
-  background-color: $light-green;
+  background-color: $secondary-lighter;
 }
 
 .bg-light-purple {
-  background-color: $light-purple;
+  background-color: $tertiary-lighter;
 }
 
 .bg-light-purple-30 {
-  background: rgba($light-purple, 0.3);
+  background: rgba($tertiary-lighter, 0.3);
 }
 
 .bg-light-purple-50 {
-  background: rgba($light-purple, 0.5);
+  background: rgba($tertiary-lighter, 0.5);
 }
 
 .bg-lighter-purple {
-  background-color: $lighter-purple;
+  background-color: $tertiary-lighter;
 }
 
 .bg-lightest-purple {
-  background-color: $lightest-purple;
+  background-color: $tertiary-lighter;
 }
 
 .bg-purple {
-  background-color: $purple;
+  background-color: $tertiary-lighter;
 }
 
 .bg-blue {
-  background-color: $navy;
+  background-color: $primary-lighter;
 }
 
 .bg-white {
-  background-color: white;
+  background-color: $white;
 }
 
 .black {
@@ -51,15 +51,15 @@
 }
 
 .red {
-  color: $red;
+  color: $error;
 }
 
 .green {
-  color: $green;
+  color: $secondary;
 }
 
 .white {
-  color: white;
+  color: $white;
 }
 
 .indigo {

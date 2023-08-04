@@ -9,3 +9,14 @@
 .page {
   min-height: 100vh;
 }
+
+.page-title {
+  padding: $size-32 0 0;
+  font-size: $size-48;
+
+  span {
+    display: block;
+    font-size: $size-16;
+    margin-top: $size-8;
+  }
+}
