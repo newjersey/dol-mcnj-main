@@ -1,4 +1,6 @@
 import { sentry, logger } from "./logging";
+import Sentry from "../../middleware/sentry";
+
 const { NODE_ENV, SENTRY_DSN } = process.env;
 
 // change global console.log to winston logger type
@@ -36,4 +38,12 @@ enum ErrorStatus {
       logger.log(status, message);
     }
   };
+
+  process.on("uncaughtException", function (exception) {
+    Sentry.captureException(exception);
+  });
+
+  process.on("unhandledRejection", (reason) => {
+    Sentry.captureException(reason);
+  });
 })();
