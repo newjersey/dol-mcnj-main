@@ -1,62 +1,62 @@
 .tag-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
-  padding: $size-2 10px;
+  gap: $size-4;
+  padding: $size-2 $size-10;
   border-radius: $size-2;
   color: $ink;
   border: $size-1 solid;
 
   &.chip {
-    padding: 5px 15px;
+    padding: $size-5 $size-16;
     border-radius: $size-20;
     border: none;
     font-weight: bold;
 
     &.color-green {
-      background-color: $mintGreen;
+      background-color: $secondary-lighter;
     }
 
     &.color-blue {
-      background-color: $sky-blue;
+      background-color: $primary-lighter;
     }
 
     &.color-purple {
-      background-color: $mid-purple;
+      background-color: $tertiary-lighter;
     }
 
     &.color-navy {
-      background-color: $bright-blue;
+      background-color: $info-light;
       // color: $white;
     }
 
     &.color-orange {
-      background-color: $orange;
+      background-color: $accent-warm-lighter;
     }
   }
 
   &.color-green {
-    background-color: $light-green;
-    border-color: $mintGreen;
+    background-color: $secondary-lighter;
+    border-color: $secondary-light;
   }
 
   &.color-blue {
-    background-color: $info-lighter;
-    border-color: $sky-blue;
+    background-color: $primary-lighter;
+    border-color: $primary-light;
   }
 
   &.color-purple {
-    background-color: $lightest-purple;
-    border-color: $mid-purple;
+    background-color: $tertiary-lighter;
+    border-color: $tertiary-light;
   }
 
   &.color-navy {
-    background-color: $light-blue;
-    border-color: $navy;
+    background-color: $info-lighter;
+    border-color: $info-light;
   }
 
   &.color-orange {
-    background-color: $light-orange;
-    border-color: $orange;
+    background-color: $accent-warm-lighter;
+    border-color: $accent-warm-light;
   }
 }
