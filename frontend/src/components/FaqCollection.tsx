@@ -51,16 +51,15 @@ export const FaqCollection = ({
   return (
     <div className="faq-collection">
       <div className="container">
-        <nav aria-label="FAQ Navigation">
-          <DropNav
-            items={items}
-            elementId="faqNav"
-            onChange={(topic) => {
-              setActiveTopic(topic);
-              window.history.pushState(null, "", `#${slugify(topic.topic)}`);
-            }}
-          />
-        </nav>
+        <DropNav
+          items={items}
+          elementId="faqNav"
+          onChange={(topic) => {
+            setActiveTopic(topic);
+            window.history.pushState(null, "", `#${slugify(topic.topic)}`);
+          }}
+        />
+
         <div className="questions">
           {activeTopic?.itemsCollection.items.map(
             (item, index) =>

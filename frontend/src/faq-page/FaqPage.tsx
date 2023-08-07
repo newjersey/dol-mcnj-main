@@ -53,7 +53,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
           <FaqCollection items={data?.page.categoriesCollection.items} />
           <CtaBanner
             heading={data?.page.resourceLinkHeading}
-            headingLevel={3}
+            headingLevel={2}
             theme="blue"
             fullColor
             noIndicator
@@ -61,6 +61,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
           />
           <CtaBanner
             heading="Still have questions?"
+            headingLevel={3}
             inlineButtons
             theme="blue"
             links={[
