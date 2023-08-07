@@ -32,7 +32,7 @@ const DropNav = ({ className, elementId, onChange, items }: DropNavProps) => {
 
   return (
     <aside className={`dropNav${className ? ` ${className}` : ""}`}>
-      <nav id={elementId}>
+      <nav id={elementId} aria-label="FAQ Navigation">
         <p className="title mobile-only">Categories</p>
         <ul className="unstyled">
           {items.map((item) => (
