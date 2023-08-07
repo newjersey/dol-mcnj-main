@@ -1,75 +1,65 @@
 import { ReactNode, useEffect, useState } from "react";
-import { FaqTopic } from "../types/contentful";
+import { FaqItem, FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
 import { slugify } from "../utils/slugify";
-import { Select } from "../svg/Select";
+import { DropNav } from "./DropNav";
+
+interface TopicProps {
+  sys: { id: string };
+  topic: string;
+  itemsCollection: { items: FaqItem[] };
+}
 
 export const FaqCollection = ({
-  topicHeading,
   children,
   items,
 }: {
-  topicHeading?: string;
   children?: ReactNode;
-  items?: FaqTopic[];
+  items: {
+    sys: { id: string };
+    title: string;
+    topics: {
+      items: TopicProps[];
+    };
+  }[];
 }) => {
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
-  const [anchor, setAnchor] = useState<string>("");
-  const [openNav, setOpenNav] = useState<boolean>(false);
-
-  const handleClick = (newAnchor: string) => {
-    setAnchor(newAnchor);
-    const newUrl = window.location.href.replace(/#.*/, "") + "#" + newAnchor;
-    window.history.replaceState({}, "", newUrl);
-  };
 
   useEffect(() => {
-    if (items?.length) {
-      if (window.location.href.split("#")[1]) {
-        setAnchor(window.location.href.split("#")[1]);
-      }
+    const urlParams = window.location.hash;
+    const searchTopic = urlParams.replace("#", "");
 
-      if (anchor) {
-        const currentTopic = items.find((item) => slugify(item.topic) === anchor);
-        setActiveTopic(currentTopic);
-      } else {
-        setActiveTopic(items[0]);
+    if (searchTopic) {
+      const activeTopic = items
+        .map((category) => category.topics.items)
+        .flat()
+        .find((topic) => slugify(topic.topic) === searchTopic);
+
+      if (activeTopic) {
+        setActiveTopic(activeTopic);
       }
+    } else {
+      // if no topic exists, set active topic to first topic
+      setActiveTopic(items[0].topics.items[0]);
     }
-  }, [items, anchor]);
+
+    if (!activeTopic && items) {
+      setActiveTopic(items[0].topics.items[0]);
+    }
+  }, [activeTopic]);
+
   return (
     <div className="faq-collection">
       <div className="container">
         <nav aria-label="FAQ Navigation">
-          <button
-            className="drop-selector"
-            data-testid="topic-selector"
-            onClick={() => {
-              setOpenNav(!openNav);
+          <DropNav
+            items={items}
+            elementId="faqNav"
+            onChange={(topic) => {
+              setActiveTopic(topic);
+              window.history.pushState(null, "", `#${slugify(topic.topic)}`);
             }}
-          >
-            {activeTopic?.topic}
-            <Select />
-          </button>
-          <ul className={openNav ? "open" : undefined}>
-            {topicHeading && <li className="heading">test{topicHeading}</li>}
-            {items?.map((item: FaqTopic) => (
-              <li
-                key={item.sys?.id}
-                className={activeTopic?.topic === item.topic ? "active" : undefined}
-              >
-                <button
-                  onClick={() => {
-                    setActiveTopic(item);
-                    setOpenNav(false);
-                    handleClick(`${slugify(item.topic)}`);
-                  }}
-                >
-                  {item.topic}
-                </button>
-              </li>
-            ))}
-          </ul>
+          />
         </nav>
         <div className="questions">
           {activeTopic?.itemsCollection.items.map(
@@ -82,7 +72,7 @@ export const FaqCollection = ({
                   title={item.question}
                   key={item.sys?.id}
                 />
-              )
+              ),
           )}
           {children}
         </div>

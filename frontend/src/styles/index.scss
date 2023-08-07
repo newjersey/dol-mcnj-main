@@ -284,3 +284,19 @@ ol {
     padding: 2rem 0;
   }
 }
+
+.mobile-only {
+  display: none;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    display: block;
+  }
+}
+
+.desktop-only {
+  display: block;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    display: none;
+  }
+}

@@ -67,6 +67,11 @@
     }
 
     .usa-breadcrumb__list {
+      .usa-breadcrumb__link {
+        &:visited {
+          color: $primary-vivid;
+        }
+      }
       .usa-breadcrumb__list-item {
         &:not(:last-child) {
           &:after {
