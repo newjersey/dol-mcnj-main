@@ -27,8 +27,9 @@
 
       .iconCard {
         width: 100%;
+
         @media screen and (min-width: ($tablet-md)) {
-          width: 184px;
+          max-width: 200px;
         }
 
         a {

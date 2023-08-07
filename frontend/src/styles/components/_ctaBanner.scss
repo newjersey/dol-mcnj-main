@@ -9,6 +9,7 @@
     @media screen and (max-width: ($tablet-md - 1)) {
       text-align: center;
     }
+
     .heading {
       color: $white;
       font-size: $size-32;
@@ -17,6 +18,10 @@
 
       @media screen and (max-width: ($tablet-md - 1)) {
         font-size: $size-24;
+      }
+
+      @media screen and (min-width: ($desktop)) {
+        width: 40%;
       }
     }
 
@@ -45,6 +50,10 @@
 
       @media screen and (max-width: ($tablet - 1)) {
         flex-direction: column;
+      }
+
+      @media screen and (min-width: ($desktop)) {
+        width: 60%;
       }
 
       .link {

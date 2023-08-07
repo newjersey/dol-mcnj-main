@@ -10,6 +10,7 @@ interface CtaBannerProps {
   fullColor?: boolean;
   heading?: string;
   noIndicator?: boolean;
+  inlineButtons?: boolean;
   headingLevel?: 2 | 3 | 4 | 5 | 6;
   links?: LinkObjectProps[];
   theme?: ThemeColors;
@@ -20,6 +21,7 @@ const CtaBanner = ({
   fullColor,
   heading,
   noIndicator,
+  inlineButtons,
   headingLevel = 3,
   links,
   theme = "navy",
@@ -46,7 +48,9 @@ const CtaBanner = ({
                   key={link.sys?.id}
                   className="link"
                   iconPrefix={link.iconPrefix}
-                  iconSuffix={isExternal ? ("ArrowUpRight" as IconNames) : link.iconSuffix}
+                  iconSuffix={
+                    isExternal && !noIndicator ? ("ArrowUpRight" as IconNames) : link.iconSuffix
+                  }
                   svgFill={link.svgFill}
                   highlight={link.highlight}
                   svgName={link.svgName}
@@ -62,6 +66,7 @@ const CtaBanner = ({
           theme={theme}
           heading={heading}
           headingLevel={headingLevel}
+          linkDirection={inlineButtons ? "row" : "column"}
           links={links}
           noIndicator={noIndicator}
         />

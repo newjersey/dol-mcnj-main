@@ -183,8 +183,18 @@ export interface FaqPageData {
     title: string;
     bannerHeading: string;
     bannerImage?: ImageProps;
-    topics: {
-      items: FaqTopic[];
+    categoriesCollection: {
+      items: {
+        sys: { id: string };
+        title: string;
+        topics: {
+          items: {
+            sys: { id: string };
+            topic: string;
+            itemsCollection: { items: FaqItem[] };
+          }[];
+        };
+      }[];
     };
     resourceLinkHeading?: string;
     resourceLinks: {
