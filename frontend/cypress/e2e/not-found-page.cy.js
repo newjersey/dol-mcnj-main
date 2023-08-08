@@ -10,6 +10,6 @@ describe("Not Found Page", () => {
 
   it("404s on failed training lookups", () => {
     cy.visit("/training/not-a-valid-id");
-    cy.contains("Sorry, we can't seem to find that page").should("exist");
+    cy.contains("Training not found").should("exist");
   });
 });
