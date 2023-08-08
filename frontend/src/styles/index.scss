@@ -269,3 +269,11 @@ ol {
     padding: 2rem 0;
   }
 }
+
+.errorBlock {
+  &.warning {
+    .rounded-top {
+      background-color: $light-orange;
+    }
+  }
+}

@@ -5,14 +5,20 @@ import { Client } from "../domain/Client";
 
 interface Props {
   client: Client;
+  heading?: string;
+  children?: ReactElement;
 }
 
 export const SomethingWentWrongPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <ErrorPage headerText={t("ErrorPage.somethingWentWrongHeader")} client={props.client}>
-      <p>{t("ErrorPage.somethingWentWrongText")}</p>
+    <ErrorPage
+      className="warning"
+      headerText={props.heading || t("ErrorPage.somethingWentWrongHeader")}
+      client={props.client}
+    >
+      {props.children ? <>{props.children}</> : <p>{t("ErrorPage.somethingWentWrongText")}</p>}
     </ErrorPage>
   );
 };
