@@ -9,7 +9,6 @@ import { PageBanner } from "../components/PageBanner";
 import { SearchBlock } from "../components/SearchBlock";
 import { HowTo } from "../components/HowTo";
 import { Accordion } from "../components/Accordion";
-import { ArrowRight } from "@phosphor-icons/react";
 import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
