@@ -71,6 +71,17 @@
 @import "components/stepper";
 @import "components/tab-content";
 
+button:not([disabled]):focus,
+input:not([disabled]):focus,
+select:not([disabled]):focus,
+textarea:not([disabled]):focus,
+[contentEditable="true"]:focus,
+[href]:focus,
+[tabindex]:focus,
+iframe:focus {
+  outline: $size-4 solid $primary;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -145,6 +156,21 @@ p {
 a.link-format-black {
   color: $ink !important;
   text-decoration: none;
+}
+
+a,
+a.usa-link {
+  color: $primary-vivid;
+
+  &:visited {
+    color: $primary-vivid;
+  }
+
+  &:hover {
+    @media screen and (min-width: ($desktop)) {
+      color: $primary;
+    }
+  }
 }
 
 button.link-format-blue,

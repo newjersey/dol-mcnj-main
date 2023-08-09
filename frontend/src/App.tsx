@@ -1,4 +1,4 @@
-import React, { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useReducer, useState } from "react";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -33,9 +33,7 @@ import {
   initialContextualInfoState,
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
-import "@newjersey/njwds/dist/css/styles.css";
 // import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
-import { FinancialPage } from "./financial-page/FinancialPage";
 import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
 import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
 import * as Sentry from "@sentry/react";
@@ -102,7 +100,6 @@ export const App = (props: Props): ReactElement => {
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
-              <FinancialPage path="/tuition-assistance" client={props.client} />
               <CareerNavigatorPage path="/career-navigator" client={props.client} />
               <CareerPathwaysPage path="/career-pathways" client={props.client} />
               <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />

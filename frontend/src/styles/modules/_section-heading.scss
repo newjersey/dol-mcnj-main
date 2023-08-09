@@ -1,6 +1,6 @@
 .sectionHeading {
-  border-top: $size-8 solid $ink;
-  padding-top: $size-16;
+  border-bottom: $size-8 solid $ink;
+  padding-bottom: $size-16;
 
   h1,
   h2,
@@ -19,7 +19,7 @@
 
   &.strikeThrough {
     text-align: center;
-    padding-top: 0;
+    padding-bottom: 0;
     border: 0;
     position: relative;
 
