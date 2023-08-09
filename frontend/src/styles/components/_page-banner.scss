@@ -165,7 +165,7 @@
     }
 
     a {
-      display: block;
+      display: block !important;
       padding: $size-16;
     }
 
@@ -175,6 +175,108 @@
 
         a {
           color: $secondary-dark;
+        }
+      }
+    }
+  }
+
+  &.theme-green {
+    .cta-block {
+      li {
+        a:not(.usa-button--outline) {
+          &.usa-button {
+            background-color: $secondary;
+
+            &:hover {
+              background-color: $secondary-dark;
+            }
+          }
+        }
+
+        a.usa-button--outline {
+          box-shadow: inset 0 0 0 2px $secondary-dark;
+          color: $secondary-dark;
+
+          &:hover {
+            box-shadow: inset 0 0 0 2px $secondary-darker;
+            color: $secondary-darker;
+          }
+        }
+      }
+    }
+  }
+
+  &.theme-blue {
+    .cta-block {
+      li {
+        a:not(.usa-button--outline) {
+          &.usa-button {
+            background-color: $primary;
+
+            &:hover {
+              background-color: $primary-dark;
+            }
+          }
+        }
+        a.usa-button--outline {
+          box-shadow: inset 0 0 0 2px $primary-dark;
+          color: $primary-dark;
+
+          &:hover {
+            box-shadow: inset 0 0 0 2px $primary-darker;
+            color: $primary-darker;
+          }
+        }
+      }
+    }
+  }
+
+  &.theme-purple {
+    .cta-block {
+      li {
+        a:not(.usa-button--outline) {
+          &.usa-button {
+            background-color: $tertiary-dark;
+
+            &:hover {
+              background-color: $tertiary;
+            }
+          }
+        }
+        a.usa-button--outline {
+          box-shadow: inset 0 0 0 2px $tertiary-darker;
+          color: $tertiary-darker;
+
+          &:hover {
+            box-shadow: inset 0 0 0 2px $tertiary;
+            color: $tertiary;
+          }
+        }
+      }
+    }
+  }
+
+  &.theme-navy {
+    .cta-block {
+      li {
+        a:not(.usa-button--outline) {
+          &.usa-button {
+            background-color: $info-darker;
+
+            &:hover {
+              background-color: $primary;
+            }
+          }
+        }
+
+        a.usa-button--outline {
+          box-shadow: inset 0 0 0 2px $info-darker;
+          color: $info-darker;
+
+          &:hover {
+            box-shadow: inset 0 0 0 2px $primary;
+            color: $primary;
+          }
         }
       }
     }

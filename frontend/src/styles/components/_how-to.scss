@@ -23,8 +23,9 @@
   }
 
   .video {
-    background-color: $light-green;
+    background-color: $secondary-lighter;
     padding: $size-16 0;
+    margin-bottom: $size-72;
     text-align: center;
 
     .player {
@@ -35,7 +36,7 @@
 
     .usa-button {
       display: flex;
-      background-color: $green;
+      background-color: $secondary;
       align-items: center;
       gap: 0.5rem;
       width: $size-320;

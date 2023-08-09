@@ -8,6 +8,11 @@
     align-items: center;
     gap: $size-16;
 
+    &:before,
+    &:after {
+      content: none;
+    }
+
     @media screen and (max-width: ($tablet-xl - 1)) {
       flex-direction: column;
     }
@@ -23,6 +28,9 @@
     @media screen and (max-width: ($tablet-xl - 1)) {
       text-align: center;
     }
+    @media screen and (min-width: ($desktop)) {
+      width: 40%;
+    }
   }
 
   ul {
@@ -34,6 +42,9 @@
       flex-direction: column;
     }
 
+    @media screen and (min-width: ($desktop)) {
+      width: 60%;
+    }
     > * {
       @media screen and (min-width: ($tablet-xl)) {
         width: 50%;
@@ -53,6 +64,7 @@
       align-items: center;
       gap: $size-16;
       color: $navy;
+      padding: $size-8 $size-16;
       border-radius: $size-10;
 
       @media screen and (max-width: ($tablet-xl - 1)) {

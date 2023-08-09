@@ -1,6 +1,6 @@
 .search-block {
-  background-color: $light-green;
-  padding: 3rem 0;
+  background-color: $secondary-lighter;
+  padding: $size-56 0;
 
   .container {
     max-width: 1080px;
@@ -38,7 +38,6 @@
 
   .usa-button {
     &.usa-button--unstyled {
-      color: $dark-green;
       font-weight: bold;
     }
   }
@@ -47,13 +46,14 @@
     padding: 0.5rem;
     border-radius: 5px;
     height: 45px;
-    border: $size-1 solid $middlest-gray;
+    border: none;
   }
 
   .search-input {
     border-radius: 5px;
     margin: 0;
     width: calc(100% - 175px);
+    border: $size-1 solid $base-light;
     max-width: none;
     height: 45px;
 
@@ -69,6 +69,14 @@
     @media screen and (min-width: ($tablet)) {
       width: 175px;
       padding-left: $size-16;
+    }
+
+    button.usa-button {
+      background-color: $secondary;
+      padding: $size-12;
+      font-size: $size-16;
+      font-weight: bold;
+      height: $size-45;
     }
 
     button,
@@ -119,11 +127,32 @@
     select {
       height: $size-40;
       margin-top: 0.5rem;
+
+      &[disabled] {
+        background-color: $base-lighter;
+      }
     }
 
     .row {
       @media screen and (max-width: ($tablet-xl - 1)) {
         flex-direction: column;
+      }
+    }
+
+    .area {
+      position: relative;
+
+      &.extend {
+        input {
+          width: 323px;
+        }
+      }
+
+      .red {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
       }
     }
 
