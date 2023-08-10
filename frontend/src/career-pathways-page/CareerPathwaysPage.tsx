@@ -71,7 +71,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
 
   if (props.slug && industry) {
     breadcrumbs.items.push({
-      copy: "New Jersey Career Pathways",
+      copy: "NJ Career Pathways",
       url: `/career-pathways`,
       sys: {
         id: industry.sys.id,
