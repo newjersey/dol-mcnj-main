@@ -9,11 +9,6 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
     pageBanner {
       ...PageBanner
     }
-    footerCtaHeading
-    footerCtaLink {
-      copy
-      url
-    }
 
     industries: industriesCollection(limit: 5) {
       items {

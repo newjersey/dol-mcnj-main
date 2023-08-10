@@ -1,6 +1,8 @@
 .industry-selector {
+  padding: $size-48 0 0;
+
   nav {
-    padding: $size-32 0;
+    padding: $size-40 0;
   }
 
   ul {
@@ -14,16 +16,22 @@
     align-items: center;
     gap: $size-8;
     text-decoration: none;
-    border: $size-2 solid $ink;
+    outline: $size-1 solid $ink;
     justify-content: center;
     border-radius: $size-8;
     padding: $size-16;
     min-width: 300px;
     max-width: 400px;
 
+    &.active {
+      font-weight: bold;
+      background-color: $tertiary-lighter;
+    }
+
     &.active,
     &:hover {
-      background-color: $tertiary-lighter;
+      outline-width: $size-2;
+      outline-color: $tertiary;
       border-color: $tertiary;
     }
 

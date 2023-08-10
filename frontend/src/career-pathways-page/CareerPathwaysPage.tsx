@@ -5,7 +5,6 @@ import { PageBanner } from "../components/PageBanner";
 import { CareerPathwaysPageData, IndustryProps } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
-import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
@@ -81,13 +80,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   }
 
   return (
-    <Layout
-      client={props.client}
-      theme="support"
-      footerComponent={
-        data && <FooterCta heading={data.page.footerCtaHeading} link={data.page.footerCtaLink} />
-      }
-    >
+    <Layout client={props.client} theme="support">
       {data && (
         <>
           <PageBanner
