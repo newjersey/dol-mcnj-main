@@ -14,7 +14,7 @@ query TrainingProviderPage {
     bannerImage {
       url
     }
-    tabs: tabsCollection {
+    tabs: tabsCollection(limit: 10) {
       items {
         sys {
           id
@@ -22,6 +22,21 @@ query TrainingProviderPage {
         heading
         copy {
           json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                url
+                title
+                description
+                width
+                height
+                contentType
+              }
+            }
+          }
         }
       }
     }

@@ -61,13 +61,13 @@
     margin-bottom: 0.5rem;
   }
 
-  @media (max-width: $xs) {
+  @media (max-width: $tablet-md) {
     .icon-flip {
       transform: scaleX(-1);
     }
   }
 
-  @media (min-width: $xs) {
+  @media (min-width: $tablet-md) {
     &.expanded {
       max-height: 85%;
       height: auto;
@@ -125,7 +125,7 @@
     width: 126px;
   }
 
-  @media (max-width: $sm) {
+  @media (max-width: $tablet-xl) {
     .btn-details {
       min-width: 113px;
     }

@@ -6,7 +6,7 @@ h5 {
   margin: 0;
   font-style: normal;
   font-weight: normal;
-  font-size: 1rem;
+  font-size: $size-16;
   line-height: 1.1;
 }
 
@@ -76,7 +76,7 @@ h5 {
   text-decoration: underline;
 }
 
-@media (min-width: $sm) {
+@media (min-width: $tablet-xl) {
   .text-xxl {
     font-size: 4rem;
   }

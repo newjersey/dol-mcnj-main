@@ -20,7 +20,7 @@ describe("Training Page", () => {
         "Includes basic Shiatsu points, stretching, hydrotherapy, body mechanics, deep " +
         "tissue massage, chair massage, introduction to Thai massage, hands-on energy, " +
         "hot stone massage, aromatherapy, reflexology, oriental theory, and tuning fork " +
-        "sound therapy. All studies lead to a New Jersey State License in Massage Therapy."
+        "sound therapy. All studies lead to a New Jersey State License in Massage Therapy.",
     ).should("exist");
 
     // quick stats
@@ -37,7 +37,7 @@ describe("Training Page", () => {
     cy.contains(
       "This training leads to an occupation that is in-demand, which may qualify for " +
         "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them."
+        "eligibility, and share this training page with them.",
     ).should("exist");
     cy.contains("Copy a link to this training opportunity").should("exist");
     cy.contains("Save and print this training opportunity").should("exist");
@@ -73,7 +73,7 @@ describe("Training Page", () => {
     cy.contains(
       "This training leads to an occupation that is in-demand, which may qualify for " +
         "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them."
+        "eligibility, and share this training page with them.",
     ).should("not.exist");
   });
 });

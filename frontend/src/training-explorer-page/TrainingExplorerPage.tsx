@@ -9,8 +9,9 @@ import { PageBanner } from "../components/PageBanner";
 import { SearchBlock } from "../components/SearchBlock";
 import { HowTo } from "../components/HowTo";
 import { Accordion } from "../components/Accordion";
-import { ArrowRight } from "@phosphor-icons/react";
 import { Interrupter } from "../components/Interrupter";
+import { CtaBanner } from "../components/CtaBanner";
+import { IconNames } from "../types/icons";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -30,17 +31,17 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
       {
         header: pageData?.stepOneHeading,
         icon: pageData?.stepOneIcon,
-        text: pageData?.stepOneText,
+        description: pageData?.stepOneText,
       },
       {
         header: pageData?.stepTwoHeading,
         icon: pageData?.stepTwoIcon,
-        text: pageData?.stepTwoText,
+        description: pageData?.stepTwoText,
       },
       {
         header: pageData?.stepThreeHeading,
         icon: pageData?.stepThreeIcon,
-        text: pageData?.stepThreeText,
+        description: pageData?.stepThreeText,
       },
     ],
   };
@@ -51,7 +52,36 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
   };
 
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      footerComponent={
+        <>
+          <CtaBanner
+            heading="Don't see your question?"
+            noIndicator
+            inlineButtons
+            links={[
+              {
+                sys: {
+                  id: "SeeallFAQs",
+                },
+                copy: "See all FAQs",
+                url: "/faq",
+                iconSuffix: "ArrowRight" as IconNames,
+              },
+            ]}
+            theme="blue"
+          />
+          <CtaBanner
+            heading={pageData?.footerCtaHeading}
+            inlineButtons
+            noIndicator
+            links={pageData?.footerCtaLinkCollection.items}
+            theme="blue"
+          />
+        </>
+      }
+    >
       {data && (
         <>
           <PageBanner {...pageData?.pageBanner} theme="green" />
@@ -69,26 +99,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                   key={item.sys?.id}
                 />
               ))}
-              <div className="cta">
-                <h4>Don't see your question?</h4>
-                <a href="/faq" className="usa-button">
-                  See ll FAQs
-                  <ArrowRight color="#fff" size={20} />
-                </a>
-              </div>
             </div>
-          </section>
-          <section className="footer-cta">
-            <h3>{pageData?.footerCtaHeading}</h3>
-            {pageData?.footerCtaLinkCollection.items.map((link) => (
-              <a
-                key={link.sys?.id}
-                href={link.url}
-                className={`usa-button${link.className ? ` ${link.className}` : ""}`}
-              >
-                {link.copy}
-              </a>
-            ))}
           </section>
         </>
       )}

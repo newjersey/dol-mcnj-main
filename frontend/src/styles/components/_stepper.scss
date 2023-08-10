@@ -1,36 +1,73 @@
 .stepper {
   display: flex;
   text-align: center;
-  padding: 2rem 0;
-  gap: 2rem;
+  padding: $size-32 0;
+  gap: $size-32;
+
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    flex-direction: column;
+  }
 
   .step {
-    background-color: $off-white;
-    padding: 0 3rem 1rem;
+    background-color: $base-cool;
+    padding: 0 $size-48 $size-16;
     border-radius: 5px;
     width: 33.33%;
 
-    @media screen and (max-width: ($sm - 1)) {
-      padding: 0 1rem 1rem;
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: 100%;
+      padding: 0 $size-16 $size-16;
     }
 
     .number {
       display: block;
-      width: 2rem;
-      height: 2rem;
-      line-height: 2rem;
+      width: $size-32;
+      height: $size-32;
+      line-height: $size-32;
       border-radius: 50%;
-      background-color: $green;
+      background-color: $secondary;
       color: white;
       margin: -10px auto 0;
-      margin-bottom: 0.5rem;
+      margin-bottom: $size-8;
     }
 
     .title {
       display: block;
-      font-size: 1.2rem;
+      font-size: $size-20;
       font-weight: bold;
-      margin: 0.5rem 0;
+      margin: $size-8 0;
+    }
+  }
+
+  &.theme-green {
+    .step {
+      .number {
+        background-color: $secondary;
+      }
+    }
+  }
+
+  &.theme-blue {
+    .step {
+      .number {
+        background-color: $primary;
+      }
+    }
+  }
+
+  &.theme-purple {
+    .step {
+      .number {
+        background-color: $tertiary;
+      }
+    }
+  }
+
+  &.theme-navy {
+    .step {
+      .number {
+        background-color: $info-darker;
+      }
     }
   }
 }

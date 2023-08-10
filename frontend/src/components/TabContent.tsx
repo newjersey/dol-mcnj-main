@@ -73,6 +73,7 @@ export const TabContent = ({ items }: TabContentProps) => {
         {activeTab && (
           <div className="content">
             <h2>{activeTab.heading}</h2>
+
             <ContentfulRichText document={activeTab.copy.json} assets={activeTab.copy.links} />
           </div>
         )}

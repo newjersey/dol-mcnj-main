@@ -1,0 +1,128 @@
+.ctaBanner {
+  padding: $size-48 $size-16;
+  background: $white;
+
+  &.fullColor {
+    background-color: $primary;
+    color: $white;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      text-align: center;
+    }
+
+    .heading {
+      color: $white;
+      font-size: $size-32;
+      margin-bottom: 0;
+      line-height: 1.2;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        font-size: $size-24;
+      }
+
+      @media screen and (min-width: ($desktop)) {
+        width: 40%;
+      }
+    }
+
+    .container {
+      display: flex;
+      gap: $size-32;
+      align-items: center;
+      padding: 0;
+      width: 100%;
+      max-width: $desktop-lg;
+
+      &:before,
+      &:after {
+        content: none;
+      }
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        flex-direction: column;
+      }
+    }
+
+    .links {
+      display: flex;
+      gap: $size-16;
+      flex-wrap: wrap;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        flex-direction: column;
+      }
+
+      @media screen and (min-width: ($desktop)) {
+        width: 60%;
+      }
+
+      .link {
+        text-align: left;
+
+        @media screen and (min-width: ($tablet)) {
+          width: calc(50% - $size-16);
+        }
+      }
+    }
+
+    &.color-blue {
+      background: $primary;
+    }
+
+    &.color-green {
+      background: $secondary-dark;
+    }
+
+    &.color-navy {
+      background: $info-darker;
+    }
+
+    &.color-purple {
+      background: $tertiary;
+    }
+  }
+
+  &.contained {
+    max-width: $desktop-lg;
+    margin: 0 auto;
+
+    @media screen and (min-width: ($desktop)) {
+      border-radius: $size-20;
+      padding-left: $size-80;
+      padding-right: $size-80;
+    }
+
+    @media screen and (min-width: ($desktop-lg)) {
+      padding-left: $size-160;
+      padding-right: $size-160;
+    }
+
+    .heading {
+      color: $white;
+      font-size: $size-24;
+      margin-bottom: 0;
+      line-height: 1.2;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        font-size: $size-24;
+      }
+    }
+
+    .container {
+      > * {
+        flex: initial;
+      }
+
+      .heading {
+        @media screen and (min-width: ($desktop)) {
+          width: 40%;
+        }
+      }
+      .links {
+        @media screen and (min-width: ($desktop)) {
+          width: 60%;
+        }
+      }
+    }
+  }
+}
