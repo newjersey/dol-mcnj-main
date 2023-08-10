@@ -2,7 +2,7 @@ export const fragments = {
   pageBanner: `fragment PageBanner on PageBanner {
     title
     section
-    breadcrumbsCollection {
+    breadcrumbsCollection(limit: 10) {
       items {
         sys {
           id
@@ -15,7 +15,7 @@ export const fragments = {
       json
     }
     ctaHeading
-    ctaLinksCollection {
+    ctaLinksCollection(limit: 2) {
       items {
         sys {
           id
@@ -24,6 +24,26 @@ export const fragments = {
         url
       }
     }
+  }`,
+  linkObject: `fragment LinkObject on LinkObject{
+    sys {
+      id
+    }
+    copy
+    screenReaderOnlyCopy
+    url
+    icon
+    customSvg
+    description
+  }`,
+  iconCard: `fragment IconCard on IconCard {
+    sys {
+      id
+    }
+    heading
+    icon
+    description
+    sectionIcon
   }`,
 };
 

@@ -3,13 +3,13 @@
   padding: 6rem 0;
 
   .container {
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       padding: 0;
     }
   }
 
   .heading {
-    border-bottom: 0.5rem solid black;
+    border-bottom: 0.5rem solid $ink;
     padding-bottom: 0.8rem;
     margin-bottom: 2.5rem;
 
@@ -21,13 +21,13 @@
 
   .select {
     display: none;
-    margin: 1rem 0 2rem 3rem;
+    margin: $size-16 0 2rem 3rem;
     max-width: 36rem;
     font-weight: bold;
     position: relative;
     margin-bottom: 2.2rem;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       margin-left: 0;
     }
   }
@@ -44,7 +44,7 @@
 
   .groups {
     background: white;
-    padding: 1rem;
+    padding: $size-16;
 
     .select-button {
       margin-top: 0.7rem;
@@ -52,26 +52,26 @@
       appearance: none;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: 1px solid $grey;
+      border: $size-1 solid $base-lighter;
       border-radius: 5px;
 
       &:after {
         content: "";
         position: absolute;
-        right: 1rem;
-        bottom: 1rem;
+        right: $size-16;
+        bottom: $size-16;
         width: 0;
         height: 0;
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
-        border-top: 0.35rem solid black;
+        border-top: 0.35rem solid $ink;
       }
     }
 
     .dropdown-select {
       font-weight: normal;
-      margin-top: 1rem;
-      box-shadow: 0 10px 20px -15px black;
+      margin-top: $size-16;
+      box-shadow: 0 10px 20px -15px $ink;
 
       &[aria-expanded="true"] {
         display: block;
@@ -87,15 +87,15 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        background: $grey;
-        padding: 0.5rem 1rem;
+        background: $base-lighter;
+        padding: 0.5rem $size-16;
       }
 
       button {
-        padding: 1rem;
+        padding: $size-16;
 
-        @media screen and (min-width: ($mobTab)) {
-          padding: 1rem 1rem 1rem 5rem;
+        @media screen and (min-width: ($tablet)) {
+          padding: $size-16 $size-16 $size-16 5rem;
         }
 
         &:nth-of-type(2n - 1) {
@@ -103,7 +103,7 @@
         }
 
         &:hover {
-          @media screen and (min-width: ($mobTab)) {
+          @media screen and (min-width: ($tablet)) {
             background: $purple;
           }
         }
@@ -113,9 +113,9 @@
 
   .path-selector {
     > .heading {
-      @media screen and (max-width: ($mobTab - 1)) {
-        margin-left: 1rem;
-        margin-right: 1rem;
+      @media screen and (max-width: ($tablet - 1)) {
+        margin-left: $size-16;
+        margin-right: $size-16;
       }
     }
   }

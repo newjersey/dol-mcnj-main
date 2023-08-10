@@ -47,7 +47,7 @@ export const ResourceList = ({
       if (selectedTags.length > 0) {
         const filtered = data.resources.items.filter((resource) => {
           const resourceTags = resource.tags.items.map((tag) => tag.title);
-          return selectedTags.every((tag) => resourceTags.includes(tag.title));
+          return selectedTags.some((tag) => resourceTags.includes(tag.title));
         });
         setFilteredResources(filtered);
       } else {
@@ -69,7 +69,7 @@ export const ResourceList = ({
                 setSelectedTags(
                   selected
                     .map((tag) => tag)
-                    .sort((a, b) => b.category.slug.localeCompare(a.category.slug))
+                    .sort((a, b) => b.category.slug.localeCompare(a.category.slug)),
                 )
               }
               boxLabel={`${category} Filters`}

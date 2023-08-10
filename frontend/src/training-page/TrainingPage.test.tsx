@@ -82,12 +82,10 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
+    expect(subject.getByTestId("title", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Completion time:", { exact: false })).toBeInTheDocument();
     expect(
-      subject.getByText("Completion time:", { exact: false })
-    ).toBeInTheDocument();
-    expect(
-        subject.getByText(Content.CalendarLengthLookup["7"], { exact: false })
+      subject.getByText(Content.CalendarLengthLookup["7"], { exact: false }),
     ).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
@@ -126,7 +124,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(Content.TrainingPage.onlineClass, { exact: false })
+      subject.getByText(Content.TrainingPage.onlineClass, { exact: false }),
     ).toBeInTheDocument();
     expect(subject.queryByText("Newark", { exact: false })).not.toBeInTheDocument();
   });
@@ -187,8 +185,8 @@ describe("<TrainingPage />", () => {
               zipCode: "01234",
             }),
           }),
-        })
-      )
+        }),
+      ),
     );
 
     const urlEncoded =
@@ -197,7 +195,7 @@ describe("<TrainingPage />", () => {
     expect(
       subject
         .getByText("123 Main Street", { exact: false })
-        .parentElement?.parentElement?.getAttribute("href")
+        .parentElement?.parentElement?.getAttribute("href"),
     ).toEqual(`https://www.google.com/maps/search/?api=1&query=${urlEncoded}`);
   });
 
@@ -208,7 +206,7 @@ describe("<TrainingPage />", () => {
 
     expect(
       subject.getByText(Content.TrainingPage.onlineClass, { exact: false }).parentElement
-        ?.parentElement
+        ?.parentElement,
     ).not.toHaveAttribute("href");
   });
 
@@ -225,12 +223,12 @@ describe("<TrainingPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess(
-        buildTraining({ provider: buildProvider({ url: "www.mycoolwebsite.com" }) })
-      )
+        buildTraining({ provider: buildProvider({ url: "www.mycoolwebsite.com" }) }),
+      ),
     );
 
     expect(subject.getByText("www.mycoolwebsite.com").getAttribute("href")).toEqual(
-      "http://www.mycoolwebsite.com"
+      "http://www.mycoolwebsite.com",
     );
   });
 
@@ -239,12 +237,12 @@ describe("<TrainingPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess(
-        buildTraining({ provider: buildProvider({ url: "http://www.mycoolwebsite.com" }) })
-      )
+        buildTraining({ provider: buildProvider({ url: "http://www.mycoolwebsite.com" }) }),
+      ),
     );
 
     expect(subject.getByText("http://www.mycoolwebsite.com").getAttribute("href")).toEqual(
-      "http://www.mycoolwebsite.com"
+      "http://www.mycoolwebsite.com",
     );
   });
 
@@ -252,7 +250,9 @@ describe("<TrainingPage />", () => {
     const subject = render(<TrainingPage client={stubClient} id="12345" />);
 
     act(() =>
-      stubClient.capturedObserver.onSuccess(buildTraining({ provider: buildProvider({ url: "" }) }))
+      stubClient.capturedObserver.onSuccess(
+        buildTraining({ provider: buildProvider({ url: "" }) }),
+      ),
     );
 
     expect(subject.getByText(PROVIDER_MISSING_INFO)).toBeInTheDocument();
@@ -268,16 +268,16 @@ describe("<TrainingPage />", () => {
 
     act(() =>
       stubClient.capturedObserver.onSuccess(
-        buildTraining({ occupations: [buildOccupation({ title: "NO MATCH" })] })
-      )
+        buildTraining({ occupations: [buildOccupation({ title: "NO MATCH" })] }),
+      ),
     );
     expect(
       subject.getByText(
         "This is a general training that might prepare you for a wide variety of career paths Browse",
         {
           exact: false,
-        }
-      )
+        },
+      ),
     ).toBeInTheDocument();
   });
 
@@ -289,8 +289,8 @@ describe("<TrainingPage />", () => {
         buildTraining({
           online: false,
           provider: buildProvider({ address: buildAddress({ city: undefined }) }),
-        })
-      )
+        }),
+      ),
     );
 
     expect(subject.getByText(PROVIDER_MISSING_INFO)).toBeInTheDocument();
@@ -318,7 +318,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
     expect(
-      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false }),
     ).toBeInTheDocument();
   });
 
@@ -328,7 +328,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
     expect(
-      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false }),
     ).toBeInTheDocument();
   });
 
@@ -336,8 +336,8 @@ describe("<TrainingPage />", () => {
     const subject = render(<TrainingPage client={stubClient} id="1234" />);
     act(() =>
       stubClient.capturedObserver.onSuccess(
-        buildTraining({ description: "some first line\nsome second line" })
-      )
+        buildTraining({ description: "some first line\nsome second line" }),
+      ),
     );
     expect(subject.getByText("some first line")).toBeInTheDocument();
     expect(subject.getByText("some second line")).toBeInTheDocument();
@@ -357,7 +357,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPage.eveningCoursesServiceLabel)
+      subject.queryByText(Content.TrainingPage.eveningCoursesServiceLabel),
     ).not.toBeInTheDocument();
   });
 
@@ -375,7 +375,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPage.otherLanguagesServiceLabel)
+      subject.queryByText(Content.TrainingPage.otherLanguagesServiceLabel),
     ).not.toBeInTheDocument();
   });
 
@@ -385,7 +385,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(Content.TrainingPage.wheelchairAccessibleServiceLabel)
+      subject.getByText(Content.TrainingPage.wheelchairAccessibleServiceLabel),
     ).toBeInTheDocument();
   });
 
@@ -395,7 +395,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPage.wheelchairAccessibleServiceLabel)
+      subject.queryByText(Content.TrainingPage.wheelchairAccessibleServiceLabel),
     ).not.toBeInTheDocument();
   });
 
@@ -405,7 +405,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.getByText(Content.TrainingPage.childcareAssistanceServiceLabel)
+      subject.getByText(Content.TrainingPage.childcareAssistanceServiceLabel),
     ).toBeInTheDocument();
   });
 
@@ -415,7 +415,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPage.childcareAssistanceServiceLabel)
+      subject.queryByText(Content.TrainingPage.childcareAssistanceServiceLabel),
     ).not.toBeInTheDocument();
   });
 
@@ -433,7 +433,7 @@ describe("<TrainingPage />", () => {
     act(() => stubClient.capturedObserver.onSuccess(training));
 
     expect(
-      subject.queryByText(Content.TrainingPage.jobAssistanceServiceLabel)
+      subject.queryByText(Content.TrainingPage.jobAssistanceServiceLabel),
     ).not.toBeInTheDocument();
   });
 });

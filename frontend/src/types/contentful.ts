@@ -1,6 +1,21 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
 import { IconNames } from "./icons";
+import * as Svg from "../svg/Icons";
+
+export type ThemeColors = "navy" | "blue" | "green" | "purple" | "orange";
+
+export type SectionIcons =
+  | "explore"
+  | "jobs"
+  | "support"
+  | "training"
+  | "exploreBold"
+  | "jobsBold"
+  | "supportBold"
+  | "trainingBold";
+
+export type HeadingLevel = 2 | 3 | 4 | 5 | 6;
 
 /* ********************
  *  GENERIC
@@ -80,14 +95,14 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
-  theme?: "green" | "blue" | "purple" | "navy";
+  theme?: ThemeColors;
   title: string;
   noCrumbs?: boolean;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
-  section: "explore" | "jobs" | "support" | "training";
+  section: SectionIcons;
   message?: ContentfulRichText;
   description?: string;
   ctaHeading?: string;
@@ -143,11 +158,20 @@ export interface LinkObjectProps {
   };
   copy?: string;
   className?: string;
+  iconPrefix?: IconNames;
+  iconSuffix?: IconNames;
+  svgFill?: boolean;
+  svgName?: keyof typeof Svg;
+  highlight?: ThemeColors;
   url: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
+  icon?: IconNames;
   icons?: boolean;
+  onClick?: () => void;
+  customSvg?: string;
   label?: string;
+  description?: string;
 }
 
 export interface FaqPageData {
@@ -159,8 +183,18 @@ export interface FaqPageData {
     title: string;
     bannerHeading: string;
     bannerImage?: ImageProps;
-    topics: {
-      items: FaqTopic[];
+    categoriesCollection: {
+      items: {
+        sys: { id: string };
+        title: string;
+        topics: {
+          items: {
+            sys: { id: string };
+            topic: string;
+            itemsCollection: { items: FaqItem[] };
+          }[];
+        };
+      }[];
     };
     resourceLinkHeading?: string;
     resourceLinks: {
@@ -385,7 +419,7 @@ export interface IconLinkProps {
     id: string;
   };
   icon?: IconNames;
-  sectionIcon?: "explore" | "jobs" | "support" | "training";
+  sectionIcon?: SectionIcons;
   copy: string;
   url: string;
   description?: string;
@@ -421,9 +455,6 @@ export interface AllSupportPageProps {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-    industries: {
-      items: IndustryProps[];
-    };
   };
   categories: {
     items: {
@@ -496,5 +527,54 @@ export interface ResourceItemProps {
 export interface ResourceListProps {
   resources: {
     items: ResourceItemProps[];
+  };
+}
+
+export interface IconCardProps {
+  sys?: {
+    id: string;
+  };
+  heading: string;
+  icon: IconNames;
+  sectionItem?: SectionIcons;
+  description: string;
+}
+
+export interface CareerNavigatorPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+    stepsHeading?: string;
+    midPageCtaHeading?: string;
+    interrupterHeading?: string;
+    interrupterLinks?: {
+      items: LinkObjectProps[];
+    };
+    infoHeading?: string;
+    infoCards?: {
+      items: IconCardProps[];
+    };
+    midPageCtaLinks?: {
+      items: LinkObjectProps[];
+    };
+    opportunitiesHeading?: string;
+    opportunityCards: {
+      items: LinkObjectProps[];
+    };
+    stepsCollection: {
+      items: IconCardProps[];
+    };
+    river?: {
+      items: {
+        sys: {
+          id: string;
+        };
+        copy?: string;
+        heading?: string;
+        image: ImageProps;
+      }[];
+    };
   };
 }

@@ -5,6 +5,7 @@ interface SectionHeadingProps {
   theme?: "blue" | "green" | "purple" | "navy";
   strikeThrough?: boolean;
   className?: string;
+  description?: string;
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
@@ -14,6 +15,7 @@ const SectionHeading = ({
   strikeThrough,
   headingLevel = 2,
   theme,
+  description,
 }: SectionHeadingProps) => {
   return (
     <div
@@ -22,6 +24,7 @@ const SectionHeading = ({
       }${theme ? ` color-${theme}` : ""}`}
     >
       <Heading level={headingLevel}>{heading}</Heading>
+      {description && <p className="description">{description}</p>}
     </div>
   );
 };

@@ -45,7 +45,15 @@ export const LandingPage = (props: Props): ReactElement => {
                         : item.sectionIcon === "support"
                         ? "Support"
                         : "Training";
-                    return <IconCard centered svg={svgName} title={item.copy} url={item.url} />;
+                    return (
+                      <IconCard
+                        key={item.sys.id}
+                        centered
+                        svg={svgName}
+                        title={item.copy}
+                        url={item.url}
+                      />
+                    );
                   })}
                 </div>
               </div>

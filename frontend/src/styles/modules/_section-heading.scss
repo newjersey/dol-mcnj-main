@@ -1,6 +1,6 @@
 .sectionHeading {
-  border-bottom: 8px solid $black;
-  padding-bottom: 1rem;
+  border-bottom: $size-8 solid $ink;
+  padding-bottom: $size-16;
 
   h1,
   h2,
@@ -8,11 +8,11 @@
   h4,
   h5,
   h6 {
-    color: $black;
+    color: $ink;
     font-size: 2rem;
     display: inline-block;
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       font-size: 1.5rem;
     }
   }
@@ -25,9 +25,9 @@
 
     &:before {
       content: "";
-      height: 8px;
+      height: $size-8;
       width: 100%;
-      background: $black;
+      background: $ink;
       position: absolute;
       left: 0;
       top: 50%;
@@ -39,62 +39,72 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       background: $white;
       position: relative;
-      padding: 0 1rem;
+      padding: 0 $size-16;
     }
   }
 
   &.color-blue {
-    border-color: $blue;
+    border-color: $primary;
 
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $blue;
+    h6,
+    p {
+      color: $primary;
     }
   }
 
   &.color-green {
-    border-color: $green;
+    border-color: $secondary;
 
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $green;
+    h6,
+    p {
+      color: $secondary;
     }
   }
 
   &.color-purple {
-    border-color: $dark-purple;
+    border-color: $tertiary;
 
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $dark-purple;
+    h6,
+    p {
+      color: $tertiary;
     }
   }
 
   &.color-navy {
-    border-color: $navy;
+    border-color: $info-darker;
 
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $navy;
+    h6,
+    p {
+      color: $info-darker;
     }
+  }
+
+  .description {
+    margin: $size-8 0 0;
+    font-size: $size-16;
   }
 }
