@@ -263,8 +263,6 @@ export interface CareerPathwaysPageData {
     };
     title: string;
     pageBanner: PageBannerProps;
-    footerCtaHeading: string;
-    footerCtaLink: LinkObjectProps;
     industries: {
       items: IndustryProps[];
     };

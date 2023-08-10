@@ -1,4 +1,4 @@
-import { ArrowCircleDown, X } from "@phosphor-icons/react";
+import { Fire, Info, Star, X } from "@phosphor-icons/react";
 import { IndustryProps } from "../types/contentful";
 import { ContentfulRichText } from "./ContentfulRichText";
 import { Selector } from "../svg/Selector";
@@ -15,13 +15,6 @@ export const IndustryBlock = ({
   shorthandTitle,
 }: IndustryProps) => {
   const [open, setOpen] = useState<boolean>(false);
-
-  const scrollToIndustry = () => {
-    const industryContainer = document.getElementById("industry-container");
-    if (industryContainer) {
-      industryContainer.scrollIntoView({ block: "start", behavior: "smooth" });
-    }
-  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -48,20 +41,7 @@ export const IndustryBlock = ({
 
   return (
     <section className="industry-block">
-      <div className="buttons">
-        <button
-          type="button"
-          title="Explore Career Pathways"
-          className="explore-button"
-          onClick={() => {
-            scrollToIndustry();
-          }}
-        >
-          <ArrowCircleDown size={32} color="#000" />
-          <span>
-            View <span>{shorthandTitle || title}</span> Career Pathways
-          </span>
-        </button>
+      <div className="container plus button">
         <button
           type="button"
           title="Explore Industry"
@@ -70,9 +50,10 @@ export const IndustryBlock = ({
             setOpen(!open);
           }}
         >
-          <ArrowCircleDown size={32} color="#000" />
+          <Info size={22} color="#000" />
+
           <span>
-            What is <span>{shorthandTitle || title}</span> like in New Jersey?
+            What is <strong>{shorthandTitle || title}</strong> like in New Jersey?
           </span>
         </button>
       </div>
@@ -95,25 +76,24 @@ export const IndustryBlock = ({
             {photo && <img src={photo.url} alt={title} className="photo" />}
           </div>
           <div className="accordion-wrapper">
-            {accordionData.items.map((item, index) => (
-              <Accordion
-                key={item.sys.id}
-                open={windowWidth > 650 ? index === 0 : undefined}
-                title={
-                  <>
-                    {item.icon ? (
-                      <img src={item.icon.url} width={32} alt="" />
-                    ) : (
-                      <Selector name={slug} />
-                    )}
-                    <span>{item.title}</span>
-                  </>
-                }
-                content={item.copy.json}
-                assets={item.copy.links}
-                keyValue={index}
-              />
-            ))}
+            {accordionData.items.map(
+              (item, index) =>
+                index < 3 && (
+                  <Accordion
+                    key={item.sys.id}
+                    open
+                    title={
+                      <>
+                        {index === 1 ? <Fire /> : index === 2 ? <Star /> : <Selector name={slug} />}
+                        <span>{item.title}</span>
+                      </>
+                    }
+                    content={item.copy.json}
+                    assets={item.copy.links}
+                    keyValue={index}
+                  />
+                ),
+            )}
           </div>
         </div>
       </div>

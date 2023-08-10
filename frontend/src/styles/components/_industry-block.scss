@@ -1,59 +1,14 @@
 .industry-block {
-  margin-top: -$size-16;
-
-  .buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: $size-16;
-    margin-bottom: 4rem;
-
-    @media screen and (max-width: ($tablet - 1)) {
-      flex-direction: column;
-      padding: 0 $size-16;
-    }
-  }
-
   .explore-button {
-    display: inline-block;
-    border-radius: $size-20;
-    border: $size-2 solid $base-lighter;
+    background-color: $primary-lighter;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0.5rem 1.2rem;
-    color: $ink;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-    max-width: 310px;
-    width: 100%;
-
-    @media screen and (max-width: ($tablet)) {
-      max-width: 360px;
-    }
+    gap: $size-8;
+    padding: $size-4 $size-16;
+    border-radius: $size-4;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        box-shadow: 5px $size-4 $size-12 - $size-3 $base-lighter;
-        transform: scale(1.03);
-      }
-    }
-
-    svg {
-      display: block;
-      margin: 0 auto;
-      background: $info-lighter;
-      border-radius: 100%;
-      overflow: hidden;
-      padding: 0.4rem;
-      width: 30px;
-      height: 30px;
-      box-sizing: content-box;
-    }
-
-    > span {
-      display: block;
-      width: calc(100% - 50px);
+      box-shadow: $shadow-2;
     }
   }
 
@@ -65,6 +20,7 @@
 
   .panel {
     position: fixed;
+    border-left: $size-4 solid $tertiary-vivid;
     top: 0;
     right: -100%;
     background: $white;
@@ -113,6 +69,10 @@
 
   .container {
     margin-top: 3.1rem;
+
+    &.button {
+      margin: 0 auto;
+    }
   }
 
   .photo {
@@ -125,10 +85,10 @@
   }
 
   .accordion {
-    border: $size-1 solid $ink;
+    border: $size-1 solid $base-lightest;
     border-radius: 7px;
     overflow: hidden;
-    background: white;
+    background: $white;
 
     &.closed {
       button {
@@ -146,6 +106,7 @@
       font-size: 1.2rem;
       padding: 0.7rem 3rem 0.7rem 1.2rem;
       font-weight: normal;
+      background-color: $secondary-lighter;
 
       img,
       svg {
@@ -197,68 +158,21 @@
           b {
             display: block;
           }
-
-          > * {
-            @media screen and (min-width: ($mobile-lg)) {
-              width: calc(100% - 3.5rem);
-            }
-          }
-
-          &:before {
-            content: attr(data-number);
-            color: $ink;
-            font-size: 1.2rem;
-            display: block;
-            background: $light-green;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
         }
       }
     }
   }
 
   .heading {
-    position: relative;
-    margin-bottom: 3rem;
-
-    @media screen and (min-width: ($tablet)) {
-      text-align: center;
-    }
+    margin-bottom: 1rem;
 
     @media screen and (max-width: ($tablet)) {
       margin-bottom: 1.5rem;
     }
 
-    &:before {
-      @media screen and (min-width: ($tablet)) {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%);
-        width: 100%;
-        background-color: $ink;
-        height: 0.5rem;
-        z-index: -1;
-      }
-    }
-
     h2 {
-      font-size: 2rem;
-      font-weight: 600;
+      font-size: $size-32;
       margin-bottom: 0;
-      background-color: $off-white;
-      display: inline-block;
-
-      @media screen and (min-width: ($tablet)) {
-        padding: 0 $size-16;
-        text-align: center;
-      }
 
       @media screen and (max-width: ($tablet - 1)) {
         font-size: 1.5rem;
