@@ -4,7 +4,6 @@ import { ContentfulRichText } from "./ContentfulRichText";
 import { Selector } from "../svg/Selector";
 import { Accordion } from "./Accordion";
 import { useEffect, useState } from "react";
-import { useWindowWidth } from "../utils/useWindowWidth";
 
 export const IndustryBlock = ({
   description,
@@ -36,8 +35,6 @@ export const IndustryBlock = ({
       }
     }
   }, []);
-
-  const windowWidth = useWindowWidth();
 
   return (
     <section className="industry-block">
