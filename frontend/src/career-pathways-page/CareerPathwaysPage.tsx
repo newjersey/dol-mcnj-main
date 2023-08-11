@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { PageBanner } from "../components/PageBanner";
-import { CareerPathwaysPageData, IndustryProps } from "../types/contentful";
+import { CareerPathwaysPageData, IndustryProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
 import { IndustryBlock } from "../components/IndustryBlock";
@@ -14,6 +14,9 @@ import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
 import { INDUSTRY_QUERY } from "../queries/industry";
 import { CareerPathways } from "../components/CareerPathways";
 import { NotFoundPage } from "../error/NotFoundPage";
+import { CtaBanner } from "../components/CtaBanner";
+import { SectionHeading } from "../components/modules/SectionHeading";
+import { Stepper } from "../components/Stepper";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -65,6 +68,22 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     return <NotFoundPage client={props.client} />;
   }
 
+  const exploreLinks = data?.page.exploreButtonsCollection.items.map((link, index: number) => {
+    const highlight =
+      (index + 1) % 4 === 1
+        ? "purple"
+        : (index + 1) % 4 === 2
+        ? "orange"
+        : (index + 1) % 4 === 3
+        ? "blue"
+        : "green";
+    return {
+      ...link,
+      iconPrefix: link.icon,
+      highlight: highlight as ThemeColors,
+    };
+  });
+
   const breadcrumbs = data
     ? { items: [...data.page.pageBanner.breadcrumbsCollection.items] }
     : { items: [] };
@@ -80,7 +99,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   }
 
   return (
-    <Layout client={props.client} theme="support">
+    <Layout client={props.client} theme="support" noPad className="career-pathways-page">
       {data && (
         <>
           <PageBanner
@@ -90,7 +109,29 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           />
           <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
 
-          {industry && (
+          {!industry ? (
+            <>
+              <section className="landing">
+                <div className="container plus">
+                  {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
+                </div>
+                <div className="container">
+                  <div className="steps">
+                    {data.page.stepsCollection && (
+                      <Stepper theme="purple" steps={data.page.stepsCollection.items} />
+                    )}
+                  </div>
+                </div>
+              </section>
+              <CtaBanner
+                heading={data.page.exploreHeading}
+                headingLevel={3}
+                theme="purple"
+                fullColor
+                links={exploreLinks}
+              />
+            </>
+          ) : (
             <>
               <IndustryBlock {...industry} />
               <div id="industry-container">

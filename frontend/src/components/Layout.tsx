@@ -10,7 +10,9 @@ interface LayoutProps {
   client: Client;
   children?: ReactNode;
   footerComponent?: ReactNode;
+  className?: string;
   noFooter?: boolean;
+  noPad?: boolean;
   theme?: "explore" | "jobs" | "support" | "training";
 }
 export const Layout = (props: LayoutProps) => {
@@ -41,7 +43,12 @@ export const Layout = (props: LayoutProps) => {
   return (
     <>
       <Header {...headerProps} />
-      <main className={`below-banners${props.theme ? ` ${props.theme}-theme` : ""}`} role="main">
+      <main
+        className={`${!props.noPad ? "below-banners" : ""}${
+          props.theme ? ` ${props.theme}-theme` : ""
+        }${props.className ? ` ${props.className}` : ""}`}
+        role="main"
+      >
         {children}
         {props.footerComponent}
         <BackToTop />
