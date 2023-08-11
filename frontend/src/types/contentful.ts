@@ -266,6 +266,12 @@ export interface CareerPathwaysPageData {
     industries: {
       items: IndustryProps[];
     };
+    stepsHeading: string;
+    stepsCollection: {
+      items: IconCardProps[];
+    };
+    exploreHeading: string;
+    exploreButtonsCollection: { items: LinkObjectProps[] };
   };
 }
 
