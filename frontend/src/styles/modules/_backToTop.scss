@@ -4,11 +4,12 @@
   cursor: pointer;
   right: 1rem;
   background: white;
-  width: 5rem;
+  width: $size-48;
+  height: $size-48;
   justify-content: center;
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0;
   color: $primary;
   border: 1px solid $primary;
 

@@ -41,7 +41,7 @@
 
   &.theme-green {
     strong {
-      color: $secondary;
+      color: $secondary-dark;
     }
     .step {
       .number {
@@ -52,7 +52,7 @@
 
   &.theme-blue {
     strong {
-      color: $primary;
+      color: $primary-dark;
     }
     .step {
       .number {
@@ -63,7 +63,7 @@
 
   &.theme-purple {
     strong {
-      color: $tertiary;
+      color: $tertiary-dark;
     }
     .step {
       .number {
