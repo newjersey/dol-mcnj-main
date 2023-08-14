@@ -31,7 +31,9 @@
     "react-i18next": "^13.0.2",
     "react-scripts": "5.0.1",
     "react-tooltip": "^5.18.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "winston": "^3.10.0",
+    "winston-cloudwatch": "^6.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
