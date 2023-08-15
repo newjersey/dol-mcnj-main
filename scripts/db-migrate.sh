@@ -2,7 +2,7 @@
 
 cd $(git rev-parse --show-toplevel)
 
-source .backend/env
+source ./backend/env
 
 ENV=${NODE_ENV}
 HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json)
