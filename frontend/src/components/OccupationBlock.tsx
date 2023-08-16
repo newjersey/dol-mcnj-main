@@ -4,7 +4,6 @@ import {
   CalendarCheck,
   CaretDown,
   CaretUp,
-  ChartLineUp,
   GraduationCap,
   Hourglass,
   Info,
