@@ -263,11 +263,45 @@
 
       a {
         &.usa-button {
-          display: flex;
-          align-items: center;
-          gap: $size-16;
-          justify-content: center;
           text-align: left;
+          background-color: $secondary-lighter;
+          width: 100%;
+          border: $size-2 solid $secondary;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: $size-16;
+          color: $ink;
+          border-radius: 10px;
+          padding: 0.5rem;
+
+          span {
+            gap: $size-16;
+            display: inline-flex;
+            align-items: center;
+          }
+
+          + .usa-button {
+            margin-top: 1.5rem;
+            background-color: $info-lighter;
+            border: $size-2 solid $info;
+          }
+
+          @media screen and (max-width: ($tablet-xl - 1)) {
+            display: flex;
+            width: 100%;
+          }
+
+          &:hover {
+            @media screen and (min-width: ($tablet-xl + 1)) {
+              background: white;
+            }
+          }
+
+          svg {
+            width: $size-28;
+            height: auto;
+          }
 
           + .usa-button {
             margin-top: $size-16;

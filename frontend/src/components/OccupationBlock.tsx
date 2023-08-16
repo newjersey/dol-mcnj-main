@@ -1,5 +1,6 @@
 import {
   ArrowSquareOut,
+  ArrowUpRight,
   Briefcase,
   CalendarCheck,
   CaretDown,
@@ -22,6 +23,7 @@ import { TrainingResult } from "../domain/Training";
 import { calendarLength } from "../utils/calendarLength";
 import { InDemandTag } from "./InDemandTag";
 import { SectionHeading } from "./modules/SectionHeading";
+import { Selector } from "../svg/Selector";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -338,16 +340,20 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                             </li>
                           )}
                         </ul>
-                        <a className="outline usa-button usa-button--outline" href="/search">
-                          See more trainings on the Training Explorer
-                          <ArrowSquareOut size={20} />
+
+                        <a className="usa-button" href="/search">
+                          <span>
+                            <Selector name="trainingBold" />
+                            See more trainings on the Training Explorer
+                          </span>
+                          <ArrowUpRight size={20} />
                         </a>
-                        <a
-                          className="outline usa-button usa-button--outline"
-                          href="/tuition-assistance"
-                        >
-                          Learn more financial assistance opportunities
-                          <ArrowSquareOut size={20} />
+                        <a className="usa-button" href="/tuition-assistance">
+                          <span>
+                            <Selector name="supportBold" />
+                            Learn more financial assistance opportunities
+                          </span>
+                          <ArrowUpRight size={20} />
                         </a>
                       </div>
                     </div>
@@ -361,8 +367,11 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           className="solid usa-button"
                           href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
                         >
-                          Check out related jobs on Career One Stop
-                          <ArrowSquareOut size={20} />
+                          <span>
+                            <Briefcase size={32} />
+                            Check out related jobs on Career One Stop
+                          </span>
+                          <ArrowUpRight size={20} />
                         </a>
                       </div>
                     </div>
