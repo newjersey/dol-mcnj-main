@@ -250,6 +250,17 @@
       margin-bottom: 0;
     }
 
+    &.related-jobs {
+      .content {
+        a {
+          &.usa-button {
+            background-color: $primary-lighter;
+            border: $size-2 solid $primary-light;
+          }
+        }
+      }
+    }
+
     .content {
       padding: $size-16;
 
