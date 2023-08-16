@@ -217,8 +217,11 @@ a.link-format-blue {
 }
 
 .tag {
-  border-radius: 10px;
+  border-radius: $size-100;
   width: max-content;
+  padding: $size-5 $size-16 $size-5 $size-12;
+  display: flex;
+  gap: $size-6;
 }
 
 .MuiOutlinedInput.input {
