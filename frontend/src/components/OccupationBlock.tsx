@@ -357,7 +357,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         </a>
                       </div>
                     </div>
-                    <div className="box">
+                    <div className="box related-jobs">
                       <div className="heading-bar">
                         <Briefcase size={32} />
                         Related Job Opportunities
