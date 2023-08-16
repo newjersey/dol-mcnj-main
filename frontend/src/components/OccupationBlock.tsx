@@ -172,51 +172,16 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
           {props.content && (
             <div className="container plus">
               <div className="occupation-box">
-                <div className="heading">
-                  <h3>{props.content.title}</h3>
-                  {props.content.inDemand && <InDemandTag />}
-                  <p>{props.content.description}</p>
-                </div>
-                <div className="occu-row info">
-                  {props.content.tasks.length > 0 && (
-                    <div className="box description">
-                      <div className="heading-bar">
-                        <CalendarCheck size={32} />A Day in the Life
-                      </div>
-                      <div className="content">
-                        <ul>
-                          {tasks?.map((task: string) => (
-                            <li key={task}>
-                              <p>{task}</p>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <button
-                          title="See More"
-                          className="usa-button  usa-button--unstyled"
-                          onClick={() => {
-                            setShowMore(!showMore);
-                          }}
-                        >
-                          See
-                          {showMore ? (
-                            <>
-                              &nbsp;Less <CaretUp size={20} />
-                            </>
-                          ) : (
-                            <>
-                              &nbsp;More <CaretDown size={20} />
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                <div className="heading-row">
+                  <div className="heading">
+                    <h3>{props.content.title}</h3>
+                    {props.content.inDemand && <InDemandTag />}
+                    <p>{props.content.description}</p>
+                  </div>
                   <div className="meta">
                     <div>
                       <p className="title">
-                        Avg. Salary <Info size={15} weight="fill" />
+                        Avg. Salary <Info size={20} weight="fill" />
                       </p>
                       <p>
                         {props.content.medianSalary
@@ -226,7 +191,16 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                     </div>
                     <div>
                       <p className="title">
-                        Jobs Available <Info size={15} weight="fill" />
+                        Jobs Available <Info size={20} weight="fill" />
+                        <br />
+                        <strong>
+                          {props.content.openJobsCount ||
+                            numberWithCommas(
+                              props.inDemandList?.filter(
+                                (ind) => ind.idNumber === props.content?.soc,
+                              )[0].numberOfJobs,
+                            )}
+                        </strong>
                       </p>
                       <p>
                         <a
@@ -234,12 +208,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {props.content.openJobsCount ||
-                            numberWithCommas(
-                              props.inDemandList?.filter(
-                                (ind) => ind.idNumber === props.content?.soc,
-                              )[0].numberOfJobs,
-                            )}
+                          <span>See Current Job Openings</span>
+                          <ArrowSquareOut size={20} />
                         </a>
                       </p>
                     </div>
@@ -247,6 +217,41 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                 </div>
                 <div className="occu-row related">
                   <div>
+                    {props.content.tasks.length > 0 && (
+                      <div className="box description">
+                        <div className="heading-bar">
+                          <CalendarCheck size={32} />A Day in the Life
+                        </div>
+                        <div className="content">
+                          <ul>
+                            {tasks?.map((task: string) => (
+                              <li key={task}>
+                                <p>{task}</p>
+                              </li>
+                            ))}
+                          </ul>
+
+                          <button
+                            title="See More"
+                            className="usa-button  usa-button--unstyled"
+                            onClick={() => {
+                              setShowMore(!showMore);
+                            }}
+                          >
+                            See
+                            {showMore ? (
+                              <>
+                                &nbsp;Less <CaretUp size={20} />
+                              </>
+                            ) : (
+                              <>
+                                &nbsp;More <CaretDown size={20} />
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                     <div className="box">
                       <div className="heading-bar">
                         <GraduationCap size={32} />
