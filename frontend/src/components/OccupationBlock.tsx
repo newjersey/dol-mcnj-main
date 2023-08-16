@@ -21,6 +21,8 @@ import { CircularProgress } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { TrainingResult } from "../domain/Training";
 import { calendarLength } from "../utils/calendarLength";
+import { InDemandTag } from "./InDemandTag";
+import { SectionHeading } from "./modules/SectionHeading";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -56,6 +58,7 @@ export const ErrorMessage = ({ children, heading }: { children?: ReactNode; head
 export const OccupationBlock = (props: OccupationBlockProps) => {
   const [showMore, setShowMore] = useState<boolean>(false);
   const [sortedTraining, setSortedTraining] = useState<TrainingResult[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setShowMore(false);
@@ -77,7 +80,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
       });
 
       const uniqueTrainings = sortedCourses?.filter(
-        (training, index, self) => index === self.findIndex((t) => t.name === training.name)
+        (training, index, self) => index === self.findIndex((t) => t.name === training.name),
       );
 
       setSortedTraining(uniqueTrainings);
@@ -87,27 +90,53 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
   const { t } = useTranslation();
 
   const tasks = props.content?.tasks?.slice(0, showMore ? undefined : 3);
+
+  // if props.industry starts with a vowel, use "an" instead of "a"
+  const article = props.industry
+    ? ["a", "e", "i", "o", "u"].includes(props.industry.charAt(0).toLowerCase())
+      ? "an"
+      : "a"
+    : "a";
+
   return (
     <section className="occupation-block">
       <div className="container plus">
-        <p className="section-heading">{`In-Demand ${props.industry} Careers`}</p>
+        <SectionHeading
+          heading={`Select ${article} ${props.industry} occupation`}
+          description="Select a field and explore different career pathways or click the tool tip to learn more about it."
+        />
         <div className="occupation-selector">
           <label htmlFor="occupation-selector">
-            Select and in-demand {props.industry?.toLocaleLowerCase()} career
-            <select
-              id="occupation-selector"
-              onChange={(e) => {
-                props.setOccupation(e.target.value);
+            Select an in-demand {props.industry?.toLocaleLowerCase()} occupation
+            <button
+              type="button"
+              aria-label="occupation-selector"
+              className="select-button"
+              onClick={() => {
+                setOpen(!open);
               }}
             >
-              <option value="">Please choose an occupation</option>
-              {props.inDemandList?.map((item) => (
-                <option key={item.sys.id} value={item.idNumber}>
-                  {item.title}
-                </option>
-              ))}
-            </select>
+              {props.content?.title || "Please choose an occupation"}
+            </button>
           </label>
+          {open && (
+            <div className="dropdown-select">
+              {props.inDemandList?.map((item) => (
+                <button
+                  aria-label="occupation-item"
+                  type="button"
+                  key={item.sys.id}
+                  className="occupation"
+                  onClick={() => {
+                    props.setOccupation(item.idNumber);
+                    setOpen(false);
+                  }}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       {props.loading ? (
@@ -146,12 +175,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
               <div className="occupation-box">
                 <div className="heading">
                   <h3>{props.content.title}</h3>
-                  {props.content.inDemand && (
-                    <span className="tag">
-                      <ChartLineUp size={15} />
-                      &nbsp; In-Demand
-                    </span>
-                  )}
+                  {props.content.inDemand && <InDemandTag />}
                   <p>{props.content.description}</p>
                 </div>
                 <div className="occu-row info">
@@ -193,7 +217,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <div className="meta">
                     <div>
                       <p className="title">
-                        Avg. Salary <Info size={15} />
+                        Avg. Salary <Info size={15} weight="fill" />
                       </p>
                       <p>
                         {props.content.medianSalary
@@ -203,7 +227,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                     </div>
                     <div>
                       <p className="title">
-                        Jobs Available <Info size={15} />
+                        Jobs Available <Info size={15} weight="fill" />
                       </p>
                       <p>
                         <a
@@ -214,8 +238,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           {props.content.openJobsCount ||
                             numberWithCommas(
                               props.inDemandList?.filter(
-                                (ind) => ind.idNumber === props.content?.soc
-                              )[0].numberOfJobs
+                                (ind) => ind.idNumber === props.content?.soc,
+                              )[0].numberOfJobs,
                             )}
                         </a>
                       </p>
