@@ -30,7 +30,7 @@
         height: 100%;
         pointer-events: none;
         width: $size-32;
-        height: 220px;
+        height: calc(100% - $size-72);
         z-index: 1;
       }
     }
