@@ -176,20 +176,27 @@
       margin-bottom: $size-32;
       border-radius: $size-10;
       overflow: hidden;
-      padding: 0.5rem;
+      min-height: $size-120;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: $size-16;
 
       @media screen and (min-width: ($mobile-lg)) {
         width: 50%;
       }
 
       p {
+        line-height: 1;
         font-size: 1.5rem;
         margin: 0;
+        text-align: right;
 
         &.title {
           font-size: $size-16;
           display: flex;
           align-items: center;
+          text-align: left;
           gap: 0.5rem;
           margin-bottom: 0.6rem;
         }
