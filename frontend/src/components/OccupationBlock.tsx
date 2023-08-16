@@ -217,41 +217,47 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                 </div>
                 <div className="occu-row related">
                   <div>
-                    {props.content.tasks.length > 0 && (
-                      <div className="box description">
-                        <div className="heading-bar">
-                          <CalendarCheck size={32} />A Day in the Life
-                        </div>
-                        <div className="content">
-                          <ul>
-                            {tasks?.map((task: string) => (
-                              <li key={task}>
-                                <p>{task}</p>
-                              </li>
-                            ))}
-                          </ul>
-
-                          <button
-                            title="See More"
-                            className="usa-button  usa-button--unstyled"
-                            onClick={() => {
-                              setShowMore(!showMore);
-                            }}
-                          >
-                            See
-                            {showMore ? (
-                              <>
-                                &nbsp;Less <CaretUp size={20} />
-                              </>
-                            ) : (
-                              <>
-                                &nbsp;More <CaretDown size={20} />
-                              </>
-                            )}
-                          </button>
-                        </div>
+                    <div className="box description">
+                      <div className="heading-bar">
+                        <CalendarCheck size={32} />A Day in the Life
                       </div>
-                    )}
+                      <div className="content">
+                        {props.content.tasks.length > 0 ? (
+                          <>
+                            <ul>
+                              {tasks?.map((task: string) => (
+                                <li key={task}>
+                                  <p>{task}</p>
+                                </li>
+                              ))}
+                            </ul>
+
+                            <button
+                              title="See More"
+                              className="usa-button  usa-button--unstyled"
+                              onClick={() => {
+                                setShowMore(!showMore);
+                              }}
+                            >
+                              See
+                              {showMore ? (
+                                <>
+                                  &nbsp;Less <CaretUp size={20} />
+                                </>
+                              ) : (
+                                <>
+                                  &nbsp;More <CaretDown size={20} />
+                                </>
+                              )}
+                            </button>
+                          </>
+                        ) : (
+                          <p>
+                            <strong>This data is not yet available for this occupation.</strong>
+                          </p>
+                        )}
+                      </div>
+                    </div>
                     <div className="box">
                       <div className="heading-bar">
                         <GraduationCap size={32} />
@@ -260,7 +266,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       <div className="content">
                         <p
                           dangerouslySetInnerHTML={{
-                            __html: props.content.education,
+                            __html: props.content.education
+                              ? props.content.education
+                              : `<strong>This data is not yet available for this occupation.</strong>`,
                           }}
                         />
                       </div>
@@ -272,11 +280,17 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       </div>
                       <div className="content related-occupations">
                         <ul className="unstyled">
-                          {props.content.relatedOccupations?.map((occupation) => (
-                            <li key={occupation.soc}>
-                              <a href={`/occupation/${occupation.soc}`}>{occupation.title}</a>
+                          {props.content.relatedOccupations ? (
+                            props.content.relatedOccupations.map((occupation) => (
+                              <li key={occupation.soc}>
+                                <a href={`/occupation/${occupation.soc}`}>{occupation.title}</a>
+                              </li>
+                            ))
+                          ) : (
+                            <li>
+                              <strong>This data is not yet available for this occupation.</strong>
                             </li>
-                          ))}
+                          )}
                         </ul>
                       </div>
                     </div>
@@ -289,32 +303,40 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       </div>
                       <div className="content related-training">
                         <ul className="unstyled">
-                          {sortedTraining?.slice(0, 3).map((train) => (
-                            <li key={train.id}>
-                              <p>
-                                <a href={`/training/${train.id}`}>{train.name}</a>
+                          {sortedTraining && sortedTraining.length > 0 ? (
+                            sortedTraining.slice(0, 3).map((train) => (
+                              <li key={train.id}>
+                                <p>
+                                  <a href={`/training/${train.id}`}>{train.name}</a>
+                                </p>
+                                <span className="span-grid">
+                                  <span className="left">
+                                    <span>
+                                      <Hourglass size={32} />
+                                      {train.calendarLength
+                                        ? `${calendarLength(train.calendarLength)} to complete`
+                                        : "--"}
+                                    </span>
+                                    <span>
+                                      <MapPinLine size={32} />
+                                      {train.providerName}
+                                    </span>
+                                  </span>
+                                  <span className="right">
+                                    <span className="salary">
+                                      {train.totalCost && toUsCurrency(train.totalCost)}
+                                    </span>
+                                  </span>
+                                </span>
+                              </li>
+                            ))
+                          ) : (
+                            <li>
+                              <p className="mbd">
+                                <strong>This data is not yet available for this occupation.</strong>
                               </p>
-                              <span className="span-grid">
-                                <span className="left">
-                                  <span>
-                                    <Hourglass size={32} />
-                                    {train.calendarLength
-                                      ? `${calendarLength(train.calendarLength)} to complete`
-                                      : "--"}
-                                  </span>
-                                  <span>
-                                    <MapPinLine size={32} />
-                                    {train.providerName}
-                                  </span>
-                                </span>
-                                <span className="right">
-                                  <span className="salary">
-                                    {train.totalCost && toUsCurrency(train.totalCost)}
-                                  </span>
-                                </span>
-                              </span>
                             </li>
-                          ))}
+                          )}
                         </ul>
                         <a className="outline usa-button usa-button--outline" href="/search">
                           See more trainings on the Training Explorer
