@@ -9,7 +9,6 @@ HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json)
 PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json)
 DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json)
 
-# Debug: Print the environment variables' names
 echo "NODE_ENV value: $ENV"
 echo "Host env var: $HOST_ENV_VAR"
 echo "Password env var: $PASSWORD_ENV_VAR"
@@ -39,7 +38,7 @@ urlencode() {
 }
 
 ENCODED_DB_PASS=$(urlencode "$DB_PASSWORD")
-echo "[DEBUG] Checking encoded password length: ${#ENCODED_DB_PASS}"
+echo "Checking encoded password length: ${#ENCODED_DB_PASS}"
 
 DATABASE_URL="postgresql://postgres:${ENCODED_DB_PASS}@$DB_HOST:5432/$DB_NAME"
 
