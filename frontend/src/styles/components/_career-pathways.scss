@@ -7,15 +7,8 @@
     }
   }
 
-  .heading {
-    border-bottom: 0.5rem solid $ink;
-    padding-bottom: 0.8rem;
+  .sectionHeading {
     margin-bottom: 2.5rem;
-
-    h3 {
-      font-size: 2rem;
-      font-weight: bold;
-    }
   }
 
   .select {
@@ -71,6 +64,13 @@
       font-weight: normal;
       margin-top: $size-16;
       box-shadow: 0 10px 20px -15px $ink;
+      max-height: $size-330;
+      border-radius: $size-8;
+      position: absolute;
+      overflow: auto;
+      z-index: 11;
+      background-color: $white;
+      width: 100%;
 
       &[aria-expanded="true"] {
         display: block;

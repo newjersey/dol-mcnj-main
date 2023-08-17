@@ -11,6 +11,7 @@ $line-width-half: $size-3;
   align-items: center;
   gap: $gap;
   overflow: auto;
+  padding: $size-8 $size-2;
   -webkit-overflow-scrolling: touch;
 
   .arrow {
