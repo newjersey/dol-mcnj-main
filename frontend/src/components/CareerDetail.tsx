@@ -3,7 +3,7 @@ import { contentfulClient } from "../utils/contentfulClient";
 import { OccupationNodeProps, SelectProps } from "../types/contentful";
 import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
-  ArrowSquareOut,
+  ArrowUpRight,
   Briefcase,
   ChartLineUp,
   Info,
@@ -18,7 +18,7 @@ import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 import { SinglePath } from "./SinglePath";
 import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
-import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
+import { Selector } from "../svg/Selector";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -110,6 +110,11 @@ export const CareerDetail = ({
           </div>
 
           <div className="occupation-box">
+            <p>
+              <strong>{data.careerMapObject.title}</strong>
+            </p>
+
+            <SinglePath items={groupedArray} setSelected={setSelected} />
             <div className="breadcrumbs">
               <span>{breadcrumbs.industry}</span> / <span>{breadcrumbs.group}</span> /{" "}
               <span>{breadcrumbs.pathway}</span>
@@ -157,14 +162,13 @@ export const CareerDetail = ({
                 </div>
               </div>
             </div>
-            <SinglePath items={groupedArray} setSelected={setSelected} />
             <button
               className="map-toggle"
               type="button"
               onClick={() => {
                 setOpen(!open);
                 const element = document.querySelector(
-                  ".full-map .path-stop.active"
+                  ".full-map .path-stop.active",
                 ) as HTMLElement;
                 setTimeout(() => {
                   element.focus();
@@ -174,21 +178,7 @@ export const CareerDetail = ({
               <Info size={25} />
               View the full {groupTitle} pathway
             </button>
-            {data.careerMapObject.tasks && (
-              <div className="box">
-                <div className="heading-bar">
-                  <Briefcase size={25} />
-                  What do they do?
-                </div>
 
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{
-                    __html: parseMarkdownToHTML(data.careerMapObject.tasks),
-                  }}
-                />
-              </div>
-            )}
             <div className="occu-row related">
               <div>
                 <OccupationCopyColumn {...data.careerMapObject} />
@@ -213,16 +203,22 @@ export const CareerDetail = ({
                       className="usa-button"
                       href={`/search/${data.careerMapObject.title.toLowerCase()}`}
                     >
-                      See more trainings on the Training Explorer
-                      <ArrowSquareOut size={20} />
+                      <span>
+                        <Selector name="trainingBold" />
+                        See more trainings on the Training Explorer
+                      </span>
+                      <ArrowUpRight size={20} />
                     </a>
                     <a className="usa-button" href="/tuition-assistance">
-                      Learn more financial assistance opportunities
-                      <ArrowSquareOut size={20} />
+                      <span>
+                        <Selector name="supportBold" />
+                        Learn more financial assistance opportunities
+                      </span>
+                      <ArrowUpRight size={20} />
                     </a>
                   </div>
                 </div>
-                <div className="box">
+                <div className="box related-jobs">
                   <div className="heading-bar">
                     <Briefcase size={32} />
                     Related Job Opportunities
@@ -232,8 +228,11 @@ export const CareerDetail = ({
                       className="usa-button usa-button--secondary"
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${data.careerMapObject.title.toLowerCase()}&location=New%20Jersey&radius=0&source=NLX&currentpage=1&pagesize=100`}
                     >
-                      Check out related jobs on Career One Stop
-                      <ArrowSquareOut size={20} />
+                      <span>
+                        <Briefcase size={32} />
+                        Check out related jobs on Career One Stop
+                      </span>
+                      <ArrowUpRight size={20} />
                     </a>
                   </div>
                 </div>

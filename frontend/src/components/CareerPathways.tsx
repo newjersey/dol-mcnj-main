@@ -3,6 +3,7 @@ import { OccupationNodeProps, CareerMapProps } from "../types/contentful";
 import { PathwayGroup } from "./PathwayGroup";
 import { Client } from "../domain/Client";
 import { CareerDetail } from "./CareerDetail";
+import { SectionHeading } from "./modules/SectionHeading";
 
 interface SelectedProps {
   pathway?: OccupationNodeProps[];
@@ -45,9 +46,11 @@ export const CareerPathways = ({
     <div className="career-pathways">
       <div className="container plus">
         <div className="path-selector">
-          <div className="heading">
-            <h3>{industry} Career Pathways</h3>
-          </div>
+          <SectionHeading
+            headingLevel={3}
+            heading={`Select a ${industry} Field`}
+            description="Select a field and explore different career pathways or click the tool tip to learn more about it."
+          />
           <div className="groups">
             <p>
               <strong>Select a {industry} Field</strong>
