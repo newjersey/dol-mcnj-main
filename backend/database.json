@@ -5,14 +5,14 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4adlocal"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4adlocal"
     }
   },
@@ -21,42 +21,47 @@
     "driver": "pg",
     "host": { "ENV": "DB_HOST_TEST" },
     "user": "postgres",
-    "password": "",
+    "password": { "ENV": "DB_PASS_TEST" },
     "database": "d4adtest"
   },
   "awsdev": {
     "writer": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
+      "host": { "ENV": "DB_HOST_WRITER_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4addev"
     },
     "reader": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_AWSDEV" },
+      "host": { "ENV": "DB_HOST_READER_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4addev"
     }
   },
   "awstest": {
     "writer": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
+      "host": { "ENV": "DB_HOST_WRITER_TEST" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSTEST" },
+      "password": { "ENV": "DB_PASS_TEST" },
       "database": "d4adtest"
     },
     "reader": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_AWSTEST" },
+      "host": { "ENV": "DB_HOST_READER_TEST" },
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSTEST" },
+      "password": { "ENV": "DB_PASS_TEST" },
       "database": "d4adtest"
     }
   },
   "awsprod": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS_AWSPROD" },
+    "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
+    "database": "d4adprod",
     "writer": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
@@ -71,6 +76,5 @@
       "password": { "ENV": "DB_PASS_AWSPROD" },
       "database": "d4adprod"
     }
-
   }
 }
