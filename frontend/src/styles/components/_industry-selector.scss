@@ -9,6 +9,11 @@
     display: flex;
     gap: $size-32;
     flex-wrap: wrap;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      gap: $size-16;
+      flex-direction: column;
+    }
   }
 
   a {
@@ -21,7 +26,14 @@
     border-radius: $size-8;
     padding: $size-10 $size-16 $size-10 $size-12;
     min-width: 300px;
-    max-width: 400px;
+
+    @media screen and (min-width: ($tablet)) {
+      max-width: 400px;
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      width: 100%;
+    }
 
     &.active {
       font-weight: bold;

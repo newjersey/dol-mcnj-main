@@ -308,28 +308,33 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           {sortedTraining && sortedTraining.length > 0 ? (
                             sortedTraining.slice(0, 3).map((train) => (
                               <li key={train.id}>
-                                <p>
-                                  <a href={`/training/${train.id}`}>{train.name}</a>
-                                </p>
-                                <span className="span-grid">
-                                  <span className="left">
+                                <a href={`/training/${train.id}`}>
+                                  <p className="title">
+                                    {train.name}
+                                    <ArrowUpRight size={24} />
+                                  </p>
+                                  <span className="span-grid">
                                     <span>
-                                      <Hourglass size={32} />
-                                      {train.calendarLength
-                                        ? `${calendarLength(train.calendarLength)} to complete`
-                                        : "--"}
+                                      <GraduationCap size={32} />
+                                      {train.providerName}
                                     </span>
                                     <span>
                                       <MapPinLine size={32} />
-                                      {train.providerName}
+                                      {train.city}, {train.county}
+                                    </span>
+                                    <span className="last-line">
+                                      <span>
+                                        <Hourglass size={32} />
+                                        {train.calendarLength
+                                          ? `${calendarLength(train.calendarLength)} to complete`
+                                          : "--"}
+                                      </span>
+                                      <span className="salary">
+                                        {train.totalCost && toUsCurrency(train.totalCost)}
+                                      </span>
                                     </span>
                                   </span>
-                                  <span className="right">
-                                    <span className="salary">
-                                      {train.totalCost && toUsCurrency(train.totalCost)}
-                                    </span>
-                                  </span>
-                                </span>
+                                </a>
                               </li>
                             ))
                           ) : (
