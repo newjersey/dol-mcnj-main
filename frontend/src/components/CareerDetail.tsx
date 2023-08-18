@@ -5,7 +5,6 @@ import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
   ArrowUpRight,
   Briefcase,
-  ChartLineUp,
   Info,
   RocketLaunch,
   WarningCircle,
