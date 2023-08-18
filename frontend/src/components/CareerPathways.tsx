@@ -55,18 +55,19 @@ export const CareerPathways = ({
             <p>
               <strong>Select a {industry} Field</strong>
             </p>
-
-            {careerMaps.map((map, index) => (
-              <PathwayGroup
-                key={map.sys.id}
-                {...map}
-                icon={icon}
-                selected={selected.id ? selected : localData || {}}
-                setSelected={setSelected}
-                active={details?.groupId === map.sys.id || index === 0}
-                activeGroup={details?.groupId === map.sys.id}
-              />
-            ))}
+            <div className="selections">
+              {careerMaps.map((map, index) => (
+                <PathwayGroup
+                  key={map.sys.id}
+                  {...map}
+                  icon={icon}
+                  selected={selected.id ? selected : localData || {}}
+                  setSelected={setSelected}
+                  active={details?.groupId === map.sys.id || index === 0}
+                  activeGroup={details?.groupId === map.sys.id}
+                />
+              ))}
+            </div>
           </div>
         </div>
 

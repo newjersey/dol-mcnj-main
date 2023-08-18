@@ -66,7 +66,6 @@
     .heading {
       display: flex;
       align-items: flex-start;
-      flex-wrap: wrap;
       gap: 0.5rem;
       padding-bottom: 0;
       border-bottom: none;
@@ -120,15 +119,16 @@
 
     > div {
       width: 100%;
+      max-width: $size-520;
 
       &:first-of-type {
         @media screen and (min-width: ($tablet-xl)) {
-          width: calc(100% - $size-400);
+          max-width: calc(100% - $size-520);
         }
       }
 
       @media screen and (min-width: ($tablet)) {
-        width: 50%;
+        width: 100%;
       }
     }
 
@@ -145,7 +145,7 @@
 
       .box {
         @media screen and (min-width: ($tablet-xl)) {
-          width: calc(100% - $size-400);
+          width: calc(100% - $size-520);
         }
       }
     }
@@ -461,6 +461,8 @@
 
     .heading {
       max-width: $size-720;
+      flex-wrap: wrap;
+
       @media screen and (min-width: ($desktop)) {
         width: calc(100% - $size-520);
         margin-bottom: $size-32;
@@ -482,13 +484,11 @@
       background: white;
       padding: 2rem 0;
 
-      @media screen and (min-width: ($tablet)) {
-        padding: 2rem;
-      }
-
       .heading {
         margin-bottom: 1.5rem;
         max-width: 100%;
+        gap: $size-32;
+        flex-wrap: nowrap;
 
         @media screen and (max-width: ($desktop - 1)) {
           display: block;
@@ -511,19 +511,18 @@
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
+          max-width: $size-720;
 
           @media screen and (min-width: ($desktop)) {
-            width: calc(100% - 38rem);
+            width: calc(100% - $size-520);
           }
         }
 
         .meta {
           padding: $size-16 0;
           gap: $size-16;
-
-          @media screen and (min-width: ($desktop)) {
-            width: 37rem;
-          }
+          width: 100%;
+          max-width: $size-520;
 
           div {
             padding: 0.5rem $size-16;

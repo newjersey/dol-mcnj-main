@@ -19,6 +19,7 @@ import { SinglePath } from "./SinglePath";
 import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { Selector } from "../svg/Selector";
+import { InDemandTag } from "./InDemandTag";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -122,12 +123,7 @@ export const CareerDetail = ({
             <div className="heading">
               <div>
                 <h3>{data.careerMapObject.title}</h3>
-                {breadcrumbs.industry !== "Manufacturing" && data.careerMapObject.inDemand && (
-                  <span className="tag">
-                    <ChartLineUp size={15} />
-                    &nbsp; In-Demand
-                  </span>
-                )}
+                {data.careerMapObject.inDemand && <InDemandTag />}
                 {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
               </div>
               <div className="meta">
