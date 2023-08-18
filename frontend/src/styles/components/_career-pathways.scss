@@ -11,12 +11,16 @@
     margin-bottom: 2.5rem;
   }
 
+  .selections {
+    position: relative;
+    margin-bottom: $size-100;
+  }
+
   .select {
     display: none;
     margin: $size-16 0 2rem 3rem;
     max-width: 36rem;
     font-weight: bold;
-    position: relative;
     margin-bottom: 2.2rem;
 
     @media screen and (max-width: ($tablet - 1)) {

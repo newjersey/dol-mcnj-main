@@ -282,7 +282,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       </div>
                       <div className="content related-occupations">
                         <ul className="unstyled">
-                          {props.content.relatedOccupations ? (
+                          {props.content.relatedOccupations &&
+                          props.content.relatedOccupations.length > 0 ? (
                             props.content.relatedOccupations.map((occupation) => (
                               <li key={occupation.soc}>
                                 <a href={`/occupation/${occupation.soc}`}>{occupation.title}</a>
