@@ -1,8 +1,7 @@
-import { Path } from "@phosphor-icons/react";
 import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
-import { PathwayGroupProps, SelectProps } from "../types/contentful";
+import { PathwayGroupProps, SelectProps, SinglePathwayProps } from "../types/contentful";
 import { useContentfulClient } from "../utils/useContentfulClient";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 
 export const PathwayGroup = (props: {
@@ -13,6 +12,8 @@ export const PathwayGroup = (props: {
   active?: boolean;
   setSelected: (id: SelectProps) => void;
   selected?: SelectProps;
+  setOpen: (open: boolean) => void;
+  setPaths: (paths: { mapId: string; listTitle: string; items: SinglePathwayProps[] }) => void;
   title: string;
   icon: string;
 }) => {
@@ -22,7 +23,6 @@ export const PathwayGroup = (props: {
     query: CAREER_PATHWAY_QUERY,
     variables: { id: props.sys.id },
   });
-  const [open, setOpen] = useState(false);
 
   const fullMap = () => {
     if (data?.careerMap.pathways) {
@@ -52,12 +52,18 @@ export const PathwayGroup = (props: {
             name={`${props.icon}-pathways`}
             defaultChecked={props.active}
             onChange={(e) => {
-              const selects = document.querySelectorAll("select");
-              selects.forEach((select: HTMLSelectElement) => {
-                if (select.value !== e.target.value) {
-                  select.value = "";
-                }
+              props.setPaths({
+                mapId: data.careerMap.sys.id,
+                listTitle: data.careerMap.title,
+                items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
               });
+              localStorage.setItem(
+                "pathItems",
+                JSON.stringify({
+                  mapId: data.careerMap.sys.id,
+                  items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
+                }),
+              );
             }}
           />
 
@@ -67,67 +73,6 @@ export const PathwayGroup = (props: {
           >
             {data.careerMap.title}
           </label>
-          <div className="select">
-            <p>
-              <strong>Select an Occupation in {data.careerMap.title}</strong>
-            </p>
-
-            <button
-              type="button"
-              aria-label="occupation-selector"
-              className="select-button"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              {props.activeGroup
-                ? props.selected?.shortTitle || props.selected?.title || "---"
-                : "---"}
-            </button>
-
-            {open && (
-              <div className="dropdown-select">
-                {data.careerMap.pathways?.items.map((path) => (
-                  <div key={path.sys.id}>
-                    <p className="path-title">
-                      <Path size={32} />
-                      {path.title}
-                    </p>
-                    {path.occupationsCollection?.items.map((occupation) => (
-                      <button
-                        aria-label="occupation-item"
-                        type="button"
-                        key={occupation.sys.id}
-                        className="occupation"
-                        onClick={() => {
-                          props.setSelected({
-                            pathway: path.occupationsCollection?.items,
-                            id: occupation.sys.id,
-                            title: occupation.title,
-                            shortTitle: occupation.shortTitle,
-                            groupId: data.careerMap.sys.id,
-                          });
-                          localStorage.setItem(
-                            "occupation",
-                            JSON.stringify({
-                              pathway: path.occupationsCollection?.items,
-                              id: occupation.sys.id,
-                              shortTitle: occupation.shortTitle,
-                              title: occupation.title,
-                              groupId: data.careerMap.sys.id,
-                            })
-                          );
-                          setOpen(false);
-                        }}
-                      >
-                        {occupation.shortTitle || occupation.title}
-                      </button>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       )}
     </>
