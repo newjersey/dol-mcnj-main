@@ -3,11 +3,12 @@ import { contentfulClient } from "../utils/contentfulClient";
 import { OccupationNodeProps, SelectProps } from "../types/contentful";
 import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
+  ArrowSquareOut,
   ArrowUpRight,
+  ArrowsOutSimple,
   Briefcase,
   Info,
   RocketLaunch,
-  WarningCircle,
   X,
 } from "@phosphor-icons/react";
 import { Client } from "../domain/Client";
@@ -19,6 +20,7 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { Selector } from "../svg/Selector";
 import { InDemandTag } from "./InDemandTag";
+import { Tooltip } from "@material-ui/core";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -90,75 +92,27 @@ export const CareerDetail = ({
     <>
       {data && (
         <div className="career-detail occupation-block">
-          <div className={`full-map${map && open ? " open" : ""}`} id="full-career-map">
-            <button className="close" onClick={() => setOpen(false)}>
-              <X size={25} />
-            </button>
-            <div className="inner">
-              <div className="container">
-                <p className="map-title">{groupTitle} Career Pathways</p>
-                {map?.map((path) => (
-                  <SinglePath
-                    key={path.title}
-                    items={path.groups}
-                    setSelected={setSelected}
-                    setOpen={setOpen}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="occupation-box">
-            <p>
-              <strong>{data.careerMapObject.title}</strong>
-            </p>
-
-            <SinglePath items={groupedArray} setSelected={setSelected} />
-            <div className="breadcrumbs">
-              <span>{breadcrumbs.industry}</span> / <span>{breadcrumbs.group}</span> /{" "}
-              <span>{breadcrumbs.pathway}</span>
-            </div>
-            <div className="heading">
-              <div>
-                <h3>{data.careerMapObject.title}</h3>
-                {data.careerMapObject.inDemand && <InDemandTag />}
-                {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
-              </div>
-              <div className="meta">
-                <div>
-                  <p className="title">
-                    Median Salary <WarningCircle size={20} weight="fill" />
-                  </p>
-                  <p>
-                    {data.careerMapObject.medianSalary
-                      ? toUsCurrency(data.careerMapObject.medianSalary)
-                      : "---"}
-                  </p>
-                </div>
-                <div>
-                  <p className="title">
-                    Jobs Open in NJ <WarningCircle size={20} weight="fill" />
-                  </p>
-                  <p>
-                    {data.careerMapObject.numberOfAvailableJobs
-                      ? numberWithCommas(data.careerMapObject.numberOfAvailableJobs)
-                      : "---"}
-                  </p>
-                  <a
-                    href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
-                      data.careerMapObject.trainingSearchTerms || data.careerMapObject.title
-                    }&amp;location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    See current job openings
-                  </a>
+          <div className="container plus">
+            <div className={`full-map${map && open ? " open" : ""}`} id="full-career-map">
+              <button className="close" onClick={() => setOpen(false)}>
+                <X size={25} />
+              </button>
+              <div className="inner">
+                <div className="container">
+                  <p className="map-title">{groupTitle} Career Pathways</p>
+                  {map?.map((path) => (
+                    <SinglePath
+                      key={path.title}
+                      items={path.groups}
+                      setSelected={setSelected}
+                      setOpen={setOpen}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
             <button
-              className="map-toggle"
+              className="explore-button"
               type="button"
               onClick={() => {
                 setOpen(!open);
@@ -170,9 +124,70 @@ export const CareerDetail = ({
                 }, 100);
               }}
             >
-              <Info size={25} />
-              View the full {groupTitle} pathway
+              <ArrowsOutSimple size={25} weight="bold" />
+              See full <strong>{groupTitle} Pathways</strong>
+              map
             </button>
+          </div>
+
+          <div className="occupation-box">
+            <div className="container plus">
+              <p>
+                <strong>{data.careerMapObject.title}</strong>
+              </p>
+              <SinglePath items={groupedArray} setSelected={setSelected} />
+              <div className="breadcrumbs">
+                <span>{breadcrumbs.industry}</span> / <span>{breadcrumbs.group}</span> /{" "}
+                <span>{breadcrumbs.pathway}</span>
+              </div>
+              <div className="heading">
+                <div>
+                  <h3>{data.careerMapObject.title}</h3>
+                  {data.careerMapObject.inDemand && <InDemandTag />}
+                  {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
+                </div>
+                <div className="meta">
+                  <div>
+                    <p className="title">
+                      Median Salary{" "}
+                      <Tooltip placement="top" title="TEST">
+                        <Info size={20} weight="fill" />
+                      </Tooltip>
+                    </p>
+                    <p>
+                      {data.careerMapObject.medianSalary
+                        ? toUsCurrency(data.careerMapObject.medianSalary)
+                        : "---"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="title">
+                      Jobs Open in NJ{" "}
+                      <Tooltip placement="top" title="TEST">
+                        <Info size={20} weight="fill" />
+                      </Tooltip>
+                    </p>
+                    <p>
+                      <strong>
+                        {data.careerMapObject.numberOfAvailableJobs
+                          ? numberWithCommas(data.careerMapObject.numberOfAvailableJobs)
+                          : "---"}
+                      </strong>
+                    </p>
+                    <a
+                      href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
+                        data.careerMapObject.trainingSearchTerms || data.careerMapObject.title
+                      }&amp;location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>See current job openings</span>
+                      <ArrowSquareOut size={20} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="occu-row related">
               <div>

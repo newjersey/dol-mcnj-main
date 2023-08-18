@@ -1,6 +1,10 @@
 .occupation-block {
   margin: $size-60 0;
 
+  .explore-button {
+    margin: 0 $size-8 $size-8 0;
+  }
+
   button {
     &.usa-button--unstyled {
       color: $primary;
@@ -16,15 +20,6 @@
         padding: 0;
       }
     }
-  }
-
-  .map-toggle {
-    color: $primary;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: underline;
-    margin-bottom: 2rem;
   }
 
   .sectionHeading {
@@ -117,9 +112,18 @@
       flex-direction: column;
     }
 
+    @media screen and (min-width: ($tablet)) {
+      max-width: 1294px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
     > div {
       width: 100%;
-      max-width: $size-520;
+
+      @media screen and (min-width: ($tablet)) {
+        max-width: $size-520;
+      }
 
       &:first-of-type {
         @media screen and (min-width: ($tablet-xl)) {
@@ -530,10 +534,14 @@
 
             p {
               margin: 0;
+
+              &.title {
+                margin-bottom: $size-8;
+              }
             }
 
             a {
-              font-size: 0.8rem;
+              font-size: $size-16;
             }
           }
         }

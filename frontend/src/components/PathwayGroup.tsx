@@ -44,9 +44,8 @@ export const PathwayGroup = (props: {
   return (
     <>
       {data && (
-        <div className="usa-radio">
+        <div className="button-radio">
           <input
-            className="usa-radio__input"
             id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
             type="radio"
             name={`${props.icon}-pathways`}
@@ -61,16 +60,14 @@ export const PathwayGroup = (props: {
                 "pathItems",
                 JSON.stringify({
                   mapId: data.careerMap.sys.id,
+                  listTitle: data.careerMap.title,
                   items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
                 }),
               );
             }}
           />
 
-          <label
-            className="usa-radio__label"
-            htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}
-          >
+          <label htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}>
             {data.careerMap.title}
           </label>
         </div>

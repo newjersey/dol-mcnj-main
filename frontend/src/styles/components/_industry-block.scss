@@ -1,17 +1,4 @@
 .industry-block {
-  .explore-button {
-    background-color: $primary-lighter;
-    display: flex;
-    align-items: center;
-    gap: $size-8;
-    padding: $size-4 $size-16;
-    border-radius: $size-4;
-
-    &:hover {
-      box-shadow: $shadow-2;
-    }
-  }
-
   .panel,
   .overlay {
     transition-duration: 0.3s;
@@ -178,5 +165,18 @@
         font-size: 1.5rem;
       }
     }
+  }
+}
+
+.explore-button {
+  background-color: $primary-lighter;
+  display: flex;
+  align-items: center;
+  gap: $size-8;
+  padding: $size-8 $size-16;
+  border-radius: $size-4;
+
+  &:hover {
+    box-shadow: $shadow-2;
   }
 }

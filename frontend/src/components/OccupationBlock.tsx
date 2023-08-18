@@ -17,7 +17,7 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { ReactNode, useEffect, useState } from "react";
 import { Error } from "../domain/Error";
 import { useTranslation } from "react-i18next";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Tooltip } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { TrainingResult } from "../domain/Training";
 import { calendarLength } from "../utils/calendarLength";
@@ -183,7 +183,10 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <div className="meta">
                     <div>
                       <p className="title">
-                        Avg. Salary <Info size={20} weight="fill" />
+                        Median Salary
+                        <Tooltip placement="top" title="TEST">
+                          <Info size={20} weight="fill" />
+                        </Tooltip>
                       </p>
                       <p>
                         {props.content.medianSalary
@@ -193,7 +196,10 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                     </div>
                     <div>
                       <p className="title">
-                        Jobs Available <Info size={20} weight="fill" />
+                        Jobs Open in NJ
+                        <Tooltip placement="top" title="TEST">
+                          <Info size={20} weight="fill" />
+                        </Tooltip>
                         <br />
                         <strong>
                           {props.content.openJobsCount ||
