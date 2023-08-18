@@ -1,40 +1,23 @@
 .career-pathways {
   padding: 6rem 0;
 
-  .container {
-    @media screen and (max-width: ($tablet - 1)) {
-      padding: 0;
-    }
-  }
-
   .sectionHeading {
     margin-bottom: 2.5rem;
   }
 
   .select {
-    margin: $size-16 0 2rem 3rem;
-    max-width: 36rem;
+    max-width: $size-560;
     font-weight: bold;
-    margin-bottom: 2.2rem;
-
-    @media screen and (max-width: ($tablet - 1)) {
-      margin-left: 0;
-    }
-  }
-
-  input[type="radio"] {
-    &:checked {
-      + label {
-        + .select {
-          display: block;
-        }
-      }
-    }
   }
 
   .groups {
     background: white;
-    padding: $size-16;
+    position: relative;
+    margin-top: $size-96;
+
+    .select {
+      position: relative;
+    }
 
     .select-button {
       margin-top: 0.7rem;
@@ -113,6 +96,24 @@
       @media screen and (max-width: ($tablet - 1)) {
         margin-left: $size-16;
         margin-right: $size-16;
+      }
+    }
+  }
+
+  .selections {
+    display: flex;
+    align-items: center;
+    gap: $size-32;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      gap: $size-16;
+    }
+
+    .button-radio {
+      @media screen and (max-width: ($tablet - 1)) {
+        width: 100%;
+        max-width: none;
       }
     }
   }

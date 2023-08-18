@@ -1,3 +1,45 @@
+.pathway-button {
+  display: flex;
+  align-items: center;
+  gap: $size-8;
+  text-decoration: none;
+  outline: $size-1 solid $ink;
+  justify-content: center;
+  border-radius: $size-8;
+  padding: $size-10 $size-16 $size-10 $size-12;
+  min-width: 300px;
+  min-height: $size-48;
+  cursor: pointer;
+
+  @media screen and (min-width: ($tablet)) {
+    max-width: 400px;
+  }
+
+  @media screen and (max-width: ($tablet - 1)) {
+    width: 100%;
+  }
+
+  &.active {
+    font-weight: bold;
+    background-color: $tertiary-lighter;
+  }
+
+  &.active,
+  &:hover {
+    outline-width: $size-2;
+    outline-color: $tertiary;
+    border-color: $tertiary;
+  }
+
+  svg {
+    height: $size-24;
+  }
+
+  span {
+    color: $ink;
+  }
+}
+
 .industry-selector {
   padding: $size-48 0 0;
 
@@ -17,42 +59,33 @@
   }
 
   a {
-    display: flex;
-    align-items: center;
-    gap: $size-8;
-    text-decoration: none;
-    outline: $size-1 solid $ink;
-    justify-content: center;
-    border-radius: $size-8;
-    padding: $size-10 $size-16 $size-10 $size-12;
-    min-width: 300px;
+    @extend .pathway-button;
+  }
+}
 
-    @media screen and (min-width: ($tablet)) {
-      max-width: 400px;
-    }
+.button-radio {
+  appearance: none;
 
-    @media screen and (max-width: ($tablet - 1)) {
-      width: 100%;
-    }
+  label {
+    @extend .pathway-button;
+  }
 
-    &.active {
-      font-weight: bold;
-      background-color: $tertiary-lighter;
-    }
+  input {
+    height: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 
-    &.active,
-    &:hover {
-      outline-width: $size-2;
-      outline-color: $tertiary;
-      border-color: $tertiary;
-    }
-
-    svg {
-      height: $size-24;
-    }
-
-    span {
-      color: $ink;
+    &:checked {
+      + label {
+        outline-width: $size-2;
+        outline-color: $tertiary;
+        border-color: $tertiary;
+        font-weight: bold;
+        background-color: $tertiary-lighter;
+      }
     }
   }
 }

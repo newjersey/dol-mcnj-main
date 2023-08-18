@@ -197,11 +197,15 @@ $line-width-half: $size-3;
     padding: 0.3rem 0.8rem;
     position: relative;
 
-    &:hover,
+    &:hover {
+      border-color: $tertiary;
+      outline: $size-1 solid $tertiary;
+    }
+
     &.active {
-      background: $light-purple;
-      border-color: $bright-purple;
-      outline: $size-2 solid $bright-purple;
+      background: $tertiary-lighter;
+      border-color: $tertiary;
+      outline: $size-1 solid $tertiary;
     }
 
     &:before {

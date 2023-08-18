@@ -7,7 +7,7 @@
   h6 {
     color: $ink;
     padding-bottom: $size-16;
-    border-bottom: $size-8 solid;
+    border-bottom: $size-1 solid $base-lighter;
     font-size: 2rem;
     display: block;
 
@@ -22,9 +22,9 @@
 
     &:before {
       content: "";
-      height: $size-8;
+      height: $size-1;
       width: 100%;
-      background: $ink;
+      background: $base-lighter;
       position: absolute;
       left: 0;
       top: 50%;
@@ -103,7 +103,7 @@
   }
 
   .description {
-    margin: $size-8 0 0;
+    margin: $size-10 0 0;
     font-size: $size-16;
   }
 }
