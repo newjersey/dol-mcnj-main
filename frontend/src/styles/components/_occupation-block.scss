@@ -58,6 +58,11 @@
       padding: $size-32 0 0;
     }
 
+    .path-title {
+      font-size: $size-18;
+      font-weight: bold;
+    }
+
     .heading {
       display: flex;
       align-items: flex-start;
@@ -480,13 +485,13 @@
   }
 
   &.career-detail {
-    margin-top: 2rem;
+    margin-top: $size-32;
 
     .occupation-box {
       border: 0;
       border-radius: 0;
       background: white;
-      padding: 2rem 0;
+      padding: $size-32 0 0;
 
       .heading {
         margin-bottom: 1.5rem;
@@ -559,33 +564,30 @@
     .breadcrumbs {
       color: $ink;
       font-size: 0.9rem;
-      margin-bottom: 2rem;
+      margin-top: $size-40;
+      margin-bottom: $size-22;
 
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (
+            $tablet - 1,
+          )) {
         padding: 0 $size-16;
       }
     }
   }
 
   .full-map {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-color: white;
     z-index: 20;
-    padding: 2rem;
+    height: 0;
     overflow: auto;
     visibility: hidden;
     -webkit-overflow-scrolling: touch;
     opacity: 0;
     pointer-events: none;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
 
     &.open {
       visibility: visible;
+      height: auto;
       opacity: 1;
       pointer-events: all;
     }
@@ -601,8 +603,8 @@
 
     .close {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: $size-32;
+      right: $size-32;
       cursor: pointer;
     }
   }
@@ -611,7 +613,7 @@
     margin-top: 0.7rem;
     width: 100%;
     appearance: none;
-    padding: 0.7rem 2rem 0.7rem 0.7rem;
+    padding: 0.7rem $size-32 0.7rem 0.7rem;
     position: relative;
     border: $size-1 solid $base-lighter;
     border-radius: 5px;

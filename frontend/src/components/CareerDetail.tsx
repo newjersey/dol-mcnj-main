@@ -5,6 +5,7 @@ import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
   ArrowSquareOut,
   ArrowUpRight,
+  ArrowsInSimple,
   ArrowsOutSimple,
   Briefcase,
   Info,
@@ -37,11 +38,16 @@ export const CareerDetail = ({
   breadcrumbs,
   pathway,
   groupTitle,
+  selected,
   setSelected,
+  mapOpen,
+  setMapOpen,
 }: {
   detailsId: string;
   client: Client;
   groupTitle: string;
+  mapOpen: boolean;
+  setMapOpen: (open: boolean) => void;
   breadcrumbs: {
     industry: string;
     group?: string;
@@ -53,7 +59,11 @@ export const CareerDetail = ({
 }) => {
   const [data, setData] = useState<OccupationDataProps>();
   const [map, setMap] = useState<MapProps[]>();
-  const [open, setOpen] = useState(false);
+  const [filteredMap, setFilteredMap] = useState<MapProps[]>(); // eslint-disable-line
+
+  useEffect(() => {
+    setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
+  }, [map]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,7 +89,7 @@ export const CareerDetail = ({
 
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setOpen(false);
+        setMapOpen(false);
       }
     };
 
@@ -93,29 +103,11 @@ export const CareerDetail = ({
       {data && (
         <div className="career-detail occupation-block">
           <div className="container plus">
-            <div className={`full-map${map && open ? " open" : ""}`} id="full-career-map">
-              <button className="close" onClick={() => setOpen(false)}>
-                <X size={25} />
-              </button>
-              <div className="inner">
-                <div className="container">
-                  <p className="map-title">{groupTitle} Career Pathways</p>
-                  {map?.map((path) => (
-                    <SinglePath
-                      key={path.title}
-                      items={path.groups}
-                      setSelected={setSelected}
-                      setOpen={setOpen}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
             <button
               className="explore-button"
               type="button"
               onClick={() => {
-                setOpen(!open);
+                setMapOpen(!mapOpen);
                 const element = document.querySelector(
                   ".full-map .path-stop.active",
                 ) as HTMLElement;
@@ -124,22 +116,53 @@ export const CareerDetail = ({
                 }, 100);
               }}
             >
-              <ArrowsOutSimple size={25} weight="bold" />
-              See full <strong>{groupTitle} Pathways</strong>
+              {mapOpen ? (
+                <ArrowsInSimple size={25} weight="bold" />
+              ) : (
+                <ArrowsOutSimple size={25} weight="bold" />
+              )}
+              See {mapOpen ? "less" : "full"} <strong>{groupTitle} Pathways</strong>
               map
             </button>
           </div>
 
           <div className="occupation-box">
             <div className="container plus">
-              <p>
-                <strong>{data.careerMapObject.title}</strong>
-              </p>
-              <SinglePath items={groupedArray} setSelected={setSelected} />
+              <SinglePath
+                heading={selected?.pathTitle}
+                items={groupedArray}
+                setSelected={setSelected}
+                setOpen={setMapOpen}
+                onClick={() => {
+                  setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
+                }}
+              />
+
+              <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
+                <button className="close" onClick={() => setMapOpen(false)}>
+                  <X size={25} />
+                </button>
+                <div className="inner">
+                  {filteredMap?.map((path) => (
+                    <SinglePath
+                      key={path.title}
+                      heading={path.title}
+                      items={path.groups}
+                      setSelected={setSelected}
+                      setOpen={setMapOpen}
+                      onClick={() => {
+                        setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+
               <div className="breadcrumbs">
                 <span>{breadcrumbs.industry}</span> / <span>{breadcrumbs.group}</span> /{" "}
                 <span>{breadcrumbs.pathway}</span>
               </div>
+
               <div className="heading">
                 <div>
                   <h3>{data.careerMapObject.title}</h3>

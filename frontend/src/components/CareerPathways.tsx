@@ -10,6 +10,7 @@ interface SelectedProps {
   pathway?: OccupationNodeProps[];
   id?: string;
   title?: string;
+  pathTitle?: string;
   shortTitle?: string;
   groupId?: string;
 }
@@ -28,6 +29,7 @@ export const CareerPathways = ({
   const [selected, setSelected] = useState<SelectedProps>({});
   const [localData, setLocalData] = useState<SelectedProps>();
   const [fieldChanged, setFieldChanged] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   const [paths, setPaths] = useState<{
     mapId: string;
     listTitle: string;
@@ -62,6 +64,9 @@ export const CareerPathways = ({
     pathway: details.title || "",
   };
 
+  const dropValue = !fieldChanged ? details?.shortTitle || details?.title || "---" : "---";
+  const notEmpty = dropValue !== "---";
+
   return (
     <div className="career-pathways">
       <div className="container plus">
@@ -71,6 +76,7 @@ export const CareerPathways = ({
             heading={`Select a ${industry} Field`}
             description="Select a field and explore different career pathways or click the tool tip to learn more about it."
           />
+
           <p>
             <strong>Select a {industry} Field</strong>
           </p>
@@ -85,6 +91,7 @@ export const CareerPathways = ({
                 active={details?.groupId === map.sys.id}
                 activeGroup={details?.groupId === map.sys.id}
                 setPaths={setPaths}
+                setMapOpen={setMapOpen}
                 setOpen={setOpen}
               />
             ))}
@@ -99,6 +106,7 @@ export const CareerPathways = ({
           />
 
           <div className="select">
+            Select a {paths?.listTitle.toLowerCase()} occupation
             <button
               type="button"
               aria-label="occupation-selector"
@@ -109,7 +117,6 @@ export const CareerPathways = ({
             >
               {!fieldChanged ? details?.shortTitle || details?.title || "---" : "---"}
             </button>
-
             {open && (
               <div className="dropdown-select">
                 {paths?.items.map((path) => (
@@ -130,6 +137,7 @@ export const CareerPathways = ({
                             pathway: path.occupationsCollection?.items,
                             id: occupation.sys.id,
                             title: occupation.title,
+                            pathTitle: path.title,
                             shortTitle: occupation.shortTitle,
                             groupId: paths.mapId,
                           });
@@ -138,11 +146,13 @@ export const CareerPathways = ({
                             JSON.stringify({
                               pathway: path.occupationsCollection?.items,
                               id: occupation.sys.id,
+                              pathTitle: path.title,
                               shortTitle: occupation.shortTitle,
                               title: occupation.title,
                               groupId: paths.mapId,
                             }),
                           );
+                          setMapOpen(false);
                           setOpen(false);
                         }}
                       >
@@ -157,10 +167,12 @@ export const CareerPathways = ({
         </div>
       </div>
 
-      {details.id && (
+      {details.id && notEmpty && (
         <CareerDetail
           detailsId={details.id}
           breadcrumbs={breadcrumbs}
+          setMapOpen={setMapOpen}
+          mapOpen={mapOpen}
           client={client}
           pathway={selected.id ? selected.pathway : localData?.pathway || []}
           selected={selected.id ? selected : localData || {}}

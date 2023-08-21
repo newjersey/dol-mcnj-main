@@ -1,5 +1,5 @@
 .career-pathways {
-  padding: 6rem 0;
+  padding: 6rem 0 0;
 
   .sectionHeading {
     margin-bottom: 2.5rem;
@@ -13,7 +13,7 @@
   .groups {
     background: white;
     position: relative;
-    margin-top: $size-96;
+    margin: $size-96 0 $size-48;
 
     .select {
       position: relative;

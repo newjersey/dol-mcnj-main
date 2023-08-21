@@ -12,6 +12,7 @@ export const PathwayGroup = (props: {
   active?: boolean;
   setSelected: (id: SelectProps) => void;
   selected?: SelectProps;
+  setMapOpen: (open: boolean) => void;
   setOpen: (open: boolean) => void;
   setPaths: (paths: { mapId: string; listTitle: string; items: SinglePathwayProps[] }) => void;
   title: string;
