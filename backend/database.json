@@ -56,7 +56,7 @@
       "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSTEST" },
-      "database": "d4adprod"
+      "database": "d4adtest"
     },
     "reader": {
       "driver": "pg",
