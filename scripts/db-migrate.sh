@@ -6,7 +6,7 @@ source ./backend/.env
 
 ENV=${NODE_ENV}
 HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json)
-PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json)
+PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json)
 DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json)
 
 echo "NODE_ENV value: $ENV"
