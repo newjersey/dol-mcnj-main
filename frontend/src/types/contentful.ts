@@ -58,6 +58,7 @@ export interface SelectProps {
   pathway?: OccupationNodeProps[];
   title?: string;
   shortTitle?: string;
+  pathTitle?: string;
   id?: string;
   groupId?: string;
   groupTitle?: string;
