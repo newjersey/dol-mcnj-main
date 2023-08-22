@@ -35,6 +35,7 @@
       "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSDEV" },
+      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSDEV" },
       "database": "d4addev"
     },
     "reader": {
@@ -56,6 +57,7 @@
       "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSTEST" },
+      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSTEST" },
       "database": "d4adtest"
     },
     "reader": {
@@ -77,6 +79,7 @@
       "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSPROD" },
+      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSPROD" },
       "database": "d4adprod"
     },
     "reader": {
