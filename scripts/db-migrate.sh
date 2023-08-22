@@ -6,7 +6,15 @@ source ./backend/.env
 
 ENV=${NODE_ENV}
 HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json)
-PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json)
+
+# Check for encoded password and fallback to regular password if not present
+PASSWORD_ENCODED=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json)
+if [[ "$PASSWORD_ENCODED" != "null" ]]; then
+    PASSWORD_ENV_VAR=$PASSWORD_ENCODED
+else
+    PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json)
+fi
+
 DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json)
 
 echo "NODE_ENV value: $ENV"
