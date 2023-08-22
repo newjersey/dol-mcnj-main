@@ -4,6 +4,7 @@ export const CAREER_PATHWAY_QUERY = `query Maps($id: String!) {
     sys {
       id
     }
+    learnMoreBoxes
     pathways: pathwaysCollection {
       items {
         sys {
