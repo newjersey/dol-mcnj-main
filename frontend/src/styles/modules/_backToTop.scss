@@ -1,26 +1,25 @@
 .backToTop {
   position: fixed;
-  bottom: 1rem;
+  bottom: $size-16;
   cursor: pointer;
-  right: 1rem;
+  right: $size-16;
   background: white;
   width: $size-48;
   height: $size-48;
+  border-radius: $size-4;
   justify-content: center;
   display: flex;
   align-items: center;
   padding: 0;
   color: $primary;
   border: 1px solid $primary;
-
-  @media screen and (min-width: ($tablet-lg)) {
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-  }
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
 
   &:hover {
     @media screen and (min-width: ($tablet-lg)) {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+      outline: $size-2 solid $primary-light;
     }
   }
 

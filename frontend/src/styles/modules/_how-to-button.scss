@@ -1,0 +1,105 @@
+.how-to-button {
+  position: fixed;
+  z-index: 1;
+  bottom: $size-16;
+  right: $size-16 + $size-48 + $size-16;
+  height: $size-48;
+  background-color: $primary;
+  color: $white;
+  width: $size-240;
+  border-radius: $size-4;
+  padding: $size-12 $size-20;
+  display: flex;
+  align-items: center;
+  gap: $size-8;
+  transition-duration: 0.2s;
+  transition-property: right;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    @media screen and (min-width: ($tablet-lg)) {
+      outline: $size-2 solid $primary-light;
+    }
+  }
+
+  span {
+    width: calc(100% - $size-48);
+  }
+
+  &.buttonHide {
+    right: $size-16;
+  }
+}
+.how-to-panel {
+  .panel {
+    position: fixed;
+    border-left: $size-4 solid $tertiary-vivid;
+    top: 0;
+    right: -100%;
+    background: $white;
+    padding: 3rem;
+    max-width: 800px;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: 3rem $size-16;
+    }
+
+    &.open {
+      right: 0;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: $size-16;
+      cursor: pointer;
+      z-index: 11;
+    }
+  }
+
+  .panel,
+  .overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: $ink;
+    opacity: 0;
+    z-index: 9;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
+  }
+
+  .content {
+    max-width: $size-480;
+    margin: 0 auto;
+
+    .heading {
+      font-size: $size-32;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: $size-32;
+    }
+
+    ol {
+      font-size: $size-16;
+      line-height: 2;
+    }
+  }
+}

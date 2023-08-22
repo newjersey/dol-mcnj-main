@@ -17,6 +17,7 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { CtaBanner } from "../components/CtaBanner";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { Stepper } from "../components/Stepper";
+import { HowToUse } from "../components/modules/HowToUse";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -162,6 +163,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           )}
         </>
       )}
+      <HowToUse />
     </Layout>
   );
 };
