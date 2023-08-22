@@ -59,7 +59,7 @@ export const CareerDetail = ({
 }) => {
   const [data, setData] = useState<OccupationDataProps>();
   const [map, setMap] = useState<MapProps[]>();
-  const [filteredMap, setFilteredMap] = useState<MapProps[]>(); // eslint-disable-line
+  const [filteredMap, setFilteredMap] = useState<MapProps[]>();
 
   useEffect(() => {
     setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
