@@ -576,20 +576,25 @@
   }
 
   .full-map {
-    background-color: white;
-    z-index: 20;
-    height: 0;
     overflow: auto;
-    visibility: hidden;
     -webkit-overflow-scrolling: touch;
-    opacity: 0;
-    pointer-events: none;
+
+    .extra {
+      background-color: white;
+      z-index: 20;
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
 
     &.open {
-      visibility: visible;
-      height: auto;
-      opacity: 1;
-      pointer-events: all;
+      .extra {
+        visibility: visible;
+        height: auto;
+        opacity: 1;
+        pointer-events: all;
+      }
     }
 
     .map-title {
