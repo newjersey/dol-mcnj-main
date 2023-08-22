@@ -128,33 +128,34 @@ export const CareerDetail = ({
 
           <div className="occupation-box">
             <div className="container plus">
-              <SinglePath
-                heading={selected?.pathTitle}
-                items={groupedArray}
-                setSelected={setSelected}
-                setOpen={setMapOpen}
-                onClick={() => {
-                  setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
-                }}
-              />
-
               <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
                 <button className="close" onClick={() => setMapOpen(false)}>
                   <X size={25} />
                 </button>
                 <div className="inner">
-                  {filteredMap?.map((path) => (
-                    <SinglePath
-                      key={path.title}
-                      heading={path.title}
-                      items={path.groups}
-                      setSelected={setSelected}
-                      setOpen={setMapOpen}
-                      onClick={() => {
-                        setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
-                      }}
-                    />
-                  ))}
+                  <SinglePath
+                    heading={selected?.pathTitle}
+                    items={groupedArray}
+                    setSelected={setSelected}
+                    setOpen={setMapOpen}
+                    onClick={() => {
+                      setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
+                    }}
+                  />
+                  <div className="extra">
+                    {filteredMap?.map((path) => (
+                      <SinglePath
+                        key={path.title}
+                        heading={path.title}
+                        items={path.groups}
+                        setSelected={setSelected}
+                        setOpen={setMapOpen}
+                        onClick={() => {
+                          setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
