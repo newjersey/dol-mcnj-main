@@ -17,7 +17,7 @@ export const IndustryFieldDrawer = ({
     if (typeof window !== "undefined") {
       const overlay = document.querySelector(`#overlay-${slugify(title)}`);
       if (overlay) {
-        overlay.addEventListener("click", (e) => {
+        overlay.addEventListener("click", () => {
           setOpen(false);
         });
       }
