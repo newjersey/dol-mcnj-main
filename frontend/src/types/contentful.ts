@@ -84,6 +84,11 @@ export interface PathwayGroupProps {
   sys: {
     id: string;
   };
+  learnMoreBoxes: {
+    title: string;
+    copy?: string;
+    tags?: string[];
+  }[];
   pathways?: {
     items: SinglePathwayProps[];
   };

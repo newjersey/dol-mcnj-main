@@ -177,7 +177,7 @@ export const CareerPathways = ({
           pathway={selected.id ? selected.pathway : localData?.pathway || []}
           selected={selected.id ? selected : localData || {}}
           setSelected={setSelected}
-          groupTitle={careerMaps.filter((m) => m.sys.id === selected.groupId)[0]?.title || ""}
+          groupTitle={paths?.listTitle}
         />
       )}
     </div>

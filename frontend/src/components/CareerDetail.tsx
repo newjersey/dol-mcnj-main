@@ -45,7 +45,7 @@ export const CareerDetail = ({
 }: {
   detailsId: string;
   client: Client;
-  groupTitle: string;
+  groupTitle?: string;
   mapOpen: boolean;
   setMapOpen: (open: boolean) => void;
   breadcrumbs: {

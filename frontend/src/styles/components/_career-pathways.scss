@@ -102,7 +102,7 @@
 
   .selections {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: $size-32;
     flex-wrap: wrap;
 

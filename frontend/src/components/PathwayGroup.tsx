@@ -3,6 +3,7 @@ import { PathwayGroupProps, SelectProps, SinglePathwayProps } from "../types/con
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { useEffect } from "react";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
+import { IndustryFieldDrawer } from "./IndustryFieldDrawer";
 
 export const PathwayGroup = (props: {
   sys: {
@@ -43,36 +44,44 @@ export const PathwayGroup = (props: {
   }, [data, props.activeGroup]);
 
   return (
-    <>
+    <div>
       {data && (
-        <div className="button-radio">
-          <input
-            id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
-            type="radio"
-            name={`${props.icon}-pathways`}
-            defaultChecked={props.active}
-            onChange={(e) => {
-              props.setPaths({
-                mapId: data.careerMap.sys.id,
-                listTitle: data.careerMap.title,
-                items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
-              });
-              localStorage.setItem(
-                "pathItems",
-                JSON.stringify({
+        <>
+          <div className="button-radio">
+            <input
+              id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
+              type="radio"
+              name={`${props.icon}-pathways`}
+              defaultChecked={props.active}
+              onChange={(e) => {
+                props.setPaths({
                   mapId: data.careerMap.sys.id,
                   listTitle: data.careerMap.title,
                   items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
-                }),
-              );
-            }}
-          />
+                });
+                localStorage.setItem(
+                  "pathItems",
+                  JSON.stringify({
+                    mapId: data.careerMap.sys.id,
+                    listTitle: data.careerMap.title,
+                    items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
+                  }),
+                );
+              }}
+            />
 
-          <label htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}>
-            {data.careerMap.title}
-          </label>
-        </div>
+            <label htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}>
+              {data.careerMap.title}
+            </label>
+          </div>
+          {data.careerMap.learnMoreBoxes && (
+            <IndustryFieldDrawer
+              title={data.careerMap.title}
+              boxes={data.careerMap.learnMoreBoxes}
+            />
+          )}
+        </>
       )}
-    </>
+    </div>
   );
 };
