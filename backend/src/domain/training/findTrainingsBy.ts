@@ -21,10 +21,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             try {
               const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
               const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
-                  .filter((localException: LocalException) => localException.cipcode === program.cipcode)
-                  .map((localException: LocalException) =>
-                      convertToTitleCaseIfUppercase(localException.county)
-                  );
+                  .filter(localException => localException.cipcode === program.cipcode)
+                  .map(localException => convertToTitleCaseIfUppercase(localException.county));
 
               return {
                 id: program.programid,
