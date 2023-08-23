@@ -27,7 +27,7 @@
     "libphonenumber-js": "^1.10.41",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-i18next": "^13.1.2",
+    "react-i18next": "^13.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^5.1.6"
   },
