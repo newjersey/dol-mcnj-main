@@ -33,6 +33,7 @@ export const HowToUse = () => {
   return (
     <>
       <button
+        aria-label="How to use Career Pathways"
         className={`how-to-button${show ? "" : " buttonHide"}`}
         onClick={() => {
           setOpen(!open);
@@ -44,7 +45,11 @@ export const HowToUse = () => {
       <div className="how-to-panel">
         <div className={`overlay${open ? " open" : ""}`} id="overlay-how-to-use" />
         <div className={`panel${open ? " open" : ""}`}>
-          <button className="close" onClick={() => setOpen(false)}>
+          <button
+            aria-label="How to use Career Pathways panel close"
+            className="close"
+            onClick={() => setOpen(false)}
+          >
             <X size={22} />
           </button>
           <div className="content">

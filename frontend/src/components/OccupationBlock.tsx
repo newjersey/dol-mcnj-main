@@ -111,7 +111,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
             Select an in-demand {props.industry?.toLocaleLowerCase()} occupation
             <button
               type="button"
-              aria-label="occupation-selector"
+              aria-label="occupation selector"
               className="select-button"
               onClick={() => {
                 setOpen(!open);

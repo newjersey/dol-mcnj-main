@@ -40,6 +40,7 @@ export const IndustryBlock = ({
     <section className="industry-block">
       <div className="container plus button">
         <button
+          aria-label="Explore Industry"
           type="button"
           title="Explore Industry"
           className="explore-button"
@@ -57,7 +58,13 @@ export const IndustryBlock = ({
 
       <div className={`overlay${open ? " open" : ""}`} />
       <div className={`panel${open ? " open" : ""}`}>
-        <button title="Close" className="close" onClick={() => setOpen(false)} type="button">
+        <button
+          aria-label="Close"
+          title="Close"
+          className="close"
+          onClick={() => setOpen(false)}
+          type="button"
+        >
           <X size={28} />
           <div className="sr-only">Close</div>
         </button>
