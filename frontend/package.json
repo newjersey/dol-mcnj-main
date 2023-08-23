@@ -76,7 +76,7 @@
     "cypress": "^12.17.4",
     "cypress-axe": "^1.4.0",
     "eslint": "^8.47.0",
-    "eslint-config-prettier": "^8.10.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-cypress": "^2.14.0",
     "good-fences": "^1.2.0",
     "prettier": "3.0.2",
