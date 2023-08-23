@@ -9,12 +9,18 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
     pageBanner {
       ...PageBanner
     }
-    footerCtaHeading
-    footerCtaLink {
-      copy
-      url
+    stepsHeading
+    stepsCollection(limit: 3) {
+      items {
+        ...IconCard
+      }
     }
-
+    exploreHeading
+    exploreButtonsCollection(limit:4) {
+      items {
+        ...LinkObject
+      }
+    }
     industries: industriesCollection(limit: 5) {
       items {
         sys {
@@ -27,4 +33,6 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
   }
 }
 ${fragments.pageBanner}
+${fragments.iconCard}
+${fragments.linkObject}
 `;

@@ -1,50 +1,23 @@
 .career-pathways {
-  background-color: $lighter-green;
-  padding: 6rem 0;
+  padding: 6rem 0 0;
 
-  .container {
-    @media screen and (max-width: ($tablet - 1)) {
-      padding: 0;
-    }
-  }
-
-  .heading {
-    border-bottom: 0.5rem solid $ink;
-    padding-bottom: 0.8rem;
+  .sectionHeading {
     margin-bottom: 2.5rem;
-
-    h3 {
-      font-size: 2rem;
-      font-weight: bold;
-    }
   }
 
   .select {
-    display: none;
-    margin: $size-16 0 2rem 3rem;
-    max-width: 36rem;
+    max-width: $size-560;
     font-weight: bold;
-    position: relative;
-    margin-bottom: 2.2rem;
-
-    @media screen and (max-width: ($tablet - 1)) {
-      margin-left: 0;
-    }
-  }
-
-  input[type="radio"] {
-    &:checked {
-      + label {
-        + .select {
-          display: block;
-        }
-      }
-    }
   }
 
   .groups {
     background: white;
-    padding: $size-16;
+    position: relative;
+    margin: $size-96 0 $size-48;
+
+    .select {
+      position: relative;
+    }
 
     .select-button {
       margin-top: 0.7rem;
@@ -72,6 +45,13 @@
       font-weight: normal;
       margin-top: $size-16;
       box-shadow: 0 10px 20px -15px $ink;
+      max-height: $size-330;
+      border-radius: $size-8;
+      position: absolute;
+      overflow: auto;
+      z-index: 11;
+      background-color: $white;
+      width: 100%;
 
       &[aria-expanded="true"] {
         display: block;
@@ -116,6 +96,24 @@
       @media screen and (max-width: ($tablet - 1)) {
         margin-left: $size-16;
         margin-right: $size-16;
+      }
+    }
+  }
+
+  .selections {
+    display: flex;
+    align-items: flex-start;
+    gap: $size-32;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      gap: $size-16;
+    }
+
+    .button-radio {
+      @media screen and (max-width: ($tablet - 1)) {
+        width: 100%;
+        max-width: none;
       }
     }
   }

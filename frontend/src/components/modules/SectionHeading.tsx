@@ -1,21 +1,21 @@
 import { Heading } from "./Heading";
 
 interface SectionHeadingProps {
-  heading: string;
-  theme?: "blue" | "green" | "purple" | "navy";
-  strikeThrough?: boolean;
   className?: string;
   description?: string;
+  heading: string;
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  strikeThrough?: boolean;
+  theme?: "blue" | "green" | "purple" | "navy";
 }
 
 const SectionHeading = ({
-  heading,
   className,
-  strikeThrough,
-  headingLevel = 2,
-  theme,
   description,
+  heading,
+  headingLevel = 2,
+  strikeThrough,
+  theme,
 }: SectionHeadingProps) => {
   return (
     <div

@@ -27,13 +27,14 @@
     font-weight: 400;
     margin: 0 0 $size-16;
     color: $primary-lighter;
+    font-size: $size-40;
 
     @media screen and (min-width: ($tablet-md)) {
-      font-size: 4.4rem;
+      font-size: $size-72;
     }
 
     @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
-      font-size: 3rem;
+      font-size: $size-48;
     }
   }
 
@@ -45,6 +46,13 @@
     align-items: center;
     gap: 0.5rem;
     padding: $size-16 1.5rem;
+
+    &:hover {
+      @media screen and (min-width: ($tablet-md)) {
+        background-color: $secondary-light;
+        color: $ink;
+      }
+    }
 
     @media screen and (max-width: ($tablet-md - 1)) {
       width: 100%;

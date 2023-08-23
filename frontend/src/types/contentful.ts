@@ -58,6 +58,7 @@ export interface SelectProps {
   pathway?: OccupationNodeProps[];
   title?: string;
   shortTitle?: string;
+  pathTitle?: string;
   id?: string;
   groupId?: string;
   groupTitle?: string;
@@ -83,6 +84,11 @@ export interface PathwayGroupProps {
   sys: {
     id: string;
   };
+  learnMoreBoxes: {
+    title: string;
+    copy?: string;
+    tags?: string[];
+  }[];
   pathways?: {
     items: SinglePathwayProps[];
   };
@@ -263,11 +269,15 @@ export interface CareerPathwaysPageData {
     };
     title: string;
     pageBanner: PageBannerProps;
-    footerCtaHeading: string;
-    footerCtaLink: LinkObjectProps;
     industries: {
       items: IndustryProps[];
     };
+    stepsHeading: string;
+    stepsCollection: {
+      items: IconCardProps[];
+    };
+    exploreHeading: string;
+    exploreButtonsCollection: { items: LinkObjectProps[] };
   };
 }
 
