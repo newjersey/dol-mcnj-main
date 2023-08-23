@@ -20,6 +20,7 @@
 @import "pages/occupation-page";
 @import "pages/search-results-page";
 @import "pages/training-page";
+@import "pages/career-pathways";
 
 // GLOBAL
 @import "global/betaBanner";
@@ -38,6 +39,7 @@
 @import "modules/error-message";
 @import "modules/financial-resource";
 @import "modules/footer-banner";
+@import "modules/how-to-button";
 @import "modules/iconCard";
 @import "modules/mixins";
 @import "modules/path-menu";
@@ -56,6 +58,7 @@
 @import "components/homeBanner";
 @import "components/how-to";
 @import "components/industry-block";
+@import "components/industry-field-drawer";
 @import "components/industry-selector";
 @import "components/interrupter";
 @import "components/labelBox";
@@ -216,8 +219,11 @@ a.link-format-blue {
 }
 
 .tag {
-  border-radius: 10px;
+  border-radius: $size-100;
   width: max-content;
+  padding: $size-5 $size-16 $size-5 $size-12;
+  display: flex;
+  gap: $size-6;
 }
 
 .MuiOutlinedInput.input {

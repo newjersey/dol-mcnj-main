@@ -40,6 +40,9 @@
   }
 
   &.theme-green {
+    strong {
+      color: $secondary-dark;
+    }
     .step {
       .number {
         background-color: $secondary;
@@ -48,6 +51,9 @@
   }
 
   &.theme-blue {
+    strong {
+      color: $primary-dark;
+    }
     .step {
       .number {
         background-color: $primary;
@@ -56,6 +62,9 @@
   }
 
   &.theme-purple {
+    strong {
+      color: $tertiary-dark;
+    }
     .step {
       .number {
         background-color: $tertiary;
@@ -64,6 +73,9 @@
   }
 
   &.theme-navy {
+    strong {
+      color: $info-darker;
+    }
     .step {
       .number {
         background-color: $info-darker;
