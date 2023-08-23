@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   build-and-test:
+    circleci_ip_ranges: true
     docker:
       - image: cimg/node:18.16.1-browsers
       - image: circleci/postgres:12
@@ -44,6 +45,7 @@ jobs:
           paths:
             - .
   deploy:
+    circleci_ip_ranges: true
     docker:
       - image: circleci/python:3.7
     steps:
