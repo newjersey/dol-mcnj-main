@@ -317,9 +317,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Training not found", { exact: false })).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", () => {
@@ -327,9 +325,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(
-      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
 
   it("converts carriage returns to newlines in the description", () => {
