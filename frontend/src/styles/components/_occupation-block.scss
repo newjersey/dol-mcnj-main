@@ -586,12 +586,16 @@
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
+      width: 0;
+      overflow: hidden;
     }
 
     &.open {
       .extra {
         visibility: visible;
         height: auto;
+        width: auto;
+        overflow: visible;
         opacity: 1;
         pointer-events: all;
       }
@@ -617,6 +621,7 @@
   .select-button {
     margin-top: 0.7rem;
     width: 100%;
+    color: $ink;
     appearance: none;
     padding: 0.7rem $size-32 0.7rem 0.7rem;
     position: relative;

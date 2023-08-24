@@ -11,5 +11,9 @@ interface HeadingProps {
 export const Heading = ({ level, children, className }: HeadingProps) => {
   const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
 
-  return <HeadingTag className={className}>{children}</HeadingTag>;
+  return (
+    <HeadingTag className={`heading-tag ${className ? ` ${className}` : ""}`}>
+      {children}
+    </HeadingTag>
+  );
 };

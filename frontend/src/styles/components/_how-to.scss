@@ -5,10 +5,6 @@
     padding: 3rem 0;
   }
 
-  @media screen and (max-width: ($tablet)) {
-    display: none;
-  }
-
   h3 {
     font-size: 2rem;
     font-weight: bold;
@@ -42,6 +38,12 @@
       width: $size-320;
       justify-content: center;
       margin: 0 auto;
+    }
+  }
+
+  .stepper {
+    @media screen and (min-width: ($tablet-md)) {
+      margin: 80px 0 0;
     }
   }
 }
