@@ -48,10 +48,8 @@
     padding: $size-16 1.5rem;
 
     &:hover {
-      @media screen and (min-width: ($tablet-md)) {
-        background-color: $secondary-light;
-        color: $ink;
-      }
+      background-color: $secondary-light;
+      color: $ink;
     }
 
     @media screen and (max-width: ($tablet-md - 1)) {
