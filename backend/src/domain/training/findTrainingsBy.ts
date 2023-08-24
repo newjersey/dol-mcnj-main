@@ -5,7 +5,7 @@ import { formatZip } from "../utils/formatZipCode";
 import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
-import { LocalException, Program } from "./Program";
+import { Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import * as Sentry from "@sentry/node";
@@ -21,10 +21,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             try {
               const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
               const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
-                  .filter((localException: LocalException) => localException.cipcode === program.cipcode)
-                  .map((localException: LocalException) =>
-                      convertToTitleCaseIfUppercase(localException.county)
-                  );
+                  .filter(localException => localException.cipcode === program.cipcode)
+                  .map(localException => convertToTitleCaseIfUppercase(localException.county));
 
               return {
                 id: program.programid,
