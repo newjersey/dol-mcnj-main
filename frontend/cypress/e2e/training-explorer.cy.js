@@ -4,7 +4,7 @@ describe("Training Explorer Page", () => {
     cy.injectAxe();
 
     cy.contains("Certifications, Professional Development, Apprenticeships & More!").should(
-      "exist"
+      "exist",
     );
     cy.checkA11y();
   });

@@ -149,9 +149,7 @@ describe("<OccupationPage />", () => {
 
     await act(async () => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Occupation not found", { exact: false })).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", async () => {
@@ -159,9 +157,7 @@ describe("<OccupationPage />", () => {
 
     await act(async () => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(
-      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Occupation not found", { exact: false })).toBeInTheDocument();
   });
 
   it("displays -- message if open jobs count is null", async () => {

@@ -25,6 +25,21 @@
   margin-top: 0.5rem;
 }
 
+.countyBlock {
+  background-color: #f2e4d4;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  a {
+    &:visited {
+      color: $blue;
+    }
+    color: $blue;
+  }
+}
+
 .stat-block-stack {
   display: flex;
   flex-direction: column;

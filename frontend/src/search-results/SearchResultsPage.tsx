@@ -162,6 +162,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       <p>Verify and adjust any filters that you might have applied to your search.</p>
       <p>{t("SearchResultsPage.searchTips2")}</p>
       <p>{t("SearchResultsPage.searchTips3")}</p>
+
       <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
         {isOpen ? t("SearchResultsPage.seeLessText") : t("SearchResultsPage.seeMoreText")}
         <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>

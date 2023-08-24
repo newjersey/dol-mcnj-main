@@ -23,7 +23,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
   return (
     <Layout client={props.client}>
-      <div className="home-page">
+      <div className="home-page" id="homeContent">
         {data && (
           <>
             <HomeBanner

@@ -8,6 +8,7 @@
     "dotenv",
     "express",
     "knex",
-    "supertest"
+    "supertest",
+    "winston"
   ]
 }

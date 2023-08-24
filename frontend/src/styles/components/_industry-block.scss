@@ -1,4 +1,8 @@
 .industry-block {
+  button {
+    color: $ink;
+  }
+
   .panel,
   .overlay {
     transition-duration: 0.3s;
@@ -172,6 +176,7 @@
   background-color: $primary-lighter;
   display: flex;
   align-items: center;
+  color: $ink;
   gap: $size-8;
   padding: $size-8 $size-16;
   border-radius: $size-4;

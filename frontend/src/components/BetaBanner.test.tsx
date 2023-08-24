@@ -15,3 +15,4 @@ describe("<BetaBanner />", () => {
     expect(banner).not.toHaveClass("no-header-margin");
   });
 });
+
