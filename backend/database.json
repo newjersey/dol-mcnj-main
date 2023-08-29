@@ -5,14 +5,14 @@
       "driver": "pg",
       "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4adlocal"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_DEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_DEV" },
       "database": "d4adlocal"
     }
   },
@@ -21,31 +21,43 @@
     "driver": "pg",
     "host": { "ENV": "DB_HOST_TEST" },
     "user": "postgres",
-    "password": "",
+    "password": { "ENV": "DB_PASS_TEST" },
     "database": "d4adtest"
   },
   "awsdev": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS_AWSDEV" },
+    "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
+    "database": "d4addev",
     "writer": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_AWSDEV" },
+      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSDEV" },
       "database": "d4addev"
     },
     "reader": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_READER_AWSDEV" },
       "user": "postgres",
-      "password": "",
+      "password": { "ENV": "DB_PASS_AWSDEV" },
       "database": "d4addev"
     }
   },
   "awstest": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS_AWSTEST" },
+    "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
+    "database": "d4adtest",
     "writer": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSTEST" },
+      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSTEST" },
       "database": "d4adtest"
     },
     "reader": {
@@ -57,11 +69,17 @@
     }
   },
   "awsprod": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS_AWSPROD" },
+    "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
+    "database": "d4adprod",
     "writer": {
       "driver": "pg",
       "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSPROD" },
+      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSPROD" },
       "database": "d4adprod"
     },
     "reader": {
@@ -71,6 +89,5 @@
       "password": { "ENV": "DB_PASS_AWSPROD" },
       "database": "d4adprod"
     }
-
   }
 }

@@ -487,7 +487,28 @@ export const TrainingPage = (props: Props): ReactElement => {
   } else if (error === Error.SYSTEM_ERROR) {
     return <SomethingWentWrongPage client={props.client} />;
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage client={props.client} />;
+    return (
+      <NotFoundPage client={props.client} heading="Training not found">
+        <>
+          <p>
+            This training is no longer listed or we may be experiencing technical difficulties.
+            However, you can try out these other helpful links:
+          </p>
+          <ul className="unstyled">
+            <li style={{ marginTop: "22px" }}>
+              <a style={{ color: "#005EA2" }} href="/search">
+                Find Training Opportunities
+              </a>
+            </li>
+            <li style={{ marginTop: "22px" }}>
+              <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
+                Tuition Assistance Resources
+              </a>
+            </li>
+          </ul>
+        </>
+      </NotFoundPage>
+    );
   } else {
     return <></>;
   }

@@ -1,0 +1,1 @@
+DELETE FROM localexceptioncips WHERE cipcode='520908';
