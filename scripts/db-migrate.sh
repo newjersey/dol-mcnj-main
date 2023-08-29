@@ -6,7 +6,15 @@ source ./backend/.env
 
 ENV=${NODE_ENV}
 HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json)
-PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json)
+
+# Check for encoded password and fallback to regular password if not present
+PASSWORD_ENCODED=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json)
+if [[ "$PASSWORD_ENCODED" != "null" ]]; then
+    PASSWORD_ENV_VAR=$PASSWORD_ENCODED
+else
+    PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json)
+fi
+
 DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json)
 
 echo "NODE_ENV value: $ENV"
@@ -19,30 +27,9 @@ DB_PASSWORD=${!PASSWORD_ENV_VAR}
 echo "Database host: $DB_HOST"
 echo "Database password length: ${#DB_PASSWORD}"
 
-urlencode() {
-    local encoded=""
-    local char
-    local hex
-
-    for (( i=0; i<${#1}; i++ )); do
-        char="${1:$i:1}"
-        case "$char" in
-            [a-zA-Z0-9.~_-]) encoded+="$char" ;;
-            *) printf -v hex '%02X' "'$char"
-               encoded+="%$hex"
-               ;;
-        esac
-    done
-
-    echo "$encoded"
-}
-
-ENCODED_DB_PASS=$(urlencode "$DB_PASSWORD")
-echo "Checking encoded password length: ${#ENCODED_DB_PASS}"
-
-DATABASE_URL="postgresql://postgres:${ENCODED_DB_PASS}@$DB_HOST:5432/$DB_NAME"
+DATABASE_URL="postgresql://postgres:${DB_PASSWORD}@$DB_HOST:5432/$DB_NAME"
 
 export DATABASE_URL
 echo "Database URL: $DATABASE_URL"
-
+echo "DB PW: $ENCODED_DB_PASS"
 npm --prefix=backend run db-migrate up
