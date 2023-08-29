@@ -435,19 +435,21 @@ export interface IconLinkProps {
   description?: string;
 }
 
+export interface IntroBlockSectionProps {
+  link?: {
+    copy?: string;
+    url?: string;
+  };
+  title?: string;
+  heading?: string;
+  message?: string;
+}
+
 export interface IntroBlocksProps {
   heading?: string;
   message?: string;
   sectionsHeading?: string;
-  sections?: {
-    link?: {
-      copy?: string;
-      url?: string;
-    };
-    title?: string;
-    heading?: string;
-    message?: string;
-  }[];
+  sections?: IntroBlockSectionProps[];
 }
 
 export interface HomepageProps {
