@@ -47,8 +47,6 @@
   }
 
   &.color-blue {
-    border-color: $primary;
-
     h1,
     h2,
     h3,
@@ -56,13 +54,12 @@
     h5,
     h6,
     p {
+      border-bottom: $size-2 solid $primary;
       color: $primary;
     }
   }
 
   &.color-green {
-    border-color: $secondary;
-
     h1,
     h2,
     h3,
@@ -70,13 +67,12 @@
     h5,
     h6,
     p {
+      border-bottom: $size-2 solid $secondary;
       color: $secondary;
     }
   }
 
   &.color-purple {
-    border-color: $tertiary;
-
     h1,
     h2,
     h3,
@@ -84,13 +80,12 @@
     h5,
     h6,
     p {
+      border-bottom: $size-2 solid $tertiary;
       color: $tertiary;
     }
   }
 
   &.color-navy {
-    border-color: $info-darker;
-
     h1,
     h2,
     h3,
@@ -98,6 +93,7 @@
     h5,
     h6,
     p {
+      border-bottom: $size-2 solid $info-darker;
       color: $info-darker;
     }
   }
