@@ -108,7 +108,7 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Smartphone Programmer").within(() => {
+    cy.contains("iOS Developer").within(() => {
       cy.contains("In Demand").should("not.exist");
     });
 
