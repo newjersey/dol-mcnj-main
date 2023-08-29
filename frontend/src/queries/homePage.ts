@@ -20,6 +20,7 @@ export const HOMEPAGE_QUERY = `{
         description
       }
     }
+    introBlocks
     jobSearchToolLinksCollection(limit: 15) {
       items {
         sys {
