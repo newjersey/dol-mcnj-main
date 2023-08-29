@@ -40,10 +40,7 @@
   }
 
   .card-slider {
-    .sectionHeading {
-      background: white;
-    }
-    &:nth-child(2n - 1) {
+    &:nth-child(2n) {
       background-color: $base-cool;
 
       .sectionHeading {
