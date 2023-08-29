@@ -30,9 +30,9 @@ const cloudwatchLogger = createLogger({
         new WinstonCloudWatch({
             logGroupName: logGroupName,
             logStreamName: logStreamName,
-            awsRegion: process.env.AWS_REGION,
-            createLogGroup: true,
-            createLogStream: true,
+            awsRegion: process.env.AWS_REGION
+/*            createLogGroup: true,
+            createLogStream: true,*/
         }),
     ],
 });
