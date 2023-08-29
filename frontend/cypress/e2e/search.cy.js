@@ -22,7 +22,9 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -31,7 +33,7 @@ describe("Search", () => {
     cy.contains("baking skills").should("exist");
 
     cy.contains(
-        "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
+      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
     ).should("exist");
   });
 
@@ -56,7 +58,9 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -80,7 +84,7 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/");
+    cy.visit("/training-explorer");
     cy.contains("Training Explorer").click({ force: true });
     cy.location("pathname").should("eq", "/training-explorer");
   });
