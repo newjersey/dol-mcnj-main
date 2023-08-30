@@ -12,6 +12,7 @@
   p {
     font-size: 1.3rem;
     line-height: 1.5;
+    margin: 2rem 0;
 
     @media screen and (min-width: ($tablet-md)) {
       padding-right: 8rem;
@@ -39,16 +40,16 @@
   }
 
   button {
-    background-color: $secondary-lighter;
+    background-color: $accent-cool-lighter;
     color: $ink;
-    margin-top: 2rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-top: 0.5rem;
     padding: $size-16 1.5rem;
 
     &:hover {
-      background-color: $secondary-light;
+      background-color: $accent-cool-light;
       color: $ink;
     }
 
@@ -93,7 +94,7 @@
 
   .image {
     @media screen and (min-width: ($desktop-lg)) {
-      width: 555px;
+      width: 455px;
     }
 
     @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
