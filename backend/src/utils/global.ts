@@ -9,8 +9,9 @@ import sentryLogger from './sentryLogger';
   const originalConsoleLog = console.log;
 
   console.log = function (message: string, status = "info") {
-    if (statusDict.indexOf(status) !== -1) {
-      status = "info";
+    if (statusDict.indexOf(status) === -1) {
+      originalConsoleLog(message);
+      return;
     }
 
     switch (status) {
@@ -24,12 +25,16 @@ import sentryLogger from './sentryLogger';
       case "info":
         cloudwatchLogger.info(message);
         break;
+        // Assuming you have an http method for cloudwatchLogger
       case "http":
-        cloudwatchLogger.log('http', message);
+        cloudwatchLogger.info(`HTTP: ${message}`);  // Modify this line if you have a dedicated method for HTTP
         break;
       case "debug":
       case "verbose":
-        cloudwatchLogger.debug(message);
+        cloudwatchLogger.info(message);  // Assuming you want to treat "debug" and "verbose" as "info" for CloudWatch
+        break;
+      default:
+        originalConsoleLog(message);
         break;
     }
   };
@@ -52,6 +57,6 @@ import sentryLogger from './sentryLogger';
 
   console.debug = function (...args) {
     const message = args.join(' ');
-    cloudwatchLogger.debug(message);
+    cloudwatchLogger.info(message);  // Assuming you want to treat "debug" as "info" for CloudWatch
   };
 })();
