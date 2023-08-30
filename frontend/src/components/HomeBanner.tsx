@@ -27,7 +27,7 @@ export const HomeBanner = ({ heading, subheading, image, buttonCopy }: HomeBanne
               }}
             >
               {buttonCopy}
-              <ArrowDown weight="bold" />
+              <ArrowDown size={32} />
             </button>
           )}
         </div>

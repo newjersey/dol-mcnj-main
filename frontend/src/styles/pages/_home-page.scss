@@ -34,16 +34,29 @@
 
         a {
           height: 100%;
+
+          @media screen and (max-width: ($tablet-md - 1)) {
+            display: flex;
+            align-items: center;
+            gap: $size-16;
+            padding: $size-8 $size-16;
+
+            p {
+              margin: 0;
+              font-size: $size-22;
+            }
+
+            svg {
+              height: $size-32;
+            }
+          }
         }
       }
     }
   }
 
   .card-slider {
-    .sectionHeading {
-      background: white;
-    }
-    &:nth-child(2n - 1) {
+    &:nth-child(2n) {
       background-color: $base-cool;
 
       .sectionHeading {

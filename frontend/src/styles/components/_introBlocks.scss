@@ -1,0 +1,137 @@
+.introBlocks {
+  @media screen and (min-width: ($tablet)) {
+    display: flex;
+  }
+
+  .box {
+    background-color: $info-lighter;
+
+    @media screen and (min-width: ($tablet)) {
+      width: 50%;
+    }
+
+    h2 {
+      font-size: $size-40;
+      font-weight: 600;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-size: $size-32;
+      }
+
+      @media screen and (max-width: ($tablet - 1)) {
+        font-size: $size-24;
+      }
+    }
+
+    &:nth-child(2n) {
+      background-color: $primary-lighter;
+
+      h2 {
+        @media screen and (min-width: ($tablet-lg)) {
+          font-size: $size-32;
+        }
+      }
+
+      .inner {
+        margin: 0 auto 0 0;
+
+        @media screen and (min-width: ($tablet)) {
+          padding: $size-48 $size-16 $size-48 $size-56;
+        }
+        @media screen and (min-width: ($tablet-lg)) {
+          padding: $size-96 $size-16 $size-96 $size-48;
+        }
+      }
+    }
+
+    .inner {
+      max-width: $size-640;
+      margin: 0 0 0 auto;
+      padding: $size-96 $size-48 $size-96 $size-16;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        padding: $size-48 $size-56 $size-48 $size-16;
+      }
+
+      @media screen and (max-width: ($tablet - 1)) {
+        padding: $size-48 $size-16;
+      }
+
+      p {
+        &.heading {
+          font-size: $size-22;
+          font-weight: 600;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $size-16;
+        margin: $size-16 0;
+      }
+
+      button {
+        border-radius: $size-100;
+        text-align: center;
+        padding: $size-8 $size-16;
+
+        &:nth-of-type(4n-1) {
+          outline: $size-2 solid $primary;
+
+          &:hover {
+            @media screen and (min-width: ($tablet-md)) {
+              outline: $size-4 solid $primary;
+            }
+          }
+        }
+        &:nth-of-type(4n-2) {
+          outline: $size-2 solid $tertiary;
+
+          &:hover {
+            @media screen and (min-width: ($tablet-md)) {
+              outline: $size-4 solid $tertiary;
+            }
+          }
+        }
+        &:nth-of-type(4n-3) {
+          outline: $size-2 solid $secondary;
+
+          &:hover {
+            @media screen and (min-width: ($tablet-md)) {
+              outline: $size-4 solid $secondary;
+            }
+          }
+        }
+        &:nth-of-type(4n) {
+          outline: $size-2 solid $info;
+
+          &:hover {
+            @media screen and (min-width: ($tablet-md)) {
+              outline: $size-4 solid $info;
+            }
+          }
+        }
+
+        &.active {
+          &:nth-of-type(4n-1) {
+            outline: none;
+            background-color: $primary-light;
+          }
+          &:nth-of-type(4n-2) {
+            outline: none;
+            background-color: $tertiary-light;
+          }
+          &:nth-of-type(4n-3) {
+            outline: none;
+            background-color: $secondary-light;
+          }
+          &:nth-of-type(4n) {
+            outline: none;
+            background-color: $info-light;
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ import { HomeBanner } from "../components/HomeBanner";
 import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
+import { IntroBlocks } from "../components/IntroBlocks";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -22,7 +23,7 @@ export const LandingPage = (props: Props): ReactElement => {
   const pageData = data?.homePage;
 
   return (
-    <Layout client={props.client}>
+    <Layout client={props.client} noPad>
       <div className="home-page" id="homeContent">
         {data && (
           <>
@@ -30,8 +31,11 @@ export const LandingPage = (props: Props): ReactElement => {
               heading={pageData.title}
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
-              subheading={pageData.pageDescription}
+              subheading={pageData.bannerMessage}
             />
+
+            {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
+
             <div className="container">
               <div className="tools">
                 <SectionHeading heading="Explore Tools" strikeThrough />
