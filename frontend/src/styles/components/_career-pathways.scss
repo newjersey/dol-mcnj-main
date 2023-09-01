@@ -108,13 +108,21 @@
     flex-wrap: wrap;
 
     @media screen and (max-width: ($tablet - 1)) {
-      gap: $size-16;
+      gap: $size-24;
+    }
+
+    > div {
+      @media screen and (max-width: ($tablet - 1)) {
+        width: 100%;
+      }
     }
 
     .button-radio {
-      @media screen and (max-width: ($tablet - 1)) {
-        width: 100%;
-        max-width: none;
+      .label {
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 100%;
+          max-width: none;
+        }
       }
     }
   }
