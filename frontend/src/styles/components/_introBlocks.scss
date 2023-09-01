@@ -72,7 +72,11 @@
       }
 
       button {
+        appearance: none;
+        background-color: transparent;
+
         border-radius: $size-100;
+        color: $ink;
         text-align: center;
         padding: $size-8 $size-16;
 
