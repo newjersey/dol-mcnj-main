@@ -29,17 +29,17 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     video: pageData?.demoVideoUrl,
     steps: [
       {
-        header: pageData?.stepOneHeading,
+        heading: pageData?.stepOneHeading,
         icon: pageData?.stepOneIcon,
         description: pageData?.stepOneText,
       },
       {
-        header: pageData?.stepTwoHeading,
+        heading: pageData?.stepTwoHeading,
         icon: pageData?.stepTwoIcon,
         description: pageData?.stepTwoText,
       },
       {
-        header: pageData?.stepThreeHeading,
+        heading: pageData?.stepThreeHeading,
         icon: pageData?.stepThreeIcon,
         description: pageData?.stepThreeText,
       },
