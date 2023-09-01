@@ -24,7 +24,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
   return (
     <Layout client={props.client} noPad>
-      <div className="home-page" id="homeContent">
+      <div className="home-page">
         {data && (
           <>
             <HomeBanner
@@ -36,7 +36,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
             {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
 
-            <div className="container">
+            <div className="container" id="homeContent">
               <div className="tools">
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
