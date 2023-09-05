@@ -7,16 +7,19 @@ interface Props {
   client: Client;
   headerText: string;
   children: ReactElement;
+  className?: string;
 }
 
 export const ErrorBlock = ({
   headerText,
   children,
+  className,
 }: {
   headerText: string;
   children: ReactElement;
+  className?: string;
 }) => (
-  <div className="container">
+  <div className={`container errorBlock${className ? ` ${className}` : ""}`}>
     <div className="row">
       <div className="col-md-6 col-md-offset-3">
         <div className="alert-box mtxl">
@@ -36,7 +39,9 @@ export const ErrorBlock = ({
 export const ErrorPage = (props: Props): ReactElement => {
   return (
     <Layout noFooter client={props.client}>
-      <ErrorBlock headerText={props.headerText}>{props.children}</ErrorBlock>
+      <ErrorBlock className={props.className} headerText={props.headerText}>
+        {props.children}
+      </ErrorBlock>
     </Layout>
   );
 };
