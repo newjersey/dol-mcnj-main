@@ -77,7 +77,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
       });
 
       const uniqueTrainings = sortedCourses?.filter(
-        (training, index, self) => index === self.findIndex((t) => t.name === training.name)
+        (training, index, self) => index === self.findIndex((t) => t.name === training.name),
       );
 
       setSortedTraining(uniqueTrainings);
@@ -214,8 +214,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           {props.content.openJobsCount ||
                             numberWithCommas(
                               props.inDemandList?.filter(
-                                (ind) => ind.idNumber === props.content?.soc
-                              )[0].numberOfJobs
+                                (ind) => ind.idNumber === props.content?.soc,
+                              )[0].numberOfJobs,
                             )}
                         </a>
                       </p>

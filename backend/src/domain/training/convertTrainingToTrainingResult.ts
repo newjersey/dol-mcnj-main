@@ -5,7 +5,7 @@ import { stripUnicode } from "../utils/stripUnicode";
 export const convertTrainingToTrainingResult = (
   training: Training,
   highlight: string,
-  rank: number
+  rank: number,
 ): TrainingResult => {
   return {
     id: training.id,

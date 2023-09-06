@@ -16,7 +16,7 @@ export const getZipCodesInRadius = (zipCode: string, radiusInMiles: number): str
 const getDistanceBetweenPoints = (
   [lat1, lon1]: [number, number],
   [lat2, lon2]: [number, number],
-  isMiles = true
+  isMiles = true,
 ): number => {
   const toRadian = (angle: number) => (Math.PI / 180) * angle;
   const distance = (a: number, b: number) => (Math.PI / 180) * (a - b);

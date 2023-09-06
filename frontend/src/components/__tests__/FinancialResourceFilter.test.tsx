@@ -49,7 +49,7 @@ describe("FinancialResourceFilter", () => {
         setActiveTags={setActiveTags}
         activeTags={[]}
         className="test-class"
-      />
+      />,
     );
 
     const fundingCheckboxes = screen.getAllByLabelText(/funding/i);
@@ -69,7 +69,7 @@ describe("FinancialResourceFilter", () => {
         education={education}
         setActiveTags={setActiveTags}
         activeTags={[]}
-      />
+      />,
     );
 
     const fundingCheckbox1 = screen.getByTestId(funding.items[0].sys.id);
@@ -89,7 +89,7 @@ describe("FinancialResourceFilter", () => {
         education={education}
         setActiveTags={setActiveTags}
         activeTags={[funding.items[0].sys.id, education.items[1].sys.id]}
-      />
+      />,
     );
 
     const fundingCheckbox1 = screen.getByTestId(funding.items[0].sys.id);
@@ -108,7 +108,7 @@ describe("FinancialResourceFilter", () => {
         education={education}
         setActiveTags={setActiveTags}
         activeTags={[funding.items[0].sys.id, education.items[1].sys.id]}
-      />
+      />,
     );
 
     const resetButton = screen.getByTestId("reset");

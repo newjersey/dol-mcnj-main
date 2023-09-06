@@ -30,7 +30,7 @@ describe("PageBanner", () => {
         ctaHeading={ctaHeading}
         ctaLinksCollection={ctaLinksCollection}
         date={date}
-      />
+      />,
     );
 
     // Assert title is rendered
