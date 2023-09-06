@@ -69,7 +69,7 @@ export const ResourceList = ({
                 setSelectedTags(
                   selected
                     .map((tag) => tag)
-                    .sort((a, b) => b.category.slug.localeCompare(a.category.slug))
+                    .sort((a, b) => b.category.slug.localeCompare(a.category.slug)),
                 )
               }
               boxLabel={`${category} Filters`}

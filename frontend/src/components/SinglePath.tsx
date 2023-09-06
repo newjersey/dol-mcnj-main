@@ -45,7 +45,7 @@ export const SinglePath = ({
                         shortTitle: item.shortTitle,
                         groupId: occupation.groupId,
                         pathway: flattenArray(items),
-                      })
+                      }),
                     );
                   }
                 }}
