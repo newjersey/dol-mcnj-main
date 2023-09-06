@@ -33,7 +33,7 @@ interface OnetAuth {
 export const OnetClient = (
   baseUrl: string,
   auth: OnetAuth,
-  convert2010SocTo2018Occupations: Convert2010SocTo2018Occupations
+  convert2010SocTo2018Occupations: Convert2010SocTo2018Occupations,
 ): GetOccupationDetailPartial => {
   const onetConfig = {
     auth: auth,
@@ -60,7 +60,7 @@ export const OnetClient = (
     return axios
       .get(
         `${baseUrl}/ws/online/occupations/${soc}.00/details/related_occupations?display=long`,
-        onetConfig
+        onetConfig,
       )
       .then(
         async (response: AxiosResponse<OnetRelatedOccupationsResponse>): Promise<Occupation[]> => {
@@ -69,14 +69,14 @@ export const OnetClient = (
             .map((occupation: OnetOccupation): string => occupation.code.split(".")[0]);
 
           const occupations2018Promises: Promise<Occupation[]>[] = socs2010.map((soc2010) =>
-            convert2010SocTo2018Occupations(soc2010)
+            convert2010SocTo2018Occupations(soc2010),
           );
           const occupations2018Arrays: Occupation[][] = await Promise.all(occupations2018Promises);
           return occupations2018Arrays.reduce(
             (prev: Occupation[], cur: Occupation[]) => prev.concat(cur),
-            []
+            [],
           );
-        }
+        },
       )
       .catch(() => {
         return Promise.resolve([]);

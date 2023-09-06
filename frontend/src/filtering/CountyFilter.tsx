@@ -50,7 +50,7 @@ export const CountyFilter = (): ReactElement => {
 
   useEffect(() => {
     const countyFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.COUNTY
+      (filter) => filter.element === FilterableElement.COUNTY,
     );
     if (countyFilter != null) {
       setSelectedCounty(countyFilter.value);
@@ -63,7 +63,7 @@ export const CountyFilter = (): ReactElement => {
   const handleTypeaheadChange = (
     event: ChangeEvent<{}>,
     value: string | null,
-    reason: AutocompleteChangeReason
+    reason: AutocompleteChangeReason,
   ): void => {
     setSelectedCounty(value);
     if (value != null) {

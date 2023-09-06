@@ -14,7 +14,7 @@ describe("getEducationText", () => {
 
   it("uses the oes hybrid soc to get education text", async () => {
     stubDataClient.getOESOccupationBySoc.mockResolvedValue(
-      buildOccupation({ soc: "some-oes-soc" })
+      buildOccupation({ soc: "some-oes-soc" }),
     );
     stubDataClient.getEducationTextBySoc.mockResolvedValue({ howtobecomeone: "" });
 

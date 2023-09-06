@@ -25,7 +25,7 @@ describe("OnetClient", () => {
     getOccupationDetailPartial = OnetClient(
       "wwww.some-cool-url.com",
       mockedAuth,
-      mockConvert2010SocTo2018Soc
+      mockConvert2010SocTo2018Soc,
     );
   });
 
@@ -37,13 +37,13 @@ describe("OnetClient", () => {
 
     mockConvert2010SocTo2018Soc
       .mockResolvedValueOnce(
-        buildOccupation({ soc: "11-9021 (2018)", title: "Construction Managers 2018" })
+        buildOccupation({ soc: "11-9021 (2018)", title: "Construction Managers 2018" }),
       )
       .mockResolvedValueOnce(
         buildOccupation({
           soc: "11-9041 (2018)",
           title: "Architectural and Engineering Managers 2018",
-        })
+        }),
       );
 
     const occupationDetail = await getOccupationDetailPartial("17-2051");
@@ -61,7 +61,7 @@ describe("OnetClient", () => {
         },
         timeout: 10000,
         maxRedirects: 0,
-      }
+      },
     );
 
     expect(mockConvert2010SocTo2018Soc).toHaveBeenNthCalledWith(1, "11-9021");

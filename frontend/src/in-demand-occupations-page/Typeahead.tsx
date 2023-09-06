@@ -18,7 +18,7 @@ export const Typeahead = (props: Props): ReactElement => {
   const handleTypeaheadChange = (
     event: ChangeEvent<{}>,
     value: InDemandOccupation | null,
-    reason: AutocompleteChangeReason
+    reason: AutocompleteChangeReason,
   ): void => {
     if (value && reason === "select-option") {
       navigate(`/occupation/${value.soc}`);
@@ -32,7 +32,7 @@ export const Typeahead = (props: Props): ReactElement => {
           backgroundColor: "#F4EAFE",
         },
       },
-    })
+    }),
   );
 
   return (
