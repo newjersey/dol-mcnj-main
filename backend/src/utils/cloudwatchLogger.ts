@@ -24,7 +24,7 @@ switch (process.env.NODE_ENV) {
     default:
         logGroupName = process.env.DEV_LOG_GROUP_NAME || '';
         logStreamName = process.env.DEV_LOG_STREAM_NAME || '';
-        logVpcEndpoint = process.env.DEV_LOG_STREAM_NAME || '';
+        logVpcEndpoint = process.env.DEV_LOG_VPC_ENDPOINT || '';
         break;
 }
 
