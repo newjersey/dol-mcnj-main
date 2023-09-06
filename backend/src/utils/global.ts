@@ -1,4 +1,4 @@
-import logger from './logger'
+import logger from "./logger";
 
 // change global console.log to winston logger type
 
@@ -13,4 +13,3 @@ import logger from './logger'
     logger.log(status, message);
   };
 })();
-

@@ -164,7 +164,7 @@ export const CareerDetail = ({
               onClick={() => {
                 setOpen(!open);
                 const element = document.querySelector(
-                  ".full-map .path-stop.active"
+                  ".full-map .path-stop.active",
                 ) as HTMLElement;
                 setTimeout(() => {
                   element.focus();
