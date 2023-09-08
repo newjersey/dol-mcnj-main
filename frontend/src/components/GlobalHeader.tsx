@@ -1,6 +1,6 @@
 import { NavMenuData } from "../types/contentful";
 import { Icon } from "@material-ui/core";
-import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png"
+import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png";
 
 export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
   const HasIcon = ({ string }: { string: string }) => {
@@ -36,7 +36,7 @@ export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Governor Phil Murphy • Lt. Governor Sheila Oliver
+            Governor Phil Murphy • Lt. Governor Tahesha Way, Esq.
           </a>
           <ul>
             {items?.navMenus.topLevelItemsCollection.items?.map((item) => (
