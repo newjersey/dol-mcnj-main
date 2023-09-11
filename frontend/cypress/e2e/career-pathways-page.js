@@ -1,4 +1,4 @@
-describe("Funding Page", () => {
+describe("Career Pathway Page", () => {
   it("Toggle open close industry detail tray - ", () => {
     let path = "/career-pathways";
     cy.visit(path);
