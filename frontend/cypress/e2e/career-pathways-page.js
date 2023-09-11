@@ -102,10 +102,72 @@ describe("Images load and have Alt texts", () => {
   });
 });
 
+describe("Map expands", () => {
+  navigation_paths.forEach((item) => {
+    it(item.label, () => {
+      cy.visit(item.path);
+      cy.get("img")
+        .should("not.have.css", "display", "none")
+        .each(($img) => {
+          describe("Images load and have Alt texts", () => {
+            it("Home Page", () => {
+             cy.visit(path)
+             cy.get('img').each(($img) => {
+                cy.wrap($img).should("have.attr", "alt")
+                // Scroll the image into view and check if it's visible.
+                // cy.wrap($img).scrollIntoView().should('be.visible');
+                
+                // Ensure the natural width and height is greater than 0.
+                expect($img[0].naturalWidth).to.be.greaterThan(0);
+                expect($img[0].naturalHeight).to.be.greaterThan(0);
+              });
+            })
+          });
+          //Ensure the natural width and height is greater than 0.
+          expect($img[0].naturalWidth).to.be.greaterThan(0);
+          expect($img[0].naturalHeight).to.be.greaterThan(0);
+        });
+    });
+  });
+});
+
+describe("Map expands", () => {
+  let paths = [
+    {
+      label: "Machining Career Pathways",
+      main_contains: "Machining",
+    },
+
+    {
+      label: "Quality Assurance Career Pathways",
+      main_contains: "Quality Assurance",
+    },
+    {
+      label: "Production Pathways",
+      main_contains: "Production",
+    },
+  ];
+
+  paths.forEach((item) => {
+    it(item.label, () => {
+      let path =
+        "/career-pathways/manufacturing";
+      cy.visit(path).get(".button-radio").contains(item.main_contains).click();
+      cy.get(`[aria-label="occupation-selector"]`).click();
+      cy.get(`[aria-label="occupation-item"]`).each(($button, index, list) => {
+        let path =
+          "/career-pathways/manufacturing";
+        cy.visit(path).get(".button-radio").contains("Machining").click();
+        cy.get(`[aria-label="occupation-selector"]`).click();
+        cy.get(`[aria-label="occupation-item"]`).eq(index).click();
+        cy.get(".path-stop").should("have.length.greaterThan", 1);
+      });
+    });
+  });
+});
 
 
 describe("Pending", () => {
-  it("Map expands ", () => {});
   it("Link to login & sign up from CN LP", () => {});
   it("Tuition Assistance link goes to the right page ", () => {});
   it("Link to more related trainings on TE takes you to the right search ", () => {});
