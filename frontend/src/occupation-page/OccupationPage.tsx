@@ -18,7 +18,7 @@ import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { WaiverBlock } from "../components/WaiverBlock";
+import { InDemandBlock } from "../components/InDemandBlock";
 import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
 
 interface Props extends RouteComponentProps {
@@ -157,7 +157,7 @@ export const OccupationPage = (props: Props): ReactElement => {
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
-              <WaiverBlock
+              <InDemandBlock
                 title={t("OccupationPage.localExceptionCountiesTitle", {
                   counties: formatCountiesArrayToString(occupationDetail.counties),
                 })}
