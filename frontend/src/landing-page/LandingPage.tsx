@@ -9,7 +9,7 @@ import { HomeBanner } from "../components/HomeBanner";
 import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
-// import { IntroBlocks } from "../components/IntroBlocks";
+import { IntroBlocks } from "../components/IntroBlocks";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -35,7 +35,7 @@ export const LandingPage = (props: Props): ReactElement => {
               image={pageData.bannerImage}
               subheading={pageData.bannerMessage}
             />
-            {/* {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />} */}
+            {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} /> }
             <div className="container" id="homeContent">
               <div className="tools">
                 <SectionHeading heading="Explore Tools" strikeThrough />
