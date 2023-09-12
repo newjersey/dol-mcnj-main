@@ -37,7 +37,7 @@ describe("<FilterBox />", () => {
         >
           <div />
         </FilterBox>
-      </FilterContext.Provider>
+      </FilterContext.Provider>,
     );
   };
 
@@ -50,7 +50,7 @@ describe("<FilterBox />", () => {
         resetStateForReload={jest.fn()}
       >
         <div />
-      </FilterBox>
+      </FilterBox>,
     );
   };
 
@@ -66,7 +66,7 @@ describe("<FilterBox />", () => {
         resetStateForReload={jest.fn()}
       >
         <div />
-      </FilterBox>
+      </FilterBox>,
     );
   };
 
