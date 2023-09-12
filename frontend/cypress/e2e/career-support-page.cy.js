@@ -3,7 +3,7 @@ describe("Career Support Page", () => {
     cy.visit("/support-resources/career-support");
     cy.injectAxe();
     cy.contains("Career Guidance, Job Search Help, and Re-entering the Workforce").should("exist");
-/*
+    /*
 
     This section commented out because indeterminate violation gets triggered in GCP builds in CI every now and then
 
