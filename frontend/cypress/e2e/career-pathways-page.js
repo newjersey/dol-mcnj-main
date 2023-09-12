@@ -1,5 +1,4 @@
-
-let path = "/"
+let path = "https://d4ad-research2.uk.r.appspot.com/career-pathways";
 const navigation_paths = [
   { path: path + "/", label: "Home Page" },
   { path: path + "/search", label: "Search Page" },
@@ -23,10 +22,9 @@ const navigation_paths = [
     label: "Training Provider Resources Page",
   },
 ];
-
 describe("Career Pathway Page", () => {
   it("Toggle open close industry detail tray - ", () => {
-    let path = "/career-pathways";
+    let path = "https://d4ad-research2.uk.r.appspot.com/career-pathways";
     cy.visit(path);
     cy.get("span").contains("Healthcare").click();
     cy.get(".explore-button").contains("Healthcare").click();
@@ -37,6 +35,7 @@ describe("Career Pathway Page", () => {
 
 describe("It visits each Navbar Tabs", () => {
   it("Main Navigation Test ", () => {
+    let path = "https://d4ad-research2.uk.r.appspot.com";
     cy.visit(path);
     cy.get("ul > li.no-sub").each((items) => {
       cy.wrap(items)
@@ -54,6 +53,7 @@ describe("It visits each Navbar Tabs", () => {
   });
 
   it("Sub Navigation Test ", () => {
+    let path = "https://d4ad-research2.uk.r.appspot.com";
     cy.visit(path);
     cy.get("li.has-sub").each((sub_menu) => {
       cy.wrap(sub_menu)
@@ -71,8 +71,6 @@ describe("It visits each Navbar Tabs", () => {
   });
 });
 
-
-
 describe("Images load and have Alt texts", () => {
   navigation_paths.forEach((item) => {
     it(item.label, () => {
@@ -80,49 +78,12 @@ describe("Images load and have Alt texts", () => {
       cy.get("img")
         .should("not.have.css", "display", "none")
         .each(($img) => {
-          describe("Images load and have Alt texts", () => {
-            it("Home Page", () => {
-             cy.visit(path)
-             cy.get('img').each(($img) => {
-                cy.wrap($img).should("have.attr", "alt")
-                // Scroll the image into view and check if it's visible.
-                // cy.wrap($img).scrollIntoView().should('be.visible');
-                
-                // Ensure the natural width and height is greater than 0.
-                expect($img[0].naturalWidth).to.be.greaterThan(0);
-                expect($img[0].naturalHeight).to.be.greaterThan(0);
-              });
-            })
-          });
-          //Ensure the natural width and height is greater than 0.
-          expect($img[0].naturalWidth).to.be.greaterThan(0);
-          expect($img[0].naturalHeight).to.be.greaterThan(0);
-        });
-    });
-  });
-});
+          // check alt fvalue
+          cy.wrap($img).should("have.attr", "alt");
 
-describe("Map expands", () => {
-  navigation_paths.forEach((item) => {
-    it(item.label, () => {
-      cy.visit(item.path);
-      cy.get("img")
-        .should("not.have.css", "display", "none")
-        .each(($img) => {
-          describe("Images load and have Alt texts", () => {
-            it("Home Page", () => {
-             cy.visit(path)
-             cy.get('img').each(($img) => {
-                cy.wrap($img).should("have.attr", "alt")
-                // Scroll the image into view and check if it's visible.
-                // cy.wrap($img).scrollIntoView().should('be.visible');
-                
-                // Ensure the natural width and height is greater than 0.
-                expect($img[0].naturalWidth).to.be.greaterThan(0);
-                expect($img[0].naturalHeight).to.be.greaterThan(0);
-              });
-            })
-          });
+          // check if image is visible
+          // cy.wrap($img).scrollIntoView().should("be.visible");
+
           //Ensure the natural width and height is greater than 0.
           expect($img[0].naturalWidth).to.be.greaterThan(0);
           expect($img[0].naturalHeight).to.be.greaterThan(0);
@@ -151,12 +112,12 @@ describe("Map expands", () => {
   paths.forEach((item) => {
     it(item.label, () => {
       let path =
-        "/career-pathways/manufacturing";
+        "https://d4ad-research2.uk.r.appspot.com/career-pathways/manufacturing";
       cy.visit(path).get(".button-radio").contains(item.main_contains).click();
       cy.get(`[aria-label="occupation-selector"]`).click();
       cy.get(`[aria-label="occupation-item"]`).each(($button, index, list) => {
         let path =
-          "/career-pathways/manufacturing";
+          "https://d4ad-research2.uk.r.appspot.com/career-pathways/manufacturing";
         cy.visit(path).get(".button-radio").contains("Machining").click();
         cy.get(`[aria-label="occupation-selector"]`).click();
         cy.get(`[aria-label="occupation-item"]`).eq(index).click();
@@ -166,13 +127,44 @@ describe("Map expands", () => {
   });
 });
 
+describe("Link to login & sign up from CN LP", () => {
+  const navigateToOathPage = () => {
+    let path = "https://mycareer.nj.gov/#/";
+    cy.visit(path).get("button").contains("Sign in or Sign Up").click();
+    cy.get("button").contains("Continue with Career Central Account").click();
+    return cy;
+  };
 
-describe("Pending", () => {
-  it("Link to login & sign up from CN LP", () => {});
-  it("Tuition Assistance link goes to the right page ", () => {});
-  it("Link to more related trainings on TE takes you to the right search ", () => {});
-  it("Local in demand training county tags ", () => {});
-
-  it("Contact Us opens Google Form", () => {});
-  it("Links out to Tuition Assistance, and one stop job board from in demand careers details with in Healthcare and TDL ", () => {});
+  it("It should navigate to nj auth0", () => {
+    cy = navigateToOathPage();
+    cy.origin("https://prod-nj.us.auth0.com", () => {
+      cy.get("input#username");
+    });
+  });
+  it("It should failed on false credentials", () => {
+    cy = navigateToOathPage();
+    cy.origin("https://prod-nj.us.auth0.com", () => {
+      cy.get("input#username").type("fakemeail@fakemail.com").wait(1000);
+      cy.get("input#password")
+        .type("fakepasswordfakepasswordfakepasswordfakepassword")
+        .wait(1000);
+      cy.get(`[name="action"]`).contains("Continue").click({ force: true });
+      cy.get("span").contains("Wrong email or password").wait(5000);
+    });
+  });
 });
+
+describe("Contact Us opens Google Form", () => {
+  it("Should not allow google form visit without login into google", () => {
+    cy.visit(
+      "https://d4ad-research2.uk.r.appspot.com/support-resources/tuition-assistance"
+    );
+    let google_doc =
+      "https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform";
+    cy.get("section.footer-cta")
+      .get(`[href="${google_doc}"]`)
+      .contains("Contact Us")
+      .click();
+  });
+});
+
