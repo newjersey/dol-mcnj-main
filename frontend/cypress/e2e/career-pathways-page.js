@@ -159,10 +159,10 @@ describe("Contact Us opens Google Form", () => {
     cy.visit(
       "https://d4ad-research2.uk.r.appspot.com/support-resources/tuition-assistance"
     );
-    let google_doc =
+    let google_doc_link =
       "https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform";
     cy.get("section.footer-cta")
-      .get(`[href="${google_doc}"]`)
+      .get(`[href="${google_doc_link}"]`)
       .contains("Contact Us")
       .click();
   });
