@@ -67,7 +67,7 @@ describe("<OccupationPage />", () => {
     const notInDemand = buildOccupationDetail({ inDemand: false, relatedTrainings: [] });
     await act(async () => stubClient.capturedObserver.onSuccess(notInDemand));
 
-    expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).not.toBeInTheDocument();
   });
 
   it("displays data missing message if tasks are not available", async () => {
