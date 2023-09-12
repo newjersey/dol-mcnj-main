@@ -11,7 +11,7 @@ import { Error } from "../domain/Error";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { en as Content } from "../locales/en";
 
-const { inDemandTag } = Content.SearchResultsPage;
+const { inDemandTitle } = Content.InDemandBlock;
 const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } = Content.OccupationPage;
 
 describe("<OccupationPage />", () => {
@@ -50,7 +50,7 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
-    expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).toBeInTheDocument();
     expect(subject.getByText("1,010")).toBeInTheDocument();
     expect(subject.getByText("$97,820")).toBeInTheDocument();
     expect(subject.getByText("Related 1")).toBeInTheDocument();
