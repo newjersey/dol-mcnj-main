@@ -10,6 +10,19 @@ describe("Training Explorer Page", () => {
   });
 });
 
+describe("Main Page Navigation", () => {
+  it("is accessible", () => {
+    cy.visit("/");
+    cy.injectAxe();
+
+    cy.contains("Certifications, Professional Development, Apprenticeships & More!").should(
+      "exist",
+    );
+    cy.checkA11y();
+  });
+});
+
+
 // describe("Home Page", () => {
 //   it("is accessible", () => {
 //     cy.visit("/");

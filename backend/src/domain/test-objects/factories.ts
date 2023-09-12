@@ -108,7 +108,7 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
 };
 
 export const buildInDemandOccupation = (
-  overrides: Partial<InDemandOccupation>
+  overrides: Partial<InDemandOccupation>,
 ): InDemandOccupation => {
   return {
     soc: "some-soc-" + randomInt(),
@@ -136,7 +136,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
 };
 
 export const buildOccupationDetailPartial = (
-  overrides: Partial<OccupationDetailPartial>
+  overrides: Partial<OccupationDetailPartial>,
 ): OccupationDetailPartial => {
   return {
     soc: "some-soc-code-" + randomInt(),
@@ -202,7 +202,7 @@ export const buildSocDefinition = (overrides: Partial<SocDefinition>): SocDefini
 };
 
 export const buildNullableOccupation = (
-  overrides: Partial<NullableOccupation>
+  overrides: Partial<NullableOccupation>,
 ): NullableOccupation => {
   return {
     soc: "some-soc-" + randomInt(),
@@ -233,7 +233,7 @@ export const randomCalendarLength = (): CalendarLength => {
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const randomCalendarLengthId = (): string => {
   const all: any[] = Object.values(CalendarLength).filter(
-    (k) => typeof CalendarLength[k as any] !== "number"
+    (k) => typeof CalendarLength[k as any] !== "number",
   );
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex].toString();

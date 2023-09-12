@@ -121,7 +121,11 @@ export const getOccupationDetailFactory = (
         );
       })
       .catch(async () => {
+<<<<<<< HEAD
         console.log("getOccupationDetailFromOnet failed", "error");
+=======
+        console.log("getOccupationDetailFromOnet failed");
+>>>>>>> 53630204ace0520672e2044b42c97c1b7edf0d90
         const occupationTitles2010 = await dataClient.find2010OccupationsBySoc2018(soc);
 
         if (occupationTitles2010.length === 1) {

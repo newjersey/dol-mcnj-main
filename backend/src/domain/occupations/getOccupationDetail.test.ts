@@ -1,6 +1,6 @@
-import {GetOccupationDetail} from "../types";
-import {StubDataClient} from "../test-objects/StubDataClient";
-import {getOccupationDetailFactory} from "./getOccupationDetail";
+import { GetOccupationDetail } from "../types";
+import { StubDataClient } from "../test-objects/StubDataClient";
+import { getOccupationDetailFactory } from "./getOccupationDetail";
 import {
   buildAddress,
   buildOccupation,
@@ -9,8 +9,8 @@ import {
   buildSocDefinition,
   buildTraining,
 } from "../test-objects/factories";
-import {Error} from "../Error";
-import {CalendarLength} from "../CalendarLength";
+import { Error } from "../Error";
+import { CalendarLength } from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -29,12 +29,12 @@ describe("getOccupationDetail", () => {
     mockFindTrainingsBy = jest.fn();
     stubDataClient = StubDataClient();
     getOccupationDetail = getOccupationDetailFactory(
-        mockOnet,
-        mockGetEducationText,
-        mockGetSalaryEstimate,
-        mockGetOpenJobsCount,
-        mockFindTrainingsBy,
-        stubDataClient
+      mockOnet,
+      mockGetEducationText,
+      mockGetSalaryEstimate,
+      mockGetOpenJobsCount,
+      mockFindTrainingsBy,
+      stubDataClient,
     );
   });
 
@@ -132,8 +132,8 @@ describe("getOccupationDetail", () => {
     it("uses the 2010 soc code in the onet request to get an occupation detail from onet", async () => {
       const onetOccupationDetail = buildOccupationDetailPartial({ soc: "2010-soc" });
       mockOnet
-          .mockRejectedValueOnce(Error.SYSTEM_ERROR)
-          .mockResolvedValueOnce(onetOccupationDetail);
+        .mockRejectedValueOnce(Error.SYSTEM_ERROR)
+        .mockResolvedValueOnce(onetOccupationDetail);
 
       stubDataClient.find2010OccupationsBySoc2018.mockResolvedValue([
         buildOccupation({ soc: "2010-soc" }),

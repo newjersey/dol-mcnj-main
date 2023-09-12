@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import { sentry, logger } from "./logging";
 import Sentry from "../../middleware/sentry";
 
 const { NODE_ENV, SENTRY_DSN } = process.env;
+=======
+import logger from "./logger";
+>>>>>>> 53630204ace0520672e2044b42c97c1b7edf0d90
 
 // change global console.log to winston logger type
 
@@ -28,6 +32,7 @@ enum ErrorStatus {
     if (!status_dict.includes(status)) {
       status = "info";
     }
+<<<<<<< HEAD
 
     const send_to_sentry =
       NODE_ENV == "production" && SENTRY_DSN && sentry_code_dict.includes(status);
@@ -46,4 +51,8 @@ enum ErrorStatus {
   process.on("unhandledRejection", (reason) => {
     Sentry.captureException(reason);
   });
+=======
+    logger.log(status, message);
+  };
+>>>>>>> 53630204ace0520672e2044b42c97c1b7edf0d90
 })();

@@ -82,7 +82,7 @@ export const FaqCollection = ({
                   title={item.question}
                   key={item.sys?.id}
                 />
-              )
+              ),
           )}
           {children}
         </div>

@@ -127,7 +127,11 @@ export class PostgresDataClient implements DataClient {
     return this.kdb("localexceptioncips")
       .select("soc", "county", "occupation as title")
       .then((result) => {
+<<<<<<< HEAD
         console.log("Local exceptions: " + result);
+=======
+        console.log("Local exceptions:", result);
+>>>>>>> 53630204ace0520672e2044b42c97c1b7edf0d90
         return result;
       })
       .catch((e) => {
@@ -146,8 +150,12 @@ export class PostgresDataClient implements DataClient {
         return result;
       })
       .catch((e) => {
+<<<<<<< HEAD
         console.log({ title: "db error: ", e }, "fatal");
 
+=======
+        console.log("DB error:", e);
+>>>>>>> 53630204ace0520672e2044b42c97c1b7edf0d90
         return Promise.reject();
       });
   };

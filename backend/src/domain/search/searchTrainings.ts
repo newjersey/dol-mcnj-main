@@ -64,10 +64,14 @@ export const searchTrainingsFactory = (
         }),
       );
     } catch (error) {
+<<<<<<< HEAD
       console.error(
         { title: `Failed to search for trainings with the query: ${searchQuery}`, error },
         "error",
       );
+=======
+      console.error(`Failed to search for trainings with the query: ${searchQuery}`, error);
+>>>>>>> 53630204ace0520672e2044b42c97c1b7edf0d90
       Sentry.captureException(error);
       throw error;
     }

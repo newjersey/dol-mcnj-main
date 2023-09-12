@@ -32,7 +32,7 @@ if (isCI && !isProd ? prompt("Enter password:") === password : true) {
         <App client={apiClient} />
       </ThemeProvider>
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById("root"),
   );
 
   serviceWorker.unregister();

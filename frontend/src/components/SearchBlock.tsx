@@ -203,7 +203,10 @@ export const SearchBlock = () => {
                   setMaxCost(sanitizedValue(e.target.value));
                 }}
               />
-              <a href="/support-resources/tuition-assistance" className="usa-button usa-button--unstyled">
+              <a
+                href="/support-resources/tuition-assistance"
+                className="usa-button usa-button--unstyled"
+              >
                 Tuition Assistance Information
               </a>
             </div>
