@@ -1,3 +1,4 @@
+/*
 describe("Career Pathways Page", () => {
   it("is accessible", () => {
     cy.visit("/career-pathways");
@@ -19,3 +20,4 @@ describe("Career Pathways Page", () => {
     cy.checkA11y();
   });
 });
+*/

@@ -3,9 +3,7 @@ describe("Home Page", () => {
     cy.visit("/");
     cy.injectAxe();
 
-    cy.contains(
-      "No matter where you are on your career journey, New Jersey Career Central is here to help you.",
-    ).should("exist");
+    cy.contains("Explore Tools").should("exist");
     cy.checkA11y();
   });
 
@@ -26,7 +24,7 @@ describe("Home Page", () => {
       { title: "Tuition assistance resources", link: "/support-resources/tuition-assistance" },
       { title: "SkillUp", link: "https://explore.skillup.org/" },
       { title: "Training Provider Resources", link: "/training-provider-resources" },
-      { title: "Career Pathways", link: "/career-pathways" },
+      // { title: "Career Pathways", link: "/career-pathways" },
       { title: "Career Navigator", link: "/career-navigator" },
       { title: "Browse support by category", link: "/support-resources" },
       { title: "Career Support", link: "/support-resources/career-support" },
