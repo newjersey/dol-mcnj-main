@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import "./utils/global"
+import "./utils/global";
 import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
@@ -38,11 +38,11 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-process.on('uncaughtException', function (exception) {
+process.on("uncaughtException", function (exception) {
   Sentry.captureException(exception);
 });
 
-process.on('unhandledRejection', (reason) => {
+process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
@@ -104,17 +104,17 @@ const router = routerFactory({
     OnetClient(
       apiValues.onetBaseUrl,
       apiValues.onetAuth,
-      postgresDataClient.find2018OccupationsBySoc2010
+      postgresDataClient.find2018OccupationsBySoc2010,
     ),
     getEducationTextFactory(postgresDataClient),
     getSalaryEstimateFactory(postgresDataClient),
     CareerOneStopClient(
       apiValues.careerOneStopBaseUrl,
       apiValues.careerOneStopUserId,
-      apiValues.careerOneStopAuthToken
+      apiValues.careerOneStopAuthToken,
     ),
     findTrainingsBy,
-    postgresDataClient
+    postgresDataClient,
   ),
 });
 

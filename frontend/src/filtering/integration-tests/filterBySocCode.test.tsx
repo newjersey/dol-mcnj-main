@@ -109,7 +109,7 @@ describe("filtering by soc code", () => {
     await waitForEffect();
 
     expect(
-      (subject.getByPlaceholderText("i.e. 43-9041", { exact: false }) as HTMLInputElement).value
+      (subject.getByPlaceholderText("i.e. 43-9041", { exact: false }) as HTMLInputElement).value,
     ).toEqual("");
     expect(subject.getByText("training1")).toBeInTheDocument();
     expect(subject.getByText("training2")).toBeInTheDocument();
@@ -134,7 +134,7 @@ describe("filtering by soc code", () => {
     });
     fireEvent.blur(getSocCodeInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.invalidSocCodeError)
+      subject.queryByText(Content.SearchAndFilter.invalidSocCodeError),
     ).not.toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {

@@ -14,7 +14,7 @@ describe("CareerOneStopClient", () => {
     getOpenJobsCount = CareerOneStopClient(
       "wwww.some-cool-url.com",
       "FAKE-USERID",
-      "FAKE-AUTH-TOKEN"
+      "FAKE-AUTH-TOKEN",
     );
   });
 
@@ -31,7 +31,7 @@ describe("CareerOneStopClient", () => {
           "Content-Type": "application/json",
           Authorization: "Bearer FAKE-AUTH-TOKEN",
         },
-      }
+      },
     );
   });
 

@@ -13,7 +13,7 @@ export const InDemandOnlyFilter = (): ReactElement => {
 
   useEffect(() => {
     const inDemandOnlyFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.IN_DEMAND_ONLY
+      (filter) => filter.element === FilterableElement.IN_DEMAND_ONLY,
     );
     if (inDemandOnlyFilter) {
       setInDemandOnly(inDemandOnlyFilter.value);
