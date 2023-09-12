@@ -213,7 +213,7 @@ xdescribe("Filtering", () => {
       .first()
       .within(() => {
         cy.contains(
-          "Culinary & Baking Opportunity Program for Adults with Developmental Disabilities"
+          "Culinary & Baking Opportunity Program for Adults with Developmental Disabilities",
         ).should("exist");
       });
 
