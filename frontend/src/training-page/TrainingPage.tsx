@@ -3,7 +3,6 @@ import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -20,7 +19,6 @@ import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
-import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
 import { Tooltip } from "react-tooltip";
 
 interface Props extends RouteComponentProps {
