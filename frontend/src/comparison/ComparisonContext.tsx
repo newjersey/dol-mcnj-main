@@ -49,7 +49,7 @@ const removeAllComparison = (): TrainingResult[] => {
 
 export const comparisonReducer = (
   state: ComparisonState,
-  action: ComparisonAction
+  action: ComparisonAction,
 ): ComparisonState => {
   switch (action.type) {
     case ComparisonActionType.ADD:

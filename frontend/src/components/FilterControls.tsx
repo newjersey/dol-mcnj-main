@@ -46,8 +46,8 @@ const FilterControls = ({ boxLabel, className, groups, onChange }: FilterControl
                   // Select all items in the group and remove duplicates
                   setSelected(
                     [...selected, ...group.items].filter(
-                      (item, index, self) => self.indexOf(item) === index
-                    )
+                      (item, index, self) => self.indexOf(item) === index,
+                    ),
                   );
                 }}
               >
