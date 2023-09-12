@@ -3,9 +3,7 @@ describe("Home Page", () => {
     cy.visit("/");
     cy.injectAxe();
 
-    cy.contains(
-      "No matter where you are on your career journey, New Jersey Career Central is here to help you.",
-    ).should("exist");
+    cy.contains("Explore Tools").should("exist");
     cy.checkA11y();
   });
 
