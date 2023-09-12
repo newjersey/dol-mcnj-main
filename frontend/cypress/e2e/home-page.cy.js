@@ -26,7 +26,7 @@ describe("Home Page", () => {
       { title: "Tuition assistance resources", link: "/support-resources/tuition-assistance" },
       { title: "SkillUp", link: "https://explore.skillup.org/" },
       { title: "Training Provider Resources", link: "/training-provider-resources" },
-      { title: "Career Pathways", link: "/career-pathways" },
+      // { title: "Career Pathways", link: "/career-pathways" },
       { title: "Career Navigator", link: "/career-navigator" },
       { title: "Browse support by category", link: "/support-resources" },
       { title: "Career Support", link: "/support-resources/career-support" },
