@@ -24,7 +24,7 @@ export const SocCodeFilter = (): ReactElement => {
 
   useEffect(() => {
     const socCodeFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.SOC_CODE
+      (filter) => filter.element === FilterableElement.SOC_CODE,
     );
     if (socCodeFilter != null && socCodeFilter.value !== socCode) {
       setSocCode(socCodeFilter.value);

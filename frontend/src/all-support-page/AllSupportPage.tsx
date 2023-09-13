@@ -26,7 +26,7 @@ export const AllSupportPage = (props: Props): ReactElement => {
     data?.categories.items.filter((category) => category.title !== "Other Assistance");
 
   const otherAssistance = data?.categories.items.find(
-    (category) => category.title === "Other Assistance"
+    (category) => category.title === "Other Assistance",
   );
 
   // add "Other Assistance" to the end of the list
