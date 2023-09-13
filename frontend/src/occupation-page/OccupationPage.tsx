@@ -4,7 +4,6 @@ import { Client } from "../domain/Client";
 import { Occupation, OccupationDetail } from "../domain/Occupation";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
-import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -18,8 +17,7 @@ import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { WaiverBlock } from "../components/WaiverBlock";
-import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
+import { InDemandBlock } from "../components/InDemandBlock";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -151,20 +149,16 @@ export const OccupationPage = (props: Props): ReactElement => {
           <h2 data-testid="title" className="text-xl ptd pbs weight-500">
             {occupationDetail.title}
           </h2>
-          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
+            { occupationDetail.inDemand ? <InDemandBlock /> : <></> }
+
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
-              <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle", {
-                  counties: formatCountiesArrayToString(occupationDetail.counties),
-                })}
-                backgroundColorClass="bg-light-yellow"
-              />
+              <InDemandBlock counties={occupationDetail.counties} />
             ) : (
-              <></>
+                <></>
             )}
 
             <StatBlock
