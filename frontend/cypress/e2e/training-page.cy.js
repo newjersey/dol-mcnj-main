@@ -8,7 +8,7 @@ describe("Training Page", () => {
     cy.contains("h3", "Therapeutic Massage & Training Center").should("exist");
 
     // stat boxes
-    cy.contains("In Demand").should("exist");
+    cy.contains("In-Demand in all of New Jersey.").should("exist");
     cy.contains("69.6%").should("exist");
     cy.contains("$23,224").should("exist");
 
