@@ -44,7 +44,7 @@ export const TimeToCompleteFilter = (): ReactElement => {
 
   useEffect(() => {
     const timeToCompleteFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.TIME_TO_COMPLETE
+      (filter) => filter.element === FilterableElement.TIME_TO_COMPLETE,
     );
     if (timeToCompleteFilter) {
       setTimeToComplete(timeToCompleteFilter.value);
