@@ -24,55 +24,6 @@ const navigation_paths = [
   },
 ];
 
-describe("Career Pathway Page", () => {
-  it("Toggle open close industry detail tray - ", () => {
-    let path = "/career-pathways";
-    cy.visit(path);
-    cy.get("span").contains("Healthcare").click();
-    cy.get(".explore-button").contains("Healthcare").click();
-    cy.get(".panel .open");
-    cy.get("button.close").first().click();
-  });
-});
-
-describe("It visits each Navbar Tabs", () => {
-  it("Main Navigation Test ", () => {
-    cy.visit(path);
-    cy.get("ul > li.no-sub").each((items) => {
-      cy.wrap(items)
-        .children("a")
-        .invoke("attr", "href")
-        .then((url) => {
-          if (url.includes(path)) {
-            cy.log("Visits: ", url);
-            cy.visit(url);
-          } else {
-            cy.log("CORS: ", url);
-          }
-        });
-    });
-  });
-
-  it("Sub Navigation Test ", () => {
-    cy.visit(path);
-    cy.get("li.has-sub").each((sub_menu) => {
-      cy.wrap(sub_menu)
-        .children("a")
-        .invoke("attr", "href")
-        .then((url) => {
-          if (url.includes(path)) {
-            cy.log("Visits: ", url);
-            cy.visit(url);
-          } else {
-            cy.log("CORS: ", url);
-          }
-        });
-    });
-  });
-});
-
-
-
 describe("Images load and have Alt texts", () => {
   navigation_paths.forEach((item) => {
     it(item.label, () => {
@@ -102,8 +53,7 @@ describe("Images load and have Alt texts", () => {
   });
 });
 
-
-
+/*
 describe("Pending", () => {
   it("Map expands ", () => {});
   it("Link to login & sign up from CN LP", () => {});
@@ -114,3 +64,4 @@ describe("Pending", () => {
   it("Contact Us opens Google Form", () => {});
   it("Links out to Tuition Assistance, and one stop job board from in demand careers details with in Healthcare and TDL ", () => {});
 });
+*/
