@@ -40,25 +40,27 @@ const CtaBanner = ({
             </Heading>
           )}
           <div className="links">
-            {links?.map((link) => {
-              const isExternal = link.url.startsWith("http");
-              return (
-                <Button
-                  type="link"
-                  key={link.sys?.id}
-                  className="link"
-                  iconPrefix={link.iconPrefix}
-                  iconSuffix={
-                    isExternal && !noIndicator ? ("ArrowUpRight" as IconNames) : link.iconSuffix
-                  }
-                  svgFill={link.svgFill}
-                  highlight={link.highlight}
-                  svgName={link.svgName}
-                  url={link.url}
-                  copy={link.copy}
-                />
-              );
-            })}
+            {links
+              ?.filter((l) => l.copy !== "NJ Career Pathways") // TODO: remove this after career pathways is ready
+              .map((link) => {
+                const isExternal = link.url.startsWith("http");
+                return (
+                  <Button
+                    type="link"
+                    key={link.sys?.id}
+                    className="link"
+                    iconPrefix={link.iconPrefix}
+                    iconSuffix={
+                      isExternal && !noIndicator ? ("ArrowUpRight" as IconNames) : link.iconSuffix
+                    }
+                    svgFill={link.svgFill}
+                    highlight={link.highlight}
+                    svgName={link.svgName}
+                    url={link.url}
+                    copy={link.copy}
+                  />
+                );
+              })}
           </div>
         </div>
       ) : (
