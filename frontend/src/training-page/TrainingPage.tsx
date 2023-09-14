@@ -3,7 +3,6 @@ import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -19,8 +18,7 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { WaiverBlock } from "../components/WaiverBlock";
-import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
+import { InDemandBlock } from "../components/InDemandBlock";
 import { Tooltip } from "react-tooltip";
 
 interface Props extends RouteComponentProps {
@@ -208,18 +206,13 @@ export const TrainingPage = (props: Props): ReactElement => {
             <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
 
-            {training.inDemand ? <InDemandTag className="mts" /> : <></>}
-
             <div className="stat-block-stack mtm">
+              {training.inDemand ? <InDemandBlock /> : <></>}
+
               {!training.inDemand &&
               training.localExceptionCounty &&
               training.localExceptionCounty.length !== 0 ? (
-                <WaiverBlock
-                  title={t("TrainingPage.localExceptionCountiesTitle", {
-                    counties: formatCountiesArrayToString(training.localExceptionCounty),
-                  })}
-                  backgroundColorClass="bg-light-yellow"
-                />
+                <InDemandBlock counties={training.localExceptionCounty} />
               ) : (
                 <></>
               )}

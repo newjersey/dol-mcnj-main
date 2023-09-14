@@ -117,7 +117,7 @@ describe("Search", () => {
     });
 
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.contains("In Demand").should("exist");
+    cy.contains("In-Demand in all of New Jersey.").should("exist");
   });
 
   it("tags shows search training tips", () => {
