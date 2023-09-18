@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { TabItemProps } from "../types/contentful";
 import { slugify } from "../utils/slugify";
 import { ContentfulRichText } from "../components/ContentfulRichText";
-import { Select } from "../svg/Select";
 import { Text } from "@contentful/rich-text-types";
 import { List, X } from "@phosphor-icons/react";
 
