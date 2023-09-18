@@ -1,6 +1,7 @@
 import { CaretRight } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { FaqItem } from "../../types/contentful";
+import { slugify } from "../../utils/slugify";
 
 interface TopicProps {
   sys: { id: string };
@@ -63,7 +64,7 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
             className={activeTopic && activeItem?.sys.id === item.sys.id ? "active" : undefined}
           >
             <button
-              id={item.sys.id}
+              id={`${item.sys.id}-${slugify(title)}`}
               onClick={() => {
                 setActiveTopic(undefined);
                 setTimeout(() => {
