@@ -14,7 +14,7 @@ export const parseMarkdownToHTML = (markdown: string): string => {
     { regex: /!\[(.*?)\]\((.*?)\)/gm, replacement: '<img src="$2" alt="$1">' },
     // Lists
     {
-      regex: /^(\s*[-*]\s+.+\n)+/gm,
+      regex: /^(\s*[-*]\s+.+(\n|$))+/gm, // Include an optional newline or end of string
       replacement: (match) => {
         const listItems = match
           .trim()
