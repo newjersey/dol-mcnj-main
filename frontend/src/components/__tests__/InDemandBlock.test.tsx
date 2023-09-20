@@ -4,13 +4,12 @@ import "@testing-library/jest-dom/extend-expect";
 import { InDemandBlock } from "../InDemandBlock";
 import { useMediaQuery } from "@material-ui/core";
 import { en as Content } from "../../locales/en";
-import {formatCountiesArrayToString} from "../../utils/formatCountiesArrayToString";
-import {useTranslation} from "react-i18next";
+import { formatCountiesArrayToString } from "../../utils/formatCountiesArrayToString";
+import { useTranslation } from "react-i18next";
 
 jest.mock("react-i18next", () => ({
-  useTranslation: jest.fn()
+  useTranslation: jest.fn(),
 }));
-
 
 jest.mock("@material-ui/core", () => ({
   ...jest.requireActual("@material-ui/core"),
@@ -21,7 +20,7 @@ describe("InDemandBlock", () => {
     (useTranslation as jest.Mock).mockImplementation(() => {
       return {
         t: (key, options) => {
-          const text = key.split('.').reduce((obj, k) => (obj || {})[k], Content);
+          const text = key.split(".").reduce((obj, k) => (obj || {})[k], Content);
           if (text && options) {
             return text.replace(/{{([^{}]*)}}/g, (a, b) => options[b]);
           }
@@ -46,7 +45,10 @@ describe("InDemandBlock", () => {
     const mockProps = {
       counties: ["ESSEX", "MONMOUTH"],
     };
-    const expectedText = localInDemandTitle.replace("{{countiesList}}", formatCountiesArrayToString(mockProps.counties));
+    const expectedText = localInDemandTitle.replace(
+      "{{countiesList}}",
+      formatCountiesArrayToString(mockProps.counties),
+    );
 
     render(<InDemandBlock {...mockProps} />);
     expect(screen.getByText(expectedText)).toBeInTheDocument();

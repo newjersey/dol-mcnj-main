@@ -151,14 +151,14 @@ export const OccupationPage = (props: Props): ReactElement => {
           </h2>
 
           <div className="stat-block-stack mtm">
-            { occupationDetail.inDemand ? <InDemandBlock /> : <></> }
+            {occupationDetail.inDemand ? <InDemandBlock /> : <></>}
 
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
               <InDemandBlock counties={occupationDetail.counties} />
             ) : (
-                <></>
+              <></>
             )}
 
             <StatBlock
