@@ -421,6 +421,7 @@ export interface TrainingExplorerPageProps {
     stepTwoIcon: IconNames;
     stepTwoText: string;
     title: string;
+    drawerContent: ContentfulRichText;
   };
 }
 
