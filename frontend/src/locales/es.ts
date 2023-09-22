@@ -776,6 +776,8 @@ export const es = {
     totalClockHoursTooltip:
       "El total de horas es el número total de horas reales dedicadas a asistir a clases o actividades educativas para completar el programa.",
     totalClockHours: "{{hours}} horas",
+    cipCodeTooltip:
+      'El sistema de "Clasificación de Programas Instructivos" se utiliza para categorizar los programas instructivos por tema.',
     associatedOccupationsGroupHeader: "Ocupaciones asociadas",
     associatedOccupationsText:
       "Esta es una capacitación general que podría prepararlo para una amplia variedad de trayectorias profesionales. Busque <1>ocupaciones en demanda</1> para ver cómo podría aplicar esta capacitación.",
