@@ -331,6 +331,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="fin">
                               <InlineIcon className="mrxs">qr_code</InlineIcon>
                               {t("TrainingPage.cipCodeLabel")}&nbsp;
+                              <InlineIcon
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
+                              >
+                                info
+                              </InlineIcon>
+                              <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
                               <b>{t(training.cipCode)}</b>
                             </span>
                           </p>

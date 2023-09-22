@@ -85,7 +85,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
       {data && (
         <>
           <PageBanner {...pageData?.pageBanner} theme="green" />
-          <SearchBlock />
+          <SearchBlock drawerContent={pageData.drawerContent} />
           <HowTo {...howToContent} />
           <Interrupter {...interrupterContent} />
           <section className="landing-faq">

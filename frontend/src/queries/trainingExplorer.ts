@@ -69,5 +69,23 @@ export const TRAINING_EXPLORER_PAGE_QUERY = `query TrainingExplorer {
         url
       }
     }
+    drawerContent {
+      json
+      links {
+        assets {
+          block {
+            sys {
+              id
+            }
+            url
+            title
+            description
+            width
+            height
+            contentType
+          }
+        }
+      }
+    }
   }
 }`;

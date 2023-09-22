@@ -67,17 +67,10 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
             links={[
               {
                 sys: {
-                  id: "login",
+                  id: "contactUs",
                 },
-                copy: "Login",
-                url: "/login",
-              },
-              {
-                sys: {
-                  id: "signup",
-                },
-                copy: "Sign Up",
-                url: "/signup",
+                copy: "Contact Us",
+                url: "https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/formrestricted",
               },
             ]}
           />
