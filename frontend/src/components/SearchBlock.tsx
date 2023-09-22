@@ -50,6 +50,17 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
   }, []);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const overlay = document.querySelector("#drawerOverlay");
+      if (overlay) {
+        overlay.addEventListener("click", () => {
+          setDrawerOpen(false);
+        });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     const url = `/search/${searchTerm}?`;
 
     // Build the search parameters
@@ -277,7 +288,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
       </form>
       {drawerContent && (
         <>
-          <div className={`overlay${drawerOpen ? " open" : ""}`} />
+          <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
           <div className={`panel${drawerOpen ? " open" : ""}`}>
             <div className="copy">
               <button
