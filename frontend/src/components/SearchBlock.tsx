@@ -103,15 +103,19 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
         </div>
         <p>
           Search by training, provider, certification,{" "}
-          <button
-            className="toggle"
-            onClick={(e) => {
-              e.preventDefault();
-              setDrawerOpen(true);
-            }}
-          >
-            SOC code
-          </button>
+          {drawerContent ? (
+            <button
+              className="toggle"
+              onClick={(e) => {
+                e.preventDefault();
+                setDrawerOpen(true);
+              }}
+            >
+              SOC code
+            </button>
+          ) : (
+            "SOC code"
+          )}
           , or keyword
         </p>
         <div className="row">
@@ -271,22 +275,26 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
           </div>
         </div>
       </form>
-      <div className={`overlay${drawerOpen ? " open" : ""}`} />
-      <div className={`panel${drawerOpen ? " open" : ""}`}>
-        <div className="copy">
-          <button
-            aria-label="Close"
-            title="Close"
-            className="close"
-            onClick={() => setDrawerOpen(false)}
-            type="button"
-          >
-            <X size={28} />
-            <div className="sr-only">Close</div>
-          </button>
-          <RichText document={drawerContent.json} assets={drawerContent.links} />
-        </div>
-      </div>
+      {drawerContent && (
+        <>
+          <div className={`overlay${drawerOpen ? " open" : ""}`} />
+          <div className={`panel${drawerOpen ? " open" : ""}`}>
+            <div className="copy">
+              <button
+                aria-label="Close"
+                title="Close"
+                className="close"
+                onClick={() => setDrawerOpen(false)}
+                type="button"
+              >
+                <X size={28} />
+                <div className="sr-only">Close</div>
+              </button>
+              <RichText document={drawerContent.json} assets={drawerContent.links} />
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 };
