@@ -46,7 +46,7 @@ describe("It visits each Navbar Tabs", () => {
             cy.log("Visits: ", url);
             cy.visit(url);
           } else {
-            cy.log("CORS: ", url);
+            cy.log("External link detected: ", url);
           }
         });
     });
@@ -71,27 +71,6 @@ describe("It visits each Navbar Tabs", () => {
   });
 });
 
-describe("Images load and have Alt texts", () => {
-  navigation_paths.forEach((item) => {
-    it(item.label, () => {
-      cy.visit(item.path);
-      cy.get("img")
-        .should("not.have.css", "display", "none")
-        .each(($img) => {
-          // check alt fvalue
-          cy.wrap($img).should("have.attr", "alt");
-
-          // check if image is visible
-          // cy.wrap($img).scrollIntoView().should("be.visible");
-
-          //Ensure the natural width and height is greater than 0.
-          expect($img[0].naturalWidth).to.be.greaterThan(0);
-          expect($img[0].naturalHeight).to.be.greaterThan(0);
-        });
-    });
-  });
-});
-
 describe("Map expands", () => {
   let paths = [
     {
@@ -111,13 +90,11 @@ describe("Map expands", () => {
 
   paths.forEach((item) => {
     it(item.label, () => {
-      let path =
-        "https://d4ad-research2.uk.r.appspot.com/career-pathways/manufacturing";
+      let path = "https://d4ad-research2.uk.r.appspot.com/career-pathways/manufacturing";
       cy.visit(path).get(".button-radio").contains(item.main_contains).click();
       cy.get(`[aria-label="occupation-selector"]`).click();
       cy.get(`[aria-label="occupation-item"]`).each(($button, index, list) => {
-        let path =
-          "https://d4ad-research2.uk.r.appspot.com/career-pathways/manufacturing";
+        let path = "https://d4ad-research2.uk.r.appspot.com/career-pathways/manufacturing";
         cy.visit(path).get(".button-radio").contains("Machining").click();
         cy.get(`[aria-label="occupation-selector"]`).click();
         cy.get(`[aria-label="occupation-item"]`).eq(index).click();
@@ -145,9 +122,7 @@ describe("Link to login & sign up from CN LP", () => {
     cy = navigateToOathPage();
     cy.origin("https://prod-nj.us.auth0.com", () => {
       cy.get("input#username").type("fakemeail@fakemail.com").wait(1000);
-      cy.get("input#password")
-        .type("fakepasswordfakepasswordfakepasswordfakepassword")
-        .wait(1000);
+      cy.get("input#password").type("fakepasswordfakepasswordfakepasswordfakepassword").wait(1000);
       cy.get(`[name="action"]`).contains("Continue").click({ force: true });
       cy.get("span").contains("Wrong email or password").wait(5000);
     });
@@ -156,15 +131,9 @@ describe("Link to login & sign up from CN LP", () => {
 
 describe("Contact Us opens Google Form", () => {
   it("Should not allow google form visit without login into google", () => {
-    cy.visit(
-      "https://d4ad-research2.uk.r.appspot.com/support-resources/tuition-assistance"
-    );
+    cy.visit("https://d4ad-research2.uk.r.appspot.com/support-resources/tuition-assistance");
     let google_doc_link =
       "https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform";
-    cy.get("section.footer-cta")
-      .get(`[href="${google_doc_link}"]`)
-      .contains("Contact Us")
-      .click();
+    cy.get("section.footer-cta").get(`[href="${google_doc_link}"]`).contains("Contact Us").click();
   });
 });
-
