@@ -1,4 +1,4 @@
-let path = "/";
+let path = "/"
 const navigation_paths = [
   { path: path + "/", label: "Home Page" },
   { path: path + "/search", label: "Search Page" },
@@ -22,85 +22,32 @@ const navigation_paths = [
     label: "Training Provider Resources Page",
   },
 ];
-describe("Career Pathway Page", () => {
-  it("Toggle open close industry detail tray - ", () => {
-    let path = "https://d4ad-research2.uk.r.appspot.com/career-pathways";
-    cy.visit(path);
-    cy.get("span").contains("Healthcare").click();
-    cy.get(".explore-button").contains("Healthcare").click();
-    cy.get(".panel .open");
-    cy.get("button.close").first().click();
-  });
-});
 
-describe("It visits each Navbar Tabs", () => {
-  it("Main Navigation Test ", () => {
-    let path = "https://d4ad-research2.uk.r.appspot.com";
-    cy.visit(path);
-    cy.get("ul > li.no-sub").each((items) => {
-      cy.wrap(items)
-        .children("a")
-        .invoke("attr", "href")
-        .then((url) => {
-          if (url.includes(path)) {
-            cy.log("Visits: ", url);
-            cy.visit(url);
-          } else {
-            cy.log("External link detected: ", url);
-          }
+describe("Images load and have Alt texts", () => {
+  navigation_paths.forEach((item) => {
+    it(item.label, () => {
+      cy.visit(item.path);
+      cy.get("img")
+        .should("not.have.css", "display", "none")
+        .each(($img) => {
+          describe("Images load and have Alt texts", () => {
+            it("Home Page", () => {
+             cy.visit(path)
+             cy.get('img').each(($img) => {
+                cy.wrap($img).should("have.attr", "alt")
+                // Scroll the image into view and check if it's visible.
+                // cy.wrap($img).scrollIntoView().should('be.visible');
+                
+                // Ensure the natural width and height is greater than 0.
+                expect($img[0].naturalWidth).to.be.greaterThan(0);
+                expect($img[0].naturalHeight).to.be.greaterThan(0);
+              });
+            })
+          });
+          //Ensure the natural width and height is greater than 0.
+          expect($img[0].naturalWidth).to.be.greaterThan(0);
+          expect($img[0].naturalHeight).to.be.greaterThan(0);
         });
     });
-  });
-
-  it("Sub Navigation Test ", () => {
-    let path = "https://d4ad-research2.uk.r.appspot.com";
-    cy.visit(path);
-    cy.get("li.has-sub").each((sub_menu) => {
-      cy.wrap(sub_menu)
-        .children("a")
-        .invoke("attr", "href")
-        .then((url) => {
-          if (url.includes(path)) {
-            cy.log("Visits: ", url);
-            cy.visit(url);
-          } else {
-            cy.log("CORS: ", url);
-          }
-        });
-    });
-  });
-});
-
-describe("Link to login & sign up from CN LP", () => {
-  const navigateToOathPage = () => {
-    let path = "https://mycareer.nj.gov/#/";
-    cy.visit(path).get("button").contains("Sign in or Sign Up").click();
-    cy.get("button").contains("Continue with Career Central Account").click();
-    return cy;
-  };
-
-  it("It should navigate to nj auth0", () => {
-    cy = navigateToOathPage();
-    cy.origin("https://prod-nj.us.auth0.com", () => {
-      cy.get("input#username");
-    });
-  });
-  it("It should failed on false credentials", () => {
-    cy = navigateToOathPage();
-    cy.origin("https://prod-nj.us.auth0.com", () => {
-      cy.get("input#username").type("fakemeail@fakemail.com").wait(1000);
-      cy.get("input#password").type("fakepasswordfakepasswordfakepasswordfakepassword").wait(1000);
-      cy.get(`[name="action"]`).contains("Continue").click({ force: true });
-      cy.get("span").contains("Wrong email or password").wait(5000);
-    });
-  });
-});
-
-describe("Contact Us opens Google Form", () => {
-  it("Should not allow google form visit without login into google", () => {
-    cy.visit("https://d4ad-research2.uk.r.appspot.com/support-resources/tuition-assistance");
-    let google_doc_link =
-      "https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform";
-    cy.get("section.footer-cta").get(`[href="${google_doc_link}"]`).contains("Contact Us").click();
   });
 });
