@@ -1,4 +1,4 @@
-let path = "https://d4ad-research2.uk.r.appspot.com/career-pathways";
+let path = "/";
 const navigation_paths = [
   { path: path + "/", label: "Home Page" },
   { path: path + "/search", label: "Search Page" },
