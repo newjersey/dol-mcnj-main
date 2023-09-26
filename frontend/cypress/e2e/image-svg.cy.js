@@ -37,10 +37,7 @@ describe("Images load and have Alt texts", () => {
         .should("not.have.css", "display", "none")
         .each(($img) => {
           // check alt fvalue
-          cy.wrap($img).should("have.attr", "alt");
-
-          // check if image is visible
-          // cy.wrap($img).scrollIntoView().should("be.visible");
+          cy.wrap($img).should("have.attr", "alt").and("not.be.empty");
 
           //Ensure the natural width and height is greater than 0.
           expect($img[0].naturalWidth).to.be.greaterThan(0);
