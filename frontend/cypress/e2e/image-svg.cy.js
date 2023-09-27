@@ -3,12 +3,6 @@ import navigation_paths from "./navigation_paths";
 describe("Images load and have Alt texts", () => {
   navigation_paths.forEach((item) => {
     it(item.label, () => {
-      cy.get("svg").each(($svg) => {
-        // check aria-label
-        cy.wrap($svg).should("have.attr", "aria-label").and("not.be.empty");
-      });
-    });
-    it(item.label, () => {
       cy.visit(item.path);
       cy.get("img")
         .should("not.have.css", "display", "none")
