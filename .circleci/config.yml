@@ -67,4 +67,4 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: mvp
+              only: v2.1
