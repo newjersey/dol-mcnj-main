@@ -1,4 +1,27 @@
-import navigation_paths from "./navigation_paths";
+let path = "/";
+const navigation_paths = [
+  { path: path + "/", label: "Home Page" },
+  { path: path + "/search", label: "Search Page" },
+  {
+    path: path + "/in-demand-occupations",
+    label: "Indemand Occupations Page",
+  },
+  { path: path + "/support-resources", label: "Support Resource Page" },
+  {
+    path: path + "/support-resources/career-support",
+    label: "Career Support Page",
+  },
+  {
+    path: path + "/support-resources/tuition-assistance",
+    label: "Tuition Assistance Page",
+  },
+  { path: path + "/support-resources/other", label: "Other Assistant Page" },
+  { path: path + "/faq", label: "FAQ Page" },
+  {
+    path: path + "/training-provider-resources",
+    label: "Training Provider Resources Page",
+  },
+];
 
 describe("Images load and have Alt texts", () => {
   navigation_paths.forEach((item) => {
