@@ -36,7 +36,7 @@ export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Governor Phil Murphy • Lt. Governor Tahesha Way, Esq.
+            Governor Phil Murphy • Lt. Governor Tahesha Way
           </a>
           <ul>
             {items?.navMenus.topLevelItemsCollection.items?.map((item) => (
