@@ -36,7 +36,7 @@ jobs:
           command: npm test
       - run:
           name: Execute feature tests script
-          command: scripts/feature-tests.sh > feature-test-output.txt
+          command: scripts/feature-tests.sh | tee feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
       - store_artifacts:
