@@ -2,123 +2,70 @@
   margin-top: 2.5rem;
 
   .container {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    gap: $size-32;
-
-    @media screen and (min-width: ($tablet-md)) {
-      flex-direction: row-reverse;
-    }
-  }
-  .nav-title {
-    margin-bottom: $size-16;
-
-    @media screen and (max-width: ($tablet-md - 1)) {
-      display: none;
-    }
-  }
-
-  .nav-toggle {
-    background-color: $primary;
-    margin: 0 auto;
-  }
-
-  .toggle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: $size-16;
-
-    @media screen and (min-width: ($tablet-md)) {
-      display: none;
-    }
-  }
-
-  .nav-wrap {
-    position: sticky;
-    top: $size-64;
-    width: $size-300;
-
-    @media screen and (max-width: ($tablet-md - 1)) {
-      top: $size-16;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
+    max-width: 750px;
   }
 
   nav {
-    background-color: $white;
-
-    @media screen and (max-width: ($tablet-md - 1)) {
-      margin: 0 auto;
-      box-shadow: $shadow-1;
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      width: 100%;
-      max-width: $size-400;
-      transform: translateX(-50%);
+    position: relative;
+    @media screen and (max-width: ($tablet-md)) {
+      margin-bottom: 2rem;
     }
-
-    &.closed {
-      @media screen and (max-width: ($tablet-md - 1)) {
-        height: 0;
-        overflow: hidden;
-        width: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        opacity: 0;
-      }
-    }
-
-    > ul > li {
-      &:last-of-type {
-        border-bottom: $size-1 solid $base-light;
-      }
-    }
-
     ul {
-      list-style: none;
       padding: 0;
-      margin: 0;
+      list-style-type: none;
 
-      li {
-        border-top: $size-1 solid $base-light;
+      @media screen and (min-width: ($tablet-md + 1)) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: $size-16;
+        margin-bottom: 5rem;
       }
 
-      ul {
-        button {
-          padding-left: $size-32;
+      @media screen and (max-width: ($tablet-md)) {
+        display: none;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tablet-md)) {
+          @include mobileDropItems;
         }
       }
     }
 
     button {
-      width: 100%;
-      border-left: $size-4 solid $white;
-      padding: $size-4 $size-10;
-      margin: $size-8 0;
-      &.active {
-        border-color: $primary;
+      @media screen and (max-width: ($tablet-md)) {
+        width: 100%;
+        padding: 0.5rem;
+      }
 
-        color: $primary;
-        font-weight: bold;
+      &.active {
+        position: relative;
+        color: white;
+
+        @media screen and (max-width: ($tablet-md)) {
+          background-color: $green;
+        }
+
+        &:before {
+          @media screen and (min-width: ($tablet-md + 1)) {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            transform: translateX(-50%) translateY(-50%);
+            width: calc(100% + $size-10);
+            height: calc(100% + 25px);
+            z-index: -1;
+            background-color: $green;
+          }
+        }
       }
     }
   }
 
   .content {
-    @media screen and (min-width: ($tablet-md)) {
-      width: calc(100% - $size-300);
-    }
-
     > h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
@@ -129,18 +76,9 @@
       h3 {
         font-size: 1.5rem;
       }
-
       h4,
       h5 {
         font-size: 1.2rem;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        margin: $size-16 0;
       }
 
       table {

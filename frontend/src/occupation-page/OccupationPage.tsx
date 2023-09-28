@@ -18,8 +18,7 @@ import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { WaiverBlock } from "../components/WaiverBlock";
-import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
+import { InDemandBlock } from "../components/InDemandBlock";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -174,25 +173,15 @@ export const OccupationPage = (props: Props): ReactElement => {
             <br />
             <span>{occupationDetail.soc}</span>
           </h2>
-          {occupationDetail.inDemand ? (
-            <>
-              <br />
-              <InDemandTag />
-            </>
-          ) : (
-            <></>
-          )}
+          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
+            {occupationDetail.inDemand ? <InDemandBlock /> : <></>}
+
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
-              <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle", {
-                  counties: formatCountiesArrayToString(occupationDetail.counties),
-                })}
-                backgroundColorClass="bg-light-yellow"
-              />
+              <InDemandBlock counties={occupationDetail.counties} />
             ) : (
               <></>
             )}
