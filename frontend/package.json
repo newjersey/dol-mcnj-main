@@ -80,7 +80,7 @@
     "eslint-plugin-cypress": "^2.15.1",
     "good-fences": "^1.2.0",
     "prettier": "3.0.3",
-    "react-to-print": "^2.14.13"
+    "react-to-print": "^2.14.15"
   },
   "overrides": {
     "react-scripts": {
