@@ -23,21 +23,21 @@ describe("Link to login & sign up from CN LP", () => {
         .type("fakepasswordfakepasswordfakepasswordfakepassword")
         .wait(1000);
       cy.get(`[name="action"]`).contains("Continue").click({ force: true });
-      cy.get("span").contains("Wrong email or password").wait(5000);
+      cy.get("span").contains("Wrong email or password").wait(1000);
     });
   });
 
   it("It should log user in and log user out", () => {
     cy = navigateToOathPage();
     cy.origin("https://prod-nj.us.auth0.com", () => {
-      cy.get("input#username").type(njauth_email).wait(1000);
+      cy.get("input#username").type("devop4640@gmail.com").wait(1000);
       cy.get("input#password")
-        .type(njauth_password)
+        .type("G4BqGvTPVdPnePY")
         .wait(1000);
       cy.get(`[name="action"]`).contains("Continue").click({ force: true }).wait(2000)
-      cy.get("span").contains("Sign Out").wait(5000).click({ force: true }).wait(2000)
 
     });
+    cy.get("span").contains("Sign Out").wait(5000).click({ force: true }).wait(2000)
   });
 
  
