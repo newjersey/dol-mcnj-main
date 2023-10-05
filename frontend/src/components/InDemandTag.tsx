@@ -15,13 +15,11 @@ export const InDemandTag = (props: Props): ReactElement => {
   const countiesString = formatCountiesArrayToString(props.counties);
 
   return (
-      <span className={`fin fas bg-orange-tag tag pvxxs phd mrs ${props.className}`}>
+    <span className={`fin fas bg-orange-tag tag pvxxs phd mrs ${props.className}`}>
       <InlineIcon className="mrxs">local_fire_department</InlineIcon>
-        {
-          countiesString
-              ? t("SearchResultsPage.inDemandCountiesTag", {counties: countiesString})
-              : t("SearchResultsPage.inDemandTag")
-        }
+      {countiesString
+        ? t("SearchResultsPage.inDemandCountiesTag", { counties: countiesString })
+        : t("SearchResultsPage.inDemandTag")}
     </span>
   );
 };

@@ -62,6 +62,12 @@ export const LocationFilter = (): ReactElement => {
         false,
       );
     }
+
+    if (zipCode) {
+      const validZipCode = checkValidZipCode(zipCode);
+      setIsValidZipCode(validZipCode);
+      setAttempted(true);
+    }
   }, []);
 
   const applyLocationFilter = (currentSearchArea: SearchArea, validateZipCode = true): void => {

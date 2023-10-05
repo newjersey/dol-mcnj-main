@@ -20,7 +20,7 @@ export const LanguagesFilter = (): ReactElement => {
 
   useEffect(() => {
     const languagesFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.LANGUAGES
+      (filter) => filter.element === FilterableElement.LANGUAGES,
     );
     if (languagesFilter) {
       setLanguages(languagesFilter.value);
@@ -50,8 +50,8 @@ export const LanguagesFilter = (): ReactElement => {
             trainingResults.filter((it) =>
               it.languages.some(
                 (lang) =>
-                  newLanguages != null && newLanguages.includes(DATA_VALUE_TO_LANGUAGE[lang])
-              )
+                  newLanguages != null && newLanguages.includes(DATA_VALUE_TO_LANGUAGE[lang]),
+              ),
             ),
         },
       });

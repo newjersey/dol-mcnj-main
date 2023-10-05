@@ -4,7 +4,6 @@ import { Client } from "../domain/Client";
 import { Occupation, OccupationDetail } from "../domain/Occupation";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
-import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -18,8 +17,7 @@ import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { WaiverBlock } from "../components/WaiverBlock";
-import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
+import { InDemandBlock } from "../components/InDemandBlock";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -52,7 +50,7 @@ export const OccupationPage = (props: Props): ReactElement => {
         setError(null);
         setOccupationDetail(result);
       },
-      onError: (error: Error) => setError(error),
+      onError: (error: Error) => setError(0),
     });
   }, [props.soc, props.client]);
 
@@ -151,18 +149,14 @@ export const OccupationPage = (props: Props): ReactElement => {
           <h2 data-testid="title" className="text-xl ptd pbs weight-500">
             {occupationDetail.title}
           </h2>
-          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
+            {occupationDetail.inDemand ? <InDemandBlock /> : <></>}
+
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
-              <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle", {
-                  counties: formatCountiesArrayToString(occupationDetail.counties),
-                })}
-                backgroundColorClass="bg-light-yellow"
-              />
+              <InDemandBlock counties={occupationDetail.counties} />
             ) : (
               <></>
             )}
@@ -199,13 +193,13 @@ export const OccupationPage = (props: Props): ReactElement => {
                 rel="noopener noreferrer"
                 href={OPEN_JOBS_URL.replace(
                   "{SOC_CODE}",
-                  (occupationDetail.openJobsSoc || "").toString()
+                  (occupationDetail.openJobsSoc || "").toString(),
                 )}
                 onClick={() =>
                   logEvent(
                     "Occupation page",
                     "Clicked job opening link",
-                    String(occupationDetail.openJobsSoc)
+                    String(occupationDetail.openJobsSoc),
                   )
                 }
               >
@@ -292,9 +286,50 @@ export const OccupationPage = (props: Props): ReactElement => {
       </Layout>
     );
   } else if (error === Error.SYSTEM_ERROR) {
-    return <SomethingWentWrongPage client={props.client} />;
+    return (
+      <SomethingWentWrongPage
+        client={props.client}
+        heading="We’re experiencing technical difficulties"
+      >
+        <>
+          <p>
+            Please wait a moment and try again. If the problem persists please contact us at link
+            below.
+          </p>
+          <a
+            style={{ color: "#005EA2", marginTop: "22px", display: "inline-block" }}
+            href="https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/formrestricted/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contact us
+          </a>
+        </>
+      </SomethingWentWrongPage>
+    );
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage client={props.client} />;
+    return (
+      <NotFoundPage client={props.client} heading="Occupation not found">
+        <>
+          <p>
+            This occupation is no longer listed or we may be experiencing technical difficulties.
+            However, you can try out these other helpful links:
+          </p>
+          <ul className="unstyled">
+            <li style={{ marginTop: "22px" }}>
+              <a style={{ color: "#005EA2" }} href="/in-demand-occupations">
+                In-Demand Occupations List
+              </a>
+            </li>
+            <li style={{ marginTop: "22px" }}>
+              <a style={{ color: "#005EA2" }} href="/search">
+                Find Training Opportunities
+              </a>
+            </li>
+          </ul>
+        </>
+      </NotFoundPage>
+    );
   } else if (isLoading) {
     return (
       <Layout noFooter client={props.client}>

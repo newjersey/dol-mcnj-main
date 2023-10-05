@@ -73,7 +73,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
               <div className="cta">
                 <Heading level={4}>Don't see your question?</Heading>
                 <a href="/faq" className="usa-button">
-                  See ll FAQs
+                  See all FAQs
                   <ArrowRight color="#fff" size={20} />
                 </a>
               </div>

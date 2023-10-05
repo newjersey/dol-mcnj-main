@@ -22,16 +22,18 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts-Day").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("baking skills").should("exist");
 
     cy.contains(
-      "...baking and pastry program us a 675 hour program that teaches basic baking and pastry. Students learn language...",
+      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
     ).should("exist");
   });
 
@@ -56,7 +58,9 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -113,7 +117,7 @@ describe("Search", () => {
     });
 
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.contains("In Demand").should("exist");
+    cy.contains("In-Demand in all of New Jersey.").should("exist");
   });
 
   it("tags shows search training tips", () => {

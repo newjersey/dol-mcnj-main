@@ -25,7 +25,7 @@ export const CipCodeFilter = (): ReactElement => {
 
   useEffect(() => {
     const cipCodeFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.CIP_CODE
+      (filter) => filter.element === FilterableElement.CIP_CODE,
     );
     if (cipCodeFilter != null && cipCodeFilter.value !== cipCode) {
       setCipCode(cipCodeFilter.value);
