@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IntroBlockSectionProps, IntroBlocksProps } from "../types/contentful";
 import { IconNames } from "../types/icons";
 import { Button } from "./modules/Button";
+import { UpdateNotifier } from "./UpdateNotifier";
 
 interface ActiveSectionProps extends IntroBlockSectionProps {
   index: number;
@@ -17,23 +18,26 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
         <div className="inner">
           {heading && <h2>{heading}</h2>}
           {message && <p>{message}</p>}
+          <UpdateNotifier isDrawer />
         </div>
       </div>
       <div className="sections-box box">
         <div className="inner">
           {sectionsHeading && <h2>{sectionsHeading}</h2>}
           <div className="buttons">
-            {sections?.map((section, index) => (
-              <button
-                key={section.title}
-                className={activeSection.title === section.title ? "active" : ""}
-                onClick={() => {
-                  setActiveSection({ ...section, index });
-                }}
-              >
-                {section.title}
-              </button>
-            ))}
+            {sections
+              ?.filter((sec) => sec.title !== "Career Pathways")
+              .map((section, index) => (
+                <button
+                  key={section.title}
+                  className={activeSection.title === section.title ? "active" : ""}
+                  onClick={() => {
+                    setActiveSection({ ...section, index });
+                  }}
+                >
+                  {section.title}
+                </button>
+              ))}
           </div>
 
           <div className="section-content">
@@ -45,7 +49,7 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
                   activeSection.index % 4 === 0
                     ? " secondary"
                     : activeSection.index % 4 === 1
-                    ? " tertiary"
+                    ? " primary"
                     : activeSection.index % 4 === 2
                     ? " primary"
                     : " quaternary"

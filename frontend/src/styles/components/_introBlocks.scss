@@ -10,13 +10,16 @@
       width: 50%;
     }
 
-    h2 {
-      font-size: $size-40;
-      font-weight: 600;
-
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        font-size: $size-32;
+    &.heading-box {
+      p {
+        font-size: $size-22;
+        line-height: 1.2;
       }
+    }
+
+    h2 {
+      font-size: $size-32;
+      font-weight: 600;
 
       @media screen and (max-width: ($tablet - 1)) {
         font-size: $size-24;
@@ -44,26 +47,7 @@
       }
     }
 
-    .inner {
-      max-width: $size-640;
-      margin: 0 0 0 auto;
-      padding: $size-96 $size-48 $size-96 $size-16;
-
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        padding: $size-48 $size-56 $size-48 $size-16;
-      }
-
-      @media screen and (max-width: ($tablet - 1)) {
-        padding: $size-48 $size-16;
-      }
-
-      p {
-        &.heading {
-          font-size: $size-22;
-          font-weight: 600;
-        }
-      }
-
+    &.sections-box {
       .buttons {
         display: flex;
         flex-wrap: wrap;
@@ -94,11 +78,11 @@
           }
         }
         &:nth-of-type(4n-2) {
-          outline: $size-2 solid $tertiary;
+          outline: $size-2 solid $primary;
 
           &:hover {
             @media screen and (min-width: ($tablet-md)) {
-              outline: $size-4 solid $tertiary;
+              outline: $size-4 solid $primary;
             }
           }
         }
@@ -128,7 +112,7 @@
           }
           &:nth-of-type(4n-2) {
             outline: none;
-            background-color: $tertiary-light;
+            background-color: $primary-light;
           }
           &:nth-of-type(4n-3) {
             outline: none;
@@ -138,6 +122,27 @@
             outline: none;
             background-color: $info-light;
           }
+        }
+      }
+    }
+
+    .inner {
+      max-width: $size-640;
+      margin: 0 0 0 auto;
+      padding: $size-96 $size-48 $size-96 $size-16;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        padding: $size-48 $size-56 $size-48 $size-16;
+      }
+
+      @media screen and (max-width: ($tablet - 1)) {
+        padding: $size-48 $size-16;
+      }
+
+      p {
+        &.heading {
+          font-size: $size-22;
+          font-weight: 600;
         }
       }
     }
