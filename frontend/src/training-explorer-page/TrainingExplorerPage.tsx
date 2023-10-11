@@ -12,6 +12,7 @@ import { Accordion } from "../components/Accordion";
 import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
+import { UpdateNotifier } from "../components/UpdateNotifier";
 
 interface Props extends RouteComponentProps {
   client: Client;

@@ -1,15 +1,34 @@
-import { Megaphone } from "@phosphor-icons/react";
+import { Megaphone, X } from "@phosphor-icons/react";
 import { Heading } from "./modules/Heading";
 import Image from "../tempImage.jpg";
+import { useState } from "react";
 
 interface UpdateNotifierProps {
   className?: string;
   isDrawer?: boolean;
 }
 
-const Content = ({ fixed }: { fixed?: boolean }) => {
+const Content = ({
+  fixed,
+  open,
+  setOpen,
+}: {
+  fixed?: boolean;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+}) => {
   return (
-    <div className={`update-content${fixed ? " fixed" : ""}`}>
+    <div className={`update-content${fixed ? " fixed" : ""}${open ? " open" : ""}`}>
+      {fixed && (
+        <button
+          className="close-update-drawer"
+          onClick={() => {
+            setOpen && setOpen(false);
+          }}
+        >
+          <X size={32} />
+        </button>
+      )}
       <div className="wrapper">
         <div className="content">
           <Megaphone size={32} />
@@ -38,7 +57,7 @@ const Content = ({ fixed }: { fixed?: boolean }) => {
                 aria-describedby="input-email-message"
               />
               <button type="submit" className="usa-button primary">
-                <Megaphone size={32} />
+                <Megaphone size={22} />
                 Sign Up for Updates
               </button>
               <p>
@@ -64,18 +83,26 @@ const Content = ({ fixed }: { fixed?: boolean }) => {
 };
 
 const UpdateNotifier = ({ className, isDrawer }: UpdateNotifierProps) => {
+  const [open, setOpen] = useState(false);
   return (
     <div className={`update-notifier${className ? ` ${className}` : ""}`}>
       {isDrawer ? (
         <>
-          <button className="usa-button primary">
-            <Megaphone size={32} />
+          <button
+            className="usa-button primary"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            <Megaphone size={22} />
             Sign Up for Updates
           </button>
-          <Content fixed />
+          <Content fixed open={open} setOpen={setOpen} />
         </>
       ) : (
-        <Content />
+        <div className="container">
+          <Content />
+        </div>
       )}
     </div>
   );

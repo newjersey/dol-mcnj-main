@@ -1,7 +1,17 @@
 .update-notifier {
+  .usa-button {
+    margin-right: 0;
+    justify-content: center;
+    margin-top: $size-16;
+  }
+
   .update-content {
     background-color: $white;
     position: relative;
+    overflow: hidden;
+    border-radius: $size-24;
+    padding: $size-48 0;
+    box-shadow: $shadow-3;
     overflow: hidden;
 
     &::after {
@@ -21,13 +31,16 @@
       width: 100%;
       left: 50%;
       transform: translateX(-50%);
-      box-shadow: $shadow-3;
       max-width: $size-1400;
       position: fixed;
-      bottom: 0;
+      transition-duration: $transition-speed;
       border-radius: $size-24 $size-24 0 0;
-      overflow: hidden;
-      padding: $size-48 0;
+      transition-timing-function: ease-in-out;
+      bottom: -$size-880;
+
+      &.open {
+        bottom: 0;
+      }
     }
 
     .wrapper {
@@ -36,8 +49,11 @@
       justify-content: center;
       gap: $size-24;
       position: relative;
-      padding-right: $size-48;
       z-index: 1;
+
+      @media screen and (min-width: ($tablet-xl)) {
+        padding-right: $size-48;
+      }
     }
 
     .content {
@@ -46,8 +62,12 @@
       align-items: center;
       gap: $size-20;
       max-width: $size-560;
-      width: 100%;
-      padding: $size-24 $size-48;
+      padding: $size-24;
+
+      @media screen and (min-width: ($tablet-xl)) {
+        padding: $size-24 $size-48;
+        width: calc(100% - $size-400);
+      }
 
       .heading-tag {
         font-size: $size-22;
@@ -63,6 +83,7 @@
       form {
         text-align: center;
         width: 100%;
+        max-width: none;
 
         .usa-form-group {
           margin: 0;
@@ -79,10 +100,6 @@
         border-radius: $size-4;
         border-color: $base-light;
       }
-
-      .usa-button {
-        margin-right: 0;
-      }
     }
 
     .image {
@@ -94,6 +111,10 @@
       border-right: $size-10 solid $primary;
       border-bottom: $size-10 solid $primary;
 
+      @media screen and (max-width: ($tablet-xl - 1)) {
+        display: none;
+      }
+
       img {
         position: absolute;
         object-fit: cover;
@@ -101,5 +122,21 @@
         height: 100%;
       }
     }
+  }
+
+  .close-update-drawer {
+    position: absolute;
+    top: $size-24;
+    right: $size-24;
+    width: $size-32;
+    height: $size-32;
+    z-index: 1;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
