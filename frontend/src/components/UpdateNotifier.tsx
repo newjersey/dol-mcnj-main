@@ -88,6 +88,7 @@ const UpdateNotifier = ({ className, isDrawer }: UpdateNotifierProps) => {
     <div className={`update-notifier${className ? ` ${className}` : ""}`}>
       {isDrawer ? (
         <>
+          <div className={`overlay${open ? " open" : ""}`} />
           <button
             className="usa-button primary"
             onClick={() => {
