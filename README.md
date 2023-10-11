@@ -13,7 +13,6 @@ This repo is the home for the Training Explorer web app ([training.njcareers.org
 - The databases include multiple [PostgreSQL](https://www.postgresql.org/) tables (which are imported from raw CSV files stored in `backend/data` directory). For more information on the tables, see the [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) guide.
 - The entire app is deployed to development and production [Google Cloud Platform](https://cloud.google.com/) (GCP) instances in a [Node](https://nodejs.org/en/) 18 environment. We use [CircleCI](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for continuous integration/deployment.
 
-
 ### References
 
 - [`decision_log`](https://github.com/newjersey/d4ad/blob/master/decision_log.md) lists architectural decisions and their rationale
