@@ -1,5 +1,4 @@
 import { Megaphone, X } from "@phosphor-icons/react";
-import { Heading } from "./modules/Heading";
 import Image from "../tempImage.jpg";
 import { useState } from "react";
 
@@ -32,9 +31,9 @@ const Content = ({
       <div className="wrapper">
         <div className="content">
           <Megaphone size={32} />
-          <Heading level={4}>
+          <p className="heading-tag">
             Want updates on new tools and features from New Jersey Career Central?
-          </Heading>
+          </p>
 
           <form
             className="usa-form"
