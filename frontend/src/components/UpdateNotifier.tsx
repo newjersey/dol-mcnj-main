@@ -25,6 +25,7 @@ const Content = ({
             setOpen && setOpen(false);
           }}
         >
+          <span className="sr-only">Close</span>
           <X size={32} />
         </button>
       )}
