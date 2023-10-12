@@ -5,7 +5,7 @@ const navigation_paths = [
   { path: path + "/explorer", label: "Explorer Page" },
   { path: path + "/search", label: "Search Page" },
   { path: path + "/training/44988", label: "Training Page" },
-  { path: path + "/occupation/15-1252", label: "Occupation Page" },
+  { path: path + "/occupation/15-1254", label: "Occupation Page" },
   { path: path + "/funding", label: "Funding Page" },
   { path: path + "/career-pathways/:slug", label: "Career Pathways Page" },
 
