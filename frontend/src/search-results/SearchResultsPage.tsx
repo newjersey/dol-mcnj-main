@@ -131,7 +131,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     <>
       {filteredTrainings.length > 0 && (
         <FormControl variant="outlined" className="mla width-100">
-          test
           <InputLabel htmlFor="sortby">{t("SearchAndFilter.sortByLabel")}</InputLabel>
           <WhiteSelect
             native={true}
