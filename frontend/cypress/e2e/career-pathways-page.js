@@ -13,7 +13,6 @@ describe("Career Pathway Page", () => {
   it("Link to login & sign up from CN LP", () => {});
   it("Tuition Assistance link goes to the right page ", () => {});
   it("Link to more related trainings on TE takes you to the right search ", () => {});
-  it("Local in demand training county tags ", () => {});
 
   it("Contact Us opens Google Form", () => {});
   it("Links out to Tuition Assistance, and one stop job board from in demand careers details with in Healthcare and TDL ", () => {});
