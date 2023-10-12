@@ -18,6 +18,7 @@
     "graphql-request",
     "i18next",
     "libphonenumber-js",
+    "markdown-it",
     "react-dom",
     "react-dom/test-utils",
     "react-i18next",

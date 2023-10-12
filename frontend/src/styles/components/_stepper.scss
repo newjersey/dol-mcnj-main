@@ -29,4 +29,28 @@
       margin: $size-8 0;
     }
   }
+
+  &.theme-green {
+    strong {
+      color: $secondary;
+    }
+  }
+
+  &.theme-blue {
+    strong {
+      color: $primary;
+    }
+  }
+
+  &.theme-purple {
+    strong {
+      color: $tertiary;
+    }
+  }
+
+  &.theme-navy {
+    strong {
+      color: $info;
+    }
+  }
 }
