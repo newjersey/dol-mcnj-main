@@ -1,4 +1,4 @@
-import navigation_paths from "./navigation_paths";
+import paths from "./paths";
 
 function checkImageDimensions($img) {
     cy.wrap($img).should(($img) => {
@@ -7,7 +7,7 @@ function checkImageDimensions($img) {
     });
 }
     describe("Images load and have Alt texts", () => {
-        navigation_paths.forEach((item) => {
+        paths.forEach((item) => {
             it(item.label, () => {
                 cy.visit(item.path);
                 cy.get("img")
