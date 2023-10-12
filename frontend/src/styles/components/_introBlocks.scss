@@ -1,12 +1,12 @@
 .introBlocks {
-  @media screen and (min-width: ($tablet)) {
+  @media screen and (min-width: ($tablet-md)) {
     display: flex;
   }
 
   .box {
     background-color: $info-lighter;
 
-    @media screen and (min-width: ($tablet)) {
+    @media screen and (min-width: ($tablet-md)) {
       width: 50%;
     }
 
@@ -48,6 +48,10 @@
       max-width: $size-640;
       margin: 0 0 0 auto;
       padding: $size-96 $size-48 $size-96 $size-16;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        margin: 0 auto;
+      }
 
       @media screen and (max-width: ($tablet-lg - 1)) {
         padding: $size-48 $size-56 $size-48 $size-16;
