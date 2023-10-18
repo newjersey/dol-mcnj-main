@@ -14,7 +14,7 @@
     "@sentry/react": "^7.74.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12.1.5",
-    "@types/accounting": "^0.4.3",
+    "@types/accounting": "^0.4.4",
     "@types/jest": "^29.5.5",
     "@types/react": "^16.14.31",
     "@types/react-dom": "^16.9.16",
