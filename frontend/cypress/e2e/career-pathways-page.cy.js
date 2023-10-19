@@ -37,21 +37,18 @@ describe("It visits each Navbar Tabs", () => {
 });
 
 describe("career Pathways Page", () => {
-  const navigateToOathPage = () => {
-    let path = "https://mycareer.nj.gov/#/";
-    cy.visit(path).get("button").contains("Sign in or Sign Up").click();
-    cy.get("button").contains("Continue with Career Central Account").click();
-    return cy;
-  };
+  let path = "https://mycareer.nj.gov/#/";
 
   it("It should navigate to nj auth0", () => {
-    cy = navigateToOathPage();
+    cy.visit(path).get("button").contains("Sign in or Sign Up").click();
+    cy.get("button").contains("Continue with Career Central Account").click();
     cy.origin("https://prod-nj.us.auth0.com", () => {
       cy.get("input#username");
     });
   });
   it("It should failed on false credentials", () => {
-    cy = navigateToOathPage();
+    cy.visit(path).get("button").contains("Sign in or Sign Up").click();
+    cy.get("button").contains("Continue with Career Central Account").click();
     cy.origin("https://prod-nj.us.auth0.com", () => {
       cy.get("input#username").type("fakemeail@fakemail.com");
       cy.get("input#password").type("fakepasswordfakepasswordfakepasswordfakepassword");
@@ -61,7 +58,8 @@ describe("career Pathways Page", () => {
   });
 
   it("It should log user in and log user out", () => {
-    cy = navigateToOathPage();
+    cy.visit(path).get("button").contains("Sign in or Sign Up").click();
+    cy.get("button").contains("Continue with Career Central Account").click();
     cy.origin("https://prod-nj.us.auth0.com", () => {
       const CYPRESS_GOOGLE_AUTH_EMAIL = Cypress.env("CYPRESS_GOOGLE_AUTH_EMAIL");
       const CYPRESS_GOOGLE_AUTH_PASSWORD = Cypress.env("CYPRESS_GOOGLE_AUTH_PASSWORD");
