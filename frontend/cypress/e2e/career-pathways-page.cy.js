@@ -1,6 +1,6 @@
 describe("It visits each Navbar Tabs", () => {
   it("Main Navigation Test ", () => {
-    let path = "/";
+    let path = "https://training.njcareers.org";
     cy.visit(path);
     cy.get("ul > li.no-sub").each((items) => {
       cy.wrap(items)
@@ -18,7 +18,7 @@ describe("It visits each Navbar Tabs", () => {
   });
 
   it("Sub Navigation Test ", () => {
-    let path = "/";
+    let path = "https://training.njcareers.org";
     cy.visit(path);
     cy.get("li.has-sub").each((sub_menu) => {
       cy.wrap(sub_menu)
@@ -38,7 +38,7 @@ describe("It visits each Navbar Tabs", () => {
 
 describe("career Pathways Page", () => {
   const navigateToOathPage = () => {
-    let path = "/";
+    let path = "https://mycareer.nj.gov/#/";
     cy.visit(path).get("button").contains("Sign in or Sign Up").click();
     cy.get("button").contains("Continue with Career Central Account").click();
     return cy;
