@@ -23,7 +23,7 @@
     "contentful": "^10.6.3",
     "dayjs": "^1.11.10",
     "graphql-request": "^6.1.0",
-    "i18next": "^23.5.1",
+    "i18next": "^23.6.0",
     "libphonenumber-js": "^1.10.48",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
