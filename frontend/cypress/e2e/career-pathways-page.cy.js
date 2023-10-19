@@ -1,6 +1,6 @@
 describe("It visits each Navbar Tabs", () => {
   it("Main Navigation Test ", () => {
-    let path = "https://training.njcareers.org";
+    let path = "/";
     cy.visit(path);
     cy.get("ul > li.no-sub").each((items) => {
       cy.wrap(items)
@@ -18,7 +18,7 @@ describe("It visits each Navbar Tabs", () => {
   });
 
   it("Sub Navigation Test ", () => {
-    let path = "https://training.njcareers.org";
+    let path = "/";
     cy.visit(path);
     cy.get("li.has-sub").each((sub_menu) => {
       cy.wrap(sub_menu)
