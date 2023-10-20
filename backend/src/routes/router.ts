@@ -131,7 +131,7 @@ export const routerFactory = ({
           res.status(200).json(content);
         })
         .catch((e) => res.status(500).send(e));
-    }
+    },
   );
 
   router.get("/contentful/cpw", async (req: Request, res: Response<CareerPathwaysPageProps>) => {

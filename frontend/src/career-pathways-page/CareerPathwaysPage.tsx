@@ -27,7 +27,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
         setData(response.data.data);
         if (props.id) {
           const industry = response.data.data.industries.items.find(
-            (industry) => industry.slug === props.id
+            (industry) => industry.slug === props.id,
           );
           setIndustry(industry);
         }

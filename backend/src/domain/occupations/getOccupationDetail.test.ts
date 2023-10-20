@@ -1,6 +1,6 @@
-import {GetOccupationDetail} from "../types";
-import {StubDataClient} from "../test-objects/StubDataClient";
-import {getOccupationDetailFactory} from "./getOccupationDetail";
+import { GetOccupationDetail } from "../types";
+import { StubDataClient } from "../test-objects/StubDataClient";
+import { getOccupationDetailFactory } from "./getOccupationDetail";
 import {
   buildAddress,
   buildOccupation,
@@ -9,8 +9,8 @@ import {
   buildSocDefinition,
   buildTraining,
 } from "../test-objects/factories";
-import {Error} from "../Error";
-import {CalendarLength} from "../CalendarLength";
+import { Error } from "../Error";
+import { CalendarLength } from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -34,7 +34,7 @@ describe("getOccupationDetail", () => {
       mockGetSalaryEstimate,
       mockGetOpenJobsCount,
       mockFindTrainingsBy,
-      stubDataClient
+      stubDataClient,
     );
   });
 

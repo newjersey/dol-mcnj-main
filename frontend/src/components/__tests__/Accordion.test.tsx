@@ -98,7 +98,7 @@ describe("Accordion", () => {
     const content = getByTestId("accordion-content");
     expect(content).toHaveTextContent("You can watch this video");
     expect(content).toHaveTextContent(
-      "for detailed instructions on how to use the search on this site."
+      "for detailed instructions on how to use the search on this site.",
     );
   });
 });
