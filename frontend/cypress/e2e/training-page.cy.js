@@ -1,35 +1,27 @@
 describe("Training Page", () => {
   it("displays training details", () => {
-    cy.visit("/training/36803");
+    cy.visit("/training/33127");
     cy.injectAxe();
 
     // titles
-    cy.contains("Massage Therapy Certification").should("exist");
-    cy.contains("h3", "Therapeutic Massage & Training Center").should("exist");
+    cy.contains("Building Maintenance").should("exist");
+    cy.contains("h3", "Orleans Technical College").should("exist");
 
     // stat boxes
     cy.contains("In Demand").should("exist");
-    cy.contains("69.6%").should("exist");
-    cy.contains("$23,224").should("exist");
+    cy.contains("35.2%").should("exist");
+    cy.contains("$27,556").should("exist");
 
     // description
-    cy.contains(
-      "Program teaches massage techniques with related studies in Anatomy, Physiology " +
-        "and Pathology, Neuromuscular techniques and professional ethics. Includes " +
-        "instruction in business law, practice and marketing, student clinic and CPR. " +
-        "Includes basic Shiatsu points, stretching, hydrotherapy, body mechanics, deep " +
-        "tissue massage, chair massage, introduction to Thai massage, hands-on energy, " +
-        "hot stone massage, aromatherapy, reflexology, oriental theory, and tuning fork " +
-        "sound therapy. All studies lead to a New Jersey State License in Massage Therapy."
-    ).should("exist");
+    cy.contains("This program teaches diversified skills needed to maintain and renovate commercial and residential properties. Students are taught basic skills in electricity, carpentry, plumbing, heating and air conditioning maintenance. Training also includes painting, papering, and tiling. Students acquire skills in appliance repair.").should("exist");
 
     // quick stats
-    cy.contains("Prerequisites: HS Diploma/GED").should("exist");
+    cy.contains("Prerequisites: High school Diploma or GED, valid driver's license, pass math/reading entrance test").should("exist");
     cy.contains("Completion time: 6-12 months").should("exist");
 
     // associated occupations
-    cy.contains("Health Specialties Teachers, Postsecondary").should("exist");
-    cy.contains("Massage Therapists").should("exist");
+    cy.contains("Facilities Managers").should("exist");
+    cy.contains("Maintenance and Repair Workers, General").should("exist");
 
     // share trainings
     cy.contains(
@@ -42,21 +34,21 @@ describe("Training Page", () => {
     cy.contains("Learn more about funding options and One-Stop Centers").should("exist");
 
     // cost
-    cy.contains("$8,790.00").should("exist");
-    cy.contains("$8,400.00").should("exist");
-    cy.contains("$125.00").should("exist");
-    cy.contains("$200.00").should("exist");
-    cy.contains("$65.00").should("exist");
+    cy.contains("$17,855.00").should("exist");
+    cy.contains("$13,500.00").should("exist");
     cy.contains("$0.00").should("exist");
+    cy.contains("$1,810.00").should("exist");
+    cy.contains("$2,320.00").should("exist");
+    cy.contains("$225.00").should("exist");
 
     // provider details
-    cy.contains("span", "Therapeutic Massage & Training Center").should("exist");
-    cy.contains("560 Springfield Avenue - Suite F & H").should("exist");
-    cy.contains("Westfield, NJ 07090").should("exist");
-    cy.contains("Arlene Reardon").should("exist");
-    cy.contains("President").should("exist");
-    cy.contains("(908) 789-2288").should("exist");
-    cy.contains("www.massagetrainingcenter.com").should("exist");
+    cy.contains("span", "Orleans Technical College").should("exist");
+    cy.contains("2770 Red Lion Road").should("exist");
+    cy.contains("Philadelphia, PA 19114").should("exist");
+    cy.contains("Debbie Bello").should("exist");
+    cy.contains("Director of Admissions").should("exist");
+    cy.contains("(215) 728-4733").should("exist");
+    cy.contains("www.orleanstech.edu").should("exist");
 
     cy.checkA11y();
   });
