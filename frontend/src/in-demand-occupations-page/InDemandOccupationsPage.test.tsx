@@ -37,7 +37,7 @@ describe("<InDemandOccupationsPage />", () => {
         buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Underwater Welder" }),
         buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Magma Welder" }),
         buildInDemandOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
-      ])
+      ]),
     );
 
     expect(subject.getByText("Welding Occupations")).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe("<InDemandOccupationsPage />", () => {
         buildInDemandOccupation({ majorGroup: "Miners" }),
         buildInDemandOccupation({ majorGroup: "Artists" }),
         buildInDemandOccupation({ majorGroup: "Welders" }),
-      ])
+      ]),
     );
 
     const majorGroups = subject.getAllByTestId("majorGroup");
@@ -72,7 +72,7 @@ describe("<InDemandOccupationsPage />", () => {
         buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Underwater Welder" }),
         buildInDemandOccupation({ majorGroup: "Welding Occupations", title: "Magma Welder" }),
         buildInDemandOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
-      ])
+      ]),
     );
 
     expect(subject.getByText("Welding Occupations")).toBeInTheDocument();
@@ -96,7 +96,7 @@ describe("<InDemandOccupationsPage />", () => {
     act(() =>
       stubClient.capturedObserver.onSuccess([
         buildInDemandOccupation({ majorGroup: "Artists", title: "Volcano Painter" }),
-      ])
+      ]),
     );
 
     expect(subject.queryByText("keyboard_arrow_down")).toBeInTheDocument();
@@ -116,7 +116,7 @@ describe("<InDemandOccupationsPage />", () => {
         buildInDemandOccupation({ title: "Data Scientist", soc: "12-3456" }),
         buildInDemandOccupation({ title: "Data Artist" }),
         buildInDemandOccupation({ title: "Something else" }),
-      ])
+      ]),
     );
 
     fireEvent.change(subject.getByPlaceholderText("Search for occupations"), {

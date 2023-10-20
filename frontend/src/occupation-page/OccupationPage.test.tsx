@@ -150,7 +150,7 @@ describe("<OccupationPage />", () => {
     await act(async () => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
     expect(
-        subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false }),
     ).toBeInTheDocument();
   });
 
@@ -160,7 +160,7 @@ describe("<OccupationPage />", () => {
     await act(async () => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
     expect(
-        subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false })
+      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false }),
     ).toBeInTheDocument();
   });
 

@@ -8,7 +8,7 @@ interface CareerOneStopJobsResponse {
 export const CareerOneStopClient = (
   baseUrl: string,
   userId: string,
-  authToken: string
+  authToken: string,
 ): GetOpenJobsCount => {
   return async (soc: string): Promise<number | null> => {
     return axios
@@ -19,7 +19,7 @@ export const CareerOneStopClient = (
             "Content-Type": "application/json",
             Authorization: `Bearer ${authToken}`,
           },
-        }
+        },
       )
       .then((response: AxiosResponse<CareerOneStopJobsResponse>) => {
         return parseInt(response.data.Jobcount);

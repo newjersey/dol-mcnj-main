@@ -19,7 +19,7 @@ export const CostFilter = (): ReactElement => {
 
   useEffect(() => {
     const maxCostFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.MAX_COST
+      (filter) => filter.element === FilterableElement.MAX_COST,
     );
     if (maxCostFilter) {
       setMaxCost(maxCostFilter.value);

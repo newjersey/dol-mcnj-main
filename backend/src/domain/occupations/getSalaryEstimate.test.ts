@@ -14,7 +14,7 @@ describe("getSalaryEstimate", () => {
 
   it("uses the oes hybrid soc to get salary estimate", async () => {
     stubDataClient.getOESOccupationBySoc.mockResolvedValue(
-      buildOccupation({ soc: "some-oes-soc" })
+      buildOccupation({ soc: "some-oes-soc" }),
     );
     stubDataClient.getSalaryEstimateBySoc.mockResolvedValue({ mediansalary: "" });
 

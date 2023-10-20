@@ -5,7 +5,9 @@ describe("Search", () => {
     cy.injectAxe();
     cy.checkA11y();
 
-    cy.get("[placeholder='Enter occupation, certification, provider, or SOC code']").should("exist");
+    cy.get("[placeholder='Enter occupation, certification, provider, or SOC code']").should(
+      "exist",
+    );
 
     // input search
     cy.get('input[aria-label="search"]').type("baking");
@@ -16,7 +18,9 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -25,7 +29,7 @@ describe("Search", () => {
     cy.contains("baking skills").should("exist");
 
     cy.contains(
-      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such..."
+      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
     ).should("exist");
   });
 
@@ -50,7 +54,9 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -116,7 +122,7 @@ describe("Search", () => {
     // search tips
     cy.get("[data-testid='searchTips']").should(
       "contain",
-      "Are you not seeing the results you were looking for?"
+      "Are you not seeing the results you were looking for?",
     );
   });
 

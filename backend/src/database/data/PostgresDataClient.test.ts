@@ -65,10 +65,7 @@ describe("PostgresDataClient", () => {
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
-        expect.arrayContaining([
-          "Tree Identification Class",
-          "Tree Identification Class Level 2",
-        ])
+        expect.arrayContaining(["Tree Identification Class", "Tree Identification Class Level 2"]),
       );
     });
 
@@ -77,10 +74,7 @@ describe("PostgresDataClient", () => {
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
-        expect.arrayContaining([
-          "Tree Identification Class",
-          "Tree Identification Class Level 2",
-        ])
+        expect.arrayContaining(["Tree Identification Class", "Tree Identification Class Level 2"]),
       );
     });
 
@@ -199,7 +193,7 @@ describe("PostgresDataClient", () => {
             soc: "old 2010 soc",
             title: null,
           },
-        ])
+        ]),
       );
     });
   });
@@ -217,7 +211,7 @@ describe("PostgresDataClient", () => {
             soc: "15-1255",
             title: "Web and Digital Interface Designers",
           },
-        ])
+        ]),
       );
     });
   });
@@ -235,7 +229,7 @@ describe("PostgresDataClient", () => {
             soc: "15-1199",
             title: "Computer Occupations, All Other (#)",
           },
-        ])
+        ]),
       );
     });
   });
@@ -245,7 +239,7 @@ describe("PostgresDataClient", () => {
       const education = await dataClient.getEducationTextBySoc("15-2011");
       expect(education.howtobecomeone.replace(/\s+/g, " ").trim()).toEqual(
         "<h4>How to Become an Actuary</h4> " +
-        "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>"
+          "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>",
       );
     });
   });

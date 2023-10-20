@@ -42,7 +42,7 @@ export const LocationFilter = (): ReactElement => {
 
   useEffect(() => {
     const locationFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.LOCATION
+      (filter) => filter.element === FilterableElement.LOCATION,
     );
     if (locationFilter != null) {
       setSearchArea(locationFilter.value);
@@ -64,7 +64,7 @@ export const LocationFilter = (): ReactElement => {
     if (currentSearchArea.center) {
       const zipCodesInRadius = getZipCodesInRadius(
         currentSearchArea.center,
-        currentSearchArea.radius
+        currentSearchArea.radius,
       );
       dispatch({
         type: FilterActionType.ADD,
