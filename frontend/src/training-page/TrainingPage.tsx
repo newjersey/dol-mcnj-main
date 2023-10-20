@@ -123,7 +123,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     const address = training.provider.address;
     const nameAndAddressEncoded = encodeURIComponent(
-      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`
+      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`,
     );
     const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
@@ -147,7 +147,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     let phoneNumber = parsePhoneNumberFromString(
       training.provider.phoneNumber,
-      "US"
+      "US",
     )?.formatNational();
     if (training.provider.phoneExtension) {
       phoneNumber = `${phoneNumber} Ext: ${training.provider.phoneExtension}`;

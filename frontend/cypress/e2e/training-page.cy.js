@@ -13,10 +13,14 @@ describe("Training Page", () => {
     cy.contains("$27,556").should("exist");
 
     // description
-    cy.contains("This program teaches diversified skills needed to maintain and renovate commercial and residential properties. Students are taught basic skills in electricity, carpentry, plumbing, heating and air conditioning maintenance. Training also includes painting, papering, and tiling. Students acquire skills in appliance repair.").should("exist");
+    cy.contains(
+      "This program teaches diversified skills needed to maintain and renovate commercial and residential properties. Students are taught basic skills in electricity, carpentry, plumbing, heating and air conditioning maintenance. Training also includes painting, papering, and tiling. Students acquire skills in appliance repair.",
+    ).should("exist");
 
     // quick stats
-    cy.contains("Prerequisites: High school Diploma or GED, valid driver's license, pass math/reading entrance test").should("exist");
+    cy.contains(
+      "Prerequisites: High school Diploma or GED, valid driver's license, pass math/reading entrance test",
+    ).should("exist");
     cy.contains("Completion time: 6-12 months").should("exist");
 
     // associated occupations
@@ -27,7 +31,7 @@ describe("Training Page", () => {
     cy.contains(
       "This training leads to an occupation that is in-demand, which may qualify for " +
         "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them."
+        "eligibility, and share this training page with them.",
     ).should("exist");
     cy.contains("Copy a link to this training opportunity").should("exist");
     cy.contains("Save and print this training opportunity").should("exist");
@@ -63,7 +67,7 @@ describe("Training Page", () => {
     cy.contains(
       "This training leads to an occupation that is in-demand, which may qualify for " +
         "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them."
+        "eligibility, and share this training page with them.",
     ).should("not.exist");
   });
 });
