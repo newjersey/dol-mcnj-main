@@ -61,8 +61,6 @@ describe("It visits each Navbar Tabs", () => {
           if (url.includes(path)) {
             cy.log("Visits: ", url);
             cy.visit(url);
-          } else {
-            cy.log("CORS: ", url);
           }
         });
     });
