@@ -10,19 +10,19 @@ import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import * as Sentry from "@sentry/node";
 
-
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     try {
       const programs = await dataClient.findProgramsBy(selector, values);
 
-      return (await Promise.all(
+      return (
+        await Promise.all(
           programs.map(async (program: Program) => {
             try {
               const matchingOccupations = await dataClient.findOccupationsByCip(program.cipcode);
               const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
-                  .filter(localException => localException.cipcode === program.cipcode)
-                  .map(localException => convertToTitleCaseIfUppercase(localException.county));
+                .filter((localException) => localException.cipcode === program.cipcode)
+                .map((localException) => convertToTitleCaseIfUppercase(localException.county));
 
               return {
                 id: program.programid,
@@ -33,11 +33,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                   name: program.providername ? stripSurroundingQuotes(program.providername) : "",
                   url: program.website ?? "",
                   contactName:
-                      program.contactfirstname && program.contactlastname
-                          ? `${stripSurroundingQuotes(program.contactfirstname)} ${stripSurroundingQuotes(
-                              program.contactlastname
-                          )}`
-                          : "",
+                    program.contactfirstname && program.contactlastname
+                      ? `${stripSurroundingQuotes(
+                          program.contactfirstname,
+                        )} ${stripSurroundingQuotes(program.contactlastname)}`
+                      : "",
                   contactTitle: stripSurroundingQuotes(program.contacttitle ?? ""),
                   phoneNumber: program.phone ?? "",
                   phoneExtension: program.phoneextension ?? "",
@@ -54,8 +54,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 certifications: program.industrycredentialname,
                 prerequisites: formatPrerequisites(program.prerequisites),
                 calendarLength: program.calendarlengthid
-                    ? parseInt(program.calendarlengthid)
-                    : CalendarLength.NULL,
+                  ? parseInt(program.calendarlengthid)
+                  : CalendarLength.NULL,
                 occupations: matchingOccupations.map((it) => ({
                   title: it.title,
                   soc: it.soc,
@@ -76,31 +76,33 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
                 hasJobPlacementAssistance: mapStrNumToBool(program.personalassist),
                 hasChildcareAssistance:
-                    mapStrNumToBool(program.childcare) || mapStrNumToBool(program.assistobtainingchildcare),
+                  mapStrNumToBool(program.childcare) ||
+                  mapStrNumToBool(program.assistobtainingchildcare),
               };
             } catch (error) {
-                console.error(`Error while processing program id ${program.programid}: `, error);
+              console.error(`Error while processing program id ${program.programid}: `, error);
 
-                Sentry.withScope((scope) => {
-                  scope.setLevel("error");
-                  scope.setExtra('programId', program.programid);
-                  Sentry.captureException(error);
-                });
+              Sentry.withScope((scope) => {
+                scope.setLevel("error");
+                scope.setExtra("programId", program.programid);
+                Sentry.captureException(error);
+              });
 
-                throw error;
+              throw error;
             }
-          })
-      )).filter((item): item is Training => item !== undefined);
+          }),
+        )
+      ).filter((item): item is Training => item !== undefined);
     } catch (error) {
-        console.error(`Error while fetching programs: `, error);
+      console.error(`Error while fetching programs: `, error);
 
-        Sentry.withScope((scope) => {
-          scope.setLevel("error");
-          scope.setExtra('selector', selector);
-          Sentry.captureException(error);
-        });
+      Sentry.withScope((scope) => {
+        scope.setLevel("error");
+        scope.setExtra("selector", selector);
+        Sentry.captureException(error);
+      });
 
-        throw error;
+      throw error;
     }
   };
 };

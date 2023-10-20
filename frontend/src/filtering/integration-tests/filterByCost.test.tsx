@@ -134,7 +134,7 @@ describe("filtering by max cost", () => {
     await waitForEffect();
 
     expect((subject.getByPlaceholderText("$", { exact: false }) as HTMLInputElement).value).toEqual(
-      ""
+      "",
     );
     expect(subject.queryByText("training1999")).toBeInTheDocument();
     expect(subject.queryByText("training2000")).toBeInTheDocument();

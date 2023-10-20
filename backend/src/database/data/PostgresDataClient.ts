@@ -78,20 +78,20 @@ export class PostgresDataClient implements DataClient {
         "indemandcips.cipcode as indemandcip",
         "onlineprograms.programid as onlineprogramid",
         "outcomes_cip.peremployed2",
-        "outcomes_cip.avgquarterlywage2"
+        "outcomes_cip.avgquarterlywage2",
       )
       .leftOuterJoin("indemandcips", "indemandcips.cipcode", "etpl.cipcode")
       .leftOuterJoin("onlineprograms", "onlineprograms.programid", "etpl.programid")
       .leftOuterJoin("outcomes_cip", function () {
         this.on("outcomes_cip.cipcode", "etpl.cipcode").on(
           "outcomes_cip.providerid",
-          "etpl.providerid"
+          "etpl.providerid",
         );
       })
       .joinRaw(
         `join unnest('{${values.join(
-          ","
-        )}}'::varchar[]) WITH ORDINALITY t(listcolumn, ord) ON etpl.${column} = t.listcolumn`
+          ",",
+        )}}'::varchar[]) WITH ORDINALITY t(listcolumn, ord) ON etpl.${column} = t.listcolumn`,
       )
       .whereIn(`etpl.${column}`, values)
       .andWhere("etpl.statusname", APPROVED)
@@ -114,40 +114,40 @@ export class PostgresDataClient implements DataClient {
 
   getLocalExceptionsByCip = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
-        .distinctOn(["cipcode", "county"])
-        .select("cipcode", "county")
-        .catch((e) => {
+      .distinctOn(["cipcode", "county"])
+      .select("cipcode", "county")
+      .catch((e) => {
         console.log("db error: ", e);
-            return Promise.reject();
-        });
+        return Promise.reject();
+      });
   };
 
   getLocalExceptionsBySoc = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
-        .select("soc", "county", "occupation as title")
-        .then((result) => {
-          console.log("Local exceptions:", result);
-          return result;
-        })
-        .catch((e) => {
-          console.log("DB error:", e);
-          return Promise.reject();
-        });
+      .select("soc", "county", "occupation as title")
+      .then((result) => {
+        console.log("Local exceptions:", result);
+        return result;
+      })
+      .catch((e) => {
+        console.log("DB error:", e);
+        return Promise.reject();
+      });
   };
 
   findLocalExceptionsBySoc = (soc: string): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
-        .select("soc", "county", "occupation as title")
-        .where("soc", soc)
-        .distinctOn("soc")
-        .then((result) => {
-          console.log("Local exceptions:", result);
-          return result;
-        })
-        .catch((e) => {
-          console.log("DB error:", e);
-          return Promise.reject();
-        });
+      .select("soc", "county", "occupation as title")
+      .where("soc", soc)
+      .distinctOn("soc")
+      .then((result) => {
+        console.log("Local exceptions:", result);
+        return result;
+      })
+      .catch((e) => {
+        console.log("DB error:", e);
+        return Promise.reject();
+      });
   };
 
   findOccupationsByCip = (cip: string): Promise<Occupation[]> => {
@@ -188,7 +188,7 @@ export class PostgresDataClient implements DataClient {
       .leftOuterJoin(
         "socdefinitions",
         "socdefinitions.soccode",
-        "soc2010to2018crosswalk.soccode2018"
+        "soc2010to2018crosswalk.soccode2018",
       )
       .catch((e) => {
         console.log("db error: ", e);
