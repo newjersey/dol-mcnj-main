@@ -24,7 +24,7 @@ const River = ({ className, items, headingsLevel = 3 }: RiverProps) => {
             <div className="image">
               <img
                 src={item.image.url}
-                alt=""
+                alt={item.image.description || ""}
                 height={item.image.height}
                 width={item.image.width}
               />

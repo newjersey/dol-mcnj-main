@@ -33,7 +33,12 @@ export const HomeBanner = ({ heading, subheading, image, buttonCopy }: HomeBanne
         </div>
         {image && (
           <div className="image">
-            <img alt="" src={image?.url} width={image?.width} height={image?.height} />
+            <img
+              alt={image.description || ""}
+              src={image?.url}
+              width={image?.width}
+              height={image?.height}
+            />
           </div>
         )}
       </div>
