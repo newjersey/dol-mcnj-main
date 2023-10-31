@@ -15,6 +15,9 @@ export const TUITION_ASSISTANCE_PAGE_QUERY = `query TuitionAssistance {
     }
     bannerImage {
       url
+      description
+      height
+      width
     }
     footerBannerTitle
     footerBannerCopy {
