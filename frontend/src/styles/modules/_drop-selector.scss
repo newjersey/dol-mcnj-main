@@ -4,10 +4,10 @@
   padding: 0.6rem 0.4rem;
   font-weight: normal;
   color: $dark-green;
-  border: 1px solid $dark-green;
+  border: $size-1 solid $dark-green;
   border-radius: 0;
 
-  @media screen and (max-width: ($tabPort)) {
+  @media screen and (max-width: ($tablet-md)) {
     display: flex;
     align-items: center;
     justify-content: space-between;

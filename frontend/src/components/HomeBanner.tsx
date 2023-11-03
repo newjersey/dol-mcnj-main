@@ -16,15 +16,29 @@ export const HomeBanner = ({ heading, subheading, image, buttonCopy }: HomeBanne
           <h1>{heading}</h1>
           {subheading && <p>{subheading}</p>}
           {buttonCopy && (
-            <button className="usa-button">
+            <button
+              className="usa-button"
+              onClick={() => {
+                // scroll to #homeContent
+                const homeContent = document.getElementById("homeContent");
+                if (homeContent) {
+                  homeContent.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
               {buttonCopy}
-              <ArrowDown weight="bold" />
+              <ArrowDown size={32} />
             </button>
           )}
         </div>
         {image && (
           <div className="image">
-            <img alt="" src={image?.url} width={image?.width} height={image?.height} />
+            <img
+              alt={image.description || ""}
+              src={image?.url}
+              width={image?.width}
+              height={image?.height}
+            />
           </div>
         )}
       </div>

@@ -14,20 +14,28 @@ export const FAQ_PAGE_QUERY = `
       pageBanner {
         ...PageBanner
       }
-      topics: questionTopicsCollection {
+      categoriesCollection(limit: 15) {
         items {
           sys {
             id
           }
-          topic
-          itemsCollection {
+          title
+          topics: topicsCollection(limit: 5) {
             items {
               sys {
                 id
               }
-              question
-              answer {
-                json
+              topic
+              itemsCollection(limit: 10) {
+                items {
+                  sys {
+                    id
+                  }
+                  question
+                  answer {
+                    json
+                  }
+                }
               }
             }
           }
