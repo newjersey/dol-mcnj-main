@@ -1,13 +1,13 @@
 .occupation-block {
-  margin-top: 6rem;
+  margin: $size-60 0;
 
-  @media screen and (min-width: ($mobTab + 1)) {
-    margin-top: 6.5rem;
+  .explore-button {
+    margin: 0 $size-8 $size-8 0;
   }
 
   button {
     &.usa-button--unstyled {
-      color: $blue;
+      color: $primary;
       display: flex;
       gap: 0.5rem;
       align-items: center;
@@ -16,33 +16,16 @@
 
   .container {
     + .container {
-      @media screen and (max-width: ($mobTab - 1)) {
+      @media screen and (max-width: ($tablet - 1)) {
         padding: 0;
       }
     }
   }
 
-  .map-toggle {
-    color: $blue;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: underline;
-    margin-bottom: 2rem;
-  }
-
-  .section-heading {
-    font-size: 2rem;
-    font-weight: bold;
-    padding-bottom: 0.6rem;
+  .sectionHeading {
     margin-bottom: 2.2rem;
-    border-bottom: 0.5rem solid black;
-
-    @media screen and (max-width: ($mobTab)) {
-      line-height: 1.2;
-      margin-bottom: 2.5;
-    }
   }
+
   .occupation-selector {
     max-width: 36rem;
     display: block;
@@ -53,13 +36,13 @@
     &:after {
       content: "";
       position: absolute;
-      right: 1rem;
-      bottom: 1rem;
+      right: $size-16;
+      bottom: $size-16;
       width: 0;
       height: 0;
       border-left: 0.35rem solid transparent;
       border-right: 0.35rem solid transparent;
-      border-top: 0.35rem solid black;
+      border-top: 0.35rem solid $ink;
     }
 
     select {
@@ -71,28 +54,28 @@
   }
 
   .occupation-box {
-    @media screen and (min-width: ($mobTab + 1)) {
-      border: 1px solid black;
-      border-radius: 10px;
-      padding: 4.5rem 2rem;
+    @media screen and (min-width: ($tablet + 1)) {
+      padding: $size-32 0 0;
+    }
+
+    .path-title {
+      font-size: $size-18;
+      font-weight: bold;
     }
 
     .heading {
       display: flex;
       align-items: flex-start;
-      flex-wrap: wrap;
       gap: 0.5rem;
-      max-width: 42rem;
-      margin-bottom: 3rem;
       padding-bottom: 0;
       border-bottom: none;
 
-      @media screen and (max-width: ($mobMed - 1)) {
+      @media screen and (max-width: ($mobile-lg - 1)) {
         flex-direction: column;
       }
 
-      @media screen and (max-width: ($mobTab - 1)) {
-        padding: 0 1rem;
+      @media screen and (max-width: ($tablet - 1)) {
+        padding: 0 $size-16;
       }
 
       h3 {
@@ -107,24 +90,19 @@
       }
 
       + .single-path {
-        padding: 0.5rem 1rem 0.5rem 0.2rem;
+        padding: 0.5rem $size-16 0.5rem 0.2rem;
 
-        @media screen and (max-width: ($mobTab - 1)) {
-          padding: 0.5rem 1rem;
+        @media screen and (max-width: ($tablet - 1)) {
+          padding: 0.5rem $size-16;
         }
       }
     }
 
     .tag {
-      display: flex;
-      border-radius: 0;
-      align-items: center;
-      background: $light-orange;
-      border: 1px solid $warm-orange;
-      padding: 4px 6px;
-      font-size: 0.8rem;
-
-      @media screen and (max-width: ($mobMed - 1)) {
+      @media screen and (min-width: ($mobile-lg)) {
+        margin-left: $size-16;
+      }
+      @media screen and (max-width: ($mobile-lg - 1)) {
         margin: 0 0 0.5rem;
       }
     }
@@ -132,34 +110,51 @@
   .occu-row {
     display: flex;
     width: 100%;
-    gap: 2rem;
+    gap: $size-32;
     align-items: flex-start;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       flex-direction: column;
+    }
+
+    @media screen and (min-width: ($tablet)) {
+      max-width: 1294px;
+      margin: 0 auto;
+      padding: 0 15px;
     }
 
     > div {
       width: 100%;
-      @media screen and (min-width: ($mobTab)) {
-        width: 50%;
+
+      @media screen and (min-width: ($tablet)) {
+        max-width: $size-520;
+      }
+
+      &:first-of-type {
+        @media screen and (min-width: ($tablet-xl)) {
+          max-width: calc(100% - $size-520);
+        }
+      }
+
+      @media screen and (min-width: ($tablet)) {
+        width: 100%;
       }
     }
 
     &.info {
-      @media screen and (max-width: ($sm - 1)) {
+      @media screen and (max-width: ($tablet-xl - 1)) {
         flex-direction: column-reverse;
       }
 
       > div {
-        @media screen and (max-width: ($sm - 1)) {
+        @media screen and (max-width: ($tablet-xl - 1)) {
           width: 100%;
         }
       }
 
       .box {
-        @media screen and (min-width: ($sm)) {
-          width: calc(100% - 25rem);
+        @media screen and (min-width: ($tablet-xl)) {
+          width: calc(100% - $size-520);
         }
       }
     }
@@ -167,85 +162,169 @@
 
   .meta {
     display: flex;
-    gap: 2rem;
+    gap: $size-32;
 
-    @media screen and (max-width: ($mobMed - 1)) {
-      gap: 1rem;
+    @media screen and (max-width: ($mobile-lg - 1)) {
+      gap: $size-16;
       flex-direction: column;
     }
 
-    @media screen and (min-width: ($sm)) {
+    @media screen and (min-width: ($tablet-xl)) {
       width: 25rem;
     }
 
-    @media screen and (max-width: ($mobTab - 1)) {
-      padding: 0 1rem;
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: 0 $size-16;
     }
 
     > div {
       width: 100%;
-      background-color: $light-purple;
-      margin-bottom: 2rem;
-      border-radius: 10px;
+      background-color: $tertiary-lighter;
+      margin-bottom: $size-32;
+      border-radius: $size-10;
       overflow: hidden;
-      padding: 0.5rem;
+      min-height: $size-120;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: $size-16;
 
-      @media screen and (min-width: ($mobMed)) {
+      @media screen and (min-width: ($mobile-lg)) {
         width: 50%;
       }
 
+      &:first-of-type {
+        @media screen and (max-width: ($mobile-lg - 1)) {
+          margin-bottom: 0;
+        }
+
+        p {
+          text-align: right;
+        }
+      }
+
       p {
+        line-height: 1;
         font-size: 1.5rem;
         margin: 0;
 
         &.title {
-          font-size: 1rem;
+          font-size: $size-16;
           display: flex;
+          flex-wrap: wrap;
           align-items: center;
+          text-align: left;
           gap: 0.5rem;
           margin-bottom: 0.6rem;
+
+          strong {
+            font-size: $size-22;
+            width: 100%;
+            display: block;
+          }
         }
       }
 
       a {
-        color: $blue;
+        color: $primary;
+        font-size: $size-16;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        span {
+          line-height: 1.5;
+          display: block;
+          width: 80%;
+        }
       }
     }
   }
 
   .box {
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: $size-32;
 
-    @media screen and (min-width: ($mobTab)) {
+    @media screen and (min-width: ($tablet)) {
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: $size-10;
     }
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       display: flex;
       flex-direction: column;
     }
 
-    .content {
-      padding: 1rem;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
 
-      @media screen and (min-width: ($mobTab)) {
-        border: 1px solid $light-grey;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+    &.related-jobs {
+      .content {
+        a {
+          &.usa-button {
+            background-color: $primary-lighter;
+            border: $size-2 solid $primary-light;
+          }
+        }
+      }
+    }
+
+    .content {
+      padding: $size-16;
+
+      @media screen and (min-width: ($tablet)) {
+        border-left: $size-1 solid $base-lightest;
+        border-right: $size-1 solid $base-lightest;
+        border-bottom: $size-1 solid $base-lightest;
+        border-bottom-left-radius: $size-10;
+        border-bottom-right-radius: $size-10;
       }
 
       a {
         &.usa-button {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          justify-content: center;
           text-align: left;
+          background-color: $secondary-lighter;
+          width: 100%;
+          border: $size-2 solid $secondary;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: $size-16;
+          color: $ink;
+          border-radius: 10px;
+          padding: 0.5rem;
+
+          span {
+            gap: $size-16;
+            display: inline-flex;
+            align-items: center;
+          }
 
           + .usa-button {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            background-color: $info-lighter;
+            border: $size-2 solid $info;
+          }
+
+          @media screen and (max-width: ($tablet-xl - 1)) {
+            display: flex;
+            width: 100%;
+          }
+
+          &:hover {
+            @media screen and (min-width: ($tablet-xl + 1)) {
+              background: white;
+            }
+          }
+
+          svg {
+            width: $size-28;
+            height: auto;
+          }
+
+          + .usa-button {
+            margin-top: $size-16;
           }
         }
       }
@@ -253,7 +332,7 @@
       &.related-training,
       &.related-occupations {
         a:not(.usa-button) {
-          color: $blue;
+          color: $primary;
           text-decoration: none;
           display: block;
         }
@@ -262,85 +341,165 @@
       &.related-occupations {
         li {
           + li {
-            margin-top: 1rem;
+            margin-top: $size-16;
           }
         }
       }
 
       &.related-training {
-        a {
-          font-weight: bold;
-          &.outline {
-            display: flex;
-            color: $green;
-          }
-        }
-
-        .span-grid {
+        ul {
           display: flex;
-          align-items: flex-end;
-          width: 100%;
-          justify-content: space-between;
-          padding: 0 0.2rem 1rem;
-          border-bottom: 2px solid;
-          margin-bottom: 1.5rem;
+          flex-direction: column;
+          gap: $size-24;
+          margin: $size-16 0 $size-32;
+        }
+        a:not(.usa-button) {
+          border: 2px solid $base-lighter;
+          border-radius: $size-8;
+          padding: $size-16;
+          transition-duration: $transition-speed;
 
-          .left {
+          &:hover {
+            @media screen and (min-width: ($tablet-md)) {
+              box-shadow: $shadow-2;
+            }
+          }
+
+          .title {
+            line-height: 1.2;
+            font-size: $size-16;
+            margin-bottom: $size-16;
+            font-weight: bold;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            svg {
+              color: $ink;
+            }
+          }
+
+          .span-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            margin: 0;
+            gap: $size-16;
 
             span {
+              color: $ink;
               display: flex;
               align-items: center;
               gap: 0.5rem;
+
+              &.last-line {
+                justify-content: space-between;
+              }
+
+              &.salary {
+                color: $white;
+                background-color: $base;
+                padding: $size-4 $size-8 $size-2;
+              }
             }
           }
         }
+        // a {
+        //   font-weight: bold;
+        //   &.outline {
+        //     display: flex;
+        //     color: $green;
+        //   }
+        // }
 
-        .salary {
-          background: $medium-gray;
-          color: white;
-          font-size: 1rem;
-          padding: 0.2rem 0.3rem;
-          border-radius: 2px;
-        }
+        // .span-grid {
+        //   display: flex;
+        //   align-items: flex-end;
+        //   width: 100%;
+        //   justify-content: space-between;
+        //   padding: 0 0.2rem $size-16;
+        //   border-bottom: $size-2 solid;
+        //   margin-bottom: 1.5rem;
+
+        //   .left {
+        //     display: flex;
+        //     flex-direction: column;
+        //     gap: 0.5rem;
+
+        //     span {
+        //       display: flex;
+        //       align-items: center;
+        //       gap: 0.5rem;
+        //     }
+        //   }
+        // }
+
+        // .salary {
+        //   background: $medium-gray;
+        //   color: white;
+        //   font-size: $size-16;
+        //   padding: 0.2rem 0.3rem;
+        //   border-radius: $size-2;
+        // }
       }
     }
   }
 
   .heading-bar {
-    background-color: $light-green;
+    background-color: $secondary-lighter;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-weight: bold;
     padding: 0.5rem 0.6rem;
 
-    @media screen and (max-width: ($mobTab - 1)) {
+    @media screen and (max-width: ($tablet - 1)) {
       position: sticky;
       top: 0;
     }
   }
 
+  .heading-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $size-32;
+
+    @media screen and (max-width: ($desktop - 1)) {
+      flex-direction: column;
+    }
+
+    .heading {
+      max-width: $size-720;
+      flex-wrap: wrap;
+
+      @media screen and (min-width: ($desktop)) {
+        width: calc(100% - $size-520);
+        margin-bottom: $size-32;
+      }
+    }
+
+    .meta {
+      width: 100%;
+      max-width: $size-520;
+    }
+  }
+
   &.career-detail {
-    margin-top: 2rem;
+    margin-top: $size-32;
 
     .occupation-box {
       border: 0;
       border-radius: 0;
       background: white;
-      padding: 2rem 0;
-
-      @media screen and (min-width: ($mobTab)) {
-        padding: 2rem;
-      }
+      padding: $size-32 0 0;
 
       .heading {
         margin-bottom: 1.5rem;
         max-width: 100%;
+        gap: $size-32;
+        flex-wrap: nowrap;
 
-        @media screen and (max-width: ($tabLand - 1)) {
+        @media screen and (max-width: ($desktop - 1)) {
           display: block;
         }
 
@@ -351,7 +510,7 @@
         p {
           margin-top: 0.5rem;
           width: 100%;
-          @media screen and (min-width: ($tabLand)) {
+          @media screen and (min-width: ($desktop)) {
             margin-right: 1.5rem;
           }
         }
@@ -361,30 +520,33 @@
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
+          max-width: $size-720;
 
-          @media screen and (min-width: ($tabLand)) {
-            width: calc(100% - 38rem);
+          @media screen and (min-width: ($desktop)) {
+            width: calc(100% - $size-520);
           }
         }
 
         .meta {
-          padding: 1rem 0;
-          gap: 1rem;
-
-          @media screen and (min-width: ($tabLand)) {
-            width: 37rem;
-          }
+          padding: $size-16 0;
+          gap: $size-16;
+          width: 100%;
+          max-width: $size-520;
 
           div {
-            padding: 0.5rem 1rem;
+            padding: 0.5rem $size-16;
             margin-bottom: 0;
 
             p {
               margin: 0;
+
+              &.title {
+                margin-bottom: $size-8;
+              }
             }
 
             a {
-              font-size: 0.8rem;
+              font-size: $size-16;
             }
           }
         }
@@ -395,74 +557,48 @@
       line-height: 1.6;
 
       p {
-        margin-bottom: 1rem;
-      }
-
-      ul:not(.unstyled) {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-
-        li {
-          margin: 0;
-          background: $off-white;
-          padding: 0.5rem;
-        }
-      }
-
-      .content {
-        &.related-training {
-          li {
-            border: 2px solid $light-grey;
-            border-radius: 10px;
-            overflow: hidden;
-            padding: 1rem;
-            margin-bottom: 1rem;
-          }
-          .span-grid {
-            border: none;
-            margin: 0;
-            padding: 0;
-          }
-        }
+        margin-bottom: $size-16;
       }
     }
 
     .breadcrumbs {
-      color: $text;
+      color: $ink;
       font-size: 0.9rem;
-      margin-bottom: 2rem;
+      margin-top: $size-40;
+      margin-bottom: $size-22;
 
-      @media screen and (max-width: ($mobTab - 1)) {
-        padding: 0 1rem;
+      @media screen and (max-width: (
+            $tablet - 1,
+          )) {
+        padding: 0 $size-16;
       }
     }
   }
 
   .full-map {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    z-index: 20;
-    padding: 2rem;
     overflow: auto;
-    visibility: hidden;
     -webkit-overflow-scrolling: touch;
-    opacity: 0;
-    pointer-events: none;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
+
+    .extra {
+      background-color: white;
+      z-index: 20;
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      width: 0;
+      overflow: hidden;
+    }
 
     &.open {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: all;
+      .extra {
+        visibility: visible;
+        height: auto;
+        width: auto;
+        overflow: visible;
+        opacity: 1;
+        pointer-events: all;
+      }
     }
 
     .map-title {
@@ -476,9 +612,82 @@
 
     .close {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: $size-32;
+      right: $size-32;
       cursor: pointer;
+    }
+  }
+
+  .select-button {
+    margin-top: 0.7rem;
+    width: 100%;
+    color: $ink;
+    appearance: none;
+    padding: 0.7rem $size-32 0.7rem 0.7rem;
+    position: relative;
+    border: $size-1 solid $base-lighter;
+    border-radius: 5px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: $size-16;
+      bottom: $size-16;
+      width: 0;
+      height: 0;
+      border-left: 0.35rem solid transparent;
+      border-right: 0.35rem solid transparent;
+      border-top: 0.35rem solid $ink;
+    }
+  }
+
+  .dropdown-select {
+    font-weight: normal;
+    margin-top: $size-16;
+    box-shadow: 0 10px 20px -15px $ink;
+    position: absolute;
+    background-color: $base-cool;
+    z-index: 1;
+    max-height: $size-330;
+    overflow: auto;
+    outline: 1px solid $base-lighter;
+    border-radius: $size-8;
+    width: 100%;
+
+    &[aria-expanded="true"] {
+      display: block;
+    }
+
+    .path-title,
+    button {
+      display: block;
+      width: 100%;
+    }
+
+    .path-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $base-lighter;
+      padding: 0.5rem $size-16;
+    }
+
+    button {
+      padding: $size-16;
+
+      @media screen and (min-width: ($tablet)) {
+        padding: $size-16;
+      }
+
+      &:nth-of-type(2n - 1) {
+        background: $base-lightest;
+      }
+
+      &:hover {
+        @media screen and (min-width: ($tablet)) {
+          background: $purple;
+        }
+      }
     }
   }
 }

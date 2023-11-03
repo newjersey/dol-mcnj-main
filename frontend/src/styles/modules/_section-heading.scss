@@ -1,33 +1,30 @@
 .sectionHeading {
-  border-bottom: 8px solid $black;
-  padding-bottom: 1rem;
-
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    color: $black;
+    color: $ink;
+    padding-bottom: $size-16;
+    border-bottom: $size-1 solid $base-lighter;
     font-size: 2rem;
-    display: inline-block;
+    display: block;
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       font-size: 1.5rem;
     }
   }
 
   &.strikeThrough {
     text-align: center;
-    padding-bottom: 0;
-    border: 0;
     position: relative;
 
     &:before {
       content: "";
-      height: 8px;
+      height: $size-1;
       width: 100%;
-      background: $black;
+      background: $base-lighter;
       position: absolute;
       left: 0;
       top: 50%;
@@ -39,62 +36,70 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       background: $white;
+      display: inline-block;
+      border: 0;
       position: relative;
-      padding: 0 1rem;
+      padding: 0 $size-16;
     }
   }
 
   &.color-blue {
-    border-color: $blue;
-
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $blue;
+    h6,
+    p {
+      border-bottom: $size-2 solid $primary;
+      color: $primary;
     }
   }
 
   &.color-green {
-    border-color: $green;
-
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $green;
+    h6,
+    p {
+      border-bottom: $size-2 solid $secondary;
+      color: $secondary;
     }
   }
 
   &.color-purple {
-    border-color: $dark-purple;
-
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $dark-purple;
+    h6,
+    p {
+      border-bottom: $size-2 solid $tertiary;
+      color: $tertiary;
     }
   }
 
   &.color-navy {
-    border-color: $navy;
-
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
-      color: $navy;
+    h6,
+    p {
+      border-bottom: $size-2 solid $info-darker;
+      color: $info-darker;
     }
+  }
+
+  .description {
+    margin: $size-10 0 0;
+    font-size: $size-16;
   }
 }

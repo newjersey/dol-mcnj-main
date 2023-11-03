@@ -200,10 +200,38 @@ export const TrainingPage = (props: Props): ReactElement => {
       <div ref={componentRef}>
         <Layout client={props.client}>
           <div className="container">
-            <div className="ptm weight-500 fin all-caps border-bottom-dark">
-              {t("TrainingPage.header")}
+            <div className="detail-page">
+              <div className="page-banner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/training-explorer">
+                          Training Explorer
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/search">
+                          Search
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span>{training.name}</span>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
             </div>
-            <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
 
             <div className="stat-block-stack mtm">
@@ -235,7 +263,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     ? formatPercentEmployed(training.percentEmployed)
                     : STAT_MISSING_DATA_INDICATOR
                 }
-                backgroundColorClass="bg-lighter-purple"
+                backgroundColorClass="bg-light-purple-50"
               />
             </div>
 
@@ -303,6 +331,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="fin">
                               <InlineIcon className="mrxs">qr_code</InlineIcon>
                               {t("TrainingPage.cipCodeLabel")}&nbsp;
+                              <InlineIcon
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
+                              >
+                                info
+                              </InlineIcon>
+                              <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
                               <b>{t(training.cipCode)}</b>
                             </span>
                           </p>

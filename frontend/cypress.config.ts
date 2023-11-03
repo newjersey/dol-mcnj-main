@@ -1,9 +1,6 @@
 import { defineConfig } from "cypress";
-import dotenv from "dotenv";
-dotenv.config();
 
 export default defineConfig({
-  env: { ...process.env },
   e2e: {
     setupNodeEvents(on, config) {
       on("task", {

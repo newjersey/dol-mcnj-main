@@ -9,10 +9,13 @@ import { HomeBanner } from "../components/HomeBanner";
 import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
+// import { IntroBlocks } from "../components/IntroBlocks";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
+
+//TODO: Uncomment once Intro Blocks is ready
 
 export const LandingPage = (props: Props): ReactElement => {
   const data: HomepageProps = useContentfulClient({
@@ -22,7 +25,7 @@ export const LandingPage = (props: Props): ReactElement => {
   const pageData = data?.homePage;
 
   return (
-    <Layout client={props.client}>
+    <Layout client={props.client} noPad>
       <div className="home-page">
         {data && (
           <>
@@ -30,9 +33,10 @@ export const LandingPage = (props: Props): ReactElement => {
               heading={pageData.title}
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
-              subheading={pageData.pageDescription}
+              subheading={pageData.bannerMessage}
             />
-            <div className="container">
+            {/* {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />} */}
+            <div className="container" id="homeContent">
               <div className="tools">
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
@@ -45,7 +49,15 @@ export const LandingPage = (props: Props): ReactElement => {
                         : item.sectionIcon === "support"
                         ? "Support"
                         : "Training";
-                    return <IconCard centered svg={svgName} title={item.copy} url={item.url} />;
+                    return (
+                      <IconCard
+                        key={item.sys.id}
+                        centered
+                        svg={svgName}
+                        title={item.copy}
+                        url={item.url}
+                      />
+                    );
                   })}
                 </div>
               </div>

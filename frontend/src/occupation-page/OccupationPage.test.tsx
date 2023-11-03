@@ -45,7 +45,7 @@ describe("<OccupationPage />", () => {
 
     await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.getByText("Test SOC Code")).toBeInTheDocument();
+    expect(subject.getByTestId("title")).toBeInTheDocument();
     expect(subject.getByText("some cool description")).toBeInTheDocument();
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();

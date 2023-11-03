@@ -83,7 +83,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
+    expect(subject.getByTestId("title", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Completion time:", { exact: false })).toBeInTheDocument();
     expect(
       subject.getByText(Content.CalendarLengthLookup["7"], { exact: false }),

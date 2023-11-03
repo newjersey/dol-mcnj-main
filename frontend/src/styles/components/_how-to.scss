@@ -1,7 +1,7 @@
 .how-to {
   padding: 5rem 0;
 
-  @media screen and (max-width: ($mobTab)) {
+  @media screen and (max-width: ($tablet)) {
     padding: 3rem 0;
   }
 
@@ -10,38 +10,39 @@
     font-weight: bold;
     padding-bottom: 0.6rem;
     margin-bottom: 3rem;
-    border-bottom: 0.5rem solid black;
+    border-bottom: 0.5rem solid $ink;
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       line-height: 1.2;
       margin-bottom: 2.5;
     }
   }
 
   .video {
-    background-color: $light-green;
-    padding: 1rem 0;
+    background-color: $secondary-lighter;
+    padding: $size-16 0;
+    margin-bottom: $size-72;
     text-align: center;
 
     .player {
       width: 100%;
-      max-width: 320px;
+      max-width: $size-320;
       margin: 0 auto;
     }
 
     .usa-button {
       display: flex;
-      background-color: $green;
+      background-color: $secondary;
       align-items: center;
       gap: 0.5rem;
-      width: 320px;
+      width: $size-320;
       justify-content: center;
       margin: 0 auto;
     }
   }
 
   .stepper {
-    @media screen and (min-width: ($mobTab)) {
+    @media screen and (min-width: ($tablet-md)) {
       margin: 80px 0 0;
     }
   }

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
 
 interface Props {
-  counties: string[];
+  counties?: string[];
 }
 
 export const InDemandBlock = (props: Props): ReactElement => {

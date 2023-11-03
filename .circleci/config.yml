@@ -10,13 +10,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install PostgreSQL client and setup database
+          name: Setup postgres
           command: |
             sudo apt-get update
             sudo apt-get install postgresql-client
             createdb -h localhost d4adlocal -U postgres
       - run:
-          name: Install required dependencies for Cypress
+          name: Install cypress dependencies
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - restore_cache:
           keys:
@@ -24,7 +24,6 @@ jobs:
             - node-deps-v2-{{ .Branch }}
             - node-deps-v2
       - run:
-          name: Install Node.js dependencies
           command: npm install
       - save_cache:
           key: node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
@@ -32,10 +31,9 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
-          name: Run Node.js tests
           command: npm test
       - run:
-          name: Execute feature tests script
+          name: Run feature tests
           command: scripts/feature-tests.sh > feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
@@ -52,21 +50,15 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
-          name: Setup gcloud SDK for development environment
+          name: install and initialize gcloud sdk
           command: |
-            echo $GCLOUD_SERVICE_KEY_PRE_MVP | base64 --decode | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_PRE_MVP}
+            echo $GCLOUD_SERVICE_KEY_MVP | base64 --decode | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_MVP}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run:
-          name: Deploy to development environment
-          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcppremvp CLOUD_SQL_CONNECTION_NAME=d4ad-research:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
+          name: deploy
+          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcpmvp CLOUD_SQL_CONNECTION_NAME=d4ad-research2:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-      - deploy:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: pre-mvp

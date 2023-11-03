@@ -12,7 +12,7 @@
     gap: 2rem;
     align-items: flex-start;
 
-    @media screen and (max-width: ($tabMed - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
       flex-direction: column;
     }
 
@@ -27,18 +27,18 @@
       left: 0;
       width: 100%;
 
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         width: 411px;
       }
 
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         top: 0;
         z-index: 1;
       }
 
       .footer-cta,
       .related {
-        @media screen and (max-width: ($tabMed - 1)) {
+        @media screen and (max-width: ($tablet-lg - 1)) {
           display: none;
         }
       }
@@ -49,13 +49,13 @@
       flex-direction: column;
       gap: 2rem;
 
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         width: calc(100% - 411px);
       }
 
       .footer-cta,
       .related {
-        @media screen and (min-width: ($tabMed)) {
+        @media screen and (min-width: ($tablet-lg)) {
           display: none;
         }
       }
@@ -66,7 +66,7 @@
     margin-bottom: 0;
 
     .usa-button {
-      background: $blue;
+      background: $primary;
 
       &:hover {
         background: $navy;
@@ -92,29 +92,29 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @media screen and (max-width: ($tabMed - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
       flex-direction: column;
     }
 
     > .label {
-      font-size: 22px;
+      font-size: $size-22;
 
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         order: 1;
-        margin-bottom: 1rem;
+        margin-bottom: $size-16;
       }
 
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         text-align: right;
         width: 180px;
       }
     }
 
     > div {
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         order: 2;
       }
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         width: calc(100% - 180px);
       }
     }
@@ -124,10 +124,10 @@
     }
 
     .tags {
-      margin-top: 1rem;
+      margin-top: $size-16;
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: $size-16;
 
       button {
         padding: 0;
@@ -149,18 +149,18 @@
     margin-top: 3rem;
 
     h3 {
-      font-size: 22px;
+      font-size: $size-22;
       margin-bottom: 2rem;
     }
 
     .usa-button {
       text-align: left;
-      background-color: $teal;
+      background-color: $info-lighter;
       width: 100%;
-      border: 2px solid $bright-blue;
+      border: $size-2 solid $bright-blue;
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: $size-16;
       color: $navy;
       border-radius: 10px;
       padding: 0.5rem;
@@ -169,19 +169,19 @@
         margin-top: 1.5rem;
       }
 
-      @media screen and (max-width: ($sm - 1)) {
+      @media screen and (max-width: ($tablet-xl - 1)) {
         display: flex;
         width: 100%;
       }
 
       &:hover {
-        @media screen and (min-width: ($sm + 1)) {
+        @media screen and (min-width: ($tablet-xl + 1)) {
           background: white;
         }
       }
 
       svg {
-        width: 32px;
+        width: $size-32;
         height: auto;
       }
     }

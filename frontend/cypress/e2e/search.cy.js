@@ -1,7 +1,7 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/");
+    cy.visit("/training-explorer");
     cy.injectAxe();
     cy.checkA11y();
 
@@ -9,9 +9,9 @@ describe("Search", () => {
       "exist",
     );
 
-    // input search
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
+    // input search
     cy.get('input[aria-label="search"]').type("baking");
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
@@ -84,9 +84,9 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/search");
-    cy.contains("New Jersey Career Central").click({ force: true });
-    cy.location("pathname").should("eq", "/");
+    cy.visit("/training-explorer");
+    cy.contains("Training Explorer").click({ force: true });
+    cy.location("pathname").should("eq", "/training-explorer");
   });
 
   it("links to a training detail page", () => {

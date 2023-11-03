@@ -4,56 +4,57 @@
   padding: 3rem 0;
 
   .container {
-    padding: 1rem;
+    padding: 0 $size-16;
     position: relative;
   }
 
   .inner {
-    @media screen and (min-width: ($desk)) {
-      padding: 1rem;
+    @media screen and (min-width: ($desktop-lg)) {
+      padding: 0 $size-16 $size-16;
       position: relative;
 
       overflow: hidden;
     }
 
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       display: flex;
       flex-direction: column;
     }
 
     &:before,
     &:after {
-      @media screen and (min-width: ($desk)) {
+      @media screen and (min-width: ($desktop-lg)) {
         content: "";
         position: absolute;
         bottom: 0;
         height: 100%;
         pointer-events: none;
-        width: 32px;
-        height: 220px;
+        width: $size-32;
+        height: calc(100% - $size-72);
         z-index: 1;
       }
     }
 
     &:before {
-      left: -1rem;
-      border-left: 1rem solid white;
+      left: -$size-16;
+      border-left: $size-16 solid white;
       background: linear-gradient(to right, white, transparent);
     }
     &:after {
       right: 0rem;
-      border-right: 1rem solid white;
+      border-right: $size-16 solid white;
       background: linear-gradient(to left, white, transparent);
     }
   }
 
   .sectionHeading {
-    @media screen and (max-width: ($tabPort - 1)) {
+    @media screen and (max-width: ($tablet-md - 1)) {
       position: sticky;
       top: 0;
       left: 0;
-      padding-top: 1rem;
+      padding-top: $size-16;
       z-index: 1;
+      background-color: $white;
     }
   }
 
@@ -61,27 +62,27 @@
     display: flex;
     gap: 2rem;
     transition: transform 0.3s ease;
-    margin-top: 4rem;
+    margin-top: $size-32;
 
-    @media screen and (max-width: ($desk - 1)) {
+    @media screen and (max-width: ($desktop-lg - 1)) {
       flex-wrap: wrap;
       transform: none !important;
     }
 
     .iconCard {
-      @media screen and (min-width: ($desk)) {
+      @media screen and (min-width: ($desktop-lg)) {
         flex: 0 0 calc(100% / 4.5 - 2rem);
       }
 
-      @media screen and (max-width: ($desk - 1)) {
+      @media screen and (max-width: ($desktop-lg - 1)) {
         width: calc(33.333% - 2rem);
       }
 
-      @media screen and (max-width: ($tabPort - 1)) {
+      @media screen and (max-width: ($tablet-md - 1)) {
         width: calc(50% - 2rem);
       }
 
-      @media screen and (max-width: ($mobMed - 1)) {
+      @media screen and (max-width: ($mobile-lg - 1)) {
         width: 100%;
       }
 
@@ -93,16 +94,16 @@
 
   .arrow {
     position: absolute;
-    top: calc(50% + 4rem);
+    top: calc(50% + $size-40);
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: $size-40;
+    height: $size-40;
     font-size: 1.5rem;
     border: none;
     cursor: pointer;
     z-index: 2;
 
-    @media screen and (max-width: ($desk - 1)) {
+    @media screen and (max-width: ($desktop-lg - 1)) {
       display: none;
     }
 

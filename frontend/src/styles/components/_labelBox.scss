@@ -1,20 +1,20 @@
 .labelBox {
-  border-radius: 10px;
+  border-radius: $size-10;
   overflow: hidden;
-  border: 1px solid $grey;
+  border: $size-1 solid $base-lighter;
 
   &.toggleBox {
-    @media screen and (max-width: ($tabMed - 1)) {
+    @media screen and (max-width: ($tablet-lg - 1)) {
       border-radius: 0;
     }
 
     .content {
-      @media screen and (max-width: ($tabMed - 1)) {
+      @media screen and (max-width: ($tablet-lg - 1)) {
         display: none;
       }
 
       &.open {
-        @media screen and (max-width: ($tabMed - 1)) {
+        @media screen and (max-width: ($tablet-lg - 1)) {
           display: block;
         }
       }
@@ -22,17 +22,17 @@
   }
 
   .title {
-    background: $bluer;
-    color: $text;
-    padding: 10px 15px;
+    background: $primary;
+    color: $ink;
+    padding: $size-10 15px;
     width: 100%;
     margin: 0;
-    font-size: 1rem;
+    font-size: $size-16;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 
-    @media screen and (min-width: ($tabMed)) {
+    @media screen and (min-width: ($tablet-lg)) {
       cursor: auto;
     }
 
@@ -41,19 +41,19 @@
     }
 
     .indicator {
-      @media screen and (min-width: ($tabMed)) {
+      @media screen and (min-width: ($tablet-lg)) {
         display: none;
       }
     }
   }
 
   .content {
-    padding: 1rem;
+    padding: $size-16;
   }
 
   &.color-blue {
     .title {
-      background: $bluer;
+      background: $primary;
       color: $white;
     }
   }
