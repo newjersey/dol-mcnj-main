@@ -12,7 +12,7 @@ interface RenderedWithRouter {
 
 export function renderWithRouter(
   component: ReactElement,
-  { route = "/", history = createHistory(createMemorySource(route)) } = {}
+  { route = "/", history = createHistory(createMemorySource(route)) } = {},
 ): RenderedWithRouter {
   return {
     container: render(<LocationProvider history={history}>{component}</LocationProvider>),
@@ -29,7 +29,7 @@ export const waitForEffect = async (): Promise<undefined> => {
 export const withContextualInfo = (
   subject: ReactElement,
   contextualInfo: ContextualInfo,
-  setContextualInfo: Dispatch<SetStateAction<ContextualInfo>>
+  setContextualInfo: Dispatch<SetStateAction<ContextualInfo>>,
 ): ReactElement => {
   return (
     <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>

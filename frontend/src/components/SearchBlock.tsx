@@ -1,10 +1,12 @@
-import { ArrowRight, CurrencyDollarSimple } from "@phosphor-icons/react";
+import { ArrowRight, CurrencyDollarSimple, X } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import { checkValidZipCode } from "../utils/checkValidZipCode";
 import { InlineIcon } from "./InlineIcon";
+import { ContentfulRichText } from "../types/contentful";
+import { ContentfulRichText as RichText } from "./ContentfulRichText";
 
-export const SearchBlock = () => {
+export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichText }) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
@@ -14,6 +16,7 @@ export const SearchBlock = () => {
   const [searchUrl, setSearchUrl] = useState<string>("");
   const [zipValid, setZipValid] = useState<boolean>(false);
   const [attempted, setAttempted] = useState<boolean>(false);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const sanitizedValue = (value: string | Node) => DOMPurify.sanitize(value);
 
@@ -44,6 +47,17 @@ export const SearchBlock = () => {
     setTimeout(() => {
       clearAllInputs();
     }, 200);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const overlay = document.querySelector("#drawerOverlay");
+      if (overlay) {
+        overlay.addEventListener("click", () => {
+          setDrawerOpen(false);
+        });
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -98,8 +112,23 @@ export const SearchBlock = () => {
             Clear All
           </button>
         </div>
-
-        <p>Search by training, provider, certification, SOC code, or keyword</p>
+        <p>
+          Search by training, provider, certification,{" "}
+          {drawerContent ? (
+            <button
+              className="toggle"
+              onClick={(e) => {
+                e.preventDefault();
+                setDrawerOpen(true);
+              }}
+            >
+              SOC code
+            </button>
+          ) : (
+            "SOC code"
+          )}
+          , or keyword
+        </p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">
             Search
@@ -166,22 +195,35 @@ export const SearchBlock = () => {
                   id="zipCode"
                   placeholder="ZIP code"
                   onBlur={(e: ChangeEvent<HTMLInputElement>) => {
-                    setZipValid(checkValidZipCode(zipCode));
+                    setZipValid(checkValidZipCode(e.target.value));
                     setAttempted(true);
 
-                    setTimeout(() => {
-                      const select = document.getElementById("miles") as HTMLSelectElement;
+                    if (zipValid) {
+                      setTimeout(() => {
+                        const select = document.getElementById("miles") as HTMLSelectElement;
+                        if (select) {
+                          select.value = "10";
+                          setMiles("10");
+                        }
+                      }, 100);
+                    }
+                  }}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    const select = document.getElementById("miles") as HTMLSelectElement;
+                    if (checkValidZipCode(e.target.value)) {
+                      setZipCode(sanitizedValue(e.target.value));
+                      setAttempted(false);
                       if (select) {
                         select.value = "10";
                         setMiles("10");
                       }
-                    }, 100);
-                  }}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setZipCode(sanitizedValue(e.target.value));
-                    setAttempted(false);
+                    } else {
+                      setZipCode("");
+                      setMiles("");
+                    }
                   }}
                 />
+
                 {!zipValid && attempted && (
                   <div className="red fin mts">
                     <InlineIcon className="mrxs">error</InlineIcon> Please enter a 5-digit New
@@ -203,7 +245,10 @@ export const SearchBlock = () => {
                   setMaxCost(sanitizedValue(e.target.value));
                 }}
               />
-              <a href="/support-resources/tuition-assistance" className="usa-button usa-button--unstyled">
+              <a
+                href="/support-resources/tuition-assistance"
+                className="usa-button usa-button--unstyled"
+              >
                 Tuition Assistance Information
               </a>
             </div>
@@ -241,6 +286,26 @@ export const SearchBlock = () => {
           </div>
         </div>
       </form>
+      {drawerContent && (
+        <>
+          <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
+          <div className={`panel${drawerOpen ? " open" : ""}`}>
+            <div className="copy">
+              <button
+                aria-label="Close"
+                title="Close"
+                className="close"
+                onClick={() => setDrawerOpen(false)}
+                type="button"
+              >
+                <X size={28} />
+                <div className="sr-only">Close</div>
+              </button>
+              <RichText document={drawerContent.json} assets={drawerContent.links} />
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 };

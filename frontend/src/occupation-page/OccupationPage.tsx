@@ -13,13 +13,12 @@ import { formatMoney } from "accounting";
 import careeronestop from "../careeronestop.png";
 import { TrainingResultCard } from "../search-results/TrainingResultCard";
 import { TrainingResult } from "../domain/Training";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Icon } from "@material-ui/core";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { WaiverBlock } from "../components/WaiverBlock";
-import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
+import { InDemandBlock } from "../components/InDemandBlock";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -145,24 +144,44 @@ export const OccupationPage = (props: Props): ReactElement => {
     return (
       <Layout client={props.client}>
         <div className="container">
-          <div className="ptm weight-500 fin all-caps border-bottom-dark">
-            {t("OccupationPage.header")}
+          <div className="detail-page">
+            <div className="page-banner">
+              <div className="top-nav">
+                <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                  <Icon>keyboard_backspace</Icon>
+                  <ol className="usa-breadcrumb__list">
+                    <li className="usa-breadcrumb__list-item">
+                      <a className="usa-breadcrumb__link" href="/">
+                        Home
+                      </a>
+                    </li>
+                    <li className="usa-breadcrumb__list-item">
+                      <a className="usa-breadcrumb__link" href="/in-demand-occupations">
+                        In-Demand Occupations List
+                      </a>
+                    </li>
+                    <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                      <span>{occupationDetail.title}</span>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
           </div>
-          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+          <h2 data-testid="title" className="page-title text-xl ptd pbs weight-500">
             {occupationDetail.title}
+            <br />
+            <span>{occupationDetail.soc}</span>
           </h2>
           {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
+            {occupationDetail.inDemand ? <InDemandBlock /> : <></>}
+
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
-              <WaiverBlock
-                title={t("OccupationPage.localExceptionCountiesTitle", {
-                  counties: formatCountiesArrayToString(occupationDetail.counties),
-                })}
-                backgroundColorClass="bg-light-yellow"
-              />
+              <InDemandBlock counties={occupationDetail.counties} />
             ) : (
               <></>
             )}
@@ -186,7 +205,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                   ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
                   : STAT_MISSING_DATA_INDICATOR
               }
-              backgroundColorClass="bg-lighter-purple"
+              backgroundColorClass="bg-light-purple-50"
             />
           </div>
 

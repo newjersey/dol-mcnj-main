@@ -1,6 +1,5 @@
-@import "sizes";
-@import "global/header";
-@import "colors";
+@import "../global/header";
+@import "../colors";
 
 .card {
   border: 1px solid $light-grey;
@@ -20,10 +19,21 @@
     margin-left: -15px;
     padding: 15px;
   }
+
+  .usa-button {
+    background-color: $secondary;
+    justify-content: center;
+
+    &.usa-button--outline {
+      background: $white;
+      color: $secondary;
+      box-shadow: inset 0 0 0 2px $secondary;
+    }
+  }
 }
 
 .hover-shadow:hover {
-  box-shadow: 0 0 10px $grey;
+  box-shadow: 0 0 10px $base-lighter;
 }
 
 .space-for-filterbox {
@@ -58,11 +68,11 @@
 .grey-line {
   height: 1px;
   width: 100%;
-  background-color: $grey;
+  background-color: $base-lighter;
 }
 
 // small and up
-@media (min-width: $xs) {
+@media (min-width: $tablet-md) {
   .cutoff-text {
     display: block;
     max-height: unset;
@@ -99,7 +109,7 @@
 }
 
 // medium and up
-@media (min-width: $sm) {
+@media (min-width: $tablet-xl) {
   .filterbox {
     &.is-fixed {
       width: 307px;
@@ -116,7 +126,7 @@
 }
 
 // large and up
-@media (min-width: $md) {
+@media (min-width: $desktop-lg) {
   .filterbox {
     &.is-fixed {
       width: 375px;

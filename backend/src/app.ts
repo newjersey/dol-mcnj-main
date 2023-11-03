@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import "./utils/global"
+import "./utils/global";
 import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
@@ -34,12 +34,13 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
+process.on("uncaughtException", function (exception) {
 // Error handling for uncaught exceptions and unhandled rejections...
 process.on('uncaughtException', function (exception) {
   Sentry.captureException(exception);
 });
 
-process.on('unhandledRejection', (reason) => {
+process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 

@@ -15,8 +15,8 @@ describe("<ContextualInfoPanel />", () => {
           linkUrl: undefined,
           linkText: undefined,
         },
-        jest.fn()
-      )
+        jest.fn(),
+      ),
     );
     expect(subject.queryByLabelText("Additional Information Panel")).not.toBeInTheDocument();
   });
@@ -32,8 +32,8 @@ describe("<ContextualInfoPanel />", () => {
           linkUrl: undefined,
           linkText: undefined,
         },
-        jest.fn()
-      )
+        jest.fn(),
+      ),
     );
     expect(subject.getByLabelText("Additional Information Panel")).toBeInTheDocument();
   });
@@ -49,8 +49,8 @@ describe("<ContextualInfoPanel />", () => {
           linkUrl: undefined,
           linkText: undefined,
         },
-        jest.fn()
-      )
+        jest.fn(),
+      ),
     );
     expect(subject.getByText("Test Title")).toBeInTheDocument();
     expect(subject.getByText("Test Body")).toBeInTheDocument();
@@ -67,8 +67,8 @@ describe("<ContextualInfoPanel />", () => {
           linkUrl: "www.example.com",
           linkText: "Test Link",
         },
-        jest.fn()
-      )
+        jest.fn(),
+      ),
     );
     expect(subject.getByText("Test Link")).toBeInTheDocument();
   });
@@ -84,8 +84,8 @@ describe("<ContextualInfoPanel />", () => {
           linkUrl: undefined,
           linkText: "Test Link",
         },
-        jest.fn()
-      )
+        jest.fn(),
+      ),
     );
     expect(subject.queryByText("Test Link")).not.toBeInTheDocument();
   });

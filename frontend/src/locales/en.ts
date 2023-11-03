@@ -597,6 +597,11 @@ export const en = {
     providerApplication: "Icon showing folder with documents",
     careerOneStopLogo: "Official logo for Career One Stop organization",
   },
+  InDemandBlock: {
+    inDemandTitle: "In-Demand in all of New Jersey.",
+    localInDemandTitle: "In-Demand in {{countiesList}}.",
+    localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
+  },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
     header: "In-Demand Occupations",
@@ -618,8 +623,6 @@ export const en = {
   OccupationPage: {
     header: "Occupation",
     dataUnavailableText: "This data is not yet available for this occupation.",
-    localExceptionCountiesTitle: "In-Demand in {{counties}}.",
-    localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
@@ -739,8 +742,6 @@ export const en = {
   },
   TrainingPage: {
     header: "Training Opportunity",
-    localExceptionCountiesTitle: "In-Demand in {{counties}}.",
-    localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     avgSalaryTitle: "Avg Salary after Program",
     avgSalaryTooltip:
       "Average salary 6 months after completion of this class or classes like it at this provider",
@@ -757,6 +758,8 @@ export const en = {
     totalClockHoursTooltip:
       "Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.",
     totalClockHours: "{{hours}} hours",
+    cipCodeTooltip:
+      'The "Classification of Instructional Programs" system is used to categorize instructional programs by topic.',
     associatedOccupationsGroupHeader: "Associated Occupations",
     associatedOccupationsText:
       "This is a general training that might prepare you for a wide variety of career paths. Browse <1>in-demand occupations</1> to see how you might apply this training.",

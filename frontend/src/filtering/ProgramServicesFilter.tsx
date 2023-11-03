@@ -33,16 +33,16 @@ export const ProgramServicesFilter = (): ReactElement => {
 
   useEffect(() => {
     const eveningCoursesFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.EVENING_COURSES
+      (filter) => filter.element === FilterableElement.EVENING_COURSES,
     );
     const wheelchairAccessibleFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.WHEELCHAIR_ACCESSIBLE
+      (filter) => filter.element === FilterableElement.WHEELCHAIR_ACCESSIBLE,
     );
     const jobPlacementAssistFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.JOB_PLACEMENT_ASSISTANCE
+      (filter) => filter.element === FilterableElement.JOB_PLACEMENT_ASSISTANCE,
     );
     const childcareAssistFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.CHILDCARE_ASSISTANCE
+      (filter) => filter.element === FilterableElement.CHILDCARE_ASSISTANCE,
     );
     if (
       eveningCoursesFilter ||

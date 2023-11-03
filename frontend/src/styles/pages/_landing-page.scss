@@ -1,7 +1,6 @@
 // styles for all landing pages
 
-@import "sizes";
-@import "colors";
+@import "../colors";
 
 .search-container {
   max-width: 580px;
@@ -37,14 +36,14 @@
   border-radius: 5px;
 
   &.hide-border-mobile {
-    @media (max-width: $xs) {
+    @media (max-width: $tablet-md) {
       border: 0;
       box-shadow: none;
     }
   }
 }
 
-@media (min-width: $sm) {
+@media (min-width: $tablet-xl) {
   .title {
     font-size: 1.5rem;
   }
@@ -53,7 +52,7 @@
 .landing-faq {
   margin: 5rem 0;
 
-  @media screen and (max-width: ($sm)) {
+  @media screen and (max-width: ($tablet-xl)) {
     margin-top: 3rem;
   }
 
@@ -62,9 +61,9 @@
     font-weight: bold;
     padding-bottom: 0.6rem;
     margin-bottom: 3rem;
-    border-bottom: 0.5rem solid black;
+    border-bottom: 0.5rem solid $ink;
 
-    @media screen and (max-width: ($mobTab)) {
+    @media screen and (max-width: ($tablet)) {
       line-height: 1.2;
       margin-bottom: 2.5;
     }

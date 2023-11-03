@@ -423,7 +423,7 @@ describe("findTrainingsBy", () => {
     ]);
 
     expect((await findTrainingsBy(Selector.ID, ["123"]))[0].description).toEqual(
-      "some weird character"
+      "some weird character",
     );
   });
 
@@ -433,7 +433,7 @@ describe("findTrainingsBy", () => {
     ]);
 
     expect((await findTrainingsBy(Selector.ID, ["123"]))[0].description).toEqual(
-      "some weird character"
+      "some weird character",
     );
   });
 
@@ -441,7 +441,7 @@ describe("findTrainingsBy", () => {
     stubDataClient.findProgramsBy.mockResolvedValue([buildProgram({ county: "Atlantic" })]);
 
     expect((await findTrainingsBy(Selector.ID, ["123"]))[0].provider.county).toEqual(
-      "Atlantic County"
+      "Atlantic County",
     );
   });
 

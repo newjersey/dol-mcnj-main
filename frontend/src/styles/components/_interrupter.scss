@@ -1,19 +1,19 @@
 .interrupter {
   background-color: $navy;
   color: white;
-  padding: 3rem 0;
+  padding: $size-16 0;
 
   .container {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $size-16;
 
     &:before,
     &:after {
       content: none;
     }
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       flex-direction: column;
     }
   }
@@ -21,58 +21,65 @@
   h4 {
     font-size: 1.7rem;
 
-    @media screen and (min-width: ($sm)) {
-      width: calc(50% - 100px);
+    @media screen and (min-width: ($tablet-xl)) {
+      width: calc(100% - 300px);
     }
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       text-align: center;
+    }
+    @media screen and (min-width: ($desktop)) {
+      width: 40%;
     }
   }
 
   ul {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $size-16;
 
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       flex-direction: column;
     }
 
+    @media screen and (min-width: ($desktop)) {
+      width: 60%;
+    }
     > * {
-      @media screen and (min-width: ($sm)) {
+      @media screen and (min-width: ($tablet-xl)) {
         width: 50%;
       }
     }
   }
 
   li {
-    @media screen and (max-width: ($sm - 1)) {
+    @media screen and (max-width: ($tablet-xl - 1)) {
       width: 100%;
     }
     .usa-button {
       text-align: left;
-      background-color: $teal;
-      border: 2px solid $bright-blue;
+      background-color: $info-lighter;
+      border: $size-2 solid $bright-blue;
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: $size-16;
       color: $navy;
-      border-radius: 10px;
+      padding: $size-8 $size-16;
+      border-radius: $size-10;
 
-      @media screen and (max-width: ($sm - 1)) {
+      @media screen and (max-width: ($tablet-xl - 1)) {
         display: flex;
         width: 100%;
       }
 
       &:hover {
-        @media screen and (min-width: ($sm + 1)) {
+        @media screen and (min-width: ($tablet-xl + 1)) {
           background: white;
         }
       }
 
       svg {
-        width: 32px;
+        width: $size-32;
         height: auto;
       }
     }

@@ -46,16 +46,16 @@ describe("<SearchResultsPage />", () => {
     it("uses the url parameter in the search bar input", () => {
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
       expect(
-        subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText)
+        subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
       ).toHaveValue("octopods");
     });
 
     it("cleans the url parameter of uri encoding for search bar input", () => {
       const subject = render(
-        <SearchResultsPage client={stubClient} searchQuery={"octopods%2Foctopi"} />
+        <SearchResultsPage client={stubClient} searchQuery={"octopods%2Foctopi"} />,
       );
       expect(
-        subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText)
+        subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
       ).toHaveValue("octopods/octopi");
     });
 
@@ -117,10 +117,10 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText("Camden County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
       expect(
-        subject.getByText(Content.CalendarLengthLookup["5"] + " to complete", { exact: false })
+        subject.getByText(Content.CalendarLengthLookup["5"] + " to complete", { exact: false }),
       ).toBeInTheDocument();
       expect(subject.getByText('"...', { exact: false }).parentElement?.innerHTML).toEqual(
-        '<span>"...</span><span>some </span><b>text</b><span> here</span><span>..."</span>'
+        '<span>"...</span><span>some </span><b>text</b><span> here</span><span>..."</span>',
       );
 
       expect(subject.getByText("training2", { exact: false })).toBeInTheDocument();
@@ -130,7 +130,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText("Essex County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("New'rk School", { exact: false })).toBeInTheDocument();
       expect(
-        subject.getByText(Content.CalendarLengthLookup["1"] + " to complete", { exact: false })
+        subject.getByText(Content.CalendarLengthLookup["1"] + " to complete", { exact: false }),
       ).toBeInTheDocument();
     });
 
@@ -170,7 +170,7 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })])
+        stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })]),
       );
 
       expect(subject.getByText(percentEmployedUnavailable, { exact: false })).toBeInTheDocument();
@@ -182,11 +182,11 @@ describe("<SearchResultsPage />", () => {
       act(() =>
         stubClient.capturedObserver.onSuccess([
           buildTrainingResult({ calendarLength: CalendarLength.NULL }),
-        ])
+        ]),
       );
 
       expect(
-        subject.getByText(Content.CalendarLengthLookup["0"], { exact: false })
+        subject.getByText(Content.CalendarLengthLookup["0"], { exact: false }),
       ).toBeInTheDocument();
     });
   });
@@ -199,7 +199,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.queryByText("0 results found", { exact: false })).not.toBeInTheDocument();
 
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})])
+        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
       );
 
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -220,14 +220,14 @@ describe("<SearchResultsPage />", () => {
   describe("when displaying result count", () => {
     it("displays number of results returns for search query", () => {
       const subject = render(
-        <SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />
+        <SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />,
       );
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})])
+        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
       );
 
       expect(
-        subject.getByText('2 results found for "frigate birds"', { exact: false })
+        subject.getByText('2 results found for "frigate birds"', { exact: false }),
       ).toBeInTheDocument();
     });
 
@@ -237,7 +237,7 @@ describe("<SearchResultsPage />", () => {
       act(() => stubClient.capturedObserver.onSuccess([]));
 
       expect(
-        subject.queryByText('0 results found for ""', { exact: false })
+        subject.queryByText('0 results found for ""', { exact: false }),
       ).not.toBeInTheDocument();
       expect(subject.getByText("Getting Started", { exact: false })).toBeInTheDocument();
     });
@@ -247,20 +247,20 @@ describe("<SearchResultsPage />", () => {
       act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));
 
       expect(
-        subject.getByText('1 result found for "cormorants"', { exact: false })
+        subject.getByText('1 result found for "cormorants"', { exact: false }),
       ).toBeInTheDocument();
     });
 
     it("decodes uri components in the search query", () => {
       const subject = render(
-        <SearchResultsPage client={stubClient} searchQuery={"birds%2Fbats"} />
+        <SearchResultsPage client={stubClient} searchQuery={"birds%2Fbats"} />,
       );
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})])
+        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
       );
 
       expect(
-        subject.getByText('2 results found for "birds/bats"', { exact: false })
+        subject.getByText('2 results found for "birds/bats"', { exact: false }),
       ).toBeInTheDocument();
     });
   });
@@ -336,7 +336,7 @@ describe("<SearchResultsPage />", () => {
     it("removes results, loads, and navigates to new search page when new search is executed", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })])
+        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -355,7 +355,7 @@ describe("<SearchResultsPage />", () => {
       useMobileSize();
       const subject = render(<SearchResultsPage client={stubClient} searchQuery={"penguins"} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })])
+        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();

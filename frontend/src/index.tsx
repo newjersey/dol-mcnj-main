@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "@newjersey/njwds/dist/css/styles.css";
 import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
 import { App } from "./App";
@@ -32,7 +33,7 @@ if (isCI && !isProd ? prompt("Enter password:") === password : true) {
         <App client={apiClient} />
       </ThemeProvider>
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById("root"),
   );
 
   serviceWorker.unregister();

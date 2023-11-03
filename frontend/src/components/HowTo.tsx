@@ -6,9 +6,9 @@ interface HowToProps {
   header: string;
   video: string;
   steps: {
-    header: string;
+    heading: string;
     icon: IconNames;
-    text: string;
+    description: string;
   }[];
 }
 

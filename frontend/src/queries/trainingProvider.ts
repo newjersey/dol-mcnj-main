@@ -13,6 +13,9 @@ query TrainingProviderPage {
     bannerHeading
     bannerImage {
       url
+      description
+      height
+      width
     }
     tabs: tabsCollection(limit: 10) {
       items {
