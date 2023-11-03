@@ -77,7 +77,7 @@ export const IndustryBlock = ({
         <div className="content-wrapper">
           <div className="copy">
             <ContentfulRichText document={description.json} assets={description.links} />
-            {photo && <img src={photo.url} alt={title} className="photo" />}test
+            {photo && <img src={photo.url} alt={title} className="photo" />}
           </div>
           <div className="accordion-wrapper">
             {accordionData.items.map(
