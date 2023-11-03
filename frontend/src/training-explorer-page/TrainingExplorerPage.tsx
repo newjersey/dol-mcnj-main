@@ -12,6 +12,7 @@ import { Accordion } from "../components/Accordion";
 import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
+import { SectionHeading } from "../components/modules/SectionHeading";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -55,9 +56,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     <Layout
       client={props.client}
       footerComponent={
-        <>
+        <div className="cta-collection">
           <CtaBanner
-            heading="Don't see your question?"
+            heading="Don’t see your question? Go to our FAQ page."
             noIndicator
             inlineButtons
             links={[
@@ -79,7 +80,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
             links={pageData?.footerCtaLinkCollection.items}
             theme="blue"
           />
-        </>
+        </div>
       }
     >
       {data && (
@@ -90,7 +91,8 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
           <Interrupter {...interrupterContent} />
           <section className="landing-faq">
             <div className="container">
-              <h3>Frequently Asked Questions</h3>
+              <SectionHeading heading="Frequently Asked Questions" headingLevel={3} />
+
               {pageData?.faqsCollection.items.map((item, index: number) => (
                 <Accordion
                   keyValue={index}

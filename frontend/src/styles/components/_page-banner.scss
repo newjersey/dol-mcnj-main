@@ -2,8 +2,8 @@
   background-color: $base-cool;
   padding: 3.1rem 0 0.7rem;
 
-  @media screen and (max-width: ($tablet)) {
-    padding: $size-16 0;
+  @media screen and (max-width: ($mobile-lg)) {
+    padding: 0;
   }
 
   .detail-page & {
@@ -119,7 +119,7 @@
   }
 
   .copy {
-    padding: 2.8rem 0;
+    padding: $size-48 0;
     display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
@@ -130,7 +130,7 @@
     }
 
     @media screen and (max-width: ($mobile-lg)) {
-      padding: 1.8rem 0;
+      padding: $size-24 0;
       font-size: $size-16;
     }
   }

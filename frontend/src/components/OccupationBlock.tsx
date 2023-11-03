@@ -315,7 +315,11 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           {sortedTraining && sortedTraining.length > 0 ? (
                             sortedTraining.slice(0, 3).map((train) => (
                               <li key={train.id}>
-                                <a href={`/training/${train.id}`}>
+                                <a
+                                  href={`/training/${train.id}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <p className="title">
                                     {train.name}
                                     <ArrowUpRight size={24} />

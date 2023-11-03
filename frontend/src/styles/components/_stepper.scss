@@ -1,7 +1,5 @@
 .stepper {
   display: flex;
-  text-align: center;
-  padding: $size-32 0;
   gap: $size-32;
 
   @media screen and (max-width: ($tablet-lg - 1)) {
@@ -10,30 +8,23 @@
 
   .step {
     background-color: $base-cool;
-    padding: 0 $size-48 $size-16;
+    padding: $size-32;
     border-radius: 5px;
     width: 33.33%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: $size-4;
 
     @media screen and (max-width: ($tablet-lg - 1)) {
       width: 100%;
-      padding: 0 $size-16 $size-16;
-    }
-
-    .number {
-      display: block;
-      width: $size-32;
-      height: $size-32;
-      line-height: $size-32;
-      border-radius: 50%;
-      background-color: $secondary;
-      color: white;
-      margin: -10px auto 0;
-      margin-bottom: $size-8;
+      padding: $size-16;
     }
 
     .title {
       display: block;
-      font-size: $size-20;
+      font-size: $size-22;
       font-weight: bold;
       margin: $size-8 0;
     }
@@ -43,21 +34,11 @@
     strong {
       color: $secondary-dark;
     }
-    .step {
-      .number {
-        background-color: $secondary;
-      }
-    }
   }
 
   &.theme-blue {
     strong {
-      color: $primary-dark;
-    }
-    .step {
-      .number {
-        background-color: $primary;
-      }
+      color: $primary;
     }
   }
 
@@ -65,21 +46,11 @@
     strong {
       color: $tertiary-dark;
     }
-    .step {
-      .number {
-        background-color: $tertiary;
-      }
-    }
   }
 
   &.theme-navy {
     strong {
-      color: $info-darker;
-    }
-    .step {
-      .number {
-        background-color: $info-darker;
-      }
+      color: $info;
     }
   }
 }
