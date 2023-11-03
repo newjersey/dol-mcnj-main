@@ -5,6 +5,7 @@ export const HOMEPAGE_QUERY = `{
     bannerButtonCopy
     bannerImage {
       url
+      description
       height
       width
     }

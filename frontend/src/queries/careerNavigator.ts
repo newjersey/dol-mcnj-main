@@ -43,6 +43,7 @@ export const CAREER_NAVIGATOR_QUERY = `query CareerNavigator {
         }
         image {
           url
+          description
           height
           width
         }

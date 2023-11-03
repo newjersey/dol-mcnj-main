@@ -27,6 +27,7 @@ export interface Keypair {
 
 export interface ImageProps {
   url: string;
+  description?: string;
   width?: number;
   height?: number;
 }
