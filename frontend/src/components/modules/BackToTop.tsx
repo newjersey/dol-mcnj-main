@@ -1,4 +1,3 @@
-"use client";
 import { ArrowUp } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 

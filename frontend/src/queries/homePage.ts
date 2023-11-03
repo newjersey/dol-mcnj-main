@@ -5,6 +5,7 @@ export const HOMEPAGE_QUERY = `{
     bannerButtonCopy
     bannerImage {
       url
+      description
       height
       width
     }
@@ -20,6 +21,7 @@ export const HOMEPAGE_QUERY = `{
         description
       }
     }
+    introBlocks
     jobSearchToolLinksCollection(limit: 15) {
       items {
         sys {

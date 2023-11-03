@@ -28,7 +28,7 @@ export const contentfulClient = ({
     `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}`,
     {
       headers,
-    }
+    },
   );
   return client.request(query, variables);
 };

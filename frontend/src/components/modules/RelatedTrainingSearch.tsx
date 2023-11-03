@@ -1,5 +1,5 @@
 import { CircularProgress } from "@material-ui/core";
-import { GraduationCap, Hourglass, MapPinLine, Warning } from "@phosphor-icons/react";
+import { ArrowUpRight, GraduationCap, Hourglass, MapPinLine, Warning } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Client } from "../../domain/Client";
 import { TrainingResult } from "../../domain/Training";
@@ -40,11 +40,12 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
         <>
           {trainings?.slice(0, 3).map((train) => (
             <li key={train.id}>
-              <p>
-                <a href={`/training/${train.id}`}>{train.name}</a>
-              </p>
-              <span className="span-grid">
-                <span className="left">
+              <a href={`/training/${train.id}`}>
+                <p className="title">
+                  {train.name}
+                  <ArrowUpRight size={24} />
+                </p>
+                <span className="span-grid">
                   <span>
                     <GraduationCap size={32} />
                     {train.providerName}
@@ -53,17 +54,19 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
                     <MapPinLine size={32} />
                     {train.city}, {train.county}
                   </span>
-                  <span>
-                    <Hourglass size={32} />
-                    {train.calendarLength
-                      ? `${calendarLength(train.calendarLength)} to complete`
-                      : "--"}
+                  <span className="last-line">
+                    <span>
+                      <Hourglass size={32} />
+                      {train.calendarLength
+                        ? `${calendarLength(train.calendarLength)} to complete`
+                        : "--"}
+                    </span>
+                    <span className="salary">
+                      {train.totalCost && toUsCurrency(train.totalCost)}
+                    </span>
                   </span>
                 </span>
-                <span className="right">
-                  <span className="salary">{train.totalCost && toUsCurrency(train.totalCost)}</span>
-                </span>
-              </span>
+              </a>
             </li>
           ))}
         </>

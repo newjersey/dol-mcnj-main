@@ -1,7 +1,7 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/");
+    cy.visit("/training-explorer");
     cy.injectAxe();
     cy.checkA11y();
 
@@ -9,9 +9,9 @@ describe("Search", () => {
       "exist",
     );
 
-    // input search
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
+    // input search
     cy.get('input[aria-label="search"]').type("baking");
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
@@ -22,7 +22,9 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -31,7 +33,7 @@ describe("Search", () => {
     cy.contains("baking skills").should("exist");
 
     cy.contains(
-      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such..."
+      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
     ).should("exist");
   });
 
@@ -56,7 +58,9 @@ describe("Search", () => {
     cy.location("pathname").should("eq", "/search/baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -80,9 +84,9 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/search");
-    cy.contains("New Jersey Career Central").click({ force: true });
-    cy.location("pathname").should("eq", "/");
+    cy.visit("/training-explorer");
+    cy.contains("Training Explorer").click({ force: true });
+    cy.location("pathname").should("eq", "/training-explorer");
   });
 
   it("links to a training detail page", () => {
@@ -113,7 +117,7 @@ describe("Search", () => {
     });
 
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.contains("In Demand").should("exist");
+    cy.contains("In-Demand in all of New Jersey.").should("exist");
   });
 
   it("tags shows search training tips", () => {
