@@ -34,7 +34,6 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-process.on("uncaughtException", function (exception) {
 // Error handling for uncaught exceptions and unhandled rejections...
 process.on('uncaughtException', function (exception) {
   Sentry.captureException(exception);
