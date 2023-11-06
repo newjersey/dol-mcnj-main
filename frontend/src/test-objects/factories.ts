@@ -90,7 +90,7 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
 };
 
 export const buildInDemandOccupation = (
-  overrides: Partial<InDemandOccupation>
+  overrides: Partial<InDemandOccupation>,
 ): InDemandOccupation => {
   return {
     soc: "some-soc-" + randomInt(),

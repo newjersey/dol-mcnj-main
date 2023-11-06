@@ -4,7 +4,7 @@ describe("Tuition Assistance Resources Page", () => {
     cy.injectAxe();
 
     cy.contains(
-      "There are numerous resources for New Jerseyans seeking financial assistance for education and training."
+      "There are numerous resources for New Jerseyans seeking financial assistance for education and training.",
     ).should("exist");
     cy.checkA11y();
   });
