@@ -9,7 +9,7 @@
     "@phosphor-icons/react",
     "@reach/router",
     "@sentry/react",
-    "@testing-library/jest-dom/extend-expect",
+    "@testing-library/jest-dom",
     "@testing-library/react",
     "accounting",
     "axios",
