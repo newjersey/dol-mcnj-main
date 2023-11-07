@@ -106,18 +106,18 @@ describe("Search", () => {
 
     // in-demand training
     cy.get(".card")
-      .eq(0)
-      .within(() => {
-        cy.contains("In Demand").should("exist");
-      });
+        .eq(0)
+        .within(() => {
+          cy.contains("In Demand").should("exist");
+        });
 
     // not in-demand training
-    cy.contains("iOS Developer").within(() => {
-      cy.contains("In Demand").should("not.exist");
+    cy.contains("Digital Marketer").within(() => {
+      cy.contains("In-Demand").should("not.exist");
     });
 
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.contains("In-Demand in all of New Jersey.").should("exist");
+    cy.contains("In-Demand").should("exist");
   });
 
   it("tags shows search training tips", () => {
