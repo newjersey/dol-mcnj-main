@@ -52,12 +52,12 @@ jobs:
       - run:
           name: install and initialize gcloud sdk
           command: |
-            echo $GCLOUD_SERVICE_KEY_PRE_MVP | base64 --decode | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_PRE_MVP}
+            echo $GCLOUD_SERVICE_KEY_MVP | base64 --decode | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_MVP}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run:
           name: deploy
-          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcppremvp CLOUD_SQL_CONNECTION_NAME=d4ad-research:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
+          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcpmvp CLOUD_SQL_CONNECTION_NAME=d4ad-research2:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
