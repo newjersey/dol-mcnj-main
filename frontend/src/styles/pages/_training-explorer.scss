@@ -1,0 +1,16 @@
+.cta-collection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $size-48;
+
+  .ctaBanner {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .cta {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
