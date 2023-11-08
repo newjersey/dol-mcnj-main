@@ -17,7 +17,6 @@ export const Stepper = ({
     <div className={`stepper${theme ? ` theme-${theme}` : ""}`}>
       {steps?.map(({ heading, icon, description }, index: number) => (
         <div className="step" key={heading + icon + index}>
-          <span className="number">{index + 1}</span>
           <PhosphorIconSelector name={icon} size={32} />
 
           <span className="title">{heading}</span>
