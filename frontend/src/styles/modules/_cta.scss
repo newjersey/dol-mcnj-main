@@ -6,8 +6,9 @@
     color: $ink;
     font-size: $size-32;
     font-weight: bold;
-    margin: 0 0 $size-16;
+    margin: 0 auto $size-16;
     line-height: 1.2;
+    max-width: $size-480;
 
     @media screen and (max-width: ($tablet-lg - 1)) {
       font-size: $size-20_8;
