@@ -21,7 +21,7 @@
     "@typescript-eslint/parser": "^6.10.0",
     "accounting": "^0.4.1",
     "axios": "^1.6.0",
-    "contentful": "^10.6.5",
+    "contentful": "^10.6.6",
     "dayjs": "^1.11.10",
     "graphql-request": "^6.1.0",
     "i18next": "^23.6.0",
