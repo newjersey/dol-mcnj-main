@@ -212,7 +212,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </a>
                       </li>
                       <li className="usa-breadcrumb__list-item">
-                        <a className="usa-breadcrumb__link" href="/training-explorer">
+                        <a className="usa-breadcrumb__link" href="/training">
                           Training Explorer
                         </a>
                       </li>
