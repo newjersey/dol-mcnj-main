@@ -1,7 +1,7 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/training-explorer");
+    cy.visit("/training");
     cy.injectAxe();
     cy.checkA11y();
 
@@ -84,9 +84,9 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/training-explorer");
+    cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
-    cy.location("pathname").should("eq", "/training-explorer");
+    cy.location("pathname").should("eq", "/training");
   });
 
   it("links to a training detail page", () => {
