@@ -20,7 +20,7 @@ describe("Home Page", () => {
         title: "Apprenticeship Programs",
         link: "https://www.nj.gov/labor/career-services/apprenticeship/",
       },
-      { title: "Training Explorer", link: "/training-explorer" },
+      { title: "Training Explorer", link: "/training" },
       { title: "Tuition assistance resources", link: "/support-resources/tuition-assistance" },
       { title: "SkillUp", link: "https://explore.skillup.org/" },
       { title: "Training Provider Resources", link: "/training-provider-resources" },
