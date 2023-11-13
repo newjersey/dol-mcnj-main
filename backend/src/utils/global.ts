@@ -2,61 +2,57 @@ import cloudwatchLogger from './cloudwatchLogger';
 import sentryLogger from './sentryLogger';
 
 (function overrideConsoleMethods() {
-  const statusDict: Array<string> = ["error", "warn", "info", "http", "verbose", "debug"];
+  const isAwsEnvironment = process.env.NODE_ENV === 'awsprod' ||
+      process.env.NODE_ENV === 'awstest' ||
+      process.env.NODE_ENV === 'awsdev';
 
-  /* We're preserving the original console.log functionality just in case there are log messages that don't fit into
-  the predefined statuses. This helps in making sure we don't unintentionally suppress important log messages. */
+  const statusDict: Array<string> = ["error", "warn", "info", "http", "verbose", "debug"];
   const originalConsoleLog = console.log;
 
-  console.log = function (message: string, status = "info") {
-    if (statusDict.indexOf(status) === -1) {
+  // Define a function to determine which logger to use based on NODE_ENV
+  const logMessage = (message: string, status?: string) => {
+    if (!status || statusDict.indexOf(status) === -1 || !isAwsEnvironment) {
       originalConsoleLog(message);
-      return;
-    }
-
-    switch (status) {
-      case "error":
-        cloudwatchLogger.error(message);
-        sentryLogger.error(message);
-        break;
-      case "warn":
-        cloudwatchLogger.warn(message);
-        break;
-      case "info":
-        cloudwatchLogger.info(message);
-        break;
-        // Assuming you have an http method for cloudwatchLogger
-      case "http":
-        cloudwatchLogger.info(`HTTP: ${message}`);  // Modify this line if you have a dedicated method for HTTP
-        break;
-      case "debug":
-      case "verbose":
-        cloudwatchLogger.info(message);  // Assuming you want to treat "debug" and "verbose" as "info" for CloudWatch
-        break;
-      default:
-        originalConsoleLog(message);
-        break;
+    } else {
+      // Use cloudwatchLogger and sentryLogger for specified statuses
+      switch (status) {
+        case "error":
+          cloudwatchLogger.error(message);
+          sentryLogger.error(message);
+          break;
+        case "warn":
+          cloudwatchLogger.warn(message);
+          break;
+        case "info":
+        case "http":
+        case "debug":
+        case "verbose":
+          cloudwatchLogger.info(message);
+          break;
+      }
     }
   };
 
+  // Override the console methods
+  console.log = logMessage;
+
   console.info = function (...args) {
     const message = args.join(' ');
-    cloudwatchLogger.info(message);
+    logMessage(message, 'info');
   };
 
   console.warn = function (...args) {
     const message = args.join(' ');
-    cloudwatchLogger.warn(message);
+    logMessage(message, 'warn');
   };
 
   console.error = function (...args) {
     const message = args.join(' ');
-    cloudwatchLogger.error(message);
-    sentryLogger.error(message);
+    logMessage(message, 'error');
   };
 
   console.debug = function (...args) {
     const message = args.join(' ');
-    cloudwatchLogger.info(message);  // Assuming you want to treat "debug" as "info" for CloudWatch
+    logMessage(message, 'debug');
   };
 })();
