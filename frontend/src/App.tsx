@@ -91,7 +91,7 @@ export const App = (props: Props): ReactElement => {
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
               <LandingPage path="/" client={props.client} />
-              <TrainingExplorerPage path="/training-explorer" client={props.client} />
+              <TrainingExplorerPage path="/training" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}

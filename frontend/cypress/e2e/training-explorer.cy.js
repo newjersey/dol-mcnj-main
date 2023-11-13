@@ -1,6 +1,6 @@
 describe("Training Explorer Page", () => {
   it("is accessible", () => {
-    cy.visit("/training-explorer");
+    cy.visit("/training");
     cy.injectAxe();
 
     cy.contains("Certifications, Professional Development, Apprenticeships & More!").should(
