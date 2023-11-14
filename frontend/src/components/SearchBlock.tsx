@@ -61,8 +61,6 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
   }, []);
 
   useEffect(() => {
-    const url = `/search/${searchTerm}?`;
-
     // Build the search parameters
     const params = [];
     if (inPerson) {
@@ -80,6 +78,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
     if (zipCode) {
       params.push(`zip=${zipCode}`);
     }
+
+    const url = `/search/${searchTerm}${params.length > 0 ? "?" : ""}`;
 
     // Concatenate the search parameters to the url
     if (params.length > 0) {
@@ -117,6 +117,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
           {drawerContent ? (
             <button
               className="toggle"
+              type="button"
               onClick={(e) => {
                 e.preventDefault();
                 setDrawerOpen(true);

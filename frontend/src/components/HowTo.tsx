@@ -1,6 +1,7 @@
 import { YoutubeLogo } from "@phosphor-icons/react";
 import { IconNames } from "../types/icons";
 import { Stepper } from "./Stepper";
+import { SectionHeading } from "./modules/SectionHeading";
 
 interface HowToProps {
   header: string;
@@ -17,7 +18,7 @@ export const HowTo = (props: HowToProps) => {
   return (
     <section className="how-to">
       <div className="container">
-        <h3>{header}</h3>
+        <SectionHeading heading={header} headingLevel={3} />
         <div className="video">
           <div className="player">
             <div className="embed-youtube">

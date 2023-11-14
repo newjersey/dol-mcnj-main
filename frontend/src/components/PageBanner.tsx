@@ -44,7 +44,7 @@ export const PageBanner = ({
             {message && <ContentfulRichText document={message.json} />}
             {description && <p>{description}</p>}
           </div>
-          {ctaLinksCollection && (
+          {ctaLinksCollection && ctaLinksCollection.items.length > 0 && (
             <div className="cta-block">
               {ctaHeading && <p>{ctaHeading}</p>}
               <ul className="unstyled">
