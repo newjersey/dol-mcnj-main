@@ -2,7 +2,6 @@ import { useState } from "react";
 import { IntroBlockSectionProps, IntroBlocksProps } from "../types/contentful";
 import { IconNames } from "../types/icons";
 import { Button } from "./modules/Button";
-import { UpdateNotifier } from "./UpdateNotifier";
 
 interface ActiveSectionProps extends IntroBlockSectionProps {
   index: number;
@@ -18,7 +17,6 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
         <div className="inner">
           {heading && <h2>{heading}</h2>}
           {message && <p>{message}</p>}
-          <UpdateNotifier isDrawer />
         </div>
       </div>
       <div className="sections-box box">

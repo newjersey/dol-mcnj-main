@@ -1,4 +1,6 @@
 .update-notifier {
+  margin-bottom: $size-48;
+
   .overlay {
     position: fixed;
     pointer-events: none;
@@ -24,25 +26,12 @@
   }
 
   .update-content {
-    background-color: $white;
+    background-color: $base-lightest;
     position: relative;
     overflow: hidden;
     border-radius: $size-24;
     padding: $size-48 0;
-    box-shadow: $shadow-3;
     overflow: hidden;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      right: -$size-80;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: $size-560 $size-720 0 0;
-      border-color: transparent $info-lighter transparent transparent;
-    }
 
     &.fixed {
       z-index: 1000;
@@ -79,12 +68,20 @@
       flex-direction: column;
       align-items: center;
       gap: $size-20;
-      max-width: $size-560;
-      padding: $size-24;
+      padding: 0 $size-24;
+      max-width: $size-720;
 
       @media screen and (min-width: ($tablet-xl)) {
-        padding: $size-24 $size-48;
+        padding: 0 $size-48;
         width: calc(100% - $size-400);
+      }
+
+      .heading-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $size-20;
+        max-width: $size-480;
       }
 
       .heading-tag {
@@ -98,6 +95,16 @@
         text-align: center;
       }
 
+      a {
+        color: $primary;
+
+        &:hover {
+          @media screen and (min-width: ($tablet-xl)) {
+            color: $primary-dark;
+          }
+        }
+      }
+
       form {
         text-align: center;
         width: 100%;
@@ -106,6 +113,19 @@
 
         .usa-form-group {
           margin: 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: $size-24;
+          align-items: center;
+
+          .input-wrapper {
+            width: 100%;
+          }
+
+          > * {
+            margin-top: 0;
+          }
         }
       }
 

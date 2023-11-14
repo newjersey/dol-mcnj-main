@@ -31,10 +31,12 @@ const Content = ({
       )}
       <div className="wrapper">
         <div className="content">
-          <Megaphone size={32} />
-          <p className="heading-tag">
-            Want updates on new tools and features from New Jersey Career Central?
-          </p>
+          <div className="heading-wrap">
+            <Megaphone size={32} />
+            <p className="heading-tag">
+              Want updates on new tools and features from New Jersey Career Central?
+            </p>
+          </div>
 
           <form
             className="usa-form"
@@ -43,19 +45,20 @@ const Content = ({
             }}
           >
             <div className="usa-form-group">
-              <label className="usa-label" htmlFor="input-email">
-                Email (required)
-              </label>
-
-              <input
-                className="usa-input"
-                id="input-email"
-                placeholder="Email"
-                required
-                name="input-email"
-                type="email"
-                aria-describedby="input-email-message"
-              />
+              <div className="input-wrapper">
+                <label className="usa-label" htmlFor="input-email">
+                  Email (required)
+                </label>
+                <input
+                  className="usa-input"
+                  id="input-email"
+                  placeholder="Email"
+                  required
+                  name="input-email"
+                  type="email"
+                  aria-describedby="input-email-message"
+                />
+              </div>
               <button type="submit" className="usa-button primary">
                 <Megaphone size={22} />
                 Sign Up for Updates
@@ -73,9 +76,6 @@ const Content = ({
               </p>
             </div>
           </form>
-        </div>
-        <div className="image">
-          <img src={Image} alt="" />
         </div>
       </div>
     </div>
