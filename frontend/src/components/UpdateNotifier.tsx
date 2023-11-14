@@ -1,5 +1,4 @@
 import { Megaphone, X } from "@phosphor-icons/react";
-import Image from "../tempImage.jpg";
 import { useState } from "react";
 
 interface UpdateNotifierProps {
