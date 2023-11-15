@@ -1,6 +1,6 @@
 #!/bin/bash
 echo """
-runtime: nodejs16
+runtime: nodejs18
 resources:
   cpu: 2
   memory_gb: 8
