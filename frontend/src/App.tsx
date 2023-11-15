@@ -94,6 +94,8 @@ export const App = (props: Props): ReactElement => {
             <Router>
               <LandingPage path="/" client={props.client} />
               <Login path="/login" client={props.client} />
+              <Login path="/signin" client={props.client} />
+              <Login path="/signup" client={props.client} />
               <Experience path="/experience" client={props.client} />
               <TrainingExplorerPage path="/training" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
