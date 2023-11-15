@@ -90,7 +90,7 @@
     "nodegit": "npm:empty-npm-package@1.0.0"
   },
   "engines": {
-    "node": "^16.0.0",
+    "node": "^18.16.1",
     "yarn": "please-use-npm"
   }
 }
