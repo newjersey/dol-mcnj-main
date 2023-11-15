@@ -1,8 +1,7 @@
 const path = "";
 const navigation_paths = [
   { path: path + "/", label: "Home Page" },
-  { path: path + "/counselor", label: "Counselor Page" },
-  { path: path + "/explorer", label: "Explorer Page" },
+  { path: path + "/training", label: "Training Explorer Page" },
   { path: path + "/search", label: "Search Page" },
   { path: path + "/training/44988", label: "Training Page" },
   { path: path + "/occupation/15-1254", label: "Occupation Page" },
