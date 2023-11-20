@@ -1,6 +1,0 @@
-language: node_js
-node_js:
-- 10.15.2
-before_install:
-- npm install winston@next
-after_success: 'npm run coveralls'
