@@ -23,6 +23,8 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
+import Login from "./login/Login";
+import Experience from "./experience/Experience";
 import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
 import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
 import { EtplPage } from "./etpl-page/EtplPage";
@@ -91,7 +93,11 @@ export const App = (props: Props): ReactElement => {
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
               <LandingPage path="/" client={props.client} />
-              <TrainingExplorerPage path="/training-explorer" client={props.client} />
+              <Login path="/login" client={props.client} />
+              <Login path="/signin" client={props.client} />
+              <Login path="/signup" client={props.client} />
+              <Experience path="/experience" client={props.client} />
+              <TrainingExplorerPage path="/training" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}

@@ -116,7 +116,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                 <div className="container plus">
                   {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
                 </div>
-                <div className="container">
+                <div className="container plus">
                   <div className="steps">
                     {data.page.stepsCollection && (
                       <Stepper theme="purple" steps={data.page.stepsCollection.items} />

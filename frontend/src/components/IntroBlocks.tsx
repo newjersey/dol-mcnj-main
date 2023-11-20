@@ -11,6 +11,12 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
   const [activeSection, setActiveSection] = useState<ActiveSectionProps>(
     sections ? { ...sections[0], index: 0 } : { index: 0 },
   );
+
+  // TODO: Remove this once we have a Career Pathways section
+  const sectionsWithoutCareerPathways = sections?.filter(
+    (section) => section.title !== "Career Pathways",
+  );
+
   return (
     <section className="introBlocks">
       <div className="heading-box box">
@@ -23,19 +29,17 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
         <div className="inner">
           {sectionsHeading && <h2>{sectionsHeading}</h2>}
           <div className="buttons">
-            {sections
-              ?.filter((sec) => sec.title !== "Career Pathways")
-              .map((section, index) => (
-                <button
-                  key={section.title}
-                  className={activeSection.title === section.title ? "active" : ""}
-                  onClick={() => {
-                    setActiveSection({ ...section, index });
-                  }}
-                >
-                  {section.title}
-                </button>
-              ))}
+            {sectionsWithoutCareerPathways?.map((section, index) => (
+              <button
+                key={section.title}
+                className={activeSection.title === section.title ? "active" : ""}
+                onClick={() => {
+                  setActiveSection({ ...section, index });
+                }}
+              >
+                {section.title}
+              </button>
+            ))}
           </div>
 
           <div className="section-content">

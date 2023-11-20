@@ -16,8 +16,6 @@ interface Props extends RouteComponentProps {
   client: Client;
 }
 
-//TODO: Uncomment once Intro Blocks is ready
-
 export const LandingPage = (props: Props): ReactElement => {
   const data: HomepageProps = useContentfulClient({
     query: HOMEPAGE_QUERY,

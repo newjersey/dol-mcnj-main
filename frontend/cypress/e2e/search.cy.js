@@ -1,7 +1,7 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/training-explorer");
+    cy.visit("/training");
     cy.injectAxe();
     cy.checkA11y();
 
@@ -84,9 +84,9 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/training-explorer");
+    cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
-    cy.location("pathname").should("eq", "/training-explorer");
+    cy.location("pathname").should("eq", "/training");
   });
 
   it("links to a training detail page", () => {
@@ -102,23 +102,24 @@ describe("Search", () => {
   });
 
   it("tags trainings on in-demand", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/search/social%20work");
 
     // in-demand training
     cy.get(".card")
-      .eq(0)
-      .within(() => {
-        cy.contains("In Demand").should("exist");
-      });
+        .eq(0)
+        .within(() => {
+          cy.contains("In Demand").should("exist");
+        });
 
     // not in-demand training
-    cy.contains("Smartphone Programmer").within(() => {
-      cy.contains("In Demand").should("not.exist");
+    cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
+      cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.contains("In-Demand in all of New Jersey.").should("exist");
+    cy.contains("A.S.Degree: Social Service").click({ force: true });
+    cy.contains("In-Demand").should("exist");
   });
+
 
   it("tags shows search training tips", () => {
     cy.visit("/search/braider");

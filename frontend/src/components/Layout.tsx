@@ -24,7 +24,7 @@ export const Layout = (props: LayoutProps) => {
   });
   const mainNav = useContentfulClient({
     query: NAV_MENU_QUERY,
-    variables: { id: "VmtAu9TrMAMVvh440nGOm" },
+    variables: { id: "3jcP5Uz9OY7syy4zu9Viul" },
   });
   const footerNav1 = useContentfulClient({
     query: NAV_MENU_QUERY,

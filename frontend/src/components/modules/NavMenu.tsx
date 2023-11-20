@@ -1,4 +1,5 @@
-import { NavMenuData } from "../../types/contentful";
+import { useEffect, useState } from "react";
+import { NavMenuData, TopLevelNavItemProps } from "../../types/contentful";
 import { LinkObject } from "./LinkObject";
 import { NavSubMenu } from "./NavSubMenu";
 
@@ -25,6 +26,23 @@ export const NavMenu = ({
   const Heading = headingLevel
     ? (`h${headingLevel}` as keyof JSX.IntrinsicElements)
     : ("span" as keyof JSX.IntrinsicElements);
+
+  const [activeSubMenu, setActiveSubMenu] = useState<TopLevelNavItemProps>();
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (activeSubMenu && event.target instanceof Element) {
+      if (!event.target.closest(".main-nav")) {
+        setActiveSubMenu(undefined);
+      }
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [activeSubMenu]);
+
   return (
     <nav id={id} className={`main-nav ${className ? ` ${className}` : ""}`} aria-label={label}>
       <div className={innerClassName}>
@@ -39,6 +57,7 @@ export const NavMenu = ({
             )}
           </Heading>
         )}
+
         <ul className="unstyled">
           {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
             const hasSub =
@@ -51,7 +70,18 @@ export const NavMenu = ({
                 }`}
               >
                 {hasSub && !noDropdowns ? (
-                  <NavSubMenu icons={icons} {...item} />
+                  <NavSubMenu
+                    icons={icons}
+                    {...item}
+                    open={activeSubMenu?.sys.id === item.sys.id}
+                    onClick={() => {
+                      if (activeSubMenu?.sys.id === item.sys.id) {
+                        setActiveSubMenu(undefined);
+                      } else {
+                        setActiveSubMenu(item);
+                      }
+                    }}
+                  />
                 ) : (
                   <>
                     <LinkObject icons={icons} {...item} />
