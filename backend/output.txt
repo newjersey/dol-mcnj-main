@@ -1,0 +1,481 @@
+/Users/chelsea/WebstormProjects/d4ad/backend
+├── app.yaml
+├── app.yaml.sh
+├── build.js
+├── database.json
+├── dist
+|  ├── app.js
+|  ├── build
+|  |  ├── asset-manifest.json
+|  |  ├── favicon.ico
+|  |  ├── index.html
+|  |  ├── manifest.json
+|  |  ├── robots.txt
+|  |  ├── state_seal_white.png
+|  |  └── static
+|  |     ├── css
+|  |     ├── js
+|  |     └── media
+|  ├── careeronestop
+|  |  └── CareerOneStopClient.js
+|  ├── database
+|  |  ├── data
+|  |  |  └── PostgresDataClient.js
+|  |  └── search
+|  |     ├── Entities.js
+|  |     └── PostgresSearchClient.js
+|  ├── domain
+|  |  ├── CalendarLength.js
+|  |  ├── DataClient.js
+|  |  ├── Error.js
+|  |  ├── occupations
+|  |  |  ├── Occupation.js
+|  |  |  ├── getEducationText.js
+|  |  |  ├── getInDemandOccupations.js
+|  |  |  ├── getOccupationDetail.js
+|  |  |  └── getSalaryEstimate.js
+|  |  ├── search
+|  |  |  ├── SearchClient.js
+|  |  |  └── searchTrainings.js
+|  |  ├── test-objects
+|  |  |  ├── StubDataClient.js
+|  |  |  └── factories.js
+|  |  ├── training
+|  |  |  ├── Program.js
+|  |  |  ├── Selector.js
+|  |  |  ├── Training.js
+|  |  |  ├── TrainingResult.js
+|  |  |  ├── convertTrainingToTrainingResult.js
+|  |  |  └── findTrainingsBy.js
+|  |  ├── types.js
+|  |  └── utils
+|  |     ├── convertToTitleCaseIfUppercase.js
+|  |     ├── formatZipCode.js
+|  |     ├── stripOccupations.js
+|  |     ├── stripSurroundingQuotes.js
+|  |     └── stripUnicode.js
+|  ├── oNET
+|  |  └── OnetClient.js
+|  ├── routes
+|  |  └── router.js
+|  ├── server.js
+|  └── utils
+|     ├── global.js
+|     └── logger.js
+├── frontend
+├── jest.config.js
+├── migrations
+|  ├── 20200605145412-programs.js
+|  ├── 20200616144558-seed-programs.js
+|  ├── 20200629153418-outcomes-table.js
+|  ├── 20200629153929-seed-outcomes.js
+|  ├── 20200701181124-providers-table.js
+|  ├── 20200701182134-seed-providers.js
+|  ├── 20200706135557-soc-cip-crosswalk-table.js
+|  ├── 20200706135840-seed-soc-cip-crosswalk.js
+|  ├── 20200706205906-modify-soc-cipcode-format.js
+|  ├── 20200706210029-programtokens.js
+|  ├── 20200730161216-in-demand-cips-table.js
+|  ├── 20200730161806-seed-in-demand-cips.js
+|  ├── 20200730162306-modify-in-demand-cipcode-format.js
+|  ├── 20200805182440-local-exception-cips-table.js
+|  ├── 20200805182455-seed-local-exception-cips.js
+|  ├── 20200805182503-modify-local-exception-cips-format.js
+|  ├── 20200810162712-online-programs-table.js
+|  ├── 20200810162721-seed-online-programs.js
+|  ├── 20200811192338-change-program-id.js
+|  ├── 20200812144318-update-programs.js
+|  ├── 20200812144325-update-providers.js
+|  ├── 20200813200423-in-demand-socs-table.js
+|  ├── 20200813200432-seed-in-demand-socs.js
+|  ├── 20200813214453-soc-definitions-table.js
+|  ├── 20200813214503-seed-soc-definitions.js
+|  ├── 20200819210019-soc-2010-to-2018-crosswalk-table.js
+|  ├── 20200819210031-seed-soc-2010-to-2018-crosswalk.js
+|  ├── 20200909161355-bls-occupation-handbook-table.js
+|  ├── 20200909174957-seed-bls-occupation-handbook.js
+|  ├── 20200915145146-oes-estimates-table.js
+|  ├── 20200915165447-seed-oes-estimates.js
+|  ├── 20200915200250-combine-programs-and-providers.js
+|  ├── 20200916213516-structure-etpl-table-for-standardized-data.js
+|  ├── 20200916215915-update-etpl-table.js
+|  ├── 20200916215915-update-etpl-table_2.js
+|  ├── 20200916215915-update-etpl-table_3.js
+|  ├── 20200916215915-update-etpl-table_4.js
+|  ├── 20200928183212-oes-hybrid-crosswalk-table.js
+|  ├── 20200928183601-seed-oes-hybrid-crosswalk.js
+|  ├── 20201001175354-structure-etpl-data.js
+|  ├── 20201001180039-update-etpl.js
+|  ├── 20201117012307-update-etpl.js
+|  ├── 20210312014024-structure-etpl-data.js
+|  ├── 20210326171411-update-etpl.js
+|  ├── 20210326171411-update-etpl_2.js
+|  ├── 20210326171411-update-etpl_3.js
+|  ├── 20210329172300-update-etpl.js
+|  ├── 20210406011902-update-etpl.js
+|  ├── 20210421134042-update-etpl.js
+|  ├── 20210421134042-update-etpl_2.js
+|  ├── 20210421134042-update-etpl_3.js
+|  ├── 20210429134206-update-etpl.js
+|  ├── 20210429134206-update-etpl_2.js
+|  ├── 20210429134206-update-etpl_3.js
+|  ├── 20210504195531-update-etpl.js
+|  ├── 20210504195531-update-etpl_2.js
+|  ├── 20210504195531-update-etpl_3.js
+|  ├── 20220318204842-update-etpl.js
+|  ├── 20220329175205-update-etpl.js
+|  ├── 20220411174626-update-etpl.js
+|  ├── 20220825000500-update-etpl.js
+|  ├── 20220825005529-update-etpl.js
+|  ├── 20220916162547-update-etpl.js
+|  ├── 20221031230726-update-etpl.js
+|  ├── 20221107231728-update-etpl.js
+|  ├── 20221115205311-update-etpl.js
+|  ├── 20221122234345-update-etpl.js
+|  ├── 20221202234337-update-etpl.js
+|  ├── 20221219225633-update-etpl.js
+|  ├── 20230110171313-update-etpl.js
+|  ├── 20230201194704-update-etpl.js
+|  ├── 20230208194230-update-etpl.js
+|  ├── 20230213223546-update-etpl.js
+|  ├── 20230301005305-update-etpl.js
+|  ├── 20230306214232-update-etpl.js
+|  ├── 20230403182129-update-etpl.js
+|  ├── 20230406193153-update-etpl.js
+|  ├── 20230410180727-update-etpl.js
+|  ├── 20230413151735-update-etpl.js
+|  ├── 20230418155940-update-etpl.js
+|  └── sqls
+|     ├── 20200605145412-programs-down.sql
+|     ├── 20200605145412-programs-up.sql
+|     ├── 20200616144558-seed-programs-down.sql
+|     ├── 20200616144558-seed-programs-up-TEST.sql
+|     ├── 20200616144558-seed-programs-up.sql
+|     ├── 20200629153418-outcomes-table-down.sql
+|     ├── 20200629153418-outcomes-table-up.sql
+|     ├── 20200629153929-seed-outcomes-down.sql
+|     ├── 20200629153929-seed-outcomes-up-TEST.sql
+|     ├── 20200629153929-seed-outcomes-up.sql
+|     ├── 20200701181124-providers-table-down.sql
+|     ├── 20200701181124-providers-table-up.sql
+|     ├── 20200701182134-seed-providers-down.sql
+|     ├── 20200701182134-seed-providers-up-TEST.sql
+|     ├── 20200701182134-seed-providers-up.sql
+|     ├── 20200706135557-soc-cip-crosswalk-table-down.sql
+|     ├── 20200706135557-soc-cip-crosswalk-table-up.sql
+|     ├── 20200706135840-seed-soc-cip-crosswalk-down.sql
+|     ├── 20200706135840-seed-soc-cip-crosswalk-up-TEST.sql
+|     ├── 20200706135840-seed-soc-cip-crosswalk-up.sql
+|     ├── 20200706205906-modify-soc-cipcode-format-down.sql
+|     ├── 20200706205906-modify-soc-cipcode-format-up.sql
+|     ├── 20200706210029-programtokens-down.sql
+|     ├── 20200706210029-programtokens-up.sql
+|     ├── 20200730161216-in-demand-cips-table-down.sql
+|     ├── 20200730161216-in-demand-cips-table-up.sql
+|     ├── 20200730161806-seed-in-demand-cips-down.sql
+|     ├── 20200730161806-seed-in-demand-cips-up-TEST.sql
+|     ├── 20200730161806-seed-in-demand-cips-up.sql
+|     ├── 20200730162306-modify-in-demand-cipcode-format-down.sql
+|     ├── 20200730162306-modify-in-demand-cipcode-format-up.sql
+|     ├── 20200805182440-local-exception-cips-table-down.sql
+|     ├── 20200805182440-local-exception-cips-table-up.sql
+|     ├── 20200805182455-seed-local-exception-cips-down.sql
+|     ├── 20200805182455-seed-local-exception-cips-up-TEST.sql
+|     ├── 20200805182455-seed-local-exception-cips-up.sql
+|     ├── 20200805182503-modify-local-exception-cips-format-down.sql
+|     ├── 20200805182503-modify-local-exception-cips-format-up.sql
+|     ├── 20200810162712-online-programs-table-down.sql
+|     ├── 20200810162712-online-programs-table-up.sql
+|     ├── 20200810162721-seed-online-programs-down.sql
+|     ├── 20200810162721-seed-online-programs-up-TEST.sql
+|     ├── 20200810162721-seed-online-programs-up.sql
+|     ├── 20200811192338-change-program-id-down.sql
+|     ├── 20200811192338-change-program-id-up.sql
+|     ├── 20200812144318-update-programs-down-TEST.sql
+|     ├── 20200812144318-update-programs-down.sql
+|     ├── 20200812144318-update-programs-up-TEST.sql
+|     ├── 20200812144318-update-programs-up.sql
+|     ├── 20200812144325-update-providers-down-TEST.sql
+|     ├── 20200812144325-update-providers-down.sql
+|     ├── 20200812144325-update-providers-up-TEST.sql
+|     ├── 20200812144325-update-providers-up.sql
+|     ├── 20200813200423-in-demand-socs-table-down.sql
+|     ├── 20200813200423-in-demand-socs-table-up.sql
+|     ├── 20200813200432-seed-in-demand-socs-down.sql
+|     ├── 20200813200432-seed-in-demand-socs-up-TEST.sql
+|     ├── 20200813200432-seed-in-demand-socs-up.sql
+|     ├── 20200813214453-soc-definitions-table-down.sql
+|     ├── 20200813214453-soc-definitions-table-up.sql
+|     ├── 20200813214503-seed-soc-definitions-down.sql
+|     ├── 20200813214503-seed-soc-definitions-up-TEST.sql
+|     ├── 20200813214503-seed-soc-definitions-up.sql
+|     ├── 20200819210019-soc-2010-to-2018-crosswalk-table-down.sql
+|     ├── 20200819210019-soc-2010-to-2018-crosswalk-table-up.sql
+|     ├── 20200819210031-seed-soc-2010-to-2018-crosswalk-down.sql
+|     ├── 20200819210031-seed-soc-2010-to-2018-crosswalk-up-TEST.sql
+|     ├── 20200819210031-seed-soc-2010-to-2018-crosswalk-up.sql
+|     ├── 20200909161355-bls-occupation-handbook-table-down.sql
+|     ├── 20200909161355-bls-occupation-handbook-table-up.sql
+|     ├── 20200909174957-seed-bls-occupation-handbook-down.sql
+|     ├── 20200909174957-seed-bls-occupation-handbook-up-TEST.sql
+|     ├── 20200909174957-seed-bls-occupation-handbook-up.sql
+|     ├── 20200915145146-oes-estimates-table-down.sql
+|     ├── 20200915145146-oes-estimates-table-up.sql
+|     ├── 20200915165447-seed-oes-estimates-down.sql
+|     ├── 20200915165447-seed-oes-estimates-up-TEST.sql
+|     ├── 20200915165447-seed-oes-estimates-up.sql
+|     ├── 20200915200250-combine-programs-and-providers-down.sql
+|     ├── 20200915200250-combine-programs-and-providers-up.sql
+|     ├── 20200916213516-structure-etpl-table-for-standardized-data-down.sql
+|     ├── 20200916213516-structure-etpl-table-for-standardized-data-up.sql
+|     ├── 20200916215915-update-etpl-table-down-TEST.sql
+|     ├── 20200916215915-update-etpl-table-down.sql
+|     ├── 20200916215915-update-etpl-table-up-TEST.sql
+|     ├── 20200916215915-update-etpl-table-up.sql
+|     ├── 20200916215915-update-etpl-table-up_2.sql
+|     ├── 20200916215915-update-etpl-table-up_3.sql
+|     ├── 20200916215915-update-etpl-table-up_4.sql
+|     ├── 20200928183212-oes-hybrid-crosswalk-table-down.sql
+|     ├── 20200928183212-oes-hybrid-crosswalk-table-up.sql
+|     ├── 20200928183601-seed-oes-hybrid-crosswalk-down.sql
+|     ├── 20200928183601-seed-oes-hybrid-crosswalk-up-TEST.sql
+|     ├── 20200928183601-seed-oes-hybrid-crosswalk-up.sql
+|     ├── 20201001175354-structure-etpl-data-down.sql
+|     ├── 20201001175354-structure-etpl-data-up.sql
+|     ├── 20201001180039-update-etpl-down-TEST.sql
+|     ├── 20201001180039-update-etpl-down.sql
+|     ├── 20201001180039-update-etpl-up-TEST.sql
+|     ├── 20201001180039-update-etpl-up.sql
+|     ├── 20201117012307-update-etpl-down-TEST.sql
+|     ├── 20201117012307-update-etpl-down.sql
+|     ├── 20201117012307-update-etpl-up-TEST.sql
+|     ├── 20201117012307-update-etpl-up.sql
+|     ├── 20210312014024-structure-etpl-data-down.sql
+|     ├── 20210312014024-structure-etpl-data-up.sql
+|     ├── 20210326171411-update-etpl-down-TEST.sql
+|     ├── 20210326171411-update-etpl-down.sql
+|     ├── 20210326171411-update-etpl-up-TEST.sql
+|     ├── 20210326171411-update-etpl-up.sql
+|     ├── 20210326171411-update-etpl-up_2.sql
+|     ├── 20210326171411-update-etpl-up_3.sql
+|     ├── 20210329172300-update-etpl-down-TEST.sql
+|     ├── 20210329172300-update-etpl-down.sql
+|     ├── 20210329172300-update-etpl-up-TEST.sql
+|     ├── 20210329172300-update-etpl-up.sql
+|     ├── 20210406011902-update-etpl-down-TEST.sql
+|     ├── 20210406011902-update-etpl-down.sql
+|     ├── 20210406011902-update-etpl-up-TEST.sql
+|     ├── 20210406011902-update-etpl-up.sql
+|     ├── 20210421134042-update-etpl-down-TEST.sql
+|     ├── 20210421134042-update-etpl-down.sql
+|     ├── 20210421134042-update-etpl-up-TEST.sql
+|     ├── 20210421134042-update-etpl-up.sql
+|     ├── 20210421134042-update-etpl-up_2.sql
+|     ├── 20210421134042-update-etpl-up_3.sql
+|     ├── 20210429134206-update-etpl-down-TEST.sql
+|     ├── 20210429134206-update-etpl-down.sql
+|     ├── 20210429134206-update-etpl-up-TEST.sql
+|     ├── 20210429134206-update-etpl-up.sql
+|     ├── 20210429134206-update-etpl-up_2.sql
+|     ├── 20210429134206-update-etpl-up_3.sql
+|     ├── 20210504195531-update-etpl-down-TEST.sql
+|     ├── 20210504195531-update-etpl-down.sql
+|     ├── 20210504195531-update-etpl-up-TEST.sql
+|     ├── 20210504195531-update-etpl-up.sql
+|     ├── 20210504195531-update-etpl-up_2.sql
+|     ├── 20210504195531-update-etpl-up_3.sql
+|     ├── 20220318204842-update-etpl-down-TEST.sql
+|     ├── 20220318204842-update-etpl-down.sql
+|     ├── 20220318204842-update-etpl-up-TEST.sql
+|     ├── 20220318204842-update-etpl-up.sql
+|     ├── 20220329175205-update-etpl-down-TEST.sql
+|     ├── 20220329175205-update-etpl-down.sql
+|     ├── 20220329175205-update-etpl-up-TEST.sql
+|     ├── 20220329175205-update-etpl-up.sql
+|     ├── 20220411174626-update-etpl-down-TEST.sql
+|     ├── 20220411174626-update-etpl-down.sql
+|     ├── 20220411174626-update-etpl-up-TEST.sql
+|     ├── 20220411174626-update-etpl-up.sql
+|     ├── 20220825000500-update-etpl-down-TEST.sql
+|     ├── 20220825000500-update-etpl-down.sql
+|     ├── 20220825000500-update-etpl-up-TEST.sql
+|     ├── 20220825000500-update-etpl-up.sql
+|     ├── 20220825005529-update-etpl-down-TEST.sql
+|     ├── 20220825005529-update-etpl-down.sql
+|     ├── 20220825005529-update-etpl-up-TEST.sql
+|     ├── 20220825005529-update-etpl-up.sql
+|     ├── 20220916162547-update-etpl-down-TEST.sql
+|     ├── 20220916162547-update-etpl-down.sql
+|     ├── 20220916162547-update-etpl-up-TEST.sql
+|     ├── 20220916162547-update-etpl-up.sql
+|     ├── 20221031230726-update-etpl-down-TEST.sql
+|     ├── 20221031230726-update-etpl-down.sql
+|     ├── 20221031230726-update-etpl-up-TEST.sql
+|     ├── 20221031230726-update-etpl-up.sql
+|     ├── 20221107231728-update-etpl-down-TEST.sql
+|     ├── 20221107231728-update-etpl-down.sql
+|     ├── 20221107231728-update-etpl-up-TEST.sql
+|     ├── 20221107231728-update-etpl-up.sql
+|     ├── 20221115205311-update-etpl-down-TEST.sql
+|     ├── 20221115205311-update-etpl-down.sql
+|     ├── 20221115205311-update-etpl-up-TEST.sql
+|     ├── 20221115205311-update-etpl-up.sql
+|     ├── 20221122234345-update-etpl-down-TEST.sql
+|     ├── 20221122234345-update-etpl-down.sql
+|     ├── 20221122234345-update-etpl-up-TEST.sql
+|     ├── 20221122234345-update-etpl-up.sql
+|     ├── 20221202234337-update-etpl-down-TEST.sql
+|     ├── 20221202234337-update-etpl-down.sql
+|     ├── 20221202234337-update-etpl-up-TEST.sql
+|     ├── 20221202234337-update-etpl-up.sql
+|     ├── 20221219225633-update-etpl-down-TEST.sql
+|     ├── 20221219225633-update-etpl-down.sql
+|     ├── 20221219225633-update-etpl-up-TEST.sql
+|     ├── 20221219225633-update-etpl-up.sql
+|     ├── 20230110171313-update-etpl-down-TEST.sql
+|     ├── 20230110171313-update-etpl-down.sql
+|     ├── 20230110171313-update-etpl-up-TEST.sql
+|     ├── 20230110171313-update-etpl-up.sql
+|     ├── 20230201194704-update-etpl-down-TEST.sql
+|     ├── 20230201194704-update-etpl-down.sql
+|     ├── 20230201194704-update-etpl-up-TEST.sql
+|     ├── 20230201194704-update-etpl-up.sql
+|     ├── 20230208194230-update-etpl-down-TEST.sql
+|     ├── 20230208194230-update-etpl-down.sql
+|     ├── 20230208194230-update-etpl-up-TEST.sql
+|     ├── 20230208194230-update-etpl-up.sql
+|     ├── 20230213223546-update-etpl-down-TEST.sql
+|     ├── 20230213223546-update-etpl-down.sql
+|     ├── 20230213223546-update-etpl-up-TEST.sql
+|     ├── 20230213223546-update-etpl-up.sql
+|     ├── 20230301005305-update-etpl-down-TEST.sql
+|     ├── 20230301005305-update-etpl-down.sql
+|     ├── 20230301005305-update-etpl-up-TEST.sql
+|     ├── 20230301005305-update-etpl-up.sql
+|     ├── 20230306214232-update-etpl-down-TEST.sql
+|     ├── 20230306214232-update-etpl-down.sql
+|     ├── 20230306214232-update-etpl-up-TEST.sql
+|     ├── 20230306214232-update-etpl-up.sql
+|     ├── 20230403182129-update-etpl-down-TEST.sql
+|     ├── 20230403182129-update-etpl-down.sql
+|     ├── 20230403182129-update-etpl-up-TEST.sql
+|     ├── 20230403182129-update-etpl-up.sql
+|     ├── 20230406193153-update-etpl-down-TEST.sql
+|     ├── 20230406193153-update-etpl-down.sql
+|     ├── 20230406193153-update-etpl-up-TEST.sql
+|     ├── 20230406193153-update-etpl-up.sql
+|     ├── 20230410180727-update-etpl-down-TEST.sql
+|     ├── 20230410180727-update-etpl-down.sql
+|     ├── 20230410180727-update-etpl-up-TEST.sql
+|     ├── 20230410180727-update-etpl-up.sql
+|     ├── 20230413151735-update-etpl-down-TEST.sql
+|     ├── 20230413151735-update-etpl-down.sql
+|     ├── 20230413151735-update-etpl-up-TEST.sql
+|     ├── 20230413151735-update-etpl-up.sql
+|     ├── 20230418155940-update-etpl-down-TEST.sql
+|     ├── 20230418155940-update-etpl-down.sql
+|     ├── 20230418155940-update-etpl-up-TEST.sql
+|     └── 20230418155940-update-etpl-up.sql
+├── package-lock.json
+├── package.json
+├── src
+|  ├── app.ts
+|  ├── careeronestop
+|  |  ├── CareerOneStopClient.test.ts
+|  |  ├── CareerOneStopClient.ts
+|  |  └── careerOneStopTestData.json
+|  ├── credentialengine
+|  |  ├── CredentialEngineAPI.testdemo.ts
+|  |  ├── CredentialEngineAPI.ts
+|  |  ├── CredentialEngineConfig.ts
+|  |  └── CredentialEngineUtils.ts
+|  ├── database
+|  |  ├── data
+|  |  |  ├── PostgresDataClient.test.ts
+|  |  |  └── PostgresDataClient.ts
+|  |  ├── fence.json
+|  |  └── search
+|  |     ├── Entities.ts
+|  |     ├── PostgresSearchClient.test.ts
+|  |     └── PostgresSearchClient.ts
+|  ├── domain
+|  |  ├── CalendarLength.ts
+|  |  ├── DataClient.ts
+|  |  ├── Error.ts
+|  |  ├── contentful
+|  |  |  ├── api.ts
+|  |  |  ├── getContentful.ts
+|  |  |  ├── queries.ts
+|  |  |  └── types.ts
+|  |  ├── credentialengine
+|  |  |  ├── CredentialEngine.ts
+|  |  |  ├── CredentialEngineConfig.ts
+|  |  |  ├── CredentialEngineFactory.ts
+|  |  |  └── CredentialEngineInterface.ts
+|  |  ├── fence.json
+|  |  ├── occupations
+|  |  |  ├── Occupation.ts
+|  |  |  ├── getEducationText.test.ts
+|  |  |  ├── getEducationText.ts
+|  |  |  ├── getInDemandOccupations.test.ts
+|  |  |  ├── getInDemandOccupations.ts
+|  |  |  ├── getOccupationDetail.test.ts
+|  |  |  ├── getOccupationDetail.ts
+|  |  |  ├── getSalaryEstimate.test.ts
+|  |  |  └── getSalaryEstimate.ts
+|  |  ├── search
+|  |  |  ├── SearchClient.ts
+|  |  |  ├── searchTrainings.test.ts
+|  |  |  └── searchTrainings.ts
+|  |  ├── test-objects
+|  |  |  ├── StubDataClient.ts
+|  |  |  └── factories.ts
+|  |  ├── training
+|  |  |  ├── Program.ts
+|  |  |  ├── Selector.ts
+|  |  |  ├── Training.ts
+|  |  |  ├── TrainingResult.ts
+|  |  |  ├── convertTrainingToTrainingResult.ts
+|  |  |  ├── findTrainingsBy.test.ts
+|  |  |  └── findTrainingsBy.ts
+|  |  ├── types.ts
+|  |  └── utils
+|  |     ├── convertToTitleCaseIfUppercase.ts
+|  |     ├── formatZipCode.ts
+|  |     ├── stripOccupations.ts
+|  |     ├── stripSurroundingQuotes.ts
+|  |     └── stripUnicode.ts
+|  ├── fence.json
+|  ├── globalSetup.js
+|  ├── globalTeardown.js
+|  ├── oNET
+|  |  ├── OnetClient.test.ts
+|  |  ├── OnetClient.ts
+|  |  ├── fence.json
+|  |  ├── onetTestData.json
+|  |  ├── onetTestDataRelatedOccupations.json
+|  |  └── onetTestDataTasks.json
+|  ├── routes
+|  |  ├── fence.json
+|  |  ├── router.test.ts
+|  |  └── router.ts
+|  └── server.ts
+├── tsconfig.json
+├── tsconfig.prod.json
+└── wiremock
+   ├── __files
+   └── mappings
+      ├── career-onestop-civil-engineers.json
+      ├── career-onestop-web-developers.json
+      ├── onet-civil-engineers-related-occupations.json
+      ├── onet-civil-engineers-tasks.json
+      ├── onet-civil-engineers.json
+      ├── onet-web-and-digital-interface-designers-related-occupations.json
+      ├── onet-web-and-digital-interface-designers.json
+      ├── onet-web-and-digital-interface-desingers-tasks.json
+      ├── onet-web-developers-related-occupations.json
+      ├── onet-web-developers-tasks.json
+      └── onet-web-developers.json
+
+directory: 43 file: 490
+

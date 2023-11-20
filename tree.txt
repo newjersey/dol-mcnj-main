@@ -1,0 +1,340 @@
+/Users/chelsea/WebstormProjects/d4ad
+├── LICENSE
+├── README.md
+├── backend
+|  ├── app.yaml
+|  ├── app.yaml.sh
+|  ├── backend
+|  ├── build.js
+|  ├── database.json
+|  ├── frontend
+|  ├── jest.config.js
+|  ├── package-lock.json
+|  ├── package.json
+|  ├── src
+|  |  ├── app.ts
+|  |  ├── careeronestop
+|  |  |  ├── CareerOneStopClient.test.ts
+|  |  |  ├── CareerOneStopClient.ts
+|  |  |  └── careerOneStopTestData.json
+|  |  ├── database
+|  |  |  ├── data
+|  |  |  ├── fence.json
+|  |  |  └── search
+|  |  ├── domain
+|  |  |  ├── CalendarLength.ts
+|  |  |  ├── DataClient.ts
+|  |  |  ├── Error.ts
+|  |  |  ├── contentful
+|  |  |  ├── fence.json
+|  |  |  ├── occupations
+|  |  |  ├── search
+|  |  |  ├── test-objects
+|  |  |  ├── training
+|  |  |  ├── types.ts
+|  |  |  └── utils
+|  |  ├── fence.json
+|  |  ├── globalSetup.js
+|  |  ├── globalTeardown.js
+|  |  ├── oNET
+|  |  |  ├── OnetClient.test.ts
+|  |  |  ├── OnetClient.ts
+|  |  |  ├── fence.json
+|  |  |  ├── onetTestData.json
+|  |  |  ├── onetTestDataRelatedOccupations.json
+|  |  |  └── onetTestDataTasks.json
+|  |  ├── routes
+|  |  |  ├── fence.json
+|  |  |  ├── router.test.ts
+|  |  |  └── router.ts
+|  |  └── server.ts
+|  ├── tsconfig.json
+|  ├── tsconfig.prod.json
+|  └── wiremock
+|     ├── __files
+|     └── mappings
+|        ├── career-onestop-civil-engineers.json
+|        ├── career-onestop-web-developers.json
+|        ├── onet-civil-engineers-related-occupations.json
+|        ├── onet-civil-engineers-tasks.json
+|        ├── onet-civil-engineers.json
+|        ├── onet-web-and-digital-interface-designers-related-occupations.json
+|        ├── onet-web-and-digital-interface-designers.json
+|        ├── onet-web-and-digital-interface-desingers-tasks.json
+|        ├── onet-web-developers-related-occupations.json
+|        ├── onet-web-developers-tasks.json
+|        └── onet-web-developers.json
+├── data_model.md
+├── db_migration_guide.md
+├── decision_log.md
+├── etpl_table_seed_guide.md
+├── frontend
+|  ├── cypress
+|  |  ├── downloads
+|  |  ├── e2e
+|  |  |  ├── faq-page.cy.js
+|  |  |  ├── filtering-and-sorting.cy.js
+|  |  |  ├── funding-page.cy.js
+|  |  |  ├── in-demand-occupations-page.cy.js
+|  |  |  ├── not-found-page.cy.js
+|  |  |  ├── occupation-page.cy.js
+|  |  |  ├── search.cy.js
+|  |  |  ├── training-page.cy.js
+|  |  |  ├── training-provider-page.cy.js
+|  |  |  └── tuition-assistance-page.cy.js
+|  |  ├── fixtures
+|  |  |  └── example.json
+|  |  ├── screenshots
+|  |  ├── support
+|  |  |  ├── commands.js
+|  |  |  └── e2e.js
+|  |  └── videos
+|  |     ├── career-pathways-page.cy.js.mp4
+|  |     ├── faq-page.cy.js.mp4
+|  |     ├── filtering-and-sorting.cy.js.mp4
+|  |     ├── funding-page.cy.js.mp4
+|  |     ├── in-demand-occupations-page.cy.js.mp4
+|  |     ├── not-found-page.cy.js.mp4
+|  |     ├── occupation-page.cy.js.mp4
+|  |     ├── search.cy.js.mp4
+|  |     ├── training-explorer.cy.js.mp4
+|  |     ├── training-page.cy.js.mp4
+|  |     ├── training-provider-page.cy.js.mp4
+|  |     └── tuition-assistance-page.cy.js.mp4
+|  ├── cypress.config.ts
+|  ├── package-lock.json
+|  ├── package.json
+|  ├── public
+|  |  ├── favicon.ico
+|  |  ├── index.html
+|  |  ├── manifest.json
+|  |  ├── robots.txt
+|  |  └── state_seal_white.png
+|  ├── src
+|  |  ├── ApiClient.test.ts
+|  |  ├── ApiClient.ts
+|  |  ├── App.tsx
+|  |  ├── analytics.ts
+|  |  ├── career-pathways-page
+|  |  |  ├── CareerPathwaysPage.tsx
+|  |  |  └── CareerPathwaysRoutes.tsx
+|  |  ├── careeronestop.png
+|  |  ├── comparison
+|  |  |  └── ComparisonContext.tsx
+|  |  ├── components
+|  |  |  ├── Accordion.tsx
+|  |  |  ├── BetaBanner.test.tsx
+|  |  |  ├── BetaBanner.tsx
+|  |  |  ├── Button.tsx
+|  |  |  ├── ContactUsSection.tsx
+|  |  |  ├── ContentfulRichText.tsx
+|  |  |  ├── ContextualInfoPanel.test.tsx
+|  |  |  ├── ContextualInfoPanel.tsx
+|  |  |  ├── FaqCollection.tsx
+|  |  |  ├── FinancialResource.tsx
+|  |  |  ├── FinancialResourceFilter.tsx
+|  |  |  ├── Footer.tsx
+|  |  |  ├── FooterCta.tsx
+|  |  |  ├── GlobalHeader.tsx
+|  |  |  ├── Grouping.tsx
+|  |  |  ├── Header.tsx
+|  |  |  ├── InDemandTag.tsx
+|  |  |  ├── IndustryBlock.tsx
+|  |  |  ├── IndustrySelector.tsx
+|  |  |  ├── InlineIcon.tsx
+|  |  |  ├── Input.tsx
+|  |  |  ├── LanguageSwitchButton.tsx
+|  |  |  ├── Layout.tsx
+|  |  |  ├── LocalWaiverTag.tsx
+|  |  |  ├── PageBanner.tsx
+|  |  |  ├── ResourceLinks.tsx
+|  |  |  ├── Searchbar.test.tsx
+|  |  |  ├── Searchbar.tsx
+|  |  |  ├── SpacedCheckbox.tsx
+|  |  |  ├── StatBlock.tsx
+|  |  |  ├── SubFooter.tsx
+|  |  |  ├── TabContent.tsx
+|  |  |  ├── UnstyledButton.tsx
+|  |  |  ├── UnstyledLinkButton.tsx
+|  |  |  ├── WaiverBlock.tsx
+|  |  |  ├── WhiteSelect.tsx
+|  |  |  ├── __tests__
+|  |  |  ├── faq-breadcrumb.tsx
+|  |  |  └── modules
+|  |  ├── constants.ts
+|  |  ├── contextual-info
+|  |  |  └── ContextualInfoContext.tsx
+|  |  ├── domain
+|  |  |  ├── Client.ts
+|  |  |  ├── Error.ts
+|  |  |  ├── Filter.ts
+|  |  |  ├── Occupation.ts
+|  |  |  └── Training.ts
+|  |  ├── error
+|  |  |  ├── ErrorPage.tsx
+|  |  |  ├── NotFoundPage.tsx
+|  |  |  └── SomethingWentWrongPage.tsx
+|  |  ├── etpl-page
+|  |  |  ├── EtplPage.tsx
+|  |  |  ├── MajorGroup.tsx
+|  |  |  └── agency-icons
+|  |  ├── faq-page
+|  |  |  └── FaqPage.tsx
+|  |  ├── faqs
+|  |  |  ├── FaqRoutes.tsx
+|  |  |  ├── etpl-out-of-state-provider.tsx
+|  |  |  ├── etpl-performance-standards.tsx
+|  |  |  ├── faq-child-care.tsx
+|  |  |  ├── faq-data-sources.tsx
+|  |  |  ├── faq-enroll-program.tsx
+|  |  |  ├── faq-funding-opportunities.tsx
+|  |  |  ├── faq-health-insurance.tsx
+|  |  |  ├── faq-job-listings.tsx
+|  |  |  ├── faq-search-help.tsx
+|  |  |  ├── faq-unemployment-insurance.tsx
+|  |  |  ├── filter-screenshot.png
+|  |  |  ├── labor-demand-occupations.tsx
+|  |  |  ├── occupation-details-screenshot.png
+|  |  |  ├── registered-apprenticeship.tsx
+|  |  |  ├── search-occupation-screenshot.png
+|  |  |  └── search-screenshot.png
+|  |  ├── fence.json
+|  |  ├── filtering
+|  |  |  ├── CipCodeFilter.tsx
+|  |  |  ├── ClassFormatFilter.tsx
+|  |  |  ├── CostFilter.tsx
+|  |  |  ├── CountyFilter.tsx
+|  |  |  ├── FilterBox.test.tsx
+|  |  |  ├── FilterBox.tsx
+|  |  |  ├── FilterContext.ts
+|  |  |  ├── InDemandOnlyFilter.tsx
+|  |  |  ├── LanguagesFilter.tsx
+|  |  |  ├── LocationFilter.tsx
+|  |  |  ├── ProgramServicesFilter.tsx
+|  |  |  ├── SocCodeFilter.tsx
+|  |  |  ├── TimeToCompleteFilter.tsx
+|  |  |  ├── findZipCodesInRadius.ts
+|  |  |  ├── integration-tests
+|  |  |  ├── newJerseyCounties.ts
+|  |  |  ├── trainingLanguages.ts
+|  |  |  └── zipCodeCoordinates.ts
+|  |  ├── financial-page
+|  |  |  └── FinancialPage.tsx
+|  |  ├── funding-page
+|  |  |  └── FundingPage.tsx
+|  |  ├── i18n.ts
+|  |  ├── i18next.d.ts
+|  |  ├── images
+|  |  |  ├── jerseyLogoFooter.png
+|  |  |  ├── myNJ.png
+|  |  |  ├── njoit.png
+|  |  |  └── opra.png
+|  |  ├── in-demand-occupations-page
+|  |  |  ├── InDemandOccupationsPage.test.tsx
+|  |  |  ├── InDemandOccupationsPage.tsx
+|  |  |  ├── MajorGroup.tsx
+|  |  |  ├── Typeahead.tsx
+|  |  |  └── industry-icons
+|  |  ├── index.tsx
+|  |  ├── landing-page
+|  |  |  ├── LandingCard.tsx
+|  |  |  ├── LandingPage.test.tsx
+|  |  |  ├── LandingPage.tsx
+|  |  |  ├── LandingPageCounselor.tsx
+|  |  |  ├── LandingPageExplorer.tsx
+|  |  |  └── landing-icons
+|  |  ├── locales
+|  |  |  ├── en.ts
+|  |  |  └── es.ts
+|  |  ├── njlogo.svg
+|  |  ├── occupation-page
+|  |  |  ├── OccupationPage.test.tsx
+|  |  |  └── OccupationPage.tsx
+|  |  ├── presenters
+|  |  |  └── formatPercentEmployed.ts
+|  |  ├── privacy-policy-page
+|  |  |  └── PrivacyPolicyPage.tsx
+|  |  ├── react-app-env.d.ts
+|  |  ├── search-results
+|  |  |  ├── ComparisonTable.tsx
+|  |  |  ├── SearchResultsPage.test.tsx
+|  |  |  ├── SearchResultsPage.tsx
+|  |  |  ├── TrainingComparison.tsx
+|  |  |  ├── TrainingResultCard.tsx
+|  |  |  └── training-comparison.test.tsx
+|  |  ├── serviceWorker.ts
+|  |  ├── setupTests.ts
+|  |  ├── sorting
+|  |  |  ├── SortContext.ts
+|  |  |  ├── SortOrder.ts
+|  |  |  └── integration-tests
+|  |  ├── styles
+|  |  |  ├── borders.scss
+|  |  |  ├── colors.scss
+|  |  |  ├── components
+|  |  |  ├── css
+|  |  |  ├── faq-breadcrumb.scss
+|  |  |  ├── flex.scss
+|  |  |  ├── global
+|  |  |  ├── in-demand-page.scss
+|  |  |  ├── index.scss
+|  |  |  ├── landing-page.scss
+|  |  |  ├── modules
+|  |  |  ├── not-found-page.scss
+|  |  |  ├── occupation-page.scss
+|  |  |  ├── search-results-page.scss
+|  |  |  ├── sizes.scss
+|  |  |  ├── spacing.scss
+|  |  |  ├── table.scss
+|  |  |  ├── training-comparison.scss
+|  |  |  ├── training-page.scss
+|  |  |  ├── typography.scss
+|  |  |  └── variables.scss
+|  |  ├── svg
+|  |  |  ├── EnvelopeSm.tsx
+|  |  |  ├── Facebook.tsx
+|  |  |  ├── Icons
+|  |  |  ├── LightBulb.tsx
+|  |  |  ├── LinkedIn.tsx
+|  |  |  ├── QuestionBubble.tsx
+|  |  |  ├── RightArrow.tsx
+|  |  |  ├── SearchSm.tsx
+|  |  |  ├── Select.tsx
+|  |  |  ├── Selector.tsx
+|  |  |  ├── Twitter.tsx
+|  |  |  └── Youtube.tsx
+|  |  ├── terms-of-service-page
+|  |  |  └── TermsOfServicePage.tsx
+|  |  ├── test-objects
+|  |  |  ├── StubClient.ts
+|  |  |  ├── factories.ts
+|  |  |  └── helpers.tsx
+|  |  ├── training-page
+|  |  |  ├── TrainingPage.test.tsx
+|  |  |  └── TrainingPage.tsx
+|  |  ├── training-provider-page
+|  |  |  └── TrainingProviderPage.tsx
+|  |  ├── types
+|  |  |  └── contentful.ts
+|  |  └── utils
+|  |     ├── formatCountiesArrayToString.ts
+|  |     └── slugify.ts
+|  └── tsconfig.json
+├── package-lock.json
+├── package.json
+├── packaged.yaml
+└── scripts
+   ├── backend-start.sh
+   ├── build.sh
+   ├── db-migrate.sh
+   ├── deploy.sh
+   ├── feature-tests.sh
+   ├── frontend-start.sh
+   ├── install-all.sh
+   ├── prod-start-local.sh
+   ├── prod-start.sh
+   ├── ship-it.sh
+   └── test-all.sh
+
+directory: 210 file: 1233
+
