@@ -1,5 +1,6 @@
-import { Megaphone, X } from "@phosphor-icons/react";
+import { Megaphone, Warning, X } from "@phosphor-icons/react";
 import React, { useState } from "react";
+import { checkValidEmail } from "../utils/checkValidEmail";
 
 interface UpdateNotifierProps {
   className?: string;
@@ -17,16 +18,21 @@ const Content = ({
 }) => {
   // State hooks for email and error
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ status: number; message: string } | null>(null);
   const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   // Handle the form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitting(true);
     setError(null); // Reset error message
 
     if (!email) {
-      setError("Please enter your email.");
+      setTimeout(() => {
+        setSubmitting(false);
+        setError({ status: 400, message: "Please enter a valid email address" });
+      }, 1000);
       return;
     }
 
@@ -45,22 +51,37 @@ const Content = ({
         if (data.success) {
           // Handle success - maybe clear the form or display a thank-you message
           console.log("Success");
-          setSuccess(true);
-          setEmail(""); // Clear email input
+          setTimeout(() => {
+            setSubmitting(false);
+            setSuccess(true);
+            setEmail(""); // Clear email input
+          }, 1000);
         } else {
           // Handle failure - display an error message from the response
           console.log("Fail");
-          setError(data.message);
+          setTimeout(() => {
+            setSubmitting(false);
+            setError({ status: 500, message: data.message });
+          }, 1000);
         }
       } else {
         const text = await response.text(); // or use response.statusText
-        setError(response.statusText);
+        setTimeout(() => {
+          setSubmitting(false);
+          setError({ status: 500, message: response.statusText });
+        }, 1000);
         console.error("Failed to parse JSON response:", text);
         // ... handle the error
       }
     } catch (error: any) {
       // Handle network errors
-      setError(error.message || "An error occurred while sending your email.");
+      setTimeout(() => {
+        setSubmitting(false);
+        setError({
+          status: 500,
+          message: error.message || "An error occurred while sending your email.",
+        });
+      }, 1000);
     }
   };
 
@@ -75,7 +96,57 @@ const Content = ({
       <div className="wrapper">
         <div className="content">
           {success ? (
-            <>You did it!</>
+            <div className="heading-wrap status">
+              <Megaphone size={32} />
+              <p className="heading-tag">Success!</p>
+              <p className="status-message">
+                If this is the first time you've subscribed to New Jersey Career Central, you'll see
+                a confirmation email in your inbox to confirm your subscription. If you don't see
+                that email, be sure to check your spam and junk folders.
+              </p>
+              <p>
+                Read about out{" "}
+                <a
+                  href="https://www.nj.gov/nj/privacy.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  privacy policy
+                </a>
+                .
+              </p>
+            </div>
+          ) : error?.status === 500 ? (
+            <div className="heading-wrap status">
+              <Warning size={32} color="#d54309" />
+              <p className="heading-tag">Uh Oh!</p>
+              <p className="status-message">
+                It looks like the submission didn’t work. Our team has been alerted but if you would
+                like to try again you can{" "}
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setError(null);
+                    setEmail("");
+                  }}
+                >
+                  reset this form
+                </a>
+                .
+              </p>
+              <p>
+                Read about out{" "}
+                <a
+                  href="https://www.nj.gov/nj/privacy.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  privacy policy
+                </a>
+                .
+              </p>
+            </div>
           ) : (
             <>
               <div className="heading-wrap">
@@ -85,11 +156,9 @@ const Content = ({
                 </p>
               </div>
 
-              {error && <div className="error-message">OH NO!!! {error}</div>}
-
               <form className="usa-form" onSubmit={handleSubmit}>
                 <div className="usa-form-group">
-                  <div className="input-wrapper">
+                  <div className={`input-wrapper${error?.status === 400 ? " error" : ""}`}>
                     <label className="usa-label" htmlFor="input-email">
                       Email (required)
                     </label>
@@ -97,19 +166,42 @@ const Content = ({
                       className="usa-input"
                       id="input-email"
                       placeholder="Email"
-                      required
                       name="input-email"
                       type="email"
                       aria-describedby="input-email-message"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onBlur={(e) => {
+                        if (!checkValidEmail(e.target.value)) {
+                          setError({ status: 400, message: "Please enter a valid email address" });
+                        } else {
+                          setError(null);
+                        }
+                      }}
+                      onChange={(e) => {
+                        if (error?.status === 400) {
+                          if (checkValidEmail(e.target.value)) {
+                            setError(null);
+                          }
+                        }
+                        setEmail(e.target.value);
+                      }}
                     />
+                    {error?.status === 400 && <div className="error-message">{error.message}</div>}
                   </div>
-                  <button type="submit" className="usa-button primary">
-                    <Megaphone size={22} />
-                    Sign Up for Updates
+                  <button
+                    disabled={error?.status === 400 || submitting}
+                    type="submit"
+                    className="usa-button primary"
+                  >
+                    {submitting ? (
+                      "Submitting..."
+                    ) : (
+                      <>
+                        <Megaphone size={22} />
+                        Sign Up for Updates
+                      </>
+                    )}
                   </button>
-                  {error && <div className="error-message">{error}</div>}
                   <p>
                     Read about out{" "}
                     <a

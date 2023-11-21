@@ -1,5 +1,5 @@
 .update-notifier {
-  margin-bottom: $size-48;
+  margin: $size-48 0;
 
   .overlay {
     position: fixed;
@@ -23,6 +23,13 @@
     margin-right: 0;
     justify-content: center;
     margin-top: $size-16;
+
+    &:disabled,
+    &.submitting {
+      background-color: $base-light;
+      color: $white;
+      cursor: not-allowed;
+    }
   }
 
   .update-content {
@@ -82,6 +89,17 @@
         align-items: center;
         gap: $size-20;
         max-width: $size-480;
+
+        &.status {
+          gap: $size-12;
+        }
+
+        .status-message {
+          margin-top: 0;
+          text-align: left;
+          font-size: $size-20;
+          line-height: $size-28;
+        }
       }
 
       .heading-tag {
@@ -121,6 +139,11 @@
 
           .input-wrapper {
             width: 100%;
+            padding: 0 $size-16;
+
+            &.error {
+              border-left: $size-4 solid $error;
+            }
           }
 
           > * {
@@ -177,5 +200,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .error-message {
+    color: $error;
+    text-align: left;
+    margin-top: $size-16;
+    font-weight: bold;
   }
 }
