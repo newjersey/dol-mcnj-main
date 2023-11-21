@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   build-and-test:
+    circleci_ip_ranges: true
     docker:
       - image: cimg/node:18.16.1-browsers
       - image: circleci/postgres:12
@@ -10,13 +11,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup postgres
+          name: Install PostgreSQL client and setup database
           command: |
             sudo apt-get update
             sudo apt-get install postgresql-client
             createdb -h localhost d4adlocal -U postgres
       - run:
-          name: Install cypress dependencies
+          name: Install required dependencies for Cypress
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - restore_cache:
           keys:
@@ -24,6 +25,7 @@ jobs:
             - node-deps-v2-{{ .Branch }}
             - node-deps-v2
       - run:
+          name: Install Node.js dependencies
           command: npm install
       - save_cache:
           key: node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
@@ -31,9 +33,10 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
+          name: Run Node.js tests
           command: npm test
       - run:
-          name: Run feature tests
+          name: Execute feature tests script
           command: scripts/feature-tests.sh > feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
@@ -44,20 +47,26 @@ jobs:
           paths:
             - .
   deploy:
+    circleci_ip_ranges: true
     docker:
-      - image: google/cloud-sdk
+      - image: circleci/python:3.7
     steps:
       - attach_workspace:
           at: ~/project
       - run:
-          name: install and initialize gcloud sdk
+
+          name: install and configure aws cli
           command: |
-            echo $GCLOUD_SERVICE_KEY_PRE_MVP | base64 --decode | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_PRE_MVP}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            echo $AWS_ACCESS_KEY_ID
+            echo $AWS_SECRET_ACCESS_KEY
+            echo $AWS_DEFAULT_REGION
+            pip install awscli
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set default.region $AWS_DEFAULT_REGION
       - run:
           name: deploy
-          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcppremvp CLOUD_SQL_CONNECTION_NAME=d4ad-research:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
+          command: DB_PASS=$DB_PASS_WRITER_PROD DB_NAME=d4adprod DB_ENV=awsprod scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
