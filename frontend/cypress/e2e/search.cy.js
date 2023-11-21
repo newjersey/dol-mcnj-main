@@ -102,7 +102,7 @@ describe("Search", () => {
   });
 
   it("tags trainings on in-demand", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/search/social%20work");
 
     // in-demand training
     cy.get(".card")
@@ -112,13 +112,14 @@ describe("Search", () => {
         });
 
     // not in-demand training
-    cy.contains("Digital Marketer").within(() => {
+    cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
+    cy.contains("A.S.Degree: Social Service").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
+
 
   it("tags shows search training tips", () => {
     cy.visit("/search/braider");
