@@ -72,12 +72,12 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            <CardSlider
+{/*            <CardSlider
               sectionId="explore"
               cards={pageData.careerExplorationToolLinksCollection.items}
               heading="All Career Exploration Tools"
               theme="purple"
-            />
+            />*/}
             <CardSlider
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
