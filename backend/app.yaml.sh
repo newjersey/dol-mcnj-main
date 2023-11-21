@@ -22,11 +22,11 @@ env_variables:
   SENTRY_DSN: \"$SENTRY_DSN\"
   NODE_OPTIONS: --max_old_space_size=4096
 handlers:
-- url: training\.njcareers\.org/.*
+- url: /(.*)
   script: auto
   secure: always
   redirect_http_response_code: 301
   redirect_matcher:
-    regex: (.*)
-    location: https://mycareer.nj.gov/training\1
+    regex: .*
+    location: https://mycareer.nj.gov/training/\1
 """
