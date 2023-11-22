@@ -1,4 +1,4 @@
-describe.skip("Not Found Page", () => {
+describe("Not Found Page", () => {
   it("404s on bad routes", () => {
     cy.visit("/badroute");
     cy.injectAxe();
