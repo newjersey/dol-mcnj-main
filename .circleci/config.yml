@@ -31,6 +31,9 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
+      - run:
+          name: Run Node.js tests
+          command: npm test
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -74,17 +77,17 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: master-with-redirects
+              only: master
       - prod-approval:
           type: approval
           requires:
             - deploy
           filters:
             branches:
-              only: master-with-redirects
+              only: master
       - deploy-prod:
           requires:
             - prod-approval
           filters:
             branches:
-              only: master-with-redirects
+              only: master
