@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import "./utils/global";
 import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
@@ -14,7 +15,6 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
-import { contentfulFactory } from "./domain/contentful/getContentful";
 
 dotenv.config();
 // console.log(process.env);
@@ -31,14 +31,11 @@ Sentry.init({
     // Automatically instrument Node.js libraries and frameworks
     ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
   ],
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
 });
 
-process.on("uncaughtException", function (exception) {
+// Error handling for uncaught exceptions and unhandled rejections...
+process.on('uncaughtException', function (exception) {
   Sentry.captureException(exception);
 });
 
@@ -46,26 +43,69 @@ process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
-// RequestHandler creates a separate execution context, so that all
-// transactions/spans/breadcrumbs are isolated across requests
+// RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
-// TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
-const dbSocketPath = process.env.DB_SOCKET_PATH || "/cloudsql";
-const connection = {
-  user: process.env.DB_USER || "postgres",
-  host: process.env.CLOUD_SQL_CONNECTION_NAME
-    ? `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`
-    : "localhost",
-  database: process.env.DB_NAME || "d4adlocal",
-  password: process.env.DB_PASS || "",
-  port: 5432,
-};
+// Determine if the NODE_ENV begins with "aws"
+
+
+let connection: any = null;
+
+switch (process.env.NODE_ENV) {
+  case "dev":
+    connection = {
+      user: "postgres",
+      host: process.env.DB_HOST_DEV,
+      database: "d4adlocal",
+      password: process.env.DB_PASS_DEV,
+      port: 5432,
+    };
+    break;
+  case "test":
+    connection = {
+      user: "postgres",
+      host: process.env.DB_HOST_TEST,
+      database: "d4adtest",
+      password: process.env.DB_PASS_TEST,
+      port: 5432,
+    };
+    break;
+  case "awsdev":
+    connection = {
+      user: "postgres",
+      host: process.env.DB_HOST_WRITER_DEV,
+      database: "d4addev",
+      password: process.env.DB_PASS_DEV,
+      port: 5432,
+    };
+    break;
+  case "awstest":
+    connection = {
+      user: "postgres",
+      host: process.env.DB_HOST_WRITER_TEST,
+      database: "d4adtest",
+      password: process.env.DB_PASS_TEST,
+      port: 5432,
+    };
+    break;
+  case "awsprod":
+    connection = {
+      user: "postgres",
+      host: process.env.DB_HOST_WRITER_AWSPROD,
+      database: "d4adprod",
+      password: process.env.DB_PASS_AWSPROD,
+      port: 5432,
+    };
+    break;
+  default:
+    console.error("Invalid NODE_ENV. Please set NODE_ENV to one of: dev, test, awsdev, awstest, awsprod.");
+    process.exit(1);
+}
 
 const isCI = process.env.IS_CI;
 
-// default external api values
+// Default external API values
 const apiValues = {
   onetBaseUrl: "http://localhost:8090",
   onetAuth: {
@@ -77,19 +117,17 @@ const apiValues = {
   careerOneStopAuthToken: "CAREER_ONESTOP_AUTH_TOKEN",
 };
 
-// try to update to use env vars in all cases EXCEPT running feature tests in CI
-// because in CI,f we want to use wiremock jsons, not the real APIs
+// Update external API values if not running in CI environment
 if (!isCI) {
   apiValues.onetBaseUrl = process.env.ONET_BASEURL || "http://localhost:8090";
   apiValues.onetAuth = {
     username: process.env.ONET_USERNAME || "ONET_USERNAME",
     password: process.env.ONET_PASSWORD || "ONET_PASSWORD",
   };
-
   apiValues.careerOneStopBaseUrl = process.env.CAREER_ONESTOP_BASEURL || "http://localhost:8090";
   apiValues.careerOneStopUserId = process.env.CAREER_ONESTOP_USERID || "CAREER_ONESTOP_USERID";
   apiValues.careerOneStopAuthToken =
-    process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
+      process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
 }
 
 const postgresDataClient = new PostgresDataClient(connection);
@@ -97,41 +135,36 @@ const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
-  getContentfulCPW: contentfulFactory("cpw"),
-  getContentfulFRP: contentfulFactory("frp"),
-  getContentfulFootNav2: contentfulFactory("footNav2"),
-  getContentfulFootNav: contentfulFactory("footNav"),
-  getContentfulMNav: contentfulFactory("mnav"),
-  getContentfulGNav: contentfulFactory("gnav"),
-  getContentfulTPR: contentfulFactory("tpr"),
-  getContentfulFAQ: contentfulFactory("faq"),
   searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getOccupationDetail: getOccupationDetailFactory(
-    OnetClient(
-      apiValues.onetBaseUrl,
-      apiValues.onetAuth,
-      postgresDataClient.find2018OccupationsBySoc2010,
-    ),
-    getEducationTextFactory(postgresDataClient),
-    getSalaryEstimateFactory(postgresDataClient),
-    CareerOneStopClient(
-      apiValues.careerOneStopBaseUrl,
-      apiValues.careerOneStopUserId,
-      apiValues.careerOneStopAuthToken,
-    ),
-    findTrainingsBy,
-    postgresDataClient,
+      OnetClient(
+          apiValues.onetBaseUrl,
+          apiValues.onetAuth,
+          postgresDataClient.find2018OccupationsBySoc2010
+      ),
+      getEducationTextFactory(postgresDataClient),
+      getSalaryEstimateFactory(postgresDataClient),
+      CareerOneStopClient(
+          apiValues.careerOneStopBaseUrl,
+          apiValues.careerOneStopUserId,
+          apiValues.careerOneStopAuthToken
+      ),
+      findTrainingsBy,
+      postgresDataClient
   ),
 });
 
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use("/api", router);
+
+// Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+
 app.get("*", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
@@ -139,7 +172,7 @@ app.get("*", (req: Request, res: Response) => {
 
 app.use(cors());
 
-// The error handler must be before any other error middleware and after all controllers
+// Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());
 
 export default app;

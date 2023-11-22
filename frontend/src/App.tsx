@@ -1,5 +1,4 @@
 import { ReactElement, useReducer, useState } from "react";
-import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -11,7 +10,6 @@ import { Client } from "./domain/Client";
 import { Router, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
-import { FundingPage } from "./funding-page/FundingPage";
 import {
   initialFilterState,
   FilterReducer,
@@ -25,6 +23,8 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
+import Login from "./login/Login";
+import Experience from "./experience/Experience";
 import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
 import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
 import { EtplPage } from "./etpl-page/EtplPage";
@@ -35,12 +35,14 @@ import {
   initialContextualInfoState,
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
-import "@newjersey/njwds/dist/css/styles.css";
-import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
-import { FinancialPage } from "./financial-page/FinancialPage";
-/*import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
-import { CareerPathwaysRoutes } from "./career-pathways-page/CareerPathwaysRoutes";*/
+// import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
+// import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
+import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
 import * as Sentry from "@sentry/react";
+import { AllSupportPage } from "./all-support-page/AllSupportPage";
+import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
+import { CareerNavigatorPage } from "./career-navigator-page/CareerNavigatorPage";
+import { LandingPage } from "./landing-page/LandingPage";
 
 interface Props {
   client: Client;
@@ -91,6 +93,11 @@ export const App = (props: Props): ReactElement => {
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
               <LandingPage path="/" client={props.client} />
+              <Login path="/login" client={props.client} />
+              <Login path="/signin" client={props.client} />
+              <Login path="/signup" client={props.client} />
+              <Experience path="/experience" client={props.client} />
+              <TrainingExplorerPage path="/training" client={props.client} />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}
@@ -99,18 +106,20 @@ export const App = (props: Props): ReactElement => {
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
-              <FinancialPage path="/tuition-assistance" client={props.client} />
+              <CareerNavigatorPage path="/career-navigator" client={props.client} />
               {/*              <CareerPathwaysPage path="/career-pathways" client={props.client} />
-              {CareerPathwaysRoutes({ client: props.client })}*/}
-              <FundingPage path="/funding" client={props.client} />
+              <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />*/}
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
+              <AllSupportPage path="/support-resources" client={props.client} />
+              <AllSupportPage path="/support-resources" client={props.client} />
+              <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default client={props.client} />
             </Router>
-            <LanguageSwitchButton />
+            {/* <LanguageSwitchButton /> */}
             <ContextualInfoPanel />
           </ContextualInfoContext.Provider>
         </FilterContext.Provider>

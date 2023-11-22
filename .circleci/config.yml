@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   build-and-test:
+    circleci_ip_ranges: true
     docker:
       - image: cimg/node:18.16.1-browsers
       - image: circleci/postgres:12
@@ -36,7 +37,7 @@ jobs:
           command: npm test
       - run:
           name: Execute feature tests script
-          command: scripts/feature-tests.sh | tee feature-test-output.txt
+          command: scripts/feature-tests.sh > feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
       - store_artifacts:
@@ -46,35 +47,26 @@ jobs:
           paths:
             - .
   deploy:
+    circleci_ip_ranges: true
     docker:
-      - image: google/cloud-sdk
+      - image: circleci/python:3.7
     steps:
       - attach_workspace:
           at: ~/project
       - run:
-          name: Setup gcloud SDK for development environment
+
+          name: install and configure aws cli
           command: |
-            echo $GCLOUD_SERVICE_KEY | base64 --decode | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            echo $AWS_ACCESS_KEY_ID
+            echo $AWS_SECRET_ACCESS_KEY
+            echo $AWS_DEFAULT_REGION
+            pip install awscli
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set default.region $AWS_DEFAULT_REGION
       - run:
-          name: Deploy to development environment
-          command: DB_PASS=$DB_DEV_PASS DB_NAME=d4addev DB_ENV=gcpdev CLOUD_SQL_CONNECTION_NAME=d4ad-dev:us-east4:d4ad-dev-gcp-pg scripts/deploy.sh
-  deploy-prod:
-    docker:
-      - image: google/cloud-sdk
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: Setup gcloud SDK for production environment
-          command: |
-            echo $GCLOUD_SERVICE_KEY_PROD | base64 --decode | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID_PROD}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-      - run:
-          name: Deploy to production environment
-          command: DB_PASS=$DB_PROD_PASS DB_NAME=d4adprod DB_ENV=gcpprod CLOUD_SQL_CONNECTION_NAME=d4ad-prod:us-east4:d4ad-prod-gcp-pg scripts/deploy.sh
+          name: deploy
+          command: DB_PASS=$DB_PASS_WRITER_PROD DB_NAME=d4adprod DB_ENV=awsprod scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
@@ -84,17 +76,4 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: master
-      - prod-approval:
-          type: approval
-          requires:
-            - deploy
-          filters:
-            branches:
-              only: master
-      - deploy-prod:
-          requires:
-            - prod-approval
-          filters:
-            branches:
-              only: master
+              only: pre-mvp

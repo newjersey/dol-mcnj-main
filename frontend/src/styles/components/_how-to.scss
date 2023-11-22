@@ -1,0 +1,45 @@
+.how-to {
+  padding: 5rem 0;
+
+  @media screen and (max-width: ($tablet)) {
+    padding: 3rem 0;
+  }
+
+  h3 {
+    padding-bottom: 0.6rem;
+    margin-bottom: 3rem;
+
+    @media screen and (max-width: ($tablet)) {
+      margin-bottom: 2.5;
+    }
+  }
+
+  .video {
+    background-color: $secondary-lighter;
+    padding: $size-16 0;
+    margin-bottom: $size-72;
+    text-align: center;
+
+    .player {
+      width: 100%;
+      max-width: $size-320;
+      margin: 0 auto;
+    }
+
+    .usa-button {
+      display: flex;
+      background-color: $secondary;
+      align-items: center;
+      gap: 0.5rem;
+      width: $size-320;
+      justify-content: center;
+      margin: 0 auto;
+    }
+  }
+
+  .stepper {
+    @media screen and (min-width: ($tablet-md)) {
+      margin: 80px 0 0;
+    }
+  }
+}

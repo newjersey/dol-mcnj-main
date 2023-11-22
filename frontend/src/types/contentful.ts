@@ -1,5 +1,21 @@
 import { Document } from "@contentful/rich-text-types";
 import { ReactNode } from "react";
+import { IconNames } from "./icons";
+import * as Svg from "../svg/Icons";
+
+export type ThemeColors = "navy" | "blue" | "green" | "purple" | "orange";
+
+export type SectionIcons =
+  | "explore"
+  | "jobs"
+  | "support"
+  | "training"
+  | "exploreBold"
+  | "jobsBold"
+  | "supportBold"
+  | "trainingBold";
+
+export type HeadingLevel = 2 | 3 | 4 | 5 | 6;
 
 /* ********************
  *  GENERIC
@@ -9,9 +25,76 @@ export interface Keypair {
   value: string | Keypair | Keypair[];
 }
 
-/* ********************
- *  FAQ
- ******************** */
+export interface ImageProps {
+  url: string;
+  description?: string;
+  width?: number;
+  height?: number;
+}
+
+export interface OccupationNodeProps {
+  sys: {
+    id: string;
+  };
+  level: number;
+  title: string;
+  inDemand?: boolean;
+  shortTitle?: string;
+  description: string;
+  medianSalary?: number;
+  numberOfAvailableJobs?: number;
+  trainingSearchTerms?: string;
+  salaryRangeStart: number;
+  salaryRangeEnd: number;
+  educationLevel: string;
+  advancement?: string;
+  tasks?: string;
+  education?: string;
+  credentials?: string;
+  skills?: string;
+  experience?: string;
+}
+
+export interface SelectProps {
+  pathway?: OccupationNodeProps[];
+  title?: string;
+  shortTitle?: string;
+  pathTitle?: string;
+  id?: string;
+  groupId?: string;
+  groupTitle?: string;
+}
+
+export interface SinglePathwayProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  occupationsCollection: {
+    items: OccupationNodeProps[];
+  };
+}
+
+export interface CareerMapNodeProps extends OccupationNodeProps {
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
+}
+
+export interface PathwayGroupProps {
+  title: string;
+  sys: {
+    id: string;
+  };
+  learnMoreBoxes: {
+    title: string;
+    copy?: string;
+    tags?: string[];
+  }[];
+  pathways?: {
+    items: SinglePathwayProps[];
+  };
+}
+
 export interface FaqItemTopic {
   topic: string;
   order: number;
@@ -19,12 +102,16 @@ export interface FaqItemTopic {
 
 export interface PageBannerProps {
   date?: Date;
+  theme?: ThemeColors;
   title: string;
+  noCrumbs?: boolean;
+  breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
-  section: "explore" | "jobs" | "support" | "training";
+  section: SectionIcons;
   message?: ContentfulRichText;
+  description?: string;
   ctaHeading?: string;
   ctaLinksCollection?: {
     items: LinkObjectProps[];
@@ -78,11 +165,20 @@ export interface LinkObjectProps {
   };
   copy?: string;
   className?: string;
+  iconPrefix?: IconNames;
+  iconSuffix?: IconNames;
+  svgFill?: boolean;
+  svgName?: keyof typeof Svg;
+  highlight?: ThemeColors;
   url: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
+  icon?: IconNames;
   icons?: boolean;
+  onClick?: () => void;
+  customSvg?: string;
   label?: string;
+  description?: string;
 }
 
 export interface FaqPageData {
@@ -93,11 +189,19 @@ export interface FaqPageData {
     pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage?: {
-      url: string;
-    };
-    topics: {
-      items: FaqTopic[];
+    bannerImage?: ImageProps;
+    categoriesCollection: {
+      items: {
+        sys: { id: string };
+        title: string;
+        topics: {
+          items: {
+            sys: { id: string };
+            topic: string;
+            itemsCollection: { items: FaqItem[] };
+          }[];
+        };
+      }[];
     };
     resourceLinkHeading?: string;
     resourceLinks: {
@@ -112,15 +216,38 @@ export interface FaqPageProps {
   };
 }
 
+export interface CareerMapProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+}
+
 export interface IndustryProps {
   sys: {
     id: string;
   };
   title: string;
+  shorthandTitle?: string;
   slug: "manufacturing" | "healthcare" | "tdl";
   description: ContentfulRichText;
   photo: {
     url: string;
+    width: number;
+    height: number;
+  };
+  careerMaps?: {
+    items: CareerMapProps[];
+  };
+  inDemandCollection?: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      idNumber: string;
+      numberOfJobs?: number;
+    }[];
   };
   industryAccordionCollection: {
     items: {
@@ -143,11 +270,15 @@ export interface CareerPathwaysPageData {
     };
     title: string;
     pageBanner: PageBannerProps;
-    footerCtaHeading: string;
-    footerCtaLink: LinkObjectProps;
-  };
-  industries: {
-    items: IndustryProps[];
+    industries: {
+      items: IndustryProps[];
+    };
+    stepsHeading: string;
+    stepsCollection: {
+      items: IconCardProps[];
+    };
+    exploreHeading: string;
+    exploreButtonsCollection: { items: LinkObjectProps[] };
   };
 }
 
@@ -206,9 +337,7 @@ export interface TrainingProviderData {
     pageBanner: PageBannerProps;
     title: string;
     bannerHeading: string;
-    bannerImage: {
-      url: string;
-    };
+    bannerImage: ImageProps;
     tabs: {
       items: TabItemProps[];
     };
@@ -271,5 +400,212 @@ export interface FinancialResourcePageProps {
   status?: number;
   data: {
     data: FinancialResourcePageData;
+  };
+}
+
+export interface TrainingExplorerPageProps {
+  trainingExplorerPage: {
+    demoVideoUrl: string;
+    faqsCollection: { items: FaqItem[] };
+    footerCtaHeading: string;
+    footerCtaLinkCollection: { items: LinkObjectProps[] };
+    interrupterBannerHeading: string;
+    interrupterLinksCollection: { items: LinkObjectProps[] };
+    pageBanner: PageBannerProps;
+    stepOneHeading: string;
+    stepOneIcon: IconNames;
+    stepOneText: string;
+    stepThreeHeading: string;
+    stepThreeIcon: IconNames;
+    stepThreeText: string;
+    stepTwoHeading: string;
+    stepTwoIcon: IconNames;
+    stepTwoText: string;
+    title: string;
+    drawerContent: ContentfulRichText;
+  };
+}
+
+export interface IconLinkProps {
+  sys: {
+    id: string;
+  };
+  icon?: IconNames;
+  sectionIcon?: SectionIcons;
+  copy: string;
+  url: string;
+  description?: string;
+}
+
+export interface IntroBlockSectionProps {
+  link?: {
+    copy?: string;
+    url?: string;
+  };
+  title?: string;
+  heading?: string;
+  message?: string;
+}
+
+export interface IntroBlocksProps {
+  heading?: string;
+  message?: string;
+  sectionsHeading?: string;
+  sections?: IntroBlockSectionProps[];
+}
+
+export interface HomepageProps {
+  homePage: {
+    title: string;
+    pageDescription?: string;
+    bannerButtonCopy: string;
+    bannerMessage?: string;
+    bannerImage?: ImageProps;
+    introBlocks?: IntroBlocksProps;
+    toolsCollection: {
+      items: IconLinkProps[];
+    };
+    jobSearchToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    trainingToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    careerExplorationToolLinksCollection: {
+      items: IconLinkProps[];
+    };
+    supportAndAssistanceLinksCollection: {
+      items: IconLinkProps[];
+    };
+  };
+}
+
+export interface AllSupportPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+  };
+  categories: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+    }[];
+  };
+}
+
+export interface TagProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  category: {
+    slug: string;
+  };
+}
+
+export interface RelatedCategoryProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  slug: string;
+}
+
+export interface ResourceCategoryPageProps {
+  page: {
+    items: {
+      sys: {
+        id: string;
+      };
+      title: string;
+      slug: string;
+      description?: string;
+      infoBox?: string;
+      related?: {
+        items: RelatedCategoryProps[];
+      };
+    }[];
+  };
+  tags: {
+    items: TagProps[];
+  };
+  audience: {
+    items: TagProps[];
+  };
+  cta: {
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+  };
+}
+
+export interface ResourceItemProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  description: string;
+  link: string;
+  tags: {
+    items: TagProps[];
+  };
+}
+export interface ResourceListProps {
+  resources: {
+    items: ResourceItemProps[];
+  };
+}
+
+export interface IconCardProps {
+  sys?: {
+    id: string;
+  };
+  heading: string;
+  icon: IconNames;
+  sectionItem?: SectionIcons;
+  description: string;
+}
+
+export interface CareerNavigatorPageProps {
+  page: {
+    title: string;
+    pageBanner: PageBannerProps;
+    footerCtaHeading: string;
+    footerCtaLink: LinkObjectProps;
+    stepsHeading?: string;
+    midPageCtaHeading?: string;
+    interrupterHeading?: string;
+    interrupterLinks?: {
+      items: LinkObjectProps[];
+    };
+    infoHeading?: string;
+    infoCards?: {
+      items: IconCardProps[];
+    };
+    midPageCtaLinks?: {
+      items: LinkObjectProps[];
+    };
+    opportunitiesHeading?: string;
+    opportunityCards: {
+      items: LinkObjectProps[];
+    };
+    stepsCollection: {
+      items: IconCardProps[];
+    };
+    river?: {
+      items: {
+        sys: {
+          id: string;
+        };
+        copy?: string;
+        heading?: string;
+        image: ImageProps;
+      }[];
+    };
   };
 }

@@ -158,8 +158,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getSearchTips = (): ReactElement => (
     <div className="mbm" data-testid="searchTips">
       <p>{t("SearchResultsPage.searchTips1")}</p>
+      <p>Check your spelling to ensure it is correct.</p>
+      <p>Verify and adjust any filters that you might have applied to your search.</p>
       <p>{t("SearchResultsPage.searchTips2")}</p>
       <p>{t("SearchResultsPage.searchTips3")}</p>
+
       <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
         {isOpen ? t("SearchResultsPage.seeLessText") : t("SearchResultsPage.seeMoreText")}
         <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>
@@ -262,35 +265,35 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               </div>
             )}
             <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
-              {!isTabletAndUp && (
-                <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeaderSmallScreen")}</h3>
-              )}
               {isTabletAndUp && (
                 <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeader")}</h3>
               )}
-
-              <p className="mbl">
-                {t("SearchResultsPage.introText")}
-                &nbsp;
-                <Link className="link-format-blue" to="/funding">
-                  {t("SearchResultsPage.introTextLink")}
-                </Link>
-                .
-              </p>
-              <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
-              <p>{t("SearchResultsPage.searchHelperText")}</p>
-              <p>
-                <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
-                {t("SearchResultsPage.helperText1")}
-              </p>
-              <p>
-                <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
-                {t("SearchResultsPage.helperText2")}
-              </p>
-              <p>
-                <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
-                {t("SearchResultsPage.helperText3")}
-              </p>
+              {isTabletAndUp && (
+                <>
+                  <p className="mbl">
+                    {t("SearchResultsPage.introText")}
+                    &nbsp;
+                    <Link className="link-format-blue" to="/funding">
+                      {t("SearchResultsPage.introTextLink")}
+                    </Link>
+                    .
+                  </p>
+                  <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
+                  <p>{t("SearchResultsPage.searchHelperText")}</p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText1")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText2")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText3")}
+                  </p>
+                </>
+              )}
               {!isTabletAndUp && (
                 <div className="mtl mbd">
                   <h3 className="text-l">{t("SearchResultsPage.smallScreenSearchHeader")}</h3>
@@ -303,6 +306,35 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     {getSortDropdown()}
                   </FilterBox>
                 </div>
+              )}
+              {!isTabletAndUp && (
+                <>
+                  <h3 className="text-l mts">
+                    {t("SearchResultsPage.sectionOneHeaderSmallScreen")}
+                  </h3>
+                  <p className="mbl">
+                    {t("SearchResultsPage.introText")}
+                    &nbsp;
+                    <Link className="link-format-blue" to="/funding">
+                      {t("SearchResultsPage.introTextLink")}
+                    </Link>
+                    .
+                  </p>
+                  <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
+                  <p>{t("SearchResultsPage.searchHelperText")}</p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText1")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText2")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText3")}
+                  </p>
+                </>
               )}
             </div>
           </div>

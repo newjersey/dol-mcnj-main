@@ -11,7 +11,7 @@ import { Error } from "../domain/Error";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { en as Content } from "../locales/en";
 
-const { inDemandTag } = Content.SearchResultsPage;
+const { inDemandTitle } = Content.InDemandBlock;
 const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } = Content.OccupationPage;
 
 describe("<OccupationPage />", () => {
@@ -45,12 +45,12 @@ describe("<OccupationPage />", () => {
 
     await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.getByText("Test SOC Code")).toBeInTheDocument();
+    expect(subject.getByTestId("title")).toBeInTheDocument();
     expect(subject.getByText("some cool description")).toBeInTheDocument();
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
-    expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).toBeInTheDocument();
     expect(subject.getByText("1,010")).toBeInTheDocument();
     expect(subject.getByText("$97,820")).toBeInTheDocument();
     expect(subject.getByText("Related 1")).toBeInTheDocument();
@@ -67,7 +67,7 @@ describe("<OccupationPage />", () => {
     const notInDemand = buildOccupationDetail({ inDemand: false, relatedTrainings: [] });
     await act(async () => stubClient.capturedObserver.onSuccess(notInDemand));
 
-    expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).not.toBeInTheDocument();
   });
 
   it("displays data missing message if tasks are not available", async () => {
@@ -149,9 +149,7 @@ describe("<OccupationPage />", () => {
 
     await act(async () => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Occupation not found", { exact: false })).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", async () => {
@@ -159,9 +157,7 @@ describe("<OccupationPage />", () => {
 
     await act(async () => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(
-      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Occupation not found", { exact: false })).toBeInTheDocument();
   });
 
   it("displays -- message if open jobs count is null", async () => {

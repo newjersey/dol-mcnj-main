@@ -585,7 +585,7 @@ export const es = {
     greenBoxTextEnd: " pueden ser elegibles para recibir financiamiento del Estado.",
   },
   Header: {
-    title: "Training Explorer",
+    title: "Training sdf",
     linkToSearch: "Buscar formación",
     linkToInDemandOccupations: "Ocupaciones en demanda",
     linkToFunding: "Recursos financieros",
@@ -610,6 +610,11 @@ export const es = {
     explorerFunding: "Signo de dólar",
     providerApplication: "Icono que muestra la carpeta con documentos",
     careerOneStopLogo: "Logotipo oficial de la organización Career One Stop",
+  },
+  InDemandBlock: {
+    inDemandTitle: "En demanda en todo Nueva Jersey.",
+    localExceptionCountiesTitle: "En demanda en {{counties}}.",
+    localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
@@ -752,6 +757,8 @@ export const es = {
   },
   TrainingPage: {
     costGroupHeader: "Costo",
+    localExceptionCountiesTitle: "En demanda en {{countiesList}}.",
+    localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     header: "Oportunidad de entrenamiento",
     avgSalaryTitle: "Salario promedio después del programa",
     avgSalaryTooltip:
@@ -765,6 +772,12 @@ export const es = {
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
     cipCodeLabel: "Código CIP:",
+    totalClockHoursLabel: "Total de Horas:",
+    totalClockHoursTooltip:
+      "El total de horas es el número total de horas reales dedicadas a asistir a clases o actividades educativas para completar el programa.",
+    totalClockHours: "{{hours}} horas",
+    cipCodeTooltip:
+      'El sistema de "Clasificación de Programas Instructivos" se utiliza para categorizar los programas instructivos por tema.',
     associatedOccupationsGroupHeader: "Ocupaciones asociadas",
     associatedOccupationsText:
       "Esta es una capacitación general que podría prepararlo para una amplia variedad de trayectorias profesionales. Busque <1>ocupaciones en demanda</1> para ver cómo podría aplicar esta capacitación.",

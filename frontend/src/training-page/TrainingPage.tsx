@@ -3,7 +3,6 @@ import { Link, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -19,6 +18,8 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import { InDemandBlock } from "../components/InDemandBlock";
+import { Tooltip } from "react-tooltip";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -199,21 +200,51 @@ export const TrainingPage = (props: Props): ReactElement => {
       <div ref={componentRef}>
         <Layout client={props.client}>
           <div className="container">
-            <div className="ptm weight-500 fin all-caps border-bottom-dark">
-              {t("TrainingPage.header")}
+            <div className="detail-page">
+              <div className="page-banner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/training">
+                          Training Explorer
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/search">
+                          Search
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span>{training.name}</span>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
             </div>
-            <h2 className="text-xl ptd pbs weight-500">{training.name}</h2>
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
             <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
 
-            {training.inDemand ? <InDemandTag className="mts" /> : <></>}
-            {!training.inDemand &&
-            training.localExceptionCounty &&
-            training.localExceptionCounty.length !== 0 ? (
-              <InDemandTag className="mts" counties={training.localExceptionCounty} />
-            ) : (
-              <></>
-            )}
             <div className="stat-block-stack mtm">
+              {training.inDemand ? <InDemandBlock /> : <></>}
+
+              {!training.inDemand &&
+              training.localExceptionCounty &&
+              training.localExceptionCounty.length !== 0 ? (
+                <InDemandBlock counties={training.localExceptionCounty} />
+              ) : (
+                <></>
+              )}
+
               <StatBlock
                 title={t("TrainingPage.avgSalaryTitle")}
                 tooltipText={t("TrainingPage.avgSalaryTooltip")}
@@ -232,7 +263,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     ? formatPercentEmployed(training.percentEmployed)
                     : STAT_MISSING_DATA_INDICATOR
                 }
-                backgroundColorClass="bg-lighter-purple"
+                backgroundColorClass="bg-light-purple-50"
               />
             </div>
 
@@ -255,7 +286,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="fin">
                               <InlineIcon className="mrxs">school</InlineIcon>
                               {t("TrainingPage.certificationsLabel")}&nbsp;
-                              {training.certifications}
+                              <b>{training.certifications}</b>
                             </span>
                           </p>
                         )}
@@ -263,7 +294,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              {t("TrainingPage.prereqsLabel")}&nbsp;{training.prerequisites}
+                              {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
                             </span>
                           </p>
                         )}
@@ -271,15 +302,44 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span className="fin">
                             <InlineIcon className="mrxs">av_timer</InlineIcon>
                             {t("TrainingPage.completionTimeLabel")}&nbsp;
-                            {t(`CalendarLengthLookup.${training.calendarLength}`)}
+                            <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
                           </span>
                         </p>
+                        {training.totalClockHours && (
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">schedule</InlineIcon>
+                              {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                              <InlineIcon
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                              >
+                                info
+                              </InlineIcon>
+                              <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                              <b>
+                                {t("TrainingPage.totalClockHours", {
+                                  hours: training.totalClockHours,
+                                })}
+                              </b>
+                            </span>
+                          </p>
+                        )}
                         {training.cipCode && (
                           <p>
                             <span className="fin">
                               <InlineIcon className="mrxs">qr_code</InlineIcon>
                               {t("TrainingPage.cipCodeLabel")}&nbsp;
-                              {t(training.cipCode)}
+                              <InlineIcon
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
+                              >
+                                info
+                              </InlineIcon>
+                              <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                              <b>{t(training.cipCode)}</b>
                             </span>
                           </p>
                         )}
@@ -319,10 +379,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </UnstyledButton>
                         </p>
                         <p>
-                          <Link
-                            className="link-format-blue weight-500 fin"
-                            to="/tuition-assistance"
-                          >
+                          <Link className="link-format-blue weight-500 fin" to="/funding">
                             <Icon className="accessible-gray">attach_money</Icon>
                             <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
                           </Link>
@@ -459,7 +516,28 @@ export const TrainingPage = (props: Props): ReactElement => {
   } else if (error === Error.SYSTEM_ERROR) {
     return <SomethingWentWrongPage client={props.client} />;
   } else if (error === Error.NOT_FOUND) {
-    return <NotFoundPage client={props.client} />;
+    return (
+      <NotFoundPage client={props.client} heading="Training not found">
+        <>
+          <p>
+            This training is no longer listed or we may be experiencing technical difficulties.
+            However, you can try out these other helpful links:
+          </p>
+          <ul className="unstyled">
+            <li style={{ marginTop: "22px" }}>
+              <a style={{ color: "#005EA2" }} href="/search">
+                Find Training Opportunities
+              </a>
+            </li>
+            <li style={{ marginTop: "22px" }}>
+              <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
+                Tuition Assistance Resources
+              </a>
+            </li>
+          </ul>
+        </>
+      </NotFoundPage>
+    );
   } else {
     return <></>;
   }

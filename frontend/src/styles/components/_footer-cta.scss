@@ -1,22 +1,32 @@
 .footer-cta {
   text-align: center;
   padding: 0 0 2rem;
-  margin: -2rem auto 0;
+  margin: 0 auto;
 
-  h3 {
+  .heading-tag {
     font-size: 1.9rem;
     font-weight: bold;
     line-height: 1.2;
-    margin-bottom: 1rem;
+    margin-bottom: $size-16;
   }
 
   a {
-    margin: 1rem auto 0;
+    margin: $size-16 auto 0;
     display: block;
     padding-top: 17px;
     padding-bottom: 17px;
-    background-color: $blue;
+    background-color: $primary;
     font-weight: normal;
     max-width: 255px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover {
+      @media screen and (min-width: ($tablet-xl)) {
+        background-color: $primary;
+      }
+    }
   }
 }
