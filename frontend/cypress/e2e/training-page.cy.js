@@ -1,4 +1,4 @@
-describe("Training Page", () => {
+describe.skip("Training Page", () => {
   it("displays training details", () => {
     cy.visit("/training/33127");
     cy.injectAxe();

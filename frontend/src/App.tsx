@@ -1,7 +1,8 @@
 import { ReactElement, useReducer, useState } from "react";
-import { LandingPage } from "./landing-page/LandingPage";
+import  RedirectToNewTE from "./components/RedirectToNewTE";
+// import { LandingPage } from "./landing-page/LandingPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
-import { TrainingPage } from "./training-page/TrainingPage";
+// import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
 import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
@@ -90,13 +91,13 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
-              <LandingPage path="/" client={props.client} />
+              <RedirectToNewTE path="/*" />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}
               <SearchResultsPage path="/search" client={props.client} />
               <SearchResultsPage path="/search/:searchQuery" client={props.client} />
-              <TrainingPage path="/training/:id" client={props.client} />
+              <RedirectToNewTE path="/training/:id" />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
               <FinancialPage path="/tuition-assistance" client={props.client} />

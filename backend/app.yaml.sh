@@ -17,16 +17,8 @@ env_variables:
   CAREER_ONESTOP_USERID: \"$CAREER_ONESTOP_USERID\"
   CAREER_ONESTOP_AUTH_TOKEN: \"$CAREER_ONESTOP_AUTH_TOKEN\"
   BASE_URL: \"$BASE_URL\"
-  SPACE_ID: \"$SPACE_ID\"
+  SPACE_ID: \"$SPACE_ID\"z
   DELIVERY_API: \"$DELIVERY_API\"
   SENTRY_DSN: \"$SENTRY_DSN\"
   NODE_OPTIONS: --max_old_space_size=4096
-handlers:
-- url: /(.*)
-  script: auto
-  secure: always
-  redirect_http_response_code: 301
-  redirect_matcher:
-    regex: .*
-    location: https://mycareer.nj.gov/training/\1
 """
