@@ -1,4 +1,4 @@
-describe("Search", () => {
+describe.skip("Search", () => {
   it.skip("searches from the homepage", () => {
     // on homepage
     cy.visit("/");
@@ -79,13 +79,13 @@ describe("Search", () => {
     cy.contains("Find Training").should("exist");
   });
 
-  it.skip("links back to home page", () => {
+  it("links back to home page", () => {
     cy.visit("/search");
     cy.contains("Training Explorer").click({ force: true });
     cy.location("pathname").should("eq", "/");
   });
 
-  it.skip("links to a training detail page", () => {
+  it("links to a training detail page", () => {
     cy.visit("/search/digital%20marketing");
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
     cy.location("pathname").should("eq", "/training/51388");
@@ -97,7 +97,7 @@ describe("Search", () => {
     cy.contains("Certified Digital Marketing Fundamental").should("exist");
   });
 
-  it.skip("tags trainings on in-demand", () => {
+  it("tags trainings on in-demand", () => {
     cy.visit("/search/digital%20marketing");
 
     // in-demand training

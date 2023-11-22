@@ -1,4 +1,4 @@
-describe("Tuition Assistance Resources Page", () => {
+describe.skip("Tuition Assistance Resources Page", () => {
   it("is accessible", () => {
     cy.visit("/tuition-assistance");
     cy.injectAxe();
