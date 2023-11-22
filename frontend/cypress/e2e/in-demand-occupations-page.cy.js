@@ -1,4 +1,4 @@
-describe("In Demand Occupations page", () => {
+describe.skip("In Demand Occupations page", () => {
   it("displays in demand occupations", () => {
     cy.visit("/in-demand-occupations");
     cy.location("pathname").should("eq", "/in-demand-occupations");

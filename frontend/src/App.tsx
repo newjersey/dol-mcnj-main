@@ -1,7 +1,7 @@
 import { ReactElement, useReducer, useState } from "react";
 import  RedirectToNewTE from "./components/RedirectToNewTE";
 // import { LandingPage } from "./landing-page/LandingPage";
-import { SearchResultsPage } from "./search-results/SearchResultsPage";
+// import { SearchResultsPage } from "./search-results/SearchResultsPage";
 // import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
 import { PrivacyPolicyPage } from "./privacy-policy-page/PrivacyPolicyPage";
@@ -11,7 +11,7 @@ import { TrainingProviderPage } from "./training-provider-page/TrainingProviderP
 import { Client } from "./domain/Client";
 import { Router, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
-import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
+// import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
 import { FundingPage } from "./funding-page/FundingPage";
 import {
   initialFilterState,
@@ -91,14 +91,13 @@ export const App = (props: Props): ReactElement => {
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
           <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
             <Router>
-              <RedirectToNewTE path="/*" />
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
               {FaqRoutes({ client: props.client })}
-              <SearchResultsPage path="/search" client={props.client} />
-              <SearchResultsPage path="/search/:searchQuery" client={props.client} />
+              <RedirectToNewTE path="/search" />
+              <RedirectToNewTE path="/search/:searchQuery" />
               <RedirectToNewTE path="/training/:id" />
-              <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
+              <RedirectToNewTE path="/in-demand-occupations" />
               <OccupationPage path="/occupation/:soc" client={props.client} />
               <FinancialPage path="/tuition-assistance" client={props.client} />
               {/*              <CareerPathwaysPage path="/career-pathways" client={props.client} />
@@ -110,6 +109,8 @@ export const App = (props: Props): ReactElement => {
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default client={props.client} />
+              <RedirectToNewTE path="/*" />
+
             </Router>
             <LanguageSwitchButton />
             <ContextualInfoPanel />
