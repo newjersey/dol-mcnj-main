@@ -84,17 +84,17 @@ workflows:
             - build-and-test
           filters:
             branches:
-              only: master
+              only: master-with-redirects
       - prod-approval:
           type: approval
           requires:
             - deploy
           filters:
             branches:
-              only: master
+              only: master-with-redirects
       - deploy-prod:
           requires:
             - prod-approval
           filters:
             branches:
-              only: master
+              only: master-with-redirects
