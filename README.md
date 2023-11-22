@@ -18,7 +18,7 @@ This repo is the home for the Training Explorer web app ([training.njcareers.org
 - [`decision_log`](https://github.com/newjersey/d4ad/blob/master/decision_log.md) lists architectural decisions and their rationale
 - [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) lists data tables and columns
 - [`db_migration_guide`](https://github.com/newjersey/d4ad/blob/master/db_migration_guide.md) gives steps on how to update our databases
-- [`etpl_table_seed_guide`](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md) gives steps on how to specifically update the ETPL database 
+- [`etpl_table_seed_guide`](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md) gives steps on how to specifically update the ETPL database
 
 ## Getting started
 
