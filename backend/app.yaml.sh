@@ -21,4 +21,25 @@ env_variables:
   DELIVERY_API: \"$DELIVERY_API\"
   SENTRY_DSN: \"$SENTRY_DSN\"
   NODE_OPTIONS: --max_old_space_size=4096
+
+  handlers:
+  - url: /(.*\.(gif|png|jpg|css|js|ico|json|txt|svg|woff|woff2|ttf|eot))$
+    static_files: dist/build/\1
+    upload: dist/build/(.*\.(gif|png|jpg|css|js|ico|json|txt|svg|woff|woff2|ttf|eot))$
+    secure: always
+
+  - url: /(robots\.txt|favicon\.ico)$
+    static_files: dist/build/\1
+    upload: dist/build/(robots\.txt|favicon\.ico)$
+    secure: always
+
+  - url: /.*
+    static_files: dist/build/index.html
+    upload: dist/build/index.html
+    secure: always
+    http_headers:
+      Strict-Transport-Security: 'max-age=31536000; includeSubDomains'
+      X-Frame-Options: 'DENY'
+      X-Content-Type-Options: 'nosniff'
+      X-XSS-Protection: '1; mode=block'
 """
