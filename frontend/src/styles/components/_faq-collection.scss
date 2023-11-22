@@ -1,99 +1,117 @@
 .faq-collection {
-  margin-top: 4rem;
+  margin: 4rem 0;
 
-  @media screen and (max-width: ($tabPort)) {
-    margin-top: 1rem;
+  @media screen and (max-width: ($tablet-md)) {
+    margin-top: $size-16;
   }
 
   .container {
-    @media screen and (min-width: ($tabPort + 1)) {
+    @media screen and (min-width: ($tablet-md + 1)) {
       display: flex;
     }
   }
 
-  nav {
-    @media screen and (min-width: ($tabPort + 1)) {
-      width: 262px;
-    }
-
-    @media screen and (max-width: ($tabPort)) {
-      position: relative;
-      margin-bottom: 2rem;
-    }
-
-    ul {
-      padding: 0;
-      margin-top: 0;
-      list-style-type: none;
-
-      @media screen and (max-width: ($tabPort)) {
-        display: none;
-      }
-
-      &.open {
-        @media screen and (max-width: ($tabPort)) {
-          @include mobileDropItems;
-        }
-      }
-    }
-
-    li {
-      &.heading {
-        @include boldItem;
-
-        @media screen and (max-width: ($tabPort)) {
-          display: none;
-        }
-      }
-      &.active {
-        button {
-          background: $light-green;
-        }
-      }
-    }
-    button {
-      @include boldItem;
-    }
-  }
-
   .questions {
-    @media screen and (min-width: ($tabPort + 1)) {
+    @media screen and (min-width: ($tablet-md + 1)) {
       width: calc(100% - 262px);
       padding-left: 1.8rem;
     }
-  }
 
-  .support-theme & {
-    .accordion,
-    li.active {
-      button {
-        background-color: $light-blue;
+    a {
+      color: $primary-vivid;
+
+      &:hover {
+        @media screen and (min-width: ($tablet-md)) {
+          color: $primary;
+        }
       }
     }
   }
 
-  .jobs-theme & {
-    .accordion,
-    li.active {
-      button {
-        color: $blue;
-      }
+  .dropNav {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      margin-bottom: $size-32;
     }
-  }
-  .training-theme & {
-    .accordion,
-    li.active {
-      button {
-        background-color: $light-green;
-      }
-    }
-  }
+    .dropGroup {
+      background-color: $base-lightest;
+      border: $size-1 solid $base-lighter;
 
-  .explore-theme & {
-    .accordion,
-    li.active {
-      button {
-        color: $light-purple;
+      + .dropGroup {
+        margin-top: $size-16;
+      }
+
+      li {
+        background-color: $base-lightest;
+
+        &:last-of-type {
+          button {
+            border-bottom: 0;
+          }
+        }
+      }
+
+      ul {
+        height: 0;
+        overflow: hidden;
+        transition-duration: $transition-speed;
+        transition-timing-function: ease-in-out;
+
+        button {
+          padding-left: $size-64;
+
+          @media screen and (max-width: ($tablet-lg - 1)) {
+            padding-left: $size-32;
+          }
+        }
+
+        li {
+          button {
+            color: $ink;
+            font-weight: normal;
+            border-top: $size-1 solid $base-lighter;
+          }
+
+          &.active {
+            button {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      &.active {
+        > button {
+          background-color: $base-lighter;
+          font-weight: bold;
+          color: $info-darker;
+        }
+
+        ul {
+          display: block;
+        }
+
+        svg {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    svg {
+      transition-duration: $transition-speed;
+      transition-timing-function: ease-in-out;
+      transform: rotate(0deg);
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: $size-8 $size-16;
+      cursor: pointer;
+
+      &:focus {
+        outline: 0;
       }
     }
   }

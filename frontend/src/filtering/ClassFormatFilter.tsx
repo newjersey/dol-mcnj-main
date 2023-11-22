@@ -35,6 +35,30 @@ export const ClassFormatFilter = (): ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const inPerson = urlParams.get("inPerson");
+    const online = urlParams.get("online");
+    const inPersonCheckbox = document.getElementsByName("inPerson")[0] as HTMLInputElement;
+    const onlineCheckbox = document.getElementsByName("online")[0] as HTMLInputElement;
+
+    if (online === "true") {
+      if (onlineCheckbox && !onlineCheckbox.checked) {
+        setTimeout(() => {
+          onlineCheckbox.click();
+        }, 200);
+      }
+    }
+
+    if (inPerson === "true") {
+      if (inPersonCheckbox && !inPersonCheckbox.checked) {
+        setTimeout(() => {
+          inPersonCheckbox.click();
+        }, 200);
+      }
+    }
+  }, []);
+
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
     const newClassFormat = {
       ...classFormat,

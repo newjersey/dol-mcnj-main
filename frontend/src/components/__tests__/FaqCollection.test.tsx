@@ -4,37 +4,89 @@ import { FaqCollection } from "../FaqCollection";
 // eslint-disable-next-line
 const mockFaqTopics: any[] = [
   {
-    sys: { id: "1" },
-    topic: "Topic 1",
-    itemsCollection: {
+    sys: {
+      id: "1",
+    },
+    title: "Category 1",
+    topics: {
       items: [
         {
-          sys: { id: "1" },
-          question: "Question 1",
-          answer: { json: { nodeType: "document", content: [] } },
-        },
-        {
-          sys: { id: "2" },
-          question: "Question 2",
-          answer: { json: { nodeType: "document", content: [] } },
+          sys: {
+            id: "12",
+          },
+          topic: "Topic 1",
+          itemsCollection: {
+            items: [
+              {
+                sys: {
+                  id: "121",
+                },
+                question: "Question 1",
+                answer: {
+                  json: {
+                    content: [],
+                    nodeType: "document",
+                  },
+                },
+              },
+              {
+                sys: {
+                  id: "122",
+                },
+                question: "Question 2",
+                answer: {
+                  json: {
+                    content: [],
+                    nodeType: "document",
+                  },
+                },
+              },
+            ],
+          },
         },
       ],
     },
   },
   {
-    sys: { id: "2" },
-    topic: "Topic 2",
-    itemsCollection: {
+    sys: {
+      id: "2",
+    },
+    title: "Category 2",
+    topics: {
       items: [
         {
-          sys: { id: "3" },
-          question: "Question 3",
-          answer: { json: { nodeType: "document", content: [] } },
-        },
-        {
-          sys: { id: "4" },
-          question: "Question 4",
-          answer: { json: { nodeType: "document", content: [] } },
+          sys: {
+            id: "21",
+          },
+          topic: "Topic 2",
+          itemsCollection: {
+            items: [
+              {
+                sys: {
+                  id: "221",
+                },
+                question: "Question 3",
+                answer: {
+                  json: {
+                    content: [],
+                    nodeType: "document",
+                  },
+                },
+              },
+              {
+                sys: {
+                  id: "222",
+                },
+                question: "Question 4",
+                answer: {
+                  json: {
+                    content: [],
+                    nodeType: "document",
+                  },
+                },
+              },
+            ],
+          },
         },
       ],
     },
@@ -57,8 +109,8 @@ describe("FaqCollection", () => {
   });
   it("updates the active topic when a different topic is clicked", () => {
     render(<FaqCollection items={mockFaqTopics} />);
-    const topic2Button = screen.getByText("Topic 2");
+    const topic2Button = screen.getByText("Category 2");
     fireEvent.click(topic2Button);
-    expect(screen.getByText("Question 3")).toBeInTheDocument();
+    expect(screen.getByText("Topic 2")).toBeInTheDocument();
   });
 });

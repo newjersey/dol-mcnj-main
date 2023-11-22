@@ -1,0 +1,109 @@
+.homeBanner {
+  background-color: $primary-darker;
+  color: $white;
+  font-size: $size-16;
+  line-height: 1;
+  padding: 4rem 0;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    padding: 2rem 0;
+  }
+
+  p {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin: 2rem 0;
+
+    @media screen and (min-width: ($tablet-md)) {
+      padding-right: 8rem;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      font-size: 1.1rem;
+    }
+  }
+
+  h1 {
+    line-height: 1;
+    font-weight: 400;
+    margin: 0 0 $size-16;
+    color: $primary-lighter;
+    font-size: $size-40;
+
+    @media screen and (min-width: ($tablet-md)) {
+      font-size: $size-72;
+    }
+
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
+      font-size: $size-48;
+    }
+  }
+
+  button {
+    background-color: $accent-cool-lighter;
+    color: $ink;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: $size-16 1.5rem;
+
+    &:hover {
+      background-color: $accent-cool-light;
+      color: $ink;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+
+    &:before,
+    &:after {
+      content: none;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .copy,
+  .image {
+    width: 100%;
+  }
+
+  .copy {
+    @media screen and (min-width: ($desktop-lg)) {
+      width: calc(100% - 555px);
+    }
+
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
+      width: 50%;
+    }
+  }
+
+  .image {
+    @media screen and (min-width: ($desktop-lg)) {
+      width: 455px;
+    }
+
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-md + 1)) {
+      width: 50%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

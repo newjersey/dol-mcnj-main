@@ -4,7 +4,7 @@ footer {
   padding: 1.5rem 0 0;
 
   > .container {
-    @media screen and (min-width: ($tabPort + 1)) {
+    @media screen and (min-width: ($tablet-md + 1)) {
       display: flex;
       max-width: 1136px;
       width: 100%;
@@ -13,18 +13,18 @@ footer {
 
     > div {
       &:first-of-type {
-        @media screen and (min-width: ($tabPort + 1)) {
+        @media screen and (min-width: ($tablet-md + 1)) {
           width: calc(100% - 250px);
-          margin-right: 40px;
+          margin-right: $size-40;
         }
       }
 
       &:last-of-type {
-        @media screen and (min-width: ($tabPort + 1)) {
+        @media screen and (min-width: ($tablet-md + 1)) {
           width: 210px;
         }
 
-        @media screen and (max-width: ($tabPort)) {
+        @media screen and (max-width: ($tablet-md)) {
           padding-bottom: 2rem;
         }
       }
@@ -36,7 +36,7 @@ footer {
     text-decoration: none;
 
     &:hover {
-      @media screen and (min-width: ($tabPort + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         text-decoration: underline;
         color: $light-grey;
       }
@@ -48,17 +48,17 @@ footer {
   }
 
   .nav-heading {
-    border-bottom: 1px solid white;
+    border-bottom: $size-1 solid white;
     display: block;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
   }
 
   .nav-item {
-    font-size: 14px;
+    font-size: $size-14;
 
     > a {
-      border-bottom: 1px solid white;
+      border-bottom: $size-1 solid white;
       display: block;
       padding-bottom: 0.5rem;
       margin-bottom: 1.5rem;
@@ -80,32 +80,32 @@ footer {
   .footer-nav-l {
     > div {
       > ul {
-        @media screen and (min-width: ($tabPort + 1)) {
+        @media screen and (min-width: ($tablet-md + 1)) {
           column-count: 2;
           column-gap: 1.25rem;
           perspective: 1;
         }
 
-        @media screen and (min-width: ($tabLand + 1)) {
+        @media screen and (min-width: ($desktop + 1)) {
           column-count: 3;
         }
       }
     }
 
     .nav-item {
-      @media screen and (min-width: ($tabPort + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         break-inside: avoid-column;
       }
     }
   }
   .footer-nav-r {
-    margin-bottom: 1rem;
+    margin-bottom: $size-16;
     .nav-heading {
       margin-bottom: 1.5rem;
     }
 
     .nav-item {
-      font-size: 14px;
+      font-size: $size-14;
 
       > a {
         border-bottom: none;

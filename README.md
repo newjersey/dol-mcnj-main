@@ -1,10 +1,10 @@
-# New Jersey Training Explorer
+# New Jersey Career Central
 
 [![build](https://circleci.com/gh/newjersey/d4ad.svg?style=shield)](https://circleci.com/gh/newjersey/d4ad)
 
 ## Overview
 
-This repo is the home for the Training Explorer web app ([training.njcareers.org](https://training.njcareers.org/)), a one-stop shop for individuals seeking training opportunities and related funding to further their employment potential across the State of New Jersey.
+This repo is the home for the NJ Career Central web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
 
 ### Architecture
 

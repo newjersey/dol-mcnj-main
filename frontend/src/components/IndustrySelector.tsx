@@ -1,5 +1,6 @@
 import { Selector } from "../svg/Selector";
 import { IndustryProps } from "../types/contentful";
+import { SectionHeading } from "./modules/SectionHeading";
 
 export const IndustrySelector = ({
   industries,
@@ -8,17 +9,31 @@ export const IndustrySelector = ({
   industries: IndustryProps[];
   current?: string;
 }) => {
+  // sort industries by title with
+  const byTitle = industries.sort((a, b) => {
+    if (a.title < b.title) {
+      return -1;
+    }
+    if (a.title > b.title) {
+      return 1;
+    }
+    return 0;
+  });
   return (
     <section className="industry-selector">
-      <div className="container">
-        <div className="heading">
-          <h2>Select an Industry</h2>
-        </div>
-        <nav id="industry-nav">
+      <div className="container plus">
+        <SectionHeading
+          heading="Select an Industry"
+          description="Explore popular industries in New Jersey. More Industries coming soon!"
+        />
+        <nav aria-label="Industry Navigation" id="industry-nav">
           <ul className="unstyled">
-            {industries.map(({ sys, title, slug }) => (
-              <li key={sys.id} className={current === slug ? "active" : undefined}>
-                <a href={`/career-pathways/${slug}`}>
+            {byTitle.map(({ sys, title, slug }) => (
+              <li key={sys.id}>
+                <a
+                  href={`/career-pathways/${slug}`}
+                  className={current === slug ? "active" : undefined}
+                >
                   <div className="icon">
                     <Selector name={slug} color="#000" />
                   </div>

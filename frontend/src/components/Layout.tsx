@@ -1,86 +1,57 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { NavMenuData } from "../types/contentful";
 import { Client } from "../domain/Client";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { NAV_MENU_QUERY } from "../queries/navMenu";
+import { BackToTop } from "./modules/BackToTop";
 
 interface LayoutProps {
   client: Client;
   children?: ReactNode;
   footerComponent?: ReactNode;
+  className?: string;
   noFooter?: boolean;
+  noPad?: boolean;
   theme?: "explore" | "jobs" | "support" | "training";
 }
 export const Layout = (props: LayoutProps) => {
-  const [globalNav, setGlobalNav] = useState<NavMenuData>();
-  const [mainNav, setMainNav] = useState<NavMenuData>();
-  const [footerNav1, setFooterNav1] = useState<NavMenuData>();
-  const [footerNav2, setFooterNav2] = useState<NavMenuData>();
+  const { children, noFooter } = props;
 
-  const { children, client, noFooter } = props;
+  const globalNav = useContentfulClient({
+    query: NAV_MENU_QUERY,
+    variables: { id: "7ARTjtRYG7ctcjPd1nbCHr" },
+  });
+  const mainNav = useContentfulClient({
+    query: NAV_MENU_QUERY,
+    variables: { id: "3jcP5Uz9OY7syy4zu9Viul" },
+  });
+  const footerNav1 = useContentfulClient({
+    query: NAV_MENU_QUERY,
+    variables: { id: "voDscWxEvggHqcXPzUtpR" },
+  });
+  const footerNav2 = useContentfulClient({
+    query: NAV_MENU_QUERY,
+    variables: { id: "3WHbfXiLFSBXRC24QCq8H6" },
+  });
 
   const headerProps = {
     mainNav,
     globalNav,
   };
 
-  useEffect(() => {
-    client?.getContentfulGNav("gnav", {
-      onSuccess: (response: {
-        data: {
-          data: NavMenuData;
-        };
-      }) => {
-        setGlobalNav(response?.data?.data);
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${e}`);
-      },
-    });
-    client?.getContentfulMNav("mnav", {
-      onSuccess: (response: {
-        data: {
-          data: NavMenuData;
-        };
-      }) => {
-        setMainNav(response?.data?.data);
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${e}`);
-      },
-    });
-    client?.getContentfulFootNav1("footNav", {
-      onSuccess: (response: {
-        data: {
-          data: NavMenuData;
-        };
-      }) => {
-        setFooterNav1(response?.data?.data);
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${e}`);
-      },
-    });
-    client?.getContentfulFootNav2("footNav2", {
-      onSuccess: (response: {
-        data: {
-          data: NavMenuData;
-        };
-      }) => {
-        setFooterNav2(response?.data?.data);
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${e}`);
-      },
-    });
-  }, [client]);
-
   return (
     <>
       <Header {...headerProps} />
-      <main className={`below-banners${props.theme ? ` ${props.theme}-theme` : ""}`} role="main">
+      <main
+        className={`${!props.noPad ? "below-banners" : ""}${
+          props.theme ? ` ${props.theme}-theme` : ""
+        }${props.className ? ` ${props.className}` : ""}`}
+        role="main"
+      >
         {children}
         {props.footerComponent}
+        <BackToTop />
       </main>
       {!noFooter && (
         <Footer

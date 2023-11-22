@@ -26,6 +26,7 @@ function mockReachRouter() {
 jest.mock("@reach/router", () => mockReachRouter());
 
 const { inDemandTag } = Content.SearchResultsPage;
+const { inDemandTitle } = Content.InDemandBlock;
 describe("<TrainingPage />", () => {
   let stubClient: StubClient;
 
@@ -82,9 +83,10 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onSuccess(training));
 
-    expect(subject.getByText("my cool training", { exact: false })).toBeInTheDocument();
+    expect(subject.getByTestId("title", { exact: false })).toBeInTheDocument();
+    expect(subject.getByText("Completion time:", { exact: false })).toBeInTheDocument();
     expect(
-      subject.getByText("Completion time: " + Content.CalendarLengthLookup["7"], { exact: false }),
+      subject.getByText(Content.CalendarLengthLookup["7"], { exact: false }),
     ).toBeInTheDocument();
     expect(subject.getByText("some cool description", { exact: false })).toBeInTheDocument();
     expect(subject.getByText("Botanist", { exact: false })).toBeInTheDocument();
@@ -128,12 +130,12 @@ describe("<TrainingPage />", () => {
     expect(subject.queryByText("Newark", { exact: false })).not.toBeInTheDocument();
   });
 
-  it("displays an in-demand tag when a training is in-demand", () => {
+  it("displays an in-demand block when a training is in-demand", () => {
     const subject = render(<TrainingPage client={stubClient} />);
     const inDemand = buildTraining({ inDemand: true });
     act(() => stubClient.capturedObserver.onSuccess(inDemand));
 
-    expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).toBeInTheDocument();
   });
 
   it("does not display an in-demand tag when a training is not in-demand", () => {
@@ -316,9 +318,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Training not found", { exact: false })).toBeInTheDocument();
   });
 
   it("displays the Error page on server error", () => {
@@ -326,9 +326,7 @@ describe("<TrainingPage />", () => {
 
     act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(
-      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false }),
-    ).toBeInTheDocument();
+    expect(subject.getByText("Sorry, something went wrong", { exact: false })).toBeInTheDocument();
   });
 
   it("converts carriage returns to newlines in the description", () => {

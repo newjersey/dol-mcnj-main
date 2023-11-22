@@ -1,4 +1,4 @@
-@import "sizes";
+@import "system";
 @import "colors";
 @import "spacing";
 @import "borders";
@@ -7,32 +7,85 @@
 @import "variables";
 @import "table";
 @import "css/bootstrap.css";
-@import "landing-page";
-@import "search-results-page";
-@import "training-page";
-@import "not-found-page";
-@import "in-demand-page";
-@import "occupation-page";
-@import "training-comparison";
+
 @import "faq-breadcrumb";
-@import "modules/accordion";
-@import "modules/drop-selector";
-@import "modules/financial-resource";
-@import "modules/footer-banner";
-@import "modules/mixins";
-@import "components/faq-collection";
-@import "components/page-banner";
-@import "components/resource-filter";
-@import "components/resource-links";
-@import "components/tab-content";
-@import "components/industry-selector";
-@import "components/industry-block";
-@import "components/footer-cta";
+@import "training-comparison";
+
+// PAGES
+@import "pages/career-navigator";
+@import "pages/home-page";
+@import "pages/in-demand-page";
+@import "pages/landing-page";
+@import "pages/not-found-page";
+@import "pages/occupation-page";
+@import "pages/search-results-page";
+@import "pages/training-page";
+@import "pages/career-pathways";
+@import "pages/training-explorer";
+
+// GLOBAL
 @import "global/betaBanner";
 @import "global/footer";
 @import "global/globalHeader";
 @import "global/header";
 @import "global/subFooter";
+
+// MODULES
+@import "modules/accordion";
+@import "modules/backToTop";
+@import "modules/buttons";
+@import "modules/cta";
+@import "modules/cta";
+@import "modules/drop-selector";
+@import "modules/error-message";
+@import "modules/financial-resource";
+@import "modules/footer-banner";
+@import "modules/how-to-button";
+@import "modules/iconCard";
+@import "modules/mixins";
+@import "modules/path-menu";
+@import "modules/section-heading";
+@import "modules/single-path";
+@import "modules/tags";
+
+// COMPONENTS
+@import "components/cardSlider";
+@import "components/career-map";
+@import "components/career-pathways";
+@import "components/ctaBanner";
+@import "components/faq-collection";
+@import "components/filterControls";
+@import "components/footer-cta";
+@import "components/homeBanner";
+@import "components/how-to";
+@import "components/industry-block";
+@import "components/industry-field-drawer";
+@import "components/industry-selector";
+@import "components/interrupter";
+@import "components/introBlocks";
+@import "components/labelBox";
+@import "components/occupation-block";
+@import "components/page-banner";
+@import "components/pathway-menus";
+@import "components/resource-filter";
+@import "components/resource-links";
+@import "components/resourceCard";
+@import "components/resourceList";
+@import "components/river";
+@import "components/search-block";
+@import "components/stepper";
+@import "components/tab-content";
+
+button:not([disabled]):focus,
+input:not([disabled]):focus,
+select:not([disabled]):focus,
+textarea:not([disabled]):focus,
+[contentEditable="true"]:focus,
+[href]:focus,
+[tabindex]:focus,
+iframe:focus {
+  outline: $size-4 solid $primary;
+}
 
 * {
   -webkit-box-sizing: border-box;
@@ -106,13 +159,28 @@ p {
 }
 
 a.link-format-black {
-  color: black !important;
+  color: $ink !important;
   text-decoration: none;
+}
+
+a,
+a.usa-link {
+  color: $primary-vivid;
+
+  &:visited {
+    color: $primary-vivid;
+  }
+
+  &:hover {
+    @media screen and (min-width: ($desktop)) {
+      color: $primary;
+    }
+  }
 }
 
 button.link-format-blue,
 a.link-format-blue {
-  color: $blue !important;
+  color: $primary !important;
   text-decoration: none !important;
 }
 
@@ -126,7 +194,7 @@ a.link-format-blue {
   padding-right: 2em;
 }
 
-@media (max-width: $xs) {
+@media (max-width: $tablet-md) {
   .contextual-info-panel {
     width: 66vw;
     padding-left: 2em;
@@ -153,8 +221,11 @@ a.link-format-blue {
 }
 
 .tag {
-  border-radius: 10px;
+  border-radius: $size-100;
   width: max-content;
+  padding: $size-5 $size-16 $size-5 $size-12;
+  display: flex;
+  gap: $size-6;
 }
 
 .MuiOutlinedInput.input {
@@ -163,8 +234,8 @@ a.link-format-blue {
 
 .language-switch-buttton {
   position: fixed;
-  bottom: 1rem;
-  left: 1rem;
+  bottom: $size-16;
+  left: $size-16;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -190,7 +261,7 @@ a.link-format-blue {
 
 header {
   .usa-nav-container {
-    max-width: $tabLrg;
+    max-width: $desktop-lg;
   }
 }
 
@@ -200,5 +271,66 @@ ol {
     margin: 0;
     list-style: none;
     padding-left: 0;
+  }
+}
+
+.image-text {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media screen and (max-width: ($tablet)) {
+    flex-direction: column;
+  }
+
+  .description {
+    max-width: 400px;
+    font-size: 1.5rem;
+
+    p {
+      line-height: 1.2;
+    }
+  }
+}
+
+.container {
+  &.plus {
+    width: 100%;
+    max-width: 1294px;
+  }
+}
+
+.flex-card-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+
+  > * {
+    max-width: 260px;
+  }
+}
+
+.section-padding {
+  padding: 4rem 0;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    padding: 2rem 0;
+  }
+}
+
+.mobile-only {
+  display: none;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    display: block;
+  }
+}
+
+.desktop-only {
+  display: block;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    display: none;
   }
 }
