@@ -34,6 +34,17 @@ jobs:
       - run:
           name: Run Node.js tests
           command: npm test
+      - run:
+          name: Execute feature tests script
+          command: scripts/feature-tests.sh | tee feature-test-output.txt
+      - store_artifacts:
+          path: feature-test-output.txt
+      - store_artifacts:
+          path: ~/project/frontend/cypress/videos
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
       - persist_to_workspace:
           root: ~/project
           paths:
