@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 import { InDemandBlock } from "../InDemandBlock";
 import { useMediaQuery } from "@material-ui/core";
 import { en as Content } from "../../locales/en";
