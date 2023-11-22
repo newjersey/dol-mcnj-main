@@ -73,13 +73,13 @@ const Content = ({
         console.error("Failed to parse JSON response:", text);
         // ... handle the error
       }
-    } catch (error: any) {
+    } catch (error) {
       // Handle network errors
       setTimeout(() => {
         setSubmitting(false);
         setError({
           status: 500,
-          message: error.message || "An error occurred while sending your email.",
+          message: "An error occurred while sending your email.",
         });
       }, 1000);
     }
