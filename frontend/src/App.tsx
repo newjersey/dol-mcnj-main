@@ -74,7 +74,7 @@ globalHistory.listen(({ location }) => {
 });
 
 export const App = (props: Props): ReactElement => {
-  const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
+  /*const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
   const [filterState, filterDispatch] = useReducer<FilterReducer>(
     filterReducer,
     initialFilterState,
@@ -83,13 +83,13 @@ export const App = (props: Props): ReactElement => {
     comparisonReducer,
     initialComparisonState,
   );
-  const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
+  const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);*/
 
   return (
-    <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
+    /*<ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
       <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
         <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
-          <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
+          <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>*/
             <Router>
               <LandingPageCounselor path="/counselor" client={props.client} />
               <LandingPageExplorer path="/explorer" client={props.client} />
@@ -112,11 +112,11 @@ export const App = (props: Props): ReactElement => {
               <RedirectToNewTE path="/*" />
 
             </Router>
-            <LanguageSwitchButton />
+            /*<LanguageSwitchButton />
             <ContextualInfoPanel />
           </ContextualInfoContext.Provider>
         </FilterContext.Provider>
       </SortContext.Provider>
-    </ComparisonContext.Provider>
+    </ComparisonContext.Provider>*/
   );
 };
