@@ -1,6 +1,7 @@
 // RedirectToExternal.tsx
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
+import '../styles/components/_redirect-message.scss'; // Import the CSS for styling the message and spinner
 
 interface RedirectToNewTEProps extends RouteComponentProps {
     id?: string; // The dynamic segment of the path
@@ -8,25 +9,45 @@ interface RedirectToNewTEProps extends RouteComponentProps {
 }
 
 const RedirectToNewTE: React.FC<RedirectToNewTEProps> = ({ id, searchQuery }) => {
-    useEffect(() => {
-        let redirectUrl = 'https://mycareer.nj.gov';
+    // State to control whether to show the redirect message
+    const [showRedirectMessage, setShowRedirectMessage] = useState(true);
+    const [redirectUrl, setRedirectUrl] = useState('https://mycareer.nj.gov');
 
+    useEffect(() => {
         if (id) {
-            redirectUrl += `/training/${id}`;
-        } else if (searchQuery !== undefined) { // Check for searchQuery, which can be an empty string
-            redirectUrl += `/search/${searchQuery}`;
+            setRedirectUrl(redirectUrl => `${redirectUrl}/training/${id}`);
+        } else if (searchQuery !== undefined) {
+            setRedirectUrl(redirectUrl => `${redirectUrl}/search/${searchQuery}`);
         } else if (window.location.pathname.startsWith('/search')) {
-            redirectUrl += '/search';
+            setRedirectUrl(redirectUrl => `${redirectUrl}/search`);
         } else if (window.location.pathname.startsWith('/in-demand-occupations')) {
-            redirectUrl += '/in-demand-occupations';
+            setRedirectUrl(redirectUrl => `${redirectUrl}/in-demand-occupations`);
         } else {
-            redirectUrl += '/training';
+            setRedirectUrl(redirectUrl => `${redirectUrl}/training`);
         }
 
-        window.location.href = redirectUrl;
+
+        // Set a timeout to redirect after 10 seconds
+        const timer = setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 10000); // 10000 milliseconds equals 10 seconds
+
+        // Cleanup function to clear the timer if the component is unmounted
+        return () => clearTimeout(timer);
     }, [id, searchQuery]);
 
-    return null; // This component does not render anything
+    return (
+        <div className="redirect-container">
+            {showRedirectMessage && (
+                <div className="redirect-message">
+                    <p>NJ Training Explorer has moved! All the same training and career info, now at
+                        mycareer.nj.gov/training. Taking you there now...</p>
+                    <div className="spinner"></div>
+                    <p>Or <a href={redirectUrl} onClick={() => setShowRedirectMessage(false)}>click here</a> to go now.</p>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default RedirectToNewTE;
