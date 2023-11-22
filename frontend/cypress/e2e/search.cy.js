@@ -1,5 +1,5 @@
 describe("Search", () => {
-  it.skip("searches from the homepage", () => {
+  it("searches from the homepage", () => {
     // on homepage
     cy.visit("/");
     cy.injectAxe();
