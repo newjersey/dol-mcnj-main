@@ -63,7 +63,6 @@ describe("Home Page", () => {
     cy.get("input[name='input-email']").type("test@test.com");
     cy.get("input[name='input-email']").blur();
     cy.get("button[type='submit']").click();
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     cy.contains("Success!").should("exist");
   });

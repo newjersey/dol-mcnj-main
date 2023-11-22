@@ -9,11 +9,9 @@ describe("Search", () => {
       "exist",
     );
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     cy.get("a#search-button").contains("Search").click({ force: true });
 
@@ -106,10 +104,10 @@ describe("Search", () => {
 
     // in-demand training
     cy.get(".card")
-        .eq(0)
-        .within(() => {
-          cy.contains("In Demand").should("exist");
-        });
+      .eq(0)
+      .within(() => {
+        cy.contains("In Demand").should("exist");
+      });
 
     // not in-demand training
     cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
@@ -119,7 +117,6 @@ describe("Search", () => {
     cy.contains("A.S.Degree: Social Service").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
-
 
   it("tags shows search training tips", () => {
     cy.visit("/search/braider");
