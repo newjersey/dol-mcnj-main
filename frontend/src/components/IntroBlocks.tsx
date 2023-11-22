@@ -13,8 +13,8 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
   );
 
   // TODO: Remove this once we have a Career Pathways section
-  const sectionsWithoutCareerPathways = sections?.filter(
-    (section) => section.title !== "Career Pathways",
+  const sectionsv1 = sections?.filter(
+    (section) => section.title !== "Career Pathways" && section.title !== "Career Navigator",
   );
 
   return (
@@ -29,7 +29,7 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
         <div className="inner">
           {sectionsHeading && <h2>{sectionsHeading}</h2>}
           <div className="buttons">
-            {sectionsWithoutCareerPathways?.map((section, index) => (
+            {sectionsv1?.map((section, index) => (
               <button
                 key={section.title}
                 className={activeSection.title === section.title ? "active" : ""}

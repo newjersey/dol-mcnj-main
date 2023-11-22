@@ -21,6 +21,5 @@ DB_HOST=${!HOST_ENV_VAR}
 DB_PASSWORD=${!PASSWORD_ENV_VAR}
 
 DATABASE_URL="postgresql://postgres:${DB_PASSWORD}@$DB_HOST:5432/$DB_NAME"
-
 export DATABASE_URL
 npm --prefix=backend run db-migrate up
