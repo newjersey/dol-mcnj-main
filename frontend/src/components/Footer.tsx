@@ -30,6 +30,7 @@ export const Footer = ({
           {items?.footerNav2 && (
             <NavMenu
               noDropdowns
+              icons={true}
               id="footer2"
               menu={items.footerNav2}
               className="footer-nav-r"
