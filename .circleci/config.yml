@@ -43,6 +43,8 @@ jobs:
       - store_artifacts:
           path: wiremock.log
       - store_artifacts:
+          path: /home/circleci/.npm/_logs/*.log
+      - store_artifacts:
           path: ~/project/frontend/cypress/videos
       - persist_to_workspace:
           root: ~/project
