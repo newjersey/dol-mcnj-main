@@ -13,7 +13,7 @@ set -e
 echo "starting app"
 ./scripts/build.sh
 ./scripts/prod-start-local.sh > /dev/null &
-npm --prefix=backend run start:wiremock &
+npm --prefix=backend run start:wiremock --verbose > wiremock.log 2>&1 &
 while ! echo exit | nc localhost ${WIREMOCK_PORT}; do sleep 1; done
 while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done
 
