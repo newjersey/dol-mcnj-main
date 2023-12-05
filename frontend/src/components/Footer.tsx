@@ -18,6 +18,7 @@ export const Footer = ({
           {items?.footerNav1 && (
             <NavMenu
               noDropdowns
+              icons={true}
               id="footer1"
               menu={items.footerNav1}
               className="footer-nav-l"

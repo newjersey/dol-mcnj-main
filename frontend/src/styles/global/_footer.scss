@@ -93,6 +93,12 @@ footer {
     }
 
     .nav-item {
+      .material-icons {
+        font-size: $size-16;
+        margin-left: $size-2;
+        padding-top: $size-2;
+      }
+
       @media screen and (min-width: ($tablet-md + 1)) {
         break-inside: avoid-column;
       }
