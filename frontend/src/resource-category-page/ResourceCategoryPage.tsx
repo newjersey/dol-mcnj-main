@@ -20,9 +20,17 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
   });
 
   return (
-    <Layout client={props.client} theme="support">
+    <>
       {data && (
-        <>
+        <Layout
+          client={props.client}
+          theme="support"
+          seo={{
+            title: `${data?.page.items[0].title} | Support Resources | New Jersey Career Central`,
+            pageDescription: data?.page.items[0].description,
+            url: props.location?.pathname,
+          }}
+        >
           <PageBanner
             title={data.page.items[0].title}
             theme="navy"
@@ -52,8 +60,8 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
               related={data.page.items[0].related?.items}
             />
           </section>
-        </>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };
