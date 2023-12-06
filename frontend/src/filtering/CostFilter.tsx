@@ -37,7 +37,7 @@ export const CostFilter = (): ReactElement => {
       setMaxCost("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.filters]);
+  }, [maxCost, state.filters]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
