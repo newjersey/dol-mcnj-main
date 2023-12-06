@@ -383,7 +383,7 @@ export const en = {
     trainingExplorerBodyOneStart:
       "The Training Explorer links to job listings on occupation pages. ",
     trainingExplorerBodyOneLink:
-      'To search for an in-demand occupation, click on the "in-demand occupations" at the top of this page or visit: <1>https://training.njcareers.org/in-demand-occupations</1>.',
+      'To search for an in-demand occupation, click on the "in-demand occupations" at the top of this page or visit: <1>https://mycareer.nj.gov/in-demand-occupations</1>.',
     trainingExplorerBodyTwo:
       "On this page, you search for any occupation that is projected by the State to have the most growth in job openings. Once you find an occupation, for example Phlebotomy, you can see the number of job listings currently available for that occupation as well as the median salary for that occupation.",
     trainingExplorerBodyThree:
