@@ -39,7 +39,7 @@ const mockContent: any = {
         {
           nodeType: "hyperlink",
           data: {
-            uri: "https://training.njcareers.org/faq/search-help",
+            uri: "https://mycareer.nj.gov/faq/search-help",
           },
           content: [
             {
