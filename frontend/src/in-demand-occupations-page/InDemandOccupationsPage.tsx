@@ -60,18 +60,6 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
 
         <p>{t("InDemandPage.description")}</p>
-        <a
-          className="link-format-blue"
-          style={{
-            margin: "1rem 0",
-            display: "block",
-          }}
-          href="https://www.nj.gov/labor/career-services/tools-support/demand-occupations/waivers.shtml"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {t("InDemandPage.descriptionTextLink")}.
-        </a>
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />
         </div>
