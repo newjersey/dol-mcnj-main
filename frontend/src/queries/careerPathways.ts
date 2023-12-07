@@ -1,11 +1,12 @@
 import { fragments } from "./fragments";
+import { SEO_QUERY } from "./seoQuery";
 
 export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
 	page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
+    ${SEO_QUERY}
     sys {
       publishedAt
     }
-    title
     pageBanner {
       ...PageBanner
     }

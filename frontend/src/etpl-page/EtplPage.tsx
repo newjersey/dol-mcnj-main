@@ -387,7 +387,15 @@ export const EtplPage = (props: Props): ReactElement => {
   };
 
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: "ETPL | New Jersey Career Central",
+        pageDescription:
+          "A checklist of steps to get on the Eligible Training Provider List (ETPL)",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <div className="row">
           <div className="col-md-10">

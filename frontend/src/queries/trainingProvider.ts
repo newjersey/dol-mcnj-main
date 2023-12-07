@@ -1,12 +1,13 @@
 import { fragments } from "./fragments";
+import { SEO_QUERY } from "./seoQuery";
 
 export const TRAINING_PROVIDER_PAGE_QUERY = `
 query TrainingProviderPage {
   page: trainingProviderResourcesPage(id: "4GrMLVPYkDCMzMLCxEgy9s") {
+    ${SEO_QUERY}
     sys {
       publishedAt
     }
-    title
     pageBanner {
       ...PageBanner
     }
