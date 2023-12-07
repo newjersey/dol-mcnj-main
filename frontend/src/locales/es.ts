@@ -600,7 +600,9 @@ export const es = {
   },
   IconAlt: {
     njLogo: "Logotipo oficial del estado de Nueva Jersey",
-    occupationGroup: "Icono que representa un grupo específico de ocupaciones",
+    occupationGroup: {
+      general: "Icono que representa un grupo específico de ocupaciones"
+    },
     etplGroup: "Ícono que representa una agencia gubernamental específica",
     landingPageWorkforce: "Caricatura de tres trabajadores",
     landingPageOccupation: "Ícono que muestra a una persona haciendo conexiones",

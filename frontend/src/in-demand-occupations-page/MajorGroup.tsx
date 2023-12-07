@@ -45,6 +45,8 @@ export const MajorGroup = (props: Props): ReactElement => {
     return isOpen ? "keyboard_arrow_up" : "keyboard_arrow_down";
   };
 
+  const industryGroup = industryIconLookup[props.majorGroupName]
+
   return (
     <div data-testid="majorGroup" className="major-group mbs weight-500 blue">
       <button
@@ -57,7 +59,7 @@ export const MajorGroup = (props: Props): ReactElement => {
           <img
             className="mrs"
             alt={t("IconAlt.occupationGroup")}
-            src={industryIconLookup[props.majorGroupName]}
+            src={industryGroup}
           />
 
           <span className="blue">{props.majorGroupName}</span>
