@@ -11,7 +11,7 @@ export const LinkObject = ({
   url,
   label,
 }: LinkObjectProps) => {
-  const isRelative = url.startsWith("/") || url.startsWith("#");
+  const isRelative = url.startsWith("/") || url.startsWith("#") || url === "mycareer.nj.gov";
   const isHome = url === "/";
   const target = isRelative ? undefined : "_blank";
   const rel = isRelative ? undefined : "noopener noreferrer";
