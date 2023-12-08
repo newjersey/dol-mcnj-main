@@ -1,6 +1,8 @@
+import { SEO_QUERY } from "./seoQuery";
+
 export const TRAINING_EXPLORER_PAGE_QUERY = `query TrainingExplorer {
   trainingExplorerPage(id: "1OyvEu9fWvW2xNDg8czb8a") {
-    title
+    ${SEO_QUERY}
     pageBanner {
       title
       section

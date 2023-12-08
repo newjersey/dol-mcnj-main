@@ -20,10 +20,6 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   >({});
 
   useEffect(() => {
-    document.title = t("InDemandPage.pageTitle");
-  }, [t]);
-
-  useEffect(() => {
     props.client.getInDemandOccupations({
       onSuccess: (data) => setOccupationLookup(groupOccupations(data)),
       onError: () => {},
@@ -55,7 +51,15 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   };
 
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: "In-Demand Occupations | New Jersey Career Central",
+        pageDescription:
+          "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
 

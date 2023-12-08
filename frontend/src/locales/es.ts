@@ -393,7 +393,7 @@ export const es = {
     trainingExplorerBodyOneStart:
       "El Training Explorer enlaza con listados de trabajos en páginas de ocupación. ",
     trainingExplorerBodyOneLink:
-      'Para buscar una ocupación en demanda, haga clic en ""ocupaciones en demanda"" en la parte superior de esta página o visite: <1>https://training.njcareers.org/in-demand-occupations</1>.',
+      'Para buscar una ocupación en demanda, haga clic en ""ocupaciones en demanda"" en la parte superior de esta página o visite: <1>https://mycareer.nj.gov/in-demand-occupations</1>.',
     trainingExplorerBodyTwo:
       "En esta página, busca cualquier ocupación que el estado proyecte para tener el mayor crecimiento en las ofertas de trabajo. Una vez que encuentre una ocupación, por ejemplo, flebotomía, puede ver la cantidad de ofertas de trabajo disponibles actualmente para esa ocupación, así como el salario medio para esa ocupación.",
     trainingExplorerBodyThree:
