@@ -74,10 +74,10 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
       (index + 1) % 4 === 1
         ? "purple"
         : (index + 1) % 4 === 2
-        ? "orange"
-        : (index + 1) % 4 === 3
-        ? "blue"
-        : "green";
+          ? "orange"
+          : (index + 1) % 4 === 3
+            ? "blue"
+            : "green";
     return {
       ...link,
       iconPrefix: link.icon,
@@ -100,9 +100,9 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   }
 
   return (
-    <Layout client={props.client} theme="support" noPad className="career-pathways-page">
+    <>
       {data && (
-        <>
+        <Layout client={props.client} theme="support" noPad className="career-pathways-page">
           <PageBanner
             {...data.page.pageBanner}
             breadcrumbsCollection={breadcrumbs}
@@ -161,9 +161,9 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
               </div>
             </>
           )}
-        </>
+        </Layout>
       )}
       <HowToUse />
-    </Layout>
+    </>
   );
 };
