@@ -1,11 +1,12 @@
 import { fragments } from "./fragments";
+import { SEO_QUERY } from "./seoQuery";
 
 export const TUITION_ASSISTANCE_PAGE_QUERY = `query TuitionAssistance {
   page: financialResourcePage(id: "4WDrIZ71LCksX9Q63rbIwq") {
+    ${SEO_QUERY}
     sys {
       publishedAt
     }
-    title
     pageBanner {
       ...PageBanner
     }
