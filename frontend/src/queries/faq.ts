@@ -1,4 +1,5 @@
 import { fragments } from "./fragments";
+import { SEO_QUERY } from "./seoQuery";
 
 export const FAQ_PAGE_QUERY = `
   query FaqPage {
@@ -6,7 +7,7 @@ export const FAQ_PAGE_QUERY = `
       sys {
         publishedAt
       }
-      title
+      ${SEO_QUERY}
       bannerHeading
       bannerImage {
         url
