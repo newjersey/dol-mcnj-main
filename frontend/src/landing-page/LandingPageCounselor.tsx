@@ -19,7 +19,14 @@ export const LandingPageCounselor = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: "Counselor | New Jersey Career Central",
+        pageDescription: "Find Training and Educational Opportunities in New Jersey",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <div className="landing-container mla mra">
           <h2 className="mtm mbd text-xl weight-500 align-center">{t("CounselorPage.header")}</h2>

@@ -5,6 +5,8 @@ import { Client } from "../domain/Client";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { NAV_MENU_QUERY } from "../queries/navMenu";
 import { BackToTop } from "./modules/BackToTop";
+import { SeoProps } from "../types/contentful";
+import { Seo } from "./Seo";
 
 interface LayoutProps {
   client: Client;
@@ -14,6 +16,7 @@ interface LayoutProps {
   noFooter?: boolean;
   noPad?: boolean;
   theme?: "explore" | "jobs" | "support" | "training";
+  seo?: SeoProps;
 }
 export const Layout = (props: LayoutProps) => {
   const { children, noFooter } = props;
@@ -28,7 +31,7 @@ export const Layout = (props: LayoutProps) => {
   });
   const footerNav1 = useContentfulClient({
     query: NAV_MENU_QUERY,
-    variables: { id: "voDscWxEvggHqcXPzUtpR" },
+    variables: { id: "6QDRPQOaswzG5gHPgqoOkS" },
   });
   const footerNav2 = useContentfulClient({
     query: NAV_MENU_QUERY,
@@ -42,6 +45,7 @@ export const Layout = (props: LayoutProps) => {
 
   return (
     <>
+      {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main
         className={`${!props.noPad ? "below-banners" : ""}${
