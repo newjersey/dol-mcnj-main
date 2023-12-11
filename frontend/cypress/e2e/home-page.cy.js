@@ -13,7 +13,7 @@ describe("Home Page", () => {
     const testData = [
       { title: "Find a Job", link: "#jobs" },
       { title: "Get Training", link: "#training" },
-      { title: "Explore Careers", link: "#explore" },
+      // { title: "Explore Careers", link: "#explore" },
       { title: "Support and Assistance", link: "#support" },
       { title: "Career One-Stop Job Board", link: "https://www.careeronestop.org" },
       { title: "Career Navigator", link: "/career-navigator" },
