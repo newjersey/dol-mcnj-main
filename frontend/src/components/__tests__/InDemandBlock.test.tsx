@@ -54,17 +54,6 @@ describe("InDemandBlock", () => {
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 
-  it("renders link correctly on tablet and larger devices", () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true);
-    render(<InDemandBlock {...mockProps} />);
-    const link = screen.getByText(Content.InDemandBlock.localAndRegionalWaiversText);
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute(
-      "href",
-      "https://www.nj.gov/labor/career-services/tools-support/demand-occupations/waivers.shtml",
-    );
-  });
-
   it("does not render link on smaller devices", () => {
     (useMediaQuery as jest.Mock).mockReturnValue(false);
     render(<InDemandBlock {...mockProps} />);

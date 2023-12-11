@@ -24,19 +24,19 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
         index % 4 === 0
           ? "orange"
           : index % 4 === 1
-          ? "green"
-          : index % 4 === 2
-          ? "purple"
-          : "blue";
+            ? "green"
+            : index % 4 === 2
+              ? "purple"
+              : "blue";
 
       const icon =
         index % 4 === 0
           ? "Fire"
           : index % 4 === 1
-          ? "ChalkboardTeacher"
-          : index % 4 === 2
-          ? "MapTrifold"
-          : "Briefcase";
+            ? "ChalkboardTeacher"
+            : index % 4 === 2
+              ? "MapTrifold"
+              : "Briefcase";
       return {
         ...link,
         highlight: theme as ThemeColors,
@@ -44,11 +44,17 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
       };
     });
   };
-
+  const seoObject = {
+    title: `${data?.page?.title} | New Jersey Career Central`,
+    description: data?.page?.pageDescription,
+    image: data?.page?.ogImage?.url,
+    keywords: data?.page?.keywords,
+    url: props.location?.pathname,
+  };
   return (
-    <Layout client={props.client} theme="support">
+    <>
       {data && (
-        <>
+        <Layout client={props.client} theme="support" seo={seoObject}>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
           <FaqCollection items={data?.page.categoriesCollection.items} />
           <CtaBanner
@@ -74,8 +80,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
               },
             ]}
           />
-        </>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };

@@ -34,22 +34,31 @@ export const AllSupportPage = (props: Props): ReactElement => {
     filteredCategories.push(otherAssistance);
   }
 
+  const seoObject = {
+    title: `${data?.page.title} | New Jersey Career Central`,
+    description: data?.page.pageDescription,
+    image: data?.page.ogImage?.url,
+    keywords: data?.page.keywords,
+    url: props.location?.pathname,
+  };
+
   return (
-    <Layout
-      client={props.client}
-      theme="support"
-      footerComponent={
-        data && (
-          <FooterCta
-            heading={data.page.footerCtaHeading}
-            link={data.page.footerCtaLink}
-            headingLevel={2}
-          />
-        )
-      }
-    >
+    <>
       {data && (
-        <>
+        <Layout
+          client={props.client}
+          theme="support"
+          seo={seoObject}
+          footerComponent={
+            data && (
+              <FooterCta
+                heading={data.page.footerCtaHeading}
+                link={data.page.footerCtaLink}
+                headingLevel={2}
+              />
+            )
+          }
+        >
           <PageBanner {...data.page.pageBanner} theme="navy" />
           <section className="all-support-cards">
             <div className="container">
@@ -67,8 +76,8 @@ export const AllSupportPage = (props: Props): ReactElement => {
               </div>
             </div>
           </section>
-        </>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };
