@@ -3,6 +3,8 @@ describe("Search", () => {
     // on homepage
     cy.visit("/training");
     cy.injectAxe();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.checkA11y();
 
     cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
