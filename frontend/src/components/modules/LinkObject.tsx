@@ -11,7 +11,6 @@ export const LinkObject = ({
   url,
   label,
 }: LinkObjectProps) => {
-  console.log(className)
   const isRelative = url.startsWith("/") || url.startsWith("#") || url === "mycareer.nj.gov";
   const isHome = url === "/";
   const target = isRelative ? undefined : "_blank";
