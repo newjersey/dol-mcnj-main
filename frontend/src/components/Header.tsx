@@ -5,7 +5,6 @@ import njLogo from "../njlogo.svg";
 import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
 import { GlobalHeader } from "./GlobalHeader";
-import { BetaBanner } from "./BetaBanner";
 import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 
@@ -79,7 +78,6 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
     <header className="header" role="banner">
       <GlobalHeader items={data?.globalNav} />
       {isDesktop ? <>{nav()}</> : <>{mobileNav()}</>}
-      <BetaBanner />
     </header>
   );
 };
