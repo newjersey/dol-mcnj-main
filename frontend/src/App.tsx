@@ -69,7 +69,7 @@ Sentry.init({
 declare const window: any;
 const GA_TRACKING_ID = "G-THV625FWWB";
 globalHistory.listen(({ location }) => {
-  if (typeof window.gtag === "function") {
+  if (location.href.startsWith("https://mycareer.nj") && typeof window.gtag === "function") {
     window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
   }
 });
