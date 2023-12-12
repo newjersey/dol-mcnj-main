@@ -22,8 +22,16 @@ export const LandingPage = (props: Props): ReactElement => {
 
   const pageData = data?.homePage;
 
+  const seoObject = {
+    title: pageData?.title,
+    description: pageData?.pageDescription,
+    image: pageData?.ogImage?.url,
+    keywords: pageData?.keywords,
+    url: props.location?.pathname,
+  };
+
   return (
-    <Layout client={props.client} noPad>
+    <Layout client={props.client} noPad seo={seoObject}>
       <div className="home-page">
         {data && (
           <>
@@ -43,10 +51,10 @@ export const LandingPage = (props: Props): ReactElement => {
                       item.sectionIcon === "explore"
                         ? "Explore"
                         : item.sectionIcon === "jobs"
-                        ? "Jobs"
-                        : item.sectionIcon === "support"
-                        ? "Support"
-                        : "Training";
+                          ? "Jobs"
+                          : item.sectionIcon === "support"
+                            ? "Support"
+                            : "Training";
                     return (
                       <IconCard
                         key={item.sys.id}
@@ -72,7 +80,7 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-{/*            <CardSlider
+            {/*            <CardSlider
               sectionId="explore"
               cards={pageData.careerExplorationToolLinksCollection.items}
               heading="All Career Exploration Tools"

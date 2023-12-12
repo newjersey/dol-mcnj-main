@@ -40,12 +40,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortDispatch = sortContextValue.dispatch;
 
   useEffect(() => {
-    document.title = props.searchQuery
-      ? t("SearchResultsPage.pageTitle", { query: props.searchQuery })
-      : t("SearchResultsPage.noSearchTermPageTitle");
-  }, [props.searchQuery, t]);
-
-  useEffect(() => {
     let newFilteredTrainings = trainings;
 
     filterState.filters.forEach((filter) => {
@@ -189,7 +183,14 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   );
 
   return (
-    <Layout noFooter client={props.client}>
+    <Layout
+      noFooter
+      client={props.client}
+      seo={{
+        title: `Search results for "${props.searchQuery}" | New Jersey Career Central`,
+        url: props.location?.pathname,
+      }}
+    >
       {isTabletAndUp && (
         <div className="container results-count-container">
           <div className="row ptd fixed-wrapper">
