@@ -1,22 +1,22 @@
 {
   "dev": {
     "driver": "pg",
-    "host": { "ENV": "DB_HOST_DEV" },
+    "host": "localhost",
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_DEV" },
+    "password": "",
     "database": "d4adlocal",
     "writer": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_DEV" },
+      "host": "localhost",
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
+      "password": "",
       "database": "d4adlocal"
     },
     "reader": {
       "driver": "pg",
-      "host": { "ENV": "DB_HOST_DEV" },
+      "host": "localhost",
       "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
+      "password": "",
       "database": "d4adlocal"
     }
   },
