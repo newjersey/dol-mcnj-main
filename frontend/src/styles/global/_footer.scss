@@ -21,7 +21,7 @@ footer {
 
       &:last-of-type {
         @media screen and (min-width: ($tablet-md + 1)) {
-          width: 210px;
+          width: 220px;
         }
 
         @media screen and (max-width: ($tablet-md)) {
@@ -93,6 +93,12 @@ footer {
     }
 
     .nav-item {
+      .material-icons {
+        font-size: $size-14;
+        margin-left: $size-2;
+        padding-top: $size-2;
+      }
+
       @media screen and (min-width: ($tablet-md + 1)) {
         break-inside: avoid-column;
       }
@@ -106,6 +112,11 @@ footer {
 
     .nav-item {
       font-size: $size-14;
+      .material-icons {
+        font-size: $size-14;
+        margin-left: $size-2;
+        padding-top: $size-2;
+      }
 
       > a {
         border-bottom: none;

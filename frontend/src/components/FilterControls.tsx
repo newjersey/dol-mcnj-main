@@ -55,7 +55,7 @@ const FilterControls = ({ boxLabel, className, groups, onChange }: FilterControl
               </button>
             </div>
             {group.items.map((item) => (
-              <div className="usa-checkbox">
+              <div className="usa-checkbox" key={item.sys.id}>
                 <input
                   className="usa-checkbox__input"
                   id={item.sys.id}
