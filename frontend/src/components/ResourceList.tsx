@@ -36,6 +36,8 @@ export const ResourceList = ({
 
   const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
   const [filteredResources, setFilteredResources] = useState<ResourceItemProps[]>([]);
+  const [uniqueTags, setUniqueTags] = useState<TagProps[]>([]);
+  const [uniqueAudience, setUniqueAudience] = useState<TagProps[]>([]);
 
   const data: ResourceListProps = useContentfulClient({
     query: RESOURCE_LISTING_QUERY,
@@ -55,6 +57,24 @@ export const ResourceList = ({
       }
     }
   }, [selectedTags]);
+
+  useEffect(() => {
+    if (data) {
+      const usedTags = data.resources.items
+        .map((resource) => resource.tags.items.map((tag) => tag.title))
+        .flat()
+        .filter((tag, index, self) => self.indexOf(tag) === index);
+
+      setUniqueTags([...tags].filter((tag) => usedTags.includes(tag.title)));
+
+      const usedAudience = data.resources.items
+        .map((resource) => resource.tags.items.map((tag) => tag.title))
+        .flat()
+        .filter((tag, index, self) => self.indexOf(tag) === index);
+
+      setUniqueAudience([...audience].filter((tag) => usedAudience.includes(tag.title)));
+    }
+  }, [filteredResources]);
 
   const themeColor =
     category === "Career Support" ? "purple" : category === "Tuition Assistance" ? "green" : "navy";
@@ -76,19 +96,24 @@ export const ResourceList = ({
               groups={[
                 {
                   heading: category,
-                  items: tags,
+                  items: uniqueTags || [],
                 },
                 {
                   heading: "Audience",
-                  items: audience,
+                  items: uniqueAudience || [],
                 },
               ]}
             />{" "}
             {related && (
               <div className="related">
                 <h3>Related Resources</h3>
+
                 {related.map((item) => (
-                  <a className="usa-button" href={`/support-resources/${item.slug}`}>
+                  <a
+                    className="usa-button"
+                    href={`/support-resources/${item.slug}`}
+                    key={item.sys.id}
+                  >
                     <Selector name="supportBold" />
                     {item.title} Resources
                   </a>
@@ -97,6 +122,7 @@ export const ResourceList = ({
             )}
             <FooterCta heading={cta.footerCtaHeading} link={cta.footerCtaLink} />
           </div>
+
           <div className="cards">
             {info && (
               <div className="usa-alert usa-alert--info">
@@ -116,13 +142,17 @@ export const ResourceList = ({
             </div>
 
             {filteredResources.map((resource) => {
-              return <ResourceCard {...resource} theme={themeColor} />;
+              return <ResourceCard {...resource} theme={themeColor} key={resource.sys.id} />;
             })}
             {related && (
               <div className="related">
                 <h3>Related Resources</h3>
                 {related.map((item) => (
-                  <a className="usa-button" href={`/support-resources/${item.slug}`}>
+                  <a
+                    className="usa-button"
+                    href={`/support-resources/${item.slug}`}
+                    key={item.sys.id}
+                  >
                     <Selector name="supportBold" />
                     {item.title} Resources
                   </a>

@@ -1,12 +1,12 @@
 header {
   &.header {
-    background-color: white;
+    background-color: $white;
     width: 100%;
     z-index: 12;
 
     @media screen and (max-width: ($desktop)) {
       background-color: $dark-blue;
-      color: white;
+      color: $white;
     }
   }
 
@@ -33,7 +33,7 @@ header {
       }
 
       @media screen and (max-width: ($desktop)) {
-        color: white;
+        color: $white;
         font-size: $size-14;
       }
     }
@@ -49,7 +49,7 @@ header {
 
     button {
       width: 55px;
-      border: $size-2 solid white;
+      border: $size-2 solid $white;
       padding: $size-2;
       border-radius: 5px;
 
@@ -95,7 +95,7 @@ header {
           position: relative;
           border-radius: 5px;
           top: 0;
-          background-color: white;
+          background-color: $white;
           margin: $size-2 auto;
           transition-duration: 0.3s;
           transition-timing-function: ease-in-out;
@@ -129,7 +129,7 @@ header {
 
     a,
     button {
-      color: white;
+      color: $white;
       display: block;
       text-decoration: none;
       padding: 1.18rem 0;
@@ -172,7 +172,7 @@ header {
             width: 100%;
             left: 0;
             height: $size-2;
-            background-color: white;
+            background-color: $white;
           }
         }
       }
@@ -185,7 +185,8 @@ header {
       z-index: 1;
 
       .sub-menu {
-        background: white;
+        background: $white;
+        box-shadow: $shadow-1;
         flex-direction: column;
         gap: 0;
 
@@ -205,7 +206,7 @@ header {
           &:hover {
             @media screen and (min-width: ($desktop + 1)) {
               background-color: $header-black;
-              color: white;
+              color: $white;
             }
 
             &:after {
