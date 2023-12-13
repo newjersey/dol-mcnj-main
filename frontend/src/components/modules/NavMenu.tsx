@@ -106,7 +106,7 @@ export const NavMenu = ({
             className="nav-item contact-us"
             copy='Contact Us'
             icons={icons}
-            url='https://www.nj.gov/nj/feedback.html'
+            url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
           />
         </div>
       </div>
