@@ -38,7 +38,13 @@ export const ErrorBlock = ({
 
 export const ErrorPage = (props: Props): ReactElement => {
   return (
-    <Layout noFooter client={props.client}>
+    <Layout
+      noFooter
+      client={props.client}
+      seo={{
+        title: "New Jersey Career Network",
+      }}
+    >
       <ErrorBlock className={props.className} headerText={props.headerText}>
         {props.children}
       </ErrorBlock>
