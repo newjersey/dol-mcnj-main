@@ -179,6 +179,20 @@ header {
     }
   }
 
+  .main-nav__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @media screen and (max-width: ($desktop)) {
+      flex-direction: column;
+      .contact-us {
+        width: 177px;
+      }
+    }
+  }
+
   li {
     &.has-sub {
       position: relative;
