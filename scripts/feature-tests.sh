@@ -21,7 +21,7 @@ done
 echo "App started"
 
 echo "Running Cypress tests..."
-npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT}
+npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT} | tee feature-test-output.txt
 
 echo "Cypress tests completed"
 
