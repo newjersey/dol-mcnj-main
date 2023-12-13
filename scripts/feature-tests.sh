@@ -3,33 +3,35 @@
 cd $(git rev-parse --show-toplevel)
 
 APP_PORT=8080
-WIREMOCK_PORT=8090
 
-kill $(lsof -i:${WIREMOCK_PORT} -t)
-kill $(lsof -i:${APP_PORT} -t)
+# Kill any process using the app port
+kill $(lsof -i:${APP_PORT} -t) || true
 
 set -e
 
-echo "starting app"
+echo "Starting app..."
 ./scripts/build.sh
-./scripts/prod-start-local.sh > /dev/null &
-npm --prefix=backend run start:wiremock --verbose > wiremock.log 2>&1 &
-while ! echo exit | nc localhost ${WIREMOCK_PORT}; do sleep 1; done
-while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done
+./scripts/prod-start-local.sh & # Start the app in the background
 
-echo "app started"
+echo "Waiting for app to start..."
+while ! nc -z localhost ${APP_PORT}; do
+  sleep 1 # wait for 1 second before check again
+done
 
+echo "App started"
+
+echo "Running Cypress tests..."
 npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT}
 
-set +e
+echo "Cypress tests completed"
 
+# Clean up
 kill $(lsof -i:${APP_PORT} -t)
-kill $(lsof -i:${WIREMOCK_PORT} -t)
 
+echo "App stopped"
+
+# Your ASCII art here
 echo "   __            _                                             _"
 echo "  / _| ___  __ _| |_ _   _ _ __ ___  ___   _ __   __ _ ___ ___| |"
-echo " | |_ / _ \/ _\` | __| | | | '__/ _ \/ __| | '_ \ / _\` / __/ __| |"
-echo " |  _|  __/ (_| | |_| |_| | | |  __/\__ \ | |_) | (_| \__ \__ \_|"
-echo " |_|  \___|\__,_|\__|\__,_|_|  \___||___/ | .__/ \__,_|___/___(_)"
-echo "                                          |_|                    "
-echo ""
+echo " | |_ / _ \/ _` | __| | | | '__/ _ \/ __| | '_ \ / _` / __/ __| |"
+echo " |  _|  __/ (_| | |_| |_| | | |  __/\__ \ | |_) | (_| \__ \
