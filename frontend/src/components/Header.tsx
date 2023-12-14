@@ -84,7 +84,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
             />
             <LinkObject
               className="nav-item contact-us"
-              copy='Contact Us'
+              copy='Contact Us Now'
               icons={true}
               url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
             />
