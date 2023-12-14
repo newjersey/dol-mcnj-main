@@ -188,6 +188,10 @@ header {
       justify-content: space-between;
       margin: 0 auto;
       max-width: $desktop-lg;
+
+      .contact-us {
+        padding-right: 2rem;
+      }
   
       @media screen and (max-width: ($desktop)) {
         flex-direction: column;
