@@ -57,8 +57,6 @@ export const NavMenu = ({
             )}
           </Heading>
         )}
-
-        <div className="main-nav__links">
           <ul className="unstyled">
             {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
               const hasSub =
@@ -101,14 +99,6 @@ export const NavMenu = ({
               );
             })}
           </ul>
-          
-          <LinkObject
-            className="nav-item contact-us"
-            copy='Contact Us'
-            icons={icons}
-            url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
-          />
-        </div>
       </div>
     </nav>
   );
