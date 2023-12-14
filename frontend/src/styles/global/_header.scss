@@ -126,7 +126,11 @@ header {
         flex-direction: column;
       }
     }
+  }
 
+  .main-nav__container {
+    background-color: $dark-blue;
+  
     a,
     button {
       color: $white;
@@ -177,10 +181,6 @@ header {
         }
       }
     }
-  }
-
-  .main-nav__container {
-    background-color: $dark-blue;
 
     .main-nav__links {
       display: flex;
@@ -193,57 +193,6 @@ header {
         flex-direction: column;
         .contact-us {
           width: 177px;
-        }
-      }
-  
-      a,
-      button {
-        color: $white;
-        display: block;
-        text-decoration: none;
-        padding: 1.18rem 0;
-        font-size: 0.9rem;
-        position: relative;
-  
-        @media screen and (max-width: ($desktop)) {
-          padding: 0.95rem 0;
-        }
-  
-        > span {
-          display: flex;
-          align-items: center;
-  
-          span {
-            font-size: $size-16;
-            margin-top: -$size-2;
-            margin-left: $size-2;
-          }
-  
-          + .indicator {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: $size-20;
-            right: 0;
-  
-            @media screen and (min-width: ($desktop + 1)) {
-              right: -$size-20;
-            }
-          }
-        }
-  
-        &:hover {
-          @media screen and (min-width: ($desktop + 1)) {
-            &::after {
-              content: "";
-              position: absolute;
-              bottom: 10px;
-              width: 100%;
-              left: 0;
-              height: $size-2;
-              background-color: $white;
-            }
-          }
         }
       }
     }

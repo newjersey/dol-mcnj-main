@@ -41,12 +41,20 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
           </UnstyledButton>
         </div>
         {isOpen && (
-          <NavMenu
-            id="headerNavMobile"
-            menu={data?.mainNav}
-            className="main-nav nav nav-mobile"
-            icons
-          />
+          <div className="main-nav__container">
+            <NavMenu
+              id="headerNavMobile"
+              menu={data?.mainNav}
+              className="main-nav nav nav-mobile"
+              icons
+            />
+            <LinkObject
+              className="nav-item contact-us"
+              copy='Contact Us'
+              icons={true}
+              url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
+            />
+          </div>
         )}
       </div>
     );
