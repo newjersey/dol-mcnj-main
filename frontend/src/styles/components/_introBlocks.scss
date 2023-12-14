@@ -143,6 +143,12 @@
             background-color: $info-light;
           }
         }
+
+        &:focus {
+          &:focus {
+            outline: 0.25rem solid $navy;
+          }
+        }
       }
     }
   }
