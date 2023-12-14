@@ -190,14 +190,11 @@ header {
       max-width: $desktop-lg;
 
       .contact-us {
-        padding-right: 2rem;
+        margin-right: 2rem;
       }
   
       @media screen and (max-width: ($desktop)) {
         flex-direction: column;
-        .contact-us {
-          width: 177px;
-        }
       }
     }
   }
