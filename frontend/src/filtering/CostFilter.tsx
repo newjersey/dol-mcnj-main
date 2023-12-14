@@ -37,7 +37,7 @@ export const CostFilter = (): ReactElement => {
       setMaxCost("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [maxCost, state.filters]);
+  }, [state.filters]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
@@ -65,6 +65,26 @@ export const CostFilter = (): ReactElement => {
         },
       });
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cost = urlParams.get("maxCost");
+
+    if (cost) {
+      setMaxCost(cost);
+      applyMaxCostFilter();
+
+      dispatch({
+        type: FilterActionType.ADD,
+        filter: {
+          element: FilterableElement.MAX_COST,
+          value: parseInt(cost),
+          func: (trainingResults): TrainingResult[] =>
+            trainingResults.filter((it) => it.totalCost <= parseInt(cost)),
+        },
+      });
+    }
+  }, []);
 
   return (
     <>
