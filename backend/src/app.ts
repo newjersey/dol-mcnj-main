@@ -50,7 +50,7 @@ app.use(Sentry.Handlers.tracingHandler());
 // Determine if the NODE_ENV begins with "aws"
 
 
-let connection: any = null;
+let connection = null;
 
 switch (process.env.NODE_ENV) {
   case "dev":
