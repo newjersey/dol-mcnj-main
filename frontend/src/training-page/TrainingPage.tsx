@@ -40,12 +40,6 @@ export const TrainingPage = (props: Props): ReactElement => {
   const componentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (training) {
-      document.title = `${training.name}`;
-    }
-  }, [training]);
-
-  useEffect(() => {
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: (result: Training) => {
@@ -198,7 +192,14 @@ export const TrainingPage = (props: Props): ReactElement => {
   if (training) {
     return (
       <div ref={componentRef}>
-        <Layout client={props.client}>
+        <Layout
+          client={props.client}
+          seo={{
+            title: `${training.name} | Training | New Jersey Career Central`,
+            pageDescription: training.description,
+            url: props.location?.pathname,
+          }}
+        >
           <div className="container">
             <div className="detail-page">
               <div className="page-banner">

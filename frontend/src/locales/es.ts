@@ -393,7 +393,7 @@ export const es = {
     trainingExplorerBodyOneStart:
       "El Training Explorer enlaza con listados de trabajos en páginas de ocupación. ",
     trainingExplorerBodyOneLink:
-      'Para buscar una ocupación en demanda, haga clic en ""ocupaciones en demanda"" en la parte superior de esta página o visite: <1>https://training.njcareers.org/in-demand-occupations</1>.',
+      'Para buscar una ocupación en demanda, haga clic en ""ocupaciones en demanda"" en la parte superior de esta página o visite: <1>https://mycareer.nj.gov/in-demand-occupations</1>.',
     trainingExplorerBodyTwo:
       "En esta página, busca cualquier ocupación que el estado proyecte para tener el mayor crecimiento en las ofertas de trabajo. Una vez que encuentre una ocupación, por ejemplo, flebotomía, puede ver la cantidad de ofertas de trabajo disponibles actualmente para esa ocupación, así como el salario medio para esa ocupación.",
     trainingExplorerBodyThree:
@@ -600,7 +600,32 @@ export const es = {
   },
   IconAlt: {
     njLogo: "Logotipo oficial del estado de Nueva Jersey",
-    occupationGroup: "Icono que representa un grupo específico de ocupaciones",
+    occupationGroup: {
+      architectureAndEngineeringOccupations: "Ícono  que representa ocupaciones de arquitectura e ingeniería",
+      artsDesignEntertainmentSportsAndMediaOccupations: "Ícono que representa ocupaciones de arte, diseño, entretenimiento, deportes y medios de comunicación",
+      buildingAndGroundsCleaningAndMaintenanceOccupations: "Ícono que representa ocupaciones de limpieza y mantenimiento de edificios y terrenos",
+      businessAndFinancialOperationsOccupations: "Ícono que representa ocupaciones de operaciones comerciales y financieras",
+      communityAndSocialServiceOccupations: "Ícono que representa ocupaciones de servicios sociales y comunitarios",
+      computerAndMathematicalOccupations: "Ícono que representa ocupaciones de informática y matemáticas",
+      constructionAndExtractionOccupations: "Ícono que representa ocupaciones de construcción y extracción",
+      educationalInstructionAndLibraryOccupations: "Ícono que representa las ocupaciones de instrucción educativa y gestión biliotecaria",
+      farmingFishingAndForestryOccupations: "Ícono que representa ocupaciones agrícolas, pesqueras y forestales",
+      foodPreparationAndServingRelatedOccupations: "Ícono que representa ocupaciones relacionadas con la preparación y el servicio de alimentos",
+      general: "Icono que representa un grupo específico de ocupaciones",
+      healthcarePractitionersAndTechnicalOccupations: "Ícono que representa a profesionales de la salud y ocupaciones técnicas",
+      healthcareSupportOccupations: "Ícono que representa ocupaciones de apoyo a la atención medica",
+      installationMaintenanceAndRepairOccupations: "Ícono que representa ocupaciones de instalación, mantenimiento y reparación",
+      legalOccupations: "Ícono que representa ocupaciones legales",
+      lifePhysicalAndSocialScienceOccupations: "Ícono que representa ocupaciones de ciencias biológicas, físicas y sociales",
+      managementOccupations: "Ícono que representa ocupaciones gerenciales",
+      militarySpecificOccupations: "Ícono que representa ocupaciones militares",
+      officeAndAdministrativeSupportOccupations: "Ícono que representa ocupaciones de oficina y apoyo administrativo",
+      personalCareAndServiceOccupations: "Ícono que representa ocupaciones de servicios y cuidado personal",
+      productionOccupations: "Ícono que representa ocupaciones de producción",
+      protectiveServiceOccupations: "Ícono que representa ocupaciones relativas a los servicios de protección",
+      salesAndRelatedOccupations: "Ícono que representa ventas y ocupaciones relacionadas",
+      transportationAndMaterialMovingOccupations: "Ícono que representa ocupaciones de transporte y movimiento de materiales"
+    },
     etplGroup: "Ícono que representa una agencia gubernamental específica",
     landingPageWorkforce: "Caricatura de tres trabajadores",
     landingPageOccupation: "Ícono que muestra a una persona haciendo conexiones",
