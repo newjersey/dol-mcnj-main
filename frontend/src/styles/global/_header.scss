@@ -105,7 +105,7 @@ header {
   }
 
   .mobile-menu {
-    margin: 0.5rem 0;
+    padding: $size-8 $size-16;
   }
 
   .main-nav {
@@ -130,7 +130,7 @@ header {
 
   .main-nav__container {
     background-color: $dark-blue;
-  
+
     a,
     button {
       color: $white;
@@ -192,13 +192,12 @@ header {
       .contact-us {
         margin-right: 2rem;
       }
-  
+
       @media screen and (max-width: ($desktop)) {
         flex-direction: column;
       }
     }
   }
-
 
   li {
     &.has-sub {
