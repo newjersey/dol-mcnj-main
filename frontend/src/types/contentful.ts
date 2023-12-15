@@ -207,7 +207,7 @@ export interface FaqPageData {
     resourceLinks: {
       items: LinkObjectProps[];
     };
-  };
+  } & SeoProps;
 }
 
 export interface FaqPageProps {
@@ -268,7 +268,6 @@ export interface CareerPathwaysPageData {
     sys: {
       publishedAt: Date;
     };
-    title: string;
     pageBanner: PageBannerProps;
     industries: {
       items: IndustryProps[];
@@ -279,7 +278,7 @@ export interface CareerPathwaysPageData {
     };
     exploreHeading: string;
     exploreButtonsCollection: { items: LinkObjectProps[] };
-  };
+  } & SeoProps;
 }
 
 export interface CareerPathwaysPageProps {
@@ -335,13 +334,12 @@ export interface TrainingProviderData {
       publishedAt: Date;
     };
     pageBanner: PageBannerProps;
-    title: string;
     bannerHeading: string;
     bannerImage: ImageProps;
     tabs: {
       items: TabItemProps[];
     };
-  };
+  } & SeoProps;
 }
 
 export interface TrainingProviderPageProps {
@@ -421,9 +419,8 @@ export interface TrainingExplorerPageProps {
     stepTwoHeading: string;
     stepTwoIcon: IconNames;
     stepTwoText: string;
-    title: string;
     drawerContent: ContentfulRichText;
-  };
+  } & SeoProps;
 }
 
 export interface IconLinkProps {
@@ -454,9 +451,16 @@ export interface IntroBlocksProps {
   sections?: IntroBlockSectionProps[];
 }
 
+export interface SeoProps {
+  title: string;
+  pageDescription?: string;
+  keywords?: string[];
+  ogImage?: ImageProps;
+  url?: string;
+}
+
 export interface HomepageProps {
   homePage: {
-    title: string;
     pageDescription?: string;
     bannerButtonCopy: string;
     bannerMessage?: string;
@@ -477,16 +481,15 @@ export interface HomepageProps {
     supportAndAssistanceLinksCollection: {
       items: IconLinkProps[];
     };
-  };
+  } & SeoProps;
 }
 
 export interface AllSupportPageProps {
   page: {
-    title: string;
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
-  };
+  } & SeoProps;
   categories: {
     items: {
       sys: {
@@ -573,7 +576,6 @@ export interface IconCardProps {
 
 export interface CareerNavigatorPageProps {
   page: {
-    title: string;
     pageBanner: PageBannerProps;
     footerCtaHeading: string;
     footerCtaLink: LinkObjectProps;
@@ -607,5 +609,5 @@ export interface CareerNavigatorPageProps {
         image: ImageProps;
       }[];
     };
-  };
+  } & SeoProps;
 }

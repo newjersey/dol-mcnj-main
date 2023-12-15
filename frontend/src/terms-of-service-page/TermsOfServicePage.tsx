@@ -9,7 +9,14 @@ interface Props extends RouteComponentProps {
 
 export const TermsOfServicePage = (props: Props): ReactElement => {
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: `Terms of Service | New Jersey Career Central`,
+        pageDescription: `Terms of Service for New Jersey Career Central`,
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <div className="row mbm">
           <div className="col-sm-12">

@@ -15,14 +15,22 @@ interface Props extends RouteComponentProps {
 export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
   const data: TrainingProviderData = useContentfulClient({ query: TRAINING_PROVIDER_PAGE_QUERY });
 
+  const seoObject = {
+    title: `${data?.page?.title} | New Jersey Career Central`,
+    description: data?.page?.pageDescription,
+    image: data?.page?.ogImage?.url,
+    keywords: data?.page?.keywords,
+    url: props.location?.pathname,
+  };
+
   return (
-    <Layout client={props.client} theme="training">
+    <>
       {data && (
-        <>
+        <Layout client={props.client} theme="training" seo={seoObject}>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
           <TabContent items={data?.page.tabs.items} />
-        </>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };
