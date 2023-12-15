@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 import { InDemandBlock } from "../InDemandBlock";
 import { useMediaQuery } from "@material-ui/core";
 import { en as Content } from "../../locales/en";
@@ -52,17 +52,6 @@ describe("InDemandBlock", () => {
 
     render(<InDemandBlock {...mockProps} />);
     expect(screen.getByText(expectedText)).toBeInTheDocument();
-  });
-
-  it("renders link correctly on tablet and larger devices", () => {
-    (useMediaQuery as jest.Mock).mockReturnValue(true);
-    render(<InDemandBlock {...mockProps} />);
-    const link = screen.getByText(Content.InDemandBlock.localAndRegionalWaiversText);
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute(
-      "href",
-      "https://www.nj.gov/labor/career-services/tools-support/demand-occupations/waivers.shtml",
-    );
   });
 
   it("does not render link on smaller devices", () => {

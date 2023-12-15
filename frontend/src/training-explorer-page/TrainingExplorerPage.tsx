@@ -52,39 +52,48 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     links: pageData?.interrupterLinksCollection.items,
   };
 
+  const seoObject = {
+    title: `${pageData?.title} | New Jersey Career Central`,
+    description: pageData?.pageDescription,
+    image: pageData?.ogImage?.url,
+    keywords: pageData?.keywords,
+    url: props.location?.pathname,
+  };
+
   return (
-    <Layout
-      client={props.client}
-      footerComponent={
-        <div className="cta-collection">
-          <CtaBanner
-            heading="Don’t see your question? Go to our FAQ page."
-            noIndicator
-            inlineButtons
-            links={[
-              {
-                sys: {
-                  id: "SeeallFAQs",
-                },
-                copy: "See all FAQs",
-                url: "/faq",
-                iconSuffix: "ArrowRight" as IconNames,
-              },
-            ]}
-            theme="blue"
-          />
-          <CtaBanner
-            heading={pageData?.footerCtaHeading}
-            inlineButtons
-            noIndicator
-            links={pageData?.footerCtaLinkCollection.items}
-            theme="blue"
-          />
-        </div>
-      }
-    >
+    <>
       {data && (
-        <>
+        <Layout
+          client={props.client}
+          seo={seoObject}
+          footerComponent={
+            <div className="cta-collection">
+              <CtaBanner
+                heading="Don’t see your question? Go to our FAQ page."
+                noIndicator
+                inlineButtons
+                links={[
+                  {
+                    sys: {
+                      id: "SeeallFAQs",
+                    },
+                    copy: "See all FAQs",
+                    url: "/faq",
+                    iconSuffix: "ArrowRight" as IconNames,
+                  },
+                ]}
+                theme="blue"
+              />
+              <CtaBanner
+                heading={pageData?.footerCtaHeading}
+                inlineButtons
+                noIndicator
+                links={pageData?.footerCtaLinkCollection.items}
+                theme="blue"
+              />
+            </div>
+          }
+        >
           <PageBanner {...pageData?.pageBanner} theme="green" />
           <SearchBlock drawerContent={pageData.drawerContent} />
           <HowTo {...howToContent} />
@@ -103,8 +112,8 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
               ))}
             </div>
           </section>
-        </>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };

@@ -23,7 +23,7 @@ export const PageBanner = ({
               <ol className="usa-breadcrumb__list">
                 {breadcrumbsCollection?.items.map((crumb) => {
                   return (
-                    <li className="usa-breadcrumb__list-item" key={crumb.sys?.id}>
+                    <li className="usa-breadcrumb__list-item" key={crumb.sys?.id || crumb.copy}>
                       <a className="usa-breadcrumb__link" href={crumb.url}>
                         {crumb.copy}
                       </a>

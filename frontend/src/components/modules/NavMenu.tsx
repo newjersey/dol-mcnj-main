@@ -58,48 +58,57 @@ export const NavMenu = ({
           </Heading>
         )}
 
-        <ul className="unstyled">
-          {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
-            const hasSub =
-              item.subItemsCollection?.items && item.subItemsCollection?.items.length > 0;
-            return (
-              <li
-                key={item.sys.id}
-                className={`nav-item${item.classes ? ` ${item.classes}` : ""}${
-                  hasSub ? " has-sub" : " no-sub"
-                }`}
-              >
-                {hasSub && !noDropdowns ? (
-                  <NavSubMenu
-                    icons={icons}
-                    {...item}
-                    open={activeSubMenu?.sys.id === item.sys.id}
-                    onClick={() => {
-                      if (activeSubMenu?.sys.id === item.sys.id) {
-                        setActiveSubMenu(undefined);
-                      } else {
-                        setActiveSubMenu(item);
-                      }
-                    }}
-                  />
-                ) : (
-                  <>
-                    <LinkObject icons={icons} {...item} />
-                    {hasSub && (
-                      <ul className="unstyled">
-                        {item.subItemsCollection?.items.map((subItem) => (
-                          <li key={subItem.sys?.id}>
-                            <LinkObject icons={icons} {...subItem} />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="main-nav__links">
+          <ul className="unstyled">
+            {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
+              const hasSub =
+                item.subItemsCollection?.items && item.subItemsCollection?.items.length > 0;
+              return (
+                <li
+                  key={item.sys.id}
+                  className={`nav-item${item.classes ? ` ${item.classes}` : ""}${
+                    hasSub ? " has-sub" : " no-sub"
+                  }`}
+                >
+                  {hasSub && !noDropdowns ? (
+                    <NavSubMenu
+                      icons={icons}
+                      {...item}
+                      open={activeSubMenu?.sys.id === item.sys.id}
+                      onClick={() => {
+                        if (activeSubMenu?.sys.id === item.sys.id) {
+                          setActiveSubMenu(undefined);
+                        } else {
+                          setActiveSubMenu(item);
+                        }
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <LinkObject icons={icons} {...item} />
+                      {hasSub && (
+                        <ul className="unstyled">
+                          {item.subItemsCollection?.items.map((subItem) => (
+                            <li key={subItem.sys?.id}>
+                              <LinkObject icons={icons} {...subItem} />
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          
+          <LinkObject
+            className="nav-item contact-us"
+            copy='Contact Us'
+            icons={icons}
+            url='https://www.nj.gov/nj/feedback.html'
+          />
+        </div>
       </div>
     </nav>
   );
