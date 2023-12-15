@@ -15,25 +15,38 @@ export const LinkObject = ({
   const isHome = url === "/";
   const target = isRelative ? undefined : "_blank";
   const rel = isRelative ? undefined : "noopener noreferrer";
+  const noLink = url === "##nolink";
 
   return (
-    <a
-      href={url}
-      target={target}
-      rel={rel}
-      aria-label={screenReaderOnlyCopy || copy || label}
-      className={className || undefined}
-      onClick={() => {
-        if (onClick) {
-          onClick();
-        }
-      }}
-    >
-      <span>
-        {copy || children}
-        {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}
-        {isHome && icons ? <Icon>home</Icon> : icons && !isRelative && <Icon>launch</Icon>}
-      </span>
-    </a>
+    <>
+      {noLink ? (
+        <span
+          className={className || undefined}
+          aria-label={screenReaderOnlyCopy || copy || label}
+        >
+          {copy || children}
+          {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}
+        </span>
+      ) : (
+        <a
+          href={url}
+          target={target}
+          rel={rel}
+          aria-label={screenReaderOnlyCopy || copy || label}
+          className={className || undefined}
+          onClick={() => {
+            if (onClick) {
+              onClick();
+            }
+          }}
+        >
+          <span>
+            {copy || children}
+            {screenReaderOnlyCopy && <span className="sr-only">{screenReaderOnlyCopy}</span>}
+            {isHome && icons ? <Icon>home</Icon> : icons && !isRelative && <Icon>launch</Icon>}
+          </span>
+        </a>
+      )}
+    </>
   );
 };
