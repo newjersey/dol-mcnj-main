@@ -1,9 +1,8 @@
 const util = require("util");
-const {exec: execCallback} = require("child_process");
-
-const exec = util.promisify((cmd, options, callback) => execCallback(cmd, {...options, maxBuffer: 1024 * 5000}, callback)); // 5 MB buffer
+const {exec} = require("child_process");
+const cmd = util.promisify(exec);
 
 module.exports = async () => {
-  await exec("psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432");
-  await exec("npm run db-migrate up -- -e test");
+  await cmd("psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432");
+  await cmd("npm run db-migrate up -- -e test");
 };
