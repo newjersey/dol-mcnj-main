@@ -61,6 +61,7 @@ export const NavMenu = ({
             {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
               const hasSub =
                 item.subItemsCollection?.items && item.subItemsCollection?.items.length > 0;
+              const noLink = item.url === "#nolink";
               return (
                 <li
                   key={item.sys.id}
@@ -83,14 +84,33 @@ export const NavMenu = ({
                     />
                   ) : (
                     <>
-                      <LinkObject icons={icons} {...item} />
+                      {noLink ? (
+                        <span>
+                          {item.copy}
+                        </span>
+                      ) : (
+                        <LinkObject icons={icons} {...item} />
+                      )}
                       {hasSub && (
                         <ul className="unstyled">
-                          {item.subItemsCollection?.items.map((subItem) => (
-                            <li key={subItem.sys?.id}>
-                              <LinkObject icons={icons} {...subItem} />
-                            </li>
-                          ))}
+                          {item.subItemsCollection?.items.map((subItem) => {
+                            const subNoLink = subItem.url === "##nolink";
+                            return (
+                              <>
+                                {subNoLink ? (
+                                  <>
+                                    <span>
+                                      {subItem.copy}
+                                    </span>
+                                  </>
+                                ) : (
+                                  <li key={subItem.sys?.id}>
+                                    <LinkObject icons={icons} {...subItem} />
+                                  </li>
+                                )}
+                              </>
+                            )
+                          })}
                         </ul>
                       )}
                     </>
