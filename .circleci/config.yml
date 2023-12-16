@@ -13,6 +13,7 @@ jobs:
       - run:
           name: Install PostgreSQL client and setup database
           command: |
+            echo "DB_ENV is set to $DB_ENV"
             sudo apt-get update
             sudo apt-get install postgresql-client
             createdb -h localhost d4adlocal -U postgres
