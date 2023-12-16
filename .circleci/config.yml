@@ -13,7 +13,6 @@ jobs:
       - run:
           name: Install PostgreSQL client and setup database
           command: |
-            echo "DB_ENV is set to $DB_ENV"
             sudo apt-get update
             sudo apt-get install postgresql-client
             createdb -h localhost d4adlocal -U postgres
@@ -38,7 +37,7 @@ jobs:
           command: npm test
       - run:
           name: Execute feature tests script
-          command: scripts/feature-tests.sh
+          command: DB_ENV=$DB_ENV scripts/feature-tests.sh 
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
