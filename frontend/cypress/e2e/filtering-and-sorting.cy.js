@@ -1,29 +1,28 @@
-// fix leak
-xdescribe("Filtering", () => {
+describe("Filtering", () => {
   it("filters by max cost", () => {
-    cy.visit("/search/baking");
-    cy.contains("Pastry and Baking Arts").should("exist");
-    cy.contains('22 results found for "baking"').should("exist");
+    cy.visit("/training/search/baking");
+    cy.contains("Baking and Pastry").should("exist");
+    cy.contains('14 results found for "baking"').should("exist");
 
     cy.contains("Max Cost").within(() => {
-      cy.get("input").type("5000");
-      cy.get("input").blur();
+      cy.get('input[id="maxCost"]').type("2000");
+      cy.get('input[id="maxCost"]').blur();
     });
 
-    cy.contains("Pastry and Baking Arts").should("not.exist");
-    cy.contains('13 results found for "baking"').should("exist");
+    cy.contains("Baking and Pastry").should("not.exist");
+    cy.contains('3 results found for "baking"').should("exist");
 
     cy.contains("Max Cost").within(() => {
-      cy.get("input").clear();
-      cy.get("input").blur();
+      cy.get('input[id="maxCost"]').clear();
+      cy.get('input[id="maxCost"]').blur();
     });
 
-    cy.contains("Pastry and Baking Arts").should("exist");
-    cy.contains('22 results found for "baking"').should("exist");
+    cy.contains("Baking and Pastry").should("exist");
+    cy.contains('14 results found for "baking"').should("exist");
   });
 
   it("filters by training length", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/training/search/digital%20marketing");
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("OMCA Conversion Optimization Associate").should("exist");
@@ -82,7 +81,7 @@ xdescribe("Filtering", () => {
   });
 
   it("filters by class format", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/training/search/digital%20marketing");
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("OMCA Content Marketing Associate").should("exist");
@@ -110,7 +109,7 @@ xdescribe("Filtering", () => {
   });
 
   it("filters by location", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/training/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains('61 results found for "digital marketing"').should("exist");
 
@@ -133,7 +132,7 @@ xdescribe("Filtering", () => {
   });
 
   it("filters by In-Demand Only", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/training/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("exist");
     cy.contains('61 results found for "digital marketing"').should("exist");
@@ -152,7 +151,7 @@ xdescribe("Filtering", () => {
   });
 
   it("sorts by cost high to low", () => {
-    cy.visit("/search/baker");
+    cy.visit("/training/search/baker");
     cy.get("select").select("Cost: High to Low");
 
     const costsOrder = [
@@ -174,7 +173,7 @@ xdescribe("Filtering", () => {
   });
 
   it("sorts by cost low to high", () => {
-    cy.visit("/search/baker");
+    cy.visit("/training/search/baker");
     cy.get("select").select("Cost: Low to High");
 
     const costsOrder = [
@@ -196,7 +195,7 @@ xdescribe("Filtering", () => {
   });
 
   it("sorts by employment rate", () => {
-    cy.visit("/search/baker");
+    cy.visit("/training/search/baker");
     cy.get("select").select("Employment Rate");
 
     const ratesOrder = ["71.4% employed", "--", "--", "--", "--", "--", "--", "--", "--", "--"];
@@ -207,7 +206,7 @@ xdescribe("Filtering", () => {
   });
 
   it("preserves sort order between pages", () => {
-    cy.visit("/search/baking");
+    cy.visit("/training/search/baking");
 
     cy.get(".card")
       .first()
@@ -240,7 +239,7 @@ xdescribe("Filtering", () => {
   });
 
   it("preserves a filter between pages", () => {
-    cy.visit("/search/baking");
+    cy.visit("/training/search/baking");
     cy.contains("Baking & Pastry , Culinary Arts").should("exist");
 
     cy.contains("Max Cost").within(() => {
