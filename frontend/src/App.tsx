@@ -7,7 +7,7 @@ import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
 import { FaqPage } from "./faq-page/FaqPage";
 import { TrainingProviderPage } from "./training-provider-page/TrainingProviderPage";
 import { Client } from "./domain/Client";
-import { Router } from "@reach/router";
+import { Router, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
 import {
@@ -64,6 +64,15 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 });
 
+// Logs each Reach Router page as a separate pageview on Google Analytics
+// eslint-disable-next-line
+declare const window: any;
+const GA_TRACKING_ID = "G-THV625FWWB";
+globalHistory.listen(({ location }) => {
+  if (typeof window.gtag === "function") {
+    window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
+  }
+});
 
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
