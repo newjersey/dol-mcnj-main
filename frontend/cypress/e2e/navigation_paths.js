@@ -31,36 +31,6 @@ const navigation_paths = [
   },
   // faq pages
   { path: path + "/faq", label: "FAQ Page" },
-  { path: path + "/faq/child-care", label: "Child Care FAQ Page" },
-  { path: path + "/faq/enroll-program", label: "Enroll Program FAQ Page" },
-  { path: path + "/faq/health-insurance", label: "Health Insurance FAQ Page" },
-  { path: path + "/faq/job-listings", label: "Job Listings FAQ Page" },
-  { path: path + "/faq/search-help", label: "Search Help FAQ Page" },
-  {
-    path: path + "/faq/unemployment-insurance",
-    label: "Unemployment Insurance FAQ Page",
-  },
-  {
-    path: path + "/faq/funding-opportunities",
-    label: "Funding Opportunities FAQ Page",
-  },
-  { path: path + "/faq/data-sources", label: "Data Sources FAQ Page" },
-  {
-    path: path + "/faq/labor-demand-occupation",
-    label: "Labor Demand Occupation FAQ Page",
-  },
-  {
-    path: path + "/faq/registered-apprenticeship",
-    label: "Registered Apprenticeship FAQ Page",
-  },
-  {
-    path: path + "/faq/etpl-performance-standards",
-    label: "ETPL-Performance Standards FAQ Page",
-  },
-  {
-    path: path + "/faq/etpl-out-of-state-provider",
-    label: "ETPL Out of State Provider FAQ Page",
-  },
 ];
 
 export default navigation_paths;
