@@ -229,7 +229,7 @@ describe("Filtering", () => {
       });
 
     // get card with unique text
-    cy.get(".card .no-link-format").eq(0).click({ force: true });
+    cy.get(".card .link-format-blue").eq(0).click({ force: true });
     cy.location("pathname").should("eq", "/training/46328");
     cy.go("back");
 
@@ -244,22 +244,23 @@ describe("Filtering", () => {
 
   it("preserves a filter between pages", () => {
     cy.visit("/training/search/baking");
-    cy.contains("Baking & Pastry , Culinary Arts").should("exist");
+    cy.contains("Baking and Pastry").should("exist");
 
     cy.contains("Max Cost").within(() => {
-      cy.get("input").type("5000");
+      cy.get("input").type("2000");
       cy.get("input").blur();
     });
 
-    cy.contains("Baking & Pastry , Culinary Arts").should("not.exist");
+    cy.contains("Baking and Pastry").should("not.exist");
+    cy.contains("Baking & Pastry Arts").should("exist");
 
-    cy.get(".card .no-link-format").eq(0).click({ force: true });
-    cy.location("pathname").should("eq", "/training/48865");
+    cy.get(".card .link-format-blue").eq(0).click({ force: true });
+    cy.location("pathname").should("eq", "/training/37354");
     cy.go("back");
 
     cy.contains("Baking & Pastry , Culinary Arts").should("not.exist");
     cy.contains("Max Cost").within(() => {
-      cy.get("input").should("have.value", "5000");
+      cy.get("input").should("have.value", "2000");
     });
   });
 });
