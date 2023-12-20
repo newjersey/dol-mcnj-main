@@ -25,18 +25,18 @@ describe("Filtering", () => {
     cy.visit("/training/search/digital%20marketing");
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("OMCA Conversion Optimization Associate").should("exist");
-    cy.contains("OMCP Social and Mobile Marketing Professional").should("exist");
+    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("exist");
+    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
-    cy.contains('61 results found for "digital marketing"').should("exist");
+    cy.contains('49 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="days"]').check();
     });
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("OMCA Conversion Optimization Associate").should("not.exist");
-    cy.contains("OMCP Social and Mobile Marketing Professional").should("not.exist");
+    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
+    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("not.exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
     cy.contains('4 results found for "digital marketing"').should("exist");
 
@@ -47,11 +47,11 @@ describe("Filtering", () => {
       cy.get('[type="checkbox"][name="weeks"]').check();
     });
 
-    cy.contains("OMCA Conversion Optimization Associate").should("exist");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("OMCP Social and Mobile Marketing Professional").should("not.exist");
+    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
+    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('21 results found for "digital marketing"').should("exist");
+    cy.contains('20 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="weeks"]').uncheck();
@@ -60,11 +60,11 @@ describe("Filtering", () => {
       cy.get('[type="checkbox"][name="months"]').check();
     });
 
-    cy.contains("OMCP Social and Mobile Marketing Professional").should("exist");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("OMCA Conversion Optimization Associate").should("not.exist");
+    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("exist");
+    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("not.exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('31 results found for "digital marketing"').should("exist");
+    cy.contains('18 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="months"]').uncheck();
@@ -73,11 +73,11 @@ describe("Filtering", () => {
       cy.get('[type="checkbox"][name="years"]').check();
     });
 
-    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("OMCA Conversion Optimization Associate").should("not.exist");
-    cy.contains("OMCP Social and Mobile Marketing Professional").should("not.exist");
-    cy.contains('5 results found for "digital marketing"').should("exist");
+    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
+    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("not.exist");
+    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
+    cy.contains('7 results found for "digital marketing"').should("exist");
   });
 
   it("filters by class format", () => {
