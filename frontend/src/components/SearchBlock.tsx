@@ -79,7 +79,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
       params.push(`zip=${zipCode}`);
     }
 
-    const url = `/search/${searchTerm}${params.length > 0 ? "?" : ""}`;
+    const url = `/training/search/${searchTerm}${params.length > 0 ? "?" : ""}`;
 
     // Concatenate the search parameters to the url
     if (params.length > 0) {
@@ -151,7 +151,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
             </button>
             <a
               id="search-button"
-              href={`/search/${searchTerm}`}
+              href={`/training/search/${searchTerm}`}
               className="usa-button usa-button--unstyled"
             >
               Advanced Search
