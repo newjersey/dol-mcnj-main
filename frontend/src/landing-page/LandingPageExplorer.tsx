@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { RouteComponentProps, Link, navigate } from "@reach/router";
+import { RouteComponentProps, navigate } from "@reach/router";
 import { useMediaQuery } from "@material-ui/core";
 import { LandingCard } from "./LandingCard";
 import IconCustomize from "./landing-icons/customize.svg";
@@ -104,48 +104,6 @@ export const LandingPageExplorer = (props: Props): ReactElement => {
               </>
             </LandingCard>
           </div>
-
-          <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("ExplorerPage.sectionFourHeader")}
-          </h3>
-          <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <Link className="link-format-blue" to="/faq/enroll-program">
-              <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.enrollFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/search-help">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.searchHelpFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/child-care">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.childCareFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/funding-opportunities">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.fundingFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/job-listings">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.jobListingsFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/unemployment-insurance">
-              <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.unemploymentInsuranceFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/health-insurance">
-              <LandingCard className={`weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("ExplorerPage.healthInsuranceFaq")}
-              </LandingCard>
-            </Link>
-          </div>
-
           <ContactUsSection />
         </div>
       </div>
