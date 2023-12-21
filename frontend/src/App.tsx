@@ -101,8 +101,8 @@ export const App = (props: Props): ReactElement => {
                 <LandingPageCounselor path="/training/counselor" client={props.client} />
                 <LandingPageExplorer path="/training/explorer" client={props.client} />
                 {FaqRoutes({ client: props.client })}
-                <SearchResultsPage path="/search" client={props.client} />
-                <SearchResultsPage path="/search/:searchQuery" client={props.client} />
+                <SearchResultsPage path="/training/search" client={props.client} />
+                <SearchResultsPage path="/training/search/:searchQuery" client={props.client} />
                 <TrainingPage path="/training/:id" client={props.client} />
                 <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
                 <OccupationPage path="/occupation/:soc" client={props.client} />

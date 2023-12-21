@@ -105,7 +105,7 @@ header {
   }
 
   .mobile-menu {
-    margin: 0.5rem 0;
+    padding: $size-8 $size-16;
   }
 
   .main-nav {
@@ -126,6 +126,10 @@ header {
         flex-direction: column;
       }
     }
+  }
+
+  .main-nav__container {
+    background-color: $dark-blue;
 
     a,
     button {
@@ -177,18 +181,20 @@ header {
         }
       }
     }
-  }
 
-  .main-nav__links {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    .main-nav__links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto;
+      max-width: $desktop-lg;
 
-    @media screen and (max-width: ($desktop)) {
-      flex-direction: column;
       .contact-us {
-        width: 177px;
+        margin-right: 2rem;
+      }
+
+      @media screen and (max-width: ($desktop)) {
+        flex-direction: column;
       }
     }
   }
