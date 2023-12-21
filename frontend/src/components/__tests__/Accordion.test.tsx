@@ -37,20 +37,6 @@ const mockContent: any = {
           data: {},
         },
         {
-          nodeType: "hyperlink",
-          data: {
-            uri: "https://mycareer.nj.gov/faq/search-help",
-          },
-          content: [
-            {
-              nodeType: "text",
-              value: "this page",
-              marks: [],
-              data: {},
-            },
-          ],
-        },
-        {
           nodeType: "text",
           value: " for detailed instructions on how to use the search on this site. ",
           marks: [],

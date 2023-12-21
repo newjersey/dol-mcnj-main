@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { RouteComponentProps, Link, navigate } from "@reach/router";
+import { RouteComponentProps, navigate } from "@reach/router";
 import { LandingCard } from "./LandingCard";
 import IconList from "./landing-icons/list.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
@@ -87,27 +87,6 @@ export const LandingPageCounselor = (props: Props): ReactElement => {
                 </div>
               </>
             </LandingCard>
-          </div>
-
-          <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("CounselorPage.sectionFourHeader")}
-          </h3>
-          <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <Link className="link-format-blue" to="/faq/data-sources">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPage.dataFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/labor-demand-occupations">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPage.occupationsFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/funding-opportunities">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPage.fundingFaq")}
-              </LandingCard>
-            </Link>
           </div>
 
           <ContactUsSection />
