@@ -5,7 +5,6 @@ echo "DB_ENV is set to: $DB_ENV"
 APP_PORT=8080
 
 # Kill any process using the app port
-kill $(lsof -i:${APP_PORT} -t) || true
 
 set -e
 
