@@ -43,12 +43,28 @@ footer {
     }
 
     &:visited {
-      color: white;
+      color: $white;
+    }
+  }
+
+  .footer-link-section-header {
+    span {
+      border-bottom: $size-1 solid $white;
+      display: block;
+      margin-bottom: $size-8;
+      padding-bottom: $size-8;
+      width: 100%;
+    }
+
+    ul {
+      span {
+        border-bottom: 0;
+      }
     }
   }
 
   .nav-heading {
-    border-bottom: $size-1 solid white;
+    border-bottom: $size-1 solid $white;
     display: block;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
@@ -58,10 +74,10 @@ footer {
     font-size: $size-14;
 
     > a {
-      border-bottom: $size-1 solid white;
+      border-bottom: $size-1 solid $white;
       display: block;
       padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: $size-8;
     }
 
     > ul {

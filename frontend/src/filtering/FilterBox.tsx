@@ -114,7 +114,7 @@ export const FilterBox = ({
     }
 
     resetStateForReload();
-    navigate(`/search/${encodeURIComponent(newQuery)}`);
+    navigate(`/training/search/${encodeURIComponent(newQuery)}`);
   };
 
   const MobileFilterDropdown = (): ReactElement => {
@@ -140,7 +140,7 @@ export const FilterBox = ({
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
-          isLandingPage={pagePath === "/search"}
+          isLandingPage={pagePath === "/training/search"}
           buttonText={t("SearchAndFilter.searchButtonDefaultText")}
         />
       )}
