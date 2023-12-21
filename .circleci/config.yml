@@ -37,7 +37,7 @@ jobs:
           command: npm test
       - run:
           name: Execute feature tests script
-          command: DB_ENV=$DB_ENV scripts/feature-tests.sh 
+          command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
