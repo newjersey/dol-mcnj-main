@@ -1,34 +1,40 @@
 #!/usr/bin/env bash
 
 cd $(git rev-parse --show-toplevel)
-echo "DB_ENV is set to: $DB_ENV"
-APP_PORT=8080
 
-# Kill any process using the app port
+APP_PORT=8080
+WIREMOCK_PORT=8090
+
+kill $(lsof -i:${WIREMOCK_PORT} -t)
+kill $(lsof -i:${APP_PORT} -t)
 
 set -e
 
-echo "Starting app..."
+echo "starting app"
 ./scripts/build.sh
-./scripts/prod-start-local.sh & # Start the app in the background
+./scripts/prod-start-local.sh > /dev/null &
+npm --prefix=backend run start:wiremock &
+while ! echo exit | nc localhost ${WIREMOCK_PORT}; do sleep 1; done
+while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done
 
-echo "Waiting for app to start..."
-while ! nc -z localhost ${APP_PORT}; do
-  sleep 1 # wait for 1 second before check again
-done
+echo "app started"
 
-echo "App started"
+# Suppress output for db-migrate
+echo "Running db-migrate..."
+DB_ENV=dev npm --prefix=backend run db-migrate up -- -e $DB_ENV > /dev/null 2>&1
+echo "db-migrate completed."
 
-echo "Running Cypress tests..."
+# Fetch and display the most recent migration
+echo "Fetching the most recent migration..."
+MOST_RECENT_MIGRATION=$(psql -U postgres -d your_database_name -c "SELECT * FROM migrations ORDER BY id DESC LIMIT 1;" -t)
+echo "Most recent migration: $MOST_RECENT_MIGRATION"
+
 npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT}
 
-echo "Cypress tests completed"
 set +e
 
-# Clean up
 kill $(lsof -i:${APP_PORT} -t)
-
-echo "App stopped"
+kill $(lsof -i:${WIREMOCK_PORT} -t)
 
 echo "   __            _                                             _"
 echo "  / _| ___  __ _| |_ _   _ _ __ ___  ___   _ __   __ _ ___ ___| |"
