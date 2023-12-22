@@ -19,6 +19,20 @@ done
 
 echo "App started"
 
+# Print that migration is starting
+echo "Starting DB migration..."
+
+# Run the migration and capture output to a temporary file
+npm run db-migrate up -- -e $DB_ENV &> temp_migration_output.txt
+
+# Extract the second to last line and get the migration name
+MIGRATION_NAME=$(tail -2 temp_migration_output.txt | head -1 | grep -oP '(?<=Processed migration ).*')
+
+# Print the name of the migration
+echo "Last migration: $MIGRATION_NAME"
+
+echo "DB migration completed"
+
 echo "Running Cypress tests..."
 npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT}
 
