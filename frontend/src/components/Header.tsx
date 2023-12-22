@@ -7,6 +7,7 @@ import { UnstyledButton } from "./UnstyledButton";
 import { GlobalHeader } from "./GlobalHeader";
 import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
+import { LinkObject } from "./modules/LinkObject";
 
 export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData }) => {
   const isDesktop = useMediaQuery("(min-width:1025px)");
@@ -40,12 +41,20 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
           </UnstyledButton>
         </div>
         {isOpen && (
-          <NavMenu
-            id="headerNavMobile"
-            menu={data?.mainNav}
-            className="main-nav nav nav-mobile"
-            icons
-          />
+          <div className="main-nav__container">
+            <NavMenu
+              id="headerNavMobile"
+              menu={data?.mainNav}
+              className="main-nav nav nav-mobile"
+              icons
+            />
+            <LinkObject
+              className="nav-item contact-us"
+              copy='Contact Us'
+              icons={true}
+              url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
+            />
+          </div>
         )}
       </div>
     );
@@ -62,14 +71,25 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
             </a>
           </div>
         </nav>
-        <NavMenu
-          id="headerNavDesktop"
-          menu={data?.mainNav}
-          label="Primary navigation"
-          className="main-nav"
-          innerClassName="usa-nav-container"
-          icons
-        />
+
+        <div className="main-nav__container">
+          <div className="main-nav__links">
+            <NavMenu
+              id="headerNavDesktop"
+              menu={data?.mainNav}
+              label="Primary navigation"
+              className="main-nav"
+              innerClassName="usa-nav-container"
+              icons
+            />
+            <LinkObject
+              className="nav-item contact-us"
+              copy='Contact Us'
+              icons={true}
+              url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
+            />
+          </div>
+        </div>
       </>
     );
   };
