@@ -7,7 +7,7 @@ import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
 import { FaqPage } from "./faq-page/FaqPage";
 import { TrainingProviderPage } from "./training-provider-page/TrainingProviderPage";
 import { Client } from "./domain/Client";
-import { Router, globalHistory } from "@reach/router";
+import { Router, Redirect, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
 import {
@@ -74,6 +74,7 @@ globalHistory.listen(({ location }) => {
   }
 });
 
+
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
   const [filterState, filterDispatch] = useReducer<FilterReducer>(
@@ -102,7 +103,9 @@ export const App = (props: Props): ReactElement => {
                 <LandingPageExplorer path="/training/explorer" client={props.client} />
                 {FaqRoutes({ client: props.client })}
                 <SearchResultsPage path="/training/search" client={props.client} />
+                <Redirect from="/search" to="/training/search" />
                 <SearchResultsPage path="/training/search/:searchQuery" client={props.client} />
+                <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
                 <TrainingPage path="/training/:id" client={props.client} />
                 <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
                 <OccupationPage path="/occupation/:soc" client={props.client} />
