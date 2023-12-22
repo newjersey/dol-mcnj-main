@@ -9,7 +9,7 @@
 
   @media screen and (max-width: ($desktop)) {
     min-height: 61px;
-    padding: 10px 0 $size-4;
+    padding: 10px $size-16 $size-4;
   }
 
   .logo {
