@@ -47,7 +47,7 @@ describe("filtering by program services", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/search/some-query");
+    await history.navigate("/training/search/some-query");
     await waitForEffect();
 
     act(() => {
