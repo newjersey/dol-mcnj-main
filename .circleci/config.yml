@@ -37,43 +37,21 @@ jobs:
           command: npm test
       - run:
           name: Execute feature tests script
-          command: scripts/feature-tests.sh > feature-test-output.txt
+          command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
+          no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
+      - store_artifacts:
+          path: wiremock.log
+      - store_artifacts:
+          path: /home/circleci/.npm/_logs/*.log
       - store_artifacts:
           path: ~/project/frontend/cypress/videos
       - persist_to_workspace:
           root: ~/project
           paths:
             - .
-  deploy:
-    circleci_ip_ranges: true
-    docker:
-      - image: circleci/python:3.7
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run:
-
-          name: install and configure aws cli
-          command: |
-            echo $AWS_ACCESS_KEY_ID
-            echo $AWS_SECRET_ACCESS_KEY
-            echo $AWS_DEFAULT_REGION
-            pip install awscli
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-            aws configure set default.region $AWS_DEFAULT_REGION
-      - run:
-          name: deploy
-          command: DB_PASS=$DB_PASS_WRITER_PROD DB_NAME=d4adprod DB_ENV=awsprod scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-      - deploy:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: pre-mvp
