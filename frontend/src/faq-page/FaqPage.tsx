@@ -51,10 +51,11 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     keywords: data?.page?.keywords,
     url: props.location?.pathname,
   };
+
   return (
-    <>
+    <Layout client={props.client} theme="support" seo={seoObject}>
       {data && (
-        <Layout client={props.client} theme="support" seo={seoObject}>
+        <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
           <FaqCollection items={data?.page.categoriesCollection.items} />
           <CtaBanner
@@ -80,8 +81,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
               },
             ]}
           />
-        </Layout>
+        </>
       )}
-    </>
+    </Layout>
   );
 };

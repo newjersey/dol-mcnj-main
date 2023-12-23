@@ -24,6 +24,11 @@ This repo is the home for the NJ Career Central web app ([mycareer.nj.gov](https
 
 After cloning this repo, run through the following steps to run the app locally.
 
+### Install prerequisites
+
+If you are using a newer Mac (Apple Silicon), you will likely need to install jq. Run `brew install jq` or install a pre-built
+binary [here](https://jqlang.github.io/jq/download/).
+
 ### Install node dependencies
 
 ```shell script
@@ -202,3 +207,4 @@ Fences are enforced via a linting-like command that will fail when any violation
 npm --prefix=backend run fences
 npm --prefix=frontend run fences
 ```
+
