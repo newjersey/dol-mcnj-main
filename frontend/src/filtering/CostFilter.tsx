@@ -66,6 +66,26 @@ export const CostFilter = (): ReactElement => {
       });
   };
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cost = urlParams.get("maxCost");
+
+    if (cost) {
+      setMaxCost(cost);
+      applyMaxCostFilter();
+
+      dispatch({
+        type: FilterActionType.ADD,
+        filter: {
+          element: FilterableElement.MAX_COST,
+          value: parseInt(cost),
+          func: (trainingResults): TrainingResult[] =>
+            trainingResults.filter((it) => it.totalCost <= parseInt(cost)),
+        },
+      });
+    }
+  }, []);
+
   return (
     <>
       <div className="bold">{t("SearchAndFilter.costFilterLabel")}</div>
