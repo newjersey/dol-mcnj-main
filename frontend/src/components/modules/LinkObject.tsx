@@ -15,6 +15,7 @@ export const LinkObject = ({
   const isHome = url === "/";
   const target = isRelative ? undefined : "_blank";
   const rel = isRelative ? undefined : "noopener noreferrer";
+
   return (
     <a
       href={url}
