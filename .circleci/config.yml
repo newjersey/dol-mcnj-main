@@ -51,34 +51,7 @@ jobs:
           root: ~/project
           paths:
             - .
-  deploy:
-    circleci_ip_ranges: true
-    docker:
-      - image: circleci/python:3.7
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run:
-
-          name: install and configure aws cli
-          command: |
-            echo $AWS_ACCESS_KEY_ID
-            echo $AWS_SECRET_ACCESS_KEY
-            echo $AWS_DEFAULT_REGION
-            pip install awscli
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-            aws configure set default.region $AWS_DEFAULT_REGION
-      - run:
-          name: deploy
-          command: DB_PASS=$DB_PASS_WRITER_PROD DB_NAME=d4adprod DB_ENV=awsprod scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-      - deploy:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: pre-mvp
