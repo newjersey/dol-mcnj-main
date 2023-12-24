@@ -33,7 +33,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^13.5.0",
     "react-scripts": "5.0.1",
-    "react-tooltip": "^5.18.1",
+    "react-tooltip": "^5.25.0",
     "typescript": "^5.3.2",
     "winston": "^3.11.0",
     "winston-cloudwatch": "^6.2.0"
