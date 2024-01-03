@@ -216,23 +216,23 @@ describe("Occupation Page", () => {
       // This data is not yet available for this occupation.
 
       // related trainings
-      // cy.get(".card")
-      //   .eq(0)
-      //   .within(() => {
-      //     cy.contains("Python Programming").should("exist");
-      //   });
-      //
-      // cy.get(".card")
-      //   .eq(1)
-      //   .within(() => {
-      //     cy.contains("HSEAP and Networking and Security").should("exist");
-      //   });
-      //
-      // cy.get(".card")
-      //   .eq(2)
-      //   .within(() => {
-      //     cy.contains("Computer Programmer's Package").should("exist");
-      //   });
+      cy.get(".card")
+        .eq(0)
+        .within(() => {
+          cy.contains("IT-1000 IT Support Professional").should("exist");
+        });
+      
+      cy.get(".card")
+        .eq(1)
+        .within(() => {
+          cy.contains("Data Analytics Career Track").should("exist");
+        });
+      
+      cy.get(".card")
+        .eq(2)
+        .within(() => {
+          cy.contains("Guided IT Microbachelors with ShiftUp").should("exist");
+        });
     });
   });
 });
