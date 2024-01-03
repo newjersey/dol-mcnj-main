@@ -185,7 +185,7 @@ describe("Occupation Page", () => {
     });
   });
 
-  it.skip("displays occupation details for previous non-ONET socs", () => {
+  it("displays occupation details for previous non-ONET socs", () => {
     cy.intercept("api/occupations/15-1255").as("getOccupation");
 
     cy.visit("/occupation/15-1255");
