@@ -74,7 +74,7 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getTasksList = (tasks: string[], id?: string): ReactElement => {
+  const getTasksList = (tasks: string[], dataTestId?: string): ReactElement => {
     let tasksToShow = tasks;
     if (tasks.length > 5 && !isOpen) {
       tasksToShow = tasks.slice(0, 5);
@@ -84,7 +84,7 @@ export const OccupationPage = (props: Props): ReactElement => {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
-        <ul id={id}>
+        <ul data-testid={dataTestId}>
           {tasksToShow.map((task, key) => (
             <li key={key}>{task}</li>
           ))}

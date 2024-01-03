@@ -1,14 +1,4 @@
 // fix leak
-
-const countListItems = (id, num) => {
-  cy.get(id)
-    .should('exist')
-    .within(() => {
-      cy.get('li:visible')
-        .should('have.length', num);
-    });
-} 
-
 describe("Occupation Page", () => {
   it("displays occupation details from ONET", () => {
     cy.intercept("api/occupations/17-2051").as("getOccupation");
@@ -34,7 +24,8 @@ describe("Occupation Page", () => {
         "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems.",
       ).should("exist");
 
-      countListItems('#occupation-details', 5);
+      // should display 5 tasks
+      cy.get("[data-testid=occupation-details] li:visible").should('have.length', 5)
 
       // // tasks
       // cy.contains(
@@ -55,7 +46,8 @@ describe("Occupation Page", () => {
 
       cy.contains("See More").click();
 
-      countListItems('#occupation-details', 15);
+      // should display all tasks
+      cy.get("[data-testid=occupation-details] li:visible").should('have.length', 15)
 
       // // more tasks
       // cy.contains(
@@ -95,7 +87,7 @@ describe("Occupation Page", () => {
       //   "Analyze manufacturing processes or byproducts to identify engineering solutions to minimize the output of carbon or other pollutants.",
       // ).should("exist");
 
-      // cy.contains("See Less").should("exist");
+      cy.contains("See Less").should("exist");
 
       // // education
       // cy.contains(
