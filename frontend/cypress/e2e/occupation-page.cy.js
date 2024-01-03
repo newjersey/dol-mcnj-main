@@ -118,7 +118,7 @@ describe("Occupation Page", () => {
     });
   });
 
-  it.skip("displays occupation details from ONET for previous 2010 socs", () => {
+  it("displays occupation details from ONET for previous 2010 socs", () => {
     cy.intercept("api/occupations/15-1254").as("getOccupation");
 
     cy.visit("/occupation/15-1254");
@@ -140,6 +140,9 @@ describe("Occupation Page", () => {
         "Develop and implement websites, web applications, application databases, and interactive web interfaces. Evaluate code to ensure that it is properly structured, meets industry standards, and is compatible with browsers and devices. Optimize website performance, scalability, and server-side code and processes. May develop website infrastructure and integrate websites with other computer applications.",
       ).should("exist");
 
+      // should display 5 tasks
+      cy.get("[data-testid=occupation-details] li:visible").should('have.length', 5)
+
       // tasks
       cy.contains("Write supporting code for Web applications or Web sites.").should("exist");
       cy.contains(
@@ -158,27 +161,27 @@ describe("Occupation Page", () => {
         "Educational requirements for web developers vary with the setting they work in and the type of work they do. Requirements range from a high school diploma to a bachelor’s degree. Web developers need knowledge of both programming and graphic design.",
       ).should("exist");
 
-      // related occupations
-      cy.contains("Desktop Publishers").should("exist");
+      // related training
+      // cy.contains("Desktop Publishers").should("exist");
 
       // related trainings
-      // cy.get(".card")
-      //   .eq(0)
-      //   .within(() => {
-      //     cy.contains("CNC/CAM Programming Project").should("exist");
-      //   });
-      //
-      // cy.get(".card")
-      //   .eq(1)
-      //   .within(() => {
-      //     cy.contains("MSCD: Web Applications Certification").should("exist");
-      //   });
-      //
-      // cy.get(".card")
-      //   .eq(2)
-      //   .within(() => {
-      //     cy.contains("Computer Programmer's Package").should("exist");
-      //   });
+      cy.get(".card")
+        .eq(0)
+        .within(() => {
+          cy.contains("Web Programming Certification").should("exist");
+        });
+      
+      cy.get(".card")
+        .eq(1)
+        .within(() => {
+          cy.contains("Oracle 9i PL/SQL").should("exist");
+        });
+      
+      cy.get(".card")
+        .eq(2)
+        .within(() => {
+          cy.contains("E-Commerce II").should("exist");
+        });
     });
   });
 
