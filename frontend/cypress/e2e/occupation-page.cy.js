@@ -27,91 +27,87 @@ describe("Occupation Page", () => {
       // should display 5 tasks
       cy.get("[data-testid=occupation-details] li:visible").should('have.length', 5)
 
-      // // tasks
-      // cy.contains(
-      //   "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Compute load and grade requirements, water flow rates, or material stress factors to determine design specifications.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Provide technical advice to industrial or managerial personnel regarding design, construction, program modifications, or structural repairs.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Test soils or materials to determine the adequacy and strength of foundations, concrete, asphalt, or steel.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Manage and direct the construction, operations, or maintenance activities at project site.",
-      // ).should("exist");
+      // tasks
+      cy.contains(
+        "Direct engineering activities, ensuring compliance with environmental, safety, or other governmental regulations.",
+      ).should("exist");
+      cy.contains(
+        "Manage and direct the construction, operations, or maintenance activities at project site.",
+      ).should("exist");
+      cy.contains(
+        "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards.",
+      ).should("exist");
+      cy.contains(
+        "Compute load and grade requirements, water flow rates, or material stress factors to determine design specifications.",
+      ).should("exist");
+      cy.contains(
+        "Plan and design transportation or hydraulic systems or structures, using computer-assisted design or drawing tools.",
+      ).should("exist");
 
       cy.contains("See More").click();
 
       // should display all tasks
       cy.get("[data-testid=occupation-details] li:visible").should('have.length', 15)
 
-      // // more tasks
-      // cy.contains(
-      //   "Direct or participate in surveying to lay out installations or establish reference points, grades, or elevations to guide construction.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Estimate quantities and cost of materials, equipment, or labor to determine project feasibility.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Plan and design transportation or hydraulic systems or structures, using computer-assisted design or drawing tools.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Prepare or present public reports on topics such as bid proposals, deeds, environmental impact statements, or property and right-of-way descriptions.",
-      // ).should("exist");
-      // cy.contains("Design energy-efficient or environmentally sound civil structures.").should(
-      //   "exist",
-      // );
-      // cy.contains(
-      //   "Identify environmental risks and develop risk management strategies for civil engineering projects.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Direct engineering activities, ensuring compliance with environmental, safety, or other governmental regulations.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Analyze survey reports, maps, drawings, blueprints, aerial photography, or other topographical or geologic data.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Conduct studies of traffic patterns or environmental conditions to identify engineering problems and assess potential project impact.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Design or engineer systems to efficiently dispose of chemical, biological, or other toxic wastes.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Develop or implement engineering solutions to clean up industrial accidents or other contaminated sites.",
-      // ).should("exist");
-      // cy.contains(
-      //   "Analyze manufacturing processes or byproducts to identify engineering solutions to minimize the output of carbon or other pollutants.",
-      // ).should("exist");
+      // more tasks
+      cy.contains(
+        "Provide technical advice to industrial or managerial personnel regarding design, construction, program modifications, or structural repairs.",
+      ).should("exist");
+      cy.contains(
+        "Analyze survey reports, maps, drawings, blueprints, aerial photography, or other topographical or geologic data.",
+      ).should("exist");
+      cy.contains(
+        "Direct or participate in surveying to lay out installations or establish reference points, grades, or elevations to guide construction.",
+      ).should("exist");
+      cy.contains(
+        "Estimate quantities and cost of materials, equipment, or labor to determine project feasibility.",
+      ).should("exist");
+      cy.contains(
+        "Prepare or present public reports on topics such as bid proposals, deeds, environmental impact statements, or property and right-of-way descriptions."
+      ).should(
+        "exist",
+      );
+      cy.contains("Design energy-efficient or environmentally sound civil structures.")
+        .should("exist");
+      cy.contains(
+        "Test soils or materials to determine the adequacy and strength of foundations, concrete, asphalt, or steel.",
+      ).should("exist");
+      cy.contains(
+        "Identify environmental risks and develop risk management strategies for civil engineering projects.",
+      ).should("exist");
+      cy.contains(
+        "Conduct studies of traffic patterns or environmental conditions to identify engineering problems and assess potential project impact.",
+      ).should("exist");
+      cy.contains(
+        "Analyze manufacturing processes or byproducts to identify engineering solutions to minimize the output of carbon or other pollutants.",
+      ).should("exist");
 
       cy.contains("See Less").should("exist");
 
-      // // education
-      // cy.contains(
-      //   "Civil engineers need a bachelor’s degree in civil engineering, in one of its specialties, or in civil engineering technology. They typically need a graduate degree and licensure for promotion to senior positions. Although licensure requirements vary by state, civil engineers usually must be licensed if they provide services directly to the public.",
-      // ).should("exist");
+      // education
+      cy.contains(
+        "Civil engineers need a bachelor’s degree in civil engineering, in one of its specialties, or in civil engineering technology. They typically need a graduate degree and licensure for promotion to senior positions. Although licensure requirements vary by state, civil engineers usually must be licensed if they provide services directly to the public.",
+      ).should("exist");
 
-      // // related occupations
-      // cy.contains("Construction Managers").should("exist");
-      // cy.contains("Architectural and Engineering Managers").should("exist");
-      // cy.contains("Agricultural Engineers").should("exist");
-      // cy.contains("Environmental Engineers").should("exist");
-      // cy.contains("Mining and Geological Engineers, Including Mining Safety Engineers").should(
-      //   "exist",
-      // );
+      // related occupations
+      cy.contains("Architects, Except Landscape and Naval").should("exist");
+      cy.contains("Architectural and Civil Drafters").should("exist");
+      cy.contains("Architectural and Engineering Managers").should("exist");
+      cy.contains("Civil Engineering Technologists and Technicians").should("exist");
+      cy.contains("Construction and Building Inspectors").should("exist");
+      cy.contains("Construction Managers").should("exist");
+      cy.contains("Environmental Engineers").should("exist");
+      cy.contains("Mining and Geological Engineers, Including Mining Safety Engineers").should("exist");
 
-      // // related trainings
-      // cy.contains("Architectural Design and Drafting").should("exist");
-      // cy.contains("See More Results").should("exist");
+      // related trainings
+      cy.contains("Architectural Design and Drafting").should("exist");
+      cy.contains("See More Results").should("exist");
 
-      // cy.checkA11y();
+      cy.checkA11y();
     });
   });
 
-  it.skip("displays locally in-demand occupation details from ONET", () => {
+  it("displays locally in-demand occupation details from ONET", () => {
     cy.intercept("api/occupations/47-2031").as("getOccupation");
     cy.visit("/occupation/47-2031");
 
@@ -119,7 +115,6 @@ describe("Occupation Page", () => {
       cy.get("[data-testid=title]").should("contain", "Carpenters");
 
       cy.contains("In-Demand in Cape May, Cumberland, and Salem Counties.").should("exist");
-      cy.contains("Learn about Local and Regional Waivers.").should("exist");
     });
   });
 
