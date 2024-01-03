@@ -1,4 +1,14 @@
 // fix leak
+
+const countListItems = (id, num) => {
+  cy.get(id)
+    .should('exist')
+    .within(() => {
+      cy.get('li:visible')
+        .should('have.length', num);
+    });
+} 
+
 describe("Occupation Page", () => {
   it("displays occupation details from ONET", () => {
     cy.intercept("api/occupations/17-2051").as("getOccupation");
@@ -24,12 +34,7 @@ describe("Occupation Page", () => {
         "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems.",
       ).should("exist");
 
-      cy.get('#occupation-details')
-        .should('exist')
-        .within(() => {
-          cy.get('li:visible')
-            .should('have.length', 5);
-        });
+      countListItems('#occupation-details', 5);
 
       // // tasks
       // cy.contains(
@@ -48,7 +53,9 @@ describe("Occupation Page", () => {
       //   "Manage and direct the construction, operations, or maintenance activities at project site.",
       // ).should("exist");
 
-      // cy.contains("See More").click();
+      cy.contains("See More").click();
+
+      countListItems('#occupation-details', 15);
 
       // // more tasks
       // cy.contains(
