@@ -20,7 +20,7 @@
     "@types/react-dom": "^16.9.16",
     "@typescript-eslint/parser": "^6.17.0",
     "accounting": "^0.4.1",
-    "axios": "^1.6.3",
+    "axios": "^1.6.4",
     "contentful": "^10.6.15",
     "dayjs": "^1.11.10",
     "dompurify": "^3.0.7",
