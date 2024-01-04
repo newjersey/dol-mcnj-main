@@ -21,7 +21,7 @@ export const NotFoundPage = (props: Props): ReactElement => {
         <>
           <p>{t("ErrorPage.notFoundText")}</p>
           <p>
-            <a className="link-format-blue" href="/">
+            <a className="link-format-blue" href="/training/search/">
               {t("ErrorPage.notFoundLink1")}
             </a>
           </p>
