@@ -1,98 +1,61 @@
-import {
-  Briefcase,
-  Certificate,
-  GraduationCap,
-  ReadCvLogo,
-  SealCheck,
-} from "@phosphor-icons/react";
-import { parseMarkdownToHTML } from "../../utils/parseMarkdownToHTML";
+import { OccupationNodeProps } from "../../types/contentful";
+import { CareerBox } from "./CareerBox";
 
 export const OccupationCopyColumn = ({
   education,
-  credentials,
+
   skills,
   tasks,
   experience,
-}: {
-  education?: string;
-  credentials?: string;
-  tasks?: string;
-  skills?: string;
-  experience?: string;
-}) => {
+  advancement,
+}: OccupationNodeProps) => {
+  const blockArray = [];
+
+  if (tasks) {
+    blockArray.push({
+      title: " What do they do?",
+      content: tasks,
+      icon: "Briefcase",
+    });
+  }
+
+  if (education) {
+    blockArray.push({
+      title: "Education",
+      content: education,
+      icon: "GraduationCap",
+    });
+  }
+
+  if (skills) {
+    blockArray.push({
+      title: "Skills Needed",
+      content: skills,
+      icon: "SealCheck",
+    });
+  }
+
+  if (experience) {
+    blockArray.push({
+      title: "Other Experience",
+      content: experience,
+      icon: "ReadCvLogo",
+    });
+  }
+
+  if (advancement) {
+    blockArray.push({
+      title: "How to move up",
+      content: advancement,
+      icon: "TrendUp",
+    });
+  }
+
   return (
     <>
-      {tasks && (
-        <div className="box">
-          <div className="heading-bar">
-            <Briefcase size={32} />
-            What do they do?
-          </div>
-
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(tasks),
-            }}
-          />
-        </div>
-      )}
-      {education && (
-        <div className="box">
-          <div className="heading-bar">
-            <GraduationCap size={32} />
-            Education
-          </div>
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(education),
-            }}
-          />
-        </div>
-      )}
-      {credentials && (
-        <div className="box">
-          <div className="heading-bar">
-            <Certificate size={32} />
-            Credentials
-          </div>
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(credentials),
-            }}
-          />
-        </div>
-      )}
-      {skills && (
-        <div className="box">
-          <div className="heading-bar">
-            <SealCheck size={32} />
-            Skills
-          </div>
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(skills),
-            }}
-          />
-        </div>
-      )}
-      {experience && (
-        <div className="box">
-          <div className="heading-bar">
-            <ReadCvLogo size={32} />
-            Experience
-          </div>
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(experience),
-            }}
-          />
-        </div>
-      )}
+      {blockArray.map((block) => (
+        <CareerBox title={block.title} content={block.content} icon={block.icon} />
+      ))}
     </>
   );
 };
