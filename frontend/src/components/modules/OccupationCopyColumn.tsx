@@ -1,60 +1,48 @@
 import { OccupationNodeProps } from "../../types/contentful";
-import { CareerBox } from "./CareerBox";
+import { parseMarkdownToHTML } from "../../utils/parseMarkdownToHTML";
+import { IconSelector } from "../IconSelector";
 
-export const OccupationCopyColumn = ({
-  education,
+type ContentMapping = {
+  [key in keyof OccupationNodeProps]?: {
+    title: string;
+    icon: string;
+  };
+};
 
-  skills,
-  tasks,
-  experience,
-  advancement,
-}: OccupationNodeProps) => {
-  const blockArray = [];
+export const OccupationCopyColumn = (props: OccupationNodeProps) => {
+  const contentMapping: ContentMapping = {
+    tasks: { title: "What do they do?", icon: "Briefcase" },
+    education: { title: "Education", icon: "GraduationCap" },
+    skills: { title: "Skills Needed", icon: "SealCheck" },
+    experience: { title: "Other Experience", icon: "ReadCvLogo" },
+    advancement: { title: "How to move up", icon: "TrendUp" },
+  };
 
-  if (tasks) {
-    blockArray.push({
-      title: " What do they do?",
-      content: tasks,
-      icon: "Briefcase",
-    });
-  }
-
-  if (education) {
-    blockArray.push({
-      title: "Education",
-      content: education,
-      icon: "GraduationCap",
-    });
-  }
-
-  if (skills) {
-    blockArray.push({
-      title: "Skills Needed",
-      content: skills,
-      icon: "SealCheck",
-    });
-  }
-
-  if (experience) {
-    blockArray.push({
-      title: "Other Experience",
-      content: experience,
-      icon: "ReadCvLogo",
-    });
-  }
-
-  if (advancement) {
-    blockArray.push({
-      title: "How to move up",
-      content: advancement,
-      icon: "TrendUp",
-    });
-  }
+  const blockArray = Object.entries(contentMapping)
+    .filter(([key]) => props[key as keyof OccupationNodeProps])
+    .map(([key, { title, icon }]) => ({
+      title,
+      content: props[key as keyof OccupationNodeProps],
+      icon,
+    }));
 
   return (
     <>
-      {blockArray.map((block) => (
-        <CareerBox title={block.title} content={block.content} icon={block.icon} />
+      {blockArray.map(({ title, icon, content }, index) => (
+        <div className="box" key={index + title}>
+          <div className="heading-bar">
+            <IconSelector name={icon} size={32} />
+            {title}
+          </div>
+          {content && (
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(`${content}`),
+              }}
+            />
+          )}
+        </div>
       ))}
     </>
   );
