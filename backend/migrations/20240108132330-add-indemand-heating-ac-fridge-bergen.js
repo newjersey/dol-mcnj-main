@@ -40,7 +40,7 @@ exports.down = function(db) {
   var fileName = process.env.NODE_ENV === "test"
       ? "20240108132330-add-indemand-heating-ac-fridge-bergen-down-TEST.sql"
       : "20240108132330-add-indemand-heating-ac-fridge-bergen-down.sql";
-  var filePath = path.join(__dirname, 'sqls', '20240108132330-add-indemand-heating-ac-fridge-bergen-down.sql');
+  var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
