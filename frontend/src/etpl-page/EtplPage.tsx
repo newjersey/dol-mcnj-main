@@ -24,6 +24,7 @@ import ProLiteracy from "./agency-icons/proliteracy.svg";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Trans, useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
 
 const LINKS = {
   applicationPacketLink:
@@ -385,6 +386,8 @@ export const EtplPage = (props: Props): ReactElement => {
       </>
     );
   };
+
+  usePageTitle("ETPL | New Jersey Career Central");
 
   return (
     <Layout

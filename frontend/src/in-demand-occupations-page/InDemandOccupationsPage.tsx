@@ -6,6 +6,7 @@ import { MajorGroup } from "./MajorGroup";
 import { Typeahead } from "./Typeahead";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -49,6 +50,8 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
       />
     ));
   };
+
+  usePageTitle("In-Demand Occupations | New Jersey Career Central");
 
   return (
     <Layout
