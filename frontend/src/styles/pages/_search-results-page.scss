@@ -32,6 +32,30 @@
   }
 }
 
+a {
+  &.back-link {
+    color: $primary;
+    position: relative;
+    display: inline-block;
+    margin-left: $size-32;
+    margin-top: $size-16;
+    text-decoration: none;
+    border-bottom: $size-1 solid $primary;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -$size-32;
+      z-index: 10;
+    }
+
+    &:visited {
+      color: $primary;
+    }
+  }
+}
+
 .hover-shadow:hover {
   box-shadow: 0 0 10px $base-lighter;
 }
@@ -69,6 +93,12 @@
   height: 1px;
   width: 100%;
   background-color: $base-lighter;
+}
+
+.results-count-container {
+  .usa-breadcrumb {
+    padding-top: $size-16;
+  }
 }
 
 // small and up
