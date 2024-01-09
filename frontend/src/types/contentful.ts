@@ -249,6 +249,9 @@ export interface IndustryProps {
       numberOfJobs?: number;
     }[];
   };
+  occupationsCollection?: {
+    items: OccupationNodeProps[];
+  };
   industryAccordionCollection: {
     items: {
       sys: {

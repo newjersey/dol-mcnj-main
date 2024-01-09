@@ -44,6 +44,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
 
   useEffect(() => {
     if (industryData) {
+      console.log(industryData)
       setIndustry(industryData?.industryCollection.items[0]);
     }
   }, [industryData]);

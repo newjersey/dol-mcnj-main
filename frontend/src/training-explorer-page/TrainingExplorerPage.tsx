@@ -101,6 +101,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
           <section className="landing-faq">
             <div className="container">
               <SectionHeading heading="Frequently Asked Questions" headingLevel={3} />
+
               {pageData?.faqsCollection.items.map((item, index: number) => (
                 <Accordion
                   keyValue={index}
