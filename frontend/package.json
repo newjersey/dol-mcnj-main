@@ -30,6 +30,7 @@
     "markdown-it": "^14.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-ga": "^3.3.1",
     "react-helmet": "^6.1.0",
     "react-i18next": "^14.0.0",
     "react-scripts": "5.0.1",
@@ -99,7 +100,7 @@
     "nodegit": "npm:empty-npm-package@1.0.0"
   },
   "engines": {
-    "node": "^16.17.1",
+    "node": "^18.16.1",
     "yarn": "please-use-npm"
   }
 }
