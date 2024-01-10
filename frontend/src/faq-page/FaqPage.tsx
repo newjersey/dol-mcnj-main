@@ -9,6 +9,7 @@ import { useContentfulClient } from "../utils/useContentfulClient";
 import { FAQ_PAGE_QUERY } from "../queries/faq";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -44,6 +45,9 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
       };
     });
   };
+
+  usePageTitle(`${data?.page?.title} | New Jersey Career Central`);
+
   const seoObject = {
     title: `${data?.page?.title} | New Jersey Career Central`,
     description: data?.page?.pageDescription,
