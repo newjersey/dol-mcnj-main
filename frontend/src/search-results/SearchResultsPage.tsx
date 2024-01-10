@@ -15,6 +15,7 @@ import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
@@ -40,6 +41,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortContextValue = useContext(SortContext);
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
+
+  usePageTitle(`Search results for "${props.searchQuery}" | New Jersey Career Central`);
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
