@@ -35,6 +35,9 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
       }
       occupationsCollection {
         items {
+          sys {
+            id
+          }
           title
           shortTitle
           inDemand
