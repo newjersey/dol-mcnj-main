@@ -20,6 +20,7 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { Tooltip } from "react-tooltip";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -38,6 +39,8 @@ export const TrainingPage = (props: Props): ReactElement => {
   const [error, setError] = useState<Error | null>(null);
   const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
+
+  usePageTitle(`${training?.name} | Training | New Jersey Career Central`);
 
   useEffect(() => {
     const idToFetch = props.id ? props.id : "";
