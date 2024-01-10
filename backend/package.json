@@ -13,7 +13,7 @@
     "db-migrate": "db-migrate",
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf",
-    "start:wiremock": "wiremock --root-dir ./wiremock --port 8090"
+    "start:wiremock": "wiremock --root-dir ./wiremock --port 8090 --verbose"
   },
   "prettier": {
     "printWidth": 100
