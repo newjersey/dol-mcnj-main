@@ -13,6 +13,7 @@ import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
 import { SectionHeading } from "../components/modules/SectionHeading";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -51,6 +52,8 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     header: pageData?.interrupterBannerHeading,
     links: pageData?.interrupterLinksCollection.items,
   };
+
+  usePageTitle(`${pageData?.title} | New Jersey Career Central`);
 
   const seoObject = {
     title: `${pageData?.title} | New Jersey Career Central`,

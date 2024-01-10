@@ -7,6 +7,7 @@ import { Layout } from "../components/Layout";
 import { TabContent } from "../components/TabContent";
 import { useContentfulClient } from "../utils/useContentfulClient";
 import { TRAINING_PROVIDER_PAGE_QUERY } from "../queries/trainingProvider";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -14,6 +15,8 @@ interface Props extends RouteComponentProps {
 
 export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
   const data: TrainingProviderData = useContentfulClient({ query: TRAINING_PROVIDER_PAGE_QUERY });
+
+  usePageTitle(`${data?.page?.title} | New Jersey Career Central`);
 
   const seoObject = {
     title: `${data?.page?.title} | New Jersey Career Central`,

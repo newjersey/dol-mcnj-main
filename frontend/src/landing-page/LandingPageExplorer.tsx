@@ -10,6 +10,7 @@ import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -18,6 +19,8 @@ interface Props extends RouteComponentProps {
 export const LandingPageExplorer = (props: Props): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
   const { t } = useTranslation();
+
+  usePageTitle("Explorer | New Jersey Career Central");
 
   return (
     <Layout
