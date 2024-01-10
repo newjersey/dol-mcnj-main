@@ -101,7 +101,7 @@
     "nodegit": "npm:empty-npm-package@1.0.0"
   },
   "engines": {
-    "node": "^18.16.1",
+    "node": "^18.17.0",
     "yarn": "please-use-npm"
   }
 }
