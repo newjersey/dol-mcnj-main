@@ -1,1 +1,1 @@
-INSERT INTO indemandsocs (soc, occupationtitle) values ('12-3456','SOC title here');
+INSERT INTO indemandsocs (soc, occupationtitle) values ('49-9021','Heating, Air Conditioning, and Refrigeration Mechanics and Installers');
