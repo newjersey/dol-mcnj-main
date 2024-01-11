@@ -7,6 +7,7 @@ import { ResourceCategoryPageProps } from "../types/contentful";
 import { RESOURCE_CATEGORY_QUERY } from "../queries/resourceCategory";
 import { PageBanner } from "../components/PageBanner";
 import { ResourceList } from "../components/ResourceList";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -19,10 +20,20 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
     variables: { slug: `${props.slug}` },
   });
 
+  usePageTitle(`${data?.page.items[0].title} | Support Resources | New Jersey Career Central`);
+
   return (
-    <Layout client={props.client} theme="support">
+    <>
       {data && (
-        <>
+        <Layout
+          client={props.client}
+          theme="support"
+          seo={{
+            title: `${data?.page.items[0].title} | Support Resources | New Jersey Career Central`,
+            pageDescription: data?.page.items[0].description,
+            url: props.location?.pathname,
+          }}
+        >
           <PageBanner
             title={data.page.items[0].title}
             theme="navy"
@@ -52,8 +63,8 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
               related={data.page.items[0].related?.items}
             />
           </section>
-        </>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };

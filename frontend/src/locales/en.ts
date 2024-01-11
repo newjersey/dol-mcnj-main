@@ -178,369 +178,6 @@ export const en = {
     breadcrumbHomeLink: "Home",
     breadcrumbResourcesLink: "Resources",
   },
-  FAQApprenticeship: {
-    pageTitle: "FAQ - Registered Apprenticeship",
-    breadcrumbLink: "Registered Apprenticeship",
-    header:
-      "I operate a Registered Apprenticeship Program. Does my program need to be on the ETPL?",
-    body1:
-      "Registered Apprenticeship programs are only required to be listed on the ETPL if they are seeking to receive any state or federal job training funds. Otherwise, ETPL participation is optional.",
-    body2:
-      "Registered Apprenticeship programs are not subject to the same application requirements as all other training providers. Registered Apprenticeship program sponsors that request to be listed on the ETPL are automatically included on the list and will remain as long as the program is registered or until the program sponsor notifies the State that it no longer wants to be included on the list.",
-    body3:
-      "COEI shall work directly with the Office of Apprenticeship to semi-annually obtain a listing of all newly Registered Apprenticeship programs in New Jersey. Office of Apprenticeship shall contact all Registered Apprenticeship programs on the list to obtain the programs' interest in ETPL placement.",
-    body3Link:
-      "Contacted Registered Apprenticeship programs who wish to be listed on the ETPL must submit the <1>Registered Apprenticeship Application</1>.",
-    body4:
-      "Although WIOA does not require Registered Apprenticeship programs to submit program performance information in order to be placed on or remain eligible for ETPL placement, the submission of student information is required pursuant to New Jersey state law. Any Registered Apprenticeship program electing to be added to the ETPL must agree to and adhere to the student record reporting requirements contained in N.J.S.A. 34:15C-10.2.d.",
-    body5:
-      "COEI shall work directly with the Office of Apprenticeship to obtain a listing of all deregistered apprenticeship programs at least every two years. Any programs actively listed on the ETPL that are no longer registered with the Office of Apprenticeship will be removed from the ETPL.",
-    body6:
-      "Pre-apprenticeship programs do not have the same automatic ETPL status under WIOA as do Registered Apprenticeship programs and must follow the initial application process in order to obtain ETPL placement.",
-  },
-  FAQChildCare: {
-    pageTitle: "FAQ - Child Care",
-    breadcrumbLink: "Child Care",
-    header: "Child & Family Care",
-    covidHeader: "COVID-19",
-    covidBody:
-      "New information for parents and child care providers is available on the NJ Department of Human Services Division of Family Development <1>Coronavirus Disease 2019 (COVID-19) page</1>.",
-    covidBodyTwo:
-      "Please reference the <1>NJ COVID Information Hub website</1> for any of your questions or concerns during this challenging time.",
-    resourceAgencyHeader: "New Jersey Child Care Resource and Referral Agencies (CCR&Rs)",
-    resourceAgencyBody:
-      "New Jersey's CCR&Rs have trained staff to provide information to parents, the public, and providers about the availability of child care services provided through the New Jersey's Child Care Subsidy Program and other programs for which a family may be eligible. They also provide information about different types of child care providers and how to apply for financial assistance to obtain child care.",
-    resourceAgencyLink: "To learn more about New Jersey's CCR&Rs, visit this <1>website</1>.",
-    homeOptionHeader: "Home-based Child Care Options",
-    familyCareHeader: "Family Child Care",
-    familyCareBodyOne:
-      "This type of care is provided in someone's home. In New Jersey, a provider can care for no more than five children, with an additional three children of their own.",
-    familyCareBodyLinkOne:
-      "Home providers can choose to be <1>registered</1>, which requires them to meet basic safety standards outlined under state law.",
-    familyCareBodyTwo:
-      "This registration also allows these in-home providers to accept payments from families participating in government-subsidized child care assistance programs.",
-    familyCareBodyLinkTwo: "For additional details, click <1>here</1>.",
-    homeCareHeader: "In-Home Care",
-    homeCareBody:
-      "In this type of care, a person comes to your home to care for your child.. Although you may use an agency to find such a provider, they are neither regulated nor licensed by the state and cannot participate in Grow NJ Kids.",
-    homeCareLink: "To learn more about in-home child care, please click <1>here</1>.",
-    schoolCenterHeader: "Center and School-based Child Care Options",
-    childCentersHeader: "Child Care Centers",
-    childCentersBody:
-      "Licensed by the state of New Jersey, these facilities are inspected every two years and must meet basic health, safety, program and staffing requirements. They can care for six or more children from the age of 6 weeks to 13 years.",
-    headStartHeader: "Head Start & Early Head Start",
-    headStartBody:
-      "Head Start and Early Head Start programs support the mental, social and emotional development of children from birth to age 5. In addition to education services, programs provide children and their families with health, nutrition, social and other services.",
-    preschoolHeader: "School District Preschool Programs",
-    preschoolBody:
-      "School districts provide research-based preschool programs for 3- and 4-year-olds, that may be located within a school district site, a private provider, or a local Head Start agency.",
-    specialServicesHeader: "Special Services School Districts",
-    specialServicesBody:
-      "These districts provide options for preschool students with special needs ages 3-5.",
-    applySubsidyHeader: "Applying for a Child Care Subsidy*",
-    applySubsidyBody:
-      "When applying for a child care subsidy, you will be required to provide the following: proof of income, training/school hours and household size. All required documents must be submitted to be considered for a subsidy.",
-    applySubsidyLinkOne:
-      "Eligibility requirements for both applicant(s)/parents and children are listed <1>here</1>.",
-    applySubsidyLinkTwo:
-      "To apply, complete and submit the following <1>forms</1> to the <4>Child Care Resource and Referral (CCR&R) agency</4> in your county.",
-    supportHeader: "New Jersey Child Support*",
-    supportBodyOne:
-      "The Office of Child Support Services assists parents in obtaining the financial support necessary for their children to prosper in a stable setting.",
-    supportLink: "For more information, click <1>here</1> or call 1 (877)-NJKIDS1.",
-    supportBodyTwo:
-      "If you have any questions, please contact your county's CCR&R agency or call the Child Care Helpline at 1-800-332-9227.",
-    federalResourcesHeader: "Federal Resources*",
-    federalResourcesLink:
-      "In addition, the U.S. Department of Health and Human Services' <1>Administration for Children and Families</1> partners with programs that encourage strong, healthy, supportive communities that promote economic independence, productivity, and childhood development.",
-    federalResourcesLinkTwo:
-      "For more information on their hotlines to reach them directly, click <1>here</1>.",
-    federalResourcesAsterisk:
-      "* For more information about any of these child care programs, download this <1>brochure</1>.",
-    federalResourcesLinkThree:
-      "For all other family, dependent, and senior / elder care resources, please visit <1>NJ 2-1-1</1> or with your phone dial 2-1-1.",
-  },
-  FAQDataSources: {
-    pageTitle: "FAQ - Data Sources",
-    breadcrumbLink: "Data Sources",
-    header: "The Data Sources used for this website",
-    body1:
-      "The Training Explorer is home to New Jersey's Eligible Training Provider List (ETPL) and Consumer Report Card (CRC). The ETPL is a comprehensive listing of all schools and organizations offering occupational education and job training programs that are eligible to receive publicly funded tuition assistance. The listing is made available via this website's “Find Training” search feature. This dataset is updated on a weekly basis and is transitioning to real-time availability.",
-    body2:
-      "The types of training you will find on this website range from private career schools, non-profit schools, community colleges, vocational schools, literacy programs, short-term credentials, and registered apprenticeships.",
-    occupationalHeader: "Occupational Data",
-    occupationalBody1:
-      "Informational data related to occupations, which is available through the in-demand occupations link at the top of the page, come from a variety of data sources. These data are updated from a real-time to annual basis.",
-    occupationalBody2:
-      "The job listings and link to the jobs count is from the <1>National Labor Exchange</1> through <3>Career OneStop's API</3>. Median Salary for the State of New Jersey is provided by the New Jersey Department of Labor.",
-    occupationalBody3:
-      "The description and day in the life content are from <1>ONet Online</1>. The educational and certification sections are from the Bureau of Labor Statistics.",
-    occupationalBody4:
-      "The related training and related career sections are a crosswalk of training that lead to that occupation on the page.",
-    occupationalBody5:
-      "All of the occupation data are pulled via real-time API and are showing the most up to date information.",
-  },
-  FAQDemandOccupations: {
-    pageTitle: "FAQ - Labor Demand Occupations",
-    breadcrumbLink: "Labor Demand Occupations",
-    header: "What is the Labor Demand Occupation List?",
-    intro:
-      'Find occupations in "in demand" across the State, and identify training programs for "in demand" jobs to help accomplish your goals. The Demand Occupations List brings together information about current job openings, trends and projections in employment and labor supply, and other current indicators of the labor market.',
-    listHeader: "Demand Occupations List",
-    listBody:
-      "The Demand Occupations List can help career counselors and their clients find relevant skills training programs; shows you where skills gaps are present in the current economy, as well as the size of the skills shortage; and, anticipated employer need for trained workers in the listed fields.",
-    counselorsHeader: "For Career Counselors",
-    counselorsBody1:
-      "Use this list as a starting point when approving individual training programs in the Workforce Development Partnership (WDP) Act, Workforce Investment Act (WIA), and all other occupational training initiatives within New Jersey's Workforce Investment System.",
-    counselorsBody2:
-      "The Demand Occupations List is NOT meant to be a final, stand-alone authority for approval or denial of training in Workforce Development Partnership or any other program. When making training decisions, it is also important to consider the individual's:",
-    counselorsBody2List1: "employability development plan",
-    counselorsBody2List2: "local and regional labor market conditions",
-    counselorsBody2List3: "the labor market area where the trainee is likely to seek employment",
-    counselorsBody2List4:
-      "the impact of training on the individual's marketable skills and earning power",
-    exceptionsHeader: "Exceptions to Demand Approval",
-    exceptionsBody:
-      "If a Workforce Investment Board (WIB) believes that an occupation is not listed as in demand in its area, it can designate such an occupation as being in demand and allow program participants under its jurisdiction to be placed in training, after consultation with the Department of Labor and Workforce Development. This is done in accordance with the procedures outlined in the Department's To Work Bulletin 2005-01 dated April 14, 2005.",
-  },
-  FAQEnrollProgram: {
-    pageTitle: "FAQ - Enroll Program",
-    breadcrumbLink: "Enroll Program",
-    header: "Enrolling in a Program listed on this website",
-    contactHeader: "Finding the school's contact information",
-    contactBody:
-      'For questions regarding a specific program or to enroll in a specific program you must contact the school or organization directly. Contact information for each program is available under the "provider details" tab within each program listing. This website is for information purposes only.',
-    inDemandHeader: "In-Demand Training",
-    inDemandBody:
-      "Training listed that leads to an occupation that is in-demand will have a label like this one.",
-    inDemandBodyTwo: "Training with this in-demand label may be eligible for financial support.",
-    counselorAdviceHeader: "Get Advice from a OneStop Counselor",
-    counselorAdviceBodyStart:
-      "To find out more information about funding, contact your NJ County One-Stop Career, who will help determine funding eligibility. You can submit a request to get in touch virtually ",
-    counselorAdviceBodyLink: "at this link",
-    counselorAdviceBodyEnd:
-      ". There will be a link you can copy on the training page that you can share with them.",
-  },
-  FAQFundingOpportunities: {
-    pageTitle: "FAQ - Funding Opportunities",
-    breadcrumbLink: "Funding Opportunities",
-    header: "I want to learn more about funding opportunities",
-    introBody:
-      "There is funding available for individuals looking for new occupations that fall within the State's “in-demand” list of occupations. In-demand occupations are expected to have the most openings in the future in the State of New Jersey.",
-    qualifyHeader: "How do I know what qualifies for funding?",
-    qualifyBody:
-      "Training that leads to an <1>in-demand occupation</1> can qualify for funding but your local One Stop will make the final determination. As we mentioned under “How Does Funding Work”, these types of occupations are expected to have the most openings in the future in the State of New Jersey. This list of occupations can be used by career counselors to help you make decisions about careers advancements and training.",
-    nextStepsHeader: "Interested in funding? Here's what to do next.",
-    nextStepsBody:
-      "<0>Contact a career counselor</0> at your local One-Stop Career Center to explore funding opportunities.",
-  },
-  FAQHealth: {
-    pageTitle: "FAQ - Health Insurance",
-    header: "Health Insurance",
-    intro:
-      "Here is some information based on NJ state resources that we think may be useful to you:",
-    familyCareIntro:
-      "NJ FamilyCare, the State's Medicaid program, covers COVID-19 testing, visits for testing, and testing-related services without cost to members. The program will also cover 90-day supplies of prescriptions for maintenance medications and early refills of prescriptions.",
-    familyCareIntroLink: "For more information, click <1>here</1>.",
-    dhs: "The Department of Human Services Novel Coronavirus page has information on NJFamilyCare/Medicaid waivers as well as temporary telehealth guidelines for providers.",
-    dhsLink: "The information can be found <1>here</1>.",
-    covidHubLink:
-      "Please reference the <1>NJ COVID Information Hub website</1> for any of your questions or concerns during this challenging time.",
-    familyCareHeader: "NJ FamilyCare",
-    familyCareBodyOne:
-      "NJ FamilyCare is a state health insurance program that provides qualified NJ residents with free or low cost health insurance that covers doctor visits, prescriptions, vision, dental care, mental health and substance use services, and hospitalization. Each county has at least three Health Plans that will help you get these services once enrolled.",
-    familyCareIncomeLink:
-      "Depending on your family's income, there may be restrictions on certain services, which can be viewed <1>here</1>.",
-    familyCareBodyTwo:
-      "<0>Groups that are eligible</0> for coverage under NJ FamilyCare include children, pregnant women, parents/caretaker relatives, single adults and childless couples. Financial eligibility will be determined by the latest federal tax return which, when filed, will be electronically verified.",
-    familyCareBodyThree:
-      "To apply for NJ FamilyCare, click <1>here</1>. If you have any questions or would like additional information about NJ FamilyCare please contact 1 (800)-701-0710 and a Health Benefits Coordinator will assist you.",
-    medicaidHeader: "NJ Medicaid",
-    medicaidBody:
-      "NJ Medicaid provides health insurance to parents, caretakers, and dependent children, pregnant women, and people who are aged, blind, or disabled depending on a range of income and other criteria. These programs pay for hospital services, doctor visits, prescriptions, nursing home care, and other health care needs. To be eligible for NJ Medicaid, you must be a NJ resident, a U.S. citizen or qualified alien, and meet a specific financial income. In addition, you must fall into one of these groups: families with dependent children, pregnant women, and individuals who are 65 or older, blind, or permanently disabled.",
-    medicaidContact:
-      "For questions about NJ Medicaid, please call 1 (800) 356-1561 or contact your county's <1>Board of Social Services</1>.",
-    njMedicareHeader: "NJ Medicare Information and Referral Service",
-    njMedicareBody:
-      "New Jersey's Medicare Information and Referral Service provides free, unbiased counseling for seniors regarding <1>Medicare</1> and other insurance issues. Individuals with concerns that cannot be addressed over the phone are referred to the State Health Insurance Assistance Program (SHIP) office in their county for assistance.",
-    njMedicareADRC:
-      "The unit also administers, and is the out-of-state default service for, the <1>ADRC</1> hotline at 877-222-3737. This number connects people calling from a landline within the state to their <3>county office on aging</3> where they can learn about and apply for a broad range of services.",
-    medicareHeader: "Medicare",
-    medicareSignup:
-      "To sign up for federal Medicare coverage, please visit <1>medicare.gov</1>, which provides information on how to get started with Medicare, your Medicare coverage choices, and when and how to apply.",
-    medicareContact:
-      "If you have any questions or would like additional information about any of the above, please visit the Department of Health's <1>website</1> or call 1 (800) 701-0710.",
-    cobraHeader: "Federal Program: Continuation of Health Coverage - COBRA",
-    cobraBody:
-      "In addition, if you recently lost your job, you may be eligible to temporarily keep the insurance you had with your previous employer through the U.S. Department Of Labor program COBRA, though it may cost you more than when you were an employee. COBRA generally applies to all private-sector group health plans maintained by employers that had at least 20 employees.",
-    cobraContact:
-      "To learn about COBRA, please visit the U.S. Department of Labor's <1>website</1> or call 1 (866) 487-2365.",
-  },
-  FAQJobListings: {
-    pageTitle: "FAQ - Job Listings",
-    header: "Job Listings",
-    trainingExplorerHeader: "Finding job listings on the Training Explorer",
-    trainingExplorerBodyOneStart:
-      "The Training Explorer links to job listings on occupation pages. ",
-    trainingExplorerBodyOneLink:
-      'To search for an in-demand occupation, click on the "in-demand occupations" at the top of this page or visit: <1>https://training.njcareers.org/in-demand-occupations</1>.',
-    trainingExplorerBodyTwo:
-      "On this page, you search for any occupation that is projected by the State to have the most growth in job openings. Once you find an occupation, for example Phlebotomy, you can see the number of job listings currently available for that occupation as well as the median salary for that occupation.",
-    trainingExplorerBodyThree:
-      'To view the job listings, select the link "Search current job openings posted for this occupation >". This link will take you to Career OneStop to view listings for this occupation throughout the State of New Jersey. To refine your search, use the filter options to find jobs near you.',
-  },
-  FAQSearchHelp: {
-    pageTitle: "FAQ - Search Help",
-    breadcrumbLink: "Search Help",
-    header: "How to start your search on the Training Explorer",
-    searchBarHeader: "Using the Search Bar",
-    searchBarBodyStart: "The search bar on the ",
-    searchBarBodyLink: "home page",
-    searchBarBodyEnd:
-      " will allow you to make searches for training opportunities on the State's Eligible Training Provider List (ETPL). The ETPL is a comprehensive listing of all schools and organizations offering occupational education and job training programs that are eligible to receive publicly funded tuition assistance. The listing is made available via this website's “Find Training” search feature.",
-    searchBarBodyTwo:
-      "The types of training you will find on this website range from private career schools, non-profit schools, community colleges, vocational schools, literacy programs, short-term credentials, and registered apprenticeships.",
-    filtersHeader: "Using the Search and Sort Filters",
-    filtersBody:
-      'The filter box will be available for people using tablet or desktop devices on the left side of the search results page after performing a search. If you are on a mobile device, the filter box will be accessible by clicking on the "Edit Search or Filter" button.',
-    filtersBodyTwo:
-      "The filters available will allow you to refine your search from a location, set a cost ceiling for training programs, find whether classes are in-person or done remotely, and set a timeframe for how long it takes to complete a course. Finally, there's a toggle available to show a program that will lead to an in-demand occupation. Selecting this filter will only show search results with the yellow, in-demand tag. These filters can be used in combination with each other to create more specific search results.",
-    filtersBodyThree:
-      "The sort by dropdown at the top of the page will sort your training search results according to the filter selected in the drop down. You can sort search results by max cost, employment rate, or a best match search result.",
-    careerExplorationHeader: "Career Exploration",
-    careerExplorationBodyStart:
-      "To find out information about occupations that are identified as in-demand by the State of New Jersey, select the ",
-    careerExplorationBodyLink: "In-Demand Occupations",
-    careerExplorationBodyEnd:
-      " link at the top of the page. This link will navigate you to a listing of all the occupations that are projected to experience large increases in growth and job listings. On this page, you can use the search bar at the top of the page to look for an occupation or you can use the industry categories to look for in-demand occupations. An occupation's page will detail statistics about how many jobs are currently listed in the State through the National Labor Exchange as well as the median salary for that career. You will also find a short description of that occupation, what a day in the life of that job looks like, as well as the education or credential requirements to get into that occupation. Finally, you will see related training and related careers for the occupation.",
-  },
-  FAQOutOfState: {
-    pageTitle: "FAQ - ETPL Out of State Provider",
-    breadcrumbLink: "ETPL Out of State Provider",
-    header: "Out of State Training Providers",
-    body: "An out-of-state training provider that has been determined an eligible training provider under ETPL eligibility procedures in the provider's home state is considered eligible for ETPL placement in New Jersey. Out-of-state eligible training providers must still submit an ETPL application to COEI and include proof of ETPL eligibility in the provider's home state.",
-  },
-  FAQETPLStandards: {
-    pageTitle: "FAQ - ETPL Performance Standards",
-    breadcrumbLink: "ETPL Performance Standards",
-    header: "Minimum Performance Standards for Training Providers",
-    body1:
-      "Statewide minimum performance standards will not be set during the implementation year (beginning August 1, 2016) as eligibility criteria for training programs to be placed on the ETPL. In subsequent years, COEI will report to the State Employment and Training Commission on the status of the performance data available and submit a recommendation regarding whether statewide minimum performance standards should be set for ETPL eligibility.",
-    body2:
-      "However, the local areas may establish additional criteria for program eligibility within a local area, including the establishment of minimum required levels of performance as criteria for training providers to become or remain eligible to provide services in that particular local area. Training providers should be aware that programs may be approved for some local areas and denied for others based on local criteria and the approved local areas for each training provider will be listed on this page as local areas are instructed to notify COEI if performance standards are created.",
-  },
-  FAQUnemployment: {
-    pageTitle: "FAQ - Unemployment Insurance",
-    header: "Unemployment Insurance",
-    intro:
-      "Here is some information based on NJ state resources that we think may be useful to you:",
-    covidHeader: "COVID-19",
-    eligibilityToolIntro:
-      "The New Jersey Department of Labor has developed the <1>NJDOL Benefits Eligibility Tool</1> to make it easier for you to understand what work-related benefits programs, and job protections, are available to you to help stabilize your household during this difficult time.",
-    eligibilityToolVisit: "Visit this tool at <1>https://getstarted.nj.gov/labor/</1>.",
-    covidImportantInfo:
-      "Important information for claiming weekly benefits due to the COVID-19 emergency can be found <1>here</1>.",
-    covidAdditionalInfo:
-      "Additional guidance from the NJ Department of Labor on benefits and COVID-19 can be found <1>here</1>.",
-    covidHub:
-      "Please reference the <1>NJ COVID Information Hub website</1> for any of your questions or concerns during this challenging time.",
-    applyingHeader: "Applying for Unemployment Insurance Online",
-    applyingOnline:
-      "Many job seekers apply online for Unemployment Insurance, which you can do <1>here</1>.",
-    applyingSteps:
-      "According to the New Jersey Department of Labor, these steps must be taken to apply online for Unemployment Insurance:",
-    applyingStepOne:
-      "Check eligibility: In order to apply for unemployment benefits online, you must meet one of the following <1>requirements</1>.",
-    applyingStepTwo:
-      "Prepare government documents: Once you determine online eligibility, please have the following <1>government documents</1> with you.",
-    applyingStepThree:
-      "Prepare employer information: Please have the following <1>employer information</1> (from the last 18 months) ready when you are applying.",
-    applyingStepFour:
-      "Create an account: To apply for unemployment benefits online, click <1>here</1>. Please have a primary email address ready when creating your account!",
-    applyingStepFive:
-      "Click application link on dashboard: Once your account is set up and you are logged in, there will be a <1>dashboard</1> that includes the application link, application status, and an information tab.",
-    applyingPhoneHeader: "Applying for Unemployment Insurance by Phone",
-    applyingPhoneIntro:
-      "In order to apply by phone for Unemployment Insurance, the Department of Labor and Workforce Development notes that you must follow these steps:",
-    applyingPhoneStepOne:
-      "Prepare government documents/employment information: A full list of required documents is listed <1>here</1>.",
-    applyingPhoneStepTwoPartOne:
-      "Call a Reemployment Call Center: Customer service agents at the call center can accept your Unemployment Insurance claim over the phone.",
-    applyingPhoneStepTwoPartTwo:
-      "Contact information is dependent by state region, which can be viewed <1>here</1>.",
-    applyingPhoneStepThreePartOne:
-      "Check your mail: Please be mindful and on the look out for mail from The Office of Labor and Workforce Development. They may also send information via email, so please check your inbox regularly.",
-    applyingPhoneStepThreePartTwo:
-      "For more information on letters and forms that may be sent you, please click <1>here</1>.",
-    eligibilityHeader: "Eligibility requirements for Unemployment Benefits",
-    eligibilityIntro:
-      "To remain eligible for unemployment benefits, the New Jersey Department of Labor requires that you adhere to the following:",
-    eligibilityListOne: "You must keep all scheduled appointments with the Department of Labor.",
-    eligibilityListTwo: "You must be able to work.",
-    eligibilityListThree: "You must be available for work.",
-    eligibilityListFour: "You must actively seek work.",
-    eligibilityListFive: "You must not refuse an offer of suitable work.",
-    eligibilityListSix:
-      "You must claim your unemployment insurance benefits every week online or every two weeks by phone.",
-    eligibilityLink:
-      "Click <1>here</1> for complete information about your rights and responsibilities while receiving UI benefits.",
-    claimingHeader: "Claiming Unemployment Insurance Benefits",
-    claimingIntro:
-      "There are two ways in which you can claim your weekly or biweekly unemployment insurance benefits.",
-    claimingOnlineHeader: "Online Instructions",
-    claimingOnlineLink:
-      "You can claim your UI benefits online by creating an <1>account</1> with the Department of Labor and Workforce Development.",
-    claimingOnlineMoreInfoLink:
-      "For more information about certifying benefits online, click <1>here</1>.",
-    claimingOnlineScheduleIntro: "The schedule for certifying benefits online is:",
-    claimingOnlineScheduleListOne: "Monday-Friday 7:00a.m. - 6:00p.m.",
-    claimingOnlineScheduleListTwo: "Saturday 8:00a.m. - 3:00p.m.",
-    claimingOnlineScheduleListThree: "Sunday 8:00a.m. - 5:00p.m.",
-    claimingPhoneScheduleHeader: "Phone Instructions",
-    claimingPhoneScheduleIntro:
-      "You will need your 4-digit PIN to certify your benefits (see below). The hours of operation for phone benefit claims are 8:30am-6:00pm, Monday to Friday (including holidays). The schedule for certifying benefits by phone is:",
-    claimingPhoneScheduleListOne:
-      "Mondays - for individuals whose Social Security number ends with an odd number (1,3,5,7,9).",
-    claimingPhoneScheduleListTwo:
-      "Tuesdays - for individuals whose Social Security number ends with an even number (0, 2, 4, 6, 8).",
-    claimingPhoneScheduleListThree:
-      "Wednesday through Friday - for those who missed certifying on the assigned day.",
-    claimingPhoneContactIntro: "Contact numbers to file by phone:",
-    claimingPhoneContactListOne: "North New Jersey (201) 601-4100",
-    claimingPhoneContactListTwo: "South New Jersey (856) 507-2340",
-    claimingPhoneContactListThree: "Central New Jersey (732) 761-2020",
-    claimingPhoneContactListFour: "Out-of-State Claims (888) 795-6672",
-    pinHeader: "Obtaining Your Personal Identification Number (PIN)",
-    pinBody:
-      "When you first certify your benefits, you will choose a 4-digit personal identification number (PIN). You will need your PIN every time you certify for you benefits. Write down your PIN and keep it in a safe, secure place. Your PIN is valid for one year.",
-    pinLink:
-      "If you forget your PIN, please call your local <1>Reemployment Call Center</1>, and ask the representative to reset your PIN.",
-    paymentHeader: "Receiving Payment",
-    paymentIntro:
-      "There are two ways to receive UI benefit payments: by debit card or by direct deposit.",
-    paymentLink:
-      "If you would like to receive your benefit payments via direct deposit, choose that option when you first file your claim, or complete the direct deposit application <1>online</1>.",
-    paymentPrepaidInfo:
-      "If you do not choose direct deposit, you will receive a prepaid Bank of America debit card. Bank of America mails the card to you in a plain, unmarked envelope within 7-10 days after filing your initial claim.",
-    paymentMoreInfoLink: "Click <1>here</1> for more information about UI benefit payments.",
-    additionalProgramsHeader: "Additional Income Support Programs",
-    additionalProgramsDHSLink:
-      "The <1>New Jersey Department of Human Services</1> offers a variety of programs for individuals and families who need income assistance. WorkFirst New Jersey (WFNJ) employment-directed activities provide employment education and training services for people who receive Temporary Assistance for Needy Families (TANF) and General Assistance (GA). Services include employment counseling, assessment, job search assistance, work experience, on-the-job training, vocational education, basic education skill development, computer literacy training, and other services to help WFNJ recipients find and keep a job.",
-    additionalProgramsDHSMoreInfoLink:
-      "For more information, please call 800-792-9773, submit this online <1>form</1>, or visit <3>NJHelps</3> to see if you are eligible for assistance.",
-    additionalProgramsTDILink:
-      "If you cannot work because of sickness or injury not caused by your job, you may be eligible for <1>Temporary Disability Insurance benefits</1>.",
-    additionalProgramsTDIFileLink: "File your claim <1>online</1> for faster service.",
-    additionalProgramsSocialSecurity:
-      "In addition, you may be eligible for <1>Social Security</1> benefits such as <3>Disability Insurance</3> or <5>Supplemental Security Income</5>.",
-    supportHeader: "Unemployment Insurance Support and Contact Information",
-    supportAddressHeader: "Mailing Address",
-    supportOnlineHeader: "Online and phone support",
-    supportOnlineWebsite:
-      "For more information about unemployment insurance, visit the <1>Division of Unemployment Insurance's website</1>.",
-    supportPhoneMail:
-      "For direct contact, please call your local <1>Reemployment Call Center</1> or contact the Division of Unemployment Insurance at (609) 292-24660 or at <3>UIhelp@dol.nj.gov</3>.",
-  },
   Footer: {
     privacyPolicyLinkLabel: "Privacy Policy",
     termsOfServiceLinkLabel: "Terms of Service",
@@ -586,7 +223,46 @@ export const en = {
   },
   IconAlt: {
     njLogo: "Official state logo for New Jersey",
-    occupationGroup: "Icon representing specific group of occupations",
+    occupationGroup: {
+      architectureAndEngineeringOccupations:
+        "Icon representing Architecture and Engineering occupations",
+      artsDesignEntertainmentSportsAndMediaOccupations:
+        "Icon representing Arts, Design, Entertainment, Sports, and Media occupations",
+      buildingAndGroundsCleaningAndMaintenanceOccupations:
+        "Icon representing Building and Grounds Cleaning and Maintenance occupations",
+      businessAndFinancialOperationsOccupations:
+        "Icon representing Business and Financial Operations occupations",
+      communityAndSocialServiceOccupations:
+        "Icon representing Community and Social Service occupations",
+      computerAndMathematicalOccupations: "Icon representing Computer and Mathematical occupations",
+      constructionAndExtractionOccupations:
+        "Icon representing Construction and Extraction occupations",
+      educationalInstructionAndLibraryOccupations:
+        "Icon representing Education, Training, and Library occupations",
+      farmingFishingAndForestryOccupations:
+        "Icon representing Farming, Fishing, and Forestry occupations",
+      foodPreparationAndServingRelatedOccupations:
+        "Icon representing Food Preparation and Serving Related occupations",
+      general: "Icon representing specific group of occupations",
+      healthcarePractitionersAndTechnicalOccupations:
+        "Icon representing Healthcare Practitioners and Technical occupations",
+      healthcareSupportOccupations: "Icon representing Healthcare Support occupations",
+      installationMaintenanceAndRepairOccupations:
+        "Icon representing Installation, Maintenance, and Repair occupations",
+      legalOccupations: "Icon representing Legal occupations",
+      lifePhysicalAndSocialScienceOccupations:
+        "Icon representing Life, Physical, and Social Science occupations",
+      managementOccupations: "Icon representing Management occupations",
+      militarySpecificOccupations: "Icon representing Military Specific occupations",
+      officeAndAdministrativeSupportOccupations:
+        "Icon representing Office and Administrative Support occupations",
+      personalCareAndServiceOccupations: "Icon representing Personal Care and Service occupations",
+      productionOccupations: "Icon representing Production occupations",
+      protectiveServiceOccupations: "Icon representing Protective Service occupations",
+      salesAndRelatedOccupations: "Icon representing Sales and Related occupations",
+      transportationAndMaterialMovingOccupations:
+        "Icon representing Transportation and Material Moving occupations",
+    },
     etplGroup: "Icon representing specific government agency",
     landingPageWorkforce: "Cartoon of three workers",
     landingPageOccupation: "Icon showing person making connections",

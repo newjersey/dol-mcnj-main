@@ -13,6 +13,7 @@ import { Cta } from "../components/modules/Cta";
 import { CtaBanner } from "../components/CtaBanner";
 import { River } from "../components/River";
 import { FooterCta } from "../components/FooterCta";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -27,10 +28,10 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
       (index + 1) % 4 === 1
         ? "purple"
         : (index + 1) % 4 === 2
-        ? "orange"
-        : (index + 1) % 4 === 3
-        ? "blue"
-        : "green";
+          ? "orange"
+          : (index + 1) % 4 === 3
+            ? "blue"
+            : "green";
 
     return {
       ...link,
@@ -38,105 +39,119 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
       highlight: highlight as ThemeColors,
     };
   });
-  return (
-    <Layout
-      client={props.client}
-      theme="support"
-      footerComponent={
-        <FooterCta
-          headingLevel={4}
-          heading={data?.page.footerCtaHeading}
-          link={data?.page.footerCtaLink}
-        />
-      }
-    >
-      {data && (
-        <div className="career-navigator">
-          <PageBanner {...data.page.pageBanner} />
-          <section className="opportunity-cards">
-            <div className="container plus">
-              {data.page.opportunitiesHeading && (
-                <SectionHeading heading={data.page.opportunitiesHeading} />
-              )}
-              <div className="inner">
-                {data.page.opportunityCards.items.map((card, index: number) => {
-                  const cardColor = index % 2 === 0 ? "blue" : "purple";
-                  const isExternal = card.url?.includes("http");
-                  return (
-                    <IconCard
-                      key={card.sys ? card.sys.id : card.copy}
-                      title={card.copy}
-                      description={card.description}
-                      fill
-                      theme={cardColor}
-                      icon={card.icon}
-                      indicator={isExternal ? "ArrowRight" : undefined}
-                      url={card.url}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-          <section>
-            <div className="container plus">
-              {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
-            </div>
-            <div className="container plus">
-              <div className="steps">
-                {data.page.stepsCollection && (
-                  <Stepper theme="purple" steps={data.page.stepsCollection.items} />
-                )}
-              </div>
-            </div>
-          </section>
-          <section className="mid-cta">
-            {data.page.midPageCtaLinks && (
-              <Cta
-                heading={data.page.midPageCtaHeading}
-                linkDirection="row"
-                noIndicator
-                theme="blue"
-                links={data.page.midPageCtaLinks?.items}
-              />
-            )}
-          </section>
 
-          <CtaBanner
-            heading={data.page.interrupterHeading}
-            headingLevel={3}
-            theme="purple"
-            fullColor
-            links={interrupterLinks}
-          />
-          <section className="info-cards">
-            <div className="container plus">
-              {data.page.infoHeading && <SectionHeading heading={data.page.infoHeading} />}
-              <div className="info-card-row">
-                {data.page.infoCards?.items.map((card, index: number) => {
-                  const themeColor =
-                    (index + 1) % 4 === 1
-                      ? "blue"
-                      : (index + 1) % 4 === 2
-                      ? "green"
-                      : (index + 1) % 4 === 3
-                      ? "purple"
-                      : "navy";
-                  return (
-                    <IconCard
-                      {...card}
-                      theme={themeColor}
-                      title={card.heading}
-                      key={card.sys?.id}
-                    />
-                  );
-                })}
+  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
+
+  const seoObject = {
+    title: `${data?.page.title} | New Jersey Career Central`,
+    description: data?.page.pageDescription,
+    image: data?.page.ogImage?.url,
+    keywords: data?.page.keywords,
+    url: props.location?.pathname,
+  };
+
+  return (
+    <>
+      {data && (
+        <Layout
+          client={props.client}
+          seo={seoObject}
+          theme="support"
+          footerComponent={
+            <FooterCta
+              headingLevel={4}
+              heading={data?.page.footerCtaHeading}
+              link={data?.page.footerCtaLink}
+            />
+          }
+        >
+          <div className="career-navigator">
+            <PageBanner {...data.page.pageBanner} />
+            <section className="opportunity-cards">
+              <div className="container plus">
+                {data.page.opportunitiesHeading && (
+                  <SectionHeading heading={data.page.opportunitiesHeading} />
+                )}
+                <div className="inner">
+                  {data.page.opportunityCards.items.map((card, index: number) => {
+                    const cardColor = index % 2 === 0 ? "blue" : "purple";
+                    const isExternal = card.url?.includes("http");
+                    return (
+                      <IconCard
+                        key={card.sys ? card.sys.id : card.copy}
+                        title={card.copy}
+                        description={card.description}
+                        fill
+                        theme={cardColor}
+                        icon={card.icon}
+                        indicator={isExternal ? "ArrowRight" : undefined}
+                        url={card.url}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </section>
-          {data.page.river && <River items={data.page.river.items} />}
-        </div>
+            </section>
+            <section>
+              <div className="container plus">
+                {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
+              </div>
+              <div className="container plus">
+                <div className="steps">
+                  {data.page.stepsCollection && (
+                    <Stepper theme="purple" steps={data.page.stepsCollection.items} />
+                  )}
+                </div>
+              </div>
+            </section>
+            <section className="mid-cta">
+              {data.page.midPageCtaLinks && (
+                <Cta
+                  heading={data.page.midPageCtaHeading}
+                  linkDirection="row"
+                  noIndicator
+                  theme="blue"
+                  links={data.page.midPageCtaLinks?.items}
+                />
+              )}
+            </section>
+
+            <CtaBanner
+              heading={data.page.interrupterHeading}
+              headingLevel={3}
+              theme="purple"
+              fullColor
+              links={interrupterLinks}
+            />
+            <section className="info-cards">
+              <div className="container plus">
+                {data.page.infoHeading && <SectionHeading heading={data.page.infoHeading} />}
+                <div className="info-card-row">
+                  {data.page.infoCards?.items.map((card, index: number) => {
+                    const themeColor =
+                      (index + 1) % 4 === 1
+                        ? "blue"
+                        : (index + 1) % 4 === 2
+                          ? "green"
+                          : (index + 1) % 4 === 3
+                            ? "purple"
+                            : "navy";
+                    return (
+                      <IconCard
+                        {...card}
+                        theme={themeColor}
+                        title={card.heading}
+                        key={card.sys?.id}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+            {data.page.river && <River items={data.page.river.items} />}
+          </div>
+        </Layout>
       )}
-    </Layout>
+    </>
   );
 };

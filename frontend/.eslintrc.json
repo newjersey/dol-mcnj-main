@@ -21,5 +21,6 @@
     "@typescript-eslint/no-empty-function": "off",
     "react-hooks/exhaustive-deps": "off",
     "cypress/no-unnecessary-waiting": "off"
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }

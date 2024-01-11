@@ -6,6 +6,7 @@ import { MajorGroup } from "./MajorGroup";
 import { Typeahead } from "./Typeahead";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -18,10 +19,6 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
   const [occupationLookup, setOccupationLookup] = useState<
     Record<MajorGroupName, InDemandOccupation[]>
   >({});
-
-  useEffect(() => {
-    document.title = t("InDemandPage.pageTitle");
-  }, [t]);
 
   useEffect(() => {
     props.client.getInDemandOccupations({
@@ -54,24 +51,22 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
     ));
   };
 
+  usePageTitle("In-Demand Occupations | New Jersey Career Central");
+
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: "In-Demand Occupations | New Jersey Career Central",
+        pageDescription:
+          "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
 
         <p>{t("InDemandPage.description")}</p>
-        <a
-          className="link-format-blue"
-          style={{
-            margin: "1rem 0",
-            display: "block",
-          }}
-          href="https://www.nj.gov/labor/career-services/tools-support/demand-occupations/waivers.shtml"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {t("InDemandPage.descriptionTextLink")}.
-        </a>
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />
         </div>

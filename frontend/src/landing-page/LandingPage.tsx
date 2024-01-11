@@ -11,6 +11,7 @@ import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
 import { UpdateNotifier } from "../components/UpdateNotifier";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -23,8 +24,18 @@ export const LandingPage = (props: Props): ReactElement => {
 
   const pageData = data?.homePage;
 
+  usePageTitle(pageData?.title);
+
+  const seoObject = {
+    title: pageData?.title,
+    description: pageData?.pageDescription,
+    image: pageData?.ogImage?.url,
+    keywords: pageData?.keywords,
+    url: props.location?.pathname,
+  };
+
   return (
-    <Layout client={props.client} noPad>
+    <Layout client={props.client} noPad seo={seoObject}>
       <div className="home-page">
         {data && (
           <>
@@ -44,10 +55,10 @@ export const LandingPage = (props: Props): ReactElement => {
                       item.sectionIcon === "explore"
                         ? "Explore"
                         : item.sectionIcon === "jobs"
-                        ? "Jobs"
-                        : item.sectionIcon === "support"
-                        ? "Support"
-                        : "Training";
+                          ? "Jobs"
+                          : item.sectionIcon === "support"
+                            ? "Support"
+                            : "Training";
                     return (
                       <IconCard
                         key={item.sys.id}
@@ -73,7 +84,7 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-{/*            <CardSlider
+            {/*            <CardSlider
               sectionId="explore"
               cards={pageData.careerExplorationToolLinksCollection.items}
               heading="All Career Exploration Tools"
