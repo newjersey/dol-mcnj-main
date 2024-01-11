@@ -1,1 +1,1 @@
-DELETE FROM indemandsocs WHERE soc='49-9021';
+DELETE FROM localexceptioncips WHERE soc='49-9021';
