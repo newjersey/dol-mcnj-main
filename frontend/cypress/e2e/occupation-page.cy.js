@@ -219,19 +219,19 @@ describe("Occupation Page", () => {
       cy.get(".card")
         .eq(0)
         .within(() => {
-          cy.contains("IT-1000 IT Support Professional").should("exist");
+          cy.contains("CCNA (Cisco Certified Network Associate)").should("exist");
         });
       
       cy.get(".card")
         .eq(1)
         .within(() => {
-          cy.contains("Data Analytics Career Track").should("exist");
+          cy.contains("CCNA (CISCO Cert Network Administrator)").should("exist");
         });
       
       cy.get(".card")
         .eq(2)
         .within(() => {
-          cy.contains("Guided IT Microbachelors with ShiftUp").should("exist");
+          cy.contains("Cyber Crime Investigation").should("exist");
         });
     });
   });

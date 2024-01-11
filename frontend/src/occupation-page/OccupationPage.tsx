@@ -260,7 +260,6 @@ export const OccupationPage = (props: Props): ReactElement => {
                   <Grouping
                     title={t("OccupationPage.dayInTheLifeGroupHeader")}
                     backgroundColorClass="bg-purple"
-                    id='occupation-details'
                   >
                     <>
                       {getTasksList(occupationDetail.tasks, 'occupation-details')}
