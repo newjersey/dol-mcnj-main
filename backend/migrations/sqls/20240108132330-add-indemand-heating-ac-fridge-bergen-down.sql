@@ -1,1 +1,0 @@
-DELETE FROM indemandsocs WHERE soc='49-9021';

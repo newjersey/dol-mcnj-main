@@ -1,1 +1,0 @@
-INSERT INTO indemandsocs (soc, occupationtitle) values ('49-9021','Heating, Air Conditioning, and Refrigeration Mechanics and Installers');
