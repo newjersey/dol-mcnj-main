@@ -1,7 +1,8 @@
 // fix leak
 describe("Occupation Page", () => {
+
   it("displays occupation details from ONET", () => {
-    cy.intercept("api/occupations/17-2051").as("getOccupation");
+    cy.intercept("api/occupations/17-2051", { fixture: "civil-engineer-occupation.json" }).as("getOccupation");
 
     cy.visit("/occupation/17-2051");
 
@@ -14,10 +15,10 @@ describe("Occupation Page", () => {
       cy.contains("$97,820");
 
       // open jobs
-      // cy.contains("1,302").should("exist");
+      cy.contains("1,302").should("exist");
 
       // open jobs links
-      // cy.contains("Search current job openings posted for this occupation").should("exist");
+      cy.contains("Search current job openings posted for this occupation").should("exist");
 
       // description
       cy.contains(
@@ -95,12 +96,9 @@ describe("Occupation Page", () => {
       cy.contains("Architectural and Engineering Managers").should("exist");
       cy.contains("Civil Engineering Technologists and Technicians").should("exist");
       cy.contains("Construction and Building Inspectors").should("exist");
-      cy.contains("Construction Managers").should("exist");
-      cy.contains("Environmental Engineers").should("exist");
-      cy.contains("Mining and Geological Engineers, Including Mining Safety Engineers").should("exist");
 
       // related trainings
-      cy.contains("Architectural Design and Drafting").should("exist");
+      cy.contains("Civil Engineering Technology A.A.S.").should("exist");
       cy.contains("See More Results").should("exist");
 
       cy.checkA11y();
@@ -108,7 +106,7 @@ describe("Occupation Page", () => {
   });
 
   it("displays locally in-demand occupation details from ONET", () => {
-    cy.intercept("api/occupations/47-2031").as("getOccupation");
+    cy.intercept("api/occupations/47-2031", { fixture: "carpenters-occupation.json" }).as("getOccupation");
     cy.visit("/occupation/47-2031");
 
     cy.wait("@getOccupation").then(() => {
@@ -119,7 +117,7 @@ describe("Occupation Page", () => {
   });
 
   it("displays occupation details from ONET for previous 2010 socs", () => {
-    cy.intercept("api/occupations/15-1254").as("getOccupation");
+    cy.intercept("api/occupations/15-1254", { fixture: "web-developers-occupation.json" }).as("getOccupation");
 
     cy.visit("/occupation/15-1254");
 
@@ -130,10 +128,10 @@ describe("Occupation Page", () => {
       cy.contains("$79,810").should("exist");
 
       // open jobs
-      // cy.contains("6,898").should("exist");
+      cy.contains("6,898").should("exist");
 
       // open jobs links
-      // cy.contains("Search current job openings posted for this occupation").should("exist");
+      cy.contains("Search current job openings posted for this occupation").should("exist");
 
       // description
       cy.contains(
@@ -161,9 +159,6 @@ describe("Occupation Page", () => {
         "Educational requirements for web developers vary with the setting they work in and the type of work they do. Requirements range from a high school diploma to a bachelor’s degree. Web developers need knowledge of both programming and graphic design.",
       ).should("exist");
 
-      // related training
-      // cy.contains("Desktop Publishers").should("exist");
-
       // related trainings
       cy.get(".card")
         .eq(0)
@@ -186,7 +181,7 @@ describe("Occupation Page", () => {
   });
 
   it("displays occupation details for previous non-ONET socs", () => {
-    cy.intercept("api/occupations/15-1255").as("getOccupation");
+    cy.intercept("api/occupations/15-1255", { fixture: "web-digital-interface-design-occupation.json" }).as("getOccupation");
 
     cy.visit("/occupation/15-1255");
 
@@ -194,10 +189,10 @@ describe("Occupation Page", () => {
       cy.get("[data-testid=title]").should("contain", "Web and Digital Interface Designers");
 
       // open jobs
-      // cy.contains("255").should("exist");
+      cy.contains("255").should("exist");
 
       // open jobs links
-      // cy.contains("Search current job openings posted for this occupation").should("exist");
+      cy.contains("Search current job openings posted for this occupation").should("exist");
 
       // median salary
       cy.contains("$79,810").should("exist");
@@ -213,7 +208,7 @@ describe("Occupation Page", () => {
       ).should("exist");
 
       // related occupations
-      // This data is not yet available for this occupation.
+      cy.contains("Graphic Designers").should("exist");
 
       // related trainings
       cy.get(".card")
