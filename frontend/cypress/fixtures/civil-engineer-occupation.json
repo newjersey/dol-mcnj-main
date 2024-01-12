@@ -1,0 +1,230 @@
+{
+  "soc": "17-2051",
+  "title": "Civil Engineers",
+  "medianSalary": 97820,
+  "openJobsCount": 1302,
+  "description": "Perform engineering duties in planning, designing, and overseeing construction and maintenance of building structures and facilities, such as roads, railroads, airports, bridges, harbors, channels, dams, irrigation projects, pipelines, power plants, and water and sewage systems.",
+  "tasks": [
+    "Direct engineering activities, ensuring compliance with environmental, safety, or other governmental regulations.",
+    "Manage and direct the construction, operations, or maintenance activities at project site.",
+    "Inspect project sites to monitor progress and ensure conformance to design specifications and safety or sanitation standards.",
+    "Compute load and grade requirements, water flow rates, or material stress factors to determine design specifications.",
+    "Plan and design transportation or hydraulic systems or structures, using computer-assisted design or drawing tools.",
+    "Provide technical advice to industrial or managerial personnel regarding design, construction, program modifications, or structural repairs.",
+    "Analyze survey reports, maps, drawings, blueprints, aerial photography, or other topographical or geologic data.",
+    "Direct or participate in surveying to lay out installations or establish reference points, grades, or elevations to guide construction.",
+    "Estimate quantities and cost of materials, equipment, or labor to determine project feasibility.",
+    "Prepare or present public reports on topics such as bid proposals, deeds, environmental impact statements, or property and right-of-way descriptions.",
+    "Design energy-efficient or environmentally sound civil structures.",
+    "Test soils or materials to determine the adequacy and strength of foundations, concrete, asphalt, or steel.",
+    "Identify environmental risks and develop risk management strategies for civil engineering projects.",
+    "Conduct studies of traffic patterns or environmental conditions to identify engineering problems and assess potential project impact.",
+    "Analyze manufacturing processes or byproducts to identify engineering solutions to minimize the output of carbon or other pollutants."
+  ],
+  "education": "Civil engineers need a bachelor’s degree in civil engineering, in one of its specialties, or in civil engineering technology. They typically need a graduate degree and licensure for promotion to senior positions. Although licensure requirements vary by state, civil engineers usually must be licensed if they provide services directly to the public.",
+  "relatedOccupations": [
+    {
+      "title": "Architects, Except Landscape and Naval",
+      "soc": "17-1011"
+    },
+    {
+      "title": "Architectural and Civil Drafters",
+      "soc": "17-3011"
+    },
+    {
+      "title": "Architectural and Engineering Managers",
+      "soc": "11-9041"
+    },
+    {
+      "title": "Civil Engineering Technologists and Technicians",
+      "soc": "17-3022"
+    },
+    {
+      "title": "Construction and Building Inspectors",
+      "soc": "47-4011"
+    }
+  ],
+  "relatedTrainings": [
+    {
+      "id": "10808",
+      "name": "Civil Engineering Technology A.A.S.",
+      "cipCode": "140801",
+      "totalCost": 12645,
+      "percentEmployed": null,
+      "calendarLength": 9,
+      "totalClockHours": 1035,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "710",
+      "providerName": "Middlesex County College",
+      "city": "Edison",
+      "zipCode": "08818",
+      "county": "Middlesex County",
+      "inDemand": true,
+      "highlight": "",
+      "rank": 0,
+      "socCodes": [
+        "11-9041",
+        "17-2051",
+        "25-1032"
+      ],
+      "hasEveningCourses": true,
+      "languages": [],
+      "isWheelchairAccessible": true,
+      "hasJobPlacementAssistance": true,
+      "hasChildcareAssistance": true
+    },
+    {
+      "id": "38828",
+      "name": "Architectural Design and Drafting",
+      "cipCode": "140801",
+      "totalCost": 4325,
+      "percentEmployed": 0.6,
+      "calendarLength": 6,
+      "totalClockHours": 240,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "7984",
+      "providerName": "LasComp Institute of Information Technology",
+      "city": "Hackensack",
+      "zipCode": "07601",
+      "county": "Bergen County",
+      "inDemand": true,
+      "highlight": "",
+      "rank": 0,
+      "socCodes": [
+        "11-9041",
+        "17-2051",
+        "25-1032"
+      ],
+      "hasEveningCourses": true,
+      "languages": [
+        "Indic/Hindu",
+        "OtherLanguages"
+      ],
+      "isWheelchairAccessible": true,
+      "hasJobPlacementAssistance": true,
+      "hasChildcareAssistance": false
+    },
+    {
+      "id": "44943",
+      "name": "Architectural Design and Drafting",
+      "cipCode": "140801",
+      "totalCost": 4075,
+      "percentEmployed": 0.5,
+      "calendarLength": 6,
+      "totalClockHours": 240,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "8779",
+      "providerName": "LasComp Institute of Information Technology",
+      "city": "Wayne",
+      "zipCode": "07470",
+      "county": "Passaic County",
+      "inDemand": true,
+      "highlight": "",
+      "rank": 0,
+      "socCodes": [
+        "11-9041",
+        "17-2051",
+        "25-1032"
+      ],
+      "hasEveningCourses": true,
+      "languages": [
+        "Indic/Hindu",
+        "Korean",
+        "OtherLanguages"
+      ],
+      "isWheelchairAccessible": true,
+      "hasJobPlacementAssistance": true,
+      "hasChildcareAssistance": false
+    },
+    {
+      "id": "38795",
+      "name": "Architectural Design and Drafting",
+      "cipCode": "140801",
+      "totalCost": 4075,
+      "percentEmployed": null,
+      "calendarLength": 6,
+      "totalClockHours": 240,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "1250",
+      "providerName": "LasComp Institute of Information Technology",
+      "city": "Montvale",
+      "zipCode": "07645",
+      "county": "Bergen County",
+      "inDemand": true,
+      "highlight": "",
+      "rank": 0,
+      "socCodes": [
+        "11-9041",
+        "17-2051",
+        "25-1032"
+      ],
+      "hasEveningCourses": true,
+      "languages": [],
+      "isWheelchairAccessible": true,
+      "hasJobPlacementAssistance": true,
+      "hasChildcareAssistance": false
+    },
+    {
+      "id": "43084",
+      "name": "Structural Engineering/Design",
+      "cipCode": "140803",
+      "totalCost": 4000,
+      "percentEmployed": null,
+      "calendarLength": 5,
+      "totalClockHours": 105,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "7893",
+      "providerName": "Robotech Computer Aided Design Solutions",
+      "city": "Hoboken",
+      "zipCode": "07030",
+      "county": "Hudson County",
+      "inDemand": true,
+      "highlight": "",
+      "rank": 0,
+      "socCodes": [
+        "11-9041",
+        "17-2051",
+        "25-1032"
+      ],
+      "hasEveningCourses": true,
+      "languages": [],
+      "isWheelchairAccessible": true,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false
+    },
+    {
+      "id": "51667",
+      "name": "4 Hour DOT Flagger",
+      "cipCode": "140804",
+      "totalCost": 215,
+      "percentEmployed": null,
+      "calendarLength": 1,
+      "totalClockHours": 4,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "9416",
+      "providerName": "Soulful Synergy, LLC",
+      "city": "Queens Village",
+      "zipCode": "11429",
+      "county": "Out of State County",
+      "inDemand": true,
+      "highlight": "",
+      "rank": 0,
+      "socCodes": [
+        "11-9041",
+        "17-2051",
+        "25-1032"
+      ],
+      "hasEveningCourses": true,
+      "languages": [],
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": true,
+      "hasChildcareAssistance": false
+    }
+  ]
+}
