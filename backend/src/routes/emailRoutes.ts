@@ -4,7 +4,15 @@ import AWS from "aws-sdk";
 
 const router = express.Router();
 
-const pinpoint = new AWS.Pinpoint();
+let pinpointEndpoint = '';
+if (process.env.NODE_ENV === 'awsprod' || process.env.NODE_ENV === 'awsdev' || process.env.NODE_ENV === 'awstest') {
+  pinpointEndpoint = process.env.AWS_PINPOINT_ENDPOINT;
+}
+
+const pinpoint = new AWS.Pinpoint({
+  region: process.env.AWS_REGION,
+  endpoint: pinpointEndpoint // Conditionally use the VPC endpoint URL for Pinpoint
+});
 
 router.post("/submit-email", async (req, res) => {
   const { email } = req.body;
