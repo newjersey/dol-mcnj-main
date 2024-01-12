@@ -16,7 +16,7 @@
     "@testing-library/react": "^12.1.5",
     "@types/accounting": "^0.4.5",
     "@types/jest": "^29.5.11",
-    "@types/react": "^16.14.31",
+    "@types/react": "^16.14.55",
     "@types/react-dom": "^16.9.16",
     "@typescript-eslint/parser": "^6.18.1",
     "accounting": "^0.4.1",
@@ -99,6 +99,9 @@
       "typescript": "^5"
     },
     "nodegit": "npm:empty-npm-package@1.0.0"
+  },
+  "paths": {
+    "react": [ "./node_modules/@types/react" ]
   },
   "engines": {
     "node": "^18.17.0",
