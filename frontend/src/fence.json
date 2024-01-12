@@ -23,6 +23,8 @@
     "markdown-it",
     "react-dom",
     "react-dom/test-utils",
+    "react-ga",
+    "react-helmet",
     "react-i18next",
     "react-to-print",
     "react-tooltip",

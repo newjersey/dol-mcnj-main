@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -38,7 +39,6 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   useEffect(() => {
     if (occupationDetail) {
-      document.title = `${occupationDetail.title}`;
       setIsLoading(false);
     }
   }, [occupationDetail, isLoading]);
@@ -140,9 +140,22 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
+  usePageTitle(
+    occupationDetail
+      ? `${occupationDetail.title} | Occupation | New Jersey Career Central`
+      : "Occupation | New Jersey Career Central",
+  );
+
   if (occupationDetail) {
     return (
-      <Layout client={props.client}>
+      <Layout
+        client={props.client}
+        seo={{
+          title: `${occupationDetail.title} | Occupation | New Jersey Career Central`,
+          pageDescription: occupationDetail.description,
+          url: props.location?.pathname,
+        }}
+      >
         <div className="container">
           <div className="detail-page">
             <div className="page-banner">
@@ -357,7 +370,14 @@ export const OccupationPage = (props: Props): ReactElement => {
     );
   } else if (isLoading) {
     return (
-      <Layout noFooter client={props.client}>
+      <Layout
+        noFooter
+        client={props.client}
+        seo={{
+          title: "Occupation | New Jersey Career Central",
+          url: props.location?.pathname,
+        }}
+      >
         <div className="fdc page">
           <main className="container page fdr fjc fac ptl" role="main">
             <CircularProgress color="secondary" />

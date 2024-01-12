@@ -1,5 +1,7 @@
 .tab-content {
-  margin-top: 2.5rem;
+  @media screen and (min-width: ($tablet-md)) {
+    margin-top: 2.5rem;
+  }
 
   .container {
     display: flex;
@@ -10,6 +12,12 @@
 
     @media screen and (min-width: ($tablet-md)) {
       flex-direction: row-reverse;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      &:before {
+        content: none;
+      }
     }
   }
   .nav-title {
@@ -42,8 +50,12 @@
     width: $size-300;
 
     @media screen and (max-width: ($tablet-md - 1)) {
-      top: $size-16;
-      width: 100%;
+      background-color: $white;
+      padding-top: $size-16;
+      top: 0;
+      width: calc(100% + $size-32);
+      margin-left: -$size-16;
+      box-shadow: $shadow-2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -56,13 +68,16 @@
 
     @media screen and (max-width: ($tablet-md - 1)) {
       margin: 0 auto;
-      box-shadow: $shadow-1;
       position: absolute;
       top: 100%;
       left: 50%;
       width: 100%;
-      max-width: $size-400;
+      padding: 0 $size-16 $size-16;
       transform: translateX(-50%);
+      box-shadow: $shadow-2;
+      max-height: calc(100vh - $size-96);
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     &.closed {
@@ -70,6 +85,7 @@
         height: 0;
         overflow: hidden;
         width: 0;
+        box-shadow: n;
         position: absolute;
         top: 0;
         left: 0;

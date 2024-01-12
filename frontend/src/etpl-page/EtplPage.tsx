@@ -24,6 +24,7 @@ import ProLiteracy from "./agency-icons/proliteracy.svg";
 import { ContactUsSection } from "../components/ContactUsSection";
 import { Trans, useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
 
 const LINKS = {
   applicationPacketLink:
@@ -386,8 +387,18 @@ export const EtplPage = (props: Props): ReactElement => {
     );
   };
 
+  usePageTitle("ETPL | New Jersey Career Central");
+
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: "ETPL | New Jersey Career Central",
+        pageDescription:
+          "A checklist of steps to get on the Eligible Training Provider List (ETPL)",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <div className="row">
           <div className="col-md-10">

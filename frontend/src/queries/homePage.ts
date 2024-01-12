@@ -1,7 +1,8 @@
+import { SEO_QUERY } from "./seoQuery";
+
 export const HOMEPAGE_QUERY = `{
   homePage(id: "5hkY1ZOF5AgFW18UpzJRn1") {
-    title
-    pageDescription
+    ${SEO_QUERY}
     bannerButtonCopy
     bannerImage {
       url

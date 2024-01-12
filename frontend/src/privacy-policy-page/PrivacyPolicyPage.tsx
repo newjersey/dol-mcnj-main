@@ -2,14 +2,24 @@ import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const PrivacyPolicyPage = (props: Props): ReactElement => {
+  usePageTitle("Privacy Policy | New Jersey Career Central");
+
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: `Privacy Policy | New Jersey Career Central`,
+        pageDescription: "Privacy Policy and Information Collection Statement",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <div className="row mbm">
           <div className="col-sm-12">

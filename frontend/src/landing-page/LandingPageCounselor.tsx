@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { RouteComponentProps, Link, navigate } from "@reach/router";
+import { RouteComponentProps, navigate } from "@reach/router";
 import { LandingCard } from "./LandingCard";
 import IconList from "./landing-icons/list.svg";
 import IconOccupation from "./landing-icons/occupations.svg";
@@ -9,6 +9,7 @@ import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -18,8 +19,17 @@ export const LandingPageCounselor = (props: Props): ReactElement => {
   const isTablet = useMediaQuery("(min-width:768px)");
   const { t } = useTranslation();
 
+  usePageTitle("Counselor | New Jersey Career Central");
+
   return (
-    <Layout client={props.client}>
+    <Layout
+      client={props.client}
+      seo={{
+        title: "Counselor | New Jersey Career Central",
+        pageDescription: "Find Training and Educational Opportunities in New Jersey",
+        url: props.location?.pathname,
+      }}
+    >
       <div className="container">
         <div className="landing-container mla mra">
           <h2 className="mtm mbd text-xl weight-500 align-center">{t("CounselorPage.header")}</h2>
@@ -80,27 +90,6 @@ export const LandingPageCounselor = (props: Props): ReactElement => {
                 </div>
               </>
             </LandingCard>
-          </div>
-
-          <h3 className="mtl mbd text-l weight-500 align-center">
-            {t("CounselorPage.sectionFourHeader")}
-          </h3>
-          <div className={`${isTablet && "landing-grid"} mam mbl align-center`}>
-            <Link className="link-format-blue" to="/faq/data-sources">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPage.dataFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/labor-demand-occupations">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPage.occupationsFaq")}
-              </LandingCard>
-            </Link>
-            <Link className="link-format-blue" to="/faq/funding-opportunities">
-              <LandingCard className={`height-100 weight-500 text-m ${!isTablet && "mbm"}`}>
-                {t("CounselorPage.fundingFaq")}
-              </LandingCard>
-            </Link>
           </div>
 
           <ContactUsSection />
