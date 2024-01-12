@@ -6,7 +6,7 @@ const router = express.Router();
 
 let pinpointEndpoint = '';
 if (process.env.NODE_ENV === 'awsprod' || process.env.NODE_ENV === 'awsdev' || process.env.NODE_ENV === 'awstest') {
-  pinpointEndpoint = process.env.AWS_PINPOINT_ENDPOINT;
+  pinpointEndpoint = process.env.AWS_PINPOINT_ENDPOINT as string;
 }
 
 const pinpoint = new AWS.Pinpoint({
