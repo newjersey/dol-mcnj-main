@@ -41,7 +41,6 @@ export const OccupationPage = (props: Props): ReactElement => {
     if (occupationDetail) {
       setIsLoading(false);
     }
-    console.log(JSON.stringify(occupationDetail))
   }, [occupationDetail, isLoading]);
 
   useEffect(() => {
