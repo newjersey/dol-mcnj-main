@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
+import {Client} from "../domain/Client";
 
-const Experience = () => {
+interface ExperienceProps {
+    path?: string;
+    client?: Client;
+}
+
+const Experience: React.FC<ExperienceProps> = ({ path, client }) => {
     useEffect(() => {
         // Redirect to an external URL as soon as the component mounts
         window.location.href = 'https://mycareer.nj.gov/navigator/#/experience';
