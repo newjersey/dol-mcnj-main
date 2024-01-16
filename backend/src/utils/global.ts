@@ -1,11 +1,10 @@
-import cloudwatchLogger from "./cloudwatchLogger";
-import sentryLogger from "./sentryLogger";
+import cloudwatchLogger from './cloudwatchLogger';
+import sentryLogger from './sentryLogger';
 
 (function overrideConsoleMethods() {
-  const isAwsEnvironment =
-    process.env.NODE_ENV === "awsprod" ||
-    process.env.NODE_ENV === "awstest" ||
-    process.env.NODE_ENV === "awsdev";
+  const isAwsEnvironment = process.env.NODE_ENV === 'awsprod' ||
+      process.env.NODE_ENV === 'awstest' ||
+      process.env.NODE_ENV === 'awsdev';
 
   const statusDict: Array<string> = ["error", "warn", "info", "http", "verbose", "debug"];
   const originalConsoleLog = console.log;
@@ -38,22 +37,22 @@ import sentryLogger from "./sentryLogger";
   console.log = logMessage;
 
   console.info = function (...args) {
-    const message = args.join(" ");
-    logMessage(message, "info");
+    const message = args.join(' ');
+    logMessage(message, 'info');
   };
 
   console.warn = function (...args) {
-    const message = args.join(" ");
-    logMessage(message, "warn");
+    const message = args.join(' ');
+    logMessage(message, 'warn');
   };
 
   console.error = function (...args) {
-    const message = args.join(" ");
-    logMessage(message, "error");
+    const message = args.join(' ');
+    logMessage(message, 'error');
   };
 
   console.debug = function (...args) {
-    const message = args.join(" ");
-    logMessage(message, "debug");
+    const message = args.join(' ');
+    logMessage(message, 'debug');
   };
 })();

@@ -1,7 +1,6 @@
 {
   "tags": ["frontend"],
   "dependencies": [
-    "aws-sdk",
     "@contentful/rich-text-react-renderer",
     "@contentful/rich-text-types",
     "@material-ui/core",
