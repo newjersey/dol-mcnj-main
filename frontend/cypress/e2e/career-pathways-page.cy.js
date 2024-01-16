@@ -28,4 +28,3 @@ describe("Career Pathways Page", () => {
     cy.get("button.close").first().click();
   });
 });
-

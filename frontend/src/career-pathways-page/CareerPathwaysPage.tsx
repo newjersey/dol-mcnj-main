@@ -18,6 +18,7 @@ import { CtaBanner } from "../components/CtaBanner";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { Stepper } from "../components/Stepper";
 import { HowToUse } from "../components/modules/HowToUse";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -47,6 +48,8 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
       setIndustry(industryData?.industryCollection.items[0]);
     }
   }, [industryData]);
+
+  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
 
   useEffect(() => {
     if ((occupation !== undefined || occupation !== null || occupation !== "") && occupation) {
@@ -99,10 +102,24 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     });
   }
 
+  const seoObject = {
+    title: `${data?.page.title} | New Jersey Career Central`,
+    description: data?.page.pageDescription,
+    image: data?.page.ogImage?.url,
+    keywords: data?.page.keywords,
+    url: props.location?.pathname,
+  };
+
   return (
     <>
       {data && (
-        <Layout client={props.client} theme="support" noPad className="career-pathways-page">
+        <Layout
+          client={props.client}
+          theme="support"
+          noPad
+          className="career-pathways-page"
+          seo={seoObject}
+        >
           <PageBanner
             {...data.page.pageBanner}
             breadcrumbsCollection={breadcrumbs}
