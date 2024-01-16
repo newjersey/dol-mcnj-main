@@ -192,7 +192,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: `Search results for "${props.searchQuery}" | New Jersey Career Central`,
+        title: `Advanced Search | Training Explorer | New Jersey Career Central`,
         url: props.location?.pathname,
       }}
     >
