@@ -63,7 +63,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
   const nav = (): ReactElement => {
     return (
       <>
-        <nav id="usaNav" className="usa-nav-container">
+        <nav id="usaNav" className="usa-nav-container" aria-label="main-navigation">
           <div className="basic-logo" id="basic-logo">
             <a href="/" aria-label="New Jersey Career Central">
               <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
