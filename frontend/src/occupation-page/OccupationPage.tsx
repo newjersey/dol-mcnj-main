@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -74,7 +75,7 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getTasksList = (tasks: string[]): ReactElement => {
+  const getTasksList = (tasks: string[], dataTestId?: string): ReactElement => {
     let tasksToShow = tasks;
     if (tasks.length > 5 && !isOpen) {
       tasksToShow = tasks.slice(0, 5);
@@ -84,7 +85,7 @@ export const OccupationPage = (props: Props): ReactElement => {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
-        <ul>
+        <ul data-testid={dataTestId}>
           {tasksToShow.map((task, key) => (
             <li key={key}>{task}</li>
           ))}
@@ -138,6 +139,12 @@ export const OccupationPage = (props: Props): ReactElement => {
       );
     }
   };
+
+  usePageTitle(
+    occupationDetail
+      ? `${occupationDetail.title} | Occupation | New Jersey Career Central`
+      : "Occupation | New Jersey Career Central",
+  );
 
   if (occupationDetail) {
     return (
@@ -255,7 +262,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                     backgroundColorClass="bg-purple"
                   >
                     <>
-                      {getTasksList(occupationDetail.tasks)}
+                      {getTasksList(occupationDetail.tasks, 'occupation-details')}
                       {seeMore(occupationDetail.tasks)}
                     </>
                   </Grouping>

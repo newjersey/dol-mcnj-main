@@ -1,4 +1,4 @@
-import { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useEffect, useReducer, useState } from "react";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -7,9 +7,10 @@ import { TermsOfServicePage } from "./terms-of-service-page/TermsOfServicePage";
 import { FaqPage } from "./faq-page/FaqPage";
 import { TrainingProviderPage } from "./training-provider-page/TrainingProviderPage";
 import { Client } from "./domain/Client";
-import { Router, globalHistory } from "@reach/router";
+import { Router, Redirect, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
+import ReactGA from "react-ga";
 import {
   initialFilterState,
   FilterReducer,
@@ -86,6 +87,10 @@ export const App = (props: Props): ReactElement => {
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
+  useEffect(() => {
+    ReactGA.initialize("G-THV625FWWB", {});
+  }, []);
+
   return (
       <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
         <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
@@ -102,7 +107,9 @@ export const App = (props: Props): ReactElement => {
                 <LandingPageExplorer path="/training/explorer" client={props.client} />
                 {FaqRoutes({ client: props.client })}
                 <SearchResultsPage path="/search" client={props.client} />
+                <Redirect from="/search" to="/training/search" />
                 <SearchResultsPage path="/search/:searchQuery" client={props.client} />
+                <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
                 <TrainingPage path="/training/:id" client={props.client} />
                 <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
                 <OccupationPage path="/occupation/:soc" client={props.client} />
