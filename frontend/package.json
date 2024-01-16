@@ -18,7 +18,7 @@
     "@types/jest": "^29.5.11",
     "@types/react": "^16.14.55",
     "@types/react-dom": "^16.9.16",
-    "@typescript-eslint/parser": "^6.18.1",
+    "@typescript-eslint/parser": "^6.19.0",
     "accounting": "^0.4.1",
     "axios": "^1.6.5",
     "contentful": "^10.6.16",
