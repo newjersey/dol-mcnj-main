@@ -1,24 +1,3 @@
-// Define at the top of the spec file or just import it
-function terminalLog(violations) {
-  cy.task(
-    'log',
-    `${violations.length} accessibility violation${
-      violations.length === 1 ? '' : 's'
-    } ${violations.length === 1 ? 'was' : 'were'} detected`
-  )
-  // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes.length
-    })
-  )
-
-  cy.task('table', violationData)
-};
-
 describe("Career Pathways Page", () => {
   it("is accessible", () => {
     cy.visit("/career-pathways");
@@ -27,7 +6,7 @@ describe("Career Pathways Page", () => {
     cy.contains("Explore popular industries and careers in the state of New Jersey.").should(
       "exist",
     );
-    cy.checkA11y(null, null, terminalLog);
+    cy.checkA11y();
   });
 
   it("pathway is accessible", () => {
@@ -37,7 +16,7 @@ describe("Career Pathways Page", () => {
     cy.contains(
       "Select a field and explore different career pathways or click the tool tip to learn more about it.",
     ).should("exist");
-    cy.checkA11y(null, null, terminalLog);
+    cy.checkA11y();
   });
 
   it("toggle open close industry detail tray", () => {
