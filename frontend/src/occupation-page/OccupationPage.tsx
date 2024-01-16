@@ -74,7 +74,7 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getTasksList = (tasks: string[], dataTestId?: string): ReactElement => {
+  const getTasksList = (tasks: string[]): ReactElement => {
     let tasksToShow = tasks;
     if (tasks.length > 5 && !isOpen) {
       tasksToShow = tasks.slice(0, 5);
@@ -84,7 +84,7 @@ export const OccupationPage = (props: Props): ReactElement => {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       return (
-        <ul data-testid={dataTestId}>
+        <ul>
           {tasksToShow.map((task, key) => (
             <li key={key}>{task}</li>
           ))}
@@ -255,7 +255,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                     backgroundColorClass="bg-purple"
                   >
                     <>
-                      {getTasksList(occupationDetail.tasks, 'occupation-details')}
+                      {getTasksList(occupationDetail.tasks)}
                       {seeMore(occupationDetail.tasks)}
                     </>
                   </Grouping>

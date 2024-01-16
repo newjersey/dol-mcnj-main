@@ -46,10 +46,10 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
                   activeSection.index % 4 === 0
                     ? " secondary"
                     : activeSection.index % 4 === 1
-                      ? " tertiary"
-                      : activeSection.index % 4 === 2
-                        ? " primary"
-                        : " quaternary"
+                    ? " tertiary"
+                    : activeSection.index % 4 === 2
+                    ? " primary"
+                    : " quaternary"
                 }`}
                 type="link"
                 url={activeSection.link.url}

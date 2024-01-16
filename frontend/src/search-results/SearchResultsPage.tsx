@@ -24,7 +24,6 @@ interface Props extends RouteComponentProps {
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
-  const isTabletAndBelow = useMediaQuery("(max-width:767px)");
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
@@ -195,42 +194,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     >
       {isTabletAndUp && (
         <div className="container results-count-container">
-          <nav className="usa-breadcrumb " aria-label="Breadcrumbs">
-            <ol className="usa-breadcrumb__list">
-              <li className="usa-breadcrumb__list-item">
-                <a className="usa-breadcrumb__link" href="/">
-                  Home
-                </a>
-              </li>
-              <li className="usa-breadcrumb__list-item">
-                <a className="usa-breadcrumb__link" href="/training">
-                  Training Explorer
-                </a>
-              </li>
-              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                <span data-testid="title">Search</span>
-              </li>
-            </ol>
-          </nav>
-
-          <div className="row fixed-wrapper">
+          <div className="row ptd fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
               {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
             </div>
           </div>
         </div>
-      )}
-
-      {isTabletAndBelow && (
-        <>
-          <div className="container results-count-container">
-            <a className="back-link" href="/training">
-              <ArrowLeft size={24} />
-              Back
-            </a>
-          </div>
-        </>
       )}
 
       {shouldShowTrainings && (

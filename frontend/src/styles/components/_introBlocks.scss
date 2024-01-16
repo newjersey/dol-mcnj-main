@@ -82,7 +82,7 @@
 
       button {
         appearance: none;
-        background-color: $base-cool;
+        background-color: transparent;
         border-radius: $size-100;
         color: $ink;
         text-align: center;
@@ -126,23 +126,21 @@
         }
 
         &.active {
-          color: $white;
-
           &:nth-of-type(4n-1) {
             outline: none;
-            background-color: $primary;
+            background-color: $primary-light;
           }
           &:nth-of-type(4n-2) {
             outline: none;
-            background-color: $tertiary;
+            background-color: $tertiary-light;
           }
           &:nth-of-type(4n-3) {
             outline: none;
-            background-color: $secondary;
+            background-color: $secondary-light;
           }
           &:nth-of-type(4n) {
             outline: none;
-            background-color: $info;
+            background-color: $info-light;
           }
         }
 

@@ -89,41 +89,45 @@ export const App = (props: Props): ReactElement => {
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
   return (
-    <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
-      <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
-        <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
-          <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
-            <Router>
-              <LandingPage path="/" client={props.client} />
-              <TrainingExplorerPage path="/training" client={props.client} />
-              <LandingPageCounselor path="/training/counselor" client={props.client} />
-              <LandingPageExplorer path="/training/explorer" client={props.client} />
-              {FaqRoutes({ client: props.client })}
-              <SearchResultsPage path="/training/search" client={props.client} />
-              <Redirect from="/search" to="/training/search" />
-              <SearchResultsPage path="/training/search/:searchQuery" client={props.client} />
-              <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
-              <TrainingPage path="/training/:id" client={props.client} />
-              <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
-              <OccupationPage path="/occupation/:soc" client={props.client} />
-              <CareerNavigatorPage path="/career-navigator" client={props.client} />
-              <CareerPathwaysPage path="/career-pathways" client={props.client} />
-              <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />
-              <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
-              <TermsOfServicePage path="/terms-of-service" client={props.client} />
-              <FaqPage path="/faq" client={props.client} />
-              <TrainingProviderPage path="/training-provider-resources" client={props.client} />
-              <AllSupportPage path="/support-resources" client={props.client} />
-              <AllSupportPage path="/support-resources" client={props.client} />
-              <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
-              <EtplPage path="/etpl" client={props.client} />
-              <NotFoundPage default client={props.client} />
-            </Router>
-            {/* <LanguageSwitchButton /> */}
-            <ContextualInfoPanel />
-          </ContextualInfoContext.Provider>
-        </FilterContext.Provider>
-      </SortContext.Provider>
-    </ComparisonContext.Provider>
+      <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
+        <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
+          <FilterContext.Provider value={{ state: filterState, dispatch: filterDispatch }}>
+            <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>
+              <Router>
+                <LandingPage path="/" client={props.client} />
+                <Login path="/login" client={props.client} />
+                <Login path="/signin" client={props.client} />
+                <Login path="/signup" client={props.client} />
+                <Experience path="/experience" client={props.client} />
+                <TrainingExplorerPage path="/training" client={props.client} />
+                <LandingPageCounselor path="/training/counselor" client={props.client} />
+                <LandingPageExplorer path="/training/explorer" client={props.client} />
+                {FaqRoutes({ client: props.client })}
+                <SearchResultsPage path="/training/search" client={props.client} />
+                <Redirect from="/search" to="/training/search" />
+                <SearchResultsPage path="/training/search/:searchQuery" client={props.client} />
+                <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
+                <TrainingPage path="/training/:id" client={props.client} />
+                <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
+                <OccupationPage path="/occupation/:soc" client={props.client} />
+                <CareerNavigatorPage path="/career-navigator" client={props.client} />
+                <CareerPathwaysPage path="/career-pathways" client={props.client} />
+                <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />
+                <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
+                <TermsOfServicePage path="/terms-of-service" client={props.client} />
+                <FaqPage path="/faq" client={props.client} />
+                <TrainingProviderPage path="/training-provider-resources" client={props.client} />
+                <AllSupportPage path="/support-resources" client={props.client} />
+                <AllSupportPage path="/support-resources" client={props.client} />
+                <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
+                <EtplPage path="/etpl" client={props.client} />
+                <NotFoundPage default client={props.client} />
+              </Router>
+              {/* <LanguageSwitchButton /> */}
+              <ContextualInfoPanel />
+            </ContextualInfoContext.Provider>
+          </FilterContext.Provider>
+        </SortContext.Provider>
+      </ComparisonContext.Provider>
   );
 };
