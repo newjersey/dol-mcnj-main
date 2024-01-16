@@ -2,6 +2,7 @@
 
 cd $(git rev-parse --show-toplevel)
 
+set -e
 
 npm --prefix=frontend run lint
 npm --prefix=backend run lint

@@ -101,7 +101,9 @@
     "nodegit": "npm:empty-npm-package@1.0.0"
   },
   "paths": {
-    "react": [ "./node_modules/@types/react" ]
+    "react": [
+      "./node_modules/@types/react"
+    ]
   },
   "engines": {
     "node": "^18.17.0",

@@ -35,7 +35,7 @@ import {
 } from "./contextual-info/ContextualInfoContext";
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 // import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
-// import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
+import { CareerPathwaysPage } from "./career-pathways-page/CareerPathwaysPage";
 import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerPage";
 import * as Sentry from "@sentry/react";
 import { AllSupportPage } from "./all-support-page/AllSupportPage";

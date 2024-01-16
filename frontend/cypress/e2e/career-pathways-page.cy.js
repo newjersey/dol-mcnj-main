@@ -1,4 +1,3 @@
-/*
 describe("Career Pathways Page", () => {
   it("is accessible", () => {
     cy.visit("/career-pathways");
@@ -10,7 +9,7 @@ describe("Career Pathways Page", () => {
     cy.checkA11y();
   });
 
-  it("is accessible", () => {
+  it("pathway is accessible", () => {
     cy.visit("/career-pathways/healthcare");
     cy.injectAxe();
 
@@ -19,5 +18,14 @@ describe("Career Pathways Page", () => {
     ).should("exist");
     cy.checkA11y();
   });
+
+  it("toggle open close industry detail tray", () => {
+    let path = "/career-pathways";
+    cy.visit(path);
+    cy.get("span").contains("Healthcare").click();
+    cy.get(".explore-button").contains("Healthcare").click();
+    cy.get(".panel .open");
+    cy.get("button.close").first().click();
+  });
 });
-*/
+
