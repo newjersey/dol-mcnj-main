@@ -52,7 +52,7 @@ export const HowToUse = () => {
           >
             <X size={22} />
           </button>
-          <div className="content">
+          <section className="content" aria-label="How to Use Career Pathways">
             <div className="heading">How to use Career Pathways</div>
             <ol>
               <li>
@@ -84,7 +84,7 @@ export const HowToUse = () => {
                 },
               ]}
             />
-          </div>
+          </section>
         </div>
       </div>
     </>

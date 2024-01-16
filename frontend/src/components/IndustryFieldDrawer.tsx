@@ -42,7 +42,7 @@ export const IndustryFieldDrawer = ({
       </button>
       <div className={`overlay${open ? " open" : ""}`} id={`overlay-${slugify(title)}`} />
       <div className={`panel${open ? " open" : ""}`}>
-        <button className="close" onClick={() => setOpen(false)}>
+        <button className="close" aria-label={`Learn More About ${title} panel close`} onClick={() => setOpen(false)}>
           <X size={22} />
         </button>
         <div className="content">
