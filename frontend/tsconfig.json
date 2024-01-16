@@ -16,5 +16,8 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
+  "paths": {
+    "react": [ "./node_modules/@types/react" ]
+  },
   "include": ["src"]
 }

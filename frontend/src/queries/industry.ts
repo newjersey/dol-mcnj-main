@@ -33,6 +33,29 @@ export const INDUSTRY_QUERY = `query Industry($slug: String!) {
           numberOfJobs
         }
       }
+      occupationsCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          shortTitle
+          inDemand
+          numberOfAvailableJobs
+          medianSalary
+          salaryRangeStart
+          salaryRangeEnd
+          description
+          educationLevel
+          trainingSearchTerms
+          tasks
+          howToGetStarted
+          howToGetHere
+          education
+          experience
+          skills
+        }
+      }
       industryAccordionCollection(limit: 3) {
         items {
           sys {

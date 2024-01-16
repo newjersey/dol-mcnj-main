@@ -1,5 +1,5 @@
 // fix leak
-xdescribe("Occupation Page", () => {
+describe("Occupation Page", () => {
   it("displays occupation details from ONET", () => {
     cy.intercept("api/occupations/17-2051").as("getOccupation");
 
