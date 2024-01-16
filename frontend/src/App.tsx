@@ -10,7 +10,6 @@ import { Client } from "./domain/Client";
 import { Router, Redirect, globalHistory } from "@reach/router";
 import { NotFoundPage } from "./error/NotFoundPage";
 import { InDemandOccupationsPage } from "./in-demand-occupations-page/InDemandOccupationsPage";
-import ReactGA from "react-ga";
 import {
   initialFilterState,
   FilterReducer,
@@ -24,6 +23,8 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
+import Login from "./login/Login";
+import Experience from "./experience/Experience";
 import { LandingPageCounselor } from "./landing-page/LandingPageCounselor";
 import { LandingPageExplorer } from "./landing-page/LandingPageExplorer";
 import { EtplPage } from "./etpl-page/EtplPage";
@@ -74,15 +75,16 @@ globalHistory.listen(({ location }) => {
   }
 });
 
+
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer<SortReducer>(sortReducer, initialSortState);
   const [filterState, filterDispatch] = useReducer<FilterReducer>(
-    filterReducer,
-    initialFilterState,
+      filterReducer,
+      initialFilterState,
   );
   const [comparisonState, comparisonDispatch] = useReducer<ComparisonReducer>(
-    comparisonReducer,
-    initialComparisonState,
+      comparisonReducer,
+      initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 

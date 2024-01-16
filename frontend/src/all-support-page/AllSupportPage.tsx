@@ -8,7 +8,6 @@ import { ALL_SUPPORT_PAGE_QUERY } from "../queries/allSupportPage";
 import { PageBanner } from "../components/PageBanner";
 import { IconCard } from "../components/IconCard";
 import { FooterCta } from "../components/FooterCta";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -34,8 +33,6 @@ export const AllSupportPage = (props: Props): ReactElement => {
   if (otherAssistance) {
     filteredCategories.push(otherAssistance);
   }
-
-  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
 
   const seoObject = {
     title: `${data?.page.title} | New Jersey Career Central`,

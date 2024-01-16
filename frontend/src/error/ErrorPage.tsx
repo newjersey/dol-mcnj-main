@@ -2,7 +2,6 @@ import { ReactElement } from "react";
 import { Icon } from "@material-ui/core";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props {
   client: Client;
@@ -38,8 +37,6 @@ export const ErrorBlock = ({
 );
 
 export const ErrorPage = (props: Props): ReactElement => {
-  usePageTitle("Error | New Jersey Career Network");
-
   return (
     <Layout
       noFooter

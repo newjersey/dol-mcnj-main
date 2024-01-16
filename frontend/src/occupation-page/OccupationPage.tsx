@@ -19,7 +19,6 @@ import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -139,12 +138,6 @@ export const OccupationPage = (props: Props): ReactElement => {
       );
     }
   };
-
-  usePageTitle(
-    occupationDetail
-      ? `${occupationDetail.title} | Occupation | New Jersey Career Central`
-      : "Occupation | New Jersey Career Central",
-  );
 
   if (occupationDetail) {
     return (

@@ -2,15 +2,12 @@ import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const TermsOfServicePage = (props: Props): ReactElement => {
-  usePageTitle(`Terms of Service | New Jersey Career Central`);
-
   return (
     <Layout
       client={props.client}

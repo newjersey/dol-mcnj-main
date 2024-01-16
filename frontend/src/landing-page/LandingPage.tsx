@@ -10,7 +10,6 @@ import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -22,8 +21,6 @@ export const LandingPage = (props: Props): ReactElement => {
   });
 
   const pageData = data?.homePage;
-
-  usePageTitle(pageData?.title);
 
   const seoObject = {
     title: pageData?.title,

@@ -7,7 +7,6 @@ import { ResourceCategoryPageProps } from "../types/contentful";
 import { RESOURCE_CATEGORY_QUERY } from "../queries/resourceCategory";
 import { PageBanner } from "../components/PageBanner";
 import { ResourceList } from "../components/ResourceList";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -19,8 +18,6 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
     query: RESOURCE_CATEGORY_QUERY,
     variables: { slug: `${props.slug}` },
   });
-
-  usePageTitle(`${data?.page.items[0].title} | Support Resources | New Jersey Career Central`);
 
   return (
     <>
