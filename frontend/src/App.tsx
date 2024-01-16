@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useReducer, useState } from "react";
+import { ReactElement, useReducer, useState } from "react";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -70,6 +70,7 @@ const GA_TRACKING_ID = "G-THV625FWWB";
 globalHistory.listen(({ location }) => {
   if (typeof window.gtag === "function") {
     window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
+    ReactGA.initialize("G-THV625FWWB", {});
   }
 });
 
@@ -84,10 +85,6 @@ export const App = (props: Props): ReactElement => {
     initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
-
-  useEffect(() => {
-    ReactGA.initialize("G-THV625FWWB", {});
-  }, []);
 
   return (
     <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
