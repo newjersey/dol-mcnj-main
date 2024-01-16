@@ -12,6 +12,13 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
     sections ? { ...sections[0], index: 0 } : { index: 0 },
   );
 
+  const sectionsv1 = sections?.filter(
+    (section) => section.title !== "Career Pathways" && section.title !== "Career Navigator",
+  );
+
+  const tabContent =
+    process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" ? sections : sectionsv1;
+
   return (
     <section className="introBlocks">
       <div className="heading-box box">
@@ -24,7 +31,7 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
         <div className="inner">
           {sectionsHeading && <h2>{sectionsHeading}</h2>}
           <div className="buttons">
-            {sections?.map((section, index) => (
+            {tabContent?.map((section, index) => (
               <button
                 key={section.title}
                 className={activeSection.title === section.title ? "active" : ""}

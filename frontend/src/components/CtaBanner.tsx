@@ -26,6 +26,10 @@ const CtaBanner = ({
   links,
   theme = "navy",
 }: CtaBannerProps) => {
+  const linkItems =
+    process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true"
+      ? links
+      : links?.filter((l) => l.copy !== "NJ Career Pathways");
   return (
     <section
       className={`ctaBanner${className ? ` ${className}` : ""}${theme ? ` color-${theme}` : ""}${
@@ -40,27 +44,25 @@ const CtaBanner = ({
             </Heading>
           )}
           <div className="links">
-            {links
-              ?.filter((l) => l.copy !== "NJ Career Pathways") // TODO: remove this after career pathways is ready
-              .map((link) => {
-                const isExternal = link.url.startsWith("http");
-                return (
-                  <Button
-                    type="link"
-                    key={link.sys?.id}
-                    className="link"
-                    iconPrefix={link.iconPrefix}
-                    iconSuffix={
-                      isExternal && !noIndicator ? ("ArrowUpRight" as IconNames) : link.iconSuffix
-                    }
-                    svgFill={link.svgFill}
-                    highlight={link.highlight}
-                    svgName={link.svgName}
-                    url={link.url}
-                    copy={link.copy}
-                  />
-                );
-              })}
+            {linkItems?.map((link) => {
+              const isExternal = link.url.startsWith("http");
+              return (
+                <Button
+                  type="link"
+                  key={link.sys?.id}
+                  className="link"
+                  iconPrefix={link.iconPrefix}
+                  iconSuffix={
+                    isExternal && !noIndicator ? ("ArrowUpRight" as IconNames) : link.iconSuffix
+                  }
+                  svgFill={link.svgFill}
+                  highlight={link.highlight}
+                  svgName={link.svgName}
+                  url={link.url}
+                  copy={link.copy}
+                />
+              );
+            })}
           </div>
         </div>
       ) : (

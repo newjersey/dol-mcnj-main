@@ -98,6 +98,13 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 * `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
 * `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
 
+##### Feature Flags
+
+This will likely change as features are rolled out.
+
+* `REACT_APP_FEATURE_MULTILANG` - Enable/disable multi-language support in the React app.
+* `REACT_APP_FEATURE_CAREER_PATHWAYS` - Toggle the display of career pathways feature as well as any reference to it.
+
 ##### Database
 
 Dev and production databases are hosted in GCP as SQL instances running PostgreSQL.
@@ -199,7 +206,7 @@ Most importantly, the `backend` and `frontend` cannot import from each other.
 
 Additionally, fences are used in the backend subdirectories to enforce [dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle).
 The `routes` and `database` folders depend on the interfaces defined in `domain` (only - not on each other), and `domain` is not allowed to
-import from any of these implementation directories. 
+import from any of these implementation directories.
 
 Fences are enforced via a linting-like command that will fail when any violations are flagged:
 
