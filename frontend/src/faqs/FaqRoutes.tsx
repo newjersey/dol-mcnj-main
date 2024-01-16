@@ -1,33 +1,22 @@
-import React, { ReactElement } from "react";
-import { FaqChildcare } from "./faq-child-care";
-import { FaqEnrollProgram } from "./faq-enroll-program";
-import { FaqFundingOpportunities } from "./faq-funding-opportunities";
-import { FaqHealthInsurance } from "./faq-health-insurance";
-import { FaqJobListings } from "./faq-job-listings";
-import { FaqSearchHelp } from "./faq-search-help";
-import { FaqUnemploymentInsurance } from "./faq-unemployment-insurance";
-import { FaqDataSources } from "./faq-data-sources";
-import { FaqLaborDemandOccupations } from "./labor-demand-occupations";
-import { FaqRegisteredApprenticeship } from "./registered-apprenticeship";
-import { FaqEtplPerformanceStandards } from "./etpl-performance-standards";
-import { FaqEtplOosProvider } from "./etpl-out-of-state-provider";
+import { ReactElement } from "react";
 import { Client } from "../domain/Client";
+import { Redirect } from "@reach/router";
 
 export const FaqRoutes = ({ client }: { client: Client }): ReactElement => {
   return (
     <>
-      <FaqChildcare path="/faq/child-care" client={client} />
-      <FaqEnrollProgram path="/faq/enroll-program" client={client} />
-      <FaqHealthInsurance path="/faq/health-insurance" client={client} />
-      <FaqJobListings path="/faq/job-listings" client={client} />
-      <FaqSearchHelp path="/faq/search-help" client={client} />
-      <FaqUnemploymentInsurance path="/faq/unemployment-insurance" client={client} />
-      <FaqFundingOpportunities path="/faq/funding-opportunities" client={client} />
-      <FaqDataSources path="/faq/data-sources" client={client} />
-      <FaqLaborDemandOccupations path="/faq/labor-demand-occupations" client={client} />
-      <FaqRegisteredApprenticeship path="/faq/registered-apprenticeship" client={client} />
-      <FaqEtplPerformanceStandards path="/faq/etpl-performance-standards" client={client} />
-      <FaqEtplOosProvider path="/faq/etpl-out-of-state-provider" client={client} />
+      <Redirect from="/faq/child-care" to="/faq" />
+      <Redirect from="/faq/enroll-program" to="/faq" />
+      <Redirect from="/faq/search-help" to="/faq" />
+      <Redirect from="/faq/health-insurance" to="/faq" />
+      <Redirect from="/faq/job-listings" to="/faq" />
+      <Redirect from="/faq/unemployment-insurance" to="/faq" />
+      <Redirect from="/faq/funding-opportunities" to="/faq" />
+      <Redirect from="/faq/data-sources" to="/faq" />
+      <Redirect from="/faq/labor-demand-occupations" to="/faq" />
+      <Redirect from="/faq/registered-apprenticeship" to="/faq" />
+      <Redirect from="/faq/etpl-performance-standards" to="/faq" />
+      <Redirect from="/faq/etpl-out-of-state-provider" to="/faq" />
     </>
   );
 };
