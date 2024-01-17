@@ -19,6 +19,7 @@ import { CtaBanner } from "../components/CtaBanner";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { Stepper } from "../components/Stepper";
 import { HowToUse } from "../components/modules/HowToUse";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -65,6 +66,8 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
       });
     }
   }, [occupation]);
+
+  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
 
   if (props.slug && industryData?.industryCollection?.items.length === 0) {
     return <NotFoundPage client={props.client} />;

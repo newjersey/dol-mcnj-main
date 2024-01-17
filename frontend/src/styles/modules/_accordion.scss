@@ -55,4 +55,9 @@
       padding: $size-16 1.5rem;
     }
   }
+
+  .accordion-content {
+    max-width: 30rem;
+    margin: 0 auto;
+  }
 }

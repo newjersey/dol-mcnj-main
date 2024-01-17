@@ -52,7 +52,7 @@ export const HowToUse = () => {
           >
             <X size={22} />
           </button>
-          <div className="content">
+          <div className="content" role="complementary">
             <div className="heading">How to use Career Pathways</div>
             <ol>
               <li>

@@ -46,4 +46,4 @@ function terminalLog(violations) {
 
 Cypress.Commands.add("checkA11y", () => {
   cy.checkA11y(null, null, terminalLog);
-})
+});
