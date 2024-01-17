@@ -29,7 +29,7 @@ export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
           <img src={stateSeal} alt="New Jersey State Seal" />
           Official Site Of The State Of New Jersey
         </div>
-        <nav>
+        <nav role="navigation">
           <a
             href="https://nj.gov/governor/"
             className="gov"

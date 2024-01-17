@@ -1,32 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SearchBlock } from "./SearchBlock";
-import { ContentfulRichText } from "../types/contentful";
 
 describe("SearchBlock", () => {
   beforeEach(() => {
-    render(
-      <SearchBlock
-        drawerContent={
-          {
-            json: {
-              content: [
-                {
-                  content: [
-                    {
-                      content: [
-                        {
-                          value: "test",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          } as ContentfulRichText
-        }
-      />,
-    );
+    render(<SearchBlock />);
   });
 
   test("renders search input correctly", () => {
