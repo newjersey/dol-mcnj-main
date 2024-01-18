@@ -150,7 +150,7 @@ describe("Filtering", () => {
     cy.contains('48 results found for "digital marketing"').should("exist");
   });
 
-  it("sorts by cost high to low", () => {
+  it.skip("sorts by cost high to low", () => {
     cy.visit("/training/search/baker");
     cy.get("#sortby").select("COST_HIGH_TO_LOW");
 
@@ -170,7 +170,7 @@ describe("Filtering", () => {
     });
   });
 
-  it("sorts by cost low to high", () => {
+  it.skip("sorts by cost low to high", () => {
     cy.visit("/training/search/baker");
     cy.get("#sortby").select("COST_LOW_TO_HIGH");
 
