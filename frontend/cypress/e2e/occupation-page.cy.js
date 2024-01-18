@@ -1,6 +1,5 @@
 // fix leak
 describe("Occupation Page", () => {
-
   it("displays occupation details from ONET", () => {
     cy.intercept("api/occupations/17-2051", { fixture: "civil-engineer-occupation.json" }).as("getOccupation");
 

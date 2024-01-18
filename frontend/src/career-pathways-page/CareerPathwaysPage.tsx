@@ -6,6 +6,7 @@ import { CareerPathwaysPageData, IndustryProps, ThemeColors } from "../types/con
 import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
 import { IndustryBlock } from "../components/IndustryBlock";
+import { IndustryOccupation } from "../components/IndustryOccupation";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
 import { OccupationBlock } from "../components/OccupationBlock";
@@ -102,6 +103,77 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     });
   }
 
+  const industryOccupations = (industry?: IndustryProps) => {
+    if (!industry) {
+      return (
+        <>
+          <section className="landing">
+            <div className="container plus">
+              {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
+            </div>
+            <div className="container plus">
+              <div className="steps">
+                {data.page.stepsCollection && (
+                  <Stepper theme="purple" steps={data.page.stepsCollection.items} />
+                )}
+              </div>
+            </div>
+          </section>
+          <CtaBanner
+            heading={data.page.exploreHeading}
+            headingLevel={3}
+            theme="purple"
+            fullColor
+            links={exploreLinks}
+          />
+        </>
+      )
+    } else if (industry.careerMaps?.items && industry.careerMaps?.items.length > 0) {
+      return (
+        <>
+          <IndustryBlock {...industry} />
+          <div id="industry-container">
+            <CareerPathways
+              careerMaps={industry.careerMaps.items}
+              icon={industry?.slug}
+              industry={industry.title}
+              client={props.client}
+            />
+          </div>
+        </>
+      )
+    } else if (industry.occupationsCollection?.items && industry.occupationsCollection?.items.length > 0) {
+      return (
+        <>
+          <IndustryBlock {...industry} />
+          <IndustryOccupation
+            industryTitle={industry.shorthandTitle || industry.title}
+            occupationDetails={industry.occupationsCollection?.items}
+            client={props.client}
+          />
+        </>
+      )
+    } else if (industry.inDemandCollection?.items && industry.inDemandCollection?.items.length > 0) {
+      return (
+        <>
+          <IndustryBlock {...industry} />
+          <div id="industry-container">
+            <OccupationBlock
+              content={occupationDetail}
+              industry={industry.shorthandTitle || industry.title}
+              inDemandList={industry.inDemandCollection?.items}
+              setOccupation={setOccupation}
+              error={error}
+              loading={loading}
+            />
+          </div>
+        </>
+      )
+    } else {
+      return <NotFoundPage client={props.client} />;
+    }
+  };
+
   return (
     <>
       {data && (
@@ -112,58 +184,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             breadcrumbTitle={industry?.title}
           />
           <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
-
-          {!industry ? (
-            <>
-              <section className="landing">
-                <div className="container plus">
-                  {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
-                </div>
-                <div className="container plus">
-                  <div className="steps">
-                    {data.page.stepsCollection && (
-                      <Stepper theme="purple" steps={data.page.stepsCollection.items} />
-                    )}
-                  </div>
-                </div>
-              </section>
-              <CtaBanner
-                heading={data.page.exploreHeading}
-                headingLevel={3}
-                theme="purple"
-                fullColor
-                links={exploreLinks}
-              />
-            </>
-          ) : (
-            <>
-              <IndustryBlock {...industry} />
-              <div id="industry-container">
-                {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                  <CareerPathways
-                    careerMaps={industry.careerMaps.items}
-                    icon={industry?.slug}
-                    industry={industry.title}
-                    client={props.client}
-                  />
-                ) : (
-                  <>
-                    {industry.inDemandCollection?.items &&
-                      industry.inDemandCollection?.items.length > 0 && (
-                        <OccupationBlock
-                          content={occupationDetail}
-                          industry={industry.shorthandTitle || industry.title}
-                          inDemandList={industry.inDemandCollection?.items}
-                          setOccupation={setOccupation}
-                          error={error}
-                          loading={loading}
-                        />
-                      )}
-                  </>
-                )}
-              </div>
-            </>
-          )}
+          {industryOccupations(industry)}
         </Layout>
       )}
       <HowToUse />

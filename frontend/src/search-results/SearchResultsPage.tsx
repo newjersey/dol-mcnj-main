@@ -350,7 +350,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   <p className="mbl">
                     {t("SearchResultsPage.introText")}
                     &nbsp;
-                    <Link className="link-format-blue" to="/funding">
+                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
                       {t("SearchResultsPage.introTextLink")}
                     </Link>
                     .

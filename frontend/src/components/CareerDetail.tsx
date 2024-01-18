@@ -129,7 +129,7 @@ export const CareerDetail = ({
           <div className="occupation-box">
             <div className="container plus">
               <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
-                <button className="close" aria-label="Close Map button" onClick={() => setMapOpen(false)}>
+                <button className="close" aria-label="Close Occuptaion Map button" onClick={() => setMapOpen(false)}>
                   <X size={25} />
                 </button>
                 <div className="inner">
