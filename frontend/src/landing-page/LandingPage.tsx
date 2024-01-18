@@ -100,7 +100,7 @@ export const LandingPage = (props: Props): ReactElement => {
             />
           </>
         )}
-        <UpdateNotifier />
+        {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
       </div>
     </Layout>
   );
