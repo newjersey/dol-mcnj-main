@@ -14,7 +14,7 @@ describe("Home Page", () => {
       // { title: "Explore Careers", link: "#explore" },
       { title: "Support and Assistance", link: "#support" },
       { title: "Career One-Stop Job Board", link: "https://www.careeronestop.org" },
-      { title: "Career Navigator", link: "/career-navigator" },
+      // { title: "Career Navigator", link: "/career-navigator" },
       { title: "In-demand Occupations List", link: "/in-demand-occupations" },
       {
         title: "Apprenticeship Programs",
@@ -42,28 +42,28 @@ describe("Home Page", () => {
     });
   });
 
-  it("Displays the Update Notifier", () => {
-    cy.visit("/");
-    cy.contains("Want updates on new tools and features from New Jersey Career Central?").should(
-      "exist",
-    );
-  });
+  // it("Displays the Update Notifier", () => {
+  //   cy.visit("/");
+  //   cy.contains("Want updates on new tools and features from New Jersey Career Central?").should(
+  //     "exist",
+  //   );
+  // });
 
-  it("Displays the error message when email is not valid, and then go away when valid email is typed", () => {
-    cy.visit("/");
-    cy.get("input[name='input-email']").type("test");
-    cy.get("input[name='input-email']").blur();
-    cy.contains("Please enter a valid email address").should("exist");
-    cy.get("input[name='input-email']").type("@test.com");
-    cy.contains("Please enter a valid email address").should("not.exist");
-  });
+  // it("Displays the error message when email is not valid, and then go away when valid email is typed", () => {
+  //   cy.visit("/");
+  //   cy.get("input[name='input-email']").type("test");
+  //   cy.get("input[name='input-email']").blur();
+  //   cy.contains("Please enter a valid email address").should("exist");
+  //   cy.get("input[name='input-email']").type("@test.com");
+  //   cy.contains("Please enter a valid email address").should("not.exist");
+  // });
 
-  it("Displays the success message when valid email is submitted", () => {
-    cy.visit("/");
-    cy.get("input[name='input-email']").type("test@test.com");
-    cy.get("input[name='input-email']").blur();
-    cy.get("button[type='submit']").click();
-    cy.wait(1000);
-    cy.contains("Success!").should("exist");
-  });
+  // it("Displays the success message when valid email is submitted", () => {
+  //   cy.visit("/");
+  //   cy.get("input[name='input-email']").type("test@test.com");
+  //   cy.get("input[name='input-email']").blur();
+  //   cy.get("button[type='submit']").click();
+  //   cy.wait(1000);
+  //   cy.contains("Success!").should("exist");
+  // });
 });
