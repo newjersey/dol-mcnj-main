@@ -51,7 +51,7 @@ describe("Filtering", () => {
     cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
     cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("exist");
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('20 results found for "digital marketing"').should("exist");
+    cy.contains('19 results found for "digital marketing"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="weeks"]').uncheck();
@@ -93,7 +93,7 @@ describe("Filtering", () => {
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Social Media Marketing with Digital Marketing and Digital Graphics Design Online").should("not.exist");
-    cy.contains('42 results found for "digital marketing"').should("exist");
+    cy.contains('41 results found for "digital marketing"').should("exist");
 
     cy.contains("Class Format").within(() => {
       cy.get('[type="checkbox"][name="inPerson"]').uncheck();
@@ -156,7 +156,6 @@ describe("Filtering", () => {
 
     const costsOrder = [
       "$8,085.00",
-      "$4,600.00",
       "$3,217.00",
       "$2,900.00",
       "$2,107.00",
@@ -181,7 +180,6 @@ describe("Filtering", () => {
       "$2,107.00",
       "$2,900.00",
       "$3,217.00",
-      "$4,600.00",
       "$8,085.00",
     ];
 
