@@ -1,8 +1,10 @@
 describe("Filtering", () => {
   it("filters by max cost", () => {
+    cy.intercept("api/trainings/search?query=baking", { fixture: "baking-search-results.json" })
+
     cy.visit("/training/search/baking");
     cy.contains("Baking and Pastry").should("exist");
-    cy.contains('14 results found for "baking"').should("exist");
+    cy.contains('8 results found for "baking"').should("exist");
 
     cy.contains("Max Cost").within(() => {
       cy.get('input[id="maxCost"]').type("2000");
@@ -18,10 +20,12 @@ describe("Filtering", () => {
     });
 
     cy.contains("Baking and Pastry").should("exist");
-    cy.contains('14 results found for "baking"').should("exist");
+    cy.contains('8 results found for "baking"').should("exist");
   });
 
   it("filters by training length", () => {
+    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+
     cy.visit("/training/search/digital%20marketing");
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
@@ -81,6 +85,8 @@ describe("Filtering", () => {
   });
 
   it("filters by class format", () => {
+    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+
     cy.visit("/training/search/digital%20marketing");
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
@@ -109,6 +115,8 @@ describe("Filtering", () => {
   });
 
   it("filters by location", () => {
+    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+
     cy.visit("/training/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains('49 results found for "digital marketing"').should("exist");
@@ -119,10 +127,9 @@ describe("Filtering", () => {
     cy.get('select[id="miles"]').select('5');
     cy.get('select[id="miles"]').blur();
 
-    // @FIX zip-api: "this feature is currently unavailable" in test
-    // cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    // cy.contains("in Integrated Marketing Communications").should("exist");
-    // cy.contains('17 results found for "digital marketing"').should("exist");
+    cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
+    cy.contains("Certificate in Digital Marketing").should("exist");
+    cy.contains('9 results found for "digital marketing"').should("exist");
 
     cy.get('input[aria-label="Search by ZIP code"]').clear();
     cy.get('input[aria-label="Search by ZIP code"]').blur();
@@ -132,6 +139,8 @@ describe("Filtering", () => {
   });
 
   it("filters by In-Demand Only", () => {
+    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+
     cy.visit("/training/search/digital%20marketing");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains("Visual and Digital Design").should("exist");
@@ -151,6 +160,8 @@ describe("Filtering", () => {
   });
 
   it("sorts by cost high to low", () => {
+    cy.intercept("api/trainings/search?query=baking", { fixture: "baking-search-results.json" })
+
     cy.visit("/training/search/baker");
     cy.get("#sortby").select("COST_HIGH_TO_LOW");
 
@@ -171,6 +182,8 @@ describe("Filtering", () => {
   });
 
   it("sorts by cost low to high", () => {
+    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+
     cy.visit("/training/search/baker");
     cy.get("#sortby").select("COST_LOW_TO_HIGH");
 
@@ -215,20 +228,20 @@ describe("Filtering", () => {
     cy.visit("/training/search/baking");
 
     cy.get(".card")
-      .first()
-      .within(() => {
-        cy.contains(
-          "Culinary Opportunity Program for Adults with Developmental Disabilities",
-        ).should("exist");
-      });
+        .first()
+        .within(() => {
+          cy.contains(
+              "Culinary Opportunity Program for Adults with Developmental Disabilities",
+          ).should("exist");
+        });
 
     cy.get("#sortby").select("EMPLOYMENT_RATE");
 
     cy.get(".card")
-      .first()
-      .within(() => {
-        cy.contains("Baking and Pastry").should("exist");
-      });
+        .first()
+        .within(() => {
+          cy.contains("Baking and Pastry").should("exist");
+        });
 
     // get card with unique text
     cy.get(".card .link-format-blue").eq(0).click({ force: true });
@@ -236,10 +249,10 @@ describe("Filtering", () => {
     cy.go("back");
 
     cy.get(".card")
-      .first()
-      .within(() => {
-        cy.contains("Baking and Pastry").should("exist");
-      });
+        .first()
+        .within(() => {
+          cy.contains("Baking and Pastry").should("exist");
+        });
 
     cy.contains("Employment Rate").should("exist");
   });
