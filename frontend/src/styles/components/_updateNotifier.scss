@@ -1,0 +1,211 @@
+.update-notifier {
+  margin: $size-48 0;
+
+  .overlay {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    opacity: 0;
+    transition-duration: $transition-speed;
+    transition-timing-function: ease-in-out;
+
+    &.open {
+      opacity: 0.4;
+      pointer-events: all;
+    }
+  }
+
+  .usa-button {
+    margin-right: 0;
+    justify-content: center;
+    margin-top: $size-16;
+
+    &:disabled,
+    &.submitting {
+      background-color: $base-light;
+      color: $white;
+      cursor: not-allowed;
+    }
+  }
+
+  .update-content {
+    background-color: $base-lightest;
+    position: relative;
+    overflow: hidden;
+    border-radius: $size-24;
+    padding: $size-48 0;
+    overflow: hidden;
+
+    &.fixed {
+      z-index: 1000;
+      width: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: $size-1400;
+      position: fixed;
+      transition-duration: $transition-speed;
+      border-radius: $size-24 $size-24 0 0;
+      transition-timing-function: ease-in-out;
+      bottom: -$size-880;
+
+      &.open {
+        bottom: 0;
+      }
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $size-24;
+      position: relative;
+      z-index: 1;
+
+      @media screen and (min-width: ($tablet-xl)) {
+        padding-right: $size-48;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $size-20;
+      padding: 0 $size-24;
+      max-width: $size-720;
+
+      @media screen and (min-width: ($tablet-xl)) {
+        padding: 0 $size-48;
+        width: calc(100% - $size-400);
+      }
+
+      .heading-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $size-20;
+        max-width: $size-480;
+
+        &.status {
+          gap: $size-12;
+        }
+
+        .status-message {
+          margin-top: 0;
+          text-align: left;
+          font-size: $size-20;
+          line-height: $size-28;
+        }
+      }
+
+      .heading-tag {
+        font-size: $size-22;
+        margin: 0;
+        text-align: center;
+      }
+
+      p {
+        font-size: $size-16;
+        text-align: center;
+      }
+
+      a {
+        color: $primary;
+
+        &:hover {
+          @media screen and (min-width: ($tablet-xl)) {
+            color: $primary-dark;
+          }
+        }
+      }
+
+      form {
+        text-align: center;
+        width: 100%;
+        max-width: none;
+        margin: $size-8;
+
+        .usa-form-group {
+          margin: 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: $size-24;
+          align-items: center;
+
+          .input-wrapper {
+            width: 100%;
+            padding: 0 $size-16;
+
+            &.error {
+              border-left: $size-4 solid $error;
+            }
+          }
+
+          > * {
+            margin-top: 0;
+          }
+        }
+      }
+
+      label {
+        text-align: left;
+      }
+
+      input {
+        height: $size-56;
+        width: 100%;
+        border-radius: $size-4;
+        border-color: $base-light;
+      }
+    }
+
+    .image {
+      position: relative;
+      width: $size-400;
+      height: $size-340;
+      border-radius: $size-16;
+      overflow: hidden;
+      border-right: $size-10 solid $primary;
+      border-bottom: $size-10 solid $primary;
+
+      @media screen and (max-width: ($tablet-xl - 1)) {
+        display: none;
+      }
+
+      img {
+        position: absolute;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .close-update-drawer {
+    position: absolute;
+    top: $size-24;
+    right: $size-24;
+    width: $size-32;
+    height: $size-32;
+    z-index: 1;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .error-message {
+    color: $error;
+    text-align: left;
+    margin-top: $size-16;
+    font-weight: bold;
+  }
+}
