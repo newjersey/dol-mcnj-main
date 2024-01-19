@@ -35,6 +35,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+  const [pageTitle, setPageTitle] = useState<string>("Advanced Search | Training Explorer | New Jersey Career Central");
 
   const filterState = useContext(FilterContext).state;
   const comparisonState = useContext(ComparisonContext).state;
@@ -42,7 +43,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  usePageTitle(`Search results for "${props.searchQuery}" | New Jersey Career Central`);
+  usePageTitle(pageTitle);
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
@@ -77,12 +78,22 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, props.searchQuery]);
 
+  const getPageTitle = (): void => {
+    if (!props.searchQuery) {
+      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central")
+    } else {
+      const query = decodeURIComponent(props.searchQuery).toLocaleLowerCase();
+      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`)
+    }
+  }
+
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
         setTrainings(data);
+        getPageTitle();
         setIsLoading(false);
       },
       onError: () => {
@@ -110,15 +121,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
     return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
   };
-
-  const getPageTitle = (): string => {
-    if (!props.searchQuery) {
-      return "Advanced Search | Training Explorer | New Jersey Career Central"
-    } else {
-      const query = decodeURIComponent(props.searchQuery).toLowerCase();
-      return `${query} | Advanced Search | Training Explorer | New Jersey Career Central`
-    }
-  }
 
   const resetState = (): void => {
     setIsLoading(true);
@@ -201,7 +203,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: getPageTitle(),
+        title: pageTitle,
         url: props.location?.pathname,
       }}
     >
