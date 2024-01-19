@@ -111,6 +111,15 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
   };
 
+  const getPageTitle = (): string => {
+    if (!props.searchQuery) {
+      return "Advanced Search | Training Explorer | New Jersey Career Central"
+    } else {
+      const query = decodeURIComponent(props.searchQuery);
+      return `${query} | Advanced Search | Training Explorer | New Jersey Career Central`
+    }
+  }
+
   const resetState = (): void => {
     setIsLoading(true);
     setTrainings([]);
@@ -192,7 +201,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: `Advanced Search | Training Explorer | New Jersey Career Central`,
+        title: getPageTitle(),
         url: props.location?.pathname,
       }}
     >
