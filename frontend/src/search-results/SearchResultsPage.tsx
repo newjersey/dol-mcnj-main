@@ -115,7 +115,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     if (!props.searchQuery) {
       return "Advanced Search | Training Explorer | New Jersey Career Central"
     } else {
-      const query = decodeURIComponent(props.searchQuery);
+      const query = decodeURIComponent(props.searchQuery).toLowerCase();
       return `${query} | Advanced Search | Training Explorer | New Jersey Career Central`
     }
   }
