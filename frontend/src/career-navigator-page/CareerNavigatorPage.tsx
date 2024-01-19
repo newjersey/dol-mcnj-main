@@ -13,6 +13,7 @@ import { Cta } from "../components/modules/Cta";
 import { CtaBanner } from "../components/CtaBanner";
 import { River } from "../components/River";
 import { FooterCta } from "../components/FooterCta";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -38,6 +39,9 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
       highlight: highlight as ThemeColors,
     };
   });
+
+  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
+
   const seoObject = {
     title: `${data?.page.title} | New Jersey Career Central`,
     description: data?.page.pageDescription,
