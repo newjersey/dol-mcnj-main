@@ -12,9 +12,7 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
     sections ? { ...sections[0], index: 0 } : { index: 0 },
   );
 
-  const sectionsv1 = sections?.filter(
-    (section) => section.title !== "Career Pathways" && section.title !== "Career Navigator",
-  );
+  const sectionsv1 = sections?.filter((section) => section.title !== "Career Pathways");
 
   const tabContent =
     process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" ? sections : sectionsv1;
