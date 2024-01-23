@@ -42,28 +42,28 @@ describe("Home Page", () => {
     });
   });
 
-  // it("Displays the Update Notifier", () => {
-  //   cy.visit("/");
-  //   cy.contains("Want updates on new tools and features from New Jersey Career Central?").should(
-  //     "exist",
-  //   );
-  // });
+  it.skip("Displays the Update Notifier", () => {
+    cy.visit("/");
+    cy.contains("Want updates on new tools and features from New Jersey Career Central?").should(
+      "exist",
+    );
+  });
 
-  // it("Displays the error message when email is not valid, and then go away when valid email is typed", () => {
-  //   cy.visit("/");
-  //   cy.get("input[name='input-email']").type("test");
-  //   cy.get("input[name='input-email']").blur();
-  //   cy.contains("Please enter a valid email address").should("exist");
-  //   cy.get("input[name='input-email']").type("@test.com");
-  //   cy.contains("Please enter a valid email address").should("not.exist");
-  // });
+  it.skip("Displays the error message when email is not valid, and then go away when valid email is typed", () => {
+    cy.visit("/");
+    cy.get("input[name='input-email']").type("test");
+    cy.get("input[name='input-email']").blur();
+    cy.contains("Please enter a valid email address").should("exist");
+    cy.get("input[name='input-email']").type("@test.com");
+    cy.contains("Please enter a valid email address").should("not.exist");
+  });
 
-  // it("Displays the success message when valid email is submitted", () => {
-  //   cy.visit("/");
-  //   cy.get("input[name='input-email']").type("test@test.com");
-  //   cy.get("input[name='input-email']").blur();
-  //   cy.get("button[type='submit']").click();
-  //   cy.wait(1000);
-  //   cy.contains("Success!").should("exist");
-  // });
+  it.skip("Displays the success message when valid email is submitted", () => {
+    cy.visit("/");
+    cy.get("input[name='input-email']").type("test@test.com");
+    cy.get("input[name='input-email']").blur();
+    cy.get("button[type='submit']").click();
+    cy.wait(1000);
+    cy.contains("Success!").should("exist");
+  });
 });
