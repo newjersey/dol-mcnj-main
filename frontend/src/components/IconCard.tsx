@@ -24,7 +24,7 @@ const CardContent = ({
           </span>
         )}
       </div>
-      {title && <p className="title">{title}</p>}
+      {title && <h3 className="title">{title}</h3>}
       {!centered && description && <p className="description">{description}</p>}
     </>
   );
