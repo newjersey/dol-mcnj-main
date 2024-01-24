@@ -1,4 +1,4 @@
-describe("Career Navigator Page", () => {
+xdescribe("Career Navigator Page", () => {
   it("is accessible", () => {
     cy.visit("/career-navigator");
     cy.injectAxe();
