@@ -10,6 +10,7 @@ import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
+import { UpdateNotifier } from "../components/UpdateNotifier";
 import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
@@ -83,12 +84,15 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            {/*            <CardSlider
-              sectionId="explore"
-              cards={pageData.careerExplorationToolLinksCollection.items}
-              heading="All Career Exploration Tools"
-              theme="purple"
-            />*/}
+            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
+              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR && (
+                <CardSlider
+                  sectionId="explore"
+                  cards={pageData.careerExplorationToolLinksCollection.items}
+                  heading="All Career Exploration Tools"
+                  theme="purple"
+                />
+              )}
             <CardSlider
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
@@ -97,6 +101,7 @@ export const LandingPage = (props: Props): ReactElement => {
             />
           </>
         )}
+        {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
       </div>
     </Layout>
   );
