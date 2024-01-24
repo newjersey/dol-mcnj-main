@@ -84,7 +84,7 @@ export const App = (props: Props): ReactElement => {
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
   useEffect(() => {
-    ReactGA.initialize("G-THV625FWWB", {});
+    ReactGA.initialize("G-THV625FWWB", , { testMode: process.env.NODE_ENV === 'test' });
   }, []);
 
   return (
