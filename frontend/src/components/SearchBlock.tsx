@@ -49,6 +49,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichTe
     }, 200);
   }, []);
 
+  console.log(JSON.stringify(drawerContent));
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const overlay = document.querySelector("#drawerOverlay");

@@ -2,7 +2,6 @@ import { TrainingResult } from "../domain/Training";
 import { Filter, FilterableElement } from "../domain/Filter";
 import { fireEvent, render, RenderResult, screen } from "@testing-library/react";
 import { FilterContext } from "./FilterContext";
-import React from "react";
 import { FilterBox } from "./FilterBox";
 import { useMediaQuery } from "@material-ui/core";
 import { en as Content } from "../locales/en";
@@ -21,27 +20,6 @@ jest.mock("@material-ui/core", () => mockFunctions());
 
 const { mobileFilterText, maxCostLabel, searchButtonDefaultText, searchButtonUpdateResultsText } =
   Content.SearchAndFilter;
-
-const setupWithFilters = (filters: Filter[]): void => {
-  const state = {
-    filters: filters,
-  };
-
-  return act(() => {
-    render(
-      <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
-        <FilterBox
-          searchQuery={"some-query"}
-          resultCount={1}
-          setShowTrainings={jest.fn()}
-          resetStateForReload={jest.fn()}
-        >
-          <div />
-        </FilterBox>
-      </FilterContext.Provider>,
-    )
-  });
-}
 
 describe("<FilterBox />", () => {
   const renderWithFilters = (filters: Filter[]): RenderResult | void => {
