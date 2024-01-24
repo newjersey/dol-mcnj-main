@@ -14,6 +14,7 @@
     "@sentry/react": "^7.95.0",
     "@testing-library/jest-dom": "^6.3.0",
     "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.5.1",
     "@types/accounting": "^0.4.5",
     "@types/jest": "^29.5.11",
     "@types/react": "^16.14.55",
@@ -101,7 +102,9 @@
     "nodegit": "npm:empty-npm-package@1.0.0"
   },
   "paths": {
-    "react": [ "./node_modules/@types/react" ]
+    "react": [
+      "./node_modules/@types/react"
+    ]
   },
   "engines": {
     "node": "^18.17.0",
