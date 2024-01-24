@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { SearchBlock } from "./SearchBlock";
+import type { ContentfulRichText } from "../types/contentful";
 
 const testDrawerContent = {
   "json": {

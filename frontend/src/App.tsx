@@ -1,4 +1,4 @@
-import { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useEffect, useReducer, useState } from "react";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
