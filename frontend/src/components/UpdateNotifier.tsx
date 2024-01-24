@@ -1,7 +1,14 @@
 // Import necessary icons and libraries
-import { EnvelopeSimple, MegaphoneSimple, Warning, X } from "@phosphor-icons/react";
+import {
+  ArrowsClockwise,
+  EnvelopeSimple,
+  MegaphoneSimple,
+  Warning,
+  X,
+} from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { checkValidEmail } from "../utils/checkValidEmail";
+import { LinkObject } from "./modules/LinkObject";
 
 // Interface for UpdateNotifierProps
 interface UpdateNotifierProps {
@@ -34,7 +41,7 @@ const Content = ({
 }) => {
   // State variables for form handling
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<{ status: number; message: string } | null>(null);
+  const [error, setError] = useState<{ status: number; message: string } | null>();
   const [success, setSuccess] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -123,7 +130,7 @@ const Content = ({
           {success ? (
             // Success message
             <div className="heading-wrap status">
-              <MegaphoneSimple size={32} />
+              <MegaphoneSimple size={48} />
               <p className="heading-tag">Success!</p>
               {/* Success details */}
               <p className="status-message">
@@ -146,24 +153,27 @@ const Content = ({
           ) : error?.status === 500 ? (
             // Error message for status 500
             <div className="heading-wrap status">
-              <Warning size={32} color="#d54309" />
-              <p className="heading-tag">Uh Oh!</p>
+              <Warning size={48} color="#d54309" />
               {/* Error details */}
               <p className="status-message">
-                It looks like the submission didn’t work. Our team has been alerted but if you would
-                like to try again you can{" "}
-                <a
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setError(null);
-                    setEmail("");
-                  }}
-                >
-                  reset this form
-                </a>
-                .
+                There was an error with your submission and our team has been alerted. Please try
+                again and if the issue persists you can{" "}
+                <LinkObject url="https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform">
+                  contact us.
+                </LinkObject>
               </p>
+              <button
+                name="reset-form"
+                type="button"
+                className="usa-button primary"
+                onClick={() => {
+                  setError(null);
+                  setEmail("");
+                }}
+              >
+                <ArrowsClockwise size={32} weight="light" />
+                Reset Form
+              </button>
               <p>
                 Read about out{" "}
                 <a
@@ -180,7 +190,7 @@ const Content = ({
             // Main form and description selection
             <>
               <div className="heading-wrap">
-                <MegaphoneSimple size={32} />
+                <MegaphoneSimple size={48} />
                 <p className="heading-tag">
                   Want updates on new tools and features from New Jersey Career Central?
                 </p>
@@ -293,6 +303,10 @@ const Content = ({
                       )}
                     </div>
                   </div>
+                  <p className="copy">
+                    A red asterisk (<span className="require-mark">*</span>) indicates a required
+                    field.
+                  </p>
                   {/* Submit button */}
                   <button
                     disabled={error?.status === 400 || submitting}
@@ -303,7 +317,7 @@ const Content = ({
                       "Submitting..."
                     ) : (
                       <>
-                        <MegaphoneSimple size={22} />
+                        <MegaphoneSimple size={32} />
                         Sign Up for Updates
                       </>
                     )}
@@ -349,7 +363,7 @@ export const UpdateNotifier = ({ className, isDrawer }: UpdateNotifierProps) => 
               setOpen(!open);
             }}
           >
-            <MegaphoneSimple size={22} />
+            <MegaphoneSimple size={32} />
             Sign Up for Updates
           </button>
           {/* Content component within the drawer */}
