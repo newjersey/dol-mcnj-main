@@ -1,4 +1,3 @@
-// Import necessary icons and libraries
 import {
   ArrowsClockwise,
   EnvelopeSimple,
@@ -10,7 +9,6 @@ import React, { useState } from "react";
 import { checkValidEmail } from "../utils/checkValidEmail";
 import { LinkObject } from "./modules/LinkObject";
 
-// Interface for UpdateNotifierProps
 interface UpdateNotifierProps {
   className?: string;
   isDrawer?: boolean;
@@ -39,7 +37,6 @@ const Content = ({
   open?: boolean;
   setOpen?: (open: boolean) => void;
 }) => {
-  // State variables for form handling
   const [email, setEmail] = useState("");
   const [error, setError] = useState<{ status: number; message: string } | null>();
   const [success, setSuccess] = useState(false);
