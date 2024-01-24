@@ -1283,4 +1283,5 @@ export interface IconCardProps {
   iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
   fill?: boolean;
   url?: string;
+  titleType?: "h2" | "h3";
 }
