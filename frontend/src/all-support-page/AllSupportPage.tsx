@@ -74,6 +74,7 @@ export const AllSupportPage = (props: Props): ReactElement => {
                     url={`/support-resources/${card.slug}`}
                     key={card.sys.id}
                     description={card.description}
+                    titleType="h2"
                   />
                 ))}
               </div>
