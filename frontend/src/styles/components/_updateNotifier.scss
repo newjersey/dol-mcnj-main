@@ -26,7 +26,7 @@
 
     &:disabled,
     &.submitting {
-      background-color: $base-light;
+      background-color: $base;
       color: $white;
       cursor: not-allowed;
     }
@@ -35,10 +35,8 @@
   .update-content {
     background-color: $base-lightest;
     position: relative;
-    overflow: hidden;
     border-radius: $size-24;
     padding: $size-48 0;
-    overflow: hidden;
 
     &.fixed {
       z-index: 1000;
@@ -76,11 +74,11 @@
       align-items: center;
       gap: $size-20;
       padding: 0 $size-24;
-      max-width: $size-720;
+      max-width: $size-880;
 
       @media screen and (min-width: ($tablet-xl)) {
         padding: 0 $size-48;
-        width: calc(100% - $size-400);
+        width: calc(100% - $size-240);
       }
 
       .heading-wrap {
@@ -88,7 +86,6 @@
         flex-direction: column;
         align-items: center;
         gap: $size-20;
-        max-width: $size-480;
 
         &.status {
           gap: $size-12;
@@ -137,13 +134,21 @@
           gap: $size-24;
           align-items: center;
 
+          .input-row {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: $size-32;
+
+            @media screen and (min-width: ($tablet-xl)) {
+              flex-direction: row;
+            }
+          }
+
           .input-wrapper {
             width: 100%;
-            padding: 0 $size-16;
-
-            &.error {
-              border-left: $size-4 solid $error;
-            }
+            position: relative;
+            padding: 0;
           }
 
           > * {
@@ -153,35 +158,23 @@
       }
 
       label {
+        font-weight: bold;
         text-align: left;
+
+        + svg {
+          position: absolute;
+          top: $size-45;
+          left: $size-12;
+        }
       }
 
       input {
         height: $size-56;
         width: 100%;
+        padding-left: $size-45;
+        border-width: $size-2;
         border-radius: $size-4;
-        border-color: $base-light;
-      }
-    }
-
-    .image {
-      position: relative;
-      width: $size-400;
-      height: $size-340;
-      border-radius: $size-16;
-      overflow: hidden;
-      border-right: $size-10 solid $primary;
-      border-bottom: $size-10 solid $primary;
-
-      @media screen and (max-width: ($tablet-xl - 1)) {
-        display: none;
-      }
-
-      img {
-        position: absolute;
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
+        border-color: $base;
       }
     }
   }
@@ -207,5 +200,99 @@
     text-align: left;
     margin-top: $size-16;
     font-weight: bold;
+  }
+
+  .description-selector {
+    display: block;
+    font-weight: bold;
+    position: relative;
+    border-color: $base;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: $size-16;
+      bottom: $size-24;
+      width: 0;
+      height: 0;
+      border-left: 0.35rem solid transparent;
+      border-right: 0.35rem solid transparent;
+      border-top: 0.35rem solid $ink;
+    }
+
+    select {
+      margin-top: $size-12;
+      width: 100%;
+      appearance: none;
+      padding: $size-12 $size-24 $size-12 $size-12;
+    }
+  }
+
+  .select-button {
+    margin-top: $size-8;
+    width: 100%;
+    color: $ink;
+    background: $white;
+    appearance: none;
+    padding: $size-12 $size-32 $size-12 $size-12;
+    position: relative;
+    height: $size-56;
+    font-weight: normal;
+    text-align: left;
+    width: 100%;
+    border: $size-2 solid $base;
+    border-radius: $size-4;
+
+    &.greyed-out {
+      color: $base-light;
+    }
+  }
+
+  .dropdown-select {
+    font-weight: normal;
+    margin-top: $size-16;
+    box-shadow: 0 10px 20px -15px $ink;
+    position: absolute;
+    background-color: $base-cool;
+    z-index: 1;
+    max-height: $size-300;
+    overflow: auto;
+    outline: 1px solid $base-lighter;
+    border-radius: $size-8;
+    width: 100%;
+
+    &[aria-expanded="true"] {
+      display: block;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+    }
+
+    button {
+      padding: $size-16;
+      text-align: left;
+
+      @media screen and (min-width: ($tablet)) {
+        padding: $size-16;
+      }
+
+      &:nth-of-type(2n - 1) {
+        background: $base-lighter;
+      }
+
+      &:hover {
+        @media screen and (min-width: ($tablet)) {
+          background: $purple;
+        }
+      }
+    }
+  }
+
+  .require-mark {
+    display: inline-block;
+    margin-left: $size-4;
+    color: $error;
   }
 }

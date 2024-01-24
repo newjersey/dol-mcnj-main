@@ -1,4 +1,4 @@
-import { Megaphone, Warning, X } from "@phosphor-icons/react";
+import { EnvelopeSimple, MegaphoneSimple, Warning, X } from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { checkValidEmail } from "../utils/checkValidEmail";
 
@@ -6,6 +6,18 @@ interface UpdateNotifierProps {
   className?: string;
   isDrawer?: boolean;
 }
+
+const descriptions = [
+  "Advocate",
+  "Business",
+  "CBO/NGO",
+  "Intermediary",
+  "Labor Organization / Union",
+  "Library",
+  "Literacy Consortium Member",
+  "NJ Government",
+  "Workforce Provider (OneStop, etc.)",
+];
 
 const Content = ({
   fixed,
@@ -20,7 +32,9 @@ const Content = ({
   const [email, setEmail] = useState("");
   const [error, setError] = useState<{ status: number; message: string } | null>(null);
   const [success, setSuccess] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [activeDescription, setActiveDescription] = useState("Select an option");
 
   // Handle the form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -97,7 +111,7 @@ const Content = ({
         <div className="content">
           {success ? (
             <div className="heading-wrap status">
-              <Megaphone size={32} />
+              <MegaphoneSimple size={32} />
               <p className="heading-tag">Success!</p>
               <p className="status-message">
                 If this is the first time you've subscribed to New Jersey Career Central, you'll see
@@ -150,7 +164,7 @@ const Content = ({
           ) : (
             <>
               <div className="heading-wrap">
-                <Megaphone size={32} />
+                <MegaphoneSimple size={32} />
                 <p className="heading-tag">
                   Want updates on new tools and features from New Jersey Career Central?
                 </p>
@@ -158,35 +172,88 @@ const Content = ({
 
               <form className="usa-form" onSubmit={handleSubmit}>
                 <div className="usa-form-group">
-                  <div className={`input-wrapper${error?.status === 400 ? " error" : ""}`}>
-                    <label className="usa-label" htmlFor="input-email">
-                      Email (required)
-                    </label>
-                    <input
-                      className="usa-input"
-                      id="input-email"
-                      placeholder="Email"
-                      name="input-email"
-                      type="email"
-                      aria-describedby="input-email-message"
-                      value={email}
-                      onBlur={(e) => {
-                        if (!checkValidEmail(e.target.value)) {
-                          setError({ status: 400, message: "Please enter a valid email address" });
-                        } else {
-                          setError(null);
-                        }
-                      }}
-                      onChange={(e) => {
-                        if (error?.status === 400) {
-                          if (checkValidEmail(e.target.value)) {
+                  <div className="input-row">
+                    <div className={`input-wrapper${error?.status === 400 ? " error" : ""}`}>
+                      <label className="usa-label" htmlFor="input-email">
+                        Email<span className="require-mark">*</span>
+                      </label>
+                      <EnvelopeSimple size={25} />
+                      <input
+                        className="usa-input"
+                        id="input-email"
+                        placeholder="Email"
+                        name="input-email"
+                        type="email"
+                        aria-describedby="input-email-message"
+                        value={email}
+                        onBlur={(e) => {
+                          if (!checkValidEmail(e.target.value)) {
+                            setError({
+                              status: 400,
+                              message: "Please enter a valid email address",
+                            });
+                          } else {
                             setError(null);
                           }
-                        }
-                        setEmail(e.target.value);
-                      }}
-                    />
-                    {error?.status === 400 && <div className="error-message">{error.message}</div>}
+                        }}
+                        onChange={(e) => {
+                          if (error?.status === 400) {
+                            if (checkValidEmail(e.target.value)) {
+                              setError(null);
+                            }
+                          }
+                          setEmail(e.target.value);
+                        }}
+                      />
+                      {error?.status === 400 && (
+                        <div className="error-message">{error.message}</div>
+                      )}
+                    </div>
+                    <div className={`input-wrapper${error?.status === 400 ? " error" : ""}`}>
+                      <label className="usa-label" htmlFor="input-select">
+                        Which best describes you?<span className="require-mark">*</span>
+                      </label>
+
+                      <div className="description-selector">
+                        <button
+                          type="button"
+                          aria-label="description selector"
+                          id="description-select"
+                          className="select-button greyed-out"
+                          onClick={() => {
+                            setOpenDropdown(!openDropdown);
+                          }}
+                        >
+                          {activeDescription}
+                        </button>
+
+                        {openDropdown && (
+                          <div className="dropdown-select">
+                            {descriptions.map((desc) => (
+                              <button
+                                aria-label="description-item"
+                                type="button"
+                                key={desc}
+                                className="description"
+                                onClick={() => {
+                                  const selectButton = document.getElementById(
+                                    "description-select",
+                                  ) as HTMLButtonElement;
+                                  selectButton.classList.remove("greyed-out");
+                                  setOpenDropdown(false);
+                                  setActiveDescription(desc);
+                                }}
+                              >
+                                {desc}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      {error?.status === 400 && (
+                        <div className="error-message">{error.message}</div>
+                      )}
+                    </div>
                   </div>
                   <button
                     disabled={error?.status === 400 || submitting}
@@ -197,7 +264,7 @@ const Content = ({
                       "Submitting..."
                     ) : (
                       <>
-                        <Megaphone size={22} />
+                        <MegaphoneSimple size={22} />
                         Sign Up for Updates
                       </>
                     )}
@@ -237,7 +304,7 @@ const UpdateNotifier = ({ className, isDrawer }: UpdateNotifierProps) => {
               setOpen(!open);
             }}
           >
-            <Megaphone size={22} />
+            <MegaphoneSimple size={22} />
             Sign Up for Updates
           </button>
           <Content fixed open={open} setOpen={setOpen} />
