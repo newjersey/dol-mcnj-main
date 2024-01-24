@@ -108,6 +108,12 @@
       p {
         font-size: $size-16;
         text-align: center;
+
+        &.copy {
+          width: 100%;
+          font-size: $size-14;
+          text-align: left;
+        }
       }
 
       a {
@@ -167,6 +173,10 @@
       label {
         font-weight: bold;
         text-align: left;
+
+        .require-mark {
+          margin-left: $size-4;
+        }
 
         + svg {
           position: absolute;
@@ -299,7 +309,6 @@
 
   .require-mark {
     display: inline-block;
-    margin-left: $size-4;
     color: $error;
   }
 }
