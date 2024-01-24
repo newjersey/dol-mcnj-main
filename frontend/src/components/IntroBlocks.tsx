@@ -12,10 +12,21 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
     sections ? { ...sections[0], index: 0 } : { index: 0 },
   );
 
-  // TODO: Remove this once we have a Career Pathways section
-  const sectionsv1 = sections?.filter(
-    (section) => section.title !== "Career Pathways" && section.title !== "Career Navigator",
-  );
+  // TODO: Remove after both features are live
+
+  if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && sections) {
+    const index = sections.findIndex((item) => item.title === "Career Pathways");
+    if (index !== -1) {
+      sections.splice(index, 1);
+    }
+  }
+
+  if (process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "false" && sections) {
+    const index = sections.findIndex((item) => item.title === "Career Navigator");
+    if (index !== -1) {
+      sections.splice(index, 1);
+    }
+  }
 
   return (
     <section className="introBlocks">
@@ -29,7 +40,7 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
         <div className="inner">
           {sectionsHeading && <h2>{sectionsHeading}</h2>}
           <div className="buttons">
-            {sectionsv1?.map((section, index) => (
+            {sections?.map((section, index) => (
               <button
                 key={section.title}
                 className={activeSection.title === section.title ? "active" : ""}

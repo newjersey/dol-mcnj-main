@@ -6,7 +6,7 @@ import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
 import { ContentfulRichText as RichText } from "./ContentfulRichText";
 
-export const SearchBlock = ({ drawerContent }: { drawerContent: ContentfulRichText }) => {
+export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
