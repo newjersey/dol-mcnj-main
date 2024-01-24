@@ -18,7 +18,6 @@ export const Stepper = ({
       {steps?.map(({ heading, icon, description }, index: number) => (
         <div className="step" key={heading + icon + index}>
           <PhosphorIconSelector name={icon} size={32} />
-
           <span className="title">{heading}</span>
           <div
             dangerouslySetInnerHTML={{
