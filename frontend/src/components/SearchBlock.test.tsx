@@ -61,8 +61,17 @@ const testDrawerContent = {
     "nodeType":"document"},
     "links":{"assets":{"block":[]}}} as ContentfulRichText;
 
+let assignMock: jest.Mock;
+
+
 describe("SearchBlock", () => {
+  beforeAll(() => {
+    delete (window as any).location;
+    (window.location as any) = { assign: assignMock };
+  });
+
   beforeEach(() => {
+    assignMock = jest.fn();
     act(() => {
       render(
         <SearchBlock
@@ -70,6 +79,10 @@ describe("SearchBlock", () => {
         />,
       );
     })
+  });
+
+  afterEach(() => {
+    assignMock.mockClear();
   });
 
   test("renders search input correctly", () => {
