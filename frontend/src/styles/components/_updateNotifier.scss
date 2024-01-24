@@ -149,6 +149,13 @@
             width: 100%;
             position: relative;
             padding: 0;
+
+            &.error {
+              input,
+              .select-button {
+                border-color: $error;
+              }
+            }
           }
 
           > * {
