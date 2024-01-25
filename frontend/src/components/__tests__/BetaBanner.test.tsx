@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { BetaBanner } from "./BetaBanner";
+import { BetaBanner } from "../BetaBanner";
 
 describe("<BetaBanner />", () => {
   it("accepts a prop for removing the header margin", () => {
