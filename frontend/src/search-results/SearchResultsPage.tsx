@@ -35,7 +35,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
-  const [pageTitle, setPageTitle] = useState<string>("Advanced Search | Training Explorer | New Jersey Career Central");
+  const [pageTitle, setPageTitle] = useState<string>(
+    "Advanced Search | Training Explorer | New Jersey Career Central",
+  );
 
   const filterState = useContext(FilterContext).state;
   const comparisonState = useContext(ComparisonContext).state;
@@ -80,12 +82,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getPageTitle = (): void => {
     if (!props.searchQuery) {
-      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central")
+      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central");
     } else {
       const query = decodeURIComponent(props.searchQuery).toLocaleLowerCase();
-      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`)
+      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`);
     }
-  }
+  };
 
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
@@ -361,7 +363,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   <p className="mbl">
                     {t("SearchResultsPage.introText")}
                     &nbsp;
-                    <Link className="link-format-blue" to="/funding">
+                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
                       {t("SearchResultsPage.introTextLink")}
                     </Link>
                     .
