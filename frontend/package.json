@@ -21,7 +21,7 @@
     "@types/react-dom": "^16.9.16",
     "@typescript-eslint/parser": "^6.19.1",
     "accounting": "^0.4.1",
-    "axios": "^1.6.5",
+    "axios": "^1.6.6",
     "contentful": "^10.6.18",
     "dayjs": "^1.11.10",
     "dompurify": "^3.0.8",
