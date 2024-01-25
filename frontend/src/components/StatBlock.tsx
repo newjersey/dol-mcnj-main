@@ -48,7 +48,11 @@ export const StatBlock = (props: Props): ReactElement => {
         {...tooltipTargetIfMobile()}
       >
         {props.tooltipText != null ? (
-          <button onClick={onClickInfo} className="contextual-link-button">
+          <button
+            onClick={onClickInfo}
+            className="contextual-link-button"
+            data-testid="accordion-button"
+          >
             <span className="contextual-link-text">{props.title}</span>
           </button>
         ) : (
