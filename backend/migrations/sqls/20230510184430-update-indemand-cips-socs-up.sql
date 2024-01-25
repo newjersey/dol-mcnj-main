@@ -859,7 +859,6 @@ INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-1134', 'Web Developer
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-1141', 'Database Administrators');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-1142', 'Network and Computer Systems Administrators');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-1143', 'Computer Network Architects');
-INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-1151', 'Computer User Support Specialists');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-1152', 'Computer Network Support Specialists');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('15-2031', 'Operations Research Analysts');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('17-1011', 'Architects, Except Landscape and Naval');
@@ -960,7 +959,6 @@ INSERT INTO indemandsocs (soc, occupationtitle) VALUES('49-2098', 'Security and 
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('49-3011', 'Aircraft Mechanics and Service Technicians');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('49-3042', 'Mobile Heavy Equipment Mechanics, Except Engines');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('49-9041', 'Industrial Machinery Mechanics');
-INSERT INTO indemandsocs (soc, occupationtitle) VALUES('49-9071', 'Maintenance and Repair Workers, General');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('51-2028', 'Electrical, electronic, and electromechanical assemblers, except coil winders, tapers, and finishers');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('51-3022', 'Meat, Poultry, and Fish Cutters and Trimmers');
 INSERT INTO indemandsocs (soc, occupationtitle) VALUES('51-3092', 'Food Batchmakers');
