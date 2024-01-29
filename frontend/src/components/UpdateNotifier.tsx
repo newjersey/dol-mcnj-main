@@ -25,8 +25,8 @@ const descriptions = [
   "Library",
   "Literacy Consortium Member",
   "NJ Government",
-  "Workforce Provider (OneStop, etc.)",
   "Other State or Federal Government Agency",
+  "Workforce Provider (OneStop, etc.)",
   "Other",
 ];
 
