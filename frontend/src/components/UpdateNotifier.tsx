@@ -5,7 +5,7 @@ import {
   Warning,
   X,
 } from "@phosphor-icons/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { checkValidEmail } from "../utils/checkValidEmail";
 import { LinkObject } from "./modules/LinkObject";
 
@@ -18,6 +18,7 @@ interface UpdateNotifierProps {
 const descriptions = [
   "Advocate",
   "Business",
+  "Career Seeker",
   "CBO/NGO",
   "Intermediary",
   "Labor Organization / Union",
@@ -25,6 +26,8 @@ const descriptions = [
   "Literacy Consortium Member",
   "NJ Government",
   "Workforce Provider (OneStop, etc.)",
+  "Other State or Federal Government Agency",
+  "Other",
 ];
 
 // Content component containing the form and status messages
@@ -43,6 +46,21 @@ const Content = ({
   const [openDropdown, setOpenDropdown] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [activeDescription, setActiveDescription] = useState("Select an option");
+
+  useEffect(() => {
+    // if click happens outside of dropdown '.dropdown-select', close dropdown
+    if (openDropdown) {
+      const handleClickOutside = (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        if (target.closest(".dropdown-select")) return;
+        setOpenDropdown(false);
+      };
+      document.addEventListener("click", handleClickOutside);
+      return () => {
+        document.removeEventListener("click", handleClickOutside);
+      };
+    }
+  }, [openDropdown]);
 
   // Function to handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -214,6 +232,7 @@ const Content = ({
                         aria-describedby="input-email-message"
                         value={email}
                         onBlur={(e) => {
+                          if (e.target.value === "") return;
                           setError(
                             !checkValidEmail(e.target.value) ||
                               activeDescription === "Select an option"
@@ -250,7 +269,7 @@ const Content = ({
                       </label>
 
                       {/* Dropdown selector */}
-                      <div className="description-selector">
+                      <div className={`description-selector${openDropdown ? " open" : ""}`}>
                         <button
                           type="button"
                           aria-label="description selector"
@@ -279,14 +298,6 @@ const Content = ({
                                   selectButton.classList.remove("greyed-out");
                                   setOpenDropdown(false);
                                   setActiveDescription(desc);
-                                  if (checkValidEmail(email)) {
-                                    setError(null);
-                                  } else {
-                                    setError({
-                                      status: 400,
-                                      message: "Input error",
-                                    });
-                                  }
                                 }}
                               >
                                 {desc}

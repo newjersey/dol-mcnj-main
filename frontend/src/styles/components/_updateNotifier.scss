@@ -28,6 +28,7 @@
     &.submitting {
       background-color: $base;
       color: $white;
+      min-height: $size-64;
       cursor: not-allowed;
     }
   }
@@ -224,6 +225,15 @@
     font-weight: bold;
     position: relative;
     border-color: $base;
+
+    &.open {
+      &:after {
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-bottom: 0.35rem solid $ink;
+        border-top: 0;
+      }
+    }
 
     &:after {
       content: "";
