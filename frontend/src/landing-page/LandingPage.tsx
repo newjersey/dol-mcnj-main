@@ -34,6 +34,26 @@ export const LandingPage = (props: Props): ReactElement => {
     url: props.location?.pathname,
   };
 
+  if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
+    const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
+    if (index !== -1) {
+      pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
+    }
+  }
+
+  function findSvg(sectionIcon: string | undefined) {
+    switch (sectionIcon) {
+      case "explore":
+        return "Explore";
+      case "jobs":
+        return "Jobs";
+      case "support":
+        return "Support";
+      default:
+        return "Training";
+    }
+  }
+
   return (
     <Layout client={props.client} noPad seo={seoObject}>
       <div className="home-page">
@@ -51,14 +71,7 @@ export const LandingPage = (props: Props): ReactElement => {
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
                   {pageData.toolsCollection.items.map((item) => {
-                    const svgName =
-                      item.sectionIcon === "explore"
-                        ? "Explore"
-                        : item.sectionIcon === "jobs"
-                          ? "Jobs"
-                          : item.sectionIcon === "support"
-                            ? "Support"
-                            : "Training";
+                    const svgName = findSvg(item.sectionIcon)
                     return (
                       <IconCard
                         key={item.sys.id}
@@ -84,15 +97,12 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
-              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
-                <CardSlider
-                  sectionId="explore"
-                  cards={pageData.careerExplorationToolLinksCollection.items}
-                  heading="All Career Exploration Tools"
-                  theme="purple"
-                />
-              )}
+            <CardSlider
+              sectionId="explore"
+              cards={pageData.careerExplorationToolLinksCollection.items}
+              heading="All Career Exploration Tools"
+              theme="purple"
+            />
             <CardSlider
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
