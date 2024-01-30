@@ -85,7 +85,7 @@ export const LandingPage = (props: Props): ReactElement => {
               theme="green"
             />
             {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
-              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR && (
+              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
                 <CardSlider
                   sectionId="explore"
                   cards={pageData.careerExplorationToolLinksCollection.items}
