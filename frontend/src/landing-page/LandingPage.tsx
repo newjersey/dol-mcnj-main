@@ -41,6 +41,19 @@ export const LandingPage = (props: Props): ReactElement => {
     }
   }
 
+  function findSvg(sectionIcon: string | undefined) {
+    switch (sectionIcon) {
+      case "explore":
+        return "Explore";
+      case "jobs":
+        return "Jobs";
+      case "support":
+        return "Support";
+      default:
+        return "Training";
+    }
+  }
+
   return (
     <Layout client={props.client} noPad seo={seoObject}>
       <div className="home-page">
@@ -58,14 +71,7 @@ export const LandingPage = (props: Props): ReactElement => {
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
                   {pageData.toolsCollection.items.map((item) => {
-                    const svgName =
-                      item.sectionIcon === "explore"
-                        ? "Explore"
-                        : item.sectionIcon === "jobs"
-                          ? "Jobs"
-                          : item.sectionIcon === "support"
-                            ? "Support"
-                            : "Training";
+                    const svgName = findSvg(item.sectionIcon)
                     return (
                       <IconCard
                         key={item.sys.id}
