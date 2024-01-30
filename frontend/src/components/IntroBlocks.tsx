@@ -21,13 +21,6 @@ const IntroBlocks = ({ heading, message, sectionsHeading, sections }: IntroBlock
     }
   }
 
-  if (process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "false" && sections) {
-    const index = sections.findIndex((item) => item.title === "Career Navigator");
-    if (index !== -1) {
-      sections.splice(index, 1);
-    }
-  }
-
   return (
     <section className="introBlocks">
       <div className="heading-box box">
