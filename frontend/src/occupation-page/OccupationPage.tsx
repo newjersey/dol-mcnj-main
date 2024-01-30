@@ -142,8 +142,8 @@ export const OccupationPage = (props: Props): ReactElement => {
 
   usePageTitle(
     occupationDetail
-      ? `${occupationDetail.title} | Occupation | New Jersey Career Central`
-      : "Occupation | New Jersey Career Central",
+      ? `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`
+      : `Occupation | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
   if (occupationDetail) {
@@ -151,7 +151,7 @@ export const OccupationPage = (props: Props): ReactElement => {
       <Layout
         client={props.client}
         seo={{
-          title: `${occupationDetail.title} | Occupation | New Jersey Career Central`,
+          title: `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`,
           pageDescription: occupationDetail.description,
           url: props.location?.pathname,
         }}
@@ -374,7 +374,7 @@ export const OccupationPage = (props: Props): ReactElement => {
         noFooter
         client={props.client}
         seo={{
-          title: "Occupation | New Jersey Career Central",
+          title: `Occupation | ${process.env.REACT_APP_SITE_NAME}`,
           url: props.location?.pathname,
         }}
       >

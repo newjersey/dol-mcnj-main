@@ -53,10 +53,10 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     links: pageData?.interrupterLinksCollection.items,
   };
 
-  usePageTitle(`${pageData?.title} | New Jersey Career Central`);
+  usePageTitle(`${pageData?.title} | ${process.env.REACT_APP_SITE_NAME}`);
 
   const seoObject = {
-    title: `${pageData?.title} | New Jersey Career Central`,
+    title: `${pageData?.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: pageData?.pageDescription,
     image: pageData?.ogImage?.url,
     keywords: pageData?.keywords,

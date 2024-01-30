@@ -29,7 +29,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
             aria-label="New Jersey Career Central"
           >
             <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-            <h1 className="text-m">New Jersey Career Central</h1>
+            <h1 className="text-m">${process.env.REACT_APP_SITE_NAME}</h1>
           </a>
           <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
             <div className={`toggle ${isOpen ? "open" : "closed"}`}>
@@ -67,7 +67,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
           <div className="basic-logo" id="basic-logo">
             <a href="/" aria-label="New Jersey Career Central">
               <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-              <h1 className="bold">New Jersey Career Central</h1>
+              <h1 className="bold">${process.env.REACT_APP_SITE_NAME}</h1>
             </a>
           </div>
         </nav>
