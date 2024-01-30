@@ -35,10 +35,10 @@ export const AllSupportPage = (props: Props): ReactElement => {
     filteredCategories.push(otherAssistance);
   }
 
-  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
+  usePageTitle(`${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`);
 
   const seoObject = {
-    title: `${data?.page.title} | New Jersey Career Central`,
+    title: `${data?.page.title} |${process.env.REACT_APP_SITE_NAME}`,
     description: data?.page.pageDescription,
     image: data?.page.ogImage?.url,
     keywords: data?.page.keywords,
