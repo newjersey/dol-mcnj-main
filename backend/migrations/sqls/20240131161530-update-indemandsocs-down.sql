@@ -1,0 +1,2 @@
+INSERT INTO indemandsocs (SOC,OCCUPATIONTITLE) VALUES('49-9071','Maintenance and Repair Workers, General');
+INSERT INTO indemandsocs (SOC, OCCUPATIONTITLE) VALUES('15-1151', 'Computer User Support Specialists');
