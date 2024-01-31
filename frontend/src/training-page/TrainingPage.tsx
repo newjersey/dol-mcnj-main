@@ -415,7 +415,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </UnstyledButton>
                       </p>
                       <p>
-                        <Link className="link-format-blue weight-500 fin" to="/funding">
+                        <Link
+                          className="link-format-blue weight-500 fin"
+                          to="/support-resources/tuition-assistance"
+                        >
                           <Icon className="accessible-gray">attach_money</Icon>
                           <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
                         </Link>
