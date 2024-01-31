@@ -31,7 +31,7 @@ export const Layout = (props: LayoutProps) => {
       id:
         process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true"
           ? "6z5HiOP5HqvJc07FURpT8Z"
-          : "1K5Xk1630bKzls8XiPHzyR",
+          : "3jcP5Uz9OY7syy4zu9Viul",
     },
   });
   const footerNav1 = useContentfulClient({
