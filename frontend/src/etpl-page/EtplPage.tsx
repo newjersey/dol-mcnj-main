@@ -387,13 +387,13 @@ export const EtplPage = (props: Props): ReactElement => {
     );
   };
 
-  usePageTitle("ETPL | New Jersey Career Central");
+  usePageTitle(`ETPL | ${process.env.REACT_APP_SITE_NAME}`);
 
   return (
     <Layout
       client={props.client}
       seo={{
-        title: "ETPL | New Jersey Career Central",
+        title: `ETPL | ${process.env.REACT_APP_SITE_NAME}l`,
         pageDescription:
           "A checklist of steps to get on the Eligible Training Provider List (ETPL)",
         url: props.location?.pathname,
