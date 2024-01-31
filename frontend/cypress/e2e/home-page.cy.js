@@ -44,9 +44,7 @@ describe("Home Page", () => {
 
   it.skip("Displays the Update Notifier", () => {
     cy.visit("/");
-    cy.contains("Want updates on new tools and features from New Jersey Career Central?").should(
-      "exist",
-    );
+    cy.contains("Want updates on new tools and features from My Career NJ?").should("exist");
   });
 
   it.skip("Displays the error message when email is not valid, and then go away when valid email is typed", () => {

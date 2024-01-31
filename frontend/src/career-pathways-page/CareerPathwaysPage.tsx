@@ -49,7 +49,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     }
   }, [industryData]);
 
-  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
+  usePageTitle(`${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`);
 
   useEffect(() => {
     if ((occupation !== undefined || occupation !== null || occupation !== "") && occupation) {
@@ -103,7 +103,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   }
 
   const seoObject = {
-    title: `${data?.page.title} | New Jersey Career Central`,
+    title: `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: data?.page.pageDescription,
     image: data?.page.ogImage?.url,
     keywords: data?.page.keywords,
