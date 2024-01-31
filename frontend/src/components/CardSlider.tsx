@@ -34,31 +34,29 @@ const CardSlider = ({ cards, heading, theme, sectionId }: CardSliderProps) => {
             className="slider-container"
             style={{ transform: `translateX(-${currentIndex * (100 / 4.5)}%)` }}
           >
-            {cards
-              .filter((c) => c.copy !== "Career Pathways") // TODO: Remove this filter once Career Pathways is ready
-              .map((card) => {
-                const isExternal = card.url.includes("http");
-                const svgName =
-                  card.sectionIcon === "explore"
-                    ? "ExploreBold"
-                    : card.sectionIcon === "jobs"
-                    ? "JobsBold"
-                    : card.sectionIcon === "support"
-                    ? "SupportBold"
-                    : "TrainingBold";
-                return (
-                  <IconCard
-                    svg={svgName}
-                    icon={card.icon}
-                    title={card.copy}
-                    theme={theme}
-                    url={card.url}
-                    key={card.sys.id}
-                    description={card.description}
-                    indicator={isExternal ? "ArrowUpRight" : undefined}
-                  />
-                );
-              })}
+            {cards.map((card) => {
+              const isExternal = card.url.includes("http");
+              const svgName =
+                card.sectionIcon === "explore"
+                  ? "ExploreBold"
+                  : card.sectionIcon === "jobs"
+                  ? "JobsBold"
+                  : card.sectionIcon === "support"
+                  ? "SupportBold"
+                  : "TrainingBold";
+              return (
+                <IconCard
+                  svg={svgName}
+                  icon={card.icon}
+                  title={card.copy}
+                  theme={theme}
+                  url={card.url}
+                  key={card.sys.id}
+                  description={card.description}
+                  indicator={isExternal ? "ArrowUpRight" : undefined}
+                />
+              );
+            })}
           </div>
         </div>
         {showLeftArrow && (

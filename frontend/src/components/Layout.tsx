@@ -27,7 +27,12 @@ export const Layout = (props: LayoutProps) => {
   });
   const mainNav = useContentfulClient({
     query: NAV_MENU_QUERY,
-    variables: { id: "3jcP5Uz9OY7syy4zu9Viul" },
+    variables: {
+      id:
+        process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true"
+          ? "6z5HiOP5HqvJc07FURpT8Z"
+          : "1K5Xk1630bKzls8XiPHzyR",
+    },
   });
   const footerNav1 = useContentfulClient({
     query: NAV_MENU_QUERY,
