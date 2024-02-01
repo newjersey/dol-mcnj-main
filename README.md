@@ -13,6 +13,7 @@ This repo is the home for the NJ Career Central web app ([mycareer.nj.gov](https
 - The databases include multiple [PostgreSQL](https://www.postgresql.org/) tables (which are imported from raw CSV files stored in `backend/data` directory). For more information on the tables, see the [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) guide.
 - The entire app is deployed to development and production [Google Cloud Platform](https://cloud.google.com/) (GCP) instances in a [Node](https://nodejs.org/en/) 18 environment. We use [CircleCI](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for continuous integration/deployment.
 
+
 ### References
 
 - [`decision_log`](https://github.com/newjersey/d4ad/blob/master/decision_log.md) lists architectural decisions and their rationale
@@ -97,6 +98,15 @@ We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branc
 * `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list](https://cloud.google.com/compute/docs/regions-zones)
 * `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
 * `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
+
+##### Feature Flags
+
+This will likely change as features are rolled out.
+
+* `REACT_APP_FEATURE_MULTILANG` - Enable/disable multi-language support in the React app.
+* `REACT_APP_FEATURE_CAREER_PATHWAYS` - Toggle the display of career pathways feature as well as any reference to it.
+* `REACT_APP_FEATURE_CAREER_NAVIGATOR` - Toggle the display of the Career Navigator landing page as well as any references to it.
+* `REACT_APP_FEATURE_PINPOINT` - Show or hide any instance of the Pinpoint email collection tool.
 
 ##### Database
 
@@ -199,7 +209,7 @@ Most importantly, the `backend` and `frontend` cannot import from each other.
 
 Additionally, fences are used in the backend subdirectories to enforce [dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle).
 The `routes` and `database` folders depend on the interfaces defined in `domain` (only - not on each other), and `domain` is not allowed to
-import from any of these implementation directories. 
+import from any of these implementation directories.
 
 Fences are enforced via a linting-like command that will fail when any violations are flagged:
 

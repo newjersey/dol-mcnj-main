@@ -15,6 +15,8 @@ import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
+import { ArrowLeft } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -23,6 +25,7 @@ interface Props extends RouteComponentProps {
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const isTabletAndBelow = useMediaQuery("(max-width:767px)");
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
@@ -32,12 +35,17 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+  const [pageTitle, setPageTitle] = useState<string>(
+    "Advanced Search | Training Explorer | New Jersey Career Central",
+  );
 
   const filterState = useContext(FilterContext).state;
   const comparisonState = useContext(ComparisonContext).state;
   const sortContextValue = useContext(SortContext);
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
+
+  usePageTitle(pageTitle);
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
@@ -72,12 +80,22 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, props.searchQuery]);
 
+  const getPageTitle = (): void => {
+    if (!props.searchQuery) {
+      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central");
+    } else {
+      const query = decodeURIComponent(props.searchQuery).toLocaleLowerCase();
+      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`);
+    }
+  };
+
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
         setTrainings(data);
+        getPageTitle();
         setIsLoading(false);
       },
       onError: () => {
@@ -187,19 +205,48 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: `Search results for "${props.searchQuery}" | New Jersey Career Central`,
+        title: pageTitle,
         url: props.location?.pathname,
       }}
     >
       {isTabletAndUp && (
         <div className="container results-count-container">
-          <div className="row ptd fixed-wrapper">
+          <nav className="usa-breadcrumb " aria-label="Breadcrumbs">
+            <ol className="usa-breadcrumb__list">
+              <li className="usa-breadcrumb__list-item">
+                <a className="usa-breadcrumb__link" href="/">
+                  Home
+                </a>
+              </li>
+              <li className="usa-breadcrumb__list-item">
+                <a className="usa-breadcrumb__link" href="/training">
+                  Training Explorer
+                </a>
+              </li>
+              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                <span data-testid="title">Search</span>
+              </li>
+            </ol>
+          </nav>
+
+          <div className="row fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
               {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
             </div>
           </div>
         </div>
+      )}
+
+      {isTabletAndBelow && (
+        <>
+          <div className="container results-count-container">
+            <a className="back-link" href="/training">
+              <ArrowLeft size={24} />
+              Back
+            </a>
+          </div>
+        </>
       )}
 
       {shouldShowTrainings && (
@@ -274,7 +321,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   <p className="mbl">
                     {t("SearchResultsPage.introText")}
                     &nbsp;
-                    <Link className="link-format-blue" to="/funding">
+                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
                       {t("SearchResultsPage.introTextLink")}
                     </Link>
                     .
@@ -316,7 +363,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   <p className="mbl">
                     {t("SearchResultsPage.introText")}
                     &nbsp;
-                    <Link className="link-format-blue" to="/funding">
+                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
                       {t("SearchResultsPage.introTextLink")}
                     </Link>
                     .
