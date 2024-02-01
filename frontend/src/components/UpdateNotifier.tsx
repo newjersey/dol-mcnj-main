@@ -297,6 +297,14 @@ const Content = ({
                                   selectButton.classList.remove("greyed-out");
                                   setOpenDropdown(false);
                                   setActiveDescription(desc);
+                                  setError(
+                                    !checkValidEmail(email)
+                                      ? {
+                                          status: 400,
+                                          message: "Input error",
+                                        }
+                                      : null,
+                                  );
                                 }}
                               >
                                 {desc}
