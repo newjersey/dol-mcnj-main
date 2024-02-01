@@ -11,11 +11,9 @@ describe("Search", () => {
       "exist",
     );
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     cy.get("a#search-button").contains("Search").click({ force: true });
 
@@ -114,7 +112,7 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
+    cy.contains("Work Retention and Readiness").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 

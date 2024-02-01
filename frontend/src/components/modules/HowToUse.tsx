@@ -42,7 +42,7 @@ export const HowToUse = () => {
         <Info size={32} color="white" />
         <span>How to use Career Pathways</span>
       </button>
-      <div className="how-to-panel">
+      <div className="how-to-panel" role="region">
         <div className={`overlay${open ? " open" : ""}`} id="overlay-how-to-use" />
         <div className={`panel${open ? " open" : ""}`}>
           <button
