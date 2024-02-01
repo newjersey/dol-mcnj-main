@@ -234,8 +234,7 @@ const Content = ({
                         onBlur={(e) => {
                           if (e.target.value === "") return;
                           setError(
-                            !checkValidEmail(e.target.value) ||
-                              activeDescription === "Select an option"
+                            !checkValidEmail(e.target.value)
                               ? {
                                   status: 400,
                                   message: "Input error",
