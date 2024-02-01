@@ -11,7 +11,7 @@ This repo is the home for the My Career NJ web app ([mycareer.nj.gov](https://my
 - The frontend is written in [Typescript](https://www.typescriptlang.org/), a single page app built with [React](https://reactjs.org/) using the [`create-react-app`](https://create-react-app.dev/) setup.
 - The backend is written in [Typescript](https://www.typescriptlang.org/), with an [Express](https://expressjs.com/)-based server API.
 - The databases include multiple [PostgreSQL](https://www.postgresql.org/) tables (which are imported from raw CSV files stored in `backend/data` directory). For more information on the tables, see the [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md) guide.
-- The entire app is deployed to development and production [Google Cloud Platform](https://cloud.google.com/) (GCP) instances in a [Node](https://nodejs.org/en/) 18 environment. We use [CircleCI](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for continuous integration/deployment.
+- The entire app is deployed to production [Amazon Web Services](https://cloud.google.com/](https://aws.amazon.com/)) (AWS) instances in a [Node](https://nodejs.org/en/) 18 environment. We use [CircleCI](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for continuous integration/deployment.
 
 
 ### References
