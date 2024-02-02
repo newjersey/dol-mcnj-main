@@ -16,7 +16,7 @@ if (process.env.AWS_PINPOINT_ENDPOINT) {
 const pinpoint = new AWS.Pinpoint(pinpointConfig);
 
 router.post("/submit-email", async (req, res) => {
-  const { email } = req.body;
+  const { email, description } = req.body;
 
   const params = {
     ApplicationId: process.env.AWS_PINPOINT_PROJECT_ID as string,
@@ -25,6 +25,10 @@ router.post("/submit-email", async (req, res) => {
         {
           Address: email,
           ChannelType: "EMAIL",
+          Attributes: {
+            // Assuming "Description" is a custom attribute you've defined in Pinpoint
+            Description: [description], // Setting the description variable as an attribute
+          },
         },
       ],
     },
@@ -32,13 +36,12 @@ router.post("/submit-email", async (req, res) => {
 
   try {
     await pinpoint.updateEndpointsBatch(params).promise();
-    res.json({ success: true, message: "Email submitted to Pinpoint" });
+    res.json({ success: true, message: "Email and description submitted to Pinpoint with description" });
   } catch (error) {
     const errorMessage = (error as Error).message || "An unknown error occurred";
     res
         .status(500)
-        .json({ success: false, message: "Failed to submit email", error: errorMessage });
+        .json({ success: false, message: "Failed to submit email with description", error: errorMessage });
   }
 });
-
 export default router;
