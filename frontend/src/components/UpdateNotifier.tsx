@@ -84,8 +84,10 @@ const Content = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
-      });
+        body: JSON.stringify({
+          email,
+          description: activeDescription,
+        }),      });
 
       // Handle API response
       if (response.ok) {
@@ -234,8 +236,7 @@ const Content = ({
                         onBlur={(e) => {
                           if (e.target.value === "") return;
                           setError(
-                            !checkValidEmail(e.target.value) ||
-                              activeDescription === "Select an option"
+                            !checkValidEmail(e.target.value)
                               ? {
                                   status: 400,
                                   message: "Input error",
@@ -298,6 +299,16 @@ const Content = ({
                                   selectButton.classList.remove("greyed-out");
                                   setOpenDropdown(false);
                                   setActiveDescription(desc);
+                                  if (email) {
+                                    setError(
+                                      !checkValidEmail(email)
+                                        ? {
+                                            status: 400,
+                                            message: "Input error",
+                                          }
+                                        : null,
+                                    );
+                                  }
                                 }}
                               >
                                 {desc}
