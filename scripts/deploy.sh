@@ -1,7 +1,7 @@
 cd backend
+chmod +x app.yaml.sh
 ./app.yaml.sh > app.yaml
 gcloud app deploy
-
 versions=$(gcloud app versions list \
   --service default \
   --sort-by '~VERSION.ID' \
