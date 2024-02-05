@@ -112,7 +112,7 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
+    cy.contains("Work Retention and Readiness").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
