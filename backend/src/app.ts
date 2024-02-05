@@ -4,9 +4,7 @@ import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
-import AWS from 'aws-sdk';
 import { routerFactory } from "./routes/router";
-import emailSubmissionRouter from './routes/emailRoutes';
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
@@ -49,15 +47,11 @@ process.on("unhandledRejection", (reason) => {
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-const awsConfig = new AWS.Config({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
-  region: process.env.AWS_REGION
-});
-
 // Determine if the NODE_ENV begins with "aws"
-let connection: any = null;
 
+
+let connection: any = null;
+console.log(`starting application in ${process.env.NODE_ENV} environment`)
 switch (process.env.NODE_ENV) {
   case "dev":
     connection = {
@@ -101,6 +95,15 @@ switch (process.env.NODE_ENV) {
       host: process.env.DB_HOST_WRITER_AWSPROD,
       database: "d4adprod",
       password: process.env.DB_PASS_AWSPROD,
+      port: 5432,
+    };
+    break;
+  case "gcp":
+    connection = {
+      user: process.env.DB_USER || 'postgres',
+      host: process.env.CLOUD_SQL_CONNECTION_NAME ? `/cloudsql/${process.env.CLOUD_SQL_CONNECTION_NAME}` : 'localhost',
+      database: process.env.DB_NAME || 'd4adlocal',
+      password: process.env.DB_PASS || '',
       port: 5432,
     };
     break;
@@ -163,10 +166,7 @@ const router = routerFactory({
 });
 
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
-app.use(express.json());
-
 app.use("/api", router);
-app.use('/api/emails', emailSubmissionRouter);
 
 // Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
