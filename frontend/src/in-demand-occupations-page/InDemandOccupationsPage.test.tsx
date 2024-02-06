@@ -1,6 +1,5 @@
 import { StubClient } from "../test-objects/StubClient";
-import { fireEvent, render } from "@testing-library/react";
-import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { InDemandOccupationsPage } from "./InDemandOccupationsPage";
 import { act } from "react-dom/test-utils";
 import { buildInDemandOccupation } from "../test-objects/factories";
@@ -25,12 +24,16 @@ describe("<InDemandOccupationsPage />", () => {
   });
 
   it("calls to get occupations from client", () => {
-    render(<InDemandOccupationsPage client={stubClient} />);
+    act(() => {
+      render(<InDemandOccupationsPage client={stubClient} />);
+    });
     expect(stubClient.getOccupationsWasCalled).toEqual(true);
   });
 
   it("displays unique major groups and not titles on the page", () => {
-    const subject = render(<InDemandOccupationsPage client={stubClient} />);
+    act(() => {
+      render(<InDemandOccupationsPage client={stubClient} />);
+    })
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -40,15 +43,17 @@ describe("<InDemandOccupationsPage />", () => {
       ]),
     );
 
-    expect(subject.getByText("Welding Occupations")).toBeInTheDocument();
-    expect(subject.getByText("Artists")).toBeInTheDocument();
-    expect(subject.queryByText("Underwater Welder")).not.toBeInTheDocument();
-    expect(subject.queryByText("Magma Welder")).not.toBeInTheDocument();
-    expect(subject.queryByText("Volcano Painter")).not.toBeInTheDocument();
+    expect(screen.getByText("Welding Occupations")).toBeInTheDocument();
+    expect(screen.getByText("Artists")).toBeInTheDocument();
+    expect(screen.queryByText("Underwater Welder")).not.toBeInTheDocument();
+    expect(screen.queryByText("Magma Welder")).not.toBeInTheDocument();
+    expect(screen.queryByText("Volcano Painter")).not.toBeInTheDocument();
   });
 
   it("displays major groups in alphabetical order", () => {
-    const subject = render(<InDemandOccupationsPage client={stubClient} />);
+    act(() => {
+      render(<InDemandOccupationsPage client={stubClient} />);
+    })
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -58,14 +63,16 @@ describe("<InDemandOccupationsPage />", () => {
       ]),
     );
 
-    const majorGroups = subject.getAllByTestId("majorGroup");
+    const majorGroups = screen.getAllByTestId("majorGroup");
     expect(majorGroups[0].textContent).toContain("Artists");
     expect(majorGroups[1].textContent).toContain("Miners");
     expect(majorGroups[2].textContent).toContain("Welders");
   });
 
   it("displays occupations for a category when it is clicked", () => {
-    const subject = render(<InDemandOccupationsPage client={stubClient} />);
+    act(() => {
+      render(<InDemandOccupationsPage client={stubClient} />);
+    });
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -75,23 +82,25 @@ describe("<InDemandOccupationsPage />", () => {
       ]),
     );
 
-    expect(subject.getByText("Welding Occupations")).toBeInTheDocument();
-    expect(subject.getByText("Artists")).toBeInTheDocument();
-    expect(subject.queryByText("Underwater Welder")).not.toBeInTheDocument();
-    expect(subject.queryByText("Magma Welder")).not.toBeInTheDocument();
-    expect(subject.queryByText("Volcano Painter")).not.toBeInTheDocument();
+    expect(screen.getByText("Welding Occupations")).toBeInTheDocument();
+    expect(screen.getByText("Artists")).toBeInTheDocument();
+    expect(screen.queryByText("Underwater Welder")).not.toBeInTheDocument();
+    expect(screen.queryByText("Magma Welder")).not.toBeInTheDocument();
+    expect(screen.queryByText("Volcano Painter")).not.toBeInTheDocument();
 
-    subject.getByText("Welding Occupations").click();
+    screen.getByText("Welding Occupations").click();
 
-    expect(subject.getByText("Welding Occupations")).toBeInTheDocument();
-    expect(subject.getByText("Artists")).toBeInTheDocument();
-    expect(subject.queryByText("Underwater Welder")).toBeInTheDocument();
-    expect(subject.queryByText("Magma Welder")).toBeInTheDocument();
-    expect(subject.queryByText("Volcano Painter")).not.toBeInTheDocument();
+    expect(screen.getByText("Welding Occupations")).toBeInTheDocument();
+    expect(screen.getByText("Artists")).toBeInTheDocument();
+    expect(screen.queryByText("Underwater Welder")).toBeInTheDocument();
+    expect(screen.queryByText("Magma Welder")).toBeInTheDocument();
+    expect(screen.queryByText("Volcano Painter")).not.toBeInTheDocument();
   });
 
   it("changes arrow to indicate open/close state", () => {
-    const subject = render(<InDemandOccupationsPage client={stubClient} />);
+    act(() => {
+      render(<InDemandOccupationsPage client={stubClient} />);
+    })
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -99,17 +108,19 @@ describe("<InDemandOccupationsPage />", () => {
       ]),
     );
 
-    expect(subject.queryByText("keyboard_arrow_down")).toBeInTheDocument();
-    expect(subject.queryByText("keyboard_arrow_up")).not.toBeInTheDocument();
+    expect(screen.queryByText("keyboard_arrow_down")).toBeInTheDocument();
+    expect(screen.queryByText("keyboard_arrow_up")).not.toBeInTheDocument();
 
-    fireEvent.click(subject.getByText("Artists"));
+    fireEvent.click(screen.getByText("Artists"));
 
-    expect(subject.queryByText("keyboard_arrow_down")).not.toBeInTheDocument();
-    expect(subject.queryByText("keyboard_arrow_up")).toBeInTheDocument();
+    expect(screen.queryByText("keyboard_arrow_down")).not.toBeInTheDocument();
+    expect(screen.queryByText("keyboard_arrow_up")).toBeInTheDocument();
   });
 
   it("typeahead searches for and navigates to in-demand ", () => {
-    const subject = render(<InDemandOccupationsPage client={stubClient} />);
+    act(() => {
+      render(<InDemandOccupationsPage client={stubClient} />);
+    })
 
     act(() =>
       stubClient.capturedObserver.onSuccess([
@@ -119,10 +130,10 @@ describe("<InDemandOccupationsPage />", () => {
       ]),
     );
 
-    fireEvent.change(subject.getByPlaceholderText("Search for occupations"), {
+    fireEvent.change(screen.getByPlaceholderText("Search for occupations"), {
       target: { value: "data" },
     });
-    fireEvent.click(subject.getByText("Data Scientist"));
+    fireEvent.click(screen.getByText("Data Scientist"));
 
     expect(navigate).toHaveBeenCalledWith("/occupation/12-3456");
   });

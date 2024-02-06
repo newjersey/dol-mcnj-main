@@ -1,4 +1,4 @@
-import { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useEffect, useReducer, useState } from "react";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -83,6 +83,10 @@ export const App = (props: Props): ReactElement => {
     initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
+
+  useEffect(() => {
+    ReactGA.initialize("G-THV625FWWB", { testMode: process.env.NODE_ENV === 'test' });
+  }, []);
 
   return (
     <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>

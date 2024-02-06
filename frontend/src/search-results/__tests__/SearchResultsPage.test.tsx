@@ -1,14 +1,14 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { buildTrainingResult } from "../test-objects/factories";
-import { SearchResultsPage } from "./SearchResultsPage";
+import { buildTrainingResult } from "../../test-objects/factories";
+import { SearchResultsPage } from "../SearchResultsPage";
 import { navigate } from "@reach/router";
-import { StubClient } from "../test-objects/StubClient";
-import { CalendarLength } from "../domain/Training";
+import { StubClient } from "../../test-objects/StubClient";
+import { CalendarLength } from "../../domain/Training";
 import { useMediaQuery } from "@material-ui/core";
-import { Error } from "../domain/Error";
-import { en as Content } from "../locales/en";
+import { Error } from "../../domain/Error";
+import { en as Content } from "../../locales/en";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockReachRouter() {
