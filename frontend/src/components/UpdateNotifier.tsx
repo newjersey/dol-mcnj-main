@@ -84,8 +84,10 @@ const Content = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
-      });
+        body: JSON.stringify({
+          email,
+          description: activeDescription,
+        }),      });
 
       // Handle API response
       if (response.ok) {
@@ -149,9 +151,9 @@ const Content = ({
               <p className="heading-tag">Success!</p>
               {/* Success details */}
               <p className="status-message">
-                If this is the first time you've subscribed to New Jersey Career Central, you'll see
-                a confirmation email in your inbox to confirm your subscription. If you don't see
-                that email, be sure to check your spam and junk folders.
+                If this is the first time you've subscribed to {process.env.REACT_APP_SITE_NAME},
+                you'll see a confirmation email in your inbox to confirm your subscription. If you
+                don't see that email, be sure to check your spam and junk folders.
               </p>
               <p>
                 Read about out{" "}
@@ -207,7 +209,7 @@ const Content = ({
               <div className="heading-wrap">
                 <MegaphoneSimple size={48} />
                 <p className="heading-tag">
-                  Want updates on new tools and features from New Jersey Career Central?
+                  Want updates on new tools and features from {process.env.REACT_APP_SITE_NAME}?
                 </p>
               </div>
 
@@ -234,8 +236,7 @@ const Content = ({
                         onBlur={(e) => {
                           if (e.target.value === "") return;
                           setError(
-                            !checkValidEmail(e.target.value) ||
-                              activeDescription === "Select an option"
+                            !checkValidEmail(e.target.value)
                               ? {
                                   status: 400,
                                   message: "Input error",
@@ -298,6 +299,16 @@ const Content = ({
                                   selectButton.classList.remove("greyed-out");
                                   setOpenDropdown(false);
                                   setActiveDescription(desc);
+                                  if (email) {
+                                    setError(
+                                      !checkValidEmail(email)
+                                        ? {
+                                            status: 400,
+                                            message: "Input error",
+                                          }
+                                        : null,
+                                    );
+                                  }
                                 }}
                               >
                                 {desc}

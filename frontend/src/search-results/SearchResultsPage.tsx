@@ -36,7 +36,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [pageTitle, setPageTitle] = useState<string>(
-    "Advanced Search | Training Explorer | New Jersey Career Central",
+    `Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
   const filterState = useContext(FilterContext).state;
@@ -82,10 +82,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getPageTitle = (): void => {
     if (!props.searchQuery) {
-      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central");
+      setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
       const query = decodeURIComponent(props.searchQuery).toLocaleLowerCase();
-      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`);
+      setPageTitle(
+        `${query} | Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
+      );
     }
   };
 
