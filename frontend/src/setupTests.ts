@@ -8,6 +8,10 @@ import { en as mockEnContent } from "./locales/en";
 
 type tOptions = { count?: number; [key: string]: any };
 
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('dummy', { testMode: true });
+
 jest.mock("react-i18next", () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => {
