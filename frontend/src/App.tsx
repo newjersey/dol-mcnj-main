@@ -95,8 +95,8 @@ export const App = (props: Props): ReactElement => {
               {FaqRoutes({ client: props.client })}
               <SearchResultsPage path="/training/search" client={props.client} />
               <Redirect from="/search" to="/training/search" />
-              <SearchResultsPage path="/training/search/:searchQuery" client={props.client} />
-              <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
+              <SearchResultsPage path="/training/search?=:searchQuery" client={props.client} />
+              <Redirect from="/search?=:searchQuery" to="/training/search?=:searchQuery" />
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
