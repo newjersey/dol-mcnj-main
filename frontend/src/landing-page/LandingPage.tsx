@@ -34,12 +34,12 @@ export const LandingPage = (props: Props): ReactElement => {
     url: props.location?.pathname,
   };
 
-  if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
-    const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
-    if (index !== -1) {
-      pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
-    }
-  }
+  // if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
+  //   const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
+  //   if (index !== -1) {
+  //     pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
+  //   }
+  // }
 
   function findSvg(sectionIcon: string | undefined) {
     switch (sectionIcon) {
@@ -97,12 +97,15 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            <CardSlider
-              sectionId="explore"
-              cards={pageData.careerExplorationToolLinksCollection.items}
-              heading="All Career Exploration Tools"
-              theme="purple"
-            />
+            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
+              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
+              <CardSlider
+                sectionId="explore"
+                cards={pageData.careerExplorationToolLinksCollection.items}
+                heading="All Career Exploration Tools"
+                theme="purple"
+              />
+            )}
             <CardSlider
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
