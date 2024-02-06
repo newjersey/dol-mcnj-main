@@ -4,7 +4,6 @@ import { act } from "react-dom/test-utils";
 import { fireEvent, RenderResult } from "@testing-library/react";
 import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
-import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
