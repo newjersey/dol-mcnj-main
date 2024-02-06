@@ -1,8 +1,8 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { TrainingComparison } from "./TrainingComparison";
-import { buildTrainingResult } from "../test-objects/factories";
-import { en as Content } from "../locales/en";
+import { TrainingComparison } from "../TrainingComparison";
+import { buildTrainingResult } from "../../test-objects/factories";
+import { en as Content } from "../../locales/en";
 
 const { comparisonCompare, comparisonCollapse, comparisonClear } = Content.SearchResultsPage;
 
