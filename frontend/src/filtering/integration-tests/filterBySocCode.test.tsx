@@ -1,6 +1,5 @@
 import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
-import React from "react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
