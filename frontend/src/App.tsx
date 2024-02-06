@@ -64,11 +64,11 @@ Sentry.init({
 // Logs each Reach Router page as a separate pageview on Google Analytics
 // eslint-disable-next-line
 declare const window: any;
-const GA_TRACKING_ID = "G-THV625FWWB";
+const GA_TRACKING_ID = "G-R0KJEXTHNX";
 globalHistory.listen(({ location }) => {
   if (typeof window.gtag === "function") {
     window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
-    ReactGA.initialize("G-THV625FWWB", {});
+    ReactGA.initialize("G-R0KJEXTHNX", {});
   }
 });
 
