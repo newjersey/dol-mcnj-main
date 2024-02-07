@@ -39,8 +39,7 @@ import * as Sentry from "@sentry/react";
 import { AllSupportPage } from "./all-support-page/AllSupportPage";
 import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
 import { LandingPage } from "./landing-page/LandingPage";
-import ExternalRedirect from './components/modules/ExternalRedirect';
-
+import Navigator from "./navigator/Navigator";
 
 interface Props {
   client: Client;
@@ -102,7 +101,7 @@ export const App = (props: Props): ReactElement => {
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
               {process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
-                  <ExternalRedirect path="/navigator" to="https://mycareer.nj.gov/navigator" />
+                  <Navigator path="/navigator" />
               )}
               {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" && (
                 <CareerPathwaysPage path="/career-pathways" client={props.client} />
