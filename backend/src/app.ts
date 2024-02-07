@@ -15,6 +15,7 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import AWS from "aws-sdk";
 
 dotenv.config();
 // console.log(process.env);
@@ -47,9 +48,13 @@ process.on("unhandledRejection", (reason) => {
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
+const awsConfig = new AWS.Config({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
+  region: process.env.AWS_REGION
+});
+
 // Determine if the NODE_ENV begins with "aws"
-
-
 let connection: any = null;
 console.log(`starting application in ${process.env.NODE_ENV} environment`)
 switch (process.env.NODE_ENV) {
