@@ -33,9 +33,6 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
-          name: Set REACT_APP_ENVIRONMENT variable
-          command: echo 'export REACT_APP_ENVIRONMENT=user-research' >> $BASH_ENV      
-      - run:
           name: Run Node.js tests
           command: npm test
       - run:
