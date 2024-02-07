@@ -44,7 +44,7 @@ describe("<SearchResultsPage />", () => {
 
   describe("when handling initial pageload search", () => {
     it("uses the url parameter in the search bar input", () => {
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={"octopods"} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={"octopods"} />);
       expect(
         subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
       ).toHaveValue("octopods");
@@ -52,7 +52,7 @@ describe("<SearchResultsPage />", () => {
 
     it("cleans the url parameter of uri encoding for search bar input", () => {
       const subject = render(
-        <SearchResultsPage client={stubClient} searchQuery={"octopods%2Foctopi"} />,
+        <SearchResultsPage client={stubClient} search={"octopods%2Foctopi"} />,
       );
       expect(
         subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
@@ -60,12 +60,12 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("uses the url parameter to execute a search", () => {
-      render(<SearchResultsPage client={stubClient} searchQuery="octopods" />);
+      render(<SearchResultsPage client={stubClient} search="octopods" />);
       expect(stubClient.capturedQuery).toEqual("octopods");
     });
 
     it("executes an empty search and displays starting instructions when parameter does not exist", () => {
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={undefined} />);
       expect(stubClient.capturedQuery).toEqual("");
       expect(subject.getByTestId("gettingStarted")).toBeInTheDocument();
     });
@@ -193,7 +193,7 @@ describe("<SearchResultsPage />", () => {
 
   describe("when results are loading", () => {
     it("displays a spinner until success occurs", () => {
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={"some query"} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={"some query"} />);
 
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
       expect(subject.queryByText("0 results found", { exact: false })).not.toBeInTheDocument();
@@ -206,7 +206,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("displays a spinner until error occurs", () => {
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={"some query"} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={"some query"} />);
 
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
       expect(subject.queryByText("0 results found", { exact: false })).not.toBeInTheDocument();
@@ -220,7 +220,7 @@ describe("<SearchResultsPage />", () => {
   describe("when displaying result count", () => {
     it("displays number of results returns for search query", () => {
       const subject = render(
-        <SearchResultsPage client={stubClient} searchQuery={"frigate birds"} />,
+        <SearchResultsPage client={stubClient} search={"frigate birds"} />,
       );
       act(() =>
         stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
@@ -232,7 +232,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("displays does not display, shows getting started message when undefined", () => {
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={undefined} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={undefined} />);
 
       act(() => stubClient.capturedObserver.onSuccess([]));
 
@@ -243,7 +243,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("displays correct grammar when 1 result returned for search query", () => {
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={"cormorants"} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={"cormorants"} />);
       act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));
 
       expect(
@@ -253,7 +253,7 @@ describe("<SearchResultsPage />", () => {
 
     it("decodes uri components in the search query", () => {
       const subject = render(
-        <SearchResultsPage client={stubClient} searchQuery={"birds%2Fbats"} />,
+        <SearchResultsPage client={stubClient} search={"birds%2Fbats"} />,
       );
       act(() =>
         stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
@@ -353,7 +353,7 @@ describe("<SearchResultsPage />", () => {
 
     it("does not navigate to new page when search query is the same", () => {
       useMobileSize();
-      const subject = render(<SearchResultsPage client={stubClient} searchQuery={"penguins"} />);
+      const subject = render(<SearchResultsPage client={stubClient} search={"penguins"} />);
       act(() =>
         stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
       );

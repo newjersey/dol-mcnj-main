@@ -13,6 +13,7 @@ import {
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
+    console.log("ApiClient.getTrainingsByQuery", query);
     this.get(`/api/trainings/search?query=${query}`, observer);
   }
 
