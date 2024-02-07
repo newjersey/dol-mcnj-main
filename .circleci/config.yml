@@ -33,6 +33,9 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
+          name: Set REACT_APP_ENVIRONMENT variable
+          command: echo 'export REACT_APP_ENVIRONMENT=user-research' >> $BASH_ENV      
+      - run:
           name: Run Node.js tests
           command: npm test
       - run:
@@ -66,7 +69,7 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run:
           name: deploy
-          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcpmvp CLOUD_SQL_CONNECTION_NAME=d4ad-research2:us-east4:d4ad-mvp-gcp-pg REACT_APP_ENVIRONMENT=user-research scripts/deploy.sh
+          command: DB_PASS=$DB_MVP_PASS DB_NAME=d4admvp DB_ENV=gcpmvp CLOUD_SQL_CONNECTION_NAME=d4ad-research2:us-east4:d4ad-mvp-gcp-pg scripts/deploy.sh
 workflows:
   build-test-deploy:
     jobs:
