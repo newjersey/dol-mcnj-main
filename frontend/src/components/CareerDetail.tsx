@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { contentfulClient } from "../utils/contentfulClient";
-import { OccupationNodeProps, SelectProps } from "../types/contentful";
+import { JobCountProps, OccupationNodeProps, SelectProps } from "../types/contentful";
 import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
   ArrowSquareOut,
@@ -58,6 +58,8 @@ export const CareerDetail = ({
   selected?: SelectProps;
 }) => {
   const [data, setData] = useState<OccupationDataProps>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [jobCount, setJobCount] = useState<JobCountProps>();
   const [map, setMap] = useState<MapProps[]>();
   const [filteredMap, setFilteredMap] = useState<MapProps[]>();
 
@@ -74,6 +76,18 @@ export const CareerDetail = ({
           variables: { id: detailsId },
         });
         setData(result);
+
+        const searchTerm =
+          result.careerMapObject.trainingSearchTerms || result.careerMapObject.title;
+
+        client.getJobCount(searchTerm, {
+          onSuccess: (count) => {
+            setJobCount(count);
+          },
+          onError: (error) => {
+            console.error(error);
+          },
+        });
       } catch (error) {
         console.error(error);
         return {};
@@ -192,11 +206,7 @@ export const CareerDetail = ({
                       </Tooltip>
                     </p>
                     <p>
-                      <strong>
-                        {data.careerMapObject.numberOfAvailableJobs
-                          ? numberWithCommas(data.careerMapObject.numberOfAvailableJobs)
-                          : "---"}
-                      </strong>
+                      <strong>{jobCount ? numberWithCommas(jobCount.count) : "---"}</strong>
                     </p>
                     <a
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
