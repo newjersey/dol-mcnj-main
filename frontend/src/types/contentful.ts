@@ -316,6 +316,10 @@ export interface NavMenuProps {
   };
 }
 
+export interface JobCountProps {
+  count: number;
+}
+
 /* ********************
  *  TRAINING
  ******************** */
