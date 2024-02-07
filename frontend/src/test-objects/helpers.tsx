@@ -1,6 +1,6 @@
 import { render, RenderResult } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import React, { Dispatch, ReactElement, SetStateAction } from "react";
+import { Dispatch, ReactElement, SetStateAction } from "react";
 import { createHistory, createMemorySource, History, LocationProvider } from "@reach/router";
 import { ContextualInfo, ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
 import { setImmediate } from "timers";
