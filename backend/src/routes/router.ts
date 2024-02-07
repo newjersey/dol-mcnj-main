@@ -10,8 +10,6 @@ import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
-import { getOccupationDetailFactory } from "src/domain/occupations/getOccupationDetail";
-import { CareerOneStopClient } from "src/careeronestop/CareerOneStopClient";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
