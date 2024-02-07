@@ -100,9 +100,7 @@ export const App = (props: Props): ReactElement => {
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
-              {process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
-                  <Navigator path="/navigator" />
-              )}
+              <Navigator path="/navigator" />
               {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" && (
                 <CareerPathwaysPage path="/career-pathways" client={props.client} />
               )}
