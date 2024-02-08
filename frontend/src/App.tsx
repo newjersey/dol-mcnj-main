@@ -97,9 +97,7 @@ export const App = (props: Props): ReactElement => {
               <TrainingExplorerPage path="/training" client={props.client} />
               {FaqRoutes({ client: props.client })}
               <SearchResultsPage path="/training/search" client={props.client} />
-              <Redirect from="/search" to="/training/search" />
               <SearchResultsPage path="/training/search?=:searchQuery" client={props.client} />
-              <Redirect from="/search?=:searchQuery" to="/training/search?=:searchQuery" />
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
@@ -113,7 +111,7 @@ export const App = (props: Props): ReactElement => {
 
               <Redirect from="/search" to="/training/search" />
               <Redirect from="/etpl" to="/faq#etpl-program-general-information" />
-              <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
+              <Redirect from="/search?=:searchQuery" to="/training/search?=:searchQuery" />
 
               {process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
                   <CareerNavigatorPage path="/navigator" client={props.client} />
