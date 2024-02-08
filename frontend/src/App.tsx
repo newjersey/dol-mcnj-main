@@ -24,7 +24,6 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
-import { EtplPage } from "./etpl-page/EtplPage";
 import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
   ContextualInfo,
@@ -96,7 +95,6 @@ export const App = (props: Props): ReactElement => {
               <SearchResultsPage path="/training/search" client={props.client} />
               <Redirect from="/search" to="/training/search" />
               <SearchResultsPage path="/training/search/:searchQuery" client={props.client} />
-              <Redirect from="/search/:searchQuery" to="/training/search/:searchQuery" />
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
@@ -113,7 +111,6 @@ export const App = (props: Props): ReactElement => {
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <AllSupportPage path="/support-resources" client={props.client} />
               <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
-              <EtplPage path="/etpl" client={props.client} />
               <NotFoundPage default client={props.client} />
             </Router>
             {process.env.REACT_APP_FEATURE_MULTILANG === "true" && <LanguageSwitchButton />}
