@@ -20,7 +20,7 @@ import { ArrowLeft } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
-  search?: string;
+  location?: any;
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
@@ -45,7 +45,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  const searchQuery = props.location?.search.slice(2);
+  const searchQuery = props.location?.search?.slice(2) || "";
 
   usePageTitle(pageTitle);
 
