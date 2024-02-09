@@ -137,6 +137,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
               })}
             </span>
           </p>
+          <p className="mtxs mbz">
+            <span className="fin fas">
+              <InlineIcon className="mrs">qr_code</InlineIcon>
+              {props.trainingResult.cipCode
+                ? t("SearchResultsPage.cipCode") + `: ${props.trainingResult.cipCode}`
+                : t("SearchResultsPage.cipCodeUnavailable")}
+            </span>
+          </p>
         </div>
       </div>
       <div className="row">
@@ -148,6 +156,13 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           )}
           <div className="mtxs mbz flex fac">
             {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
+            {!props.trainingResult.inDemand &&
+            props.trainingResult.localExceptionCounty &&
+            props.trainingResult.localExceptionCounty.length !== 0 ? (
+              <InDemandTag counties={props.trainingResult.localExceptionCounty} />
+            ) : (
+              <></>
+            )}
             {props.comparisonItems && <ComparisonCheckbox />}
           </div>
         </div>

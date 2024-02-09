@@ -1,0 +1,287 @@
+.search-block {
+  background-color: $secondary-lighter;
+  padding: $size-56 0;
+
+  .container {
+    max-width: 1080px;
+  }
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    h2 {
+      width: calc(100% - 70px);
+    }
+    button {
+      text-align: right;
+      width: 70px;
+    }
+  }
+
+  h2,
+  h3 {
+    font-size: 1.35rem;
+
+    + p {
+      font-size: $size-16;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .usa-button:not(.usa-button--unstyled) {
+    background-color: $green;
+    font-size: 1.3rem;
+    font-weight: normal;
+  }
+
+  .usa-button {
+    &.usa-button--unstyled {
+      font-weight: bold;
+    }
+  }
+  input,
+  select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    height: 45px;
+    border: none;
+  }
+
+  .search-input {
+    border-radius: 5px;
+    margin: 0;
+    width: calc(100% - 175px);
+    border: $size-1 solid $base-light;
+    max-width: none;
+    height: 45px;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      width: 100%;
+      margin-bottom: $size-16;
+    }
+  }
+
+  .submit {
+    width: 100%;
+
+    @media screen and (min-width: ($tablet)) {
+      width: 175px;
+      padding-left: $size-16;
+    }
+
+    button.usa-button {
+      background-color: $secondary;
+      padding: $size-12;
+      font-size: $size-16;
+      font-weight: bold;
+      height: $size-45;
+    }
+
+    button,
+    a {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+
+      + a {
+        margin-top: $size-16;
+      }
+    }
+  }
+
+  .row,
+  .checks {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .row {
+    @media screen and (max-width: ($tablet - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .usa-checkbox,
+  .usa-checkbox__label::before {
+    background-color: transparent;
+  }
+
+  .filters {
+    margin-top: 2.5rem;
+
+    h3 {
+      margin-bottom: $size-16;
+      @media screen and (max-width: ($tablet - 1)) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    input,
+    select {
+      height: $size-40;
+      margin-top: 0.5rem;
+
+      &[disabled] {
+        background-color: $base-lighter;
+      }
+    }
+
+    .row {
+      @media screen and (max-width: ($tablet-xl - 1)) {
+        flex-direction: column;
+      }
+    }
+
+    .area {
+      position: relative;
+
+      &.extend {
+        input {
+          width: 323px;
+        }
+      }
+
+      .red {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+      }
+    }
+
+    .inputs {
+      display: flex;
+      gap: $size-16;
+      align-items: center;
+
+      input,
+      select {
+        width: 8rem;
+
+        @media (max-width: ($tablet-xl - 1)) and (min-width: ($tablet)) {
+          width: 15rem;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 100%;
+        }
+      }
+    }
+
+    .cost {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+      @media screen and (max-width: ($tablet-xl - 1)) {
+        margin: 2rem 0;
+      }
+
+      @media screen and (min-width: ($tablet-xl)) {
+        align-items: center;
+        padding: 0 3rem;
+      }
+
+      svg {
+        position: absolute;
+        top: 2.35rem;
+        left: 3.5rem;
+
+        @media screen and (max-width: ($tablet-xl - 1)) {
+          left: 0.5rem;
+        }
+      }
+
+      .label {
+        text-align: left;
+        width: 100%;
+      }
+
+      input {
+        width: 20rem;
+        margin-bottom: $size-16;
+        padding-left: 2rem;
+
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 100%;
+        }
+      }
+    }
+
+    .usa-checkbox {
+      + .usa-checkbox {
+        margin-left: $size-16;
+      }
+    }
+  }
+
+  button {
+    &.toggle {
+      border-bottom: $size-2 dashed $black;
+      padding: 0;
+      margin-bottom: $size-8;
+    }
+  }
+
+  .panel,
+  .overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .panel {
+    position: fixed;
+    border-left: $size-4 solid $secondary-dark;
+    top: 0;
+    right: -100%;
+    background: $secondary-lighter;
+    padding: 3rem;
+    max-width: $size-520;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: 3rem $size-16;
+    }
+
+    &.open {
+      right: 0;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: $size-16;
+      cursor: pointer;
+      z-index: 11;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: $ink;
+    opacity: 0;
+    z-index: 9;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
+  }
+}

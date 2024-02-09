@@ -1,0 +1,16 @@
+.major-group {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  color: $primary;
+}
+
+.search-bar {
+  width: 100%;
+}
+
+// small and up
+@media (min-width: $tablet-md) {
+  .search-bar {
+    width: 335px;
+  }
+}

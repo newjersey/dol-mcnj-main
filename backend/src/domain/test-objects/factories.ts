@@ -20,6 +20,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
+    totalClockHours: randomInt(),
     inDemand: randomBool(),
     online: randomBool(),
     localExceptionCounty: [],
@@ -50,6 +51,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     prerequisites: "some-certifications-" + randomInt(),
     occupations: [buildOccupation({})],
     calendarLength: randomCalendarLength(),
+    totalClockHours: randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: [],
     tuitionCost: randomInt(),
@@ -111,7 +113,7 @@ export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
 };
 
 export const buildInDemandOccupation = (
-  overrides: Partial<InDemandOccupation>
+  overrides: Partial<InDemandOccupation>,
 ): InDemandOccupation => {
   return {
     soc: "some-soc-" + randomInt(),
@@ -129,6 +131,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     tasks: ["some-tasks-" + randomInt()],
     education: "some-education-" + randomInt(),
     inDemand: randomBool(),
+    counties: [],
     medianSalary: randomInt(),
     openJobsCount: randomInt(),
     relatedOccupations: [buildOccupation({})],
@@ -138,7 +141,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
 };
 
 export const buildOccupationDetailPartial = (
-  overrides: Partial<OccupationDetailPartial>
+  overrides: Partial<OccupationDetailPartial>,
 ): OccupationDetailPartial => {
   return {
     soc: "some-soc-code-" + randomInt(),
@@ -167,6 +170,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     totalcost: randomInt().toString(),
     providername: "some-providername-" + randomInt(),
     calendarlengthid: randomCalendarLengthId(),
+    totalclockhours: randomInt().toString(),
     website: "some-website-" + randomInt(),
     street1: "some-street1-" + randomInt(),
     street2: "some-street2-" + randomInt(),
@@ -203,7 +207,7 @@ export const buildSocDefinition = (overrides: Partial<SocDefinition>): SocDefini
 };
 
 export const buildNullableOccupation = (
-  overrides: Partial<NullableOccupation>
+  overrides: Partial<NullableOccupation>,
 ): NullableOccupation => {
   return {
     soc: "some-soc-" + randomInt(),
@@ -214,6 +218,8 @@ export const buildNullableOccupation = (
 
 export const buildLocalException = (overrides: Partial<LocalException>): LocalException => {
   return {
+    soc: "some-soc-" + randomInt(),
+    title: "some-soctitle-" + randomInt(),
     cipcode: "some-cipcode-" + randomInt(),
     county: "some-county-" + randomInt(),
     ...overrides,
@@ -232,7 +238,7 @@ export const randomCalendarLength = (): CalendarLength => {
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const randomCalendarLengthId = (): string => {
   const all: any[] = Object.values(CalendarLength).filter(
-    (k) => typeof CalendarLength[k as any] !== "number"
+    (k) => typeof CalendarLength[k as any] !== "number",
   );
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex].toString();

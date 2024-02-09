@@ -27,7 +27,7 @@ describe("filtering by max cost", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/search/some-query");
+    await history.navigate("/training/search/some-query");
     await waitForEffect();
 
     act(() => {
@@ -134,7 +134,7 @@ describe("filtering by max cost", () => {
     await waitForEffect();
 
     expect((subject.getByPlaceholderText("$", { exact: false }) as HTMLInputElement).value).toEqual(
-      ""
+      "",
     );
     expect(subject.queryByText("training1999")).toBeInTheDocument();
     expect(subject.queryByText("training2000")).toBeInTheDocument();

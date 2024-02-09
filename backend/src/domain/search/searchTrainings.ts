@@ -7,6 +7,7 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 
 import { Selector } from "../training/Selector";
+import * as Sentry from "@sentry/node";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
 import any = jasmine.any;
@@ -172,6 +173,7 @@ export const searchTrainingsFactory = (
           isWheelchairAccessible: false,
           hasJobPlacementAssistance: false,
           hasChildcareAssistance: false,
+          totalClockHours: 0 // TODO: Implement Total Clock Hours replacement
         };
 
         console.log(JSON.stringify(result));

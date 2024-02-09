@@ -16,7 +16,7 @@ export const ContextualInfoPanel = (): ReactElement => {
     (_event: React.SyntheticEvent) => {
       onClickClose();
     },
-    [onClickClose]
+    [onClickClose],
   );
 
   return (

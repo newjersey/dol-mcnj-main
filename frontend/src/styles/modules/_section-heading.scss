@@ -1,0 +1,105 @@
+.sectionHeading {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $ink;
+    padding-bottom: $size-16;
+    border-bottom: $size-1 solid $base-lighter;
+    font-size: 2rem;
+    display: block;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &.strikeThrough {
+    text-align: center;
+    position: relative;
+
+    &:before {
+      content: "";
+      height: $size-1;
+      width: 100%;
+      background: $base-lighter;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      background: $white;
+      display: inline-block;
+      border: 0;
+      position: relative;
+      padding: 0 $size-16;
+    }
+  }
+
+  &.color-blue {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      border-bottom: $size-2 solid $primary;
+      color: $primary;
+    }
+  }
+
+  &.color-green {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      border-bottom: $size-2 solid $secondary;
+      color: $secondary;
+    }
+  }
+
+  &.color-purple {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      border-bottom: $size-2 solid $tertiary;
+      color: $tertiary;
+    }
+  }
+
+  &.color-navy {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      border-bottom: $size-2 solid $info-darker;
+      color: $info-darker;
+    }
+  }
+
+  .description {
+    margin: $size-10 0 0;
+    font-size: $size-16;
+  }
+}

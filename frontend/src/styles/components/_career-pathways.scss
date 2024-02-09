@@ -1,0 +1,129 @@
+.career-pathways {
+  padding: 6rem 0 0;
+
+  .sectionHeading {
+    margin-bottom: 2.5rem;
+  }
+
+  .select {
+    max-width: $size-560;
+    font-weight: bold;
+  }
+
+  .groups {
+    background: white;
+    position: relative;
+    margin: $size-96 0 $size-48;
+
+    .select {
+      position: relative;
+    }
+
+    .select-button {
+      margin-top: 0.7rem;
+      width: 100%;
+      appearance: none;
+      color: $ink;
+      padding: 0.7rem 2rem 0.7rem 0.7rem;
+      position: relative;
+      border: $size-1 solid $base-lighter;
+      border-radius: 5px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: $size-16;
+        bottom: $size-16;
+        width: 0;
+        height: 0;
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-top: 0.35rem solid $ink;
+      }
+    }
+
+    .dropdown-select {
+      font-weight: normal;
+      margin-top: $size-16;
+      box-shadow: 0 10px 20px -15px $ink;
+      max-height: $size-330;
+      border-radius: $size-8;
+      position: absolute;
+      overflow: auto;
+      z-index: 11;
+      background-color: $white;
+      width: 100%;
+
+      &[aria-expanded="true"] {
+        display: block;
+      }
+
+      .path-title,
+      button {
+        display: block;
+        width: 100%;
+      }
+
+      .path-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: $base-lighter;
+        padding: 0.5rem $size-16;
+      }
+
+      button {
+        padding: $size-16;
+
+        @media screen and (min-width: ($tablet)) {
+          padding: $size-16 $size-16 $size-16 5rem;
+        }
+
+        &:nth-of-type(2n - 1) {
+          background: $lighter-green;
+        }
+
+        &:hover {
+          @media screen and (min-width: ($tablet)) {
+            background: $purple;
+          }
+        }
+      }
+    }
+  }
+
+  .path-selector {
+    > .heading {
+      @media screen and (max-width: ($tablet - 1)) {
+        margin-left: $size-16;
+        margin-right: $size-16;
+      }
+    }
+  }
+
+  .selections {
+    display: flex;
+    align-items: flex-start;
+    gap: $size-32;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      gap: $size-24;
+    }
+
+    > div {
+      @media screen and (max-width: ($tablet - 1)) {
+        width: 100%;
+      }
+    }
+
+    .button-radio {
+      .label {
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 100%;
+          max-width: none;
+        }
+      }
+    }
+  }
+}

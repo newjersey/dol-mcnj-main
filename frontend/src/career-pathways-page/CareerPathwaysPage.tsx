@@ -2,57 +2,185 @@ import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { PageBanner } from "../components/PageBanner";
-import { CareerPathwaysPageData, IndustryProps } from "../types/contentful";
+import { CareerPathwaysPageData, IndustryProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
-import { FooterCta } from "../components/FooterCta";
 import { IndustryBlock } from "../components/IndustryBlock";
+import { OccupationDetail } from "../domain/Occupation";
+import { Error } from "../domain/Error";
+import { OccupationBlock } from "../components/OccupationBlock";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
+import { INDUSTRY_QUERY } from "../queries/industry";
+import { CareerPathways } from "../components/CareerPathways";
+import { NotFoundPage } from "../error/NotFoundPage";
+import { CtaBanner } from "../components/CtaBanner";
+import { SectionHeading } from "../components/modules/SectionHeading";
+import { Stepper } from "../components/Stepper";
+import { HowToUse } from "../components/modules/HowToUse";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
-  id?: string;
+  slug?: string;
 }
 
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
-  const [data, setData] = useState<CareerPathwaysPageData>();
   const [industry, setIndustry] = useState<IndustryProps>();
+  const [occupation, setOccupation] = useState<string>();
+  const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
+  const [error, setError] = useState<Error | undefined>();
+  const [loading, setLoading] = useState<boolean>();
+
+  const data: CareerPathwaysPageData = useContentfulClient({ query: CAREER_PATHWAYS_PAGE_QUERY });
+  const industryData: {
+    industryCollection: {
+      items: IndustryProps[];
+    };
+  } = useContentfulClient({
+    disable: !props.slug,
+    query: INDUSTRY_QUERY,
+    variables: { slug: props.slug },
+  });
 
   useEffect(() => {
-    props.client.getContentfulCPW("cpw", {
-      onSuccess: (response: {
-        data: {
-          data: CareerPathwaysPageData;
-        };
-      }) => {
-        setData(response.data.data);
-        if (props.id) {
-          const industry = response.data.data.industries.items.find(
-            (industry) => industry.slug === props.id
-          );
-          setIndustry(industry);
-        }
-      },
-      onError: (e) => {
-        console.log(`An error, maybe an error code: ${JSON.stringify(e)}`);
+    if (industryData) {
+      setIndustry(industryData?.industryCollection.items[0]);
+    }
+  }, [industryData]);
+
+  usePageTitle(`${data?.page.title} | New Jersey Career Central`);
+
+  useEffect(() => {
+    if ((occupation !== undefined || occupation !== null || occupation !== "") && occupation) {
+      setLoading(true);
+      props.client.getOccupationDetailBySoc(occupation, {
+        onSuccess: (result: OccupationDetail) => {
+          setLoading(false);
+          setError(undefined);
+          setOccupationDetail(result);
+        },
+        onError: (error: Error) => {
+          setLoading(false);
+          setError(error);
+        },
+      });
+    }
+  }, [occupation]);
+
+  if (props.slug && industryData?.industryCollection?.items.length === 0) {
+    return <NotFoundPage client={props.client} />;
+  }
+
+  const exploreLinks = data?.page.exploreButtonsCollection.items.map((link, index: number) => {
+    const highlight =
+      (index + 1) % 4 === 1
+        ? "purple"
+        : (index + 1) % 4 === 2
+          ? "orange"
+          : (index + 1) % 4 === 3
+            ? "blue"
+            : "green";
+    return {
+      ...link,
+      iconPrefix: link.icon,
+      highlight: highlight as ThemeColors,
+    };
+  });
+
+  const breadcrumbs = data
+    ? { items: [...data.page.pageBanner.breadcrumbsCollection.items] }
+    : { items: [] };
+
+  if (props.slug && industry) {
+    breadcrumbs.items.push({
+      copy: "NJ Career Pathways",
+      url: `/career-pathways`,
+      sys: {
+        id: industry.sys.id,
       },
     });
-  }, [props.client, props.id]);
+  }
+
+  const seoObject = {
+    title: `${data?.page.title} | New Jersey Career Central`,
+    description: data?.page.pageDescription,
+    image: data?.page.ogImage?.url,
+    keywords: data?.page.keywords,
+    url: props.location?.pathname,
+  };
 
   return (
-    <Layout
-      client={props.client}
-      theme="support"
-      footerComponent={
-        data && <FooterCta heading={data.page.footerCtaHeading} link={data.page.footerCtaLink} />
-      }
-    >
+    <>
       {data && (
-        <>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
-          <IndustrySelector industries={data.industries.items} current={industry?.slug} />
-          {industry && <IndustryBlock {...industry} />}
-        </>
+        <Layout
+          client={props.client}
+          theme="support"
+          noPad
+          className="career-pathways-page"
+          seo={seoObject}
+        >
+          <PageBanner
+            {...data.page.pageBanner}
+            breadcrumbsCollection={breadcrumbs}
+            breadcrumbTitle={industry?.title}
+          />
+          <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
+
+          {!industry ? (
+            <>
+              <section className="landing">
+                <div className="container plus">
+                  {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
+                </div>
+                <div className="container plus">
+                  <div className="steps">
+                    {data.page.stepsCollection && (
+                      <Stepper theme="purple" steps={data.page.stepsCollection.items} />
+                    )}
+                  </div>
+                </div>
+              </section>
+              <CtaBanner
+                heading={data.page.exploreHeading}
+                headingLevel={3}
+                theme="purple"
+                fullColor
+                links={exploreLinks}
+              />
+            </>
+          ) : (
+            <>
+              <IndustryBlock {...industry} />
+              <div id="industry-container">
+                {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
+                  <CareerPathways
+                    careerMaps={industry.careerMaps.items}
+                    icon={industry?.slug}
+                    industry={industry.title}
+                    client={props.client}
+                  />
+                ) : (
+                  <>
+                    {industry.inDemandCollection?.items &&
+                      industry.inDemandCollection?.items.length > 0 && (
+                        <OccupationBlock
+                          content={occupationDetail}
+                          industry={industry.shorthandTitle || industry.title}
+                          inDemandList={industry.inDemandCollection?.items}
+                          setOccupation={setOccupation}
+                          error={error}
+                          loading={loading}
+                        />
+                      )}
+                  </>
+                )}
+              </div>
+            </>
+          )}
+        </Layout>
       )}
-    </Layout>
+      <HowToUse />
+    </>
   );
 };

@@ -1,0 +1,62 @@
+.career-navigator {
+  .opportunity-cards {
+    padding: $size-80 0;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: $size-64 0;
+    }
+
+    .sectionHeading {
+      margin-bottom: $size-32;
+    }
+
+    .inner {
+      display: flex;
+      gap: $size-32;
+      width: 100%;
+
+      @media screen and (min-width: ($tablet)) {
+        justify-content: space-between;
+      }
+
+      @media screen and (max-width: ($tablet - 1)) {
+        flex-direction: column;
+      }
+
+      > .iconCard {
+        width: 100%;
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .steps {
+    padding: $size-32 0 $size-16;
+  }
+
+  .mid-cta {
+    padding: $size-48 0;
+  }
+
+  .info-cards {
+    padding: $size-48 0;
+
+    .info-card-row {
+      max-width: $desktop;
+      padding-top: $size-48;
+      margin: 0 auto;
+      display: flex;
+      gap: $size-32;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        flex-direction: column;
+      }
+    }
+
+    .iconCard {
+      width: 100%;
+    }
+  }
+}

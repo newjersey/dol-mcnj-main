@@ -4,7 +4,7 @@ describe("Training Provider Resources Page", () => {
     cy.injectAxe();
 
     cy.contains(
-      "As a training program provider, you may have questions about data collection requirements"
+      "As a training program provider, you may have questions about data collection requirements",
     ).should("exist");
     cy.checkA11y();
   });

@@ -1,12 +1,15 @@
 {
   "tags": ["backend"],
   "dependencies": [
+    "aws-sdk",
     "@contentful/rich-text-types",
+    "@sentry/node",
     "axios",
     "cors",
     "dotenv",
     "express",
     "knex",
-    "supertest"
+    "supertest",
+    "winston"
   ]
 }
