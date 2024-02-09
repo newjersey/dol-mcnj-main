@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { WindowLocation } from "@reach/router";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps, Link } from "@reach/router";
@@ -21,7 +21,7 @@ import { ArrowLeft } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
-  location?: any;
+  location?: WindowLocation<unknown> | undefined;
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
