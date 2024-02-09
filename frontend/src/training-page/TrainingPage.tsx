@@ -150,7 +150,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     for (let i=0; i < addresses.length; i++) {
       // assign individual address object properties to variables
-      const thisAddressName = addresses[i].name;
+      // const thisAddressName = addresses[i].name;
       const thisAddressStreet1 = addresses[i].street1;
       const thisAddressStreet2 = "";
       const thisAddressCity = addresses[i].city;
@@ -164,10 +164,10 @@ export const TrainingPage = (props: Props): ReactElement => {
 
         // assign individual contact point object properties to variables
         const thisContactPointName = thisAddressTargetContactPoints[j].name
-        const thisContactPointContactType = thisAddressTargetContactPoints[j].contactType
-        const thisContactPointEmail = thisAddressTargetContactPoints[j].email
-        const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
-        const thisContactPointSocialMedia = thisAddressTargetContactPoints[j].socialMedia
+        // const thisContactPointContactType = thisAddressTargetContactPoints[j].contactType
+        // const thisContactPointEmail = thisAddressTargetContactPoints[j].email
+        // const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
+        // const thisContactPointSocialMedia = thisAddressTargetContactPoints[j].socialMedia
 
         // push to HTML content blocks
         thisAddressTargetContactPointsBlocks.push(
@@ -247,7 +247,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       const targetCompetencies = conditionProfile.targetCompetency;
       const targetCompetencyBlocks = [];
       if (targetCompetencies != null) {
-        targetCompetencies.push(<h2>Competencies</h2>);
+        targetCompetencyBlocks.push(<h2>Competencies</h2>);
         for (let j=0; j < conditionProfile.targetCompetency.length; j++) {
           targetCompetencyBlocks.push(targetCompetencies[i].name);
         }
@@ -258,7 +258,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       const targetCredentials = conditionProfile.targetCredential;
       const targetCredentialBlocks = [];
       if (targetCredentials != null) {
-        targetCredentials.push(<h2>Credentials</h2>);
+        targetCredentialBlocks.push(<h2>Credentials</h2>);
         for (let j=0; j < conditionProfile.targetCredential.length; j++) {
           targetCredentialBlocks.push(targetCredentials[i].name);
         }
@@ -269,7 +269,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       const targetLearningOpportunities = conditionProfile.targetLearningOpportunity;
       const targetLearningOpportunityBlocks = [];
       if (targetLearningOpportunities != null) {
-        targetLearningOpportunities.push(<h2>Learning Opportunities</h2>);
+        conditionProfileBlock.push(<h2>Learning Opportunities</h2>);
         for (let j=0; j < conditionProfile.targetLearningOpportunity.length; j++) {
           targetLearningOpportunityBlocks.push(targetLearningOpportunities[i].name);
         }
