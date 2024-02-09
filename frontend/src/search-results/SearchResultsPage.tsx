@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
