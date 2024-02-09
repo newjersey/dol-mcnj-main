@@ -16,93 +16,40 @@ export const searchTrainingsFactory = (
   findTrainingsBy: FindTrainingsBy,
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
-    const query = `{
-      "@type": [
-            "ceterms:ApprenticeshipCertificate",
-            "ceterms:AssociateDegree",
-            "ceterms:BachelorDegree",
-            "ceterms:Badge",
-            "ceterms:Certificate",
-            "ceterms:CertificateOfCompletion",
-            "ceterms:Certification",
-            "ceterms:Degree",
-            "ceterms:DigitalBadge",
-            "ceterms:Diploma",
-            "ceterms:DoctoralDegree",
-            "ceterms:GeneralEducationDevelopment",
-            "ceterms:JourneymanCertificate",
-            "ceterms:License",
-            "ceterms:MasterCertificate",
-            "ceterms:MasterDegree",
-            "ceterms:MicroCredential",
-            "ceterms:OpenBadge",
-            "ceterms:ProfessionalDoctorate",
-            "ceterms:QualityAssuranceCredential",
-            "ceterms:ResearchDoctorate",
-            "ceterms:SecondarySchoolDiploma"
-      ],
-      "ceterms:credentialStatusType": {
-            "ceterms:targetNode": "credentialStat:Active"
-          },
-      "search:termGroup": {
-        "search:value": [
-          {
-            "ceterms:name": "${searchQuery}",
-                    "ceterms:description": "${searchQuery}",
+    const query = `
+      {
+        "search:termGroup": {
+          "search:value": [
+            {
+              "ceterms:name": "${searchQuery}",
+              "ceterms:description": "${searchQuery}",
                     "ceterms:ownedBy": {
                         "ceterms:name": "${searchQuery}"
                     },
-            "search:operator": "search:orTerms"
-          },
-          {
-            "ceterms:ownedBy": {
-              "ceterms:address": {
-                "ceterms:addressRegion": [
-                  {
-                    "search:value": "NJ",
-                    "search:matchType": "search:exactMatch"
-                  },
-                  {
-                    "search:value": "jersey"
-                  }
-                ]
-              }
+              "search:operator": "search:orTerms"
             },
-            "ceterms:offeredBy": {
-              "ceterms:address": {
-                "ceterms:addressRegion": [
-                  {
-                    "search:value": "NJ",
-                    "search:matchType": "search:exactMatch"
-                  },
-                  {
-                    "search:value": "jersey"
-                  }
-                ]
-              }
-            },
-            "ceterms:availableAt": {
-              "ceterms:address": {
-                "ceterms:addressRegion": [
-                  {
-                    "search:value": "NJ",
-                    "search:matchType": "search:exactMatch"
-                  },
-                  {
-                    "search:value": "jersey"
-                  }
-                ]
-              }
-            },
-            "search:operator": "search:orTerms"
-          }
-        ],
-        "search:operator": "search:andTerms"
-      }
-    }`
+            {
+              "ceterms:availableOnlineAt": "search:anyValue",
+              "ceterms:availableAt": {
+                "ceterms:address": {
+                  "ceterms:addressRegion": [
+                    {
+                      "search:value": "NJ",
+                      "search:value": "jersey",
+                      "search:matchType": "search:exactMatch"
+                    }
+                  ]
+                }
+              },
+              "search:operator": "search:orTerms"
+            }
+          ],
+          "search:operator": "search:andTerms"
+        }
+      }`
 
     const skip = 0;
-    const take = 5;
+    const take = 20;
     const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
     const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
