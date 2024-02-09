@@ -10,7 +10,8 @@ const navigation_paths = [
 
   { path: path + "/privacy-policy", label: "Privacy Policy Page" },
   { path: path + "/terms-of-service", label: "Terms of Service Page" },
-  { path: path + "/etpl", label: "ETPL Page" },
+  // TODO: Fix the error in the ETPL redirect
+  // { path: path + "/etpl", label: "ETPL Page" },
   {
     path: path + "/in-demand-occupations",
     label: "Indemand Occupations Page",

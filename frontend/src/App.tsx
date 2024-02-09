@@ -110,8 +110,8 @@ export const App = (props: Props): ReactElement => {
               <NotFoundPage default client={props.client} />
 
               <Redirect from="/search" to="/training/search" />
+              <Redirect from="/search?=:searchQuery" to="/training/search?=:searchQuery" noThrow />
               <Redirect from="/etpl" to="/faq#etpl-program-general-information" />
-              <Redirect from="/search?=:searchQuery" to="/training/search?=:searchQuery" />
 
               {process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
                   <CareerNavigatorPage path="/navigator" client={props.client} />
