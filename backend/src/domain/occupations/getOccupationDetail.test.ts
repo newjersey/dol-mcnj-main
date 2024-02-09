@@ -2,14 +2,15 @@ import { GetOccupationDetail } from "../types";
 import { StubDataClient } from "../test-objects/StubDataClient";
 import { getOccupationDetailFactory } from "./getOccupationDetail";
 import {
-  buildOccupationDetailPartial,
+  buildAddress,
   buildOccupation,
+  buildOccupationDetailPartial,
+  buildProvider,
   buildSocDefinition,
   buildTraining,
-  buildProvider,
-  buildAddress,
 } from "../test-objects/factories";
 import { Error } from "../Error";
+import { CalendarLength } from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -33,7 +34,7 @@ describe("getOccupationDetail", () => {
       mockGetSalaryEstimate,
       mockGetOpenJobsCount,
       mockFindTrainingsBy,
-      stubDataClient
+      stubDataClient,
     );
   });
 
@@ -71,7 +72,8 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: 33,
+          calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
+          totalClockHours: 400,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -91,6 +93,7 @@ describe("getOccupationDetail", () => {
         ...onetOccupationDetail,
         education: "some-string",
         inDemand: true,
+        counties: [],
         medianSalary: 38260,
         openJobsCount: 10,
         openJobsSoc: "some-soc",
@@ -100,7 +103,8 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: 33,
+            calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
+            totalClockHours: 400,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
@@ -163,7 +167,8 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: 33,
+          calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
+          totalClockHours: 20,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -184,6 +189,7 @@ describe("getOccupationDetail", () => {
         soc: "2018-soc",
         education: "some education text",
         inDemand: true,
+        localExceptionCounties: [],
         medianSalary: 38260,
         openJobsCount: 1000,
         openJobsSoc: "2010-soc",
@@ -193,7 +199,8 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: 33,
+            calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
+            totalClockHours: 20,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",
@@ -262,7 +269,8 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: 33,
+          calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
+          totalClockHours: 2000,
           localExceptionCounty: [],
           online: true,
           inDemand: true,
@@ -285,6 +293,7 @@ describe("getOccupationDetail", () => {
         tasks: [],
         education: "some education text",
         inDemand: false,
+        localExceptionCounties: [],
         medianSalary: 38260,
         openJobsCount: 100,
         relatedOccupations: neighboringOccupations,
@@ -294,7 +303,8 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: 33,
+            calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
+            totalClockHours: 2000,
             localExceptionCounty: [],
             online: true,
             providerId: "some-provider-id",

@@ -5,7 +5,9 @@ export interface StubDataClient {
   findCipDefinitionBySoc2018: jest.Mock;
   find2018OccupationsBySoc2010: jest.Mock;
   find2010OccupationsBySoc2018: jest.Mock;
-  getLocalExceptions: jest.Mock;
+  findLocalExceptionsBySoc: jest.Mock;
+  getLocalExceptionsByCip: jest.Mock;
+  getLocalExceptionsBySoc: jest.Mock;
   getOccupationsInDemand: jest.Mock;
   getEducationTextBySoc: jest.Mock;
   getSalaryEstimateBySoc: jest.Mock;
@@ -20,7 +22,9 @@ export const StubDataClient = (): StubDataClient => ({
   findCipDefinitionBySoc2018: jest.fn(),
   find2018OccupationsBySoc2010: jest.fn(),
   find2010OccupationsBySoc2018: jest.fn(),
-  getLocalExceptions: jest.fn(),
+  findLocalExceptionsBySoc: jest.fn(),
+  getLocalExceptionsByCip: jest.fn(),
+  getLocalExceptionsBySoc: jest.fn(),
   getOccupationsInDemand: jest.fn(),
   getEducationTextBySoc: jest.fn(),
   getSalaryEstimateBySoc: jest.fn(),

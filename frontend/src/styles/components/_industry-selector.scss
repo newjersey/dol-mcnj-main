@@ -1,113 +1,91 @@
+.pathway-button {
+  display: flex;
+  align-items: center;
+  gap: $size-8;
+  text-decoration: none;
+  outline: $size-1 solid $ink;
+  justify-content: center;
+  border-radius: $size-8;
+  padding: $size-10 $size-16 $size-10 $size-12;
+  min-width: 300px;
+  min-height: $size-48;
+  cursor: pointer;
+
+  @media screen and (min-width: ($tablet)) {
+    max-width: 400px;
+  }
+
+  @media screen and (max-width: ($tablet - 1)) {
+    width: 100%;
+  }
+
+  &.active {
+    font-weight: bold;
+    background-color: $tertiary-lighter;
+  }
+
+  &.active,
+  &:hover {
+    outline-width: $size-2;
+    outline-color: $tertiary;
+    border-color: $tertiary;
+  }
+
+  svg {
+    height: $size-24;
+  }
+
+  span {
+    color: $ink;
+  }
+}
+
 .industry-selector {
-  padding: 2rem 0;
+  padding: $size-48 0 0;
 
-  .heading {
-    text-align: center;
-    position: relative;
-    margin-bottom: 1.2rem;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateY(-50%) translateX(-50%);
-      width: 100%;
-      background-color: black;
-      height: 0.5rem;
-      z-index: -1;
-    }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 0;
-      text-align: center;
-      background-color: white;
-      display: inline-block;
-      padding: 0 1rem;
-    }
+  nav {
+    padding: $size-40 0;
   }
 
   ul {
-    @media screen and (min-width: ($mobTab + 1)) {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      gap: 1rem;
-    }
-  }
+    display: flex;
+    gap: $size-32;
+    flex-wrap: wrap;
 
-  li {
-    width: 100%;
-    text-align: center;
-    max-width: 200px;
-
-    @media screen and (max-width: ($mobTab)) {
-      max-width: 360px;
-      margin: 0 auto;
-    }
-
-    &.active {
-      a {
-        background: $lightest-grey;
-      }
-    }
-
-    + li {
-      @media screen and (max-width: ($mobTab)) {
-        margin-top: 1rem;
-      }
-    }
-
-    a {
-      color: $footer-grey;
-      text-decoration: none;
-      padding: 1.2rem;
-      display: block;
-      border: 2px solid $light-grey;
-      border-radius: 20px;
-      color: $text;
-
-      @media screen and (min-width: ($mobTab + 1)) {
-        height: 160px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 1.2rem;
-      }
-
-      span {
-        @media screen and (min-width: ($mobTab + 1)) {
-          display: block;
-          padding-bottom: 1.2rem;
-          height: calc(100% - 77px);
-        }
-      }
-    }
-  }
-
-  .icon {
-    @media screen and (min-width: ($mobTab + 1)) {
-      height: 157px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    @media screen and (max-width: ($tablet - 1)) {
+      gap: $size-16;
       flex-direction: column;
     }
   }
 
-  svg {
-    display: block;
-    margin: 0 auto;
-    background: $light-purple;
-    border-radius: 100%;
+  a {
+    @extend .pathway-button;
+  }
+}
+
+.button-radio {
+  appearance: none;
+
+  label {
+    @extend .pathway-button;
+  }
+
+  input {
+    height: 0;
+    width: 0;
+    opacity: 0;
     overflow: hidden;
-    padding: 0.4rem;
-    box-sizing: content-box;
-    margin-bottom: 1.3rem;
-    @media screen and (min-width: ($mobTab + 1)) {
-      margin-bottom: 0;
+    position: absolute;
+    z-index: -1;
+
+    &:checked {
+      + label {
+        outline-width: $size-2;
+        outline-color: $tertiary;
+        border-color: $tertiary;
+        font-weight: bold;
+        background-color: $tertiary-lighter;
+      }
     }
   }
 }

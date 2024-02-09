@@ -1,38 +1,45 @@
 describe("Search", () => {
-  it("searches from the homepage", () => {
+  it("searches from the training explorer page", () => {
     // on homepage
-    cy.visit("/");
+    cy.visit("/training");
     cy.injectAxe();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.checkA11y();
 
-    cy.get("[placeholder='Enter occupation, certification, or provider']").should("exist");
+    cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
+      "exist",
+    );
 
+    cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
-    cy.get("button").contains("Search").click({ force: true });
+    cy.wait(1000);
+    cy.get("a#search-button").contains("Search").click({ force: true });
 
     // on search results page
-    cy.location("pathname").should("eq", "/search/baking");
+    cy.location("pathname").should("eq", "/training/search/baking");
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Culinary Arts").should("exist");
+    cy.contains("baking skills").should("exist");
 
     cy.contains(
-      "...This two-semester certificate in Baking and Pastry is designed " +
-        "to provide students with career training for entry-level positions..."
+      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
     ).should("exist");
   });
 
   it("searches from the search results page", () => {
     // on results page
-    cy.visit("/search/welding%20workshops");
+    cy.visit("/training/search/welding%20workshops");
     cy.injectAxe();
 
     // displays trainings
@@ -48,10 +55,12 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').type("baking");
     cy.get("button").contains("Update Results").click({ force: true });
 
-    cy.location("pathname").should("eq", "/search/baking");
+    cy.location("pathname").should("eq", "/training/search/baking");
 
     // matches by title
-    cy.contains("Baking and Pastry Arts").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+      "exist",
+    );
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");
@@ -67,7 +76,7 @@ describe("Search", () => {
 
   it("shows getting started messaging when no search", () => {
     // on results page
-    cy.visit("/search");
+    cy.visit("/training/search");
     cy.injectAxe();
 
     // displays zero state
@@ -75,13 +84,13 @@ describe("Search", () => {
   });
 
   it("links back to home page", () => {
-    cy.visit("/search");
+    cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
-    cy.location("pathname").should("eq", "/");
+    cy.location("pathname").should("eq", "/training");
   });
 
   it("links to a training detail page", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/training/search/digital%20marketing");
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
     cy.location("pathname").should("eq", "/training/51388");
 
@@ -93,7 +102,7 @@ describe("Search", () => {
   });
 
   it("tags trainings on in-demand", () => {
-    cy.visit("/search/digital%20marketing");
+    cy.visit("/training/search/social%20work");
 
     // in-demand training
     cy.get(".card")
@@ -103,28 +112,28 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Smartphone Programmer").within(() => {
-      cy.contains("In Demand").should("not.exist");
+    cy.contains("Work Retention and Readiness").within(() => {
+      cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.contains("In Demand").should("exist");
+    cy.contains("A.S.Degree: Social Service").click({ force: true });
+    cy.contains("In-Demand").should("exist");
   });
 
   it("tags shows search training tips", () => {
-    cy.visit("/search/braider");
+    cy.visit("/training/search/braider");
 
     // search tips
     cy.get("[data-testid='searchTips']").should(
       "contain",
-      "Are you not seeing the results you were looking for?"
+      "Are you not seeing the results you were looking for?",
     );
   });
 
   it("shows comparison items when checked", () => {
     cy.intercept("/api/trainings/search?query=painting").as("getSearch");
 
-    cy.visit("/search/painting");
+    cy.visit("/training/search/painting");
 
     cy.wait("@getSearch").then(() => {
       cy.get("[data-testid='card']")

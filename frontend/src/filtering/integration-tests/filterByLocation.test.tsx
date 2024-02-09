@@ -40,7 +40,7 @@ describe("filtering by location", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/search/some-query");
+    await history.navigate("/training/search/some-query");
     await waitForEffect();
 
     act(() => {
@@ -72,7 +72,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).not.toHaveBeenCalled();
 
@@ -81,7 +81,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).not.toHaveBeenCalled();
 
@@ -90,7 +90,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -99,7 +99,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -108,7 +108,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.getByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(1);
 
@@ -117,7 +117,7 @@ describe("filtering by location", () => {
     });
     fireEvent.blur(getZipInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid)
+      subject.queryByText(Content.SearchAndFilter.locationFilterZipCodeInvalid),
     ).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledTimes(2);
 

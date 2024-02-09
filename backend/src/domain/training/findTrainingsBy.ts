@@ -20,6 +20,7 @@ import {
 import { util } from "prettier";
 import skip = util.skip;
 
+import * as Sentry from "@sentry/node";
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
@@ -287,8 +288,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
 
-        const matchingOccupations = (cip != null) ? await dataClient.findOccupationsByCip(cip) : []; // TODO: redod this
-        const localExceptionCounties = (await dataClient.getLocalExceptions()) // TODO: investigate what are localexceptioncounties
+        const matchingOccupations = (cip != null) ? await dataClient.findOccupationsByCip(cip) : []; // TODO: redo this
+        const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === cip)
           .map((localException: LocalException) =>
             convertToTitleCaseIfUppercase(localException.county)
@@ -330,6 +331,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           isWheelchairAccessible: false, // TODO: this field doesn't exist in CE!
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
+          // TODO: Implement total clock hours
         }
         console.log(JSON.stringify(training));
         return training;

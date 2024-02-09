@@ -51,9 +51,17 @@ export const FilterBox = ({
   const isMobile = !isTabletAndUp;
 
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
+  const [pagePath, setPagePath] = useState<string>("");
   const { state } = useContext(FilterContext);
 
+  // current page path
+
   useEffect(() => {
+    // check if window exists (for SSR)
+    if (typeof window !== "undefined") {
+      setPagePath(window.location.pathname);
+    }
+
     if (isTabletAndUp) {
       setFilterIsOpen(true);
     }
@@ -106,7 +114,7 @@ export const FilterBox = ({
     }
 
     resetStateForReload();
-    navigate(`/search/${encodeURIComponent(newQuery)}`);
+    navigate(`/training/search/${encodeURIComponent(newQuery)}`);
   };
 
   const MobileFilterDropdown = (): ReactElement => {
@@ -132,6 +140,7 @@ export const FilterBox = ({
           onSearch={executeSearch}
           initialValue={searchQuery}
           stacked={true}
+          isLandingPage={pagePath === "/training/search"}
           buttonText={t("SearchAndFilter.searchButtonDefaultText")}
         />
       )}

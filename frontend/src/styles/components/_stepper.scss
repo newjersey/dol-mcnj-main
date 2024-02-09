@@ -1,0 +1,56 @@
+.stepper {
+  display: flex;
+  gap: $size-32;
+
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    flex-direction: column;
+  }
+
+  .step {
+    background-color: $base-cool;
+    padding: $size-32;
+    border-radius: 5px;
+    width: 33.33%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: $size-4;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: 100%;
+      padding: $size-16;
+    }
+
+    .title {
+      display: block;
+      font-size: $size-22;
+      font-weight: bold;
+      margin: $size-8 0;
+    }
+  }
+
+  &.theme-green {
+    strong {
+      color: $secondary-dark;
+    }
+  }
+
+  &.theme-blue {
+    strong {
+      color: $primary;
+    }
+  }
+
+  &.theme-purple {
+    strong {
+      color: $tertiary-dark;
+    }
+  }
+
+  &.theme-navy {
+    strong {
+      color: $info;
+    }
+  }
+}

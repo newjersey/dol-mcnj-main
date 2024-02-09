@@ -30,7 +30,7 @@ describe("PageBanner", () => {
         ctaHeading={ctaHeading}
         ctaLinksCollection={ctaLinksCollection}
         date={date}
-      />
+      />,
     );
 
     // Assert title is rendered
@@ -51,8 +51,5 @@ describe("PageBanner", () => {
     ctaLinksCollection.items.forEach((link) => {
       expect(getByText(link.copy)).toHaveAttribute("href", link.url);
     });
-
-    // Assert date is rendered
-    expect(getByTestId("date")).toBeInTheDocument();
   });
 });

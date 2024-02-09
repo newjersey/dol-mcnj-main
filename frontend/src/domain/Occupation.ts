@@ -4,6 +4,7 @@ export interface InDemandOccupation {
   soc: string;
   title: string;
   majorGroup: string;
+  counties: string[];
 }
 
 export interface Occupation {
@@ -18,6 +19,7 @@ export interface OccupationDetail {
   tasks: string[];
   education: string;
   inDemand: boolean;
+  counties?: string[];
   medianSalary: number | null;
   openJobsCount: number | null;
   openJobsSoc?: number;

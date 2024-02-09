@@ -1,71 +1,117 @@
 .tab-content {
-  margin-top: 2.5rem;
+  @media screen and (min-width: ($tablet-md)) {
+    margin-top: 2.5rem;
+  }
 
   .container {
-    max-width: 750px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: $size-32;
+
+    @media screen and (min-width: ($tablet-md)) {
+      flex-direction: row-reverse;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      &:before {
+        content: none;
+      }
+    }
+  }
+  .nav-title {
+    margin-bottom: $size-16;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: none;
+    }
+  }
+
+  .nav-toggle {
+    background-color: $primary;
+    margin: 0 auto;
+  }
+
+  .toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $size-16;
+
+    @media screen and (min-width: ($tablet-md)) {
+      display: none;
+    }
+  }
+
+  .nav-wrap {
+    position: sticky;
+    top: $size-64;
+    width: $size-300;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      background-color: $white;
+      padding-top: $size-16;
+      top: 0;
+      width: calc(100% + $size-32);
+      margin-left: -$size-16;
+      box-shadow: $shadow-2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 
   nav {
-    position: relative;
-    @media screen and (max-width: ($tabPort)) {
-      margin-bottom: 2rem;
+    background-color: $white;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      margin: 0 auto;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 100%;
+      padding: 0 $size-16 $size-16;
+      transform: translateX(-50%);
+      box-shadow: $shadow-2;
+      max-height: calc(100vh - $size-96);
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
+
+    &.closed {
+      @media screen and (max-width: ($tablet-md - 1)) {
+        height: 0;
+        overflow: hidden;
+        width: 0;
+        box-shadow: n;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+      }
+    }
+
+    > ul > li {
+      &:last-of-type {
+        border-bottom: $size-1 solid $base-light;
+      }
+    }
+
     ul {
-      padding: 0;
-      list-style-type: none;
-
-      @media screen and (min-width: ($tabPort + 1)) {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 5rem;
-      }
-
-      @media screen and (max-width: ($tabPort)) {
-        display: none;
-      }
-
-      &.open {
-        @media screen and (max-width: ($tabPort)) {
-          @include mobileDropItems;
-        }
-      }
-    }
-
-    button {
-      @media screen and (max-width: ($tabPort)) {
-        width: 100%;
-        padding: 0.5rem;
-      }
-
-      &.active {
-        position: relative;
-        color: white;
-
-        @media screen and (max-width: ($tabPort)) {
-          background-color: $green;
-        }
-
-        &:before {
-          @media screen and (min-width: ($tabPort + 1)) {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 5px;
-            transform: translateX(-50%) translateY(-50%);
-            width: calc(100% + 10px);
-            height: calc(100% + 25px);
-            z-index: -1;
-            background-color: $green;
-          }
-        }
+      li {
+        border-top: $size-1 solid $base-light;
       }
     }
   }
 
   .content {
+    @media screen and (min-width: ($tablet-md)) {
+      width: calc(100% - $size-300);
+    }
+
     > h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
@@ -76,13 +122,22 @@
       h3 {
         font-size: 1.5rem;
       }
+
       h4,
       h5 {
         font-size: 1.2rem;
       }
 
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        margin: $size-16 0;
+      }
+
       table {
-        margin: 1rem 0;
+        margin: $size-16 0;
         tr {
           th {
             text-align: left;
@@ -90,7 +145,7 @@
           td,
           th {
             padding: 0.5rem 0;
-            border-bottom: 1px solid $light-grey;
+            border-bottom: $size-1 solid $light-grey;
           }
         }
       }

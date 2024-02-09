@@ -1,6 +1,5 @@
 import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
-import React from "react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
@@ -28,7 +27,7 @@ describe("filtering by soc code", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/search/some-query");
+    await history.navigate("/training/search/some-query");
     await waitForEffect();
 
     act(() => {
@@ -109,7 +108,7 @@ describe("filtering by soc code", () => {
     await waitForEffect();
 
     expect(
-      (subject.getByPlaceholderText("i.e. 43-9041", { exact: false }) as HTMLInputElement).value
+      (subject.getByPlaceholderText("i.e. 43-9041", { exact: false }) as HTMLInputElement).value,
     ).toEqual("");
     expect(subject.getByText("training1")).toBeInTheDocument();
     expect(subject.getByText("training2")).toBeInTheDocument();
@@ -134,7 +133,7 @@ describe("filtering by soc code", () => {
     });
     fireEvent.blur(getSocCodeInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.invalidSocCodeError)
+      subject.queryByText(Content.SearchAndFilter.invalidSocCodeError),
     ).not.toBeInTheDocument();
 
     fireEvent.change(getSocCodeInput(subject), {

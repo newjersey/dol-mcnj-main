@@ -11,6 +11,7 @@ export interface Training {
   certifications: ConditionProfile[];
   prerequisites: string;
   calendarLength: CalendarLength;
+  totalClockHours: number;
   occupations: Occupation[];
   inDemand: boolean;
   localExceptionCounty: string[];

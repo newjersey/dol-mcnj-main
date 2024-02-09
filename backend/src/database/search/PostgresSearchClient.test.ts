@@ -18,7 +18,7 @@ describe("PostgresSearchClient", () => {
   it("fetches description highlight for an id", async () => {
     const highlight = await credentialEngineUtils.getHighlight("1", "tree");
     expect(highlight).toEqual(
-      "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]"
+      "interested in learning skills necessary for todays modern [[tree]] identification jobs. Students will learn to distinguish types of [[trees]]",
     );
   });
 
@@ -30,7 +30,7 @@ describe("PostgresSearchClient", () => {
   it("uses description for highlight if there's a match on occupation and description", async () => {
     const highlight = await credentialEngineUtils.getHighlight("4", "chef");
     expect(highlight).toEqual(
-      "mushrooms; they are good for you. Become a [[chef]] to help others eat mushrooms"
+      "mushrooms; they are good for you. Become a [[chef]] to help others eat mushrooms",
     );
   });
 
@@ -45,7 +45,7 @@ describe("PostgresSearchClient", () => {
   it("returns a partial highlight when only one word is in the description", async () => {
     const highlight = await credentialEngineUtils.getHighlight("3", "leaf chef");
     expect(highlight).toEqual(
-      "designed to prepare students for jobs where edible [[leaf]] eating is required.  Software includes Microsoft Office including PowerPoint. Prior experience"
+      "designed to prepare students for jobs where edible [[leaf]] eating is required.  Software includes Microsoft Office including PowerPoint. Prior experience",
     );
   });
 

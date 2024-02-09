@@ -1,0 +1,79 @@
+.home-page {
+  .container {
+    @media screen and (min-width: ($widescreen)) {
+      width: 100%;
+      max-width: 1300px;
+    }
+  }
+
+  .tools {
+    padding: 3rem 0;
+
+    .sectionHeading {
+      margin-bottom: 2rem;
+    }
+
+    .tiles {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      gap: 2rem;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        gap: $size-16;
+        flex-wrap: wrap;
+      }
+
+      .iconCard {
+        width: 100%;
+
+        @media screen and (min-width: ($tablet-md)) {
+          max-width: 200px;
+        }
+
+        a {
+          height: 100%;
+
+          @media screen and (max-width: ($tablet-md - 1)) {
+            display: flex;
+            align-items: center;
+            gap: $size-16;
+            padding: $size-8 $size-16;
+
+            p {
+              margin: 0;
+              font-size: $size-22;
+            }
+
+            svg {
+              height: $size-32;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .card-slider {
+    &:nth-child(2n) {
+      background-color: $base-cool;
+
+      .sectionHeading {
+        background: $base-cool;
+      }
+
+      .inner {
+        &:before {
+          border-color: $base-cool;
+          background: linear-gradient(to right, $base-cool, transparent);
+        }
+
+        &:after {
+          border-color: $base-cool;
+          background: linear-gradient(to left, $base-cool, transparent);
+        }
+      }
+    }
+  }
+}

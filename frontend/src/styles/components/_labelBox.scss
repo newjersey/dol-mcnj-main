@@ -1,0 +1,85 @@
+.labelBox {
+  border-radius: $size-10;
+  overflow: hidden;
+  border: $size-1 solid $base-lighter;
+
+  &.toggleBox {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      border-radius: 0;
+    }
+
+    .content {
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        display: none;
+      }
+
+      &.open {
+        @media screen and (max-width: ($tablet-lg - 1)) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .title {
+    background: $primary;
+    color: $ink;
+    padding: $size-10 15px;
+    width: 100%;
+    margin: 0;
+    font-size: $size-16;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @media screen and (min-width: ($tablet-lg)) {
+      cursor: auto;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    .indicator {
+      @media screen and (min-width: ($tablet-lg)) {
+        display: none;
+      }
+    }
+  }
+
+  .content {
+    padding: $size-16;
+  }
+
+  &.color-blue {
+    .title {
+      background: $primary;
+      color: $white;
+    }
+  }
+
+  &.color-green {
+    .title {
+      background: $mintGreen;
+    }
+  }
+
+  &.color-purple {
+    .title {
+      background: $mid-purple;
+    }
+  }
+
+  &.color-orange {
+    .title {
+      background: $orange;
+    }
+  }
+
+  &.color-navy {
+    .title {
+      background: $navy;
+      color: $white;
+    }
+  }
+}

@@ -1,22 +1,60 @@
-import { navigate, RouteComponentProps } from "@reach/router";
-import React, { ReactElement } from "react";
+import { RouteComponentProps } from "@reach/router";
+import { ReactElement } from "react";
 import { useEffect } from "react";
 import { Client } from "../domain/Client";
-import { Searchbar } from "../components/Searchbar";
-import IconOccupation from "./landing-icons/swimlane-rocket.svg";
-import IconWorkforce from "./landing-icons/swimlane-bulb.svg";
-import IconCounseling from "./landing-icons/swimlane-heart.svg";
-import { Button } from "../components/Button";
-import { useTranslation } from "react-i18next";
 import { Certificates } from "../domain/CredentialEngine";
 import { Layout } from "../components/Layout";
+import { useContentfulClient } from "../utils/useContentfulClient";
+import { HomepageProps } from "../types/contentful";
+import { HOMEPAGE_QUERY } from "../queries/homePage";
+import { HomeBanner } from "../components/HomeBanner";
+import CardSlider from "../components/CardSlider";
+import { IconCard } from "../components/IconCard";
+import { SectionHeading } from "../components/modules/SectionHeading";
+import { IntroBlocks } from "../components/IntroBlocks";
+import { UpdateNotifier } from "../components/UpdateNotifier";
+import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
-export const LandingPage = (props: Props): ReactElement<Props> => {
-  const { t } = useTranslation();
+export const LandingPage = (props: Props): ReactElement => {
+  const data: HomepageProps = useContentfulClient({
+    query: HOMEPAGE_QUERY,
+  });
+
+  const pageData = data?.homePage;
+
+  usePageTitle(pageData?.title);
+
+  const seoObject = {
+    title: pageData?.title,
+    description: pageData?.pageDescription,
+    image: pageData?.ogImage?.url,
+    keywords: pageData?.keywords,
+    url: props.location?.pathname,
+  };
+
+  // if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
+  //   const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
+  //   if (index !== -1) {
+  //     pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
+  //   }
+  // }
+
+  function findSvg(sectionIcon: string | undefined) {
+    switch (sectionIcon) {
+      case "explore":
+        return "Explore";
+      case "jobs":
+        return "Jobs";
+      case "support":
+        return "Support";
+      default:
+        return "Training";
+    }
+  }
 
   useEffect(() => {
     props.client.getAllCertificates(0, 5, "^search:recordCreated", false, {
@@ -30,57 +68,66 @@ export const LandingPage = (props: Props): ReactElement<Props> => {
   });
 
   return (
-    <Layout client={props.client}>
-      <div className="bg-light-green pvl">
-        <div className="container search-container fdc fac fjc mtm mbl">
-          <h2 className="text-xl weight-400 align-center mbd title">
-            {t("LandingPage.headerText")}
-          </h2>
-          <Searchbar
-            className="width-100 phm"
-            onSearch={(searchQuery: string): Promise<void> =>
-              navigate(`/search/${encodeURIComponent(searchQuery)}`)
-            }
-            placeholder={t("LandingPage.searchBoxPlaceholder")}
-            stacked={true}
-            isLandingPage={true}
-          />
-        </div>
-      </div>
-
-      <div className="container options-container">
-        <h2 className="text-l weight-400 align-center mvd">{t("LandingPage.swimLaneHeader")}</h2>
-        <div className="col-md-4 fdc fac mbl">
-          <div className="landing-image mbs">
-            <img alt={t("IconAlt.landingPageOccupation")} src={IconOccupation} />
-          </div>
-          <h3 className="text-l weight-400 align-center">{t("LandingPage.columnOneHeader")}</h3>
-          <Button className="mtd" variant="secondary" onClick={() => navigate("/explorer")}>
-            {t("LandingPage.columnButtonText")}
-          </Button>
-        </div>
-        <div className="col-md-4 fdc fac mbl">
-          <div className="landing-image mbs">
-            <img alt={t("IconAlt.landingPageCounseling")} src={IconCounseling} />
-          </div>
-          <h3 className="text-l weight-400 align-center">{t("LandingPage.columnTwoHeader")}</h3>
-          <Button className="mtd" variant="secondary" onClick={() => navigate("/counselor")}>
-            {t("LandingPage.columnButtonText")}
-          </Button>
-        </div>
-        <div className="col-md-4 fdc fac mbl">
-          <div className="landing-image mbs">
-            <img alt={t("IconAlt.landingPageWorkforce")} src={IconWorkforce} />
-          </div>
-          <h3 className="text-l weight-400 align-center">{t("LandingPage.columnThreeHeader")}</h3>
-          <Button
-            className="mtd"
-            variant="secondary"
-            onClick={() => navigate("/training-provider-resources")}
-          >
-            {t("LandingPage.columnButtonText")}
-          </Button>
-        </div>
+    <Layout client={props.client} noPad seo={seoObject}>
+      <div className="home-page">
+        {data && (
+          <>
+            <HomeBanner
+              heading={pageData.title}
+              buttonCopy={pageData.bannerButtonCopy}
+              image={pageData.bannerImage}
+              subheading={pageData.bannerMessage}
+            />
+            {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
+            <div className="container" id="homeContent">
+              <div className="tools">
+                <SectionHeading heading="Explore Tools" strikeThrough />
+                <div className="tiles">
+                  {pageData.toolsCollection.items.map((item) => {
+                    const svgName = findSvg(item.sectionIcon)
+                    return (
+                      <IconCard
+                        key={item.sys.id}
+                        centered
+                        svg={svgName}
+                        title={item.copy}
+                        url={item.url}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <CardSlider
+              sectionId="jobs"
+              cards={pageData.jobSearchToolLinksCollection.items}
+              heading="All Job Search Tools"
+              theme="blue"
+            />
+            <CardSlider
+              sectionId="training"
+              cards={pageData.trainingToolLinksCollection.items}
+              heading="All Training Tools"
+              theme="green"
+            />
+            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
+              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
+              <CardSlider
+                sectionId="explore"
+                cards={pageData.careerExplorationToolLinksCollection.items}
+                heading="All Career Exploration Tools"
+                theme="purple"
+              />
+            )}
+            <CardSlider
+              sectionId="support"
+              cards={pageData.supportAndAssistanceLinksCollection.items}
+              heading="All Support and Assistance Resources"
+              theme="navy"
+            />
+          </>
+        )}
+        {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
       </div>
     </Layout>
   );

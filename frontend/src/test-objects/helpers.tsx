@@ -1,6 +1,6 @@
 import { render, RenderResult } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import React, { Dispatch, ReactElement, SetStateAction } from "react";
+import { Dispatch, ReactElement, SetStateAction } from "react";
 import { createHistory, createMemorySource, History, LocationProvider } from "@reach/router";
 import { ContextualInfo, ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
 import { setImmediate } from "timers";
@@ -12,7 +12,7 @@ interface RenderedWithRouter {
 
 export function renderWithRouter(
   component: ReactElement,
-  { route = "/", history = createHistory(createMemorySource(route)) } = {}
+  { route = "/", history = createHistory(createMemorySource(route)) } = {},
 ): RenderedWithRouter {
   return {
     container: render(<LocationProvider history={history}>{component}</LocationProvider>),
@@ -29,7 +29,7 @@ export const waitForEffect = async (): Promise<undefined> => {
 export const withContextualInfo = (
   subject: ReactElement,
   contextualInfo: ContextualInfo,
-  setContextualInfo: Dispatch<SetStateAction<ContextualInfo>>
+  setContextualInfo: Dispatch<SetStateAction<ContextualInfo>>,
 ): ReactElement => {
   return (
     <ContextualInfoContext.Provider value={{ contextualInfo, setContextualInfo }}>

@@ -28,7 +28,7 @@ describe("filtering by cip code", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/search/some-query");
+    await history.navigate("/training/search/some-query");
     await waitForEffect();
 
     act(() => {
@@ -109,7 +109,7 @@ describe("filtering by cip code", () => {
     await waitForEffect();
 
     expect(
-      (subject.getByPlaceholderText("i.e. 011102", { exact: false }) as HTMLInputElement).value
+      (subject.getByPlaceholderText("i.e. 011102", { exact: false }) as HTMLInputElement).value,
     ).toEqual("");
     expect(subject.getByText("training1")).toBeInTheDocument();
     expect(subject.getByText("training2")).toBeInTheDocument();
@@ -134,7 +134,7 @@ describe("filtering by cip code", () => {
     });
     fireEvent.blur(getCipCodeInput(subject));
     expect(
-      subject.queryByText(Content.SearchAndFilter.invalidCipCodeError)
+      subject.queryByText(Content.SearchAndFilter.invalidCipCodeError),
     ).not.toBeInTheDocument();
 
     fireEvent.change(getCipCodeInput(subject), {

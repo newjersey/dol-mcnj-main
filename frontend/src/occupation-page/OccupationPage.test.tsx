@@ -1,18 +1,17 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, act } from "@testing-library/react";
 import { OccupationPage } from "./OccupationPage";
 import {
   buildOccupation,
   buildOccupationDetail,
   buildTrainingResult,
 } from "../test-objects/factories";
-import { act } from "react-dom/test-utils";
 import { StubClient } from "../test-objects/StubClient";
 import { Error } from "../domain/Error";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { en as Content } from "../locales/en";
 
-const { inDemandTag } = Content.SearchResultsPage;
+const { inDemandTitle } = Content.InDemandBlock;
 const { dataUnavailableText, seeLess, seeMore, relatedTrainingSeeMore } = Content.OccupationPage;
 
 describe("<OccupationPage />", () => {
@@ -22,7 +21,7 @@ describe("<OccupationPage />", () => {
     stubClient = new StubClient();
   });
 
-  it("displays occupation details based on soc code", () => {
+  it("displays occupation details based on soc code", async () => {
     const occupationDetail = buildOccupationDetail({
       soc: "12-3456",
       title: "Test SOC Code",
@@ -44,14 +43,14 @@ describe("<OccupationPage />", () => {
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
-    expect(subject.getByText("Test SOC Code")).toBeInTheDocument();
+    expect(subject.getByTestId("title")).toBeInTheDocument();
     expect(subject.getByText("some cool description")).toBeInTheDocument();
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
     expect(subject.getByText("some education text")).toBeInTheDocument();
-    expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).toBeInTheDocument();
     expect(subject.getByText("1,010")).toBeInTheDocument();
     expect(subject.getByText("$97,820")).toBeInTheDocument();
     expect(subject.getByText("Related 1")).toBeInTheDocument();
@@ -63,44 +62,44 @@ describe("<OccupationPage />", () => {
     expect(jobOpenings).toHaveLength(1);
   });
 
-  it("does not display an in-demand tag when a occupation is not in-demand", () => {
+  it("does not display an in-demand tag when a occupation is not in-demand", async () => {
     const subject = render(<OccupationPage client={stubClient} />);
     const notInDemand = buildOccupationDetail({ inDemand: false, relatedTrainings: [] });
-    act(() => stubClient.capturedObserver.onSuccess(notInDemand));
+    await act(async () => stubClient.capturedObserver.onSuccess(notInDemand));
 
-    expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
+    expect(subject.queryByText(inDemandTitle)).not.toBeInTheDocument();
   });
 
-  it("displays data missing message if tasks are not available", () => {
+  it("displays data missing message if tasks are not available", async () => {
     const occupationDetail = buildOccupationDetail({
       tasks: [],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
-  it("displays data missing message if related occupations are not available", () => {
+  it("displays data missing message if related occupations are not available", async () => {
     const occupationDetail = buildOccupationDetail({
       relatedOccupations: [],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
-  it("hides tasks beyond 5 behind a See More", () => {
+  it("hides tasks beyond 5 behind a See More", async () => {
     const occupationDetail = buildOccupationDetail({
       tasks: ["task1", "task2", "task3", "task4", "task5", "task6"],
     });
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText("task1")).toBeInTheDocument();
     expect(subject.getByText("task2")).toBeInTheDocument();
@@ -121,84 +120,80 @@ describe("<OccupationPage />", () => {
     expect(subject.getByText(seeLess)).toBeInTheDocument();
   });
 
-  it("does not show See More if there are 5 tasks or fewer", () => {
+  it("does not show See More if there are 5 tasks or fewer", async () => {
     const occupationDetail = buildOccupationDetail({
       tasks: ["task1", "task2", "task3", "task4", "task5"],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.queryByText(seeMore)).not.toBeInTheDocument();
   });
 
-  it("displays data missing message if education is not available", () => {
+  it("displays data missing message if education is not available", async () => {
     const occupationDetail = buildOccupationDetail({
       education: "",
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
-  it("displays the Not Found page on not found error", () => {
+  it("displays the Not Found page on not found error", async () => {
     const subject = render(<OccupationPage client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onError(Error.NOT_FOUND));
+    await act(async () => stubClient.capturedObserver.onError(Error.NOT_FOUND));
 
-    expect(
-      subject.getByText(Content.ErrorPage.notFoundHeader, { exact: false })
-    ).toBeInTheDocument();
+    expect(subject.getByText("Occupation not found", { exact: false })).toBeInTheDocument();
   });
 
-  it("displays the Error page on server error", () => {
+  it("displays the Error page on server error", async () => {
     const subject = render(<OccupationPage client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
+    await act(async () => stubClient.capturedObserver.onError(Error.SYSTEM_ERROR));
 
-    expect(
-      subject.getByText(Content.ErrorPage.somethingWentWrongHeader, { exact: false })
-    ).toBeInTheDocument();
+    expect(subject.getByText("Occupation not found", { exact: false })).toBeInTheDocument();
   });
 
-  it("displays -- message if open jobs count is null", () => {
+  it("displays -- message if open jobs count is null", async () => {
     const occupationDetail = buildOccupationDetail({
       openJobsCount: null,
     });
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
     expect(subject.getByText(STAT_MISSING_DATA_INDICATOR)).toBeInTheDocument();
   });
 
-  it("displays -- message if median salary is not available", () => {
+  it("displays -- message if median salary is not available", async () => {
     const occupationDetail = buildOccupationDetail({
       medianSalary: null,
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText(STAT_MISSING_DATA_INDICATOR)).toBeInTheDocument();
   });
 
-  it("displays data missing message if related trainings is not available", () => {
+  it("displays data missing message if related trainings is not available", async () => {
     const occupationDetail = buildOccupationDetail({
       relatedTrainings: [],
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText(dataUnavailableText)).toBeInTheDocument();
   });
 
-  it("shows 'See More Results' if more than 3 related trainings", () => {
+  it("shows 'See More Results' if more than 3 related trainings", async () => {
     const occupationDetail = buildOccupationDetail({
       relatedTrainings: [
         buildTrainingResult({ name: "Training 1" }),
@@ -209,7 +204,7 @@ describe("<OccupationPage />", () => {
     });
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.getByText("Training 1")).toBeInTheDocument();
     expect(subject.getByText("Training 2")).toBeInTheDocument();
@@ -219,7 +214,7 @@ describe("<OccupationPage />", () => {
     expect(subject.queryByText(relatedTrainingSeeMore)).toBeInTheDocument();
   });
 
-  it("does not show See More Results if there are 3 related trainings or fewer", () => {
+  it("does not show See More Results if there are 3 related trainings or fewer", async () => {
     const occupationDetail = buildOccupationDetail({
       relatedTrainings: [
         buildTrainingResult({ name: "Training 1" }),
@@ -230,17 +225,17 @@ describe("<OccupationPage />", () => {
 
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
 
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     expect(subject.queryByText(relatedTrainingSeeMore)).not.toBeInTheDocument();
   });
 
-  it("does not display job openings link if there are no job openings", () => {
+  it("does not display job openings link if there are no job openings", async () => {
     const occupationDetail = buildOccupationDetail({
       openJobsCount: null,
     });
     const subject = render(<OccupationPage soc="12-3456" client={stubClient} />);
-    act(() => stubClient.capturedObserver.onSuccess(occupationDetail));
+    await act(async () => stubClient.capturedObserver.onSuccess(occupationDetail));
 
     const jobOpenings = subject.queryAllByTestId("jobOpenings");
     expect(jobOpenings).toHaveLength(0);

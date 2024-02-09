@@ -20,6 +20,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
+    totalClockHours: randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
     online: randomBool(),
@@ -47,6 +48,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     cipCode: "some-cip-" + randomInt(),
     provider: buildProvider({}),
     calendarLength: randomCalendarLength(),
+    totalClockHours: randomInt(),
     occupations: [buildOccupation({})],
     description: "some-description-" + randomInt(),
     certifications: [buildConditionProfile({}), buildConditionProfile({})],
@@ -81,7 +83,9 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     /*contactName: "some-contactName-" + randomInt(),
     contactTitle: "some-contactTitle-" + randomInt(),
     phoneNumber: "some-phoneNumber-" + randomInt(),
+    phoneExtension: "some-phoneExtension-" + randomInt(),
     phoneExtension: "some-phoneExtension-" + randomInt(),*/
+    county: "some-county-" + randomInt(),
     ...overrides,
   };
 };
@@ -100,12 +104,13 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
 };
 
 export const buildInDemandOccupation = (
-  overrides: Partial<InDemandOccupation>
+  overrides: Partial<InDemandOccupation>,
 ): InDemandOccupation => {
   return {
     soc: "some-soc-" + randomInt(),
     title: "some-title-" + randomInt(),
     majorGroup: "some-group-" + randomInt(),
+    counties: ["ATLANTIC", "MERCER"],
     ...overrides,
   };
 };
@@ -165,5 +170,3 @@ export const randomCalendarLength = (): CalendarLength => {
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex];
 };
-
-

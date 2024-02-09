@@ -15,6 +15,8 @@ import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
+import { usePageTitle } from "../utils/usePageTitle";
+import { ArrowLeft } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -23,6 +25,7 @@ interface Props extends RouteComponentProps {
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
+  const isTabletAndBelow = useMediaQuery("(max-width:767px)");
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
@@ -32,6 +35,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+  const [pageTitle, setPageTitle] = useState<string>(
+    "Advanced Search | Training Explorer | New Jersey Career Central",
+  );
 
   const filterState = useContext(FilterContext).state;
   const comparisonState = useContext(ComparisonContext).state;
@@ -39,11 +45,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  useEffect(() => {
-    document.title = props.searchQuery
-      ? t("SearchResultsPage.pageTitle", { query: props.searchQuery })
-      : t("SearchResultsPage.noSearchTermPageTitle");
-  }, [props.searchQuery, t]);
+  usePageTitle(pageTitle);
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
@@ -78,12 +80,22 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, props.searchQuery]);
 
+  const getPageTitle = (): void => {
+    if (!props.searchQuery) {
+      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central");
+    } else {
+      const query = decodeURIComponent(props.searchQuery).toLocaleLowerCase();
+      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`);
+    }
+  };
+
   useEffect(() => {
     const queryToSearch = props.searchQuery ? props.searchQuery : "";
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
         setTrainings(data);
+        getPageTitle();
         setIsLoading(false);
       },
       onError: () => {
@@ -158,8 +170,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getSearchTips = (): ReactElement => (
     <div className="mbm" data-testid="searchTips">
       <p>{t("SearchResultsPage.searchTips1")}</p>
+      <p>Check your spelling to ensure it is correct.</p>
+      <p>Verify and adjust any filters that you might have applied to your search.</p>
       <p>{t("SearchResultsPage.searchTips2")}</p>
       <p>{t("SearchResultsPage.searchTips3")}</p>
+
       <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
         {isOpen ? t("SearchResultsPage.seeLessText") : t("SearchResultsPage.seeMoreText")}
         <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>
@@ -186,16 +201,52 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   );
 
   return (
-    <Layout noFooter client={props.client}>
+    <Layout
+      noFooter
+      client={props.client}
+      seo={{
+        title: pageTitle,
+        url: props.location?.pathname,
+      }}
+    >
       {isTabletAndUp && (
         <div className="container results-count-container">
-          <div className="row ptd fixed-wrapper">
+          <nav className="usa-breadcrumb " aria-label="Breadcrumbs">
+            <ol className="usa-breadcrumb__list">
+              <li className="usa-breadcrumb__list-item">
+                <a className="usa-breadcrumb__link" href="/">
+                  Home
+                </a>
+              </li>
+              <li className="usa-breadcrumb__list-item">
+                <a className="usa-breadcrumb__link" href="/training">
+                  Training Explorer
+                </a>
+              </li>
+              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                <span data-testid="title">Search</span>
+              </li>
+            </ol>
+          </nav>
+
+          <div className="row fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
               {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
             </div>
           </div>
         </div>
+      )}
+
+      {isTabletAndBelow && (
+        <>
+          <div className="container results-count-container">
+            <a className="back-link" href="/training">
+              <ArrowLeft size={24} />
+              Back
+            </a>
+          </div>
+        </>
       )}
 
       {shouldShowTrainings && (
@@ -262,35 +313,35 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               </div>
             )}
             <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
-              {!isTabletAndUp && (
-                <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeaderSmallScreen")}</h3>
-              )}
               {isTabletAndUp && (
                 <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeader")}</h3>
               )}
-
-              <p className="mbl">
-                {t("SearchResultsPage.introText")}
-                &nbsp;
-                <Link className="link-format-blue" to="/funding">
-                  {t("SearchResultsPage.introTextLink")}
-                </Link>
-                .
-              </p>
-              <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
-              <p>{t("SearchResultsPage.searchHelperText")}</p>
-              <p>
-                <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
-                {t("SearchResultsPage.helperText1")}
-              </p>
-              <p>
-                <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
-                {t("SearchResultsPage.helperText2")}
-              </p>
-              <p>
-                <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
-                {t("SearchResultsPage.helperText3")}
-              </p>
+              {isTabletAndUp && (
+                <>
+                  <p className="mbl">
+                    {t("SearchResultsPage.introText")}
+                    &nbsp;
+                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
+                      {t("SearchResultsPage.introTextLink")}
+                    </Link>
+                    .
+                  </p>
+                  <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
+                  <p>{t("SearchResultsPage.searchHelperText")}</p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText1")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText2")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText3")}
+                  </p>
+                </>
+              )}
               {!isTabletAndUp && (
                 <div className="mtl mbd">
                   <h3 className="text-l">{t("SearchResultsPage.smallScreenSearchHeader")}</h3>
@@ -303,6 +354,35 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     {getSortDropdown()}
                   </FilterBox>
                 </div>
+              )}
+              {!isTabletAndUp && (
+                <>
+                  <h3 className="text-l mts">
+                    {t("SearchResultsPage.sectionOneHeaderSmallScreen")}
+                  </h3>
+                  <p className="mbl">
+                    {t("SearchResultsPage.introText")}
+                    &nbsp;
+                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
+                      {t("SearchResultsPage.introTextLink")}
+                    </Link>
+                    .
+                  </p>
+                  <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
+                  <p>{t("SearchResultsPage.searchHelperText")}</p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText1")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText2")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText3")}
+                  </p>
+                </>
               )}
             </div>
           </div>

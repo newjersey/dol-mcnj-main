@@ -27,6 +27,7 @@ describe("PostgresDataClient", () => {
     industrycredentialname: "tree identifier",
     prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
     calendarlengthid: "6",
+    totalclockhours: "636",
     providername: "Standardized Vineland Public Schools",
     providerid: "123",
     tuition: "3000",
@@ -65,10 +66,7 @@ describe("PostgresDataClient", () => {
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
-        expect.arrayContaining([
-          "Tree Identification Class",
-          "Tree Identification Class Level 2",
-        ])
+        expect.arrayContaining(["Tree Identification Class", "Tree Identification Class Level 2"]),
       );
     });
 
@@ -77,10 +75,7 @@ describe("PostgresDataClient", () => {
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
       expect(programs.map((it) => it.officialname)).toEqual(
-        expect.arrayContaining([
-          "Tree Identification Class",
-          "Tree Identification Class Level 2",
-        ])
+        expect.arrayContaining(["Tree Identification Class", "Tree Identification Class Level 2"]),
       );
     });
 
@@ -124,7 +119,7 @@ describe("PostgresDataClient", () => {
 
   describe("getLocalExceptions", () => {
     it("gets cips and counties with local waiver exceptions", async () => {
-      const localExceptions = await dataClient.getLocalExceptions();
+      const localExceptions = await dataClient.getLocalExceptionsByCip();
       expect(localExceptions).toEqual([
         {
           cipcode: "123456",
@@ -199,7 +194,7 @@ describe("PostgresDataClient", () => {
             soc: "old 2010 soc",
             title: null,
           },
-        ])
+        ]),
       );
     });
   });
@@ -217,7 +212,7 @@ describe("PostgresDataClient", () => {
             soc: "15-1255",
             title: "Web and Digital Interface Designers",
           },
-        ])
+        ]),
       );
     });
   });
@@ -235,7 +230,7 @@ describe("PostgresDataClient", () => {
             soc: "15-1199",
             title: "Computer Occupations, All Other (#)",
           },
-        ])
+        ]),
       );
     });
   });
@@ -245,7 +240,7 @@ describe("PostgresDataClient", () => {
       const education = await dataClient.getEducationTextBySoc("15-2011");
       expect(education.howtobecomeone.replace(/\s+/g, " ").trim()).toEqual(
         "<h4>How to Become an Actuary</h4> " +
-        "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>"
+          "<p>Actuaries need a bachelor&rsquo;s degree and must pass a series of exams to become certified professionals. They must have a strong background in mathematics, statistics, and business.</p>",
       );
     });
   });

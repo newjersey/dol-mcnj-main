@@ -18,11 +18,21 @@ export const CostFilter = (): ReactElement => {
   const { state, dispatch } = useContext(FilterContext);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cost = urlParams.get("maxCost");
+
+    if (cost) {
+      setMaxCost(cost);
+      applyMaxCostFilter();
+    }
+
     const maxCostFilter = state.filters.find(
-      (filter) => filter.element === FilterableElement.MAX_COST
+      (filter) => filter.element === FilterableElement.MAX_COST,
     );
     if (maxCostFilter) {
       setMaxCost(maxCostFilter.value);
+    } else if (cost) {
+      setMaxCost(cost);
     } else if (maxCostFilter == null && maxCost !== "") {
       setMaxCost("");
     }
@@ -55,6 +65,26 @@ export const CostFilter = (): ReactElement => {
         },
       });
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cost = urlParams.get("maxCost");
+
+    if (cost) {
+      setMaxCost(cost);
+      applyMaxCostFilter();
+
+      dispatch({
+        type: FilterActionType.ADD,
+        filter: {
+          element: FilterableElement.MAX_COST,
+          value: parseInt(cost),
+          func: (trainingResults): TrainingResult[] =>
+            trainingResults.filter((it) => it.totalCost <= parseInt(cost)),
+        },
+      });
+    }
+  }, []);
 
   return (
     <>
