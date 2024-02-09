@@ -17,6 +17,7 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
 
 dotenv.config();
 // console.log(process.env);
@@ -145,6 +146,22 @@ const router = routerFactory({
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getOccupationDetail: getOccupationDetailFactory(
+      OnetClient(
+          apiValues.onetBaseUrl,
+          apiValues.onetAuth,
+          postgresDataClient.find2018OccupationsBySoc2010
+      ),
+      getEducationTextFactory(postgresDataClient),
+      getSalaryEstimateFactory(postgresDataClient),
+      CareerOneStopClient(
+          apiValues.careerOneStopBaseUrl,
+          apiValues.careerOneStopUserId,
+          apiValues.careerOneStopAuthToken
+      ),
+      findTrainingsBy,
+      postgresDataClient
+  ),
+  getOccupationDetailByCIP: getOccupationDetailByCIPFactory(
       OnetClient(
           apiValues.onetBaseUrl,
           apiValues.onetAuth,
