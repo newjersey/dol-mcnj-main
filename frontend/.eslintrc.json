@@ -18,7 +18,6 @@
   },
   "plugins": ["@typescript-eslint/eslint-plugin", "jsx-a11y"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off",
     "react-hooks/exhaustive-deps": "off",
     "cypress/no-unnecessary-waiting": "off",
