@@ -151,7 +151,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             </button>
             <a
               id="search-button"
-              href={`/training/search/${searchTerm}`}
+              href={`/training/search?=${searchTerm}`}
               className="usa-button usa-button--unstyled"
             >
               Advanced Search
