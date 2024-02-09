@@ -44,7 +44,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --silent",
+    "test": "react-scripts test",
     "test:ci": "CI=1 react-scripts test --maxWorkers=2",
     "lint": "eslint --max-warnings 0 '*/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint --max-warnings 0 '*/**/*.{js,ts,tsx}' --fix",
