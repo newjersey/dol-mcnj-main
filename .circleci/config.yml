@@ -34,7 +34,7 @@ jobs:
             - ~/.cache
       - run:
           name: Run Node.js tests
-          command: npm react-scripts test --silent
+          command: npm test
       - run:
           name: Execute feature tests script
           command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
