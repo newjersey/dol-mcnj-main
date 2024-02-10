@@ -1,88 +1,115 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { SearchBlock } from "./SearchBlock";
 import type { ContentfulRichText } from "../types/contentful";
 
-const testDrawerContent = {
-  "json": {
-    "data": {},
-    "content": [{
-      "data": {},
-      "content": [{
-        "data": {},
-        "marks": [],
-        "value": "SOC code",
-        "nodeType": "text"
-      }],
-      "nodeType": "heading-3"
-    },{
-      "data": { },
-      "content": [{
-        "data":{},
-        "marks":[],
-        "value": "The \"Standard Occupational Classification\" system is used to categorize occupations.",
-        "nodeType":"text"
-      }],
-      "nodeType": "paragraph"
-    },{
-      "data": {},
-      "content": [{
-        "data": {},
-        "marks": [],
-        "value": "You can find a list of SOC codes ","nodeType":"text"
-      },{
-        "data": {
-          "uri": "https://www.bls.gov/oes/current/oes_stru.htm"
-        },
-        "content": [{
-          "data":{},
-          "marks":[],
-          "value":"here",
-          "nodeType":"text"
-        }],
-        "nodeType":"hyperlink"
-      },{
-        "data":{},
-        "marks":[],
-        "value":".",
-        "nodeType":"text"
-      }],
-      "nodeType":"paragraph"
-    },{
-      "data":{},
-      "content":[{
-        "data":{},
-        "marks":[],
-        "value":"",
-        "nodeType":"text"
-      }],
-      "nodeType":"paragraph"
-    }],
-    "nodeType":"document"},
-    "links":{"assets":{"block":[]}}} as ContentfulRichText;
-
-let assignMock: jest.Mock;
-
+const testDrawerContent: ContentfulRichText = {
+  json: {
+    data: {},
+    content: [
+      {
+        data: {},
+        content: [
+          {
+            data: {},
+            marks: [],
+            value: "SOC code",
+            nodeType: "text",
+          },
+        ],
+        nodeType: "heading-3",
+      },
+      {
+        data: {},
+        content: [
+          {
+            data: {},
+            marks: [],
+            value: "The \"Standard Occupational Classification\" system is used to categorize occupations.",
+            nodeType: "text",
+          },
+        ],
+        nodeType: "paragraph",
+      },
+      {
+        data: {},
+        content: [
+          {
+            data: {},
+            marks: [],
+            value: "You can find a list of SOC codes ",
+            nodeType: "text",
+          },
+          {
+            data: {
+              uri: "https://www.bls.gov/oes/current/oes_stru.htm",
+            },
+            content: [
+              {
+                data: {},
+                marks: [],
+                value: "here",
+                nodeType: "text",
+              },
+            ],
+            nodeType: "hyperlink",
+          },
+          {
+            data: {},
+            marks: [],
+            value: ".",
+            nodeType: "text",
+          },
+        ],
+        nodeType: "paragraph",
+      },
+      {
+        data: {},
+        content: [
+          {
+            data: {},
+            marks: [],
+            value: "",
+            nodeType: "text",
+          },
+        ],
+        nodeType: "paragraph",
+      },
+    ],
+    nodeType: "document",
+  },
+  links: { assets: { block: [] } },
+};
 
 describe("SearchBlock", () => {
+  let originalLocation: Location;
+
   beforeAll(() => {
-    delete (window as any).location;
-    (window.location as any) = { assign: assignMock };
+    // Saving the original window.location
+    originalLocation = window.location;
+
+    // Mocking window.location with a partial Location object
+    delete window.location;
+    window.location = {
+      ...originalLocation,
+      assign: jest.fn(),
+    } as Partial<Location> as Location;
+  });
+
+  afterAll(() => {
+    // Restoring the original window.location after all tests
+    window.location = originalLocation;
   });
 
   beforeEach(() => {
-    assignMock = jest.fn();
     act(() => {
-      render(
-        <SearchBlock
-          drawerContent={testDrawerContent}
-        />,
-      );
-    })
+      render(<SearchBlock drawerContent={testDrawerContent} />);
+    });
   });
 
   afterEach(() => {
-    assignMock.mockClear();
+    jest.clearAllMocks();
   });
 
   test("renders search input correctly", () => {
