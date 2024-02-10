@@ -5,12 +5,10 @@ const navigation_paths = [
   { path: path + "/training/search", label: "Search Page" },
   { path: path + "/training/44988", label: "Training Page" },
   { path: path + "/occupation/15-1254", label: "Occupation Page" },
-  { path: path + "/funding", label: "Funding Page" },
   { path: path + "/career-pathways/:slug", label: "Career Pathways Page" },
 
   { path: path + "/privacy-policy", label: "Privacy Policy Page" },
   { path: path + "/terms-of-service", label: "Terms of Service Page" },
-  { path: path + "/etpl", label: "ETPL Page" },
   {
     path: path + "/in-demand-occupations",
     label: "Indemand Occupations Page",
