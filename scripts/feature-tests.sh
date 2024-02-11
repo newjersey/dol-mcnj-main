@@ -2,9 +2,28 @@
 
 cd $(git rev-parse --show-toplevel)
 
+# Database setup
+DB_NAME=d4adlocal
+DB_PORT=5432 # Default PostgreSQL port, adjust if different
+DB_USER=postgres # Adjust according to your setup
+
+echo "Setting up database..."
+# Check if the database exists, create if not
+if ! psql -lqt -h localhost -U "${DB_USER}" | cut -d \| -f 1 | grep -qw "${DB_NAME}"; then
+    echo "Database ${DB_NAME} does not exist. Creating..."
+    createdb -h localhost -U "${DB_USER}" "${DB_NAME}"
+else
+    echo "Database ${DB_NAME} already exists."
+fi
+
+# Run migrations
+echo "Running migrations..."
+npm run migrate-up
+
 APP_PORT=8080
 
-kill $(lsof -i:${APP_PORT} -t)
+# Attempt to kill any process using the APP_PORT
+kill $(lsof -i:${APP_PORT} -t) || true
 
 set -e
 
@@ -19,7 +38,7 @@ npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP
 
 set +e
 
-kill $(lsof -i:${APP_PORT} -t)
+kill $(lsof -i:${APP_PORT} -t) || true
 
 echo "   __            _                                             _"
 echo "  / _| ___  __ _| |_ _   _ _ __ ___  ___   _ __   __ _ ___ ___| |"
