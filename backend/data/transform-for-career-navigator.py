@@ -3,6 +3,7 @@ import requests
 import logging
 from requests.exceptions import RequestException
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Setup logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -41,7 +42,6 @@ session = requests.Session()
 # Cache for storing previously fetched SOC values
 soc_cache = {}
 
-
 def fetch_socs(cip):
     """Fetch the SOC values from the API for a given CIP, with caching."""
     if cip in soc_cache:
@@ -62,58 +62,64 @@ def fetch_socs(cip):
         logging.error(f"Error fetching SOCs for CIP {cip}: {e}")
         return []
 
+def process_row(row):
+    """Process a single row and return the output rows."""
+    cip_code = row["cipcode"].zfill(6)  # Prepends zeros to make the CIP code 6 digits if it's not already
+    socs = fetch_socs(cip_code)
+    output_rows = []
+    for soc in socs:
+        soc_code = soc["soc"].replace("-", "")
+        soc_name = soc.get("title", "Unknown SOC Code")  # Assuming 'title' is the correct key
+        duration = calendarlength_dict.get(row["calendarlengthid"], "Unknown")
+
+        output_row = {
+            "training_id": row["programid"],
+            "title": row["officialname"],
+            "area": row["city"],
+            "link": f'https://mycareer.nj.gov/training/{row["programid"]}',
+            "duration": duration,
+            "soc": soc_code,
+            "roi": 0,
+            "soc3": soc_code[:3],
+            "id": f'training#{row["programid"]}',
+            "method": "classroom",
+            "soc_name": soc_name,
+            "location": row["county"],
+            "title_en": row["officialname"],
+            "soc_name_en": soc_name,
+            "title_es": row["officialname"],
+            "soc_name_es": soc_name,
+            "title_tl": row["officialname"],
+            "soc_name_tl": soc_name,
+            "title_zh": row["officialname"],
+            "soc_name_zh": soc_name,
+            "title_ja": row["officialname"],
+            "soc_name_ja": soc_name,
+            "duration_units": "Weeks",
+            "duration_slider_val_min": duration,
+            "duration_slider_val_max": duration,
+            "duration_units_en": "Weeks",
+            "duration_units_es": "Semanas",
+            "duration_units_tl": "tuần",
+            "duration_units_zh": "周",
+            "duration_units_ja": "週間"
+        }
+        output_rows.append(output_row)
+    return output_rows
 
 try:
-    with open(input_file_path, mode='r', encoding='utf-8') as infile, open(output_file_path, mode='w', newline='',
-                                                                           encoding='utf-8') as outfile:
-        reader = csv.DictReader(infile)
+    with open(input_file_path, mode='r', encoding='utf-8') as infile, open(output_file_path, mode='w', newline='', encoding='utf-8') as outfile:
+        reader = list(csv.DictReader(infile))
         writer = csv.DictWriter(outfile, fieldnames=output_columns)
         writer.writeheader()
 
-        for row in reader:
-            logging.debug(f"Processing row with program ID: {row['programid']}")
-            socs = fetch_socs(row["cipcode"])
-            for soc in socs:
-                # Clean up SOC code by removing hyphens
-                soc_code = soc["soc"].replace("-", "")
-                duration = calendarlength_dict.get(row["calendarlengthid"])
-
-                output_row = {
-                    "training_id": row["programid"],
-                    "title": row["officialname"],
-                    "area": row["city"],
-                    "link": f'https://mycareer.nj.gov/training/{row["programid"]}',
-                    "duration": duration,
-                    "soc": soc_code,
-                    "roi": 0,
-                    "soc3": soc_code[0:3],
-                    "id": f'training#{row["programid"]}',
-                    "method": "classroom",
-                    "soc_name": soc["title"],
-                    "location": row["county"],
-                    "title_en":  row["officialname"],
-                    "soc_name_en": soc["title"],
-                    "title_es": row["officialname"],
-                    "soc_name_es": soc["title"],
-                    "title_tl": row["officialname"],
-                    "soc_name_tl": soc["title"],
-                    "title_zh": row["officialname"],
-                    "soc_name_zh": soc["title"],
-                    "title_ja": row["officialname"],
-                    "soc_name_ja": soc["title"],
-                    "duration_units": "Weeks",
-                    "duration_slider_val_min": duration,
-                    "duration_slider_val_max": duration,
-                    "duration_units_en": "Weeks",
-                    "duration_units_es": "Semanas",
-                    "duration_units_tl": "tuần",
-                    "duration_units_zh": "周",
-                    "duration_units_ja": "週間"
-                }
-                try:
+        # Use ThreadPoolExecutor to process rows in parallel
+        with ThreadPoolExecutor(max_workers=20) as executor:
+            futures = [executor.submit(process_row, row) for row in reader]
+            for future in as_completed(futures):
+                output_rows = future.result()
+                for output_row in output_rows:
                     writer.writerow(output_row)
-                except Exception as write_error:
-                    logging.error(f"Error writing row for program ID {row['programid']}: {write_error}")
 
 except Exception as e:
     logging.error(f"Error processing files: {e}")
