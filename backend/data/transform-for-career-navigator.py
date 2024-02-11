@@ -69,7 +69,7 @@ def process_row(row):
     output_rows = []
     for soc in socs:
         soc_code = soc["soc"].replace("-", "")
-        soc_name = soc.get("title", "Unknown SOC Code")  # Assuming 'title' is the correct key
+        soc_name = soc.get("title", "Unknown")
         duration = calendarlength_dict.get(row["calendarlengthid"], "Unknown")
 
         output_row = {
