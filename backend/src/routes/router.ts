@@ -10,6 +10,7 @@ import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
+import { CareerOneStopClient } from "../../src/careeronestop/CareerOneStopClient";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -64,20 +65,13 @@ export const routerFactory = ({
   });
 
   router.get("/jobcount/:term", async (req: Request, res: Response<any>) => {
-    const data = await fetch(
-      `${process.env.CAREER_ONESTOP_BASEURL}/v1/jobsearch/${process.env.CAREER_ONESTOP_USERID}/${req.params.term}/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.CAREER_ONESTOP_AUTH_TOKEN}`,
-        },
-      },
-    );
+    const countData = await CareerOneStopClient(
+      process.env.CAREER_ONESTOP_BASEURL as string,
+      process.env.CAREER_ONESTOP_USERID as string,
+      process.env.CAREER_ONESTOP_AUTH_TOKEN as string,
+    )(req.params.term);
 
-    const { Jobcount } = await data.json();
-
-    res.status(200).json({ count: Math.floor(parseInt(Jobcount)) });
+    res.status(200).json({ count: countData });
   });
 
   return router;

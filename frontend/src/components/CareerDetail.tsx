@@ -21,7 +21,7 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { Selector } from "../svg/Selector";
 import { InDemandTag } from "./InDemandTag";
-import { Tooltip } from "@material-ui/core";
+import { CircularProgress, Tooltip } from "@material-ui/core";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -60,6 +60,7 @@ export const CareerDetail = ({
   const [data, setData] = useState<OccupationDataProps>();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [jobCount, setJobCount] = useState<JobCountProps>();
+  const [loadingJobs, setLoadingJobs] = useState(false);
   const [map, setMap] = useState<MapProps[]>();
   const [filteredMap, setFilteredMap] = useState<MapProps[]>();
 
@@ -69,6 +70,7 @@ export const CareerDetail = ({
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoadingJobs(true);
       try {
         /* eslint-disable-next-line  */
         const result: any = await contentfulClient({
@@ -83,12 +85,15 @@ export const CareerDetail = ({
         client.getJobCount(searchTerm, {
           onSuccess: (count) => {
             setJobCount(count);
+            setLoadingJobs(false);
           },
           onError: (error) => {
             console.error(error);
+            setLoadingJobs(false);
           },
         });
       } catch (error) {
+        setLoadingJobs(false);
         console.error(error);
         return {};
       }
@@ -206,7 +211,16 @@ export const CareerDetail = ({
                       </Tooltip>
                     </p>
                     <p>
-                      <strong>{jobCount ? numberWithCommas(jobCount.count) : "---"}</strong>
+                      {loadingJobs ? (
+                        <CircularProgress
+                          size={22}
+                          style={{
+                            padding: 0,
+                          }}
+                        />
+                      ) : (
+                        <strong>{jobCount ? numberWithCommas(jobCount.count) : "---"}</strong>
+                      )}
                     </p>
                     <a
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
