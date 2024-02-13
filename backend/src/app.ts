@@ -50,58 +50,67 @@ process.on("unhandledRejection", (reason) => {
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const awsConfig = new AWS.Config({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
   region: process.env.AWS_REGION
 });
 
+type PostgresConnectionConfig = {
+  user: string,
+  host: string,
+  database: string,
+  password: string,
+  port: number,
+};
+
 // Determine if the NODE_ENV begins with "aws"
-let connection: any = null;
+let connection: PostgresConnectionConfig | null = null;
 
 switch (process.env.NODE_ENV) {
   case "dev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_DEV,
+      host: process.env.DB_HOST_DEV || '',
       database: "d4adlocal",
-      password: process.env.DB_PASS_DEV,
+      password: process.env.DB_PASS_DEV || '',
       port: 5432,
     };
     break;
   case "test":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_TEST,
+      host: process.env.DB_HOST_TEST || '',
       database: "d4adtest",
-      password: process.env.DB_PASS_TEST,
+      password: process.env.DB_PASS_TEST || '',
       port: 5432,
     };
     break;
   case "awsdev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_DEV,
+      host: process.env.DB_HOST_WRITER_DEV || '',
       database: "d4addev",
-      password: process.env.DB_PASS_DEV,
+      password: process.env.DB_PASS_DEV || '',
       port: 5432,
     };
     break;
   case "awstest":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_TEST,
+      host: process.env.DB_HOST_WRITER_TEST || '',
       database: "d4adtest",
-      password: process.env.DB_PASS_TEST,
+      password: process.env.DB_PASS_TEST || '',
       port: 5432,
     };
     break;
   case "awsprod":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_AWSPROD,
+      host: process.env.DB_HOST_WRITER_AWSPROD || '',
       database: "d4adprod",
-      password: process.env.DB_PASS_AWSPROD,
+      password: process.env.DB_PASS_AWSPROD || '',
       port: 5432,
     };
     break;
