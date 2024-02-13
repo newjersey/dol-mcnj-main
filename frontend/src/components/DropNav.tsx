@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { DropGroup } from "./modules/DropGroup";
-import { FaqItem } from "../types/contentful";
-
-interface TopicProps {
-  sys: { id: string };
-  topic: string;
-  itemsCollection: { items: FaqItem[] };
-}
+import { FaqTopic } from "../types/contentful";
 
 interface DropNavProps {
   className?: string;
@@ -15,14 +9,14 @@ interface DropNavProps {
     sys: { id: string };
     title: string;
     topics: {
-      items: TopicProps[];
+      items: FaqTopic[];
     };
   }[];
-  onChange?: (selected: TopicProps) => void;
+  onChange?: (selected: FaqTopic) => void;
 }
 
 const DropNav = ({ className, elementId, onChange, items }: DropNavProps) => {
-  const [activeTopic, setActiveTopic] = useState<TopicProps>();
+  const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
   useEffect(() => {
     if (onChange && activeTopic) {

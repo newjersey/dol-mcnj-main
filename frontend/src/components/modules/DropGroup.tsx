@@ -1,23 +1,17 @@
 import { CaretRight } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { FaqItem } from "../../types/contentful";
+import { FaqTopic } from "../../types/contentful";
 import { slugify } from "../../utils/slugify";
-
-interface TopicProps {
-  sys: { id: string };
-  topic: string;
-  itemsCollection: { items: FaqItem[] };
-}
 
 interface DropGroupProps {
   sys: { id: string };
   title: string;
   topics: {
-    items: TopicProps[];
+    items: FaqTopic[];
   };
-  activeItem?: TopicProps;
+  activeItem?: FaqTopic;
   className?: string;
-  onChange?: (selected: TopicProps) => void;
+  onChange?: (selected: FaqTopic) => void;
 }
 
 const toggleOpen = (isOpen: boolean, contentId: string): void => {
@@ -30,7 +24,7 @@ const toggleOpen = (isOpen: boolean, contentId: string): void => {
 
 const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: DropGroupProps) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [activeTopic, setActiveTopic] = useState<TopicProps>();
+  const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
   useEffect(() => {
     if (onChange && activeTopic) {
