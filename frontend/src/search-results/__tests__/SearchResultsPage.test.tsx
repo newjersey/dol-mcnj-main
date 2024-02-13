@@ -356,7 +356,7 @@ describe("<SearchResultsPage />", () => {
 
       expect(subject.queryByText("some name")).not.toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
-      expect(navigate).toHaveBeenCalledWith("/training/search/penguins");
+      expect(navigate).toHaveBeenCalledWith("/training/search?=penguins");
     });
 
     it("does not navigate to new page when search query is the same", () => {
@@ -385,7 +385,7 @@ describe("<SearchResultsPage />", () => {
         target: { value: "penguins / penglings" },
       });
       fireEvent.click(subject.getAllByText("Search")[0]);
-      expect(navigate).toHaveBeenCalledWith("/training/search/penguins%20%2F%20penglings");
+      expect(navigate).toHaveBeenCalledWith("/training/search?=penguins%20%2F%20penglings");
     });
   });
 
