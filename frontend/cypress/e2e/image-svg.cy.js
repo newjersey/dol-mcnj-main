@@ -17,6 +17,7 @@ describe("Images load and have Alt texts", () => {
                 cy.wrap($img).should("have.attr", "alt").and("not.be.empty");
                 // Check if the alt attribute is not empty
                 cy.wrap($img).invoke('attr', 'alt').then(alt => {
+                    // eslint-disable-next-line no-unused-expressions
                     expect(alt, `Image with src "${$img[0].src}" should have a non-empty alt attribute.`).to.not.be.empty;
                 });
                 // Checking image dimensions
