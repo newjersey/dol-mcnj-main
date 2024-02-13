@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
 
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Change directory to the git repository root
 cd $(git rev-parse --show-toplevel)
 
-
+# Run linters
 npm --prefix=frontend run lint
 npm --prefix=backend run lint
 
+# Run fence checks
 npm --prefix=frontend run fences
 npm --prefix=backend run fences
 
+# Run Jest tests and ensure failure on error
 npm --prefix=frontend run test:ci
 npm --prefix=backend run test -- --no-cache
-
 
 echo "  _            _                             _"
 echo " | |          | |                           | |"
