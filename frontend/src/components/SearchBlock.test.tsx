@@ -1,88 +1,112 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
-import { SearchBlock } from "./SearchBlock";
-import type { ContentfulRichText } from "../types/contentful";
+// Import necessary libraries and types
+import React from 'react';
+import {fireEvent, render, screen} from '@testing-library/react';
+import {act} from 'react-dom/test-utils';
+import {SearchBlock} from './SearchBlock';
+import type {ContentfulRichText} from '../types/contentful';
+import {BLOCKS} from "@contentful/rich-text-types";
 
-const testDrawerContent = {
-  "json": {
-    "data": {},
-    "content": [{
-      "data": {},
-      "content": [{
-        "data": {},
-        "marks": [],
-        "value": "SOC code",
-        "nodeType": "text"
+
+// Define the test data for the drawer content
+const testDrawerContent: ContentfulRichText = {
+  json: {
+    data: {},
+    content: [{
+      data: {},
+      content: [{
+        data: {},
+        marks: [],
+        value: "SOC code",
+        nodeType: "text"
       }],
-      "nodeType": "heading-3"
-    },{
-      "data": { },
-      "content": [{
-        "data":{},
-        "marks":[],
-        "value": "The \"Standard Occupational Classification\" system is used to categorize occupations.",
-        "nodeType":"text"
+      nodeType: BLOCKS.HEADING_3
+    }, {
+      data: {},
+      content: [{
+        data: {},
+        marks: [],
+        value: "The \"Standard Occupational Classification\" system is used to categorize occupations.",
+        nodeType: "text"
       }],
-      "nodeType": "paragraph"
-    },{
-      "data": {},
-      "content": [{
-        "data": {},
-        "marks": [],
-        "value": "You can find a list of SOC codes ","nodeType":"text"
-      },{
-        "data": {
-          "uri": "https://www.bls.gov/oes/current/oes_stru.htm"
+      nodeType: BLOCKS.PARAGRAPH
+    }, {
+      data: {},
+      content: [{
+        data: {},
+        marks: [],
+        value: "You can find a list of SOC codes ",
+        nodeType: "text"
+      }, {
+        data: {
+          uri: "https://www.bls.gov/oes/current/oes_stru.htm"
         },
-        "content": [{
-          "data":{},
-          "marks":[],
-          "value":"here",
-          "nodeType":"text"
+        content: [{
+          data: {},
+          marks: [],
+          value: "here",
+          nodeType: "text"
         }],
-        "nodeType":"hyperlink"
-      },{
-        "data":{},
-        "marks":[],
-        "value":".",
-        "nodeType":"text"
+        nodeType: BLOCKS.PARAGRAPH
+      }, {
+        data: {},
+        marks: [],
+        value: ".",
+        nodeType: "text"
       }],
-      "nodeType":"paragraph"
-    },{
-      "data":{},
-      "content":[{
-        "data":{},
-        "marks":[],
-        "value":"",
-        "nodeType":"text"
+      nodeType: BLOCKS.PARAGRAPH
+    }, {
+      data: {},
+      content: [{
+        data: {},
+        marks: [],
+        value: "",
+        nodeType: "text"
       }],
-      "nodeType":"paragraph"
+      nodeType: BLOCKS.PARAGRAPH
     }],
-    "nodeType":"document"},
-    "links":{"assets":{"block":[]}}} as ContentfulRichText;
-
-let assignMock: jest.Mock;
-
+    nodeType: BLOCKS.DOCUMENT
+  },
+  links: { assets: { block: [] } }
+};
 
 describe("SearchBlock", () => {
+  let originalLocation: Location;
+
+  // Mock assign function
+  let assignMock: jest.Mock;
+
+
   beforeAll(() => {
-    delete (window as any).location;
-    (window.location as any) = { assign: assignMock };
+    // Save the original location
+    originalLocation = window.location;
+
+    // Mock the window.location with a jest.fn() for each function you need, for example, assign
+    // Use Object.defineProperty to bypass the type error without using 'as any'
+    Object.defineProperty(window, 'location', {
+      value: {
+        ...originalLocation,
+        assign: jest.fn(),
+      },
+      writable: true,
+    });
+
+    assignMock = window.location.assign as jest.Mock;
   });
 
   beforeEach(() => {
-    assignMock = jest.fn();
+    assignMock.mockClear();
     act(() => {
-      render(
-        <SearchBlock
-          drawerContent={testDrawerContent}
-        />,
-      );
-    })
+      render(<SearchBlock drawerContent={testDrawerContent} />);
+    });
   });
 
   afterEach(() => {
     assignMock.mockClear();
+  });
+
+  afterAll(() => {
+    // Restore window.location to its original state
+    window.location = originalLocation;
   });
 
   test("renders search input correctly", () => {
