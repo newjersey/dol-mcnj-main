@@ -40,7 +40,7 @@ describe("filtering by location", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/training/search/some-query");
+    await history.navigate("/training/search?=some-query");
     await waitForEffect();
 
     act(() => {
