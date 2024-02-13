@@ -159,12 +159,6 @@ export interface FaqTopic {
   };
 }
 
-interface TopicProps {
-  sys: { id: string };
-  topic: string;
-  itemsCollection: { items: FaqItem[] };
-}
-
 export interface LinkObjectProps {
   sys?: {
     id: string;
