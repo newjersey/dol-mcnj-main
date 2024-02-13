@@ -30,6 +30,27 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
     if (onChange && activeTopic) {
       onChange(activeTopic);
     }
+
+    if (!activeTopic) {
+      const urlParams = window.location.hash;
+      const searchTopic = urlParams.replace("#", "");
+
+      if (searchTopic) {
+        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === searchTopic);
+
+        if (searchedTopic) {
+          setActiveTopic(searchedTopic);
+          setOpen(true)
+          const contentBlock = document.getElementById(`list-${sys?.id}`);
+
+          if (contentBlock) {
+            const height = contentBlock?.scrollHeight;
+            contentBlock.style.height = `${height}px`;
+          }
+        }
+      }
+    }
+
     if (activeTopic) {
       setOpen(true);
     }
