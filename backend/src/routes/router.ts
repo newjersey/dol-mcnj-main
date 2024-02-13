@@ -64,23 +64,19 @@ export const routerFactory = ({
       .catch(() => res.status(500).send());
   });
 
-  router.get(
-    "/jobcount/:term",
-    async (
-      req: Request,
-      res: Response<{
-        count: number;
-      }>,
-    ) => {
-      const countData = await CareerOneStopClient(
-        process.env.CAREER_ONESTOP_BASEURL as string,
-        process.env.CAREER_ONESTOP_USERID as string,
-        process.env.CAREER_ONESTOP_AUTH_TOKEN as string,
-      )(req.params.term || "");
+  router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
+    // Sanitize and encode the user input before using it in the URL
+    const sanitizedTerm = encodeURIComponent(req.params.term || "");
 
-      res.status(200).json({ count: countData || 0 });
-    },
-  );
+    // Use the sanitized input in the URL
+    const countData = await CareerOneStopClient(
+      process.env.CAREER_ONESTOP_BASEURL as string,
+      process.env.CAREER_ONESTOP_USERID as string,
+      process.env.CAREER_ONESTOP_AUTH_TOKEN as string,
+    )(sanitizedTerm);
+
+    res.status(200).json({ count: countData || 0 });
+  });
 
   return router;
 };
