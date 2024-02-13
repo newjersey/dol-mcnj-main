@@ -114,7 +114,7 @@ export const FilterBox = ({
     }
 
     resetStateForReload();
-    navigate(`/training/search/${encodeURIComponent(newQuery)}`);
+    navigate(`/training/search?=${encodeURIComponent(newQuery)}`);
   };
 
   const MobileFilterDropdown = (): ReactElement => {
