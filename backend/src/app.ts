@@ -7,6 +7,7 @@ import cors from "cors";
 import AWS from 'aws-sdk';
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
+import contentfulRouter from './contentful/index';
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
@@ -17,6 +18,7 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import {routeHandler} from "./contentful/routeHandler";
 
 dotenv.config();
 // console.log(process.env);
@@ -176,6 +178,7 @@ app.use(express.json());
 
 app.use("/api", router);
 app.use('/api/emails', emailSubmissionRouter);
+app.use('/api/contentful', contentfulRouter);
 
 // Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
