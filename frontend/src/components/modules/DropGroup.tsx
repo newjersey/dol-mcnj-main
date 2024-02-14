@@ -24,10 +24,9 @@ const toggleOpen = (isOpen: boolean, contentId: string): void => {
 };
 
 const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: DropGroupProps) => {
+  const location = useLocation();
   const [open, setOpen] = useState<boolean>(false);
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
-  // const [location, setLocation] = useState<string>("");
-  const location = useLocation();
 
   // If activeTopic is set, open the accordion
   useEffect(() => {
@@ -37,7 +36,6 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
 
     if (!activeTopic) {
       const urlParams = window.location.hash;
-      // setLocation(urlParams);
       const searchTopic = urlParams.replace("#", "");
 
       if (searchTopic) {
