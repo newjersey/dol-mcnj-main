@@ -1,5 +1,6 @@
 import { CaretRight } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
+import { useLocation } from "@reach/router";
 import { FaqTopic } from "../../types/contentful";
 import { slugify } from "../../utils/slugify";
 
@@ -25,7 +26,10 @@ const toggleOpen = (isOpen: boolean, contentId: string): void => {
 const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: DropGroupProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
+  // const [location, setLocation] = useState<string>("");
+  const location = useLocation();
 
+  // If activeTopic is set, open the accordion
   useEffect(() => {
     if (onChange && activeTopic) {
       onChange(activeTopic);
@@ -33,6 +37,7 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
 
     if (!activeTopic) {
       const urlParams = window.location.hash;
+      // setLocation(urlParams);
       const searchTopic = urlParams.replace("#", "");
 
       if (searchTopic) {
@@ -48,6 +53,19 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
             contentBlock.style.height = `${height}px`;
           }
         }
+      } else {
+        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === 'training');
+        
+        if (searchedTopic) {
+          setActiveTopic(searchedTopic);
+          setOpen(true)
+          const contentBlock = document.getElementById(`list-${sys?.id}`);
+  
+          if (contentBlock) {
+            const height = contentBlock?.scrollHeight;
+            contentBlock.style.height = `${height}px`;
+          }
+        }
       }
     }
 
@@ -55,6 +73,30 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
       setOpen(true);
     }
   }, [activeTopic]);
+
+  // If hash changes, update the activeTopic
+  useEffect(() => {
+    if (activeTopic) {
+      if (location.hash !== `#${slugify(activeTopic.topic)}`) {
+        const searchTopic = location.hash.replace("#", "");
+        
+        if (searchTopic) {
+          const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === searchTopic);
+        
+          if (searchedTopic) {
+            setActiveTopic(searchedTopic);
+            setOpen(true)
+            const contentBlock = document.getElementById(`list-${sys?.id}`);
+    
+            if (contentBlock) {
+              const height = contentBlock?.scrollHeight;
+              contentBlock.style.height = `${height}px`;
+            }
+          }
+        }
+      }
+    }
+  }, [location]);
 
   return (
     <li
