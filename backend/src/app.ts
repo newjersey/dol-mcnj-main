@@ -18,7 +18,6 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
-import {routeHandler} from "./contentful/routeHandler";
 
 dotenv.config();
 // console.log(process.env);

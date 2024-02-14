@@ -17,7 +17,6 @@ import { TUITION_ASSISTANCE_PAGE_QUERY } from './queries/tuitionAssistance'
 import { INDUSTRY_QUERY } from './queries/industry'
 
 const router = express.Router();
-const PORT = process.env.PORT || 3000;
 
 router.get('/all-support', routeHandler(ALL_SUPPORT_PAGE_QUERY))
 router.get('/career-map-node/:id', routeHandler(CAREER_MAP_NODE_QUERY))

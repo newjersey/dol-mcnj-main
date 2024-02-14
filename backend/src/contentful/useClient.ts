@@ -17,7 +17,7 @@ interface ContentfulGraphQLResponse<T> {
         message: string;
         locations?: { line: number; column: number }[];
         path?: string[];
-        extensions?: any;
+        extensions?: unknown;
     }[];
 }
 
