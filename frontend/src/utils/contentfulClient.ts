@@ -30,5 +30,6 @@ export const contentfulClient = ({
       headers,
     },
   );
+  console.log("client", client, query, variables)
   return client.request(query, variables);
 };

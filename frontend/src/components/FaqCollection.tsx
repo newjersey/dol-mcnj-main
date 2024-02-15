@@ -40,6 +40,8 @@ export const FaqCollection = ({
       if (activeTopic) {
         setActiveTopic(activeTopic);
       }
+    } else {
+      window.history.pushState(null, "", `#${slugify(items[0].topics.items[0].topic)}`);
     }
 
     if (!activeTopic && items) {
@@ -54,6 +56,7 @@ export const FaqCollection = ({
           items={items}
           elementId="faqNav"
           defaultActiveItem={activeTopic}
+          defaultTopic={items[0].topics.items[0].topic}
           onChange={(topic) => {
             setActiveTopic(topic);
             window.history.pushState(null, "", `#${slugify(topic.topic)}`);
