@@ -5,7 +5,6 @@ export const routeHandler =
   <TVariables extends Record<string, unknown>>(query: string) =>
   async (req: Request, res: Response) => {
     const variables: TVariables = { ...req.params, ...req.query } as TVariables;
-    console.log({ variables });
     // check if any of the variables are a stringified JSON object and parse them
     Object.keys(variables).forEach((key) => {
       if (typeof variables[key] === "string") {
