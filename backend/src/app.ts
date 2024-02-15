@@ -46,6 +46,8 @@ process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
+app.use(cors());
+
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
@@ -190,7 +192,6 @@ app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use(cors());
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());
