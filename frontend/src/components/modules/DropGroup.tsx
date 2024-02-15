@@ -12,6 +12,7 @@ interface DropGroupProps {
   };
   activeItem?: FaqTopic;
   className?: string;
+  defaultTopic?: string;
   onChange?: (selected: FaqTopic) => void;
 }
 
@@ -23,7 +24,7 @@ const toggleOpen = (isOpen: boolean, contentId: string): void => {
   }
 };
 
-const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: DropGroupProps) => {
+const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, topics }: DropGroupProps) => {
   const location = useLocation();
   const [open, setOpen] = useState<boolean>(false);
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
@@ -45,6 +46,21 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
           contentBlock.style.height = `${height}px`;
         }
       }
+    } else {
+      if (!activeItem) {
+        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === slugify(defaultTopic || ""));
+  
+        if (searchedTopic) {
+          setActiveTopic(searchedTopic);
+          setOpen(true)
+          const contentBlock = document.getElementById(`list-${sys?.id}`);
+  
+          if (contentBlock) {
+            const height = contentBlock?.scrollHeight;
+            contentBlock.style.height = `${height}px`;
+          }
+        }
+      }
     }
   }, [location]);
 
@@ -63,6 +79,7 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
     <li
       key={sys?.id}
       className={`dropGroup${className ? ` ${className}` : ""}${open ? " active" : ""}`}
+      data-testid={`topic-${slugify(title)}`}
     >
       <button
         type="button"
@@ -79,6 +96,7 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
         {topics.items.map((item) => (
           <li
             key={item.sys.id}
+            data-testid={`link-${slugify(item.topic)}`}
             className={activeTopic && activeItem?.sys.id === item.sys.id ? "active" : undefined}
           >
             <button
