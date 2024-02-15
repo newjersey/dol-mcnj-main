@@ -97,7 +97,7 @@ const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, 
           <li
             key={item.sys.id}
             data-testid={`link-${slugify(item.topic)}`}
-            className={activeTopic && activeItem?.sys.id === item.sys.id ? "active" : undefined}
+            className={activeTopic && activeItem?.sys.id === item.sys.id ? "active-link active" : undefined}
           >
             <button
               id={`${item.sys.id}-${slugify(title)}`}
