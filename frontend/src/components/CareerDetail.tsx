@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { contentfulClient } from "../utils/contentfulClient";
 import { OccupationNodeProps, SelectProps } from "../types/contentful";
-import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
   ArrowSquareOut,
   ArrowUpRight,
@@ -69,11 +67,9 @@ export const CareerDetail = ({
     const fetchData = async () => {
       try {
         /* eslint-disable-next-line  */
-        const result: any = await contentfulClient({
-          query: OCCUPATION_QUERY,
-          variables: { id: detailsId },
-        });
-        setData(result);
+        const result: any = await fetch(`/api/contentful/career-map-node/${detailsId}`);
+        const resultJson = await result.json();
+        setData(resultJson);
       } catch (error) {
         console.error(error);
         return {};
