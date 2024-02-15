@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
+import { useLocation } from "@reach/router";
 import { FaqItem, FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
 import { slugify } from "../utils/slugify";
@@ -23,10 +24,11 @@ export const FaqCollection = ({
     };
   }[];
 }) => {
+  const location = useLocation();
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
   useEffect(() => {
-    const urlParams = window.location.hash;
+    const urlParams = window.location.hash || location.hash;
     const searchTopic = urlParams.replace("#", "");
 
     if (searchTopic) {
@@ -38,15 +40,12 @@ export const FaqCollection = ({
       if (activeTopic) {
         setActiveTopic(activeTopic);
       }
-    } else {
-      // if no topic exists, set active topic to first topic
-      setActiveTopic(items[0].topics.items[0]);
     }
 
     if (!activeTopic && items) {
       setActiveTopic(items[0].topics.items[0]);
     }
-  }, [activeTopic]);
+  }, [activeTopic, location]);
 
   return (
     <div className="faq-collection">
@@ -54,6 +53,7 @@ export const FaqCollection = ({
         <DropNav
           items={items}
           elementId="faqNav"
+          defaultActiveItem={activeTopic}
           onChange={(topic) => {
             setActiveTopic(topic);
             window.history.pushState(null, "", `#${slugify(topic.topic)}`);
