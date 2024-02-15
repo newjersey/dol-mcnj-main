@@ -28,7 +28,6 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
   const [open, setOpen] = useState<boolean>(false);
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
-  // If hash changes, update the activeTopic
   useEffect(() => {
     const urlParams = window.location.hash;
     const searchTopic = urlParams.replace("#", "");
@@ -55,43 +54,10 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
       onChange(activeTopic);
     }
 
-    if (!activeTopic) {
-      const urlParams = window.location.hash;
-      const searchTopic = urlParams.replace("#", "");
-
-      if (searchTopic) {
-        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === searchTopic);
-
-        if (searchedTopic) {
-          setActiveTopic(searchedTopic);
-          setOpen(true)
-          const contentBlock = document.getElementById(`list-${sys?.id}`);
-
-          if (contentBlock) {
-            const height = contentBlock?.scrollHeight;
-            contentBlock.style.height = `${height}px`;
-          }
-        }
-      } else {
-        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === 'training');
-        
-        if (searchedTopic) {
-          setActiveTopic(searchedTopic);
-          setOpen(true)
-          const contentBlock = document.getElementById(`list-${sys?.id}`);
-  
-          if (contentBlock) {
-            const height = contentBlock?.scrollHeight;
-            contentBlock.style.height = `${height}px`;
-          }
-        }
-      }
-    }
-
     if (activeTopic) {
       setOpen(true);
     }
-  }, [activeTopic]);
+  }, [activeTopic, location]);
 
   return (
     <li

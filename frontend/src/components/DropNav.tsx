@@ -4,6 +4,7 @@ import { FaqTopic } from "../types/contentful";
 
 interface DropNavProps {
   className?: string;
+  defaultActiveItem?: FaqTopic;
   elementId: string;
   items: {
     sys: { id: string };
@@ -15,7 +16,7 @@ interface DropNavProps {
   onChange?: (selected: FaqTopic) => void;
 }
 
-const DropNav = ({ className, elementId, onChange, items }: DropNavProps) => {
+const DropNav = ({ className, defaultActiveItem, elementId, onChange, items }: DropNavProps) => {
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const DropNav = ({ className, elementId, onChange, items }: DropNavProps) => {
             <DropGroup
               key={item.sys?.id}
               {...item}
-              activeItem={activeTopic}
+              activeItem={activeTopic || defaultActiveItem}
               onChange={(activeTopic) => {
                 setActiveTopic(activeTopic);
               }}
