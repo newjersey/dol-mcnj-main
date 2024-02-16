@@ -4,6 +4,7 @@ import {
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
+  GetOccupationDetailByCIP
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
@@ -17,6 +18,7 @@ interface RouterActions {
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
+  getOccupationDetailByCIP: GetOccupationDetailByCIP;
 }
 
 export const routerFactory = ({
@@ -24,6 +26,7 @@ export const routerFactory = ({
   findTrainingsBy,
   getInDemandOccupations,
   getOccupationDetail,
+  getOccupationDetailByCIP
 }: RouterActions): Router => {
   const router = Router();
 
@@ -62,6 +65,15 @@ export const routerFactory = ({
         res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
+  });
+
+  router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
+    console.log("here");
+    getOccupationDetailByCIP(req.params.cip as string)
+        .then((occupationDetails: OccupationDetail[]) => {
+          res.status(200).json(occupationDetails);
+        })
+        .catch(() => res.status(500).send());
   });
 
   return router;
