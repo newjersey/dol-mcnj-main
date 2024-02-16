@@ -13,9 +13,6 @@ export async function getContentfulAccessToken(): Promise<string> {
 
         const data = await secretsManager.getSecretValue({ SecretId: 'mycareernj-contentful-token-prod' }).promise();
 
-        // Debugging: Log the raw response from Secrets Manager
-        console.log('Received response from Secrets Manager:', JSON.stringify(data, null, 2));
-
         if (data.SecretString) {
             console.log('Secret string found, returning the secret value.');
             return data.SecretString;
