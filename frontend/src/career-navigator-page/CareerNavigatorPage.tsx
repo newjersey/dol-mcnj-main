@@ -2,8 +2,7 @@ import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Layout } from "../components/Layout";
-import { CAREER_NAVIGATOR_QUERY } from "../queries/careerNavigator";
-import { useContentfulClient } from "../utils/useContentfulClient";
+import { useContentful } from "../utils/useContentful";
 import { CareerNavigatorPageProps, ThemeColors } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
 import { IconCard } from "../components/IconCard";
@@ -21,7 +20,7 @@ interface Props extends RouteComponentProps {
 }
 
 export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
-  const data: CareerNavigatorPageProps = useContentfulClient({ query: CAREER_NAVIGATOR_QUERY });
+  const data: CareerNavigatorPageProps = useContentful({ path: "/career-navigator" });
 
   const interrupterLinks = data?.page.interrupterLinks?.items.map((link, index: number) => {
     const highlight =
