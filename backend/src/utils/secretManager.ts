@@ -23,15 +23,16 @@ export async function getContentfulAccessToken(): Promise<string> {
             console.log('Secret string is empty or not found in the response.');
             throw new Error('Secret string is empty');
         }
-    } catch (error: unknown) { // Note the type annotation here
-        // Properly check the error type before accessing properties
-        if (error instanceof Error) {
-            console.error('Error retrieving secret:', error.message);
-            console.error('Stack Trace:', error.stack);
-        } else {
-            // Handle the case where the error is not an instance of Error
-            console.error('An unexpected error occurred:', error);
+    } catch (error: unknown) {
+        console.error('Error retrieving secret from Secrets Manager. Falling back to environment variable DELIVERY_API.');
+
+        const fallbackValue = process.env.DELIVERY_API;
+        if (!fallbackValue) {
+            console.error('DELIVERY_API environment variable is not set. Unable to retrieve access token.');
+            throw new Error('DELIVERY_API environment variable is not set.');
         }
-        throw error; // Rethrow the error after logging it
+
+        console.log('Using fallback DELIVERY_API value.');
+        return fallbackValue;
     }
 }
