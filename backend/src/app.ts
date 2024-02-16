@@ -7,6 +7,7 @@ import cors from "cors";
 import AWS from 'aws-sdk';
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
+import contentfulRouter from './contentful/index';
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
@@ -44,6 +45,8 @@ process.on('uncaughtException', function (exception) {
 process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
+
+app.use(cors());
 
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
@@ -176,6 +179,7 @@ app.use(express.json());
 
 app.use("/api", router);
 app.use('/api/emails', emailSubmissionRouter);
+app.use('/api/contentful', contentfulRouter);
 
 // Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
@@ -188,7 +192,6 @@ app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use(cors());
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());

@@ -11,6 +11,7 @@ import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
 
+
 interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
