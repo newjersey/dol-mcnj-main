@@ -9,9 +9,7 @@ import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
 import { OccupationBlock } from "../components/OccupationBlock";
-import { useContentfulClient } from "../utils/useContentfulClient";
-import { CAREER_PATHWAYS_PAGE_QUERY } from "../queries/careerPathways";
-import { INDUSTRY_QUERY } from "../queries/industry";
+import { useContentful } from "../utils/useContentful";
 import { CareerPathways } from "../components/CareerPathways";
 import { NotFoundPage } from "../error/NotFoundPage";
 import { CtaBanner } from "../components/CtaBanner";
@@ -32,15 +30,13 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [error, setError] = useState<Error | undefined>();
   const [loading, setLoading] = useState<boolean>();
 
-  const data: CareerPathwaysPageData = useContentfulClient({ query: CAREER_PATHWAYS_PAGE_QUERY });
+  const data: CareerPathwaysPageData = useContentful({ path: "/career-pathways" });
   const industryData: {
     industryCollection: {
       items: IndustryProps[];
     };
-  } = useContentfulClient({
-    disable: !props.slug,
-    query: INDUSTRY_QUERY,
-    variables: { slug: props.slug },
+  } = useContentful({
+    path: `/industry/${props.slug}`,
   });
 
   useEffect(() => {
