@@ -46,7 +46,17 @@ process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
-app.use(cors());
+
+// CORS options
+const corsOptions = {
+  origin: ['https://mycareer.nj.gov', 'http://localhost:3000'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+
+};
+
+app.use(cors(corsOptions));
 
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
