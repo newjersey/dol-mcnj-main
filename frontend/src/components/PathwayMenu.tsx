@@ -1,6 +1,5 @@
 import { Info, MapTrifold } from "@phosphor-icons/react";
-import { PATH_MENU_QUERY } from "../queries/pathMenu";
-import { useContentfulClient } from "../utils/useContentfulClient";
+import { useContentful } from "../utils/useContentful";
 import { CareerMapNodeProps } from "../types/contentful";
 
 const Menu = (props: {
@@ -16,9 +15,8 @@ const Menu = (props: {
         items: CareerMapNodeProps[];
       };
     };
-  } = useContentfulClient({
-    query: PATH_MENU_QUERY,
-    variables: { id: props.sys.id },
+  } = useContentful({
+    path: `/path-menu/${props.sys.id}`,
   });
   return (
     <div className="path-menu">
