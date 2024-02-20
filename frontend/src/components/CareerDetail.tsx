@@ -207,7 +207,7 @@ export const CareerDetail = ({
                       </Tooltip>
                     </p>
                     <>
-                      {!loadingJobs ? (
+                      {loadingJobs ? (
                         <CircularProgress
                           size={22}
                           style={{
