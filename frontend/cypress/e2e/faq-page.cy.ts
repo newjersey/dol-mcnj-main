@@ -1,3 +1,4 @@
+// @ts-nocheck
 const faq_data = {
   "training-explorer": [
     "training",
@@ -47,7 +48,7 @@ describe("FAQ Page", () => {
           });
         } else {
           cy.shouldBeActive(`[data-testid="topic-${group}"]`, true);
-          faq_data[group].forEach((topic, index) => {
+          faq_data[group].forEach((topic) => {
             cy.shouldBeVisible(`[data-testid="link-${topic}"]`, true);
           });
         }
@@ -65,7 +66,7 @@ describe("FAQ Page", () => {
     });
 
     it("should show default accordion content", () => {
-      faq_data[faq_groups[0]].forEach((value, index) => {
+      faq_data[faq_groups[0]].forEach((_, index) => {
         if (index > 0) {
           cy.get(`[data-testid="accordion-${index}"]`)
             .should("not.have.class", "open")

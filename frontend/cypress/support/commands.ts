@@ -24,7 +24,19 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-function terminalLog(violations) {
+import 'cypress-axe';
+
+declare global {
+  namespace Cypress {
+    interface Chainable<Subject> {
+      navHasOneActiveLink(navId: string): Chainable<Subject>;
+      shouldBeVisible(selector: string, isVisible: boolean): Chainable<Subject>;
+      shouldBeActive(selector: string, isActive: boolean): Chainable<Subject>;
+    }
+  }
+}
+
+function terminalLog(violations: any) {
   cy.task(
     'log',
     `${violations.length} accessibility violation${
@@ -33,6 +45,7 @@ function terminalLog(violations) {
   )
   // pluck specific keys to keep the table readable
   const violationData = violations.map(
+    // @ts-ignore
     ({ id, impact, description, nodes }) => ({
       id,
       impact,
@@ -45,7 +58,7 @@ function terminalLog(violations) {
 };
 
 Cypress.Commands.add("checkA11y", () => {
-  cy.checkA11y(null, null, terminalLog);
+  cy.checkA11y(undefined, undefined, terminalLog);
 });
 
 Cypress.Commands.add("shouldBeVisible", (selector, isVisible) => {
