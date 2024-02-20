@@ -8,8 +8,10 @@
     "cors",
     "dotenv",
     "express",
+    "graphql-request",
     "knex",
     "supertest",
+    "node-cache",
     "winston"
   ]
 }

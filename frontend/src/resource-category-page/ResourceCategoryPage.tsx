@@ -2,12 +2,11 @@ import { RouteComponentProps } from "@reach/router";
 import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { useContentfulClient } from "../utils/useContentfulClient";
 import { ResourceCategoryPageProps } from "../types/contentful";
-import { RESOURCE_CATEGORY_QUERY } from "../queries/resourceCategory";
 import { PageBanner } from "../components/PageBanner";
 import { ResourceList } from "../components/ResourceList";
 import { usePageTitle } from "../utils/usePageTitle";
+import { useContentful } from "../utils/useContentful";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -15,9 +14,8 @@ interface Props extends RouteComponentProps {
 }
 
 export const ResourceCategoryPage = (props: Props): ReactElement => {
-  const data: ResourceCategoryPageProps = useContentfulClient({
-    query: RESOURCE_CATEGORY_QUERY,
-    variables: { slug: `${props.slug}` },
+  const data: ResourceCategoryPageProps = useContentful({
+    path: `/resource-category/${props.slug}`,
   });
 
   usePageTitle(`${data?.page.items[0].title} | Support Resources | New Jersey Career Central`);

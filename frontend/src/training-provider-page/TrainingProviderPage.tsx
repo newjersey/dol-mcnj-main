@@ -5,16 +5,17 @@ import { PageBanner } from "../components/PageBanner";
 import { TrainingProviderData } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { TabContent } from "../components/TabContent";
-import { useContentfulClient } from "../utils/useContentfulClient";
-import { TRAINING_PROVIDER_PAGE_QUERY } from "../queries/trainingProvider";
 import { usePageTitle } from "../utils/usePageTitle";
+import { useContentful } from "../utils/useContentful";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
-  const data: TrainingProviderData = useContentfulClient({ query: TRAINING_PROVIDER_PAGE_QUERY });
+  const data: TrainingProviderData = useContentful({
+    path: "/training-provider",
+  });
 
   usePageTitle(`${data?.page?.title} | New Jersey Career Central`);
 
