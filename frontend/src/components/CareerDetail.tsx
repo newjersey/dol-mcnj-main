@@ -76,7 +76,7 @@ export const CareerDetail = ({
         setData(resultJson);
 
         const searchTerm =
-          result.careerMapObject.trainingSearchTerms || result.careerMapObject.title;
+          resultJson.careerMapObject.trainingSearchTerms || resultJson.careerMapObject.title;
 
         client.getJobCount(searchTerm, {
           onSuccess: (count) => {
@@ -206,18 +206,21 @@ export const CareerDetail = ({
                         <Info size={20} weight="fill" />
                       </Tooltip>
                     </p>
-                    <p>
-                      {loadingJobs ? (
+                    <>
+                      {!loadingJobs ? (
                         <CircularProgress
                           size={22}
                           style={{
+                            margin: "0 0 18px",
                             padding: 0,
                           }}
                         />
                       ) : (
-                        <strong>{jobCount ? numberWithCommas(jobCount.count) : "---"}</strong>
+                        <p>
+                          <strong>{jobCount ? numberWithCommas(jobCount.count) : "---"}</strong>
+                        </p>
                       )}
-                    </p>
+                    </>
                     <a
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
                         data.careerMapObject.trainingSearchTerms || data.careerMapObject.title
