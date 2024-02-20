@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["jest"],
+    "types": ["jest", "cypress"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,5 +20,5 @@
       "react": [ "./node_modules/@types/react" ]
     }
   },
-  "include": ["src"]
+  "include": ["src", "**/*.cy.ts", "**/*.ts"]
 }
