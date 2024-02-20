@@ -1,15 +1,9 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useLocation } from "@reach/router";
-import { FaqItem, FaqTopic } from "../types/contentful";
+import { FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
 import { slugify } from "../utils/slugify";
 import { DropNav } from "./DropNav";
-
-interface TopicProps {
-  sys: { id: string };
-  topic: string;
-  itemsCollection: { items: FaqItem[] };
-}
 
 export const FaqCollection = ({
   children,
@@ -20,7 +14,7 @@ export const FaqCollection = ({
     sys: { id: string };
     title: string;
     topics: {
-      items: TopicProps[];
+      items: FaqTopic[];
     };
   }[];
 }) => {
@@ -29,7 +23,7 @@ export const FaqCollection = ({
 
   useEffect(() => {
     const urlParams = window.location.hash || location.hash;
-    const searchTopic = urlParams.replace("#", "");
+    const searchTopic = urlParams ? urlParams.replace("#", "") : "";
 
     if (searchTopic) {
       const activeTopic = items
