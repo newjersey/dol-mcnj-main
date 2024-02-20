@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { contentfulClient } from "../utils/contentfulClient";
 import { JobCountProps, OccupationNodeProps, SelectProps } from "../types/contentful";
-import { OCCUPATION_QUERY } from "../queries/occupation";
 import {
   ArrowSquareOut,
   ArrowUpRight,
@@ -73,11 +71,9 @@ export const CareerDetail = ({
       setLoadingJobs(true);
       try {
         /* eslint-disable-next-line  */
-        const result: any = await contentfulClient({
-          query: OCCUPATION_QUERY,
-          variables: { id: detailsId },
-        });
-        setData(result);
+        const result: any = await fetch(`/api/contentful/career-map-node/${detailsId}`);
+        const resultJson = await result.json();
+        setData(resultJson);
 
         const searchTerm =
           result.careerMapObject.trainingSearchTerms || result.careerMapObject.title;
