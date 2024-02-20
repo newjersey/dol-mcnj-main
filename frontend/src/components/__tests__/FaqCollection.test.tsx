@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithRouter } from "../../test-objects/helpers";
 
 import { FaqCollection } from "../FaqCollection";
 

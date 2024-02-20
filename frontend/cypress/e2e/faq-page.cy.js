@@ -47,7 +47,7 @@ describe("FAQ Page", () => {
           });
         } else {
           cy.shouldBeActive(`[data-testid="topic-${group}"]`, true);
-          faq_data[group].forEach((topic, index) => {
+          faq_data[group].forEach((topic) => {
             cy.shouldBeVisible(`[data-testid="link-${topic}"]`, true);
           });
         }
