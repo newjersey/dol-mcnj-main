@@ -1,4 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
+
 import { FaqCollection } from "../FaqCollection";
 
 // eslint-disable-next-line
@@ -94,21 +96,25 @@ const mockFaqTopics: any[] = [
 ];
 
 describe("FaqCollection", () => {
-  it("renders the topic selector button", () => {
-    render(<FaqCollection items={mockFaqTopics} />);
+  it("renders the topic selector button", async () => {
+    const { history } = renderWithRouter(<FaqCollection items={mockFaqTopics} />);
+    await history.navigate("/faq");
     expect(screen.getByTestId("topic-selector")).toBeInTheDocument();
   });
-  it("renders the questions and answers", () => {
-    render(<FaqCollection items={mockFaqTopics} />);
+  it("renders the questions and answers", async () => {
+    const { history } = renderWithRouter(<FaqCollection items={mockFaqTopics} />);
+    await history.navigate("/faq");
     expect(screen.getByText("Question 1")).toBeInTheDocument();
     expect(screen.getByText("Question 2")).toBeInTheDocument();
   });
-  it("renders the children", () => {
-    render(<FaqCollection items={mockFaqTopics}>Some children</FaqCollection>);
+  it("renders the children", async () => {
+    const { history } = renderWithRouter(<FaqCollection items={mockFaqTopics}>Some children</FaqCollection>);
+    await history.navigate("/faq");
     expect(screen.getByText("Some children")).toBeInTheDocument();
   });
-  it("updates the active topic when a different topic is clicked", () => {
-    render(<FaqCollection items={mockFaqTopics} />);
+  it("updates the active topic when a different topic is clicked", async () => {
+    const { history } = renderWithRouter(<FaqCollection items={mockFaqTopics} />);
+    await history.navigate("/faq");
     const topic2Button = screen.getByText("Category 2");
     fireEvent.click(topic2Button);
     expect(screen.getByText("Topic 2")).toBeInTheDocument();
