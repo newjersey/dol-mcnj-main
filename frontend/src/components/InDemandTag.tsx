@@ -15,7 +15,7 @@ export const InDemandTag = (props: Props): ReactElement => {
   const countiesString = formatCountiesArrayToString(props.counties);
 
   return (
-    <span className={`fin fas bg-orange-tag tag mrs ${props.className}`}>
+    <span data-testid="in-demand-badge" className={`fin fas bg-orange-tag tag mrs ${props.className}`}>
       <Fire weight="fill" />
       {countiesString
         ? t("SearchResultsPage.inDemandCountiesTag", { counties: countiesString })

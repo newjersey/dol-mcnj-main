@@ -1,6 +1,5 @@
 import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
-import React from "react";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { act } from "react-dom/test-utils";
 import { RenderResult, fireEvent } from "@testing-library/react";
@@ -28,7 +27,7 @@ describe("filtering by soc code", () => {
     const { container, history } = renderWithRouter(<App client={stubClient} />);
     subject = container;
 
-    await history.navigate("/training/search/some-query");
+    await history.navigate("/training/search?=some-query");
     await waitForEffect();
 
     act(() => {

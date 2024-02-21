@@ -1,24 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { contentfulClient } from "./contentfulClient";
 
-export const useContentfulClient = ({
-  query,
-  variables,
-  disable,
-}: {
-  query: string;
-  variables?: any;
-  disable?: boolean;
-}) => {
+export const useContentful = ({ path, disable }: { path: string; disable?: boolean }) => {
   const [data, setData] = useState<any>();
 
   useEffect(() => {
     if (!disable) {
       const fetchData = async () => {
         try {
-          const result: any = await contentfulClient({ query, variables });
-          setData(result);
+          const result: any = await fetch(`/api/contentful${path}`);
+          const resultJson = await result.json();
+          setData(resultJson);
         } catch (error) {
           console.error(error);
           return {};
@@ -27,7 +19,7 @@ export const useContentfulClient = ({
 
       fetchData();
     }
-  }, [query]);
+  }, [path]);
 
   return data;
 };
