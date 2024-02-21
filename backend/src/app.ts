@@ -74,7 +74,7 @@ type PostgresConnectionConfig = {
 };
 
 // Determine if the NODE_ENV begins with "aws"
-let connection: any = null;
+let connection: PostgresConnectionConfig | null = null;
 console.log(`starting application in ${process.env.NODE_ENV} environment`)
 switch (process.env.NODE_ENV) {
   case "dev":
