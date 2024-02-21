@@ -2,8 +2,6 @@ import { RouteComponentProps } from "@reach/router";
 import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { useContentfulClient } from "../utils/useContentfulClient";
-import { TRAINING_EXPLORER_PAGE_QUERY } from "../queries/trainingExplorer";
 import { TrainingExplorerPageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
 import { SearchBlock } from "../components/SearchBlock";
@@ -14,14 +12,15 @@ import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { usePageTitle } from "../utils/usePageTitle";
+import { useContentful } from "../utils/useContentful";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const TrainingExplorerPage = (props: Props): ReactElement => {
-  const data: TrainingExplorerPageProps = useContentfulClient({
-    query: TRAINING_EXPLORER_PAGE_QUERY,
+  const data: TrainingExplorerPageProps = useContentful({
+    path: "/training-explorer",
   });
 
   const pageData = data?.trainingExplorerPage;

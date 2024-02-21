@@ -4,7 +4,6 @@ import { Client } from "../domain/Client";
 import { Occupation, OccupationDetail } from "../domain/Occupation";
 import { Grouping } from "../components/Grouping";
 import { InlineIcon } from "../components/InlineIcon";
-import { InDemandTag } from "../components/InDemandTag";
 import { Error } from "../domain/Error";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -186,7 +185,6 @@ export const OccupationPage = (props: Props): ReactElement => {
             <br />
             <span>{occupationDetail.soc}</span>
           </h2>
-          {occupationDetail.inDemand ? <InDemandTag /> : <></>}
 
           <div className="stat-block-stack mtm">
             {occupationDetail.inDemand ? <InDemandBlock /> : <></>}

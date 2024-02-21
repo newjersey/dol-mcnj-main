@@ -5,11 +5,10 @@ import { PageBanner } from "../components/PageBanner";
 import { FaqCollection } from "../components/FaqCollection";
 import { FaqPageData, LinkObjectProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
-import { useContentfulClient } from "../utils/useContentfulClient";
-import { FAQ_PAGE_QUERY } from "../queries/faq";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
 import { usePageTitle } from "../utils/usePageTitle";
+import { useContentful } from "../utils/useContentful";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -17,7 +16,7 @@ interface Props extends RouteComponentProps {
 }
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
-  const data: FaqPageData = useContentfulClient({ query: FAQ_PAGE_QUERY });
+  const data: FaqPageData = useContentful({ path: "/faq" });
 
   const ctaLinkConverter = (links: LinkObjectProps[]) => {
     return links.map((link, index: number) => {

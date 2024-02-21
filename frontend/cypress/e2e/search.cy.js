@@ -18,7 +18,7 @@ describe("Search", () => {
     cy.get("a#search-button").contains("Search").click({ force: true });
 
     // on search results page
-    cy.location("pathname").should("eq", "/training/search/baking");
+    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?=baking`);
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
@@ -39,7 +39,7 @@ describe("Search", () => {
 
   it("searches from the search results page", () => {
     // on results page
-    cy.visit("/training/search/welding%20workshops");
+    cy.visit("/training/search?=welding%20workshops");
     cy.injectAxe();
 
     // displays trainings
@@ -55,7 +55,7 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').type("baking");
     cy.get("button").contains("Update Results").click({ force: true });
 
-    cy.location("pathname").should("eq", "/training/search/baking");
+    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?=baking`);
 
     // matches by title
     cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
@@ -90,7 +90,7 @@ describe("Search", () => {
   });
 
   it("links to a training detail page", () => {
-    cy.visit("/training/search/digital%20marketing");
+    cy.visit("/training/search?=digital%20marketing");
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
     cy.location("pathname").should("eq", "/training/51388");
 
@@ -102,7 +102,7 @@ describe("Search", () => {
   });
 
   it("tags trainings on in-demand", () => {
-    cy.visit("/training/search/social%20work");
+    cy.visit("/training/search?=social%20work");
 
     // in-demand training
     cy.get(".card")
@@ -121,7 +121,7 @@ describe("Search", () => {
   });
 
   it("tags shows search training tips", () => {
-    cy.visit("/training/search/braider");
+    cy.visit("/training/search?=braider");
 
     // search tips
     cy.get("[data-testid='searchTips']").should(
@@ -133,7 +133,7 @@ describe("Search", () => {
   it("shows comparison items when checked", () => {
     cy.intercept("/api/trainings/search?query=painting").as("getSearch");
 
-    cy.visit("/training/search/painting");
+    cy.visit("/training/search?=painting");
 
     cy.wait("@getSearch").then(() => {
       cy.get("[data-testid='card']")

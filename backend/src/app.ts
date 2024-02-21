@@ -6,6 +6,7 @@ import path from "path";
 import cors from "cors";
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
+import contentfulRouter from './contentful/index';
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
@@ -16,7 +17,7 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
-import AWS from "aws-sdk";
+import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
 
 dotenv.config();
 // console.log(process.env);
@@ -45,15 +46,32 @@ process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
+
+// CORS options
+const corsOptions = {
+  origin: ['https://mycareer.nj.gov', 'http://localhost:3000', 'https://d4ad-research2.appspot.com/'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+
+};
+
+app.use(cors(corsOptions));
+
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-const awsConfig = new AWS.Config({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
-  region: process.env.AWS_REGION
-});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
+type PostgresConnectionConfig = {
+  user: string,
+  host: string,
+  database: string,
+  password: string,
+  port: number,
+};
 
 // Determine if the NODE_ENV begins with "aws"
 let connection: any = null;
@@ -62,45 +80,45 @@ switch (process.env.NODE_ENV) {
   case "dev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_DEV,
+      host: process.env.DB_HOST_DEV || '',
       database: "d4adlocal",
-      password: process.env.DB_PASS_DEV,
+      password: process.env.DB_PASS_DEV || '',
       port: 5432,
     };
     break;
   case "test":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_TEST,
+      host: process.env.DB_HOST_TEST || '',
       database: "d4adtest",
-      password: process.env.DB_PASS_TEST,
+      password: process.env.DB_PASS_TEST || '',
       port: 5432,
     };
     break;
   case "awsdev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_DEV,
+      host: process.env.DB_HOST_WRITER_DEV || '',
       database: "d4addev",
-      password: process.env.DB_PASS_DEV,
+      password: process.env.DB_PASS_DEV || '',
       port: 5432,
     };
     break;
   case "awstest":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_TEST,
+      host: process.env.DB_HOST_WRITER_TEST || '',
       database: "d4adtest",
-      password: process.env.DB_PASS_TEST,
+      password: process.env.DB_PASS_TEST || '',
       port: 5432,
     };
     break;
   case "awsprod":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_AWSPROD,
+      host: process.env.DB_HOST_WRITER_AWSPROD || '',
       database: "d4adprod",
-      password: process.env.DB_PASS_AWSPROD,
+      password: process.env.DB_PASS_AWSPROD || '',
       port: 5432,
     };
     break;
@@ -169,12 +187,29 @@ const router = routerFactory({
       findTrainingsBy,
       postgresDataClient
   ),
+  getOccupationDetailByCIP: getOccupationDetailByCIPFactory(
+      OnetClient(
+          apiValues.onetBaseUrl,
+          apiValues.onetAuth,
+          postgresDataClient.find2018OccupationsBySoc2010
+      ),
+      getEducationTextFactory(postgresDataClient),
+      getSalaryEstimateFactory(postgresDataClient),
+      CareerOneStopClient(
+          apiValues.careerOneStopBaseUrl,
+          apiValues.careerOneStopUserId,
+          apiValues.careerOneStopAuthToken
+      ),
+      findTrainingsBy,
+      postgresDataClient
+  ),
 });
 
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use(express.json());
 app.use("/api", router);
 app.use('/api/emails', emailSubmissionRouter);
+app.use('/api/contentful', contentfulRouter);
 
 // Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
@@ -187,7 +222,6 @@ app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use(cors());
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());
