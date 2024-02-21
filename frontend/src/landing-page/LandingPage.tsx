@@ -2,9 +2,8 @@ import { RouteComponentProps } from "@reach/router";
 import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { useContentfulClient } from "../utils/useContentfulClient";
+import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
-import { HOMEPAGE_QUERY } from "../queries/homePage";
 import { HomeBanner } from "../components/HomeBanner";
 import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
@@ -18,8 +17,8 @@ interface Props extends RouteComponentProps {
 }
 
 export const LandingPage = (props: Props): ReactElement => {
-  const data: HomepageProps = useContentfulClient({
-    query: HOMEPAGE_QUERY,
+  const data: HomepageProps = useContentful({
+    path: `/home-page`,
   });
 
   const pageData = data?.homePage;
@@ -71,7 +70,7 @@ export const LandingPage = (props: Props): ReactElement => {
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
                   {pageData.toolsCollection.items.map((item) => {
-                    const svgName = findSvg(item.sectionIcon)
+                    const svgName = findSvg(item.sectionIcon);
                     return (
                       <IconCard
                         key={item.sys.id}

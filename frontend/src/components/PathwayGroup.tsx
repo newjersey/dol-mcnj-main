@@ -1,6 +1,5 @@
-import { CAREER_PATHWAY_QUERY } from "../queries/careerPathway";
 import { PathwayGroupProps, SelectProps, SinglePathwayProps } from "../types/contentful";
-import { useContentfulClient } from "../utils/useContentfulClient";
+import { useContentful } from "../utils/useContentful";
 import { useEffect } from "react";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 import { IndustryFieldDrawer } from "./IndustryFieldDrawer";
@@ -21,9 +20,8 @@ export const PathwayGroup = (props: {
 }) => {
   const data: {
     careerMap: PathwayGroupProps;
-  } = useContentfulClient({
-    query: CAREER_PATHWAY_QUERY,
-    variables: { id: props.sys.id },
+  } = useContentful({
+    path: `/pathway-group/${props.sys.id}`,
   });
 
   const fullMap = () => {
