@@ -24,7 +24,7 @@
     "axios": "^1.6.7",
     "contentful": "^10.6.21",
     "dayjs": "^1.11.10",
-    "dompurify": "^3.0.8",
+    "dompurify": "^3.0.9",
     "graphql-request": "^6.1.0",
     "i18next": "^23.8.2",
     "libphonenumber-js": "^1.10.56",
