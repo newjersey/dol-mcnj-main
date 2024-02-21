@@ -23,22 +23,12 @@ export const Layout = (props: LayoutProps) => {
   const globalNav = useContentful({
     path: "/nav-menu/7ARTjtRYG7ctcjPd1nbCHr",
   });
-
-  function navId(): string {
-    if (process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false") {
-      return "1K5Xk1630bKzls8XiPHzyR";
-    } else if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true") {
-      return "6z5HiOP5HqvJc07FURpT8Z";
-    } else {
-      return "3jcP5Uz9OY7syy4zu9Viul";
-    }
-  }
-
-  const mainNav = useContentfulClient({
-    query: NAV_MENU_QUERY,
-    variables: {
-      id: navId(),
-    },
+  const mainNav = useContentful({
+    path: `/nav-menu/${
+      process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true"
+        ? "6z5HiOP5HqvJc07FURpT8Z"
+        : "3jcP5Uz9OY7syy4zu9Viul"
+    }`,
   });
   const footerNav1 = useContentful({
     path: "/nav-menu/6QDRPQOaswzG5gHPgqoOkS",
