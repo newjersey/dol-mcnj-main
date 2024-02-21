@@ -29,6 +29,13 @@ const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, 
   const [open, setOpen] = useState<boolean>(false);
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
+  const resetActiveTopic = async(topic: FaqTopic) => {
+    setActiveTopic(undefined);
+    setTimeout(() => {
+      setActiveTopic(topic);
+    }, 10);
+  }
+
   useEffect(() => {
     const urlParams = window.location.hash;
     const searchTopic = urlParams.replace("#", "");
@@ -37,7 +44,7 @@ const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, 
       const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === searchTopic);
 
       if (searchedTopic) {
-        setActiveTopic(searchedTopic);
+        resetActiveTopic(searchedTopic);
         setOpen(true)
         const contentBlock = document.getElementById(`list-${sys?.id}`);
 
@@ -97,15 +104,12 @@ const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, 
           <li
             key={item.sys.id}
             data-testid={`link-${slugify(item.topic)}`}
-            className={activeTopic && activeItem?.sys.id === item.sys.id ? "active-link active" : undefined}
+            className={activeItem?.sys.id === item.sys.id ? "active-link active" : undefined}
           >
             <button
               id={`${item.sys.id}-${slugify(title)}`}
               onClick={() => {
-                setActiveTopic(undefined);
-                setTimeout(() => {
-                  setActiveTopic(item);
-                }, 10);
+                resetActiveTopic(item);
               }}
             >
               {item.topic}
