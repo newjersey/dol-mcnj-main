@@ -47,3 +47,19 @@ function terminalLog(violations) {
 Cypress.Commands.add("checkA11y", () => {
   cy.checkA11y(null, null, terminalLog);
 });
+
+Cypress.Commands.add("shouldBeVisible", (selector, isVisible) => {
+  const visibility = isVisible ? "exist" : "not.exist";
+  cy.get(`${selector}`).should(visibility);
+});
+
+Cypress.Commands.add("shouldBeActive", (selector, isActive) => {
+  const hasClass = isActive ? "have.class" : "not.have.class";
+  cy.get(`${selector}`).should(hasClass, "active");
+})
+
+Cypress.Commands.add("navHasOneActiveLink", (navId) => {
+  cy.get(navId).within(() => {
+    cy.get('.active-link').should('have.length', 1);
+  })
+})

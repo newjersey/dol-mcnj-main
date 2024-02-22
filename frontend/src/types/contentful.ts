@@ -150,7 +150,7 @@ export interface FaqItem {
 }
 
 export interface FaqTopic {
-  sys?: {
+  sys: {
     id: string;
   };
   topic: string;
