@@ -2,6 +2,7 @@
 import * as React from "react";
 import {
   BLOCKS,
+  INLINES
   //, MARKS, Document, Block
 } from "@contentful/rich-text-types";
 import { documentToReactComponents, Options } from "@contentful/rich-text-react-renderer";
@@ -30,6 +31,15 @@ export const ContentfulRichText: React.FC<Props> = ({
 }: Props) => {
   const options: Options = {
     renderNode: {
+      [INLINES.HYPERLINK]: (node, children) => {
+        const uri = node.data.uri;
+        const newWin = uri?.startsWith('https://www.bls.gov');
+        return (
+          <a href={node.data.uri} rel={newWin ? "noreferrer noopener" : undefined} target={newWin ? "_blank" : undefined}>
+            {children}
+          </a>
+        );
+      },
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
         if (!node.data.target.sys.id) return;
 
