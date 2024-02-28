@@ -31,7 +31,7 @@ export const Layout = (props: LayoutProps) => {
     }`,
   });
   const footerNav1 = useContentful({
-    path: "/nav-menu/3mnC3Vu1PG9jacvxSOI9Wb",
+    path: "/nav-menu/6QDRPQOaswzG5gHPgqoOkS",
   });
   const footerNav2 = useContentful({
     path: "/nav-menu/3WHbfXiLFSBXRC24QCq8H6",
