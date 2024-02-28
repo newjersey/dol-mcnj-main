@@ -40,6 +40,7 @@ export const LandingPage = (props: Props): ReactElement => {
     const index = pageData.careerExplorationToolLinksCollection.items.findIndex(
       (item) => item.copy === "NJ Career Pathways",
     );
+
     if (index !== -1) {
       pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
     }

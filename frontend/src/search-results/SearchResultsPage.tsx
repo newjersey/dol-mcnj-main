@@ -18,6 +18,7 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
+import { checkValidSocCode } from "../utils/checkValidCodes";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -93,7 +94,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   };
 
   useEffect(() => {
-    const queryToSearch = searchQuery ? searchQuery : "";
+    let queryToSearch = searchQuery ? searchQuery : "";
+    
+    queryToSearch = checkValidSocCode(queryToSearch);
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
