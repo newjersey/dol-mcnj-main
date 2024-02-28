@@ -85,7 +85,7 @@ export const NavMenu = ({
                   ) : (
                     <>
                       {noLink ? (
-                        <span>
+                        <span className="nav-header">
                           {item.copy}
                         </span>
                       ) : (
