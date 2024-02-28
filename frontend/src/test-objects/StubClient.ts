@@ -10,6 +10,7 @@ import {
   TrainingProviderPageProps,
   NavMenuProps,
   CareerPathwaysPageProps,
+  JobCountProps,
 } from "../types/contentful";
 
 export class StubClient implements Client {
@@ -71,6 +72,10 @@ export class StubClient implements Client {
   }
 
   getContentfulFootNav2(query: string, observer: Observer<NavMenuProps>): void {
+    this.capturedObserver = observer;
+  }
+
+  getJobCount(term: string, observer: Observer<JobCountProps>): void {
     this.capturedObserver = observer;
   }
 }
