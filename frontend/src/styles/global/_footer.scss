@@ -73,7 +73,7 @@ footer {
   .nav-item {
     font-size: $size-14;
 
-    > a {
+    > a,.nav-header {
       border-bottom: $size-1 solid $white;
       display: block;
       padding-bottom: 0.5rem;
