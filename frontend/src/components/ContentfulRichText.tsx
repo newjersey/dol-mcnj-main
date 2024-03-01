@@ -33,7 +33,7 @@ export const ContentfulRichText: React.FC<Props> = ({
     renderNode: {
       [INLINES.HYPERLINK]: (node, children) => {
         const uri = node.data.uri;
-        const newWin = uri?.startsWith('https://www.bls.gov');
+        const newWin = uri?.startsWith('https://www.bls.gov/oes/current/oes_stru.htm');
         return (
           <a href={node.data.uri} rel={newWin ? "noreferrer noopener" : undefined} target={newWin ? "_blank" : undefined}>
             {children}
