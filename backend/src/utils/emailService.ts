@@ -1,18 +1,24 @@
-import * as AWS from 'aws-sdk';
+import AWS from 'aws-sdk';
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-});
+AWS.config.update({ region: 'us-east-1' });
+const ses = new AWS.SES();
 
-const ses = new AWS.SES({ apiVersion: '2010-12-01' });
+interface EmailParams {
+  subject: string;
+  body: string;
+}
 
-export const sendEmail = async (emailParams: { subject: string; body: string; recipient: string; }) => {
-  const params = {
-    Source: process.env.EMAIL_SOURCE || '', 
+export async function sendEmail(emailParams: EmailParams): Promise<void>{
+  if(!process.env.EMAIL_SOURCE) {
+     throw 'Email Source not defined'
+  }
+  if(!process.env.CONTACT_RECEIVER_EMAIL) {
+    throw 'Email Receiver not defined'
+ }
+  const params: AWS.SES.SendEmailRequest = {
+    Source: process.env.EMAIL_SOURCE, 
     Destination: {
-      ToAddresses: [emailParams.recipient],
+      ToAddresses: [process.env.CONTACT_RECEIVER_EMAIL],
     },
     Message: {
       Subject: {
@@ -26,10 +32,6 @@ export const sendEmail = async (emailParams: { subject: string; body: string; re
     },
   };
 
-  try {
-    await ses.sendEmail(params).promise();
-    console.log('Email sent successfully');
-  } catch (error) {
-    console.error('Failed to send email', error);
-  }
-};
+  await ses.sendEmail(params).promise();
+  console.log('Email sent successfully');
+}
