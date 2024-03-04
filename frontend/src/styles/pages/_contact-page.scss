@@ -32,6 +32,14 @@
   padding: $size-24;
 }
 
+.contact-form {
+  label {
+    display: block;
+    font-size: $size-16;
+    margin-bottom: $size-8;
+  }
+}
+
 @media screen and (max-width: $tablet) {
   .contact-us-content {
     padding: 3rem 0;
