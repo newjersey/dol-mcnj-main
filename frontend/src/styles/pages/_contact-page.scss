@@ -1,0 +1,48 @@
+.contact-us-content {
+  padding: 5rem 0;
+
+  h2 {
+    font-size: $size-20;
+    font-weight: 550;
+    margin-bottom: $size-12;
+  }
+}
+
+.contact-us-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  max-width: 1104px;
+
+  div + div {
+    margin-left: $size-24;
+  }
+}
+
+.info-block {
+  background-color: $base-lightest;
+  border-radius: $size-24;
+  padding: $size-24;
+  max-width: 500px;
+}
+
+.contact-form-container {
+  background-color: $cyan-5;
+  border-radius: $size-24;
+  padding: $size-24;
+}
+
+@media screen and (max-width: $tablet) {
+  .contact-us-content {
+    padding: 3rem 0;
+  }
+
+  .contact-us-container {
+    flex-direction: column;
+
+    div + div {
+      margin-left: 0;
+      margin-top: $size-24;
+    }
+  }
+}
