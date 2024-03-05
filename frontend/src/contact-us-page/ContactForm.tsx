@@ -138,6 +138,7 @@ const ContactForm = ({
                   <FormControlLabel
                     key={index}
                     value={topic.value}
+                    data-testid={`topic-${index}`}
                     control={
                       <Radio classes={{root: errors.topic ? 'radio-error' : undefined} } />
                     }

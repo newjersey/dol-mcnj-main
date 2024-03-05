@@ -10,7 +10,7 @@ const ResetFormBtn = ({
 
   return (
     <div className="button-container">
-      <button className="usa-button" onClick={resetAction}>
+      <button className="usa-button" onClick={resetAction} data-testId="reset-button">
         Reset Form 
       </button>
     </div>
