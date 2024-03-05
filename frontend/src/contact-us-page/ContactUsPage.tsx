@@ -49,11 +49,13 @@ const topics = [
   }
 ]
 
-const schema = yup
-  .object({
-    email: yup.string().email().required(),
-    topic: yup.string().required(),
-    message: yup.string().required(),
+const schema = yup.object()
+  .shape({
+    email: yup.string().email('Please enter a valid email').required('Please enter an email'),
+    topic: yup.string().required('Please select an option'),
+    message: yup.string().required('Please enter a message').test('len', 'Cannot be more than 250 characters', val => {
+      if (val?.length) return val.length <= 250;
+    }),
   })
   .required();
 
@@ -61,16 +63,21 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
   const {
     control,
     formState: { errors },
+    getValues,
     handleSubmit,
     register,
     reset,
+    watch
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const watchMessage = watch("message");
+
   // @ts-expect-error - TS doesn't know that the formValues state is being set
   const onSubmit = (data) => {
-    console.log(data);
+    const formValues = JSON.stringify(data);
+    console.log(formValues);
   };
 
   return (
@@ -132,7 +139,9 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
                   variant="outlined"
                   {...register("email")}
                 />
-                {errors.email?.message}
+                <div className="form-error-message">
+                  {errors.email?.message}
+                </div>
               </div>
               <div className="input-container">
                 <div>
@@ -155,7 +164,9 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
                     </RadioGroup>
                   )}
                 />
-                {errors.topic?.message}
+                <div className="form-error-message">
+                  {errors.topic?.message}
+                </div>
               </div>
               <div className="input-container">
                 <div>
@@ -165,7 +176,15 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
                   id="message"
                   {...register("message")}
                 />
-                {errors.message?.message}
+                <div className={`message-count ${getValues("message")?.length > 250 ? 'required' : undefined}`}>
+                  {watchMessage ? `${getValues("message").length}` : `0`} / 250
+                </div>
+                <div className="form-error-message">
+                  {errors.message?.message}
+                </div>
+              </div>
+              <div className="required-instructions">
+                A red asterisk (<span className="required">*</span>) indicates a required field.
               </div>
               <div className="button-container">
                 <button type="submit" className="usa-button">Submit</button>
