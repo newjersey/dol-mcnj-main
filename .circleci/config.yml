@@ -37,7 +37,7 @@ jobs:
           command: npm run db-migrate up -- -e $DB_ENV > migration_output.txt
           no_output_timeout: 30m
       - store_artifacts:
-        path: migration_output.txt
+          path: migration_output.txt
       - run:
           name: Run Node.js tests
           command: npm test
