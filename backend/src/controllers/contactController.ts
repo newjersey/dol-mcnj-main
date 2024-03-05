@@ -4,15 +4,17 @@ import { sendEmail } from '../utils/emailService';
 interface ContactFormRequest extends Request {
   body: {
     email: string;
+    topic: string;
     message: string;
     url?: string;
   };
 }
 
 export const submitContactForm = async (req: ContactFormRequest, res: Response): Promise<void> => {
-  const { email, message, url } = req.body;
+  const { email, topic, message, url } = req.body;
   const emailBody = `
     Email: ${email}\n
+    Topic: ${topic}\n
     Message: ${message}\n
     URL: ${url || 'N/A'}
   `;
