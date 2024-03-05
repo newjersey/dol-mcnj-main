@@ -51,11 +51,11 @@ export const LandingPage = (props: Props): ReactElement => {
     process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true";
 
   if (!careerSectionActive) {
-    const index = pageData.toolsCollection.items.findIndex(
+    const index = pageData?.toolsCollection?.items.findIndex(
       (item) => item.copy === "Explore Careers",
     );
     if (index !== -1) {
-      pageData.toolsCollection.items.splice(index, 1);
+      pageData?.toolsCollection?.items.splice(index, 1);
     }
   }
 
@@ -88,7 +88,7 @@ export const LandingPage = (props: Props): ReactElement => {
               <div className="tools">
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
-                  {pageData.toolsCollection.items.map((item) => {
+                  {pageData.toolsCollection?.items.map((item) => {
                     const svgName = findSvg(item.sectionIcon);
                     return (
                       <IconCard
