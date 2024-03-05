@@ -2,8 +2,8 @@
   padding: 5rem 0;
 
   h2 {
-    font-size: $size-20;
-    font-weight: 550;
+    font-size: $size-24;
+    font-weight: 500;
     margin-bottom: $size-12;
   }
 
@@ -14,6 +14,11 @@
   .required-instructions {
     font-size: $size-14;
     margin: $size-20 0;
+  }
+
+  .error-textarea {
+    border: 1px solid #F44336;
+    border-radius: $size-8;
   }
 }
 
@@ -49,6 +54,10 @@
     color: $red;
     font-weight: 700;
   }
+
+  .radio-error {
+    color: #F44336;
+  }
 }
 
 .input-container + .input-container {
@@ -56,9 +65,20 @@
 }
 
 .contact-form-container {
-  background-color: $cyan-5;
   border-radius: $size-24;
   padding: $size-24;
+}
+
+.contact-form {
+  background-color: $cyan-5;
+}
+
+.contact-success {
+  background-color: $green-cool-5;
+}
+
+.contact-error {
+  background-color: $red-warm-10;
 }
 
 .contact-form {
@@ -67,11 +87,24 @@
   }
 }
 
+.clear-button {
+  color: $blue-60v;
+  font-weight: 700;
+}
+
 .button-container {
   margin: $size-24 0;
 
   button + button {
     margin-left: $size-48;
+  }
+
+  .usa-button {
+    background-color: $blue-60v;
+
+    &:hover {
+      background-color: $blue-70v;
+    }
   }
 }
 
@@ -82,6 +115,14 @@
 
   .contact-us-container {
     flex-direction: column;
+
+    section + section {
+      margin-left: 0;
+    }
+
+    section {
+      margin: 0 auto;
+    }
 
     div + div {
       margin-left: 0;
