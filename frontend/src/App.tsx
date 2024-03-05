@@ -105,7 +105,7 @@ export const App = (props: Props): ReactElement => {
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
-              <ContactUsPage path="/contact-us" client={props.client} />
+              <ContactUsPage path="/contact" client={props.client} />
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <AllSupportPage path="/support-resources" client={props.client} />
               <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
