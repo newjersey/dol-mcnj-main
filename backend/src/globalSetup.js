@@ -1,23 +1,30 @@
-const util = require("util");
-const { exec } = require("child_process");
-const cmd = util.promisify(exec);
+const { spawn } = require('child_process');
 
 module.exports = async () => {
   try {
     console.log("Creating database 'd4adtest'...");
-    await cmd("psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432");
+    await executeCommand('psql', ['-c', 'create database d4adtest;', '-U', 'postgres', '-h', 'localhost', '-p', '5432']);
     console.log("Database created successfully.");
 
-    // Check if running in CI environment and skip migration if so
-    if (!process.env.IS_CI) {
-      console.log("Running database migrations...");
-      await cmd("npm run db-migrate up -- -e test");
-      console.log("Database migrations applied successfully.");
-    } else {
-      console.log("Skipping database migrations in CI environment.");
-    }
+    console.log("Running database migrations...");
+    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test']);
+    console.log("Database migrations applied successfully.");
   } catch (error) {
     console.error("Error during global setup:", error);
-    throw error;
+    throw error; // Rethrow the error to ensure Jest is aware that the global setup failed
   }
 };
+
+function executeCommand(command, args = []) {
+  return new Promise((resolve, reject) => {
+    const proc = spawn(command, args, { stdio: 'inherit' });
+
+    proc.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Command "${command}" exited with code ${code}`));
+      }
+    });
+  });
+}
