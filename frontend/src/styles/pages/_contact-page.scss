@@ -6,6 +6,15 @@
     font-weight: 550;
     margin-bottom: $size-12;
   }
+
+  .required {
+    color: $red;
+  }
+
+  .required-instructions {
+    font-size: $size-14;
+    margin: $size-20 0;
+  }
 }
 
 .contact-us-container {
@@ -36,8 +45,9 @@
     font-weight: 700;
   }
 
-  .required {
+  .form-error-message {
     color: $red;
+    font-weight: 700;
   }
 }
 
