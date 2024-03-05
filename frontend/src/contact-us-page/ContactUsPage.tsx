@@ -74,7 +74,7 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
           <section className={`contact-form-container ${bgColor()}`}>
             {contactUsContent()}
             <div>
-              Read about our <a href="https://www.nj.gov/nj/privacy.html" target="_blank">privacy policy</a>.
+              Read about our <a href="https://www.nj.gov/nj/privacy.html" target="_blank" rel="noreferrer noopener">privacy policy</a>.
             </div>
           </section>
         </div>

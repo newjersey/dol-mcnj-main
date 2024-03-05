@@ -170,7 +170,7 @@ const ContactForm = ({
           A red asterisk (<span className="required">*</span>) indicates a required field.
         </div>
         <div className="button-container">
-          <button type="submit" className="usa-button">Submit</button>
+          <button type="submit" data-testid="submit-button" className="usa-button">Submit</button>
           <button type="button" className="clear-button" onClick={() => reset()}>
             Clear Form
           </button>
