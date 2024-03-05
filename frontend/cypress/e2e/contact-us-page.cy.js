@@ -28,7 +28,8 @@ describe("Contact Us Page", () => {
     cy.contains("Please enter an email").should("not.exist");
     cy.contains("Please enter a valid email").should("exist");
 
-    cy.get("input[name=email]").clear().type("thisIsAnEmail@gmail.com");
+    cy.get("input[name=email]").clear()
+    cy.get("input[name=email]").type("thisIsAnEmail@gmail.com");
     cy.contains("Please enter a valid email").should("not.exist");
 
     const randomOption = Math.floor(Math.random() * 6)+1;
