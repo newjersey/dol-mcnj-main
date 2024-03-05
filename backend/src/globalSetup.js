@@ -1,6 +1,6 @@
 const util = require("util");
 const { exec: execCallback } = require("child_process");
-const exec = util.promisify(execCallback);
+const exec = util.promisify((command) => execCallback(command, { maxBuffer: 1024 * 5000 })); // Increase maxBuffer to 5MB
 
 module.exports = async () => {
   try {
