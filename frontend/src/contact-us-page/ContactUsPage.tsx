@@ -14,7 +14,7 @@ interface Props extends RouteComponentProps {
   location?: WindowLocation<unknown> | undefined;
 }
 export const ContactUsPage = (props: Props): ReactElement<Props> => {
-  const [formSuccess, setFormSuccess] = useState<boolean | undefined>(false);
+  const [formSuccess, setFormSuccess] = useState<boolean | undefined>();
 
   const bgColor = () => {
     switch(formSuccess) {
