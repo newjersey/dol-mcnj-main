@@ -1,6 +1,14 @@
-import { ReactElement, useState } from "react";
-import { useForm } from "react-hook-form";
+import { ReactElement } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
 import { RouteComponentProps, WindowLocation } from "@reach/router";
+import {
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField
+} from "@material-ui/core";
 import { Client } from "../domain/Client";
 import { Layout } from "../components/Layout";
 import { PageBanner } from "../components/PageBanner";
@@ -41,32 +49,29 @@ const topics = [
   }
 ]
 
-interface FormValues {
-  email: string;
-  topic: string;
-  message: string;
-}
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+    topic: yup.string().required(),
+    message: yup.string().required(),
+  })
+  .required();
 
 export const ContactUsPage = (props: Props): ReactElement<Props> => {
-  const [formValues, setFormValues] = useState<FormValues>({
-    email: '',
-    topic: '',
-    message: '',
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
   });
-  const { handleSubmit } = useForm();
 
-  const onSubmit = () => {
-    const data = JSON.stringify(formValues);
+  // @ts-expect-error - TS doesn't know that the formValues state is being set
+  const onSubmit = (data) => {
     console.log(data);
   };
-
-  const clearForm = () => {
-    setFormValues({
-      email: '',
-      topic: '',
-      message: '',
-    });
-  }
 
   return (
     <Layout
@@ -94,7 +99,7 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
       />
       <section className="contact-us-content">
         <div className="contact-us-container">
-          <div>
+          <section className="">
             <div className="info-block">
               <h2>Contact Information</h2>
               <p>
@@ -109,59 +114,67 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
                 PO Box 057, 5th Floor, Trenton, New Jersey 08625-0057
               </p>
             </div>
-          </div>
-          <div className="contact-form-container">
+          </section>
+          <section className="contact-form-container">
             <h2>Contact Form</h2>
             <p>
               Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce office will get back with you in 3-5 business days.
             </p>
             <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
+              <div className="input-container">
+                <div>
+                  <label htmlFor="email">Email</label> <span className="required">*</span>
+                </div>
+                <TextField
+                  fullWidth
                   id="email"
-                  name="email"
-                  onChange={e => setFormValues({ ...formValues, email: e.target.value })}
-                  value={formValues.email}
-                  required
+                  type="text"
+                  variant="outlined"
+                  {...register("email")}
                 />
+                {errors.email?.message}
               </div>
-              <div>
-                <label htmlFor="topic">Please select a topic</label>
-                {topics.map((topic) => (
-                  <div key={topic.value}>
-                    <input
-                      type="radio"
-                      id={topic.value}
-                      name="topic"
-                      value={topic.value}
-                      onChange={e => setFormValues({ ...formValues, topic: e.target.value })}
-                      checked={formValues.topic === topic.value}
-                      required
-                    />
-                    <label htmlFor={topic.value}>{topic.label}</label>
-                  </div>
-                ))}
+              <div className="input-container">
+                <div>
+                  <label htmlFor="topic">Please select a topic</label> <span className="required">*</span>
+                </div>
+                <Controller
+                  name="topic"
+                  defaultValue=""
+                  control={control}
+                  render={({ field }) => (
+                    <RadioGroup
+                      {...field}
+                      aria-label="topic"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    >
+                      {topics.map((topic, index) => (
+                        <FormControlLabel key={index} value={topic.value} control={<Radio />} label={topic.label} />
+                      ))}
+                    </RadioGroup>
+                  )}
+                />
+                {errors.topic?.message}
               </div>
-              <div>
-                <label htmlFor="message">Your message</label>
+              <div className="input-container">
+                <div>
+                  <label htmlFor="message">Your message</label> <span className="required">*</span>
+                </div>
                 <textarea
                   id="message"
-                  name="message"
-                  onChange={e => setFormValues({ ...formValues, message: e.target.value })}
-                  value={formValues.message}
-                  required
+                  {...register("message")}
                 />
+                {errors.message?.message}
               </div>
-              <div>
+              <div className="button-container">
                 <button type="submit" className="usa-button">Submit</button>
-                <button type="button" onClick={clearForm}>
+                <button type="button" onClick={() => reset()}>
                   Clear Form
                 </button>
               </div>
             </form>
-          </div>
+          </section>
         </div>
       </section>
     </Layout>

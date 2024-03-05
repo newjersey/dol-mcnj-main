@@ -14,7 +14,7 @@
   margin: 0 auto;
   max-width: 1104px;
 
-  div + div {
+  section + section {
     margin-left: $size-24;
   }
 }
@@ -26,6 +26,25 @@
   max-width: 500px;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: $size-12;
+
+  label {
+    font-size: $size-16;
+    font-weight: 700;
+  }
+
+  .required {
+    color: $red;
+  }
+}
+
+.input-container + .input-container {
+  margin-top: $size-24;
+}
+
 .contact-form-container {
   background-color: $cyan-5;
   border-radius: $size-24;
@@ -33,10 +52,16 @@
 }
 
 .contact-form {
-  label {
-    display: block;
-    font-size: $size-16;
-    margin-bottom: $size-8;
+  .MuiOutlinedInput-input {
+    background-color: $white;
+  }
+}
+
+.button-container {
+  margin: $size-24 0;
+
+  button + button {
+    margin-left: $size-48;
   }
 }
 
