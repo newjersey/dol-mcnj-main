@@ -27,12 +27,16 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
     }
   }
 
+  const resetForm = () => {
+    setFormSuccess(undefined);
+  }
+
   const contactUsContent = () => {
     switch(formSuccess) {
       case true:
-        return ( <ContactSuccess /> );
+        return ( <ContactSuccess resetForm={resetForm} /> );
       case false:
-        return ( <ContactError /> );
+        return ( <ContactError resetForm={resetForm} /> );
       default:
         return ( <ContactForm
                     defaultValues={{ email: '', topic: '', message: '' }}
