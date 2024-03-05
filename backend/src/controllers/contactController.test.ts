@@ -15,6 +15,7 @@ describe('submitContactForm', () => {
       body: {
         email: 'test@example.com',
         message: 'Hello',
+        topic: 'test',
         url: 'http://example.com',
       },
     };
@@ -48,6 +49,9 @@ describe('submitContactForm', () => {
 
     expect(sendEmail).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ message: 'There was an error sending your message.' });
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'There was an error sending your message.',
+      error: error
+  });
   });
 });

@@ -14,6 +14,12 @@ export const validateContactForm = [
     .isEmpty()
     .withMessage('The message field cannot be empty.'),
 
+  body('topic')
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage('The topic field cannot be empty.'),
+
   body('url')
     .optional({ checkFalsy: true })
     .isURL()
