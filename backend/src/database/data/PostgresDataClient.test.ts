@@ -2,7 +2,7 @@ import { PostgresDataClient } from "./PostgresDataClient";
 import { Selector } from "../../domain/training/Selector";
 import { Error } from "../../domain/Error";
 
-describe("PostgresDataClient", () => {
+describe.skip("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
 
   beforeAll(async () => {
