@@ -15,9 +15,10 @@ module.exports = async () => {
   }
 };
 
-function executeCommand(command, args = []) {
+function executeCommand(command, args = [], silent = false) {
   return new Promise((resolve, reject) => {
-    const proc = spawn(command, args, { stdio: 'inherit' });
+    const stdioOption = silent ? 'ignore' : 'inherit';
+    const proc = spawn(command, args, { stdio: stdioOption });
 
     proc.on('close', (code) => {
       if (code === 0) {
