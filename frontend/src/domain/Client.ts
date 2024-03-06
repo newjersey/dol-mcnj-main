@@ -7,6 +7,7 @@ import {
   TrainingProviderPageProps,
   NavMenuProps,
   CareerPathwaysPageProps,
+  JobCountProps,
 } from "../types/contentful";
 
 export interface Client {
@@ -22,6 +23,7 @@ export interface Client {
   getContentfulMNav: (query: string, observer: Observer<NavMenuProps>) => void;
   getContentfulFootNav1: (query: string, observer: Observer<NavMenuProps>) => void;
   getContentfulFootNav2: (query: string, observer: Observer<NavMenuProps>) => void;
+  getJobCount: (term: string, observer: Observer<JobCountProps>) => void;
 }
 
 export interface Observer<T> {
