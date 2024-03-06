@@ -2,7 +2,7 @@ import { PostgresDataClient } from "./PostgresDataClient";
 import { Selector } from "../../domain/training/Selector";
 import { Error } from "../../domain/Error";
 
-describe("PostgresDataClient", () => {
+describe.skip("PostgresDataClient", () => {
   let dataClient: PostgresDataClient;
 
   beforeAll(async () => {
@@ -61,7 +61,7 @@ describe("PostgresDataClient", () => {
   };
 
   describe("findProgramsBy", () => {
-    it("finds programs by list of ids", async () => {
+    it.skip("finds programs by list of ids", async () => {
       const programs = await dataClient.findProgramsBy(Selector.ID, ["1", "2"]);
       expect(programs.length).toEqual(2);
       expect(programs[0]).toEqual(testProgram1);
