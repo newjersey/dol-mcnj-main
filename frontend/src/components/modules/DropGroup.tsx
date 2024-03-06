@@ -1,23 +1,19 @@
 import { CaretRight } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { FaqItem } from "../../types/contentful";
+import { useLocation } from "@reach/router";
+import { FaqTopic } from "../../types/contentful";
 import { slugify } from "../../utils/slugify";
-
-interface TopicProps {
-  sys: { id: string };
-  topic: string;
-  itemsCollection: { items: FaqItem[] };
-}
 
 interface DropGroupProps {
   sys: { id: string };
   title: string;
   topics: {
-    items: TopicProps[];
+    items: FaqTopic[];
   };
-  activeItem?: TopicProps;
+  activeItem?: FaqTopic;
   className?: string;
-  onChange?: (selected: TopicProps) => void;
+  defaultTopic?: string;
+  onChange?: (selected: FaqTopic) => void;
 }
 
 const toggleOpen = (isOpen: boolean, contentId: string): void => {
@@ -28,23 +24,69 @@ const toggleOpen = (isOpen: boolean, contentId: string): void => {
   }
 };
 
-const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: DropGroupProps) => {
+const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, topics }: DropGroupProps) => {
+  const location = useLocation();
   const [open, setOpen] = useState<boolean>(false);
-  const [activeTopic, setActiveTopic] = useState<TopicProps>();
+  const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
+  const resetActiveTopic = async(topic: FaqTopic) => {
+    setActiveTopic(undefined);
+    setTimeout(() => {
+      setActiveTopic(topic);
+    }, 10);
+  }
+
+  useEffect(() => {
+    const urlParams = window.location.hash;
+    const searchTopic = urlParams.replace("#", "");
+
+    if (searchTopic) {
+      const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === searchTopic);
+
+      if (searchedTopic) {
+        resetActiveTopic(searchedTopic);
+        setOpen(true)
+        const contentBlock = document.getElementById(`list-${sys?.id}`);
+
+        if (contentBlock) {
+          const height = contentBlock?.scrollHeight;
+          contentBlock.style.height = `${height}px`;
+        }
+      }
+    } else {
+      if (!activeItem) {
+        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === slugify(defaultTopic || ""));
+  
+        if (searchedTopic) {
+          setActiveTopic(searchedTopic);
+          setOpen(true)
+          const contentBlock = document.getElementById(`list-${sys?.id}`);
+  
+          if (contentBlock) {
+            const height = contentBlock?.scrollHeight;
+            contentBlock.style.height = `${height}px`;
+          }
+        }
+      }
+    }
+  }, [location]);
+
+  // If activeTopic is set, open the accordion
   useEffect(() => {
     if (onChange && activeTopic) {
       onChange(activeTopic);
     }
+
     if (activeTopic) {
       setOpen(true);
     }
-  }, [activeTopic]);
+  }, [activeTopic, location]);
 
   return (
     <li
       key={sys?.id}
       className={`dropGroup${className ? ` ${className}` : ""}${open ? " active" : ""}`}
+      data-testid={`topic-${slugify(title)}`}
     >
       <button
         type="button"
@@ -61,15 +103,13 @@ const DropGroup = ({ activeItem, className, onChange, sys, title, topics }: Drop
         {topics.items.map((item) => (
           <li
             key={item.sys.id}
-            className={activeTopic && activeItem?.sys.id === item.sys.id ? "active" : undefined}
+            data-testid={`link-${slugify(item.topic)}`}
+            className={activeItem?.sys.id === item.sys.id ? "active-link active" : undefined}
           >
             <button
               id={`${item.sys.id}-${slugify(title)}`}
               onClick={() => {
-                setActiveTopic(undefined);
-                setTimeout(() => {
-                  setActiveTopic(item);
-                }, 10);
+                resetActiveTopic(item);
               }}
             >
               {item.topic}

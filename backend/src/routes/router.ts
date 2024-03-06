@@ -5,6 +5,7 @@ import {
   SearchTrainings,
   GetOccupationDetail,
   GetAllCertificates,
+  GetOccupationDetailByCIP,
 } from "../domain/types";
 import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
@@ -12,6 +13,7 @@ import { Certificates } from "../domain/credentialengine/CredentialEngineInterfa
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
+import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -19,6 +21,7 @@ interface RouterActions {
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
   getAllCertificates: GetAllCertificates;
+  getOccupationDetailByCIP: GetOccupationDetailByCIP;
 }
 
 export const routerFactory = ({
@@ -26,7 +29,8 @@ export const routerFactory = ({
   findTrainingsBy,
   getInDemandOccupations,
   getOccupationDetail,
-  getAllCertificates
+  getAllCertificates,
+  getOccupationDetailByCIP,
 }: RouterActions): Router => {
   const router = Router();
 
@@ -83,6 +87,29 @@ export const routerFactory = ({
     getOccupationDetail(req.params.soc as string)
       .then((occupationDetail: OccupationDetail) => {
         res.status(200).json(occupationDetail);
+      })
+      .catch(() => res.status(500).send());
+  });
+
+  router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
+    // Sanitize and encode the user input before using it in the URL
+    const sanitizedTerm = encodeURIComponent(req.params.term || "");
+
+    // Use the sanitized input in the URL
+    const countData = await CareerOneStopClient(
+      process.env.CAREER_ONESTOP_BASEURL as string,
+      process.env.CAREER_ONESTOP_USERID as string,
+      process.env.CAREER_ONESTOP_AUTH_TOKEN as string,
+    )(sanitizedTerm);
+
+    res.status(200).json({ count: countData || 0 });
+  });
+
+  router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
+    console.log("here");
+    getOccupationDetailByCIP(req.params.cip as string)
+      .then((occupationDetails: OccupationDetail[]) => {
+        res.status(200).json(occupationDetails);
       })
       .catch(() => res.status(500).send());
   });

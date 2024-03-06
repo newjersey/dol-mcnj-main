@@ -38,7 +38,7 @@ export const Accordion = (data: AccordionData): ReactElement => {
   return (
     <div
       key={data.keyValue}
-      data-testid="accordion"
+      data-testid={`accordion-${data.keyValue}`}
       className={`accordion ${isOpen ? "open" : "closed"}`}
     >
       <button
@@ -56,7 +56,7 @@ export const Accordion = (data: AccordionData): ReactElement => {
         {data.title}
       </button>
 
-      <div id={contentId} className="content" data-testid="accordion-content">
+      <div id={contentId} className="content" data-testid={`accordion-content-${data.keyValue}`}>
         <div className="inner">
           <ContentfulRichText
             assets={data.assets}

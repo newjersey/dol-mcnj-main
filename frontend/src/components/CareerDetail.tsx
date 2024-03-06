@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { contentfulClient } from "../utils/contentfulClient";
-import { OccupationNodeProps, SelectProps } from "../types/contentful";
-import { OCCUPATION_QUERY } from "../queries/occupation";
+import { JobCountProps, OccupationNodeProps, SelectProps } from "../types/contentful";
 import {
   ArrowSquareOut,
   ArrowUpRight,
@@ -21,7 +19,7 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { Selector } from "../svg/Selector";
 import { InDemandTag } from "./InDemandTag";
-import { Tooltip } from "@material-ui/core";
+import { CircularProgress, Tooltip } from "@material-ui/core";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -58,6 +56,9 @@ export const CareerDetail = ({
   selected?: SelectProps;
 }) => {
   const [data, setData] = useState<OccupationDataProps>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [jobCount, setJobCount] = useState<JobCountProps>();
+  const [loadingJobs, setLoadingJobs] = useState(false);
   const [map, setMap] = useState<MapProps[]>();
   const [filteredMap, setFilteredMap] = useState<MapProps[]>();
 
@@ -67,14 +68,28 @@ export const CareerDetail = ({
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoadingJobs(true);
       try {
         /* eslint-disable-next-line  */
-        const result: any = await contentfulClient({
-          query: OCCUPATION_QUERY,
-          variables: { id: detailsId },
+        const result: any = await fetch(`/api/contentful/career-map-node/${detailsId}`);
+        const resultJson = await result.json();
+        setData(resultJson);
+
+        const searchTerm =
+          resultJson.careerMapObject.trainingSearchTerms || resultJson.careerMapObject.title;
+
+        client.getJobCount(searchTerm, {
+          onSuccess: (count) => {
+            setJobCount(count);
+            setLoadingJobs(false);
+          },
+          onError: (error) => {
+            console.error(error);
+            setLoadingJobs(false);
+          },
         });
-        setData(result);
       } catch (error) {
+        setLoadingJobs(false);
         console.error(error);
         return {};
       }
@@ -191,13 +206,21 @@ export const CareerDetail = ({
                         <Info size={20} weight="fill" />
                       </Tooltip>
                     </p>
-                    <p>
-                      <strong>
-                        {data.careerMapObject.numberOfAvailableJobs
-                          ? numberWithCommas(data.careerMapObject.numberOfAvailableJobs)
-                          : "---"}
-                      </strong>
-                    </p>
+                    <>
+                      {loadingJobs ? (
+                        <CircularProgress
+                          size={22}
+                          style={{
+                            margin: "0 0 18px",
+                            padding: 0,
+                          }}
+                        />
+                      ) : (
+                        <p>
+                          <strong>{jobCount ? numberWithCommas(jobCount.count) : "---"}</strong>
+                        </p>
+                      )}
+                    </>
                     <a
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
                         data.careerMapObject.trainingSearchTerms || data.careerMapObject.title
