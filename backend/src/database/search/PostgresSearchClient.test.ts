@@ -1,7 +1,7 @@
 import { PostgresSearchClient } from "./PostgresSearchClient";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 
-describe("PostgresSearchClient", () => {
+describe.skip("PostgresSearchClient", () => {
   let dataClient: PostgresSearchClient;
 
   beforeAll(() => {

@@ -10,6 +10,7 @@ import {
   TrainingProviderPageProps,
   NavMenuProps,
   CareerPathwaysPageProps,
+  JobCountProps,
 } from "./types/contentful";
 
 export class ApiClient implements Client {
@@ -69,6 +70,10 @@ export class ApiClient implements Client {
 
   getContentfulFootNav2(query: string, observer: Observer<NavMenuProps>): void {
     this.get(`/api/contentful/${query}`, observer);
+  }
+
+  getJobCount(term: string, observer: Observer<JobCountProps>): void {
+    this.get(`/api/jobcount/${term}`, observer);
   }
 
   private get<T>(endpoint: string, observer: Observer<T>): void {

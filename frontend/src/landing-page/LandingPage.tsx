@@ -5,8 +5,8 @@ import { Client } from "../domain/Client";
 import { Certificates } from "../domain/CredentialEngine";
 import { Layout } from "../components/Layout";
 import { useContentfulClient } from "../utils/useContentfulClient";
+import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
-import { HOMEPAGE_QUERY } from "../queries/homePage";
 import { HomeBanner } from "../components/HomeBanner";
 import CardSlider from "../components/CardSlider";
 import { IconCard } from "../components/IconCard";
@@ -20,8 +20,8 @@ interface Props extends RouteComponentProps {
 }
 
 export const LandingPage = (props: Props): ReactElement => {
-  const data: HomepageProps = useContentfulClient({
-    query: HOMEPAGE_QUERY,
+  const data: HomepageProps = useContentful({
+    path: `/home-page`,
   });
 
   const pageData = data?.homePage;
@@ -36,12 +36,12 @@ export const LandingPage = (props: Props): ReactElement => {
     url: props.location?.pathname,
   };
 
-  // if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
-  //   const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
-  //   if (index !== -1) {
-  //     pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
-  //   }
-  // }
+  if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
+    const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
+    if (index !== -1) {
+      pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
+    }
+  }
 
   function findSvg(sectionIcon: string | undefined) {
     switch (sectionIcon) {
@@ -84,7 +84,7 @@ export const LandingPage = (props: Props): ReactElement => {
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
                   {pageData.toolsCollection.items.map((item) => {
-                    const svgName = findSvg(item.sectionIcon)
+                    const svgName = findSvg(item.sectionIcon);
                     return (
                       <IconCard
                         key={item.sys.id}
@@ -110,14 +110,14 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
-              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
-              <CardSlider
-                sectionId="explore"
-                cards={pageData.careerExplorationToolLinksCollection.items}
-                heading="All Career Exploration Tools"
-                theme="purple"
-              />
+            {(process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" ||
+                process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true") && (
+                <CardSlider
+                  sectionId="explore"
+                  cards={pageData.careerExplorationToolLinksCollection.items}
+                  heading="All Career Exploration Tools"
+                  theme="purple"
+                />
             )}
             <CardSlider
               sectionId="support"
