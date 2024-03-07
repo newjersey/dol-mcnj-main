@@ -4,10 +4,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {
   FormControlLabel,
+  InputAdornment,
   Radio,
   RadioGroup,
   TextField
 } from "@material-ui/core";
+import { EnvelopeSimple } from "@phosphor-icons/react";
 
 const schema = yup.object()
   .shape({
@@ -112,6 +114,9 @@ const ContactForm = ({
             id="email"
             type="text"
             variant="outlined"
+            InputProps={{
+              startAdornment: <InputAdornment position="start"><EnvelopeSimple /></InputAdornment>,
+            }}
             error={!!errors.email}
             {...register("email")}
           />
