@@ -36,6 +36,7 @@ export const AlertBar = ({
 
   return (
     <div
+      role="alert"
       id={alertId}
       className={`alert-bar usa-alert usa-alert--${type}${loading || remove ? " hide" : ""}`}
     >
