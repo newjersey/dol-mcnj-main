@@ -68,15 +68,13 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
           }
         }
       />
-      <section className="contact-us-content">
-        <div className="contact-us-container">
-          <ContactInfo />
-          <section className={`contact-form-container ${bgColor()}`}>
-            {contactUsContent()}
-            <div>
-              Read about our <a href="https://www.nj.gov/nj/privacy.html" target="_blank" rel="noreferrer noopener">privacy policy</a>.
-            </div>
-          </section>
+      <section className="container contact-page-content">
+        <ContactInfo />
+        <div className={`contact-container ${bgColor()}`}>
+          {contactUsContent()}
+          <div>
+            Read about our <a href="https://www.nj.gov/nj/privacy.html" target="_blank" rel="noreferrer noopener">privacy policy</a>.
+          </div>
         </div>
       </section>
     </Layout>
