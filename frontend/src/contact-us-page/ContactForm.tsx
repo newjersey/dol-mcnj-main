@@ -10,13 +10,16 @@ import {
   TextField
 } from "@material-ui/core";
 import { EnvelopeSimple } from "@phosphor-icons/react";
+import { checkValidEmail } from "../utils/checkValidEmail";
 
 const schema = yup.object()
   .shape({
-    email: yup.string().email('Please enter a valid email').required('Please enter an email'),
+    email: yup.string().required('Please enter an email').test('valid-email', 'Please enter a valid email', val => {
+      if (val?.length) return checkValidEmail(val);
+    }),
     topic: yup.string().required('Please select an option'),
-    message: yup.string().required('Please enter a message').test('len', 'Cannot be more than 250 characters', val => {
-      if (val?.length) return val.length <= 250;
+    message: yup.string().required('Please enter a message').test('len', 'Cannot be more than 1000 characters', val => {
+      if (val?.length) return val.length <= 1000;
     }),
   })
   .required();
@@ -104,9 +107,12 @@ const ContactForm = ({
       <p>
         Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce office will get back with you in 3-5 business days.
       </p>
+      <div className="required-instructions">
+        A red asterisk (<span className="required">*</span>) indicates a required field.
+      </div>
       <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="input-container">
-          <div>
+          <div className="label-container">
             <label htmlFor="email">Email</label> <span className="required">*</span>
           </div>
           <TextField
@@ -114,18 +120,22 @@ const ContactForm = ({
             id="email"
             type="text"
             variant="outlined"
+            placeholder="Email"
             InputProps={{
               startAdornment: <InputAdornment position="start"><EnvelopeSimple /></InputAdornment>,
             }}
             error={!!errors.email}
             {...register("email")}
+            onBlur={() => {
+
+            }}
           />
           <div className="form-error-message">
             {errors.email?.message}
           </div>
         </div>
         <div className={`input-container${errors.topic ? ' radio-erros' : ''}`}>
-          <div>
+          <div className="label-container">
             <label htmlFor="topic">Please select a topic</label> <span className="required">*</span>
           </div>
           <Controller
@@ -157,23 +167,21 @@ const ContactForm = ({
           </div>
         </div>
         <div className="input-container">
-          <div>
+          <div className="label-container">
             <label htmlFor="message">Your message</label> <span className="required">*</span>
           </div>
           <textarea
             id="message"
             className={errors.message ? 'error-textarea' : ''}
+            placeholder="Your message"
             {...register("message")}
           />
-          <div className={`message-count ${getValues("message")?.length > 250 || !!errors.message ? 'required' : undefined}`}>
-            {watchMessage ? `${getValues("message").length}` : `0`} / 250
+          <div className={`message-count ${getValues("message")?.length > 1000 || !!errors.message ? 'required' : undefined}`}>
+            {watchMessage ? `${getValues("message").length}` : `0`} / 1000
           </div>
           <div className="form-error-message">
             {errors.message?.message}
           </div>
-        </div>
-        <div className="required-instructions">
-          A red asterisk (<span className="required">*</span>) indicates a required field.
         </div>
         <div className="button-container">
           <button type="submit" data-testid="submit-button" className="usa-button">Submit</button>

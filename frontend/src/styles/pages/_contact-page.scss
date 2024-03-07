@@ -1,5 +1,5 @@
 .contact-page-content {
-  padding: 3rem 1rem 0 1rem;
+  margin: 2rem 1rem 0 1rem;
 
   h2 {
     font-size: $size-24;
@@ -7,7 +7,24 @@
     margin-bottom: $size-12;
   }
 
+  label {
+    font-size: $size-16;
+    font-weight: 700;
+  }
+
+  textarea {
+    min-height: 100px;
+    padding: $size-12;
+    width: 100%;
+  }
+
+  .address-line + .address-line {
+    margin-top: $size-4;
+  }
+
   .button-container {
+    display: flex;
+    flex-direction: row;
     margin: $size-24 0;
   
     button + button {
@@ -16,6 +33,7 @@
   
     .usa-button {
       background-color: $blue-60v;
+      max-width: $size-111;
   
       &:hover {
         background-color: $blue-70v;
@@ -30,7 +48,6 @@
 
     &:hover {
       color: $blue-70v;
-      text-decoration: none;
     }
   }
 
@@ -40,11 +57,15 @@
   }
 
   .contact-container + .contact-container {
-    margin-top: $size-24;
+    margin: $size-24 0;
   }
 
   .contact-info {
     background-color: $gray-cool-3;
+
+    h2 {
+      margin-bottom: $size-24;
+    }
   }
 
   .contact-form {
@@ -74,6 +95,29 @@
     border-radius: $size-8;
   }
 
+  .form-error-message {
+    color: $red;
+    font-weight: 700;
+    margin: $size-14 0;
+  }
+
+  .input-container {
+    margin: $size-14 0 $size-24 0;
+  }
+
+  .label-container {
+    margin: $size-14 0;
+  }
+
+  .message-count {
+    color: $gray-cool-50;
+    margin-top: $size-8;
+  }
+
+  .radio-error {
+    color: #F44336;
+  }
+
   .required {
     color: $red;
   }
@@ -84,72 +128,25 @@
   }
 }
 
-// .input-container {
-//   display: flex;
-//   flex-direction: column;
-//   gap: $size-12;
+@media screen and (min-width: $tablet) {
+  .contact-page-content {
+    margin: 3rem auto 0 auto;
+  }
+}
 
-//   label {
-//     font-size: $size-16;
-//     font-weight: 700;
-//   }
+@media screen and (min-width: $desktop) {
+  .contact-page-content {
+    display: flex;
+    flex-direction: row;
+    margin: 3rem auto 0 auto;
+    max-width: $size-1264;
 
-//   .form-error-message {
-//     color: $red;
-//     font-weight: 700;
-//   }
+    .container + .container {
+      width: 50%;
+    }
 
-//   .radio-error {
-//     color: #F44336;
-//   }
-// }
-
-// .contact-form-container {
-//   border-radius: 8px;
-//   padding: $size-24;
-// }
-
-// .input-container + .input-container {
-//   margin-top: $size-24;
-// }
-
-// @media screen and (max-width: $desktop-lg) {
-//   .contact-us-content {
-//     padding: 0 1rem;
-//   }
-// }
-
-// @media screen and (max-width: $desktop) {
-//   .info-block {
-//     min-width: $mobile;
-//   }
-// }
-
-// @media screen and (max-width: $tablet-lg) {
-//   .contact-us-content {
-//     padding: 3rem;
-//   }
-
-//   .contact-us-container {
-//     flex-direction: column;
-
-//     section + section {
-//       margin-top: 1rem;
-//       margin-left: 0;
-//     }
-
-//     section {
-//       margin: 0 auto;
-//     }
-
-//     div + div {
-//       margin-left: 0;
-//       margin-top: $size-24;
-//     }
-//   }
-
-//   .info-block {
-//     min-width: 0;
-//     width: 100%;
-//   }
-// }
+    .form-container {
+      margin-left: $size-24;
+    }
+  }
+}
