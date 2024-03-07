@@ -45,14 +45,16 @@ export const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      <AlertBar
-        copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am. The site
+      {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
+        <AlertBar
+          copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am. The site
             will be temporarily inaccessible during this period. We apologize for any inconvenience."
-        heading="Scheduled Maintenance"
-        type="warning"
-        alertId="maintenance"
-        dismissible
-      />
+          heading="Scheduled Maintenance"
+          type="warning"
+          alertId="maintenance"
+          dismissible
+        />
+      )}
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main

@@ -57,6 +57,7 @@ export const AlertBar = ({
             }}
           >
             <IconSelector name="X" size={30} weight="bold" />
+            <div className="sr-only">close alert</div>
           </button>
         )}
       </div>
