@@ -112,7 +112,7 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Work Retention and Readiness").within(() => {
+    cy.contains("Job Readiness").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
