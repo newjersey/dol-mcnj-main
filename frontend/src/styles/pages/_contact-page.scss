@@ -33,7 +33,6 @@
   
     .usa-button {
       background-color: $blue-60v;
-      max-width: $size-111;
   
       &:hover {
         background-color: $blue-70v;
@@ -54,6 +53,7 @@
   .contact-container {
     border-radius: $size-8;
     padding: $size-24;
+    margin: 0 $size-8;
   }
 
   .contact-container + .contact-container {
@@ -68,6 +68,10 @@
     }
   }
 
+  .contact-info-container {
+    margin-bottom: $size-24;
+  }
+
   .contact-form {
     background-color: $cyan-5;
     
@@ -80,6 +84,10 @@
     .MuiTextField-root {
       background-color: $white;
     }
+  
+    .usa-button {
+      max-width: $size-111;
+    }
   }
   
   .contact-success {
@@ -88,6 +96,13 @@
   
   .contact-error {
     background-color: $red-warm-10;
+  }
+
+  .contact-succes,
+  .contact-error {
+    .button-container {
+      max-width: $size-146;
+    }
   }
 
   .error-textarea {
