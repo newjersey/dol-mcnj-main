@@ -1,26 +1,32 @@
 import { ReactElement, useEffect, useState, useRef } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
+
 import { Client } from "../domain/Client";
+import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-import { Error } from "../domain/Error";
+
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
+
 import { Grouping } from "../components/Grouping";
-import { formatMoney } from "accounting";
-import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { InDemandBlock } from "../components/InDemandBlock";
+import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
-import { Icon } from "@material-ui/core";
 import { UnstyledButton } from "../components/UnstyledButton";
+
+import { usePageTitle } from "../utils/usePageTitle";
+
+import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
+
+import { Icon } from "@material-ui/core";
+import { formatMoney } from "accounting";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
-import { Layout } from "../components/Layout";
-import { InDemandBlock } from "../components/InDemandBlock";
 import { Tooltip } from "react-tooltip";
-import { usePageTitle } from "../utils/usePageTitle";
 
 interface Props extends RouteComponentProps {
   client: Client;

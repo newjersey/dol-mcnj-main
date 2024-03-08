@@ -1,4 +1,5 @@
 import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { WindowLocation } from "@reach/router";
 import { Client } from "../domain/Client";
 import { TrainingResult } from "../domain/Training";
 import { RouteComponentProps, Link } from "@reach/router";
@@ -17,10 +18,11 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
+import { checkValidSocCode } from "../utils/checkValidCodes";
 
 interface Props extends RouteComponentProps {
   client: Client;
-  searchQuery?: string;
+  location?: WindowLocation<unknown> | undefined;
 }
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
@@ -44,6 +46,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortContextValue = useContext(SortContext);
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
+
+  const searchQuery = props.location?.search?.slice(2) || "";
 
   usePageTitle(pageTitle);
 
@@ -78,13 +82,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     if (newFilteredTrainings.length > 0) {
       setShouldShowTrainings(true);
     }
-  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, props.searchQuery]);
+  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
 
   const getPageTitle = (): void => {
-    if (!props.searchQuery) {
+    if (!searchQuery) {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
-      const query = decodeURIComponent(props.searchQuery).toLocaleLowerCase();
+      const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
       setPageTitle(
         `${query} | Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
       );
@@ -92,7 +96,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   };
 
   useEffect(() => {
-    const queryToSearch = props.searchQuery ? props.searchQuery : "";
+    let queryToSearch = searchQuery ? searchQuery : "";
+
+    queryToSearch = checkValidSocCode(queryToSearch);
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
@@ -104,7 +110,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         setIsError(true);
       },
     });
-  }, [props.searchQuery, props.client]);
+  }, [searchQuery, props.client]);
 
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
@@ -113,10 +119,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
 
-    if (!props.searchQuery) {
+    if (!searchQuery) {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
-      const query = decodeURIComponent(props.searchQuery);
+      const query = decodeURIComponent(searchQuery);
       message = t("SearchResultsPage.resultsString", {
         count: filteredTrainings.length,
         query,
@@ -262,7 +268,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               <div className="col-sm-4">
                 {
                   <FilterBox
-                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
                     resultCount={filteredTrainings.length}
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}
@@ -303,7 +309,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               <div className="col-sm-4">
                 {
                   <FilterBox
-                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
                     resultCount={filteredTrainings.length}
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}
@@ -348,7 +354,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 <div className="mtl mbd">
                   <h3 className="text-l">{t("SearchResultsPage.smallScreenSearchHeader")}</h3>
                   <FilterBox
-                    searchQuery={props.searchQuery ? decodeURIComponent(props.searchQuery) : ""}
+                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
                     resultCount={filteredTrainings.length}
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}

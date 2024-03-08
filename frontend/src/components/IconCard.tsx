@@ -9,7 +9,7 @@ const CardContent = ({
   iconWeight,
   indicator,
   title,
-  titleType
+  titleType,
 }: IconCardProps) => {
   const iconName = icon as IconNames;
   const indicatorName = indicator as IconNames;
@@ -26,9 +26,13 @@ const CardContent = ({
           </span>
         )}
       </div>
-      {title && (
-        { ...(titleType === "h2" ? <h2 className="title">{title}</h2> : <h3 className="title">{title}</h3>) }
-      )}
+      {title && {
+        ...(titleType === "h2" ? (
+          <h2 className="title">{title}</h2>
+        ) : (
+          <h3 className="title">{title}</h3>
+        )),
+      }}
       {!centered && description && <p className="description">{description}</p>}
     </>
   );

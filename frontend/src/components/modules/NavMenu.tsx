@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { NavMenuData, TopLevelNavItemProps } from "../../types/contentful";
 import { LinkObject } from "./LinkObject";
 import { NavSubMenu } from "./NavSubMenu";
@@ -61,7 +61,7 @@ export const NavMenu = ({
             {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
               const hasSub =
                 item.subItemsCollection?.items && item.subItemsCollection?.items.length > 0;
-              const noLink = item.url === "#nolink";
+              const noLink = item.url === "#nolink" || item.classes?.includes("no-link");
               return (
                 <li
                   key={item.sys.id}
@@ -85,7 +85,7 @@ export const NavMenu = ({
                   ) : (
                     <>
                       {noLink ? (
-                        <span>
+                        <span className="nav-header">
                           {item.copy}
                         </span>
                       ) : (

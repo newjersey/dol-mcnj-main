@@ -12,7 +12,6 @@ export const searchTrainingsFactory = (
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
     try {
-      console.log(`Starting search for: ${searchQuery}`);
       const searchResults = await searchClient.search(searchQuery);
       const trainings = await findTrainingsBy(
         Selector.ID,

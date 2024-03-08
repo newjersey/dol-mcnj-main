@@ -2,21 +2,20 @@ import { RouteComponentProps } from "@reach/router";
 import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { useContentfulClient } from "../utils/useContentfulClient";
 import { AllSupportPageProps } from "../types/contentful";
-import { ALL_SUPPORT_PAGE_QUERY } from "../queries/allSupportPage";
 import { PageBanner } from "../components/PageBanner";
 import { IconCard } from "../components/IconCard";
 import { FooterCta } from "../components/FooterCta";
 import { usePageTitle } from "../utils/usePageTitle";
+import { useContentful } from "../utils/useContentful";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const AllSupportPage = (props: Props): ReactElement => {
-  const data: AllSupportPageProps = useContentfulClient({
-    query: ALL_SUPPORT_PAGE_QUERY,
+  const data: AllSupportPageProps = useContentful({
+    path: `/all-support`,
   });
 
   // sort categories by title
