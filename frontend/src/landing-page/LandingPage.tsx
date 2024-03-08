@@ -5,7 +5,7 @@ import { Client } from "../domain/Client";
 import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
 import { HomeBanner } from "../components/HomeBanner";
-import CardSlider from "../components/CardSlider";
+import CardRow from "../components/CardRow";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
@@ -103,27 +103,27 @@ export const LandingPage = (props: Props): ReactElement => {
                 </div>
               </div>
             </div>
-            <CardSlider
+            <CardRow
               sectionId="jobs"
               cards={pageData.jobSearchToolLinksCollection.items}
               heading="All Job Search Tools"
               theme="blue"
             />
-            <CardSlider
+            <CardRow
               sectionId="training"
               cards={pageData.trainingToolLinksCollection.items}
               heading="All Training Tools"
               theme="green"
             />
             {careerSectionActive && (
-              <CardSlider
+              <CardRow
                 sectionId="explore"
                 cards={pageData.careerExplorationToolLinksCollection.items}
                 heading="All Career Exploration Tools"
                 theme="purple"
               />
             )}
-            <CardSlider
+            <CardRow
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
               heading="All Support and Assistance Resources"

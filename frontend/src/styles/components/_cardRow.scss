@@ -1,4 +1,4 @@
-.card-slider {
+.card-row {
   position: relative;
   width: 100%;
   padding: 3rem 0;
@@ -12,38 +12,11 @@
     @media screen and (min-width: ($desktop-lg)) {
       padding: 0 $size-16 $size-16;
       position: relative;
-
-      overflow: hidden;
     }
 
     @media screen and (max-width: ($tablet-md - 1)) {
       display: flex;
       flex-direction: column;
-    }
-
-    &:before,
-    &:after {
-      @media screen and (min-width: ($desktop-lg)) {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        height: 100%;
-        pointer-events: none;
-        width: $size-32;
-        height: calc(100% - $size-72);
-        z-index: 1;
-      }
-    }
-
-    &:before {
-      left: -$size-16;
-      border-left: $size-16 solid white;
-      background: linear-gradient(to right, white, transparent);
-    }
-    &:after {
-      right: 0rem;
-      border-right: $size-16 solid white;
-      background: linear-gradient(to left, white, transparent);
     }
   }
 
@@ -60,26 +33,25 @@
 
   .slider-container {
     display: flex;
-    gap: 2rem;
+    gap: $size-32;
     transition: transform 0.3s ease;
     margin-top: $size-32;
-
-    @media screen and (max-width: ($desktop-lg - 1)) {
-      flex-wrap: wrap;
-      transform: none !important;
-    }
+    flex-wrap: wrap;
+    transform: none !important;
 
     .iconCard {
+      min-height: $size-160;
+
       @media screen and (min-width: ($desktop-lg)) {
-        flex: 0 0 calc(100% / 4.5 - 2rem);
+        width: calc(25% - $size-24);
       }
 
       @media screen and (max-width: ($desktop-lg - 1)) {
-        width: calc(33.333% - 2rem);
+        width: calc(33.333% - $size-24);
       }
 
       @media screen and (max-width: ($tablet-md - 1)) {
-        width: calc(50% - 2rem);
+        width: calc(50% - $size-24);
       }
 
       @media screen and (max-width: ($mobile-lg - 1)) {
