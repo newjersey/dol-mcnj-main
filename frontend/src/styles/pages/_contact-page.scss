@@ -141,7 +141,8 @@
     margin: 3rem auto 0 auto;
     max-width: $size-1264;
 
-    .container + .container {
+    .container-info-container,
+    .form-container {
       width: 50%;
     }
 
