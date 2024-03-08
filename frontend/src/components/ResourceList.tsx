@@ -12,6 +12,7 @@ import { ResourceListHeading } from "./modules/ResourceListHeading";
 import { FooterCta } from "./FooterCta";
 import { Selector } from "../svg/Selector";
 import { useContentful } from "../utils/useContentful";
+import { AlertBar } from "./AlertBar";
 
 interface ResourceTagListProps {
   tags: TagProps[];
@@ -122,14 +123,7 @@ export const ResourceList = ({
           </div>
 
           <div className="cards">
-            {info && (
-              <div className="usa-alert usa-alert--info">
-                <div className="usa-alert__body">
-                  <p className="usa-alert__text">{info}</p>
-                </div>
-              </div>
-            )}
-
+            {info && <AlertBar type="info" copy={info} />}
             <div className="listing-header">
               <ResourceListHeading
                 tags={selectedTags}
