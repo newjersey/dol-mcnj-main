@@ -47,7 +47,7 @@ export const Layout = (props: LayoutProps) => {
     <>
       {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
         <AlertBar
-          copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am. The site
+          copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am EST. My Career NJ and its applications (Training Explorer and Career Navigator)
             will be temporarily inaccessible during this period. We apologize for any inconvenience."
           heading="Scheduled Maintenance"
           type="warning"
