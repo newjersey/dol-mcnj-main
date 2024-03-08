@@ -1,10 +1,10 @@
-# New Jersey Career Central
+# My Career NJ
 
 [![build](https://circleci.com/gh/newjersey/d4ad.svg?style=shield)](https://circleci.com/gh/newjersey/d4ad)
 
 ## Overview
 
-This repo is the home for the NJ Career Central web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
+This repo is the home for the My Career NJ web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
 
 ### Architecture
 
@@ -202,4 +202,3 @@ Fences are enforced via a linting-like command that will fail when any violation
 npm --prefix=backend run fences
 npm --prefix=frontend run fences
 ```
-

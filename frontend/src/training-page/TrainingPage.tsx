@@ -45,8 +45,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   const [error, setError] = useState<Error | null>(null);
   const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
-
-  usePageTitle(`${training?.name} | Training | New Jersey Career Central`);
+  usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
   useEffect(() => {
     const idToFetch = props.id ? props.id : "";
@@ -198,7 +197,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
   const seoObject = {
-    title: `${training ? training.name : ""} | Training | New Jersey Career Central`,
+    title: `${training ? training.name : ""} | Training | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription: training?.description,
     url: props.location?.pathname,
   };
