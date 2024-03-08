@@ -1,19 +1,19 @@
 const ContactInfo = () => {
   return (
-    <>
+    <div className="contact-info-container">
       <div className="contact-container contact-info">
         <h2>Contact Information</h2>
-        <p>
+        <div className="address-line">
           <strong>
             NJ Department of Labor and Workforce Development
           </strong>
-        </p>
-        <p>
+        </div>
+        <div className="address-line">
           Center for Occupational Employment Information (COEI)
-        </p>
-        <p>
+        </div>
+        <div className="address-line">
           PO Box 057, 5th Floor, Trenton, New Jersey 08625-0057
-        </p>
+        </div>
       </div>
 
       <div className="contact-container contact-info">
@@ -27,7 +27,7 @@ const ContactInfo = () => {
           Reach out to us via our contact form. Please include the url of the training and any information that needs investigating.
         </p>
       </div>
-    </>
+    </div>
   )
 }
 
