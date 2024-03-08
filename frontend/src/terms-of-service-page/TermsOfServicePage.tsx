@@ -9,14 +9,14 @@ interface Props extends RouteComponentProps {
 }
 
 export const TermsOfServicePage = (props: Props): ReactElement => {
-  usePageTitle(`Terms of Service | New Jersey Career Central`);
+  usePageTitle(`Terms of Service | ${process.env.REACT_APP_SITE_NAME}`);
 
   return (
     <Layout
       client={props.client}
       seo={{
-        title: `Terms of Service | New Jersey Career Central`,
-        pageDescription: `Terms of Service for New Jersey Career Central`,
+        title: `Terms of Service | ${process.env.REACT_APP_SITE_NAME}`,
+        pageDescription: `Terms of Service for ${process.env.REACT_APP_SITE_NAME}`,
         url: props.location?.pathname,
       }}
     >
