@@ -26,10 +26,10 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
           <a
             href="/"
             className="link-format-black fin fac width-content"
-            aria-label="New Jersey Career Central"
+            aria-label={process.env.REACT_APP_SITE_NAME}
           >
             <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-            <h1 className="text-m">New Jersey Career Central</h1>
+            <h1 className="text-m">{process.env.REACT_APP_SITE_NAME}</h1>
           </a>
           <UnstyledButton onClick={toggleIsOpen} className="link-format-black">
             <div className={`toggle ${isOpen ? "open" : "closed"}`}>
@@ -50,9 +50,9 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
             />
             <LinkObject
               className="nav-item contact-us"
-              copy='Contact Us'
+              copy="Contact Us"
               icons={true}
-              url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
+              url="https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform"
             />
           </div>
         )}
@@ -65,9 +65,9 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
       <>
         <nav id="usaNav" className="usa-nav-container">
           <div className="basic-logo" id="basic-logo">
-            <a href="/" aria-label="New Jersey Career Central">
+            <a href="/" aria-label={process.env.REACT_APP_SITE_NAME}>
               <img className="mrd" src={njLogo} alt={t("IconAlt.njLogo")} />
-              <h1 className="bold">New Jersey Career Central</h1>
+              <h1 className="bold">{process.env.REACT_APP_SITE_NAME}</h1>
             </a>
           </div>
         </nav>
@@ -84,9 +84,9 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
             />
             <LinkObject
               className="nav-item contact-us"
-              copy='Contact Us'
+              copy="Contact Us"
               icons={true}
-              url='https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform'
+              url="https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform"
             />
           </div>
         </div>
