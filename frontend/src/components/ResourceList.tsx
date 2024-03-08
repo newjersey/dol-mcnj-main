@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { RESOURCE_LISTING_QUERY } from "../queries/resourceCategory";
 import {
   RelatedCategoryProps,
   ResourceCategoryPageProps,
@@ -7,12 +6,12 @@ import {
   ResourceListProps,
   TagProps,
 } from "../types/contentful";
-import { useContentfulClient } from "../utils/useContentfulClient";
 import { FilterControls } from "./FilterControls";
 import { ResourceCard } from "./ResourceCard";
 import { ResourceListHeading } from "./modules/ResourceListHeading";
 import { FooterCta } from "./FooterCta";
 import { Selector } from "../svg/Selector";
+import { useContentful } from "../utils/useContentful";
 
 interface ResourceTagListProps {
   tags: TagProps[];
@@ -39,9 +38,8 @@ export const ResourceList = ({
   const [uniqueTags, setUniqueTags] = useState<TagProps[]>([]);
   const [uniqueAudience, setUniqueAudience] = useState<TagProps[]>([]);
 
-  const data: ResourceListProps = useContentfulClient({
-    query: RESOURCE_LISTING_QUERY,
-    variables: { tags: allTags },
+  const data: ResourceListProps = useContentful({
+    path: `/resource-listing/${JSON.stringify(allTags).replace(/\//g, "%2F")}`,
   });
 
   useEffect(() => {

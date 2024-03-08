@@ -269,6 +269,10 @@
     width: 100%;
     border: $size-2 solid $base;
     border-radius: $size-4;
+
+    &.greyed-out {
+      color: $base;
+    }
   }
 
   .dropdown-select {
