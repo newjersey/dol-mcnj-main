@@ -80,14 +80,14 @@ Always push via ship-it ([why?](https://medium.com/@AnneLoVerso/ship-it-a-humble
 
 ### CI/CD
 
-We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for CI/CD and deploy both the development and production versions to Google Cloud Platform (GCP) environments. Our pipeline is:
+We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for CI/CD and deploy both the user research environment to Google Cloud Platform (GCP) environments. Pipelines for AWS prod, test, dev incoming. Our pipeline is:
 
 1. `npm install` (frontend and backend)
 1. run all unit tests (frontend and backend)
 1. build code and run feature tests
-1. deploy to GCP Dev environment (reach out to developer for dev URL or look in D4AD Dev App Engine settings)
+1. deploy to GCP User Research2 environment (reach out to developer for URL or look in D4AD User Research 2 App Engine settings)
 1. _Manual approval step_ - go to CircleCI build and "prod-approval" step, and click "Approve" button.
-1. deploy to GCP Prod environment
+1. deploy to GCP User Research2 environment
 
 #### Environment Variables
 

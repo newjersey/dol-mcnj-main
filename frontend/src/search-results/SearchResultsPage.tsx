@@ -86,16 +86,18 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getPageTitle = (): void => {
     if (!searchQuery) {
-      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central");
+      setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
       const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
-      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`);
+      setPageTitle(
+        `${query} | Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
+      );
     }
   };
 
   useEffect(() => {
     let queryToSearch = searchQuery ? searchQuery : "";
-    
+
     queryToSearch = checkValidSocCode(queryToSearch);
 
     props.client.getTrainingsByQuery(queryToSearch, {
