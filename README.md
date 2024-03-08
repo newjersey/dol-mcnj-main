@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repo is the home for theMy Career NJ web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
+This repo is the home for the My Career NJ web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
 
 ### Architecture
 
