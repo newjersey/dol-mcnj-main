@@ -4,7 +4,6 @@ import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
-import AWS from 'aws-sdk';
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
 import contentfulRouter from './contentful/index';
@@ -51,7 +50,7 @@ process.on("unhandledRejection", (reason) => {
 
 // CORS options
 const corsOptions = {
-  origin: ['https://mycareer.nj.gov', 'http://localhost:3000'],
+  origin: ['https://mycareer.nj.gov', 'http://localhost:3000', 'https://d4ad-research2.appspot.com/'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200
@@ -65,11 +64,7 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const awsConfig = new AWS.Config({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
-  region: process.env.AWS_REGION
-});
+
 
 type PostgresConnectionConfig = {
   user: string,
@@ -81,7 +76,7 @@ type PostgresConnectionConfig = {
 
 // Determine if the NODE_ENV begins with "aws"
 let connection: PostgresConnectionConfig | null = null;
-
+console.log(`starting application in ${process.env.NODE_ENV} environment`)
 switch (process.env.NODE_ENV) {
   case "dev":
     connection = {
@@ -125,6 +120,15 @@ switch (process.env.NODE_ENV) {
       host: process.env.DB_HOST_WRITER_AWSPROD || '',
       database: "d4adprod",
       password: process.env.DB_PASS_AWSPROD || '',
+      port: 5432,
+    };
+    break;
+  case "gcp":
+    connection = {
+      user: process.env.DB_USER || 'postgres',
+      host: process.env.CLOUD_SQL_CONNECTION_NAME ? `/cloudsql/${process.env.CLOUD_SQL_CONNECTION_NAME}` : 'localhost',
+      database: process.env.DB_NAME || 'd4adlocal',
+      password: process.env.DB_PASS || '',
       port: 5432,
     };
     break;
@@ -204,7 +208,6 @@ const router = routerFactory({
 
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use(express.json());
-
 app.use("/api", router);
 app.use('/api/contact', contactRouter)
 app.use('/api/emails', emailSubmissionRouter);

@@ -38,8 +38,9 @@ import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerP
 import * as Sentry from "@sentry/react";
 import { AllSupportPage } from "./all-support-page/AllSupportPage";
 import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
-import { CareerNavigatorPage } from "./career-navigator-page/CareerNavigatorPage";
 import { LandingPage } from "./landing-page/LandingPage";
+import Navigator from "./navigator/Navigator";
+import { CareerNavigatorPage } from "./career-navigator-page/CareerNavigatorPage";
 
 interface Props {
   client: Client;
@@ -64,11 +65,11 @@ Sentry.init({
 // Logs each Reach Router page as a separate pageview on Google Analytics
 // eslint-disable-next-line
 declare const window: any;
-const GA_TRACKING_ID = "G-THV625FWWB";
+const GA_TRACKING_ID = "G-R0KJEXTHNX";
 globalHistory.listen(({ location }) => {
   if (typeof window.gtag === "function") {
     window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
-    ReactGA.initialize("G-THV625FWWB", {});
+    ReactGA.initialize("G-R0KJEXTHNX", {});
   }
 });
 
@@ -84,10 +85,6 @@ export const App = (props: Props): ReactElement => {
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
-  useEffect(() => {
-    ReactGA.initialize("G-THV625FWWB", { testMode: process.env.NODE_ENV === 'test' });
-  }, []);
-
   return (
     <ComparisonContext.Provider value={{ state: comparisonState, dispatch: comparisonDispatch }}>
       <SortContext.Provider value={{ state: sortState, dispatch: sortDispatch }}>
@@ -102,6 +99,13 @@ export const App = (props: Props): ReactElement => {
               <TrainingPage path="/training/:id" client={props.client} />
               <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
               <OccupationPage path="/occupation/:soc" client={props.client} />
+              <Navigator path="/navigator" />
+              {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" && (
+                <CareerPathwaysPage path="/career-pathways" client={props.client} />
+              )}
+              {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" && (
+                <CareerPathwaysPage path="/career-pathways/:slug" client={props.client} />
+              )}
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />

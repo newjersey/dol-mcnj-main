@@ -1,96 +1,44 @@
 {
   "dev": {
     "driver": "pg",
-    "host": { "ENV": "DB_HOST_DEV" },
+    "host": "localhost",
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_DEV" },
-    "database": "d4adlocal",
-    "writer": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_DEV" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
-      "database": "d4adlocal"
-    },
-    "reader": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_DEV" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_DEV" },
-      "database": "d4adlocal"
-    }
+    "password": "",
+    "database": "d4adlocal"
   },
   "test": {
     "driver": "pg",
-    "host": { "ENV": "DB_HOST_TEST" },
+    "host": "localhost",
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_TEST" },
+    "password": "",
     "database": "d4adtest"
   },
-  "awsdev": {
+  "gcpdev": {
     "driver": "pg",
+    "host": "/cloudsql/d4ad-dev:us-east4:d4ad-dev-gcp-pg",
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_AWSDEV" },
-    "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
-    "database": "d4addev",
-    "writer": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_AWSDEV" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSDEV" },
-      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSDEV" },
-      "database": "d4addev"
-    },
-    "reader": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_AWSDEV" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSDEV" },
-      "database": "d4addev"
-    }
+    "password": { "ENV": "DB_PASS" },
+    "database": "d4addev"
   },
-  "awstest": {
+  "gcpprod": {
     "driver": "pg",
+    "host": "/cloudsql/d4ad-prod:us-east4:d4ad-prod-gcp-pg",
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_AWSTEST" },
-    "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
-    "database": "d4adtest",
-    "writer": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_AWSTEST" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSTEST" },
-      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSTEST" },
-      "database": "d4adtest"
-    },
-    "reader": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_AWSTEST" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSTEST" },
-      "database": "d4adtest"
-    }
+    "password": { "ENV": "DB_PASS" },
+    "database": "d4adprod"
   },
-  "awsprod": {
+  "gcppremvp": {
     "driver": "pg",
+    "host": "/cloudsql/d4ad-research:us-east4:d4ad-mvp-gcp-pg",
     "user": "postgres",
-    "password": { "ENV": "DB_PASS_AWSPROD" },
-    "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
-    "database": "d4adprod",
-    "writer": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_WRITER_AWSPROD" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSPROD" },
-      "password_encoded": { "ENV": "DB_PASS_ENCODED_AWSPROD" },
-      "database": "d4adprod"
-    },
-    "reader": {
-      "driver": "pg",
-      "host": { "ENV": "DB_HOST_READER_AWSPROD" },
-      "user": "postgres",
-      "password": { "ENV": "DB_PASS_AWSPROD" },
-      "database": "d4adprod"
-    }
+    "password": { "ENV": "DB_PASS" },
+    "database": "d4admvp"
+  },
+  "gcpmvp": {
+    "driver": "pg",
+    "host": "/cloudsql/d4ad-research2:us-east4:d4ad-mvp-gcp-pg",
+    "user": "postgres",
+    "password": { "ENV": "DB_PASS" },
+    "database": "d4admvp"
   }
 }
