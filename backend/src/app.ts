@@ -7,6 +7,7 @@ import cors from "cors";
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
 import contentfulRouter from './contentful/index';
+import contactRouter from './routes/contactRoutes'
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
@@ -208,6 +209,7 @@ const router = routerFactory({
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use(express.json());
 app.use("/api", router);
+app.use('/api/contact', contactRouter)
 app.use('/api/emails', emailSubmissionRouter);
 app.use('/api/contentful', contentfulRouter);
 

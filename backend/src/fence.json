@@ -12,6 +12,7 @@
     "knex",
     "supertest",
     "node-cache",
-    "winston"
+    "winston",
+    "express-validator"
   ]
 }

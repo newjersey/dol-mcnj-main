@@ -1,4 +1,5 @@
-import { ReactElement, useReducer, useState } from "react";
+import { ReactElement, useEffect, useReducer, useState } from "react";
+import { ContactUsPage } from "./contact-us-page/ContactUsPage";
 import { SearchResultsPage } from "./search-results/SearchResultsPage";
 import { TrainingPage } from "./training-page/TrainingPage";
 import { OccupationPage } from "./occupation-page/OccupationPage";
@@ -108,6 +109,7 @@ export const App = (props: Props): ReactElement => {
               <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
               <TermsOfServicePage path="/terms-of-service" client={props.client} />
               <FaqPage path="/faq" client={props.client} />
+              <ContactUsPage path="/contact" client={props.client} />
               <TrainingProviderPage path="/training-provider-resources" client={props.client} />
               <AllSupportPage path="/support-resources" client={props.client} />
               <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
