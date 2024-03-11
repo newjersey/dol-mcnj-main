@@ -24,7 +24,10 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(hasClass(alertElement, `alert-bar usa-alert--${type}`) || hasClass(alertElement, 'usa-alert__body')).toBe(true);
+    expect(
+      hasClass(alertElement, `alert-bar usa-alert--${type}`) ||
+        hasClass(alertElement, "usa-alert__body"),
+    ).toBe(true);
   });
 
   it("hides alert on close button click", () => {
@@ -33,7 +36,7 @@ describe("Alert component", () => {
     const type = "success";
 
     const { getByText } = render(
-        <AlertBar dismissible alertId={alertId} copy={copy} type={type} />,
+      <AlertBar dismissible alertId={alertId} copy={copy} type={type} />,
     );
 
     const closeButton = getByText("close alert");
@@ -50,7 +53,10 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(hasClass(alertElement, `alert-bar usa-alert--${type}`) || hasClass(alertElement, 'usa-alert__body')).toBe(true);
+    expect(
+      hasClass(alertElement, `alert-bar usa-alert--${type}`) ||
+        hasClass(alertElement, "usa-alert__body"),
+    ).toBe(true);
   });
 
   it("hides alert if sessionStorage contains alertId", () => {
@@ -64,6 +70,9 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(hasClass(alertElement, `alert-bar usa-alert--${type}`) || hasClass(alertElement, 'usa-alert__body')).toBe(true);
+    expect(
+      hasClass(alertElement, `alert-bar usa-alert--${type}`) ||
+        hasClass(alertElement, "usa-alert__body"),
+    ).toBe(true);
   });
 });
