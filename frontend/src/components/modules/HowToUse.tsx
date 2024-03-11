@@ -80,7 +80,7 @@ export const HowToUse = () => {
               links={[
                 {
                   copy: "Contact Us",
-                  url: "https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/formrestricted",
+                  url: "/contact",
                 },
               ]}
             />
