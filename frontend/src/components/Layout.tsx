@@ -55,11 +55,15 @@ export const Layout = (props: LayoutProps) => {
           dismissible
         />
       )}
-      <AlertBar
-        copy="My Career NJ is in beta. You can send feedback and comments to us through our [contact form](/contact)."
-        type="info"
-        className="beta-alert"
-      />
+      {process.env.REACT_APP_FEATURE_BETA === "true" && (
+          <AlertBar
+              copy="My Career NJ is in beta. You can send feedback and comments to us through our [contact form](/contact)."
+              type="info"
+              className="beta-alert"
+          />
+      )}
+
+
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main
