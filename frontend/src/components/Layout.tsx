@@ -55,6 +55,15 @@ export const Layout = (props: LayoutProps) => {
           dismissible
         />
       )}
+      {process.env.REACT_APP_FEATURE_BETA === "true" && (
+          <AlertBar
+              copy="My Career NJ is in beta. You can send feedback and comments to us through our [contact form](https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform)."
+              type="info"
+              className="beta-alert"
+          />
+      )}
+
+
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main
