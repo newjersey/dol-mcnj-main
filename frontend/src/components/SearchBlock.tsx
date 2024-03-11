@@ -58,6 +58,22 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
         });
       }
     }
+
+    // TODO: Move this to Contact Us when it's ready, this is just temporary to get the logic worked out
+    setTimeout(() => {
+      const url = new URL(window.location.href);
+      const errorSlug = url.searchParams.get("url");
+
+      if (!errorSlug) {
+        return;
+      }
+
+      // add value to input #search-input
+      const searchInput = document.getElementById("search-input") as HTMLInputElement;
+      if (searchInput) {
+        searchInput.value = errorSlug || "";
+      }
+    }, 200);
   }, []);
 
   useEffect(() => {
