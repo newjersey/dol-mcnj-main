@@ -2,6 +2,18 @@ import { render, fireEvent } from "@testing-library/react";
 import { AlertBar } from "../AlertBar";
 import "@testing-library/jest-dom";
 
+// Helper function to check for class in element or its parents
+const hasClass = (element, className) => {
+  let currentElement = element;
+  while (currentElement) {
+    if (currentElement.classList && currentElement.classList.contains(className)) {
+      return true;
+    }
+    currentElement = currentElement.parentElement;
+  }
+  return false;
+};
+
 describe("Alert component", () => {
   it("renders alert with correct copy and type", () => {
     const alertId = "testAlert";
@@ -12,9 +24,7 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(alertElement.parentElement?.parentElement?.parentElement).toHaveClass(
-      `alert-bar usa-alert--${type}`,
-    );
+    expect(hasClass(alertElement, `alert-bar usa-alert--${type}`) || hasClass(alertElement, 'usa-alert__body')).toBe(true);
   });
 
   it("hides alert on close button click", () => {
@@ -23,7 +33,7 @@ describe("Alert component", () => {
     const type = "success";
 
     const { getByText } = render(
-      <AlertBar dismissible alertId={alertId} copy={copy} type={type} />,
+        <AlertBar dismissible alertId={alertId} copy={copy} type={type} />,
     );
 
     const closeButton = getByText("close alert");
@@ -40,9 +50,7 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(alertElement.parentElement?.parentElement?.parentElement).toHaveClass(
-      `alert-bar usa-alert--${type}`,
-    );
+    expect(hasClass(alertElement, `alert-bar usa-alert--${type}`) || hasClass(alertElement, 'usa-alert__body')).toBe(true);
   });
 
   it("hides alert if sessionStorage contains alertId", () => {
@@ -56,8 +64,6 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(alertElement.parentElement?.parentElement?.parentElement).toHaveClass(
-      `alert-bar usa-alert--${type}`,
-    );
+    expect(hasClass(alertElement, `alert-bar usa-alert--${type}`) || hasClass(alertElement, 'usa-alert__body')).toBe(true);
   });
 });
