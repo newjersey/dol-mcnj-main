@@ -158,6 +158,7 @@
 
 .alert-bar {
   .usa-alert__body {
+    max-width: $desktop-lg;
     padding-right: $size-80;
   }
   button {

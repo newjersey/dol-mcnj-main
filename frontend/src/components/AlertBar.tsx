@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IconSelector } from "./IconSelector";
+import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 export const AlertBar = ({
   heading,
@@ -7,12 +8,14 @@ export const AlertBar = ({
   type,
   alertId,
   dismissible,
+  className,
 }: {
   type: "info" | "warning" | "error" | "success";
   heading?: string;
   alertId?: string;
   dismissible?: boolean;
   copy?: string;
+  className?: string;
 }) => {
   const [remove, setRemove] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -38,7 +41,9 @@ export const AlertBar = ({
     <div
       role="alert"
       id={alertId}
-      className={`alert-bar usa-alert usa-alert--${type}${loading || remove ? " hide" : ""}`}
+      className={`alert-bar usa-alert usa-alert--${type}${loading || remove ? " hide" : ""}${
+        className ? ` ${className}` : ""
+      }`}
     >
       <div className="usa-alert__body">
         <div>
@@ -47,7 +52,15 @@ export const AlertBar = ({
               <strong>{heading}</strong>
             </p>
           )}
-          {copy && <p className="usa-alert__text">{copy}</p>}
+
+          {copy && (
+            <div
+              className="usa-alert__text"
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(copy),
+              }}
+            />
+          )}
         </div>
         {alertId && dismissible && (
           <button
