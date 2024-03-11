@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 
 interface Props {
-  variant: "primary" | "secondary" | "outline";
+  variant: "primary" | "secondary" | "outline" | "custom";
   children: React.ReactNode;
   onClick?:
     | (() => void)
@@ -21,6 +21,9 @@ export const Button = (props: Props): ReactElement => {
       break;
     case "outline":
       variantClassNames = "usa-button usa-button--outline bg-white margin-right-0";
+      break;
+    case "custom":
+      variantClassNames = "usa-button margin-right-0 custom-button";
       break;
   }
 
