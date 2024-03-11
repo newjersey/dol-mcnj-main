@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IconSelector } from "./IconSelector";
-import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
+import { parseMarkdownToHTMLWithLinksInNewTab } from "../utils/parseMarkdownToHTML";
 
 export const AlertBar = ({
   heading,
@@ -57,7 +57,7 @@ export const AlertBar = ({
             <div
               className="usa-alert__text"
               dangerouslySetInnerHTML={{
-                __html: parseMarkdownToHTML(copy),
+                __html: parseMarkdownToHTMLWithLinksInNewTab(copy),
               }}
             />
           )}
