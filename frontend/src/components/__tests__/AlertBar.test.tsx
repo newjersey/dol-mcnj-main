@@ -12,7 +12,7 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(alertElement.parentElement?.parentElement?.parentElement).toHaveClass(
+    expect(alertElement.parentElement?.parentElement?.parentElement?.parentElement).toHaveClass(
       `alert-bar usa-alert--${type}`,
     );
   });
@@ -40,7 +40,7 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(alertElement.parentElement?.parentElement?.parentElement).toHaveClass(
+    expect(alertElement.parentElement?.parentElement?.parentElement?.parentElement).toHaveClass(
       `alert-bar usa-alert--${type}`,
     );
   });
@@ -56,7 +56,7 @@ describe("Alert component", () => {
 
     const alertElement = getByText(copy);
     expect(alertElement).toBeInTheDocument();
-    expect(alertElement.parentElement?.parentElement?.parentElement).toHaveClass(
+    expect(alertElement.parentElement?.parentElement?.parentElement?.parentElement).toHaveClass(
       `alert-bar usa-alert--${type}`,
     );
   });
