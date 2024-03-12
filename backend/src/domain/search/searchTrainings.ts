@@ -1,3 +1,5 @@
+import express from 'express';
+import NodeCache from 'node-cache';
 import { stripUnicode } from "../utils/stripUnicode";
 import { FindTrainingsBy, SearchTrainings } from "../types";
 import { TrainingResult } from "../training/TrainingResult";
@@ -12,10 +14,21 @@ import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
 import any = jasmine.any;
 
+// Initializing a simple in-memory cache
+const cache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
+
 export const searchTrainingsFactory = (
   findTrainingsBy: FindTrainingsBy,
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
+    const cacheKey = `searchQuery-${searchQuery}`;
+    const cachedResults = cache.get<TrainingResult[]>(cacheKey);
+
+    if (cachedResults) {
+      console.log("Returning cached results");
+      return cachedResults;
+    }
+
     const query = `
       {
         "search:termGroup": {
@@ -52,7 +65,10 @@ export const searchTrainingsFactory = (
     const take = 20;
     const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
-    const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort);
+    const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort).catch(error => {
+      Sentry.captureException(error);
+      throw new Error("Failed to fetch results from Credential Engine API");
+    });
 
     const ceRecords = ceRecordsResponse.data.data as CTDLResource[];
       console.log(ceRecords.map(r => r["ceterms:ctid"]));
@@ -64,7 +80,8 @@ export const searchTrainingsFactory = (
     console.log(JSON.stringify(trainings, null, 2));*/
 
 
-    return Promise.all(
+// Transform and cache each training result
+    const results = await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
         const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
         let highlight:string = "";
@@ -101,11 +118,11 @@ export const searchTrainingsFactory = (
           calendarLength: CalendarLength.NULL,
           localExceptionCounty: [],
 
-         /*
-          inDemand: training.inDemand,
-          socCodes: training.occupations.map((o) => o.soc),
-          languages: training.languages,
-         */
+          /*
+           inDemand: training.inDemand,
+           socCodes: training.occupations.map((o) => o.soc),
+           languages: training.languages,
+          */
 
           online: certificate["ceterms:availableOnlineAt"] != null ? true : false,
           providerId: ownedByCtid,
@@ -123,9 +140,20 @@ export const searchTrainingsFactory = (
           totalClockHours: 0 // TODO: Implement Total Clock Hours replacement
         };
 
-        console.log(JSON.stringify(result));
+        console.debug(JSON.stringify(result));
+        // Caching individual training result for future optimizations
+        // Note: Depending on the size and complexity of the result,
+        // consider serializing less data or adjusting cache TTL.
+        const resultCacheKey = `certificate-${certificate["ceterms:ctid"]}`;
+        cache.set(resultCacheKey, result);
+
         return result;
       })
     );
+
+    // Cache the final results before returning
+    cache.set(cacheKey, results);
+
+    return results;
   };
 };
