@@ -6,6 +6,7 @@ import { BackToTop } from "./modules/BackToTop";
 import { SeoProps } from "../types/contentful";
 import { Seo } from "./Seo";
 import { useContentful } from "../utils/useContentful";
+import { AlertBar } from "./AlertBar";
 
 interface LayoutProps {
   client: Client;
@@ -44,6 +45,25 @@ export const Layout = (props: LayoutProps) => {
 
   return (
     <>
+      {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
+        <AlertBar
+          copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am EST. My Career NJ and its applications (Training Explorer and Career Navigator)
+            will be temporarily inaccessible during this period. We apologize for any inconvenience."
+          heading="Scheduled Maintenance"
+          type="warning"
+          alertId="maintenance"
+          dismissible
+        />
+      )}
+      {process.env.REACT_APP_FEATURE_BETA === "true" && (
+          <AlertBar
+              copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE}
+              type="info"
+              className="beta-alert"
+          />
+      )}
+
+
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main

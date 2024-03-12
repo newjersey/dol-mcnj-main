@@ -50,7 +50,7 @@
 @import "modules/tags";
 
 // COMPONENTS
-@import "components/cardSlider";
+@import "components/cardRow";
 @import "components/career-map";
 @import "components/career-pathways";
 @import "components/ctaBanner";
@@ -335,4 +335,8 @@ ol {
   @media screen and (max-width: ($tablet-md - 1)) {
     display: none;
   }
+}
+
+.beta-alert {
+  margin-top: 0;
 }

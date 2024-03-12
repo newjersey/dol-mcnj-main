@@ -155,3 +155,15 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.alert-bar {
+  .usa-alert__body {
+    max-width: $desktop-lg;
+    padding-right: $size-80;
+  }
+  button {
+    position: absolute;
+    right: $size-32;
+    top: $size-16;
+  }
+}

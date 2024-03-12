@@ -1,0 +1,90 @@
+.card-row {
+  position: relative;
+  width: 100%;
+  padding: 3rem 0;
+
+  .container {
+    padding: 0 $size-16;
+    position: relative;
+  }
+
+  .inner {
+    @media screen and (min-width: ($desktop-lg)) {
+      padding: 0 $size-16 $size-16;
+      position: relative;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .sectionHeading {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      position: sticky;
+      top: 0;
+      left: 0;
+      padding-top: $size-16;
+      z-index: 1;
+      background-color: $white;
+    }
+  }
+
+  .slider-container {
+    display: flex;
+    gap: $size-32;
+    transition: transform 0.3s ease;
+    margin-top: $size-32;
+    flex-wrap: wrap;
+    transform: none !important;
+
+    .iconCard {
+      min-height: $size-160;
+
+      @media screen and (min-width: ($desktop-lg)) {
+        width: calc(25% - $size-24);
+      }
+
+      @media screen and (max-width: ($desktop-lg - 1)) {
+        width: calc(33.333% - $size-24);
+      }
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        width: calc(50% - $size-24);
+      }
+
+      @media screen and (max-width: ($mobile-lg - 1)) {
+        width: 100%;
+      }
+
+      a {
+        height: 100%;
+      }
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: calc(50% + $size-40);
+    transform: translateY(-50%);
+    width: $size-40;
+    height: $size-40;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+
+    @media screen and (max-width: ($desktop-lg - 1)) {
+      display: none;
+    }
+
+    &.left {
+      left: -2rem;
+    }
+
+    &.right {
+      right: -2rem;
+    }
+  }
+}

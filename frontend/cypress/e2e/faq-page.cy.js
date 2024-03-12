@@ -25,7 +25,9 @@ describe("FAQ Page", () => {
     cy.visit("/faq");
     cy.injectAxe();
 
-    cy.contains("Get answers to all of your NJ Career Central questions").should("exist");
+    // TODO add My Career NJ back in after the content has been updated in Contentful
+
+    cy.contains("Get answers to all of your").should("exist");
     cy.checkA11y();
   });
 

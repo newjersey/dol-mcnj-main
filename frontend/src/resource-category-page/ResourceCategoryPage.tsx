@@ -18,7 +18,9 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
     path: `/resource-category/${props.slug}`,
   });
 
-  usePageTitle(`${data?.page.items[0].title} | Support Resources | New Jersey Career Central`);
+  usePageTitle(
+    `${data?.page.items[0].title} | Support Resources | ${process.env.REACT_APP_SITE_NAME}`,
+  );
 
   return (
     <>
@@ -27,7 +29,7 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
           client={props.client}
           theme="support"
           seo={{
-            title: `${data?.page.items[0].title} | Support Resources | New Jersey Career Central`,
+            title: `${data?.page.items[0].title} | Support Resources | ${process.env.REACT_APP_SITE_NAME}`,
             pageDescription: data?.page.items[0].description,
             url: props.location?.pathname,
           }}
