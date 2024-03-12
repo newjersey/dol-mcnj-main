@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { Client } from "../domain/Client";
 import { Certificates } from "../domain/CredentialEngine";
 import { Layout } from "../components/Layout";
-import { useContentfulClient } from "../utils/useContentfulClient";
 import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
 import { HomeBanner } from "../components/HomeBanner";
