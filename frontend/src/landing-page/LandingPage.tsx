@@ -33,32 +33,6 @@ export const LandingPage = (props: Props): ReactElement => {
     url: props.location?.pathname,
   };
 
-  if (
-    process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" &&
-    pageData?.careerExplorationToolLinksCollection?.items
-  ) {
-    const index = pageData.careerExplorationToolLinksCollection.items.findIndex(
-      (item) => item.copy === "NJ Career Pathways",
-    );
-
-    if (index !== -1) {
-      pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
-    }
-  }
-
-  const careerSectionActive =
-    process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" ||
-    process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true";
-
-  if (!careerSectionActive) {
-    const index = pageData?.toolsCollection?.items.findIndex(
-      (item) => item.copy === "Explore Careers",
-    );
-    if (index !== -1) {
-      pageData?.toolsCollection?.items.splice(index, 1);
-    }
-  }
-
   function findSvg(sectionIcon: string | undefined) {
     switch (sectionIcon) {
       case "explore":
@@ -115,14 +89,6 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            {careerSectionActive && (
-              <CardRow
-                sectionId="explore"
-                cards={pageData.careerExplorationToolLinksCollection.items}
-                heading="All Career Exploration Tools"
-                theme="purple"
-              />
-            )}
             <CardRow
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
