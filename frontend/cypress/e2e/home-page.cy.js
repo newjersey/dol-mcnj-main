@@ -26,7 +26,7 @@ describe("Home Page", () => {
       { title: "Training Provider Resources", link: "/training-provider-resources" },
       // { title: "Career Pathways", link: "/career-pathways" },
       // { title: "Career Navigator", link: "/navigator" },
-      { title: "Browse support by category", link: "/support-resources" },
+      { title: "Browse Support by Category", link: "/support-resources" },
       { title: "Career Support", link: "/support-resources/career-support" },
       { title: "Tuition Assistance", link: "/support-resources/tuition-assistance" },
       { title: "Other Assistance", link: "/support-resources/other" },
