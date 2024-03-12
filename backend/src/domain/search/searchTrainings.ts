@@ -15,7 +15,7 @@ import { CalendarLength } from "../CalendarLength";
 import any = jasmine.any;
 
 // Initializing a simple in-memory cache
-const cache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
+const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 export const searchTrainingsFactory = (
   findTrainingsBy: FindTrainingsBy,
