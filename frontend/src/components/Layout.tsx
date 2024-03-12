@@ -57,7 +57,7 @@ export const Layout = (props: LayoutProps) => {
       )}
       {process.env.REACT_APP_FEATURE_BETA === "true" && (
           <AlertBar
-              copy={`${process.env.REACT_APP_SITE_NAME} is in beta. You can send feedback and comments to us through our [contact form](https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform).`}
+              copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE}
               type="info"
               className="beta-alert"
           />
