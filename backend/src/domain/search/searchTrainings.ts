@@ -1,18 +1,11 @@
-import express from 'express';
 import NodeCache from 'node-cache';
-import { stripUnicode } from "../utils/stripUnicode";
 import { FindTrainingsBy, SearchTrainings } from "../types";
 import { TrainingResult } from "../training/TrainingResult";
-import { Training } from "../training/Training";
-import { SearchClient } from "./SearchClient";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-
-import { Selector } from "../training/Selector";
 import * as Sentry from "@sentry/node";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
-import any = jasmine.any;
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
