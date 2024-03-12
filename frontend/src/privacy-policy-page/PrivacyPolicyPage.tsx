@@ -9,13 +9,13 @@ interface Props extends RouteComponentProps {
 }
 
 export const PrivacyPolicyPage = (props: Props): ReactElement => {
-  usePageTitle("Privacy Policy | New Jersey Career Central");
+  usePageTitle(`Privacy Policy | ${process.env.REACT_APP_SITE_NAME}`);
 
   return (
     <Layout
       client={props.client}
       seo={{
-        title: `Privacy Policy | New Jersey Career Central`,
+        title: `Privacy Policy | ${process.env.REACT_APP_SITE_NAME}`,
         pageDescription: "Privacy Policy and Information Collection Statement",
         url: props.location?.pathname,
       }}

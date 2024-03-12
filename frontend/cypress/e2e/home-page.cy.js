@@ -26,7 +26,7 @@ describe("Home Page", () => {
       { title: "Training Provider Resources", link: "/training-provider-resources" },
       // { title: "Career Pathways", link: "/career-pathways" },
       // { title: "Career Navigator", link: "/navigator" },
-      { title: "Browse support by category", link: "/support-resources" },
+      { title: "Browse Support by Category", link: "/support-resources" },
       { title: "Career Support", link: "/support-resources/career-support" },
       { title: "Tuition Assistance", link: "/support-resources/tuition-assistance" },
       { title: "Other Assistance", link: "/support-resources/other" },
@@ -44,9 +44,7 @@ describe("Home Page", () => {
 
   it.skip("Displays the Update Notifier", () => {
     cy.visit("/");
-    cy.contains("Want updates on new tools and features from New Jersey Career Central?").should(
-      "exist",
-    );
+    cy.contains("Want updates on new tools and features from My Career NJ?").should("exist");
   });
 
   it.skip("Displays the error message when email is not valid, and then go away when valid email is typed", () => {
