@@ -27,7 +27,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
     const ceRecords:any = []
-    const prerequisites:any = []
 
     for (const value of values) {
       const ctid = await credentialEngineUtils.getCtidFromURL(value)
@@ -39,7 +38,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         let cip:any = null;
         let totalCost:any = null;
         let exactDuration:any = null;
-        let prerequisites = null;
         let calendarLength:CalendarLength = CalendarLength.NULL;
 
         // GET provider record
@@ -288,12 +286,19 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
 
+        const prerequisites = certificate["ceterms:requires"]?.filter(req =>
+          (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements"
+        ).map(req => req["ceterms:description"]?.["en-US"]);
+
+
         const matchingOccupations = (cip != null) ? await dataClient.findOccupationsByCip(cip) : []; // TODO: redo this
         const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === cip)
           .map((localException: LocalException) =>
             convertToTitleCaseIfUppercase(localException.county)
           );
+
+
 
         const training = {
           id: certificate["ceterms:ctid"],
@@ -309,7 +314,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: isPreparationFor,
-          prerequisites: null, // TODO: ceterms:CommonConditions / ceterms:prerequisites,
+          prerequisites: prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
