@@ -1,9 +1,9 @@
 import NodeCache from 'node-cache';
 import { FindTrainingsBy, SearchTrainings } from "../types";
-import { TrainingResult } from "../training/TrainingResult";
+import * as Sentry from "@sentry/node";
+import { TrainingData } from "../training/TrainingResult";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import * as Sentry from "@sentry/node";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
 
@@ -11,26 +11,29 @@ import { CalendarLength } from "../CalendarLength";
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 export const searchTrainingsFactory = (
-  findTrainingsBy: FindTrainingsBy,
-): SearchTrainings => {
-  return async (searchQuery: string): Promise<TrainingResult[]> => {
-    const cacheKey = `searchQuery-${searchQuery}`;
-    const cachedResults = cache.get<TrainingResult[]>(cacheKey);
-
-    if (cachedResults) {
+  findTrainingsBy: FindTrainingsBy,): SearchTrainings => {
+  return async (params): Promise<TrainingData> => {
+    const page = params.page || 1
+    const limit = params.limit || 10
+    const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}`;
+    if(cache.has(cacheKey)) {
+      const cachedResults = cache.get<TrainingData>(cacheKey);
       console.log("Returning cached results");
+      if (cachedResults === undefined) {
+        throw new Error('Cached results are unexpectedly undefined.');
+      }
       return cachedResults;
-    }
 
+    }
     const query = `
       {
         "search:termGroup": {
           "search:value": [
             {
-              "ceterms:name": "${searchQuery}",
-              "ceterms:description": "${searchQuery}",
-                    "ceterms:ownedBy": {
-                        "ceterms:name": "${searchQuery}"
+              "ceterms:name": "${params.searchQuery}",
+              "ceterms:description": "${params.searchQuery}",
+              "ceterms:ownedBy": {
+                        "ceterms:name": "${params.searchQuery}"
                     },
               "search:operator": "search:orTerms"
             },
@@ -54,17 +57,24 @@ export const searchTrainingsFactory = (
         }
       }`
 
-    const skip = 0;
-    const take = 20;
+    const skip = (page-1) * limit;
+    const take = limit;
     const sort = "^search:relevance";
     const queryObj = JSON.parse(query);
+    
+    
     const ceRecordsResponse = await credentialEngineAPI.getResults(queryObj, skip, take, sort).catch(error => {
       Sentry.captureException(error);
       throw new Error("Failed to fetch results from Credential Engine API");
     });
-
+    const totalResults = ceRecordsResponse.data.extra.TotalResults
+    const totalPages = Math.ceil(totalResults / limit)
+    const hasPreviousPage = page > 1; 
+    const hasNextPage = page < totalPages
+    console.log(totalResults)
     const ceRecords = ceRecordsResponse.data.data as CTDLResource[];
-      console.log(ceRecords.map(r => r["ceterms:ctid"]));
+
+      // console.log(ceRecords.map(r => r["ceterms:ctid"]));
 
 /*    const trainings = await findTrainingsBy(
       Selector.ID,
@@ -74,12 +84,13 @@ export const searchTrainingsFactory = (
 
 
 // Transform and cache each training result
+    
     const results = await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
         const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
         let highlight:string = "";
         if (desc) {
-          highlight = await credentialEngineUtils.getHighlight(desc, searchQuery);
+          highlight = await credentialEngineUtils.getHighlight(desc, params.searchQuery);
         }
 
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
@@ -102,7 +113,7 @@ export const searchTrainingsFactory = (
         }
 
 
-        const result = {
+        return {
           id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipCode: "",
@@ -132,21 +143,24 @@ export const searchTrainingsFactory = (
           hasChildcareAssistance: false,
           totalClockHours: 0 // TODO: Implement Total Clock Hours replacement
         };
-
-        console.debug(JSON.stringify(result));
-        // Caching individual training result for future optimizations
-        // Note: Depending on the size and complexity of the result,
-        // consider serializing less data or adjusting cache TTL.
-        const resultCacheKey = `certificate-${certificate["ceterms:ctid"]}`;
-        cache.set(resultCacheKey, result);
-
-        return result;
       })
     );
 
+    const data = {
+      data: results,
+      meta: {
+        currentPage: page,
+        totalPages: totalPages,
+        totalItems: totalResults,
+        itemsPerPage: limit,
+        hasNextPage: hasNextPage,
+        hasPreviousPage: hasPreviousPage,
+        nextPage: hasNextPage ? page + 1 : null,
+        previousPage: hasPreviousPage ? page -1 : null
+      }
+  }
     // Cache the final results before returning
-    cache.set(cacheKey, results);
-
-    return results;
+    cache.set(cacheKey, data);
+    return data
   };
 };

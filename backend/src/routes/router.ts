@@ -11,7 +11,7 @@ import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
-import { TrainingResult } from "../domain/training/TrainingResult";
+import { TrainingData } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
 import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
 
@@ -54,9 +54,19 @@ export const routerFactory = ({
   );
 
 
-  router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
-    searchTrainings(req.query.query as string)
-      .then((trainings: TrainingResult[]) => {
+  router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
+    let page = parseInt(req.query.page as string)
+    if (isNaN(page) || page < 1) {
+        page = 1
+    }
+  
+    let limit = parseInt(req.query.limit as string)
+    if (isNaN(limit) || limit < 1) {
+        limit = 10
+    }
+    
+    searchTrainings({searchQuery: req.query.query as string, page: page, limit: limit})
+      .then((trainings: TrainingData) => {
         res.status(200).json(trainings);
       })
       .catch((e) => res.status(500).send(e));
@@ -93,7 +103,7 @@ export const routerFactory = ({
 
   router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
     // Sanitize and encode the user input before using it in the URL
-    const sanitizedTerm = encodeURIComponent(req.params.term || "");
+    const sanitizedTerm = encodeURIComponent(req.params.term || "")
 
     // Use the sanitized input in the URL
     const countData = await CareerOneStopClient(

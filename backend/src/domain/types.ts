@@ -1,5 +1,5 @@
 import { Certificates } from "./credentialengine/CredentialEngineInterface";
-import { TrainingResult } from "./training/TrainingResult";
+import { TrainingData, TrainingResult } from "./training/TrainingResult";
 import { Training } from "./training/Training";
 import { Selector } from "./training/Selector";
 import {
@@ -9,7 +9,7 @@ import {
   Occupation,
 } from "./occupations/Occupation";
 
-export type SearchTrainings = (searchQuery: string) => Promise<TrainingResult[]>;
+export type SearchTrainings = (params: {searchQuery: string, page?: number, limit?: number}) => Promise<TrainingData>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
 export type GetInDemandOccupations = () => Promise<InDemandOccupation[]>;
 export type GetOccupationDetail = (soc: string) => Promise<OccupationDetail>;
