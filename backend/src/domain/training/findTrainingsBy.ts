@@ -35,7 +35,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     }
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
-        let cip:any = null;
         let totalCost:any = null;
         let exactDuration:any = null;
         let calendarLength:CalendarLength = CalendarLength.NULL;
@@ -125,17 +124,17 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        // If record contains "ceterms:instructionalProgramType" object, get frameworkName and set values if CIP
-        if (instructionalProgramType != null) {
-          if (instructionalProgramType["ceterms:frameworkName"] != null) {
-            const frameworkName = instructionalProgramType["ceterms:frameworkName"]["en-US"];
-            if (frameworkName == "Classification of Instructional Programs") {
-              cip = instructionalProgramType["ceterms:codedNotation"];
+        const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
+        let cipCode = ""; // Default to empty string if no match is found
+
+        if (instructionalProgramTypes && Array.isArray(instructionalProgramTypes)) {
+          for (const programType of instructionalProgramTypes) {
+            if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
+              cipCode = (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, ""); // Strip punctuation              break; // Stop looping once a match is found
             }
-            // TODO : handle other frameworkName values
           }
         }
-        else if (estimatedCost != null) {
+        if (estimatedCost != null) {
           /*          This is getting the first costProfile it sees under estimatedCost... we get a lot more
                     fields at our disposal here like costDetails, description, directCostType that we should
                     look through here*/
@@ -291,9 +290,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         ).map(req => req["ceterms:description"]?.["en-US"]);
 
 
-        const matchingOccupations = (cip != null) ? await dataClient.findOccupationsByCip(cip) : []; // TODO: redo this
+        const matchingOccupations = (cipCode != null) ? await dataClient.findOccupationsByCip(cipCode) : []; // TODO: redo this
         const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
-          .filter((localException: LocalException) => localException.cipcode === cip)
+          .filter((localException: LocalException) => localException.cipcode === cipCode)
           .map((localException: LocalException) =>
             convertToTitleCaseIfUppercase(localException.county)
           );
@@ -303,7 +302,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
-          cipCode: cip,
+          cipCode: cipCode,
           provider: {
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord['ceterms:name']['en-US'],
@@ -320,7 +319,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             title: it.title,
             soc: it.soc,
           })),
-          inDemand: inDemandCIPCodes.includes(cip), // TODO: Test
+          inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           localExceptionCounty: localExceptionCounties, // TODO: Test
           tuitionCost: 0, // TODO: pull from costProfile - ceterms:directCostType with name "Tuition"
           feesCost: 0, // TODO: pull from costProfile
