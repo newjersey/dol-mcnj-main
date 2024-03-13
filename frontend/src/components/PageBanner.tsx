@@ -15,7 +15,7 @@ export const PageBanner = ({
 }: PageBannerProps) => {
   return (
     <section className={`page-banner theme-${theme}${noCrumbs ? " no-crumbs" : ""}`}>
-      <div className="container plus">
+      <div className="container">
         {!noCrumbs && (
           <div className="top-nav">
             <nav className="usa-breadcrumb" aria-label="Breadcrumbs">

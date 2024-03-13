@@ -5,8 +5,9 @@ footer {
 
   > .container {
     @media screen and (min-width: ($tablet-md + 1)) {
+      padding-bottom: $size-16;
       display: flex;
-      max-width: 1136px;
+      max-width: $desktop-xl;
       width: 100%;
       justify-content: space-between;
     }
@@ -73,7 +74,8 @@ footer {
   .nav-item {
     font-size: $size-14;
 
-    > a,.nav-header {
+    > a,
+    .nav-header {
       border-bottom: $size-1 solid $white;
       display: block;
       padding-bottom: 0.5rem;
