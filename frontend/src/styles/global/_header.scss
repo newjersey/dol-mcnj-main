@@ -187,7 +187,8 @@ header {
       align-items: center;
       justify-content: space-between;
       margin: 0 auto;
-      max-width: $desktop-lg;
+      width: 100%;
+      max-width: $desktop-xl;
 
       .contact-us {
         margin-right: 2rem;

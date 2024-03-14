@@ -101,7 +101,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
 
   return (
     <section className="occupation-block">
-      <div className="container plus">
+      <div className="container">
         <SectionHeading
           heading={`Select ${article} ${props.industry} occupation`}
           description="Select a field and explore different career pathways or click the tool tip to learn more about it."
@@ -172,7 +172,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
       ) : (
         <>
           {props.content && (
-            <div className="container plus">
+            <div className="container">
               <div className="occupation-box">
                 <div className="heading-row">
                   <div className="heading">
