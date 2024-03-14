@@ -44,7 +44,7 @@ describe("<SearchResultsPage />", () => {
 
   describe("when handling initial pageload search", () => {
     it("uses the url parameter in the search bar input", () => {
-      const searchQuery = { search: "?=octopods" }
+      const searchQuery = { search: "?q=octopods" }
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       expect(
         subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
@@ -52,7 +52,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("cleans the url parameter of uri encoding for search bar input", () => {
-      const searchQuery = { search: "?=octopods%2Foctopi" }
+      const searchQuery = { search: "?q=octopods%2Foctopi" }
       const subject = render(
         <SearchResultsPage client={stubClient} location={searchQuery} />,
       );
@@ -62,7 +62,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("uses the url parameter to execute a search", () => {
-      const searchQuery = { search: "?=octopods" }
+      const searchQuery = { search: "?q=octopods" }
       render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       expect(stubClient.capturedQuery).toEqual("octopods");
     });
@@ -195,7 +195,7 @@ describe("<SearchResultsPage />", () => {
   });
 
   describe("when results are loading", () => {
-    const searchQuery = { search: "?=some query" };
+    const searchQuery = { search: "?q=some query" };
 
     it("displays a spinner until success occurs", () => {
       const { queryByRole, queryByText } = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
@@ -224,7 +224,7 @@ describe("<SearchResultsPage />", () => {
 
   describe("when displaying result count", () => {
     it("displays number of results returns for search query", () => {
-      const searchQuery = { search: "?=frigate birds" };
+      const searchQuery = { search: "?q=frigate birds" };
       const subject = render(
         <SearchResultsPage client={stubClient} location={searchQuery} />,
       );
@@ -249,7 +249,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("displays correct grammar when 1 result returned for search query", () => {
-      const searchQuery = { search: "?=cormorants" };
+      const searchQuery = { search: "?q=cormorants" };
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));
 
@@ -259,7 +259,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("decodes uri components in the search query", () => {
-      const searchQuery = { search: "?=birds%2Fbats" };
+      const searchQuery = { search: "?q=birds%2Fbats" };
       const subject = render(
         <SearchResultsPage client={stubClient} location={searchQuery} />,
       );
@@ -360,7 +360,7 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("does not navigate to new page when search query is the same", () => {
-      const searchQuery = { search: "?=penguins" };
+      const searchQuery = { search: "?q=penguins" };
       useMobileSize();
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
