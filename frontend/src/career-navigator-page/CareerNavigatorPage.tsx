@@ -67,7 +67,7 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
           <div className="career-navigator">
             <PageBanner {...data.page.pageBanner} />
             <section className="opportunity-cards">
-              <div className="container plus">
+              <div className="container">
                 {data.page.opportunitiesHeading && (
                   <SectionHeading heading={data.page.opportunitiesHeading} />
                 )}
@@ -92,10 +92,10 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
               </div>
             </section>
             <section>
-              <div className="container plus">
+              <div className="container">
                 {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
               </div>
-              <div className="container plus">
+              <div className="container">
                 <div className="steps">
                   {data.page.stepsCollection && (
                     <Stepper theme="purple" steps={data.page.stepsCollection.items} />
@@ -123,7 +123,7 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
               links={interrupterLinks}
             />
             <section className="info-cards">
-              <div className="container plus">
+              <div className="container">
                 {data.page.infoHeading && <SectionHeading heading={data.page.infoHeading} />}
                 <div className="info-card-row">
                   {data.page.infoCards?.items.map((card, index: number) => {
