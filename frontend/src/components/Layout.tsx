@@ -65,8 +65,10 @@ export const Layout = (props: LayoutProps) => {
 
 
       {props.seo && <Seo {...props.seo} />}
+      <a className="skip-nav" href="#main">Skip to main content</a>
       <Header {...headerProps} />
       <main
+        id="main"
         className={`${!props.noPad ? "below-banners" : ""}${
           props.theme ? ` ${props.theme}-theme` : ""
         }${props.className ? ` ${props.className}` : ""}`}
