@@ -6,7 +6,6 @@ import { FaqCollection } from "../components/FaqCollection";
 import { FaqPageData, LinkObjectProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { CtaBanner } from "../components/CtaBanner";
-import { IconNames } from "../types/icons";
 import { usePageTitle } from "../utils/usePageTitle";
 import { useContentful } from "../utils/useContentful";
 
@@ -29,18 +28,10 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
               ? "purple"
               : "blue";
 
-      const icon =
-        index % 4 === 0
-          ? "Fire"
-          : index % 4 === 1
-            ? "ChalkboardTeacher"
-            : index % 4 === 2
-              ? "MapTrifold"
-              : "Briefcase";
       return {
         ...link,
         highlight: theme as ThemeColors,
-        iconPrefix: icon as IconNames,
+        iconPrefix: link.icon,
       };
     });
   };
@@ -61,6 +52,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
         <>
           <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
           <FaqCollection items={data?.page.categoriesCollection.items} />
+
           <CtaBanner
             heading={data?.page.resourceLinkHeading}
             headingLevel={2}
