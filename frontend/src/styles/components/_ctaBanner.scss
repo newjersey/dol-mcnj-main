@@ -29,9 +29,13 @@
       display: flex;
       gap: $size-32;
       align-items: center;
-      padding: 0;
+
       width: 100%;
-      max-width: $desktop-lg;
+      max-width: $desktop-xl;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        padding: 0;
+      }
 
       &:before,
       &:after {
