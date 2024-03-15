@@ -36,7 +36,7 @@
     "react-i18next": "^14.1.0",
     "react-scripts": "5.0.1",
     "react-tooltip": "^5.26.3",
-    "sass": "^1.71.1",
+    "sass": "^1.72.0",
     "typescript": "^5.3.3",
     "winston": "^3.12.0",
     "winston-cloudwatch": "^6.2.0"
