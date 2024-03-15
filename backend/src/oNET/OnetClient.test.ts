@@ -6,15 +6,13 @@ import onetTestDataTasks from "./onetTestDataTasks.json";
 import onetTestDataRelatedOccupations from "./onetTestDataRelatedOccupations.json";
 import { buildOccupation } from "../domain/test-objects/factories";
 
-jest.mock("axios");
-
 describe("OnetClient", () => {
   let getOccupationDetailPartial: GetOccupationDetailPartial;
-  let mockedAxios: jest.Mocked<typeof axios>;
+  let mockedAxiosGet: jest.SpyInstance;
   let mockConvert2010SocTo2018Soc: jest.Mock;
 
   beforeEach(() => {
-    mockedAxios = axios as jest.Mocked<typeof axios>;
+    mockedAxiosGet = jest.spyOn(axios, 'get');
     const mockedAuth = {
       username: "fakeUsername",
       password: "fakePassword",
@@ -29,8 +27,12 @@ describe("OnetClient", () => {
     );
   });
 
+  afterEach(() => {
+    mockedAxiosGet.mockReset();
+  });
+
   it("sends request and gets response with description, tasks, and related occupations", async () => {
-    mockedAxios.get
+    mockedAxiosGet
       .mockResolvedValueOnce({ data: onetTestData })
       .mockResolvedValueOnce({ data: onetTestDataTasks })
       .mockResolvedValueOnce({ data: onetTestDataRelatedOccupations });
@@ -48,7 +50,7 @@ describe("OnetClient", () => {
 
     const occupationDetail = await getOccupationDetailPartial("17-2051");
 
-    expect(mockedAxios.get).toHaveBeenCalledWith(
+    expect(mockedAxiosGet).toHaveBeenCalledWith(
       "wwww.some-cool-url.com/ws/online/occupations/17-2051.00",
       {
         auth: {
@@ -90,7 +92,7 @@ describe("OnetClient", () => {
   });
 
   it("returns description when tasks and related occupations fail", async () => {
-    mockedAxios.get
+    mockedAxiosGet
       .mockResolvedValueOnce({ data: onetTestData })
       .mockRejectedValueOnce({})
       .mockRejectedValueOnce({});
@@ -108,7 +110,7 @@ describe("OnetClient", () => {
   });
 
   it("rejects when request fails", (done) => {
-    mockedAxios.get.mockRejectedValue({});
+    mockedAxiosGet.mockRejectedValue({});
     getOccupationDetailPartial("17-2051").catch(() => done());
   });
 });

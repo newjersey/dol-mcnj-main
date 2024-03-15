@@ -63,11 +63,10 @@ describe("getOccupationDetail", () => {
           name: "some-training-name",
           provider: buildProvider({
             id: "some-provider-id",
-            address: buildAddress({
+            addresses: [buildAddress({
               city: "some-provider-city",
               zipCode: "some-provider-zipCode",
-            }),
-            county: "some-provider-county",
+            })],
             name: "some-provider-name",
           }),
           totalCost: 534,
@@ -109,9 +108,8 @@ describe("getOccupationDetail", () => {
             online: true,
             providerId: "some-provider-id",
             providerName: "some-provider-name",
-            city: "some-provider-city",
-            zipCode: "some-provider-zipCode",
-            county: "some-provider-county",
+            cities: ["some-provider-city"],
+            zipCodes: ["some-provider-zipCode"],
             inDemand: true,
             highlight: "",
             rank: 0,
@@ -158,11 +156,10 @@ describe("getOccupationDetail", () => {
           name: "some-training-name",
           provider: buildProvider({
             id: "some-provider-id",
-            address: buildAddress({
+            addresses: [buildAddress({
               city: "some-provider-city",
               zipCode: "some-provider-zipCode",
-            }),
-            county: "some-provider-county",
+            })],
             name: "some-provider-name",
           }),
           totalCost: 534,
@@ -205,9 +202,8 @@ describe("getOccupationDetail", () => {
             online: true,
             providerId: "some-provider-id",
             providerName: "some-provider-name",
-            city: "some-provider-city",
-            zipCode: "some-provider-zipCode",
-            county: "some-provider-county",
+            cities: ["some-provider-city"],
+            zipCodes: ["some-provider-zipCode"],
             inDemand: true,
             highlight: "",
             rank: 0,
@@ -260,10 +256,10 @@ describe("getOccupationDetail", () => {
           name: "some-training-name",
           provider: buildProvider({
             id: "some-provider-id",
-            address: buildAddress({
+            addresses: [buildAddress({
               city: "some-provider-city",
               zipCode: "some-provider-zipCode",
-            }),
+            })],
             county: "some-provider-county",
             name: "some-provider-name",
           }),
@@ -309,9 +305,8 @@ describe("getOccupationDetail", () => {
             online: true,
             providerId: "some-provider-id",
             providerName: "some-provider-name",
-            city: "some-provider-city",
-            zipCode: "some-provider-zipCode",
-            county: "some-provider-county",
+            cities: ["some-provider-city"],
+            zipCodes: ["some-provider-zipCode"],
             inDemand: true,
             highlight: "",
             rank: 0,
