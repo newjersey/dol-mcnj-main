@@ -6,4 +6,10 @@ cd $(git rev-parse --show-toplevel)
 npm --prefix=frontend run build
 npm --prefix=backend run build
 
-mv frontend/build backend/dist
+# Temporarily move built files
+TEMP_DIR=$(mktemp -d)
+mv frontend/build $TEMP_DIR
+
+# Atomically switch the new build into place
+rm -rf backend/dist
+mv $TEMP_DIR/build backend/dist
