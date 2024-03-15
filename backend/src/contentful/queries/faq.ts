@@ -48,6 +48,7 @@ export const FAQ_PAGE_QUERY = `
           sys {
             id
           }
+          icon
           copy
           url
         }
