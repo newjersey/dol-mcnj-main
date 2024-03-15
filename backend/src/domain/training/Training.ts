@@ -8,7 +8,7 @@ export interface Training {
   cipCode: string;
   provider: Provider;
   description: string;
-  certifications: ConditionProfile[];
+  certifications: string;
   prerequisites: string;
   calendarLength: CalendarLength;
   totalClockHours: number;
@@ -34,6 +34,11 @@ export interface Training {
 export interface Provider {
   id: string;
   url?: string;
+  contactName?: string;
+  contactTitle?: string;
+  phoneNumber?: string;
+  county?: string;
+  phoneExtension?: string;
   email?: string;
   addresses?: Address[];
   name: string;

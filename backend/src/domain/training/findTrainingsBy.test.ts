@@ -242,11 +242,11 @@ describe("findTrainingsBy", () => {
     expect(training.calendarLength).toEqual(CalendarLength.NULL);
     expect(training.provider.url).toEqual("");
     expect(training.provider.name).toEqual("");
-    expect(training.provider.addresses[0].street1).toEqual("");
-    expect(training.provider.addresses[0].street2).toEqual("");
-    expect(training.provider.addresses[0].city).toEqual("");
-    expect(training.provider.addresses[0].state).toEqual("");
-    expect(training.provider.addresses[0].zipCode).toEqual("");
+    expect(training.provider.addresses![0].street1).toEqual("");
+    expect(training.provider.addresses![0].street2).toEqual("");
+    expect(training.provider.addresses![0].city).toEqual("");
+    expect(training.provider.addresses![0].state).toEqual("");
+    expect(training.provider.addresses![0].zipCode).toEqual("");
     expect(training.provider.contactName).toEqual("");
     expect(training.provider.contactTitle).toEqual("");
     expect(training.provider.phoneNumber).toEqual("");
@@ -297,8 +297,8 @@ describe("findTrainingsBy", () => {
     expect(foundTraining.name).toEqual("Some Name with Quotes");
     expect(foundTraining.description).toEqual("Some Name with Quotes");
     expect(foundTraining.provider.name).toEqual("Some Name with Quotes");
-    expect(foundTraining.provider.addresses[0].street1).toEqual("Some Name with Quotes");
-    expect(foundTraining.provider.addresses[0].street2).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.addresses![0].street1).toEqual("Some Name with Quotes");
+    expect(foundTraining.provider.addresses![0].street2).toEqual("Some Name with Quotes");
     expect(foundTraining.provider.contactName).toEqual("Some Name with Quotes");
     expect(foundTraining.provider.contactTitle).toEqual("Some Name with Quotes");
 
@@ -319,8 +319,8 @@ describe("findTrainingsBy", () => {
     expect(foundTraining.name).toEqual("Some Name without Quotes");
     expect(foundTraining.description).toEqual("Some Name without Quotes");
     expect(foundTraining.provider.name).toEqual("Some Name without Quotes");
-    expect(foundTraining.provider.addresses[0].street1).toEqual("Some Name without Quotes");
-    expect(foundTraining.provider.addresses[0].street2).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.addresses![0].street1).toEqual("Some Name without Quotes");
+    expect(foundTraining.provider.addresses![0].street2).toEqual("Some Name without Quotes");
     expect(foundTraining.provider.contactName).toEqual("Some Name without Quotes");
     expect(foundTraining.provider.contactTitle).toEqual("Some Name without Quotes");
 
@@ -341,8 +341,8 @@ describe("findTrainingsBy", () => {
     expect(foundTraining.name).toEqual('Quotes "in the" middle too');
     expect(foundTraining.description).toEqual('Quotes "in the" middle too');
     expect(foundTraining.provider.name).toEqual('Quotes "in the" middle too');
-    expect(foundTraining.provider.addresses[0].street1).toEqual('Quotes "in the" middle too');
-    expect(foundTraining.provider.addresses[0].street2).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.provider.addresses![0].street1).toEqual('Quotes "in the" middle too');
+    expect(foundTraining.provider.addresses![0].street2).toEqual('Quotes "in the" middle too');
     expect(foundTraining.provider.contactName).toEqual('Quotes "in" the the "middle" too');
     expect(foundTraining.provider.contactTitle).toEqual('Quotes "in the" middle too');
 
@@ -363,8 +363,8 @@ describe("findTrainingsBy", () => {
     expect(foundTraining.name).toEqual("Lots of Quotes");
     expect(foundTraining.description).toEqual("Lots of Quotes");
     expect(foundTraining.provider.name).toEqual("Lots of Quotes");
-    expect(foundTraining.provider.addresses[0].street1).toEqual("Lots of Quotes");
-    expect(foundTraining.provider.addresses[0].street2).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.addresses![0].street1).toEqual("Lots of Quotes");
+    expect(foundTraining.provider.addresses![0].street2).toEqual("Lots of Quotes");
     expect(foundTraining.provider.contactName).toEqual("Lots of Quotes");
     expect(foundTraining.provider.contactTitle).toEqual("Lots of Quotes");
   });

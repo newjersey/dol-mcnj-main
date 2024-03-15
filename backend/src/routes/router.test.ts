@@ -17,6 +17,7 @@ describe("router", () => {
   let stubFindTrainingsBy: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
   let stubGetOccupationDetail: jest.Mock;
+  let stubGetAllCertificates: jest.Mock;
   let stubGetOccupationDetailByCIP: jest.Mock;
 
   beforeEach(() => {
@@ -30,6 +31,7 @@ describe("router", () => {
       findTrainingsBy: stubFindTrainingsBy,
       getInDemandOccupations: stubGetInDemandOccupations,
       getOccupationDetail: stubGetOccupationDetail,
+      getAllCertificates: stubGetAllCertificates,
       getOccupationDetailByCIP: stubGetOccupationDetailByCIP,
     });
     app = express();
@@ -45,7 +47,7 @@ describe("router", () => {
         .then((response) => {
           expect(response.status).toEqual(200);
           expect(response.body).toEqual(trainings);
-          expect(stubSearchTrainings).toHaveBeenCalledWith("penguins");
+          expect(stubSearchTrainings).toHaveBeenCalledWith({"limit": 10, "page": 1, "searchQuery": "penguins"});
           done();
         });
     });
