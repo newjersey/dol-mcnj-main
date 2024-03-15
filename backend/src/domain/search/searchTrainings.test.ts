@@ -1,117 +1,96 @@
-import { SearchTrainings } from "../types";
-import { searchTrainingsFactory } from "./searchTrainings";
-import { buildTraining } from "../test-objects/factories";
-import { StubSearchClient } from "../test-objects/StubDataClient";
-import { Selector } from "../training/Selector";
+import { searchTrainingsFactory } from './searchTrainings';
+import mockAxios from 'jest-mock-axios';
+import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI';
+jest.mock("@sentry/node");
+jest.mock("../../credentialengine/CredentialEngineAPI");
 
-describe("searchTrainings", () => {
-  let searchTrainings: SearchTrainings;
-  let stubFindTrainingsBy: jest.Mock;
-  let stubSearchClient: StubSearchClient;
-
-  beforeEach(() => {
-    jest.resetAllMocks();
-    stubFindTrainingsBy = jest.fn();
-    stubSearchClient = StubSearchClient();
-
-    searchTrainings = searchTrainingsFactory(stubFindTrainingsBy, stubSearchClient);
+describe('searchTrainingsFactory', () => {
+  afterEach(() => {
+    mockAxios.reset();
   });
 
-  it("returns matching trainings with highlights and ranks", async () => {
-    const training1 = buildTraining({ id: "1" });
-    const training2 = buildTraining({ id: "2" });
-    stubSearchClient.search.mockResolvedValue([
-      { id: "1", rank: 1 },
-      { id: "2", rank: 2 },
-    ]);
-    stubSearchClient.getHighlight
-      .mockResolvedValueOnce("some highlight 1")
-      .mockResolvedValueOnce("some highlight 2");
-    stubFindTrainingsBy.mockResolvedValue([training1, training2]);
+  it('should return cached results when available', async () => {
+    const findTrainingsBy = jest.fn();
+    const searchTrainings = searchTrainingsFactory(findTrainingsBy);
+  
+    // First call to the API with a mock response
+    const ceData: any = {
+      data: { data: [], extra: {TotalResults: 0} },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    };
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
+    getResultsSpy.mockResolvedValueOnce(ceData);
+  
+    await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 }); // Second call to the function to store data in cache
+    const expectedData: any = {
+      data: [],
+      meta: {
+        currentPage: 1,
+        totalPages: 0,
+        totalItems: 0,
+        itemsPerPage: 10,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        nextPage: null,
+        previousPage: null
+      }
+    }
 
-    expect(await searchTrainings("some query")).toEqual([
-      {
-        id: training1.id,
-        name: training1.name,
-        totalCost: training1.totalCost,
-        percentEmployed: training1.percentEmployed,
-        calendarLength: training1.calendarLength,
-        totalClockHours: training1.totalClockHours,
-        inDemand: training1.inDemand,
-        localExceptionCounty: training1.localExceptionCounty,
-        online: training1.online,
-        providerId: training1.provider.id,
-        providerName: training1.provider.name,
-        city: training1.provider.address.city,
-        zipCode: training1.provider.address.zipCode,
-        county: training1.provider.county,
-        rank: 1,
-        highlight: "some highlight 1",
-        socCodes: training1.occupations.map((o) => o.soc),
-        cipCode: training1.cipCode,
-        hasEveningCourses: training1.hasEveningCourses,
-        languages: training1.languages,
-        isWheelchairAccessible: training1.isWheelchairAccessible,
-        hasJobPlacementAssistance: training1.hasJobPlacementAssistance,
-        hasChildcareAssistance: training1.hasChildcareAssistance,
-      },
-      {
-        id: training2.id,
-        name: training2.name,
-        totalCost: training2.totalCost,
-        percentEmployed: training2.percentEmployed,
-        calendarLength: training2.calendarLength,
-        totalClockHours: training2.totalClockHours,
-        inDemand: training2.inDemand,
-        localExceptionCounty: training2.localExceptionCounty,
-        online: training2.online,
-        providerId: training2.provider.id,
-        providerName: training2.provider.name,
-        city: training2.provider.address.city,
-        zipCode: training2.provider.address.zipCode,
-        county: training2.provider.county,
-        rank: 2,
-        highlight: "some highlight 2",
-        socCodes: training2.occupations.map((o) => o.soc),
-        cipCode: training2.cipCode,
-        hasEveningCourses: training2.hasEveningCourses,
-        languages: training2.languages,
-        isWheelchairAccessible: training2.isWheelchairAccessible,
-        hasJobPlacementAssistance: training2.hasJobPlacementAssistance,
-        hasChildcareAssistance: training2.hasChildcareAssistance,
-      },
-    ]);
+    // Second call to the function to retrieve data from the cache
+    const result2 = await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 });
+    expect(result2).toEqual(expectedData);
+    expect(getResultsSpy).toHaveBeenCalledTimes(1); // API should only be called once
+  });
+  
 
-    expect(stubSearchClient.search).toHaveBeenCalledWith("some query");
-    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1", "2"]);
+  
+  it('should return results from the API when cache is not available', async () => {
+    const findTrainingsBy = jest.fn();
+    const searchTrainings = searchTrainingsFactory(findTrainingsBy);
+
+    const ceData: any = {
+      data: { data: [], extra: {TotalResults: 0} },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    };
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
+    getResultsSpy.mockResolvedValueOnce(ceData);
+
+    const result = await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 });
+    const expectedData: any = {
+      data: [],
+      meta: {
+        currentPage: 1,
+        totalPages: 0,
+        totalItems: 0,
+        itemsPerPage: 10,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        nextPage: null,
+        previousPage: null
+      }
+    }
+    expect(result).toEqual(expectedData);
+    expect(getResultsSpy).toHaveBeenCalled();
   });
 
-  it("returns empty when search query is empty", async () => {
-    stubFindTrainingsBy.mockResolvedValue([]);
-    stubSearchClient.search.mockResolvedValue([]);
-    const searchResults = await searchTrainings("");
-    expect(searchResults).toEqual([]);
-  });
+  it('should throw an error when API request fails', async () => {
+    const stubFindTrainingsBy = jest.fn();
+    const searchTrainings = searchTrainingsFactory(stubFindTrainingsBy);
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
+    getResultsSpy.mockRejectedValueOnce(new Error('API error'));
 
-  describe("error handling", () => {
-    it("rejects when search is broken", (done) => {
-      stubSearchClient.search.mockRejectedValue({});
-      searchTrainings("query").catch(() => done());
-    });
+    try {
+      await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 });
+    } catch (error:any) {
+      expect(error.message).toEqual("Failed to fetch results from Credential Engine API");
+    }
 
-    it("rejects when find by ids is broken", (done) => {
-      stubSearchClient.search.mockResolvedValue(["id"]);
-      stubFindTrainingsBy.mockRejectedValue({});
-
-      searchTrainings("query").catch(() => done());
-    });
-
-    it("rejects when get highlights is broken", (done) => {
-      stubSearchClient.search.mockResolvedValue(["id"]);
-      stubFindTrainingsBy.mockResolvedValue([buildTraining({})]);
-      stubSearchClient.getHighlight.mockRejectedValue({});
-
-      searchTrainings("query").catch(() => done());
-    });
+    expect(credentialEngineAPI.getResults).toHaveBeenCalled();
   });
 });

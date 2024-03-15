@@ -71,7 +71,6 @@ export const searchTrainingsFactory = (
     const totalPages = Math.ceil(totalResults / limit)
     const hasPreviousPage = page > 1; 
     const hasNextPage = page < totalPages
-    console.log(totalResults)
     const ceRecords = ceRecordsResponse.data.data as CTDLResource[];
 
       // console.log(ceRecords.map(r => r["ceterms:ctid"]));
