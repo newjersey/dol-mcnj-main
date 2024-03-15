@@ -548,7 +548,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                     className="usa-button margin-right-0 custom-button report"
                     onClick={() => {
                       const pageSlug = `/training/${training.id}`;
-                      window.location.href = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
+                      const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
+                      window.open(url, '_blank');
                     }}
                   >
                     <Flag size={32} />
