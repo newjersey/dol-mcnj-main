@@ -1,43 +1,47 @@
 import { GetOpenJobsCount } from "../domain/types";
 import axios from "axios";
-import careerOneStopTestData from "./careerOneStopTestData.json";
 import { CareerOneStopClient } from "./CareerOneStopClient";
-
-jest.mock("axios");
+import careerOneStopTestData from "./careerOneStopTestData.json"
 
 describe("CareerOneStopClient", () => {
   let getOpenJobsCount: GetOpenJobsCount;
-  let mockedAxios: jest.Mocked<typeof axios>;
 
   beforeEach(() => {
-    mockedAxios = axios as jest.Mocked<typeof axios>;
     getOpenJobsCount = CareerOneStopClient(
-      "wwww.some-cool-url.com",
-      "FAKE-USERID",
-      "FAKE-AUTH-TOKEN",
+      "https://example.com",
+      "user-id",
+      "auth-token"
     );
   });
 
-  it("returns the jobcount for the queried soc", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: careerOneStopTestData });
+  it("returns the job count for the given SOC code", async () => {
+    const mockResponse: any = {
+      data: careerOneStopTestData,
+      status: 200,
+      statusText: "OK",
+      headers: {},
+      config: {},
+    };
 
-    const jobsCount = await getOpenJobsCount("15-1134");
-    expect(jobsCount).toEqual(1710);
+    jest.spyOn(axios, "get").mockResolvedValue(mockResponse);
 
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-      "wwww.some-cool-url.com/v1/jobsearch/FAKE-USERID/15-1134/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false",
+    const result = await getOpenJobsCount("12-3456");
+
+    expect(result).toEqual(1710);
+    expect(axios.get).toHaveBeenCalledWith(
+      "https://example.com/v1/jobsearch/user-id/12-3456/NJ/1000/0/0/0/10/0?source=NLx&showFilters=false",
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer FAKE-AUTH-TOKEN",
+          Authorization: `Bearer auth-token`,
         },
-      },
+      }
     );
-  });
+  })
 
   it("returns null if the call to career one stop fails", async () => {
-    mockedAxios.get.mockRejectedValue({});
+    jest.spyOn(axios, "get").mockRejectedValue(new Error('API error'));
     const jobsCount = await getOpenJobsCount("15-1134");
     expect(jobsCount).toEqual(null);
   });
-});
+})
