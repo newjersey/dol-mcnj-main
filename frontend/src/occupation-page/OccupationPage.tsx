@@ -121,7 +121,7 @@ export const OccupationPage = (props: Props): ReactElement => {
     } else {
       const trainingsToShow = trainings.slice(0, 3);
       const seeMore = trainings.length > 3;
-      const resultsUrl = `/search/${occupation}`;
+      const resultsUrl = `/training/search?q=${occupation}`;
 
       return (
         <>
