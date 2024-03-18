@@ -3,24 +3,6 @@ import { Icon } from "@material-ui/core";
 import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png";
 
 export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
-  const HasIcon = ({ string }: { string: string }) => {
-    const isEnvelope = string.includes("[envelope]");
-    const isSearch = string.includes("[search]");
-    const newString = string.replace("[envelope]", "").replace("[search]", "");
-    const iconString = isEnvelope ? "mail" : isSearch ? "search" : null;
-
-    return (
-      <>
-        {iconString ? (
-          <span className="has-icon">
-            {newString} {Icon && <Icon>{iconString}</Icon>}
-          </span>
-        ) : (
-          <>{newString}</>
-        )}
-      </>
-    );
-  };
 
   return (
     <div className="global-header">
@@ -39,13 +21,21 @@ export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
             Governor Phil Murphy • Lt. Governor Tahesha Way
           </a>
           <ul>
-            {items?.navMenus.topLevelItemsCollection.items?.map((item) => (
-              <li key={item.sys.id} className={item.classes || undefined}>
-                <a href={item.url}>
-                  <HasIcon string={item.copy} />
-                </a>
-              </li>
-            ))}
+            {items?.navMenus.topLevelItemsCollection.items?.map((item) => {
+              const isEnvelope = item.copy.includes("[envelope]");
+              const isSearch = item.copy.includes("[search]");
+              const newString = item.copy.replace("[envelope]", "").replace("[search]", "");
+              const iconString = isEnvelope ? "mail" : isSearch ? "search" : null;
+
+
+              return (
+                <li key={item.sys.id} className={item.classes || undefined}>
+                  <a href={item.url} className={iconString ? "has-icon" : undefined}>
+                    {newString} {iconString && <Icon>{iconString}</Icon>}
+                  </a>
+                </li>
+              )
+            })}
           </ul>
         </nav>
       </div>
