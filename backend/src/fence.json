@@ -12,6 +12,7 @@
     "knex",
     "supertest",
     "node-cache",
+    "express-rate-limit",
     "winston",
     "express-validator"
   ]
