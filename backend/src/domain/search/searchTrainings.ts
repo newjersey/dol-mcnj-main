@@ -87,7 +87,7 @@ export const searchTrainingsFactory = (
     const results = await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
         const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
-        let highlight:string = "";
+        let highlight = "";
         if (desc) {
           highlight = await credentialEngineUtils.getHighlight(desc, params.searchQuery);
         }

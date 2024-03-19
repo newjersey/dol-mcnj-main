@@ -1,6 +1,5 @@
 import { searchAPI } from "./CredentialEngineConfig";
 import { getRecordAPI } from "./CredentialEngineConfig";
-import { credentialEngineFactory } from "../domain/credentialengine/CredentialEngineFactory";
 
 const searchGateway = `/assistant/search/ctdl`;
 const graphGateway = `/graph`;

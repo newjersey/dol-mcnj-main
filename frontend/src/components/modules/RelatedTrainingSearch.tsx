@@ -52,8 +52,10 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
                   </span>
                   <span>
                     <MapPinLine size={32} />
-                    // TODO: Revisit w/ CE update how to properly display this data
-                    {train.cities}, {train.county}
+                    TODO: Implement this part
+{/*
+                    {train.city}, {train.county}
+*/}
                   </span>
                   <span className="last-line">
                     <span>
