@@ -5,7 +5,7 @@
   .container {
     @media screen and (min-width: ($tablet-md + 1)) {
       width: 100%;
-      max-width: 1070px;
+      max-width: $desktop-xl;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
