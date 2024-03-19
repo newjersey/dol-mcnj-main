@@ -41,7 +41,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
-        const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCostObject = certificate["ceterms:estimatedCost"] ?? [];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
