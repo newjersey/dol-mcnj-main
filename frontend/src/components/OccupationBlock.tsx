@@ -331,8 +331,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                     </span>
                                     <span>
                                       <MapPinLine size={32} />
-                                      // TODO: Revisit w/ CE update how to properly display this data
-                                      {train.cities}, {train.county}                                    </span>
+                                      TODO: REIMPLEMENT TRAINING ADDRESS HERE
+                                      {/*{train.city}, {train.county}*/}
+                                    </span>
                                     <span className="last-line">
                                       <span>
                                         <Hourglass size={32} />
