@@ -81,7 +81,7 @@ export const ResourceList = ({
   return (
     <section className="resource-list">
       {data && (
-        <div className="container plus">
+        <div className="container">
           <div className="sidebar">
             <FilterControls
               onChange={(selected) =>
