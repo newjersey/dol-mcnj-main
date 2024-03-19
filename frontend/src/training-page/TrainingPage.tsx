@@ -222,76 +222,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };*/
 
-  const getCertifications = (): ReactElement => {
-    if (!training?.certifications) {
-      return <></>;
-    }
-
-    const conditionProfileBlocks = [];
-    for (let i=0; i < training?.certifications.length; i++) {
-      const conditionProfile = training.certifications[i];
-      const conditionProfileBlock = [];
-
-      const targetAssessments = conditionProfile.targetAssessment;
-      const targetAssessmentBlocks = [];
-      if (targetAssessments != null) {
-        targetAssessmentBlocks.push(<h2>Assessments</h2>);
-        for (let j=0; j < conditionProfile.targetAssessment.length; j++) {
-          targetAssessmentBlocks.push(targetAssessments[i].name);
-        }
-
-        conditionProfileBlock.push(targetAssessmentBlocks);
-      }
-
-      const targetCompetencies = conditionProfile.targetCompetency;
-      const targetCompetencyBlocks = [];
-      if (targetCompetencies != null) {
-        targetCompetencyBlocks.push(<h2>Competencies</h2>);
-        for (let j=0; j < conditionProfile.targetCompetency.length; j++) {
-          targetCompetencyBlocks.push(targetCompetencies[i].name);
-        }
-
-        conditionProfileBlock.push(targetCompetencyBlocks);
-      }
-
-      const targetCredentials = conditionProfile.targetCredential;
-      const targetCredentialBlocks = [];
-      if (targetCredentials != null) {
-        targetCredentialBlocks.push(<h2>Credentials</h2>);
-        for (let j=0; j < conditionProfile.targetCredential.length; j++) {
-          targetCredentialBlocks.push(targetCredentials[i].name);
-        }
-
-        conditionProfileBlock.push(targetCredentialBlocks);
-      }
-
-      const targetLearningOpportunities = conditionProfile.targetLearningOpportunity;
-      const targetLearningOpportunityBlocks = [];
-      if (targetLearningOpportunities != null) {
-        conditionProfileBlock.push(<h2>Learning Opportunities</h2>);
-        for (let j=0; j < conditionProfile.targetLearningOpportunity.length; j++) {
-          targetLearningOpportunityBlocks.push(targetLearningOpportunities[i].name);
-        }
-
-        conditionProfileBlock.push(targetCredentialBlocks);
-      }
-
-      conditionProfileBlocks.push(conditionProfileBlock);
-    }
-
-    return (
-      <div key={"certifications"}>
-        <p>
-          <span className="fin">
-            <InlineIcon className="mrxs">school</InlineIcon>
-            {t("TrainingPage.certificationsLabel")}&nbsp;
-            {conditionProfileBlocks}
-          </span>
-        </p>
-      </div>
-    );
-  };
-
   const getAssociatedOccupations = (): ReactElement => {
     if (
       training?.occupations.length === 0 ||
@@ -445,16 +375,15 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                     <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
                       <>
-                        {/*{training.certifications && (
+                        {training.certifications && (
                           <p>
-                            <span className="fin">
-                              <InlineIcon className="mrxs">school</InlineIcon>
-                              {t("TrainingPage.certificationsLabel")}&nbsp;
-                              {training.certifications}
-                            </span>
+                          <span className="fin">
+                            <InlineIcon className="mrxs">school</InlineIcon>
+                            {t("TrainingPage.certificationsLabel")}&nbsp;
+                            <b>{training.certifications}</b>
+                          </span>
                           </p>
-                        )}*/}
-                        {getCertifications()};
+                        )}
                         {training.prerequisites && (
                           <p>
                             <span className="fin">
