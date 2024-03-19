@@ -67,6 +67,7 @@ export const Layout = (props: LayoutProps) => {
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main
+        id="main"
         className={`${!props.noPad ? "below-banners" : ""}${
           props.theme ? ` ${props.theme}-theme` : ""
         }${props.className ? ` ${props.className}` : ""}`}
