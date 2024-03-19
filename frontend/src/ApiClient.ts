@@ -1,6 +1,6 @@
 import { Client, Observer } from "./domain/Client";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Training, TrainingResult } from "./domain/Training";
+import { Training, TrainingData } from "./domain/Training";
 import { Error } from "./domain/Error";
 import { InDemandOccupation, OccupationDetail } from "./domain/Occupation";
 import { Certificates } from "./domain/CredentialEngine";
@@ -14,8 +14,13 @@ import {
 } from "./types/contentful";
 
 export class ApiClient implements Client {
-  getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
-    this.get(`/api/trainings/search?query=${query}`, observer);
+  getTrainingsByQuery(
+    query: string,
+    observer: Observer<TrainingData>,
+    page?: number,
+    limit?: number,
+  ): void {
+    this.get(`/api/trainings/search?query=${query}&page=${page}&limit=${limit}`, observer);
   }
 
   getTrainingById(id: string, observer: Observer<Training>): void {
@@ -29,13 +34,13 @@ export class ApiClient implements Client {
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
     this.get(`/api/occupations/${soc}`, observer);
   }
-  
+
   getAllCertificates(
     skip: number,
     take: number,
     sort: string,
     cancel: boolean,
-    observer: Observer<Certificates>
+    observer: Observer<Certificates>,
   ): void {
     this.get(`/api/ce/getallcredentials/${skip}/${take}/${sort}/${cancel}`, observer);
   }
@@ -51,7 +56,7 @@ export class ApiClient implements Client {
   getContentfulTPR(query: string, observer: Observer<TrainingProviderPageProps>): void {
     this.get(`/api/contentful/${query}`, observer);
   }
-  
+
   getContentfulFRP(query: string, observer: Observer<FinancialResourcePageProps>): void {
     this.get(`/api/contentful/${query}`, observer);
   }

@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { WindowLocation } from "@reach/router";
 import { Client } from "../domain/Client";
-import { TrainingResult } from "../domain/Training";
+import { TrainingResult, TrainingData } from "../domain/Training";
 import { RouteComponentProps, Link } from "@reach/router";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { CircularProgress, FormControl, InputLabel, useMediaQuery, Icon } from "@material-ui/core";
@@ -100,16 +100,21 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
     queryToSearch = checkValidSocCode(queryToSearch);
 
-    props.client.getTrainingsByQuery(queryToSearch, {
-      onSuccess: (data: TrainingResult[]) => {
-        setTrainings(data);
-        getPageTitle();
-        setIsLoading(false);
+    props.client.getTrainingsByQuery(
+      queryToSearch,
+      {
+        onSuccess: ({ data }: TrainingData) => {
+          setTrainings(data);
+          getPageTitle();
+          setIsLoading(false);
+        },
+        onError: () => {
+          setIsError(true);
+        },
       },
-      onError: () => {
-        setIsError(true);
-      },
-    });
+      13,
+      30,
+    );
   }, [searchQuery, props.client]);
 
   const toggleIsOpen = (): void => {
@@ -213,7 +218,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: pageTitle,
+        title: "pageTitle",
         url: props.location?.pathname,
       }}
     >

@@ -44,28 +44,27 @@ export const routerFactory = ({
         req.params.skip as unknown as number,
         req.params.take as unknown as number,
         req.params.sort as string,
-        req.params.cancel as unknown as boolean
+        req.params.cancel as unknown as boolean,
       )
         .then((certificates: Certificates) => {
           res.status(200).json(certificates);
         })
         .catch((e) => res.status(500).send(e));
-    }
+    },
   );
 
-
   router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
-    let page = parseInt(req.query.page as string)
+    let page = parseInt(req.query.page as string);
     if (isNaN(page) || page < 1) {
-        page = 1
+      page = 1;
     }
-  
-    let limit = parseInt(req.query.limit as string)
+
+    let limit = parseInt(req.query.limit as string);
     if (isNaN(limit) || limit < 1) {
-        limit = 10
+      limit = 10;
     }
-    
-    searchTrainings({searchQuery: req.query.query as string, page: page, limit: limit})
+
+    searchTrainings({ searchQuery: req.query.query as string, page: page, limit: limit })
       .then((trainings: TrainingData) => {
         res.status(200).json(trainings);
       })
@@ -103,7 +102,7 @@ export const routerFactory = ({
 
   router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
     // Sanitize and encode the user input before using it in the URL
-    const sanitizedTerm = encodeURIComponent(req.params.term || "")
+    const sanitizedTerm = encodeURIComponent(req.params.term || "");
 
     // Use the sanitized input in the URL
     const countData = await CareerOneStopClient(

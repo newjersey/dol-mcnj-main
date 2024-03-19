@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ApiClient } from "./ApiClient";
-import { Training, TrainingResult } from "./domain/Training";
+import { Training, TrainingData } from "./domain/Training";
 import {
   buildOccupation,
   buildTraining,
@@ -36,7 +36,7 @@ describe("ApiClient", () => {
       mockedAxios.get.mockResolvedValue({ data: trainings });
 
       const observer = {
-        onSuccess: (data: TrainingResult[]): void => {
+        onSuccess: ({ data }: TrainingData): void => {
           expect(data).toEqual(trainings);
           done();
         },
