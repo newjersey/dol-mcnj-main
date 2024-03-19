@@ -1,5 +1,5 @@
 import NodeCache from 'node-cache';
-import { FindTrainingsBy, SearchTrainings } from "../types";
+import { SearchTrainings } from "../types";
 import * as Sentry from "@sentry/node";
 import { TrainingData } from "../training/TrainingResult";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
@@ -10,8 +10,7 @@ import { CalendarLength } from "../CalendarLength";
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-export const searchTrainingsFactory = (
-  findTrainingsBy: FindTrainingsBy,): SearchTrainings => {
+export const searchTrainingsFactory = (): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
     const page = params.page || 1
     const limit = params.limit || 10
@@ -51,6 +50,11 @@ export const searchTrainingsFactory = (
                 }
               },
               "search:operator": "search:orTerms"
+            },
+            {
+              "ceterms:credentialStatusType": {
+                "ceterms:targetNode": "credentialStat:Active"
+              }
             }
           ],
           "search:operator": "search:andTerms"
