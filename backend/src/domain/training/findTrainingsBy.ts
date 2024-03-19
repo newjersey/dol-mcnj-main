@@ -1,4 +1,3 @@
-import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
@@ -95,13 +94,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               providerContactPoints.push(targetContactPoint);
             }
           }
-        }
-
-        // GET prerequisites - could be in ceterms:CommonConditions, could be in ceterms:prerequisites
-        if (commonConditions != null) {
-          // TODO: Modify to handle multiple commonconditions, which can have multiple requirements
-          const conditionUrl = commonConditions[0];
-          const conditionCtid = await credentialEngineUtils.getCtidFromURL(conditionUrl);
         }
 
         if (estimatedDuration != null) {
@@ -202,7 +194,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     );
   };
 };
-
+/*
 const NAN_INDICATOR = "-99999";
 
 const formatCounty = (county: string): string => {
@@ -214,7 +206,7 @@ const formatCounty = (county: string): string => {
   return `${county} County`;
 };
 
-/*
+
 const formatPercentEmployed = (perEmployed: string | null): number | null => {
   if (perEmployed === null || perEmployed === NAN_INDICATOR) {
     return null;
@@ -224,6 +216,7 @@ const formatPercentEmployed = (perEmployed: string | null): number | null => {
 };
 */
 
+/*
 const formatAverageSalary = (averageQuarterlyWage: string | null): number | null => {
   if (averageQuarterlyWage === null || averageQuarterlyWage === NAN_INDICATOR) {
     return null;
@@ -232,6 +225,7 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };
+
 
 const formatPrerequisites = (prereq: string | null): string => {
   if (!prereq) return "";
@@ -252,6 +246,9 @@ export const formatLanguages = (languages: string | null): string[] => {
   const languagesWithoutQuotes = languages.replace(/["\s]+/g, "");
   return languagesWithoutQuotes.split(",");
 };
+
+
+ */
 
 // Converts a time duration in ISO 8601 format to CalendarLength Id
 export const convertDuration = (duration: string): number => {
