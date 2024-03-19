@@ -264,7 +264,9 @@ a.link-format-blue {
 
 header {
   .usa-nav-container {
-    max-width: $desktop-lg;
+    max-width: $desktop-xl;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 
@@ -297,10 +299,8 @@ ol {
 }
 
 .container {
-  &.plus {
-    width: 100%;
-    max-width: 1294px;
-  }
+  width: 100%;
+  max-width: $desktop-xl;
 }
 
 .flex-card-row {
