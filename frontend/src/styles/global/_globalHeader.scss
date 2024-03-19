@@ -3,6 +3,8 @@
   min-height: 54px;
   color: white;
   padding: $size-4 0;
+  padding-right: 15px;
+  padding-left: 15px;
   font-size: 15px;
   min-height: 54px;
   letter-spacing: 0.1px;
@@ -38,7 +40,7 @@
   }
 
   .container {
-    max-width: 1230px;
+    max-width: $desktop-xl;
     width: 100%;
 
     @media screen and (min-width: ($desktop + 1)) {
@@ -158,6 +160,7 @@
 
 .alert-bar {
   .usa-alert__body {
+    max-width: $desktop-xl + 30px;
     padding-right: $size-80;
   }
   button {

@@ -3,7 +3,7 @@ jobs:
   build-and-test:
     circleci_ip_ranges: true
     docker:
-      - image: cimg/node:18.16.1-browsers
+      - image: cimg/node:20.11.0-browsers
       - image: circleci/postgres:12
         environment:
           POSTGRES_USER: postgres

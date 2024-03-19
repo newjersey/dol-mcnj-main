@@ -79,7 +79,7 @@
     "wiremock": "^3.0.2"
   },
   "engines": {
-    "node": "^18.17.0"
+    "node": ">=20.11.0"
   },
   "overrides": {
     "npm-java-runner": "^1.0.2",

@@ -55,9 +55,19 @@ export const Layout = (props: LayoutProps) => {
           dismissible
         />
       )}
+      {process.env.REACT_APP_FEATURE_BETA === "true" && (
+          <AlertBar
+              copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE}
+              type="info"
+              className="beta-alert"
+          />
+      )}
+
+
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
       <main
+        id="main"
         className={`${!props.noPad ? "below-banners" : ""}${
           props.theme ? ` ${props.theme}-theme` : ""
         }${props.className ? ` ${props.className}` : ""}`}
