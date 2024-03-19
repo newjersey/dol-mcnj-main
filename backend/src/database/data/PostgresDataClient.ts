@@ -228,7 +228,7 @@ export class PostgresDataClient implements DataClient {
 
   getCIPsInDemand = async (): Promise<CipDefinition[]> => {
     return this.kdb("indemandcips")
-      .select("cip as cip")
+      .select("cipcode as cipcode")
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();

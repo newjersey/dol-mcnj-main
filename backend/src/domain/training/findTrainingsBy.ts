@@ -22,7 +22,7 @@ import * as Sentry from "@sentry/node";
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
-    const inDemandCIPCodes = inDemandCIPs.map(c => c.cip)
+    const inDemandCIPCodes = inDemandCIPs.map(c => c.cipcode)
     const ceRecords:any = []
 
     for (const value of values) {
