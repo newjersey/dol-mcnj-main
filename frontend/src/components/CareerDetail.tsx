@@ -117,7 +117,7 @@ export const CareerDetail = ({
     <>
       {data && (
         <div className="career-detail occupation-block">
-          <div className="container plus">
+          <div className="container">
             <button
               className="explore-button"
               type="button"
@@ -142,7 +142,7 @@ export const CareerDetail = ({
           </div>
 
           <div className="occupation-box">
-            <div className="container plus">
+            <div className="container">
               <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
                 <button className="close" onClick={() => setMapOpen(false)}>
                   <X size={25} />
