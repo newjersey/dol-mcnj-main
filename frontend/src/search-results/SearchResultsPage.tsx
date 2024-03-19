@@ -47,7 +47,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  const searchQuery = props.location?.search?.slice(2) || "";
+  const searchQuery = props.location?.search?.slice(3) || "";
 
   usePageTitle(pageTitle);
 
