@@ -80,7 +80,7 @@
   "proxy": "http://localhost:8080",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.23.4",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.1",
     "@types/dompurify": "^3.0.5",
     "@types/markdown-it": "^13.0.6",
     "@types/node": "^16.18.90",
