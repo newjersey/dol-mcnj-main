@@ -10,14 +10,12 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
   CetermsConditionProfile,
-  CetermsEstimatedCost,
   CetermsEstimatedDuration,
   CetermsInstructionalProgramType,
   CetermsCredentialAlignmentObject,
   CetermsScheduleTimingType,
   CTDLResource
 } from "../credentialengine/CredentialEngine";
-import { util } from "prettier";
 
 import * as Sentry from "@sentry/node";
 
@@ -48,12 +46,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const commonConditions = certificate["ceterms:commonConditions"];
-        const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
+        const estimatedCostObject = certificate["ceterms:estimatedCost"] ?? [];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
         const occupationType = certificate["ceterms:occupationType"] as CetermsCredentialAlignmentObject[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
-
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -131,19 +128,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             }
           }
         }
-        if (estimatedCost != null) {
-          /*          This is getting the first costProfile it sees under estimatedCost... we get a lot more
-                    fields at our disposal here like costDetails, description, directCostType that we should
-                    look through here*/
 
-          // Look for total cost in estimatedCost
-          // TODO: Modify to handle multiple costProfiles
-          const costProfile = estimatedCost[0];
-          if (costProfile["ceterms:currency"] != null) {
-            if (costProfile["ceterms:currency"] == "US Dollar") {
-              totalCost = Number(costProfile["ceterms:price"]);
-            }
-          }
+        if (estimatedCostObject && estimatedCostObject.length > 0) {
+          const price = estimatedCostObject[0]["ceterms:price"];
+          totalCost = price ? Number(price) : null; // Convert price to number, null if conversion fails or price is undefined
         }
 
         if (occupationType != null) {

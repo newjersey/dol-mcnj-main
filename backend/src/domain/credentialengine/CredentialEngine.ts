@@ -176,16 +176,6 @@ export interface CetermsFinancialAssistanceType {
   "ceterms:targetNodeDescription"?: Ceterms;
 }
 
-export interface CetermsEstimatedCost {
-  "@type"?:                  string;
-  "ceterms:name"?:           Ceterms;
-  "ceterms:price"?:          number;
-  "ceterms:currency"?:       string;
-  "ceterms:costDetails"?:    string;
-  "ceterms:description"?:    Ceterms;
-  "ceterms:directCostType"?: CetermsCredentialAlignmentObject;
-}
-
 export interface CetermsDirectCostType {
   "@type"?:                         string;
   "ceterms:framework"?:             string;
