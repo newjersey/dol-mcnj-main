@@ -100,7 +100,8 @@ export const buildContactPoint = (overrides: Partial<ContactPoint>): ContactPoin
     alternateName: "some-alternateName-" + randomInt(),
     contactType: "some-contactType-" + randomInt(),
     email: ["some-email@a" + randomInt() + ".com"],
-    telephone: ["(973) 555-5555"]
+    telephone: ["(973) 555-5555"],
+    ...overrides,
   }
 }
 
