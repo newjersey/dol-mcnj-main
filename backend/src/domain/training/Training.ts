@@ -1,7 +1,5 @@
 import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
-import { Ceterms } from "../credentialengine/CredentialEngine";
-
 export interface Training {
   id: string;
   name: string;
