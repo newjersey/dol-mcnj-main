@@ -219,8 +219,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               backgroundColorClass="bg-light-purple-50"
             />
           </div>
-
-          {occupationDetail.openJobsCount && (
+          {((occupationDetail.openJobsCount ?? 0) > 0) && (
             <div>
               <a
                 data-testid="jobOpenings"
