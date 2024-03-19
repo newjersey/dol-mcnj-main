@@ -18,7 +18,6 @@ import {
   CTDLResource
 } from "../credentialengine/CredentialEngine";
 import { util } from "prettier";
-import skip = util.skip;
 
 import * as Sentry from "@sentry/node";
 
@@ -45,14 +44,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddresses:any[] = [];
         const providerContactPoints:any[] = [];
-        const isPreparationFor:ConditionProfile[] = [];
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const commonConditions = certificate["ceterms:commonConditions"];
         const estimatedCost = certificate["ceterms:estimatedCost"] as CetermsEstimatedCost[];
         const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
-        const instructionalProgramType = certificate["ceterms:instructionalProgramType"] as CetermsInstructionalProgramType;
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
         const occupationType = certificate["ceterms:occupationType"] as CetermsCredentialAlignmentObject[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
@@ -154,131 +151,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         }
 
-        // Get certificaitons from "ceterms:isPreparationFor"
-        if (isPreparationForObject != null) {
-          for (let i=0; i < isPreparationForObject.length; i++) {
-            const conditionObj = isPreparationForObject[i] as CetermsConditionProfile;
-            const conditionProfile = {
-              name: conditionObj["ceterms:name"] ? conditionObj["ceterms:name"]['en-US'] : null,
-              experience: conditionObj["ceterms:experience"],
-              description: conditionObj["ceterms:description"] ? conditionObj["ceterms:description"]['en-US'] : null,
-              targetAssessment: [] as ConditionProfileItem[],
-              targetCompetency: [] as ConditionProfileItem[],
-              targetCredential: [] as ConditionProfileItem[],
-              targetLearningOpportunity: [] as ConditionProfileItem[],
-            } as ConditionProfile;
-
-            const cetermsTargetAssessment = isPreparationForObject[i]["ceterms:targetAssessment"];
-            if (cetermsTargetAssessment != null) {
-              for (let j=0; j < cetermsTargetAssessment.length; j++) {
-                const url = cetermsTargetAssessment[j];
-                const ctid = await credentialEngineUtils.getCtidFromURL(url);
-                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
-
-                if (record != null) {
-                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
-                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
-                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
-
-                  const provider = {
-                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
-                  } as Provider;
-
-                  const assessment = {
-                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
-                    provider: provider,
-                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
-                  } as ConditionProfileItem;
-
-                  conditionProfile.targetAssessment.push(assessment);
-                }
-              }
-            }
-
-            const cetermsTargetCompetency = isPreparationForObject[i]["ceterms:targetCompetency"];
-            if (cetermsTargetCompetency != null) {
-              for (let j=0; j < cetermsTargetCompetency.length; j++) {
-                const url = cetermsTargetCompetency[j];
-                const ctid = await credentialEngineUtils.getCtidFromURL(url);
-                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
-
-                if (record != null) {
-                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
-                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
-                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
-
-                  const provider = {
-                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
-                  } as Provider;
-
-                  const competency = {
-                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
-                    provider: provider,
-                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
-                  } as ConditionProfileItem;
-
-                  conditionProfile.targetCompetency.push(competency);
-                }
-              }
-            }
-            const cetermsTargetCredential = isPreparationForObject[i]["ceterms:targetCredential"];
-            if (cetermsTargetCredential != null) {
-              for (let j=0; j < cetermsTargetCredential.length; j++) {
-                const url = cetermsTargetCredential[j];
-                const ctid = await credentialEngineUtils.getCtidFromURL(url);
-                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
-
-                if (record != null) {
-                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
-                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
-                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
-
-                  const provider = {
-                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
-                  } as Provider;
-
-                  const credential = {
-                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
-                    provider: provider,
-                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
-                  } as ConditionProfileItem;
-
-                  conditionProfile.targetCredential.push(credential);
-                }
-              }
-            }
-
-            const cetermsTargetLearningOpportunity = isPreparationForObject[i]["ceterms:targetLearningOpportunity"];
-            if (cetermsTargetLearningOpportunity != null) {
-              for (let j=0; j < cetermsTargetLearningOpportunity.length; j++) {
-                const url = cetermsTargetLearningOpportunity[j];
-                const ctid = await credentialEngineUtils.getCtidFromURL(url);
-                const record = await credentialEngineAPI.getResourceByCTID(ctid) as CTDLResource;
-
-                if (record != null) {
-                  const recordOwnedBy = record["ceterms:ownedBy"] ? record["ceterms:ownedBy"] : [];
-                  const recordOwnedByCtid = await credentialEngineUtils.getCtidFromURL(recordOwnedBy[0]);
-                  const recordOwnedByRecord = await credentialEngineAPI.getResourceByCTID(recordOwnedByCtid) as CTDLResource;
-
-                  const provider = {
-                    name: recordOwnedByRecord["ceterms:name"] ? recordOwnedByRecord["ceterms:name"]["en-US"] : [],
-                  } as Provider;
-
-                  const learningOpportunity = {
-                    name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : null,
-                    provider: provider,
-                    description: record["ceterms:description"] ? record["ceterms:description"]["en-US"] : null,
-                  } as ConditionProfileItem;
-
-                  conditionProfile.targetLearningOpportunity.push(learningOpportunity);
-                }
-              }
-            }
-
-            isPreparationFor.push(conditionProfile);
-
-          }
-        }
+        const certifications = isPreparationForObject
+          .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
+          .filter(name => name) // Filter out empty strings to ensure we only include valid names
+          .join(', '); // Join the names with a comma and space as separator
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
@@ -290,14 +166,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         ).map(req => req["ceterms:description"]?.["en-US"]);
 
 
-        const matchingOccupations = (cipCode != null) ? await dataClient.findOccupationsByCip(cipCode) : []; // TODO: redo this
+        const matchingOccupations = (cipCode != null) ? await dataClient.findOccupationsByCip(cipCode) : [];
         const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === cipCode)
           .map((localException: LocalException) =>
             convertToTitleCaseIfUppercase(localException.county)
           );
-
-
 
         const training = {
           id: certificate["ceterms:ctid"],
@@ -312,7 +186,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             addresses: ownedByAddresses,
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
-          certifications: isPreparationFor,
+          certifications: certifications,
           prerequisites: prerequisites,
           calendarLength: calendarLength, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
