@@ -4,7 +4,7 @@ import { useMediaQuery } from "@material-ui/core";
 import njLogo from "../njlogo.svg";
 import { useTranslation } from "react-i18next";
 import { UnstyledButton } from "./UnstyledButton";
-// import { GlobalHeader } from "./GlobalHeader";
+import { GlobalHeader } from "./GlobalHeader";
 import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 import { LinkObject } from "./modules/LinkObject";
@@ -96,7 +96,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
 
   return (
     <header className="header" role="banner">
-      {/* <GlobalHeader items={data?.globalNav} /> */}
+      <GlobalHeader items={data?.globalNav} />
       {isDesktop ? <>{nav()}</> : <>{mobileNav()}</>}
     </header>
   );
