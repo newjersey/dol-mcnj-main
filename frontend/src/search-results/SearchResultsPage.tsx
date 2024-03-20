@@ -205,31 +205,37 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   const getPerPage = () => {
     return (
-      <div className="input-wrapper per-page-wrapper">
-        <label className="usa-label" htmlFor="per-page">
-          Per page
-        </label>
+      <>
+        {filteredTrainings.length > 0 && (
+          <div className="input-wrapper per-page-wrapper">
+            <label className="usa-label" htmlFor="per-page">
+              Per page
+            </label>
 
-        <select
-          className="usa-select"
-          name="per-page"
-          defaultValue={itemsPerPage}
-          id="per-page"
-          onChange={(e) => {
-            setIsLoading(true);
-            setItemsPerPage(e.target.options[e.target.selectedIndex].value as unknown as number);
-            const newUrl = new URL(window.location.href);
-            newUrl.searchParams.set("p", "1");
-            newUrl.searchParams.set("limit", e.target.value);
-            window.history.pushState({}, "", newUrl.toString());
-          }}
-        >
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </div>
+            <select
+              className="usa-select"
+              name="per-page"
+              defaultValue={itemsPerPage}
+              id="per-page"
+              onChange={(e) => {
+                setIsLoading(true);
+                setItemsPerPage(
+                  e.target.options[e.target.selectedIndex].value as unknown as number,
+                );
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.set("p", "1");
+                newUrl.searchParams.set("limit", e.target.value);
+                window.history.pushState({}, "", newUrl.toString());
+              }}
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        )}
+      </>
     );
   };
 
