@@ -1,7 +1,6 @@
-import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { ConditionProfile, ConditionProfileItem, Provider, Training } from "./Training";
+import { Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -11,13 +10,10 @@ import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUt
 import {
   CetermsConditionProfile,
   CetermsEstimatedDuration,
-  CetermsInstructionalProgramType,
   CetermsCredentialAlignmentObject,
   CetermsScheduleTimingType,
   CTDLResource
 } from "../credentialengine/CredentialEngine";
-
-import * as Sentry from "@sentry/node";
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
@@ -98,14 +94,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               providerContactPoints.push(targetContactPoint);
             }
           }
-        }
-
-        // GET prerequisites - could be in ceterms:CommonConditions, could be in ceterms:prerequisites
-        if (commonConditions != null) {
-          // TODO: Modify to handle multiple commonconditions, which can have multiple requirements
-          const conditionUrl = commonConditions[0];
-          const conditionCtid = await credentialEngineUtils.getCtidFromURL(conditionUrl);
-          const conditionRecord = await credentialEngineAPI.getResourceByCTID(conditionCtid);
         }
 
         if (estimatedDuration != null) {
@@ -206,7 +194,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     );
   };
 };
-
+/*
 const NAN_INDICATOR = "-99999";
 
 const formatCounty = (county: string): string => {
@@ -218,6 +206,7 @@ const formatCounty = (county: string): string => {
   return `${county} County`;
 };
 
+
 const formatPercentEmployed = (perEmployed: string | null): number | null => {
   if (perEmployed === null || perEmployed === NAN_INDICATOR) {
     return null;
@@ -225,7 +214,9 @@ const formatPercentEmployed = (perEmployed: string | null): number | null => {
 
   return parseFloat(perEmployed);
 };
+*/
 
+/*
 const formatAverageSalary = (averageQuarterlyWage: string | null): number | null => {
   if (averageQuarterlyWage === null || averageQuarterlyWage === NAN_INDICATOR) {
     return null;
@@ -234,6 +225,7 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };
+
 
 const formatPrerequisites = (prereq: string | null): string => {
   if (!prereq) return "";
@@ -255,6 +247,9 @@ export const formatLanguages = (languages: string | null): string[] => {
   return languagesWithoutQuotes.split(",");
 };
 
+
+ */
+
 // Converts a time duration in ISO 8601 format to CalendarLength Id
 export const convertDuration = (duration: string): number => {
   const match = duration.match(/^P(([0-9]+)Y)?(([0-9]+)M)?(([0-9]+)W)?(([0-9]+)D)?T?(([0-9]+)H)?(([0-9]+)M)?(([0-9]+)S)?$/);
@@ -267,8 +262,8 @@ export const convertDuration = (duration: string): number => {
   const weeks = match[6] ? parseInt(match[6]) : 0;
   const days = match[8] ? parseInt(match[8]) : 0;
   const hours = match[10] ? parseInt(match[10]) : 0;
-  const min = match[12] ? parseInt(match[12]) : 0;
-  const sec = match[14] ? parseInt(match[14]) : 0;
+/*  const min = match[12] ? parseInt(match[12]) : 0;
+  const sec = match[14] ? parseInt(match[14]) : 0;*/
 
   //console.log(`${years}y ${months}m ${weeks}w`);
   let calendarLength:CalendarLength = CalendarLength.NULL;

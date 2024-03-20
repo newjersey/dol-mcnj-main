@@ -1,5 +1,5 @@
 import { Certificates } from "./credentialengine/CredentialEngineInterface";
-import { TrainingData, TrainingResult } from "./training/TrainingResult";
+import { TrainingData } from "./training/TrainingResult";
 import { Training } from "./training/Training";
 import { Selector } from "./training/Selector";
 import {
