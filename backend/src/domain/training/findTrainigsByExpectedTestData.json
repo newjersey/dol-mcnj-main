@@ -3,49 +3,7 @@
       "averageSalary": 0,
       "booksMaterialsCost": 0,
       "calendarLength": 8,
-      "certifications": [
-        {
-          "description": "Description of the certification",
-          "experience": "2 years",
-          "name": "Certification Name",
-          "targetAssessment": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ],
-          "targetCompetency": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ],
-          "targetCredential": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ],
-          "targetLearningOpportunity": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ]
-        }
-      ],
+      "certifications": "Certification Name",
       "cipCode": "123456",
       "description": "This is an example description for the training program.",
       "feesCost": 0,
@@ -96,49 +54,7 @@
       "averageSalary": 0,
       "booksMaterialsCost": 0,
       "calendarLength": 8,
-      "certifications": [
-        {
-          "description": "Description of the certification",
-          "experience": "2 years",
-          "name": "Certification Name",
-          "targetAssessment": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ],
-          "targetCompetency": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ],
-          "targetCredential": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ],
-          "targetLearningOpportunity": [
-            {
-              "description": "This is an example description for the training program.",
-              "name": "Example Training Program",
-              "provider": {
-                "name": "Example Training Program"
-              }
-            }
-          ]
-        }
-      ],
+      "certifications": "Certification Name",
       "cipCode": "123456",
       "description": "This is an example description for the training program.",
       "feesCost": 0,
