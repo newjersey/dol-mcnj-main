@@ -1,6 +1,8 @@
 import { searchTrainingsFactory } from './searchTrainings';
 import mockAxios from 'jest-mock-axios';
 import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI';
+import { TrainingData } from '../training/TrainingResult';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 jest.mock("@sentry/node");
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
@@ -10,8 +12,7 @@ describe('searchTrainingsFactory', () => {
   });
 
   it('should return cached results when available', async () => {
-    const findTrainingsBy = jest.fn();
-    const searchTrainings = searchTrainingsFactory(findTrainingsBy);
+    const searchTrainings = searchTrainingsFactory();
   
     // First call to the API with a mock response
     const ceData: any = {
@@ -48,21 +49,20 @@ describe('searchTrainingsFactory', () => {
 
   
   it('should return results from the API when cache is not available', async () => {
-    const findTrainingsBy = jest.fn();
-    const searchTrainings = searchTrainingsFactory(findTrainingsBy);
+    const searchTrainings = searchTrainingsFactory();
 
-    const ceData: any = {
+    const ceData: AxiosResponse<any, any> = {
       data: { data: [], extra: {TotalResults: 0} },
       status: 200,
       statusText: 'OK',
       headers: {},
-      config: {},
+      config: {} as InternalAxiosRequestConfig,
     };
     const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
     getResultsSpy.mockResolvedValueOnce(ceData);
 
     const result = await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 });
-    const expectedData: any = {
+    const expectedData: TrainingData = {
       data: [],
       meta: {
         currentPage: 1,
@@ -80,8 +80,7 @@ describe('searchTrainingsFactory', () => {
   });
 
   it('should throw an error when API request fails', async () => {
-    const stubFindTrainingsBy = jest.fn();
-    const searchTrainings = searchTrainingsFactory(stubFindTrainingsBy);
+    const searchTrainings = searchTrainingsFactory();
     const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
     getResultsSpy.mockRejectedValueOnce(new Error('API error'));
 
@@ -90,7 +89,6 @@ describe('searchTrainingsFactory', () => {
     } catch (error:any) {
       expect(error.message).toEqual("Failed to fetch results from Credential Engine API");
     }
-
     expect(credentialEngineAPI.getResults).toHaveBeenCalled();
   });
 });
