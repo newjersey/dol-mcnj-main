@@ -121,11 +121,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           totalCost = price ? Number(price) : null; // Convert price to number, null if conversion fails or price is undefined
         }
 
-        if (occupationType != null) {
-          // get SOCs from ceterms:occupationType instead of from the database
-
-        }
-
         const certifications = isPreparationForObject
           .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
           .filter(name => name) // Filter out empty strings to ensure we only include valid names
@@ -170,14 +165,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           })),
           inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           localExceptionCounty: localExceptionCounties, // TODO: Test
-          tuitionCost: 0, // TODO: pull from costProfile - ceterms:directCostType with name "Tuition"
-          feesCost: 0, // TODO: pull from costProfile
-          booksMaterialsCost: 0, // TODO: pull from costProfile
-          suppliesToolsCost: 0, // TODO: pull from costProfile
-          otherCost: 0, // TODO: pull from costProfile
+          tuitionCost: 0,
+          feesCost: 0,
+          booksMaterialsCost: 0,
+          suppliesToolsCost: 0,
+          otherCost: 0,
           totalCost: totalCost ? (totalCost): 0,
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0, // TODO: Get from QData?
+          percentEmployed: 0,
           averageSalary: 0, // TODO: Get from QData?
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
           languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
@@ -188,7 +183,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
         console.log(JSON.stringify(training));
         return training;
-
       })
     );
   };
