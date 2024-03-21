@@ -455,6 +455,7 @@ export const en = {
     suppliesCostLabel: "Supplies & Tools",
     otherCostLabel: "Other",
     providerGroupHeader: "Provider Details",
+    locationGroupHeader: "Location Details",
     onlineClass: "Online Class",
     providerServicesGroupHeader: "Provider Services",
     eveningCoursesServiceLabel: "This provider offers evening courses",
