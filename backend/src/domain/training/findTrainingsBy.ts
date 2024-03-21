@@ -15,10 +15,25 @@ import {
   CTDLResource
 } from "../credentialengine/CredentialEngine";
 
-function extractTotalCost(estimatedCostObjects: any[]): number | null {
-  if (estimatedCostObjects.length === 0) return null;
-  const price = estimatedCostObjects[0]["ceterms:price"];
-  return price ? Number(price) : null;
+function extractCipCode(certificate: CTDLResource): string {
+  const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
+  if (Array.isArray(instructionalProgramTypes)) {
+    for (const programType of instructionalProgramTypes) {
+      if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
+        return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
+      }
+    }
+  }
+  return ""; // Return empty string if no match is found
+}
+
+function extractTotalCost(certificate: CTDLResource): number | null {
+  const estimatedCostObject = certificate["ceterms:estimatedCost"];
+  if (Array.isArray(estimatedCostObject) && estimatedCostObject.length > 0) {
+    const price = estimatedCostObject[0]["ceterms:price"];
+    return price ? Number(price) : null; // Convert price to number, return null if conversion fails or price is undefined
+  }
+  return null; // Return null if no estimatedCostObject is found
 }
 
 function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLResource): number {
@@ -51,7 +66,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
-        const estimatedCostObject = certificate["ceterms:estimatedCost"] ?? [];
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
         const occupationType = certificate["ceterms:occupationType"] as CetermsCredentialAlignmentObject[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
@@ -104,13 +118,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
-        const cipCode = instructionalProgramTypes?.find(programType =>
-          programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs"
-        )?.["ceterms:codedNotation"]?.replace(/[^\w\s]/g, "") || "";
-
-
-        const totalCost = extractTotalCost(estimatedCostObject);
+        const cipCode = extractCipCode(certificate);
+        const totalCost = extractTotalCost(certificate);
+        const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
 
         const certifications = isPreparationForObject
           .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
@@ -121,8 +131,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         if (scheduleTimingType != null) {
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
-
-        const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
 
         const prerequisites = certificate["ceterms:requires"]?.filter(req =>
           (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements"
