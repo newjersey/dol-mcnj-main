@@ -29,8 +29,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
         let totalCost:any = null;
-        let exactDuration:any = null;
-        let calendarLength:CalendarLength = CalendarLength.NULL;
+        let totalClockHours = 0;
 
         // GET provider record
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
@@ -95,16 +94,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        if (estimatedDuration != null) {
-          const durationProfile = estimatedDuration[0];
-          if (durationProfile != null) {
-            exactDuration = durationProfile["ceterms:exactDuration"];
-            if (exactDuration) {
-              calendarLength = convertDuration(exactDuration)
-            }
-          }
-        }
-
         const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
         let cipCode = ""; // Default to empty string if no match is found
 
@@ -129,6 +118,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
           console.log(JSON.stringify(scheduleTimingType, null, 2));
+        }
+
+        // Extract totalClockHours from ceterms:estimatedDuration's ceterms:exactDuration if it exists
+        if ((certificate["ceterms:estimatedDuration"]?.length ?? 0) > 0) {
+          const exactDuration = certificate["ceterms:estimatedDuration"]?.[0]?.["ceterms:exactDuration"] ?? null;
+          if (exactDuration) {
+            totalClockHours = convertIso8601ToTotalHours(exactDuration);
+          }
         }
 
         const prerequisites = certificate["ceterms:requires"]?.filter(req =>
@@ -158,7 +155,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: certifications,
           prerequisites: prerequisites,
-          calendarLength: calendarLength, // TODO: figure out why this isn't working
+          totalClockHours: totalClockHours,
+          calendarLength: null, // TODO: figure out why this isn't working
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
@@ -172,14 +170,13 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: 0,
           totalCost: totalCost ? (totalCost): 0,
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0,
-          averageSalary: 0, // TODO: Get from QData?
+          percentEmployed: 0, // TODO: IGX doesn't provide this data
+          averageSalary: 0, // TODO: IGX doesn't provide this data
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
           languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
-          isWheelchairAccessible: false, // TODO: this field doesn't exist in CE!
+          isWheelchairAccessible: false, // TODO: IGX doesn't provide this data
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
-          // TODO: Implement total clock hours
         }
         console.log(JSON.stringify(training));
         return training;
@@ -187,6 +184,25 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     );
   };
 };
+
+// Function to convert ISO 8601 duration to total hours
+function convertIso8601ToTotalHours(isoString: string): number {
+  const match = isoString.match(/P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/);
+  if (!match) {
+    return 0; // Return 0 if the string does not match the pattern
+  }
+
+  const years = parseInt(match[1] || '0', 10) * 365 * 24;
+  const months = parseInt(match[2] || '0', 10) * 30 * 24;
+  const weeks = parseInt(match[3] || '0', 10) * 7 * 24;
+  const days = parseInt(match[4] || '0', 10) * 24;
+  const hours = parseInt(match[5] || '0', 10);
+  const minutes = parseInt(match[6] || '0', 10) / 60;
+  const seconds = parseInt(match[7] || '0', 10) / 3600;
+
+  return years + months + weeks + days + hours + minutes + seconds; // Sum up all components
+}
+
 /*
 const NAN_INDICATOR = "-99999";
 
@@ -240,9 +256,6 @@ export const formatLanguages = (languages: string | null): string[] => {
   return languagesWithoutQuotes.split(",");
 };
 
-
- */
-
 // Converts a time duration in ISO 8601 format to CalendarLength Id
 export const convertDuration = (duration: string): number => {
   const match = duration.match(/^P(([0-9]+)Y)?(([0-9]+)M)?(([0-9]+)W)?(([0-9]+)D)?T?(([0-9]+)H)?(([0-9]+)M)?(([0-9]+)S)?$/);
@@ -293,3 +306,4 @@ export const convertDuration = (duration: string): number => {
   }
   return calendarLength;
 }
+*/
