@@ -6,6 +6,7 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
+import { calculateTotalClockHoursFromEstimatedDuration } from '../training/findTrainingsBy';
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -101,6 +102,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const ownedByAddresses = [];
+        const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
 
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
@@ -140,11 +142,11 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           highlight: highlight,
           socCodes: [],
           hasEveningCourses: false,
-          languages: [],
+          languages: "",
           isWheelchairAccessible: false,
           hasJobPlacementAssistance: false,
           hasChildcareAssistance: false,
-          totalClockHours: 0 // TODO: Implement Total Clock Hours replacement
+          totalClockHours: totalClockHours
         };
       })
     );
