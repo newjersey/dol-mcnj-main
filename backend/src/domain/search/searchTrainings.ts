@@ -100,7 +100,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
-        const ownedByAddresses:any[] = [];
+        const ownedByAddresses = [];
 
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {

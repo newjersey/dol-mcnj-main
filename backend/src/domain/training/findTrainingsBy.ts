@@ -9,8 +9,8 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
   CetermsConditionProfile,
-  CetermsEstimatedDuration,
-  CetermsCredentialAlignmentObject,
+/*  CetermsEstimatedDuration,
+  CetermsCredentialAlignmentObject,*/
   CetermsScheduleTimingType,
   CTDLResource
 } from "../credentialengine/CredentialEngine";
@@ -54,7 +54,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map(c => c.cipcode)
-    const ceRecords:any = []
+    const ceRecords = []
 
     for (const value of values) {
       const ctid = await credentialEngineUtils.getCtidFromURL(value)
@@ -68,35 +68,16 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-        const ownedByAddresses:any[] = [];
-        const providerContactPoints:any[] = [];
+        const ownedByAddresses = [];
+        const providerContactPoints = [];
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
-        const occupationType = certificate["ceterms:occupationType"] as CetermsCredentialAlignmentObject[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
-              const addressContactPoints:any[] = [];
-
-              const targetContactPointObject = element["ceterms:targetContactPoint"];
-              if (targetContactPointObject != null) {
-                for (const contactPoint of targetContactPointObject) {
-                  const targetContactPoint = {
-                    alternateName: element["ceterms:alternateName"]["en-US"],
-                    contactType: element["ceterms:contactType"]["en-US"],
-                    email: element["ceterms:email"],
-                    faxNumber: element["ceterms:faxNumber"],
-                    name: element["ceterms:name"]["en-US"],
-                    socialMedia: element["ceterms:socialMedia"],
-                    telephone: element["ceterms:telephone"]
-                  };
-                  console.log(JSON.stringify(targetContactPoint));
-                  addressContactPoints.push(targetContactPoint);
-                }
-              }
 
               const address = {
                 name: element["ceterms:name"] ? element["ceterms:name"]["en-US"] : null,
@@ -105,7 +86,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
                 state: element["ceterms:addressRegion"] ? element["ceterms:addressRegion"]["en-US"] : null,
                 zipCode: element["ceterms:postalCode"],
-                targetContactPoints: addressContactPoints
               }
               ownedByAddresses.push(address);
             }
