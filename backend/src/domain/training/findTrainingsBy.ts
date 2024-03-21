@@ -156,7 +156,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           certifications: certifications,
           prerequisites: prerequisites,
           totalClockHours: totalClockHours,
-          calendarLength: null, // TODO: figure out why this isn't working
+          //calendarLength: null,
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
