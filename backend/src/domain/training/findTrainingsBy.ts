@@ -20,6 +20,14 @@ function extractTotalCost(estimatedCostObjects: any[]): number | null {
   const price = estimatedCostObjects[0]["ceterms:price"];
   return price ? Number(price) : null;
 }
+
+function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLResource): number {
+  const estimatedDuration = certificate["ceterms:estimatedDuration"];
+  if (!estimatedDuration || estimatedDuration.length === 0) return 0;
+  const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
+  return exactDuration ? convertIso8601ToTotalHours(exactDuration) : 0;
+}
+
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
@@ -33,7 +41,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     }
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
-        let totalClockHours = 0;
 
         // GET provider record
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
@@ -115,12 +122,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
 
-        // Extract totalClockHours from ceterms:estimatedDuration's ceterms:exactDuration if it exists
-        const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[] | undefined;
-        const exactDuration = estimatedDuration?.[0]?.["ceterms:exactDuration"];
-        if (exactDuration) {
-          totalClockHours = convertIso8601ToTotalHours(exactDuration);
-        }
+        const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
 
         const prerequisites = certificate["ceterms:requires"]?.filter(req =>
           (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements"
