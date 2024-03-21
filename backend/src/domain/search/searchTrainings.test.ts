@@ -13,7 +13,7 @@ describe('searchTrainingsFactory', () => {
     const searchTrainings = searchTrainingsFactory();
   
     // First call to the API with a mock response
-    const ceData: any = {
+    const ceData = {
       data: { data: [], extra: {TotalResults: 0} },
       status: 200,
       statusText: 'OK',
@@ -24,7 +24,7 @@ describe('searchTrainingsFactory', () => {
     getResultsSpy.mockResolvedValueOnce(ceData);
   
     await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 }); // Second call to the function to store data in cache
-    const expectedData: any = {
+    const expectedData = {
       data: [],
       meta: {
         currentPage: 1,
@@ -49,7 +49,7 @@ describe('searchTrainingsFactory', () => {
   it('should return results from the API when cache is not available', async () => {
     const searchTrainings = searchTrainingsFactory();
 
-    const ceData: any = {
+    const ceData = {
       data: { data: [], extra: {TotalResults: 0} },
       status: 200,
       statusText: 'OK',
@@ -60,7 +60,7 @@ describe('searchTrainingsFactory', () => {
     getResultsSpy.mockResolvedValueOnce(ceData);
 
     const result = await searchTrainings({ searchQuery: 'test', page: 1, limit: 10 });
-    const expectedData: any = {
+    const expectedData = {
       data: [],
       meta: {
         currentPage: 1,
