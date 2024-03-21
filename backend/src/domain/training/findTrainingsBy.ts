@@ -15,6 +15,11 @@ import {
   CTDLResource
 } from "../credentialengine/CredentialEngine";
 
+function extractTotalCost(estimatedCostObjects: any[]): number | null {
+  if (estimatedCostObjects.length === 0) return null;
+  const price = estimatedCostObjects[0]["ceterms:price"];
+  return price ? Number(price) : null;
+}
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
@@ -28,7 +33,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     }
     return Promise.all(
       ceRecords.map(async (certificate : CTDLResource) => {
-        let totalCost:any = null;
         let totalClockHours = 0;
 
         // GET provider record
@@ -99,10 +103,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         )?.["ceterms:codedNotation"]?.replace(/[^\w\s]/g, "") || "";
 
 
-        if (estimatedCostObject && estimatedCostObject.length > 0) {
-          const price = estimatedCostObject[0]["ceterms:price"];
-          totalCost = price ? Number(price) : null; // Convert price to number, null if conversion fails or price is undefined
-        }
+        const totalCost = extractTotalCost(estimatedCostObject);
 
         const certifications = isPreparationForObject
           .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
