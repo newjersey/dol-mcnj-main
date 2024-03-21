@@ -256,6 +256,9 @@ export const formatLanguages = (languages: string | null): string[] => {
   return languagesWithoutQuotes.split(",");
 };
 
+
+ */
+
 // Converts a time duration in ISO 8601 format to CalendarLength Id
 export const convertDuration = (duration: string): number => {
   const match = duration.match(/^P(([0-9]+)Y)?(([0-9]+)M)?(([0-9]+)W)?(([0-9]+)D)?T?(([0-9]+)H)?(([0-9]+)M)?(([0-9]+)S)?$/);
@@ -306,4 +309,3 @@ export const convertDuration = (duration: string): number => {
   }
   return calendarLength;
 }
-*/
