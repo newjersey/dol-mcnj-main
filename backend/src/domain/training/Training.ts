@@ -1,14 +1,14 @@
-import { CalendarLength } from "../CalendarLength";
+// import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
 export interface Training {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   cipCode: string;
   provider: Provider;
-  description: string;
+  description?: string;
   certifications: string;
-  prerequisites: string;
-  calendarLength: CalendarLength;
+  prerequisites?: (string | undefined)[];
+  // calendarLength: CalendarLength;
   totalClockHours: number;
   occupations: Occupation[];
   inDemand: boolean;
@@ -23,7 +23,7 @@ export interface Training {
   percentEmployed: number | null;
   averageSalary: number | null;
   hasEveningCourses: boolean;
-  languages: string[];
+  languages: string | null;
   isWheelchairAccessible: boolean;
   hasJobPlacementAssistance: boolean;
   hasChildcareAssistance: boolean;

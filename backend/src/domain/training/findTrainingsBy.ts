@@ -36,7 +36,7 @@ function extractTotalCost(certificate: CTDLResource): number | null {
   return null; // Return null if no estimatedCostObject is found
 }
 
-function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLResource): number {
+export function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLResource): number {
   const estimatedDuration = certificate["ceterms:estimatedDuration"];
   if (!estimatedDuration || estimatedDuration.length === 0) return 0;
   const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
