@@ -2,7 +2,6 @@
     {
       "averageSalary": 0,
       "booksMaterialsCost": 0,
-      "calendarLength": 8,
       "certifications": "Certification Name",
       "cipCode": "123456",
       "description": "This is an example description for the training program.",
@@ -36,7 +35,6 @@
             "state": "Test State",
             "street1": "1234 Test St",
             "street2": "",
-            "targetContactPoints": [],
             "zipCode": "12345"
           }
         ],
@@ -47,13 +45,13 @@
         "url": "someurl"
       },
       "suppliesToolsCost": 0,
+      "totalClockHours": 8760,
       "totalCost": 1000,
       "tuitionCost": 0
     },
     {
       "averageSalary": 0,
       "booksMaterialsCost": 0,
-      "calendarLength": 8,
       "certifications": "Certification Name",
       "cipCode": "123456",
       "description": "This is an example description for the training program.",
@@ -87,7 +85,6 @@
             "state": "Test State",
             "street1": "1234 Test St",
             "street2": "",
-            "targetContactPoints": [],
             "zipCode": "12345"
           }
         ],
@@ -98,6 +95,7 @@
         "url": "someurl"
       },
       "suppliesToolsCost": 0,
+      "totalClockHours": 8760,
       "totalCost": 1000,
       "tuitionCost": 0
     }
