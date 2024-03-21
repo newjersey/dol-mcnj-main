@@ -43,6 +43,13 @@ function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLResource
   return exactDuration ? convertIso8601ToTotalHours(exactDuration) : 0;
 }
 
+function constructCertificationsString(isPreparationForObject: CetermsConditionProfile[]): string {
+  return isPreparationForObject
+    .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
+    .filter(name => name) // Filter out empty strings
+    .join(', '); // Join the names with a comma and space as separator
+}
+
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
@@ -121,11 +128,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const cipCode = extractCipCode(certificate);
         const totalCost = extractTotalCost(certificate);
         const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
-
-        const certifications = isPreparationForObject
-          .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
-          .filter(name => name) // Filter out empty strings to ensure we only include valid names
-          .join(', '); // Join the names with a comma and space as separator
+        const certifications = constructCertificationsString(isPreparationForObject);
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
