@@ -41,7 +41,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const estimatedCostObject = certificate["ceterms:estimatedCost"] ?? [];
-        const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[];
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
         const occupationType = certificate["ceterms:occupationType"] as CetermsCredentialAlignmentObject[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
@@ -121,11 +120,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         // Extract totalClockHours from ceterms:estimatedDuration's ceterms:exactDuration if it exists
-        if ((certificate["ceterms:estimatedDuration"]?.length ?? 0) > 0) {
-          const exactDuration = certificate["ceterms:estimatedDuration"]?.[0]?.["ceterms:exactDuration"] ?? null;
-          if (exactDuration) {
-            totalClockHours = convertIso8601ToTotalHours(exactDuration);
-          }
+        const estimatedDuration = certificate["ceterms:estimatedDuration"] as CetermsEstimatedDuration[] | undefined;
+        const exactDuration = estimatedDuration?.[0]?.["ceterms:exactDuration"];
+        if (exactDuration) {
+          totalClockHours = convertIso8601ToTotalHours(exactDuration);
         }
 
         const prerequisites = certificate["ceterms:requires"]?.filter(req =>
