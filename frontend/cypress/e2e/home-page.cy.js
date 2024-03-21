@@ -22,7 +22,7 @@ describe("Home Page", () => {
       },
       { title: "Training Explorer", link: "/training" },
       { title: "Tuition Assistance Resources", link: "/support-resources/tuition-assistance" },
-      { title: "SkillUp", link: "https://explore.skillup.org/" },
+      { title: "SkillUp", link: "https://nj.metrixlearning.com/landing.cfm" },
       { title: "Training Provider Resources", link: "/training-provider-resources" },
       // { title: "Career Pathways", link: "/career-pathways" },
       // { title: "Career Navigator", link: "/navigator" },
