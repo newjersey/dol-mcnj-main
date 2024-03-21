@@ -1,0 +1,170 @@
+[
+    {
+      "ceterms:ownedBy": "someCtid1",
+      "ceterms:subjectWebpage": "someurl",
+      "ceterms:address": [
+        {
+          "@type": "ceterms:Place",
+          "ceterms:streetAddress": {
+            "en-US": "1234 Test St"
+          },
+          "ceterms:addressLocality": {
+            "en-US": "Test City"
+          },
+          "ceterms:addressRegion": {
+            "en-US": "Test State"
+          },
+          "ceterms:postalCode": "12345",
+          "ceterms:targetContactPoint": null
+        }
+      ],
+      "ceterms:availableOnlineAt": "http://example.com",
+      "ceterms:commonConditions": ["condition1"],
+      "ceterms:estimatedCost": [
+        {
+          "ceterms:currency": "US Dollar",
+          "ceterms:price": 1000
+        }
+      ],
+      "ceterms:estimatedDuration": [
+        {
+          "ceterms:exactDuration": "P1Y"
+        }
+      ],
+      "ceterms:instructionalProgramType": [
+        {
+          "ceterms:frameworkName": {
+            "en-US": "Classification of Instructional Programs"
+          },
+          "ceterms:codedNotation": "12.3456"
+        }
+      ],
+      "ceterms:isPreparationFor": [
+        {
+          "ceterms:name": {
+            "en-US": "Certification Name"
+          },
+          "ceterms:experience": "2 years",
+          "ceterms:description": {
+            "en-US": "Description of the certification"
+          },
+          "ceterms:targetAssessment": ["assessment1"],
+          "ceterms:targetCompetency": ["competency1"],
+          "ceterms:targetCredential": ["credential1"],
+          "ceterms:targetLearningOpportunity": ["learningOpportunity1"]
+        }
+      ],
+      "ceterms:occupationType": [
+        {
+          "ceterms:codedNotation": "15-1121"
+        }
+      ],
+      "ceterms:scheduleTimingType": [
+        {
+          "ceterms:name": "Evening"
+        }
+      ],
+      "ceterms:ctid": "ctid123",
+      "ceterms:name": {
+        "en-US": "Example Training Program"
+      },
+      "ceterms:description": {
+        "en-US": "This is an example description for the training program."
+      },
+      "ceterms:requires": [
+        {
+          "ceterms:name": {
+            "en-US": "Requirements"
+          },
+          "ceterms:description": {
+            "en-US": "Example requirement description"
+          }
+        }
+      ],
+      "ceterms:inLanguage": ["English"]
+    },
+    {
+      "ceterms:ownedBy": "someCtid2",
+      "ceterms:subjectWebpage": "someurl",
+      "ceterms:address": [
+        {
+          "@type": "ceterms:Place",
+          "ceterms:streetAddress": {
+            "en-US": "1234 Test St"
+          },
+          "ceterms:addressLocality": {
+            "en-US": "Test City"
+          },
+          "ceterms:addressRegion": {
+            "en-US": "Test State"
+          },
+          "ceterms:postalCode": "12345",
+          "ceterms:targetContactPoint": null
+        }
+      ],
+      "ceterms:availableOnlineAt": "http://example.com",
+      "ceterms:commonConditions": ["condition2"],
+      "ceterms:estimatedCost": [
+        {
+          "ceterms:currency": "US Dollar",
+          "ceterms:price": 1000
+        }
+      ],
+      "ceterms:estimatedDuration": [
+        {
+          "ceterms:exactDuration": "P1Y"
+        }
+      ],
+      "ceterms:instructionalProgramType": [
+        {
+          "ceterms:frameworkName": {
+            "en-US": "Classification of Instructional Programs"
+          },
+          "ceterms:codedNotation": "12.3456"
+        }
+      ],
+      "ceterms:isPreparationFor": [
+        {
+          "ceterms:name": {
+            "en-US": "Certification Name"
+          },
+          "ceterms:experience": "2 years",
+          "ceterms:description": {
+            "en-US": "Description of the certification"
+          },
+          "ceterms:targetAssessment": ["assessment1"],
+          "ceterms:targetCompetency": ["competency1"],
+          "ceterms:targetCredential": ["credential1"],
+          "ceterms:targetLearningOpportunity": ["learningOpportunity1"]
+        }
+      ],
+      "ceterms:occupationType": [
+        {
+          "ceterms:codedNotation": "15-1121"
+        }
+      ],
+      "ceterms:scheduleTimingType": [
+        {
+          "ceterms:name": "Evening"
+        }
+      ],
+      "ceterms:ctid": "ctid123",
+      "ceterms:name": {
+        "en-US": "Example Training Program"
+      },
+      "ceterms:description": {
+        "en-US": "This is an example description for the training program."
+      },
+      "ceterms:requires": [
+        {
+          "ceterms:name": {
+            "en-US": "Requirements"
+          },
+          "ceterms:description": {
+            "en-US": "Example requirement description"
+          }
+        }
+      ],
+      "ceterms:inLanguage": ["English"]
+    }
+  ]
