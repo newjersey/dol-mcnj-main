@@ -94,15 +94,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
-        let cipCode = ""; // Default to empty string if no match is found
+        const cipCode = instructionalProgramTypes?.find(programType =>
+          programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs"
+        )?.["ceterms:codedNotation"]?.replace(/[^\w\s]/g, "") || "";
 
-        if (instructionalProgramTypes && Array.isArray(instructionalProgramTypes)) {
-          for (const programType of instructionalProgramTypes) {
-            if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
-              cipCode = (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, ""); // Strip punctuation              break; // Stop looping once a match is found
-            }
-          }
-        }
 
         if (estimatedCostObject && estimatedCostObject.length > 0) {
           const price = estimatedCostObject[0]["ceterms:price"];
