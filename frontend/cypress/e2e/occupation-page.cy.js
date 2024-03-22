@@ -165,13 +165,13 @@ describe("Occupation Page", () => {
         .within(() => {
           cy.contains("Web Programming Certification").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(1)
         .within(() => {
           cy.contains("Oracle 9i PL/SQL").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(2)
         .within(() => {
@@ -216,13 +216,13 @@ describe("Occupation Page", () => {
         .within(() => {
           cy.contains("CCNA (Cisco Certified Network Associate)").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(1)
         .within(() => {
           cy.contains("CCNA (CISCO Cert Network Administrator)").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(2)
         .within(() => {

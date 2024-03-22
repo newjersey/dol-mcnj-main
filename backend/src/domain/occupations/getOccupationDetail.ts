@@ -104,9 +104,9 @@ export const getOccupationDetailFactory = (
           getOpenJobsCount(soc),
           getEducationText(soc),
           getSalaryEstimate(soc),
-          getTrainingResults(soc),
+         // getTrainingResults(soc),
         ]).then(
-          ([inDemand, counties, openJobsCount, education, medianSalary, relatedTrainings]) => {
+          ([inDemand, counties, openJobsCount, education, medianSalary/*, relatedTrainings*/]) => {
             return {
               ...onetOccupationDetail,
               education: education,
@@ -115,7 +115,7 @@ export const getOccupationDetailFactory = (
               medianSalary: medianSalary,
               openJobsCount: openJobsCount,
               openJobsSoc: soc,
-              relatedTrainings: relatedTrainings,
+             // relatedTrainings: relatedTrainings,
             };
           },
         );
