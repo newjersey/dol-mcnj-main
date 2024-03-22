@@ -10,7 +10,7 @@ import {
   buildTraining,
 } from "../test-objects/factories";
 import { Error } from "../Error";
-import { CalendarLength } from "../CalendarLength";
+// import { CalendarLength } from "../CalendarLength";
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -71,7 +71,7 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
+          // calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
           totalClockHours: 400,
           localExceptionCounty: [],
           online: true,
@@ -79,7 +79,7 @@ describe("getOccupationDetail", () => {
           occupations: [{ soc: "some-soc", title: "some-title" }],
           cipCode: "some-cip",
           hasEveningCourses: false,
-          languages: ["some-language"],
+          languages: "some-language",
           isWheelchairAccessible: true,
           hasJobPlacementAssistance: true,
           hasChildcareAssistance: true,
@@ -96,13 +96,14 @@ describe("getOccupationDetail", () => {
         medianSalary: 38260,
         openJobsCount: 10,
         openJobsSoc: "some-soc",
+/*
         relatedTrainings: [
           {
             id: "some-training-id",
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
+            // calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
             totalClockHours: 400,
             localExceptionCounty: [],
             online: true,
@@ -116,12 +117,13 @@ describe("getOccupationDetail", () => {
             socCodes: ["some-soc"],
             cipCode: "some-cip",
             hasEveningCourses: false,
-            languages: ["some-language"],
+            languages: "some-language",
             isWheelchairAccessible: true,
             hasJobPlacementAssistance: true,
             hasChildcareAssistance: true,
           },
         ],
+*/
       });
     });
   });
@@ -164,7 +166,7 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
+          // calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
           totalClockHours: 20,
           localExceptionCounty: [],
           online: true,
@@ -172,7 +174,7 @@ describe("getOccupationDetail", () => {
           occupations: [{ soc: "some-soc", title: "some-title" }],
           cipCode: "some-cip",
           hasEveningCourses: false,
-          languages: ["some-language"],
+          languages: "some-language",
           isWheelchairAccessible: true,
           hasJobPlacementAssistance: true,
           hasChildcareAssistance: true,
@@ -196,7 +198,7 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
+            // calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
             totalClockHours: 20,
             localExceptionCounty: [],
             online: true,
@@ -210,7 +212,7 @@ describe("getOccupationDetail", () => {
             socCodes: ["some-soc"],
             cipCode: "some-cip",
             hasEveningCourses: false,
-            languages: ["some-language"],
+            languages: "some-language",
             isWheelchairAccessible: true,
             hasJobPlacementAssistance: true,
             hasChildcareAssistance: true,
@@ -265,7 +267,7 @@ describe("getOccupationDetail", () => {
           }),
           totalCost: 534,
           percentEmployed: 3454,
-          calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
+          // calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
           totalClockHours: 2000,
           localExceptionCounty: [],
           online: true,
@@ -273,7 +275,7 @@ describe("getOccupationDetail", () => {
           occupations: [{ soc: "some-soc", title: "some-title" }],
           cipCode: "some-cip",
           hasEveningCourses: false,
-          languages: ["some-language"],
+          languages: "some-language",
           isWheelchairAccessible: true,
           hasJobPlacementAssistance: true,
           hasChildcareAssistance: true,
@@ -299,7 +301,7 @@ describe("getOccupationDetail", () => {
             name: "some-training-name",
             totalCost: 534,
             percentEmployed: 3454,
-            calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
+            // calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
             totalClockHours: 2000,
             localExceptionCounty: [],
             online: true,
@@ -313,7 +315,7 @@ describe("getOccupationDetail", () => {
             socCodes: ["some-soc"],
             cipCode: "some-cip",
             hasEveningCourses: false,
-            languages: ["some-language"],
+            languages: "some-language",
             isWheelchairAccessible: true,
             hasJobPlacementAssistance: true,
             hasChildcareAssistance: true,

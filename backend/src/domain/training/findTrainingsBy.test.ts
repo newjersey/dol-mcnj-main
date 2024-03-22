@@ -4,7 +4,7 @@ import mockAxios from 'jest-mock-axios';
 import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI';
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { StubDataClient } from '../test-objects/StubDataClient';
-import ceRecords from '../../credentialengine/ceTestData.json'
+import ceRecords from '../test-objects/ceTestData.json'
 import expectedResult from './findTrainigsByExpectedTestData.json'
 
 jest.mock("../../credentialengine/CredentialEngineAPI");

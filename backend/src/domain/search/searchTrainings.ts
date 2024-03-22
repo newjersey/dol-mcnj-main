@@ -1,17 +1,17 @@
 import NodeCache from 'node-cache';
-import { FindTrainingsBy, SearchTrainings } from "../types";
+import { SearchTrainings } from "../types";
 import * as Sentry from "@sentry/node";
 import { TrainingData } from "../training/TrainingResult";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
+import { calculateTotalClockHoursFromEstimatedDuration } from '../training/findTrainingsBy';
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-export const searchTrainingsFactory = (
-  findTrainingsBy: FindTrainingsBy,): SearchTrainings => {
+export const searchTrainingsFactory = (): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
     const page = params.page || 1
     const limit = params.limit || 10
@@ -51,6 +51,11 @@ export const searchTrainingsFactory = (
                 }
               },
               "search:operator": "search:orTerms"
+            },
+            {
+              "ceterms:credentialStatusType": {
+                "ceterms:targetNode": "credentialStat:Active"
+              }
             }
           ],
           "search:operator": "search:andTerms"
@@ -96,7 +101,8 @@ export const searchTrainingsFactory = (
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
-        const ownedByAddresses:any[] = [];
+        const ownedByAddresses = [];
+        const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
 
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
@@ -136,11 +142,11 @@ export const searchTrainingsFactory = (
           highlight: highlight,
           socCodes: [],
           hasEveningCourses: false,
-          languages: [],
+          languages: "",
           isWheelchairAccessible: false,
           hasJobPlacementAssistance: false,
           hasChildcareAssistance: false,
-          totalClockHours: 0 // TODO: Implement Total Clock Hours replacement
+          totalClockHours: totalClockHours
         };
       })
     );

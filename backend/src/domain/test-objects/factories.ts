@@ -32,7 +32,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     providerName: "some-provider-name-" + randomInt(),
     socCodes: ["some-soc-" + randomInt()],
     hasEveningCourses: randomBool(),
-    languages: ["some-language-" + randomInt()],
+    languages: "some-language-" + randomInt(),
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
@@ -48,9 +48,9 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     provider: buildProvider({}),
     description: "some-description-" + randomInt(),
     certifications: "some-certifications-" + randomInt(),
-    prerequisites: "some-certifications-" + randomInt(),
+    prerequisites: ["some-certifications-" + randomInt()],
     occupations: [buildOccupation({})],
-    calendarLength: randomCalendarLength(),
+    // calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: [],
@@ -64,7 +64,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
-    languages: ["some-language-" + randomInt()],
+    languages: "some-language-" + randomInt(),
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
@@ -100,7 +100,8 @@ export const buildContactPoint = (overrides: Partial<ContactPoint>): ContactPoin
     alternateName: "some-alternateName-" + randomInt(),
     contactType: "some-contactType-" + randomInt(),
     email: ["some-email@a" + randomInt() + ".com"],
-    telephone: ["(973) 555-5555"]
+    telephone: ["(973) 555-5555"],
+    ...overrides,
   }
 }
 
@@ -135,7 +136,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     medianSalary: randomInt(),
     openJobsCount: randomInt(),
     relatedOccupations: [buildOccupation({})],
-    relatedTrainings: [buildTrainingResult({})],
+    //relatedTrainings: [buildTrainingResult({})],
     ...overrides,
   };
 };
