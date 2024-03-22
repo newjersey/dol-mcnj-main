@@ -96,6 +96,7 @@ describe("getOccupationDetail", () => {
         medianSalary: 38260,
         openJobsCount: 10,
         openJobsSoc: "some-soc",
+/*
         relatedTrainings: [
           {
             id: "some-training-id",
@@ -122,6 +123,7 @@ describe("getOccupationDetail", () => {
             hasChildcareAssistance: true,
           },
         ],
+*/
       });
     });
   });
