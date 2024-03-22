@@ -304,7 +304,7 @@ export const en = {
     jobsOpenSource: "National Labor Exchange",
     salaryTitle: "Median Salary",
     salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
-    searchOpenJobsText: "Search current job openings posted for this occupation >",
+    searchOpenJobsText: "Search job openings in New Jersey >",
     descriptionGroupHeader: "Description",
     dayInTheLifeGroupHeader: "A Day in the Life",
     seeMore: "See More",
@@ -411,6 +411,7 @@ export const en = {
     comparisonSeeDetails: "See Details",
   },
   StatBlock: {
+    noDataAvailableText: "No data available",
     dataSourceLabel: "Data source: ",
     defaultDataSource: "NJ Dept of Labor",
     missingDataExplanation:
