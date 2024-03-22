@@ -10,8 +10,6 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { StatBlock } from "../components/StatBlock";
 import { formatMoney } from "accounting";
 import careeronestop from "../careeronestop.png";
-import { TrainingResultCard } from "../search-results/TrainingResultCard";
-import { TrainingResult } from "../domain/Training";
 import { CircularProgress, Icon } from "@material-ui/core";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
@@ -115,29 +113,6 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getRelatedTrainings = (trainings: TrainingResult[], occupation: string): ReactElement => {
-    if (trainings.length === 0) {
-      return <p>{t("OccupationPage.dataUnavailableText")}</p>;
-    } else {
-      const trainingsToShow = trainings.slice(0, 3);
-      const seeMore = trainings.length > 3;
-      const resultsUrl = `/training/search?q=${occupation}`;
-
-      return (
-        <>
-          {seeMore && (
-            <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
-              {t("OccupationPage.relatedTrainingSeeMore")}
-            </Link>
-          )}
-
-          {trainingsToShow.map((training) => (
-            <TrainingResultCard key={training.id} trainingResult={training} />
-          ))}
-        </>
-      );
-    }
-  };
 
   usePageTitle(
     occupationDetail
@@ -298,8 +273,13 @@ export const OccupationPage = (props: Props): ReactElement => {
                   <h2 className="text-xl ptd pbs weight-500 fin">
                     {t("OccupationPage.relatedTrainingGroupHeader")}
                   </h2>
+{/*
                   {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
+*/}
+                  TODO: REIMPLEMENT THIS
+
                 </div>
+
               </div>
             </div>
           </div>
