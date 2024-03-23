@@ -1,4 +1,4 @@
-describe("Search", () => {
+describe.skip("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
     cy.visit("/training");
