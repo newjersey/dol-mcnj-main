@@ -27,7 +27,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
     }
     const query = `
       {
-        "search:termGroup": {
+       "search:termGroup": {
           "search:value": [
             {
               "ceterms:name": "${params.searchQuery}",
@@ -55,12 +55,13 @@ export const searchTrainingsFactory = (): SearchTrainings => {
             {
               "ceterms:credentialStatusType": {
                 "ceterms:targetNode": "credentialStat:Active"
-              }
+              },
+              "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
             }
           ],
           "search:operator": "search:andTerms"
         }
-      }`
+   }`
 
     const skip = (page-1) * limit;
     const take = limit;
