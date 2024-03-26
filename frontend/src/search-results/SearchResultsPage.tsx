@@ -181,7 +181,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getSortDropdown = (): ReactElement => (
     <>
       {filteredTrainings.length > 0 && (
-        <div className="input-wrapper">
+        <div className="input-wrapper sorting-wrapper">
           <label className="usa-label" htmlFor="per-page">
             {t("SearchAndFilter.sortByLabel")}
           </label>
@@ -209,7 +209,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         {filteredTrainings.length > 0 && (
           <div className="input-wrapper per-page-wrapper">
             <label className="usa-label" htmlFor="per-page">
-              Per page
+              Results per page
             </label>
 
             <select
@@ -307,7 +307,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               <div className="sorting-controls">
                 {shouldShowTrainings && (
                   <>
-                    <div>{getSortDropdown()}</div>
+                    {getSortDropdown()}
                     {getPerPage()}
                   </>
                 )}
