@@ -1,6 +1,6 @@
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import { FindTrainingsBy } from "../types";
-import { Training } from "./Training";
+import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
 import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
@@ -15,6 +15,7 @@ import {
   CTDLResource
 } from "../credentialengine/CredentialEngine";
 
+
 function extractCipCode(certificate: CTDLResource): string {
   const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
   if (Array.isArray(instructionalProgramTypes)) {
@@ -25,6 +26,15 @@ function extractCipCode(certificate: CTDLResource): string {
     }
   }
   return ""; // Return empty string if no match is found
+}
+
+export function getAvailableAtAddress(certificate: CTDLResource): Address{
+  const availableAt = certificate['ceterms:availableAt']?.[0];
+  return {
+    street_address: availableAt?.['ceterms:streetAddress']?.['en-US'] ?? '',
+    city: availableAt?.['ceterms:addressRegion']?.['en-US'] ?? '',
+    zipCode: availableAt?.['ceterms:postalCode'] ?? '',
+  };
 }
 
 function extractTotalCost(certificate: CTDLResource): number | null {
@@ -75,6 +85,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
         const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
         const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
+        const address = getAvailableAtAddress(certificate)
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -137,7 +148,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             url: ownedByRecord['ceterms:subjectWebpage'],
             email: ownedByRecord['ceterms:email']? ownedByRecord['ceterms:email'][0] : null,
             county: "",
-            addresses: ownedByAddresses,
+            addresses: address,
           },
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: certifications,

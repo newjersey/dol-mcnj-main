@@ -38,19 +38,15 @@ export interface Provider {
   county?: string;
   phoneExtension?: string;
   email?: string;
-  addresses?: Address[];
+  addresses?: Address;
   name: string;
   targetContactPoints?: ContactPoint[];
 }
 
 export interface Address {
-  name?: string;
-  street1?: string;
-  street2?: string;
+  street_address?: string;
   city?: string;
-  state?: string;
   zipCode?: string;
-  targetContactPoints?: ContactPoint[];
 }
 
 export interface ContactPoint {
