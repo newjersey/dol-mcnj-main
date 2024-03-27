@@ -29,7 +29,7 @@
       ],
       "provider": {
         "addresses": {
-          "city": "", "street_address": "", "zipcCode": ""
+          "city": "", "street_address": "", "zipCode": ""
         },
         "county": "",
         "email": null,
@@ -72,7 +72,7 @@
       ],
       "provider": {
         "addresses": {
-          "city": "", "street_address": "", "zipcCode": ""
+          "city": "", "street_address": "", "zipCode": ""
         },
         "county": "",
         "email": null,
