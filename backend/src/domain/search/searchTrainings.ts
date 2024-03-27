@@ -27,6 +27,10 @@ export const searchTrainingsFactory = (): SearchTrainings => {
     }
     const query = `
       {
+        "@type": {
+          "search:value": "ceterms:Credential",
+          "search:matchType": "search:subClassOf"
+        },
        "search:termGroup": {
           "search:value": [
             {
@@ -38,21 +42,6 @@ export const searchTrainingsFactory = (): SearchTrainings => {
               "search:operator": "search:orTerms"
             },
             {
-              "ceterms:availableOnlineAt": "search:anyValue",
-              "ceterms:availableAt": {
-                "ceterms:address": {
-                  "ceterms:addressRegion": [
-                    {
-                      "search:value": "NJ",
-                      "search:value": "jersey",
-                      "search:matchType": "search:exactMatch"
-                    }
-                  ]
-                }
-              },
-              "search:operator": "search:orTerms"
-            },
-            {
               "ceterms:credentialStatusType": {
                 "ceterms:targetNode": "credentialStat:Active"
               },
@@ -61,7 +50,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           ],
           "search:operator": "search:andTerms"
         }
-   }`
+      }`
 
     const skip = (page-1) * limit;
     const take = limit;
