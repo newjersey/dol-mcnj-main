@@ -6,7 +6,7 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
-import { calculateTotalClockHoursFromEstimatedDuration } from '../training/findTrainingsBy';
+import { calculateTotalClockHoursFromEstimatedDuration, getAvailableAtAddress } from '../training/findTrainingsBy';
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -101,22 +101,22 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-        const ownedByAddressObject = ownedByRecord["ceterms:address"];
-        const ownedByAddresses = [];
+        // const ownedByAddressObject = ownedByRecord["ceterms:address"];
+        // const ownedByAddresses = [];
         const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
+        const address = getAvailableAtAddress(certificate)
+        // if (ownedByAddressObject != null) {
+        //   for (const element of ownedByAddressObject) {
+        //     if (element["@type"] == "ceterms:Place" && element["ceterms:addressLocality"] != null) {
+        //       const address = {
+        //         city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
+        //         zipCode: element["ceterms:postalCode"],
+        //       }
+        //       ownedByAddresses.push(address);
+        //     }
+        //   }
+        // }
 
-        if (ownedByAddressObject != null) {
-          for (const element of ownedByAddressObject) {
-            if (element["@type"] == "ceterms:Place" && element["ceterms:addressLocality"] != null) {
-
-              const address = {
-                city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
-                zipCode: element["ceterms:postalCode"],
-              }
-              ownedByAddresses.push(address);
-            }
-          }
-        }
 
 
         return {
@@ -137,8 +137,9 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           online: certificate["ceterms:availableOnlineAt"] != null ? true : false,
           providerId: ownedByCtid,
           providerName: ownedByRecord['ceterms:name']['en-US'],
-          cities: ownedByAddresses.map(a => a.city),
-          zipCodes: ownedByAddresses.map(a => a.zipCode),
+          // cities: [avialableAt],
+          // zipCodes: ownedByAddresses.map(a => a.zipCode),
+          availableAt: address,
           inDemand: false,
           highlight: highlight,
           socCodes: [],

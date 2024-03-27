@@ -28,16 +28,9 @@
         "Example requirement description"
       ],
       "provider": {
-        "addresses": [
-          {
-            "city": "Test City",
-            "name": null,
-            "state": "Test State",
-            "street1": "1234 Test St",
-            "street2": "",
-            "zipCode": "12345"
-          }
-        ],
+        "addresses": {
+          "city": "", "street_address": "", "zipcCode": ""
+        },
         "county": "",
         "email": null,
         "id": "ctid123",
@@ -78,16 +71,9 @@
         "Example requirement description"
       ],
       "provider": {
-        "addresses": [
-          {
-            "city": "Test City",
-            "name": null,
-            "state": "Test State",
-            "street1": "1234 Test St",
-            "street2": "",
-            "zipCode": "12345"
-          }
-        ],
+        "addresses": {
+          "city": "", "street_address": "", "zipcCode": ""
+        },
         "county": "",
         "email": null,
         "id": "ctid123",

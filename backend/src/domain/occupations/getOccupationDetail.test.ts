@@ -63,10 +63,10 @@ describe("getOccupationDetail", () => {
           name: "some-training-name",
           provider: buildProvider({
             id: "some-provider-id",
-            addresses: [buildAddress({
+            addresses: buildAddress({
               city: "some-provider-city",
               zipCode: "some-provider-zipCode",
-            })],
+            }),
             name: "some-provider-name",
           }),
           totalCost: 534,
@@ -158,10 +158,10 @@ describe("getOccupationDetail", () => {
           name: "some-training-name",
           provider: buildProvider({
             id: "some-provider-id",
-            addresses: [buildAddress({
+            addresses: buildAddress({
               city: "some-provider-city",
               zipCode: "some-provider-zipCode",
-            })],
+            }),
             name: "some-provider-name",
           }),
           totalCost: 534,
@@ -258,10 +258,10 @@ describe("getOccupationDetail", () => {
           name: "some-training-name",
           provider: buildProvider({
             id: "some-provider-id",
-            addresses: [buildAddress({
+            addresses: buildAddress({
               city: "some-provider-city",
               zipCode: "some-provider-zipCode",
-            })],
+            }),
             county: "some-provider-county",
             name: "some-provider-name",
           }),
