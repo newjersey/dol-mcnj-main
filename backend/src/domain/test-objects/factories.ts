@@ -76,7 +76,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
     url: "some-url-" + randomInt(),
-    addresses: [buildAddress({})],
+    addresses: buildAddress({}),
     name: "some-name-" + randomInt(),
     ...overrides,
   };
@@ -84,11 +84,8 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
-    name: "some-name-" + randomInt(),
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    state: "some-state-" + randomInt(),
+    street_address: "some-name-" + randomInt(),
+    city: "some-street1-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
     ...overrides,
   };
