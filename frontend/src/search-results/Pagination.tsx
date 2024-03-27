@@ -20,11 +20,11 @@ export const Pagination = ({
   const [breakCount, setBreakCount] = useState(0);
 
   useEffect(() => {
-    const breakElements = document.querySelectorAll(".pagination .break");
+    const breakElements = document.querySelectorAll(".usa-pagination .usa-pagination__overflow");
     breakElements.forEach((element, index) => {
       element.setAttribute("aria-label", `Break ${index + 1}`);
     });
-    const pageElements = document.querySelectorAll(".pagination li");
+    const pageElements = document.querySelectorAll(".usa-pagination li");
 
     if (breakElements.length === 0) {
       setBreakCount(0);
@@ -81,27 +81,34 @@ export const Pagination = ({
     <nav
       role="navigation"
       aria-label="Pagination"
-      className={`pagination${isLoading ? " disabled" : ""}${breakCount === 1 ? " single-break" : breakCount === 2 ? " multi-break" : " no-break"}`}
+      className={`usa-pagination${isLoading ? " disabled" : ""}${breakCount === 1 ? " single-break" : breakCount === 2 ? " multi-break" : " no-break"}`}
     >
       <ReactPaginate
         ariaLabelBuilder={(page) => `Go to page ${page}`}
         breakLabel="..."
         forcePage={currentPage - 1}
-        nextClassName="control"
-        previousClassName="control"
+        className="usa-pagination__list"
+        nextClassName="control usa-pagination__item usa-pagination__arrow"
+        nextLinkClassName="usa-pagination__link usa-pagination__next-page"
+        previousClassName="control usa-pagination__item usa-pagination__arrow"
+        previousLinkClassName="usa-pagination__link usa-pagination__previous-page"
+        pageClassName="usa-pagination__item usa-pagination__page-no"
+        pageLinkClassName="usa-pagination__button"
+        breakClassName="usa-pagination__item usa-pagination__overflow"
+        activeLinkClassName="usa-pagination__button usa-current"
+        previousLabel={
+          <>
+            <CaretLeft className="usa-icon" size={20} weight="bold" />
+            <span className="usa-pagination__link-text">Prev</span>
+          </>
+        }
         nextLabel={
           <>
-            Next
-            <CaretRight size={15} weight="bold" />
+            <span className="usa-pagination__link-text">Next</span>
+            <CaretRight className="usa-icon" size={20} weight="bold" />
           </>
         }
         pageCount={totalPages}
-        previousLabel={
-          <>
-            <CaretLeft size={15} weight="bold" />
-            Prev
-          </>
-        }
         renderOnZeroPageCount={null}
         pageRangeDisplayed={2}
         onPageChange={(page) => {
