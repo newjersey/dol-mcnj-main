@@ -82,7 +82,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setFilteredTrainings([...sortedResults]);
     setShowSearchTips(newFilteredTrainings.length < 5);
 
-    if (newFilteredTrainings.length > 0) {
+    console.log({ searchQuery, isNull: searchQuery === "null" });
+
+    if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
@@ -122,7 +124,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
 
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
       const query = decodeURIComponent(searchQuery);
@@ -243,7 +245,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="row fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
-              {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
+              {shouldShowTrainings && searchQuery !== "null" && (
+                <div className="mla">{getSortDropdown()}</div>
+              )}
             </div>
           </div>
         </div>
@@ -260,7 +264,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         </>
       )}
 
-      {shouldShowTrainings && (
+      {shouldShowTrainings && searchQuery !== "null" && (
         <>
           <div
             className={`container ${
@@ -305,7 +309,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         </>
       )}
 
-      {!shouldShowTrainings && (
+      {(!shouldShowTrainings || searchQuery === "null") && (
         <div className="container" data-testid="gettingStarted">
           <div className="row">
             {isTabletAndUp && (
