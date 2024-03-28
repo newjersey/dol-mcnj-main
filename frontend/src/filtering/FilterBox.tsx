@@ -138,7 +138,7 @@ export const FilterBox = ({
       {isMobile && !searchQuery && (
         <Searchbar
           onSearch={executeSearch}
-          initialValue={searchQuery}
+          initialValue={searchQuery !== "null" ? searchQuery : undefined}
           stacked={true}
           isLandingPage={pagePath === "/training/search"}
           buttonText={t("SearchAndFilter.searchButtonDefaultText")}
@@ -148,7 +148,7 @@ export const FilterBox = ({
       <div className="phl" style={{ display: filterIsOpen ? "block" : "none" }}>
         <Searchbar
           onSearch={executeSearch}
-          initialValue={searchQuery}
+          initialValue={searchQuery !== "null" ? searchQuery : undefined}
           stacked={true}
           buttonText={
             !searchQuery
