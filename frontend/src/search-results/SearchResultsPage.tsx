@@ -82,15 +82,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setFilteredTrainings([...sortedResults]);
     setShowSearchTips(newFilteredTrainings.length < 5);
 
-    console.log({ searchQuery, isNull: searchQuery === "null" });
-
     if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
 
   const getPageTitle = (): void => {
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
       const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
