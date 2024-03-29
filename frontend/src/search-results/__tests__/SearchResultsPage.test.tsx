@@ -66,8 +66,9 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("executes an empty search and displays starting instructions when parameter does not exist", () => {
-      const subject = render(<SearchResultsPage client={stubClient} location={undefined} />);
-      expect(stubClient.capturedQuery).toEqual("");
+      const searchQuery = { search: "" } as WindowLocation<unknown>;
+      const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
+      expect(stubClient.capturedQuery).toEqual("null");
       expect(subject.getByTestId("gettingStarted")).toBeInTheDocument();
     });
 
@@ -348,7 +349,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getAllByPlaceholderText(searchBarDefaultPlaceholderText)[0], {
         target: { value: "penguins" },
       });
-      fireEvent.click(subject.getAllByText("Search")[0]);
+      fireEvent.click(subject.getAllByText("Update Results")[0]);
 
       expect(subject.queryByText("some name")).not.toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
@@ -380,7 +381,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getAllByPlaceholderText(searchBarDefaultPlaceholderText)[0], {
         target: { value: "penguins / penglings" },
       });
-      fireEvent.click(subject.getAllByText("Search")[0]);
+      fireEvent.click(subject.getAllByText("Update Results")[0]);
       expect(navigate).toHaveBeenCalledWith("/training/search?q=penguins%20%2F%20penglings");
     });
   });

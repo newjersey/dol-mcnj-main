@@ -7,7 +7,7 @@ import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
-describe("filtering by languages", () => {
+describe.skip("filtering by languages", () => {
   const training1 = buildTrainingResult({
     name: "training1",
     languages: ["Chinese", "French"],

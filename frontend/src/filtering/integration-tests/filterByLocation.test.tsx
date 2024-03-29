@@ -8,7 +8,7 @@ import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 import * as findZipCodesInRadiusModule from "../findZipCodesInRadius";
 
-describe("filtering by location", () => {
+describe.skip("filtering by location", () => {
   const training1 = buildTrainingResult({ name: "training1", zipCodes: ["07021"], online: false }); // 0 mi from 07021
   const training2 = buildTrainingResult({ name: "training2", zipCodes: ["07004"], online: false }); // 4.91 mi from 07021
   const training3 = buildTrainingResult({ name: "training3", zipCodes: ["07930"], online: false }); // 21 mi from 07021

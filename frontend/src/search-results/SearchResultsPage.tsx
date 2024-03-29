@@ -85,13 +85,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setFilteredTrainings([...sortedResults]);
     setShowSearchTips(pageNumber === 1 && newFilteredTrainings.length < 5);
 
-    if (newFilteredTrainings.length > 0) {
+    if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
 
   const getPageTitle = (): void => {
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
       const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
@@ -150,7 +150,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
 
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
       const query = decodeURIComponent(searchQuery);
@@ -305,7 +305,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
               <div className="sorting-controls">
-                {shouldShowTrainings && (
+                {shouldShowTrainings && searchQuery !== "null" && (
                   <>
                     {getSortDropdown()}
                     {getPerPage()}
@@ -326,7 +326,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           </div>
         </>
       )}
-      {shouldShowTrainings && (
+      {shouldShowTrainings && searchQuery !== "null" && (
         <>
           <div
             className={`container ${
@@ -380,7 +380,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <TrainingComparison comparisonItems={comparisonState.comparison} />
         </>
       )}
-      {!shouldShowTrainings && (
+      {(!shouldShowTrainings || searchQuery === "null") && (
         <div className="container" data-testid="gettingStarted">
           <div className="row">
             {isTabletAndUp && (
