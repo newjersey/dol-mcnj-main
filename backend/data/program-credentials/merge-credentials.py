@@ -147,6 +147,15 @@ def label_credential_type(row: pd.Series):
     # Certification
     official_name : str = row['OFFICIALNAME']
 
+    # Check if DEGREEAWARDEDNAME is not NaN
+    if not pd.isna(row['DEGREEAWARDEDNAME']):
+        if 'M.' in official_name and 'Master' in row['DEGREEAWARDEDNAME']:
+            return CredentialType.MasterDegree
+    else:
+        # Handle case where DEGREEAWARDEDNAME is NaN or missing
+        # You may choose to return a default value or handle it differently based on your requirements
+        return CredentialType.CertificateOfCompletion
+
     if row['LEADTOLICENSE'] == "1" and row['LEADTOINDUSTRYCREDENTIAL'] == "0":
         return CredentialType.License
 
