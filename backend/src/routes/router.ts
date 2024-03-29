@@ -77,7 +77,7 @@ export const routerFactory = ({
         res.status(200).json(trainings[0]);
       })
       .catch((e) => {
-        if (e === Error.NOT_FOUND) {
+        if (e.response.statusText === "Not Found") {
           res.status(404).send();
         }
         res.status(500).send();
