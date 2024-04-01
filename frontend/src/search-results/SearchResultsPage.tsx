@@ -64,7 +64,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       newFilteredTrainings = filter.func(newFilteredTrainings);
     });
 
-    const sortedResults = newFilteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
+    const sortedResults = newFilteredTrainings?.sort((a: TrainingResult, b: TrainingResult) => {
       switch (sortState.sortOrder) {
         case SortOrder.BEST_MATCH:
           return b.rank - a.rank;
@@ -82,10 +82,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       }
     });
 
-    setFilteredTrainings([...sortedResults]);
-    setShowSearchTips(pageNumber === 1 && newFilteredTrainings.length < 5);
+    sortedResults ? setFilteredTrainings([...sortedResults]) : setFilteredTrainings([]);
 
-    if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
+    setShowSearchTips(pageNumber === 1 && newFilteredTrainings?.length < 5);
+
+    if (newFilteredTrainings?.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);

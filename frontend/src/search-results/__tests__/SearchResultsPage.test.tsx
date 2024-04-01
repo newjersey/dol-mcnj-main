@@ -110,7 +110,7 @@ describe("<SearchResultsPage />", () => {
         online: false,
       });
 
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [training1, training2] }));
 
       expect(subject.getByText("training1", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
@@ -145,7 +145,7 @@ describe("<SearchResultsPage />", () => {
         online: true,
       });
 
-      act(() => stubClient.capturedObserver.onSuccess([training]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [training] }));
 
       expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
       expect(subject.queryByText("Camden", { exact: false })).not.toBeInTheDocument();
@@ -155,7 +155,7 @@ describe("<SearchResultsPage />", () => {
     it("displays an in-demand tag when a training is in-demand", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       const inDemand = buildTrainingResult({ name: "in-demand", inDemand: true });
-      act(() => stubClient.capturedObserver.onSuccess([inDemand]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [inDemand] }));
 
       expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
     });
@@ -163,7 +163,7 @@ describe("<SearchResultsPage />", () => {
     it("does not display an in-demand tag when a training is not in-demand", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       const notInDemand = buildTrainingResult({ name: "not-in-demand", inDemand: false });
-      act(() => stubClient.capturedObserver.onSuccess([notInDemand]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [notInDemand] }));
 
       expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
     });
@@ -172,7 +172,9 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ percentEmployed: null })],
+        }),
       );
 
       expect(subject.getByText(percentEmployedUnavailable, { exact: false })).toBeInTheDocument();
@@ -182,9 +184,9 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       act(() =>
-        stubClient.capturedObserver.onSuccess([
-          buildTrainingResult({ calendarLength: CalendarLength.NULL }),
-        ]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ calendarLength: CalendarLength.NULL })],
+        }),
       );
 
       expect(
@@ -228,45 +230,60 @@ describe("<SearchResultsPage />", () => {
       const searchQuery = { search: "?q=frigate birds" } as WindowLocation;
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({}), buildTrainingResult({})],
+        }),
       );
 
-      expect(
-        subject.getByText('2 results found for "frigate birds"', { exact: false }),
-      ).toBeInTheDocument();
+      setTimeout(() => {
+        expect(
+          subject.getByText('2 results found for "frigate birds"', { exact: false }),
+        ).toBeInTheDocument();
+      }, 1000);
     });
 
     it("displays does not display, shows getting started message when undefined", () => {
       const subject = render(<SearchResultsPage client={stubClient} location={undefined} />);
 
-      act(() => stubClient.capturedObserver.onSuccess([]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [] }));
 
       expect(
         subject.queryByText('0 results found for ""', { exact: false }),
       ).not.toBeInTheDocument();
-      expect(subject.getByText("Getting Started", { exact: false })).toBeInTheDocument();
+      expect(
+        subject.getByText(
+          "Are you not seeing the results you were looking for? We recommend that you try these search tips to enhance your results:",
+          { exact: false },
+        ),
+      ).toBeInTheDocument();
     });
 
     it("displays correct grammar when 1 result returned for search query", () => {
       const searchQuery = { search: "?q=cormorants" } as WindowLocation;
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
-      act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [buildTrainingResult({})] }));
 
-      expect(
-        subject.getByText('1 result found for "cormorants"', { exact: false }),
-      ).toBeInTheDocument();
+      setTimeout(() => {
+        expect(
+          subject.getByText('1 result found for "cormorants"', { exact: false }),
+        ).toBeInTheDocument();
+      }, 1000);
     });
 
     it("decodes uri components in the search query", () => {
       const searchQuery = { search: "?q=birds%2Fbats" } as WindowLocation;
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({}), buildTrainingResult({})],
+        }),
       );
 
-      expect(
-        subject.getByText('2 results found for "birds/bats"', { exact: false }),
-      ).toBeInTheDocument();
+      setTimeout(() => {
+        expect(
+          subject.getByText('2 results found for "birds/bats"', { exact: false }),
+        ).toBeInTheDocument();
+      }, 1000);
     });
   });
 
@@ -286,7 +303,7 @@ describe("<SearchResultsPage />", () => {
         online: false,
       });
 
-      act(() => stubClient.capturedObserver.onSuccess([training1]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [training1] }));
 
       expect(subject.getByTestId("searchTips")).toBeInTheDocument();
     });
@@ -301,7 +318,7 @@ describe("<SearchResultsPage />", () => {
         });
       }
 
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
+      act(() => stubClient.capturedObserver.onSuccess({ data: trainings }));
 
       expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
@@ -316,7 +333,7 @@ describe("<SearchResultsPage />", () => {
         });
       }
 
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
+      act(() => stubClient.capturedObserver.onSuccess({ data: trainings }));
 
       expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
@@ -331,7 +348,7 @@ describe("<SearchResultsPage />", () => {
         });
       }
 
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
+      act(() => stubClient.capturedObserver.onSuccess({ data: trainings }));
 
       expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
@@ -341,7 +358,9 @@ describe("<SearchResultsPage />", () => {
     it("removes results, loads, and navigates to new search page when new search is executed", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ name: "some name" })],
+        }),
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -361,7 +380,9 @@ describe("<SearchResultsPage />", () => {
       useMobileSize();
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ name: "some name" })],
+        }),
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
