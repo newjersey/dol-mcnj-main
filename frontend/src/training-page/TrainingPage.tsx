@@ -124,20 +124,22 @@ export const TrainingPage = (props: Props): ReactElement => {
       <p>
         <span className="fin fas">
           <InlineIcon className="mrxs">email</InlineIcon>
-            <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
+          <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
         </span>
       </p>
-    )
-  }
+    );
+  };
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
       return (
         <div>
-          <div><InlineIcon className="mrxs">location_on</InlineIcon>{t("TrainingPage.onlineClass")}</div>
+          <div>
+            <InlineIcon className="mrxs">location_on</InlineIcon>
+            {t("TrainingPage.onlineClass")}
+          </div>
         </div>
       );
-
     }
 
     if (!training || !training.provider.addresses) {
@@ -147,7 +149,7 @@ export const TrainingPage = (props: Props): ReactElement => {
     const addresses = training.provider.addresses;
     const addressBlocks = [];
 
-    for (let i=0; i < addresses.length; i++) {
+    for (let i = 0; i < addresses.length; i++) {
       // assign individual address object properties to variables
       // const thisAddressName = addresses[i].name;
       const thisAddressStreet1 = addresses[i].street1;
@@ -159,10 +161,9 @@ export const TrainingPage = (props: Props): ReactElement => {
 
       // build target contact points HTML blocks
       const thisAddressTargetContactPointsBlocks = [];
-      for (let j=0; j < thisAddressTargetContactPoints.length; j++) {
-
+      for (let j = 0; j < thisAddressTargetContactPoints.length; j++) {
         // assign individual contact point object properties to variables
-        const thisContactPointName = thisAddressTargetContactPoints[j].name
+        const thisContactPointName = thisAddressTargetContactPoints[j].name;
         // const thisContactPointContactType = thisAddressTargetContactPoints[j].contactType
         // const thisContactPointEmail = thisAddressTargetContactPoints[j].email
         // const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
@@ -171,20 +172,28 @@ export const TrainingPage = (props: Props): ReactElement => {
         // push to HTML content blocks
         thisAddressTargetContactPointsBlocks.push(
           <div>
-            <div><InlineIcon className="mrxs">person</InlineIcon>{thisContactPointName}</div>
-          </div>
+            <div>
+              <InlineIcon className="mrxs">person</InlineIcon>
+              {thisContactPointName}
+            </div>
+          </div>,
         );
       }
 
       const nameAndAddressEncoded = encodeURIComponent(
-        `${training.provider.name} ${thisAddressStreet1} ${thisAddressStreet2} ${thisAddressCity} ${thisAddressState} ${thisAddressZipCode}`
+        `${training.provider.name} ${thisAddressStreet1} ${thisAddressStreet2} ${thisAddressCity} ${thisAddressState} ${thisAddressZipCode}`,
       );
 
       const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
       addressBlocks.push(
         <div>
-          <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+          <a
+            href={googleUrl}
+            target="_blank"
+            className="link-format-blue"
+            rel="noopener noreferrer"
+          >
             <div className="inline">
               <span>{thisAddressStreet1}</span>
               <div>
@@ -194,7 +203,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           </a>
           <span>{thisAddressTargetContactPointsBlocks}</span>
           <hr></hr>
-        </div>
+        </div>,
       );
     }
     return <div key={"addresses"}>{addressBlocks}</div>;
@@ -239,7 +248,33 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   if (!training) {
     if (error === Error.SYSTEM_ERROR) {
-      return <SomethingWentWrongPage client={props.client} />;
+      return (
+        <>
+          <code>
+            <pre
+              style={{
+                fontFamily: "monospace",
+                display: "block",
+                padding: "50px",
+                color: "#88ffbf",
+                backgroundColor: "black",
+                textAlign: "left",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {JSON.stringify(
+                {
+                  Error,
+                },
+                null,
+                "    ",
+              )}
+            </pre>
+          </code>
+
+          <SomethingWentWrongPage client={props.client} />
+        </>
+      );
     } else if (error === Error.NOT_FOUND) {
       return (
         <NotFoundPage client={props.client} heading="Training not found">
@@ -351,33 +386,34 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                    <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
-                      <>
-                        {training.certifications && (
-                          <p>
+                  <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
+                    <>
+                      {training.certifications && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">school</InlineIcon>
                             {t("TrainingPage.certificationsLabel")}&nbsp;
                             <b>{training.certifications}</b>
                           </span>
-                          </p>
-                        )}
-                        {training.prerequisites && (
-                          <p>
-                            <span className="fin">
-                              <InlineIcon className="mrxs">list_alt</InlineIcon>
-                              {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
-                            </span>
-                          </p>
-                        )}
+                        </p>
+                      )}
+                      {training.prerequisites && (
                         <p>
                           <span className="fin">
-                            <InlineIcon className="mrxs">av_timer</InlineIcon>
-                            {t("TrainingPage.completionTimeLabel")}&nbsp;
-                            <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>                            </span>
+                            <InlineIcon className="mrxs">list_alt</InlineIcon>
+                            {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
+                          </span>
                         </p>
-                        {training.totalClockHours && (
-                          <p>
+                      )}
+                      <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">av_timer</InlineIcon>
+                          {t("TrainingPage.completionTimeLabel")}&nbsp;
+                          <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>{" "}
+                        </span>
+                      </p>
+                      {training.totalClockHours && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">schedule</InlineIcon>
                             {t("TrainingPage.totalClockHoursLabel")}&nbsp;
@@ -395,10 +431,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                               })}
                             </b>
                           </span>
-                          </p>
-                        )}
-                        {training.cipCode && (
-                          <p>
+                        </p>
+                      )}
+                      {training.cipCode && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">qr_code</InlineIcon>
                             {t("TrainingPage.cipCodeLabel")}&nbsp;
@@ -412,10 +448,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
                             <b>{t(training.cipCode)}</b>
                           </span>
-                          </p>
-                        )}
-                      </>
-                    </Grouping>
+                        </p>
+                      )}
+                    </>
+                  </Grouping>
 
                   <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
                     <>{getAssociatedOccupations()}</>
@@ -506,20 +542,16 @@ export const TrainingPage = (props: Props): ReactElement => {
                   <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
                       <p>
-                        <span className="fin fas">
-                          {training.provider.name}
-                        </span>
+                        <span className="fin fas">{training.provider.name}</span>
                       </p>
                       {getProviderEmail()}
                       <div className="mvd">
-                        <span className="fin">
-                          {getProviderAddress()}
-                        </span>
+                        <span className="fin">{getProviderAddress()}</span>
                       </div>
                       <div className="mvd">
                         <span className="fin">
                           <InlineIcon className="mrxs">person</InlineIcon>
-{/*
+                          {/*
                           {getProviderContact()}
 */}
                         </span>
@@ -582,8 +614,8 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-      </div>
-    </Layout>
+        </div>
+      </Layout>
     </div>
-);
+  );
 };

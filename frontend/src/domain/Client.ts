@@ -1,4 +1,4 @@
-import { Training, TrainingResult } from "./Training";
+import { Training, TrainingData } from "./Training";
 import { Error } from "./Error";
 import { InDemandOccupation, OccupationDetail } from "./Occupation";
 import { Certificates } from "./CredentialEngine";
@@ -12,7 +12,12 @@ import {
 } from "../types/contentful";
 
 export interface Client {
-  getTrainingsByQuery: (query: string, observer: Observer<TrainingResult[]>) => void;
+  getTrainingsByQuery: (
+    query: string,
+    observer: Observer<TrainingData>,
+    page?: number,
+    limit?: number,
+  ) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;
   getOccupationDetailBySoc: (soc: string, observer: Observer<OccupationDetail>) => void;
@@ -21,8 +26,8 @@ export interface Client {
     take: number,
     sort: string,
     cancel: boolean,
-    observer: Observer<Certificates>
-  ) => void;  
+    observer: Observer<Certificates>,
+  ) => void;
   getContentfulCPW: (query: string, observer: Observer<CareerPathwaysPageProps>) => void;
   getContentfulFAQ: (query: string, observer: Observer<FaqPageProps>) => void;
   getContentfulTPR: (query: string, observer: Observer<TrainingProviderPageProps>) => void;

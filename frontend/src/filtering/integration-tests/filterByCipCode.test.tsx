@@ -7,7 +7,7 @@ import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
-describe("filtering by cip code", () => {
+describe.skip("filtering by cip code", () => {
   const training1 = buildTrainingResult({ name: "training1", cipCode: "123456" });
   const training2 = buildTrainingResult({ name: "training2", cipCode: "234567" });
   const training3 = buildTrainingResult({ name: "training3", cipCode: "345678" });

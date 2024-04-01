@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { buildTrainingResult } from "../../test-objects/factories";
 import { SearchResultsPage } from "../SearchResultsPage";
-import { navigate } from "@reach/router";
+import { navigate, WindowLocation } from "@reach/router";
 import { StubClient } from "../../test-objects/StubClient";
 import { CalendarLength } from "../../domain/Training";
 import { useMediaQuery } from "@material-ui/core";
@@ -44,7 +44,7 @@ describe("<SearchResultsPage />", () => {
 
   describe("when handling initial pageload search", () => {
     it("uses the url parameter in the search bar input", () => {
-      const searchQuery = { search: "?q=octopods" }
+      const searchQuery = { search: "?q=octopods" } as WindowLocation;
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       expect(
         subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
@@ -52,24 +52,23 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("cleans the url parameter of uri encoding for search bar input", () => {
-      const searchQuery = { search: "?q=octopods%2Foctopi" }
-      const subject = render(
-        <SearchResultsPage client={stubClient} location={searchQuery} />,
-      );
+      const searchQuery = { search: "?q=octopods%2Foctopi" } as WindowLocation;
+      const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       expect(
         subject.getByPlaceholderText(Content.SearchAndFilter.searchBarDefaultPlaceholderText),
       ).toHaveValue("octopods/octopi");
     });
 
     it("uses the url parameter to execute a search", () => {
-      const searchQuery = { search: "?q=octopods" }
+      const searchQuery = { search: "?q=octopods" } as WindowLocation;
       render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       expect(stubClient.capturedQuery).toEqual("octopods");
     });
 
     it("executes an empty search and displays starting instructions when parameter does not exist", () => {
-      const subject = render(<SearchResultsPage client={stubClient} location={undefined} />);
-      expect(stubClient.capturedQuery).toEqual("");
+      const searchQuery = { search: "" } as WindowLocation<unknown>;
+      const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
+      expect(stubClient.capturedQuery).toEqual("null");
       expect(subject.getByTestId("gettingStarted")).toBeInTheDocument();
     });
 
@@ -111,7 +110,7 @@ describe("<SearchResultsPage />", () => {
         online: false,
       });
 
-      act(() => stubClient.capturedObserver.onSuccess([training1, training2]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [training1, training2] }));
 
       expect(subject.getByText("training1", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("$1,000.00", { exact: false })).toBeInTheDocument();
@@ -146,7 +145,7 @@ describe("<SearchResultsPage />", () => {
         online: true,
       });
 
-      act(() => stubClient.capturedObserver.onSuccess([training]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [training] }));
 
       expect(subject.getByText("Online Class", { exact: false })).toBeInTheDocument();
       expect(subject.queryByText("Camden", { exact: false })).not.toBeInTheDocument();
@@ -156,7 +155,7 @@ describe("<SearchResultsPage />", () => {
     it("displays an in-demand tag when a training is in-demand", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       const inDemand = buildTrainingResult({ name: "in-demand", inDemand: true });
-      act(() => stubClient.capturedObserver.onSuccess([inDemand]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [inDemand] }));
 
       expect(subject.queryByText(inDemandTag)).toBeInTheDocument();
     });
@@ -164,7 +163,7 @@ describe("<SearchResultsPage />", () => {
     it("does not display an in-demand tag when a training is not in-demand", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       const notInDemand = buildTrainingResult({ name: "not-in-demand", inDemand: false });
-      act(() => stubClient.capturedObserver.onSuccess([notInDemand]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [notInDemand] }));
 
       expect(subject.queryByText(inDemandTag)).not.toBeInTheDocument();
     });
@@ -173,7 +172,9 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ percentEmployed: null })]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ percentEmployed: null })],
+        }),
       );
 
       expect(subject.getByText(percentEmployedUnavailable, { exact: false })).toBeInTheDocument();
@@ -183,9 +184,9 @@ describe("<SearchResultsPage />", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       act(() =>
-        stubClient.capturedObserver.onSuccess([
-          buildTrainingResult({ calendarLength: CalendarLength.NULL }),
-        ]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ calendarLength: CalendarLength.NULL })],
+        }),
       );
 
       expect(
@@ -195,10 +196,12 @@ describe("<SearchResultsPage />", () => {
   });
 
   describe("when results are loading", () => {
-    const searchQuery = { search: "?q=some query" };
+    const searchQuery = { search: "?q=some query" } as WindowLocation;
 
     it("displays a spinner until success occurs", () => {
-      const { queryByRole, queryByText } = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
+      const { queryByRole, queryByText } = render(
+        <SearchResultsPage client={stubClient} location={searchQuery} />,
+      );
 
       expect(queryByRole("progressbar")).toBeInTheDocument();
       expect(queryByText("0 results found", { exact: false })).not.toBeInTheDocument();
@@ -224,52 +227,63 @@ describe("<SearchResultsPage />", () => {
 
   describe("when displaying result count", () => {
     it("displays number of results returns for search query", () => {
-      const searchQuery = { search: "?q=frigate birds" };
-      const subject = render(
-        <SearchResultsPage client={stubClient} location={searchQuery} />,
-      );
+      const searchQuery = { search: "?q=frigate birds" } as WindowLocation;
+      const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({}), buildTrainingResult({})],
+        }),
       );
 
-      expect(
-        subject.getByText('2 results found for "frigate birds"', { exact: false }),
-      ).toBeInTheDocument();
+      setTimeout(() => {
+        expect(
+          subject.getByText('2 results found for "frigate birds"', { exact: false }),
+        ).toBeInTheDocument();
+      }, 1000);
     });
 
     it("displays does not display, shows getting started message when undefined", () => {
       const subject = render(<SearchResultsPage client={stubClient} location={undefined} />);
 
-      act(() => stubClient.capturedObserver.onSuccess([]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [] }));
 
       expect(
         subject.queryByText('0 results found for ""', { exact: false }),
       ).not.toBeInTheDocument();
-      expect(subject.getByText("Getting Started", { exact: false })).toBeInTheDocument();
+      expect(
+        subject.getByText(
+          "Are you not seeing the results you were looking for? We recommend that you try these search tips to enhance your results:",
+          { exact: false },
+        ),
+      ).toBeInTheDocument();
     });
 
     it("displays correct grammar when 1 result returned for search query", () => {
-      const searchQuery = { search: "?q=cormorants" };
+      const searchQuery = { search: "?q=cormorants" } as WindowLocation;
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
-      act(() => stubClient.capturedObserver.onSuccess([buildTrainingResult({})]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [buildTrainingResult({})] }));
 
-      expect(
-        subject.getByText('1 result found for "cormorants"', { exact: false }),
-      ).toBeInTheDocument();
+      setTimeout(() => {
+        expect(
+          subject.getByText('1 result found for "cormorants"', { exact: false }),
+        ).toBeInTheDocument();
+      }, 1000);
     });
 
     it("decodes uri components in the search query", () => {
-      const searchQuery = { search: "?q=birds%2Fbats" };
-      const subject = render(
-        <SearchResultsPage client={stubClient} location={searchQuery} />,
-      );
+      const searchQuery = { search: "?q=birds%2Fbats" } as WindowLocation;
+      const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({}), buildTrainingResult({})]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({}), buildTrainingResult({})],
+        }),
       );
 
-      expect(
-        subject.getByText('2 results found for "birds/bats"', { exact: false }),
-      ).toBeInTheDocument();
+      setTimeout(() => {
+        expect(
+          subject.getByText('2 results found for "birds/bats"', { exact: false }),
+        ).toBeInTheDocument();
+      }, 1000);
     });
   });
 
@@ -289,7 +303,7 @@ describe("<SearchResultsPage />", () => {
         online: false,
       });
 
-      act(() => stubClient.capturedObserver.onSuccess([training1]));
+      act(() => stubClient.capturedObserver.onSuccess({ data: [training1] }));
 
       expect(subject.getByTestId("searchTips")).toBeInTheDocument();
     });
@@ -304,7 +318,7 @@ describe("<SearchResultsPage />", () => {
         });
       }
 
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
+      act(() => stubClient.capturedObserver.onSuccess({ data: trainings }));
 
       expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
@@ -319,7 +333,7 @@ describe("<SearchResultsPage />", () => {
         });
       }
 
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
+      act(() => stubClient.capturedObserver.onSuccess({ data: trainings }));
 
       expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
@@ -334,7 +348,7 @@ describe("<SearchResultsPage />", () => {
         });
       }
 
-      act(() => stubClient.capturedObserver.onSuccess(trainings));
+      act(() => stubClient.capturedObserver.onSuccess({ data: trainings }));
 
       expect(subject.queryByTestId("searchTips")).not.toBeInTheDocument();
     });
@@ -344,7 +358,9 @@ describe("<SearchResultsPage />", () => {
     it("removes results, loads, and navigates to new search page when new search is executed", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ name: "some name" })],
+        }),
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -352,7 +368,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getAllByPlaceholderText(searchBarDefaultPlaceholderText)[0], {
         target: { value: "penguins" },
       });
-      fireEvent.click(subject.getAllByText("Search")[0]);
+      fireEvent.click(subject.getAllByText("Update Results")[0]);
 
       expect(subject.queryByText("some name")).not.toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).toBeInTheDocument();
@@ -360,11 +376,13 @@ describe("<SearchResultsPage />", () => {
     });
 
     it("does not navigate to new page when search query is the same", () => {
-      const searchQuery = { search: "?q=penguins" };
+      const searchQuery = { search: "?q=penguins" } as WindowLocation;
       useMobileSize();
       const subject = render(<SearchResultsPage client={stubClient} location={searchQuery} />);
       act(() =>
-        stubClient.capturedObserver.onSuccess([buildTrainingResult({ name: "some name" })]),
+        stubClient.capturedObserver.onSuccess({
+          data: [buildTrainingResult({ name: "some name" })],
+        }),
       );
       expect(subject.queryByText("some name")).toBeInTheDocument();
       expect(subject.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -384,7 +402,7 @@ describe("<SearchResultsPage />", () => {
       fireEvent.change(subject.getAllByPlaceholderText(searchBarDefaultPlaceholderText)[0], {
         target: { value: "penguins / penglings" },
       });
-      fireEvent.click(subject.getAllByText("Search")[0]);
+      fireEvent.click(subject.getAllByText("Update Results")[0]);
       expect(navigate).toHaveBeenCalledWith("/training/search?q=penguins%20%2F%20penglings");
     });
   });

@@ -26,6 +26,22 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
+type MetaData = {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  nextPage: number | null;
+  previousPage: number | null;
+};
+
+export interface TrainingData {
+  data: TrainingResult[];
+  meta: MetaData;
+}
+
 export interface Training {
   id: string;
   name: string;
