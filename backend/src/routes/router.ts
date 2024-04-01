@@ -7,7 +7,6 @@ import {
   GetAllCertificates,
   GetOccupationDetailByCIP,
 } from "../domain/types";
-import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
