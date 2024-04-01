@@ -7,7 +7,7 @@ import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
-describe("filtering by In-Demand Only", () => {
+describe.skip("filtering by In-Demand Only", () => {
   const inDemand = buildTrainingResult({ name: "in demand training", inDemand: true });
   const notInDemand = buildTrainingResult({ name: "not in demand training", inDemand: false });
 

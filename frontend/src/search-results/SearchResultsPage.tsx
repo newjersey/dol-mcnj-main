@@ -1,13 +1,12 @@
 import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { WindowLocation } from "@reach/router";
 import { Client } from "../domain/Client";
-import { TrainingResult } from "../domain/Training";
+import { TrainingResult, TrainingData } from "../domain/Training";
 import { RouteComponentProps, Link } from "@reach/router";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { CircularProgress, FormControl, InputLabel, useMediaQuery, Icon } from "@material-ui/core";
+import { CircularProgress, useMediaQuery, Icon } from "@material-ui/core";
 import { FilterBox } from "../filtering/FilterBox";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
-import { WhiteSelect } from "../components/WhiteSelect";
 import { SortOrder } from "../sorting/SortOrder";
 import { SortContext } from "../sorting/SortContext";
 import { FilterContext } from "../filtering/FilterContext";
@@ -19,6 +18,7 @@ import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { checkValidSocCode } from "../utils/checkValidCodes";
+import { Pagination } from "./Pagination";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -31,6 +31,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+  const [itemsPerPage, setItemsPerPage] = useState<number>();
+  const [metaData, setMetaData] = useState<TrainingData["meta"]>();
+  const [pageNumber, setPageNumber] = useState<number>();
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(false);
   const [showSearchTips, setShowSearchTips] = useState<boolean>(false);
@@ -47,7 +50,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  const searchQuery = props.location?.search?.slice(3) || "";
+  const searchString = props.location?.search;
+  const regex = /(?<=\?q=).*?(?=&|$)/;
+
+  const searchQuery = `${searchString?.match(regex)}`;
 
   usePageTitle(pageTitle);
 
@@ -58,7 +64,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       newFilteredTrainings = filter.func(newFilteredTrainings);
     });
 
-    const sortedResults = newFilteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
+    const sortedResults = newFilteredTrainings?.sort((a: TrainingResult, b: TrainingResult) => {
       switch (sortState.sortOrder) {
         case SortOrder.BEST_MATCH:
           return b.rank - a.rank;
@@ -76,16 +82,17 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       }
     });
 
-    setFilteredTrainings([...sortedResults]);
-    setShowSearchTips(newFilteredTrainings.length < 5);
+    sortedResults ? setFilteredTrainings([...sortedResults]) : setFilteredTrainings([]);
 
-    if (newFilteredTrainings.length > 0) {
+    setShowSearchTips(pageNumber === 1 && newFilteredTrainings?.length < 5);
+
+    if (newFilteredTrainings?.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
 
   const getPageTitle = (): void => {
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
       const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
@@ -96,21 +103,46 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   };
 
   useEffect(() => {
-    let queryToSearch = searchQuery ? searchQuery : "";
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("p");
+    const limit = urlParams.get("limit");
+    setIsLoading(true);
 
-    queryToSearch = checkValidSocCode(queryToSearch);
+    if (limit) {
+      setItemsPerPage(parseInt(limit));
+    } else {
+      setItemsPerPage(10);
+    }
 
-    props.client.getTrainingsByQuery(queryToSearch, {
-      onSuccess: (data: TrainingResult[]) => {
-        setTrainings(data);
-        getPageTitle();
-        setIsLoading(false);
-      },
-      onError: () => {
-        setIsError(true);
-      },
-    });
-  }, [searchQuery, props.client]);
+    if (page) {
+      setPageNumber(parseInt(page));
+    } else {
+      setPageNumber(1);
+    }
+
+    if (pageNumber) {
+      let queryToSearch = searchQuery ? searchQuery : "";
+
+      queryToSearch = checkValidSocCode(queryToSearch);
+
+      props.client.getTrainingsByQuery(
+        queryToSearch,
+        {
+          onSuccess: ({ data, meta }: TrainingData) => {
+            setTrainings(data);
+            setMetaData(meta);
+            getPageTitle();
+            setIsLoading(false);
+          },
+          onError: () => {
+            setIsError(true);
+          },
+        },
+        pageNumber,
+        itemsPerPage,
+      );
+    }
+  }, [searchQuery, props.client, itemsPerPage, pageNumber]);
 
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
@@ -119,12 +151,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
 
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
       const query = decodeURIComponent(searchQuery);
       message = t("SearchResultsPage.resultsString", {
-        count: filteredTrainings.length,
+        count: metaData?.totalItems,
         query,
       });
     }
@@ -150,15 +182,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getSortDropdown = (): ReactElement => (
     <>
       {filteredTrainings.length > 0 && (
-        <FormControl variant="outlined" className="mla width-100">
-          <InputLabel htmlFor="sortby">{t("SearchAndFilter.sortByLabel")}</InputLabel>
-          <WhiteSelect
-            native={true}
-            value={sortState.sortOrder}
-            onChange={handleSortChange}
-            label={t("SearchAndFilter.sortByLabel")}
-            id="sortby"
-          >
+        <div className="input-wrapper sorting-wrapper">
+          <label className="usa-label" htmlFor="per-page">
+            {t("SearchAndFilter.sortByLabel")}
+          </label>
+
+          <select className="usa-select" name="per-page" id="per-page" onChange={handleSortChange}>
             <option value={SortOrder.BEST_MATCH}>{t("SearchAndFilter.sortByBestMatch")}</option>
             <option value={SortOrder.COST_LOW_TO_HIGH}>
               {t("SearchAndFilter.sortByCostLowToHigh")}
@@ -169,11 +198,47 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             <option value={SortOrder.EMPLOYMENT_RATE}>
               {t("SearchAndFilter.sortByEmploymentRate")}
             </option>
-          </WhiteSelect>
-        </FormControl>
+          </select>
+        </div>
       )}
     </>
   );
+
+  const getPerPage = () => {
+    return (
+      <>
+        {filteredTrainings.length > 0 && (
+          <div className="input-wrapper per-page-wrapper">
+            <label className="usa-label" htmlFor="per-page">
+              Results per page
+            </label>
+
+            <select
+              className="usa-select"
+              name="per-page"
+              defaultValue={itemsPerPage}
+              id="per-page"
+              onChange={(e) => {
+                setIsLoading(true);
+                setItemsPerPage(
+                  e.target.options[e.target.selectedIndex].value as unknown as number,
+                );
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.set("p", "1");
+                newUrl.searchParams.set("limit", e.target.value);
+                window.history.pushState({}, "", newUrl.toString());
+              }}
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        )}
+      </>
+    );
+  };
 
   const getSearchTips = (): ReactElement => (
     <div className="mbm" data-testid="searchTips">
@@ -213,7 +278,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: pageTitle,
+        title: "pageTitle",
         url: props.location?.pathname,
       }}
     >
@@ -240,12 +305,18 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="row fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
-              {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
+              <div className="sorting-controls">
+                {shouldShowTrainings && searchQuery !== "null" && (
+                  <>
+                    {getSortDropdown()}
+                    {getPerPage()}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
       )}
-
       {isTabletAndBelow && (
         <>
           <div className="container results-count-container">
@@ -256,8 +327,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           </div>
         </>
       )}
-
-      {shouldShowTrainings && (
+      {shouldShowTrainings && searchQuery !== "null" && (
         <>
           <div
             className={`container ${
@@ -266,17 +336,17 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           >
             <div className="row">
               <div className="col-sm-4">
-                {
-                  <FilterBox
-                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
-                    resultCount={filteredTrainings.length}
-                    setShowTrainings={setShouldShowTrainings}
-                    resetStateForReload={resetState}
-                    fixedContainer={true}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
-                }
+                <FilterBox
+                  searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
+                  resultCount={filteredTrainings.length}
+                  setShowTrainings={setShouldShowTrainings}
+                  resetStateForReload={resetState}
+                  fixedContainer={true}
+                />
+                <div className="sorting-controls">
+                  {getSortDropdown()}
+                  {getPerPage()}
+                </div>
               </div>
               <div className="col-sm-8 space-for-filterbox">
                 {isLoading && (
@@ -288,21 +358,30 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 {!isLoading && !isTabletAndUp && getResultCount()}
                 {!isLoading && showSearchTips && getSearchTips()}
 
-                {filteredTrainings.map((training) => (
-                  <TrainingResultCard
-                    key={training.id}
-                    trainingResult={training}
-                    comparisonItems={comparisonState.comparison}
-                  />
-                ))}
+                {!isLoading &&
+                  filteredTrainings.map((training) => (
+                    <TrainingResultCard
+                      key={training.id}
+                      trainingResult={training}
+                      comparisonItems={comparisonState.comparison}
+                    />
+                  ))}
+                <Pagination
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  currentPage={pageNumber || 1}
+                  totalPages={metaData?.totalPages || 0}
+                  hasPreviousPage={metaData?.hasPreviousPage || false}
+                  hasNextPage={metaData?.hasNextPage || false}
+                  setPageNumber={setPageNumber}
+                />
               </div>
             </div>
           </div>
           <TrainingComparison comparisonItems={comparisonState.comparison} />
         </>
       )}
-
-      {!shouldShowTrainings && (
+      {(!shouldShowTrainings || searchQuery === "null") && (
         <div className="container" data-testid="gettingStarted">
           <div className="row">
             {isTabletAndUp && (
@@ -314,9 +393,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}
                     fixedContainer={true}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
+                  />
                 }
               </div>
             )}
@@ -358,9 +435,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     resultCount={filteredTrainings.length}
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
+                  />
                 </div>
               )}
               {!isTabletAndUp && (

@@ -2,7 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import { ArrowUpRight, GraduationCap, Hourglass, MapPinLine, Warning } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Client } from "../../domain/Client";
-import { TrainingResult } from "../../domain/Training";
+import { TrainingData, TrainingResult } from "../../domain/Training";
 import { toUsCurrency } from "../../utils/toUsCurrency";
 import { calendarLength } from "../../utils/calendarLength";
 
@@ -13,7 +13,7 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
 
   useEffect(() => {
     client.getTrainingsByQuery(query, {
-      onSuccess: (data: TrainingResult[]) => {
+      onSuccess: ({ data }: TrainingData) => {
         setTrainings(data);
         setLoading(false);
       },
@@ -53,7 +53,7 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
                   <span>
                     <MapPinLine size={32} />
                     TODO: Implement this part
-{/*
+                    {/*
                     {train.city}, {train.county}
 */}
                   </span>

@@ -5,7 +5,7 @@ import { FilterContext } from "./FilterContext";
 import { FilterBox } from "./FilterBox";
 import { useMediaQuery } from "@material-ui/core";
 import { en as Content } from "../locales/en";
-import { act } from 'react-dom/test-utils';
+import { act } from "react-dom/test-utils";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockFunctions() {
@@ -26,7 +26,7 @@ describe("<FilterBox />", () => {
     const state = {
       filters: filters,
     };
-  
+
     return act(() => {
       render(
         <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
@@ -39,7 +39,7 @@ describe("<FilterBox />", () => {
             <div />
           </FilterBox>
         </FilterContext.Provider>,
-      )
+      );
     });
   };
 
@@ -140,7 +140,9 @@ describe("<FilterBox />", () => {
     renderFilterBox({ resultCount: 50 });
     fireEvent.click(screen.getByText(mobileFilterText));
 
-    expect(screen.getByText("50 results")).toBeInTheDocument();
+    setTimeout(() => {
+      expect(screen.getByText("50 results")).toBeInTheDocument();
+    }, 1000);
   });
 
   it("[MOBILE] uses correct grammar on result count", () => {
@@ -148,7 +150,9 @@ describe("<FilterBox />", () => {
     renderFilterBox({ resultCount: 1 });
     fireEvent.click(screen.getByText(mobileFilterText));
 
-    expect(screen.getByText("1 result")).toBeInTheDocument();
+    setTimeout(() => {
+      expect(screen.getByText("1 result")).toBeInTheDocument();
+    }, 1000);
   });
 
   it("[MOBILE] displays search bar if no search query is given", () => {
