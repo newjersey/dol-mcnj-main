@@ -79,7 +79,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       params.push(`zip=${zipCode}`);
     }
 
-    const url = `/training/search?q=${searchTerm}${params.length > 0 ? "?" : ""}`;
+    const url = `/training/search?q=${searchTerm}${params.length > 0 ? "&" : ""}`;
 
     // Concatenate the search parameters to the url
     if (params.length > 0) {
