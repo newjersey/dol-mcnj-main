@@ -1,5 +1,4 @@
 import { searchTrainingsFactory } from './searchTrainings';
-import mockAxios from 'jest-mock-axios';
 import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI';
 import { TrainingData } from '../training/TrainingResult';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
