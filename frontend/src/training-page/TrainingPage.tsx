@@ -27,6 +27,7 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
+import { cleanProviderName } from "../utils/cleanProviderName";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -132,14 +133,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-      return (
-        <div>
-          <div>
-            <InlineIcon className="mrxs">location_on</InlineIcon>
-            {t("TrainingPage.onlineClass")}
-          </div>
-        </div>
-      );
+      return <>{t("TrainingPage.onlineClass")}</>;
     }
 
     if (!training || !training.provider.addresses) {
@@ -206,6 +200,11 @@ export const TrainingPage = (props: Props): ReactElement => {
         </div>,
       );
     }
+
+    if (addressBlocks.length === 0) {
+      return <>{PROVIDER_MISSING_INFO}</>;
+    }
+
     return <div key={"addresses"}>{addressBlocks}</div>;
   };
 
@@ -250,28 +249,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     if (error === Error.SYSTEM_ERROR) {
       return (
         <>
-          <code>
-            <pre
-              style={{
-                fontFamily: "monospace",
-                display: "block",
-                padding: "50px",
-                color: "#88ffbf",
-                backgroundColor: "black",
-                textAlign: "left",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {JSON.stringify(
-                {
-                  Error,
-                },
-                null,
-                "    ",
-              )}
-            </pre>
-          </code>
-
           <SomethingWentWrongPage client={props.client} />
         </>
       );
@@ -339,7 +316,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <h2 data-testid="title" className="text-xl ptd pbs weight-500">
             {training.name}
           </h2>
-          <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
+          <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
 
           <div className="stat-block-stack mtm">
             {training.inDemand ? <InDemandBlock /> : <></>}
@@ -541,27 +518,32 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                   <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
-                      <p>
-                        <span className="fin fas">{training.provider.name}</span>
-                      </p>
-                      {getProviderEmail()}
-                      <div className="mvd">
-                        <span className="fin">{getProviderAddress()}</span>
-                      </div>
-                      <div className="mvd">
-                        <span className="fin">
-                          <InlineIcon className="mrxs">person</InlineIcon>
-                          {/*
-                          {getProviderContact()}
-*/}
-                        </span>
-                      </div>
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">link</InlineIcon>
-                          {getProviderUrl()}
-                        </span>
-                      </p>
+                      {training.provider && training.provider.id ? (
+                        <>
+                          <p>
+                            <span className="fin fas">
+                              {cleanProviderName(training.provider.name)}
+                            </span>
+                          </p>
+                          {getProviderEmail()}
+                          {getProviderAddress() && (
+                            <div className="mvd">
+                              <span className="fin">
+                                <InlineIcon className="mrxs">location_on</InlineIcon>
+                                {getProviderAddress()}
+                              </span>
+                            </div>
+                          )}
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">link</InlineIcon>
+                              {getProviderUrl()}
+                            </span>
+                          </p>
+                        </>
+                      ) : (
+                        <>Data unavailable</>
+                      )}
                     </>
                   </Grouping>
 
