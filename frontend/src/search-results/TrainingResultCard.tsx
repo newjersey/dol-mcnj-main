@@ -9,6 +9,7 @@ import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
+import { cleanProviderName } from "../utils/cleanProviderName";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -31,15 +32,12 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   const getLocationOrOnline = (): string => {
     if (props.trainingResult.online) {
       return t("SearchResultsPage.onlineClassLabel");
-    }
-    else if (props.trainingResult.cities.length > 1) {
+    } else if (props.trainingResult.cities.length > 1) {
       return `${props.trainingResult.cities.length} Provider Locations`;
-    }
-    else if (props.trainingResult.cities.length === 1) {
+    } else if (props.trainingResult.cities.length === 1) {
       return props.trainingResult.cities[0];
-    }
-    else {
-      return "No Provider Locations Listed3"
+    } else {
+      return "No Provider Locations Listed3";
     }
   };
 
@@ -110,8 +108,8 @@ export const TrainingResultCard = (props: Props): ReactElement => {
               <InlineIcon className="mrs">card_travel</InlineIcon>
               {props.trainingResult.percentEmployed
                 ? t("SearchResultsPage.percentEmployed", {
-                  percent: formatPercentEmployed(props.trainingResult.percentEmployed),
-                })
+                    percent: formatPercentEmployed(props.trainingResult.percentEmployed),
+                  })
                 : t("SearchResultsPage.percentEmployedUnavailable")}
             </span>
           </p>
@@ -120,7 +118,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">school</InlineIcon>
-              {props.trainingResult.providerName}
+              {cleanProviderName(props.trainingResult.providerName)}
             </span>
           </p>
           <p className="mtxs mbz">
