@@ -13,6 +13,7 @@ export interface TrainingResult {
   online: boolean;
   providerId: string;
   providerName: string;
+  availableAt: TrainingAddress;
   cities: string[];
   zipCodes: string[];
   county: string;
@@ -24,6 +25,12 @@ export interface TrainingResult {
   isWheelchairAccessible: boolean;
   hasJobPlacementAssistance: boolean;
   hasChildcareAssistance: boolean;
+}
+
+export interface TrainingAddress {
+  street_address: string;
+  city: string;
+  zipCode: string;
 }
 
 type MetaData = {

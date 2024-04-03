@@ -28,14 +28,14 @@
         "Example requirement description"
       ],
       "provider": {
-        "addresses": {
-          "city": "", "street_address": "", "zipCode": ""
-        },
         "county": "",
         "email": null,
         "id": "ctid123",
         "name": "Example Training Program",
         "url": "someurl"
+      },
+      "availableAt": {
+        "city": "", "street_address": "", "zipCode": ""
       },
       "suppliesToolsCost": 0,
       "totalClockHours": 8760,
@@ -71,14 +71,14 @@
         "Example requirement description"
       ],
       "provider": {
-        "addresses": {
-          "city": "", "street_address": "", "zipCode": ""
-        },
         "county": "",
         "email": null,
         "id": "ctid123",
         "name": "Example Training Program",
         "url": "someurl"
+      },
+      "availableAt": {
+        "city": "", "street_address": "", "zipCode": ""
       },
       "suppliesToolsCost": 0,
       "totalClockHours": 8760,

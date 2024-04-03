@@ -28,6 +28,11 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     providerName: "some-provider-name-" + randomInt(),
     cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
     zipCodes: ["some-zipcode-" + randomInt(), "some-zipcode-" + randomInt()],
+    availableAt: {
+      street_address: "",
+      city: "",
+      zipCode: ""
+    },
     county: "some-county-" + randomInt(),
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
