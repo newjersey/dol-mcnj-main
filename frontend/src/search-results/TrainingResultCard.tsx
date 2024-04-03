@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from "react";
-import { TrainingResult } from "../domain/Training";
+import { TrainingAddress, TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
@@ -30,14 +30,14 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   const getLocationOrOnline = (): string => {
+    const address: TrainingAddress = props.trainingResult.availableAt
     if (props.trainingResult.online) {
       return t("SearchResultsPage.onlineClassLabel");
-    } else if (props.trainingResult.cities.length > 1) {
-      return `${props.trainingResult.cities.length} Provider Locations`;
-    } else if (props.trainingResult.cities.length === 1) {
-      return props.trainingResult.cities[0];
-    } else {
-      return "No Provider Locations Listed3";
+    } else if (address.city != ""){
+        return (address.city)
+    }
+     else {
+      return "No Provider Locations Listed";
     }
   };
 

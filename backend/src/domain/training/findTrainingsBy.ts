@@ -159,8 +159,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             url: ownedByRecord["ceterms:subjectWebpage"],
             email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
             county: "",
-            addresses: address,
           },
+          availableAt: address,
           description: certificate["ceterms:description"]
             ? certificate["ceterms:description"]["en-US"]
             : "",
@@ -191,7 +191,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         };
-        console.log(JSON.stringify(training));
         return training;
       }),
     );
