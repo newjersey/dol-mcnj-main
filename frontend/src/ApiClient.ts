@@ -19,8 +19,12 @@ export class ApiClient implements Client {
     observer: Observer<TrainingData>,
     page?: number,
     limit?: number,
+    sort?: "asc" | "desc" | "best_match",
   ): void {
-    this.get(`/api/trainings/search?query=${query}&page=${page}&limit=${limit}`, observer);
+    this.get(
+      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}`,
+      observer,
+    );
   }
 
   getTrainingById(id: string, observer: Observer<Training>): void {

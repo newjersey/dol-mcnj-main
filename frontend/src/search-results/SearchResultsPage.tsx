@@ -13,7 +13,6 @@ import { FilterContext } from "../filtering/FilterContext";
 import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
-import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
@@ -31,6 +30,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+  const [sorting, setSorting] = useState<"asc" | "desc" | "best_match">("best_match");
   const [itemsPerPage, setItemsPerPage] = useState<number>();
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [pageNumber, setPageNumber] = useState<number>();
@@ -48,7 +48,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const comparisonState = useContext(ComparisonContext).state;
   const sortContextValue = useContext(SortContext);
   const sortState = sortContextValue.state;
-  const sortDispatch = sortContextValue.dispatch;
 
   const searchString = props.location?.search;
   const regex = /(?<=\?q=).*?(?=&|$)/;
@@ -125,24 +124,27 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
       queryToSearch = checkValidSocCode(queryToSearch);
 
-      props.client.getTrainingsByQuery(
-        queryToSearch,
-        {
-          onSuccess: ({ data, meta }: TrainingData) => {
-            setTrainings(data);
-            setMetaData(meta);
-            getPageTitle();
-            setIsLoading(false);
+      if (queryToSearch && queryToSearch !== "null") {
+        props.client.getTrainingsByQuery(
+          queryToSearch,
+          {
+            onSuccess: ({ data, meta }: TrainingData) => {
+              setTrainings(data);
+              setMetaData(meta);
+              getPageTitle();
+              setIsLoading(false);
+            },
+            onError: () => {
+              setIsError(true);
+            },
           },
-          onError: () => {
-            setIsError(true);
-          },
-        },
-        pageNumber,
-        itemsPerPage,
-      );
+          pageNumber,
+          itemsPerPage,
+          sorting,
+        );
+      }
     }
-  }, [searchQuery, props.client, itemsPerPage, pageNumber]);
+  }, [searchQuery, props.client, itemsPerPage, pageNumber, sorting]);
 
   const toggleIsOpen = (): void => {
     setIsOpen(!isOpen);
@@ -174,9 +176,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   }
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
-    const newSortOrder = event.target.value as SortOrder;
-    sortDispatch(newSortOrder);
-    logEvent("Search", "Updated sort", newSortOrder);
+    const newSortOrder = event.target.value as "asc" | "desc" | "best_match";
+    setSorting(newSortOrder);
   };
 
   const getSortDropdown = (): ReactElement => (
@@ -188,16 +189,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           </label>
 
           <select className="usa-select" name="per-page" id="per-page" onChange={handleSortChange}>
-            <option value={SortOrder.BEST_MATCH}>{t("SearchAndFilter.sortByBestMatch")}</option>
-            <option value={SortOrder.COST_LOW_TO_HIGH}>
-              {t("SearchAndFilter.sortByCostLowToHigh")}
-            </option>
-            <option value={SortOrder.COST_HIGH_TO_LOW}>
-              {t("SearchAndFilter.sortByCostHighToLow")}
-            </option>
-            <option value={SortOrder.EMPLOYMENT_RATE}>
-              {t("SearchAndFilter.sortByEmploymentRate")}
-            </option>
+            <option value="best_match">{t("SearchAndFilter.sortByBestMatch")}</option>
+            <option value="asc">A to Z</option>
+            <option value="desc">Z to A</option>
+            <option>{t("SearchAndFilter.sortByCostLowToHigh")}</option>
+            <option>{t("SearchAndFilter.sortByCostHighToLow")}</option>
+            <option>{t("SearchAndFilter.sortByEmploymentRate")}</option>
           </select>
         </div>
       )}
