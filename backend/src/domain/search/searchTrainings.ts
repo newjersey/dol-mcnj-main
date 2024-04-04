@@ -48,7 +48,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           "search:value": "ceterms:Credential",
           "search:matchType": "search:subClassOf"
         },
-       "search:termGroup": {
+        "search:termGroup": {
           "search:value": [
             {
               "ceterms:name": "${params.searchQuery}",
