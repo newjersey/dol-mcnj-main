@@ -18,17 +18,20 @@ export const searchTrainingsFactory = (): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
     const page = params.page || 1;
     const limit = params.limit || 10;
-    let sort
+    let sort;
     switch (params.sort) {
-      case 'asc':
-          sort = "ceterms:name"
-          break;
-      case 'desc':
-          sort = "^ceterms:name"
-          break;
+      case "asc":
+        sort = "ceterms:name";
+        break;
+      case "desc":
+        sort = "^ceterms:name";
+        break;
+      case "best_match":
+        sort = "^search:relevance";
+        break;
       default:
-          sort = "^search:relevance"
-          break;
+        sort = "^search:relevance";
+        break;
     }
     const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}`;
     if (cache.has(cacheKey)) {
@@ -74,7 +77,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
       .getResults(queryObj, skip, take, sort)
       .catch((error) => {
         Sentry.captureException(error);
-        console.log(error)
+        console.log(error);
         throw new Error("Failed to fetch results from Credential Engine API");
       });
     const totalResults = ceRecordsResponse.data.extra.TotalResults;
