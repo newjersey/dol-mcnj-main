@@ -62,8 +62,8 @@ export const routerFactory = ({
     if (isNaN(limit) || limit < 1) {
       limit = 10;
     }
-
-    searchTrainings({ searchQuery: req.query.query as string, page: page, limit: limit })
+    
+    searchTrainings({searchQuery: req.query.query as string, page: page, limit: limit, sort: req.query.sort as string})
       .then((trainings: TrainingData) => {
         res.status(200).json(trainings);
       })
