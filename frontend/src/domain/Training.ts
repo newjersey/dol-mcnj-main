@@ -50,32 +50,33 @@ export interface TrainingData {
 }
 
 export interface Training {
-  id: string;
-  name: string;
-  cipCode: string;
-  calendarLength: CalendarLength;
-  totalClockHours: number;
-  description: string;
-  certifications: ConditionProfile[];
-  prerequisites: string;
-  occupations: Occupation[];
-  provider: Provider;
-  inDemand: boolean;
-  localExceptionCounty: string[];
-  tuitionCost: number;
-  feesCost: number;
-  booksMaterialsCost: number;
-  suppliesToolsCost: number;
-  otherCost: number;
-  totalCost: number;
-  online: boolean;
-  percentEmployed: number | null;
+  availableAt: TrainingAddress;
   averageSalary: number | null;
-  hasEveningCourses: boolean;
-  languages: string[];
-  isWheelchairAccessible: boolean;
-  hasJobPlacementAssistance: boolean;
+  booksMaterialsCost: number;
+  calendarLength: CalendarLength;
+  certifications: ConditionProfile[];
+  cipCode: string;
+  description: string;
+  feesCost: number;
   hasChildcareAssistance: boolean;
+  hasEveningCourses: boolean;
+  hasJobPlacementAssistance: boolean;
+  id: string;
+  inDemand: boolean;
+  isWheelchairAccessible: boolean;
+  languages: string[];
+  localExceptionCounty: string[];
+  name: string;
+  occupations: Occupation[];
+  online: boolean;
+  otherCost: number;
+  percentEmployed: number | null;
+  prerequisites: string;
+  provider: Provider;
+  suppliesToolsCost: number;
+  totalClockHours: number;
+  totalCost: number;
+  tuitionCost: number;
 }
 
 export interface Provider {

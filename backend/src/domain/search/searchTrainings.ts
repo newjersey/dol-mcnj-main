@@ -122,15 +122,15 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           localExceptionCounty: [],
 
           /*
-           inDemand: training.inDemand,
-           socCodes: training.occupations.map((o) => o.soc),
-           languages: training.languages,
+            inDemand: training.inDemand,
+            socCodes: training.occupations.map((o) => o.soc),
+            languages: training.languages,
           */
 
           online: certificate["ceterms:availableOnlineAt"] != null ? true : false,
           providerId: ownedByCtid,
           providerName: ownedByRecord["ceterms:name"]["en-US"],
-          // cities: ownedByAddresses.map((a) => a.city),  
+          // cities: ownedByAddresses.map((a) => a.city),
           // zipCodes: ownedByAddresses.map((a) => a.zipCode),
           availableAt: address,
           inDemand: false,
