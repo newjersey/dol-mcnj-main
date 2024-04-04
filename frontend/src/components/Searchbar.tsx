@@ -54,7 +54,7 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
     <div className={`${flexDirection} fac ${props.className}`}>
       <Input
         inputProps={INPUT_PROPS}
-        value={searchQuery}
+        value={searchQuery !== "null" ? searchQuery : ""}
         onChange={handleSearchInput}
         onKeyDown={handleKeyDown}
         startAdornment={
