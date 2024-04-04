@@ -27,6 +27,7 @@ import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
+import { cleanProviderName } from "../utils/cleanProviderName";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -132,81 +133,35 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
-      return (
-        <div>
-          <div>
-            <InlineIcon className="mrxs">location_on</InlineIcon>
-            {t("TrainingPage.onlineClass")}
-          </div>
-        </div>
-      );
+      return <>{t("TrainingPage.onlineClass")}</>;
     }
 
-    if (!training || !training.provider.addresses) {
+    if (!training || !training.availableAt.street_address) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const addresses = training.provider.addresses;
-    const addressBlocks = [];
+    const address = training.availableAt;
 
-    for (let i = 0; i < addresses.length; i++) {
-      // assign individual address object properties to variables
-      // const thisAddressName = addresses[i].name;
-      const thisAddressStreet1 = addresses[i].street1;
-      const thisAddressStreet2 = "";
-      const thisAddressCity = addresses[i].city;
-      const thisAddressState = addresses[i].state;
-      const thisAddressZipCode = addresses[i].zipCode;
-      const thisAddressTargetContactPoints = addresses[i].targetContactPoints;
-
-      // build target contact points HTML blocks
-      const thisAddressTargetContactPointsBlocks = [];
-      for (let j = 0; j < thisAddressTargetContactPoints.length; j++) {
-        // assign individual contact point object properties to variables
-        const thisContactPointName = thisAddressTargetContactPoints[j].name;
-        // const thisContactPointContactType = thisAddressTargetContactPoints[j].contactType
-        // const thisContactPointEmail = thisAddressTargetContactPoints[j].email
-        // const thisContactPointTelephone = thisAddressTargetContactPoints[j].telephone
-        // const thisContactPointSocialMedia = thisAddressTargetContactPoints[j].socialMedia
-
-        // push to HTML content blocks
-        thisAddressTargetContactPointsBlocks.push(
-          <div>
-            <div>
-              <InlineIcon className="mrxs">person</InlineIcon>
-              {thisContactPointName}
-            </div>
-          </div>,
-        );
-      }
-
-      const nameAndAddressEncoded = encodeURIComponent(
-        `${training.provider.name} ${thisAddressStreet1} ${thisAddressStreet2} ${thisAddressCity} ${thisAddressState} ${thisAddressZipCode}`,
-      );
-
-      const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
-
-      addressBlocks.push(
+    return (
+      <div key={"address"}>
         <div>
           <a
-            href={googleUrl}
+            href={training.provider.url}
             target="_blank"
             className="link-format-blue"
             rel="noopener noreferrer"
           >
             <div className="inline">
-              <span>{thisAddressStreet1}</span>
+              <span>{address.street_address}</span>
               <div>
-                {thisAddressCity}, {thisAddressState} {thisAddressZipCode}
+                {address.city}, New Jersey {address.zipCode}
               </div>
             </div>
           </a>
-          <span>{thisAddressTargetContactPointsBlocks}</span>
           <hr></hr>
-        </div>,
-      );
-    }
-    return <div key={"addresses"}>{addressBlocks}</div>;
+        </div>
+      </div>
+    );
   };
 
   const getAssociatedOccupations = (): ReactElement => {
@@ -250,28 +205,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     if (error === Error.SYSTEM_ERROR) {
       return (
         <>
-          <code>
-            <pre
-              style={{
-                fontFamily: "monospace",
-                display: "block",
-                padding: "50px",
-                color: "#88ffbf",
-                backgroundColor: "black",
-                textAlign: "left",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {JSON.stringify(
-                {
-                  Error,
-                },
-                null,
-                "    ",
-              )}
-            </pre>
-          </code>
-
           <SomethingWentWrongPage client={props.client} />
         </>
       );
@@ -339,7 +272,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <h2 data-testid="title" className="text-xl ptd pbs weight-500">
             {training.name}
           </h2>
-          <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
+          <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
 
           <div className="stat-block-stack mtm">
             {training.inDemand ? <InDemandBlock /> : <></>}
@@ -541,27 +474,32 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                   <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
-                      <p>
-                        <span className="fin fas">{training.provider.name}</span>
-                      </p>
-                      {getProviderEmail()}
-                      <div className="mvd">
-                        <span className="fin">{getProviderAddress()}</span>
-                      </div>
-                      <div className="mvd">
-                        <span className="fin">
-                          <InlineIcon className="mrxs">person</InlineIcon>
-                          {/*
-                          {getProviderContact()}
-*/}
-                        </span>
-                      </div>
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">link</InlineIcon>
-                          {getProviderUrl()}
-                        </span>
-                      </p>
+                      {training.provider && training.provider.id ? (
+                        <>
+                          <p>
+                            <span className="fin fas">
+                              {cleanProviderName(training.provider.name)}
+                            </span>
+                          </p>
+                          {getProviderEmail()}
+                          {getProviderAddress() && (
+                            <div className="mvd">
+                              <span className="fin">
+                                <InlineIcon className="mrxs">location_on</InlineIcon>
+                                {getProviderAddress()}
+                              </span>
+                            </div>
+                          )}
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">link</InlineIcon>
+                              {getProviderUrl()}
+                            </span>
+                          </p>
+                        </>
+                      ) : (
+                        <>Data unavailable</>
+                      )}
                     </>
                   </Grouping>
 

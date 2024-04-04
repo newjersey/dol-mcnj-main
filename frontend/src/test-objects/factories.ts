@@ -5,7 +5,7 @@ import {
   ConditionProfileItem,
   Provider,
   Training,
-  TrainingResult
+  TrainingResult,
 } from "../domain/Training";
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
 
@@ -26,6 +26,11 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     online: randomBool(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
+    availableAt: {
+      street_address: "some-street-address-" + randomInt(),
+      city: "some-city-" + randomInt(),
+      zipCode: "some-zipcode-" + randomInt(),
+    },
     cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
     zipCodes: ["some-zipcode-" + randomInt(), "some-zipcode-" + randomInt()],
     county: "some-county-" + randomInt(),
@@ -44,6 +49,11 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
 export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
+    availableAt: {
+      street_address: "some-street-address-" + randomInt(),
+      city: "some-city-" + randomInt(),
+      zipCode: "some-zipcode-" + randomInt(),
+    },
     name: "some-name-" + randomInt(),
     cipCode: "some-cip-" + randomInt(),
     provider: buildProvider({}),
@@ -145,22 +155,40 @@ export const buildConditionProfile = (overrides: Partial<ConditionProfile>): Con
     experience: "some-experience-" + randomInt(),
     description: "some-description-" + randomInt(),
     yearsOfExperience: randomInt(),
-    targetAssessment: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
-    targetCompetency: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
-    targetCredential: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
-    targetLearningOpportunity: [buildConditionProfileItem({}), buildConditionProfileItem({}), buildConditionProfileItem({})],
+    targetAssessment: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetCompetency: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetCredential: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetLearningOpportunity: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
     ...overrides,
   };
-}
+};
 
-export const buildConditionProfileItem = (overrides: Partial<ConditionProfileItem>): ConditionProfileItem => {
+export const buildConditionProfileItem = (
+  overrides: Partial<ConditionProfileItem>,
+): ConditionProfileItem => {
   return {
     name: "some-name-" + randomInt(),
     provider: buildProvider({}),
     description: "some-description-" + randomInt(),
     ...overrides,
   };
-}
+};
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const randomCalendarLength = (): CalendarLength => {

@@ -9,18 +9,20 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
   CetermsConditionProfile,
-/*  CetermsEstimatedDuration,
+  /*  CetermsEstimatedDuration,
   CetermsCredentialAlignmentObject,*/
   CetermsScheduleTimingType,
-  CTDLResource
+  CTDLResource,
 } from "../credentialengine/CredentialEngine";
-
 
 function extractCipCode(certificate: CTDLResource): string {
   const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
   if (Array.isArray(instructionalProgramTypes)) {
     for (const programType of instructionalProgramTypes) {
-      if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
+      if (
+        programType["ceterms:frameworkName"]?.["en-US"] ===
+        "Classification of Instructional Programs"
+      ) {
         return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
       }
     }
@@ -28,12 +30,12 @@ function extractCipCode(certificate: CTDLResource): string {
   return ""; // Return empty string if no match is found
 }
 
-export function getAvailableAtAddress(certificate: CTDLResource): Address{
-  const availableAt = certificate['ceterms:availableAt']?.[0];
+export function getAvailableAtAddress(certificate: CTDLResource): Address {
+  const availableAt = certificate["ceterms:availableAt"]?.[0];
   return {
-    street_address: availableAt?.['ceterms:streetAddress']?.['en-US'] ?? '',
-    city: availableAt?.['ceterms:addressRegion']?.['en-US'] ?? '',
-    zipCode: availableAt?.['ceterms:postalCode'] ?? '',
+    street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
+    city: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
+    zipCode: availableAt?.["ceterms:postalCode"] ?? "",
   };
 }
 
@@ -54,26 +56,27 @@ export function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLR
 }
 
 function constructCertificationsString(isPreparationForObject: CetermsConditionProfile[]): string {
+  if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
+
   return isPreparationForObject
-    .map(obj => obj["ceterms:name"]?.["en-US"] ?? '')
-    .filter(name => name) // Filter out empty strings
-    .join(', '); // Join the names with a comma and space as separator
+    .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
+    .filter((name) => name) // Filter out empty strings
+    .join(", "); // Join the names with a comma and space as separator
 }
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
-    const inDemandCIPCodes = inDemandCIPs.map(c => c.cipcode)
-    const ceRecords = []
+    const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
+    const ceRecords = [];
 
     for (const value of values) {
-      const ctid = await credentialEngineUtils.getCtidFromURL(value)
+      const ctid = await credentialEngineUtils.getCtidFromURL(value);
       const record = await credentialEngineAPI.getResourceByCTID(ctid);
       ceRecords.push(record);
     }
     return Promise.all(
-      ceRecords.map(async (certificate : CTDLResource) => {
-
+      ceRecords.map(async (certificate: CTDLResource) => {
         // GET provider record
         const ownedBy = certificate["ceterms:ownedBy"] ? certificate["ceterms:ownedBy"] : [];
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
@@ -83,24 +86,32 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
-        const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
-        const scheduleTimingType = certificate["ceterms:scheduleTimingType"] as CetermsScheduleTimingType;
-        const address = getAvailableAtAddress(certificate)
+        const isPreparationForObject = certificate[
+          "ceterms:isPreparationFor"
+        ] as CetermsConditionProfile[];
+        const scheduleTimingType = certificate[
+          "ceterms:scheduleTimingType"
+        ] as CetermsScheduleTimingType;
+        const address = getAvailableAtAddress(certificate);
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
             if (element["@type"] == "ceterms:Place" && element["ceterms:streetAddress"] != null) {
-
               const address = {
                 name: element["ceterms:name"] ? element["ceterms:name"]["en-US"] : null,
-                street1: element["ceterms:streetAddress"] ? element["ceterms:streetAddress"]["en-US"] : null,
+                street1: element["ceterms:streetAddress"]
+                  ? element["ceterms:streetAddress"]["en-US"]
+                  : null,
                 street2: "",
-                city: element["ceterms:addressLocality"] ? element["ceterms:addressLocality"]["en-US"] : null,
-                state: element["ceterms:addressRegion"] ? element["ceterms:addressRegion"]["en-US"] : null,
+                city: element["ceterms:addressLocality"]
+                  ? element["ceterms:addressLocality"]["en-US"]
+                  : null,
+                state: element["ceterms:addressRegion"]
+                  ? element["ceterms:addressRegion"]["en-US"]
+                  : null,
                 zipCode: element["ceterms:postalCode"],
-              }
+              };
               ownedByAddresses.push(address);
-            }
-            else if (element["@type"] == "ceterms:ContactPoint") {
+            } else if (element["@type"] == "ceterms:ContactPoint") {
               const targetContactPoint = {
                 alternateName: element["ceterms:alternateName"]["en-US"],
                 contactType: element["ceterms:contactType"]["en-US"],
@@ -108,7 +119,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 faxNumber: element["ceterms:faxNumber"],
                 name: element["ceterms:name"]["en-US"],
                 socialMedia: element["ceterms:socialMedia"],
-                telephone: element["ceterms:telephone"]
+                telephone: element["ceterms:telephone"],
               };
 
               providerContactPoints.push(targetContactPoint);
@@ -126,16 +137,16 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
 
-        const prerequisites = certificate["ceterms:requires"]?.filter(req =>
-          (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements"
-        ).map(req => req["ceterms:description"]?.["en-US"]);
+        const prerequisites = certificate["ceterms:requires"]
+          ?.filter((req) => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
+          .map((req) => req["ceterms:description"]?.["en-US"]);
 
-
-        const matchingOccupations = (cipCode != null) ? await dataClient.findOccupationsByCip(cipCode) : [];
+        const matchingOccupations =
+          cipCode != null ? await dataClient.findOccupationsByCip(cipCode) : [];
         const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === cipCode)
           .map((localException: LocalException) =>
-            convertToTitleCaseIfUppercase(localException.county)
+            convertToTitleCaseIfUppercase(localException.county),
           );
 
         const training = {
@@ -144,13 +155,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           cipCode: cipCode,
           provider: {
             id: ownedByRecord["ceterms:ctid"],
-            name: ownedByRecord['ceterms:name']['en-US'],
-            url: ownedByRecord['ceterms:subjectWebpage'],
-            email: ownedByRecord['ceterms:email']? ownedByRecord['ceterms:email'][0] : null,
+            name: ownedByRecord["ceterms:name"]["en-US"],
+            url: ownedByRecord["ceterms:subjectWebpage"],
+            email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
             county: "",
-            addresses: address,
           },
-          description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
+          availableAt: address,
+          description: certificate["ceterms:description"]
+            ? certificate["ceterms:description"]["en-US"]
+            : "",
           certifications: certifications,
           prerequisites: prerequisites,
           totalClockHours: totalClockHours,
@@ -166,37 +179,40 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           booksMaterialsCost: 0,
           suppliesToolsCost: 0,
           otherCost: 0,
-          totalCost: totalCost ? (totalCost): 0,
+          totalCost: totalCost ? totalCost : 0,
           online: availableOnlineAt != null ? true : false,
           percentEmployed: 0, // TODO: IGX doesn't provide this data
           averageSalary: 0, // TODO: IGX doesn't provide this data
           hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
-          languages: certificate["ceterms:inLanguage"]? certificate["ceterms:inLanguage"][0] : null,
+          languages: certificate["ceterms:inLanguage"]
+            ? certificate["ceterms:inLanguage"][0]
+            : null,
           isWheelchairAccessible: false, // TODO: IGX doesn't provide this data
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
-        }
-        console.log(JSON.stringify(training));
+        };
         return training;
-      })
+      }),
     );
   };
 };
 
 // Function to convert ISO 8601 duration to total hours
 function convertIso8601ToTotalHours(isoString: string): number {
-  const match = isoString.match(/P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/);
+  const match = isoString.match(
+    /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
+  );
   if (!match) {
     return 0; // Return 0 if the string does not match the pattern
   }
 
-  const years = parseInt(match[1] || '0', 10) * 365 * 24;
-  const months = parseInt(match[2] || '0', 10) * 30 * 24;
-  const weeks = parseInt(match[3] || '0', 10) * 7 * 24;
-  const days = parseInt(match[4] || '0', 10) * 24;
-  const hours = parseInt(match[5] || '0', 10);
-  const minutes = parseInt(match[6] || '0', 10) / 60;
-  const seconds = parseInt(match[7] || '0', 10) / 3600;
+  const years = parseInt(match[1] || "0", 10) * 365 * 24;
+  const months = parseInt(match[2] || "0", 10) * 30 * 24;
+  const weeks = parseInt(match[3] || "0", 10) * 7 * 24;
+  const days = parseInt(match[4] || "0", 10) * 24;
+  const hours = parseInt(match[5] || "0", 10);
+  const minutes = parseInt(match[6] || "0", 10) / 60;
+  const seconds = parseInt(match[7] || "0", 10) / 3600;
 
   return years + months + weeks + days + hours + minutes + seconds; // Sum up all components
 }
@@ -259,7 +275,9 @@ export const formatLanguages = (languages: string | null): string[] => {
 
 // Converts a time duration in ISO 8601 format to CalendarLength Id
 export const convertDuration = (duration: string): number => {
-  const match = duration.match(/^P(([0-9]+)Y)?(([0-9]+)M)?(([0-9]+)W)?(([0-9]+)D)?T?(([0-9]+)H)?(([0-9]+)M)?(([0-9]+)S)?$/);
+  const match = duration.match(
+    /^P(([0-9]+)Y)?(([0-9]+)M)?(([0-9]+)W)?(([0-9]+)D)?T?(([0-9]+)H)?(([0-9]+)M)?(([0-9]+)S)?$/,
+  );
   if (!match) {
     throw new Error(`Invalid duration format: ${duration}`);
   }
@@ -269,41 +287,38 @@ export const convertDuration = (duration: string): number => {
   const weeks = match[6] ? parseInt(match[6]) : 0;
   const days = match[8] ? parseInt(match[8]) : 0;
   const hours = match[10] ? parseInt(match[10]) : 0;
-/*  const min = match[12] ? parseInt(match[12]) : 0;
+  /*  const min = match[12] ? parseInt(match[12]) : 0;
   const sec = match[14] ? parseInt(match[14]) : 0;*/
 
   //console.log(`${years}y ${months}m ${weeks}w`);
-  let calendarLength:CalendarLength = CalendarLength.NULL;
+  let calendarLength: CalendarLength = CalendarLength.NULL;
 
   if (years > 4) {
-    calendarLength = CalendarLength.MORE_THAN_FOUR_YEARS
-  }
-  else if (years >= 3 && years <=4) {
+    calendarLength = CalendarLength.MORE_THAN_FOUR_YEARS;
+  } else if (years >= 3 && years <= 4) {
     calendarLength = CalendarLength.THREE_TO_FOUR_YEARS;
-  }
-  else if ((years == 1 && months > 0) || (years >= 1 && years < 3))
+  } else if ((years == 1 && months > 0) || (years >= 1 && years < 3))
     calendarLength = CalendarLength.THIRTEEN_MONTHS_TO_TWO_YEARS;
-  else if (years == 0 && (months >= 6 && months <= 11)) {
+  else if (years == 0 && months >= 6 && months <= 11) {
     calendarLength = CalendarLength.SIX_TO_TWELVE_MONTHS;
-  }
-  else if (years == 0 && (months >= 3 && months <= 5)) {
+  } else if (years == 0 && months >= 3 && months <= 5) {
     calendarLength = CalendarLength.THREE_TO_FIVE_MONTHS;
-  }
-  else if ((years == 0 && months == 0 && weeks >=3 && weeks <= 12) || months >= 1 && months < 3) {
+  } else if (
+    (years == 0 && months == 0 && weeks >= 3 && weeks <= 12) ||
+    (months >= 1 && months < 3)
+  ) {
     calendarLength = CalendarLength.FOUR_TO_ELEVEN_WEEKS;
-
-  }
-  else if (years == 0 && months == 0 && (weeks >= 2 && weeks < 4)) {
+  } else if (years == 0 && months == 0 && weeks >= 2 && weeks < 4) {
     calendarLength = CalendarLength.TWO_TO_THREE_WEEKS;
-  }
-  else if ((years == 0 && months == 0 && weeks == 0 && days >= 3) || (years == 0 && months == 0 && weeks == 1 && days == 0)) {
+  } else if (
+    (years == 0 && months == 0 && weeks == 0 && days >= 3) ||
+    (years == 0 && months == 0 && weeks == 1 && days == 0)
+  ) {
     calendarLength = CalendarLength.THREE_TO_SEVEN_DAYS;
-  }
-  else if ((years == 0 && months == 0 && weeks == 0 && (days == 1 || days == 2))) {
+  } else if (years == 0 && months == 0 && weeks == 0 && (days == 1 || days == 2)) {
     calendarLength = CalendarLength.ONE_TO_TWO_DAYS;
-  }
-  else if ((years == 0 && months == 0 && weeks == 0 && days == 0) && (hours > 0)) {
+  } else if (years == 0 && months == 0 && weeks == 0 && days == 0 && hours > 0) {
     calendarLength = CalendarLength.LESS_THAN_ONE_DAY;
   }
   return calendarLength;
-}
+};
