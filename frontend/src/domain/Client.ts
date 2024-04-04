@@ -17,6 +17,7 @@ export interface Client {
     observer: Observer<TrainingData>,
     page?: number,
     limit?: number,
+    sort?: "asc" | "desc" | "best_match",
   ) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;

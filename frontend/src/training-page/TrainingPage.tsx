@@ -132,10 +132,6 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const getProviderAddress = (): ReactElement => {
-    if (training?.online) {
-      return <>{t("TrainingPage.onlineClass")}</>;
-    }
-
     if (!training || !training.availableAt.street_address) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
@@ -158,7 +154,6 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </a>
-          <hr></hr>
         </div>
       </div>
     );
