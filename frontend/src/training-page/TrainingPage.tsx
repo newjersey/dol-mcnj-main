@@ -150,7 +150,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             <div className="inline">
               <span>{address.street_address}</span>
               <div>
-                {address.city}, New Jersey {address.zipCode}
+                {address.city}, {address.state} {address.zipCode}
               </div>
             </div>
           </a>

@@ -29,6 +29,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     availableAt: {
       street_address: "some-street-address-" + randomInt(),
       city: "some-city-" + randomInt(),
+      state: "some-state-" + randomInt(),
       zipCode: "some-zipcode-" + randomInt(),
     },
     cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
@@ -52,6 +53,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     availableAt: {
       street_address: "some-street-address-" + randomInt(),
       city: "some-city-" + randomInt(),
+      state: "some-state-" + randomInt(),
       zipCode: "some-zipcode-" + randomInt(),
     },
     name: "some-name-" + randomInt(),

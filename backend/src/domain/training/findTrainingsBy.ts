@@ -34,7 +34,8 @@ export function getAvailableAtAddress(certificate: CTDLResource): Address {
   const availableAt = certificate["ceterms:availableAt"]?.[0];
   return {
     street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
-    city: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
+    city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
+    state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
     zipCode: availableAt?.["ceterms:postalCode"] ?? "",
   };
 }
@@ -191,6 +192,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
           hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
         };
+        console.log(JSON.stringify(training));
         return training;
       }),
     );
