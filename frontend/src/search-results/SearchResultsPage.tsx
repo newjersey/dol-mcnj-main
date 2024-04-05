@@ -47,7 +47,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  const searchQuery = props.location?.search?.slice(3) || "";
+  const searchString = props.location?.search;
+  const regex = /(?<=\?q=).*?(?=&|$)/;
+
+  const searchQuery = `${searchString?.match(regex)}`;
 
   usePageTitle(pageTitle);
 
@@ -79,13 +82,13 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setFilteredTrainings([...sortedResults]);
     setShowSearchTips(newFilteredTrainings.length < 5);
 
-    if (newFilteredTrainings.length > 0) {
+    if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
 
   const getPageTitle = (): void => {
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
       const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
@@ -119,7 +122,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
 
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
       const query = decodeURIComponent(searchQuery);
@@ -240,7 +243,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="row fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
-              {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
+              {shouldShowTrainings && searchQuery !== "null" && (
+                <div className="mla">{getSortDropdown()}</div>
+              )}
             </div>
           </div>
         </div>
@@ -257,7 +262,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         </>
       )}
 
-      {shouldShowTrainings && (
+      {shouldShowTrainings && searchQuery !== "null" && (
         <>
           <div
             className={`container ${
@@ -302,7 +307,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         </>
       )}
 
-      {!shouldShowTrainings && (
+      {(!shouldShowTrainings || searchQuery === "null") && (
         <div className="container" data-testid="gettingStarted">
           <div className="row">
             {isTabletAndUp && (
