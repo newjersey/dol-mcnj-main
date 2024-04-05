@@ -9,7 +9,7 @@
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@newjersey/njwds": "^1.0.0",
-    "@phosphor-icons/react": "^2.0.10",
+    "@phosphor-icons/react": "^2.1.4",
     "@reach/router": "^1.3.4",
     "@sentry/react": "^7.109.0",
     "@testing-library/jest-dom": "^6.4.2",
