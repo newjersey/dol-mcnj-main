@@ -13,6 +13,7 @@ import { FilterContext } from "../filtering/FilterContext";
 import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
+import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
@@ -178,6 +179,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as "asc" | "desc" | "best_match";
     setSorting(newSortOrder);
+    logEvent("Search", "Updated sort", newSortOrder);
   };
 
   const getSortDropdown = (): ReactElement => (
@@ -275,7 +277,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: "pageTitle",
+        title: pageTitle,
         url: props.location?.pathname,
       }}
     >
@@ -314,6 +316,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           </div>
         </div>
       )}
+
       {isTabletAndBelow && (
         <>
           <div className="container results-count-container">
@@ -390,7 +393,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}
                     fixedContainer={true}
-                  />
+                  >
+                    {getSortDropdown()}
+                  </FilterBox>
                 }
               </div>
             )}
@@ -432,7 +437,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     resultCount={filteredTrainings.length}
                     setShowTrainings={setShouldShowTrainings}
                     resetStateForReload={resetState}
-                  />
+                  >
+                    {getSortDropdown()}
+                  </FilterBox>
                 </div>
               )}
               {!isTabletAndUp && (
