@@ -35,7 +35,10 @@
         "url": "someurl"
       },
       "availableAt": {
-        "city": "", "street_address": "", "zipCode": ""
+        "street_address": "",
+        "city": "",
+        "state": "",
+        "zipCode": ""
       },
       "suppliesToolsCost": 0,
       "totalClockHours": 8760,
@@ -78,7 +81,10 @@
         "url": "someurl"
       },
       "availableAt": {
-        "city": "", "street_address": "", "zipCode": ""
+        "street_address": "",
+        "city": "",
+        "state": "",
+        "zipCode": ""
       },
       "suppliesToolsCost": 0,
       "totalClockHours": 8760,
@@ -86,4 +92,3 @@
       "tuitionCost": 0
     }
   ]
-  

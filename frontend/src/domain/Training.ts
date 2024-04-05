@@ -30,6 +30,7 @@ export interface TrainingResult {
 export interface TrainingAddress {
   street_address: string;
   city: string;
+  state: string;
   zipCode: string;
 }
 

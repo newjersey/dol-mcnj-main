@@ -46,6 +46,7 @@ export interface Provider {
 export interface Address {
   street_address?: string;
   city?: string;
+  state?: string;
   zipCode?: string;
 }
 
