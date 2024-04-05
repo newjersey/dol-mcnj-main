@@ -59,6 +59,19 @@ export const searchTrainingsFactory = (): SearchTrainings => {
               "search:operator": "search:orTerms"
             },
             {
+              "ceterms:availableOnlineAt": "search:anyValue",
+              "ceterms:availableAt": {
+                  "ceterms:addressRegion": [
+                    {
+                      "search:value": "NJ",
+                      "search:value": "jersey",
+                      "search:matchType": "search:exactMatch"
+                    }
+                  ]
+              },
+              "search:operator": "search:orTerms"
+            },
+            {
               "ceterms:credentialStatusType": {
                 "ceterms:targetNode": "credentialStat:Active"
               },
