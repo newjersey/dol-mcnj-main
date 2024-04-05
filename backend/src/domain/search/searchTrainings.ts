@@ -44,43 +44,55 @@ export const searchTrainingsFactory = (): SearchTrainings => {
     }
     const query = `
       {
-        "@type": {
-          "search:value": "ceterms:Credential",
-          "search:matchType": "search:subClassOf"
+  "@type": {
+    "search:value": "ceterms:Credential",
+    "search:matchType": "search:subClassOf"
+  },
+  "search:termGroup": {
+    "search:value": [
+      {
+        "ceterms:name": {
+          "search:value":  "${params.searchQuery}",
+          "search:matchType": "search:contains"
         },
-        "search:termGroup": {
-          "search:value": [
-            {
-              "ceterms:name": "${params.searchQuery}",
-              "ceterms:description": "${params.searchQuery}",
-              "ceterms:ownedBy": {
-                        "ceterms:name": "${params.searchQuery}"
-                    },
-              "search:operator": "search:orTerms"
-            },
-            {
-              "ceterms:availableOnlineAt": "search:anyValue",
-              "ceterms:availableAt": {
-                  "ceterms:addressRegion": [
-                    {
-                      "search:value": "NJ",
-                      "search:value": "jersey",
-                      "search:matchType": "search:exactMatch"
-                    }
-                  ]
-              },
-              "search:operator": "search:orTerms"
-            },
-            {
-              "ceterms:credentialStatusType": {
-                "ceterms:targetNode": "credentialStat:Active"
-              },
-              "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
-            }
-          ],
-          "search:operator": "search:andTerms"
-        }
-      }`;
+        "ceterms:description": {
+          "search:value":  "${params.searchQuery}",
+          "search:matchType": "search:contains"
+        },
+        "ceterms:ownedBy": {
+          "ceterms:name": {
+            "search:value":  "${params.searchQuery}",
+            "search:matchType": "search:contains"
+          }
+        },
+        "ceterms:occupationType": {
+          "ceterms:codedNotation": "${params.searchQuery}"
+        },
+        "search:operator": "search:orTerms"
+      },
+      {
+        "ceterms:availableOnlineAt": "search:anyValue",
+        "ceterms:availableAt": {
+            "ceterms:addressRegion": [
+              {
+                "search:value": "NJ",
+                "search:value": "jersey",
+                "search:matchType": "search:exactMatch"
+              }
+            ]
+        },
+        "search:operator": "search:orTerms"
+      },
+      {
+        "ceterms:credentialStatusType": {
+          "ceterms:targetNode": "credentialStat:Active"
+        },
+        "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+      }
+    ],
+    "search:operator": "search:andTerms"
+  }
+}`;
 
     const skip = (page - 1) * limit;
     const take = limit;
