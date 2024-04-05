@@ -225,8 +225,8 @@ export const OccupationPage = (props: Props): ReactElement => {
               target="_blank"
               rel="noopener noreferrer"
               href={OPEN_JOBS_URL.replace(
-                "{SOC_CODE}",
-                (occupationDetail.openJobsSoc || "").toString(),
+                  "{SOC_CODE}",
+                  occupationDetail.openJobsCount === 0 ? "" : (occupationDetail.openJobsSoc || "").toString(),
               )}
               onClick={() =>
                 logEvent(
