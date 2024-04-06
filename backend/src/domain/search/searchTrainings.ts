@@ -7,7 +7,6 @@ import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUt
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
 import {
-  calculateTotalClockHoursFromEstimatedDuration,
   getAvailableAtAddress,
 } from "../training/findTrainingsBy";
 
@@ -136,7 +135,6 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const ownedByAddressObject = ownedByRecord["ceterms:address"];
         const ownedByAddresses = [];
-        const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
         const address = getAvailableAtAddress(certificate);
         if (ownedByAddressObject != null) {
           for (const element of ownedByAddressObject) {
@@ -181,7 +179,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           isWheelchairAccessible: false,
           hasJobPlacementAssistance: false,
           hasChildcareAssistance: false,
-          totalClockHours: totalClockHours,
+          totalClockHours: await credentialEngineUtils.calculateTotalClockHoursFromEstimatedDuration(certificate),
         };
       }),
     );

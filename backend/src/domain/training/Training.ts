@@ -18,7 +18,7 @@ export interface Training {
   booksMaterialsCost: number;
   suppliesToolsCost: number;
   otherCost: number;
-  totalCost: number;
+  totalCost?: number | null;
   online: boolean;
   percentEmployed: number | null;
   averageSalary: number | null;
