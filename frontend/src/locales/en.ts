@@ -1,4 +1,7 @@
 export const en = {
+  Global: {
+    noDataAvailableText: "No data available",
+  },
   CalendarLengthLookup: {
     "0": "--",
     "1": "Less than 1 day",
@@ -411,7 +414,6 @@ export const en = {
     comparisonSeeDetails: "See Details",
   },
   StatBlock: {
-    noDataAvailableText: "No data available",
     dataSourceLabel: "Data source: ",
     defaultDataSource: "NJ Dept of Labor",
     missingDataExplanation:

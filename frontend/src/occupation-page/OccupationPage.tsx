@@ -203,7 +203,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               data={
                 occupationDetail.openJobsCount
                   ? occupationDetail.openJobsCount.toLocaleString()
-                  : t("StatBlock.noDataAvailableText")
+                  : t("Global.noDataAvailableText")
               }
               backgroundColorClass="bg-lightest-purple"
             />
@@ -213,7 +213,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               data={
                 occupationDetail.medianSalary
                   ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
-                  : t("StatBlock.noDataAvailableText")
+                  : t("Global.noDataAvailableText")
               }
               backgroundColorClass="bg-light-purple-50"
             />
