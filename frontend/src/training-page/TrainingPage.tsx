@@ -430,7 +430,8 @@ export const TrainingPage = (props: Props): ReactElement => {
               <div className="container-fluid mbm">
                 <div className="row">
                   <Grouping title={t("TrainingPage.costGroupHeader")}>
-                    <>
+                    {training.totalCost && training.totalCost !== 0 ? (
+                      <>
                       <p>
                         <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                         <span className="text-l pull-right weight-500">
@@ -465,6 +466,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                     </>
+                      ) : (
+                      <>
+                        <p>{t("Global.noDataAvailableText")}</p>
+                      </>
+                    )}
                   </Grouping>
 
                   <Grouping title={t("TrainingPage.locationGroupHeader")}>
