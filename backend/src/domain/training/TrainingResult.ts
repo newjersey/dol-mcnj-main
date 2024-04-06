@@ -4,7 +4,7 @@ export interface TrainingResult {
   id?: string;
   name?: string;
   cipCode?: string;
-  totalCost?: number;
+  totalCost?: number | null;
   percentEmployed?: number | null;
   calendarLength?: CalendarLength;
   totalClockHours: number;

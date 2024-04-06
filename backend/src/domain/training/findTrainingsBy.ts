@@ -15,20 +15,6 @@ import {
   CTDLResource,
 } from "../credentialengine/CredentialEngine";
 
-function extractCipCode(certificate: CTDLResource): string {
-  const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
-  if (Array.isArray(instructionalProgramTypes)) {
-    for (const programType of instructionalProgramTypes) {
-      if (
-        programType["ceterms:frameworkName"]?.["en-US"] ===
-        "Classification of Instructional Programs"
-      ) {
-        return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
-      }
-    }
-  }
-  return ""; // Return empty string if no match is found
-}
 
 export function getAvailableAtAddress(certificate: CTDLResource): Address {
   const availableAt = certificate["ceterms:availableAt"]?.[0];
@@ -38,15 +24,6 @@ export function getAvailableAtAddress(certificate: CTDLResource): Address {
     state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
     zipCode: availableAt?.["ceterms:postalCode"] ?? "",
   };
-}
-
-function extractTotalCost(certificate: CTDLResource): number | null {
-  const estimatedCostObject = certificate["ceterms:estimatedCost"];
-  if (Array.isArray(estimatedCostObject) && estimatedCostObject.length > 0) {
-    const price = estimatedCostObject[0]["ceterms:price"];
-    return price ? Number(price) : null; // Convert price to number, return null if conversion fails or price is undefined
-  }
-  return null; // Return null if no estimatedCostObject is found
 }
 
 export function calculateTotalClockHoursFromEstimatedDuration(certificate: CTDLResource): number {
@@ -128,8 +105,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
-        const cipCode = extractCipCode(certificate);
-        const totalCost = extractTotalCost(certificate);
+        const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+        const totalCost = await credentialEngineUtils.extractTotalCost(certificate);
         const totalClockHours = calculateTotalClockHoursFromEstimatedDuration(certificate);
         const certifications = constructCertificationsString(isPreparationForObject);
 

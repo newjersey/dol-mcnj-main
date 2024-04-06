@@ -155,8 +155,8 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         return {
           id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
-          cipCode: "",
-          totalCost: 0,
+          cipCode: await credentialEngineUtils.extractCipCode(certificate),
+          totalCost: await credentialEngineUtils.extractTotalCost(certificate),
           percentEmployed: 0,
           calendarLength: CalendarLength.NULL,
           localExceptionCounty: [],
