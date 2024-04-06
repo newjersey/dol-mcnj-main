@@ -1,4 +1,7 @@
 export const en = {
+  Global: {
+    noDataAvailableText: "No data available",
+  },
   CalendarLengthLookup: {
     "0": "--",
     "1": "Less than 1 day",
