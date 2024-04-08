@@ -1,4 +1,7 @@
 export const en = {
+  Global: {
+    noDataAvailableText: "No data available",
+  },
   CalendarLengthLookup: {
     "0": "--",
     "1": "Less than 1 day",
@@ -304,7 +307,7 @@ export const en = {
     jobsOpenSource: "National Labor Exchange",
     salaryTitle: "Median Salary",
     salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
-    searchOpenJobsText: "Search current job openings posted for this occupation >",
+    searchOpenJobsText: "Search job openings in New Jersey >",
     descriptionGroupHeader: "Description",
     dayInTheLifeGroupHeader: "A Day in the Life",
     seeMore: "See More",
