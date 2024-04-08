@@ -18,7 +18,7 @@ describe("Occupation Page", () => {
       cy.contains("1,302").should("exist");
 
       // open jobs links
-      cy.contains("Search current job openings posted for this occupation").should("exist");
+      cy.contains("Search job openings in New Jersey").should("exist");
 
       // description
       cy.contains(
@@ -131,7 +131,7 @@ describe("Occupation Page", () => {
       cy.contains("6,898").should("exist");
 
       // open jobs links
-      cy.contains("Search current job openings posted for this occupation").should("exist");
+      cy.contains("Search job openings in New Jersey").should("exist");
 
       // description
       cy.contains(
@@ -192,7 +192,7 @@ describe("Occupation Page", () => {
       cy.contains("255").should("exist");
 
       // open jobs links
-      cy.contains("Search current job openings posted for this occupation").should("exist");
+      cy.contains("Search job openings in New Jersey").should("exist");
 
       // median salary
       cy.contains("$79,810").should("exist");
