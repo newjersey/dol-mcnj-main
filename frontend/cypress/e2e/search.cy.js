@@ -150,3 +150,36 @@ describe("Search", () => {
     });
   });
 });
+
+describe("Search with Special Characters", () => {
+  it("handles search terms with ampersands correctly", () => {
+    cy.visit("/training");
+
+    // Assume you have an input with an aria-label of "search"
+    // Type a search term with an ampersand
+    cy.get('input[aria-label="search"]').type("C & Java");
+
+    // Submit the search form
+    // This assumes you have a button that submits the search; adjust as needed
+    cy.get("form").submit();
+
+    // Verify the URL is correctly encoded
+    // The search term "C & Java" should be encoded as "C%20%26%20Java"
+    cy.url().should("include", "q=C%20%26%20Java");
+
+    // Optionally, verify that the search input on the results page retains the original search term
+    cy.get('input[aria-label="search"]').should("have.value", "C & Java");
+
+    // Add any additional assertions here to verify search results are as expected
+  });
+
+  it("handles search terms with plus signs correctly", () => {
+    cy.visit("/training");
+    cy.get('input[aria-label="search"]').type("C++ programming");
+    cy.get("form").submit();
+    cy.url().should("include", "q=C%2B%2B%20programming");
+    cy.get('input[aria-label="search"]').should("have.value", "C++ programming");
+  });
+
+  // Add more tests for other special characters as needed
+});
