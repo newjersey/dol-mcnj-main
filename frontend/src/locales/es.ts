@@ -320,7 +320,7 @@ export const es = {
     salaryTitle: "Salario medio",
     salaryTooltip:
       "En promedio, los trabajadores en esta ocupación ganan esta cantidad en el estado de NJ.",
-    searchOpenJobsText: "Buscar ofertas de trabajo actuales publicadas para esta ocupación >",
+    searchOpenJobsText: "Buscar ofertas de trabajo en Nueva Jersey >",
     descriptionGroupHeader: "Descripción",
     dayInTheLifeGroupHeader: "Un día en la vida",
     seeMore: "Ver más",
