@@ -7,7 +7,8 @@ export const routeHandler =
     const variables: TVariables = { ...req.params, ...req.query } as TVariables;
     // check if any of the variables are a stringified JSON object and parse them
     Object.keys(variables).forEach((key) => {
-      if (typeof variables[key] === "string") {
+      const value = variables[key];
+      if (typeof value === "string" && (value.startsWith('{') || value.startsWith('['))) {
         try {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (variables as any)[key] = JSON.parse(variables[key] as string);
