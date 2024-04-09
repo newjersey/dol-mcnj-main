@@ -354,7 +354,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               </a>
             </li>
             <li style={{ marginTop: "22px" }}>
-              <a style={{ color: "#005EA2" }} href="/search">
+              <a style={{ color: "#005EA2" }} href="/training/search">
                 Find Training Opportunities
               </a>
             </li>
