@@ -13,7 +13,6 @@ import careeronestop from "../careeronestop.png";
 import { TrainingResultCard } from "../search-results/TrainingResultCard";
 import { TrainingResult } from "../domain/Training";
 import { CircularProgress, Icon } from "@material-ui/core";
-import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
@@ -204,7 +203,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               data={
                 occupationDetail.openJobsCount
                   ? occupationDetail.openJobsCount.toLocaleString()
-                  : STAT_MISSING_DATA_INDICATOR
+                  : t("Global.noDataAvailableText")
               }
               backgroundColorClass="bg-lightest-purple"
             />
@@ -214,34 +213,32 @@ export const OccupationPage = (props: Props): ReactElement => {
               data={
                 occupationDetail.medianSalary
                   ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
-                  : STAT_MISSING_DATA_INDICATOR
+                  : t("Global.noDataAvailableText")
               }
               backgroundColorClass="bg-light-purple-50"
             />
           </div>
-          {((occupationDetail.openJobsCount ?? 0) > 0) && (
-            <div>
-              <a
-                data-testid="jobOpenings"
-                className="link-format-blue weight-500 blue fin mtm"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={OPEN_JOBS_URL.replace(
+          <div>
+            <a
+              data-testid="jobOpenings"
+              className="link-format-blue weight-500 blue fin mtm"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={OPEN_JOBS_URL.replace(
                   "{SOC_CODE}",
-                  (occupationDetail.openJobsSoc || "").toString(),
-                )}
-                onClick={() =>
-                  logEvent(
-                    "Occupation page",
-                    "Clicked job opening link",
-                    String(occupationDetail.openJobsSoc),
-                  )
-                }
-              >
-                {t("OccupationPage.searchOpenJobsText")}
-              </a>
-            </div>
-          )}
+                  occupationDetail.openJobsCount === 0 ? "" : (occupationDetail.openJobsSoc || "").toString(),
+              )}
+              onClick={() =>
+                logEvent(
+                  "Occupation page",
+                  "Clicked job opening link",
+                  String(occupationDetail.openJobsSoc),
+                )
+              }
+            >
+              {t("OccupationPage.searchOpenJobsText")}
+            </a>
+          </div>
 
           <div className="row">
             <div className="col-md-8">
