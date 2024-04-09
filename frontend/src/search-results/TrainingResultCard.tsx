@@ -100,7 +100,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
         <div className="col-md-4 col-md-push-8 align-right-when-lg">
           <p className="mts mbxs">
             <span className="fin fas">
-              <InlineIcon className="hide-when-lg mrs">card_travel</InlineIcon>
+              <InlineIcon className="mrs">card_travel</InlineIcon>
               {props.trainingResult.percentEmployed
                 ? t("SearchResultsPage.percentEmployed", {
                     percent: formatPercentEmployed(props.trainingResult.percentEmployed),
