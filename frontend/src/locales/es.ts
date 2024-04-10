@@ -356,32 +356,5 @@ export const es = {
       "La colocación laboral y/o asistencia profesional está disponible en este proveedor",
     providerServicesDisclaimerLabel:
       "Los servicios están sujetos a los detalles del proveedor, comuníquese con este proveedor para obtener más información sobre los servicios",
-  },
-  TrainingProviderPage: {
-    header:
-      "Registre o renueve las ofertas de su organización en la Lista de proveedores de capacitación elegibles",
-    sectionOneHeader: "Empezar",
-    sectionOneText:
-      "El New Jersey Training Explorer contiene una lista completa de todas las escuelas y organizaciones que ofrecen programas de educación y capacitación laboral que son elegibles para recibir asistencia para la matrícula financiada con fondos públicos. Esta lista se llama Lista de proveedores de capacitación elegibles (ETPL). Los proveedores de capacitación que buscan una colocación ETPL deben obtener primero la aprobación de una agencia gubernamental calificada para poder ofrecer programas de capacitación. Una agencia gubernamental calificada es una agencia autorizada por ley o reglamento para aprobar un programa de capacitación.",
-    sectionTwoHeader: "Envíe su solicitud",
-    sectionTwoText:
-      "Todos los proveedores de capacitación que buscan una ubicación en el ETPL bajo la Ley de Oportunidades e Innovación de la Fuerza Laboral o la ley estatal deben presentar una solicitud formal al Centro de Información de Empleo Ocupacional (COEI). Los tipos de aplicaciones ETPL se explican y están disponibles para descargar en los enlaces a continuación.",
-    sectionThreeHeader: "Recursos para proveedores de formación",
-    etplDescription: "Instrucciones claras paso a paso para obtener el ETPL",
-    etplButton: "Obtenga aprobación",
-    applicationDescription:
-      "Vea una lista de aplicaciones ETPL y encuentre la adecuada para su programa",
-    applicationButton: "Encuentre su aplicación",
-    occupationDescription: "Encuentre las ocupaciones de más rápido crecimiento en el estado",
-    occupationButton: "Vea ocupaciones",
-    sectionFourHeader:
-      "Aprenda a utilizar el New Jersey Training Explorer leyendo nuestra seccion de preguntas frecuentes",
-    etplFaq: "¿Cómo puede mi escuela convertirse en un proveedor aprobado que figura en la ETPL?",
-    apprenticeshipFaq:
-      "Opero un programa de aprendizaje registrado. ¿Mi programa tiene que estar en la ETPL?",
-    outOfStateFaq:
-      "¿Cómo puede mi escuela fuera del estado convertirse en un proveedor aprobado que figura en la ETPL?",
-    performanceFaq: "¿Existen estándares mínimos de desempeño para la elegibilidad de ETPL?",
-    laborDemandFaq: "¿Qué es la Lista de Ocupaciones de Demanda Laboral?",
-  },
+  }
 };
