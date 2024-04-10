@@ -20,27 +20,6 @@ export const es = {
     getInTouchText: "Ponerse en contacto",
     contactUsButtonText: "Contáctenos",
   },
-  CounselorPage: {
-    header: "Encuentre oportunidades de capacitación y educación en Nueva Jersey",
-    sectionOneHeader: "Empecemos!",
-    sectionOneText:
-      "El New Jersey Training Explorer contiene una lista completa de todas las escuelas y organizaciones que ofrecen programas de educación y capacitación laboral que son elegibles para recibir asistencia de matrícula financiada con fondos públicos. Para empezar su búsqueda de entrenamientos, por favor seleccione el nombre de la formación que le interesa, el proveedor o la carrera que prefiera en la sección de búsqueda que aparece a continuación",
-    sectionTwoHeader: "Lista de ocupaciones en demanda",
-    sectionTwoText:
-      "Se espera que esta lista de ocupaciones populares va a tener la mayor cantidad de puestos vacantes en el futuro, en el estado de Nueva Jersey. Además de la lista, puede ver la información laboral y de ocupaciones que son parte de recursos como O * Net, BLS y CareerOneStop.",
-    sectionThreeHeader: "Recursos para la exploración de su formación",
-    searchDescription:
-      "Aquí puede encuentrar la información más actualizada basada en el la lista de proveedores de formación elegibles (ETPL).",
-    searchButton: "Búsqueda",
-    occupationDescription:
-      "Acceda a datos sobre las ocupaciones de más rápido crecimiento en Nueva Jersey",
-    occupationButton: "Ver ocupaciones",
-    sectionFourHeader:
-      "Aprenda mas sobre como utilizar el Training Explorer explorando de estas preguntas frecuentes",
-    dataFaq: "¿Cuáles son las fuentes de datos de este sitio web?",
-    occupationsFaq: "¿Dónde puedo encontrar la lista de ocupaciones en demanda?",
-    fundingFaq: "¿Cuáles son las oportunidades de financiación que pueden solicitar mis clientes?",
-  },
   ErrorPage: {
     notFoundHeader: "Lo sentimos, parece que no podemos encontrar esa página.",
     notFoundText: "Pruebe uno de estos en su lugar:",
@@ -48,109 +27,6 @@ export const es = {
     notFoundLink2: "Busque su One-Stop Career Center local",
     somethingWentWrongHeader: "Perdón, algo salió mal",
     somethingWentWrongText: "Por favor, inténtelo de nuevo más tarde",
-  },
-  EtplPage: {
-    header:
-      "Una lista de verificación de los pasos para ingresar a la Lista de proveedores de capacitación elegibles (ETPL)",
-    sectionOneHeader: "¿Por qué incluir su organización en la ETPL?",
-    sectionOneText:
-      "El ETPL pretende ser un boletín de calificaciones en línea que proporcione información sobre todos los proveedores y programas de capacitación ocupacional en Nueva Jersey. Este sitio web que contiene la ETPL y la CRC está disponible para todos, no solo para aquellos que buscan capacitación con fondos públicos. En consecuencia, si desea que la información de su programa sea considerada por aquellos que buscan capacitación, la información de su escuela y programa debe estar en la lista para evitar una desventaja competitiva. Si no está en la lista, aquellos que buscan capacitación en este sitio web no lo encontrarán y pueden llegar a la conclusión de que no existe o no está aprobado. Además, aunque es posible que su programa no reciba fondos de capacitación estatales o federales en este momento, es posible que desee ser elegible en el futuro.",
-    step1Header: "Paso 1: Obtenga la aprobación de una agencia gubernamental calificada",
-    step1Text:
-      "Todos los proveedores de capacitación que buscan colocación en ETPL bajo la Ley de Oportunidades e Innovación de la Fuerza Laboral o la ley estatal deben presentar una solicitud formal al Centro de Información de Empleo Ocupacional (COEI). Los tipos de aplicaciones ETPL se explican y están disponibles para descargar en los enlaces a continuación.",
-    step2Header: "Paso 2: Encuentra tu aplicación",
-    step2Text:
-      "Todos los proveedores de capacitación que buscan colocación en ETPL bajo WIOA o la ley estatal deben presentar una solicitud formal al Centro de Información de Empleo Ocupacional (COEI) . Los tipos de aplicaciones ETPL se explican y están disponibles para descargar a continuación:",
-    newApplicants: "Para nuevos solicitantes",
-    applicationPacketLinkText: "Paquete de solicitud inicial de ETPL",
-    applicationPacketDescription:
-      "Esta aplicación debe ser utilizada por todos los nuevos proveedores de capacitación que buscan una colocación en ETPL que no figuraban previamente en la ETPL.",
-    renewalPacketLinkText: "Paquete de solicitud de renovación de ETPL",
-    renewalPacketDescription:
-      "Esta solicitud debe ser utilizada por todos los proveedores de capacitación que ya se han incluido en la ETPL y buscan renovar su elegibilidad para la ETPL.",
-    apprenticeshipPacketLinkText: "Paquete de solicitud de aprendizaje registrado de ETPL",
-    apprenticeshipPacketDescription:
-      "Esta solicitud debe ser utilizada por los programas de aprendizaje registrado que buscan una ubicación en ETPL.",
-    wioaWfnj: "Para proveedores de WIOA Youth/WFNJ:",
-    workforceInnovationLinkText: "Aviso de innovación de la fuerza laboral de NJ 10-17 (A)",
-    wioaYouthLinkText: "ETPL Inicial WIOA Juvenil/WFNJ Proveedor",
-    existingProviders: "Para proveedores existentes",
-    additionModificationLinkText: "Paquete de adición/modificación del programa ETPL",
-    additionModificationDescription:
-      "Esta aplicación debe ser utilizada por proveedores que ya están aprobados por ETPL y desean agregar nuevos programas o modificar programas existentes en ETPL.",
-    step3Header: "Paso 3: Envíe su solicitud",
-    step3Text:
-      "Envíe su solicitud a COEI a <1>njtopps@dol.nj.gov</1>. COEI hará un seguimiento si hay alguna pregunta con respecto a su solicitud.",
-    cosmetology: "Junta de Cosmetología",
-    cosmetologyLinkText: "Aprende más",
-    nursing: "Junta de Enfermería",
-    nursingLinkText: "Aprende más",
-    higherEd: "Secretaría de Educación Superior",
-    insurance: "Departamento de Banca y Seguros: Licencias de Seguros",
-    realEstate: "Departamento de Banca y Seguros: Comisión de Bienes Raíces",
-    realEstateLinkText: "Aprende más",
-    laborTrainingEval:
-      "Departamento de Trabajo y Desarrollo de la Fuerza Laboral, Unidad de Evaluación de Capacitación (TEU)",
-    laborGrantees:
-      "Departamento de Trabajo y Desarrollo de la Fuerza Laboral (beneficiarios para programas personalizados de capacitación, jóvenes y DVRS)",
-    laborGranteesLinkText: "Aprende más",
-    publicSchools: "Departamento de Educación, Escuelas Públicas",
-    xrays: "Departamento de Protección Ambiental (Programas de Radiología/Rayos X)",
-    longTermCare: "Departamento de Salud - Licencias para Centros de Atención a Largo Plazo",
-    indoorEnv: "Departamento de Salud - Programa de Ambientes Interiores",
-    emergencyMed: "Departamento de Salud - Oficina de Servicios Médicos de Emergencia de NJ",
-    aviation: "Administración Federal de Aviación",
-    motorVehicles: "Comisión de Vehículos Motorizados",
-    realEstateAppraiser: "Junta de Tasadores de Bienes Raíces de NJ",
-    securityOfficer: "Policía Estatal de NJ (Entrenamiento de Oficiales de Seguridad - SORA)",
-    proLiteracy: "ProLiteracy",
-    cosmetologyText:
-      "La Junta de Cosmetología y Peluquería del Estado de Nueva Jersey otorga licencias y regula a los peluqueros, esteticistas, cosmetólogos-peluqueros, manicuristas, especialistas en cuidado de la piel, maestros, tiendas y escuelas, y registra a los estudiantes que asisten a estas escuelas.",
-    nursingText:
-      "La Junta de Enfermería de Nueva Jersey se estableció en 1912 para proteger la salud, la seguridad y el bienestar de los residentes de Nueva Jersey al garantizar que quienes practican la enfermería estén calificados y sean competentes para hacerlo. Esta junta otorga licencias a enfermeras registradas y enfermeras prácticas, y regula la profesión de enfermería en Nueva Jersey. La junta certifica enfermeras de práctica avanzada, enfermeras forenses de agresión sexual y asistentes certificados de salud en el hogar. La junta acredita las escuelas de enfermería y aprueba las clínicas afiliadas.",
-    higherEdText:
-      "Una institución que busque ofrecer programas académicos de grado y/o cursos universitarios que otorguen créditos con presencia física en New Jersey deberá primero proporcionar evidencia de incorporación y solicitar la licencia al Secretario. Ninguna institución ofrecerá ni anunciará la disponibilidad de cursos con créditos universitarios o programas de títulos académicos con presencia física en Nueva Jersey antes de recibir la aprobación formal de su petición.",
-    higherEdLinkText: "Más información sobre licencias",
-    insuranceText: "Más información sobre Banca y Seguros",
-    insuranceLinkText: "formularios de educación de licencias",
-    realEstateText1:
-      "Establecida en 1921, la Comisión de Bienes Raíces de Nueva Jersey (REC), una división del Departamento de Banca y Seguros de Nueva Jersey, fue creada para administrar y hacer cumplir la ley de licencias de bienes raíces de Nueva Jersey, N.J.S.A. 45:15-1 y siguientes.",
-    realEstateText2:
-      "El REC emite licencias para corredores y vendedores de bienes raíces, escuelas de bienes raíces e instructores de cursos, y también establece normas de práctica para la profesión de corretaje de bienes raíces. También regula y registra las ventas fuera del estado a través de corredores de New Jersey.",
-    laborTrainingEvalText:
-      "La Unidad de Evaluación de Capacitación trabaja en conjunto con la Oficina de Preparación Profesional (PCSU, por sus siglas en inglés) del Departamento de Educación para evaluar y aprobar escuelas profesionales privadas y escuelas por correspondencia que deseen operar dentro del sistema de preparación laboral de New Jersey. Todos los proveedores aprobados requieren revisiones semestrales para mantener la aprobación continua. El personal de TEU brinda asistencia técnica a los proveedores aprobados y potenciales, así como a los clientes del sistema de preparación de la fuerza laboral de Nueva Jersey.",
-    laborTrainingEvalLink:
-      "Para obtener más información, comuníquese con la Unidad de evaluación de capacitación por correo electrónico a <0>TrainingEvaluationUnit@dol.nj.gov</0> o <2>visite el sitio web</2>.",
-    laborGranteesText1:
-      "Cualquier persona con una discapacidad física, mental, cognitiva o de otro tipo que tenga un impedimento sustancial para trabajar puede calificar para los siguientes servicios a través de la División de Servicios de Rehabilitación Vocacional de Nueva Jersey (DVRS).",
-    laborGranteesText2:
-      "La misión de la División de Servicios de Rehabilitación Vocacional de Nueva Jersey es permitir que las personas discapacitadas elegibles logren un resultado laboral consistente con sus fortalezas, prioridades, necesidades, habilidades y capacidades.",
-    publicSchoolsText:
-      "El Departamento de Educación de New Jersey apoya a las escuelas, educadores y distritos para garantizar que todos los 1,4 millones de estudiantes de New Jersey tengan acceso equitativo a una educación de alta calidad y alcancen la excelencia académica.",
-    publicSchoolsLinkText: "Más información sobre licencias",
-    xraysText:
-      "La misión de la Oficina de Cumplimiento de Rayos X (Oficina) es mejorar la calidad de vida al proteger al público y a los trabajadores de radiación de la exposición innecesaria a la radiación ionizante de las máquinas de rayos X y reducir los diagnósticos médicos erróneos causados por equipos de rayos X defectuosos y error del operador.",
-    xraysLinkText: "Más información sobre licencias",
-    longTermCareText:
-      "La Rama de Sistemas de Salud del Departamento de Salud de New Jersey trabaja para garantizar que los ciudadanos reciban los niveles adecuados de atención en más de 2,000 instalaciones reguladas en todo el estado. Estos incluyen hospitales, hogares de ancianos, residencias de vida asistida, centros de atención ambulatoria, atención médica domiciliaria, atención médica diurna y otros tipos de instalaciones de atención médica.",
-    longTermCareLinkText: "Más información sobre licencias",
-    indoorEnvText:
-      "La calidad del medio ambiente que experimenta todos los días, como el aire que respira en el interior y el agua que bebe, puede afectar su salud. El Departamento de Salud de Nueva Jersey brinda información sobre la salud ambiental y regula la calidad del aire interior en ciertos lugares.",
-    indoorEnvLinkText: "Obtenga más información sobre las evaluaciones de salud en interiores",
-    emergencyMedText:
-      "La Oficina de Servicios Médicos de Emergencia (OEMS, por sus siglas en inglés) certifica a más de 26,000 Técnicos en Emergencias Médicas (EMT, por sus siglas en inglés) y 1,700 Paramédicos Móviles de Cuidados Intensivos (MICP, por sus siglas en inglés), así como también otorga licencias para vehículos de asistencia de movilidad, ambulancias, unidades móviles de cuidados intensivos, unidades de transporte de atención especializada y servicios médicos aéreos. unidades que suman más de 4.500 vehículos.",
-    emergencyMedLinkText: "Más información sobre licencias",
-    aviationLinkText: "Obtenga más información sobre la certificación de la escuela de pilotos",
-    motorVehiclesText:
-      "MVC emite licencias que autorizan a las escuelas de manejo y a los instructores a operar dentro del estado de Nueva Jersey. También permiten a los propietarios de escuelas de manejo y a los instructores o agentes específicos comprar permisos de aprendizaje para estudiantes, permisos de examen, programar exámenes prácticos y administrar exámenes de conocimiento y visión aprobados por el estado.",
-    motorVehiclesLinkText: "Obtenga más información sobre la licencia de la escuela de manejo",
-    realEstateAppraiserText:
-      "La Legislatura de Nueva Jersey creó la Junta Estatal de Tasadores de Bienes Raíces para regular la profesión de tasador y evaluar las credenciales de los solicitantes de licencia y certificación. Esta junta es responsable de la regulación de los tasadores de bienes raíces en Nueva Jersey. La categoría de licencias emitidas por la junta incluye tasadores de bienes raíces con licencia, tasadores residenciales, tasadores generales certificados y tasadores aprendices.",
-    realEstateAppraiserLinkText: "Más información sobre licencias",
-    securityOfficerLinkText: "Obtenga más información sobre las licencias de oficial de seguridad",
-    proLiteracyText:
-      "La misión de ProLiteracy es cambiar vidas y comunidades a través del poder de la alfabetización de adultos.",
-    proLiteracyLinkText: "Obtenga más información sobre ProLiteracy",
   },
   ExplorerPage: {
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
@@ -281,11 +157,6 @@ export const es = {
     etplGroup: "Ícono que representa una agencia gubernamental específica",
     landingPageWorkforce: "Caricatura de tres trabajadores",
     landingPageOccupation: "Ícono que muestra a una persona haciendo conexiones",
-    landingPageCounseling: "Ícono que muestra burbujas de conversación",
-    etplList: "Icono que muestra la lista de verificación",
-    explorerCustomize: "Icono que representa la personalización",
-    explorerFunding: "Signo de dólar",
-    providerApplication: "Icono que muestra la carpeta con documentos",
     careerOneStopLogo: "Logotipo oficial de la organización Career One Stop",
   },
   InDemandBlock: {
@@ -486,32 +357,5 @@ export const es = {
       "La colocación laboral y/o asistencia profesional está disponible en este proveedor",
     providerServicesDisclaimerLabel:
       "Los servicios están sujetos a los detalles del proveedor, comuníquese con este proveedor para obtener más información sobre los servicios",
-  },
-  TrainingProviderPage: {
-    header:
-      "Registre o renueve las ofertas de su organización en la Lista de proveedores de capacitación elegibles",
-    sectionOneHeader: "Empezar",
-    sectionOneText:
-      "El New Jersey Training Explorer contiene una lista completa de todas las escuelas y organizaciones que ofrecen programas de educación y capacitación laboral que son elegibles para recibir asistencia para la matrícula financiada con fondos públicos. Esta lista se llama Lista de proveedores de capacitación elegibles (ETPL). Los proveedores de capacitación que buscan una colocación ETPL deben obtener primero la aprobación de una agencia gubernamental calificada para poder ofrecer programas de capacitación. Una agencia gubernamental calificada es una agencia autorizada por ley o reglamento para aprobar un programa de capacitación.",
-    sectionTwoHeader: "Envíe su solicitud",
-    sectionTwoText:
-      "Todos los proveedores de capacitación que buscan una ubicación en el ETPL bajo la Ley de Oportunidades e Innovación de la Fuerza Laboral o la ley estatal deben presentar una solicitud formal al Centro de Información de Empleo Ocupacional (COEI). Los tipos de aplicaciones ETPL se explican y están disponibles para descargar en los enlaces a continuación.",
-    sectionThreeHeader: "Recursos para proveedores de formación",
-    etplDescription: "Instrucciones claras paso a paso para obtener el ETPL",
-    etplButton: "Obtenga aprobación",
-    applicationDescription:
-      "Vea una lista de aplicaciones ETPL y encuentre la adecuada para su programa",
-    applicationButton: "Encuentre su aplicación",
-    occupationDescription: "Encuentre las ocupaciones de más rápido crecimiento en el estado",
-    occupationButton: "Vea ocupaciones",
-    sectionFourHeader:
-      "Aprenda a utilizar el New Jersey Training Explorer leyendo nuestra seccion de preguntas frecuentes",
-    etplFaq: "¿Cómo puede mi escuela convertirse en un proveedor aprobado que figura en la ETPL?",
-    apprenticeshipFaq:
-      "Opero un programa de aprendizaje registrado. ¿Mi programa tiene que estar en la ETPL?",
-    outOfStateFaq:
-      "¿Cómo puede mi escuela fuera del estado convertirse en un proveedor aprobado que figura en la ETPL?",
-    performanceFaq: "¿Existen estándares mínimos de desempeño para la elegibilidad de ETPL?",
-    laborDemandFaq: "¿Qué es la Lista de Ocupaciones de Demanda Laboral?",
-  },
+  }
 };

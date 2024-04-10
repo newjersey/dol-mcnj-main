@@ -213,7 +213,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             </p>
             <ul className="unstyled">
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/search">
+                <a style={{ color: "#005EA2" }} href="/training/search">
                   Find Training Opportunities
                 </a>
               </li>
@@ -252,7 +252,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       </a>
                     </li>
                     <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/search">
+                      <a className="usa-breadcrumb__link" href="/training/search">
                         Search
                       </a>
                     </li>
