@@ -66,6 +66,7 @@ Cypress.Commands.add("navHasOneActiveLink", (navId) => {
 
 Cypress.Commands.add('typeSpecialCharacters', (selector, text) => {
     cy.get(selector).clear(); // Clear the input first.
+    cy.wait(500);
     Array.from(text).forEach((char) => {
         // Type each character. Even if not returning a chainable from this command,
         // the internal use of cy.get() and cy.type() ensures correct execution order.
