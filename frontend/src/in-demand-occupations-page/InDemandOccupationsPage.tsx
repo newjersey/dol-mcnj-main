@@ -7,6 +7,7 @@ import { Typeahead } from "./Typeahead";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
+import pageImage from "../images/ogImages/inDemand.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -60,7 +61,8 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
         title: `In-Demand Occupations | ${process.env.REACT_APP_SITE_NAME}`,
         pageDescription:
           "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
-        url: props.location?.pathname,
+        url: props.location?.pathname || "/in-demand-occupations",
+        image: pageImage,
       }}
     >
       <div className="container">
