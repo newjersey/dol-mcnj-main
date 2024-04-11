@@ -47,6 +47,9 @@ export const CostFilter = (): ReactElement => {
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>): void => {
     setMaxCost(event.target.value);
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("maxCost", event.target.value);
+    window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
   };
 
   const applyMaxCostFilter = (): void => {
