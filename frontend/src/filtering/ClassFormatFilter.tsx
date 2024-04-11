@@ -69,6 +69,24 @@ export const ClassFormatFilter = (): ReactElement => {
 
     const nothingIsChecked = Object.values(newClassFormat).every((value) => !value);
 
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (newClassFormat.inPerson) {
+      urlParams.set("inPerson", "true");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    } else {
+      urlParams.delete("inPerson");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    }
+
+    if (newClassFormat.online) {
+      urlParams.set("online", "true");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    } else {
+      urlParams.delete("online");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    }
+
     dispatch({
       type: nothingIsChecked ? FilterActionType.REMOVE : FilterActionType.ADD,
       filter: {
