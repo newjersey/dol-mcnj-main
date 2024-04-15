@@ -45,6 +45,17 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
 
   const handleClearAll = (): void => {
     dispatch({ type: FilterActionType.REMOVE_ALL });
+    // remove all params from URL except for "q"
+
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.delete("p");
+    urlParams.delete("inPerson");
+    urlParams.delete("maxCost");
+    urlParams.delete("miles");
+    urlParams.delete("online");
+    urlParams.delete("zip");
+
+    window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
   };
 
   const flexDirection = props.stacked ? "fdc" : "fdr";

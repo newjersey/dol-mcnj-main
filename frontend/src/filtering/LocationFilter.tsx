@@ -61,9 +61,6 @@ export const LocationFilter = (): ReactElement => {
         },
         false,
       );
-    } else {
-      urlParams.set("miles", "10");
-      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
     }
 
     if (zipCode) {
@@ -79,6 +76,10 @@ export const LocationFilter = (): ReactElement => {
       setIsValidZipCode(validZipCode);
       if (!validZipCode) {
         return;
+      } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("zip", currentSearchArea.center);
+        window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
       }
     }
 
@@ -126,12 +127,18 @@ export const LocationFilter = (): ReactElement => {
   const handleZipCodeInput = (event: ChangeEvent<HTMLInputElement>): void => {
     setAttempted(false);
     setSearchArea({ ...searchArea, center: event.target.value });
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("zip", event.target.value);
-    window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
   };
 
   const milesActive = isValidZipCode && attempted;
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const hasMiles = urlParams.has("miles");
+
+    if (isValidZipCode && attempted && !hasMiles) urlParams.set("miles", "10");
+    window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+  }, [isValidZipCode, attempted]);
 
   return (
     <section>
