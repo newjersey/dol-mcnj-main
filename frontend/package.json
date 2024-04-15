@@ -35,6 +35,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^14.1.0",
     "react-scripts": "5.0.1",
+    "react-snap": "^1.23.0",
     "react-tooltip": "^5.26.3",
     "sass": "^1.74.1",
     "typescript": "^5.4.4",
@@ -44,6 +45,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "react-snap",
     "test": "react-scripts test --silent",
     "test:ci": "CI=1 react-scripts test --maxWorkers=2",
     "lint": "eslint --max-warnings 0 '*/**/*.{js,ts,tsx}'",
@@ -53,6 +55,10 @@
     "cypress:run": "cypress run",
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf"
+  },
+  "reactSnap": {
+    "inlineCss": true,
+    "minifyHtml": true
   },
   "jest": {
     "moduleNameMapper": {
