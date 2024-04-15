@@ -278,7 +278,7 @@ describe("filtering by location", () => {
 
   it("updates a filter when radius changed", async () => {
     fireEvent.change(getDistanceInput(subject), {
-      target: { value: "10" },
+      target: { value: "1" },
     });
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
