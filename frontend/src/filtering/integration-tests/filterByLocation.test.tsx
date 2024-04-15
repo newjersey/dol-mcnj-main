@@ -8,6 +8,8 @@ import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 import * as findZipCodesInRadiusModule from "../findZipCodesInRadius";
 
+jest.mock("../../utils/updateUrlParams.ts");
+
 describe("filtering by location", () => {
   const training1 = buildTrainingResult({ name: "training1", zipCode: "07021", online: false }); // 0 mi from 07021
   const training2 = buildTrainingResult({ name: "training2", zipCode: "07004", online: false }); // 4.91 mi from 07021
@@ -276,7 +278,7 @@ describe("filtering by location", () => {
 
   it("updates a filter when radius changed", async () => {
     fireEvent.change(getDistanceInput(subject), {
-      target: { value: "1" },
+      target: { value: "10" },
     });
     fireEvent.change(getZipInput(subject), {
       target: { value: "07021" },
