@@ -12,6 +12,11 @@ if [ $? -ne 0 ]; then
     echo "Frontend build failed, exiting..."
     exit 1
 fi
+echo "Debug: running react-snap..."
+
+npx react-snap
+
+echo "Debug: ran react-snap..."
 
 echo "Debug: Building the backend..."
 npm --prefix=backend run build
