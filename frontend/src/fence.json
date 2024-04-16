@@ -24,7 +24,7 @@
     "react-dom",
     "react-dom/test-utils",
     "react-ga",
-    "react-helmet",
+    "react-helmet-async",
     "react-i18next",
     "react-to-print",
     "react-tooltip",
