@@ -58,7 +58,8 @@
   },
   "reactSnap": {
     "inlineCss": true,
-    "minifyHtml": true
+    "minifyHtml": true,
+    "concurrency": 2
   },
   "jest": {
     "moduleNameMapper": {
