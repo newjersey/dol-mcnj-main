@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Execute postbuild
           command: |
-            npm --prefix=frontend run react-snap
+            npm --prefix=frontend run postbuild
           no_output_timeout: 30m
       - run:
           name: Build Node Backend
