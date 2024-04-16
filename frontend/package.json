@@ -60,7 +60,8 @@
     "inlineCss": true,
     "minifyHtml": true,
     "skip": [
-      "^/training/.+"
+      "^/training/.+",
+      "^/occupation/.+"
     ]
   },
   "jest": {
