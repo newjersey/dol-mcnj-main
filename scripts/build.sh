@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
 
+echo "Debug: Setting script to exit on error."
 set -e
 
-cd $(git rev-parse --show-toplevel)
-npm --prefix=frontend run build
-npm --prefix=backend run build
+echo "Debug: Changing to the git repository's root directory..."
+cd $(git rev-parse --show-toplevel) || { echo "Failed to change directory to the git repository's root. Exiting..."; exit 1; }
 
-mv frontend/build backend/dist
+echo "Debug: Building the frontend..."
+npm --prefix=frontend run build
+if [ $? -ne 0 ]; then
+    echo "Frontend build failed, exiting..."
+    exit 1
+fi
+
+echo "Debug: Building the backend..."
+npm --prefix=backend run build
+if [ $? -ne 0 ]; then
+    echo "Backend build failed, exiting..."
+    exit 1
+fi
+
+echo "Debug: Moving frontend build to backend distribution folder..."
+mv frontend/build backend/dist || { echo "Move operation failed. Exiting..."; exit 1; }
+
+echo "Debug: Move successful. Script completed."

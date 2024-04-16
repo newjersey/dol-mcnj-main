@@ -2,7 +2,6 @@ version: 2.1
 jobs:
   build-and-test:
     circleci_ip_ranges: true
-    resource_class: medium
     docker:
       - image: cimg/node:20.11.0-browsers
       - image: circleci/postgres:12
@@ -27,33 +26,18 @@ jobs:
             - node-deps-v2
       - run:
           name: Install Node.js dependencies
-          command: npm install --prefix frontend
+          command: npm install
       - save_cache:
           key: node-deps-v2-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.npm
             - ~/.cache
       - run:
-          name: Build React Frontend
-          command: |
-            cd $(git rev-parse --show-toplevel)
-            npm --prefix=frontend run build --ignore-scripts
-      - run:
-          name: Execute postbuild
-          command: |
-            npm --prefix=frontend run postbuild
-          no_output_timeout: 30m
-      - run:
-          name: Build Node Backend
-          command: |
-            npm --prefix=backend run build
-            mv frontend/build backend/dist
-      - run:
           name: Run Node.js tests
           command: npm test
       - run:
           name: Execute feature tests script
-          command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
+          command: DB_ENV=$DB_ENV scripts/feature-tests.sh | tee feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
