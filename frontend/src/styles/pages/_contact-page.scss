@@ -1,0 +1,168 @@
+.contact-page-content {
+  margin: 2rem 1rem 0 1rem;
+
+  h2 {
+    font-size: $size-24;
+    font-weight: 500;
+    margin-bottom: $size-12;
+  }
+
+  label {
+    font-size: $size-16;
+    font-weight: 700;
+  }
+
+  textarea {
+    min-height: 100px;
+    padding: $size-12;
+    width: 100%;
+  }
+
+  .address-line + .address-line {
+    margin-top: $size-4;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    margin: $size-24 0;
+  
+    button + button {
+      margin-left: $size-48;
+    }
+  
+    .usa-button {
+      background-color: $blue-60v;
+  
+      &:hover {
+        background-color: $blue-70v;
+      }
+    }
+  }
+
+  .clear-button {
+    color: $blue-60v;
+    font-weight: 700;
+    text-decoration: underline;
+
+    &:hover {
+      color: $blue-70v;
+    }
+  }
+
+  .contact-container {
+    border-radius: $size-8;
+    padding: $size-24;
+    margin: 0 $size-8;
+  }
+
+  .contact-container + .contact-container {
+    margin: $size-24 0;
+  }
+
+  .contact-info {
+    background-color: $gray-cool-3;
+
+    h2 {
+      margin-bottom: $size-24;
+    }
+  }
+
+  .contact-info-container {
+    margin-bottom: $size-24;
+  }
+
+  .contact-form {
+    background-color: $cyan-5;
+    
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .MuiOutlinedInput-input,
+    .MuiTextField-root {
+      background-color: $white;
+    }
+  
+    .usa-button {
+      max-width: $size-111;
+    }
+  }
+  
+  .contact-success {
+    background-color: $green-cool-5;
+  }
+  
+  .contact-error {
+    background-color: $red-warm-10;
+  }
+
+  .contact-succes,
+  .contact-error {
+    .button-container {
+      max-width: $size-146;
+    }
+  }
+
+  .error-textarea {
+    border: 1px solid #F44336;
+    border-radius: $size-8;
+  }
+
+  .form-error-message {
+    color: $red;
+    font-weight: 700;
+    margin: $size-14 0;
+  }
+
+  .input-container {
+    margin: $size-14 0 $size-24 0;
+  }
+
+  .label-container {
+    margin: $size-14 0;
+  }
+
+  .message-count {
+    color: $gray-cool-60;
+    margin-top: $size-8;
+  }
+
+  .radio-error {
+    color: #F44336;
+  }
+
+  .required {
+    color: $red;
+  }
+
+  .required-instructions {
+    font-size: $size-14;
+    margin: $size-20 0;
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .contact-page-content {
+    margin: 3rem auto 0 auto;
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .contact-page-content {
+    display: flex;
+    flex-direction: row;
+    margin: 3rem auto 0 auto;
+    max-width: $size-1264;
+
+    .container-info-container,
+    .form-container {
+      width: 50%;
+    }
+
+    .form-container {
+      margin-left: $size-24;
+    }
+  }
+}

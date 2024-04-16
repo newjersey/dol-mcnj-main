@@ -25,7 +25,7 @@ export const contentfulClient = ({
     headers["X-Exclude-Invalid"] = "true";
   }
   const client = new GraphQLClient(
-    `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}`,
+    `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`,
     {
       headers,
     },
