@@ -38,12 +38,16 @@ jobs:
           command: |
             cd $(git rev-parse --show-toplevel)
             npm --prefix=frontend run build --ignore-scripts
-            mv frontend/build backend/dist
       - run:
-          name: Execute react-snap
+          name: Execute postbuild
           command: |
             npm --prefix=frontend run react-snap
           no_output_timeout: 30m
+      - run:
+          name: Build Node Backend
+          command: |
+            npm --prefix=backend run build
+            mv frontend/build backend/dist
       - run:
           name: Run Node.js tests
           command: npm test
