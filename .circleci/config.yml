@@ -4,10 +4,12 @@ jobs:
     circleci_ip_ranges: true
     docker:
       - image: cimg/node:20.11.0-browsers
+        resource_class: medium
       - image: circleci/postgres:12
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD:
+
     steps:
       - checkout
       - run:
