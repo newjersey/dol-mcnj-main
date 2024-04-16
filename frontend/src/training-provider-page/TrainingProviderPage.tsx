@@ -7,6 +7,7 @@ import { Layout } from "../components/Layout";
 import { TabContent } from "../components/TabContent";
 import { usePageTitle } from "../utils/usePageTitle";
 import { useContentful } from "../utils/useContentful";
+import pageImage from "../images/ogImages/trainingProviderResources.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -20,11 +21,24 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
   usePageTitle(`${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`);
 
   const seoObject = {
-    title: `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`,
-    description: data?.page?.pageDescription,
-    image: data?.page?.ogImage?.url,
-    keywords: data?.page?.keywords,
-    url: props.location?.pathname,
+    title: data
+      ? `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`
+      : `Training Provider | ${process.env.REACT_APP_SITE_NAME}`,
+    description:
+      data?.page?.pageDescription ||
+      "As a training program provider, you may have questions about data collection requirements, Eligible Training Provider List (ETPL) listing, and how the Department of Labor deals with Quality Assurance. You can find answers to your questions here.",
+    image: data?.page?.ogImage?.url || pageImage,
+    keywords: data?.page?.keywords || [
+      "Training Provider",
+      "Training Provider Resources",
+      "Eligible Training Provider List",
+      "ETPL",
+      "Training",
+      "Training Program",
+      "New Jersey",
+      "My Career NJ",
+    ],
+    url: props.location?.pathname || "/training-provider-resources",
   };
 
   return (

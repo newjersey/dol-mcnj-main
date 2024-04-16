@@ -12,7 +12,7 @@ import { Cta } from "../components/modules/Cta";
 import { CtaBanner } from "../components/CtaBanner";
 import { River } from "../components/River";
 import { FooterCta } from "../components/FooterCta";
-import { usePageTitle } from "../utils/usePageTitle";
+import pageImage from "../images/ogImages/careerNavigator.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -39,12 +39,12 @@ export const CareerNavigatorPage = (props: Props): ReactElement<Props> => {
     };
   });
 
-  usePageTitle(`${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`);
-
   const seoObject = {
-    title: `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`,
+    title: data?.page.title
+      ? `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
+      : `New Jersey Career Navigator | ${process.env.REACT_APP_SITE_NAME}`,
     description: data?.page.pageDescription,
-    image: data?.page.ogImage?.url,
+    image: data?.page.ogImage?.url || pageImage,
     keywords: data?.page.keywords,
     url: props.location?.pathname,
   };

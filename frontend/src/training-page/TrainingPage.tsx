@@ -197,9 +197,11 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
   const seoObject = {
-    title: `${training ? training.name : ""} | Training | ${process.env.REACT_APP_SITE_NAME}`,
+    title: training
+      ? `${training ? training.name : ""} | Training | ${process.env.REACT_APP_SITE_NAME}`
+      : `Training | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription: training?.description,
-    url: props.location?.pathname,
+    url: props.location?.pathname || "/training",
   };
 
   if (!training) {

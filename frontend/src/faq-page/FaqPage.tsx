@@ -6,8 +6,8 @@ import { FaqCollection } from "../components/FaqCollection";
 import { FaqPageData, LinkObjectProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { CtaBanner } from "../components/CtaBanner";
-import { usePageTitle } from "../utils/usePageTitle";
 import { useContentful } from "../utils/useContentful";
+import pageImage from "../images/ogImages/faq.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -36,14 +36,22 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     });
   };
 
-  usePageTitle(`${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`);
-
   const seoObject = {
-    title: `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`,
-    description: data?.page?.pageDescription,
-    image: data?.page?.ogImage?.url,
-    keywords: data?.page?.keywords,
-    url: props.location?.pathname,
+    title: data
+      ? `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`
+      : `Frequently Asked Questions | ${process.env.REACT_APP_SITE_NAME}`,
+    description: data?.page?.pageDescription || "Get answers to all of your My Career NJ questions",
+    image: data?.page?.ogImage?.url || pageImage,
+    keywords: data?.page?.keywords || [
+      "FAQ",
+      "Frequently Asked Questions",
+      "New Jersey",
+      "Career",
+      "Training",
+      "Job",
+      "My Career NJ",
+    ],
+    url: props.location?.pathname || "/faq",
   };
 
   return (
