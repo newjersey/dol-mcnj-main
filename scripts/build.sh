@@ -14,6 +14,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "Debug: running react-snap..."
 
+cd frontend
 npx react-snap
 
 echo "Debug: ran react-snap..."
