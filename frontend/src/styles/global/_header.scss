@@ -4,7 +4,7 @@ header {
     width: 100%;
     z-index: 12;
 
-    @media screen and (max-width: ($desktop)) {
+    @media screen and (max-width: ($tablet-md)) {
       background-color: $dark-blue;
       color: $white;
     }
@@ -19,7 +19,7 @@ header {
       padding: $size-16 0;
       width: calc(100% - 55px);
 
-      @media screen and (min-width: ($desktop + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         width: 50%;
       }
     }
@@ -27,12 +27,12 @@ header {
     h1 {
       font-size: 28px;
 
-      @media screen and (min-width: ($desktop + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         width: calc(100% - 45px);
         margin-left: 10px;
       }
 
-      @media screen and (max-width: ($desktop)) {
+      @media screen and (max-width: ($tablet-md)) {
         color: $white;
         font-size: $size-14;
       }
@@ -42,7 +42,7 @@ header {
       width: $size-48;
       height: auto;
 
-      @media screen and (max-width: ($desktop)) {
+      @media screen and (max-width: ($tablet-md)) {
         display: none;
       }
     }
@@ -118,11 +118,11 @@ header {
       margin: 0;
       list-style-type: none;
 
-      @media screen and (min-width: ($desktop + 1)) {
+      @media screen and (min-width: ($tablet-md + 1)) {
         gap: 2.5rem;
       }
 
-      @media screen and (max-width: ($desktop)) {
+      @media screen and (max-width: ($tablet-md)) {
         flex-direction: column;
       }
     }
@@ -140,7 +140,7 @@ header {
       font-size: 0.9rem;
       position: relative;
 
-      @media screen and (max-width: ($desktop)) {
+      @media screen and (max-width: ($tablet-md)) {
         padding: 0.95rem 0;
       }
 
@@ -161,14 +161,14 @@ header {
           font-size: $size-20;
           right: 0;
 
-          @media screen and (min-width: ($desktop + 1)) {
+          @media screen and (min-width: ($tablet-md + 1)) {
             right: -$size-20;
           }
         }
       }
 
       &:hover {
-        @media screen and (min-width: ($desktop + 1)) {
+        @media screen and (min-width: ($tablet-md + 1)) {
           &::after {
             content: "";
             position: absolute;
@@ -194,7 +194,7 @@ header {
         margin-right: 2rem;
       }
 
-      @media screen and (max-width: ($desktop)) {
+      @media screen and (max-width: ($tablet-md)) {
         flex-direction: column;
       }
     }
