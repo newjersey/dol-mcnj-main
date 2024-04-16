@@ -26,6 +26,19 @@ jobs:
             - node-deps-v2-{{ .Branch }}
             - node-deps-v2
       - run:
+          name: Build React Frontend
+          command: |
+            cd $(git rev-parse --show-toplevel)
+            # Run the frontend build without postbuild scripts
+            npm --prefix=frontend run build --ignore-scripts
+            mv frontend/build backend/dist
+      - run:
+          name: Execute react-snap
+          command: |
+            # Run react-snap separately for better control and debugging
+            npm --prefix=frontend run react-snap
+          no_output_timeout: 30m
+      - run:
           name: Install Node.js dependencies
           command: npm install
       - save_cache:
