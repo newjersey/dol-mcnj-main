@@ -59,7 +59,6 @@
   "reactSnap": {
     "inlineCss": true,
     "minifyHtml": true,
-    "concurrency": 2,
     "skip": [
       "^/training/.+"
     ]
