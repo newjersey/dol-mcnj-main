@@ -59,7 +59,10 @@
   "reactSnap": {
     "inlineCss": true,
     "minifyHtml": true,
-    "concurrency": 2
+    "concurrency": 2,
+    "skip": [
+      "^/training/.+"
+    ]
   },
   "jest": {
     "moduleNameMapper": {
