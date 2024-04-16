@@ -18,7 +18,7 @@ cd frontend
 npx react-snap
 
 echo "Debug: ran react-snap..."
-
+cd ..
 echo "Debug: Building the backend..."
 npm --prefix=backend run build
 if [ $? -ne 0 ]; then
