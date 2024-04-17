@@ -56,6 +56,15 @@
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf"
   },
+  "reactSnap": {
+    "inlineCss": true,
+    "minifyHtml": true,
+    "skip": [
+      "^/training/.+",
+      "^/occupation/.+"
+    ],
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
+  },
   "jest": {
     "moduleNameMapper": {
       "^axios$": "axios/dist/axios.js"
