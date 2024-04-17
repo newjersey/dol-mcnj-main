@@ -8,6 +8,8 @@ import { UnstyledLinkButton } from "../components/UnstyledLinkButton";
 import { InlineIcon } from "../components/InlineIcon";
 import { ALL_LANGUAGES, DATA_VALUE_TO_LANGUAGE } from "./trainingLanguages";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
+import { camelify } from "../utils/slugify";
 
 const COLLAPSED_LIST_LENGTH = 4;
 
@@ -74,7 +76,15 @@ export const LanguagesFilter = (): ReactElement => {
                 control={
                   <SpacedCheckbox
                     checked={languages.includes(lang)}
-                    onChange={handleCheckboxChange}
+                    onChange={(e) => {
+                      handleCheckboxChange(e, !languages.includes(lang));
+                      toggleParams({
+                        condition: e.target.checked,
+                        value: "true",
+                        key: camelify(lang),
+                        valid: true,
+                      });
+                    }}
                     name={lang}
                     color="primary"
                   />

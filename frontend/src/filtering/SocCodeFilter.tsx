@@ -5,6 +5,7 @@ import { TrainingResult } from "../domain/Training";
 import { Input } from "../components/Input";
 import { InlineIcon } from "../components/InlineIcon";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
 
 function isValidSocCode(soc: string): boolean {
   if (soc === "") return true;
@@ -72,7 +73,15 @@ export const SocCodeFilter = (): ReactElement => {
           <Input
             id="socCode"
             value={socCode}
-            onChange={handleInput}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              handleInput(e);
+              toggleParams({
+                condition: e.target.value !== "" && isValidSocCode(e.target.value),
+                key: "socCode",
+                value: e.target.value,
+                valid: isValidSocCode(e.target.value),
+              });
+            }}
             onKeyDown={handleKeyDown}
             onBlur={applyFilter}
             placeholder="i.e. 43-9041"
