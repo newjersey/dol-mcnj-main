@@ -61,7 +61,8 @@
     "skip": [
       "^/training/.+",
       "^/occupation/.+"
-    ]
+    ],
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
   },
   "jest": {
     "moduleNameMapper": {
