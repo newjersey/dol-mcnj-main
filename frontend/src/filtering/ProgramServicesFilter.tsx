@@ -4,6 +4,7 @@ import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { FormControlLabel, FormGroup, Switch } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
 
 interface ProgramServices {
   hasEveningCourses: boolean;
@@ -109,7 +110,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.isWheelchairAccessible}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.isWheelchairAccessible);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "isWheelchairAccessible",
+                  valid: true,
+                });
+              }}
               name="isWheelchairAccessible"
               color="primary"
             />
@@ -120,7 +129,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.hasChildcareAssistance}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.hasChildcareAssistance);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "hasChildcareAssistance",
+                  valid: true,
+                });
+              }}
               name="hasChildcareAssistance"
               color="primary"
             />
@@ -131,7 +148,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.hasEveningCourses}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.hasEveningCourses);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "hasEveningCourses",
+                  valid: true,
+                });
+              }}
               name="hasEveningCourses"
               color="primary"
             />
@@ -142,7 +167,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.hasJobPlacementAssistance}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.hasJobPlacementAssistance);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "hasJobPlacementAssistance",
+                  valid: true,
+                });
+              }}
               name="hasJobPlacementAssistance"
               color="primary"
             />
