@@ -57,13 +57,17 @@
     "fences": "gf"
   },
   "reactSnap": {
+    "include": [
+      "/",
+      "/training/*",
+      "/in-demand-occupations",
+      "/*"
+    ],
     "inlineCss": true,
     "minifyHtml": true,
-    "skip": [
-      "^/training/.+",
-      "^/occupation/.+"
-    ],
-    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "crawl": true,
+    "skipThirdPartyRequests": false
   },
   "jest": {
     "moduleNameMapper": {

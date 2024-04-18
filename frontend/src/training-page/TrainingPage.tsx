@@ -9,6 +9,7 @@ import { InlineIcon } from "../components/InlineIcon";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
 
+import { Seo } from "../components/Seo"
 import { Grouping } from "../components/Grouping";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
@@ -237,6 +238,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   return (
     <div ref={componentRef}>
+      <Seo title={seoObject.title} pageDescription={seoObject.pageDescription} url={seoObject.url} />
       <Layout client={props.client} seo={seoObject}>
         <div className="container">
           <div className="detail-page">

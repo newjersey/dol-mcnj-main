@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { SeoProps } from "../types/contentful";
 
 export const Seo = (props: SeoProps) => {
+    console.log("SEO title:", props.title); // Debug: Check the title being received
   return (
     <Helmet>
       <title>{props.title}</title>
