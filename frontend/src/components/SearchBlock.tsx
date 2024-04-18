@@ -142,7 +142,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             aria-label="search"
             className="search-input usa-input"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(sanitizedValue(e.target.value));
+              setSearchTerm(e.target.value);
+
             }}
             defaultValue={searchTerm}
           />
