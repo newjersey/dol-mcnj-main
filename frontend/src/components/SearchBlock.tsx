@@ -129,7 +129,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           ) : (
             "SOC code"
           )}
-          , or keyword
+          , CIP code, or keyword
         </p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">

@@ -7,7 +7,7 @@ describe("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
+    cy.contains("Search by training, provider, certification, SOC code, CIP code, or keyword").should(
       "exist",
     );
 
@@ -31,7 +31,7 @@ describe("Search", () => {
     ).should("exist");
   });
 
-  it.skip("searches from the training explorer page with ampersands", () => {
+  it("searches from the training explorer page with ampersands", () => {
     cy.visit('/training');
 
     // Use the custom command to type the search term into the input field.
@@ -142,7 +142,7 @@ describe("Search", () => {
   });
 
   it("shows comparison items when checked", () => {
-    cy.intercept("/api/trainings/search?query=painting").as("getSearch");
+    cy.intercept("/api/trainings/search?query=painting&page=1&limit=10&sort=best_match").as("getSearch");
 
     cy.visit("/training/search?q=painting");
 
