@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 import { SeoProps } from "../types/contentful";
 
 export const Seo = (props: SeoProps) => {

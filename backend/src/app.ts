@@ -204,7 +204,7 @@ const router = routerFactory({
   ),
 });
 
-app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
+app.use(express.static("dist/build", { etag: false, lastModified: false }));
 app.use(express.json());
 
 app.use("/api", router);

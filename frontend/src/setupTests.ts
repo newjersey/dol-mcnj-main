@@ -58,7 +58,6 @@ jest.mock("react-i18next", () => ({
   Trans: ({ children }: { children: any }) => children,
 }));
 
-jest.mock('react-helmet-async', () => ({
+jest.mock('react-helmet', () => ({
   Helmet: () => jest.fn(),
-  HelmetProvider: () => jest.fn(),
 }));

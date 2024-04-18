@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HelmetProvider } from 'react-helmet-async';
 import "@newjersey/njwds/dist/css/styles.css";
 import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
@@ -28,15 +27,29 @@ if (isCI && !isProd ? prompt("Enter password:") === password : true) {
     },
   });
 
+/*  if (navigator.userAgent === 'ReactSnap') {
+    // Define snapSaveState function
+    window.snapSaveState = () => {
+      // Custom logic to determine if the page is ready
+      return new Promise(resolve => {
+        const checkDataLoaded = setInterval(() => {
+          // Assuming there is some global state or condition to check
+          if (window.isDataLoaded) { // You should set this flag true wherever your data finishes loading
+            clearInterval(checkDataLoaded);
+            resolve();
+          }
+        }, 100); // Check every 100 milliseconds
+      });
+    };
+  }*/
+
   ReactDOM.render(
-    <HelmetProvider>
       <React.StrictMode>
         <ThemeProvider theme={theme}>
           <App client={apiClient} />
         </ThemeProvider>
-      </React.StrictMode>
-    </HelmetProvider>,
-    document.getElementById("root"),
+      </React.StrictMode>,
+      document.getElementById("root"),
   );
 
   serviceWorker.unregister();
