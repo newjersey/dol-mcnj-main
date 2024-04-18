@@ -17,7 +17,6 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
-import { checkValidSocCode } from "../utils/checkValidCodes";
 import { Pagination } from "./Pagination";
 
 interface Props extends RouteComponentProps {
@@ -121,9 +120,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     }
 
     if (pageNumber) {
-      let queryToSearch = searchQuery ? searchQuery : "";
-
-      queryToSearch = checkValidSocCode(queryToSearch);
+      const queryToSearch = searchQuery ? searchQuery : "";
 
       if (queryToSearch && queryToSearch !== "null") {
         props.client.getTrainingsByQuery(

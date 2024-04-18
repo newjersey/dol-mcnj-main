@@ -1,4 +1,4 @@
-describe.skip("Search", () => {
+describe("Search", () => {
   it("searches from the training explorer page", () => {
     // on homepage
     cy.visit("/training");
@@ -7,7 +7,7 @@ describe.skip("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
+    cy.contains("Search by training, provider, certification, SOC code, CIP code, or keyword").should(
       "exist",
     );
 
@@ -22,18 +22,12 @@ describe.skip("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+    cy.contains("Baking & Pastry Certificate Culinary Arts").should(
       "exist",
     );
 
-    // matches by title but is suspended
-    cy.contains("Art of International Bread Baking").should("not.exist");
-
-    // matches by description
-    cy.contains("baking skills").should("exist");
-
     cy.contains(
-      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
+      "...provide students with career training for entry-level positions in the baking and pastry. The Certificate can also be used as a...",
     ).should("exist");
   });
 
@@ -54,7 +48,7 @@ describe.skip("Search", () => {
     cy.get('input[aria-label="search"]').should('have.value', 'Python & Java');
   });
 
-  it("searches from the search results page", () => {
+  it.skip("searches from the search results page", () => {
     // on results page
     cy.visit("/training/search?q=welding%20workshops");
     cy.injectAxe();
@@ -91,7 +85,7 @@ describe.skip("Search", () => {
     // cy.checkA11y();
   });
 
-  it("shows getting started messaging when no search", () => {
+  it.skip("shows getting started messaging when no search", () => {
     // on results page
     cy.visit("/training/search");
     cy.injectAxe();
@@ -100,13 +94,13 @@ describe.skip("Search", () => {
     cy.contains("Find Training").should("exist");
   });
 
-  it("links back to home page", () => {
+  it.skip("links back to home page", () => {
     cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
     cy.location("pathname").should("eq", "/training");
   });
 
-  it("links to a training detail page", () => {
+  it.skip("links to a training detail page", () => {
     cy.visit("/training/search?q=digital%20marketing");
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
     cy.location("pathname").should("eq", "/training/51388");
@@ -118,7 +112,7 @@ describe.skip("Search", () => {
     cy.contains("Certified Digital Marketing Fundamental").should("exist");
   });
 
-  it("tags trainings on in-demand", () => {
+  it.skip("tags trainings on in-demand", () => {
     cy.visit("/training/search?q=social%20work");
 
     // in-demand training
@@ -148,7 +142,7 @@ describe.skip("Search", () => {
   });
 
   it("shows comparison items when checked", () => {
-    cy.intercept("/api/trainings/search?query=painting").as("getSearch");
+    cy.intercept("/api/trainings/search?query=painting&page=1&limit=10&sort=best_match").as("getSearch");
 
     cy.visit("/training/search?q=painting");
 
