@@ -36,6 +36,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
+    availableAt: {},
     ...overrides,
   };
 };
@@ -68,6 +69,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
+    availableAt: {},
     ...overrides,
   };
 };

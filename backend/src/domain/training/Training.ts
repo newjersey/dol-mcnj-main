@@ -27,6 +27,7 @@ export interface Training {
   isWheelchairAccessible: boolean;
   hasJobPlacementAssistance: boolean;
   hasChildcareAssistance: boolean;
+  availableAt: Address
 }
 
 export interface Provider {

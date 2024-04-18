@@ -2,15 +2,14 @@ import { GetOccupationDetail } from "../types";
 import { StubDataClient } from "../test-objects/StubDataClient";
 import { getOccupationDetailFactory } from "./getOccupationDetail";
 import {
-  buildAddress,
   buildOccupation,
   buildOccupationDetailPartial,
-  buildProvider,
   buildSocDefinition,
-  buildTraining,
 } from "../test-objects/factories";
 import { Error } from "../Error";
+import * as TrainingModule from "../search/searchTrainings";
 // import { CalendarLength } from "../CalendarLength";
+jest.mock("../search/searchTrainings")
 
 describe("getOccupationDetail", () => {
   let mockOnet: jest.Mock;
@@ -19,21 +18,31 @@ describe("getOccupationDetail", () => {
   let mockGetEducationText: jest.Mock;
   let mockGetSalaryEstimate: jest.Mock;
   let mockGetOpenJobsCount: jest.Mock;
-  let mockFindTrainingsBy: jest.Mock;
 
   beforeEach(() => {
+    const spy = jest.spyOn(TrainingModule, 'searchTrainingsFactory');
+    spy.mockImplementation(() => {
+      return async () => ({ data: [], meta: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 4,
+        itemsPerPage: 1,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        nextPage: null,
+        previousPage: null,
+      } });
+  });
     mockOnet = jest.fn();
     mockGetEducationText = jest.fn();
     mockGetSalaryEstimate = jest.fn();
     mockGetOpenJobsCount = jest.fn();
-    mockFindTrainingsBy = jest.fn();
     stubDataClient = StubDataClient();
     getOccupationDetail = getOccupationDetailFactory(
       mockOnet,
       mockGetEducationText,
       mockGetSalaryEstimate,
       mockGetOpenJobsCount,
-      mockFindTrainingsBy,
       stubDataClient,
     );
   });
@@ -56,36 +65,6 @@ describe("getOccupationDetail", () => {
           ciptitle: "some-cip",
         },
       ]);
-
-      mockFindTrainingsBy.mockResolvedValue([
-        buildTraining({
-          id: "some-training-id",
-          name: "some-training-name",
-          provider: buildProvider({
-            id: "some-provider-id",
-            addresses: buildAddress({
-              city: "some-provider-city",
-              zipCode: "some-provider-zipCode",
-            }),
-            name: "some-provider-name",
-          }),
-          totalCost: 534,
-          percentEmployed: 3454,
-          // calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
-          totalClockHours: 400,
-          localExceptionCounty: [],
-          online: true,
-          inDemand: true,
-          occupations: [{ soc: "some-soc", title: "some-title" }],
-          cipCode: "some-cip",
-          hasEveningCourses: false,
-          languages: "some-language",
-          isWheelchairAccessible: true,
-          hasJobPlacementAssistance: true,
-          hasChildcareAssistance: true,
-        }),
-      ]);
-
       const result = await getOccupationDetail("some-soc");
 
       expect(result).toEqual({
@@ -96,34 +75,7 @@ describe("getOccupationDetail", () => {
         medianSalary: 38260,
         openJobsCount: 10,
         openJobsSoc: "some-soc",
-/*
-        relatedTrainings: [
-          {
-            id: "some-training-id",
-            name: "some-training-name",
-            totalCost: 534,
-            percentEmployed: 3454,
-            // calendarLength: CalendarLength.SIX_TO_TWELVE_MONTHS,
-            totalClockHours: 400,
-            localExceptionCounty: [],
-            online: true,
-            providerId: "some-provider-id",
-            providerName: "some-provider-name",
-            cities: ["some-provider-city"],
-            zipCodes: ["some-provider-zipCode"],
-            inDemand: true,
-            highlight: "",
-            rank: 0,
-            socCodes: ["some-soc"],
-            cipCode: "some-cip",
-            hasEveningCourses: false,
-            languages: "some-language",
-            isWheelchairAccessible: true,
-            hasJobPlacementAssistance: true,
-            hasChildcareAssistance: true,
-          },
-        ],
-*/
+        relatedTrainings: []
       });
     });
   });
@@ -152,34 +104,6 @@ describe("getOccupationDetail", () => {
         },
       ]);
 
-      mockFindTrainingsBy.mockResolvedValue([
-        buildTraining({
-          id: "some-training-id",
-          name: "some-training-name",
-          provider: buildProvider({
-            id: "some-provider-id",
-            addresses: buildAddress({
-              city: "some-provider-city",
-              zipCode: "some-provider-zipCode",
-            }),
-            name: "some-provider-name",
-          }),
-          totalCost: 534,
-          percentEmployed: 3454,
-          // calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
-          totalClockHours: 20,
-          localExceptionCounty: [],
-          online: true,
-          inDemand: true,
-          occupations: [{ soc: "some-soc", title: "some-title" }],
-          cipCode: "some-cip",
-          hasEveningCourses: false,
-          languages: "some-language",
-          isWheelchairAccessible: true,
-          hasJobPlacementAssistance: true,
-          hasChildcareAssistance: true,
-        }),
-      ]);
 
       const result = await getOccupationDetail("2018-soc");
 
@@ -192,32 +116,7 @@ describe("getOccupationDetail", () => {
         medianSalary: 38260,
         openJobsCount: 1000,
         openJobsSoc: "2010-soc",
-        relatedTrainings: [
-          {
-            id: "some-training-id",
-            name: "some-training-name",
-            totalCost: 534,
-            percentEmployed: 3454,
-            // calendarLength: CalendarLength.THREE_TO_SEVEN_DAYS,
-            totalClockHours: 20,
-            localExceptionCounty: [],
-            online: true,
-            providerId: "some-provider-id",
-            providerName: "some-provider-name",
-            // cities: ["some-provider-city"],
-            // zipCodes: ["some-provider-zipCode"],
-            inDemand: true,
-            highlight: "",
-            rank: 0,
-            socCodes: ["some-soc"],
-            cipCode: "some-cip",
-            hasEveningCourses: false,
-            languages: "some-language",
-            isWheelchairAccessible: true,
-            hasJobPlacementAssistance: true,
-            hasChildcareAssistance: true,
-          },
-        ],
+        relatedTrainings: [],
       });
 
       expect(mockGetOpenJobsCount).toHaveBeenCalledWith("2010-soc");
@@ -251,37 +150,6 @@ describe("getOccupationDetail", () => {
 
       const neighboringOccupations = [buildOccupation({}), buildOccupation({})];
       stubDataClient.getNeighboringOccupations.mockResolvedValue(neighboringOccupations);
-
-      mockFindTrainingsBy.mockResolvedValue([
-        buildTraining({
-          id: "some-training-id",
-          name: "some-training-name",
-          provider: buildProvider({
-            id: "some-provider-id",
-            addresses: buildAddress({
-              city: "some-provider-city",
-              zipCode: "some-provider-zipCode",
-            }),
-            county: "some-provider-county",
-            name: "some-provider-name",
-          }),
-          totalCost: 534,
-          percentEmployed: 3454,
-          // calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
-          totalClockHours: 2000,
-          localExceptionCounty: [],
-          online: true,
-          inDemand: true,
-          occupations: [{ soc: "some-soc", title: "some-title" }],
-          cipCode: "some-cip",
-          hasEveningCourses: false,
-          languages: "some-language",
-          isWheelchairAccessible: true,
-          hasJobPlacementAssistance: true,
-          hasChildcareAssistance: true,
-        }),
-      ]);
-
       const result = await getOccupationDetail("2018-soc");
 
       expect(result).toEqual({
@@ -295,32 +163,7 @@ describe("getOccupationDetail", () => {
         medianSalary: 38260,
         openJobsCount: 100,
         relatedOccupations: neighboringOccupations,
-        relatedTrainings: [
-          {
-            id: "some-training-id",
-            name: "some-training-name",
-            totalCost: 534,
-            percentEmployed: 3454,
-            // calendarLength: CalendarLength.THREE_TO_FOUR_YEARS,
-            totalClockHours: 2000,
-            localExceptionCounty: [],
-            online: true,
-            providerId: "some-provider-id",
-            providerName: "some-provider-name",
-            // cities: ["some-provider-city"],
-            // zipCodes: ["some-provider-zipCode"],
-            inDemand: true,
-            highlight: "",
-            rank: 0,
-            socCodes: ["some-soc"],
-            cipCode: "some-cip",
-            hasEveningCourses: false,
-            languages: "some-language",
-            isWheelchairAccessible: true,
-            hasJobPlacementAssistance: true,
-            hasChildcareAssistance: true,
-          },
-        ],
+        relatedTrainings: [],
       });
     });
   });

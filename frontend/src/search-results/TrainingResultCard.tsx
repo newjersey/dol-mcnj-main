@@ -31,7 +31,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
 
   const getLocationOrOnline = (): string => {
     const address: TrainingAddress = props.trainingResult.availableAt;
-    if (address.city !== "") {
+    if (address && address.city !== "") {
       return address.city;
     } else {
       return "No Provider Locations Listed";
