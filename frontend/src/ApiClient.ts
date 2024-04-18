@@ -20,7 +20,6 @@ export class ApiClient implements Client {
   getTrainingById(id: string, observer: Observer<Training>): void {
     this.get(`/api/trainings/${id}`, observer);
   }
-
   getInDemandOccupations(observer: Observer<InDemandOccupation[]>): void {
     this.get("/api/occupations", observer);
   }

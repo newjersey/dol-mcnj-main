@@ -113,6 +113,17 @@ export class PostgresDataClient implements DataClient {
     return programs;
   };
 
+  public getAllTrainingProgramIds = async (): Promise<string[]> => {
+    try {
+      console.log("HERE");
+      const result = await this.kdb('etpl').select('programid').where('statusname', APPROVED);
+      return result.map(row => row.programid.toString());
+    } catch (e) {
+      console.error("DB error: ", e);
+      return Promise.reject();
+    }
+  };
+
   getLocalExceptionsByCip = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
       .distinctOn(["cipcode", "county"])

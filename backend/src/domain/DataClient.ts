@@ -12,6 +12,7 @@ import { Selector } from "./training/Selector";
 
 export interface DataClient {
   findProgramsBy: (selector: Selector, values: string[]) => Promise<Program[]>;
+  getAllTrainingProgramIds: () => Promise<string[]>;
   findOccupationsByCip: (cip: string) => Promise<Occupation[]>;
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
   findCipDefinitionBySoc2018: (soc: string) => Promise<CipDefinition[]>;

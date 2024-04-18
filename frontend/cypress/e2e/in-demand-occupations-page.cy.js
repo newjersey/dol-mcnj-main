@@ -3,7 +3,7 @@ describe("In Demand Occupations page", () => {
     cy.visit("/in-demand-occupations");
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
-    cy.location("pathname").should("eq", "/in-demand-occupations");
+    cy.location("pathname").should("eq", "/in-demand-occupations/");
 
     cy.injectAxe();
 

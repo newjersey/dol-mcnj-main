@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json", // Extend from your base config
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2018",
+    "noEmit": false
+  },
+  "include": ["src/utils/**/*"] // or wherever your scripts are located
+}

@@ -15,6 +15,7 @@ describe("router", () => {
   let router: Router;
   let stubSearchTrainings: jest.Mock;
   let stubFindTrainingsBy: jest.Mock;
+  let stubGetAllTrainingProgramIds: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
   let stubGetOccupationDetail: jest.Mock;
   let stubGetOccupationDetailByCIP: jest.Mock;
@@ -28,6 +29,7 @@ describe("router", () => {
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
       findTrainingsBy: stubFindTrainingsBy,
+      getAllTrainingProgramIds: stubGetAllTrainingProgramIds,
       getInDemandOccupations: stubGetInDemandOccupations,
       getOccupationDetail: stubGetOccupationDetail,
       getOccupationDetailByCIP: stubGetOccupationDetailByCIP,

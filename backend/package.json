@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
+    "fetch-program-paths": "node src/utils/fetchTrainingProgramPaths.ts",
     "lint": "eslint --max-warnings 0 '{src,migrations}/**/*.{js,ts}'",
     "lint:fix": "eslint --max-warnings 0 '{src,migrations}/**/*.{js,ts}' --fix",
     "start": "npm run db-migrate up -- -e $DB_ENV && node ./dist/server.js --env=production",

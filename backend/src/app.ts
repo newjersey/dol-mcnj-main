@@ -19,6 +19,8 @@ import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
+import {GetAllTrainingProgramIds} from "./domain/types";
+import {getAllTrainingProgramIds} from "./domain/training/getAllTrainingProgramIds";
 
 dotenv.config();
 // console.log(process.env);
@@ -166,6 +168,7 @@ const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 const router = routerFactory({
   searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
   findTrainingsBy: findTrainingsBy,
+  getAllTrainingProgramIds: getAllTrainingProgramIds(postgresDataClient),
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getOccupationDetail: getOccupationDetailFactory(
       OnetClient(

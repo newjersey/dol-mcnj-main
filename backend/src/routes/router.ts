@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import {
   FindTrainingsBy,
+  GetAllTrainingProgramIds,
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
@@ -16,6 +17,7 @@ import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
 interface RouterActions {
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
+  getAllTrainingProgramIds: GetAllTrainingProgramIds,
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
   getOccupationDetailByCIP: GetOccupationDetailByCIP;
@@ -24,6 +26,7 @@ interface RouterActions {
 export const routerFactory = ({
   searchTrainings,
   findTrainingsBy,
+  getAllTrainingProgramIds,
   getInDemandOccupations,
   getOccupationDetail,
   getOccupationDetailByCIP,
@@ -49,6 +52,14 @@ export const routerFactory = ({
         }
         res.status(500).send();
       });
+  });
+
+  router.get("/training/ids", (req: Request, res: Response<string[]>) => {
+    getAllTrainingProgramIds()
+        .then((programids: string[]) => {
+          res.status(200).json(programids);
+        })
+        .catch((e) => res.status(500).send(e));
   });
 
   router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {

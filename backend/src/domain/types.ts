@@ -10,6 +10,7 @@ import {
 
 export type SearchTrainings = (searchQuery: string) => Promise<TrainingResult[]>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
+export type GetAllTrainingProgramIds = () => Promise<string[]>;
 export type GetInDemandOccupations = () => Promise<InDemandOccupation[]>;
 export type GetOccupationDetail = (soc: string) => Promise<OccupationDetail>;
 export type GetOccupationDetailByCIP = (cip: string) => Promise<OccupationDetail[]>;
