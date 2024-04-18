@@ -23,6 +23,14 @@ export interface TrainingResult {
   isWheelchairAccessible?: boolean;
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
+  availableAt: Address
+}
+
+type Address = {
+  street_address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
 }
 
 type MetaData = {

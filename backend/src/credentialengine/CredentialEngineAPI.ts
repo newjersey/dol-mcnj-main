@@ -51,5 +51,34 @@ export const credentialEngineAPI = {
     });
 
     return response.data;
-  }
+  },
+
+  // TODO: Discuss how we can use Cips for better results
+  // getResultByCips: async function (cips: string[]) {
+  //   if(cips.length === 0) return []
+  //   const query = `
+  //   {
+  //     "ceterms:instructionalProgramType": {
+  //       "ceterms:codedNotation": ${JSON.stringify(cips)}
+  //     },
+  //     "ceterms:availableOnlineAt": "search:anyValue",
+  //     "ceterms:availableAt": {
+  //          "ceterms:addressRegion": [
+  //            {
+  //              "search:value": "NJ",
+  //              "search:value": "jersey",
+  //              "search:matchType": "search:exactMatch"
+  //            }
+  //          ]
+  //      },
+  //     "ceterms:credentialStatusType": {
+  //         "ceterms:targetNode": "credentialStat:Active"
+  //       },
+  //     "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+  //   } 
+  //   `
+  //   const result = await this.getResults(JSON.parse(query), 0, 4, "")
+  //   return result.data.data
+  // }
+
 }
