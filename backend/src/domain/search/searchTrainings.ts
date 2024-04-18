@@ -12,6 +12,44 @@ import {
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
+interface TermValue {
+  "search:value": string;
+  "search:matchType": string;
+}
+
+interface CodedNotation {
+  "ceterms:codedNotation": string;
+}
+
+interface SearchTerm {
+  "ceterms:name"?: TermValue;
+  "ceterms:description"?: TermValue;
+  "ceterms:ownedBy"?: {
+    "ceterms:name": TermValue;
+  };
+  "ceterms:occupationType"?: CodedNotation;
+  "ceterms:instructionalProgramType"?: CodedNotation;
+  "ceterms:availableOnlineAt"?: string;
+  "ceterms:availableAt"?: {
+    "ceterms:addressRegion": TermValue[];
+  };
+  "ceterms:credentialStatusType"?: {
+    "ceterms:targetNode": string;
+  };
+  "search:recordPublishedBy"?: string;
+  "search:operator": string;
+}
+
+interface TermGroup {
+  "search:value": SearchTerm[];
+  "search:operator": string;
+}
+
+interface Query {
+  "@type": TermValue;
+  "search:termGroup": TermGroup;
+}
+
 
 export const searchTrainingsFactory = (): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
@@ -41,61 +79,69 @@ export const searchTrainingsFactory = (): SearchTrainings => {
       }
       return cachedResults;
     }
-    const query = `
-      {
-  "@type": {
-    "search:value": "ceterms:Credential",
-    "search:matchType": "search:subClassOf"
-  },
-  "search:termGroup": {
-    "search:value": [
-      {
-        "ceterms:name": {
-          "search:value":  "${params.searchQuery}",
-          "search:matchType": "search:contains"
-        },
-        "ceterms:description": {
-          "search:value":  "${params.searchQuery}",
-          "search:matchType": "search:contains"
-        },
-        "ceterms:ownedBy": {
-          "ceterms:name": {
-            "search:value":  "${params.searchQuery}",
-            "search:matchType": "search:contains"
-          }
-        },
-        "ceterms:occupationType": {
-          "ceterms:codedNotation": "${params.searchQuery}"
-        },
-        "search:operator": "search:orTerms"
+
+    const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
+    const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+
+    let query: Query = {
+      "@type": {
+        "search:value": "ceterms:Credential",
+        "search:matchType": "search:subClassOf"
       },
-      {
-        "ceterms:availableOnlineAt": "search:anyValue",
-        "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-              {
-                "search:value": "NJ",
-                "search:value": "jersey",
-                "search:matchType": "search:exactMatch"
+      "search:termGroup": {
+        "search:operator": "search:andTerms",  // Logical grouping at the highest level
+        "search:value": [
+          {
+            "search:operator": "search:orTerms",  // Logical grouping for these terms
+            "ceterms:name": {
+              "search:value": params.searchQuery,
+              "search:matchType": "search:contains"
+            },
+            "ceterms:description": {
+              "search:value": params.searchQuery,
+              "search:matchType": "search:contains"
+            },
+            "ceterms:ownedBy": {
+              "ceterms:name": {
+                "search:value": params.searchQuery,
+                "search:matchType": "search:contains"
               }
-            ]
-        },
-        "search:operator": "search:orTerms"
-      },
-      {
-        "ceterms:credentialStatusType": {
-          "ceterms:targetNode": "credentialStat:Active"
-        },
-        "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+            },
+            "ceterms:occupationType": isSOC ? { "ceterms:codedNotation": params.searchQuery } : undefined,
+            "ceterms:instructionalProgramType": isCIP ? { "ceterms:codedNotation": params.searchQuery } : undefined
+          },
+          {
+            "search:operator": "search:orTerms",  // Logical grouping for these terms
+            "ceterms:availableOnlineAt": "search:anyValue",
+            "ceterms:availableAt": {
+              "ceterms:addressRegion": [
+                {
+                  "search:value": "NJ",
+                  "search:matchType": "search:exactMatch"
+                },
+                {
+                  "search:value": "jersey",
+                  "search:matchType": "search:exactMatch"
+                }
+              ]
+            }
+          },
+          {
+            "search:operator": "search:andTerms",  // Logical grouping for these terms
+            "ceterms:credentialStatusType": {
+              "ceterms:targetNode": "credentialStat:Active"
+            },
+            "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+          }
+        ]
       }
-    ],
-    "search:operator": "search:andTerms"
-  }
-}`;
+    };
+
 
     const skip = (page - 1) * limit;
     const take = limit;
-    const queryObj = JSON.parse(query);
+    const queryObj = JSON.parse(JSON.stringify(query));
+    console.log(JSON.stringify(queryObj));
 
     const ceRecordsResponse = await credentialEngineAPI
       .getResults(queryObj, skip, take, sort)
