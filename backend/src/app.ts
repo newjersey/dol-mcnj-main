@@ -19,7 +19,6 @@ import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
-import {GetAllTrainingProgramIds} from "./domain/types";
 import {getAllTrainingProgramIds} from "./domain/training/getAllTrainingProgramIds";
 
 dotenv.config();

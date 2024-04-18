@@ -1,13 +1,5 @@
-import { stripSurroundingQuotes } from "../utils/stripSurroundingQuotes";
-import { stripUnicode } from "../utils/stripUnicode";
-import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
-import { formatZip } from "../utils/formatZipCode";
-import {FindTrainingsBy, GetAllTrainingProgramIds} from "../types";
-import { Training } from "./Training";
-import { CalendarLength } from "../CalendarLength";
-import { Program } from "./Program";
+import { GetAllTrainingProgramIds } from "../types";
 import { DataClient } from "../DataClient";
-import { Selector } from "./Selector";
 import * as Sentry from "@sentry/node";
 
 export const getAllTrainingProgramIds = (dataClient: DataClient): GetAllTrainingProgramIds => {
