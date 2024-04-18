@@ -83,7 +83,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
     const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
     const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
 
-    let query: Query = {
+    const query: Query = {
       "@type": {
         "search:value": "ceterms:Credential",
         "search:matchType": "search:subClassOf"
