@@ -18,7 +18,7 @@ interface TermValue {
 }
 
 interface CodedNotation {
-  "ceterms:codedNotation": string;
+  "ceterms:codedNotation": TermValue;
 }
 
 interface SearchTerm {
@@ -107,8 +107,8 @@ export const searchTrainingsFactory = (): SearchTrainings => {
                 "search:matchType": "search:contains"
               }
             },
-            "ceterms:occupationType": isSOC ? { "ceterms:codedNotation": params.searchQuery } : undefined,
-            "ceterms:instructionalProgramType": isCIP ? { "ceterms:codedNotation": params.searchQuery } : undefined
+            "ceterms:occupationType": isSOC ? { "ceterms:codedNotation": {"search:value": params.searchQuery, "search:matchType": "search:startsWith"} } : undefined,
+            "ceterms:instructionalProgramType": isCIP ? { "ceterms:codedNotation": {"search:value": params.searchQuery, "search:matchType": "search:startsWith"} } : undefined,
           },
           {
             "search:operator": "search:orTerms",  // Logical grouping for these terms
