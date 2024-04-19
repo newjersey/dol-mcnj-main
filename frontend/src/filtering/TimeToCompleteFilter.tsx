@@ -85,6 +85,43 @@ export const TimeToCompleteFilter = (): ReactElement => {
     });
   };
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const days = urlParams.get("days");
+    const weeks = urlParams.get("weeks");
+    const months = urlParams.get("months");
+    const years = urlParams.get("years");
+
+    if (days === "true") {
+      timeToComplete.days = true;
+    }
+
+    if (weeks === "true") {
+      timeToComplete.weeks = true;
+    }
+
+    if (months === "true") {
+      timeToComplete.months = true;
+    }
+
+    if (years === "true") {
+      timeToComplete.years = true;
+    }
+
+    if (
+      timeToComplete.days ||
+      timeToComplete.weeks ||
+      timeToComplete.months ||
+      timeToComplete.years
+    ) {
+      const timeToCompleteArray = Object.entries(timeToComplete).filter(([, value]) => value);
+
+      timeToCompleteArray.forEach(([key]) => {
+        handleCheckboxChange({ target: { name: key } } as ChangeEvent<HTMLInputElement>, true);
+      });
+    }
+  }, []);
+
   return (
     <label className="bold" htmlFor="timeToComplete">
       {t("SearchAndFilter.timeToCompleteFilterLabel")}
