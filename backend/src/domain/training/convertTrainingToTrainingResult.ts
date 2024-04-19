@@ -19,6 +19,7 @@ export const convertTrainingToTrainingResult = (
     online: training.online,
     providerId: training.provider.id,
     providerName: training.provider.name,
+    availableAt: training.availableAt,
     // cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],
     // zipCodes: training.provider.addresses ? training.provider.addresses.map(a => a.zipCode) : [],
     inDemand: training.inDemand,

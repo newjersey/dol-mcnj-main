@@ -179,7 +179,6 @@ const router = routerFactory({
           apiValues.careerOneStopUserId,
           apiValues.careerOneStopAuthToken
       ),
-      findTrainingsBy,
       postgresDataClient
   ),
   getAllCertificates: credentialEngineFactory(),

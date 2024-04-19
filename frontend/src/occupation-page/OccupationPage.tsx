@@ -16,6 +16,8 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
+import { TrainingResult } from "../domain/Training";
+import { TrainingResultCard } from "../search-results/TrainingResultCard";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -106,6 +108,30 @@ export const OccupationPage = (props: Props): ReactElement => {
                 {occupation.title}
               </p>
             </Link>
+          ))}
+        </>
+      );
+    }
+  };
+
+  const getRelatedTrainings = (trainings: TrainingResult[], occupationSoc: string): ReactElement => {
+    if (trainings.length === 0) {
+      return <p>{t("OccupationPage.dataUnavailableText")}</p>;
+    } else {
+      const trainingsToShow = trainings.slice(0, 3);
+      const seeMore = trainings.length > 3;
+      const resultsUrl = `/training/search?q=${occupationSoc}`;
+
+      return (
+        <>
+          {seeMore && (
+            <Link className="link-format-blue weight-500 blue fin mhd" to={resultsUrl}>
+              {t("OccupationPage.relatedTrainingSeeMore")}
+            </Link>
+          )}
+
+          {trainingsToShow.map((training) => (
+            <TrainingResultCard key={training.id} trainingResult={training} />
           ))}
         </>
       );
@@ -270,11 +296,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                   <h2 className="text-xl ptd pbs weight-500 fin">
                     {t("OccupationPage.relatedTrainingGroupHeader")}
                   </h2>
-{/*
-                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
-*/}
-                  TODO: REIMPLEMENT THIS
-
+                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.soc)}
                 </div>
 
               </div>

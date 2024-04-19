@@ -136,7 +136,7 @@ export class PostgresDataClient implements DataClient {
         .whereNull("indemandsocs.soc")
         .whereNull("indemandsocs2010.soc")
         .then((result) => {
-          console.log("Local exceptions:", result);
+          // console.log("Local exceptions:", result);
           return result;
         })
         .catch((e) => {
@@ -151,7 +151,7 @@ export class PostgresDataClient implements DataClient {
       .where("soc", soc)
       .distinctOn("soc")
       .then((result) => {
-        console.log("Local exceptions:", result);
+        // console.log("Local exceptions:", result);
         return result;
       })
       .catch((e) => {
