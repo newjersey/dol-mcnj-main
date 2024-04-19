@@ -39,53 +39,21 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
-      props.onSearch(searchQuery);
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.delete("q");
+      const newUrlString = `/training/search?q=${encodeURIComponent(searchQuery)}${
+        urlParams.toString() !== "" ? `&${urlParams.toString()}` : ""
+      }`;
+      window.location.href = newUrlString;
     }
   };
 
   const handleClearAll = (): void => {
     dispatch({ type: FilterActionType.REMOVE_ALL });
-    // remove all params from URL except for "q"
-
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete("p");
-    urlParams.delete("inPerson");
-    urlParams.delete("maxCost");
-    urlParams.delete("miles");
-    urlParams.delete("online");
-    urlParams.delete("zip");
-    urlParams.delete("cipCode");
-    urlParams.delete("county");
-    urlParams.delete("inDemand");
-    urlParams.delete("socCode");
-    urlParams.delete("days");
-    urlParams.delete("weeks");
-    urlParams.delete("months");
-    urlParams.delete("years");
-    urlParams.delete("isWheelchairAccessible");
-    urlParams.delete("hasChildcareAssistance");
-    urlParams.delete("hasEveningCourses");
-    urlParams.delete("hasJobPlacementAssistance");
-    urlParams.delete("arabic");
-    urlParams.delete("chinese");
-    urlParams.delete("french");
-    urlParams.delete("frenchCreole");
-    urlParams.delete("german");
-    urlParams.delete("greek");
-    urlParams.delete("hebrew");
-    urlParams.delete("hindi");
-    urlParams.delete("hungarian");
-    urlParams.delete("italian");
-    urlParams.delete("japanese");
-    urlParams.delete("korean");
-    urlParams.delete("polish");
-    urlParams.delete("portuguese");
-    urlParams.delete("russian");
-    urlParams.delete("spanish");
-    urlParams.delete("tagalog");
-    urlParams.delete("vietnamese");
+    const queryString = urlParams.get("q");
 
-    window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    window.location.href = `/training/search?q=${queryString}`;
   };
 
   const flexDirection = props.stacked ? "fdc" : "fdr";
@@ -113,10 +81,18 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         <Button
           variant="primary"
           className="width-full"
-          onClick={(): void => props.onSearch(searchQuery)}
+          onClick={() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.delete("q");
+            const newUrlString = `/training/search?q=${encodeURIComponent(searchQuery)}${
+              urlParams.toString() !== "" ? `&${urlParams.toString()}` : ""
+            }`;
+            window.location.href = newUrlString;
+          }}
         >
           {props.buttonText ? props.buttonText : t("SearchAndFilter.searchButtonDefaultText")}
         </Button>
+
         {props.isLandingPage !== true && (
           <Button variant="outline" className="width-full mvs" onClick={handleClearAll}>
             {t("SearchAndFilter.clearAllFiltersButtonLabel")}

@@ -47,6 +47,27 @@ export const SocCodeFilter = (): ReactElement => {
 
   const validSocCode = isValidSocCode(socCode);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const soc = urlParams.get("socCode");
+
+    if (soc) {
+      const validSocCode = isValidSocCode(soc);
+      setSocCode(soc);
+      if (validSocCode) {
+        dispatch({
+          type: soc !== "" ? FilterActionType.ADD : FilterActionType.REMOVE,
+          filter: {
+            element: FilterableElement.SOC_CODE,
+            value: soc,
+            func: (trainingResults): TrainingResult[] =>
+              trainingResults.filter((it) => it.socCodes.includes(soc)),
+          },
+        });
+      }
+    }
+  }, []);
+
   const applyFilter = (): void => {
     if (socCode.length > 0 && !validSocCode) {
       return;

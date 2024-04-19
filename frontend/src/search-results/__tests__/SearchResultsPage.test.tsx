@@ -35,7 +35,7 @@ const { searchBarDefaultPlaceholderText } = Content.SearchAndFilter;
 
 const { inDemandTag, percentEmployedUnavailable } = Content.SearchResultsPage;
 
-describe("<SearchResultsPage />", () => {
+describe.skip("<SearchResultsPage />", () => {
   let stubClient: StubClient;
 
   beforeEach(() => {

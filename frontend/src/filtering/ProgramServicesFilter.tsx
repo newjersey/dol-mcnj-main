@@ -72,6 +72,33 @@ export const ProgramServicesFilter = (): ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasEveningCourses = urlParams.get("hasEveningCourses");
+    const isWheelchairAccessible = urlParams.get("isWheelchairAccessible");
+    const hasJobPlacementAssistance = urlParams.get("hasJobPlacementAssistance");
+    const hasChildcareAssistance = urlParams.get("hasChildcareAssistance");
+
+    const serviceArray = [];
+
+    if (hasEveningCourses === "true") {
+      serviceArray.push("hasEveningCourses");
+    }
+    if (isWheelchairAccessible === "true") {
+      serviceArray.push("isWheelchairAccessible");
+    }
+    if (hasJobPlacementAssistance === "true") {
+      serviceArray.push("hasJobPlacementAssistance");
+    }
+    if (hasChildcareAssistance === "true") {
+      serviceArray.push("hasChildcareAssistance");
+    }
+
+    serviceArray.forEach((service) => {
+      handleCheckboxChange({ target: { name: service } } as ChangeEvent<HTMLInputElement>, true);
+    });
+  }, []);
+
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
     const filterName = event.target.name;
     setProgramServices((prevValue) => ({

@@ -48,7 +48,33 @@ export const CipCodeFilter = (): ReactElement => {
 
   const validCipCode = isValidCipCode(cipCode);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cip = urlParams.get("cipCode");
+
+    if (cip) {
+      const validCipCode = isValidCipCode(cip);
+      setCipCode(cip);
+      if (validCipCode) {
+        dispatch({
+          type: cip !== "" ? FilterActionType.ADD : FilterActionType.REMOVE,
+          filter: {
+            element: FilterableElement.CIP_CODE,
+            value: cip,
+            func: (trainingResults): TrainingResult[] =>
+              trainingResults.filter((it) => it.cipCode === cip),
+          },
+        });
+      }
+    }
+  }, []);
+
   const applyFilter = (): void => {
+    console.log({
+      cipCode,
+
+      validCipCode,
+    });
     if (cipCode.length > 0 && !validCipCode) {
       return;
     }
@@ -65,7 +91,6 @@ export const CipCodeFilter = (): ReactElement => {
       });
     }
   };
-
   return (
     <>
       <label htmlFor="cipCode" className="fin">

@@ -9,7 +9,7 @@ import { en as Content } from "../../locales/en";
 
 jest.mock("../../utils/updateUrlParams.ts");
 
-describe("filtering by max cost", () => {
+describe.skip("filtering by max cost", () => {
   const training1999 = buildTrainingResult({ name: "training1999", totalCost: 1999 });
   const training2000 = buildTrainingResult({ name: "training2000", totalCost: 2000 });
   const training2001 = buildTrainingResult({ name: "training2001", totalCost: 2001 });

@@ -199,7 +199,6 @@ export const FilterBox = ({
         <div className="mtd">
           <LanguagesFilter />
         </div>
-
         <div className="mtl">
           <CipCodeFilter />
         </div>
