@@ -115,19 +115,15 @@ export const LanguagesFilter = (): ReactElement => {
 
     setLanguages(languageArray);
 
-    dispatch({
-      type: FilterActionType.ADD,
-      filter: {
-        element: FilterableElement.LANGUAGES,
-        value: languageArray,
-        func: (trainingResults): TrainingResult[] =>
-          trainingResults.filter((it) =>
-            it.languages.some(
-              (lang) =>
-                languageArray != null && languageArray.includes(DATA_VALUE_TO_LANGUAGE[lang]),
-            ),
-          ),
-      },
+    languageArray.forEach((lang) => {
+      // click the checkbox with the id of the language
+      const checkbox: HTMLInputElement | null = document.getElementById(
+        camelify(lang),
+      ) as HTMLInputElement;
+
+      if (checkbox) {
+        checkbox.checked = true;
+      }
     });
   }, []);
 
@@ -185,6 +181,7 @@ export const LanguagesFilter = (): ReactElement => {
                         valid: true,
                       });
                     }}
+                    id={camelify(lang)}
                     name={lang}
                     color="primary"
                   />
