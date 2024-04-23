@@ -109,7 +109,7 @@ describe.skip("filtering by cip code", () => {
     await waitForEffect();
 
     expect(
-      (subject.getByPlaceholderText("i.e. 011102", { exact: false }) as HTMLInputElement).value,
+      (subject.getByPlaceholderText("i.e. 01.1102", { exact: false }) as HTMLInputElement).value,
     ).toEqual("");
     expect(subject.getByText("training1")).toBeInTheDocument();
     expect(subject.getByText("training2")).toBeInTheDocument();
