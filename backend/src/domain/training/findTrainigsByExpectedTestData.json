@@ -41,7 +41,7 @@
         "zipCode": ""
       },
       "suppliesToolsCost": 0,
-      "completionTime": 8760,
+      "totalClockHours": 8760,
       "totalCost": 1000,
       "tuitionCost": 0
     },
@@ -87,7 +87,7 @@
         "zipCode": ""
       },
       "suppliesToolsCost": 0,
-      "completionTime": 8760,
+      "totalClockHours": 8760,
       "totalCost": 1000,
       "tuitionCost": 0
     }
