@@ -99,7 +99,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
-        const completionTime = await credentialEngineUtils.calculateTotalClockHoursFromEstimatedDuration(certificate);
         const certifications = constructCertificationsString(isPreparationForObject);
 
         // GET scheduling information - for example, evening courses
@@ -136,9 +135,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             : "",
           certifications: certifications,
           prerequisites: prerequisites,
-          completionTime: completionTime,
-          // totalClockHours: totalClockHours,
-          //calendarLength: null,
+          totalClockHours: totalClockHours,
+          calendarLength: null,
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
@@ -152,15 +150,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: 0,
           totalCost: await credentialEngineUtils.extractTotalCost(certificate),
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0, // TODO: IGX doesn't provide this data
-          averageSalary: 0, // TODO: IGX doesn't provide this data
-          hasEveningCourses: false, // TODO: https://credreg.net/ctdl/terms/#scheduleTimingType
+          percentEmployed: 0,
+          averageSalary: 0,
+          hasEveningCourses: false,
           languages: certificate["ceterms:inLanguage"]
             ? certificate["ceterms:inLanguage"][0]
             : null,
-          isWheelchairAccessible: false, // TODO: IGX doesn't provide this data
-          hasJobPlacementAssistance: false, // TODO: this field doesn't exist in CE!
-          hasChildcareAssistance: false, // TODO: this field doesn't exist in CE!
+          isWheelchairAccessible: false,
+          hasJobPlacementAssistance: false,
+          hasChildcareAssistance: false,
         };
         console.log(JSON.stringify(training));
         return training;

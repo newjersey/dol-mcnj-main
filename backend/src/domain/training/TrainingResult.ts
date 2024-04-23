@@ -8,7 +8,6 @@ export interface TrainingResult {
   percentEmployed?: number | null;
   calendarLength?: CalendarLength;
   totalClockHours?: number;
-  completionTime: number;
   inDemand?: boolean;
   localExceptionCounty?: string[];
   online?: boolean;
