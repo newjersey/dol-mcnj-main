@@ -8,6 +8,8 @@ import { UnstyledLinkButton } from "../components/UnstyledLinkButton";
 import { InlineIcon } from "../components/InlineIcon";
 import { ALL_LANGUAGES, DATA_VALUE_TO_LANGUAGE } from "./trainingLanguages";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
+import { camelify } from "../utils/slugify";
 
 const COLLAPSED_LIST_LENGTH = 4;
 
@@ -30,9 +32,105 @@ export const LanguagesFilter = (): ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const arabic = urlParams.get("arabic");
+    const chinese = urlParams.get("chinese");
+    const french = urlParams.get("french");
+    const frenchCreole = urlParams.get("frenchCreole");
+    const german = urlParams.get("german");
+    const greek = urlParams.get("greek");
+    const hebrew = urlParams.get("hebrew");
+    const hindi = urlParams.get("hindi");
+    const hungarian = urlParams.get("hungarian");
+    const italian = urlParams.get("italian");
+    const japanese = urlParams.get("japanese");
+    const korean = urlParams.get("korean");
+    const polish = urlParams.get("polish");
+    const portuguese = urlParams.get("portuguese");
+    const russian = urlParams.get("russian");
+    const spanish = urlParams.get("spanish");
+    const tagalog = urlParams.get("tagalog");
+    const vietnamese = urlParams.get("vietnamese");
+
+    const languageArray: string[] = [];
+
+    if (arabic === "true") {
+      languageArray.push("Arabic");
+    }
+    if (chinese === "true") {
+      languageArray.push("Chinese");
+    }
+    if (french === "true") {
+      languageArray.push("French");
+    }
+    if (frenchCreole === "true") {
+      languageArray.push("French Creole");
+    }
+    if (german === "true") {
+      languageArray.push("German");
+    }
+    if (greek === "true") {
+      languageArray.push("Greek");
+    }
+    if (hebrew === "true") {
+      languageArray.push("Hebrew");
+    }
+    if (hindi === "true") {
+      languageArray.push("Hindi");
+    }
+
+    if (hungarian === "true") {
+      languageArray.push("Hungarian");
+    }
+
+    if (italian === "true") {
+      languageArray.push("Italian");
+    }
+
+    if (japanese === "true") {
+      languageArray.push("Japanese");
+    }
+    if (korean === "true") {
+      languageArray.push("Korean");
+    }
+    if (polish === "true") {
+      languageArray.push("Polish");
+    }
+    if (portuguese === "true") {
+      languageArray.push("Portuguese");
+    }
+    if (russian === "true") {
+      languageArray.push("Russian");
+    }
+    if (spanish === "true") {
+      languageArray.push("Spanish");
+    }
+    if (tagalog === "true") {
+      languageArray.push("Tagalog");
+    }
+    if (vietnamese === "true") {
+      languageArray.push("Vietnamese");
+    }
+
+    setLanguages(languageArray);
+
+    languageArray.forEach((lang) => {
+      // click the checkbox with the id of the language
+      const checkbox: HTMLInputElement | null = document.getElementById(
+        camelify(lang),
+      ) as HTMLInputElement;
+
+      if (checkbox) {
+        checkbox.checked = true;
+      }
+    });
+  }, []);
+
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
     let newLanguages: string[] | null = null;
     const selectedLanguage = event.target.name;
+
     if (checked && !languages.includes(selectedLanguage)) {
       newLanguages = [...languages, selectedLanguage];
     } else if (!checked && languages.includes(selectedLanguage)) {
@@ -74,7 +172,16 @@ export const LanguagesFilter = (): ReactElement => {
                 control={
                   <SpacedCheckbox
                     checked={languages.includes(lang)}
-                    onChange={handleCheckboxChange}
+                    onChange={(e) => {
+                      handleCheckboxChange(e, !languages.includes(lang));
+                      toggleParams({
+                        condition: e.target.checked,
+                        value: "true",
+                        key: camelify(lang),
+                        valid: true,
+                      });
+                    }}
+                    id={camelify(lang)}
                     name={lang}
                     color="primary"
                   />

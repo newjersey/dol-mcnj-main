@@ -5,6 +5,7 @@ import { TrainingResult } from "../domain/Training";
 import { Input } from "../components/Input";
 import { InlineIcon } from "../components/InlineIcon";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
 
 function isValidCipCode(cip: string): boolean {
   if (cip === "") return true;
@@ -47,7 +48,33 @@ export const CipCodeFilter = (): ReactElement => {
 
   const validCipCode = isValidCipCode(cipCode);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cip = urlParams.get("cipCode");
+
+    if (cip) {
+      const validCipCode = isValidCipCode(cip);
+      setCipCode(cip);
+      if (validCipCode) {
+        dispatch({
+          type: cip !== "" ? FilterActionType.ADD : FilterActionType.REMOVE,
+          filter: {
+            element: FilterableElement.CIP_CODE,
+            value: cip,
+            func: (trainingResults): TrainingResult[] =>
+              trainingResults.filter((it) => it.cipCode === cip),
+          },
+        });
+      }
+    }
+  }, []);
+
   const applyFilter = (): void => {
+    console.log({
+      cipCode,
+
+      validCipCode,
+    });
     if (cipCode.length > 0 && !validCipCode) {
       return;
     }
@@ -64,7 +91,6 @@ export const CipCodeFilter = (): ReactElement => {
       });
     }
   };
-
   return (
     <>
       <label htmlFor="cipCode" className="fin">
@@ -73,7 +99,15 @@ export const CipCodeFilter = (): ReactElement => {
           <Input
             id="cipCode"
             value={cipCode}
-            onChange={handleInput}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              handleInput(e);
+              toggleParams({
+                condition: e.target.value !== "" && isValidCipCode(e.target.value),
+                key: "cipCode",
+                value: e.target.value,
+                valid: isValidCipCode(e.target.value),
+              });
+            }}
             onKeyDown={handleKeyDown}
             onBlur={applyFilter}
             placeholder="i.e. 011102"
