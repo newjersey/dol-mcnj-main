@@ -225,7 +225,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           isWheelchairAccessible: false,
           hasJobPlacementAssistance: false,
           hasChildcareAssistance: false,
-          totalClockHours: await credentialEngineUtils.calculateTotalClockHoursFromEstimatedDuration(certificate),
+          completionTime: await credentialEngineUtils.calculateTotalClockHoursFromEstimatedDuration(certificate),
         };
       }),
     );
