@@ -51,7 +51,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     certifications: "some-certifications-" + randomInt(),
     prerequisites: ["some-certifications-" + randomInt()],
     occupations: [buildOccupation({})],
-    // calendarLength: randomCalendarLength(),
+    calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: [],

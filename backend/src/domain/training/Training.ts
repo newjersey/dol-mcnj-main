@@ -1,5 +1,6 @@
 // import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
+import {CalendarLength} from "../CalendarLength";
 export interface Training {
   id?: string;
   name?: string;
@@ -8,8 +9,8 @@ export interface Training {
   description?: string;
   certifications: string;
   prerequisites?: (string | undefined)[];
-  // calendarLength: CalendarLength;
-  totalClockHours: number;
+  calendarLength?: CalendarLength | null;
+  totalClockHours?: number | null;
   occupations: Occupation[];
   inDemand: boolean;
   localExceptionCounty: string[];
