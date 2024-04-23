@@ -333,13 +333,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </span>
                         </p>
                       )}
-                      <p>
+                      {(training.calendarLength && training.calendarLength !== undefined) &&
+                        <p>
                         <span className="fin">
                           <InlineIcon className="mrxs">av_timer</InlineIcon>
                           {t("TrainingPage.completionTimeLabel")}&nbsp;
                           <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>{" "}
                         </span>
-                      </p>
+                        </p>
+                      }
                       {training.completionTime && (
                         <p>
                           <span className="fin">
