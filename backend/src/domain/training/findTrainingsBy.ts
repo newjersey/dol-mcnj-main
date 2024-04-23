@@ -135,14 +135,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             : "",
           certifications: certifications,
           prerequisites: prerequisites,
-          totalClockHours: totalClockHours,
+          totalClockHours: null,
           calendarLength: null,
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,
           })),
           inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
-          localExceptionCounty: localExceptionCounties, // TODO: Test
+          localExceptionCounty: localExceptionCounties,
           tuitionCost: 0,
           feesCost: 0,
           booksMaterialsCost: 0,

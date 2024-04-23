@@ -6,8 +6,8 @@ export interface TrainingResult {
   cipCode?: string;
   totalCost?: number | null;
   percentEmployed?: number | null;
-  calendarLength?: CalendarLength;
-  totalClockHours?: number;
+  calendarLength?: CalendarLength | null;
+  totalClockHours?: number | null;
   inDemand?: boolean;
   localExceptionCounty?: string[];
   online?: boolean;
