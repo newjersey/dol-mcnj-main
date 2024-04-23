@@ -333,37 +333,39 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </span>
                         </p>
                       )}
-                      {(training.calendarLength && training.calendarLength !== undefined) &&
-                        <p>
+                      <p>
+                      <span className="fin">
+                        <InlineIcon className="mrxs">av_timer</InlineIcon>
+                        {t("TrainingPage.completionTimeLabel")}&nbsp;
+                        <b>{training.calendarLength?
+                          t(`CalendarLengthLookup.${training.calendarLength}`)
+                        : t("Global.noDataAvailableText")
+                        }</b>{" "}
+                      </span>
+                      </p>
+
+                      <p>
                         <span className="fin">
-                          <InlineIcon className="mrxs">av_timer</InlineIcon>
-                          {t("TrainingPage.completionTimeLabel")}&nbsp;
-                          <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>{" "}
+                          <InlineIcon className="mrxs">schedule</InlineIcon>
+                          {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                          <InlineIcon
+                            className="mrxs"
+                            data-tooltip-id="totalClockHours-tooltip"
+                            data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                          >
+                            info
+                          </InlineIcon>
+                          <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                          <b>
+                            {training.totalClockHours?
+                              t("TrainingPage.totalClockHours", {
+                                hours: training.totalClockHours,
+                              })
+                            : t("Global.noDataAvailableText")
+                            }
+                          </b>
                         </span>
-                        </p>
-                      }
-                      {training.completionTime && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">schedule</InlineIcon>
-                            {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                            <InlineIcon
-                              className="mrxs"
-                              data-tooltip-id="totalClockHours-tooltip"
-                              data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                            >
-                              info
-                            </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                            <b>
-                              {t("TrainingPage.totalClockHours", {
-                                hours: training.completionTime,
-                              })}
-                            </b>
-                          </span>
-                        </p>
-                      )}
-                      {training.cipCode && (
+                      </p>
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">qr_code</InlineIcon>
@@ -376,10 +378,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                               info
                             </InlineIcon>
                             <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                            <b>{t(training.cipCode)}</b>
+                            <b>
+                              {training.cipCode
+                              ? (training.cipCode)
+                              : t("Global.noDataAvailableText")
+                            }
+                            </b>
                           </span>
                         </p>
-                      )}
                     </>
                   </Grouping>
 

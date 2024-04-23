@@ -127,12 +127,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {props.trainingResult.calendarLength
-                ? t("SearchResultsPage.timeToComplete", {
-                  time: t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`),
-                })
-                : t("TrainingPage.completionTimeLabel") + ` ${t("Global.noDataAvailableText")}`
-              }
+              {t("TrainingPage.completionTimeLabel") + " " + t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`) }
              </span>
           </p>
           <p className="mtxs mbz">

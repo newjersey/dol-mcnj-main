@@ -128,7 +128,7 @@ describe("<SearchResultsPage />", () => {
       //expect(subject.getByText("Camden County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("Cammy Community College", { exact: false })).toBeInTheDocument();
       expect(
-        subject.getByText(Content.CalendarLengthLookup["5"] + " to complete", { exact: false }),
+        subject.getByText("Completion time: " + Content.CalendarLengthLookup["5"], { exact: false }),
       ).toBeInTheDocument();
       expect(subject.getByText('"...', { exact: false }).parentElement?.innerHTML).toEqual(
         '<span>"...</span><span>some </span><b>text</b><span> here</span><span>..."</span>',
@@ -141,7 +141,7 @@ describe("<SearchResultsPage />", () => {
       //expect(subject.getByText("Essex County", { exact: false })).toBeInTheDocument();
       expect(subject.getByText("New'rk School", { exact: false })).toBeInTheDocument();
       expect(
-        subject.getByText(Content.CalendarLengthLookup["1"] + " to complete", { exact: false }),
+        subject.getByText("Completion time: " + Content.CalendarLengthLookup["1"], { exact: false }),
       ).toBeInTheDocument();
     });
 
@@ -189,7 +189,7 @@ describe("<SearchResultsPage />", () => {
       expect(subject.getByText(percentEmployedUnavailable, { exact: false })).toBeInTheDocument();
     });
 
-    it("displays calendar length as '--' when it is null", () => {
+    it("displays calendar length as 'No data available' when it is null", () => {
       const subject = render(<SearchResultsPage client={stubClient} />);
 
       act(() =>
