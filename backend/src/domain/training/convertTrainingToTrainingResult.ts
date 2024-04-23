@@ -14,7 +14,7 @@ export const convertTrainingToTrainingResult = (
     totalCost: training.totalCost,
     percentEmployed: training.percentEmployed,
     // calendarLength: training.calendarLength,
-    totalClockHours: training.totalClockHours,
+    completionTime: training.completionTime,
     localExceptionCounty: training.localExceptionCounty,
     online: training.online,
     providerId: training.provider.id,
