@@ -9,8 +9,8 @@ export interface Training {
   description?: string;
   certifications: string;
   prerequisites?: (string | undefined)[];
-  calendarLength: CalendarLength;
-  totalClockHours: number;
+  calendarLength?: CalendarLength | null;
+  totalClockHours?: number | null;
   occupations: Occupation[];
   inDemand: boolean;
   localExceptionCounty: string[];

@@ -46,7 +46,7 @@ export class PostgresDataClient implements DataClient {
         "etpl.providerid",
         "etpl.officialname",
         "etpl.calendarlengthid",
-        "etpl.completionTime",
+        "etpl.totalclockhours",
         "etpl.standardized_description as description",
         "etpl.industrycredentialname",
         "etpl.prerequisites",
