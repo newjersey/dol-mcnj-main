@@ -9,7 +9,8 @@ export interface Training {
   certifications: string;
   prerequisites?: (string | undefined)[];
   // calendarLength: CalendarLength;
-  totalClockHours: number;
+  // totalClockHours: number;
+  completionTime: number;
   occupations: Occupation[];
   inDemand: boolean;
   localExceptionCounty: string[];
