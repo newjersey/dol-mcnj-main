@@ -3,7 +3,7 @@ export const en = {
     noDataAvailableText: "No data available",
   },
   CalendarLengthLookup: {
-    "0": "--",
+    "0": "No data available",
     "1": "Less than 1 day",
     "2": "1-2 days",
     "3": "3-7 days",

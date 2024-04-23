@@ -27,7 +27,7 @@ describe.skip("PostgresDataClient", () => {
     industrycredentialname: "tree identifier",
     prerequisites: "High School Diploma/G.E.D. or Ability To Benefit",
     calendarlengthid: "6",
-    totalclockhours: "636",
+    totalClockHours: "636",
     providername: "Standardized Vineland Public Schools",
     providerid: "123",
     tuition: "3000",

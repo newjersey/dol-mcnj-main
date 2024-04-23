@@ -127,17 +127,16 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {t("SearchResultsPage.timeToComplete", {
-                time: t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`),
-              })}
-            </span>
+              {t("TrainingPage.completionTimeLabel") + " " + t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`) }
+             </span>
           </p>
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">qr_code</InlineIcon>
               {props.trainingResult.cipCode
                 ? t("SearchResultsPage.cipCode") + `: ${props.trainingResult.cipCode}`
-                : t("SearchResultsPage.cipCodeUnavailable")}
+                : t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
+                }
             </span>
           </p>
         </div>
@@ -150,7 +149,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             </p>
           )}
           <div className="mtxs mbz flex fac">
-            {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
+            {props.trainingResult.inDemand ? <InDemandTag/> : <></>}
             {!props.trainingResult.inDemand &&
             props.trainingResult.localExceptionCounty &&
             props.trainingResult.localExceptionCounty.length !== 0 ? (

@@ -47,13 +47,6 @@ export const credentialEngineUtils = {
     return null; // Return null if no estimatedCostObject is found
   },
 
-  calculateTotalClockHoursFromEstimatedDuration: async function (certificate: CTDLResource) {
-    const estimatedDuration = certificate["ceterms:estimatedDuration"];
-    if (!estimatedDuration || estimatedDuration.length === 0) return 0;
-    const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
-    return exactDuration ? this.convertIso8601ToTotalHours(exactDuration) : 0;
-  },
-
 // Function to convert ISO 8601 duration to total hours
   convertIso8601ToTotalHours: async function (isoString: string) {
     const match = isoString.match(

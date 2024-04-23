@@ -76,7 +76,7 @@ export const CipCodeFilter = (): ReactElement => {
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             onBlur={applyFilter}
-            placeholder="i.e. 011102"
+            placeholder="i.e. 01.1102"
             error={!validCipCode}
             inputProps={INPUT_PROPS}
           />
