@@ -99,7 +99,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
-        const totalClockHours = await credentialEngineUtils.calculateTotalClockHoursFromEstimatedDuration(certificate);
+        const completionTime = await credentialEngineUtils.calculateTotalClockHoursFromEstimatedDuration(certificate);
         const certifications = constructCertificationsString(isPreparationForObject);
 
         // GET scheduling information - for example, evening courses
@@ -136,7 +136,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             : "",
           certifications: certifications,
           prerequisites: prerequisites,
-          totalClockHours: totalClockHours,
+          completionTime: completionTime,
+          // totalClockHours: totalClockHours,
           //calendarLength: null,
           occupations: matchingOccupations.map((it) => ({
             title: it.title,

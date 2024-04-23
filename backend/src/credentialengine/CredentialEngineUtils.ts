@@ -49,6 +49,7 @@ export const credentialEngineUtils = {
 
   calculateTotalClockHoursFromEstimatedDuration: async function (certificate: CTDLResource) {
     const estimatedDuration = certificate["ceterms:estimatedDuration"];
+    console.log(estimatedDuration);
     if (!estimatedDuration || estimatedDuration.length === 0) return 0;
     const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
     return exactDuration ? this.convertIso8601ToTotalHours(exactDuration) : 0;
