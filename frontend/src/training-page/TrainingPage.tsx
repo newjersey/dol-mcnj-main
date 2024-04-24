@@ -29,6 +29,7 @@ import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
 import { cleanProviderName } from "../utils/cleanProviderName";
 import { X } from "@phosphor-icons/react";
+import { decimalPlacement } from "../utils/decimalPlacement";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -39,16 +40,6 @@ interface Copy {
   class: string;
   text: string;
 }
-
-const decimalPlacment = (value: number | string): number => {
-  if (typeof value === "string") {
-    value = parseInt(value);
-  }
-
-  value = value / 10000;
-
-  return parseFloat(value.toFixed(4));
-};
 
 export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
@@ -406,12 +397,12 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <b>CIP Code category name not available.</b>
                         <br />
                         <a
-                          href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${decimalPlacment(training.cipCode)}`}
+                          href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${decimalPlacement(training.cipCode)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           {training.cipCode
-                            ? decimalPlacment(training.cipCode)
+                            ? decimalPlacement(training.cipCode)
                             : t("Global.noDataAvailableText")}
                         </a>
                       </p>
