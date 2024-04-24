@@ -9,6 +9,7 @@ import { CalendarLength } from "../CalendarLength";
 import {
   getAvailableAtAddress,
 } from "../training/findTrainingsBy";
+import {DataClient} from "../DataClient";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -51,8 +52,11 @@ interface Query {
 }
 
 
-export const searchTrainingsFactory = (): SearchTrainings => {
+export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
+    const inDemandCIPs = await dataClient.getCIPsInDemand();
+    const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
+
     const page = params.page || 1;
     const limit = params.limit || 10;
     let sort;
@@ -196,6 +200,8 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           }
         }
 
+        const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+
         return {
           id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
@@ -217,7 +223,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           // cities: ownedByAddresses.map((a) => a.city),
           // zipCodes: ownedByAddresses.map((a) => a.zipCode),
           availableAt: address,
-          inDemand: false,
+          inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           highlight: highlight,
           socCodes: [],
           hasEveningCourses: false,
