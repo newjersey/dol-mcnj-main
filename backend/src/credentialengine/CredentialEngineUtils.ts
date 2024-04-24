@@ -39,12 +39,12 @@ export const credentialEngineUtils = {
   },
 
   extractTotalCost: async function (certificate: CTDLResource) {
-    const estimatedCostObject = certificate["ceterms:estimatedCost"];
-    if (Array.isArray(estimatedCostObject) && estimatedCostObject.length > 0) {
-      for (const costObject of estimatedCostObject) {
-        const name = costObject["ceterms:name"];
-        if (name && name["en-US"] === "Total Cost") {
-          const price = costObject["ceterms:price"];
+    const estimatedCosts = certificate["ceterms:estimatedCost"];
+    if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
+      for (const costProfile of estimatedCosts) {
+        const directCostType = costProfile["ceterms:directCostType"];
+        if (directCostType && directCostType["ceterms:targetNode"] === "costType:AggregateCost") {
+          const price = costProfile["ceterms:price"];
           return price ? Number(price) : null;
         }
       }
@@ -53,8 +53,19 @@ export const credentialEngineUtils = {
   },
 
   extractTuitionCost: async function (certificate: CTDLResource) {
-
+    const estimatedCosts = certificate["ceterms:estimatedCost"];
+    if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
+      for (const costProfile of estimatedCosts) {
+        const directCostType = costProfile["ceterms:directCostType"];
+        if (directCostType && directCostType["ceterms:targetNode"] === "costType:Tuition") {
+          const price = costProfile["ceterms:price"];
+          return price ? Number(price) : null;
+        }
+      }
+    }
+    return null;
   },
+
 
   // Function to convert ISO 8601 duration to total hours
   convertIso8601DurationToTotalHours: async function (isoString: string) {
