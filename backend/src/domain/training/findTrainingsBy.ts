@@ -15,6 +15,8 @@ import {
   CTDLResource,
 } from "../credentialengine/CredentialEngine";
 
+import zipcodeJson from "../utils/zip-county.json";
+
 
 export function getAvailableAtAddress(certificate: CTDLResource): Address {
   const availableAt = certificate["ceterms:availableAt"]?.[0];
@@ -127,7 +129,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             name: ownedByRecord["ceterms:name"]["en-US"],
             url: ownedByRecord["ceterms:subjectWebpage"],
             email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
-            county: "",
+            county: zipToCounty(address.zipCode),
           },
           availableAt: address,
           description: certificate["ceterms:description"]
@@ -167,17 +169,27 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
   };
 };
 
-/*
-const NAN_INDICATOR = "-99999";
+const zipToCounty = (zip: string | undefined): string => {
+  console.log({ zip })
 
-const formatCounty = (county: string): string => {
-  const SELECT_ONE = "Select One";
-  if (!county || county === SELECT_ONE) {
+  if (!zip) {
     return "";
   }
 
-  return `${county} County`;
+  const county = zipcodeJson.byZip[zip as keyof typeof zipcodeJson.byZip];
+
+  console.log({ county })
+
+  if (!county) {
+    return "";
+  }
+
+  return county;
 };
+
+/*
+const NAN_INDICATOR = "-99999";
+
 
 
 const formatPercentEmployed = (perEmployed: string | null): number | null => {
