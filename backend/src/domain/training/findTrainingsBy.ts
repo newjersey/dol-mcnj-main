@@ -26,6 +26,14 @@ export function getAvailableAtAddress(certificate: CTDLResource): Address {
   };
 }
 
+export async function getCalendarLengthId(certificate: CTDLResource): Promise<number> {
+  const estimatedDuration = certificate["ceterms:estimatedDuration"];
+  if (!estimatedDuration || estimatedDuration.length === 0) return 0;
+  const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
+  if (!exactDuration) return 0;
+  return credentialEngineUtils.convertIso8601DurationToCalendarLengthId(exactDuration);
+}
+
 function constructCertificationsString(isPreparationForObject: CetermsConditionProfile[]): string {
   if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
 
@@ -136,7 +144,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           certifications: certifications,
           prerequisites: prerequisites,
           totalClockHours: null,
-          calendarLength: null,
+          calendarLength: await getCalendarLengthId(certificate),
           occupations: matchingOccupations.map((it) => ({
             title: it.title,
             soc: it.soc,

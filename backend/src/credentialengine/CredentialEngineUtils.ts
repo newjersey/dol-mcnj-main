@@ -47,8 +47,8 @@ export const credentialEngineUtils = {
     return null; // Return null if no estimatedCostObject is found
   },
 
-// Function to convert ISO 8601 duration to total hours
-  convertIso8601ToTotalHours: async function (isoString: string) {
+  // Function to convert ISO 8601 duration to total hours
+  convertIso8601DurationToTotalHours: async function (isoString: string) {
     const match = isoString.match(
       /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
     );
@@ -65,5 +65,36 @@ export const credentialEngineUtils = {
     const seconds = parseInt(match[7] || "0", 10) / 3600;
 
     return years + months + weeks + days + hours + minutes + seconds; // Sum up all components
+  },
+
+  convertIso8601DurationToCalendarLengthId: async function (isoString: string): Promise<number> {
+    const match = isoString.match(
+      /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/
+    );
+    if (!match) {
+      return 0;
+    }
+
+    const years = parseInt(match[1]) || 0;
+    const months = parseInt(match[2]) || 0;
+    const weeks = parseInt(match[3]) || 0;
+    const days = parseInt(match[4]) || 0;
+    const hours = parseInt(match[5]) || 0;
+    const minutes = parseInt(match[6]) || 0;
+    const seconds = parseInt(match[7]) || 0;
+
+    // Convert all to total days
+    const totalDays = years * 365 + months * 30 + weeks * 7 + days + (hours / 24) + (minutes / 1440) + (seconds / 86400);
+
+    if (totalDays < 1) return 1;
+    if (totalDays <= 2) return 2;
+    if (totalDays <= 7) return 3;
+    if (totalDays <= 21) return 4;
+    if (totalDays <= 77) return 5;
+    if (totalDays <= 150) return 6;
+    if (totalDays <= 365) return 7;
+    if (totalDays <= 730) return 8;
+    if (totalDays <= 1460) return 9;
+    return 10;
   }
 }
