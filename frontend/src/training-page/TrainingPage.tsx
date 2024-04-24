@@ -28,6 +28,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
 import { cleanProviderName } from "../utils/cleanProviderName";
+import { X } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -39,9 +40,19 @@ interface Copy {
   text: string;
 }
 
+const decimalPlacment = (value: number | string): number => {
+  if (typeof value === "string") {
+    value = parseInt(value);
+  }
+
+  value = value / 10000;
+
+  return parseFloat(value.toFixed(4));
+};
+
 export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
-
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [error, setError] = useState<Error | null>(null);
   const [copy, setCopy] = useState<Copy | null>(null);
@@ -58,6 +69,17 @@ export const TrainingPage = (props: Props): ReactElement => {
       onError: (error: Error) => setError(error),
     });
   }, [props.id, props.client]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const overlay = document.querySelector("#drawerOverlay");
+      if (overlay) {
+        overlay.addEventListener("click", () => {
+          setDrawerOpen(false);
+        });
+      }
+    }
+  }, [drawerOpen]);
 
   const printReactContent = useReactToPrint({
     content: () => componentRef.current,
@@ -232,7 +254,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   }
 
   return (
-    <div ref={componentRef}>
+    <div ref={componentRef} className="training-detail">
       <Layout client={props.client} seo={seoObject}>
         <div className="container">
           <div className="detail-page">
@@ -334,14 +356,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </p>
                       )}
                       <p>
-                      <span className="fin">
-                        <InlineIcon className="mrxs">av_timer</InlineIcon>
-                        {t("TrainingPage.completionTimeLabel")}&nbsp;
-                        <b>{training.calendarLength?
-                          t(`CalendarLengthLookup.${training.calendarLength}`)
-                        : t("Global.noDataAvailableText")
-                        }</b>{" "}
-                      </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">av_timer</InlineIcon>
+                          {t("TrainingPage.completionTimeLabel")}&nbsp;
+                          <b>
+                            {training.calendarLength
+                              ? t(`CalendarLengthLookup.${training.calendarLength}`)
+                              : t("Global.noDataAvailableText")}
+                          </b>{" "}
+                        </span>
                       </p>
 
                       <p>
@@ -357,35 +380,41 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </InlineIcon>
                           <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
                           <b>
-                            {training.totalClockHours?
-                              t("TrainingPage.totalClockHours", {
-                                hours: training.totalClockHours,
-                              })
-                            : t("Global.noDataAvailableText")
-                            }
+                            {training.totalClockHours
+                              ? t("TrainingPage.totalClockHours", {
+                                  hours: training.totalClockHours,
+                                })
+                              : t("Global.noDataAvailableText")}
                           </b>
                         </span>
                       </p>
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">qr_code</InlineIcon>
-                            {t("TrainingPage.cipCodeLabel")}&nbsp;
-                            <InlineIcon
-                              className="mrxs"
-                              data-tooltip-id="totalClockHours-tooltip"
-                              data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
-                            >
-                              info
-                            </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                            <b>
-                              {training.cipCode
-                              ? (training.cipCode)
-                              : t("Global.noDataAvailableText")
-                            }
-                            </b>
-                          </span>
-                        </p>
+                      <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">book</InlineIcon>
+                          <button
+                            type="button"
+                            className="toggle"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setDrawerOpen(true);
+                            }}
+                          >
+                            {t("TrainingPage.cipCodeLabel")}
+                          </button>
+                        </span>
+                        <br />
+                        <b>CIP Code category name not available.</b>
+                        <br />
+                        <a
+                          href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${decimalPlacment(training.cipCode)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {training.cipCode
+                            ? decimalPlacment(training.cipCode)
+                            : t("Global.noDataAvailableText")}
+                        </a>
+                      </p>
                     </>
                   </Grouping>
 
@@ -440,41 +469,41 @@ export const TrainingPage = (props: Props): ReactElement => {
                   <Grouping title={t("TrainingPage.costGroupHeader")}>
                     {training.totalCost && training.totalCost !== 0 ? (
                       <>
-                      <p>
-                        <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
-                        <span className="text-l pull-right weight-500">
-                          {formatMoney(training.totalCost)}
-                        </span>
-                      </p>
-                      <div className="grey-line" />
-                      <div className="mvd">
-                        <div>
-                          <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.feesCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.feesCost)}</span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.materialsCostLabel")}</span>
-                          <span className="pull-right">
-                            {formatMoney(training.booksMaterialsCost)}
+                        <p>
+                          <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
+                          <span className="text-l pull-right weight-500">
+                            {formatMoney(training.totalCost)}
                           </span>
+                        </p>
+                        <div className="grey-line" />
+                        <div className="mvd">
+                          <div>
+                            <span>{t("TrainingPage.tuitionCostLabel")}</span>
+                            <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.feesCostLabel")}</span>
+                            <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.materialsCostLabel")}</span>
+                            <span className="pull-right">
+                              {formatMoney(training.booksMaterialsCost)}
+                            </span>
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.suppliesCostLabel")}</span>
+                            <span className="pull-right">
+                              {formatMoney(training.suppliesToolsCost)}
+                            </span>
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.otherCostLabel")}</span>
+                            <span className="pull-right">{formatMoney(training.otherCost)}</span>
+                          </div>
                         </div>
-                        <div>
-                          <span>{t("TrainingPage.suppliesCostLabel")}</span>
-                          <span className="pull-right">
-                            {formatMoney(training.suppliesToolsCost)}
-                          </span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.otherCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.otherCost)}</span>
-                        </div>
-                      </div>
-                    </>
-                      ) : (
+                      </>
+                    ) : (
                       <>
                         <p>{t("Global.noDataAvailableText")}</p>
                       </>
@@ -563,6 +592,39 @@ export const TrainingPage = (props: Props): ReactElement => {
           </div>
         </div>
       </Layout>
+
+      <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
+      <div className={`panel${drawerOpen ? " open" : ""}`}>
+        <div className="copy">
+          <button
+            aria-label="Close"
+            title="Close"
+            className="close"
+            onClick={() => setDrawerOpen(false)}
+            type="button"
+          >
+            <X size={28} />
+            <div className="sr-only">Close</div>
+          </button>
+          <h4>Classification of Instructional Programs (CIP) codes</h4>
+          <p>
+            The Classification of Instructional Programs (CIP) codes serve as a standardized system
+            for categorizing academic fields of study and program completions. They are designed to
+            facilitate accurate tracking and reporting of educational activities across
+            institutions.
+          </p>
+          <p>
+            You can find a list of CIP codes{" "}
+            <a
+              href="https://nces.ed.gov/ipeds/cipcode/browse.aspx?y=56"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              here.
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
