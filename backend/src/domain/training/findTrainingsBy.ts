@@ -8,6 +8,7 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
+  CetermsAggregateData,
   CetermsConditionProfile,
   /*  CetermsEstimatedDuration,
   CetermsCredentialAlignmentObject,*/
@@ -100,6 +101,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const certifications = constructCertificationsString(isPreparationForObject);
+       
+        const entrySalary = certificate["ceterms:aggregateData"] ? certificate["ceterms:aggregateData"]
+        .filter((aggData: CetermsAggregateData) => 
+            aggData["ceterms:name"]?.["en-US"] === "Median Earnings of Program Graduates in the Region - Upon Entry")
+        [0]?.["ceterms:medianEarnings"] ?? null : null;
 
         // GET scheduling information - for example, evening courses
         if (scheduleTimingType != null) {
@@ -151,7 +157,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           totalCost: await credentialEngineUtils.extractTotalCost(certificate),
           online: availableOnlineAt != null ? true : false,
           percentEmployed: 0,
-          averageSalary: 0,
+          averageSalary: entrySalary,
           hasEveningCourses: false,
           languages: certificate["ceterms:inLanguage"]
             ? certificate["ceterms:inLanguage"][0]

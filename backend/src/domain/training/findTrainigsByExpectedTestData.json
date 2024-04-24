@@ -1,6 +1,6 @@
 [
     {
-      "averageSalary": 0,
+      "averageSalary": null,
       "booksMaterialsCost": 0,
       "certifications": "Certification Name",
       "cipCode": "123456",
@@ -47,7 +47,7 @@
       "tuitionCost": 0
     },
     {
-      "averageSalary": 0,
+      "averageSalary": null,
       "booksMaterialsCost": 0,
       "certifications": "Certification Name",
       "cipCode": "123456",
