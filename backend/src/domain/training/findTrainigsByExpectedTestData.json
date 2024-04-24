@@ -28,7 +28,7 @@
         "Example requirement description"
       ],
       "provider": {
-        "county": "",
+        "county": "Narnia",
         "email": null,
         "id": "ctid123",
         "name": "Example Training Program",
@@ -75,7 +75,7 @@
         "Example requirement description"
       ],
       "provider": {
-        "county": "",
+        "county": "Narnia",
         "email": null,
         "id": "ctid123",
         "name": "Example Training Program",
