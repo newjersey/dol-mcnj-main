@@ -151,7 +151,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           })),
           inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           localExceptionCounty: localExceptionCounties,
-          tuitionCost: 0,
+          tuitionCost: await credentialEngineUtils.extractTuitionCost(certificate),
           feesCost: 0,
           booksMaterialsCost: 0,
           suppliesToolsCost: 0,

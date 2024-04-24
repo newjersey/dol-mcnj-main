@@ -14,7 +14,7 @@ export interface Training {
   occupations: Occupation[];
   inDemand: boolean;
   localExceptionCounty: string[];
-  tuitionCost: number;
+  tuitionCost?: number | null;
   feesCost: number;
   booksMaterialsCost: number;
   suppliesToolsCost: number;
