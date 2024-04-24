@@ -41,10 +41,19 @@ export const credentialEngineUtils = {
   extractTotalCost: async function (certificate: CTDLResource) {
     const estimatedCostObject = certificate["ceterms:estimatedCost"];
     if (Array.isArray(estimatedCostObject) && estimatedCostObject.length > 0) {
-      const price = estimatedCostObject[0]["ceterms:price"];
-      return price ? Number(price) : null; // Convert price to number, return null if conversion fails or price is undefined
+      for (const costObject of estimatedCostObject) {
+        const name = costObject["ceterms:name"];
+        if (name && name["en-US"] === "Total Cost") {
+          const price = costObject["ceterms:price"];
+          return price ? Number(price) : null;
+        }
+      }
     }
-    return null; // Return null if no estimatedCostObject is found
+    return null;
+  },
+
+  extractTuitionCost: async function (certificate: CTDLResource) {
+
   },
 
   // Function to convert ISO 8601 duration to total hours
