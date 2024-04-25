@@ -56,12 +56,12 @@ export const credentialEngineUtils = {
       .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
   },
 
-  extractTotalCost: async function (certificate: CTDLResource) {
+  extractCost: async function (certificate: CTDLResource, costType: string) {
     const estimatedCosts = certificate["ceterms:estimatedCost"];
     if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
       for (const costProfile of estimatedCosts) {
         const directCostType = costProfile["ceterms:directCostType"];
-        if (directCostType && directCostType["ceterms:targetNode"] === "costType:AggregateCost") {
+        if (directCostType && directCostType["ceterms:targetNode"] === costType) {
           const price = costProfile["ceterms:price"];
           return price ? Number(price) : null;
         }
@@ -70,20 +70,40 @@ export const credentialEngineUtils = {
     return null;
   },
 
-  extractTuitionCost: async function (certificate: CTDLResource) {
+  sumOtherCosts: async function (certificate: CTDLResource) {
+    const excludedCostTypes = [
+      "costType:AggregateCost",
+      "costType:Tuition",
+      "costType:MixedFees",
+      "costType:LearningResource",
+      "costType:TechnologyFee"
+    ];
+
     const estimatedCosts = certificate["ceterms:estimatedCost"];
+    let otherCosts = 0;
     if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
       for (const costProfile of estimatedCosts) {
         const directCostType = costProfile["ceterms:directCostType"];
-        if (directCostType && directCostType["ceterms:targetNode"] === "costType:Tuition") {
+        const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
+        if (targetNode && !excludedCostTypes.includes(targetNode)) {
           const price = costProfile["ceterms:price"];
-          return price ? Number(price) : null;
+          if (price) {
+            otherCosts += Number(price);
+          }
         }
       }
     }
-    return null;
+    return otherCosts;
   },
 
+  extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
+    const prerequisites = certificate["ceterms:requires"]
+      ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
+      .map(req => req["ceterms:description"]?.["en-US"])
+      .filter((description): description is string => description !== undefined); // Filter out undefined values
+
+    return prerequisites && prerequisites.length > 0 ? prerequisites : null;
+  },
 
   // Function to convert ISO 8601 duration to total hours
   convertIso8601DurationToTotalHours: async function (isoString: string) {
