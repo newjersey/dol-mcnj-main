@@ -191,6 +191,16 @@ export class PostgresDataClient implements DataClient {
       });
   };
 
+  findCipDefinitionByCip = (cip: string): Promise<CipDefinition[]> => {
+    return this.kdb("soccipcrosswalk")
+      .select("cipcode", "cip2020title as ciptitle")
+      .where("cipcode", cip)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
   find2018OccupationsBySoc2010 = (soc2010: string): Promise<Occupation[]> => {
     return this.kdb("soc2010to2018crosswalk")
       .select("soccode2018 as soc", "socdefinitions.soctitle as title")
