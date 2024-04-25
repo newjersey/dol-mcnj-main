@@ -51,6 +51,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
     for (const value of values) {
       const ctid = await credentialEngineUtils.getCtidFromURL(value);
+      console.log("Debug - CTID: ", ctid);
       const record = await credentialEngineAPI.getResourceByCTID(ctid);
       ceRecords.push(record);
     }
@@ -118,8 +119,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           ?.filter((req) => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
           .map((req) => req["ceterms:description"]?.["en-US"]);
 
-        const matchingOccupations =
-          cipCode != null ? await dataClient.findOccupationsByCip(cipCode) : [];
+
+
+
         const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === cipCode)
           .map((localException: LocalException) =>
@@ -145,10 +147,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           prerequisites: prerequisites,
           totalClockHours: null,
           calendarLength: await getCalendarLengthId(certificate),
-          occupations: matchingOccupations.map((it) => ({
-            title: it.title,
-            soc: it.soc,
-          })),
+          occupations: await credentialEngineUtils.extractOccupations(certificate),
           inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           localExceptionCounty: localExceptionCounties,
           tuitionCost: await credentialEngineUtils.extractTuitionCost(certificate),

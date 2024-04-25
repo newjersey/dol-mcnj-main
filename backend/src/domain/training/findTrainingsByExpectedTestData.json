@@ -1,0 +1,66 @@
+[
+  {
+    "id": "ce-1ad923c7-7d80-4b13-81c8-e688ea8b3ccd",
+    "name": "CompTIA Linux Essentials Certification",
+    "cipCode": "110901",
+    "provider": {
+      "id": "ce-9c8978d2-7194-4e53-9d46-7e07b332e015",
+      "name": "Brookdale Community College Continuing Professional Education_ETP",
+      "url": "https://www.brookdalecc.edu/careerdevelopment",
+      "email": "jscocco@brookdalecc.edu",
+      "county": ""
+    },
+    "availableAt": {
+      "street_address": "765 Newman Springs Road",
+      "city": "Lincroft",
+      "state": "New Jersey",
+      "zipCode": "07738"
+    },
+    "description": "Course includes 60 hours of live instructor lecture, video training, labs, quizzes and certification questions. Candidate study groups will be moderated. Includes exam voucher. \r\n\r\nComptia Linux Plus Course Description\r\n\r\nHardware & System Configuration Configure kernel modules, network parameters, storage, cloud and virtualization technologies\r\n\r\nSystem Operation & Maintenance Manage software and services, and explain server roles, job scheduling, and the use and operation of Linux devices\r\n\r\nSecurity Understand best practices for permissions and authentication, firewalls, and file management.\r\n\r\nLinux Troubleshooting & Diagnostics Analyze system properties and processes and troubleshoot user, application and hardware issues\r\n\r\nAutomation & Scripting Execute basic BASH scripts, version control using Git, and orchestration processes\r\n\r\nFor complete details, visit https://www.brookdalecc.edu/continuinged/careerdevelopment/comptraining/it_certificates/.",
+    "certifications": "Certificate of Completion",
+    "totalClockHours": null,
+    "calendarLength": 3,
+    "occupations": [
+      {
+        "title": "Computer and Information Systems Managers",
+        "soc": "11-3021"
+      },
+      {
+        "title": "Computer Systems Analysts",
+        "soc": "15-1211"
+      },
+      {
+        "title": "Information Security Analysts",
+        "soc": "15-1212"
+      },
+      {
+        "title": "Computer Network Support Specialists",
+        "soc": "15-1231"
+      },
+      {
+        "title": "Computer Network Architects",
+        "soc": "15-1241"
+      },
+      {
+        "title": "Computer Science Teachers, Postsecondary",
+        "soc": "25-1021"
+      }
+    ],
+    "inDemand": true,
+    "localExceptionCounty": [],
+    "tuitionCost": null,
+    "feesCost": 0,
+    "booksMaterialsCost": 0,
+    "suppliesToolsCost": 0,
+    "otherCost": 0,
+    "totalCost": 1645,
+    "online": true,
+    "percentEmployed": 0,
+    "averageSalary": 0,
+    "hasEveningCourses": false,
+    "languages": "en",
+    "isWheelchairAccessible": false,
+    "hasJobPlacementAssistance": false,
+    "hasChildcareAssistance": false
+  }
+]
