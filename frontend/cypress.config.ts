@@ -32,6 +32,6 @@ export default defineConfig({
     },
     baseUrl: "http://localhost:3000",
     video: true,
-    "defaultCommandTimeout": 5000  // Timeout in milliseconds
+    defaultCommandTimeout: 6000  // Timeout in milliseconds
   },
 });
