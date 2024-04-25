@@ -22,12 +22,12 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Baking & Pastry Certificate Culinary Arts").should(
+    cy.contains("Bakery and Pastry").should(
       "exist",
     );
 
     cy.contains(
-      "...provide students with career training for entry-level positions in the baking and pastry. The Certificate can also be used as a...",
+      "...career preparation program offers hands-on courses in the fundamentals of baking and pastry. It will also prepare you for the National Restaurant...",
     ).should("exist");
   });
 
@@ -48,18 +48,19 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should('have.value', 'Python & Java');
   });
 
-  it.skip("searches from the search results page", () => {
+  it("searches from the search results page", () => {
     // on results page
-    cy.visit("/training/search?q=welding%20workshops");
+    cy.visit("/training/search?q=welding%20technology");
     cy.injectAxe();
 
     // displays trainings
-    cy.contains("Welding Workshops").should("exist");
-    cy.contains("$559.00").should("exist");
+    cy.contains("Welding Technology").should("exist");
+    cy.contains("$32,407.00").should("exist");
     // cy.contains("77.5%").should("exist");
-    cy.contains("Denville").should("exist");
-    cy.contains("Morris County School of Technology, Adult Education").should("exist");
-    cy.contains("3-5 months to complete").should("exist");
+    cy.contains("Mahwah").should("exist");
+    cy.contains("Lincoln Technical Institute - Mahwah").should("exist");
+    cy.contains("Completion time: No data available").should("exist");
+    cy.contains("480508").should("exist");
 
     // input search
     cy.get('input[aria-label="search"]').clear();
