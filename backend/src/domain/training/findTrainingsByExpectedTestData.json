@@ -22,28 +22,8 @@
     "calendarLength": 3,
     "occupations": [
       {
-        "title": "Computer and Information Systems Managers",
-        "soc": "11-3021"
-      },
-      {
-        "title": "Computer Systems Analysts",
-        "soc": "15-1211"
-      },
-      {
-        "title": "Information Security Analysts",
-        "soc": "15-1212"
-      },
-      {
-        "title": "Computer Network Support Specialists",
-        "soc": "15-1231"
-      },
-      {
-        "title": "Computer Network Architects",
-        "soc": "15-1241"
-      },
-      {
-        "title": "Computer Science Teachers, Postsecondary",
-        "soc": "25-1021"
+        "soc": "11-3021",
+        "title": "Computer and Information Systems Managers"
       }
     ],
     "inDemand": true,
