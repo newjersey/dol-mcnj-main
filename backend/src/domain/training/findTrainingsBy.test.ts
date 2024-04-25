@@ -5,7 +5,7 @@ import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI'
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { StubDataClient } from '../test-objects/StubDataClient';
 import ceRecords from '../test-objects/ceTestData.json'
-import expectedResult from './findTrainigsByExpectedTestData.json'
+import expectedResult from './findTrainingsByExpectedTestData.json'
 
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
@@ -35,7 +35,7 @@ describe('findTrainingsByFactory', () => {
       dataClient.getLocalExceptionsByCip = jest.fn().mockResolvedValue([]);
       dataClient.findOccupationsByCip = jest.fn().mockResolvedValue([{title: 'test', soc: '123'}]);
       const findTrainingsBy = findTrainingsByFactory(dataClient);
-      const trainings = await findTrainingsBy(1, ['a', 'b']);
+      const trainings = await findTrainingsBy(1, ['https://credentialengineregistry.org/resources/ce-1ad923c7-7d80-4b13-81c8-e688ea8b3ccd']);
       expect(trainings).toEqual(expectedResult);
     });
 

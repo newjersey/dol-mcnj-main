@@ -55,7 +55,7 @@ interface Query {
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
-    const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
+    const inDemandCIPCodes = inDemandCIPs?.map((c) => c.cipcode);
 
     const page = params.page || 1;
     const limit = params.limit || 10;

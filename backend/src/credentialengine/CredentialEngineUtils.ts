@@ -1,4 +1,5 @@
 import {CTDLResource} from "../domain/credentialengine/CredentialEngine";
+import {Occupation} from "../domain/occupations/Occupation";
 
 export const credentialEngineUtils = {
 
@@ -36,6 +37,23 @@ export const credentialEngineUtils = {
       }
     }
     return ""; // Return empty string if no match is found
+  },
+
+  extractOccupations: async function (certificate: CTDLResource): Promise<Occupation[]> {
+    const occupationTypes = certificate["ceterms:occupationType"];
+    if (!occupationTypes || occupationTypes.length === 0) return [];
+
+    return occupationTypes
+      .filter((occupation) =>
+        occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" && // Ensure frameworkName is the desired one
+        occupation["ceterms:codedNotation"] && // Check if codedNotation is present
+        occupation["ceterms:targetNodeName"]?.["en-US"]) // Check if targetNodeName is present
+      .map((occupation) => {
+        const soc = occupation["ceterms:codedNotation"]?.replace(".00", ""); // Use optional chaining with replace
+        const title = occupation["ceterms:targetNodeName"]?.["en-US"]; // Use optional chaining
+        return { soc, title };
+      })
+      .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
   },
 
   extractTotalCost: async function (certificate: CTDLResource) {
