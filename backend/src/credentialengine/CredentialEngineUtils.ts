@@ -1,4 +1,5 @@
 import {CTDLResource} from "../domain/credentialengine/CredentialEngine";
+import {Occupation} from "../domain/occupations/Occupation";
 
 export const credentialEngineUtils = {
 
@@ -38,13 +39,70 @@ export const credentialEngineUtils = {
     return ""; // Return empty string if no match is found
   },
 
-  extractTotalCost: async function (certificate: CTDLResource) {
-    const estimatedCostObject = certificate["ceterms:estimatedCost"];
-    if (Array.isArray(estimatedCostObject) && estimatedCostObject.length > 0) {
-      const price = estimatedCostObject[0]["ceterms:price"];
-      return price ? Number(price) : null; // Convert price to number, return null if conversion fails or price is undefined
+  extractOccupations: async function (certificate: CTDLResource): Promise<Occupation[]> {
+    const occupationTypes = certificate["ceterms:occupationType"];
+    if (!occupationTypes || occupationTypes.length === 0) return [];
+
+    return occupationTypes
+      .filter((occupation) =>
+        occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" && // Ensure frameworkName is the desired one
+        occupation["ceterms:codedNotation"] && // Check if codedNotation is present
+        occupation["ceterms:targetNodeName"]?.["en-US"]) // Check if targetNodeName is present
+      .map((occupation) => {
+        const soc = occupation["ceterms:codedNotation"]?.replace(".00", ""); // Use optional chaining with replace
+        const title = occupation["ceterms:targetNodeName"]?.["en-US"]; // Use optional chaining
+        return { soc, title };
+      })
+      .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
+  },
+
+  extractCost: async function (certificate: CTDLResource, costType: string) {
+    const estimatedCosts = certificate["ceterms:estimatedCost"];
+    if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
+      for (const costProfile of estimatedCosts) {
+        const directCostType = costProfile["ceterms:directCostType"];
+        if (directCostType && directCostType["ceterms:targetNode"] === costType) {
+          const price = costProfile["ceterms:price"];
+          return price ? Number(price) : null;
+        }
+      }
     }
-    return null; // Return null if no estimatedCostObject is found
+    return null;
+  },
+
+  sumOtherCosts: async function (certificate: CTDLResource) {
+    const excludedCostTypes = [
+      "costType:AggregateCost",
+      "costType:Tuition",
+      "costType:MixedFees",
+      "costType:LearningResource",
+      "costType:TechnologyFee"
+    ];
+
+    const estimatedCosts = certificate["ceterms:estimatedCost"];
+    let otherCosts = 0;
+    if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
+      for (const costProfile of estimatedCosts) {
+        const directCostType = costProfile["ceterms:directCostType"];
+        const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
+        if (targetNode && !excludedCostTypes.includes(targetNode)) {
+          const price = costProfile["ceterms:price"];
+          if (price) {
+            otherCosts += Number(price);
+          }
+        }
+      }
+    }
+    return otherCosts;
+  },
+
+  extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
+    const prerequisites = certificate["ceterms:requires"]
+      ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
+      .map(req => req["ceterms:description"]?.["en-US"])
+      .filter((description): description is string => description !== undefined); // Filter out undefined values
+
+    return prerequisites && prerequisites.length > 0 ? prerequisites : null;
   },
 
   // Function to convert ISO 8601 duration to total hours

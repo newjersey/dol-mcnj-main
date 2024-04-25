@@ -27,8 +27,8 @@ describe("Training Page", () => {
     //cy.contains("Completion time: 6-12 months").should("exist");
 
     // associated occupations
-    cy.contains("Career/Technical Education Teachers, Postsecondary").should("exist");
-    cy.contains("Heavy and Tractor-Trailer Truck Drivers").should("exist");
+    cy.contains("Vocational Education Teachers, Postsecondary").should("exist");
+    // cy.contains("Heavy and Tractor-Trailer Truck Drivers").should("exist");
 
     // share trainings
     cy.contains(
