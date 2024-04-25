@@ -1,14 +1,25 @@
 [
   {
     "@context": "https://credreg.net/ctdl/schema/context/json",
-    "@id": "https://credentialengineregistry.org/resources/ce-1ad923c7-7d80-4b13-81c8-e688ea8b3ccd",
-    "@type": "ceterms:CertificateOfCompletion",
-    "ceterms:ctid": "ce-1ad923c7-7d80-4b13-81c8-e688ea8b3ccd",
+    "@id": "https://credentialengineregistry.org/resources/ce-f4ddd65d-f565-4537-a105-04523357f54d",
+    "@type": "ceterms:Certification",
+    "ceterms:ctid": "ce-f4ddd65d-f565-4537-a105-04523357f54d",
     "ceterms:name": {
-      "en-US": "CompTIA Linux Essentials Certification"
+      "en-US": "Triple Certification (A+/N+ MCTS \u0026 CCNA)"
     },
     "ceterms:ownedBy": [
-      "https://credentialengineregistry.org/resources/ce-9c8978d2-7194-4e53-9d46-7e07b332e015"
+      "https://credentialengineregistry.org/resources/ce-b024f8c0-964c-4113-8094-0e6b82b623b5"
+    ],
+    "ceterms:requires": [
+      {
+        "@type": "ceterms:ConditionProfile",
+        "ceterms:name": {
+          "en-US": "Requirements"
+        },
+        "ceterms:description": {
+          "en-US": "Working experience with systems/networking"
+        }
+      }
     ],
     "ceterms:inLanguage": [
       "en"
@@ -16,20 +27,20 @@
     "ceterms:availableAt": [
       {
         "@type": "ceterms:Place",
-        "ceterms:postalCode": "07738",
+        "ceterms:postalCode": "07470",
         "ceterms:addressRegion": {
           "en-US": "New Jersey"
         },
         "ceterms:streetAddress": {
-          "en-US": "765 Newman Springs Road"
+          "en-US": "40 Galesi Drive, Suite 23"
         },
         "ceterms:addressLocality": {
-          "en-US": "Lincroft"
+          "en-US": "Wayne"
         }
       }
     ],
     "ceterms:description": {
-      "en-US": "Course includes 60 hours of live instructor lecture, video training, labs, quizzes and certification questions. Candidate study groups will be moderated. Includes exam voucher. \r\n\r\nComptia Linux Plus Course Description\r\n\r\nHardware \u0026 System Configuration Configure kernel modules, network parameters, storage, cloud and virtualization technologies\r\n\r\nSystem Operation \u0026 Maintenance Manage software and services, and explain server roles, job scheduling, and the use and operation of Linux devices\r\n\r\nSecurity Understand best practices for permissions and authentication, firewalls, and file management.\r\n\r\nLinux Troubleshooting \u0026 Diagnostics Analyze system properties and processes and troubleshoot user, application and hardware issues\r\n\r\nAutomation \u0026 Scripting Execute basic BASH scripts, version control using Git, and orchestration processes\r\n\r\nFor complete details, visit https://www.brookdalecc.edu/continuinged/careerdevelopment/comptraining/it_certificates/."
+      "en-US": "This package cover following three vendors CompTIA, Microsoft and Cisco Certifications: (A+ or Network+, Windows client or Server (MCP/MCTS) and CCENT a first course of CCNA): This first part of this course is A+ or Network+ certification classes. This hands-on training offers students installation, configuration, diagnosing, preventive maintenance and basic networking. It will also help students to prepare for A+ or N+ certification exams. The second part of this program is Microsoft Windows Client or Server . This course is focused on the Microsoft Windows platform and prepares students for MCP/MCTS exam. The third part of this course is Cisco networking. This course will help the student prepare for CCENT or ICND1 exams which is the first course required to become CCNA."
     },
     "ceterms:estimatedCost": [
       {
@@ -37,9 +48,9 @@
         "ceterms:name": {
           "en-US": "Total Cost"
         },
-        "ceterms:price": 1645.0,
+        "ceterms:price": 4074.0,
         "ceterms:currency": "USD",
-        "ceterms:costDetails": "https://www.brookdalecc.edu",
+        "ceterms:costDetails": "https://www.liit.com",
         "ceterms:description": {
           "en-US": "Estimated cost of credential, learning opportunity or assessment"
         },
@@ -76,12 +87,12 @@
         }
       }
     ],
-    "ceterms:subjectWebpage": "https://www.brookdalecc.edu",
+    "ceterms:subjectWebpage": "https://www.liit.com",
     "ceterms:isPreparationFor": [
       {
         "@type": "ceterms:ConditionProfile",
         "ceterms:name": {
-          "en-US": "Certificate of Completion"
+          "en-US": "Certification"
         },
         "ceterms:description": {
           "en-US": "This certification will prepare a student for the target credential"
@@ -89,7 +100,7 @@
       }
     ],
     "ceterms:availableOnlineAt": [
-      "https://www.brookdalecc.edu"
+      "https://www.liit.com"
     ],
     "ceterms:estimatedDuration": [
       {
@@ -97,7 +108,7 @@
         "ceterms:description": {
           "en-US": "This is about how long it takes to earn this credential"
         },
-        "ceterms:exactDuration": "PT60H"
+        "ceterms:exactDuration": "PT272H"
       }
     ],
     "ceterms:credentialStatusType": {

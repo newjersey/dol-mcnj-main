@@ -206,13 +206,12 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
           id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipCode: await credentialEngineUtils.extractCipCode(certificate),
-          totalCost: await credentialEngineUtils.extractTotalCost(certificate),
+          totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           percentEmployed: 0,
           calendarLength: CalendarLength.NULL,
           localExceptionCounty: [],
 
           /*
-            inDemand: training.inDemand,
             socCodes: training.occupations.map((o) => o.soc),
             languages: training.languages,
           */

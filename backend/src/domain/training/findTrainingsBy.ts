@@ -9,8 +9,6 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
   CetermsConditionProfile,
-  /*  CetermsEstimatedDuration,
-  CetermsCredentialAlignmentObject,*/
   CetermsScheduleTimingType,
   CTDLResource,
 } from "../credentialengine/CredentialEngine";
@@ -115,13 +113,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
 
-        const prerequisites = certificate["ceterms:requires"]
-          ?.filter((req) => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
-          .map((req) => req["ceterms:description"]?.["en-US"]);
-
-
-
-
         const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
           .filter((localException: LocalException) => localException.cipcode === cipCode)
           .map((localException: LocalException) =>
@@ -144,18 +135,18 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             ? certificate["ceterms:description"]["en-US"]
             : "",
           certifications: certifications,
-          prerequisites: prerequisites,
+          prerequisites: await credentialEngineUtils.extractPrerequisites(certificate),
           totalClockHours: null,
           calendarLength: await getCalendarLengthId(certificate),
           occupations: await credentialEngineUtils.extractOccupations(certificate),
           inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           localExceptionCounty: localExceptionCounties,
-          tuitionCost: await credentialEngineUtils.extractTuitionCost(certificate),
-          feesCost: 0,
-          booksMaterialsCost: 0,
-          suppliesToolsCost: 0,
-          otherCost: 0,
-          totalCost: await credentialEngineUtils.extractTotalCost(certificate),
+          tuitionCost: await credentialEngineUtils.extractCost(certificate, "costType:Tuition"),
+          feesCost: await credentialEngineUtils.extractCost(certificate, "costType:MixedFees"),
+          booksMaterialsCost: await credentialEngineUtils.extractCost(certificate, "costType:LearningResource"),
+          suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
+          otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
+          totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null ? true : false,
           percentEmployed: 0,
           averageSalary: 0,
