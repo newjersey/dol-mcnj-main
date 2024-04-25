@@ -9,6 +9,7 @@ import { CalendarLength } from "../CalendarLength";
 import {
   getAvailableAtAddress,
 } from "../training/findTrainingsBy";
+import {DataClient} from "../DataClient";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -51,8 +52,11 @@ interface Query {
 }
 
 
-export const searchTrainingsFactory = (): SearchTrainings => {
+export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
+    const inDemandCIPs = await dataClient.getCIPsInDemand();
+    const inDemandCIPCodes = inDemandCIPs?.map((c) => c.cipcode);
+
     const page = params.page || 1;
     const limit = params.limit || 10;
     let sort;
@@ -62,6 +66,10 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         break;
       case "desc":
         sort = "^ceterms:name";
+        break;
+      case "price_asc": // Placeholder, actual sorting handled later
+      case "price_desc": // Placeholder, actual sorting handled later
+        sort = params.sort; // Just save the sorting preference
         break;
       case "best_match":
         sort = "^search:relevance";
@@ -196,17 +204,18 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           }
         }
 
+        const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+
         return {
           id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipCode: await credentialEngineUtils.extractCipCode(certificate),
-          totalCost: await credentialEngineUtils.extractTotalCost(certificate),
+          totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           percentEmployed: 0,
           calendarLength: CalendarLength.NULL,
           localExceptionCounty: [],
 
           /*
-            inDemand: training.inDemand,
             socCodes: training.occupations.map((o) => o.soc),
             languages: training.languages,
           */
@@ -217,7 +226,7 @@ export const searchTrainingsFactory = (): SearchTrainings => {
           // cities: ownedByAddresses.map((a) => a.city),
           // zipCodes: ownedByAddresses.map((a) => a.zipCode),
           availableAt: address,
-          inDemand: false,
+          inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
           highlight: highlight,
           socCodes: [],
           hasEveningCourses: false,
@@ -229,6 +238,13 @@ export const searchTrainingsFactory = (): SearchTrainings => {
         };
       }),
     );
+    if (sort === "price_asc" || sort === "price_desc") {
+      results.sort((a, b) => {
+        const costA = a.totalCost || 0; // handle possible undefined values
+        const costB = b.totalCost || 0; // handle possible undefined values
+        return sort === "price_asc" ? costA - costB : costB - costA;
+      });
+    }
 
     const data = {
       data: results,
