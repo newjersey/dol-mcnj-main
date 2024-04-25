@@ -23,8 +23,8 @@ interface CodedNotation {
 }
 
 interface SearchTerm {
-  "ceterms:name"?: TermValue;
-  "ceterms:description"?: TermValue;
+  "ceterms:name"?: TermValue | string;
+  "ceterms:description"?: TermValue | string;
   "ceterms:ownedBy"?: {
     "ceterms:name": TermValue;
   };
@@ -101,14 +101,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
         "search:value": [
           {
             "search:operator": "search:orTerms",  // Logical grouping for these terms
-            "ceterms:name": {
-              "search:value": params.searchQuery,
-              "search:matchType": "search:contains"
-            },
-            "ceterms:description": {
-              "search:value": params.searchQuery,
-              "search:matchType": "search:contains"
-            },
+            "ceterms:name": params.searchQuery,
+            "ceterms:description":  params.searchQuery,
             "ceterms:ownedBy": {
               "ceterms:name": {
                 "search:value": params.searchQuery,
