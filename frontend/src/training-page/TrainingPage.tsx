@@ -582,40 +582,39 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
           </div>
         </div>
-      </Layout>
-
-      <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
-      <div className={`panel${drawerOpen ? " open" : ""}`}>
-        <div className="copy">
-          <button
-            aria-label="Close"
-            title="Close"
-            className="close"
-            onClick={() => setDrawerOpen(false)}
-            type="button"
-          >
-            <X size={28} />
-            <div className="sr-only">Close</div>
-          </button>
-          <h4>Classification of Instructional Programs (CIP) codes</h4>
-          <p>
-            The Classification of Instructional Programs (CIP) codes serve as a standardized system
-            for categorizing academic fields of study and program completions. They are designed to
-            facilitate accurate tracking and reporting of educational activities across
-            institutions.
-          </p>
-          <p>
-            You can find a list of CIP codes{" "}
-            <a
-              href="https://nces.ed.gov/ipeds/cipcode/browse.aspx?y=56"
-              target="_blank"
-              rel="noopener noreferrer"
+        <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
+        <div className={`panel${drawerOpen ? " open" : ""}`}>
+          <div className="copy">
+            <button
+              aria-label="Close"
+              title="Close"
+              className="close"
+              onClick={() => setDrawerOpen(false)}
+              type="button"
             >
-              here.
-            </a>
-          </p>
+              <X size={28} />
+              <div className="sr-only">Close</div>
+            </button>
+            <h3>Classification of Instructional Programs (CIP) codes</h3>
+            <p>
+              The Classification of Instructional Programs (CIP) codes serve as a standardized
+              system for categorizing academic fields of study and program completions. They are
+              designed to facilitate accurate tracking and reporting of educational activities
+              across institutions.
+            </p>
+            <p>
+              You can find a list of CIP codes{" "}
+              <a
+                href="https://nces.ed.gov/ipeds/cipcode/browse.aspx?y=56"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                here.
+              </a>
+            </p>
+          </div>
         </div>
-      </div>
+      </Layout>
     </div>
   );
 };
