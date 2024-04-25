@@ -23,7 +23,7 @@ describe("Training Page", () => {
       "Prerequisites: Candidate must be 18 years of age and have a basic driver's license",
     ).should("exist");
     //cy.contains("20 hours").should("exist");
-    cy.contains("490205").should("exist");
+    cy.contains("49.0205").should("exist");
     //cy.contains("Completion time: 6-12 months").should("exist");
 
     // associated occupations
