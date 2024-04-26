@@ -166,5 +166,17 @@ export const credentialEngineUtils = {
     if (totalDays <= 730) return 8;
     if (totalDays <= 1460) return 9;
     return 10;
-  }
+  },
+
+  hasEveningSchedule: async function (certificate: CTDLResource) {
+    const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
+    if (!scheduleTimingTypes) return false;
+
+    // Check for any CredentialAlignmentObject where targetNode is 'scheduleTiming:Evening'
+    const hasEvening = scheduleTimingTypes.some((timingType) => {
+      return timingType["ceterms:targetNode"] === "scheduleTiming:Evening";
+    });
+
+    return hasEvening;
+  },
 }
