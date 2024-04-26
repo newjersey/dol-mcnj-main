@@ -97,11 +97,15 @@ export const credentialEngineUtils = {
   },
 
   extractAverageSalary: async function (certificate: CTDLResource) {
-    const entrySalary = certificate["ceterms:aggregateData"] ? certificate["ceterms:aggregateData"]
-        .filter((aggData: CetermsAggregateData) =>
-            aggData["ceterms:name"]?.["en-US"] === "Median Earnings of Program Graduates in the Region - Upon Entry")
-        [0]?.["ceterms:medianEarnings"] ?? null : null;
-    return entrySalary;
+    const averageSalaryData = certificate["ceterms:aggregateData"];
+    if (!averageSalaryData) return null;
+
+    // Find the first earnings profile that has a medianEarnings value.
+    const averageSalaryProfile = averageSalaryData.find((aggData: CetermsAggregateData) =>
+        aggData["ceterms:medianEarnings"] != null
+    );
+
+    return averageSalaryProfile ? averageSalaryProfile["ceterms:medianEarnings"] : null;
   },
 
   extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
