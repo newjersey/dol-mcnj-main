@@ -29,7 +29,7 @@ import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
 import { cleanProviderName } from "../utils/cleanProviderName";
 import { X } from "@phosphor-icons/react";
-import { decimalPlacement } from "../utils/decimalPlacement";
+import { formatCip } from "../utils/formatCip";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -394,17 +394,21 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </button>
                         </span>
                         <br />
-                        <b>CIP Code category name not available.</b>
                         <br />
-                        <a
-                          href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${decimalPlacement(training.cipCode)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {training.cipCode
-                            ? decimalPlacement(training.cipCode)
-                            : t("Global.noDataAvailableText")}
-                        </a>
+                        {training.cipDefinition ? (
+                          <a
+                            href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {training.cipDefinition.ciptitle} - {formatCip(training.cipDefinition.cipcode)}
+                          </a>
+                        ) : (
+                          <>
+                            <b>CIP Code category name not available.</b>
+                            <span>{t("Global.noDataAvailableText")}</span>
+                          </>
+                        )}
                       </p>
                     </>
                   </Grouping>

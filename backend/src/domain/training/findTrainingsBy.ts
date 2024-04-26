@@ -2,7 +2,7 @@ import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppe
 import { FindTrainingsBy } from "../types";
 import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
-import { LocalException } from "./Program";
+import {CipDefinition, LocalException} from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
@@ -41,7 +41,20 @@ function constructCertificationsString(isPreparationForObject: CetermsConditionP
     .join(", "); // Join the names with a comma and space as separator
 }
 
+
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
+  async function getCipDefinition(cipCode: string): Promise<CipDefinition> {
+    return dataClient.findCipDefinitionByCip(cipCode)
+      .then(cipDefinition => {
+        return cipDefinition[0]; // Directly return the CipDefinition object
+      })
+      .catch(error => {
+        // Handle or log the error and then rethrow to be caught by the caller
+        console.error('Error fetching CIP definition:', error);
+        throw error;
+      });
+  }
+
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
@@ -106,6 +119,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+        const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
         const certifications = constructCertificationsString(isPreparationForObject);
 
         // GET scheduling information - for example, evening courses
@@ -122,7 +136,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
-          cipCode: cipCode,
+          cipDefinition: cipDefinition ? cipDefinition[0] : null,
           provider: {
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord["ceterms:name"]["en-US"],
