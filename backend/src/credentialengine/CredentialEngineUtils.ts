@@ -1,4 +1,4 @@
-import {CTDLResource} from "../domain/credentialengine/CredentialEngine";
+import {CetermsAggregateData, CTDLResource} from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
 
 export const credentialEngineUtils = {
@@ -94,6 +94,14 @@ export const credentialEngineUtils = {
       }
     }
     return otherCosts;
+  },
+
+  extractAverageSalary: async function (certificate: CTDLResource) {
+    const entrySalary = certificate["ceterms:aggregateData"] ? certificate["ceterms:aggregateData"]
+        .filter((aggData: CetermsAggregateData) =>
+            aggData["ceterms:name"]?.["en-US"] === "Median Earnings of Program Graduates in the Region - Upon Entry")
+        [0]?.["ceterms:medianEarnings"] ?? null : null;
+    return entrySalary;
   },
 
   extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
