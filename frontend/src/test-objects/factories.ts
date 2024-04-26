@@ -1,6 +1,6 @@
 import {
   Address,
-  CalendarLength,
+  CalendarLength, CipDefinition,
   ConditionProfile,
   ConditionProfileItem,
   Provider,
@@ -8,8 +8,14 @@ import {
   TrainingResult,
 } from "../domain/Training";
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
+import {formatCip} from "../utils/formatCip";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
+
+export const randomSixDigitNumber = (): number => {
+  return Math.floor(Math.random() * 900000) + 100000;
+};
+
 const randomBool = (): boolean => !!Math.round(Math.random());
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
@@ -57,7 +63,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
       zipCode: "some-zipcode-" + randomInt(),
     },
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: buildCipDefinition({}),
     provider: buildProvider({}),
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
@@ -113,6 +119,15 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     targetContactPoints: [],
     ...overrides,
   };
+};
+
+export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefinition => {
+  const randomCipCode = randomSixDigitNumber().toString();
+  return {
+    cip: formatCip(randomCipCode),
+    cipcode: randomCipCode,
+    ciptitle: `some-ciptitle-${randomInt()}`
+  }
 };
 
 export const buildInDemandOccupation = (
