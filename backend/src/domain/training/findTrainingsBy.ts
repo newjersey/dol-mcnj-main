@@ -150,7 +150,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           online: availableOnlineAt != null ? true : false,
           percentEmployed: 0,
           averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
-          hasEveningCourses: false,
+          hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
           languages: certificate["ceterms:inLanguage"]
             ? certificate["ceterms:inLanguage"][0]
             : null,
