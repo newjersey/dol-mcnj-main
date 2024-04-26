@@ -8,7 +8,6 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
-  CetermsAggregateData,
   CetermsConditionProfile,
   CetermsScheduleTimingType,
   CTDLResource,
