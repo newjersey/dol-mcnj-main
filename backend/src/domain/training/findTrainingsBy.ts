@@ -149,7 +149,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null ? true : false,
           percentEmployed: 0,
-          averageSalary: 0,
+          averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
           hasEveningCourses: false,
           languages: certificate["ceterms:inLanguage"]
             ? certificate["ceterms:inLanguage"][0]
@@ -195,17 +195,6 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
 
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
-};
-
-
-const formatPrerequisites = (prereq: string | null): string => {
-  if (!prereq) return "";
-
-  if (prereq.match(/None/i)) {
-    return "";
-  }
-
-  return stripSurroundingQuotes(prereq);
 };
 
 export const mapStrNumToBool = (value: string | null): boolean => {
