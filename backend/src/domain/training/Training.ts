@@ -22,7 +22,7 @@ export interface Training {
   totalCost?: number | null;
   online: boolean;
   percentEmployed: number | null;
-  averageSalary: number | null;
+  averageSalary?: number | null;
   hasEveningCourses: boolean;
   languages: string | null;
   isWheelchairAccessible: boolean;
