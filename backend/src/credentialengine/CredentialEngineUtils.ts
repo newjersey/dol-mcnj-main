@@ -1,4 +1,4 @@
-import {CTDLResource} from "../domain/credentialengine/CredentialEngine";
+import {CetermsAggregateData, CTDLResource} from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
 
 export const credentialEngineUtils = {
@@ -94,6 +94,18 @@ export const credentialEngineUtils = {
       }
     }
     return otherCosts;
+  },
+
+  extractAverageSalary: async function (certificate: CTDLResource) {
+    const averageSalaryData = certificate["ceterms:aggregateData"];
+    if (!averageSalaryData) return null;
+
+    // Find the first earnings profile that has a medianEarnings value.
+    const averageSalaryProfile = averageSalaryData.find((aggData: CetermsAggregateData) =>
+        aggData["ceterms:medianEarnings"] != null
+    );
+
+    return averageSalaryProfile ? averageSalaryProfile["ceterms:medianEarnings"] : null;
   },
 
   extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {

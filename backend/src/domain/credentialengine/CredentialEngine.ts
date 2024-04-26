@@ -77,6 +77,7 @@ export interface CTDLResource {
   "ceterms:scheduleFrequencyType"?:       CetermsScheduleFrequencyType[];
   "ceterms:processStandardsDescription"?: Ceterms;
   "ceterms:latestVersion"?:               string;
+  "ceterms:aggregateData"?:               CetermsAggregateData[];
 }
 
 export interface Ceterms {
@@ -355,4 +356,22 @@ export interface CetermsRecovationProfile {
   "ceterms:dateEffective"?:                 string;
   "ceterms:revocationCriteria"?:            string;
   "ceterms:revocationCriteriaDescription?": Ceterms;
+}
+
+export interface CetermsAggregateData {
+  "@type"?:                                 string;
+  "ceterms:name"?:                          Ceterms;
+  "ceterms:source"?:                        string;
+  "ceterms:description"?:                   Ceterms;
+  "ceterms:dateEffective"?:                 string;
+  "ceterms:jobsObtained"?:                  JobsObtained[];
+  "ceterms:currency"?:                      string;
+  "ceterms:medianEarnings"?:                number;
+  "ceterms:postReceiptMonths"?:             number;
+}
+
+export interface JobsObtained  {
+  "@type"?:                                 string;
+  "qdata:percentage"?:                      number;
+  "schema:description"?:                    Ceterms;
 }
