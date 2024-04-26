@@ -10,7 +10,7 @@ import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
 import { cleanProviderName } from "../utils/cleanProviderName";
-import { decimalPlacement } from "../utils/decimalPlacement";
+import { formatCip } from "../utils/formatCip";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -139,7 +139,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
               <span>
                 {props.trainingResult.cipCode
                   ? t("SearchResultsPage.cipCode") +
-                    `: ${decimalPlacement(props.trainingResult.cipCode)}`
+                    `: ${formatCip(props.trainingResult.cipCode)}`
                   : t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`}
                 <br />
                 <b>CIP Code category name not available.</b>
