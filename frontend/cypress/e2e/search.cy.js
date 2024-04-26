@@ -60,7 +60,7 @@ describe("Search", () => {
     cy.contains("Mahwah").should("exist");
     cy.contains("Lincoln Technical Institute - Mahwah").should("exist");
     cy.contains("Completion time: No data available").should("exist");
-    cy.contains("480508").should("exist");
+    cy.contains("48.0508").should("exist");
 
     // input search
     cy.get('input[aria-label="search"]').clear();
