@@ -148,7 +148,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0,
+          percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
           hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
           languages: certificate["ceterms:inLanguage"]
