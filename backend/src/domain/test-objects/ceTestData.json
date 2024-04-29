@@ -122,17 +122,16 @@
           "ceterms:exactDuration": "P1Y"
         }
       ],
-      "ceterms:instructionalProgramType": [
-        {
-          "ceterms:frameworkName": {
-            "en-US": "Cost Type"
-          },
-          "ceterms:targetNodeName": {
-            "en-US": "Aggregate Cost"
-          },
-          "ceterms:targetNodeDescription": {
-            "en-US": "Sum of direct costs."
-          }
+    "ceterms:instructionalProgramType": [
+      {
+        "ceterms:frameworkName": {
+          "en-US": "Cost Type"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Aggregate Cost"
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "Sum of direct costs."
         }
       }
     ],
