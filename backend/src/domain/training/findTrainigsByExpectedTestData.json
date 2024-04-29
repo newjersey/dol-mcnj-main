@@ -28,17 +28,17 @@
         "Example requirement description"
       ],
       "provider": {
-        "county": "",
+        "county": "Middlesex",
         "email": null,
         "id": "ctid123",
         "name": "Example Training Program",
         "url": "someurl"
       },
       "availableAt": {
-        "street_address": "",
-        "city": "",
-        "state": "",
-        "zipCode": ""
+        "street_address": "112 Rues Lane",
+        "city": "East Brunswick",
+        "state": "New Jersey",
+        "zipCode": "08816"
       },
       "suppliesToolsCost": 0,
       "totalClockHours": null,
@@ -75,17 +75,17 @@
         "Example requirement description"
       ],
       "provider": {
-        "county": "",
+        "county": "Middlesex",
         "email": null,
         "id": "ctid123",
         "name": "Example Training Program",
         "url": "someurl"
       },
       "availableAt": {
-        "street_address": "",
-        "city": "",
-        "state": "",
-        "zipCode": ""
+        "street_address": "112 Rues Lane",
+        "city": "East Brunswick",
+        "state": "New Jersey",
+        "zipCode": "08816"
       },
       "suppliesToolsCost": 0,
       "totalClockHours": null,
