@@ -169,7 +169,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
   };
 };
 
-const zipToCounty = (zip: string | undefined): string => {
+export const zipToCounty = (zip: string | undefined): string => {
   console.log({ zip })
 
   if (!zip) {
