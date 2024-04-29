@@ -2,7 +2,7 @@ import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppe
 import { FindTrainingsBy } from "../types";
 import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
-import {CipDefinition, LocalException} from "./Program";
+import { CipDefinition, LocalException } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
@@ -12,7 +12,6 @@ import {
   CetermsScheduleTimingType,
   CTDLResource,
 } from "../credentialengine/CredentialEngine";
-
 
 export function getAvailableAtAddress(certificate: CTDLResource): Address {
   const availableAt = certificate["ceterms:availableAt"]?.[0];
@@ -41,20 +40,7 @@ function constructCertificationsString(isPreparationForObject: CetermsConditionP
     .join(", "); // Join the names with a comma and space as separator
 }
 
-
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
-  async function getCipDefinition(cipCode: string): Promise<CipDefinition> {
-    return dataClient.findCipDefinitionByCip(cipCode)
-      .then(cipDefinition => {
-        return cipDefinition[0]; // Directly return the CipDefinition object
-      })
-      .catch(error => {
-        // Handle or log the error and then rethrow to be caught by the caller
-        console.error('Error fetching CIP definition:', error);
-        throw error;
-      });
-  }
-
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
@@ -157,8 +143,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           localExceptionCounty: localExceptionCounties,
           tuitionCost: await credentialEngineUtils.extractCost(certificate, "costType:Tuition"),
           feesCost: await credentialEngineUtils.extractCost(certificate, "costType:MixedFees"),
-          booksMaterialsCost: await credentialEngineUtils.extractCost(certificate, "costType:LearningResource"),
-          suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
+          booksMaterialsCost: await credentialEngineUtils.extractCost(
+            certificate,
+            "costType:LearningResource",
+          ),
+          suppliesToolsCost: await credentialEngineUtils.extractCost(
+            certificate,
+            "costType:TechnologyFee",
+          ),
           otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null ? true : false,
