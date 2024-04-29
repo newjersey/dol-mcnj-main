@@ -32,20 +32,20 @@ describe("Search", () => {
   });
 
   it("searches from the training explorer page with ampersands", () => {
-    cy.visit('/training');
+    cy.visit("/training");
 
     // Use the custom command to type the search term into the input field.
-    cy.typeSpecialCharacters('input[aria-label="search"]', 'Python & Java');
+    cy.typeSpecialCharacters('input[aria-label="search"]', "Python & Java");
 
-    cy.get('form').submit();
+    cy.get("form").submit();
 
     // Wait for the page to load results and assert the URL to ensure the search term was correctly processed.
     // This URL assertion checks that the encoded search term in the query parameters matches the expected format.
-    cy.url().should('include', 'q=Python%20%26%20Java');
+    cy.url().should("include", "q=Python+%26+Java");
 
     // Verify that the search input on the results page retains the original search term.
     // This step checks that the application correctly decodes the query parameter for display.
-    cy.get('input[aria-label="search"]').should('have.value', 'Python & Java');
+    cy.get('input[aria-label="search"]').should("have.value", "Python & Java");
   });
 
   it("searches from the search results page", () => {
