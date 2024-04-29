@@ -170,17 +170,15 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 };
 
 export const zipToCounty = (zip: string | undefined): string => {
-  console.log({ zip })
-
   if (!zip) {
+    console.log("no zip found")
     return "";
   }
 
   const county = zipcodeJson.byZip[zip as keyof typeof zipcodeJson.byZip];
 
-  console.log({ county })
-
   if (!county) {
+    console.log("no county found")
     return "";
   }
 

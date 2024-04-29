@@ -14,9 +14,16 @@
           "ceterms:addressRegion": {
             "en-US": "Test State"
           },
-          "ceterms:postalCode": "12345",
+          "ceterms:postalCode": "07004",
           "ceterms:targetContactPoint": null
         }
+      ],
+      "ceterms:availableAt": [
+        {"@type": "ceterms:Place",
+        "ceterms:postalCode": "08816",
+        "ceterms:addressRegion": { "en-US": "New Jersey" },
+        "ceterms:streetAddress": { "en-US": "112 Rues Lane" },
+        "ceterms:addressLocality": { "en-US": "East Brunswick" }}
       ],
       "ceterms:availableOnlineAt": "http://example.com",
       "ceterms:commonConditions": ["condition1"],
