@@ -28,7 +28,7 @@ describe.skip("<FilterBox />", () => {
     const state = {
       filters: filters,
     };
-
+  
     return act(() => {
       render(
         <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
