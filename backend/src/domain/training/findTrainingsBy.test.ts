@@ -8,6 +8,8 @@ import ceRecords from '../test-objects/ceTestData.json'
 import expectedResult from './findTrainigsByExpectedTestData.json'
 import { zipToCounty } from './findTrainingsBy';
 
+import zipcodeJson from "../utils/zip-county.json";
+
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
 describe('findTrainingsByFactory', () => {
@@ -41,8 +43,23 @@ describe('findTrainingsByFactory', () => {
   });
 });
 
+interface ZipcodeJson {
+  byZip: {
+    [key: string]: string;
+  };
+}
+
 describe('zipToCounty', () => {
   it('should return the correct county for a zip code', () => {
-    expect(zipToCounty('07001')).toEqual('Middlesex');
+    const keys = Object.keys(zipcodeJson.byZip);
+    let randomZip = keys[Math.floor(Math.random() * keys.length)];
+    let county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip]
+    expect(zipToCounty(randomZip)).toEqual(county);
+    randomZip = keys[Math.floor(Math.random() * keys.length)];
+    county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip]
+    expect(zipToCounty(randomZip)).toEqual(county);
+    randomZip = keys[Math.floor(Math.random() * keys.length)];
+    county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip]
+    expect(zipToCounty(randomZip)).toEqual(county);
   });
 });
