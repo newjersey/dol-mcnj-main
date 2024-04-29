@@ -2,7 +2,7 @@ import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppe
 import { FindTrainingsBy } from "../types";
 import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
-import { CipDefinition, LocalException } from "./Program";
+import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
