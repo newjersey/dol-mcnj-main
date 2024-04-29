@@ -4,6 +4,7 @@ import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { FormControlLabel, FormGroup, Switch } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
 
 interface ProgramServices {
   hasEveningCourses: boolean;
@@ -71,6 +72,33 @@ export const ProgramServicesFilter = (): ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasEveningCourses = urlParams.get("hasEveningCourses");
+    const isWheelchairAccessible = urlParams.get("isWheelchairAccessible");
+    const hasJobPlacementAssistance = urlParams.get("hasJobPlacementAssistance");
+    const hasChildcareAssistance = urlParams.get("hasChildcareAssistance");
+
+    const serviceArray = [];
+
+    if (hasEveningCourses === "true") {
+      serviceArray.push("hasEveningCourses");
+    }
+    if (isWheelchairAccessible === "true") {
+      serviceArray.push("isWheelchairAccessible");
+    }
+    if (hasJobPlacementAssistance === "true") {
+      serviceArray.push("hasJobPlacementAssistance");
+    }
+    if (hasChildcareAssistance === "true") {
+      serviceArray.push("hasChildcareAssistance");
+    }
+
+    serviceArray.forEach((service) => {
+      handleCheckboxChange({ target: { name: service } } as ChangeEvent<HTMLInputElement>, true);
+    });
+  }, []);
+
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
     const filterName = event.target.name;
     setProgramServices((prevValue) => ({
@@ -109,7 +137,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.isWheelchairAccessible}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.isWheelchairAccessible);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "isWheelchairAccessible",
+                  valid: true,
+                });
+              }}
               name="isWheelchairAccessible"
               color="primary"
             />
@@ -120,7 +156,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.hasChildcareAssistance}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.hasChildcareAssistance);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "hasChildcareAssistance",
+                  valid: true,
+                });
+              }}
               name="hasChildcareAssistance"
               color="primary"
             />
@@ -131,7 +175,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.hasEveningCourses}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.hasEveningCourses);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "hasEveningCourses",
+                  valid: true,
+                });
+              }}
               name="hasEveningCourses"
               color="primary"
             />
@@ -142,7 +194,15 @@ export const ProgramServicesFilter = (): ReactElement => {
           control={
             <Switch
               checked={programServices.hasJobPlacementAssistance}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !programServices.hasJobPlacementAssistance);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "hasJobPlacementAssistance",
+                  valid: true,
+                });
+              }}
               name="hasJobPlacementAssistance"
               color="primary"
             />

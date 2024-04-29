@@ -94,7 +94,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     if (!searchQuery || searchQuery === "null") {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
-      const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
+      const query = decodeURIComponent(searchQuery.replace(/\+/g, " ")).toLocaleLowerCase();
       setPageTitle(
         `${query} | Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
       );
@@ -154,7 +154,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     if (!searchQuery || searchQuery === "null") {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
-      const query = decodeURIComponent(searchQuery);
+      const query = decodeURIComponent(searchQuery.replace(/\+/g, " "));
       message = t("SearchResultsPage.resultsString", {
         count: metaData?.totalItems,
         query,
