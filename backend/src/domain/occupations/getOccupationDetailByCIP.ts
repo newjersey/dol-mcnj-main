@@ -99,7 +99,7 @@ export const getOccupationDetailByCIPFactory = (
                 // return trainings.map((training: Training) => {
                 //   return convertTrainingToTrainingResult(training, "", 0);
                 // });
-                const trainings = await searchTrainingsFactory()({searchQuery: soc, limit:4})
+                const trainings = await searchTrainingsFactory(dataClient)({searchQuery: soc, limit:4})
                 return trainings.data
               };
 

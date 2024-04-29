@@ -30,7 +30,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
-  const [sorting, setSorting] = useState<"asc" | "desc" | "best_match">("best_match");
+  const [sorting, setSorting] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "best_match">("best_match");
   const [itemsPerPage, setItemsPerPage] = useState<number>();
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [pageNumber, setPageNumber] = useState<number>();
@@ -174,7 +174,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   }
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
-    const newSortOrder = event.target.value as "asc" | "desc" | "best_match";
+    const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "best_match";
     setSorting(newSortOrder);
     logEvent("Search", "Updated sort", newSortOrder);
   };
@@ -191,8 +191,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             <option value="best_match">{t("SearchAndFilter.sortByBestMatch")}</option>
             <option value="asc">A to Z</option>
             <option value="desc">Z to A</option>
-            <option>{t("SearchAndFilter.sortByCostLowToHigh")}</option>
-            <option>{t("SearchAndFilter.sortByCostHighToLow")}</option>
+            <option value="price_asc">{t("SearchAndFilter.sortByCostLowToHigh")}</option>
+            <option value="price_desc">{t("SearchAndFilter.sortByCostHighToLow")}</option>
             <option>{t("SearchAndFilter.sortByEmploymentRate")}</option>
           </select>
         </div>
@@ -203,7 +203,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getPerPage = () => {
     return (
       <>
-        {filteredTrainings.length > 0 && (
+      {filteredTrainings.length > 0 && (
           <div className="input-wrapper per-page-wrapper">
             <label className="usa-label" htmlFor="per-page">
               Results per page
