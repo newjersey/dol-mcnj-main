@@ -13,13 +13,13 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
 
   useEffect(() => {
     client.getTrainingsByQuery(query, {
-      onSuccess: ({ data }: TrainingData) => {
-        setTrainings(data);
-        setLoading(false);
-      },
-      onError: () => {
-        setIsError(true);
-      },
+        onSuccess: ({data}: TrainingData) => {
+            setTrainings(data);
+            setLoading(false);
+        },
+        onError: () => {
+            setIsError(true);
+        },
     });
   }, [query]);
   return (

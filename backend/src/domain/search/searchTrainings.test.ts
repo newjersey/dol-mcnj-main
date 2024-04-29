@@ -2,11 +2,15 @@ import { searchTrainingsFactory } from './searchTrainings';
 import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI';
 import { TrainingData } from '../training/TrainingResult';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import {StubDataClient} from "../test-objects/StubDataClient";
+
 jest.mock("@sentry/node");
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
 describe('searchTrainingsFactory', () => {
-  const searchTrainings = searchTrainingsFactory();
+  const stubDataClient = StubDataClient();
+
+  const searchTrainings = searchTrainingsFactory(stubDataClient);
   const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
   const ceData: AxiosResponse = {
     data: { data: [], extra: {TotalResults: 0} },
@@ -29,7 +33,7 @@ describe('searchTrainingsFactory', () => {
       previousPage: null
     }
   }
-  
+
   afterEach(() => {
     jest.clearAllMocks()
   });
