@@ -12,6 +12,7 @@ import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { COUNTIES, getCountyName } from "./newJerseyCounties";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
 
 const INPUT_STYLE = {
   borderRadius: 10,
@@ -60,11 +61,17 @@ export const CountyFilter = (): ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.filters]);
 
-  const handleTypeaheadChange = (
-    event: ChangeEvent<{}>,
-    value: string | null,
-    reason: AutocompleteChangeReason,
-  ): void => {
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const county = urlParams.get("county");
+
+    if (county) {
+      setSelectedCounty(county);
+      handleTypeaheadChange(county);
+    }
+  }, []);
+
+  const handleTypeaheadChange = (value: string | null): void => {
     setSelectedCounty(value);
     if (value != null) {
       dispatch({
@@ -97,7 +104,19 @@ export const CountyFilter = (): ReactElement => {
           id="county"
           options={COUNTIES}
           getOptionLabel={getCountyName}
-          onChange={handleTypeaheadChange}
+          onChange={(
+            event: ChangeEvent<{}>,
+            value: string | null,
+            reason: AutocompleteChangeReason,
+          ) => {
+            handleTypeaheadChange(value);
+            toggleParams({
+              condition: value != null,
+              value: value || "",
+              key: "county",
+              valid: true,
+            });
+          }}
           value={selectedCounty}
           renderInput={renderInput}
         />
