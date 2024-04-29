@@ -394,18 +394,21 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </button>
                         </span>
                         <br />
-                        <br />
+
                         {training.cipDefinition ? (
-                          <a
-                            href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {training.cipDefinition.ciptitle} - {formatCip(training.cipDefinition.cipcode)}
-                          </a>
+                          <>
+                            <a
+                              href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {formatCip(training.cipDefinition.cipcode)}
+                            </a>
+                            <br />
+                            <b>{training.cipDefinition.ciptitle}</b>
+                          </>
                         ) : (
                           <>
-                            <b>CIP Code category name not available.</b>
                             <span>{t("Global.noDataAvailableText")}</span>
                           </>
                         )}
