@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { NavMenuData, TopLevelNavItemProps } from "../../types/contentful";
 import { LinkObject } from "./LinkObject";
 import { NavSubMenu } from "./NavSubMenu";
@@ -57,68 +57,64 @@ export const NavMenu = ({
             )}
           </Heading>
         )}
-          <ul className="unstyled">
-            {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
-              const hasSub =
-                item.subItemsCollection?.items && item.subItemsCollection?.items.length > 0;
-              const noLink = item.url === "#nolink" || item.classes?.includes("no-link");
-              return (
-                <li
-                  key={item.sys.id}
-                  className={`nav-item${item.classes ? ` ${item.classes}` : ""}${
-                    hasSub ? " has-sub" : " no-sub"
-                  }`}
-                >
-                  {hasSub && !noDropdowns ? (
-                    <NavSubMenu
-                      icons={icons}
-                      {...item}
-                      open={activeSubMenu?.sys.id === item.sys.id}
-                      onClick={() => {
-                        if (activeSubMenu?.sys.id === item.sys.id) {
-                          setActiveSubMenu(undefined);
-                        } else {
-                          setActiveSubMenu(item);
-                        }
-                      }}
-                    />
-                  ) : (
-                    <>
-                      {noLink ? (
-                        <span className="nav-header">
-                          {item.copy}
-                        </span>
-                      ) : (
-                        <LinkObject icons={icons} {...item} />
-                      )}
-                      {hasSub && (
-                        <ul className="unstyled">
-                          {item.subItemsCollection?.items.map((subItem) => {
-                            const subNoLink = subItem.url === "##nolink";
-                            return (
-                              <>
-                                {subNoLink ? (
-                                  <>
-                                    <span>
-                                      {subItem.copy}
-                                    </span>
-                                  </>
-                                ) : (
-                                  <li key={subItem.sys?.id}>
-                                    <LinkObject icons={icons} {...subItem} />
-                                  </li>
-                                )}
-                              </>
-                            )
-                          })}
-                        </ul>
-                      )}
-                    </>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+        <ul className="unstyled">
+          {menu?.navMenus.topLevelItemsCollection.items.map((item) => {
+            const hasSub =
+              item.subItemsCollection?.items && item.subItemsCollection?.items.length > 0;
+            const noLink = item.url === "#nolink" || item.classes?.includes("no-link");
+            return (
+              <li
+                key={item.sys.id}
+                className={`nav-item${item.classes ? ` ${item.classes}` : ""}${
+                  hasSub ? " has-sub" : " no-sub"
+                }`}
+              >
+                {hasSub && !noDropdowns ? (
+                  <NavSubMenu
+                    icons={icons}
+                    {...item}
+                    open={activeSubMenu?.sys.id === item.sys.id}
+                    onClick={() => {
+                      if (activeSubMenu?.sys.id === item.sys.id) {
+                        setActiveSubMenu(undefined);
+                      } else {
+                        setActiveSubMenu(item);
+                      }
+                    }}
+                  />
+                ) : (
+                  <>
+                    {noLink ? (
+                      <span className="nav-header">{item.copy}</span>
+                    ) : (
+                      <LinkObject icons={icons} {...item} />
+                    )}
+                    {hasSub && (
+                      <ul className="unstyled">
+                        {item.subItemsCollection?.items.map((subItem) => {
+                          const subNoLink = subItem.url === "##nolink";
+                          return (
+                            <Fragment key={subItem.sys?.id}>
+                              {subNoLink ? (
+                                <>
+                                  <span>{subItem.copy}</span>
+                                </>
+                              ) : (
+                                <li>
+                                  <LinkObject icons={icons} {...subItem} />
+                                </li>
+                              )}
+                            </Fragment>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </nav>
   );

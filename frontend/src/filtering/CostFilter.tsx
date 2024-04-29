@@ -4,6 +4,7 @@ import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
 import { useTranslation } from "react-i18next";
+import { updateUrlParams } from "../utils/updateUrlParams";
 
 const INPUT_PROPS = {
   style: {
@@ -47,6 +48,11 @@ export const CostFilter = (): ReactElement => {
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>): void => {
     setMaxCost(event.target.value);
+    updateUrlParams({
+      key: "maxCost",
+      value: event.target.value,
+      valid: true,
+    });
   };
 
   const applyMaxCostFilter = (): void => {
