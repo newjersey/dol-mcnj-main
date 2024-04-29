@@ -10,7 +10,7 @@ import { NavMenu } from "./modules/NavMenu";
 import { LinkObject } from "./modules/LinkObject";
 
 export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData }) => {
-  const isDesktop = useMediaQuery("(min-width:1025px)");
+  const isDesktop = useMediaQuery("(min-width:769px)");
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);

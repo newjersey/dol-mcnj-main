@@ -7,6 +7,8 @@ import React from "react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
+jest.mock("../../utils/updateUrlParams.ts");
+
 describe.skip("filtering by languages", () => {
   const training1 = buildTrainingResult({
     name: "training1",
