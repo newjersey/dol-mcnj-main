@@ -10,6 +10,7 @@ import {
   getAvailableAtAddress,
 } from "../training/findTrainingsBy";
 import {DataClient} from "../DataClient";
+import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -207,7 +208,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           percentEmployed: 0,
           calendarLength: CalendarLength.NULL,
-          localExceptionCounty: [],
+          localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
 
           /*
             socCodes: training.occupations.map((o) => o.soc),
