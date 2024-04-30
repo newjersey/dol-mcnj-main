@@ -616,6 +616,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                 here.
               </a>
             </p>
+            <br />
+            <br />
             <small className="sources">
               <p>
                 <sup>1.</sup> Sources
