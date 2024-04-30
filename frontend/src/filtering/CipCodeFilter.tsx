@@ -62,7 +62,7 @@ export const CipCodeFilter = (): ReactElement => {
             element: FilterableElement.CIP_CODE,
             value: cip,
             func: (trainingResults): TrainingResult[] =>
-              trainingResults.filter((it) => it.cipCode === cip),
+              trainingResults.filter((it) => it.cipDefinition?.cipcode === cip),
           },
         });
       }
@@ -70,11 +70,6 @@ export const CipCodeFilter = (): ReactElement => {
   }, []);
 
   const applyFilter = (): void => {
-    console.log({
-      cipCode,
-
-      validCipCode,
-    });
     if (cipCode.length > 0 && !validCipCode) {
       return;
     }
@@ -86,7 +81,7 @@ export const CipCodeFilter = (): ReactElement => {
           element: FilterableElement.CIP_CODE,
           value: cipCode,
           func: (trainingResults): TrainingResult[] =>
-            trainingResults.filter((it) => it.cipDefinition.cipcode === cipCode),
+            trainingResults.filter((it) => it.cipDefinition?.cipcode === cipCode),
         },
       });
     }

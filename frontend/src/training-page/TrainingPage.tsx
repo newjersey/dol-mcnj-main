@@ -392,8 +392,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                           >
                             {t("TrainingPage.cipCodeLabel")}
                           </button>
+                          &nbsp;&nbsp;
                         </span>
-                        <br />
 
                         {training.cipDefinition ? (
                           <>
@@ -408,9 +408,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <b>{training.cipDefinition.ciptitle}</b>
                           </>
                         ) : (
-                          <>
-                            <span>{t("Global.noDataAvailableText")}</span>
-                          </>
+                          <span>{t("Global.noDataAvailableText")}</span>
                         )}
                       </p>
                     </>
@@ -604,10 +602,9 @@ export const TrainingPage = (props: Props): ReactElement => {
             </button>
             <h3>Classification of Instructional Programs (CIP) codes</h3>
             <p>
-              The Classification of Instructional Programs (CIP) codes serve as a standardized
-              system for categorizing academic fields of study and program completions. They are
-              designed to facilitate accurate tracking and reporting of educational activities
-              across institutions.
+              Classification of Instructional Programs (CIP) codes, are standardized codes used to
+              categorize academic programs and courses. Each program or course is assigned a CIP
+              code based on its content and subject matter.<sup>1.</sup> <sup>2.</sup>
             </p>
             <p>
               You can find a list of CIP codes{" "}
@@ -619,6 +616,37 @@ export const TrainingPage = (props: Props): ReactElement => {
                 here.
               </a>
             </p>
+            <small className="sources">
+              <p>
+                <sup>1.</sup> Sources
+                <ul>
+                  <li>
+                    National Center for Education Statistics (NCES):
+                    <br />
+                    <a
+                      href="https://nces.ed.gov/ipeds/cipcode/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      https://nces.ed.gov/ipeds/cipcode/
+                    </a>
+                  </li>
+                  <li>
+                    U.S. Department of Education:
+                    <br />
+                    <a href="https://www.ed.gov/" target="_blank" rel="noopener noreferrer">
+                      https://www.ed.gov/
+                    </a>
+                  </li>
+                </ul>
+              </p>
+              <p>
+                <sup>2.</sup> This definition was generated with the help of{" "}
+                <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">
+                  chatGPT(3.5)
+                </a>
+              </p>
+            </small>
           </div>
         </div>
       </Layout>
