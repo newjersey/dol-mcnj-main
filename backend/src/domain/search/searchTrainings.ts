@@ -205,7 +205,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipCode: await credentialEngineUtils.extractCipCode(certificate),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
-          percentEmployed: 0,
+          percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           calendarLength: CalendarLength.NULL,
           localExceptionCounty: [],
 
