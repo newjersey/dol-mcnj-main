@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import "@newjersey/njwds/dist/css/styles.css";
 import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
@@ -28,11 +29,13 @@ if (isCI && !isProd ? prompt("Enter password:") === password : true) {
   });
 
   ReactDOM.render(
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <App client={apiClient} />
-      </ThemeProvider>
-    </React.StrictMode>,
+    <HelmetProvider>
+      <React.StrictMode>
+        <ThemeProvider theme={theme}>
+          <App client={apiClient} />
+        </ThemeProvider>
+      </React.StrictMode>
+    </HelmetProvider>,
     document.getElementById("root"),
   );
 

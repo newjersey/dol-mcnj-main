@@ -7,6 +7,8 @@ import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 import ReactGA from "react-ga";
 
+jest.mock("../../utils/updateUrlParams.ts");
+
 describe.skip("filtering by online or in-person", () => {
   const online = buildTrainingResult({ name: "online training", online: true });
   const inPerson = buildTrainingResult({ name: "in-person training", online: false });
