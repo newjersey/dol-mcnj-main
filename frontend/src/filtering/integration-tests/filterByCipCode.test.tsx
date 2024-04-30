@@ -7,6 +7,8 @@ import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
+jest.mock("../../utils/updateUrlParams.ts");
+
 describe.skip("filtering by cip code", () => {
   const training1 = buildTrainingResult({
     name: "training1",

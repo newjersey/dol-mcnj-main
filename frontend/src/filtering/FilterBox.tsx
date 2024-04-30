@@ -133,7 +133,7 @@ export const FilterBox = ({
       {isMobile && !searchQuery && (
         <Searchbar
           onSearch={executeSearch}
-          initialValue={searchQuery !== "null" ? searchQuery : undefined}
+          initialValue={searchQuery !== "null" ? searchQuery?.replace(/\+/g, " ") : undefined}
           stacked={true}
           isLandingPage={pagePath === "/training/search"}
           buttonText={t("SearchAndFilter.searchButtonDefaultText")}
@@ -143,7 +143,7 @@ export const FilterBox = ({
       <div className="phl" style={{ display: filterIsOpen ? "block" : "none" }}>
         <Searchbar
           onSearch={executeSearch}
-          initialValue={searchQuery !== "null" ? searchQuery : undefined}
+          initialValue={searchQuery !== "null" ? searchQuery?.replace(/\+/g, " ") : undefined}
           stacked={true}
           buttonText={
             !searchQuery
@@ -193,7 +193,6 @@ export const FilterBox = ({
         <div className="mtd">
           <LanguagesFilter />
         </div>
-
         <div className="mtl">
           <CipCodeFilter />
         </div>
