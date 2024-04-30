@@ -16,7 +16,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
   const [searchUrl, setSearchUrl] = useState<string>("");
   const [zipValid, setZipValid] = useState<boolean>(false);
   const [attempted, setAttempted] = useState<boolean>(false);
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [socDrawerOpen, setSocDrawerOpen] = useState<boolean>(false);
+  const [cipDrawerOpen, setCipDrawerOpen] = useState<boolean>(false);
 
   const sanitizedValue = (value: string | Node) => DOMPurify.sanitize(value);
 
@@ -54,7 +55,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       const overlay = document.querySelector("#drawerOverlay");
       if (overlay) {
         overlay.addEventListener("click", () => {
-          setDrawerOpen(false);
+          setSocDrawerOpen(false);
         });
       }
     }
@@ -121,7 +122,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
               type="button"
               onClick={(e) => {
                 e.preventDefault();
-                setDrawerOpen(true);
+                setSocDrawerOpen(true);
               }}
             >
               SOC code
@@ -129,7 +130,18 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           ) : (
             "SOC code"
           )}
-          , CIP code, or keyword
+          ,
+          <button
+          className="toggle"
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            setCipDrawerOpen(true);
+          }}
+        >
+          CIP code
+        </button>
+          , or keyword, or keyword
         </p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">
@@ -291,14 +303,14 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       </form>
       {drawerContent && (
         <>
-          <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
-          <div className={`panel${drawerOpen ? " open" : ""}`}>
+          <div id="drawerOverlay" className={`overlay${socDrawerOpen ? " open" : ""}`} />
+          <div className={`panel${socDrawerOpen ? " open" : ""}`}>
             <div className="copy">
               <button
                 aria-label="Close"
                 title="Close"
                 className="close"
-                onClick={() => setDrawerOpen(false)}
+                onClick={() => setSocDrawerOpen(false)}
                 type="button"
               >
                 <X size={28} />
