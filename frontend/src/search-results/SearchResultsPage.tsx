@@ -30,7 +30,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
-  const [sorting, setSorting] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "best_match">("best_match");
+  const [sorting, setSorting] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [itemsPerPage, setItemsPerPage] = useState<number>();
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [pageNumber, setPageNumber] = useState<number>();
@@ -174,7 +174,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   }
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
-    const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "best_match";
+    const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
     setSorting(newSortOrder);
     logEvent("Search", "Updated sort", newSortOrder);
   };
@@ -193,7 +193,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             <option value="desc">Z to A</option>
             <option value="price_asc">{t("SearchAndFilter.sortByCostLowToHigh")}</option>
             <option value="price_desc">{t("SearchAndFilter.sortByCostHighToLow")}</option>
-            <option>{t("SearchAndFilter.sortByEmploymentRate")}</option>
+            <option value="EMPLOYMENT_RATE">{t("SearchAndFilter.sortByEmploymentRate")}</option>
           </select>
         </div>
       )}

@@ -67,8 +67,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       case "desc":
         sort = "^ceterms:name";
         break;
-      case "price_asc": // Placeholder, actual sorting handled later
-      case "price_desc": // Placeholder, actual sorting handled later
+      case "price_asc":
+      case "price_desc":
+      case "EMPLOYMENT_RATE":
         sort = params.sort; // Just save the sorting preference
         break;
       case "best_match":
@@ -232,12 +233,11 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
         };
       }),
     );
+
     if (sort === "price_asc" || sort === "price_desc") {
-      results.sort((a, b) => {
-        const costA = a.totalCost || 0; // handle possible undefined values
-        const costB = b.totalCost || 0; // handle possible undefined values
-        return sort === "price_asc" ? costA - costB : costB - costA;
-      });
+      results.sort((a, b) => sort === "price_asc" ? (a.totalCost || 0) - (b.totalCost || 0) : (b.totalCost || 0) - (a.totalCost || 0));
+    } else if (sort === "EMPLOYMENT_RATE") {
+      results.sort((a, b) => (b.percentEmployed || 0) - (a.percentEmployed || 0));
     }
 
     const data = {
