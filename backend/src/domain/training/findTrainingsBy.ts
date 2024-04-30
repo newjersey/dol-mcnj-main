@@ -8,9 +8,12 @@ import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
+  CetermsAccommodationType,
   CetermsConditionProfile,
   CetermsScheduleTimingType,
+  CetermsServiceType,
   CTDLResource,
+  CtermsSupportServices,
 } from "../credentialengine/CredentialEngine";
 
 
@@ -105,6 +108,29 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           }
         }
 
+        const supportServices = await credentialEngineUtils.extractSupportService(certificate)
+
+        const hasJobPlacementAssistance = supportServices ?
+          supportServices.some((service: CtermsSupportServices) =>
+            service["ceterms:supportServiceType"]?.some((types: CetermsServiceType) => 
+                types["ceterms:targetNode"] === "support:JobPlacement"
+            )
+          ) : false
+
+        const hasChildcareAssistance = supportServices ?
+          supportServices.some((service: CtermsSupportServices) =>
+            service["ceterms:supportServiceType"]?.some((types: CetermsServiceType) =>
+              types["ceterms:targetNode"] === "support:Childcare"
+            )
+          ) : false
+
+        const isWheelchairAccessible = supportServices ?
+          supportServices.some((service: CtermsSupportServices) =>
+              service["ceterms:accommodationType"]?.some((types: CetermsAccommodationType) =>
+                types["ceterms:targetNode"] === "accommodation:PhysicalAccessibility"
+              )
+            ) : false
+
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const certifications = constructCertificationsString(isPreparationForObject);
 
@@ -154,11 +180,11 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           languages: certificate["ceterms:inLanguage"]
             ? certificate["ceterms:inLanguage"][0]
             : null,
-          isWheelchairAccessible: false,
-          hasJobPlacementAssistance: false,
-          hasChildcareAssistance: false,
+          isWheelchairAccessible: isWheelchairAccessible,
+          hasJobPlacementAssistance: hasJobPlacementAssistance,
+          hasChildcareAssistance: hasChildcareAssistance,
         };
-        console.log(JSON.stringify(training));
+        // console.log(JSON.stringify(training));
         return training;
       }),
     );
