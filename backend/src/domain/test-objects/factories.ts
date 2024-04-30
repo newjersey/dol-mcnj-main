@@ -16,7 +16,11 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cip: "some-cip-" + randomInt(),
+      cipcode: "some-cipcode-" + randomInt(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
@@ -45,7 +49,11 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cip: "some-cip-" + randomInt(),
+      cipcode: "some-cipcode-" + randomInt(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     provider: buildProvider({}),
     description: "some-description-" + randomInt(),
     certifications: "some-certifications-" + randomInt(),
@@ -101,8 +109,8 @@ export const buildContactPoint = (overrides: Partial<ContactPoint>): ContactPoin
     email: ["some-email@a" + randomInt() + ".com"],
     telephone: ["(973) 555-5555"],
     ...overrides,
-  }
-}
+  };
+};
 
 export const buildOccupation = (overrides: Partial<Occupation>): Occupation => {
   return {
