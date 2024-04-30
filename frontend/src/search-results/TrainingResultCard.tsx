@@ -126,6 +126,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             </span>
           </p>
           <p className="mtxs mbz">
+            ``
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
               {t("TrainingPage.completionTimeLabel") +
