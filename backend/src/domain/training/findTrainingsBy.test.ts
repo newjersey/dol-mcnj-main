@@ -5,10 +5,7 @@ import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI'
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { StubDataClient } from '../test-objects/StubDataClient';
 import ceRecords from '../test-objects/ceTestData.json'
-import expectedResult from './findTrainigsByExpectedTestData.json'
-
-import zipcodeJson from "../utils/zip-county.json";
-import {convertZipCodeToCounty} from "../utils/convertZipCodeToCounty";
+import expectedResult from './findTrainigsByExpectedTestData.json';
 
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
