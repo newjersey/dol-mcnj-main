@@ -59,7 +59,7 @@ export const CipCodeFilter = (): ReactElement => {
           element: FilterableElement.CIP_CODE,
           value: cipCode,
           func: (trainingResults): TrainingResult[] =>
-            trainingResults.filter((it) => it.cipCode === cipCode),
+            trainingResults.filter((it) => it.cipDefinition.cipcode === cipCode),
         },
       });
     }
