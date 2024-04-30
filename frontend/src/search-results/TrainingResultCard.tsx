@@ -137,12 +137,16 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             <span className="fin fas">
               <InlineIcon className="mrs">book</InlineIcon>
               <span>
-                {props.trainingResult.cipCode
-                  ? t("SearchResultsPage.cipCode") +
-                    `: ${formatCip(props.trainingResult.cipCode)}`
-                  : t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`}
-                <br />
-                <b>CIP Code category name not available.</b>
+                {props.trainingResult.cipDefinition ? (
+                  <>
+                    {t("SearchResultsPage.cipCode") +
+                      `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
+                    <br />
+                    <b>{props.trainingResult.cipDefinition.ciptitle}</b>
+                  </>
+                ) : (
+                  t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
+                )}
               </span>
             </span>
           </p>
