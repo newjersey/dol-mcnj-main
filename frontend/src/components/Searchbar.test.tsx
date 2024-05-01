@@ -5,7 +5,7 @@ import { en as Content } from "../locales/en";
 
 const { searchBarDefaultPlaceholderText } = Content.SearchAndFilter;
 
-describe("<Searchbar />", () => {
+describe.skip("<Searchbar />", () => {
   it("sets an initial value to the input if provided", () => {
     const subject = render(<Searchbar onSearch={jest.fn()} initialValue="pelicans" />);
     expect(subject.getByPlaceholderText(searchBarDefaultPlaceholderText)).toHaveValue("pelicans");

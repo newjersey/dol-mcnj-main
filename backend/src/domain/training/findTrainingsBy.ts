@@ -1,10 +1,10 @@
-import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
+import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 import { FindTrainingsBy } from "../types";
 import { Address, Training } from "./Training";
 import { CalendarLength } from "../CalendarLength";
-import { LocalException } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
+import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
@@ -15,7 +15,6 @@ import {
   CTDLResource,
   CtermsSupportServices,
 } from "../credentialengine/CredentialEngine";
-
 
 export function getAvailableAtAddress(certificate: CTDLResource): Address {
   const availableAt = certificate["ceterms:availableAt"]?.[0];
@@ -139,12 +138,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           console.log(JSON.stringify(scheduleTimingType, null, 2));
         }
 
-        const localExceptionCounties = (await dataClient.getLocalExceptionsByCip())
-          .filter((localException: LocalException) => localException.cipcode === cipCode)
-          .map((localException: LocalException) =>
-            convertToTitleCaseIfUppercase(localException.county),
-          );
-
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
@@ -154,7 +147,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             name: ownedByRecord["ceterms:name"]["en-US"],
             url: ownedByRecord["ceterms:subjectWebpage"],
             email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
-            county: "",
+            county: convertZipCodeToCounty(address.zipCode),
           },
           availableAt: address,
           description: certificate["ceterms:description"]
@@ -166,7 +159,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           calendarLength: await getCalendarLengthId(certificate),
           occupations: await credentialEngineUtils.extractOccupations(certificate),
           inDemand: inDemandCIPCodes.includes(cipCode ?? ""),
-          localExceptionCounty: localExceptionCounties,
+          localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
           tuitionCost: await credentialEngineUtils.extractCost(certificate, "costType:Tuition"),
           feesCost: await credentialEngineUtils.extractCost(certificate, "costType:MixedFees"),
           booksMaterialsCost: await credentialEngineUtils.extractCost(certificate, "costType:LearningResource"),
@@ -174,7 +167,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null ? true : false,
-          percentEmployed: 0,
+          percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
           hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
           languages: certificate["ceterms:inLanguage"]
@@ -194,14 +187,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 /*
 const NAN_INDICATOR = "-99999";
 
-const formatCounty = (county: string): string => {
-  const SELECT_ONE = "Select One";
-  if (!county || county === SELECT_ONE) {
-    return "";
-  }
-
-  return `${county} County`;
-};
 
 
 const formatPercentEmployed = (perEmployed: string | null): number | null => {

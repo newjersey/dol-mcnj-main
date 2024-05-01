@@ -109,6 +109,21 @@ export const credentialEngineUtils = {
     return averageSalaryProfile ? averageSalaryProfile["ceterms:medianEarnings"] : null;
   },
 
+  extractEmploymentData: async function(certificate: CTDLResource) {
+    const aggData = certificate["ceterms:aggregateData"];
+    if (!aggData) {
+      return null;
+    }
+  
+    for (const data of aggData) {
+      const jobObtained = data["ceterms:jobsObtained"]?.find(job => job["qdata:percentage"] != null);
+      if (jobObtained?.["qdata:percentage"] != null) {
+        return jobObtained["qdata:percentage"];
+      }
+    }
+    return null;
+  },
+
   extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
     const prerequisites = certificate["ceterms:requires"]
       ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
