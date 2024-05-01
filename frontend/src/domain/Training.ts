@@ -3,7 +3,7 @@ import { Occupation } from "./Occupation";
 export interface TrainingResult {
   id: string;
   name: string;
-  cipCode: string;
+  cipDefinition: CipDefinition;
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
@@ -56,7 +56,7 @@ export interface Training {
   booksMaterialsCost: number;
   calendarLength: CalendarLength;
   certifications: ConditionProfile[];
-  cipCode: string;
+  cipDefinition: CipDefinition;
   description: string;
   feesCost: number;
   hasChildcareAssistance: boolean;
@@ -106,6 +106,12 @@ export interface ContactPoint {
   telephone?: string[];
   faxNumber?: string[];
   socialMedia?: string[];
+}
+
+export interface CipDefinition {
+  cip: string;
+  cipcode: string;
+  ciptitle: string;
 }
 
 export interface ConditionProfile {
