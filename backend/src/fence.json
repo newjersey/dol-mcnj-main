@@ -9,6 +9,7 @@
     "dotenv",
     "express",
     "graphql-request",
+    "jest-mock-axios",
     "knex",
     "supertest",
     "node-cache",

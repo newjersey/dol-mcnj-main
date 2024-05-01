@@ -10,14 +10,14 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { StatBlock } from "../components/StatBlock";
 import { formatMoney } from "accounting";
 import careeronestop from "../careeronestop.png";
-import { TrainingResultCard } from "../search-results/TrainingResultCard";
-import { TrainingResult } from "../domain/Training";
 import { CircularProgress, Icon } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
+import { TrainingResult } from "../domain/Training";
+import { TrainingResultCard } from "../search-results/TrainingResultCard";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -114,13 +114,13 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getRelatedTrainings = (trainings: TrainingResult[], occupation: string): ReactElement => {
+  const getRelatedTrainings = (trainings: TrainingResult[], occupationSoc: string): ReactElement => {
     if (trainings.length === 0) {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       const trainingsToShow = trainings.slice(0, 3);
       const seeMore = trainings.length > 3;
-      const resultsUrl = `/training/search?q=${occupation}`;
+      const resultsUrl = `/training/search?q=${occupationSoc}`;
 
       return (
         <>
@@ -137,6 +137,7 @@ export const OccupationPage = (props: Props): ReactElement => {
       );
     }
   };
+
 
   usePageTitle(
     occupationDetail
@@ -295,8 +296,9 @@ export const OccupationPage = (props: Props): ReactElement => {
                   <h2 className="text-xl ptd pbs weight-500 fin">
                     {t("OccupationPage.relatedTrainingGroupHeader")}
                   </h2>
-                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
+                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.soc)}
                 </div>
+
               </div>
             </div>
           </div>

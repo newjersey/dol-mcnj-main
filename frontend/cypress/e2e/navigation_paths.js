@@ -3,7 +3,7 @@ const navigation_paths = [
   { path: path + "/", label: "Home Page" },
   { path: path + "/training", label: "Training Explorer Page" },
   { path: path + "/training/search", label: "Search Page" },
-  { path: path + "/training/35895", label: "Training Page" },
+  { path: path + "/training/ce-cf867f22-ef09-46e4-99ef-50d4f1cbf3b3", label: "Training Page" },
   { path: path + "/occupation/15-1254", label: "Occupation Page" },
 /*
   { path: path + "/career-pathways/:slug", label: "Career Pathways Page" },

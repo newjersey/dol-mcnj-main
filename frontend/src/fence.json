@@ -26,6 +26,7 @@
     "react-ga",
     "react-helmet-async",
     "react-i18next",
+    "react-paginate",
     "react-to-print",
     "react-tooltip",
     "react"

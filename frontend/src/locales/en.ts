@@ -3,7 +3,7 @@ export const en = {
     noDataAvailableText: "No data available",
   },
   CalendarLengthLookup: {
-    "0": "--",
+    "0": "No data available",
     "1": "Less than 1 day",
     "2": "1-2 days",
     "3": "3-7 days",
@@ -64,30 +64,6 @@ export const en = {
     privacyPolicyLinkLabel: "Privacy Policy",
     termsOfServiceLinkLabel: "Terms of Service",
     madeWithMessage: "Made with ❤️ by the Office of Innovation",
-  },
-  FundingPage: {
-    pageTitle: "Fund Your Training",
-    header: "Ways to Fund Your Training in New Jersey",
-    sectionOneHeader: "How does funding work?",
-    sectionOneText:
-      'There is funding available for individuals looking for new occupations that fall within the State\'s "in-demand" list of occupations. In-demand occupations are expected to have the most openings in the future in the State of New Jersey.',
-    sectionTwoHeader: "How do I know what qualifies for funding?",
-    sectionTwoTextStart: "Training that leads to an ",
-    sectionTwoTextLink: "in-demand occupation",
-    sectionTwoTextEnd:
-      " can qualify for funding but your local One Stop will make the final determination As we mentioned under “How Does Funding Work”, these types of occupations are expected to have the most openings in the future in the State of New Jersey This list of occupations can be used by career counselors to help you make decisions about careers advancements and training.",
-    sectionThreeHeader: "Interested in funding? Here's what to do next.",
-    sectionThreeText: " at your local One-Stop Career Center to explore funding opportunities.",
-    sectionThreeLinkText: "Contact a career counselor",
-    purpleBoxHeader: "Get Started",
-    purpleBoxText:
-      "To learn more about any of these options or to start your application process, ",
-    purpleBoxLinkText: "please contact your local one-stop",
-    greenBoxHeader: "Browse In-Demand Occupations",
-    greenBoxTextStart:
-      "In-Demand occupations are expected to have the most openings in the future in the State of New Jersey Trainings related to ",
-    greenBoxTextLink: "occupations on this list",
-    greenBoxTextEnd: " can be eligible for funding by the State.",
   },
   Header: {
     title: "Training Explorer",
@@ -332,6 +308,7 @@ export const en = {
     suppliesCostLabel: "Supplies & Tools",
     otherCostLabel: "Other",
     providerGroupHeader: "Provider Details",
+    locationGroupHeader: "Location Details",
     onlineClass: "Online Class",
     providerServicesGroupHeader: "Provider Services",
     eveningCoursesServiceLabel: "This provider offers evening courses",
@@ -343,5 +320,5 @@ export const en = {
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
       "Services are subject to provider details, contact this provider for more information on services",
-  }
+  },
 };
