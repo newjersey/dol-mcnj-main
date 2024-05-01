@@ -24,7 +24,7 @@
     "axios": "^1.6.8",
     "contentful": "^10.9.1",
     "dayjs": "^1.11.11",
-    "dompurify": "^3.1.1",
+    "dompurify": "^3.1.2",
     "graphql-request": "^6.1.0",
     "i18next": "^23.11.3",
     "libphonenumber-js": "^1.10.61",
@@ -82,7 +82,7 @@
   "proxy": "http://localhost:8080",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.24.1",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.5",
     "@types/dompurify": "^3.0.5",
     "@types/markdown-it": "^14.0.1",
     "@types/node": "^16.18.96",
