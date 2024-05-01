@@ -1,6 +1,7 @@
 import {
+  CetermsAccommodationType,
   CetermsAggregateData,
-  CetermsConditionProfile,
+  CetermsConditionProfile, CetermsServiceType,
   CTDLResource,
   CtermsSupportServices
 } from "../domain/credentialengine/CredentialEngine";
@@ -184,6 +185,22 @@ export const credentialEngineUtils = {
       console.error(`Error fetching support services data: ${error}`);
       return null;
     }
+  },
+
+  checkSupportService: async function(supportServices: CtermsSupportServices[] | null, targetNode: string) {
+    return supportServices
+      ? supportServices.some((service) =>
+        service["ceterms:supportServiceType"]?.some((types: CetermsServiceType) => types["ceterms:targetNode"] === targetNode)
+      )
+      : false;
+  },
+
+  checkAccommodation: async function(supportServices: CtermsSupportServices[] | null, targetNode: string) {
+  return supportServices
+    ? supportServices.some((service) =>
+      service["ceterms:accommodationType"]?.some((types: CetermsAccommodationType) => types["ceterms:targetNode"] === targetNode)
+    )
+    : false;
   },
 
   constructCertificationsString: async function (isPreparationForObject: CetermsConditionProfile[]): Promise<string> {
