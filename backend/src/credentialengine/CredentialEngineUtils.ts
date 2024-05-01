@@ -5,146 +5,169 @@ import axios from "axios"
 export const credentialEngineUtils = {
 
   getCtidFromURL: async function (url: string) {
-    const lastSlashIndex: number = url.lastIndexOf("/");
-    const ctid: string = url.substring(lastSlashIndex + 1);
-    return ctid;
-  },
-
-  getHighlight: async function (inputString: string, query: string) {
-    const words = inputString.split(' ');
-    const queryIndex = words.findIndex(word => word.includes(query));
-
-    if (queryIndex === -1) {
-      // query is not found in the input string
-      return words.slice(0, 19).join(' ');
+    try {
+      console.log(`Getting CTID from URL: ${url}`);
+      const lastSlashIndex: number = url.lastIndexOf("/");
+      const ctid: string = url.substring(lastSlashIndex + 1);
+      return ctid;
+    } catch (error) {
+      console.error(`Error extracting CTID from URL: ${url}, Error: ${error}`);
+      throw error;
     }
-
-    const startIndex = Math.max(queryIndex - 10, 0);
-    const endIndex = Math.min(queryIndex + 11, words.length);
-
-    return words.slice(startIndex, endIndex).join(' ');
   },
 
   extractCipCode: async function (certificate: CTDLResource) {
-    const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
-    if (Array.isArray(instructionalProgramTypes)) {
-      for (const programType of instructionalProgramTypes) {
-        if (
-          programType["ceterms:frameworkName"]?.["en-US"] ===
-          "Classification of Instructional Programs"
-        ) {
-          return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
-        }
-      }
-    }
-    return ""; // Return empty string if no match is found
-  },
-
-  extractOccupations: async function (certificate: CTDLResource): Promise<Occupation[]> {
-    const occupationTypes = certificate["ceterms:occupationType"];
-    if (!occupationTypes || occupationTypes.length === 0) return [];
-
-    return occupationTypes
-      .filter((occupation) =>
-        occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" && // Ensure frameworkName is the desired one
-        occupation["ceterms:codedNotation"] && // Check if codedNotation is present
-        occupation["ceterms:targetNodeName"]?.["en-US"]) // Check if targetNodeName is present
-      .map((occupation) => {
-        const soc = occupation["ceterms:codedNotation"]?.replace(".00", ""); // Use optional chaining with replace
-        const title = occupation["ceterms:targetNodeName"]?.["en-US"]; // Use optional chaining
-        return { soc, title };
-      })
-      .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
-  },
-
-  extractCost: async function (certificate: CTDLResource, costType: string) {
-    const estimatedCosts = certificate["ceterms:estimatedCost"];
-    if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
-      for (const costProfile of estimatedCosts) {
-        const directCostType = costProfile["ceterms:directCostType"];
-        if (directCostType && directCostType["ceterms:targetNode"] === costType) {
-          const price = costProfile["ceterms:price"];
-          return price ? Number(price) : null;
-        }
-      }
-    }
-    return null;
-  },
-
-  sumOtherCosts: async function (certificate: CTDLResource) {
-    const excludedCostTypes = [
-      "costType:AggregateCost",
-      "costType:Tuition",
-      "costType:MixedFees",
-      "costType:LearningResource",
-      "costType:TechnologyFee"
-    ];
-
-    const estimatedCosts = certificate["ceterms:estimatedCost"];
-    let otherCosts = 0;
-    if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
-      for (const costProfile of estimatedCosts) {
-        const directCostType = costProfile["ceterms:directCostType"];
-        const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
-        if (targetNode && !excludedCostTypes.includes(targetNode)) {
-          const price = costProfile["ceterms:price"];
-          if (price) {
-            otherCosts += Number(price);
+    try {
+      const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
+      if (Array.isArray(instructionalProgramTypes)) {
+        for (const programType of instructionalProgramTypes) {
+          if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
+            return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
           }
         }
       }
+      return ""; // Return empty string if no match is found
+    } catch (error) {
+      console.error(`Error extracting CIP code: ${error}`);
+      throw error;
     }
-    return otherCosts;
+  },
+
+  extractOccupations: async function (certificate: CTDLResource): Promise<Occupation[]> {
+    try {
+      console.log("Extracting occupations...");
+      const occupationTypes = certificate["ceterms:occupationType"];
+      if (!occupationTypes || occupationTypes.length === 0) return [];
+
+      return occupationTypes
+        .filter((occupation) =>
+          occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" &&
+          occupation["ceterms:codedNotation"] &&
+          occupation["ceterms:targetNodeName"]?.["en-US"]
+        )
+        .map((occupation) => {
+          const soc = occupation["ceterms:codedNotation"]?.replace(".00", "");
+          const title = occupation["ceterms:targetNodeName"]?.["en-US"];
+          return { soc, title };
+        })
+        .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
+    } catch (error) {
+      console.error(`Error extracting occupations: ${error}`);
+      throw error;
+    }
+  },
+
+  extractCost: async function (certificate: CTDLResource, costType: string) {
+    try {
+      console.log(`Extracting cost of type ${costType}...`);
+      const estimatedCosts = certificate["ceterms:estimatedCost"];
+      if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
+        for (const costProfile of estimatedCosts) {
+          const directCostType = costProfile["ceterms:directCostType"];
+          if (directCostType && directCostType["ceterms:targetNode"] === costType) {
+            const price = costProfile["ceterms:price"];
+            return price ? Number(price) : null;
+          }
+        }
+      }
+      return null;
+    } catch (error) {
+      console.error(`Error extracting cost for type ${costType}: ${error}`);
+      throw error;
+    }
+  },
+
+  sumOtherCosts: async function (certificate: CTDLResource) {
+    try {
+      const excludedCostTypes = [
+        "costType:AggregateCost",
+        "costType:Tuition",
+        "costType:MixedFees",
+        "costType:LearningResource",
+        "costType:TechnologyFee",
+      ];
+
+      const estimatedCosts = certificate["ceterms:estimatedCost"];
+      let otherCosts = 0;
+      if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
+        for (const costProfile of estimatedCosts) {
+          const directCostType = costProfile["ceterms:directCostType"];
+          const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
+          if (targetNode && !excludedCostTypes.includes(targetNode)) {
+            const price = costProfile["ceterms:price"];
+            if (price) {
+              otherCosts += Number(price);
+            }
+          }
+        }
+      }
+      return otherCosts;
+    } catch (error) {
+      console.error(`Error summing other costs: ${error}`);
+      throw error;
+    }
   },
 
   extractAverageSalary: async function (certificate: CTDLResource) {
-    const averageSalaryData = certificate["ceterms:aggregateData"];
-    if (!averageSalaryData) return null;
+    try {
+      const averageSalaryData = certificate["ceterms:aggregateData"];
+      if (!averageSalaryData) return null;
 
-    // Find the first earnings profile that has a medianEarnings value.
-    const averageSalaryProfile = averageSalaryData.find((aggData: CetermsAggregateData) =>
-        aggData["ceterms:medianEarnings"] != null
-    );
+      const averageSalaryProfile = averageSalaryData.find((aggData: CetermsAggregateData) => aggData["ceterms:medianEarnings"] != null);
 
-    return averageSalaryProfile ? averageSalaryProfile["ceterms:medianEarnings"] : null;
+      return averageSalaryProfile ? averageSalaryProfile["ceterms:medianEarnings"] : null;
+    } catch (error) {
+      console.error(`Error extracting average salary: ${error}`);
+      throw error;
+    }
   },
 
-  extractEmploymentData: async function(certificate: CTDLResource) {
-    const aggData = certificate["ceterms:aggregateData"];
-    if (!aggData) {
-      return null;
-    }
-  
-    for (const data of aggData) {
-      const jobObtained = data["ceterms:jobsObtained"]?.find(job => job["qdata:percentage"] != null);
-      if (jobObtained?.["qdata:percentage"] != null) {
-        return jobObtained["qdata:percentage"];
+  extractEmploymentData: async function (certificate: CTDLResource) {
+    try {
+      const aggData = certificate["ceterms:aggregateData"];
+      if (!aggData) return null;
+
+      for (const data of aggData) {
+        const jobObtained = data["ceterms:jobsObtained"]?.find(job => job["qdata:percentage"] != null);
+        if (jobObtained?.["qdata:percentage"] != null) {
+          return jobObtained["qdata:percentage"];
+        }
       }
+      return null;
+    } catch (error) {
+      console.error(`Error extracting employment data: ${error}`);
+      throw error;
     }
-    return null;
   },
 
   extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
-    const prerequisites = certificate["ceterms:requires"]
-      ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
-      .map(req => req["ceterms:description"]?.["en-US"])
-      .filter((description): description is string => description !== undefined); // Filter out undefined values
+    try {
+      const prerequisites = certificate["ceterms:requires"]
+        ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
+        .map(req => req["ceterms:description"]?.["en-US"])
+        .filter((description): description is string => description !== undefined);
 
-    return prerequisites && prerequisites.length > 0 ? prerequisites : null;
+      return prerequisites && prerequisites.length > 0 ? prerequisites : null;
+    } catch (error) {
+      console.error(`Error extracting prerequisites: ${error}`);
+      throw error;
+    }
   },
 
-  extractSupportService: async function(certificate: CTDLResource): Promise<CtermsSupportServices[] | null> {
-    const supportServices = certificate["ceterms:hasSupportService"];
-    if(!supportServices || supportServices.length === 0) return null
+  extractSupportService: async function (certificate: CTDLResource): Promise<CtermsSupportServices[] | null> {
     try {
-          const responses = await Promise.all(supportServices.map(url =>
-            axios.get(url).then(response => response.data)
-        ))
-        return responses
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        return null
-      }
+      console.log("Extracting support services...");
+      const supportServices = certificate["ceterms:hasSupportService"];
+      if (!supportServices || supportServices.length === 0) return null;
+
+      const responses = await Promise.all(supportServices.map(url =>
+        axios.get(url).then(response => response.data)
+      ));
+      return responses;
+    } catch (error) {
+      console.error(`Error fetching support services data: ${error}`);
+      return null;
+    }
   },
 
   // Function to convert ISO 8601 duration to total hours
@@ -199,14 +222,16 @@ export const credentialEngineUtils = {
   },
 
   hasEveningSchedule: async function (certificate: CTDLResource) {
-    const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
-    if (!scheduleTimingTypes) return false;
+    try {
+      const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
+      if (!scheduleTimingTypes) return false;
 
-    // Check for any CredentialAlignmentObject where targetNode is 'scheduleTiming:Evening'
-    const hasEvening = scheduleTimingTypes.some((timingType) => {
-      return timingType["ceterms:targetNode"] === "scheduleTiming:Evening";
-    });
+      const hasEvening = scheduleTimingTypes.some((timingType) => timingType["ceterms:targetNode"] === "scheduleTiming:Evening");
 
-    return hasEvening;
+      return hasEvening;
+    } catch (error) {
+      console.error(`Error checking evening schedule: ${error}`);
+      throw error;
+    }
   },
 }
