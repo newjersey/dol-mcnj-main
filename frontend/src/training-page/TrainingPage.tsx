@@ -590,8 +590,8 @@ export const TrainingPage = (props: Props): ReactElement => {
         {/* Overlay and Drawer for CIP code information */}
         {drawerOpen && (
           <>
-            <div id="drawerOverlay" className="overlay open" onClick={() => setDrawerOpen(false)} />
-            <div className="panel open">
+            <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`}/>
+            <div className={`panel${drawerOpen ? " open" : ""}`}>
               <CipDrawerContent onClose={() => setDrawerOpen(false)} />
             </div>
           </>
