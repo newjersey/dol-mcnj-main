@@ -17,7 +17,7 @@ export interface Client {
       observer: Observer<TrainingData>,
       page?: number,
       limit?: number | undefined,
-      sort?: "asc" | "desc" | "price_asc" | "price_desc" | "best_match",
+      sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
   ) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;

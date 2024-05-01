@@ -19,7 +19,7 @@ export class ApiClient implements Client {
     observer: Observer<TrainingData>,
     page?: number,
     limit?: number | undefined,
-    sort?: "asc" | "desc" | "price_asc" | "price_desc" | "best_match",
+    sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
   ): void {
     this.get(
       `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}`,

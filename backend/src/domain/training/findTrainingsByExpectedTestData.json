@@ -38,7 +38,7 @@
     "otherCost": 0,
     "totalCost": 4074,
     "online": true,
-    "percentEmployed": 0,
+    "percentEmployed": null,
     "averageSalary": 0,
     "hasEveningCourses": false,
     "languages": "en",

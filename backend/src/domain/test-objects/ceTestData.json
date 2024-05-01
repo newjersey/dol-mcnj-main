@@ -1,72 +1,137 @@
 [
-  {
-    "@context": "https://credreg.net/ctdl/schema/context/json",
-    "@id": "https://credentialengineregistry.org/resources/ce-f4ddd65d-f565-4537-a105-04523357f54d",
-    "@type": "ceterms:Certification",
-    "ceterms:ctid": "ce-f4ddd65d-f565-4537-a105-04523357f54d",
-    "ceterms:name": {
-      "en-US": "Triple Certification (A+/N+ MCTS \u0026 CCNA)"
-    },
-    "ceterms:ownedBy": [
-      "https://credentialengineregistry.org/resources/ce-b024f8c0-964c-4113-8094-0e6b82b623b5"
-    ],
-    "ceterms:requires": [
-      {
-        "@type": "ceterms:ConditionProfile",
-        "ceterms:name": {
-          "en-US": "Requirements"
-        },
-        "ceterms:description": {
-          "en-US": "Working experience with systems/networking"
+    {
+      "ceterms:ownedBy": "someCtid1",
+      "ceterms:subjectWebpage": "someurl",
+      "ceterms:address": [
+        {
+          "@type": "ceterms:Place",
+          "ceterms:streetAddress": {
+            "en-US": "1234 Test St"
+          },
+          "ceterms:addressLocality": {
+            "en-US": "Test City"
+          },
+          "ceterms:addressRegion": {
+            "en-US": "Test State"
+          },
+          "ceterms:postalCode": "07004",
+          "ceterms:targetContactPoint": null
         }
-      }
-    ],
-    "ceterms:inLanguage": [
-      "en"
-    ],
-    "ceterms:availableAt": [
-      {
-        "@type": "ceterms:Place",
-        "ceterms:postalCode": "07470",
-        "ceterms:addressRegion": {
-          "en-US": "New Jersey"
-        },
-        "ceterms:streetAddress": {
-          "en-US": "40 Galesi Drive, Suite 23"
-        },
-        "ceterms:addressLocality": {
-          "en-US": "Wayne"
+      ],
+      "ceterms:availableAt": [
+        {"@type": "ceterms:Place",
+        "ceterms:postalCode": "08816",
+        "ceterms:addressRegion": { "en-US": "New Jersey" },
+        "ceterms:streetAddress": { "en-US": "112 Rues Lane" },
+        "ceterms:addressLocality": { "en-US": "East Brunswick" }}
+      ],
+      "ceterms:availableOnlineAt": "http://example.com",
+      "ceterms:commonConditions": ["condition1"],
+      "ceterms:estimatedCost": [
+        {
+          "ceterms:currency": "US Dollar",
+          "ceterms:price": 1000
         }
-      }
-    ],
-    "ceterms:description": {
-      "en-US": "This package cover following three vendors CompTIA, Microsoft and Cisco Certifications: (A+ or Network+, Windows client or Server (MCP/MCTS) and CCENT a first course of CCNA): This first part of this course is A+ or Network+ certification classes. This hands-on training offers students installation, configuration, diagnosing, preventive maintenance and basic networking. It will also help students to prepare for A+ or N+ certification exams. The second part of this program is Microsoft Windows Client or Server . This course is focused on the Microsoft Windows platform and prepares students for MCP/MCTS exam. The third part of this course is Cisco networking. This course will help the student prepare for CCENT or ICND1 exams which is the first course required to become CCNA."
-    },
-    "ceterms:estimatedCost": [
-      {
-        "@type": "ceterms:CostProfile",
-        "ceterms:name": {
-          "en-US": "Total Cost"
-        },
-        "ceterms:price": 4074.0,
-        "ceterms:currency": "USD",
-        "ceterms:costDetails": "https://www.liit.com",
-        "ceterms:description": {
-          "en-US": "Estimated cost of credential, learning opportunity or assessment"
-        },
-        "ceterms:directCostType": {
-          "@type": "ceterms:CredentialAlignmentObject",
-          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
-          "ceterms:targetNode": "costType:AggregateCost",
+      ],
+      "ceterms:estimatedDuration": [
+        {
+          "ceterms:exactDuration": "P1Y"
+        }
+      ],
+      "ceterms:instructionalProgramType": [
+        {
           "ceterms:frameworkName": {
-            "en-US": "Cost Type"
+            "en-US": "Classification of Instructional Programs"
           },
-          "ceterms:targetNodeName": {
-            "en-US": "Aggregate Cost"
+          "ceterms:codedNotation": "12.3456"
+        }
+      ],
+      "ceterms:isPreparationFor": [
+        {
+          "ceterms:name": {
+            "en-US": "Certification Name"
           },
-          "ceterms:targetNodeDescription": {
-            "en-US": "Sum of direct costs."
+          "ceterms:experience": "2 years",
+          "ceterms:description": {
+            "en-US": "Description of the certification"
+          },
+          "ceterms:targetAssessment": ["assessment1"],
+          "ceterms:targetCompetency": ["competency1"],
+          "ceterms:targetCredential": ["credential1"],
+          "ceterms:targetLearningOpportunity": ["learningOpportunity1"]
+        }
+      ],
+      "ceterms:occupationType": [
+        {
+          "ceterms:codedNotation": "15-1121"
+        }
+      ],
+      "ceterms:scheduleTimingType": [
+        {
+          "ceterms:name": "Evening"
+        }
+      ],
+      "ceterms:ctid": "ctid123",
+      "ceterms:name": {
+        "en-US": "Example Training Program"
+      },
+      "ceterms:description": {
+        "en-US": "This is an example description for the training program."
+      },
+      "ceterms:requires": [
+        {
+          "ceterms:name": {
+            "en-US": "Requirements"
+          },
+          "ceterms:description": {
+            "en-US": "Example requirement description"
           }
+        }
+      ],
+      "ceterms:inLanguage": ["English"]
+    },
+    {
+      "ceterms:ownedBy": "someCtid2",
+      "ceterms:subjectWebpage": "someurl",
+      "ceterms:address": [
+        {
+          "@type": "ceterms:Place",
+          "ceterms:streetAddress": {
+            "en-US": "1234 Test St"
+          },
+          "ceterms:addressLocality": {
+            "en-US": "Test City"
+          },
+          "ceterms:addressRegion": {
+            "en-US": "Test State"
+          },
+          "ceterms:postalCode": "07735",
+          "ceterms:targetContactPoint": null
+        }
+      ],
+      "ceterms:availableOnlineAt": "http://example.com",
+      "ceterms:commonConditions": ["condition2"],
+      "ceterms:estimatedCost": [
+        {
+          "ceterms:currency": "US Dollar",
+          "ceterms:price": 1000
+        }
+      ],
+      "ceterms:estimatedDuration": [
+        {
+          "ceterms:exactDuration": "P1Y"
+        }
+      ],
+    "ceterms:instructionalProgramType": [
+      {
+        "ceterms:frameworkName": {
+          "en-US": "Cost Type"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Aggregate Cost"
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "Sum of direct costs."
         }
       }
     ],
