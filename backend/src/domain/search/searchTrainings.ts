@@ -8,6 +8,7 @@ import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
 import { getAvailableAtAddress } from "../training/findTrainingsBy";
 import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
+import {DataClient} from "../DataClient";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
