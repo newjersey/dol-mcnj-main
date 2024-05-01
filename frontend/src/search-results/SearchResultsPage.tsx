@@ -24,6 +24,19 @@ interface Props extends RouteComponentProps {
   location?: WindowLocation<unknown> | undefined;
 }
 
+interface MetaData {
+  totalItems: number;
+  currentPage?: number;
+  totalPages?: number;
+  itemsPerPage?: number;
+  hasNextPage?: boolean;
+  hasPreviousPage?: boolean;
+  nextPage?: number | null;
+  previousPage?: number | null;
+}
+
+
+
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndUp = useMediaQuery("(min-width:768px)");
   const isTabletAndBelow = useMediaQuery("(max-width:767px)");
@@ -32,7 +45,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [sorting, setSorting] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [itemsPerPage, setItemsPerPage] = useState<number>();
-  const [metaData, setMetaData] = useState<TrainingData["meta"]>();
+  const [metaData, setMetaData] = useState<MetaData>();
   const [pageNumber, setPageNumber] = useState<number>();
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
   const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(false);
@@ -63,7 +76,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       newFilteredTrainings = filter.func(newFilteredTrainings);
     });
 
-    const sortedResults = newFilteredTrainings?.sort((a: TrainingResult, b: TrainingResult) => {
+    const sortedResults = newFilteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
       switch (sortState.sortOrder) {
         case SortOrder.BEST_MATCH:
           return b.rank - a.rank;
@@ -72,24 +85,20 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         case SortOrder.COST_HIGH_TO_LOW:
           return b.totalCost - a.totalCost;
         case SortOrder.EMPLOYMENT_RATE:
-          return (
-            (b.percentEmployed ? b.percentEmployed : 0) -
-            (a.percentEmployed ? a.percentEmployed : 0)
-          );
+          return (b.percentEmployed || 0) - (a.percentEmployed || 0);
         default:
           return 0;
       }
     });
 
-    sortedResults ? setFilteredTrainings([...sortedResults]) : setFilteredTrainings([]);
+    setFilteredTrainings(sortedResults);
 
-    setShowSearchTips(pageNumber === 1 && newFilteredTrainings?.length < 5);
-
-    if (newFilteredTrainings?.length > 0 && searchQuery !== "null") {
-      setShouldShowTrainings(true);
-    }
-  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
-
+    // Update metadata dynamically
+    setMetaData({
+      ...metaData,
+      totalItems: newFilteredTrainings.length,
+    } as MetaData);
+  }, [trainings, filterState.filters, sortState.sortOrder]);
   const getPageTitle = (): void => {
     if (!searchQuery || searchQuery === "null") {
       setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
