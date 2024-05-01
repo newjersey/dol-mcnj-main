@@ -1,5 +1,6 @@
-import {CetermsAggregateData, CTDLResource} from "../domain/credentialengine/CredentialEngine";
+import {CetermsAggregateData, CTDLResource, CtermsSupportServices} from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
+import axios from "axios"
 
 export const credentialEngineUtils = {
 
@@ -130,6 +131,20 @@ export const credentialEngineUtils = {
       .filter((description): description is string => description !== undefined); // Filter out undefined values
 
     return prerequisites && prerequisites.length > 0 ? prerequisites : null;
+  },
+
+  extractSupportService: async function(certificate: CTDLResource): Promise<CtermsSupportServices[] | null> {
+    const supportServices = certificate["ceterms:hasSupportService"];
+    if(!supportServices || supportServices.length === 0) return null
+    try {
+          const responses = await Promise.all(supportServices.map(url =>
+            axios.get(url).then(response => response.data)
+        ))
+        return responses
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return null
+      }
   },
 
   // Function to convert ISO 8601 duration to total hours
