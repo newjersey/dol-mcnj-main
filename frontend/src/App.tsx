@@ -37,7 +37,6 @@ import { TrainingExplorerPage } from "./training-explorer-page/TrainingExplorerP
 import * as Sentry from "@sentry/react";
 import { AllSupportPage } from "./all-support-page/AllSupportPage";
 import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
-import { CareerNavigatorPage } from "./career-navigator-page/CareerNavigatorPage";
 import { LandingPage } from "./landing-page/LandingPage";
 
 interface Props {
@@ -113,9 +112,6 @@ export const App = (props: Props): ReactElement => {
               <Redirect from="/search?q=:searchQuery" to="/training/search?q=:searchQuery" noThrow />
               <Redirect from="/etpl" to="/faq#etpl-program-general-information" />
 
-              {process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
-                  <CareerNavigatorPage path="/navigator" client={props.client} />
-              )}
               {process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
                   <Redirect from="/career-navigator" to="/navigator" />
               )}
