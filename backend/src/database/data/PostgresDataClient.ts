@@ -4,18 +4,12 @@ import {
   LocalException,
   SocDefinition,
   CipDefinition,
-  Program,
   EducationText,
   SalaryEstimate,
   NullableOccupation,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
-import { Selector } from "../../domain/training/Selector";
-import { Error } from "../../domain/Error";
-
-const APPROVED = "Approved";
-
 export class PostgresDataClient implements DataClient {
   kdb: Knex;
 
@@ -25,93 +19,6 @@ export class PostgresDataClient implements DataClient {
       connection: connection,
     });
   }
-
-  findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
-    if (values.length === 0) {
-      return Promise.resolve([]);
-    }
-
-    const column = ((sel: Selector): string => {
-      switch (sel) {
-        case Selector.CIP_CODE:
-          return "cipcode";
-        case Selector.ID:
-          return "programid";
-      }
-    })(selector);
-
-    const programs = await this.kdb("etpl")
-      .select(
-        "etpl.programid",
-        "etpl.providerid",
-        "etpl.officialname",
-        "etpl.calendarlengthid",
-        "etpl.totalclockhours",
-        "etpl.standardized_description as description",
-        "etpl.industrycredentialname",
-        "etpl.prerequisites",
-        "etpl.cipcode",
-        "etpl.tuition",
-        "etpl.fees",
-        "etpl.booksmaterialscost",
-        "etpl.suppliestoolscost",
-        "etpl.othercosts",
-        "etpl.totalcost",
-        "etpl.website",
-        "etpl.standardized_name_1 as providername",
-        "etpl.street1",
-        "etpl.street2",
-        "etpl.city",
-        "etpl.state",
-        "etpl.zip",
-        "etpl.county",
-        "etpl.contactfirstname",
-        "etpl.contactlastname",
-        "etpl.contacttitle",
-        "etpl.phone",
-        "etpl.phoneextension",
-        "etpl.eveningcourses",
-        "etpl.languages",
-        "etpl.accessfordisabled",
-        "etpl.personalassist",
-        "etpl.childcare",
-        "etpl.assistobtainingchildcare",
-        "indemandcips.cipcode as indemandcip",
-        "onlineprograms.programid as onlineprogramid",
-        "outcomes_cip.peremployed2",
-        "outcomes_cip.avgquarterlywage2",
-      )
-      .leftOuterJoin("indemandcips", "indemandcips.cipcode", "etpl.cipcode")
-      .leftOuterJoin("onlineprograms", "onlineprograms.programid", "etpl.programid")
-      .leftOuterJoin("outcomes_cip", function () {
-        this.on("outcomes_cip.cipcode", "etpl.cipcode").on(
-          "outcomes_cip.providerid",
-          "etpl.providerid",
-        );
-      })
-      .joinRaw(
-        `join unnest('{${values.join(
-          ",",
-        )}}'::varchar[]) WITH ORDINALITY t(listcolumn, ord) ON etpl.${column} = t.listcolumn`,
-      )
-      .whereIn(`etpl.${column}`, values)
-      .andWhere("etpl.statusname", APPROVED)
-      .andWhere("etpl.providerstatusname", APPROVED)
-      .orderByRaw("t.ord")
-      .catch(() => {
-        return Promise.reject();
-      });
-
-    if (programs.length === 0) {
-      if (column === "cipcode") {
-        return Promise.resolve([]);
-      } else {
-        return Promise.reject(Error.NOT_FOUND);
-      }
-    }
-
-    return programs;
-  };
 
   getLocalExceptionsByCip = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
