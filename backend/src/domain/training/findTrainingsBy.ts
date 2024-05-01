@@ -7,11 +7,8 @@ import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import {
-  CetermsAccommodationType,
   CetermsConditionProfile,
-  CetermsServiceType,
   CTDLResource,
-  CtermsSupportServices,
 } from "../credentialengine/CredentialEngine";
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
@@ -40,6 +37,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
           const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
 
+          const supportServices = await credentialEngineUtils.extractSupportService(certificate);
+
           if (ownedByAddressObject != null) {
             for (const element of ownedByAddressObject) {
               if (element["@type"] === "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -66,26 +65,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               }
             }
           }
-
-          const supportServices = await credentialEngineUtils.extractSupportService(certificate);
-
-          const hasJobPlacementAssistance = supportServices
-            ? supportServices.some((service: CtermsSupportServices) =>
-              service["ceterms:supportServiceType"]?.some((types: CetermsServiceType) => types["ceterms:targetNode"] === "support:JobPlacement")
-            )
-            : false;
-
-          const hasChildcareAssistance = supportServices
-            ? supportServices.some((service: CtermsSupportServices) =>
-              service["ceterms:supportServiceType"]?.some((types: CetermsServiceType) => types["ceterms:targetNode"] === "support:Childcare")
-            )
-            : false;
-
-          const isWheelchairAccessible = supportServices
-            ? supportServices.some((service: CtermsSupportServices) =>
-              service["ceterms:accommodationType"]?.some((types: CetermsAccommodationType) => types["ceterms:targetNode"] === "accommodation:PhysicalAccessibility")
-            )
-            : false;
 
           const cipCode = await credentialEngineUtils.extractCipCode(certificate);
           const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -122,9 +101,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
             hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
             languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
-            isWheelchairAccessible: isWheelchairAccessible,
-            hasJobPlacementAssistance: hasJobPlacementAssistance,
-            hasChildcareAssistance: hasChildcareAssistance,
+            isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(supportServices, "accommodation:PhysicalAccessibility"),
+            hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(supportServices, "support:JobPlacement"),
+            hasChildcareAssistance: await credentialEngineUtils.checkSupportService(supportServices, "support:Childcare")
           };
 
           return training;
