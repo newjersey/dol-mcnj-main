@@ -630,404 +630,519 @@
       "county": "Bergen"
     },
     "07452": {
-      "city": "",
+      "city": "Glen Rock",
       "county": "Bergen"
     },
     "07456": {
-      "city": "",
+      "city": "Ringwood",
       "county": "Passaic"
     },
     "07457": {
-      "city": "",
+      "city": "Riverdale",
       "county": "Morris"
     },
     "07458": {
-      "city": "",
+      "city": "Saddle River",
       "county": "Bergen"
     },
     "07460": {
-      "city": "",
+      "city": "Stockholm, Hardyston",
       "county": "Sussex"
     },
     "07461": {
-      "city": "",
+      "city": "Sussex, Wantage",
       "county": "Sussex"
     },
     "07462": {
-      "city": "",
+      "city": "Vernon",
       "county": "Sussex"
     },
     "07463": {
-      "city": "",
+      "city": "Waldwick",
       "county": "Bergen"
     },
     "07465": {
-      "city": "",
+      "city": "Wanaque",
       "county": "Passaic"
     },
     "07470": {
-      "city": "",
+      "city": "Wayne",
       "county": "Passaic"
     },
     "07474": {
-      "city": "",
+      "city": "Wayne",
+      "county": "Passaic"
+    },
+    "07477": {
+      "city": "Wayne",
       "county": "Passaic"
     },
     "07480": {
-      "city": "",
+      "city": "West Milford",
       "county": "Passaic"
     },
     "07481": {
-      "city": "",
+      "city": "Wyckoff",
       "county": "Bergen"
     },
     "07495": {
-      "city": "",
+      "city": "Mahwah",
       "county": "Bergen"
     },
+    "07501": {
+      "city": "Paterson",
+      "county": "Passaic"
+    },
     "07502": {
-      "city": "",
+      "city": "Paterson, Totowa",
       "county": "Passaic"
     },
     "07503": {
-      "city": "",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07504": {
-      "city": "",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07505": {
-      "city": "",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07506": {
-      "city": "",
+      "city": "Hawthorne",
       "county": "Passaic"
     },
     "07507": {
-      "city": "",
+      "city": "Hawthorne",
       "county": "Passaic"
     },
     "07508": {
-      "city": "",
+      "city": "Haledon, North Haledon, Paterson, Prospect Park",
       "county": "Passaic"
     },
     "07509": {
-      "city": "",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07510": {
-      "city": "",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07511": {
-      "city": "",
+      "city": "Totowa, Paterson",
       "county": "Passaic"
     },
     "07512": {
-      "city": "",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07513": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07514": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07522": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07524": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07533": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07538": {
+      "city": "Haledon, Paterson",
       "county": "Passaic"
     },
     "07543": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07544": {
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07601": {
+      "city": "Hackensack",
       "county": "Bergen"
     },
     "07602": {
+      "city": "Hackensack",
       "county": "Bergen"
     },
     "07603": {
+      "city": "Bogota",
       "county": "Bergen"
     },
     "07604": {
+      "city": "Hasbrouck Heights",
       "county": "Bergen"
     },
     "07605": {
+      "city": "Leonia",
       "county": "Bergen"
     },
     "07606": {
+      "city": "South Hackensack",
       "county": "Bergen"
     },
     "07607": {
+      "city": "Maywood",
       "county": "Bergen"
     },
     "07608": {
+      "city": "Teterboro",
       "county": "Bergen"
     },
     "07620": {
+      "city": "Alpine",
       "county": "Bergen"
     },
     "07621": {
+      "city": "Bergenfield",
       "county": "Bergen"
     },
     "07624": {
+      "city": "Closter",
       "county": "Bergen"
     },
     "07626": {
+      "city": "Cresskill",
       "county": "Bergen"
     },
     "07627": {
+      "city": "Demarest",
       "county": "Bergen"
     },
     "07628": {
+      "city": "Dumont",
       "county": "Bergen"
     },
     "07630": {
+      "city": "Emerson",
       "county": "Bergen"
     },
     "07631": {
+      "city": "Englewood",
       "county": "Bergen"
     },
     "07632": {
+      "city": "Englewood",
       "county": "Bergen"
     },
     "07640": {
+      "city": "Harrington Park",
       "county": "Bergen"
     },
     "07641": {
+      "city": "Haworth",
       "county": "Bergen"
     },
     "07642": {
+      "city": "Hillsdale",
       "county": "Bergen"
     },
     "07643": {
+      "city": "Little Ferry",
       "county": "Bergen"
     },
     "07644": {
+      "city": "Lodi",
       "county": "Bergen"
     },
     "07645": {
+      "city": "Montvale",
       "county": "Bergen"
     },
     "07646": {
+      "city": "New Milford",
       "county": "Bergen"
     },
     "07647": {
+      "city": "Northvale, Rockleigh",
       "county": "Bergen"
     },
     "07648": {
+      "city": "Norwood",
       "county": "Bergen"
     },
     "07649": {
+      "city": "Oradell",
       "county": "Bergen"
     },
     "07650": {
+      "city": "Palisades Park",
       "county": "Bergen"
     },
     "07652": {
+      "city": "Paramus",
       "county": "Bergen"
     },
     "07653": {
+      "city": "Paramus",
       "county": "Bergen"
     },
     "07656": {
+      "city": "Park Ridge",
       "county": "Bergen"
     },
     "07657": {
+      "city": "Ridgefield",
       "county": "Bergen"
     },
     "07660": {
+      "city": "Ridgefield",
       "county": "Bergen"
     },
     "07661": {
+      "city": "River Edge",
       "county": "Bergen"
     },
     "07662": {
+      "city": "Rochelle Park",
       "county": "Bergen"
     },
     "07663": {
+      "city": "Saddle Brook",
       "county": "Bergen"
     },
     "07666": {
+      "city": "Teaneck",
       "county": "Bergen"
     },
     "07670": {
+      "city": "Tenafly",
       "county": "Bergen"
     },
     "07675": {
+      "city": "Westwood, Old Tappan, River Vale, Rivervale",
       "county": "Bergen"
     },
     "07676": {
+      "city": "Township Of Washington",
       "county": "Bergen"
     },
     "07677": {
+      "city": "Woodcliff Lake",
+      "county": "Bergen"
+    },
+    "07699": {
+      "city": "Teterboro",
       "county": "Bergen"
     },
     "07701": {
+      "city": "Red Bank, Tinton Falls",
       "county": "Monmouth"
     },
     "07702": {
+      "city": "Shrewsbury, Red Bank",
       "county": "Monmouth"
     },
     "07703": {
+      "city": "Fort Monmouth, Red Bank",
       "county": "Monmouth"
     },
     "07704": {
+      "city": "Fair Haven, Red Bank",
       "county": "Monmouth"
     },
     "07710": {
+      "city": "Red Bank",
       "county": "Monmouth"
     },
     "07711": {
-      "city": "Allenhurst",
+      "city": "Allenhurst, Loch Arbour",
       "county": "Monmouth"
     },
     "07712": {
+      "city": "Asbury Park, Interlaken, Ocean, Tinton Falls",
+      "county": "Monmouth"
+    },
+    "07715": {
+      "city": "Belmar",
       "county": "Monmouth"
     },
     "07716": {
+      "city": "Atlantic Highlands",
       "county": "Monmouth"
     },
     "07717": {
+      "city": "Avon By The Sea",
       "county": "Monmouth"
     },
     "07718": {
+      "city": "Belford",
       "county": "Monmouth"
     },
     "07719": {
+      "city": "Belmar, Lake Como, Wall Township",
       "county": "Monmouth"
     },
     "07720": {
+      "city": "Bradley Beach",
       "county": "Monmouth"
     },
     "07721": {
+      "city": "Cliffwood",
       "county": "Monmouth"
     },
     "07722": {
+      "city": "Colts Neck",
       "county": "Monmouth"
     },
     "07723": {
+      "city": "Ocean Township",
       "county": "Monmouth"
     },
     "07724": {
+      "city": "Eatontown, Tinton Falls",
       "county": "Monmouth"
     },
     "07726": {
+      "city": "Englishtown, Manalapan",
       "county": "Monmouth"
     },
     "07727": {
+      "city": "Farmingdale, Tinton Falls, Wall Township",
       "county": "Monmouth"
     },
     "07728": {
+      "city": "Freehold",
       "county": "Monmouth"
     },
     "07730": {
+      "city": "Hazlet",
       "county": "Monmouth"
     },
     "07731": {
+      "city": "Howell, Wall Township",
       "county": "Monmouth"
     },
     "07732": {
+      "city": "Highlands, Sandy Hook",
       "county": "Monmouth"
     },
     "07733": {
+      "city": "Holmdel",
       "county": "Monmouth"
     },
     "07734": {
+      "city": "Keansburg, Hazlet Township, Hazlet Twp",
       "county": "Monmouth"
     },
     "07735": {
+      "city": "Keyport, Union Beach",
       "county": "Monmouth"
     },
     "07737": {
+      "city": "Leonardo",
       "county": "Monmouth"
     },
     "07738": {
+      "city": "Lincroft",
       "county": "Monmouth"
     },
     "07739": {
+      "city": "Little Silver",
       "county": "Monmouth"
     },
     "07740": {
+      "city": "Long Branch, Elberon",
       "county": "Monmouth"
     },
     "07746": {
+      "city": "Marlboro",
       "county": "Monmouth"
     },
     "07747": {
+      "city": "Matawan, Aberdeen",
       "county": "Monmouth"
     },
     "07748": {
+      "city": "Middletown",
       "county": "Monmouth"
     },
     "07750": {
+      "city": "Monmouth Beach",
       "county": "Monmouth"
     },
     "07751": {
+      "city": "Morganville",
       "county": "Monmouth"
     },
     "07752": {
+      "city": "Navesink",
       "county": "Monmouth"
     },
     "07753": {
+      "city": "Neptune",
       "county": "Monmouth"
     },
     "07754": {
+      "city": "Neptune",
       "county": "Monmouth"
     },
     "07755": {
+      "city": "Oakhurst",
       "county": "Monmouth"
     },
     "07756": {
+      "city": "Ocean Grove",
       "county": "Monmouth"
     },
     "07757": {
+      "city": "Oceanport",
       "county": "Monmouth"
     },
     "07758": {
+      "city": "Port Monmouth",
       "county": "Monmouth"
     },
     "07760": {
+      "city": "Rumson, Locust, Sea Bright",
       "county": "Monmouth"
     },
     "07762": {
+      "city": "Spring Lake",
       "county": "Monmouth"
     },
     "07763": {
+      "city": "Tennent",
       "county": "Monmouth"
     },
     "07764": {
+      "city": "West Long Branch",
       "county": "Monmouth"
     },
     "07765": {
+      "city": "Wickatunk",
       "county": "Monmouth"
     },
     "07799": {
+      "city": "Eatontown",
       "county": "Monmouth"
     },
     "07801": {
+      "city": "Dover",
       "county": "Morris"
     },
     "07802": {
+      "city": "Dover",
       "county": "Morris"
     },
     "07803": {
+      "city": "Mine Hill, Dover",
       "county": "Morris"
     },
     "07806": {
+      "city": "Picatinny Arsenal, Dover",
       "county": "Morris"
     },
     "07820": {
@@ -1035,561 +1150,755 @@
       "county": "Warren"
     },
     "07821": {
+      "city": "Andover, Byram Township",
       "county": "Sussex"
     },
     "07822": {
+      "city": "Augusta",
       "county": "Sussex"
     },
     "07823": {
+      "city": "Belvidere",
       "county": "Warren"
     },
     "07825": {
+      "city": "Blairstown, Hardwick, Johnsonburg",
       "county": "Warren"
     },
     "07826": {
+      "city": "Branchville, Sandyston",
       "county": "Sussex"
     },
     "07827": {
+      "city": "Montague, Branchville, Sandyston",
       "county": "Sussex"
     },
     "07828": {
+      "city": "Budd Lake",
       "county": "Morris"
     },
     "07829": {
+      "city": "Buttzville",
       "county": "Warren"
     },
     "07830": {
+      "city": "Califon, Tewksbury Township",
       "county": "Hunterdon"
     },
     "07831": {
+      "city": "Changewater",
       "county": "Warren"
     },
     "07832": {
+      "city": "Columbia",
       "county": "Warren"
     },
     "07833": {
+      "city": "Delaware",
       "county": "Warren"
     },
     "07834": {
+      "city": "Denville",
       "county": "Morris"
     },
     "07836": {
+      "city": "Flanders, Roxbury Township",
       "county": "Morris"
     },
     "07837": {
+      "city": "Glasser",
       "county": "Sussex"
     },
     "07838": {
+      "city": "Great Meadows",
       "county": "Warren"
     },
     "07839": {
+      "city": "Greendell",
       "county": "Sussex"
     },
     "07840": {
+      "city": "Hackettstown",
       "county": "Warren"
     },
     "07842": {
+      "city": "Hibernia",
       "county": "Morris"
     },
     "07843": {
+      "city": "Hopatcong",
       "county": "Sussex"
     },
     "07844": {
+      "city": "Hope",
       "county": "Warren"
     },
     "07845": {
+      "city": "Ironia",
       "county": "Morris"
     },
     "07846": {
+      "city": "Johnsonburg",
       "county": "Warren"
     },
     "07847": {
+      "city": "Kenvil",
       "county": "Morris"
     },
     "07848": {
+      "city": "Lafayette",
       "county": "Sussex"
     },
     "07849": {
+      "city": "Lake Hopatcong",
       "county": "Morris"
     },
     "07850": {
+      "city": "Landing",
       "county": "Morris"
     },
     "07851": {
+      "city": "Layton, Sandyston",
       "county": "Sussex"
     },
     "07852": {
+      "city": "Ledgewood",
       "county": "Morris"
     },
     "07853": {
+      "city": "Long Valley",
       "county": "Morris"
     },
     "07855": {
+      "city": "Middleville",
       "county": "Sussex"
     },
     "07856": {
+      "city": "Mount Arlington",
       "county": "Morris"
     },
     "07857": {
+      "city": "Netcong",
       "county": "Morris"
     },
     "07860": {
+      "city": "Newton, Fredon, Fredon Township",
       "county": "Sussex"
     },
     "07863": {
+      "city": "Oxford",
       "county": "Warren"
     },
     "07865": {
+      "city": "Port Murray",
       "county": "Warren"
     },
     "07866": {
+      "city": "Rockaway Borough",
       "county": "Morris"
     },
     "07869": {
+      "city": "Randolph, Chester Twp, Dover",
       "county": "Morris"
     },
     "07870": {
+      "city": "Schooleys Mountain",
       "county": "Morris"
     },
     "07871": {
+      "city": "Sparta",
       "county": "Sussex"
     },
     "07874": {
+      "city": "Stanhope",
       "county": "Sussex"
     },
     "07875": {
+      "city": "Stillwater",
       "county": "Sussex"
     },
     "07876": {
+      "city": "Succasunna",
       "county": "Morris"
     },
     "07877": {
+      "city": "Swartswood",
       "county": "Sussex"
     },
     "07878": {
+      "city": "Mount Tabor",
       "county": "Morris"
     },
     "07879": {
+      "city": "Tranquility",
       "county": "Sussex"
     },
     "07880": {
+      "city": "Vienna",
       "county": "Warren"
     },
     "07881": {
+      "city": "Wallpack Center",
       "county": "Sussex"
     },
     "07882": {
+      "city": "Washington",
       "county": "Warren"
     },
     "07885": {
+      "city": "Wharton",
       "county": "Morris"
     },
+    "07890": {
+      "city": "Branchville",
+      "county": "Sussex"
+    },
     "07901": {
+      "city": "Summit",
       "county": "Union"
     },
     "07902": {
+      "city": "Summit",
       "county": "Union"
     },
     "07920": {
+      "city": "Basking Ridge",
       "county": "Somerset"
     },
     "07921": {
+      "city": "Bedminster",
       "county": "Somerset"
     },
     "07922": {
+      "city": "Berkeley Heights",
       "county": "Union"
     },
     "07924": {
+      "city": "Bernardsville",
       "county": "Somerset"
     },
     "07926": {
+      "city": "Brookside",
       "county": "Morris"
     },
     "07927": {
+      "city": "Cedar Knolls",
       "county": "Morris"
     },
     "07928": {
+      "city": "Chatham",
       "county": "Morris"
     },
     "07930": {
+      "city": "Chester",
       "county": "Morris"
     },
     "07931": {
+      "city": "Far Hills",
       "county": "Somerset"
     },
     "07932": {
+      "city": "Florham Park",
       "county": "Morris"
     },
     "07933": {
+      "city": "Gillette",
       "county": "Morris"
     },
     "07934": {
+      "city": "Gladstone",
       "county": "Somerset"
     },
     "07935": {
+      "city": "Green Village",
       "county": "Morris"
     },
     "07936": {
+      "city": "East Hanover",
       "county": "Morris"
     },
     "07938": {
+      "city": "Liberty Corner",
       "county": "Somerset"
     },
     "07939": {
+      "city": "Lyons, Basking Ridge",
       "county": "Somerset"
     },
     "07940": {
+      "city": "Madison",
       "county": "Morris"
     },
     "07945": {
+      "city": "Mendham, Mendham Township",
       "county": "Morris"
     },
     "07946": {
+      "city": "Millington",
       "county": "Morris"
     },
     "07950": {
+      "city": "Morris Plains, Greystone Park",
       "county": "Morris"
     },
     "07960": {
+      "city": "Morristown",
       "county": "Morris"
     },
     "07961": {
+      "city": "Convent Station, Morristown",
       "county": "Morris"
     },
     "07962": {
+      "city": "Morristown",
       "county": "Morris"
     },
     "07963": {
+      "city": "Morristown",
       "county": "Morris"
     },
     "07970": {
+      "city": "Mount Freedom",
       "county": "Morris"
     },
     "07974": {
+      "city": "New Providence",
       "county": "Union"
     },
     "07976": {
+      "city": "New Vernon",
       "county": "Morris"
     },
     "07977": {
+      "city": "Peapack",
       "county": "Somerset"
     },
     "07978": {
+      "city": "Pluckemin",
       "county": "Somerset"
     },
     "07979": {
+      "city": "Pottersville",
       "county": "Hunterdon"
     },
     "07980": {
+      "city": "Stirling",
       "county": "Morris"
     },
     "07981": {
+      "city": "Whippany",
+      "county": "Morris"
+    },
+    "07983": {
+      "city": "Whippany, Corporate Mailings",
       "county": "Morris"
     },
     "07999": {
+      "city": "Whippany",
       "county": "Morris"
     },
     "08001": {
+      "city": "Alloway",
       "county": "Salem"
     },
     "08002": {
+      "city": "Cherry Hill",
       "county": "Camden"
     },
     "08003": {
+      "city": "Cherry Hill",
       "county": "Camden"
     },
     "08004": {
+      "city": "Atco",
       "county": "Camden"
     },
     "08005": {
+      "city": "Barnegat",
       "county": "Ocean"
     },
     "08006": {
+      "city": "Barnegat Light",
       "county": "Ocean"
     },
     "08007": {
+      "city": "Barrington",
       "county": "Camden"
     },
     "08008": {
+      "city": "Beach Haven, Harvey Cedars, Long Beach",
       "county": "Ocean"
     },
     "08009": {
+      "city": "Berlin, Berlin Boro",
       "county": "Camden"
     },
     "08010": {
+      "city": "Beverly, Edgewater Park",
       "county": "Burlington"
     },
     "08011": {
+      "city": "Birmingham",
       "county": "Burlington"
     },
     "08012": {
+      "city": "Blackwood, Turnersville",
       "county": "Camden"
     },
     "08014": {
+      "city": "Bridgeport",
       "county": "Gloucester"
     },
     "08015": {
+      "city": "Browns Mills",
       "county": "Burlington"
     },
     "08016": {
+      "city": "Burlington, Burlington City, Burlington Township",
       "county": "Burlington"
     },
     "08018": {
+      "city": "Cedar Brook",
       "county": "Camden"
     },
     "08019": {
+      "city": "Chatsworth",
       "county": "Burlington"
     },
     "08020": {
+      "city": "Clarksboro",
       "county": "Gloucester"
     },
     "08021": {
+      "city": "Clementon, Laurel Springs, Lindenwold",
       "county": "Camden"
     },
     "08022": {
+      "city": "Columbus",
       "county": "Burlington"
     },
     "08023": {
+      "city": "Deepwater",
       "county": "Salem"
     },
     "08025": {
+      "city": "Ewan",
       "county": "Gloucester"
     },
     "08026": {
+      "city": "Gibbsboro",
       "county": "Camden"
     },
     "08027": {
+      "city": "Gibbstown",
       "county": "Gloucester"
     },
     "08028": {
+      "city": "Glassboro",
       "county": "Gloucester"
     },
     "08029": {
+      "city": "Glendora",
       "county": "Camden"
     },
     "08030": {
+      "city": "Gloucester City, Brooklawn",
       "county": "Camden"
     },
     "08031": {
+      "city": "Bellmawr",
       "county": "Camden"
     },
     "08032": {
+      "city": "Grenloch",
       "county": "Gloucester"
     },
     "08033": {
+      "city": "Haddonfield",
       "county": "Camden"
     },
     "08034": {
+      "city": "Cherry Hill",
       "county": "Camden"
     },
     "08035": {
+      "city": "Haddon Heights",
       "county": "Camden"
     },
     "08036": {
+      "city": "Hainesport, Hainesport Township",
       "county": "Burlington"
     },
     "08037": {
+      "city": "Hammonton, Batsto, Blue Anchor, Mullica",
       "county": "Atlantic"
     },
     "08038": {
+      "city": "Hancocks Bridge, Hancocks Brg",
       "county": "Salem"
     },
     "08039": {
+      "city": "Harrisonville",
       "county": "Gloucester"
     },
     "08041": {
+      "city": "Jobstown",
       "county": "Burlington"
     },
     "08042": {
+      "city": "Juliustown",
       "county": "Burlington"
     },
     "08043": {
+      "city": "Voorhees, Kirkwd Vrhes, Kirkwood",
       "county": "Camden"
     },
     "08045": {
+      "city": "Lawnside",
       "county": "Camden"
     },
     "08046": {
+      "city": "Willingboro",
       "county": "Burlington"
     },
     "08048": {
+      "city": "Lumberton, Lumberton Township, Lumberton Twp",
       "county": "Burlington"
     },
     "08049": {
+      "city": "Magnolia",
       "county": "Camden"
     },
     "08050": {
+      "city": "Manahawkin, Stafford Township, Stafford Twp",
       "county": "Ocean"
     },
     "08051": {
+      "city": "Mantua, West Deptford",
       "county": "Gloucester"
     },
     "08052": {
+      "city": "Maple Shade",
       "county": "Burlington"
     },
     "08053": {
+      "city": "Marlton, Evesham",
       "county": "Burlington"
     },
     "08054": {
+      "city": "Mount Laurel",
       "county": "Burlington"
     },
     "08055": {
+      "city": "Medford, Medford Lakes",
       "county": "Burlington"
     },
     "08056": {
+      "city": "Mickleton",
       "county": "Gloucester"
     },
     "08057": {
+      "city": "Moorestown",
       "county": "Burlington"
     },
     "08059": {
+      "city": "Mount Ephraim, West Collingswood Heights",
       "county": "Camden"
     },
     "08060": {
+      "city": "Mount Holly, Eastampton",
       "county": "Burlington"
     },
     "08061": {
+      "city": "Mount Royal",
       "county": "Gloucester"
     },
     "08062": {
+      "city": "Mullica Hill, South Harrison Township",
       "county": "Gloucester"
     },
     "08063": {
+      "city": "National Park, West Deptford",
       "county": "Gloucester"
     },
     "08064": {
+      "city": "New Lisbon",
       "county": "Burlington"
     },
     "08065": {
+      "city": "Palmyra",
       "county": "Burlington"
     },
     "08066": {
+      "city": "Paulsboro, West Deptford",
       "county": "Gloucester"
     },
     "08067": {
+      "city": "Pedricktown",
       "county": "Salem"
     },
     "08068": {
+      "city": "Pemberton",
       "county": "Burlington"
     },
     "08069": {
+      "city": "Penns Grove, Carneys Point",
       "county": "Salem"
     },
     "08070": {
+      "city": "Pennsville",
       "county": "Salem"
     },
     "08071": {
+      "city": "Pitman",
       "county": "Gloucester"
     },
     "08072": {
+      "city": "Quinton",
       "county": "Salem"
     },
     "08073": {
+      "city": "Rancocas",
       "county": "Burlington"
     },
     "08074": {
+      "city": "Richwood",
       "county": "Gloucester"
     },
     "08075": {
+      "city": "Riverside, Delanco, Delran",
       "county": "Burlington"
     },
     "08076": {
+      "city": "Riverton",
       "county": "Burlington"
     },
     "08077": {
+      "city": "Riverton, Cinnaminson",
       "county": "Burlington"
     },
     "08078": {
+      "city": "Runnemede",
       "county": "Camden"
     },
     "08079": {
+      "city": "Salem, Mannington",
       "county": "Salem"
     },
     "08080": {
+      "city": "Sewell",
       "county": "Gloucester"
     },
     "08081": {
+      "city": "Sicklerville, Erial",
       "county": "Camden"
     },
     "08083": {
+      "city": "Somerdale, Hi Nella",
       "county": "Camden"
     },
     "08084": {
+      "city": "Stratford",
       "county": "Camden"
     },
     "08085": {
+      "city": "Swedesboro, Logan Township",
       "county": "Gloucester"
     },
     "08086": {
+      "city": "Thorofare, West Deptford",
       "county": "Gloucester"
     },
     "08087": {
+      "city": "Tuckerton, Little Egg Harbor",
       "county": "Ocean"
     },
     "08088": {
+      "city": "Vincentown, Shamong, Southampton, Tabernacle",
       "county": "Burlington"
     },
     "08089": {
+      "city": "Waterford Works, Chesilhurst",
       "county": "Camden"
     },
     "08090": {
+      "city": "Wenonah",
       "county": "Gloucester"
     },
     "08091": {
+      "city": "West Berlin, Berlin Township",
       "county": "Camden"
     },
     "08092": {
+      "city": "West Creek",
       "county": "Ocean"
     },
     "08093": {
+      "city": "Westville, West Deptford",
       "county": "Gloucester"
     },
     "08094": {
+      "city": "Williamstown",
       "county": "Gloucester"
     },
     "08095": {
+      "city": "Winslow",
       "county": "Camden"
     },
     "08096": {
+      "city": "Woodbury, Blackwood Terrace",
       "county": "Gloucester"
     },
     "08097": {
+      "city": "Woodbury Heights, Deptford, Woodbury",
       "county": "Gloucester"
     },
     "08098": {
+      "city": "Woodstown, Pilesgrove",
       "county": "Salem"
     },
     "08099": {
+      "city": "Bellmawr",
       "county": "Camden"
     },
     "08101": {
+      "city": "Camden",
       "county": "Camden"
     },
     "08102": {
+      "city": "Camden",
       "county": "Camden"
     },
     "08103": {
+      "city": "Camden",
       "county": "Camden"
     },
     "08104": {
+      "city": "Camden, Haddon Township",
       "county": "Camden"
     },
     "08105": {
+      "city": "Camden",
       "county": "Camden"
     },
     "08106": {
+      "city": "Audubon",
       "county": "Camden"
     },
     "08107": {
+      "city": "Oaklyn, Collingswood, Haddon Township",
       "county": "Camden"
     },
     "08108": {
+      "city": "Collingswood, Haddon Township, Westmont",
       "county": "Camden"
     },
     "08109": {
+      "city": "Merchantville, Pennsauken",
       "county": "Camden"
     },
     "08110": {
+      "city": "Pennsauken, Delair",
       "county": "Camden"
     },
     "08201": {
@@ -1597,241 +1906,323 @@
       "county": "Atlantic"
     },
     "08202": {
+      "city": "Avalon",
       "county": "Cape May"
     },
     "08203": {
+      "city": "Brigantine",
       "county": "Atlantic"
     },
     "08204": {
+      "city": "Cape May",
       "county": "Cape May"
     },
     "08205": {
-      "city": "Absecon",
+      "city": "Absecon, Galloway, Smithville",
       "county": "Atlantic"
     },
     "08210": {
+      "city": "Cape May Court House",
       "county": "Cape May"
     },
     "08212": {
+      "city": "Cape May Point",
       "county": "Cape May"
     },
     "08213": {
+      "city": "Cologne",
       "county": "Atlantic"
     },
     "08214": {
+      "city": "Dennisville",
       "county": "Cape May"
     },
     "08215": {
+      "city": "Egg Harbor City, Egg Harbor",
       "county": "Atlantic"
     },
     "08217": {
+      "city": "Elwood",
       "county": "Atlantic"
     },
     "08218": {
+      "city": "Goshen",
       "county": "Cape May"
     },
     "08219": {
+      "city": "Green Creek",
       "county": "Cape May"
     },
     "08220": {
+      "city": "Leeds Point",
       "county": "Atlantic"
     },
     "08221": {
+      "city": "Linwood",
       "county": "Atlantic"
     },
     "08223": {
+      "city": "Marmora",
       "county": "Cape May"
     },
     "08224": {
+      "city": "New Gretna",
       "county": "Burlington"
     },
     "08225": {
+      "city": "Northfield",
       "county": "Atlantic"
     },
     "08226": {
+      "city": "Ocean City",
       "county": "Cape May"
     },
     "08230": {
+      "city": "Ocean View, Upper Twp",
       "county": "Cape May"
     },
     "08231": {
+      "city": "Oceanville",
       "county": "Atlantic"
     },
     "08232": {
+      "city": "Pleasantville, Mckee City",
       "county": "Atlantic"
     },
     "08234": {
+      "city": "Egg Harbor Township, Egg Harbor Twp, Egg Hbr Twp",
       "county": "Atlantic"
     },
     "08240": {
+      "city": "Pomona",
       "county": "Atlantic"
     },
     "08241": {
+      "city": "Port Republic",
       "county": "Atlantic"
     },
     "08242": {
+      "city": "Rio Grande",
       "county": "Cape May"
     },
     "08243": {
+      "city": "Sea Isle City, Townsend Inlt, Townsends Inlet",
       "county": "Cape May"
     },
     "08244": {
+      "city": "Somers Point",
       "county": "Atlantic"
     },
     "08245": {
+      "city": "South Dennis",
       "county": "Cape May"
     },
     "08246": {
+      "city": "South Seaville",
       "county": "Cape May"
     },
     "08247": {
+      "city": "Stone Harbor",
       "county": "Cape May"
     },
     "08248": {
+      "city": "Strathmere",
       "county": "Cape May"
     },
     "08250": {
+      "city": "Tuckahoe",
       "county": "Cape May"
     },
     "08251": {
+      "city": "Villas, Del Haven",
       "county": "Cape May"
     },
     "08252": {
+      "city": "Whitesboro",
       "county": "Cape May"
     },
     "08260": {
+      "city": "Wildwood",
       "county": "Cape May"
     },
     "08270": {
+      "city": "Woodbine, Corbin City, Dennis Twp",
       "county": "Cape May"
     },
     "08302": {
+      "city": "Bridgeton, Deerfield Twp",
       "county": "Cumberland"
     },
     "08310": {
+      "city": "Buena",
       "county": "Atlantic"
     },
     "08311": {
+      "city": "Cedarville",
       "county": "Cumberland"
     },
     "08312": {
+      "city": "Clayton",
       "county": "Gloucester"
     },
     "08313": {
+      "city": "Deerfield Street",
       "county": "Cumberland"
     },
     "08314": {
+      "city": "Delmont",
       "county": "Cumberland"
     },
     "08315": {
+      "city": "Dividing Creek",
       "county": "Cumberland"
     },
     "08316": {
+      "city": "Dorchester",
       "county": "Cumberland"
     },
     "08317": {
+      "city": "Dorothy",
       "county": "Atlantic"
     },
     "08318": {
+      "city": "Elmer, Pittsgrove",
       "county": "Salem"
     },
     "08319": {
+      "city": "Estell Manor",
       "county": "Atlantic"
     },
     "08320": {
+      "city": "Fairton",
       "county": "Cumberland"
     },
     "08321": {
+      "city": "Fortescue",
       "county": "Cumberland"
     },
     "08322": {
+      "city": "Franklinville",
       "county": "Gloucester"
     },
     "08323": {
+      "city": "Greenwich",
       "county": "Cumberland"
     },
     "08324": {
+      "city": "Heislerville",
       "county": "Cumberland"
     },
     "08326": {
+      "city": "Landisville",
       "county": "Atlantic"
     },
     "08327": {
+      "city": "Leesburg",
       "county": "Cumberland"
     },
     "08328": {
+      "city": "Malaga",
       "county": "Gloucester"
     },
     "08329": {
+      "city": "Mauricetown",
       "county": "Cumberland"
     },
     "08330": {
+      "city": "Mays Landing",
       "county": "Atlantic"
     },
     "08332": {
+      "city": "Millville",
       "county": "Cumberland"
     },
     "08340": {
+      "city": "Milmay",
       "county": "Atlantic"
     },
     "08341": {
+      "city": "Minotola",
       "county": "Atlantic"
     },
     "08342": {
+      "city": "Mizpah",
       "county": "Atlantic"
     },
     "08343": {
+      "city": "Monroeville",
       "county": "Gloucester"
     },
     "08344": {
+      "city": "Newfield",
       "county": "Gloucester"
     },
     "08345": {
+      "city": "Newport",
       "county": "Cumberland"
     },
     "08346": {
+      "city": "Newtonville",
       "county": "Atlantic"
     },
     "08347": {
+      "city": "Norma",
       "county": "Salem"
     },
     "08348": {
+      "city": "Port Elizabeth",
       "county": "Cumberland"
     },
     "08349": {
+      "city": "Port Norris",
       "county": "Cumberland"
     },
     "08350": {
+      "city": "Richland",
       "county": "Atlantic"
     },
     "08352": {
+      "city": "Rosenhayn",
       "county": "Cumberland"
     },
     "08353": {
+      "city": "Shiloh",
       "county": "Cumberland"
     },
     "08360": {
+      "city": "Vineland",
       "county": "Cumberland"
     },
     "08361": {
+      "city": "Vineland, S Vineland, South Vineland",
       "county": "Cumberland"
     },
     "08362": {
+      "city": "Vineland",
       "county": "Cumberland"
     },
     "08401": {
+      "city": "Atlantic City",
       "county": "Atlantic"
     },
     "08402": {
+      "city": "Margate City",
       "county": "Atlantic"
     },
     "08403": {
+      "city": "Longport",
       "county": "Atlantic"
     },
     "08404": {
+      "city": "Atlantic City",
+      "county": "Atlantic"
+    },
+    "08405": {
+      "city": "Atlantic City",
       "county": "Atlantic"
     },
     "08406": {
+      "city": "Ventnor City",
       "county": "Atlantic"
     },
     "08501": {
@@ -1839,180 +2230,271 @@
       "county": "Monmouth"
     },
     "08502": {
+      "city": "Belle Mead",
       "county": "Somerset"
     },
     "08504": {
+      "city": "Blawenburg",
       "county": "Somerset"
     },
     "08505": {
+      "city": "Bordentown, Fieldsboro",
       "county": "Burlington"
     },
     "08510": {
+      "city": "Millstone Township, Clarksburg, Millstone Twp",
       "county": "Monmouth"
     },
     "08511": {
+      "city": "Cookstown",
       "county": "Burlington"
     },
     "08512": {
+      "city": "Cranbury, East Windsor",
       "county": "Middlesex"
     },
     "08514": {
+      "city": "Cream Ridge",
       "county": "Monmouth"
     },
     "08515": {
+      "city": "Chesterfield, Crosswicks",
       "county": "Burlington"
     },
     "08518": {
+      "city": "Florence",
       "county": "Burlington"
     },
     "08520": {
+      "city": "Hightstown, East Windsor",
       "county": "Mercer"
     },
     "08525": {
+      "city": "Hopewell",
       "county": "Mercer"
     },
     "08526": {
+      "city": "Imlaystown",
       "county": "Monmouth"
     },
     "08527": {
+      "city": "Jackson",
       "county": "Ocean"
     },
     "08528": {
+      "city": "Kingston",
       "county": "Somerset"
     },
     "08530": {
+      "city": "Lambertville",
       "county": "Hunterdon"
     },
     "08533": {
+      "city": "New Egypt",
       "county": "Ocean"
     },
     "08534": {
+      "city": "Pennington",
       "county": "Mercer"
     },
     "08535": {
+      "city": "Millstone Township, Millstone Twp, Perrineville",
       "county": "Monmouth"
     },
     "08536": {
+      "city": "Plainsboro",
       "county": "Middlesex"
     },
     "08540": {
+      "city": "Princeton",
+      "county": "Mercer"
+    },
+    "08541": {
+      "city": "Princeton",
       "county": "Mercer"
     },
     "08542": {
+      "city": "Princeton",
       "county": "Mercer"
     },
     "08543": {
+      "city": "Princeton",
+      "county": "Mercer"
+    },
+    "08544": {
+      "city": "Princeton",
       "county": "Mercer"
     },
     "08550": {
+      "city": "Princeton Junction, Princeton Jct, West Windsor",
       "county": "Mercer"
     },
     "08551": {
+      "city": "Ringoes",
       "county": "Hunterdon"
     },
     "08553": {
+      "city": "Rocky Hill",
       "county": "Somerset"
     },
     "08554": {
+      "city": "Roebling",
       "county": "Burlington"
     },
     "08555": {
+      "city": "Roosevelt",
       "county": "Monmouth"
     },
     "08556": {
+      "city": "Rosemont",
       "county": "Hunterdon"
     },
     "08557": {
+      "city": "Sergeantsville, Sergeantsvlle",
       "county": "Hunterdon"
     },
     "08558": {
+      "city": "Skillman",
       "county": "Somerset"
     },
     "08559": {
+      "city": "Stockton",
       "county": "Hunterdon"
     },
     "08560": {
+      "city": "Titusville, Ewing",
       "county": "Mercer"
     },
     "08561": {
+      "city": "Windsor",
       "county": "Mercer"
     },
     "08562": {
+      "city": "Wrightstown",
       "county": "Burlington"
     },
     "08601": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08602": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08603": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08604": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08605": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08606": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08607": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08608": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08609": {
+      "city": "Trenton, Hamilton",
       "county": "Mercer"
     },
     "08610": {
+      "city": "Trenton, Hamilton",
       "county": "Mercer"
     },
     "08611": {
+      "city": "Trenton, Hamilton",
       "county": "Mercer"
     },
     "08618": {
+      "city": "Trenton, Ewing",
       "county": "Mercer"
     },
     "08619": {
+      "city": "Trenton, Hamilton, Mercerville",
       "county": "Mercer"
     },
     "08620": {
+      "city": "Trenton, Hamilton",
       "county": "Mercer"
     },
     "08625": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08628": {
+      "city": "Trenton, Ewing, West Trenton",
       "county": "Mercer"
     },
     "08629": {
+      "city": "Trenton, Hamilton",
       "county": "Mercer"
     },
     "08638": {
+      "city": "Trenton, Ewing",
       "county": "Mercer"
     },
     "08640": {
+      "city": "Joint Base Mdl, Fort Dix, Jb Mdl",
       "county": "Burlington"
     },
     "08641": {
+      "city": "Joint Base Mdl, Jb Mdl, Mc Guire AFB, Trenton",
       "county": "Burlington"
     },
+    "08644": {
+      "city": "Trenton, Hamilton",
+      "county": "Mercer"
+    },
+    "08645": {
+      "city": "Trenton",
+      "county": "Mercer"
+    },
+    "08646": {
+      "city": "Trenton",
+      "county": "Mercer"
+    },
+    "08647": {
+      "city": "Trenton",
+      "county": "Mercer"
+    },
     "08648": {
+      "city": "Lawrence Township, Lawrence, Lawrence Twp, Lawrenceville",
       "county": "Mercer"
     },
     "08650": {
+      "city": "Trenton, Hamilton",
+      "county": "Mercer"
+    },
+    "08666": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08690": {
+      "city": "Trenton, Hamilton, Hamilton Sq, Hamilton Square",
       "county": "Mercer"
     },
     "08691": {
+      "city": "Robbinsville, Hamilton, Trenton",
+      "county": "Mercer"
+    },
+    "08695": {
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08701": {
+      "city": "Lakewood",
       "county": "Ocean"
     },
     "08720": {
@@ -2020,207 +2502,275 @@
       "county": "Monmouth"
     },
     "08721": {
+      "city": "Bayville",
       "county": "Ocean"
     },
     "08722": {
+      "city": "Beachwood",
       "county": "Ocean"
     },
     "08723": {
+      "city": "Brick, Osbornville",
       "county": "Ocean"
     },
     "08724": {
+      "city": "Brick, Wall Township",
       "county": "Ocean"
     },
     "08730": {
+      "city": "Brielle",
       "county": "Monmouth"
     },
     "08731": {
+      "city": "Forked River",
       "county": "Ocean"
     },
     "08732": {
+      "city": "Ocean County",
       "county": "Ocean"
     },
     "08733": {
+      "city": "Lakehurst",
       "county": "Ocean"
     },
     "08734": {
+      "city": "Lanoka Harbor",
       "county": "Ocean"
     },
     "08735": {
+      "city": "Lavallette",
       "county": "Ocean"
     },
     "08736": {
+      "city": "Manasquan",
       "county": "Monmouth"
     },
     "08738": {
+      "city": "Mantoloking",
       "county": "Ocean"
     },
     "08739": {
+      "city": "Normandy Beach, Normandy Bch",
       "county": "Ocean"
     },
     "08740": {
+      "city": "Ocean Gate",
       "county": "Ocean"
     },
     "08741": {
+      "city": "Pine Beach",
       "county": "Ocean"
     },
     "08742": {
+      "city": "Point Pleasant Beach, Bay Head, Point Pleasant Boro",
       "county": "Ocean"
     },
     "08750": {
+      "city": "Sea Girt",
       "county": "Monmouth"
     },
     "08751": {
+      "city": "Seaside Heights, Seaside Hgts",
       "county": "Ocean"
     },
     "08752": {
+      "city": "Seaside Park",
       "county": "Ocean"
     },
     "08753": {
+      "city": "Toms River",
       "county": "Ocean"
     },
     "08754": {
+      "city": "Toms River",
       "county": "Ocean"
     },
     "08755": {
+      "city": "Toms River",
       "county": "Ocean"
     },
     "08756": {
+      "city": "Toms River",
       "county": "Ocean"
     },
     "08757": {
+      "city": "Toms River, Berkeley, Manchester",
       "county": "Ocean"
     },
     "08758": {
+      "city": "Waretown",
       "county": "Ocean"
     },
     "08759": {
+      "city": "Manchester Township, Lakehurst, Manchester, Manchester Tw",
       "county": "Ocean"
     },
     "08801": {
+      "city": "Annandale",
       "county": "Hunterdon"
     },
     "08802": {
+      "city": "Asbury",
       "county": "Hunterdon"
     },
     "08803": {
+      "city": "Baptistown",
       "county": "Hunterdon"
     },
     "08804": {
+      "city": "Bloomsbury",
       "county": "Hunterdon"
     },
     "08805": {
+      "city": "",
       "county": "Somerset"
     },
     "08807": {
+      "city": "",
       "county": "Somerset"
     },
     "08808": {
+      "city": "",
       "county": "Warren"
     },
     "08809": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08810": {
+      "city": "",
       "county": "Middlesex"
     },
     "08812": {
+      "city": "",
       "county": "Middlesex"
     },
     "08816": {
+      "city": "",
       "county": "Middlesex"
     },
     "08817": {
+      "city": "",
       "county": "Middlesex"
     },
     "08818": {
+      "city": "",
       "county": "Middlesex"
     },
     "08820": {
+      "city": "",
       "county": "Middlesex"
     },
     "08821": {
+      "city": "",
       "county": "Somerset"
     },
     "08822": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08823": {
+      "city": "",
       "county": "Somerset"
     },
     "08824": {
+      "city": "",
       "county": "Middlesex"
     },
     "08825": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08826": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08827": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08828": {
+      "city": "",
       "county": "Middlesex"
     },
     "08829": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08830": {
+      "city": "",
       "county": "Middlesex"
     },
     "08831": {
+      "city": "",
       "county": "Middlesex"
     },
     "08832": {
+      "city": "",
       "county": "Middlesex"
     },
     "08833": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08834": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08835": {
+      "city": "",
       "county": "Somerset"
     },
     "08836": {
+      "city": "",
       "county": "Somerset"
     },
     "08837": {
+      "city": "",
       "county": "Middlesex"
     },
     "08840": {
+      "city": "",
       "county": "Middlesex"
     },
     "08844": {
+      "city": "",
       "county": "Somerset"
     },
     "08846": {
+      "city": "",
       "county": "Middlesex"
     },
     "08848": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08850": {
+      "city": "",
       "county": "Middlesex"
     },
     "08852": {
+      "city": "",
       "county": "Middlesex"
     },
     "08853": {
+      "city": "",
       "county": "Somerset"
     },
     "08854": {
+      "city": "",
       "county": "Middlesex"
     },
     "08855": {
+      "city": "",
       "county": "Middlesex"
     },
     "08857": {
+      "city": "",
       "county": "Middlesex"
     },
     "08858": {
+      "city": "",
       "county": "Hunterdon"
     },
     "08859": {
@@ -2417,7 +2967,8 @@
       "07670",
       "07675",
       "07676",
-      "07677"
+      "07677",
+      "07699"
     ],
     "Burlington": [
       "08010",
@@ -2919,7 +3470,9 @@
       "07465",
       "07470",
       "07474",
+      "07477",
       "07480",
+      "07501",
       "07502",
       "07503",
       "07504",
@@ -2938,7 +3491,7 @@
       "07533",
       "07538",
       "07543",
-      "07544"
+      "07544",
     ],
     "Salem": [
       "08001",

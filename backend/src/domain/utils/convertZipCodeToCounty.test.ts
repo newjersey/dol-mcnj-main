@@ -5,13 +5,13 @@ describe('convertZipCodeToCounty', () => {
   it('should return the correct county for a zip code', () => {
     const keys = Object.keys(zipcodeJson.byZip);
     let randomZip = keys[Math.floor(Math.random() * keys.length)];
-    let county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip]
+    let county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip].county
     expect(convertZipCodeToCounty(randomZip)).toEqual(county);
     randomZip = keys[Math.floor(Math.random() * keys.length)];
-    county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip]
+    county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip].county
     expect(convertZipCodeToCounty(randomZip)).toEqual(county);
     randomZip = keys[Math.floor(Math.random() * keys.length)];
-    county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip]
+    county = zipcodeJson.byZip[randomZip as keyof typeof zipcodeJson.byZip].county
     expect(convertZipCodeToCounty(randomZip)).toEqual(county);
   });
 });
