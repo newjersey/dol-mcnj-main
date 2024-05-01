@@ -6,7 +6,7 @@ export const convertZipCodeToCounty = (zip: string | undefined): string => {
     return "";
   }
 
-  const county = zipcodeJson.byZip[zip as keyof typeof zipcodeJson.byZip];
+  const county = zipcodeJson.byZip[zip as keyof typeof zipcodeJson.byZip].county;
 
   if (!county) {
     console.log("no county found")
