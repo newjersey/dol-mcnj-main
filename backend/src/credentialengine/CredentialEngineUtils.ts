@@ -1,6 +1,12 @@
-import {CetermsAggregateData, CTDLResource, CtermsSupportServices} from "../domain/credentialengine/CredentialEngine";
+import {
+  CetermsAggregateData,
+  CetermsConditionProfile,
+  CTDLResource,
+  CtermsSupportServices
+} from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
 import axios from "axios"
+import {Address} from "../domain/training/Training";
 
 export const credentialEngineUtils = {
 
@@ -13,6 +19,16 @@ export const credentialEngineUtils = {
     } catch (error) {
       console.error(`Error extracting CTID from URL: ${url}, Error: ${error}`);
       throw error;
+    }
+  },
+
+  getAvailableAtAddress: async  function (certificate: CTDLResource): Promise<Address> {
+    const availableAt = certificate["ceterms:availableAt"]?.[0];
+    return {
+      street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
+      city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
+      state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
+      zipCode: availableAt?.["ceterms:postalCode"] ?? "",
     }
   },
 
@@ -170,6 +186,37 @@ export const credentialEngineUtils = {
     }
   },
 
+  constructCertificationsString: async function (isPreparationForObject: CetermsConditionProfile[]): Promise<string> {
+    if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
+
+    return isPreparationForObject
+      .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
+      .filter((name) => name) // Filter out empty strings
+      .join(", "); // Join the names with a comma and space as separator
+  },
+
+  getCalendarLengthId: async function (certificate: CTDLResource): Promise<number> {
+    const estimatedDuration = certificate["ceterms:estimatedDuration"];
+    if (!estimatedDuration || estimatedDuration.length === 0) return 0;
+    const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
+    if (!exactDuration) return 0;
+    return await credentialEngineUtils.convertIso8601DurationToCalendarLengthId(exactDuration);
+  },
+
+  hasEveningSchedule: async function (certificate: CTDLResource) {
+    try {
+      const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
+      if (!scheduleTimingTypes) return false;
+
+      const hasEvening = scheduleTimingTypes.some((timingType) => timingType["ceterms:targetNode"] === "scheduleTiming:Evening");
+
+      return hasEvening;
+    } catch (error) {
+      console.error(`Error checking evening schedule: ${error}`);
+      throw error;
+    }
+  },
+
   // Function to convert ISO 8601 duration to total hours
   convertIso8601DurationToTotalHours: async function (isoString: string) {
     const match = isoString.match(
@@ -219,19 +266,5 @@ export const credentialEngineUtils = {
     if (totalDays <= 730) return 8;
     if (totalDays <= 1460) return 9;
     return 10;
-  },
-
-  hasEveningSchedule: async function (certificate: CTDLResource) {
-    try {
-      const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
-      if (!scheduleTimingTypes) return false;
-
-      const hasEvening = scheduleTimingTypes.some((timingType) => timingType["ceterms:targetNode"] === "scheduleTiming:Evening");
-
-      return hasEvening;
-    } catch (error) {
-      console.error(`Error checking evening schedule: ${error}`);
-      throw error;
-    }
   },
 }

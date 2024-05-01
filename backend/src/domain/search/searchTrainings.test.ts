@@ -60,7 +60,7 @@ describe('searchTrainingsFactory', () => {
       await searchTrainings({ searchQuery: 'test_error', page: 1, limit: 10 });
     } catch (error:unknown) {
       if (error instanceof Error) {
-        expect(error.message).toEqual("Failed to fetch results from Credential Engine API");
+        expect(error.message).toEqual("Failed to fetch results from Credential Engine API.");
       }
     }
     expect(credentialEngineAPI.getResults).toHaveBeenCalled();
