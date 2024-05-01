@@ -5,7 +5,6 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
-import { getAvailableAtAddress } from "../training/findTrainingsBy";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
@@ -129,7 +128,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
 
     const ownedByCtid = await credentialEngineUtils.getCtidFromURL(certificate["ceterms:ownedBy"]?.[0] ?? "");
     const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-    const address = getAvailableAtAddress(certificate);
+    const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
 
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -162,7 +161,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
   }
 }
 
-function packageResults(page: number, limit: number, results: any[], totalResults: number): TrainingData {
+function packageResults(page: number, limit: number, results: TrainingResult[], totalResults: number): TrainingData {
   const totalPages = Math.ceil(totalResults / limit);
   const hasPreviousPage = page > 1;
   const hasNextPage = page < totalPages;
