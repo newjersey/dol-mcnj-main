@@ -5,6 +5,7 @@ import { checkValidZipCode } from "../utils/checkValidZipCode";
 import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
 import { ContentfulRichText as RichText } from "./ContentfulRichText";
+import {CipDrawerContent} from "./CipDrawerContent";
 
 export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -56,6 +57,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       if (overlay) {
         overlay.addEventListener("click", () => {
           setSocDrawerOpen(false);
+          setCipDrawerOpen(false);
         });
       }
     }
@@ -130,7 +132,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           ) : (
             "SOC code"
           )}
-          ,
+          ,&nbsp;
           <button
           className="toggle"
           type="button"
@@ -139,9 +141,9 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             setCipDrawerOpen(true);
           }}
         >
-          CIP code
+            CIP code
         </button>
-          , or keyword, or keyword
+          , or keyword
         </p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">
@@ -303,22 +305,30 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       </form>
       {drawerContent && (
         <>
-          <div id="drawerOverlay" className={`overlay${socDrawerOpen ? " open" : ""}`} />
-          <div className={`panel${socDrawerOpen ? " open" : ""}`}>
-            <div className="copy">
-              <button
-                aria-label="Close"
-                title="Close"
-                className="close"
-                onClick={() => setSocDrawerOpen(false)}
-                type="button"
-              >
-                <X size={28} />
-                <div className="sr-only">Close</div>
-              </button>
-              <RichText document={drawerContent.json} assets={drawerContent.links} />
+          <div id="drawerOverlay" className={`overlay${socDrawerOpen || cipDrawerOpen ? " open" : ""}`} />
+          {socDrawerOpen && (
+            <div className="panel open">
+              <div className="copy">
+                <button aria-label="Close" title="Close" className="close" onClick={() => setSocDrawerOpen(false)} type="button">
+                  <X size={28} />
+                  <div className="sr-only">Close</div>
+                </button>
+                <RichText document={drawerContent.json} assets={drawerContent.links} />
+              </div>
             </div>
-          </div>
+          )}
+
+          {cipDrawerOpen && (
+            <div className="panel open">
+              <div className="copy">
+                <button aria-label="Close" title="Close" className="close" onClick={() => setCipDrawerOpen(false)} type="button">
+                  <X size={28} />
+                  <div className="sr-only">Close</div>
+                </button>
+                <CipDrawerContent onClose={() => setCipDrawerOpen(false)} />
+              </div>
+            </div>
+          )}
         </>
       )}
     </section>
