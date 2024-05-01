@@ -100,29 +100,24 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
         "search:value": [
           {
             "search:operator": "search:orTerms", // Logical grouping for these terms
-            "ceterms:name": params.searchQuery,
-            "ceterms:description": params.searchQuery,
-            "ceterms:ownedBy": {
-              "ceterms:name": {
-                "search:value": params.searchQuery,
-                "search:matchType": "search:contains",
-              },
-            },
+            ...(isCIP || isSOC ? {} : { "ceterms:name": params.searchQuery }),
+            ...(isCIP || isSOC ? {} : { "ceterms:description": params.searchQuery }),
+            ...(isCIP || isSOC ? {} : { "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } } }),
             "ceterms:occupationType": isSOC
               ? {
-                  "ceterms:codedNotation": {
-                    "search:value": params.searchQuery,
-                    "search:matchType": "search:startsWith",
-                  },
-                }
+                "ceterms:codedNotation": {
+                  "search:value": params.searchQuery,
+                  "search:matchType": "search:startsWith",
+                },
+              }
               : undefined,
             "ceterms:instructionalProgramType": isCIP
               ? {
-                  "ceterms:codedNotation": {
-                    "search:value": params.searchQuery,
-                    "search:matchType": "search:startsWith",
-                  },
-                }
+                "ceterms:codedNotation": {
+                  "search:value": params.searchQuery,
+                  "search:matchType": "search:startsWith",
+                },
+              }
               : undefined,
           },
           {
