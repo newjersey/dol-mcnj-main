@@ -69,31 +69,6 @@ export const es = {
     termsOfServiceLinkLabel: "Términos de servicio",
     madeWithMessage: "Hecho con ❤️ por la Oficina de Innovación",
   },
-  FundingPage: {
-    pageTitle: "Financia tu formación",
-    header: "Formas de financiar su capacitación en Nueva Jersey",
-    sectionOneHeader: "¿Cómo funciona la financiación?",
-    sectionOneText:
-      'Hay fondos disponibles para personas que buscan nuevas ocupaciones que se encuentran dentro de la lista de ocupaciones "en demanda" del estado. Se espera que las ocupaciones en demanda tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey.',
-    sectionTwoHeader: "¿Cómo sé qué califica para la financiación?",
-    sectionTwoTextStart: "La capacitación que conduce a una ",
-    sectionTwoTextLink: "ocupación en demanda",
-    sectionTwoTextEnd:
-      ' puede calificar para financiamiento, pero su OneStop local tomará la determinación final. Como mencionamos en "Cómo funciona el financiamiento", se espera que este tipo de ocupaciones tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Esta lista de ocupaciones puede ser utilizada por los consejeros profesionales para ayudarlo a tomar decisiones sobre avances profesionales y capacitación.',
-    sectionThreeHeader: "¿Interesado en la financiación? Esto es lo que debe hacer a continuación.",
-    sectionThreeText:
-      " en su One-Stop Career Center local para explorar oportunidades de financiamiento.",
-    sectionThreeLinkText: "Comuníquese con un consejero de carrera",
-    purpleBoxHeader: "Empezar",
-    purpleBoxText:
-      "Para obtener más información sobre cualquiera de estas opciones o para comenzar su proceso de solicitud, ",
-    purpleBoxLinkText: "comuníquese con su ventanilla única local",
-    greenBoxHeader: "Explorar ocupaciones en demanda",
-    greenBoxTextStart:
-      "Se espera que las ocupaciones en demanda tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con ",
-    greenBoxTextLink: "las ocupaciones en esta lista",
-    greenBoxTextEnd: " pueden ser elegibles para recibir financiamiento del Estado.",
-  },
   Header: {
     title: "Training sdf",
     linkToSearch: "Buscar formación",
