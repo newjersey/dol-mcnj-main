@@ -37,8 +37,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           const isPreparationForObject = certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[];
           const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
 
-          const supportServices = await credentialEngineUtils.extractSupportService(certificate);
-
           if (ownedByAddressObject != null) {
             for (const element of ownedByAddressObject) {
               if (element["@type"] === "ceterms:Place" && element["ceterms:streetAddress"] != null) {
@@ -101,9 +99,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
             hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
             languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
-            isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(supportServices, "accommodation:PhysicalAccessibility"),
-            hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(supportServices, "support:JobPlacement"),
-            hasChildcareAssistance: await credentialEngineUtils.checkSupportService(supportServices, "support:Childcare")
+            isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
+            hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
+            hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare")
           };
 
           return training;

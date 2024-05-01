@@ -148,11 +148,11 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
       highlight: highlight,
       socCodes: [],
-      hasEveningCourses: false,
+      hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
       languages: "",
-      isWheelchairAccessible: false,
-      hasJobPlacementAssistance: false,
-      hasChildcareAssistance: false,
+      isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
+      hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
+      hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
       totalClockHours: null,
     };
   } catch (error) {
