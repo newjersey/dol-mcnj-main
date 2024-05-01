@@ -6,7 +6,6 @@ import {
   CtermsSupportServices
 } from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
-import axios from "axios"
 import {Address} from "../domain/training/Training";
 
 export const credentialEngineUtils = {
@@ -171,37 +170,23 @@ export const credentialEngineUtils = {
     }
   },
 
-  extractSupportService: async function (certificate: CTDLResource): Promise<CtermsSupportServices[] | null> {
-    try {
-      console.log("Extracting support services...");
-      const supportServices = certificate["ceterms:hasSupportService"];
-      if (!supportServices || supportServices.length === 0) return null;
 
-      const responses = await Promise.all(supportServices.map(url =>
-        axios.get(url).then(response => response.data)
-      ));
-      return responses;
-    } catch (error) {
-      console.error(`Error fetching support services data: ${error}`);
-      return null;
-    }
+  checkSupportService: async function (certificate: CTDLResource, targetNode: string): Promise<boolean> {
+    const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
+
+    return supportServices.some((service: CtermsSupportServices) =>
+      service["ceterms:supportServiceType"]?.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
+    );
   },
 
-  checkSupportService: async function(supportServices: CtermsSupportServices[] | null, targetNode: string) {
-    return supportServices
-      ? supportServices.some((service) =>
-        service["ceterms:supportServiceType"]?.some((types: CetermsServiceType) => types["ceterms:targetNode"] === targetNode)
-      )
-      : false;
+  checkAccommodation: async function (certificate: CTDLResource, targetNode: string): Promise<boolean> {
+    const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
+
+    return supportServices.some((service: CtermsSupportServices) =>
+      service["ceterms:accommodationType"]?.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)
+    );
   },
 
-  checkAccommodation: async function(supportServices: CtermsSupportServices[] | null, targetNode: string) {
-  return supportServices
-    ? supportServices.some((service) =>
-      service["ceterms:accommodationType"]?.some((types: CetermsAccommodationType) => types["ceterms:targetNode"] === targetNode)
-    )
-    : false;
-  },
 
   constructCertificationsString: async function (isPreparationForObject: CetermsConditionProfile[]): Promise<string> {
     if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
