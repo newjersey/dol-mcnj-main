@@ -7,6 +7,8 @@ import { useMediaQuery } from "@material-ui/core";
 import { en as Content } from "../locales/en";
 import { act } from "react-dom/test-utils";
 
+// TODO: Redo all tests for filters
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 function mockFunctions() {
   const original = jest.requireActual("@material-ui/core");
