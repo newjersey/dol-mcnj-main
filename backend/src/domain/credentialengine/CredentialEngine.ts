@@ -78,6 +78,7 @@ export interface CTDLResource {
   "ceterms:processStandardsDescription"?: Ceterms;
   "ceterms:latestVersion"?:               string;
   "ceterms:aggregateData"?:               CetermsAggregateData[];
+  "ceterms:hasSupportService"?:           string[];
 }
 
 export interface Ceterms {
@@ -374,4 +375,29 @@ export interface JobsObtained  {
   "@type"?:                                 string;
   "qdata:percentage"?:                      number;
   "schema:description"?:                    Ceterms;
+}
+
+export interface CtermsSupportServices {
+  "@type"?:                                 string;
+  "ceterms:accommodationType"?:             CetermsAccommodationType[];
+  "ceterms:supportServiceType"?:            CetermsServiceType[];
+}
+
+export interface CetermsAccommodationType {
+  "@type"?:                                  string;
+  "ceterms:framework"?:                      string;
+  "ceterms:targetNode"?:                     string;
+  "ceterms:codedNotation"?:                  string;
+  "ceterms:frameworkName"?:                  Ceterms;
+  "ceterms:targetNodeName"?:                 Ceterms;
+  "ceterms:targetNodeDescription"?:          Ceterms;
+}
+export interface CetermsServiceType {
+  "@type"?:                                  string;
+  "ceterms:framework"?:                      string;
+  "ceterms:targetNode"?:                     string;
+  "ceterms:codedNotation"?:                  string;
+  "ceterms:frameworkName"?:                  Ceterms;
+  "ceterms:targetNodeName"?:                 Ceterms;
+  "ceterms:targetNodeDescription"?:          Ceterms;
 }
