@@ -105,6 +105,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         }
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+        const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
         const certifications = constructCertificationsString(isPreparationForObject);
 
         // GET scheduling information - for example, evening courses
@@ -115,7 +116,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
-          cipCode: cipCode,
+          cipDefinition: cipDefinition ? cipDefinition[0] : null,
           provider: {
             id: ownedByRecord["ceterms:ctid"],
             name: ownedByRecord["ceterms:name"]["en-US"],
@@ -136,8 +137,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
           tuitionCost: await credentialEngineUtils.extractCost(certificate, "costType:Tuition"),
           feesCost: await credentialEngineUtils.extractCost(certificate, "costType:MixedFees"),
-          booksMaterialsCost: await credentialEngineUtils.extractCost(certificate, "costType:LearningResource"),
-          suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
+          booksMaterialsCost: await credentialEngineUtils.extractCost(
+            certificate,
+            "costType:LearningResource",
+          ),
+          suppliesToolsCost: await credentialEngineUtils.extractCost(
+            certificate,
+            "costType:TechnologyFee",
+          ),
           otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null ? true : false,

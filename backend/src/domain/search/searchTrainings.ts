@@ -6,11 +6,9 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { CalendarLength } from "../CalendarLength";
-import {
-  getAvailableAtAddress,
-} from "../training/findTrainingsBy";
-import {DataClient} from "../DataClient";
+import { getAvailableAtAddress } from "../training/findTrainingsBy";
 import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
+import {DataClient} from "../DataClient";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -51,7 +49,6 @@ interface Query {
   "@type": TermValue;
   "search:termGroup": TermGroup;
 }
-
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params): Promise<TrainingData> => {
@@ -96,51 +93,64 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const query: Query = {
       "@type": {
         "search:value": "ceterms:Credential",
-        "search:matchType": "search:subClassOf"
+        "search:matchType": "search:subClassOf",
       },
       "search:termGroup": {
-        "search:operator": "search:andTerms",  // Logical grouping at the highest level
+        "search:operator": "search:andTerms", // Logical grouping at the highest level
         "search:value": [
           {
-            "search:operator": "search:orTerms",  // Logical grouping for these terms
+            "search:operator": "search:orTerms", // Logical grouping for these terms
             "ceterms:name": params.searchQuery,
-            "ceterms:description":  params.searchQuery,
+            "ceterms:description": params.searchQuery,
             "ceterms:ownedBy": {
               "ceterms:name": {
                 "search:value": params.searchQuery,
-                "search:matchType": "search:contains"
-              }
+                "search:matchType": "search:contains",
+              },
             },
-            "ceterms:occupationType": isSOC ? { "ceterms:codedNotation": {"search:value": params.searchQuery, "search:matchType": "search:startsWith"} } : undefined,
-            "ceterms:instructionalProgramType": isCIP ? { "ceterms:codedNotation": {"search:value": params.searchQuery, "search:matchType": "search:startsWith"} } : undefined,
+            "ceterms:occupationType": isSOC
+              ? {
+                  "ceterms:codedNotation": {
+                    "search:value": params.searchQuery,
+                    "search:matchType": "search:startsWith",
+                  },
+                }
+              : undefined,
+            "ceterms:instructionalProgramType": isCIP
+              ? {
+                  "ceterms:codedNotation": {
+                    "search:value": params.searchQuery,
+                    "search:matchType": "search:startsWith",
+                  },
+                }
+              : undefined,
           },
           {
-            "search:operator": "search:orTerms",  // Logical grouping for these terms
+            "search:operator": "search:orTerms", // Logical grouping for these terms
             "ceterms:availableOnlineAt": "search:anyValue",
             "ceterms:availableAt": {
               "ceterms:addressRegion": [
                 {
                   "search:value": "NJ",
-                  "search:matchType": "search:exactMatch"
+                  "search:matchType": "search:exactMatch",
                 },
                 {
                   "search:value": "jersey",
-                  "search:matchType": "search:exactMatch"
-                }
-              ]
-            }
+                  "search:matchType": "search:exactMatch",
+                },
+              ],
+            },
           },
           {
-            "search:operator": "search:andTerms",  // Logical grouping for these terms
+            "search:operator": "search:andTerms", // Logical grouping for these terms
             "ceterms:credentialStatusType": {
-              "ceterms:targetNode": "credentialStat:Active"
+              "ceterms:targetNode": "credentialStat:Active",
             },
-            "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
-          }
-        ]
-      }
+            "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+          },
+        ],
+      },
     };
-
 
     const skip = (page - 1) * limit;
     const take = limit;
@@ -201,11 +211,12 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
         }
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+        const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
 
         return {
           id: certificate["ceterms:ctid"] ? certificate["ceterms:ctid"] : "",
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
-          cipCode: await credentialEngineUtils.extractCipCode(certificate),
+          cipDefinition: cipDefinition ? cipDefinition[0] : null,
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           calendarLength: CalendarLength.NULL,

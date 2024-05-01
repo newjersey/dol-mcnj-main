@@ -10,6 +10,7 @@ import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
 import { cleanProviderName } from "../utils/cleanProviderName";
+import { formatCip } from "../utils/formatCip";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -125,20 +126,32 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             </span>
           </p>
           <p className="mtxs mbz">
+            ``
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {t("TrainingPage.completionTimeLabel") + " " + t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`) }
-             </span>
+              {t("TrainingPage.completionTimeLabel") +
+                " " +
+                t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`)}
+            </span>
           </p>
           <p className="mtxs mbz">
             <span className="fin fas">
-              <InlineIcon className="mrs">qr_code</InlineIcon>
-              {props.trainingResult.cipCode
-                ? t("SearchResultsPage.cipCode") + `: ${props.trainingResult.cipCode}`
-                : t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
-                }
+              <InlineIcon className="mrs">book</InlineIcon>
+              <span>
+                {props.trainingResult.cipDefinition ? (
+                  <>
+                    {t("SearchResultsPage.cipCode") +
+                      `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
+                    <br />
+                    <b>{props.trainingResult.cipDefinition.ciptitle}</b>
+                  </>
+                ) : (
+                  t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
+                )}
+              </span>
             </span>
           </p>
+          <br />
         </div>
       </div>
       <div className="row">
@@ -149,7 +162,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             </p>
           )}
           <div className="mtxs mbz flex fac">
-            {props.trainingResult.inDemand ? <InDemandTag/> : <></>}
+            {props.trainingResult.inDemand ? <InDemandTag /> : <></>}
             {!props.trainingResult.inDemand &&
             props.trainingResult.localExceptionCounty &&
             props.trainingResult.localExceptionCounty.length !== 0 ? (

@@ -1,9 +1,10 @@
 import { CalendarLength } from "../CalendarLength";
+import { CipDefinition } from "./Program";
 
 export interface TrainingResult {
   id?: string;
   name?: string;
-  cipCode?: string;
+  cipDefinition?: CipDefinition | null;
   totalCost?: number | null;
   percentEmployed?: number | null;
   calendarLength?: CalendarLength | null;
@@ -13,8 +14,8 @@ export interface TrainingResult {
   online?: boolean;
   providerId?: string;
   providerName?: string;
-  cities?: (string|undefined)[];
-  zipCodes?: (string|undefined)[];
+  cities?: (string | undefined)[];
+  zipCodes?: (string | undefined)[];
   highlight?: string;
   rank?: number;
   socCodes?: string[];
@@ -23,7 +24,7 @@ export interface TrainingResult {
   isWheelchairAccessible?: boolean;
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
-  availableAt: Address
+  availableAt: Address;
 }
 
 type Address = {
@@ -31,7 +32,7 @@ type Address = {
   city?: string;
   state?: string;
   zipCode?: string;
-}
+};
 
 type MetaData = {
   currentPage: number;
@@ -45,6 +46,6 @@ type MetaData = {
 };
 
 export interface TrainingData {
-    data: TrainingResult[];
-    meta : MetaData;
+  data: TrainingResult[];
+  meta: MetaData;
 }
