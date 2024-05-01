@@ -92,6 +92,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     });
 
     setFilteredTrainings(sortedResults);
+    setShowSearchTips(newFilteredTrainings.length < 5);
 
     // Update metadata dynamically
     setMetaData({
