@@ -134,280 +134,391 @@
       "county": "Morris"
     },
     "07036": {
-      "city": "",
+      "city": "Linden",
       "county": "Union"
     },
     "07039": {
-      "city": "",
+      "city": "Livingston",
       "county": "Essex"
     },
     "07040": {
-      "city": "",
+      "city": "Maplewood",
       "county": "Essex"
     },
     "07041": {
-      "city": "",
+      "city": "Millburn",
       "county": "Essex"
     },
     "07042": {
-      "city": "",
+      "city": "Montclair",
       "county": "Essex"
     },
     "07043": {
-      "city": "",
+      "city": "Montclair",
       "county": "Essex"
     },
     "07044": {
-      "city": "",
+      "city": "Verona",
       "county": "Essex"
     },
     "07045": {
-      "city": "",
+      "city": "Montville",
       "county": "Morris"
     },
     "07046": {
-      "city": "",
+      "city": "Mountain Lakes",
       "county": "Morris"
     },
     "07047": {
-      "city": "",
+      "city": "North Bergen",
       "county": "Hudson"
     },
     "07050": {
-      "city": "",
+      "city": "Orange",
       "county": "Essex"
     },
     "07051": {
-      "city": "",
+      "city": "West Orange",
       "county": "Essex"
     },
     "07052": {
-      "city": "",
+      "city": "Parsippany",
       "county": "Essex"
     },
     "07054": {
-      "city": "",
+      "city": "Passaic",
       "county": "Morris"
     },
     "07055": {
-      "city": "",
+      "city": "Wallington",
       "county": "Passaic"
     },
     "07057": {
-      "city": "",
+      "city": "Pine Brook",
       "county": "Bergen"
     },
     "07058": {
-      "city": "",
+      "city": "Pine Brook",
       "county": "Morris"
     },
     "07059": {
-      "city": "",
+      "city": "Warren",
       "county": "Somerset"
     },
     "07060": {
-      "city": "",
+      "city": "Plainfield",
       "county": "Union"
     },
     "07061": {
-      "city": "",
+      "city": "Plainfield",
       "county": "Union"
     },
     "07062": {
-      "city": "",
+      "city": "Plainfield",
       "county": "Union"
     },
     "07063": {
-      "city": "",
+      "city": "Plainfield",
       "county": "Union"
     },
     "07064": {
-      "city": "",
+      "city": "Port Reading",
       "county": "Middlesex"
     },
     "07065": {
-      "city": "",
+      "city": "Rahway",
       "county": "Union"
     },
     "07066": {
-      "city": "",
+      "city": "Clark",
       "county": "Union"
     },
     "07067": {
-      "city": "",
+      "city": "Colonia",
       "county": "Middlesex"
     },
     "07068": {
-      "city": "",
+      "city": "Roseland",
       "county": "Essex"
     },
     "07069": {
-      "city": "",
+      "city": "Watchung",
       "county": "Somerset"
     },
     "07070": {
+      "city": "Rutherford",
       "county": "Bergen"
     },
     "07071": {
+      "city": "Lyndhurst",
       "county": "Bergen"
     },
     "07072": {
+      "city": "Carlstadt",
       "county": "Bergen"
     },
     "07073": {
+      "city": "E Rutherford",
       "county": "Bergen"
     },
     "07074": {
+      "city": "Moonachie",
       "county": "Bergen"
     },
     "07075": {
+      "city": "Wood Ridge",
       "county": "Bergen"
     },
     "07076": {
+      "city": "Scotch Plains",
       "county": "Union"
     },
     "07077": {
+      "city": "Sewaren",
       "county": "Middlesex"
     },
     "07078": {
+      "city": "Short Hills",
       "county": "Essex"
     },
     "07079": {
+      "city": "South Orange",
       "county": "Essex"
     },
     "07080": {
+      "city": "S Plainfield",
       "county": "Middlesex"
     },
     "07081": {
+      "city": "Springfield",
       "county": "Union"
     },
     "07082": {
+      "city": "Towaco",
       "county": "Morris"
     },
     "07083": {
+      "city": "Union",
       "county": "Union"
     },
     "07086": {
+      "city": "Weehawken",
       "county": "Hudson"
     },
     "07087": {
+      "city": "Union City",
       "county": "Hudson"
     },
     "07088": {
+      "city": "Vauxhall",
       "county": "Union"
     },
     "07090": {
+      "city": "Westfield",
       "county": "Union"
     },
     "07091": {
+      "city": "Westfield",
       "county": "Union"
     },
     "07092": {
+      "city": "Mountainside",
       "county": "Union"
     },
     "07093": {
+      "city": "West New York, Guttenberg",
       "county": "Hudson"
     },
     "07094": {
+      "city": "Secaucus",
       "county": "Hudson"
     },
     "07095": {
+      "city": "Woodbridge",
       "county": "Middlesex"
     },
     "07096": {
+      "city": "Secaucus",
+      "county": "Hudson"
+    },
+    "07097": {
+      "city": "Jersey City",
+      "county": "Hudson"
+    },
+    "07099": {
+      "city": "Kearny",
       "county": "Hudson"
     },
     "07101": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07102": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07103": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07104": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07105": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07106": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07107": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07108": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07109": {
+      "city": "Belleville",
       "county": "Essex"
     },
     "07110": {
+      "city": "Nutley",
       "county": "Essex"
     },
     "07111": {
+      "city": "Irvington",
       "county": "Essex"
     },
     "07112": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07114": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07175": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07182": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07184": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07188": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07189": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07191": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07192": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07193": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07194": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07195": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07198": {
+      "city": "Newark",
+      "county": "Essex"
+    },
+    "07199": {
+      "city": "Newark",
       "county": "Essex"
     },
     "07201": {
+      "city": "Elizabeth",
       "county": "Union"
     },
     "07202": {
+      "city": "Elizabeth",
       "county": "Union"
     },
     "07203": {
+      "city": "Roselle",
       "county": "Union"
     },
     "07204": {
+      "city": "Roselle",
       "county": "Union"
     },
     "07205": {
+      "city": "Hillside, Ind Hillside, Industrial Hillside",
       "county": "Union"
     },
     "07206": {
+      "city": "Elizabeth",
       "county": "Union"
     },
     "07207": {
+      "city": "Elizabeth",
       "county": "Union"
     },
     "07208": {
+      "city": "Elizabeth",
       "county": "Union"
     },
     "07302": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07303": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07304": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07305": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07306": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07307": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07308": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07309": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07310": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07311": {
+      "city": "Jersey City",
       "county": "Hudson"
     },
     "07401": {
@@ -415,156 +526,207 @@
       "county": "Bergen"
     },
     "07403": {
+      "city": "Bloomingdale",
       "county": "Passaic"
     },
     "07405": {
+      "city": "Butler, Kinnelon",
       "county": "Morris"
     },
     "07407": {
+      "city": "Elmwood Park",
       "county": "Bergen"
     },
     "07410": {
+      "city": "Elmwood Park",
       "county": "Bergen"
     },
     "07416": {
+      "city": "Franklin",
       "county": "Sussex"
     },
     "07417": {
+      "city": "Franklin Lakes",
       "county": "Bergen"
     },
     "07418": {
+      "city": "Glenwood",
       "county": "Sussex"
     },
     "07419": {
+      "city": "Hamburg",
       "county": "Sussex"
     },
     "07420": {
+      "city": "Haskell",
       "county": "Passaic"
     },
     "07421": {
+      "city": "Hewitt",
       "county": "Passaic"
     },
     "07422": {
+      "city": "Highland Lakes",
       "county": "Sussex"
     },
     "07423": {
+      "city": "Ho Ho Kus",
       "county": "Bergen"
     },
     "07424": {
+      "city": "Little Falls, West Paterson, Woodland Park",
       "county": "Passaic"
     },
     "07428": {
+      "city": "Mc Afee",
       "county": "Sussex"
     },
     "07430": {
+      "city": "Mahwah",
       "county": "Bergen"
     },
     "07432": {
+      "city": "Midland Park",
       "county": "Bergen"
     },
     "07435": {
+      "city": "Newfoundland",
       "county": "Passaic"
     },
     "07436": {
+      "city": "Oakland",
       "county": "Bergen"
     },
     "07438": {
+      "city": "Oak Ridge",
       "county": "Passaic"
     },
     "07439": {
+      "city": "Ogdensburg",
       "county": "Sussex"
     },
     "07440": {
+      "city": "Pequannock",
       "county": "Morris"
     },
     "07442": {
+      "city": "Pompton Lakes",
       "county": "Passaic"
     },
     "07444": {
+      "city": "Pompton Plains",
       "county": "Morris"
     },
     "07446": {
+      "city": "Ramsey",
       "county": "Bergen"
     },
     "07450": {
+      "city": "Ridgewood",
       "county": "Bergen"
     },
     "07451": {
+      "city": "Ridgewood",
       "county": "Bergen"
     },
     "07452": {
+      "city": "",
       "county": "Bergen"
     },
     "07456": {
+      "city": "",
       "county": "Passaic"
     },
     "07457": {
+      "city": "",
       "county": "Morris"
     },
     "07458": {
+      "city": "",
       "county": "Bergen"
     },
     "07460": {
+      "city": "",
       "county": "Sussex"
     },
     "07461": {
+      "city": "",
       "county": "Sussex"
     },
     "07462": {
+      "city": "",
       "county": "Sussex"
     },
     "07463": {
+      "city": "",
       "county": "Bergen"
     },
     "07465": {
+      "city": "",
       "county": "Passaic"
     },
     "07470": {
+      "city": "",
       "county": "Passaic"
     },
     "07474": {
+      "city": "",
       "county": "Passaic"
     },
     "07480": {
+      "city": "",
       "county": "Passaic"
     },
     "07481": {
+      "city": "",
       "county": "Bergen"
     },
     "07495": {
+      "city": "",
       "county": "Bergen"
     },
     "07502": {
+      "city": "",
       "county": "Passaic"
     },
     "07503": {
+      "city": "",
       "county": "Passaic"
     },
     "07504": {
+      "city": "",
       "county": "Passaic"
     },
     "07505": {
+      "city": "",
       "county": "Passaic"
     },
     "07506": {
+      "city": "",
       "county": "Passaic"
     },
     "07507": {
+      "city": "",
       "county": "Passaic"
     },
     "07508": {
+      "city": "",
       "county": "Passaic"
     },
     "07509": {
+      "city": "",
       "county": "Passaic"
     },
     "07510": {
+      "city": "",
       "county": "Passaic"
     },
     "07511": {
+      "city": "",
       "county": "Passaic"
     },
     "07512": {
+      "city": "",
       "county": "Passaic"
     },
     "07513": {
@@ -2413,7 +2575,19 @@
       "07110",
       "07111",
       "07112",
-      "07114"
+      "07114",
+      "07175",
+      "07182",
+      "07184",
+      "07188",
+      "07189",
+      "07191",
+      "07192",
+      "07193",
+      "07194",
+      "07195",
+      "07198",
+      "07199"
     ],
     "Gloucester": [
       "08014",
@@ -2456,6 +2630,8 @@
       "07093",
       "07094",
       "07096",
+      "07097",
+      "07099",
       "07302",
       "07303",
       "07304",
