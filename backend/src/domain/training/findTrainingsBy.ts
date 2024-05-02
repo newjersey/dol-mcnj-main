@@ -10,16 +10,44 @@ import {
   CetermsConditionProfile,
   CTDLResource,
 } from "../credentialengine/CredentialEngine";
+import { validateCtId } from "../utils/validateCtId";
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
-    const ceRecords = await Promise.all(values.map(async (value) => {
-      const ctid = await credentialEngineUtils.getCtidFromURL(value);
-      console.log("Debug - CTID:", ctid);
-      return await credentialEngineAPI.getResourceByCTID(ctid);
-    }));
+  
+    const ceRecords = (await Promise.all(values.map(async (value) => {
+      const isValid = await validateCtId(value);
+      if (!isValid) {
+          console.error(`Invalid CE ID: ${value}`);
+          return null; // Skip invalid IDs
+      }
+  
+      try {
+          const ctid = await credentialEngineUtils.getCtidFromURL(value);
+          console.log("Debug - CTID:", ctid);
+  
+          const query = {
+              "ceterms:ctid": ctid,
+              "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+          };
+          const response = await credentialEngineAPI.getResults(query, 0, 10, "^search:relevance");
+          if (response.data.data.length === 0) {
+              console.log(`Record with ${ctid} is not published by NJDOL`)
+              return null;
+          }
+          return response.data.data[0];
+      } catch (error) {
+          console.error(`Error fetching data for CTID: ${error}`);
+          return null;
+      }
+  }))).filter(record => record !== null);
+    
+    if (ceRecords.length === 0) {
+      console.error('404 Not found: No CE Records Found')
+      throw new Error('Not Found');
+    }
 
     return await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
@@ -110,6 +138,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           throw error;
         }
       })
-    );
+    )
   };
 };
