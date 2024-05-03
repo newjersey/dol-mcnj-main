@@ -7,6 +7,7 @@ import {
 } from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
 import {Address} from "../domain/training/Training";
+import {convertZipCodeToCounty} from "../domain/utils/convertZipCodeToCounty";
 
 export const credentialEngineUtils = {
 
@@ -24,11 +25,14 @@ export const credentialEngineUtils = {
 
   getAvailableAtAddress: async  function (certificate: CTDLResource): Promise<Address> {
     const availableAt = certificate["ceterms:availableAt"]?.[0];
+    const zipCode = availableAt?.["ceterms:postalCode"] ?? "";
+
     return {
       street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
       city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
       state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
       zipCode: availableAt?.["ceterms:postalCode"] ?? "",
+      county: convertZipCodeToCounty(zipCode) ?? ""
     }
   },
 

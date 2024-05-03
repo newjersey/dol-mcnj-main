@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from "react";
-import { TrainingAddress, TrainingResult } from "../domain/Training";
+import { Address, TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
@@ -31,13 +31,15 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   const getLocationOrOnline = (): string => {
-    const address: TrainingAddress = props.trainingResult.availableAt;
-    if (address && address.city !== "") {
-      return address.city;
-    } else {
-      return "No Provider Locations Listed";
+    const address: Address  = props.trainingResult.availableAt;
+    if (address?.city && address?.county) {
+      return `${address.city}, ${address.county} County`;
+    } else if (address?.city && address?.state && !address?.county) {
+      return `${address.city}, ${address.state}`;
     }
+    return "No Provider Locations Listed";
   };
+
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
     if (highlight === "") {

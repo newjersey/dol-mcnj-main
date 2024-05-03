@@ -100,16 +100,6 @@ function buildQuery(params: { searchQuery: string }) {
           } : undefined,
         },
         {
-          "search:operator": "search:orTerms",
-          "ceterms:availableOnlineAt": "search:anyValue",
-          "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-              { "search:value": "NJ", "search:matchType": "search:exactMatch" },
-              { "search:value": "jersey", "search:matchType": "search:exactMatch" },
-            ],
-          },
-        },
-        {
           "search:operator": "search:andTerms",
           "ceterms:credentialStatusType": {
             "ceterms:targetNode": "credentialStat:Active",

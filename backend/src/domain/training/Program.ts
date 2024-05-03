@@ -16,8 +16,7 @@ export interface Program {
   calendarlengthid: string | null;
   totalclockhours: string;
   website: string | null;
-  street1: string | null;
-  street2: string | null;
+  street_address: string | null;
   city: string | null;
   state: string | null;
   zip: string | null;
