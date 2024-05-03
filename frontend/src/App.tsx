@@ -39,7 +39,6 @@ import { AllSupportPage } from "./all-support-page/AllSupportPage";
 import { ResourceCategoryPage } from "./resource-category-page/ResourceCategoryPage";
 import { LandingPage } from "./landing-page/LandingPage";
 import Navigator from "./navigator/Navigator";
-import { CareerNavigatorPage } from "./career-navigator-page/CareerNavigatorPage";
 
 interface Props {
   client: Client;
