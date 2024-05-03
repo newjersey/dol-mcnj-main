@@ -38,14 +38,14 @@ export const ErrorBlock = ({
 );
 
 export const ErrorPage = (props: Props): ReactElement => {
-  usePageTitle("Error | New Jersey Career Network");
+  usePageTitle(`Error | ${process.env.REACT_APP_SITE_NAME}`);
 
   return (
     <Layout
       noFooter
       client={props.client}
       seo={{
-        title: "New Jersey Career Network",
+        title: `${process.env.REACT_APP_SITE_NAME}`,
       }}
     >
       <ErrorBlock className={props.className} headerText={props.headerText}>

@@ -9,7 +9,7 @@
     "lint:fix": "eslint --max-warnings 0 '{src,migrations}/**/*.{js,ts}' --fix",
     "start": "npm run db-migrate up -- -e $DB_ENV && node ./dist/server.js --env=production",
     "start:dev": "nodemon",
-    "test": "jest",
+    "test": "jest --maxWorkers=2",
     "db-migrate": "db-migrate",
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf",
@@ -71,14 +71,14 @@
     "good-fences": "^1.1.2",
     "jest": "^29.3.1",
     "prettier": "^3.0.0",
-    "supertest": "^6.2.2",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^4.0.0",
     "wiremock": "^3.0.2"
   },
   "engines": {
-    "node": "^18.17.0"
+    "node": ">=20.11.0"
   },
   "overrides": {
     "npm-java-runner": "^1.0.2",

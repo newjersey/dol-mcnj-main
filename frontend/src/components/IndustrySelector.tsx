@@ -21,7 +21,7 @@ export const IndustrySelector = ({
   });
   return (
     <section className="industry-selector">
-      <div className="container plus">
+      <div className="container">
         <SectionHeading
           heading="Select an Industry"
           description="Explore popular industries in New Jersey. More Industries coming soon!"

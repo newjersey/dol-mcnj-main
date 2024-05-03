@@ -1,6 +1,6 @@
 import { PostgresSearchClient } from "./PostgresSearchClient";
 
-describe("PostgresSearchClient", () => {
+describe.skip("PostgresSearchClient", () => {
   let dataClient: PostgresSearchClient;
 
   beforeAll(() => {

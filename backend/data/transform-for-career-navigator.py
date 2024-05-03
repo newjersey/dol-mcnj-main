@@ -24,17 +24,18 @@ output_columns = [
 
 # Dictionary for calendar length conversion
 calendarlength_dict = {
-    "1": "0.14",
-    "2": "0.21",
-    "3": "0.71",
-    "4": "3",
-    "5": "10",
-    "6": "15",
-    "7": "35",
-    "8": "100",
-    "9": "200",
-    "10": "300"
+    "1": 0.14,
+    "2": 0.21,
+    "3": 0.71,
+    "4": 3.0,
+    "5": 10.0,
+    "6": 15.0,
+    "7": 35.0,
+    "8": 100.0,
+    "9": 200.0,
+    "10": 300.0
 }
+
 
 # Initialize a session for API requests to reuse the connection
 session = requests.Session()
@@ -70,7 +71,8 @@ def process_row(row):
     for soc in socs:
         soc_code = soc["soc"].replace("-", "")
         soc_name = soc.get("title", "Unknown")
-        duration = calendarlength_dict.get(row["calendarlengthid"], "Unknown")
+        duration = float(calendarlength_dict.get(row.get("calendarlengthid"), 0.0))
+
 
         output_row = {
             "training_id": row["programid"],

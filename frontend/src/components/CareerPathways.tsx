@@ -69,7 +69,7 @@ export const CareerPathways = ({
 
   return (
     <div className="career-pathways">
-      <div className="container plus">
+      <div className="container">
         <div className="path-selector">
           <SectionHeading
             headingLevel={3}

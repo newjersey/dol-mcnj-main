@@ -38,7 +38,7 @@ const Cta = ({
           const isExternal = link.url.startsWith("http");
           return (
             <Button
-              key={link.sys?.id}
+              key={link.sys ? link.sys?.id : `${link.copy}_${index}`}
               className={index > 0 ? "usa-button--outline" : ""}
               type="link"
               url={link.url}

@@ -683,7 +683,7 @@ export enum IconNames {
   ImageSquare = "ImageSquare",
   Images = "Images",
   ImagesSquare = "ImagesSquare",
-  Infinity = "Infinity",
+  InfiniteSymbol = "Infinity",
   Info = "Info",
   InstagramLogo = "InstagramLogo",
   Intersect = "Intersect",

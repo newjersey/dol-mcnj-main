@@ -17,6 +17,7 @@ describe("router", () => {
   let stubFindTrainingsBy: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
   let stubGetOccupationDetail: jest.Mock;
+  let stubGetOccupationDetailByCIP: jest.Mock;
 
   beforeEach(() => {
     stubSearchTrainings = jest.fn();
@@ -29,6 +30,7 @@ describe("router", () => {
       findTrainingsBy: stubFindTrainingsBy,
       getInDemandOccupations: stubGetInDemandOccupations,
       getOccupationDetail: stubGetOccupationDetail,
+      getOccupationDetailByCIP: stubGetOccupationDetailByCIP,
     });
     app = express();
     app.use(router);

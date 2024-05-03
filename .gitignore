@@ -99,3 +99,5 @@ $RECYCLE.BIN/
 .vscode
 OverlayTool.tsx
 overlayImages
+
+/node_modules

@@ -17,6 +17,7 @@ const pinpoint = new AWS.Pinpoint(pinpointConfig);
 
 router.post("/submit-email", async (req, res) => {
   const { email, description } = req.body;
+  const includeDescription = process.env.SHOW_PINPOINT_SEGMENTS === 'true';
 
   const params = {
     ApplicationId: process.env.AWS_PINPOINT_PROJECT_ID as string,
@@ -27,7 +28,7 @@ router.post("/submit-email", async (req, res) => {
           ChannelType: "EMAIL",
           Attributes: {
             // Assuming "Description" is a custom attribute you've defined in Pinpoint
-            Description: [description], // Setting the description variable as an attribute
+            ...(includeDescription && { Description: [description] }), // Conditionally add Description attribute
           },
         },
       ],

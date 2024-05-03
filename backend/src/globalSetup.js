@@ -1,9 +1,31 @@
-const util = require("util");
-const {exec: execCallback} = require("child_process");
-
-const exec = util.promisify((cmd, options, callback) => execCallback(cmd, {...options, maxBuffer: 1024 * 5000}, callback)); // 5 MB buffer
+const { spawn } = require('child_process');
 
 module.exports = async () => {
-  await exec("psql -c 'create database d4adtest;' -U postgres -h localhost -p 5432");
-  await exec("npm run db-migrate up -- -e test");
+  try {
+    console.log("Creating database 'd4adtest'...");
+    await executeCommand('psql', ['-c', 'create database d4adtest;', '-U', 'postgres', '-h', 'localhost', '-p', '5432']);
+    console.log("Database created successfully.");
+
+    console.log("Running database migrations...");
+    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test'], true); // Added a third parameter to indicate silent execution
+    console.log("Database migrations applied successfully.");
+  } catch (error) {
+    console.error("Error during global setup:", error);
+    throw error; // Rethrow the error to ensure Jest is aware that the global setup failed
+  }
 };
+
+function executeCommand(command, args = [], silent = false) {
+  return new Promise((resolve, reject) => {
+    const stdioOption = silent ? 'ignore' : 'inherit';
+    const proc = spawn(command, args, { stdio: stdioOption });
+
+    proc.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Command "${command}" exited with code ${code}`));
+      }
+    });
+  });
+}

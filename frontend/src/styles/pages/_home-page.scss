@@ -2,7 +2,7 @@
   .container {
     @media screen and (min-width: ($widescreen)) {
       width: 100%;
-      max-width: 1300px;
+      max-width: $desktop-xl;
     }
   }
 
@@ -55,7 +55,7 @@
     }
   }
 
-  .card-slider {
+  .card-row {
     &:nth-child(2n) {
       background-color: $base-cool;
 

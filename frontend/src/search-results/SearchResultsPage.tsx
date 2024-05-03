@@ -18,6 +18,7 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
+import { checkValidSocCode } from "../utils/checkValidCodes";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -46,7 +47,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
   const sortDispatch = sortContextValue.dispatch;
 
-  const searchQuery = props.location?.search?.slice(2) || "";
+  const searchString = props.location?.search;
+  const regex = /(?<=\?q=).*?(?=&|$)/;
+
+  const searchQuery = `${searchString?.match(regex)}`;
 
   usePageTitle(pageTitle);
 
@@ -78,22 +82,26 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setFilteredTrainings([...sortedResults]);
     setShowSearchTips(newFilteredTrainings.length < 5);
 
-    if (newFilteredTrainings.length > 0) {
+    if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
       setShouldShowTrainings(true);
     }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
 
   const getPageTitle = (): void => {
-    if (!searchQuery) {
-      setPageTitle("Advanced Search | Training Explorer | New Jersey Career Central");
+    if (!searchQuery || searchQuery === "null") {
+      setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
     } else {
-      const query = decodeURIComponent(searchQuery).toLocaleLowerCase();
-      setPageTitle(`${query} | Advanced Search | Training Explorer | New Jersey Career Central`);
+      const query = decodeURIComponent(searchQuery.replace(/\+/g, " ")).toLocaleLowerCase();
+      setPageTitle(
+        `${query} | Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
+      );
     }
   };
 
   useEffect(() => {
-    const queryToSearch = searchQuery ? searchQuery : "";
+    let queryToSearch = searchQuery ? searchQuery : "";
+
+    queryToSearch = checkValidSocCode(queryToSearch);
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
@@ -114,10 +122,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const getResultCount = (): ReactElement => {
     let message;
 
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "null") {
       message = t("SearchResultsPage.noSearchTermHeader");
     } else {
-      const query = decodeURIComponent(searchQuery);
+      const query = decodeURIComponent(searchQuery.replace(/\+/g, " "));
       message = t("SearchResultsPage.resultsString", {
         count: filteredTrainings.length,
         query,
@@ -235,7 +243,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <div className="row fixed-wrapper">
             <div className="col-md-12 fdr fac">
               <div className="result-count-text">{!isLoading && getResultCount()}</div>
-              {shouldShowTrainings && <div className="mla">{getSortDropdown()}</div>}
+              {shouldShowTrainings && searchQuery !== "null" && (
+                <div className="mla">{getSortDropdown()}</div>
+              )}
             </div>
           </div>
         </div>
@@ -252,7 +262,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         </>
       )}
 
-      {shouldShowTrainings && (
+      {shouldShowTrainings && searchQuery !== "null" && (
         <>
           <div
             className={`container ${
@@ -297,7 +307,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         </>
       )}
 
-      {!shouldShowTrainings && (
+      {(!shouldShowTrainings || searchQuery === "null") && (
         <div className="container" data-testid="gettingStarted">
           <div className="row">
             {isTabletAndUp && (

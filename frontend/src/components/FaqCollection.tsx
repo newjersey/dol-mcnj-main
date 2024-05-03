@@ -1,14 +1,9 @@
 import { ReactNode, useEffect, useState } from "react";
-import { FaqItem, FaqTopic } from "../types/contentful";
+import { useLocation } from "@reach/router";
+import { FaqTopic } from "../types/contentful";
 import { Accordion } from "./Accordion";
 import { slugify } from "../utils/slugify";
 import { DropNav } from "./DropNav";
-
-interface TopicProps {
-  sys: { id: string };
-  topic: string;
-  itemsCollection: { items: FaqItem[] };
-}
 
 export const FaqCollection = ({
   children,
@@ -19,15 +14,16 @@ export const FaqCollection = ({
     sys: { id: string };
     title: string;
     topics: {
-      items: TopicProps[];
+      items: FaqTopic[];
     };
   }[];
 }) => {
+  const location = useLocation();
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
   useEffect(() => {
-    const urlParams = window.location.hash;
-    const searchTopic = urlParams.replace("#", "");
+    const urlParams = window.location.hash || location.hash;
+    const searchTopic = urlParams ? urlParams.replace("#", "") : "";
 
     if (searchTopic) {
       const activeTopic = items
@@ -39,14 +35,13 @@ export const FaqCollection = ({
         setActiveTopic(activeTopic);
       }
     } else {
-      // if no topic exists, set active topic to first topic
-      setActiveTopic(items[0].topics.items[0]);
+      window.history.pushState(null, "", `#${slugify(items[0].topics.items[0].topic)}`);
     }
 
     if (!activeTopic && items) {
       setActiveTopic(items[0].topics.items[0]);
     }
-  }, [activeTopic]);
+  }, [activeTopic, location]);
 
   return (
     <div className="faq-collection">
@@ -54,6 +49,8 @@ export const FaqCollection = ({
         <DropNav
           items={items}
           elementId="faqNav"
+          defaultActiveItem={activeTopic}
+          defaultTopic={items[0].topics.items[0].topic}
           onChange={(topic) => {
             setActiveTopic(topic);
             window.history.pushState(null, "", `#${slugify(topic.topic)}`);

@@ -79,7 +79,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       params.push(`zip=${zipCode}`);
     }
 
-    const url = `/training/search?=${searchTerm}${params.length > 0 ? "?" : ""}`;
+    const encodedSearchTerm = encodeURIComponent(searchTerm);
+    const url = `/training/search?q=${encodedSearchTerm}${params.length > 0 ? "&" : ""}`;
 
     // Concatenate the search parameters to the url
     if (params.length > 0) {
@@ -151,7 +152,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             </button>
             <a
               id="search-button"
-              href={`/training/search?=${searchTerm}`}
+              href={`/training/search?q=${searchTerm}`}
               className="usa-button usa-button--unstyled"
             >
               Advanced Search

@@ -18,7 +18,7 @@ describe("Search", () => {
     cy.get("a#search-button").contains("Search").click({ force: true });
 
     // on search results page
-    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?=baking`);
+    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
@@ -37,9 +37,26 @@ describe("Search", () => {
     ).should("exist");
   });
 
+  it("searches from the training explorer page with ampersands", () => {
+    cy.visit("/training");
+
+    // Use the custom command to type the search term into the input field.
+    cy.typeSpecialCharacters('input[aria-label="search"]', "Python & Java");
+
+    cy.get("form").submit();
+
+    // Wait for the page to load results and assert the URL to ensure the search term was correctly processed.
+    // This URL assertion checks that the encoded search term in the query parameters matches the expected format.
+    cy.url().should("include", "q=Python+%26+Java");
+
+    // Verify that the search input on the results page retains the original search term.
+    // This step checks that the application correctly decodes the query parameter for display.
+    cy.get('input[aria-label="search"]').should("have.value", "Python & Java");
+  });
+
   it("searches from the search results page", () => {
     // on results page
-    cy.visit("/training/search?=welding%20workshops");
+    cy.visit("/training/search?q=welding%20workshops");
     cy.injectAxe();
 
     // displays trainings
@@ -55,7 +72,7 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').type("baking");
     cy.get("button").contains("Update Results").click({ force: true });
 
-    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?=baking`);
+    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
 
     // matches by title
     cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
@@ -90,7 +107,7 @@ describe("Search", () => {
   });
 
   it("links to a training detail page", () => {
-    cy.visit("/training/search?=digital%20marketing");
+    cy.visit("/training/search?q=digital%20marketing");
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
     cy.location("pathname").should("eq", "/training/51388");
 
@@ -102,7 +119,7 @@ describe("Search", () => {
   });
 
   it("tags trainings on in-demand", () => {
-    cy.visit("/training/search?=social%20work");
+    cy.visit("/training/search?q=social%20work");
 
     // in-demand training
     cy.get(".card")
@@ -112,7 +129,7 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Work Retention and Readiness").within(() => {
+    cy.contains("Job Readiness").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
@@ -121,7 +138,7 @@ describe("Search", () => {
   });
 
   it("tags shows search training tips", () => {
-    cy.visit("/training/search?=braider");
+    cy.visit("/training/search?q=braider");
 
     // search tips
     cy.get("[data-testid='searchTips']").should(
@@ -133,7 +150,7 @@ describe("Search", () => {
   it("shows comparison items when checked", () => {
     cy.intercept("/api/trainings/search?query=painting").as("getSearch");
 
-    cy.visit("/training/search?=painting");
+    cy.visit("/training/search?q=painting");
 
     cy.wait("@getSearch").then(() => {
       cy.get("[data-testid='card']")

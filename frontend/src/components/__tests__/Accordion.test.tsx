@@ -59,7 +59,7 @@ describe("Accordion", () => {
     act(() => {
       render(<Accordion {...mockData} />);
     })
-    const accordion = screen.getByTestId("accordion");
+    const accordion = screen.getByTestId("accordion-0");
     expect(accordion).toHaveClass("closed");
   });
 
@@ -69,7 +69,7 @@ describe("Accordion", () => {
     })
     const button = screen.getByTestId("accordion-button");
     fireEvent.click(button);
-    const accordion = screen.getByTestId("accordion");
+    const accordion = screen.getByTestId("accordion-0");
     expect(accordion).toHaveClass("open");
   });
 
@@ -80,7 +80,7 @@ describe("Accordion", () => {
     const button = screen.getByTestId("accordion-button");
     fireEvent.click(button);
     fireEvent.click(button);
-    const accordion = screen.getByTestId("accordion");
+    const accordion = screen.getByTestId("accordion-0");
     expect(accordion).toHaveClass("closed");
   });
 
@@ -90,7 +90,7 @@ describe("Accordion", () => {
     })
     // const title = screen.getByText(mockData.title);
     // expect(title).toBeInTheDocument();
-    const content = screen.getByTestId("accordion-content");
+    const content = screen.getByTestId("accordion-content-0");
     expect(content).toHaveTextContent("You can watch this video");
     expect(content).toHaveTextContent(
       "for detailed instructions on how to use the search on this site.",

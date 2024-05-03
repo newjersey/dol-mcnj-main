@@ -5,7 +5,7 @@ import { Client } from "../domain/Client";
 import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
 import { HomeBanner } from "../components/HomeBanner";
-import CardSlider from "../components/CardSlider";
+import CardRow from "../components/CardRow";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
@@ -32,13 +32,6 @@ export const LandingPage = (props: Props): ReactElement => {
     keywords: pageData?.keywords,
     url: props.location?.pathname,
   };
-
-  // if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" && pageData?.careerExplorationToolLinksCollection?.items) {
-  //   const index = pageData.careerExplorationToolLinksCollection.items.findIndex((item) => item.copy === "NJ Career Pathways");
-  //   if (index !== -1) {
-  //     pageData.careerExplorationToolLinksCollection.items.splice(index, 1);
-  //   }
-  // }
 
   function findSvg(sectionIcon: string | undefined) {
     switch (sectionIcon) {
@@ -69,7 +62,7 @@ export const LandingPage = (props: Props): ReactElement => {
               <div className="tools">
                 <SectionHeading heading="Explore Tools" strikeThrough />
                 <div className="tiles">
-                  {pageData.toolsCollection.items.map((item) => {
+                  {pageData.toolsCollection?.items.map((item) => {
                     const svgName = findSvg(item.sectionIcon);
                     return (
                       <IconCard
@@ -84,28 +77,19 @@ export const LandingPage = (props: Props): ReactElement => {
                 </div>
               </div>
             </div>
-            <CardSlider
+            <CardRow
               sectionId="jobs"
               cards={pageData.jobSearchToolLinksCollection.items}
               heading="All Job Search Tools"
               theme="blue"
             />
-            <CardSlider
+            <CardRow
               sectionId="training"
               cards={pageData.trainingToolLinksCollection.items}
               heading="All Training Tools"
               theme="green"
             />
-            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" &&
-              process.env.REACT_APP_FEATURE_CAREER_NAVIGATOR === "true" && (
-                <CardSlider
-                  sectionId="explore"
-                  cards={pageData.careerExplorationToolLinksCollection.items}
-                  heading="All Career Exploration Tools"
-                  theme="purple"
-                />
-              )}
-            <CardSlider
+            <CardRow
               sectionId="support"
               cards={pageData.supportAndAssistanceLinksCollection.items}
               heading="All Support and Assistance Resources"

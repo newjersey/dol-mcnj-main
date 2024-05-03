@@ -150,7 +150,7 @@ export interface FaqItem {
 }
 
 export interface FaqTopic {
-  sys?: {
+  sys: {
     id: string;
   };
   topic: string;
@@ -314,6 +314,10 @@ export interface NavMenuProps {
   data: {
     data: NavMenuData;
   };
+}
+
+export interface JobCountProps {
+  count: number;
 }
 
 /* ********************

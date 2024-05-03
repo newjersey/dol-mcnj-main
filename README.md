@@ -1,6 +1,6 @@
 # My Career NJ
 
-[![build](https://circleci.com/gh/newjersey/d4ad.svg?style=shield)](https://circleci.com/gh/newjersey/d4ad)
+[![build](https://circleci.com/gh/newjersey/dol-my-career-nj.svg?style=shield)](https://circleci.com/gh/newjersey/dol-my-career-nj)
 
 ## Overview
 
@@ -80,24 +80,20 @@ Always push via ship-it ([why?](https://medium.com/@AnneLoVerso/ship-it-a-humble
 
 ### CI/CD
 
-We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for CI/CD and deploy both the development and production versions to Google Cloud Platform (GCP) environments. Our pipeline is:
+We use [circleci](https://app.circleci.com/pipelines/github/newjersey/d4ad?branch=master) for CI/CD and deploy both the user research environment to Google Cloud Platform (GCP) environments. Pipelines for AWS prod, test, dev incoming. Our pipeline is:
 
 1. `npm install` (frontend and backend)
 1. run all unit tests (frontend and backend)
 1. build code and run feature tests
-1. deploy to GCP Dev environment (reach out to developer for dev URL or look in D4AD Dev App Engine settings)
+1. deploy to GCP User Research2 environment (reach out to developer for URL or look in D4AD User Research 2 App Engine settings)
 1. _Manual approval step_ - go to CircleCI build and "prod-approval" step, and click "Approve" button.
-1. deploy to GCP Prod environment
+1. deploy to GCP User Research2 environment
 
 #### Environment Variables
 
-##### Google Cloud Platform
+##### Amazon Web Services
 
-* `GCLOUD_SERVICE_KEY` - base64-encoded CircleCI service account key (JSON formatted) for dev environment
-* `GCLOUD_SERVICE_KEY_PROD` - base64-encoded CircleCI service account key (JSON formatted) for production environment
-* `GOOGLE_COMPUTE_ZONE` - GCP compute zone. See [GCP zone list](https://cloud.google.com/compute/docs/regions-zones)
-* `GOOGLE_PROJECT_ID` - globally unique identifier for dev environment. See [Creating and managing projects](https://cloud.google.com/compute/docs/regions-zones)
-* `GOOGLE_PROJECT_ID_PROD`- globally unique identifier for production environment
+TBD
 
 ##### Feature Flags
 
@@ -110,10 +106,9 @@ This will likely change as features are rolled out.
 
 ##### Database
 
-Dev and production databases are hosted in GCP as SQL instances running PostgreSQL.
+Dev, QA, and production databases are hosted in AWS as SQL instances running PostgreSQL.
 
 * `DB_DEV_PASS` - Password for `postgres` user in dev environment
-* `DB_PROD_PASS` - Password for `postgres` user in production environment
 
 ##### CareerOneStop
 
@@ -130,9 +125,9 @@ Dev and prod environments use a CareerOneStop account owned by NJ Office of Inno
 
 ##### Contentful GraphQL Content API
 
-* `REACT_APP_BASE_URL` - Typically `https://graphql.contentful.com`
-* `REACT_APP_ENVIRONMENT` - `master`, unless you have [multiple environments](https://www.contentful.com/developers/docs/concepts/multiple-environments/)
-* `REACT_APP_SPACE_ID` - Your project's unique [space ID](https://www.contentful.com/help/find-space-id/)
+* `BASE_URL` - Typically `https://graphql.contentful.com`
+* `ENVIRONMENT` - `master`, unless you have [multiple environments](https://www.contentful.com/developers/docs/concepts/multiple-environments/)
+* `SPACE_ID` - Your project's unique [space ID](https://www.contentful.com/help/find-space-id/)
 
 ##### Sentry
 
@@ -144,7 +139,6 @@ Dev and prod environments use a CareerOneStop account owned by NJ Office of Inno
 * `NO_COLOR`
 * `ZIPCODE_BASEURL`
 * `ZIPCODE_API_KEY`
-* `DEV_PASS` - optional password for simple password auth on non-prod environments if publicly available
 
 ### Deployment
 
@@ -160,16 +154,6 @@ Start the production server (frontend & backend):
 
 ```shell script
 ./scripts/prod-start.sh
-```
-
-Deploy to GCP:
-
-1. Ensure that [Google Cloud SDK](https://cloud.google.com/sdk/install) is installed
-2. Ensure you are logged in to the CLI and pointing to the correct project.
-3. Run this script that generates the `app.yaml` and deploys the app:
-
-```shell script
-./scripts/deploy.sh
 ```
 
 ### Testing and linting
@@ -201,6 +185,7 @@ To run [cypress](https://www.cypress.io/) feature tests:
 - **User engagement**: We track user engagement using [Google Analytics](https://analytics.google.com/), including pageviews and specific event-based interactions that we implement manually in different parts of the app, such as tracking what filters a user clicks on the training search page. Please request access from the NJ Office of Innovation in order to view our analytics dashboards.
 - **Accessibility**: We have automated a11y tests that run as part of our [Cypress](https://www.cypress.io/) feature tests using the [`cypress-axe`](https://www.npmjs.com/package/cypress-axe) package. We also use tools such as [axe DevTools](https://www.deque.com/axe/devtools/) and [WAVE](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh) Chrome extensions to do manual checks.
 - **Data APIs**: We fetch data from the following Web APIs: [O\*NET Web API](https://services.onetcenter.org/), [CareerOneStop](https://www.careeronestop.org/Developers/WebAPI/web-api.aspx). To access API keys to set as environment variables, request access for the NJInnovation Bitwarden account, and see the "Training Explorer Secrets" file in it.
+- **SDKs** - We use [AWS SDK for JavaScript for Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) to collect user email address signups and retrieve secrets on the back-end.
 
 ### Dependency inversion
 
@@ -217,3 +202,4 @@ Fences are enforced via a linting-like command that will fail when any violation
 npm --prefix=backend run fences
 npm --prefix=frontend run fences
 ```
+

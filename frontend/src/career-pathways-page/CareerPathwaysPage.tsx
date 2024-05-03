@@ -126,10 +126,10 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           {!industry ? (
             <>
               <section className="landing">
-                <div className="container plus">
+                <div className="container">
                   {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
                 </div>
-                <div className="container plus">
+                <div className="container">
                   <div className="steps">
                     {data.page.stepsCollection && (
                       <Stepper theme="purple" steps={data.page.stepsCollection.items} />

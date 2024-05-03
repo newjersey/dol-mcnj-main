@@ -38,7 +38,7 @@ export const IndustryBlock = ({
 
   return (
     <section className="industry-block">
-      <div className="container plus button">
+      <div className="container button">
         <button
           aria-label="Explore Industry"
           type="button"
