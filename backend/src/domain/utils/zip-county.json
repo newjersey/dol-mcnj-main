@@ -25,6 +25,7 @@
       "county": "Essex"
     },
     "07007": {
+      "city": "Caldwell",
       "county": "Essex"
     },
     "07008": {
@@ -56,6 +57,7 @@
       "county": "Passaic"
     },
     "07015": {
+      "city": "Clifton",
       "county": "Passaic"
     },
     "07016": {
@@ -71,6 +73,7 @@
       "county": "Essex"
     },
     "07019": {
+      "city": "East Orange",
       "county": "Essex"
     },
     "07020": {
@@ -178,23 +181,23 @@
       "county": "Essex"
     },
     "07051": {
-      "city": "West Orange",
+      "city": "Orange",
       "county": "Essex"
     },
     "07052": {
-      "city": "Parsippany",
+      "city": "West Orange",
       "county": "Essex"
     },
     "07054": {
-      "city": "Passaic",
+      "city": "Parsippany",
       "county": "Morris"
     },
     "07055": {
-      "city": "Wallington",
+      "city": "Passaic",
       "county": "Passaic"
     },
     "07057": {
-      "city": "Pine Brook",
+      "city": "Wallington",
       "county": "Bergen"
     },
     "07058": {
@@ -258,7 +261,7 @@
       "county": "Bergen"
     },
     "07073": {
-      "city": "E Rutherford",
+      "city": "East Rutherford",
       "county": "Bergen"
     },
     "07074": {
@@ -286,7 +289,7 @@
       "county": "Essex"
     },
     "07080": {
-      "city": "S Plainfield",
+      "city": "South Plainfield",
       "county": "Middlesex"
     },
     "07081": {
@@ -466,7 +469,7 @@
       "county": "Union"
     },
     "07205": {
-      "city": "Hillside, Ind Hillside, Industrial Hillside",
+      "city": "Hillside",
       "county": "Union"
     },
     "07206": {
@@ -530,7 +533,7 @@
       "county": "Passaic"
     },
     "07405": {
-      "city": "Butler, Kinnelon",
+      "city": "Butler",
       "county": "Morris"
     },
     "07407": {
@@ -574,7 +577,7 @@
       "county": "Bergen"
     },
     "07424": {
-      "city": "Little Falls, West Paterson, Woodland Park",
+      "city": "Little Falls",
       "county": "Passaic"
     },
     "07428": {
@@ -646,11 +649,11 @@
       "county": "Bergen"
     },
     "07460": {
-      "city": "Stockholm, Hardyston",
+      "city": "Stockholm",
       "county": "Sussex"
     },
     "07461": {
-      "city": "Sussex, Wantage",
+      "city": "Sussex",
       "county": "Sussex"
     },
     "07462": {
@@ -694,7 +697,7 @@
       "county": "Passaic"
     },
     "07502": {
-      "city": "Paterson, Totowa",
+      "city": "Paterson",
       "county": "Passaic"
     },
     "07503": {
@@ -718,7 +721,7 @@
       "county": "Passaic"
     },
     "07508": {
-      "city": "Haledon, North Haledon, Paterson, Prospect Park",
+      "city": "Haledon",
       "county": "Passaic"
     },
     "07509": {
@@ -730,7 +733,7 @@
       "county": "Passaic"
     },
     "07511": {
-      "city": "Totowa, Paterson",
+      "city": "Totowa",
       "county": "Passaic"
     },
     "07512": {
@@ -834,7 +837,7 @@
       "county": "Bergen"
     },
     "07632": {
-      "city": "Englewood",
+      "city": "Englewood Cliffs",
       "county": "Bergen"
     },
     "07640": {
@@ -866,7 +869,7 @@
       "county": "Bergen"
     },
     "07647": {
-      "city": "Northvale, Rockleigh",
+      "city": "Northvale",
       "county": "Bergen"
     },
     "07648": {
@@ -898,7 +901,7 @@
       "county": "Bergen"
     },
     "07660": {
-      "city": "Ridgefield",
+      "city": "Ridgefield Park",
       "county": "Bergen"
     },
     "07661": {
@@ -922,7 +925,7 @@
       "county": "Bergen"
     },
     "07675": {
-      "city": "Westwood, Old Tappan, River Vale, Rivervale",
+      "city": "Westwood",
       "county": "Bergen"
     },
     "07676": {
@@ -938,31 +941,31 @@
       "county": "Bergen"
     },
     "07701": {
-      "city": "Red Bank, Tinton Falls",
-      "county": "Monmouth"
-    },
-    "07702": {
-      "city": "Shrewsbury, Red Bank",
-      "county": "Monmouth"
-    },
-    "07703": {
-      "city": "Fort Monmouth, Red Bank",
-      "county": "Monmouth"
-    },
-    "07704": {
-      "city": "Fair Haven, Red Bank",
-      "county": "Monmouth"
-    },
-    "07710": {
       "city": "Red Bank",
       "county": "Monmouth"
     },
+    "07702": {
+      "city": "Shrewsbury",
+      "county": "Monmouth"
+    },
+    "07703": {
+      "city": "Fort Monmouth",
+      "county": "Monmouth"
+    },
+    "07704": {
+      "city": "Fair Haven",
+      "county": "Monmouth"
+    },
+    "07710": {
+      "city": "Adelphia",
+      "county": "Monmouth"
+    },
     "07711": {
-      "city": "Allenhurst, Loch Arbour",
+      "city": "Allenhurst",
       "county": "Monmouth"
     },
     "07712": {
-      "city": "Asbury Park, Interlaken, Ocean, Tinton Falls",
+      "city": "Asbury Park",
       "county": "Monmouth"
     },
     "07715": {
@@ -982,7 +985,7 @@
       "county": "Monmouth"
     },
     "07719": {
-      "city": "Belmar, Lake Como, Wall Township",
+      "city": "Belmar",
       "county": "Monmouth"
     },
     "07720": {
@@ -998,19 +1001,19 @@
       "county": "Monmouth"
     },
     "07723": {
-      "city": "Ocean Township",
+      "city": "Deal",
       "county": "Monmouth"
     },
     "07724": {
-      "city": "Eatontown, Tinton Falls",
+      "city": "Eatontown",
       "county": "Monmouth"
     },
     "07726": {
-      "city": "Englishtown, Manalapan",
+      "city": "Englishtown",
       "county": "Monmouth"
     },
     "07727": {
-      "city": "Farmingdale, Tinton Falls, Wall Township",
+      "city": "Farmingdale",
       "county": "Monmouth"
     },
     "07728": {
@@ -1022,11 +1025,11 @@
       "county": "Monmouth"
     },
     "07731": {
-      "city": "Howell, Wall Township",
+      "city": "Howell",
       "county": "Monmouth"
     },
     "07732": {
-      "city": "Highlands, Sandy Hook",
+      "city": "Highlands",
       "county": "Monmouth"
     },
     "07733": {
@@ -1034,11 +1037,11 @@
       "county": "Monmouth"
     },
     "07734": {
-      "city": "Keansburg, Hazlet Township, Hazlet Twp",
+      "city": "Keansburg",
       "county": "Monmouth"
     },
     "07735": {
-      "city": "Keyport, Union Beach",
+      "city": "Keyport",
       "county": "Monmouth"
     },
     "07737": {
@@ -1054,7 +1057,7 @@
       "county": "Monmouth"
     },
     "07740": {
-      "city": "Long Branch, Elberon",
+      "city": "Long Branch",
       "county": "Monmouth"
     },
     "07746": {
@@ -1062,7 +1065,7 @@
       "county": "Monmouth"
     },
     "07747": {
-      "city": "Matawan, Aberdeen",
+      "city": "Matawan",
       "county": "Monmouth"
     },
     "07748": {
@@ -1106,7 +1109,7 @@
       "county": "Monmouth"
     },
     "07760": {
-      "city": "Rumson, Locust, Sea Bright",
+      "city": "Rumson",
       "county": "Monmouth"
     },
     "07762": {
@@ -1138,7 +1141,7 @@
       "county": "Morris"
     },
     "07803": {
-      "city": "Mine Hill, Dover",
+      "city": "Mine Hill",
       "county": "Morris"
     },
     "07806": {
@@ -1150,7 +1153,7 @@
       "county": "Warren"
     },
     "07821": {
-      "city": "Andover, Byram Township",
+      "city": "Andover",
       "county": "Sussex"
     },
     "07822": {
@@ -1162,15 +1165,15 @@
       "county": "Warren"
     },
     "07825": {
-      "city": "Blairstown, Hardwick, Johnsonburg",
+      "city": "Blairstown",
       "county": "Warren"
     },
     "07826": {
-      "city": "Branchville, Sandyston",
+      "city": "Branchville",
       "county": "Sussex"
     },
     "07827": {
-      "city": "Montague, Branchville, Sandyston",
+      "city": "Montague",
       "county": "Sussex"
     },
     "07828": {
@@ -1202,7 +1205,7 @@
       "county": "Morris"
     },
     "07836": {
-      "city": "Flanders, Roxbury Township",
+      "city": "Flanders",
       "county": "Morris"
     },
     "07837": {
@@ -1258,7 +1261,7 @@
       "county": "Morris"
     },
     "07851": {
-      "city": "Layton, Sandyston",
+      "city": "Layton",
       "county": "Sussex"
     },
     "07852": {
@@ -1282,7 +1285,7 @@
       "county": "Morris"
     },
     "07860": {
-      "city": "Newton, Fredon, Fredon Township",
+      "city": "Newton",
       "county": "Sussex"
     },
     "07863": {
@@ -1294,11 +1297,11 @@
       "county": "Warren"
     },
     "07866": {
-      "city": "Rockaway Borough",
+      "city": "Rockaway",
       "county": "Morris"
     },
     "07869": {
-      "city": "Randolph, Chester Twp, Dover",
+      "city": "Randolph",
       "county": "Morris"
     },
     "07870": {
@@ -2406,15 +2409,15 @@
       "county": "Mercer"
     },
     "08609": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08610": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08611": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08618": {
@@ -2422,11 +2425,11 @@
       "county": "Mercer"
     },
     "08619": {
-      "city": "Trenton, Hamilton, Mercerville",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08620": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08625": {
@@ -2434,27 +2437,27 @@
       "county": "Mercer"
     },
     "08628": {
-      "city": "Trenton, Ewing, West Trenton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08629": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08638": {
-      "city": "Trenton, Ewing",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08640": {
-      "city": "Joint Base Mdl, Fort Dix, Jb Mdl",
+      "city": "Joint Base Mdl",
       "county": "Burlington"
     },
     "08641": {
-      "city": "Joint Base Mdl, Jb Mdl, Mc Guire AFB, Trenton",
+      "city": "Joint Base Mdl",
       "county": "Burlington"
     },
     "08644": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08645": {
@@ -2474,7 +2477,7 @@
       "county": "Mercer"
     },
     "08650": {
-      "city": "Trenton, Hamilton",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08666": {
@@ -2482,7 +2485,7 @@
       "county": "Mercer"
     },
     "08690": {
-      "city": "Trenton, Hamilton, Hamilton Sq, Hamilton Square",
+      "city": "Trenton",
       "county": "Mercer"
     },
     "08691": {
@@ -2622,246 +2625,2042 @@
       "county": "Hunterdon"
     },
     "08805": {
-      "city": "",
+      "city": "Bound Brook",
       "county": "Somerset"
     },
     "08807": {
-      "city": "",
+      "city": "Bridgewater",
       "county": "Somerset"
     },
     "08808": {
-      "city": "",
+      "city": "Broadway",
       "county": "Warren"
     },
     "08809": {
-      "city": "",
+      "city": "Clinton",
       "county": "Hunterdon"
     },
     "08810": {
-      "city": "",
+      "city": "Dayton",
       "county": "Middlesex"
     },
     "08812": {
-      "city": "",
+      "city": "Dunellen, Green Brook",
       "county": "Middlesex"
     },
     "08816": {
-      "city": "",
+      "city": "East Brunswick, E Brunswick",
       "county": "Middlesex"
     },
     "08817": {
-      "city": "",
+      "city": "Edison",
       "county": "Middlesex"
     },
     "08818": {
-      "city": "",
+      "city": "Edison",
       "county": "Middlesex"
     },
     "08820": {
-      "city": "",
+      "city": "Edison",
       "county": "Middlesex"
     },
     "08821": {
-      "city": "",
+      "city": "Flagtown",
       "county": "Somerset"
     },
     "08822": {
-      "city": "",
+      "city": "Flemington",
       "county": "Hunterdon"
     },
     "08823": {
-      "city": "",
+      "city": "Franklin Park",
       "county": "Somerset"
     },
     "08824": {
-      "city": "",
+      "city": "Kendall Park",
       "county": "Middlesex"
     },
     "08825": {
-      "city": "",
+      "city": "Frenchtown",
       "county": "Hunterdon"
     },
     "08826": {
-      "city": "",
+      "city": "Glen Gardner",
       "county": "Hunterdon"
     },
     "08827": {
-      "city": "",
+      "city": "Hampton",
       "county": "Hunterdon"
     },
     "08828": {
-      "city": "",
+      "city": "Helmetta",
       "county": "Middlesex"
     },
     "08829": {
-      "city": "",
+      "city": "High Bridge",
       "county": "Hunterdon"
     },
     "08830": {
-      "city": "",
+      "city": "Iselin",
       "county": "Middlesex"
     },
     "08831": {
-      "city": "",
+      "city": "Monroe Township, Jamesburg, Monroe, Monroe Twp",
       "county": "Middlesex"
     },
     "08832": {
-      "city": "",
+      "city": "Keasbey",
       "county": "Middlesex"
     },
     "08833": {
-      "city": "",
+      "city": "Lebanon",
       "county": "Hunterdon"
     },
     "08834": {
-      "city": "",
+      "city": "Little York",
       "county": "Hunterdon"
     },
     "08835": {
-      "city": "",
+      "city": "Manville",
       "county": "Somerset"
     },
     "08836": {
-      "city": "",
+      "city": "Martinsville",
       "county": "Somerset"
     },
     "08837": {
-      "city": "",
+      "city": "Edison",
       "county": "Middlesex"
     },
     "08840": {
-      "city": "",
+      "city": "Metuchen",
       "county": "Middlesex"
     },
     "08844": {
-      "city": "",
+      "city": "Hillsborough",
       "county": "Somerset"
     },
     "08846": {
-      "city": "",
+      "city": "Middlesex",
       "county": "Middlesex"
     },
     "08848": {
-      "city": "",
+      "city": "Milford",
       "county": "Hunterdon"
     },
     "08850": {
-      "city": "",
+      "city": "Milltown",
       "county": "Middlesex"
     },
     "08852": {
-      "city": "",
+      "city": "Monmouth Junction, Monmouth Jct",
       "county": "Middlesex"
     },
     "08853": {
-      "city": "",
+      "city": "Neshanic Station, Branchburg, Neshanic Sta",
       "county": "Somerset"
     },
     "08854": {
-      "city": "",
+      "city": "Piscataway",
       "county": "Middlesex"
     },
     "08855": {
-      "city": "",
+      "city": "Piscataway",
       "county": "Middlesex"
     },
     "08857": {
-      "city": "",
+      "city": "Old Bridge",
       "county": "Middlesex"
     },
     "08858": {
-      "city": "",
+      "city": "Oldwick",
       "county": "Hunterdon"
     },
     "08859": {
+      "city": "Parlin",
       "county": "Middlesex"
     },
     "08861": {
+      "city": "Perth Amboy, Hopelawn",
       "county": "Middlesex"
     },
     "08862": {
+      "city": "Perth Amboy",
       "county": "Middlesex"
     },
     "08863": {
+      "city": "Fords, Perth Amboy",
       "county": "Middlesex"
     },
     "08865": {
+      "city": "Phillipsburg, Alpha",
       "county": "Warren"
     },
     "08867": {
+      "city": "Pittstown",
       "county": "Hunterdon"
     },
     "08868": {
+      "city": "Quakertown",
       "county": "Hunterdon"
     },
     "08869": {
+      "city": "Raritan",
       "county": "Somerset"
     },
     "08870": {
+      "city": "Readington",
       "county": "Hunterdon"
     },
     "08871": {
+      "city": "Sayreville",
       "county": "Middlesex"
     },
     "08872": {
+      "city": "Sayreville",
       "county": "Middlesex"
     },
     "08873": {
+      "city": "Somerset",
       "county": "Somerset"
     },
     "08875": {
+      "city": "Somerset",
       "county": "Somerset"
     },
     "08876": {
+      "city": "Somerville, Branchburg, North Branch",
       "county": "Somerset"
     },
     "08879": {
+      "city": "South Amboy, Laurence Harbor, Laurence Hbr",
       "county": "Middlesex"
     },
     "08880": {
+      "city": "South Bound Brook, S Bound Brook",
       "county": "Somerset"
     },
     "08882": {
+      "city": "South River",
       "county": "Middlesex"
     },
     "08884": {
+      "city": "Spotswood",
       "county": "Middlesex"
     },
     "08885": {
+      "city": "Stanton",
       "county": "Hunterdon"
     },
     "08886": {
+      "city": "Stewartsville",
       "county": "Warren"
     },
     "08887": {
+      "city": "Three Bridges",
       "county": "Hunterdon"
     },
     "08888": {
+      "city": "Whitehouse",
       "county": "Hunterdon"
     },
     "08889": {
+      "city": "Whitehouse Station, White Hse Sta",
       "county": "Hunterdon"
     },
     "08890": {
+      "city": "Zarephath",
       "county": "Somerset"
     },
     "08899": {
+      "city": "Edison",
       "county": "Middlesex"
     },
     "08901": {
+      "city": "New Brunswick",
       "county": "Middlesex"
     },
     "08902": {
+      "city": "North Brunswick, N Brunswick, New Brunswick",
       "county": "Middlesex"
     },
     "08903": {
+      "city": "New Brunswick",
       "county": "Middlesex"
     },
     "08904": {
+      "city": "Highland Park",
+      "county": "Middlesex"
+    },
+    "08905": {
+      "city": "New Brunswick",
       "county": "Middlesex"
     },
     "08906": {
+      "city": "New Brunswick",
       "county": "Middlesex"
+    },
+    "08922": {
+      "city": "New Brunswick",
+      "county": "Middlesex"
+    },
+    "08933": {
+      "city": "New Brunswick",
+      "county": "Middlesex"
+    },
+    "08988": {
+      "city": "New Brunswick",
+      "county": "Middlesex"
+    },
+    "08989": {
+      "city": "New Brunswick",
+      "county": "Middlesex"
+    }
+  },
+  "byCity": {
+    "Adelphia": {
+      "zips": [
+        "07710"
+      ]
+    },
+    "Allamuchy": {
+      "zips": [
+        "07820"
+      ]
+    },
+    "Allendale": {
+      "zips": [
+        "07401"
+      ]
+    },
+    "Allenhurst": {
+      "alts": [
+        "Loch Arbour",
+        "W Allenhurst",
+        "West Allenhurst"
+      ],
+      "zips": [
+        "07711"
+      ]
+    },
+    "Alpine": {
+      "zips": [
+        "07620"
+      ]
+    },
+    "Andover": {
+      "alts": [
+        "Byram Township",
+        "Byram Twp",
+        "Green Township",
+        "Green Twp"
+      ],
+      "zips": [
+        "07821"
+      ]
+    },
+    "Asbury Park": {
+      "alts": [
+        "Interlaken",
+        "Ocean",
+        "Tinton Falls"
+      ]
+    },
+    "Atlantic Highlands": {
+      "alts": [
+        "Atlantic Hlds"
+      ],
+      "zips": [
+        "07716"
+      ]
+    },
+    "Augusta": {
+      "zips": [
+        "07822"
+      ]
+    },
+    "Avenel": {
+      "zips": [
+        "07001"
+      ]
+    },
+    "Avon By The Sea": {
+      "alts": [
+        "Avon By Sea"
+      ],
+      "zips": [
+        "07717"
+      ]
+    },
+    "Basking Ridge": {
+      "zips": [
+        "07920"
+      ]
+    },
+    "Bayonne": {
+      "zips": [
+        "07002"
+      ]
+    },
+    "Bedminster": {
+      "zips": [
+        "07921"
+      ]
+    },
+    "Belford": {
+      "zips": [
+        "07718"
+      ]
+    },
+    "Belleville": {
+      "zips": [
+        "07109"
+      ]
+    },
+    "Belmar": {
+      "alts": [
+        "Lake Como",
+        "Wall",
+        "Wall Township"
+      ],
+      "zips": [
+        "07715",
+        "07719"
+      ]
+    },
+    "Belvidere": {
+      "zips": [
+        "07823"
+      ]
+    },
+    "Bergenfield": {
+      "zips": [
+        "07621"
+      ]
+    },
+    "Berkeley Heights": {
+      "zips": [
+        "07922"
+      ]
+    },
+    "Bernardsville": {
+      "zips": [
+        "07924"
+      ]
+    },
+    "Blairstown": {
+      "alts": [
+        "Hardwick",
+        "Johnsonburg"
+      ],
+      "zips": [
+        "07825"
+      ]
+    },
+    "Bloomfield": {
+      "zips": [
+        "07003"
+      ]
+    },
+    "Bloomingdale": {
+      "zips": [
+        "07403"
+      ]
+    },
+    "Bogota": {
+      "zips": [
+        "07603"
+      ]
+    },
+    "Boonton": {
+      "zips": [
+        "07005"
+      ]
+    },
+    "Bradley Beach": {
+      "zips": [
+        "07720"
+      ]
+    },
+    "Branchville": {
+      "alts": [
+        "Sandyston"
+      ],
+      "zips": [
+        "07826",
+        "07890"
+      ]
+    },
+    "Brookside": {
+      "zips": [
+        "07926"
+      ]
+    },
+    "Budd Lake": {
+      "zips": [
+        "07828"
+      ]
+    },
+    "Butler": {
+      "alts": [
+        "Kinnelon"
+      ],
+      "zips": [
+        "07405"
+      ]
+    },
+    "Buttzville": {
+      "zips": [
+        "07829"
+      ]
+    },
+    "Caldwell": {
+      "zips": [
+        "07006",
+        "07007"
+      ]
+    },
+    "Califon": {
+      "alts": [
+        "Tewksbury Township",
+        "Tewksbury Twp"
+      ],
+      "zips": [
+        "07830"
+      ]
+    },
+    "Carlstadt": {
+      "zips": [
+        "07072"
+      ]
+    },
+    "Carteret": {
+      "zips": [
+        "07008"
+      ]
+    },
+    "Cedar Grove": {
+      "zips": [
+        "07009"
+      ]
+    },
+    "Changewater": {
+      "zips": [
+        "07831"
+      ]
+    },
+    "Clark": {
+      "zips": [
+        "07066"
+      ]
+    },
+    "Cliffside Park": {
+      "zips": [
+        "07010"
+      ]
+    },
+    "Cliffwood": {
+      "zips": [
+        "07721"
+      ]
+    },
+    "Clifton": {
+      "zips": [
+        "07011",
+        "07012",
+        "07013",
+        "07014",
+        "07015"
+      ]
+    },
+    "Closter": {
+      "zips": [
+        "07624"
+      ]
+    },
+    "Colonia": {
+      "zips": [
+        "07067"
+      ]
+    },
+    "Colts Neck": {
+      "zips": [
+        "07722"
+      ]
+    },
+    "Columbia": {
+      "zips": [
+        "07832"
+      ]
+    },
+    "Cranford": {
+      "zips": [
+        "07016"
+      ]
+    },
+    "Cresskill": {
+      "zips": [
+        "07626"
+      ]
+    },
+    "Deal": {
+      "alts": [
+        "Ocean Townshp",
+        "Ocean Twp"
+      ],
+      "zips": [
+        "07723"
+      ]
+    },
+    "Delaware": {
+      "zips": [
+        "07833"
+      ]
+    },
+    "Demarest": {
+      "zips": [
+        "07627"
+      ]
+    },
+    "Denville": {
+      "zips": [
+        "07834"
+      ]
+    },
+    "Dover": {
+      "zips": [
+        "07801",
+        "07802"
+      ]
+    },
+    "Dumont": {
+      "zips": [
+        "07628"
+      ]
+    },
+    "Eatontown": {
+      "alts": [
+        "Tinton Falls"
+      ],
+      "zips": [
+        "07724",
+        "07799"
+      ]
+    },
+    "East Orange": {
+      "zips": [
+        "07017",
+        "07018",
+        "07019"
+      ]
+    },
+    "East Rutherford": {
+      "alts": [
+        "E Rutherford"
+      ],
+      "zips": [
+        "07073"
+      ]
+    },
+    "Edgewater": {
+      "zips": [
+        "07020"
+      ]
+    },
+    "Edison": {
+      "zips": [
+        "08817",
+        "08818",
+        "08820",
+        "08837",
+        "08899"
+      ]
+    },
+    "Elizabeth": {
+      "zips": [
+        "07201",
+        "07202",
+        "07206",
+        "07207",
+        "07208"
+      ]
+    },
+    "Elmwood Park": {
+      "zips": [
+        "07407",
+        "07410"
+      ]
+    },
+    "Emerson": {
+      "zips": [
+        "07630"
+      ]
+    },
+    "Englewood": {
+      "zips": [
+        "07631"
+      ]
+    },
+    "Englewood Cliffs": {
+      "alts": [
+        "Englewd Clfs",
+        "Englewood"
+      ],
+      "zips": [
+        "07632"
+      ]
+    },
+    "Englishtown": {
+      "alts": [
+        "Manalapan"
+      ],
+      "zips": [
+        "07726"
+      ]
+    },
+    "Essex Fells": {
+      "zips": [
+        "07021"
+      ]
+    },
+    "Fair Haven": {
+      "alts": [
+        "Red Bank"
+      ],
+      "zips": [
+        "07704"
+      ]
+    },
+    "Fairfield": {
+      "zips": [
+        "07004"
+      ]
+    },
+    "Fairwood": {
+      "zips": [
+        "07022"
+      ]
+    },
+    "Fanwood": {
+      "zips": [
+        "07023"
+      ]
+    },
+    "Farmingdale": {
+      "alts": [
+        "Tinton Falls",
+        "Wall Township"
+      ],
+      "zips": [
+        "07727"
+      ]
+    },
+    "Flanders": {
+      "alts": [
+        "Roxbury Township",
+        "Roxbury Twp"
+      ],
+      "zips": [
+        "07836"
+      ]
+    },
+    "Fort Lee": {
+      "zips": [
+        "07024"
+      ]
+    },
+    "Fort Monmouth": {
+      "alts": [
+        "Red Bank"
+      ],
+      "zips": [
+        "07703"
+      ]
+    },
+    "Franklin": {
+      "zips": [
+        "07416"
+      ]
+    },
+    "Franklin Lakes": {
+      "alts": [
+        "Franklin Lks"
+      ],
+      "zips": [
+        "07417"
+      ]
+    },
+    "Freehold": {
+      "zips": [
+        "07728"
+      ]
+    },
+    "Garfield": {
+      "zips": [
+        "07026"
+      ]
+    },
+    "Garwood": {
+      "zips": [
+        "07027"
+      ]
+    },
+    "Glasser": {
+      "zips": [
+        "07837"
+      ]
+    },
+    "Glen Ridge": {
+      "zips": [
+        "07028"
+      ]
+    },
+    "Glen Rock": {
+      "zips": [
+        "07452"
+      ]
+    },
+    "Glenwood": {
+      "zips": [
+        "07418"
+      ]
+    },
+    "Great Meadows": {
+      "zips": [
+        "07838"
+      ]
+    },
+    "Greendell": {
+      "zips": [
+        "07839"
+      ]
+    },
+    "Hackensack": {
+      "zips": [
+        "07601",
+        "07602"
+      ]
+    },
+    "Hackettstown": {
+      "zips": [
+        "07840"
+      ]
+    },
+    "Haledon": {
+      "alts": [
+        "North Haledon",
+        "Paterson",
+        "Prospect Park"
+      ],
+      "zips": [
+        "07508",
+        "07538"
+      ]
+    },
+    "Hamburg": {
+      "zips": [
+        "07419"
+      ]
+    },
+    "Harrington Park": {
+      "alts": [
+        "Harrington Pk"
+      ],
+      "zips": [
+        "07640"
+      ]
+    },
+    "Harrison": {
+      "alts": [
+        "East Newark"
+      ],
+      "zips": [
+        "07029"
+      ]
+    },
+    "Hasbrouck Heights": {
+      "alts": [
+        "Hasbrouck Hts"
+      ],
+      "zips": [
+        "07604"
+      ]
+    },
+    "Haskell": {
+      "zips": [
+        "07420"
+      ]
+    },
+    "Haworth": {
+      "zips": [
+        "07641"
+      ]
+    },
+    "Hawthorne": {
+      "zips": [
+        "07506",
+        "07507"
+      ]
+    },
+    "Hazlet": {
+      "zips": [
+        "07730"
+      ]
+    },
+    "Hewitt": {
+      "zips": [
+        "07421"
+      ]
+    },
+    "Hibernia": {
+      "zips": [
+        "07842"
+      ]
+    },
+    "Highland Lakes": {
+      "alts": [
+        "Hghlnd Lks"
+      ],
+      "zips": [
+        "07422"
+      ]
+    },
+    "Highland Park": {
+      "alts": [
+        "New Brunswick"
+      ],
+      "zips": [
+        "08904"
+      ]
+    },
+    "Highlands": {
+      "alts": [
+        "Sandy Hook"
+      ],
+      "zips": [
+        "07732"
+      ]
+    },
+    "Hillsdale": {
+      "zips": [
+        "07642"
+      ]
+    },
+    "Hillside": {
+      "alts": [
+        "Ind Hillside",
+        "Industrial Hillside"
+      ],
+      "zips": [
+        "07205"
+      ]
+    },
+    "Ho Ho Kus": {
+      "zips": [
+        "07423"
+      ]
+    },
+    "Holmdel": {
+      "zips": [
+        "07733"
+      ]
+    },
+    "Hopatcong": {
+      "zips": [
+        "07843"
+      ]
+    },
+    "Hope": {
+      "zips": [
+        "07844"
+      ]
+    },
+    "Howell": {
+      "alts": [
+        "Wall Township"
+      ],
+      "zips": [
+        "07731"
+      ]
+    },
+    "Ironia": {
+      "zips": [
+        "07845"
+      ]
+    },
+    "Irvington": {
+      "zips": [
+        "07111"
+      ]
+    },
+    "Jersey City": {
+      "zips": [
+        "07097",
+        "07302",
+        "07303",
+        "07304",
+        "07305",
+        "07306",
+        "07307",
+        "07308",
+        "07309",
+        "07310",
+        "07311"
+      ]
+    },
+    "Johnsonburg": {
+      "zips": [
+        "07846"
+      ]
+    },
+    "Joint Base Mdl": {
+      "alts": [
+        "Fort Dix",
+        "Jb Mdl",
+        "Mc Guire AFB",
+        "Trenton"
+      ],
+      "zips": [
+        "08640",
+        "08641"
+      ]
+    },
+    "Keansburg": {
+      "alts": [
+        "Hazlet Township",
+        "Hazlet Twp"
+      ],
+      "zips": [
+        "07734"
+      ]
+    },
+    "Kearny": {
+      "zips": [
+        "07032",
+        "07099"
+      ]
+    },
+    "Kenilworth": {
+      "zips": [
+        "07033"
+      ]
+    },
+    "Kenvil": {
+      "zips": [
+        "07847"
+      ]
+    },
+    "Keyport": {
+      "alts": [
+        "Union Beach"
+      ],
+      "zips": [
+        "07735"
+      ]
+    },
+    "Lake Hiawatha": {
+      "zips": [
+        "07034"
+      ]
+    },
+    "Lake Hopatcong": {
+      "alts": [
+        "Lk Hopatcong"
+      ],
+      "zips": [
+        "07849"
+      ]
+    },
+    "Lafayette": {
+      "zips": [
+        "07848"
+      ]
+    },
+    "Landing": {
+      "zips": [
+        "07850"
+      ]
+    },
+    "Layton": {
+      "alts": [
+        "Sandyston"
+      ],
+      "zips": [
+        "07851"
+      ]
+    },
+    "Ledgewood": {
+      "zips": [
+        "07852"
+      ]
+    },
+    "Leonardo": {
+      "zips": [
+        "07737"
+      ]
+    },
+    "Leonia": {
+      "zips": [
+        "07605"
+      ]
+    },
+    "Lincoln Park": {
+      "zips": [
+        "07035"
+      ]
+    },
+    "Lincroft": {
+      "zips": [
+        "07738"
+      ]
+    },
+    "Linden": {
+      "alts": [
+        "Winfield Park"
+      ],
+      "zips": [
+        "07036"
+      ]
+    },
+    "Little Falls": {
+      "alts": [
+        "West Paterson",
+        "Woodland Park"
+      ],
+      "zips": [
+        "07424"
+      ]
+    },
+    "Little Ferry": {
+      "zips": [
+        "07643"
+      ]
+    },
+    "Little Silver": {
+      "zips": [
+        "07739"
+      ]
+    },
+    "Livingston": {
+      "zips": [
+        "07039"
+      ]
+    },
+    "Lodi": {
+      "zips": [
+        "07644"
+      ]
+    },
+    "Long Branch": {
+      "alts": [
+        "Elberon"
+      ],
+      "zips": [
+        "07740"
+      ]
+    },
+    "Long Valley": {
+      "zips": [
+        "07853"
+      ]
+    },
+    "Lyndhurst": {
+      "zips": [
+        "07071"
+      ]
+    },
+    "Mahwah": {
+      "zips": [
+        "07430",
+        "07495"
+      ]
+    },
+    "Maplewood": {
+      "zips": [
+        "07040"
+      ]
+    },
+    "Matawan": {
+      "alts": [
+        "Aberdeen"
+      ],
+      "zips": [
+        "07747"
+      ]
+    },
+    "Marlboro": {
+      "zips": [
+        "07746"
+      ]
+    },
+    "Maywood": {
+      "zips": [
+        "07607"
+      ]
+    },
+    "Mc Afee": {
+      "zips": [
+        "07428"
+      ]
+    },
+    "Middletown": {
+      "alts": [
+        "N Middletown",
+        "New Monmouth",
+        "North Middletown"
+      ],
+      "zips": [
+        "07748"
+      ]
+    },
+    "Middleville": {
+      "zips": [
+        "07855"
+      ]
+    },
+    "Midland Park": {
+      "zips": [
+        "07432"
+      ]
+    },
+    "Millburn": {
+      "zips": [
+        "07041"
+      ]
+    },
+    "Mine Hill": {
+      "alts": [
+        "Dover"
+      ],
+      "zips": [
+        "07803"
+      ]
+    },
+    "Monmouth Beach": {
+      "alts": [
+        "Monmouth Bch"
+      ],
+      "zips": [
+        "07750"
+      ]
+    },
+    "Montague": {
+      "alts": [
+        "Branchville",
+        "Sandyston"
+      ],
+      "zips": [
+        "07827"
+      ]
+    },
+    "Montclair": {
+      "alts": [
+        "Upper Montclair",
+        "Upr Montclair"
+      ],
+      "zips": [
+        "07042",
+        "07043"
+      ]
+    },
+    "Montvale": {
+      "zips": [
+        "07645"
+      ]
+    },
+    "Montville": {
+      "zips": [
+        "07045"
+      ]
+    },
+    "Moonachie": {
+      "zips": [
+        "07074"
+      ]
+    },
+    "Morganville": {
+      "zips": [
+        "07751"
+      ]
+    },
+    "Mount Arlington": {
+      "zips": [
+        "07856"
+      ]
+    },
+    "Mount Tabor": {
+      "zips": [
+        "07878"
+      ]
+    },
+    "Mountain Lakes": {
+      "alts": [
+        "Mountain Lks"
+      ],
+      "zips": [
+        "07046"
+      ]
+    },
+    "Mountainside": {
+      "zips": [
+        "07092"
+      ]
+    },
+    "Navesink": {
+      "zips": [
+        "07752"
+      ]
+    },
+    "Neptune": {
+      "alts": [
+        "Neptune City",
+        "Tinton Falls",
+        "Wall Township"
+      ],
+      "zips": [
+        "07753",
+        "07754"
+      ]
+    },
+    "Netcong": {
+      "zips": [
+        "07857"
+      ]
+    },
+    "New Brunswick": {
+      "zips": [
+        "08901",
+        "08903",
+        "08905",
+        "08906",
+        "08922",
+        "08933",
+        "08988",
+        "08989"
+      ]
+    },
+    "New Milford": {
+      "zips": [
+        "07646"
+      ]
+    },
+    "Newark": {
+      "zips": [
+        "07101",
+        "07102",
+        "07103",
+        "07104",
+        "07105",
+        "07106",
+        "07107",
+        "07108",
+        "07112",
+        "07114",
+        "07175",
+        "07182",
+        "07184",
+        "07188",
+        "07189",
+        "07191",
+        "07192",
+        "07193",
+        "07195",
+        "07198",
+        "07199"
+      ]
+    },
+    "Newfoundland": {
+      "zips": [
+        "07435"
+      ]
+    },
+    "Newton": {
+      "alts": [
+        "Fredon",
+        "Fredon Township",
+        "Fredon Twp"
+      ],
+      "zips": [
+        "07860"
+      ]
+    },
+    "North Arlington": {
+      "alts": [
+        "N Arlington"
+      ],
+      "zips": [
+        "07031"
+      ]
+    },
+    "North Bergen": {
+      "zips": [
+        "07047"
+      ]
+    },
+    "North Brunswick": {
+      "alts": [
+        "N Brunswick",
+        "New Brunswick"
+      ],
+      "zips": [
+        "08902"
+      ]
+    },
+    "Northvale": {
+      "alts": [
+        "Rockleigh"
+      ],
+      "zips": [
+        "07647"
+      ]
+    },
+    "Norwood": {
+      "zips": [
+        "07648"
+      ]
+    },
+    "Nutley": {
+      "zips": [
+        "07110"
+      ]
+    },
+    "Ocean Grove": {
+      "zips": [
+        "07756"
+      ]
+    },
+    "Oceanport": {
+      "zips": [
+        "07757"
+      ]
+    },
+    "Oak Ridge": {
+      "zips": [
+        "07438"
+      ]
+    },
+    "Oakhurst": {
+      "zips": [
+        "07755"
+      ]
+    },
+    "Oakland": {
+      "zips": [
+        "07436"
+      ]
+    },
+    "Ogdensburg": {
+      "zips": [
+        "07439"
+      ]
+    },
+    "Oradell": {
+      "zips": [
+        "07649"
+      ]
+    },
+    "Orange": {
+      "zips": [
+        "07050",
+        "07051"
+      ]
+    },
+    "Oxford": {
+      "zips": [
+        "07863"
+      ]
+    },
+    "Palisades Park": {
+      "alts": [
+        "Palisades Pk"
+      ],
+      "zips": [
+        "07650"
+      ]
+    },
+    "Paramus": {
+      "zips": [
+        "07652",
+        "07653"
+      ]
+    },
+    "Park Ridge": {
+      "zips": [
+        "07656"
+      ]
+    },
+    "Parsippany": {
+      "alts": [
+        "Parsippany Troy Hills",
+        "Troy Hills"
+      ],
+      "zips": [
+        "07054"
+      ]
+    },
+    "Passaic": {
+      "alts": [
+        "Dundee",
+        "Passaic Park"
+      ],
+      "zips": [
+        "07055"
+      ]
+    },
+    "Paterson": {
+      "alts": [
+        "Totowa"
+      ],
+      "zips": [
+        "07501",
+        "07502",
+        "07503",
+        "07504",
+        "07505",
+        "07509",
+        "07510",
+        "07512",
+        "07513",
+        "07514",
+        "07522",
+        "07524",
+        "07543",
+        "07544"
+      ]
+    },
+    "Pequannock": {
+      "zips": [
+        "07440"
+      ]
+    },
+    "Picatinny Arsenal": {
+      "alts": [
+        "Dover, Picatinny Ars"
+      ],
+      "zips": [
+        "07806"
+      ]
+    },
+    "Pine Brook": {
+      "zips": [
+        "07058"
+      ]
+    },
+    "Plainfield": {
+      "alts": [
+        "N Plainfield",
+        "North Plainfield",
+        "Watchung"
+      ],
+      "zips": [
+        "07060",
+        "07061",
+        "07062",
+        "07063"
+      ]
+    },
+    "Pompton Lakes": {
+      "zips": [
+        "07442"
+      ]
+    },
+    "Pompton Plains": {
+      "alts": [
+        "Pompton Plns"
+      ],
+      "zips": [
+        "07444"
+      ]
+    },
+    "Port Monmouth": {
+      "zips": [
+        "07758"
+      ]
+    },
+    "Port Murray": {
+      "zips": [
+        "07865"
+      ]
+    },
+    "Port Reading": {
+      "zips": [
+        "07064"
+      ]
+    },
+    "Rahway": {
+      "zips": [
+        "07065"
+      ]
+    },
+    "Ramsey": {
+      "zips": [
+        "07446"
+      ]
+    },
+    "Randolph": {
+      "alts": [
+        "Chester Twp",
+        "Dover"
+      ],
+      "zips": [
+        "07869"
+      ]
+    },
+    "Red Bank": {
+      "alts": [
+        "Tinton Falls"
+      ],
+      "zips": [
+        "07701"
+      ]
+    },
+    "Ridgewood": {
+      "zips": [
+        "07450",
+        "07451",
+        "07657"
+      ]
+    },
+    "Ridgefield Park": {
+      "alts": [
+        "Ridgefield Pk"
+      ],
+      "zips": [
+        "07660"
+      ]
+    },
+    "Ringwood": {
+      "zips": [
+        "07456"
+      ]
+    },
+    "River Edge": {
+      "zips": [
+        "07661"
+      ]
+    },
+    "Riverdale": {
+      "zips": [
+        "07457"
+      ]
+    },
+    "Rochelle Park": {
+      "zips": [
+        "07662"
+      ]
+    },
+    "Rockaway": {
+      "alts": [
+        "Rockaway Boro",
+        "Rockaway Borough"
+      ],
+      "zips": [
+        "07866"
+      ]
+    },
+    "Roseland": {
+      "zips": [
+        "07068"
+      ]
+    },
+    "Roselle": {
+      "zips": [
+        "07203",
+        "07204"
+      ]
+    },
+    "Rumson": {
+      "alts": [
+        "Locust",
+        "Sea Bright"
+      ],
+      "zips": [
+        "07760"
+      ]
+    },
+    "Rutherford": {
+      "zips": [
+        "07070"
+      ]
+    },
+    "Saddle Brook": {
+      "zips": [
+        "07663"
+      ]
+    },
+    "Saddle River": {
+      "alts": [
+        "U Saddle Riv",
+        "Upper Saddle River"
+      ],
+      "zips": [
+        "07458"
+      ]
+    },
+    "Schooleys Mountain": {
+      "alts": [
+        "Schooleys Mtn"
+      ],
+      "zips": [
+        "07870"
+      ]
+    },
+    "Scotch Plains": {
+      "zips": [
+        "07076"
+      ]
+    },
+    "Secaucus": {
+      "zips": [
+        "07094",
+        "07096"
+      ]
+    },
+    "Sewaren": {
+      "zips": [
+        "07077"
+      ]
+    },
+    "Shrewsbury": {
+      "alts": [
+        "Red Bank"
+      ],
+      "zips": [
+        "07702"
+      ]
+    },
+    "Short Hills": {
+      "zips": [
+        "07078"
+      ]
+    },
+    "Somerset": {
+      "alts": [
+        "E Millstone",
+        "East Millstone"
+      ],
+      "zips": [
+        "08873",
+        "08875"
+      ]
+    },
+    "South Hackensack": {
+      "zips": [
+        "07606"
+      ]
+    },
+    "South Orange": {
+      "zips": [
+        "07079"
+      ]
+    },
+    "South Plainfield": {
+      "alts": [
+        "S Plainfield"
+      ],
+      "zips": [
+        "07080"
+      ]
+    },
+    "Sparta": {
+      "zips": [
+        "07871"
+      ]
+    },
+    "Spring Lake": {
+      "zips": [
+        "07762"
+      ]
+    },
+    "Springfield": {
+      "zips": [
+        "07081"
+      ]
+    },
+    "Stanhope": {
+      "zips": [
+        "07874"
+      ]
+    },
+    "Stillwater": {
+      "zips": [
+        "07875"
+      ]
+    },
+    "Stockholm": {
+      "alts": [
+        "Hardyston"
+      ],
+      "zips": [
+        "07460"
+      ]
+    },
+    "Succasunna": {
+      "zips": [
+        "07876"
+      ]
+    },
+    "Summit": {
+      "zips": [
+        "07901",
+        "07902"
+      ]
+    },
+    "Sussex": {
+      "alts": [
+        "Wantage"
+      ],
+      "zips": [
+        "07461"
+      ]
+    },
+    "Swartswood": {
+      "zips": [
+        "07877"
+      ]
+    },
+    "Teaneck": {
+      "zips": [
+        "07666"
+      ]
+    },
+    "Tenafly": {
+      "zips": [
+        "07670"
+      ]
+    },
+    "Tennent": {
+      "zips": [
+        "07763"
+      ]
+    },
+    "Teterboro": {
+      "zips": [
+        "07608",
+        "07699"
+      ]
+    },
+    "Totowa": {
+      "zips": [
+        "07511"
+      ]
+    },
+    "Towaco": {
+      "zips": [
+        "07082"
+      ]
+    },
+    "Township Of Washington": {
+      "alts": [
+        "Twp Washingtn",
+        "Twp Washinton",
+        "Washington Twps"
+      ],
+      "zips": [
+        "07676"
+      ]
+    },
+    "Tranquility": {
+      "zips": [
+        "07879"
+      ]
+    },
+    "Trenton": {
+      "alts": [
+        "Hamilton",
+        "Hamilton Sq",
+        "Hamilton Square",
+        "Mercerville",
+        "Ewing",
+        "West Trenton"
+      ],
+      "zips": [
+        "08601",
+        "08602",
+        "08603",
+        "08604",
+        "08605",
+        "08606",
+        "08607",
+        "08608",
+        "08609",
+        "08610",
+        "08611",
+        "08618",
+        "08619",
+        "08620",
+        "08625",
+        "08628",
+        "08629",
+        "08638",
+        "08644",
+        "08645",
+        "08646",
+        "08647",
+        "08650",
+        "08666",
+        "08690",
+        "08695"
+      ]
+    },
+    "Union": {
+      "zips": [
+        "07083"
+      ]
+    },
+    "Union City": {
+      "zips": [
+        "07087"
+      ]
+    },
+    "Vauxhall": {
+      "zips": [
+        "07088"
+      ]
+    },
+    "Vernon": {
+      "zips": [
+        "07462"
+      ]
+    },
+    "Verona": {
+      "zips": [
+        "07044"
+      ]
+    },
+    "Vienna": {
+      "zips": [
+        "07880"
+      ]
+    },
+    "Waldwick": {
+      "zips": [
+        "07463"
+      ]
+    },
+    "Wallington": {
+      "zips": [
+        "07057"
+      ]
+    },
+    "Wallpack Center": {
+      "alts": [
+        "Wallpack Ctr"
+      ],
+      "zips": [
+        "07881"
+      ]
+    },
+    "Wanaque": {
+      "zips": [
+        "07465"
+      ]
+    },
+    "Warren": {
+      "zips": [
+        "07059"
+      ]
+    },
+    "Washington": {
+      "zips": [
+        "07882"
+      ]
+    },
+    "Watchung": {
+      "alts": [
+        "Plainfield"
+      ],
+      "zips": [
+        "07069"
+      ]
+    },
+    "Wayne": {
+      "zips": [
+        "07470",
+        "07474",
+        "07477"
+      ]
+    },
+    "Weehawken": {
+      "zips": [
+        "07086"
+      ]
+    },
+    "West Long Branch": {
+      "alts": [
+        "W Long Beach"
+      ],
+      "zips": [
+        "07764"
+      ]
+    },
+    "West Milford": {
+      "zips": [
+        "07480"
+      ]
+    },
+    "West New York": {
+      "alts": [
+        "Guttenberg"
+      ],
+      "zips": [
+        "07093"
+      ]
+    },
+    "West Orange": {
+      "zips": [
+        "07052"
+      ]
+    },
+    "Westfield": {
+      "zips": [
+        "07090",
+        "07091"
+      ]
+    },
+    "Westwood": {
+      "alts": [
+        "Old Tappan",
+        "River Vale",
+        "Rivervale"
+      ],
+      "zips": [
+        "07675"
+      ]
+    },
+    "Wharton": {
+      "zips": [
+        "07885"
+      ]
+    },
+    "Wickatunk": {
+      "zips": [
+        "07765"
+      ]
+    },
+    "Wood Ridge": {
+      "zips": [
+        "07075"
+      ]
+    },
+    "Woodbridge": {
+      "zips": [
+        "07095"
+      ]
+    },
+    "Woodcliff Lake": {
+      "alts": [
+        "Westwood",
+        "Woodcliff Lk"
+      ],
+      "zips": [
+        "07677"
+      ]
+    },
+    "Wyckoff": {
+      "zips": [
+        "07481"
+      ]
     }
   },
   "byCounty": {
@@ -3252,10 +5051,16 @@
       "08628",
       "08629",
       "08638",
+      "08644",
+      "08645",
+      "08646",
+      "08647",
       "08648",
       "08650",
+      "08666",
       "08690",
-      "08691"
+      "08691",
+      "08695"
     ],
     "Middlesex": [
       "07001",
@@ -3300,7 +5105,12 @@
       "08902",
       "08903",
       "08904",
-      "08906"
+      "08906",
+      "08905",
+      "08922",
+      "08933",
+      "08988",
+      "08989"
     ],
     "Monmouth": [
       "07701",
@@ -3310,6 +5120,7 @@
       "07710",
       "07711",
       "07712",
+      "07715",
       "07716",
       "07717",
       "07718",
@@ -3491,7 +5302,7 @@
       "07533",
       "07538",
       "07543",
-      "07544",
+      "07544"
     ],
     "Salem": [
       "08001",
@@ -3564,7 +5375,8 @@
       "07875",
       "07877",
       "07879",
-      "07881"
+      "07881",
+      "07890"
     ],
     "Union": [
       "07016",
