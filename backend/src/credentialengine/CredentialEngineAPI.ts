@@ -44,7 +44,7 @@ export const credentialEngineAPI = {
     return response.data;
   },
 
-  getResourceByCTID: async function (ctid: string | null) {
+  getResourceByCTID: async function (ctid: string) {
     const response = await getRecordAPI({
       url: `${resourcesGateway}/${ctid}`,
       method: "get",

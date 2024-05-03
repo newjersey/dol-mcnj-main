@@ -16,15 +16,11 @@ export const credentialEngineUtils = {
     return pattern.test(id);
   },
 
-  getCtidFromURL: async function (url: string): Promise<string | null> {
+  getCtidFromURL: async function (url: string) {
     try {
       console.log(`Getting CTID from URL: ${url}`);
       const lastSlashIndex: number = url.lastIndexOf("/");
       const ctid: string = url.substring(lastSlashIndex + 1);
-      if (!(await credentialEngineUtils.validateCtId(ctid))) {
-        console.error(`Invalid CE ID: ${ctid}`);
-        return null;
-      }
       return ctid;
     } catch (error) {
       console.error(`Error extracting CTID from URL: ${url}, Error: ${error}`);
