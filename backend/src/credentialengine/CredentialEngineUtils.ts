@@ -8,19 +8,59 @@ import {
 import {Occupation} from "../domain/occupations/Occupation";
 import {Address} from "../domain/training/Training";
 import {convertZipCodeToCounty} from "../domain/utils/convertZipCodeToCounty";
+import {credentialEngineAPI} from "./CredentialEngineAPI";
 
 export const credentialEngineUtils = {
+  validateCtId: async function (id: string) : Promise<boolean> {
+    const pattern = /^ce-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return pattern.test(id);
+  },
 
-  getCtidFromURL: async function (url: string) {
+  getCtidFromURL: async function (url: string): Promise<string | null> {
     try {
       console.log(`Getting CTID from URL: ${url}`);
       const lastSlashIndex: number = url.lastIndexOf("/");
       const ctid: string = url.substring(lastSlashIndex + 1);
+      if (!(await credentialEngineUtils.validateCtId(ctid))) {
+        console.error(`Invalid CE ID: ${ctid}`);
+        return null;
+      }
       return ctid;
     } catch (error) {
       console.error(`Error extracting CTID from URL: ${url}, Error: ${error}`);
       throw error;
     }
+  },
+
+
+  // Function to fetch certificate data based on a valid CTID
+  fetchCertificateData: async function(value: string): Promise<CTDLResource | null> {
+    try {
+      const ctid = await credentialEngineUtils.getCtidFromURL(value);
+      const query = {
+        "ceterms:ctid": ctid,
+        "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+      };
+      const response = await credentialEngineAPI.getResults(query, 0, 10, "^search:relevance");
+      return response.data.data.length > 0 ? response.data.data[0] : null;
+    } catch (error) {
+      console.error(`Error fetching data for CTID: ${error}`);
+      return null;
+    }
+  },
+
+  // Function to validate and fetch CE data
+  fetchValidCEData: async function(values: string[]): Promise<CTDLResource[]> {
+    const ceDataPromises = values.map(async value => {
+      if (!(await credentialEngineUtils.validateCtId(value))) {
+        console.error(`Invalid CE ID: ${value}`);
+        return null;
+      }
+      return await credentialEngineUtils.fetchCertificateData(value);
+    });
+
+    // Filter out `null` and assert that the resulting array contains only `CTDLResource` objects.
+    return (await Promise.all(ceDataPromises)).filter((record): record is CTDLResource => record !== null);
   },
 
   getAvailableAtAddress: async  function (certificate: CTDLResource): Promise<Address> {

@@ -19,7 +19,7 @@ describe.skip('findTrainingsByFactory', () => {
     const getResultsCredentialEngineUtils = jest.spyOn(credentialEngineUtils, 'getCtidFromURL');
     getResultsCredentialEngineUtils.mockResolvedValue('');
 
-    const getResultsCredentialEngineAPI = jest.spyOn(credentialEngineAPI, 'getResourceByCTID');
+    const getResultsCredentialEngineAPI = jest.spyOn(credentialEngineAPI, 'credentialEngineAPI.getResourceByCTID');
     getResultsCredentialEngineAPI.mockImplementation((ctid) => {
       if (!ctid || ctid === '') {
         return Promise.resolve(ceRecords[0]);
