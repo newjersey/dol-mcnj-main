@@ -70,8 +70,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               if (element["@type"] === "ceterms:Place" && element["ceterms:streetAddress"] != null) {
                 const addr = {
                   name: element["ceterms:name"] ? element["ceterms:name"]["en-US"] : null,
-                  street1: element["ceterms:streetAddress"]?.["en-US"] ?? null,
-                  street2: "",
+                  street_address: element["ceterms:streetAddress"]?.["en-US"] ?? null,
                   city: element["ceterms:addressLocality"]?.["en-US"] ?? null,
                   state: element["ceterms:addressRegion"]?.["en-US"] ?? null,
                   zipCode: element["ceterms:postalCode"],

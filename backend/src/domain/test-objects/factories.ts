@@ -97,6 +97,7 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     street_address: "some-name-" + randomInt(),
     city: "some-street1-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
     ...overrides,
   };
 };
@@ -180,8 +181,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     calendarlengthid: randomCalendarLengthId(),
     totalclockhours: randomInt().toString(),
     website: "some-website-" + randomInt(),
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
+    street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zip: "some-zip-" + randomInt(),

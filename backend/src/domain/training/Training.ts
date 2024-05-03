@@ -1,7 +1,7 @@
-// import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
 import {CalendarLength} from "../CalendarLength";
 import {CipDefinition} from "./Program";
+
 export interface Training {
   id?: string;
   name?: string;
@@ -51,6 +51,7 @@ export interface Address {
   city?: string;
   state?: string;
   zipCode?: string;
+  county?: string;
 }
 
 export interface ContactPoint {
