@@ -6,7 +6,7 @@ resources:
   memory_gb: 8
 env_variables:
   CE_AUTH_TOKEN: \"$CE_AUTH_TOKEN\"
-  CE_ENVIRONMENT: \"$CE_CE_ENVIRONMENT\"
+  CE_ENVIRONMENT: \"$CE_ENVIRONMENT\"
   DB_USER: postgres
   DB_PASS: \"$DB_PASS\"
   DB_NAME: \"$DB_NAME\"
