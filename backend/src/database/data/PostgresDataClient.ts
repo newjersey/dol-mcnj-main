@@ -102,6 +102,7 @@ export class PostgresDataClient implements DataClient {
         return Promise.reject();
       });
 
+
     if (programs.length === 0) {
       if (column === "cipcode") {
         return Promise.resolve([]);
