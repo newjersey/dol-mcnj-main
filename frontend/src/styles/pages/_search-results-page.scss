@@ -13,6 +13,12 @@
 .filterbox {
   width: 100%;
 
+  &.full {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      margin: 0;
+    }
+  }
+
   &.is-fixed {
     height: $filterbox-height;
     z-index: 10;
@@ -96,8 +102,58 @@ a {
 }
 
 .results-count-container {
+  margin-bottom: $size-16;
   .usa-breadcrumb {
     padding-top: $size-16;
+    margin-bottom: $size-16;
+  }
+}
+
+.sorting-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $size-16;
+  width: 100%;
+  margin: 0;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    margin: $size-32 0 0;
+  }
+
+  > * {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      width: 100%;
+    }
+  }
+
+  .input-wrapper {
+    select {
+      border-width: $size-2;
+      border-radius: $size-4;
+      appearance: none;
+    }
+  }
+
+  .sorting-wrapper {
+    @media screen and (min-width: ($tablet-md)) {
+      width: $size-200;
+    }
+  }
+
+  .per-page-wrapper {
+    select {
+      width: 100%;
+
+      @media screen and (min-width: ($tablet-md)) {
+        width: $size-160 - $size-10;
+      }
+    }
+  }
+
+  label {
+    margin: 0;
+    font-weight: bold;
   }
 }
 
@@ -111,10 +167,13 @@ a {
 
   .filterbox {
     &.is-fixed {
-      width: 235px;
       height: calc(100% - #{$below-banners-height} - #{$result-count-height} - 15px);
       margin-left: 0;
       overflow-y: auto;
+    }
+
+    + .sorting-controls {
+      display: none;
     }
   }
 
@@ -123,7 +182,7 @@ a {
   }
 
   .results-count-container {
-    height: $result-count-height;
+    min-height: $result-count-height;
     padding-bottom: 1.5rem;
   }
 

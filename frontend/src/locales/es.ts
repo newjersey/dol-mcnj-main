@@ -320,6 +320,7 @@ export const es = {
     suppliesCostLabel: "Suministros y herramientas",
     otherCostLabel: "Otro",
     providerGroupHeader: "Detalles del proveedor",
+    locationGroupHeader: "Detalles de ubicación",
     onlineClass: "Clase en línea",
     providerServicesGroupHeader: "Servicios del proveedor",
     eveningCoursesServiceLabel: "Este proveedor ofrece cursos nocturnos.",
@@ -331,5 +332,5 @@ export const es = {
       "La colocación laboral y/o asistencia profesional está disponible en este proveedor",
     providerServicesDisclaimerLabel:
       "Los servicios están sujetos a los detalles del proveedor, comuníquese con este proveedor para obtener más información sobre los servicios",
-  }
+  },
 };

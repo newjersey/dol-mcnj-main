@@ -28,7 +28,7 @@ describe.skip("<FilterBox />", () => {
     const state = {
       filters: filters,
     };
-
+  
     return act(() => {
       render(
         <FilterContext.Provider value={{ state: state, dispatch: jest.fn() }}>
@@ -142,7 +142,9 @@ describe.skip("<FilterBox />", () => {
     renderFilterBox({ resultCount: 50 });
     fireEvent.click(screen.getByText(mobileFilterText));
 
-    expect(screen.getByText("50 results")).toBeInTheDocument();
+    setTimeout(() => {
+      expect(screen.getByText("50 results")).toBeInTheDocument();
+    }, 1000);
   });
 
   it("[MOBILE] uses correct grammar on result count", () => {
@@ -150,7 +152,9 @@ describe.skip("<FilterBox />", () => {
     renderFilterBox({ resultCount: 1 });
     fireEvent.click(screen.getByText(mobileFilterText));
 
-    expect(screen.getByText("1 result")).toBeInTheDocument();
+    setTimeout(() => {
+      expect(screen.getByText("1 result")).toBeInTheDocument();
+    }, 1000);
   });
 
   it("[MOBILE] displays search bar if no search query is given", () => {

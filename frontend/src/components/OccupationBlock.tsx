@@ -331,7 +331,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                     </span>
                                     <span>
                                       <MapPinLine size={32} />
-                                      {train.city}, {train.county}
+                                      TODO: REIMPLEMENT TRAINING ADDRESS HERE
+                                      {/*{train.city}, {train.county}*/}
                                     </span>
                                     <span className="last-line">
                                       <span>

@@ -24,7 +24,7 @@ interface Props {
   resultCount: number;
   setShowTrainings: (shouldShowTrainings: boolean) => void;
   resetStateForReload: () => void;
-  children: ReactElement;
+  children?: ReactElement;
   fixedContainer?: boolean;
 }
 
@@ -38,7 +38,6 @@ const usePrevious = <T extends {}>(value: T): T | undefined => {
 
 export const FilterBox = ({
   searchQuery,
-  resultCount,
   setShowTrainings,
   resetStateForReload,
   children,
@@ -98,10 +97,6 @@ export const FilterBox = ({
     return filterIsOpen && isMobile ? "keyboard_arrow_up" : "keyboard_arrow_down";
   };
 
-  const getResultCountText = (): string => {
-    return t("SearchAndFilter.resultCountString", { count: resultCount });
-  };
-
   const executeSearch = (newQuery: string): void => {
     if (isMobile) {
       setFilterIsOpen(false);
@@ -157,11 +152,10 @@ export const FilterBox = ({
           }
         />
 
-        {isMobile && (
+        {isMobile && children && (
           <>
             <div className="mtd mbs grey-line" />
             <div className="fdr fac mvm">
-              <div className="flex-half bold">{getResultCountText()}</div>
               <div className="flex-half">{children}</div>
             </div>
             <div className="mvs grey-line" />

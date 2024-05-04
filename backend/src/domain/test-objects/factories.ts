@@ -1,5 +1,5 @@
 import { TrainingResult } from "../training/TrainingResult";
-import { Address, Provider, Training } from "../training/Training";
+import { Address, ContactPoint, Provider, Training } from "../training/Training";
 import {
   InDemandOccupation,
   Occupation,
@@ -16,7 +16,11 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cip: "some-cip-" + randomInt(),
+      cipcode: "some-cipcode-" + randomInt(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
@@ -26,17 +30,17 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     localExceptionCounty: [],
     highlight: "some-hightlight-" + randomInt(),
     rank: randomInt(),
-    city: "some-city-" + randomInt(),
-    zipCode: "some-zipcode-" + randomInt(),
-    county: "some-county-" + randomInt(),
+    cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
+    zipCodes: [randomInt().toString(), randomInt().toString()],
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
     socCodes: ["some-soc-" + randomInt()],
     hasEveningCourses: randomBool(),
-    languages: ["some-language-" + randomInt()],
+    languages: "some-language-" + randomInt(),
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
+    availableAt: {},
     ...overrides,
   };
 };
@@ -45,11 +49,15 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cip: "some-cip-" + randomInt(),
+      cipcode: "some-cipcode-" + randomInt(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     provider: buildProvider({}),
     description: "some-description-" + randomInt(),
     certifications: "some-certifications-" + randomInt(),
-    prerequisites: "some-certifications-" + randomInt(),
+    prerequisites: ["some-certifications-" + randomInt()],
     occupations: [buildOccupation({})],
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
@@ -65,10 +73,11 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
-    languages: ["some-language-" + randomInt()],
+    languages: "some-language-" + randomInt(),
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
+    availableAt: {},
     ...overrides,
   };
 };
@@ -77,24 +86,29 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
     url: "some-url-" + randomInt(),
-    address: buildAddress({}),
+    addresses: buildAddress({}),
     name: "some-name-" + randomInt(),
-    contactName: "some-contactName-" + randomInt(),
-    contactTitle: "some-contactTitle-" + randomInt(),
-    phoneNumber: "some-phoneNumber-" + randomInt(),
-    phoneExtension: "some-phoneExtension-" + randomInt(),
-    county: "some-county-" + randomInt(),
     ...overrides,
   };
 };
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    state: "some-state-" + randomInt(),
+    street_address: "some-name-" + randomInt(),
+    city: "some-street1-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
+    ...overrides,
+  };
+};
+
+export const buildContactPoint = (overrides: Partial<ContactPoint>): ContactPoint => {
+  return {
+    name: "some-name-" + randomInt(),
+    alternateName: "some-alternateName-" + randomInt(),
+    contactType: "some-contactType-" + randomInt(),
+    email: ["some-email@a" + randomInt() + ".com"],
+    telephone: ["(973) 555-5555"],
     ...overrides,
   };
 };
@@ -130,7 +144,7 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     medianSalary: randomInt(),
     openJobsCount: randomInt(),
     relatedOccupations: [buildOccupation({})],
-    relatedTrainings: [buildTrainingResult({})],
+    //relatedTrainings: [buildTrainingResult({})],
     ...overrides,
   };
 };
@@ -167,8 +181,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     calendarlengthid: randomCalendarLengthId(),
     totalclockhours: randomInt().toString(),
     website: "some-website-" + randomInt(),
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
+    street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zip: "some-zip-" + randomInt(),

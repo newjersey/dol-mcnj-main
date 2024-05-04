@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from "react";
-import { TrainingResult } from "../domain/Training";
+import { Address, TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
@@ -9,6 +9,8 @@ import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
+import { cleanProviderName } from "../utils/cleanProviderName";
+import { formatCip } from "../utils/formatCip";
 
 interface Props {
   trainingResult: TrainingResult;
@@ -29,12 +31,15 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   const getLocationOrOnline = (): string => {
-    if (props.trainingResult.online) {
-      return t("SearchResultsPage.onlineClassLabel");
+    const address: Address  = props.trainingResult.availableAt;
+    if (address?.city && address?.county) {
+      return `${address.city}, ${address.county} County`;
+    } else if (address?.city && address?.state && !address?.county) {
+      return `${address.city}, ${address.state}`;
     }
-
-    return `${props.trainingResult.city}, ${props.trainingResult.county}`;
+    return "No Provider Locations Listed";
   };
+
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
     if (highlight === "") {
@@ -113,7 +118,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">school</InlineIcon>
-              {props.trainingResult.providerName}
+              {cleanProviderName(props.trainingResult.providerName)}
             </span>
           </p>
           <p className="mtxs mbz">
@@ -123,21 +128,32 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             </span>
           </p>
           <p className="mtxs mbz">
+            ``
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {t("SearchResultsPage.timeToComplete", {
-                time: t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`),
-              })}
+              {t("TrainingPage.completionTimeLabel") +
+                " " +
+                t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`)}
             </span>
           </p>
           <p className="mtxs mbz">
             <span className="fin fas">
-              <InlineIcon className="mrs">qr_code</InlineIcon>
-              {props.trainingResult.cipCode
-                ? t("SearchResultsPage.cipCode") + `: ${props.trainingResult.cipCode}`
-                : t("SearchResultsPage.cipCodeUnavailable")}
+              <InlineIcon className="mrs">book</InlineIcon>
+              <span>
+                {props.trainingResult.cipDefinition ? (
+                  <>
+                    {t("SearchResultsPage.cipCode") +
+                      `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
+                    <br />
+                    <b>{props.trainingResult.cipDefinition.ciptitle}</b>
+                  </>
+                ) : (
+                  t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
+                )}
+              </span>
             </span>
           </p>
+          <br />
         </div>
       </div>
       <div className="row">
