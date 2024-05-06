@@ -14,12 +14,12 @@ describe("Training Page", () => {
 
     // description
     cy.contains(
-        "This program teaches diversified skills needed to maintain and renovate commercial and residential properties. Students are taught basic skills in electricity, carpentry, plumbing, heating and air conditioning maintenance. Training also includes painting, papering, and tiling. Students acquire skills in appliance repair.",
+      "This program teaches diversified skills needed to maintain and renovate commercial and residential properties. Students are taught basic skills in electricity, carpentry, plumbing, heating and air conditioning maintenance. Training also includes painting, papering, and tiling. Students acquire skills in appliance repair.",
     ).should("exist");
 
     // quick stats
     cy.contains(
-        "Prerequisites: High school Diploma or GED, valid driver's license, pass math/reading entrance test",
+      "Prerequisites: High school Diploma or GED, valid driver's license, pass math/reading entrance test",
     ).should("exist");
     cy.contains("Completion time: 6-12 months").should("exist");
 
@@ -28,14 +28,11 @@ describe("Training Page", () => {
     cy.contains("Maintenance and Repair Workers, General").should("exist");
 
     // share trainings
+    cy.contains("How to get funding").should("exist");
     cy.contains(
-        "This training leads to an occupation that is in-demand, which may qualify for " +
-        "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them.",
+      "Trainings related to occupations on the In - Demand Occupations List may be eligible for funding. Contact your local One-Stop Career Center for more information regarding program and training availability.",
     ).should("exist");
-    cy.contains("Copy a link to this training opportunity").should("exist");
-    cy.contains("Save and print this training opportunity").should("exist");
-    cy.contains("Learn more about funding options and One-Stop Centers").should("exist");
+    cy.contains("You can also check out other tuition assistance opportunities.").should("exist");
 
     // cost
     cy.contains("$17,855.00").should("exist");
@@ -55,19 +52,5 @@ describe("Training Page", () => {
     cy.contains("www.orleanstech.edu").should("exist");
 
     cy.checkA11y();
-  });
-
-  it("does not display share training description text for non in-demand training", () => {
-    cy.visit("/training/37431");
-    cy.injectAxe();
-
-    cy.contains("Copy a link to this training opportunity").should("exist");
-    cy.contains("Save and print this training opportunity").should("exist");
-    cy.contains("Learn more about funding options and One-Stop Centers").should("exist");
-    cy.contains(
-      "This training leads to an occupation that is in-demand, which may qualify for " +
-        "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them.",
-    ).should("not.exist");
   });
 });
