@@ -331,5 +331,5 @@ export const es = {
       "La colocación laboral y/o asistencia profesional está disponible en este proveedor",
     providerServicesDisclaimerLabel:
       "Los servicios están sujetos a los detalles del proveedor, comuníquese con este proveedor para obtener más información sobre los servicios",
-  }
+  },
 };

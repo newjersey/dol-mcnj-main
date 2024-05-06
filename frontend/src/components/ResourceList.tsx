@@ -13,23 +13,28 @@ import { FooterCta } from "./FooterCta";
 import { Selector } from "../svg/Selector";
 import { useContentful } from "../utils/useContentful";
 import { AlertBar } from "./AlertBar";
+import { FundingBox } from "./modules/FundingBox";
+import { ArrowRight } from "@phosphor-icons/react";
+import { LinkObject } from "./modules/LinkObject";
 
 interface ResourceTagListProps {
-  tags: TagProps[];
   audience: TagProps[];
   category?: string;
-  info?: string;
   cta: ResourceCategoryPageProps["cta"];
+  fundingBox?: boolean;
+  info?: string;
   related?: RelatedCategoryProps[];
+  tags: TagProps[];
 }
 
 export const ResourceList = ({
-  tags,
-  info,
-  category = "All Resources",
   audience,
-  related,
+  category = "All Resources",
   cta,
+  fundingBox,
+  info,
+  related,
+  tags,
 }: ResourceTagListProps) => {
   // get the title from all tags and audience and map them to a single array
   const allTags = [...tags].map((tag) => tag.title);
@@ -38,6 +43,7 @@ export const ResourceList = ({
   const [filteredResources, setFilteredResources] = useState<ResourceItemProps[]>([]);
   const [uniqueTags, setUniqueTags] = useState<TagProps[]>([]);
   const [uniqueAudience, setUniqueAudience] = useState<TagProps[]>([]);
+  const [funding, setFunding] = useState(false);
 
   const data: ResourceListProps = useContentful({
     path: `/resource-listing/${JSON.stringify(allTags).replace(/\//g, "%2F")}`,
@@ -77,6 +83,13 @@ export const ResourceList = ({
 
   const themeColor =
     category === "Career Support" ? "purple" : category === "Tuition Assistance" ? "green" : "navy";
+
+  useEffect(() => {
+    const hasFundingTag = selectedTags.some((tag) =>
+      ["Grant", "Loan", "Job training"].includes(tag.title),
+    );
+    setFunding(hasFundingTag);
+  }, [selectedTags]);
 
   return (
     <section className="resource-list">
@@ -124,6 +137,28 @@ export const ResourceList = ({
 
           <div className="cards">
             {info && <AlertBar type="info" copy={info} />}
+
+            {(fundingBox || funding) && (
+              <FundingBox
+                heading="Funding for In-Demand Occupations"
+                headingLevel={2}
+                className="resource-list-info"
+              >
+                <p>
+                  Trainings related to occupations on the{" "}
+                  <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List
+                  may be eligible for funding. Contact your local One-Stop Career Center for more
+                  information regarding program and training availability.
+                </p>
+                <a
+                  href="https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1"
+                  className="usa-button usa-button--outline"
+                >
+                  Contact Career One-Stop
+                  <ArrowRight size={22} />
+                </a>
+              </FundingBox>
+            )}
             <div className="listing-header">
               <ResourceListHeading
                 tags={selectedTags}

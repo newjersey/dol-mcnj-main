@@ -22,6 +22,8 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
     `${data?.page.items[0].title} | Support Resources | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
+  const hasFundingBox = props.location?.search === "?funding=true";
+
   return (
     <>
       {data && (
@@ -60,6 +62,7 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
               info={data.page.items[0].infoBox}
               audience={data.audience.items}
               cta={data.cta}
+              fundingBox={hasFundingBox}
               related={data.page.items[0].related?.items}
             />
           </section>

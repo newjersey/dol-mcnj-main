@@ -1,0 +1,20 @@
+.fundingBox {
+  border-top: $size-4 solid $secondary;
+  border-radius: $size-10;
+  padding: $size-16;
+  background-color: $secondary-lighter;
+
+  .heading-tag {
+    font-size: $size-22;
+    font-weight: bold;
+  }
+
+  .usa-button {
+    padding: $size-8 $size-16;
+    width: auto;
+
+    &.usa-button--outline {
+      background-color: $white;
+    }
+  }
+}

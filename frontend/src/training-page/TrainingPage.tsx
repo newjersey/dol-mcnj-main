@@ -13,7 +13,6 @@ import { Grouping } from "../components/Grouping";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
-import { UnstyledButton } from "../components/UnstyledButton";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -22,20 +21,16 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { Icon } from "@material-ui/core";
 import { formatMoney } from "accounting";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { useReactToPrint } from "react-to-print";
+
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
+import { LinkObject } from "../components/modules/LinkObject";
 
 interface Props extends RouteComponentProps {
   client: Client;
   id?: string;
-}
-
-interface Copy {
-  class: string;
-  text: string;
 }
 
 export const TrainingPage = (props: Props): ReactElement => {
@@ -43,7 +38,6 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [error, setError] = useState<Error | null>(null);
-  const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
@@ -57,37 +51,6 @@ export const TrainingPage = (props: Props): ReactElement => {
       onError: (error: Error) => setError(error),
     });
   }, [props.id, props.client]);
-
-  const printReactContent = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
-  const printHandler = (): void => {
-    printReactContent();
-    logEvent("Training page", "Clicked print link", training?.id);
-  };
-
-  const copyHandler = (): void => {
-    try {
-      navigator.clipboard.writeText(window.location.href);
-    } catch {
-      setCopy({
-        class: "red",
-        text: t("TrainingPage.unsuccessfulCopy"),
-      });
-    }
-
-    setCopy({
-      class: "green",
-      text: t("TrainingPage.successfulCopy"),
-    });
-
-    setTimeout((): void => {
-      setCopy(null);
-    }, 5000);
-
-    logEvent("Training page", "Clicked copy link", training?.id);
-  };
 
   const getHttpUrl = (url: string): string => {
     if (!url.match(/^[a-zA-Z]+:\/\//)) {
@@ -387,41 +350,31 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <>{getAssociatedOccupations()}</>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.shareGroupHeader")}>
+                  <Grouping title="How to get funding">
                     <>
                       {training.inDemand && (
                         <p className="mvd" data-testid="shareInDemandTraining">
-                          {t("TrainingPage.inDemandDescription")}
+                          Trainings related to occupations on the{" "}
+                          <LinkObject url="/in-demand-occupations">
+                            In - Demand Occupations
+                          </LinkObject>{" "}
+                          List may be eligible for funding. Contact your local One-Stop Career
+                          Center for more information regarding program and training availability.
                         </p>
                       )}
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                          <Icon className="accessible-gray weight-500">link</Icon>
-                          <span className="mlxs weight-500">{t("TrainingPage.copyLinkText")}</span>
-                        </UnstyledButton>
-                        {copy && (
-                          <span className={`text-s weight-500 mls ${copy?.class}`}>
-                            {copy?.text}
-                          </span>
-                        )}
-                      </p>
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                          <Icon className="accessible-gray weight-500">print</Icon>
-                          <span className="mlxs weight-500">
-                            {t("TrainingPage.savePrintLinkText")}
-                          </span>
-                        </UnstyledButton>
-                      </p>
-                      <p>
-                        <Link
-                          className="link-format-blue weight-500 fin"
-                          to="/support-resources/tuition-assistance"
-                        >
-                          <Icon className="accessible-gray">attach_money</Icon>
-                          <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
-                        </Link>
-                      </p>
+                      <LinkObject
+                        url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
+                        className="usa-button primary usa-button--outline"
+                      >
+                        Contact Career Once Stop
+                      </LinkObject>
+                      <p>You can also check out other tuition assistance opportunities.</p>
+                      <LinkObject
+                        url="/support-resources/tuition-assistance?funding=true"
+                        className="usa-button secondary usa-button--outline"
+                      >
+                        View Tuition Assistance Resource
+                      </LinkObject>
                     </>
                   </Grouping>
                 </div>

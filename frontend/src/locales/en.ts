@@ -319,5 +319,5 @@ export const en = {
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
       "Services are subject to provider details, contact this provider for more information on services",
-  }
+  },
 };
