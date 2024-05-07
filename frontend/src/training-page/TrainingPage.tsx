@@ -25,13 +25,21 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { useReactToPrint } from "react-to-print";
 import { Tooltip } from "react-tooltip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
+import { UnstyledButton } from "../components/UnstyledButton";
+import { LinkSimple, Printer } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
   id?: string;
+}
+
+interface Copy {
+  class: string;
+  text: string;
 }
 
 export const TrainingPage = (props: Props): ReactElement => {
@@ -39,6 +47,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [error, setError] = useState<Error | null>(null);
+  const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
@@ -52,6 +61,37 @@ export const TrainingPage = (props: Props): ReactElement => {
       onError: (error: Error) => setError(error),
     });
   }, [props.id, props.client]);
+
+  const printReactContent = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  const printHandler = (): void => {
+    printReactContent();
+    logEvent("Training page", "Clicked print link", training?.id);
+  };
+
+  const copyHandler = (): void => {
+    try {
+      navigator.clipboard.writeText(window.location.href);
+    } catch {
+      setCopy({
+        class: "red",
+        text: t("TrainingPage.unsuccessfulCopy"),
+      });
+    }
+
+    setCopy({
+      class: "green",
+      text: t("TrainingPage.successfulCopy"),
+    });
+
+    setTimeout((): void => {
+      setCopy(null);
+    }, 5000);
+
+    logEvent("Training page", "Clicked copy link", training?.id);
+  };
 
   const getHttpUrl = (url: string): string => {
     if (!url.match(/^[a-zA-Z]+:\/\//)) {
@@ -230,9 +270,28 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-            {training.name}
-          </h2>
+
+          <div className="title-box">
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
+            <ul className="save-controls unstyled">
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                  <LinkSimple size={26} className={copy ? "green" : undefined} />
+                  <span className={copy ? "green" : undefined}>
+                    {copy ? "Copied!" : "Copy link"}
+                  </span>
+                </UnstyledButton>
+              </li>
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                  <Printer size={26} />
+                  <span className="mlxs weight-500">Print and Save</span>
+                </UnstyledButton>
+              </li>
+            </ul>
+          </div>
           <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
 
           <div className="stat-block-stack mtm">
