@@ -12,15 +12,5 @@
   .usa-button {
     padding: $size-8 $size-16;
     width: auto;
-
-    span {
-      display: flex;
-      align-items: center;
-      gap: $size-4;
-    }
-
-    &.usa-button--outline {
-      background-color: $white;
-    }
   }
 }
