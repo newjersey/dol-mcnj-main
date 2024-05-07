@@ -224,9 +224,11 @@ export const OccupationPage = (props: Props): ReactElement => {
               className="link-format-blue weight-500 blue fin mtm"
               target="_blank"
               rel="noopener noreferrer"
-              href={OPEN_JOBS_URL.replace(
+              href={
+                OPEN_JOBS_URL.replace(
                   "{SOC_CODE}",
-                  occupationDetail.openJobsCount === 0 ? "" : (occupationDetail.openJobsSoc || "").toString(),
+                  (occupationDetail.openJobsCount !== null && occupationDetail.openJobsCount > 0 && occupationDetail.openJobsSoc) 
+                  ? `${occupationDetail.openJobsSoc}.00` : ""
               )}
               onClick={() =>
                 logEvent(
