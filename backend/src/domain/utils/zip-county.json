@@ -1679,7 +1679,7 @@
       "county": "Ocean"
     },
     "08051": {
-      "city": "Mantua, West Deptford",
+      "city": "Mantua",
       "county": "Gloucester"
     },
     "08052": {
@@ -1695,7 +1695,7 @@
       "county": "Burlington"
     },
     "08055": {
-      "city": "Medford, Medford Lakes",
+      "city": "Medford",
       "county": "Burlington"
     },
     "08056": {
@@ -1707,11 +1707,11 @@
       "county": "Burlington"
     },
     "08059": {
-      "city": "Mount Ephraim, West Collingswood Heights",
+      "city": "Mount Ephraim",
       "county": "Camden"
     },
     "08060": {
-      "city": "Mount Holly, Eastampton",
+      "city": "Mount Holly",
       "county": "Burlington"
     },
     "08061": {
@@ -1719,11 +1719,11 @@
       "county": "Gloucester"
     },
     "08062": {
-      "city": "Mullica Hill, South Harrison Township",
+      "city": "Mullica Hill",
       "county": "Gloucester"
     },
     "08063": {
-      "city": "National Park, West Deptford",
+      "city": "National Park",
       "county": "Gloucester"
     },
     "08064": {
@@ -1735,7 +1735,7 @@
       "county": "Burlington"
     },
     "08066": {
-      "city": "Paulsboro, West Deptford",
+      "city": "Paulsboro",
       "county": "Gloucester"
     },
     "08067": {
@@ -1747,7 +1747,7 @@
       "county": "Burlington"
     },
     "08069": {
-      "city": "Penns Grove, Carneys Point",
+      "city": "Penns Grove",
       "county": "Salem"
     },
     "08070": {
@@ -1771,7 +1771,7 @@
       "county": "Gloucester"
     },
     "08075": {
-      "city": "Riverside, Delanco, Delran",
+      "city": "Riverside",
       "county": "Burlington"
     },
     "08076": {
@@ -1779,7 +1779,7 @@
       "county": "Burlington"
     },
     "08077": {
-      "city": "Riverton, Cinnaminson",
+      "city": "Riverton",
       "county": "Burlington"
     },
     "08078": {
@@ -1787,7 +1787,7 @@
       "county": "Camden"
     },
     "08079": {
-      "city": "Salem, Mannington",
+      "city": "Salem",
       "county": "Salem"
     },
     "08080": {
@@ -1795,11 +1795,11 @@
       "county": "Gloucester"
     },
     "08081": {
-      "city": "Sicklerville, Erial",
+      "city": "Sicklerville",
       "county": "Camden"
     },
     "08083": {
-      "city": "Somerdale, Hi Nella",
+      "city": "Somerdale",
       "county": "Camden"
     },
     "08084": {
@@ -1807,23 +1807,23 @@
       "county": "Camden"
     },
     "08085": {
-      "city": "Swedesboro, Logan Township",
+      "city": "Swedesboro",
       "county": "Gloucester"
     },
     "08086": {
-      "city": "Thorofare, West Deptford",
+      "city": "Thorofare",
       "county": "Gloucester"
     },
     "08087": {
-      "city": "Tuckerton, Little Egg Harbor",
+      "city": "Tuckerton",
       "county": "Ocean"
     },
     "08088": {
-      "city": "Vincentown, Shamong, Southampton, Tabernacle",
+      "city": "Vincentown",
       "county": "Burlington"
     },
     "08089": {
-      "city": "Waterford Works, Chesilhurst",
+      "city": "Waterford Works",
       "county": "Camden"
     },
     "08090": {
@@ -1831,7 +1831,7 @@
       "county": "Gloucester"
     },
     "08091": {
-      "city": "West Berlin, Berlin Township",
+      "city": "West Berlin",
       "county": "Camden"
     },
     "08092": {
@@ -1839,7 +1839,7 @@
       "county": "Ocean"
     },
     "08093": {
-      "city": "Westville, West Deptford",
+      "city": "Westville",
       "county": "Gloucester"
     },
     "08094": {
@@ -1851,11 +1851,11 @@
       "county": "Camden"
     },
     "08096": {
-      "city": "Woodbury, Blackwood Terrace",
+      "city": "Woodbury",
       "county": "Gloucester"
     },
     "08097": {
-      "city": "Woodbury Heights, Deptford, Woodbury",
+      "city": "Woodbury Heights",
       "county": "Gloucester"
     },
     "08098": {
@@ -1879,7 +1879,7 @@
       "county": "Camden"
     },
     "08104": {
-      "city": "Camden, Haddon Township",
+      "city": "Camden",
       "county": "Camden"
     },
     "08105": {
@@ -1891,19 +1891,19 @@
       "county": "Camden"
     },
     "08107": {
-      "city": "Oaklyn, Collingswood, Haddon Township",
+      "city": "Oaklyn",
       "county": "Camden"
     },
     "08108": {
-      "city": "Collingswood, Haddon Township, Westmont",
+      "city": "Collingswood",
       "county": "Camden"
     },
     "08109": {
-      "city": "Merchantville, Pennsauken",
+      "city": "Merchantville",
       "county": "Camden"
     },
     "08110": {
-      "city": "Pennsauken, Delair",
+      "city": "Pennsauken",
       "county": "Camden"
     },
     "08201": {
@@ -1923,7 +1923,7 @@
       "county": "Cape May"
     },
     "08205": {
-      "city": "Absecon, Galloway, Smithville",
+      "city": "Absecon",
       "county": "Atlantic"
     },
     "08210": {
@@ -1943,7 +1943,7 @@
       "county": "Cape May"
     },
     "08215": {
-      "city": "Egg Harbor City, Egg Harbor",
+      "city": "Egg Harbor City",
       "county": "Atlantic"
     },
     "08217": {
@@ -2783,7 +2783,7 @@
       "county": "Middlesex"
     },
     "08861": {
-      "city": "Perth Amboy, Hopelawn",
+      "city": "Perth Amboy",
       "county": "Middlesex"
     },
     "08862": {
@@ -2791,7 +2791,7 @@
       "county": "Middlesex"
     },
     "08863": {
-      "city": "Fords, Perth Amboy",
+      "city": "Fords",
       "county": "Middlesex"
     },
     "08865": {
@@ -2920,6 +2920,16 @@
     }
   },
   "byCity": {
+    "Absecon": {
+      "alts": [
+        "Galloway",
+        "Smithville"
+      ],
+      "zips": [
+        "08201",
+        "08205"
+      ]
+    },
     "Adelphia": {
       "zips": [
         "07710"
@@ -2978,6 +2988,13 @@
         "08004"
       ]
     },
+    "Atlantic City": {
+      "zips": [
+        "08401",
+        "08404",
+        "08405"
+      ]
+    },
     "Atlantic Highlands": {
       "alts": [
         "Atlantic Hlds"
@@ -2986,9 +3003,19 @@
         "07716"
       ]
     },
+    "Audubon": {
+      "zips": [
+        "08106"
+      ]
+    },
     "Augusta": {
       "zips": [
         "07822"
+      ]
+    },
+    "Avalon": {
+      "zips": [
+        "08202"
       ]
     },
     "Avenel": {
@@ -3175,6 +3202,11 @@
         "08014"
       ]
     },
+    "Brigantine": {
+      "zips": [
+        "08203"
+      ]
+    },
     "Brookside": {
       "zips": [
         "07926"
@@ -3227,6 +3259,44 @@
       ],
       "zips": [
         "07830"
+      ]
+    },
+    "Camden": {
+      "alts": [
+        "Haddon Township"
+      ],
+      "zips": [
+        "08101",
+        "08102",
+        "08103",
+        "08104",
+        "08105"
+      ]
+    },
+    "Cape May": {
+      "alts": [
+        "N Cape May",
+        "North Cape May",
+        "West Cape May"
+      ],
+      "zips": [
+        "08204"
+      ]
+    },
+    "Cape May Court House": {
+      "alts": [
+        "Cape May Ch"
+      ],
+      "zips": [
+        "08210"
+      ]
+    },
+    "Cape May Point": {
+      "alts": [
+        "Cape May Pt"
+      ],
+      "zips": [
+        "08212"
       ]
     },
     "Carlstadt": {
@@ -3327,6 +3397,21 @@
         "07624"
       ]
     },
+    "Collingswood": {
+      "alts": [
+        "Haddon Township",
+        "Haddon Twp",
+        "Westmont"
+      ],
+      "zips": [
+        "08108"
+      ]
+    },
+    "Cologne": {
+      "zips": [
+        "08213"
+      ]
+    },
     "Colonia": {
       "zips": [
         "07067"
@@ -3390,6 +3475,11 @@
         "07627"
       ]
     },
+    "Dennisville": {
+      "zips": [
+        "08214"
+      ]
+    },
     "Denville": {
       "zips": [
         "07834"
@@ -3447,6 +3537,15 @@
         "08820",
         "08837",
         "08899"
+      ]
+    },
+    "Egg Harbor City": {
+      "alts": [
+        "Egg Harbor Cy",
+        "Egg Hbr City"
+      ],
+      "zips": [
+        "08215"
       ]
     },
     "Elizabeth": {
@@ -4129,9 +4228,35 @@
         "08050"
       ]
     },
+    "Mantua": {
+      "alts": [
+        "West Deptford"
+      ],
+      "zips": [
+        "08051"
+      ]
+    },
+    "Maple Shade": {
+      "zips": [
+        "08052"
+      ]
+    },
     "Maplewood": {
       "zips": [
         "07040"
+      ]
+    },
+    "Marlton": {
+      "alts": [
+        "Evesham"
+      ],
+      "zips": [
+        "08053"
+      ]
+    },
+    "Marlboro": {
+      "zips": [
+        "07746"
       ]
     },
     "Matawan": {
@@ -4140,11 +4265,6 @@
       ],
       "zips": [
         "07747"
-      ]
-    },
-    "Marlboro": {
-      "zips": [
-        "07746"
       ]
     },
     "Maywood": {
@@ -4157,6 +4277,14 @@
         "07428"
       ]
     },
+    "Medford": {
+      "alts": [
+        "Medford Lakes"
+      ],
+      "zips": [
+        "08055"
+      ]
+    },
     "Mendham": {
       "alts": [
         "Mendham Township",
@@ -4166,9 +4294,22 @@
         "07945"
       ]
     },
+    "Merchantville": {
+      "alts": [
+        "Pennsauken"
+      ],
+      "zips": [
+        "08109"
+      ]
+    },
     "Metuchen": {
       "zips": [
         "08840"
+      ]
+    },
+    "Mickleton": {
+      "zips": [
+        "08056"
       ]
     },
     "Middletown": {
@@ -4274,6 +4415,11 @@
         "07074"
       ]
     },
+    "Moorestown": {
+      "zips": [
+        "08057"
+      ]
+    },
     "Morganville": {
       "zips": [
         "07751"
@@ -4300,9 +4446,39 @@
         "07856"
       ]
     },
+    "Mount Ephraim": {
+      "alts": [
+        "W Colls Hgts",
+        "West Collingswood Heights"
+      ],
+      "zips": [
+        "08059"
+      ]
+    },
     "Mount Freedom": {
       "zips": [
         "07970"
+      ]
+    },
+    "Mount Holly": {
+      "alts": [
+        "Eastamptn Twp",
+        "Eastampton",
+        "Eastampton Township",
+        "Westampton"
+      ],
+      "zips": [
+        "08060"
+      ]
+    },
+    "Mount Laurel": {
+      "zips": [
+        "08054"
+      ]
+    },
+    "Mount Royal": {
+      "zips": [
+        "08061"
       ]
     },
     "Mount Tabor": {
@@ -4321,6 +4497,23 @@
     "Mountainside": {
       "zips": [
         "07092"
+      ]
+    },
+    "Mullica Hill": {
+      "alts": [
+        "S Harrisn Twp",
+        "South Harrison Township"
+      ],
+      "zips": [
+        "08062"
+      ]
+    },
+    "National Park": {
+      "alts": [
+        "West Deptford"
+      ],
+      "zips": [
+        "08063"
       ]
     },
     "Navesink": {
@@ -4363,6 +4556,11 @@
         "08933",
         "08988",
         "08989"
+      ]
+    },
+    "New Lisbon": {
+      "zips": [
+        "08064"
       ]
     },
     "New Milford": {
@@ -4485,6 +4683,19 @@
         "07436"
       ]
     },
+    "Oaklyn": {
+      "alts": [
+        "Collingswood",
+        "Haddon Township",
+        "Haddon Twp",
+        "W Colls",
+        "West Collingswood",
+        "Woodlynne"
+      ],
+      "zips": [
+        "08107"
+      ]
+    },
     "Ogdensburg": {
       "zips": [
         "07439"
@@ -4493,6 +4704,11 @@
     "Old Bridge": {
       "zips": [
         "08857"
+      ]
+    },
+    "Oldwick": {
+      "zips": [
+        "08858"
       ]
     },
     "Oradell": {
@@ -4519,6 +4735,11 @@
         "07650"
       ]
     },
+    "Palmyra": {
+      "zips": [
+        "08065"
+      ]
+    },
     "Paramus": {
       "zips": [
         "07652",
@@ -4528,6 +4749,11 @@
     "Park Ridge": {
       "zips": [
         "07656"
+      ]
+    },
+    "Parlin": {
+      "zips": [
+        "08859"
       ]
     },
     "Parsippany": {
@@ -4569,14 +4795,62 @@
         "07544"
       ]
     },
+    "Paulsboro": {
+      "alts": [
+        "West Deptford"
+      ],
+      "zips": [
+        "08066"
+      ]
+    },
     "Peapack": {
       "zips": [
         "07977"
       ]
     },
+    "Pedricktown": {
+      "zips": [
+        "08067"
+      ]
+    },
+    "Pemberton": {
+      "zips": [
+        "08068"
+      ]
+    },
+    "Penns Grove": {
+      "alts": [
+        "Carneys Point"
+      ],
+      "zips": [
+        "08069"
+      ]
+    },
+    "Pennsauken": {
+      "alts": [
+        "Delair"
+      ],
+      "zips": [
+        "08110"
+      ]
+    },
+    "Pennsville": {
+      "zips": [
+        "08070"
+      ]
+    },
     "Pequannock": {
       "zips": [
         "07440"
+      ]
+    },
+    "Perth Amboy": {
+      "alts": [
+        "Hopelawn"
+      ],
+      "zips": [
+        "08861",
+        "08862"
       ]
     },
     "Picatinny Arsenal": {
@@ -4596,6 +4870,11 @@
       "zips": [
         "08854",
         "08855"
+      ]
+    },
+    "Pitman": {
+      "zips": [
+        "08071"
       ]
     },
     "Plainfield": {
@@ -4649,6 +4928,11 @@
         "07979"
       ]
     },
+    "Quinton": {
+      "zips": [
+        "08072"
+      ]
+    },
     "Rahway": {
       "zips": [
         "07065"
@@ -4657,6 +4941,11 @@
     "Ramsey": {
       "zips": [
         "07446"
+      ]
+    },
+    "Rancocas": {
+      "zips": [
+        "08073"
       ]
     },
     "Randolph": {
@@ -4674,6 +4963,11 @@
       ],
       "zips": [
         "07701"
+      ]
+    },
+    "Richwood": {
+      "zips": [
+        "08074"
       ]
     },
     "Ridgewood": {
@@ -4704,6 +4998,25 @@
     "Riverdale": {
       "zips": [
         "07457"
+      ]
+    },
+    "Riverside": {
+      "alts": [
+        "Delanco",
+        "Delran"
+      ],
+      "zips": [
+        "08075"
+      ]
+    },
+    "Riverton": {
+      "alts": [
+        "Cinnaminson",
+        "Delran"
+      ],
+      "zips": [
+        "08076",
+        "08077"
       ]
     },
     "Robbinsville": {
@@ -4749,6 +5062,11 @@
         "07760"
       ]
     },
+    "Runnemede": {
+      "zips": [
+        "08078"
+      ]
+    },
     "Rutherford": {
       "zips": [
         "07070"
@@ -4766,6 +5084,14 @@
       ],
       "zips": [
         "07458"
+      ]
+    },
+    "Salem": {
+      "alts": [
+        "Mannington"
+      ],
+      "zips": [
+        "08079"
       ]
     },
     "Schooleys Mountain": {
@@ -4792,6 +5118,11 @@
         "07077"
       ]
     },
+    "Sewell": {
+      "zips": [
+        "08080"
+      ]
+    },
     "Shrewsbury": {
       "alts": [
         "Red Bank"
@@ -4803,6 +5134,22 @@
     "Short Hills": {
       "zips": [
         "07078"
+      ]
+    },
+    "Sicklerville": {
+      "alts": [
+        "Erial"
+      ],
+      "zips": [
+        "08081"
+      ]
+    },
+    "Somerdale": {
+      "alts": [
+        "Hi Nella"
+      ],
+      "zips": [
+        "08083"
       ]
     },
     "Somerset": {
@@ -4871,6 +5218,11 @@
         "07460"
       ]
     },
+    "Stratford": {
+      "zips": [
+        "08084"
+      ]
+    },
     "Succasunna": {
       "zips": [
         "07876"
@@ -4895,6 +5247,17 @@
         "07877"
       ]
     },
+    "Swedesboro": {
+      "alts": [
+        "Logan Township",
+        "Logan Twp",
+        "Woolwich Township",
+        "Woolwich Twp"
+      ],
+      "zips": [
+        "08085"
+      ]
+    },
     "Teaneck": {
       "zips": [
         "07666"
@@ -4914,6 +5277,14 @@
       "zips": [
         "07608",
         "07699"
+      ]
+    },
+    "Thorofare": {
+      "alts": [
+        "West Deptford"
+      ],
+      "zips": [
+        "08086"
       ]
     },
     "Totowa": {
@@ -4979,6 +5350,18 @@
         "08695"
       ]
     },
+    "Tuckerton": {
+      "alts": [
+        "Little Egg Harbor",
+        "Little Egg Harbor Twp",
+        "Ltl Egg Hbr",
+        "Mystic Islands",
+        "Mystic Islnds"
+      ],
+      "zips": [
+        "08087"
+      ]
+    },
     "Union": {
       "zips": [
         "07083"
@@ -5007,6 +5390,16 @@
     "Vienna": {
       "zips": [
         "07880"
+      ]
+    },
+    "Vincentown": {
+      "alts": [
+        "Shamong",
+        "Southampton",
+        "Tabernacle"
+      ],
+      "zips": [
+        "08088"
       ]
     },
     "Voorhees": {
@@ -5059,6 +5452,15 @@
         "07069"
       ]
     },
+    "Waterford Works": {
+      "alts": [
+        "Chesilhurst",
+        "Waterford Wks"
+      ],
+      "zips": [
+        "08089"
+      ]
+    },
     "Wayne": {
       "zips": [
         "07470",
@@ -5069,6 +5471,25 @@
     "Weehawken": {
       "zips": [
         "07086"
+      ]
+    },
+    "Wenonah": {
+      "zips": [
+        "08090"
+      ]
+    },
+    "West Berlin": {
+      "alts": [
+        "Berlin Township",
+        "Berlin Twp"
+      ],
+      "zips": [
+        "08091"
+      ]
+    },
+    "West Creek": {
+      "zips": [
+        "08092"
       ]
     },
     "West Long Branch": {
@@ -5103,6 +5524,14 @@
         "07091"
       ]
     },
+    "Westville": {
+      "alts": [
+        "West Deptford"
+      ],
+      "zips": [
+        "08093"
+      ]
+    },
     "Westwood": {
       "alts": [
         "Old Tappan",
@@ -5133,9 +5562,19 @@
         "07765"
       ]
     },
+    "Williamstown": {
+      "zips": [
+        "08094"
+      ]
+    },
     "Willingboro": {
       "zips": [
         "08046"
+      ]
+    },
+    "Winslow": {
+      "zips": [
+        "08095"
       ]
     },
     "Wood Ridge": {
@@ -5148,6 +5587,27 @@
         "07095"
       ]
     },
+    "Woodbury": {
+      "alts": [
+        "Blackwood Ter",
+        "Blackwood Terrace",
+        "Deptford",
+        "West Deptford"
+      ],
+      "zips": [
+        "08096"
+      ]
+    },
+    "Woodbury Heights": {
+      "alts": [
+        "Deptford",
+        "Woodbury",
+        "Woodbury Hts"
+      ],
+      "zips": [
+        "08097"
+      ]
+    },
     "Woodcliff Lake": {
       "alts": [
         "Westwood",
@@ -5155,6 +5615,16 @@
       ],
       "zips": [
         "07677"
+      ]
+    },
+    "Woodstown": {
+      "alts": [
+        "Pilesgrove",
+        "Pilesgrove Township",
+        "Pilesgrv Twp"
+      ],
+      "zips": [
+        "08098"
       ]
     },
     "Wyckoff": {
