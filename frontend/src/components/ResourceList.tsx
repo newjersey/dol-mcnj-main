@@ -14,8 +14,8 @@ import { Selector } from "../svg/Selector";
 import { useContentful } from "../utils/useContentful";
 import { AlertBar } from "./AlertBar";
 import { FundingBox } from "./modules/FundingBox";
-import { ArrowRight } from "@phosphor-icons/react";
 import { LinkObject } from "./modules/LinkObject";
+import { IconNames } from "../types/icons";
 
 interface ResourceTagListProps {
   audience: TagProps[];
@@ -43,7 +43,6 @@ export const ResourceList = ({
   const [filteredResources, setFilteredResources] = useState<ResourceItemProps[]>([]);
   const [uniqueTags, setUniqueTags] = useState<TagProps[]>([]);
   const [uniqueAudience, setUniqueAudience] = useState<TagProps[]>([]);
-  const [funding, setFunding] = useState(false);
 
   const data: ResourceListProps = useContentful({
     path: `/resource-listing/${JSON.stringify(allTags).replace(/\//g, "%2F")}`,
@@ -83,13 +82,6 @@ export const ResourceList = ({
 
   const themeColor =
     category === "Career Support" ? "purple" : category === "Tuition Assistance" ? "green" : "navy";
-
-  useEffect(() => {
-    const hasFundingTag = selectedTags.some((tag) =>
-      ["Grant", "Loan", "Job training"].includes(tag.title),
-    );
-    setFunding(hasFundingTag);
-  }, [selectedTags]);
 
   return (
     <section className="resource-list">
@@ -138,7 +130,7 @@ export const ResourceList = ({
           <div className="cards">
             {info && <AlertBar type="info" copy={info} />}
 
-            {(fundingBox || funding) && (
+            {fundingBox && (
               <FundingBox
                 heading="Funding for In-Demand Occupations"
                 headingLevel={2}
@@ -150,13 +142,14 @@ export const ResourceList = ({
                   may be eligible for funding. Contact your local One-Stop Career Center for more
                   information regarding program and training availability.
                 </p>
-                <a
-                  href="https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1"
+                <LinkObject
+                  url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
                   className="usa-button usa-button--outline"
+                  iconSuffix={IconNames.ArrowSquareOut}
+                  iconSize={22}
                 >
                   Contact Career One-Stop
-                  <ArrowRight size={22} />
-                </a>
+                </LinkObject>
               </FundingBox>
             )}
             <div className="listing-header">

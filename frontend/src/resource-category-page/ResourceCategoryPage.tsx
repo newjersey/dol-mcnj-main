@@ -22,7 +22,7 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
     `${data?.page.items[0].title} | Support Resources | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
-  const hasFundingBox = props.location?.search === "?funding=true";
+  const hasFundingBox = props.location?.pathname === "/support-resources/tuition-assistance";
 
   return (
     <>

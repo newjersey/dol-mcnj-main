@@ -27,6 +27,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
 import { LinkObject } from "../components/modules/LinkObject";
+import { IconNames } from "../types/icons";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -365,12 +366,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <LinkObject
                         url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
                         className="usa-button primary usa-button--outline"
+                        iconSuffix={IconNames.ArrowSquareOut}
+                        iconSize={22}
                       >
                         Contact Career Once Stop
                       </LinkObject>
                       <p>You can also check out other tuition assistance opportunities.</p>
                       <LinkObject
-                        url="/support-resources/tuition-assistance?funding=true"
+                        url="/support-resources/tuition-assistance"
                         className="usa-button secondary usa-button--outline"
                       >
                         View Tuition Assistance Resource
