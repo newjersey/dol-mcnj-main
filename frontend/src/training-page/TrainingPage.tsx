@@ -270,7 +270,6 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-
           <div className="title-box">
             <h2 data-testid="title" className="text-xl ptd pbs weight-500">
               {training.name}
@@ -293,7 +292,6 @@ export const TrainingPage = (props: Props): ReactElement => {
             </ul>
           </div>
           <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
-
           <div className="stat-block-stack mtm">
             {training.inDemand ? <InDemandBlock /> : <></>}
 
@@ -326,7 +324,20 @@ export const TrainingPage = (props: Props): ReactElement => {
               backgroundColorClass="bg-light-purple-50"
             />
           </div>
-
+          <ul className="save-controls mobile-only unstyled">
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                <LinkSimple size={26} className={copy ? "green" : undefined} />
+                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
+              </UnstyledButton>
+            </li>
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                <Printer size={26} />
+                <span className="mlxs weight-500">Print and Save</span>
+              </UnstyledButton>
+            </li>
+          </ul>
           <div className="row pbm">
             <div className="col-md-8">
               <div className="container-fluid">
