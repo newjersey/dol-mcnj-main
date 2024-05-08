@@ -14,6 +14,7 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
+import { Button } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -465,6 +466,24 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span>{t("TrainingPage.otherCostLabel")}</span>
                           <span className="pull-right">{formatMoney(training.otherCost)}</span>
                         </div>
+                      </div>
+                      <div id="contact-provider-info">
+                        {!training?.provider?.url ? (
+                          <div className="provider-btn-container">
+                            <Button
+                              copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                              type="link"
+                              url={training.provider.url}
+                            />
+                            <div>
+                              {t("TrainingPage.providerWebsiteDisclaimerLabel")}
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            {t("TrainingPage.providerWebsiteMissingLabel")}
+                          </>
+                        )}
                       </div>
                     </>
                   </Grouping>
