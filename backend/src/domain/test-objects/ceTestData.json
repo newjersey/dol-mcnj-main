@@ -1,0 +1,211 @@
+[
+    {
+      "ceterms:ownedBy": "someCtid1",
+      "ceterms:subjectWebpage": "someurl",
+      "ceterms:address": [
+        {
+          "@type": "ceterms:Place",
+          "ceterms:streetAddress": {
+            "en-US": "1234 Test St"
+          },
+          "ceterms:addressLocality": {
+            "en-US": "Test City"
+          },
+          "ceterms:addressRegion": {
+            "en-US": "Test State"
+          },
+          "ceterms:postalCode": "07004",
+          "ceterms:targetContactPoint": null
+        }
+      ],
+      "ceterms:availableAt": [
+        {"@type": "ceterms:Place",
+        "ceterms:postalCode": "08816",
+        "ceterms:addressRegion": { "en-US": "New Jersey" },
+        "ceterms:streetAddress": { "en-US": "112 Rues Lane" },
+        "ceterms:addressLocality": { "en-US": "East Brunswick" }}
+      ],
+      "ceterms:availableOnlineAt": "http://example.com",
+      "ceterms:commonConditions": ["condition1"],
+      "ceterms:estimatedCost": [
+        {
+          "ceterms:currency": "US Dollar",
+          "ceterms:price": 1000
+        }
+      ],
+      "ceterms:estimatedDuration": [
+        {
+          "ceterms:exactDuration": "P1Y"
+        }
+      ],
+      "ceterms:instructionalProgramType": [
+        {
+          "ceterms:frameworkName": {
+            "en-US": "Classification of Instructional Programs"
+          },
+          "ceterms:codedNotation": "12.3456"
+        }
+      ],
+      "ceterms:isPreparationFor": [
+        {
+          "ceterms:name": {
+            "en-US": "Certification Name"
+          },
+          "ceterms:experience": "2 years",
+          "ceterms:description": {
+            "en-US": "Description of the certification"
+          },
+          "ceterms:targetAssessment": ["assessment1"],
+          "ceterms:targetCompetency": ["competency1"],
+          "ceterms:targetCredential": ["credential1"],
+          "ceterms:targetLearningOpportunity": ["learningOpportunity1"]
+        }
+      ],
+      "ceterms:occupationType": [
+        {
+          "ceterms:codedNotation": "15-1121"
+        }
+      ],
+      "ceterms:scheduleTimingType": [
+        {
+          "ceterms:name": "Evening"
+        }
+      ],
+      "ceterms:ctid": "ctid123",
+      "ceterms:name": {
+        "en-US": "Example Training Program"
+      },
+      "ceterms:description": {
+        "en-US": "This is an example description for the training program."
+      },
+      "ceterms:requires": [
+        {
+          "ceterms:name": {
+            "en-US": "Requirements"
+          },
+          "ceterms:description": {
+            "en-US": "Example requirement description"
+          }
+        }
+      ],
+      "ceterms:inLanguage": ["English"]
+    },
+    {
+      "ceterms:ownedBy": "someCtid2",
+      "ceterms:subjectWebpage": "someurl",
+      "ceterms:address": [
+        {
+          "@type": "ceterms:Place",
+          "ceterms:streetAddress": {
+            "en-US": "1234 Test St"
+          },
+          "ceterms:addressLocality": {
+            "en-US": "Test City"
+          },
+          "ceterms:addressRegion": {
+            "en-US": "Test State"
+          },
+          "ceterms:postalCode": "07735",
+          "ceterms:targetContactPoint": null
+        }
+      ],
+      "ceterms:availableOnlineAt": "http://example.com",
+      "ceterms:commonConditions": ["condition2"],
+      "ceterms:estimatedCost": [
+        {
+          "ceterms:currency": "US Dollar",
+          "ceterms:price": 1000
+        }
+      ],
+      "ceterms:estimatedDuration": [
+        {
+          "ceterms:exactDuration": "P1Y"
+        }
+      ],
+    "ceterms:instructionalProgramType": [
+      {
+        "ceterms:frameworkName": {
+          "en-US": "Cost Type"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Aggregate Cost"
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "Sum of direct costs."
+        }
+      }
+    ],
+    "ceterms:occupationType": [
+      {
+        "@type": "ceterms:CredentialAlignmentObject",
+        "ceterms:framework": "https://www.onetcenter.org/taxonomy.html",
+        "ceterms:targetNode": "https://www.onetonline.org/link/summary/11-3021.00",
+        "ceterms:codedNotation": "11-3021.00",
+        "ceterms:frameworkName": {
+          "en-US": "Standard Occupational Classification"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Computer and Information Systems Managers"
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "Plan, direct, or coordinate activities in such fields as electronic data processing, information systems, systems analysis, and computer programming."
+        }
+      }
+    ],
+    "ceterms:subjectWebpage": "https://www.liit.com",
+    "ceterms:isPreparationFor": [
+      {
+        "@type": "ceterms:ConditionProfile",
+        "ceterms:name": {
+          "en-US": "Certification"
+        },
+        "ceterms:description": {
+          "en-US": "This certification will prepare a student for the target credential"
+        }
+      }
+    ],
+    "ceterms:availableOnlineAt": [
+      "https://www.liit.com"
+    ],
+    "ceterms:estimatedDuration": [
+      {
+        "@type": "ceterms:DurationProfile",
+        "ceterms:description": {
+          "en-US": "This is about how long it takes to earn this credential"
+        },
+        "ceterms:exactDuration": "PT272H"
+      }
+    ],
+    "ceterms:credentialStatusType": {
+      "@type": "ceterms:CredentialAlignmentObject",
+      "ceterms:framework": "https://credreg.net/ctdl/terms/CredentialStatus",
+      "ceterms:targetNode": "credentialStat:Active",
+      "ceterms:frameworkName": {
+        "en-US": "Credential Status"
+      },
+      "ceterms:targetNodeName": {
+        "en-US": "Active"
+      },
+      "ceterms:targetNodeDescription": {
+        "en-US": "Awards of the credential are ongoing."
+      }
+    },
+    "ceterms:instructionalProgramType": [
+      {
+        "@type": "ceterms:CredentialAlignmentObject",
+        "ceterms:framework": "https://nces.ed.gov/ipeds/cipcode/Default.aspx?y=56",
+        "ceterms:targetNode": "https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56\u0026cip=11.0901",
+        "ceterms:codedNotation": "11.0901",
+        "ceterms:frameworkName": {
+          "en-US": "Classification of Instructional Programs"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Computer Systems Networking and Telecommunications."
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "A program that focuses on the design, implementation, and management of linked systems of computers, peripherals, and associated software to maximize efficiency and productivity, and that prepares individuals to function as network specialists and managers at various levels.  Includes instruction in operating systems and applications; systems design and analysis; networking theory and solutions; types of networks; network management and control; network and flow optimization; security; configuring; and troubleshooting."
+        }
+      }
+    ]
+  }
+]

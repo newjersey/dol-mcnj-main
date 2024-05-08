@@ -3,7 +3,7 @@ export const en = {
     noDataAvailableText: "No data available",
   },
   CalendarLengthLookup: {
-    "0": "--",
+    "0": "No data available",
     "1": "Less than 1 day",
     "2": "1-2 days",
     "3": "3-7 days",
@@ -308,6 +308,7 @@ export const en = {
     suppliesCostLabel: "Supplies & Tools",
     otherCostLabel: "Other",
     providerGroupHeader: "Provider Details",
+    locationGroupHeader: "Location Details",
     onlineClass: "Online Class",
     providerServicesGroupHeader: "Provider Services",
     eveningCoursesServiceLabel: "This provider offers evening courses",
@@ -319,5 +320,5 @@ export const en = {
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
       "Services are subject to provider details, contact this provider for more information on services",
-  }
+  },
 };

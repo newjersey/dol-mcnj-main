@@ -3,18 +3,19 @@ import { Occupation } from "./Occupation";
 export interface TrainingResult {
   id: string;
   name: string;
-  cipCode: string;
+  cipDefinition: CipDefinition;
   totalCost: number;
   percentEmployed: number | null;
   calendarLength: CalendarLength;
-  totalClockHours: number;
+  totalClockHours?: number;
   inDemand: boolean;
   localExceptionCounty: string[];
   online: boolean;
   providerId: string;
   providerName: string;
-  city: string;
-  zipCode: string;
+  availableAt: Address;
+  cities: string[];
+  zipCodes: string[];
   county: string;
   highlight: string;
   rank: number;
@@ -26,53 +27,109 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
+export interface Address {
+  street_address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  county?: string;
+}
+
+type MetaData = {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  nextPage: number | null;
+  previousPage: number | null;
+};
+
+export interface TrainingData {
+  data: TrainingResult[];
+  meta: MetaData;
+}
+
 export interface Training {
-  id: string;
-  name: string;
-  cipCode: string;
-  calendarLength: CalendarLength;
-  totalClockHours: number;
-  description: string;
-  certifications: string;
-  prerequisites: string;
-  occupations: Occupation[];
-  provider: Provider;
-  inDemand: boolean;
-  localExceptionCounty: string[];
-  tuitionCost: number;
-  feesCost: number;
-  booksMaterialsCost: number;
-  suppliesToolsCost: number;
-  otherCost: number;
-  totalCost: number;
-  online: boolean;
-  percentEmployed: number | null;
+  availableAt: Address;
   averageSalary: number | null;
-  hasEveningCourses: boolean;
-  languages: string[];
-  isWheelchairAccessible: boolean;
-  hasJobPlacementAssistance: boolean;
+  booksMaterialsCost: number;
+  calendarLength: CalendarLength;
+  certifications: ConditionProfile[];
+  cipDefinition: CipDefinition;
+  description: string;
+  feesCost: number;
   hasChildcareAssistance: boolean;
+  hasEveningCourses: boolean;
+  hasJobPlacementAssistance: boolean;
+  id: string;
+  inDemand: boolean;
+  isWheelchairAccessible: boolean;
+  languages: string[];
+  localExceptionCounty: string[];
+  name: string;
+  occupations: Occupation[];
+  online: boolean;
+  otherCost: number;
+  percentEmployed: number | null;
+  prerequisites: string;
+  provider: Provider;
+  suppliesToolsCost: number;
+  totalClockHours?: number;
+  totalCost: number;
+  tuitionCost: number;
 }
 
 export interface Provider {
   id: string;
   name: string;
+  email: string;
   url: string;
-  address: Address;
-  contactName: string;
-  contactTitle: string;
-  phoneNumber: string;
-  phoneExtension: string;
-  county: string;
+  addresses: Address[];
 }
 
 export interface Address {
-  street1: string;
-  street2: string;
-  city: string;
-  state: string;
-  zipCode: string;
+  name?: string;
+  street_address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  county?: string;
+  targetContactPoints?: ContactPoint[];
+}
+
+export interface ContactPoint {
+  name?: string;
+  alternateName?: string;
+  contactType?: string;
+  email?: string[];
+  telephone?: string[];
+  faxNumber?: string[];
+  socialMedia?: string[];
+}
+
+export interface CipDefinition {
+  cip: string;
+  cipcode: string;
+  ciptitle: string;
+}
+
+export interface ConditionProfile {
+  name?: string;
+  experience?: string;
+  description?: string;
+  yearsOfExperience?: number;
+  targetAssessment: ConditionProfileItem[];
+  targetCompetency: ConditionProfileItem[];
+  targetCredential: ConditionProfileItem[];
+  targetLearningOpportunity: ConditionProfileItem[];
+}
+
+export interface ConditionProfileItem {
+  name?: string;
+  provider?: Provider;
+  description?: string;
 }
 
 export enum CalendarLength {

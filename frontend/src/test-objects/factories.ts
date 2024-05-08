@@ -1,14 +1,33 @@
-import { Address, CalendarLength, Provider, Training, TrainingResult } from "../domain/Training";
+import {
+  Address,
+  CalendarLength,
+  CipDefinition,
+  ConditionProfile,
+  ConditionProfileItem,
+  Provider,
+  Training,
+  TrainingResult,
+} from "../domain/Training";
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
+import { formatCip } from "../utils/formatCip";
 
 const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
+
+export const randomSixDigitNumber = (): number => {
+  return Math.floor(Math.random() * 900000) + 100000;
+};
+
 const randomBool = (): boolean => !!Math.round(Math.random());
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cip: formatCip(randomSixDigitNumber().toString()),
+      cipcode: randomSixDigitNumber().toString(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
@@ -18,8 +37,14 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     online: randomBool(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    zipCode: "some-zipcode-" + randomInt(),
+    availableAt: {
+      street_address: "some-street-address-" + randomInt(),
+      city: "some-city-" + randomInt(),
+      state: "some-state-" + randomInt(),
+      zipCode: "some-zipcode-" + randomInt(),
+    },
+    cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
+    zipCodes: ["some-zipcode-" + randomInt(), "some-zipcode-" + randomInt()],
     county: "some-county-" + randomInt(),
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
@@ -36,14 +61,20 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
 export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
+    availableAt: {
+      street_address: "some-street-address-" + randomInt(),
+      city: "some-city-" + randomInt(),
+      state: "some-state-" + randomInt(),
+      zipCode: "some-zipcode-" + randomInt(),
+    },
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: buildCipDefinition({}),
     provider: buildProvider({}),
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
     occupations: [buildOccupation({})],
     description: "some-description-" + randomInt(),
-    certifications: "some-certifications-" + randomInt(),
+    certifications: [buildConditionProfile({}), buildConditionProfile({})],
     prerequisites: "some-certifications-" + randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
@@ -69,25 +100,38 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-provider-name-" + randomInt(),
+    email: "some-provider-email-" + randomInt() + "@FAKE-PROVIDER-DOMAIN.com",
     url: "some-url-" + randomInt(),
-    address: buildAddress({}),
-    contactName: "some-contactName-" + randomInt(),
+    addresses: [buildAddress({}), buildAddress({})],
+    /*contactName: "some-contactName-" + randomInt(),
     contactTitle: "some-contactTitle-" + randomInt(),
     phoneNumber: "some-phoneNumber-" + randomInt(),
     phoneExtension: "some-phoneExtension-" + randomInt(),
-    county: "some-county-" + randomInt(),
+    phoneExtension: "some-phoneExtension-" + randomInt(),
+    county: "some-county-" + randomInt(),*/
     ...overrides,
   };
 };
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
+    name: "some-location-name-" + randomInt(),
+    street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
+    targetContactPoints: [],
     ...overrides,
+  };
+};
+
+export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefinition => {
+  const randomCipCode = randomSixDigitNumber().toString();
+  return {
+    cip: formatCip(randomCipCode),
+    cipcode: randomCipCode,
+    ciptitle: `some-ciptitle-${randomInt()}`,
   };
 };
 
@@ -123,6 +167,47 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
     openJobsCount: randomInt(),
     relatedOccupations: [buildOccupation({})],
     relatedTrainings: [buildTrainingResult({})],
+    ...overrides,
+  };
+};
+
+export const buildConditionProfile = (overrides: Partial<ConditionProfile>): ConditionProfile => {
+  return {
+    name: "some-name-" + randomInt(),
+    experience: "some-experience-" + randomInt(),
+    description: "some-description-" + randomInt(),
+    yearsOfExperience: randomInt(),
+    targetAssessment: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetCompetency: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetCredential: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetLearningOpportunity: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    ...overrides,
+  };
+};
+
+export const buildConditionProfileItem = (
+  overrides: Partial<ConditionProfileItem>,
+): ConditionProfileItem => {
+  return {
+    name: "some-name-" + randomInt(),
+    provider: buildProvider({}),
+    description: "some-description-" + randomInt(),
     ...overrides,
   };
 };

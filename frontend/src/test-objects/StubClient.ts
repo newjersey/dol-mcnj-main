@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Client, Observer } from "../domain/Client";
-import { Training, TrainingResult } from "../domain/Training";
+import { Training, TrainingData } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
 import { SearchArea } from "../filtering/LocationFilter";
+import { Certificates } from "../domain/CredentialEngine";
 import {
   FaqPageProps,
   FinancialResourcePageProps,
@@ -24,7 +25,7 @@ export class StubClient implements Client {
   capturedSearchArea: SearchArea | undefined = undefined;
   getOccupationsWasCalled = false;
 
-  getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
+  getTrainingsByQuery(query: string, observer: Observer<TrainingData>): void {
     this.capturedObserver = observer;
     this.capturedQuery = query;
   }
@@ -40,6 +41,16 @@ export class StubClient implements Client {
   }
 
   getOccupationDetailBySoc(soc: string, observer: Observer<OccupationDetail>): void {
+    this.capturedObserver = observer;
+  }
+
+  getAllCertificates(
+    skip: number,
+    take: number,
+    sort: string,
+    cancel: boolean,
+    observer: Observer<Certificates>,
+  ): void {
     this.capturedObserver = observer;
   }
 
