@@ -61,6 +61,26 @@
   text-transform: none;
   max-width: 300px;
 }
+
+#contact-provider-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  
+  .provider-btn-container {
+    text-align: center;
+  }
+
+  .usa-button {
+    font-size: 0.8rem;
+    background-color: $blue-60v;
+    margin-bottom: 0.5rem;
+  }
+}
+
 // small and up
 @media (min-width: $tablet-md) {
   .stat-block {
