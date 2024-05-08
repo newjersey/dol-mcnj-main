@@ -68,10 +68,22 @@
   align-items: center;
   justify-content: center;
   margin-top: 1.5rem;
-  font-size: 1rem;
+  font-size: 0.85rem;
   
   .provider-btn-container {
     text-align: center;
+  }
+
+  .provider-no-url {
+    display: flex;
+  }
+
+  .icon-container {
+    margin: auto 0;
+    margin-right: 0.75rem;
+    svg {
+      font-size: 35px;
+    }
   }
 
   .usa-button {
