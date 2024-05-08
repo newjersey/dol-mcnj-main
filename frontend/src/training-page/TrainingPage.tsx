@@ -5,6 +5,7 @@ import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
+import { UserSound } from "@phosphor-icons/react";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -480,9 +481,12 @@ export const TrainingPage = (props: Props): ReactElement => {
                             </div>
                           </div>
                         ) : (
-                          <>
+                          <div className="provider-no-url">
+                            <div className="icon-container">
+                              <UserSound />
+                            </div>
                             {t("TrainingPage.providerWebsiteMissingLabel")}
-                          </>
+                          </div>
                         )}
                       </div>
                     </>
