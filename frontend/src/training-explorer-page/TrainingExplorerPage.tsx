@@ -103,7 +103,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
             <div className="container">
               <div id="how-to-steps-section">
                 <div className="sectionHeading">
-                  <h3 className="heading-tag">{t("TrainingPage.trainingProviderStepsHeader")}:</h3>
+                  <h2 className="heading-tag">{t("TrainingPage.trainingProviderStepsHeader")}:</h2>
                 </div>
                 <div>
                   <ul>
@@ -114,9 +114,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h2>
+                        <h3>
                           {t("TrainingPage.trainingStepOne")}
-                        </h2>
+                        </h3>
                         <div>
                           {t("TrainingPage.trainingStepOneDescription")}
                         </div>
@@ -129,9 +129,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h2>
+                        <h3>
                           {t("TrainingPage.trainingStepTwo")}
-                        </h2>
+                        </h3>
                         <div>
                           {t("TrainingPage.trainingStepTwoDescriptionP1")}<a href="/training-provider-resources#etpl
   ">{t("TrainingPage.trainingStepTwoDescriptionP2")}</a>{t("TrainingPage.trainingStepTwoDescriptionP3")}
@@ -145,9 +145,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h2>
+                        <h3>
                           {t("TrainingPage.trainingStepThree")}
-                        </h2>
+                        </h3>
                         <div>
                           {t("TrainingPage.trainingStepThreeDescription")}
                         </div>
