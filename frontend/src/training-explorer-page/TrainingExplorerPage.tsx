@@ -114,9 +114,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h4>
+                        <h3>
                           {t("TrainingPage.trainingStepOne")}
-                        </h4>
+                        </h3>
                         <div>
                           {t("TrainingPage.trainingStepOneDescription")}
                         </div>
@@ -129,9 +129,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h4>
+                        <h3>
                           {t("TrainingPage.trainingStepTwo")}
-                        </h4>
+                        </h3>
                         <div>
                           {t("TrainingPage.trainingStepTwoDescriptionP1")}<a href="/training-provider-resources#etpl
   ">{t("TrainingPage.trainingStepTwoDescriptionP2")}</a>{t("TrainingPage.trainingStepTwoDescriptionP3")}
@@ -145,9 +145,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h4>
+                        <h3>
                           {t("TrainingPage.trainingStepThree")}
-                        </h4>
+                        </h3>
                         <div>
                           {t("TrainingPage.trainingStepThreeDescription")}
                         </div>
