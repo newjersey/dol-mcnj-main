@@ -22,13 +22,13 @@
     list-style: none;
     padding: 0;
   }
-  
+
   ul li {
     display: flex;
     padding-bottom: 40px;
-    position:relative
+    position: relative;
   }
-  
+
   ul li .list-num {
     border-radius: 50%;
     border: 1px solid $green-cool-50v;
@@ -41,10 +41,11 @@
     height: 32px;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
-  ul li .list-num:before{
-    content:'';
+  ul li .list-num:before {
+    content: "";
     position: absolute;
     border-left: 3px dashed $green-cool-50v;
     left: 14px;
@@ -53,8 +54,8 @@
     height: 100%;
   }
 
-  ul li:last-child{
-    padding-bottom:0
+  ul li:last-child {
+    padding-bottom: 0;
   }
 
   h3 {
@@ -88,8 +89,8 @@
       padding-bottom: 0;
     }
 
-    ul li .list-num:before{
-      content:'';
+    ul li .list-num:before {
+      content: "";
       position: absolute;
       border-left: 0;
       left: 14px;
