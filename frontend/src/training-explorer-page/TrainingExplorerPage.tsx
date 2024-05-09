@@ -157,9 +157,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                 </div>
               </div>
             </div>
-            <div id="training-page-search-block" className="container">
-              <SearchBlock drawerContent={pageData.drawerContent} />
-            </div>
+            <SearchBlock drawerContent={pageData.drawerContent} />
           </section>
           <HowTo {...howToContent} />
           <Interrupter {...interrupterContent} />
