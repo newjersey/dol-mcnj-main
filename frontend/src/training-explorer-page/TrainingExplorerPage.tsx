@@ -114,9 +114,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h3>
+                        <h2>
                           {t("TrainingPage.trainingStepOne")}
-                        </h3>
+                        </h2>
                         <div>
                           {t("TrainingPage.trainingStepOneDescription")}
                         </div>
@@ -129,9 +129,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h3>
+                        <h2>
                           {t("TrainingPage.trainingStepTwo")}
-                        </h3>
+                        </h2>
                         <div>
                           {t("TrainingPage.trainingStepTwoDescriptionP1")}<a href="/training-provider-resources#etpl
   ">{t("TrainingPage.trainingStepTwoDescriptionP2")}</a>{t("TrainingPage.trainingStepTwoDescriptionP3")}
@@ -145,9 +145,9 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div className="list-info">
-                        <h3>
+                        <h2>
                           {t("TrainingPage.trainingStepThree")}
-                        </h3>
+                        </h2>
                         <div>
                           {t("TrainingPage.trainingStepThreeDescription")}
                         </div>
@@ -157,7 +157,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                 </div>
               </div>
             </div>
-            <div className="container">
+            <div id="training-page-search-block" className="container">
               <SearchBlock drawerContent={pageData.drawerContent} />
             </div>
           </section>
