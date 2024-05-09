@@ -474,7 +474,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <Button
                               copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
                               type="link"
-                              url={training.provider.url}
+                              url={training.provider.url.startsWith("http") ? training.provider.url : `https://${training.provider.url}`}
                             />
                             <div>
                               {t("TrainingPage.providerWebsiteDisclaimerLabel")}
