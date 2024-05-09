@@ -285,3 +285,16 @@
     }
   }
 }
+
+
+@media screen and (min-width: ($tablet-lg)) {
+  .search-block {
+    padding: $size-56 $size-140;
+  }
+}
+
+@media screen and (min-width: ($desktop)) {
+  .search-block {
+    padding: $size-56 $size-140;
+  }
+}

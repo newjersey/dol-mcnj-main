@@ -469,7 +469,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </div>
                       </div>
                       <div id="contact-provider-info">
-                        {!training?.provider?.url ? (
+                        {training?.provider?.url ? (
                           <div className="provider-btn-container">
                             <Button
                               copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
