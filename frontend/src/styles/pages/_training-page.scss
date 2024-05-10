@@ -43,6 +43,13 @@
 .stat-block-stack {
   display: flex;
   flex-direction: column;
+  max-width: $mobile-lg;
+}
+
+.stat-block-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .stat-block-number {
@@ -98,10 +105,6 @@
   .stat-block {
     margin-top: 0rem;
     width: 190px;
-  }
-
-  .stat-block-stack {
-    flex-direction: row;
   }
 
   .bar {

@@ -130,6 +130,9 @@ export const en = {
     inDemandTitle: "In-Demand in all of New Jersey.",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
+    inDemandText: "This training may be eligible for funding.",
+    inDemandLinkText: "Contact your Career One Stop",
+    inDemandText2: " to find out more information."
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
