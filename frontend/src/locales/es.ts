@@ -138,6 +138,8 @@ export const es = {
     inDemandTitle: "En demanda en todo Nueva Jersey.",
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
+    inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
+    inDemandLinkText: "Career One-Stop"
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
@@ -332,5 +334,14 @@ export const es = {
       "La colocación laboral y/o asistencia profesional está disponible en este proveedor",
     providerServicesDisclaimerLabel:
       "Los servicios están sujetos a los detalles del proveedor, comuníquese con este proveedor para obtener más información sobre los servicios",
+    trainingProviderStepsHeader: "Sigue estos pasos",
+    trainingStepOne: "Busca información",
+    trainingStepOneDescription: "Ingresa el área de estudio que te interese explorar.",
+    trainingStepTwo: "Filtra y compara",
+    trainingStepTwoDescriptionP1: "Filtra y compara ",
+    trainingStepTwoDescriptionP2: "programas acreditados de la lista ETPL",
+    trainingStepTwoDescriptionP3: " para identificar el programa que mejor se adapta a tus necesidades.",
+    trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
+    trainingStepThreeDescription: "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse."
   },
 };
