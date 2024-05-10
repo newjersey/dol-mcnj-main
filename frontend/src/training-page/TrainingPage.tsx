@@ -5,6 +5,7 @@ import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
+import { UserSound } from "@phosphor-icons/react";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -15,6 +16,7 @@ import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
 import { CipDrawerContent } from "../components/CipDrawerContent";
+import { Button } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -293,26 +295,28 @@ export const TrainingPage = (props: Props): ReactElement => {
               <></>
             )}
 
-            <StatBlock
-              title={t("TrainingPage.avgSalaryTitle")}
-              tooltipText={t("TrainingPage.avgSalaryTooltip")}
-              data={
-                training.averageSalary
-                  ? formatMoney(training.averageSalary, { precision: 0 })
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("TrainingPage.employmentRateTitle")}
-              tooltipText={t("TrainingPage.employmentRateTooltip")}
-              data={
-                training.percentEmployed
-                  ? formatPercentEmployed(training.percentEmployed)
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-light-purple-50"
-            />
+            <div className="stat-block-container">
+              <StatBlock
+                title={t("TrainingPage.avgSalaryTitle")}
+                tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                data={
+                  training.averageSalary
+                    ? formatMoney(training.averageSalary, { precision: 0 })
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("TrainingPage.employmentRateTitle")}
+                tooltipText={t("TrainingPage.employmentRateTooltip")}
+                data={
+                  training.percentEmployed
+                    ? formatPercentEmployed(training.percentEmployed)
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-light-purple-50"
+              />
+            </div>
           </div>
 
           <div className="row pbm">
@@ -498,7 +502,28 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="pull-right">{formatMoney(training.otherCost)}</span>
                           </div>
                         </div>
-                      </>
+                      <div id="contact-provider-info">
+                        {training?.provider?.url ? (
+                          <div className="provider-btn-container">
+                            <Button
+                              copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                              type="link"
+                              url={training.provider.url.startsWith("http") ? training.provider.url : `https://${training.provider.url}`}
+                            />
+                            <div>
+                              {t("TrainingPage.providerWebsiteDisclaimerLabel")}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="provider-no-url">
+                            <div className="icon-container">
+                              <UserSound />
+                            </div>
+                            {t("TrainingPage.providerWebsiteMissingLabel")}
+                          </div>
+                        )}
+                      </div>
+                    </>
                     ) : (
                       <>
                         <p>{t("Global.noDataAvailableText")}</p>
