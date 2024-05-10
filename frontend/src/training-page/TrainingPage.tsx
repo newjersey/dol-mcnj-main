@@ -24,11 +24,15 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 import { Icon } from "@material-ui/core";
 import { formatMoney } from "accounting";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { useReactToPrint } from "react-to-print";
+
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
+import { useReactToPrint } from "react-to-print";
 import { Tooltip } from "react-tooltip";
+import { LinkObject } from "../components/modules/LinkObject";
+import { IconNames } from "../types/icons";
+import { LinkSimple, Printer } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -116,6 +120,38 @@ export const TrainingPage = (props: Props): ReactElement => {
       </a>
     );
   };
+
+  const fundingContent = (
+    <Grouping title="How to get funding">
+      <div className="funding-content">
+        <div>
+          <p className="mvd" data-testid="shareInDemandTraining">
+            Trainings related to occupations on the{" "}
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List may
+            be eligible for funding. Contact your local One-Stop Career Center for more information
+            regarding program and training availability.
+          </p>
+          <LinkObject
+            url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
+            className="usa-button primary usa-button--outline"
+            iconSuffix={IconNames.ArrowSquareOut}
+            iconSize={22}
+          >
+            Contact Career Once Stop
+          </LinkObject>
+        </div>
+        <div>
+          <p>You can also check out other tuition assistance opportunities.</p>
+          <LinkObject
+            url="/support-resources/tuition-assistance"
+            className="usa-button secondary usa-button--outline"
+          >
+            View Tuition Assistance Resource
+          </LinkObject>
+        </div>
+      </div>
+    </Grouping>
+  );
 
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
@@ -268,11 +304,28 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-            {training.name}
-          </h2>
+          <div className="title-box">
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
+            <ul className="save-controls unstyled">
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                  <LinkSimple size={26} className={copy ? "green" : undefined} />
+                  <span className={copy ? "green" : undefined}>
+                    {copy ? "Copied!" : "Copy link"}
+                  </span>
+                </UnstyledButton>
+              </li>
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                  <Printer size={26} />
+                  <span className="mlxs weight-500">Print and Save</span>
+                </UnstyledButton>
+              </li>
+            </ul>
+          </div>
           <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
-
           <div className="stat-block-stack mtm">
             {training.inDemand ? <InDemandBlock /> : <></>}
 
@@ -307,8 +360,21 @@ export const TrainingPage = (props: Props): ReactElement => {
               />
             </div>
           </div>
-
-          <div className="row pbm">
+          <ul className="save-controls mobile-only unstyled">
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                <LinkSimple size={26} className={copy ? "green" : undefined} />
+                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
+              </UnstyledButton>
+            </li>
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                <Printer size={26} />
+                <span className="mlxs weight-500">Print and Save</span>
+              </UnstyledButton>
+            </li>
+          </ul>
+          <div className="row pbm group-wrapper">
             <div className="col-md-8">
               <div className="container-fluid">
                 <div className="row">
@@ -391,43 +457,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <>{getAssociatedOccupations()}</>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.shareGroupHeader")}>
-                    <>
-                      {training.inDemand && (
-                        <p className="mvd" data-testid="shareInDemandTraining">
-                          {t("TrainingPage.inDemandDescription")}
-                        </p>
-                      )}
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                          <Icon className="accessible-gray weight-500">link</Icon>
-                          <span className="mlxs weight-500">{t("TrainingPage.copyLinkText")}</span>
-                        </UnstyledButton>
-                        {copy && (
-                          <span className={`text-s weight-500 mls ${copy?.class}`}>
-                            {copy?.text}
-                          </span>
-                        )}
-                      </p>
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                          <Icon className="accessible-gray weight-500">print</Icon>
-                          <span className="mlxs weight-500">
-                            {t("TrainingPage.savePrintLinkText")}
-                          </span>
-                        </UnstyledButton>
-                      </p>
-                      <p>
-                        <Link
-                          className="link-format-blue weight-500 fin"
-                          to="/support-resources/tuition-assistance"
-                        >
-                          <Icon className="accessible-gray">attach_money</Icon>
-                          <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
-                        </Link>
-                      </p>
-                    </>
-                  </Grouping>
+                  <div className="desktop-only">{fundingContent}</div>
                 </div>
               </div>
             </div>
@@ -476,11 +506,13 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <Button
                               copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
                               type="link"
-                              url={training.provider.url.startsWith("http") ? training.provider.url : `https://${training.provider.url}`}
+                              url={
+                                training.provider.url.startsWith("http")
+                                  ? training.provider.url
+                                  : `https://${training.provider.url}`
+                              }
                             />
-                            <div>
-                              {t("TrainingPage.providerWebsiteDisclaimerLabel")}
-                            </div>
+                            <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
                           </div>
                         ) : (
                           <div className="provider-no-url">
@@ -568,6 +600,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                     </>
                   </Grouping>
+                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>

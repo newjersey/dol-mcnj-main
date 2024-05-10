@@ -339,8 +339,10 @@ export const es = {
     trainingStepTwo: "Filtra y compara",
     trainingStepTwoDescriptionP1: "Filtra y compara ",
     trainingStepTwoDescriptionP2: "programas acreditados de la lista ETPL",
-    trainingStepTwoDescriptionP3: " para identificar el programa que mejor se adapta a tus necesidades.",
+    trainingStepTwoDescriptionP3:
+      " para identificar el programa que mejor se adapta a tus necesidades.",
     trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
-    trainingStepThreeDescription: "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse."
-  }
+    trainingStepThreeDescription:
+      "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
+  },
 };
