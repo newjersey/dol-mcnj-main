@@ -137,3 +137,46 @@
     }
   }
 }
+
+.funding-content {
+  display: flex;
+  flex-direction: column;
+  gap: $size-24;
+  padding-top: $size-4;
+
+  @media screen and (min-width: ($tablet-md)) {
+    max-width: calc(100% - $size-120);
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+    align-items: flex-start;
+  }
+
+  p,
+  a {
+    margin: 0;
+  }
+
+  a {
+    margin: 0;
+    width: auto;
+    text-align: left;
+  }
+}
+
+.group-wrapper {
+  .grouping {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: flex;
+      flex-direction: column;
+
+      .bar {
+        position: sticky;
+        top: 0;
+      }
+    }
+  }
+}

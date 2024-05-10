@@ -119,6 +119,38 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  const fundingContent = (
+    <Grouping title="How to get funding">
+      <div className="funding-content">
+        <div>
+          <p className="mvd" data-testid="shareInDemandTraining">
+            Trainings related to occupations on the{" "}
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List may
+            be eligible for funding. Contact your local One-Stop Career Center for more information
+            regarding program and training availability.
+          </p>
+          <LinkObject
+            url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
+            className="usa-button primary usa-button--outline"
+            iconSuffix={IconNames.ArrowSquareOut}
+            iconSize={22}
+          >
+            Contact Career Once Stop
+          </LinkObject>
+        </div>
+        <div>
+          <p>You can also check out other tuition assistance opportunities.</p>
+          <LinkObject
+            url="/support-resources/tuition-assistance"
+            className="usa-button secondary usa-button--outline"
+          >
+            View Tuition Assistance Resource
+          </LinkObject>
+        </div>
+      </div>
+    </Grouping>
+  );
+
   const getProviderAddress = (): ReactElement => {
     if (training?.online) {
       return <>{t("TrainingPage.onlineClass")}</>;
@@ -338,7 +370,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               </UnstyledButton>
             </li>
           </ul>
-          <div className="row pbm">
+          <div className="row pbm group-wrapper">
             <div className="col-md-8">
               <div className="container-fluid">
                 <div className="row">
@@ -421,35 +453,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <>{getAssociatedOccupations()}</>
                   </Grouping>
 
-                  <Grouping title="How to get funding">
-                    <>
-                      {training.inDemand && (
-                        <p className="mvd" data-testid="shareInDemandTraining">
-                          Trainings related to occupations on the{" "}
-                          <LinkObject url="/in-demand-occupations">
-                            In - Demand Occupations
-                          </LinkObject>{" "}
-                          List may be eligible for funding. Contact your local One-Stop Career
-                          Center for more information regarding program and training availability.
-                        </p>
-                      )}
-                      <LinkObject
-                        url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
-                        className="usa-button primary usa-button--outline"
-                        iconSuffix={IconNames.ArrowSquareOut}
-                        iconSize={22}
-                      >
-                        Contact Career Once Stop
-                      </LinkObject>
-                      <p>You can also check out other tuition assistance opportunities.</p>
-                      <LinkObject
-                        url="/support-resources/tuition-assistance"
-                        className="usa-button secondary usa-button--outline"
-                      >
-                        View Tuition Assistance Resource
-                      </LinkObject>
-                    </>
-                  </Grouping>
+                  <div className="desktop-only">{fundingContent}</div>
                 </div>
               </div>
             </div>
@@ -569,6 +573,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                     </>
                   </Grouping>
+                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>
