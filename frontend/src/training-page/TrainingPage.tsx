@@ -5,6 +5,7 @@ import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
+import { UserSound } from "@phosphor-icons/react";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -13,6 +14,8 @@ import { Grouping } from "../components/Grouping";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
+import { UnstyledButton } from "../components/UnstyledButton";
+import { Button } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -29,7 +32,6 @@ import { useReactToPrint } from "react-to-print";
 import { Tooltip } from "react-tooltip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
-import { UnstyledButton } from "../components/UnstyledButton";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
@@ -495,6 +497,29 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span>{t("TrainingPage.otherCostLabel")}</span>
                           <span className="pull-right">{formatMoney(training.otherCost)}</span>
                         </div>
+                      </div>
+                      <div id="contact-provider-info">
+                        {training?.provider?.url ? (
+                          <div className="provider-btn-container">
+                            <Button
+                              copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                              type="link"
+                              url={
+                                training.provider.url.startsWith("http")
+                                  ? training.provider.url
+                                  : `https://${training.provider.url}`
+                              }
+                            />
+                            <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
+                          </div>
+                        ) : (
+                          <div className="provider-no-url">
+                            <div className="icon-container">
+                              <UserSound />
+                            </div>
+                            {t("TrainingPage.providerWebsiteMissingLabel")}
+                          </div>
+                        )}
                       </div>
                     </>
                   </Grouping>

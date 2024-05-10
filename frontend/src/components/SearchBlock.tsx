@@ -91,223 +91,226 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
     }
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
   return (
-    <section className="search-block">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          window.location.href = searchUrl;
-        }}
-        className="container"
-        data-testid="search-form"
-      >
-        <div className="heading">
-          <h2>Find Training</h2>
-          <button
-            type="button"
-            id="clearAll"
-            className="usa-button usa-button--unstyled"
-            onClick={() => {
-              clearAllInputs();
-            }}
-          >
-            Clear All
-          </button>
-        </div>
-        <p>
-          Search by training, provider, certification,{" "}
-          {drawerContent ? (
+    <div className="search-block">
+      <div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            window.location.href = searchUrl;
+          }}
+          className="container"
+          data-testid="search-form"
+        >
+          <div className="heading">
+            <h2>Find Training</h2>
             <button
-              className="toggle"
               type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setDrawerOpen(true);
+              id="clearAll"
+              className="usa-button usa-button--unstyled"
+              onClick={() => {
+                clearAllInputs();
               }}
             >
-              SOC code
+              Clear All
             </button>
-          ) : (
-            "SOC code"
-          )}
-          , or keyword
-        </p>
-        <div className="row">
-          <label htmlFor="search-input" className="sr-only">
-            Search
-          </label>
-          <input
-            id="search-input"
-            data-testid="search-input"
-            type="text"
-            aria-label="search"
-            className="search-input usa-input"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(sanitizedValue(e.target.value));
-            }}
-            defaultValue={searchTerm}
-          />
-          <div className="submit">
-            <button type="submit" data-testid="search-submit" className="usa-button">
-              Search
-            </button>
-            <a
-              id="search-button"
-              href={`/training/search?q=${searchTerm}`}
-              className="usa-button usa-button--unstyled"
-            >
-              Advanced Search
-              <ArrowRight />
-            </a>
           </div>
-        </div>
-        <div className="filters">
-          <h3>Filters</h3>
+          <p>
+            Search by training, provider, certification,{" "}
+            {drawerContent ? (
+              <button
+                className="toggle"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDrawerOpen(true);
+                }}
+              >
+                SOC code
+              </button>
+            ) : (
+              "SOC code"
+            )}
+            , or keyword
+          </p>
           <div className="row">
-            <div className="area">
-              <div className="label">
-                {zipValid ? "Miles from Zip Code" : "Enter a New Jersey Zip Code"}
-              </div>
-              <div className="inputs">
-                <label htmlFor="miles" className="sr-only">
-                  Miles
-                </label>
-                <select
-                  disabled={!zipValid}
-                  id="miles"
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                    if (e.target.value === "Miles") {
-                      setMiles("");
-                      return;
-                    }
+            <label htmlFor="search-input" className="sr-only">
+              Search
+            </label>
+            <input
+              id="search-input"
+              data-testid="search-input"
+              type="text"
+              aria-label="search"
+              className="search-input usa-input"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setSearchTerm(sanitizedValue(e.target.value));
+              }}
+              defaultValue={searchTerm}
+            />
+            <div className="submit">
+              <button type="submit" data-testid="search-submit" className="usa-button">
+                Search
+              </button>
+              <a
+                id="search-button"
+                href={`/training/search?q=${searchTerm}`}
+                className="usa-button usa-button--unstyled"
+              >
+                Advanced Search
+                <ArrowRight />
+              </a>
+            </div>
+          </div>
+          <div className="filters">
+            <h3>Filters</h3>
+            <div className="row">
+              <div className="area">
+                <div className="label">
+                  {zipValid ? "Miles from Zip Code" : "Enter a New Jersey Zip Code"}
+                </div>
+                <div className="inputs">
+                  <label htmlFor="miles" className="sr-only">
+                    Miles
+                  </label>
+                  <select
+                    disabled={!zipValid}
+                    id="miles"
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                      if (e.target.value === "Miles") {
+                        setMiles("");
+                        return;
+                      }
 
-                    setMiles(sanitizedValue(e.target.value));
-                  }}
-                >
-                  <option>Miles</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>25</option>
-                  <option>50</option>
-                </select>
-                <span>from</span>
+                      setMiles(sanitizedValue(e.target.value));
+                    }}
+                  >
+                    <option>Miles</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                  <span>from</span>
 
-                <input
-                  type="number"
-                  name="Zip"
-                  id="zipCode"
-                  placeholder="ZIP code"
-                  onBlur={(e: ChangeEvent<HTMLInputElement>) => {
-                    setZipValid(checkValidZipCode(e.target.value));
-                    setAttempted(true);
+                  <input
+                    type="number"
+                    name="Zip"
+                    id="zipCode"
+                    placeholder="ZIP code"
+                    onBlur={(e: ChangeEvent<HTMLInputElement>) => {
+                      setZipValid(checkValidZipCode(e.target.value));
+                      setAttempted(true);
 
-                    if (zipValid) {
-                      setTimeout(() => {
-                        const select = document.getElementById("miles") as HTMLSelectElement;
+                      if (zipValid) {
+                        setTimeout(() => {
+                          const select = document.getElementById("miles") as HTMLSelectElement;
+                          if (select) {
+                            select.value = "10";
+                            setMiles("10");
+                          }
+                        }, 100);
+                      }
+                    }}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      const select = document.getElementById("miles") as HTMLSelectElement;
+                      if (checkValidZipCode(e.target.value)) {
+                        setZipCode(sanitizedValue(e.target.value));
+                        setAttempted(false);
                         if (select) {
                           select.value = "10";
                           setMiles("10");
                         }
-                      }, 100);
-                    }
-                  }}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    const select = document.getElementById("miles") as HTMLSelectElement;
-                    if (checkValidZipCode(e.target.value)) {
-                      setZipCode(sanitizedValue(e.target.value));
-                      setAttempted(false);
-                      if (select) {
-                        select.value = "10";
-                        setMiles("10");
+                      } else {
+                        setZipCode("");
+                        setMiles("");
                       }
-                    } else {
-                      setZipCode("");
-                      setMiles("");
-                    }
+                    }}
+                  />
+
+                  {!zipValid && attempted && (
+                    <div className="red fin mts">
+                      <InlineIcon className="mrxs">error</InlineIcon> Please enter a 5-digit New
+                      Jersey ZIP code.
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="cost">
+                <label className="label" htmlFor="maxCost">
+                  Max Cost
+                </label>
+                <CurrencyDollarSimple />
+                <input
+                  type="number"
+                  name="Max Cost"
+                  id="maxCost"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    setMaxCost(sanitizedValue(e.target.value));
                   }}
                 />
-
-                {!zipValid && attempted && (
-                  <div className="red fin mts">
-                    <InlineIcon className="mrxs">error</InlineIcon> Please enter a 5-digit New
-                    Jersey ZIP code.
+                <a
+                  href="/support-resources/tuition-assistance"
+                  className="usa-button usa-button--unstyled"
+                >
+                  Tuition Assistance Information
+                </a>
+              </div>
+              <div className="class">
+                <div className="label">Class Format</div>
+                <div className="checks">
+                  <div className="usa-checkbox">
+                    <input
+                      className="usa-checkbox__input"
+                      id="in-person"
+                      type="checkbox"
+                      onChange={() => {
+                        setInPerson(!inPerson);
+                      }}
+                    />
+                    <label className="usa-checkbox__label" htmlFor="in-person">
+                      In-Person
+                    </label>
                   </div>
-                )}
-              </div>
-            </div>
-            <div className="cost">
-              <label className="label" htmlFor="maxCost">
-                Max Cost
-              </label>
-              <CurrencyDollarSimple />
-              <input
-                type="number"
-                name="Max Cost"
-                id="maxCost"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setMaxCost(sanitizedValue(e.target.value));
-                }}
-              />
-              <a
-                href="/support-resources/tuition-assistance"
-                className="usa-button usa-button--unstyled"
-              >
-                Tuition Assistance Information
-              </a>
-            </div>
-            <div className="class">
-              <div className="label">Class Format</div>
-              <div className="checks">
-                <div className="usa-checkbox">
-                  <input
-                    className="usa-checkbox__input"
-                    id="in-person"
-                    type="checkbox"
-                    onChange={() => {
-                      setInPerson(!inPerson);
-                    }}
-                  />
-                  <label className="usa-checkbox__label" htmlFor="in-person">
-                    In-Person
-                  </label>
-                </div>
-                <div className="usa-checkbox">
-                  <input
-                    className="usa-checkbox__input"
-                    id="online"
-                    type="checkbox"
-                    onChange={() => {
-                      setOnline(!online);
-                    }}
-                  />
-                  <label className="usa-checkbox__label" htmlFor="online">
-                    Online
-                  </label>
+                  <div className="usa-checkbox">
+                    <input
+                      className="usa-checkbox__input"
+                      id="online"
+                      type="checkbox"
+                      onChange={() => {
+                        setOnline(!online);
+                      }}
+                    />
+                    <label className="usa-checkbox__label" htmlFor="online">
+                      Online
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-      {drawerContent && (
-        <>
-          <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
-          <div className={`panel${drawerOpen ? " open" : ""}`}>
-            <div className="copy">
-              <button
-                aria-label="Close"
-                title="Close"
-                className="close"
-                onClick={() => setDrawerOpen(false)}
-                type="button"
-              >
-                <X size={28} />
-                <div className="sr-only">Close</div>
-              </button>
-              <RichText document={drawerContent.json} assets={drawerContent.links} />
+        </form>
+        {drawerContent && (
+          <>
+            <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
+            <div className={`panel${drawerOpen ? " open" : ""}`}>
+              <div className="copy">
+                <button
+                  aria-label="Close"
+                  title="Close"
+                  className="close"
+                  onClick={() => setDrawerOpen(false)}
+                  type="button"
+                >
+                  <X size={28} />
+                  <div className="sr-only">Close</div>
+                </button>
+                <RichText document={drawerContent.json} assets={drawerContent.links} />
+              </div>
             </div>
-          </div>
-        </>
-      )}
-    </section>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
