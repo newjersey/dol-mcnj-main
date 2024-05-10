@@ -14,3 +14,89 @@
     }
   }
 }
+
+#how-to-steps-section {
+  padding: 3rem 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li {
+    display: flex;
+    padding-bottom: 40px;
+    position: relative;
+  }
+
+  ul li .list-num {
+    border-radius: 50%;
+    border: 1px solid $green-cool-50v;
+    padding: 5px 10px;
+    margin-right: 10px;
+    background: $green-cool-50v;
+    color: $white;
+    font-weight: 700;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ul li .list-num:before {
+    content: "";
+    position: absolute;
+    border-left: 3px dashed $green-cool-50v;
+    left: 14px;
+    bottom: 0;
+    z-index: -1;
+    height: 100%;
+  }
+
+  ul li:last-child {
+    padding-bottom: 0;
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 0.25rem 0 0.5rem 0;
+  }
+
+  .list-num-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .sectionHeading {
+    .heading-tag {
+      border-bottom: 0;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  #how-to-steps-section {
+    ul {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    ul li {
+      width: 33%;
+      margin: 0 16px;
+      padding-bottom: 0;
+    }
+
+    ul li .list-num:before {
+      content: "";
+      position: absolute;
+      border-left: 0;
+      left: 14px;
+      bottom: 0;
+      z-index: -1;
+      height: 100%;
+    }
+  }
+}
