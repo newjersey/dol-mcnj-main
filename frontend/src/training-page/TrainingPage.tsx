@@ -284,26 +284,28 @@ export const TrainingPage = (props: Props): ReactElement => {
               <></>
             )}
 
-            <StatBlock
-              title={t("TrainingPage.avgSalaryTitle")}
-              tooltipText={t("TrainingPage.avgSalaryTooltip")}
-              data={
-                training.averageSalary
-                  ? formatMoney(training.averageSalary, { precision: 0 })
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("TrainingPage.employmentRateTitle")}
-              tooltipText={t("TrainingPage.employmentRateTooltip")}
-              data={
-                training.percentEmployed
-                  ? formatPercentEmployed(training.percentEmployed)
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-light-purple-50"
-            />
+            <div className="stat-block-container">
+              <StatBlock
+                title={t("TrainingPage.avgSalaryTitle")}
+                tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                data={
+                  training.averageSalary
+                    ? formatMoney(training.averageSalary, { precision: 0 })
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("TrainingPage.employmentRateTitle")}
+                tooltipText={t("TrainingPage.employmentRateTooltip")}
+                data={
+                  training.percentEmployed
+                    ? formatPercentEmployed(training.percentEmployed)
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-light-purple-50"
+              />
+            </div>
           </div>
 
           <div className="row pbm">
