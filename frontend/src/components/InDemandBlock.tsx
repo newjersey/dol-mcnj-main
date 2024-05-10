@@ -12,11 +12,14 @@ export const InDemandBlock = (props: Props): ReactElement => {
   const countiesStr = props.counties ? formatCountiesArrayToString(props.counties) : null;
 
   return (
-    <div className="bg-light-yellow countyBlock">
+    <div className="bg-light-orange countyBlock">
       <div>
         {!countiesStr
           ? t("InDemandBlock.inDemandTitle")
           : t("InDemandBlock.localInDemandTitle", { countiesList: countiesStr })}
+      </div>
+      <div>
+        {t("InDemandBlock.inDemandText")} <a href="https://www.nj.gov/labor/career-services/contact-us/one-stops/" target="_blank" rel="noreferrer">{t("InDemandBlock.inDemandLinkText")}</a> {t("InDemandBlock.inDemandText2")}
       </div>
     </div>
   );

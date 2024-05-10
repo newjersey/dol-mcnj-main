@@ -138,6 +138,9 @@ export const es = {
     inDemandTitle: "En demanda en todo Nueva Jersey.",
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
+    inDemandText: "This training may be eligible for funding.",
+    inDemandLinkText: "Contact your Career One Stop",
+    inDemandText2: " to find out more information."
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
