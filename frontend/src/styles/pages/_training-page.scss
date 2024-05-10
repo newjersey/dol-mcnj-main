@@ -26,10 +26,6 @@
   border-radius: 8px;
 }
 
-.stat-block + .stat-block {
-  margin-left: 0.5rem;
-}
-
 .countyBlock {
   background-color: #f2e4d4;
   border-radius: 8px;
@@ -60,13 +56,11 @@
 
 .stat-block-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .stat-block-number {
   padding-top: 1rem;
-  text-align: left;
   font-weight: 700;
 }
 
@@ -117,6 +111,15 @@
   .stat-block {
     margin-top: 0rem;
     width: 190px;
+  }
+
+  .stat-block-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .stat-block + .stat-block {
+    margin-left: 0.5rem;
   }
 
   .bar {
