@@ -129,7 +129,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
       percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
-      calendarLength: CalendarLength.NULL,
+      calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       online: certificate["ceterms:availableOnlineAt"] != null,
       providerId: ownedByCtid,
