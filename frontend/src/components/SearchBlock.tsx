@@ -94,45 +94,47 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
     }
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
   return (
-    <section className="search-block">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          window.location.href = searchUrl;
-        }}
-        className="container"
-        data-testid="search-form"
-      >
-        <div className="heading">
-          <h2>Find Training</h2>
-          <button
-            type="button"
-            id="clearAll"
-            className="usa-button usa-button--unstyled"
-            onClick={() => {
-              clearAllInputs();
-            }}
-          >
-            Clear All
-          </button>
-        </div>
-        <p>
-          Search by training, provider, certification,{" "}
-          {drawerContent ? (
+    <div className="search-block">
+      <div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            window.location.href = searchUrl;
+          }}
+          className="container"
+          data-testid="search-form"
+        >
+          <div className="heading">
+            <h2>Find Training</h2>
             <button
-              className="toggle"
               type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setSocDrawerOpen(true);
+              id="clearAll"
+              className="usa-button usa-button--unstyled"
+              onClick={() => {
+                clearAllInputs();
               }}
             >
-              SOC code
+              Clear All
             </button>
-          ) : (
-            "SOC code"
-          )}
-          ,&nbsp;
+          </div>
+          <p>
+            Search by training, provider, certification,{" "}
+            {drawerContent ? (
+              <button
+                className="toggle"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSocDrawerOpen(true);
+                }}
+              >
+                SOC code
+              </button>
+            ) : (
+              "SOC code"
+            )}
+            ,&nbsp;
           <button
           className="toggle"
           type="button"
@@ -144,19 +146,19 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             CIP code
         </button>
           , or keyword
-        </p>
-        <div className="row">
-          <label htmlFor="search-input" className="sr-only">
-            Search
-          </label>
-          <input
-            id="search-input"
-            data-testid="search-input"
-            type="text"
-            aria-label="search"
-            className="search-input usa-input"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value);
+          </p>
+          <div className="row">
+            <label htmlFor="search-input" className="sr-only">
+              Search
+            </label>
+            <input
+              id="search-input"
+              data-testid="search-input"
+              type="text"
+              aria-label="search"
+              className="search-input usa-input"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setSearchTerm(e.target.value);
 
             }}
             defaultValue={searchTerm}
@@ -195,117 +197,117 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                       return;
                     }
 
-                    setMiles(sanitizedValue(e.target.value));
-                  }}
-                >
-                  <option>Miles</option>
-                  <option>5</option>
-                  <option>10</option>
-                  <option>25</option>
-                  <option>50</option>
-                </select>
-                <span>from</span>
+                      setMiles(sanitizedValue(e.target.value));
+                    }}
+                  >
+                    <option>Miles</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                  <span>from</span>
 
-                <input
-                  type="number"
-                  name="Zip"
-                  id="zipCode"
-                  placeholder="ZIP code"
-                  onBlur={(e: ChangeEvent<HTMLInputElement>) => {
-                    setZipValid(checkValidZipCode(e.target.value));
-                    setAttempted(true);
+                  <input
+                    type="number"
+                    name="Zip"
+                    id="zipCode"
+                    placeholder="ZIP code"
+                    onBlur={(e: ChangeEvent<HTMLInputElement>) => {
+                      setZipValid(checkValidZipCode(e.target.value));
+                      setAttempted(true);
 
-                    if (zipValid) {
-                      setTimeout(() => {
-                        const select = document.getElementById("miles") as HTMLSelectElement;
+                      if (zipValid) {
+                        setTimeout(() => {
+                          const select = document.getElementById("miles") as HTMLSelectElement;
+                          if (select) {
+                            select.value = "10";
+                            setMiles("10");
+                          }
+                        }, 100);
+                      }
+                    }}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      const select = document.getElementById("miles") as HTMLSelectElement;
+                      if (checkValidZipCode(e.target.value)) {
+                        setZipCode(sanitizedValue(e.target.value));
+                        setAttempted(false);
                         if (select) {
                           select.value = "10";
                           setMiles("10");
                         }
-                      }, 100);
-                    }
-                  }}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    const select = document.getElementById("miles") as HTMLSelectElement;
-                    if (checkValidZipCode(e.target.value)) {
-                      setZipCode(sanitizedValue(e.target.value));
-                      setAttempted(false);
-                      if (select) {
-                        select.value = "10";
-                        setMiles("10");
+                      } else {
+                        setZipCode("");
+                        setMiles("");
                       }
-                    } else {
-                      setZipCode("");
-                      setMiles("");
-                    }
+                    }}
+                  />
+
+                  {!zipValid && attempted && (
+                    <div className="red fin mts">
+                      <InlineIcon className="mrxs">error</InlineIcon> Please enter a 5-digit New
+                      Jersey ZIP code.
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="cost">
+                <label className="label" htmlFor="maxCost">
+                  Max Cost
+                </label>
+                <CurrencyDollarSimple />
+                <input
+                  type="number"
+                  name="Max Cost"
+                  id="maxCost"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    setMaxCost(sanitizedValue(e.target.value));
                   }}
                 />
-
-                {!zipValid && attempted && (
-                  <div className="red fin mts">
-                    <InlineIcon className="mrxs">error</InlineIcon> Please enter a 5-digit New
-                    Jersey ZIP code.
-                  </div>
-                )}
+                <a
+                  href="/support-resources/tuition-assistance"
+                  className="usa-button usa-button--unstyled"
+                >
+                  Tuition Assistance Information
+                </a>
               </div>
-            </div>
-            <div className="cost">
-              <label className="label" htmlFor="maxCost">
-                Max Cost
-              </label>
-              <CurrencyDollarSimple />
-              <input
-                type="number"
-                name="Max Cost"
-                id="maxCost"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setMaxCost(sanitizedValue(e.target.value));
-                }}
-              />
-              <a
-                href="/support-resources/tuition-assistance"
-                className="usa-button usa-button--unstyled"
-              >
-                Tuition Assistance Information
-              </a>
-            </div>
-            <div className="class">
-              <div className="label">Class Format</div>
-              <div className="checks">
-                <div className="usa-checkbox">
-                  <input
-                    className="usa-checkbox__input"
-                    id="in-person"
-                    type="checkbox"
-                    onChange={() => {
-                      setInPerson(!inPerson);
-                    }}
-                  />
-                  <label className="usa-checkbox__label" htmlFor="in-person">
-                    In-Person
-                  </label>
-                </div>
-                <div className="usa-checkbox">
-                  <input
-                    className="usa-checkbox__input"
-                    id="online"
-                    type="checkbox"
-                    onChange={() => {
-                      setOnline(!online);
-                    }}
-                  />
-                  <label className="usa-checkbox__label" htmlFor="online">
-                    Online
-                  </label>
+              <div className="class">
+                <div className="label">Class Format</div>
+                <div className="checks">
+                  <div className="usa-checkbox">
+                    <input
+                      className="usa-checkbox__input"
+                      id="in-person"
+                      type="checkbox"
+                      onChange={() => {
+                        setInPerson(!inPerson);
+                      }}
+                    />
+                    <label className="usa-checkbox__label" htmlFor="in-person">
+                      In-Person
+                    </label>
+                  </div>
+                  <div className="usa-checkbox">
+                    <input
+                      className="usa-checkbox__input"
+                      id="online"
+                      type="checkbox"
+                      onChange={() => {
+                        setOnline(!online);
+                      }}
+                    />
+                    <label className="usa-checkbox__label" htmlFor="online">
+                      Online
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-      {drawerContent && (
-        <>
-          <div id="drawerOverlay" className={`overlay${socDrawerOpen || cipDrawerOpen ? " open" : ""}`} />
+        </form>
+        {drawerContent && (
+          <>
+            <div id="drawerOverlay" className={`overlay${socDrawerOpen || cipDrawerOpen ? " open" : ""}`} />
           {socDrawerOpen && (
             <div className="panel open">
               <div className="copy">
@@ -331,6 +333,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           )}
         </>
       )}
-    </section>
+      </div>
+    </div>
   );
 };

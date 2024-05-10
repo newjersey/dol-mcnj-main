@@ -34,7 +34,7 @@ const Button = ({
   type,
   unstyled,
 }: ButtonProps) => {
-  const isCustom = customBgColor || customTextColor;
+  const isCustomColor = customBgColor || customTextColor;
 
   const isExternal = url && url.startsWith("http");
   const target = isExternal ? "_blank" : undefined;
@@ -43,7 +43,7 @@ const Button = ({
   // Constructing the classNames string for the button element based on different conditions
   const classNames = `usa-button${className ? ` ${className}` : ""}${
     highlight ? ` highlight-${highlight}` : ""
-  }${isCustom ? ` custom` : ""}${svgName ? ` svg` : ""}${info ? ` info` : ""}${
+  }${isCustomColor ? ` custom` : ""}${svgName ? ` svg` : ""}${info ? ` info` : ""}${
     svgFill && svgName ? ` fill` : ""
   }${unstyled ? ` unstyled usa-button--unstyled` : ""}`;
 

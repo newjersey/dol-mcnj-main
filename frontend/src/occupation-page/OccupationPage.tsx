@@ -197,27 +197,30 @@ export const OccupationPage = (props: Props): ReactElement => {
               <></>
             )}
 
-            <StatBlock
-              title={t("OccupationPage.jobsOpenTitle")}
-              tooltipText={t("OccupationPage.jobsOpenTooltip")}
-              dataSource={t("OccupationPage.jobsOpenSource")}
-              data={
-                occupationDetail.openJobsCount
-                  ? occupationDetail.openJobsCount.toLocaleString()
-                  : t("Global.noDataAvailableText")
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("OccupationPage.salaryTitle")}
-              tooltipText={t("OccupationPage.salaryTooltip")}
-              data={
-                occupationDetail.medianSalary
-                  ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
-                  : t("Global.noDataAvailableText")
-              }
-              backgroundColorClass="bg-light-purple-50"
-            />
+            <div className="stat-block-container">
+              <StatBlock
+                title={t("OccupationPage.jobsOpenTitle")}
+                tooltipText={t("OccupationPage.jobsOpenTooltip")}
+                dataSource={t("OccupationPage.jobsOpenSource")}
+                data={
+                  occupationDetail.openJobsCount
+                    ? occupationDetail.openJobsCount.toLocaleString()
+                    : t("Global.noDataAvailableText")
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("OccupationPage.salaryTitle")}
+                tooltipText={t("OccupationPage.salaryTooltip")}
+                data={
+                  occupationDetail.medianSalary
+                    ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
+                    : t("Global.noDataAvailableText")
+                }
+                backgroundColorClass="bg-light-purple-50"
+              />
+            </div>
+
           </div>
           <div>
             <a
