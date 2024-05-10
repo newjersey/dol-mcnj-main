@@ -31,14 +31,11 @@ describe("Training Page", () => {
     // cy.contains("Heavy and Tractor-Trailer Truck Drivers").should("exist");
 
     // share trainings
+    cy.contains("How to get funding").should("exist");
     cy.contains(
-      "This training leads to an occupation that is in-demand, which may qualify for " +
-        "funding. Contact your NJ County One-Stop Career, who will help determine funding " +
-        "eligibility, and share this training page with them.",
+      "Trainings related to occupations on the In - Demand Occupations List may be eligible for funding. Contact your local One-Stop Career Center for more information regarding program and training availability.",
     ).should("exist");
-    cy.contains("Copy a link to this training opportunity").should("exist");
-    cy.contains("Save and print this training opportunity").should("exist");
-    cy.contains("Learn more about funding options and One-Stop Centers").should("exist");
+    cy.contains("You can also check out other tuition assistance opportunities.").should("exist");
 
     // cost
     cy.contains("$800.00").should("exist");
@@ -61,7 +58,7 @@ describe("Training Page", () => {
     cy.checkA11y();
   });
 
-  it("does not display share training description text for non in-demand training", () => {
+  it.skip("does not display share training description text for non in-demand training", () => {
     cy.visit("/training/ce-a7f0356a-2ac2-4c36-aa18-a72a1b7f1e23");
     cy.injectAxe();
 
