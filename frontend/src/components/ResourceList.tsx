@@ -13,15 +13,11 @@ import { FooterCta } from "./FooterCta";
 import { Selector } from "../svg/Selector";
 import { useContentful } from "../utils/useContentful";
 import { AlertBar } from "./AlertBar";
-import { FundingBox } from "./modules/FundingBox";
-import { LinkObject } from "./modules/LinkObject";
-import { IconNames } from "../types/icons";
 
 interface ResourceTagListProps {
   audience: TagProps[];
   category?: string;
   cta: ResourceCategoryPageProps["cta"];
-  fundingBox?: boolean;
   info?: string;
   related?: RelatedCategoryProps[];
   tags: TagProps[];
@@ -31,7 +27,6 @@ export const ResourceList = ({
   audience,
   category = "All Resources",
   cta,
-  fundingBox,
   info,
   related,
   tags,
@@ -129,29 +124,6 @@ export const ResourceList = ({
 
           <div className="cards">
             {info && <AlertBar type="info" copy={info} />}
-
-            {fundingBox && (
-              <FundingBox
-                heading="Funding for In-Demand Occupations"
-                headingLevel={2}
-                className="resource-list-info"
-              >
-                <p>
-                  Trainings related to occupations on the{" "}
-                  <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List
-                  may be eligible for funding. Contact your local One-Stop Career Center for more
-                  information regarding program and training availability.
-                </p>
-                <LinkObject
-                  url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
-                  className="usa-button primary usa-button--outline"
-                  iconSuffix={IconNames.ArrowSquareOut}
-                  iconSize={22}
-                >
-                  Contact Career One-Stop
-                </LinkObject>
-              </FundingBox>
-            )}
             <div className="listing-header">
               <ResourceListHeading
                 tags={selectedTags}
