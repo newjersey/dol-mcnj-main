@@ -131,7 +131,7 @@ export const en = {
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",
-    inDemandLinkText: "Career One Stop",
+    inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
