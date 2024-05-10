@@ -23,10 +23,13 @@
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.5rem;
+  border-radius: 8px;
 }
 
 .countyBlock {
   background-color: #f2e4d4;
+  border-radius: 8px;
+  margin-bottom: 1rem;
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
@@ -38,16 +41,26 @@
     }
     color: $blue;
   }
+
+  h2 {
+    margin: 0.5rem 0;
+    font-weight: 600;
+  }
 }
 
 .stat-block-stack {
+  display: flex;
+  flex-direction: column;
+  max-width: $mobile-md;
+}
+
+.stat-block-container {
   display: flex;
   flex-direction: column;
 }
 
 .stat-block-number {
   padding-top: 1rem;
-  text-align: left;
   font-weight: 700;
 }
 
@@ -100,8 +113,13 @@
     width: 190px;
   }
 
-  .stat-block-stack {
+  .stat-block-container {
     flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .stat-block + .stat-block {
+    margin-left: 0.5rem;
   }
 
   .bar {
