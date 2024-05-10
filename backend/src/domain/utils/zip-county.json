@@ -330,8 +330,6 @@
     },
     "07093": {
       "city": "West New York",
-      "Guttenber
-      g,",
       "county": "Hudson"
     },
     "07094": {
@@ -1983,7 +1981,7 @@
       "county": "Cape May"
     },
     "08230": {
-      "city": "Ocean View, Upper Twp",
+      "city": "Ocean View",
       "county": "Cape May"
     },
     "08231": {
@@ -1991,11 +1989,11 @@
       "county": "Atlantic"
     },
     "08232": {
-      "city": "Pleasantville, Mckee City",
+      "city": "Pleasantville",
       "county": "Atlantic"
     },
     "08234": {
-      "city": "Egg Harbor Township, Egg Harbor Twp, Egg Hbr Twp",
+      "city": "Egg Harbor Township",
       "county": "Atlantic"
     },
     "08240": {
@@ -2011,7 +2009,7 @@
       "county": "Cape May"
     },
     "08243": {
-      "city": "Sea Isle City, Townsend Inlt, Townsends Inlet",
+      "city": "Sea Isle City",
       "county": "Cape May"
     },
     "08244": {
@@ -2039,7 +2037,7 @@
       "county": "Cape May"
     },
     "08251": {
-      "city": "Villas, Del Haven",
+      "city": "Villas",
       "county": "Cape May"
     },
     "08252": {
@@ -3548,6 +3546,15 @@
         "08215"
       ]
     },
+    "Egg Harbor Township": {
+      "alts": [
+        "Egg Harbor Twp",
+        "Egg Hbr Twp"
+      ],
+      "zips": [
+        "08234"
+      ]
+    },
     "Elizabeth": {
       "zips": [
         "07201",
@@ -3561,6 +3568,11 @@
       "zips": [
         "07407",
         "07410"
+      ]
+    },
+    "Elwood": {
+      "zips": [
+        "08217"
       ]
     },
     "Emerson": {
@@ -3752,9 +3764,19 @@
         "08030"
       ]
     },
+    "Goshen": {
+      "zips": [
+        "08218"
+      ]
+    },
     "Great Meadows": {
       "zips": [
         "07838"
+      ]
+    },
+    "Green Creek": {
+      "zips": [
+        "08219"
       ]
     },
     "Green Village": {
@@ -4103,6 +4125,11 @@
         "07852"
       ]
     },
+    "Leeds Point": {
+      "zips": [
+        "08220"
+      ]
+    },
     "Leonardo": {
       "zips": [
         "07737"
@@ -4137,6 +4164,11 @@
       ],
       "zips": [
         "07036"
+      ]
+    },
+    "Linwood": {
+      "zips": [
+        "08221"
       ]
     },
     "Little Falls": {
@@ -4257,6 +4289,11 @@
     "Marlboro": {
       "zips": [
         "07746"
+      ]
+    },
+    "Marmora": {
+      "zips": [
+        "08223"
       ]
     },
     "Matawan": {
@@ -4558,6 +4595,11 @@
         "08989"
       ]
     },
+    "New Gretna": {
+      "zips": [
+        "08224"
+      ]
+    },
     "New Lisbon": {
       "zips": [
         "08064"
@@ -4640,6 +4682,11 @@
         "08902"
       ]
     },
+    "Northfield": {
+      "zips": [
+        "08225"
+      ]
+    },
     "Northvale": {
       "alts": [
         "Rockleigh"
@@ -4694,6 +4741,24 @@
       ],
       "zips": [
         "08107"
+      ]
+    },
+    "Ocean City": {
+      "alts": [
+        "Upper Twp"
+      ],
+      "zips": [
+        "08226"
+      ]
+    },
+    "Ocean View": {
+      "zips": [
+        "08230"
+      ]
+    },
+    "Oceanville": {
+      "zips": [
+        "08231"
       ]
     },
     "Ogdensburg": {
@@ -4890,9 +4955,22 @@
         "07063"
       ]
     },
+    "Pleasantville": {
+      "alts": [
+        "Mckee City"
+      ],
+      "zips": [
+        "08232"
+      ]
+    },
     "Pluckemin": {
       "zips": [
         "07978"
+      ]
+    },
+    "Pomona": {
+      "zips": [
+        "08240"
       ]
     },
     "Pompton Lakes": {
@@ -4921,6 +4999,11 @@
     "Port Reading": {
       "zips": [
         "07064"
+      ]
+    },
+    "Port Republic": {
+      "zips": [
+        "08241"
       ]
     },
     "Pottersville": {
@@ -4988,6 +5071,11 @@
     "Ringwood": {
       "zips": [
         "07456"
+      ]
+    },
+    "Rio Grande": {
+      "zips": [
+        "08242"
       ]
     },
     "River Edge": {
@@ -5107,6 +5195,15 @@
         "07076"
       ]
     },
+    "Sea Isle City": {
+      "alts": [
+        "Townsend Inlt",
+        "Townsends Inlet"
+      ],
+      "zips": [
+        "08243"
+      ]
+    },
     "Secaucus": {
       "zips": [
         "07094",
@@ -5152,6 +5249,11 @@
         "08083"
       ]
     },
+    "Somers Point": {
+      "zips": [
+        "08244"
+      ]
+    },
     "Somerset": {
       "alts": [
         "E Millstone",
@@ -5160,6 +5262,11 @@
       "zips": [
         "08873",
         "08875"
+      ]
+    },
+    "South Dennis": {
+      "zips": [
+        "08245"
       ]
     },
     "South Hackensack": {
@@ -5178,6 +5285,11 @@
       ],
       "zips": [
         "07080"
+      ]
+    },
+    "South Seaville": {
+      "zips": [
+        "08246"
       ]
     },
     "Sparta": {
@@ -5218,9 +5330,19 @@
         "07460"
       ]
     },
+    "Stone Harbor": {
+      "zips": [
+        "08247"
+      ]
+    },
     "Stratford": {
       "zips": [
         "08084"
+      ]
+    },
+    "Strathmere": {
+      "zips": [
+        "08248"
       ]
     },
     "Succasunna": {
@@ -5350,6 +5472,11 @@
         "08695"
       ]
     },
+    "Tuckahoe": {
+      "zips": [
+        "08250"
+      ]
+    },
     "Tuckerton": {
       "alts": [
         "Little Egg Harbor",
@@ -5390,6 +5517,14 @@
     "Vienna": {
       "zips": [
         "07880"
+      ]
+    },
+    "Villas": {
+      "alts": [
+        "Del Haven"
+      ],
+      "zips": [
+        "08251"
       ]
     },
     "Vincentown": {
