@@ -187,12 +187,15 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     const address = training.availableAt;
-
+    const nameAndAddressEncoded = encodeURIComponent(
+      `${training.provider.name} ${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
+    );
+    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
     return (
       <div key={"address"}>
         <div>
           <a
-            href={training.provider.url}
+            href={googleUrl}
             target="_blank"
             className="link-format-blue"
             rel="noopener noreferrer"
