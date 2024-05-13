@@ -18,6 +18,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
 
+    console.log({ values })
+
     const ceRecords = await credentialEngineUtils.fetchValidCEData(values);
     if (ceRecords.length === 0) {
       console.error('404 Not found: No CE Records Found')
