@@ -4,7 +4,6 @@ import { SearchTrainings,  } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
-import { CalendarLength } from "../CalendarLength";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
@@ -100,16 +99,6 @@ function buildQuery(params: { searchQuery: string }) {
           } : undefined,
         },
         {
-          "search:operator": "search:orTerms",
-          "ceterms:availableOnlineAt": "search:anyValue",
-          "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-              { "search:value": "NJ", "search:matchType": "search:exactMatch" },
-              { "search:value": "jersey", "search:matchType": "search:exactMatch" },
-            ],
-          },
-        },
-        {
           "search:operator": "search:andTerms",
           "ceterms:credentialStatusType": {
             "ceterms:targetNode": "credentialStat:Active",
@@ -139,7 +128,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
       percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
-      calendarLength: CalendarLength.NULL,
+      calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       online: certificate["ceterms:availableOnlineAt"] != null,
       providerId: ownedByCtid,

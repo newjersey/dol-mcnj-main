@@ -5,6 +5,7 @@ import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
+import { UserSound } from "@phosphor-icons/react";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -15,6 +16,7 @@ import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
 import { CipDrawerContent } from "../components/CipDrawerContent";
+import { Button } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -30,6 +32,9 @@ import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
 import { cleanProviderName } from "../utils/cleanProviderName";
 import { formatCip } from "../utils/formatCip";
+import { LinkObject } from "../components/modules/LinkObject";
+import { IconNames } from "../types/icons";
+import { LinkSimple, Printer } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -129,6 +134,38 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  const fundingContent = (
+    <Grouping title="How to get funding">
+      <div className="funding-content">
+        <div>
+          <p className="mvd" data-testid="shareInDemandTraining">
+            Trainings related to occupations on the{" "}
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List may
+            be eligible for funding. Contact your local One-Stop Career Center for more information
+            regarding program and training availability.
+          </p>
+          <LinkObject
+            url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
+            className="usa-button primary usa-button--outline"
+            iconSuffix={IconNames.ArrowSquareOut}
+            iconSize={22}
+          >
+            Contact Career Once Stop
+          </LinkObject>
+        </div>
+        <div>
+          <p>You can also check out other tuition assistance opportunities.</p>
+          <LinkObject
+            url="/support-resources/tuition-assistance"
+            className="usa-button secondary usa-button--outline"
+          >
+            View Tuition Assistance Resource
+          </LinkObject>
+        </div>
+      </div>
+    </Grouping>
+  );
+
   const getProviderEmail = (): ReactElement => {
     if (!training?.provider?.email) {
       return <></>;
@@ -150,12 +187,15 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     const address = training.availableAt;
-
+    const nameAndAddressEncoded = encodeURIComponent(
+      `${training.provider.name} ${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
+    );
+    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
     return (
       <div key={"address"}>
         <div>
           <a
-            href={training.provider.url}
+            href={googleUrl}
             target="_blank"
             className="link-format-blue"
             rel="noopener noreferrer"
@@ -277,11 +317,28 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-            {training.name}
-          </h2>
+          <div className="title-box">
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
+            <ul className="save-controls unstyled">
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                  <LinkSimple size={26} className={copy ? "green" : undefined} />
+                  <span className={copy ? "green" : undefined}>
+                    {copy ? "Copied!" : "Copy link"}
+                  </span>
+                </UnstyledButton>
+              </li>
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                  <Printer size={26} />
+                  <span className="mlxs weight-500">Print and Save</span>
+                </UnstyledButton>
+              </li>
+            </ul>
+          </div>
           <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
-
           <div className="stat-block-stack mtm">
             {training.inDemand ? <InDemandBlock /> : <></>}
 
@@ -293,29 +350,44 @@ export const TrainingPage = (props: Props): ReactElement => {
               <></>
             )}
 
-            <StatBlock
-              title={t("TrainingPage.avgSalaryTitle")}
-              tooltipText={t("TrainingPage.avgSalaryTooltip")}
-              data={
-                training.averageSalary
-                  ? formatMoney(training.averageSalary, { precision: 0 })
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("TrainingPage.employmentRateTitle")}
-              tooltipText={t("TrainingPage.employmentRateTooltip")}
-              data={
-                training.percentEmployed
-                  ? formatPercentEmployed(training.percentEmployed)
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-light-purple-50"
-            />
+            <div className="stat-block-container">
+              <StatBlock
+                title={t("TrainingPage.avgSalaryTitle")}
+                tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                data={
+                  training.averageSalary
+                    ? formatMoney(training.averageSalary, { precision: 0 })
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("TrainingPage.employmentRateTitle")}
+                tooltipText={t("TrainingPage.employmentRateTooltip")}
+                data={
+                  training.percentEmployed
+                    ? formatPercentEmployed(training.percentEmployed)
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-light-purple-50"
+              />
+            </div>
           </div>
-
-          <div className="row pbm">
+          <ul className="save-controls mobile-only unstyled">
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                <LinkSimple size={26} className={copy ? "green" : undefined} />
+                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
+              </UnstyledButton>
+            </li>
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                <Printer size={26} />
+                <span className="mlxs weight-500">Print and Save</span>
+              </UnstyledButton>
+            </li>
+          </ul>
+          <div className="row pbm group-wrapper">
             <div className="col-md-8">
               <div className="container-fluid">
                 <div className="row">
@@ -418,43 +490,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <>{getAssociatedOccupations()}</>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.shareGroupHeader")}>
-                    <>
-                      {training.inDemand && (
-                        <p className="mvd" data-testid="shareInDemandTraining">
-                          {t("TrainingPage.inDemandDescription")}
-                        </p>
-                      )}
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                          <Icon className="accessible-gray weight-500">link</Icon>
-                          <span className="mlxs weight-500">{t("TrainingPage.copyLinkText")}</span>
-                        </UnstyledButton>
-                        {copy && (
-                          <span className={`text-s weight-500 mls ${copy?.class}`}>
-                            {copy?.text}
-                          </span>
-                        )}
-                      </p>
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                          <Icon className="accessible-gray weight-500">print</Icon>
-                          <span className="mlxs weight-500">
-                            {t("TrainingPage.savePrintLinkText")}
-                          </span>
-                        </UnstyledButton>
-                      </p>
-                      <p>
-                        <Link
-                          className="link-format-blue weight-500 fin"
-                          to="/support-resources/tuition-assistance"
-                        >
-                          <Icon className="accessible-gray">attach_money</Icon>
-                          <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
-                        </Link>
-                      </p>
-                    </>
-                  </Grouping>
+                  <div className="desktop-only">{fundingContent}</div>
                 </div>
               </div>
             </div>
@@ -498,7 +534,30 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="pull-right">{formatMoney(training.otherCost)}</span>
                           </div>
                         </div>
-                      </>
+                      <div id="contact-provider-info">
+                        {training?.provider?.url ? (
+                          <div className="provider-btn-container">
+                            <Button
+                              copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                              type="link"
+                              url={
+                                training.provider.url.startsWith("http")
+                                  ? training.provider.url
+                                  : `https://${training.provider.url}`
+                              }
+                            />
+                            <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
+                          </div>
+                        ) : (
+                          <div className="provider-no-url">
+                            <div className="icon-container">
+                              <UserSound />
+                            </div>
+                            {t("TrainingPage.providerWebsiteMissingLabel")}
+                          </div>
+                        )}
+                      </div>
+                    </>
                     ) : (
                       <>
                         <p>{t("Global.noDataAvailableText")}</p>
@@ -582,6 +641,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                     </>
                   </Grouping>
+                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>

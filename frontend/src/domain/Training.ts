@@ -13,7 +13,7 @@ export interface TrainingResult {
   online: boolean;
   providerId: string;
   providerName: string;
-  availableAt: TrainingAddress;
+  availableAt: Address;
   cities: string[];
   zipCodes: string[];
   county: string;
@@ -27,11 +27,12 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
-export interface TrainingAddress {
-  street_address: string;
-  city: string;
-  state: string;
-  zipCode: string;
+export interface Address {
+  street_address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  county?: string;
 }
 
 type MetaData = {
@@ -51,7 +52,7 @@ export interface TrainingData {
 }
 
 export interface Training {
-  availableAt: TrainingAddress;
+  availableAt: Address;
   averageSalary: number | null;
   booksMaterialsCost: number;
   calendarLength: CalendarLength;
@@ -89,13 +90,13 @@ export interface Provider {
 }
 
 export interface Address {
-  name: string;
-  street1: string;
-  street2: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  targetContactPoints: ContactPoint[];
+  name?: string;
+  street_address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  county?: string;
+  targetContactPoints?: ContactPoint[];
 }
 
 export interface ContactPoint {

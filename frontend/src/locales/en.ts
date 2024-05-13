@@ -130,6 +130,8 @@ export const en = {
     inDemandTitle: "In-Demand in all of New Jersey.",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
+    inDemandText: "This training may be eligible for funding from your",
+    inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
@@ -320,5 +322,20 @@ export const en = {
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
       "Services are subject to provider details, contact this provider for more information on services",
+    visitTrainingProviderBtnLabel: "Visit Training Provider Website to Sign Up",
+    providerWebsiteDisclaimerLabel:
+      "You will leave My Career NJ and be taken to the provider's website",
+    providerWebsiteMissingLabel:
+      "To sign up for this training opportunity, please contact the provider at the details below.",
+    trainingProviderStepsHeader: "Follow these steps",
+    trainingStepOne: "Search for Training",
+    trainingStepOneDescription: "Enter a field of study you are interested in exploring.",
+    trainingStepTwo: "Filter and Compare",
+    trainingStepTwoDescriptionP1: "Filter and compare ",
+    trainingStepTwoDescriptionP2: "accredited programs from the ETPL",
+    trainingStepTwoDescriptionP3: " to identify the best fit for you.",
+    trainingStepThree: "Visit Training Provider Website",
+    trainingStepThreeDescription:
+      "Call or visit the provider's website to learn more about the training or to sign up.",
   },
 };

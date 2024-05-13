@@ -12,7 +12,7 @@ export interface TrainingResult {
   inDemand?: boolean;
   localExceptionCounty?: string[];
   online?: boolean;
-  providerId?: string;
+  providerId?: string | null;
   providerName?: string;
   cities?: (string | undefined)[];
   zipCodes?: (string | undefined)[];

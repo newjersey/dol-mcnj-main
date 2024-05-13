@@ -7,8 +7,14 @@ import {
 } from "../domain/credentialengine/CredentialEngine";
 import {Occupation} from "../domain/occupations/Occupation";
 import {Address} from "../domain/training/Training";
+import {convertZipCodeToCounty} from "../domain/utils/convertZipCodeToCounty";
+import {credentialEngineAPI} from "./CredentialEngineAPI";
 
 export const credentialEngineUtils = {
+  validateCtId: async function (id: string) : Promise<boolean> {
+    const pattern = /^ce-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return pattern.test(id);
+  },
 
   getCtidFromURL: async function (url: string) {
     try {
@@ -22,13 +28,47 @@ export const credentialEngineUtils = {
     }
   },
 
+
+  // Function to fetch certificate data based on a valid CTID
+  fetchCertificateData: async function(value: string): Promise<CTDLResource | null> {
+    try {
+      const ctid = await credentialEngineUtils.getCtidFromURL(value);
+      const query = {
+        "ceterms:ctid": ctid,
+        "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+      };
+      const response = await credentialEngineAPI.getResults(query, 0, 10, "^search:relevance");
+      return response.data.data.length > 0 ? response.data.data[0] : null;
+    } catch (error) {
+      console.error(`Error fetching data for CTID: ${error}`);
+      return null;
+    }
+  },
+
+  // Function to validate and fetch CE data
+  fetchValidCEData: async function(values: string[]): Promise<CTDLResource[]> {
+    const ceDataPromises = values.map(async value => {
+      if (!(await credentialEngineUtils.validateCtId(value))) {
+        console.error(`Invalid CE ID: ${value}`);
+        return null;
+      }
+      return await credentialEngineUtils.fetchCertificateData(value);
+    });
+
+    // Filter out `null` and assert that the resulting array contains only `CTDLResource` objects.
+    return (await Promise.all(ceDataPromises)).filter((record): record is CTDLResource => record !== null);
+  },
+
   getAvailableAtAddress: async  function (certificate: CTDLResource): Promise<Address> {
     const availableAt = certificate["ceterms:availableAt"]?.[0];
+    const zipCode = availableAt?.["ceterms:postalCode"] ?? "";
+
     return {
       street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
       city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
       state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
       zipCode: availableAt?.["ceterms:postalCode"] ?? "",
+      county: convertZipCodeToCounty(zipCode) ?? ""
     }
   },
 

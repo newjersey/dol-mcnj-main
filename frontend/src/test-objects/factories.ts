@@ -116,11 +116,11 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
     name: "some-location-name-" + randomInt(),
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
+    street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
     targetContactPoints: [],
     ...overrides,
   };
