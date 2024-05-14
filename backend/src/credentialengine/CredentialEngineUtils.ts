@@ -29,7 +29,6 @@ const getCtidFromURL = async (url: string): Promise<string> => {
   try {
     console.log(`Getting CTID from URL: ${url}`);
     const lastSlashIndex = url.lastIndexOf("/");
-    if (lastSlashIndex === -1) throw new Error("Invalid URL format.");
     return url.substring(lastSlashIndex + 1);
   } catch (error) {
     logError(`Error extracting CTID from URL: ${url}`, error as Error);
