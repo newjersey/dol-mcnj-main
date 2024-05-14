@@ -63,6 +63,8 @@ export const credentialEngineUtils = {
     const availableAt = certificate["ceterms:availableAt"]?.[0];
     const zipCode = availableAt?.["ceterms:postalCode"] ?? "";
 
+    console.log({ availableAt, zipCode });
+
     return {
       street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
       city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",

@@ -76,11 +76,9 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
-function isSOCCode (searchQuery: string) {
-  return /^\d{2}-?\d{4}(\.00)?$/.test(searchQuery);
-}
-
 function buildQuery(params: { searchQuery: string }) {
+  console.log(params.searchQuery)
+
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
 
