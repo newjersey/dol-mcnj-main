@@ -11,7 +11,7 @@ import { Address } from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 
-const logError = (message: string, error: any) => {
+const logError = (message: string, error: Error) => {
   console.error(`${message}: ${error.message}`);
 };
 
@@ -20,7 +20,7 @@ const validateCtId = async (id: string): Promise<boolean> => {
   try {
     return pattern.test(id);
   } catch (error) {
-    logError(`Error validating CTID: ${id}`, error);
+    logError(`Error validating CTID: ${id}`, error as Error);
     throw error;
   }
 };
@@ -29,9 +29,10 @@ const getCtidFromURL = async (url: string): Promise<string> => {
   try {
     console.log(`Getting CTID from URL: ${url}`);
     const lastSlashIndex = url.lastIndexOf("/");
+    if (lastSlashIndex === -1) throw new Error("Invalid URL format.");
     return url.substring(lastSlashIndex + 1);
   } catch (error) {
-    logError(`Error extracting CTID from URL: ${url}`, error);
+    logError(`Error extracting CTID from URL: ${url}`, error as Error);
     throw error;
   }
 };
@@ -46,7 +47,7 @@ const fetchCertificateData = async (url: string): Promise<CTDLResource | null> =
     const response = await credentialEngineAPI.getResults(query, 0, 10, "^search:relevance");
     return response.data.data.length > 0 ? response.data.data[0] : null;
   } catch (error) {
-    logError(`Error fetching data for CTID`, error);
+    logError(`Error fetching data for CTID`, error as Error);
     return null;
   }
 };
@@ -63,7 +64,7 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
 
     return (await Promise.all(ceDataPromises)).filter((record): record is CTDLResource => record !== null);
   } catch (error) {
-    logError(`Error fetching valid CE data`, error);
+    logError(`Error fetching valid CE data`, error as Error);
     throw error;
   }
 };
@@ -81,7 +82,7 @@ const getAvailableAtAddress = async (certificate: CTDLResource): Promise<Address
       county: convertZipCodeToCounty(zipCode) ?? ""
     };
   } catch (error) {
-    logError(`Error getting available address`, error);
+    logError(`Error getting available address`, error as Error);
     throw error;
   }
 };
@@ -98,7 +99,7 @@ const extractCipCode = async (certificate: CTDLResource): Promise<string> => {
     }
     return "";
   } catch (error) {
-    logError(`Error extracting CIP code`, error);
+    logError(`Error extracting CIP code`, error as Error);
     throw error;
   }
 };
@@ -109,19 +110,19 @@ const extractOccupations = async (certificate: CTDLResource): Promise<Occupation
     if (!occupationTypes || occupationTypes.length === 0) return [];
 
     return occupationTypes
-      .filter((occupation) =>
-        occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" &&
-        occupation["ceterms:codedNotation"] &&
-        occupation["ceterms:targetNodeName"]?.["en-US"]
-      )
-      .map((occupation) => {
-        const soc = occupation["ceterms:codedNotation"]?.replace(".00", "");
-        const title = occupation["ceterms:targetNodeName"]?.["en-US"];
-        return { soc, title };
-      })
-      .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
+        .filter((occupation) =>
+            occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" &&
+            occupation["ceterms:codedNotation"] &&
+            occupation["ceterms:targetNodeName"]?.["en-US"]
+        )
+        .map((occupation) => {
+          const soc = occupation["ceterms:codedNotation"]?.replace(".00", "");
+          const title = occupation["ceterms:targetNodeName"]?.["en-US"];
+          return { soc, title };
+        })
+        .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
   } catch (error) {
-    logError(`Error extracting occupations`, error);
+    logError(`Error extracting occupations`, error as Error);
     throw error;
   }
 };
@@ -140,7 +141,7 @@ const extractCost = async (certificate: CTDLResource, costType: string): Promise
     }
     return null;
   } catch (error) {
-    logError(`Error extracting cost for type ${costType}`, error);
+    logError(`Error extracting cost for type ${costType}`, error as Error);
     throw error;
   }
 };
@@ -171,7 +172,7 @@ const sumOtherCosts = async (certificate: CTDLResource): Promise<number> => {
     }
     return otherCosts;
   } catch (error) {
-    logError(`Error summing other costs`, error);
+    logError(`Error summing other costs`, error as Error);
     throw error;
   }
 };
@@ -182,7 +183,7 @@ const extractAverageSalary = async (certificate: CTDLResource): Promise<number |
     if (!averageSalaryData) return null;
 
     const averageSalaryProfile = averageSalaryData.find(
-      (aggData: CetermsAggregateData) => aggData["ceterms:medianEarnings"] !== undefined && aggData["ceterms:medianEarnings"] !== null
+        (aggData: CetermsAggregateData) => aggData["ceterms:medianEarnings"] !== undefined && aggData["ceterms:medianEarnings"] !== null
     );
 
     if (!averageSalaryProfile) return null;
@@ -194,7 +195,7 @@ const extractAverageSalary = async (certificate: CTDLResource): Promise<number |
 
     return medianEarnings;
   } catch (error) {
-    logError(`Error extracting average salary`, error);
+    logError(`Error extracting average salary`, error as Error);
     throw error;
   }
 };
@@ -212,7 +213,7 @@ const extractEmploymentData = async (certificate: CTDLResource): Promise<number 
     }
     return null;
   } catch (error) {
-    logError(`Error extracting employment data`, error);
+    logError(`Error extracting employment data`, error as Error);
     throw error;
   }
 };
@@ -220,13 +221,13 @@ const extractEmploymentData = async (certificate: CTDLResource): Promise<number 
 const extractPrerequisites = async (certificate: CTDLResource): Promise<string[] | null> => {
   try {
     const prerequisites = certificate["ceterms:requires"]
-      ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
-      .map(req => req["ceterms:description"]?.["en-US"])
-      .filter((description): description is string => description !== undefined);
+        ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
+        .map(req => req["ceterms:description"]?.["en-US"])
+        .filter((description): description is string => description !== undefined);
 
     return prerequisites && prerequisites.length > 0 ? prerequisites : null;
   } catch (error) {
-    logError(`Error extracting prerequisites`, error);
+    logError(`Error extracting prerequisites`, error as Error);
     throw error;
   }
 };
@@ -236,10 +237,10 @@ const checkSupportService = async (certificate: CTDLResource, targetNode: string
     const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
 
     return supportServices.some((service: CtermsSupportServices) =>
-      service["ceterms:supportServiceType"]?.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
+        service["ceterms:supportServiceType"]?.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
     );
   } catch (error) {
-    logError(`Error checking support service`, error);
+    logError(`Error checking support service`, error as Error);
     throw error;
   }
 };
@@ -249,10 +250,10 @@ const checkAccommodation = async (certificate: CTDLResource, targetNode: string)
     const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
 
     return supportServices.some((service: CtermsSupportServices) =>
-      service["ceterms:accommodationType"]?.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)
+        service["ceterms:accommodationType"]?.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)
     );
   } catch (error) {
-    logError(`Error checking accommodation`, error);
+    logError(`Error checking accommodation`, error as Error);
     throw error;
   }
 };
@@ -262,11 +263,11 @@ const constructCertificationsString = async (isPreparationForObject: CetermsCond
     if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
 
     return isPreparationForObject
-      .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
-      .filter((name) => name) // Filter out empty strings
-      .join(", "); // Join the names with a comma and space as separator
+        .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
+        .filter((name) => name) // Filter out empty strings
+        .join(", "); // Join the names with a comma and space as separator
   } catch (error) {
-    logError(`Error constructing certifications string`, error);
+    logError(`Error constructing certifications string`, error as Error);
     throw error;
   }
 };
@@ -279,7 +280,7 @@ const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> =
     if (!exactDuration) return 0;
     return await convertIso8601DurationToCalendarLengthId(exactDuration);
   } catch (error) {
-    logError(`Error getting calendar length ID`, error);
+    logError(`Error getting calendar length ID`, error as Error);
     throw error;
   }
 };
@@ -293,7 +294,7 @@ const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> =
 
     return hasEvening;
   } catch (error) {
-    logError(`Error checking evening schedule`, error);
+    logError(`Error checking evening schedule`, error as Error);
     throw error;
   }
 };
@@ -301,7 +302,7 @@ const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> =
 const convertIso8601DurationToTotalHours = async (isoString: string): Promise<number> => {
   try {
     const match = isoString.match(
-      /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
+        /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
     );
     if (!match) {
       throw new Error("Invalid ISO 8601 duration string");
@@ -317,7 +318,7 @@ const convertIso8601DurationToTotalHours = async (isoString: string): Promise<nu
 
     return years + months + weeks + days + hours + minutes + seconds;
   } catch (error) {
-    logError(`Error converting ISO 8601 duration to total hours`, error);
+    logError(`Error converting ISO 8601 duration to total hours`, error as Error);
     throw error;
   }
 };
@@ -325,7 +326,7 @@ const convertIso8601DurationToTotalHours = async (isoString: string): Promise<nu
 const convertIso8601DurationToCalendarLengthId = async (isoString: string): Promise<number> => {
   try {
     const match = isoString.match(
-      /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/
+        /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/
     );
     if (!match) {
       throw new Error("Invalid ISO 8601 duration string");
@@ -353,7 +354,7 @@ const convertIso8601DurationToCalendarLengthId = async (isoString: string): Prom
     if (totalDays <= 1460) return 9;
     return 10;
   } catch (error) {
-    logError(`Error converting ISO 8601 duration to calendar length ID`, error);
+    logError(`Error converting ISO 8601 duration to calendar length ID`, error as Error);
     throw error;
   }
 };
