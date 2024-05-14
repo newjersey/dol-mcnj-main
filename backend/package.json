@@ -51,7 +51,8 @@
     "winston-cloudwatch": "^6.2.0",
     "winston-mail": "^2.0.0",
     "winston-sentry": "^0.2.1",
-    "winston-sentry-log": "^1.0.26"
+    "winston-sentry-log": "^1.0.26",
+    "zipcodes": "^8.0.0"
   },
   "devDependencies": {
     "@eslint-community/eslint-utils": "^4.4.0",

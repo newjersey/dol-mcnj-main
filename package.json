@@ -11,5 +11,8 @@
     "build": "./scripts/build.sh",
     "test": "./scripts/test-all.sh",
     "install": "./scripts/install-all.sh"
+  },
+  "devDependencies": {
+    "@types/zipcodes": "^8.0.5"
   }
 }

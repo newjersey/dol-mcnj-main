@@ -9,6 +9,8 @@ import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
 
+import zipcodes from "zipcodes";
+
 // Ensure TrainingData is exported in ../types
 // types.ts:
 // export interface TrainingData { ... }
@@ -75,6 +77,10 @@ function determineSortOption(sortOption?: string) {
 function buildQuery(params: { searchQuery: string }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+
+  const isZipCode = zipcodes.lookup(params.searchQuery);
+
+  console.log(isZipCode)
 
   return {
     "@type": {
