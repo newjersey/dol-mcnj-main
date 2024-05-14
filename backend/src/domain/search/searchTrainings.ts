@@ -9,6 +9,8 @@ import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
 
+import zipcodeJson from "../utils/zip-county.json";
+
 import zipcodes from "zipcodes";
 
 // Ensure TrainingData is exported in ../types
@@ -74,13 +76,45 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
+function isSOCCode (searchQuery: string) {
+  return /^\d{2}-?\d{4}(\.00)?$/.test(searchQuery);
+}
+
 function buildQuery(params: { searchQuery: string }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
 
   const isZipCode = zipcodes.lookup(params.searchQuery);
+  const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  console.log(isZipCode)
+  function queryType () {
+    if (isSOC) {
+      return { "ceterms:occupationType": {
+        "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      }};
+    };
+    if (isCIP) {
+      return { "ceterms:instructionalProgramType": {
+        "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      }};
+    };
+    if (isZipCode) {
+      return { "ceterms:availableAt": {
+        "ceterms:postalCode": params.searchQuery
+      }};
+    };
+    if (isCounty) {
+      return { "ceterms:availableAt": {
+        "ceterms:postalCode": zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+      }};
+    }
+
+    return {
+      "ceterms:name": params.searchQuery,
+      "ceterms:description": params.searchQuery,
+      "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
+    }
+  }
 
   return {
     "@type": {
@@ -92,17 +126,7 @@ function buildQuery(params: { searchQuery: string }) {
       "search:value": [
         {
           "search:operator": "search:orTerms",
-          ...(isCIP || isSOC ? {} : {
-            "ceterms:name": params.searchQuery,
-            "ceterms:description": params.searchQuery,
-            "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
-          }),
-          "ceterms:occupationType": isSOC ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
-          "ceterms:instructionalProgramType": isCIP ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
+          ...(queryType())
         },
         {
           "search:operator": "search:andTerms",
@@ -112,7 +136,7 @@ function buildQuery(params: { searchQuery: string }) {
           "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
         },
       ],
-    },
+    }
   };
 }
 
