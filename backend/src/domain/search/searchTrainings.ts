@@ -9,6 +9,9 @@ import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
 
+import zipcodeJson from "../utils/zip-county.json";
+import zipcodes from "zipcodes";
+
 // Ensure TrainingData is exported in ../types
 // types.ts:
 // export interface TrainingData { ... }
@@ -17,8 +20,14 @@ import {TrainingData, TrainingResult} from "../training/TrainingResult";
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
-  return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string }): Promise<TrainingData> => {
-    const { page, limit, sort, cacheKey } = prepareSearchParameters(params);
+  return async (params: {
+    searchQuery: string,
+    page?: number,
+    limit?: number,
+    sort?: string,
+    zip?: string,
+    miles?: string }): Promise<TrainingData> => {
+    const { page, limit, sort, zip, miles, cacheKey } = prepareSearchParameters(params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
     if (cachedResults) {
@@ -50,14 +59,23 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   };
 };
 
-function prepareSearchParameters(params: { searchQuery: string, page?: number, limit?: number, sort?: string }) {
+function prepareSearchParameters(params: {
+  searchQuery: string,
+  page?: number,
+  limit?: number,
+  sort?: string,
+  zip?: string,
+  miles?: string
+ }) {
   const page = params.page || 1;
   const limit = params.limit || 10;
+  const miles = params.miles;
+  const zip = params.zip;
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${zip && miles ? `-${zip}-${miles}` : ""}`;
 
-  return { page, limit, sort, cacheKey };
+  return { page, limit, sort, zip, miles, cacheKey };
 }
 
 function determineSortOption(sortOption?: string) {
@@ -72,9 +90,40 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
-function buildQuery(params: { searchQuery: string }) {
+function buildQuery(params: {
+  searchQuery: string,
+  zip?: string,
+  miles?: string
+}) {
+  console.log({params})
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+  const isZipCode = zipcodes.lookup(params.searchQuery);
+  const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
+
+  console.log({params})
+
+  const buildAvailableAtQuery = () => {
+    if (isZipCode) {
+      return params.searchQuery;
+    }
+
+    if (isCounty) {
+      return zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty];
+    }
+
+    console.log("No valid zip code or county found in search query")
+
+    if (params.miles && params.zip) {
+      console.log("WHOOP")
+      const milesNum = Number(params.miles);
+      console.log("params.miles", params.miles)
+      const radius = zipcodes.radius(params.zip, milesNum);
+      return radius;
+    }
+
+    return undefined;
+  }
 
   return {
     "@type": {
@@ -86,7 +135,7 @@ function buildQuery(params: { searchQuery: string }) {
       "search:value": [
         {
           "search:operator": "search:orTerms",
-          ...(isCIP || isSOC ? {} : {
+          ...(isSOC || isCIP || !!isZipCode || isCounty ? {} : {
             "ceterms:name": params.searchQuery,
             "ceterms:description": params.searchQuery,
             "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
@@ -97,6 +146,9 @@ function buildQuery(params: { searchQuery: string }) {
           "ceterms:instructionalProgramType": isCIP ? {
             "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
           } : undefined,
+          "ceterms:availableAt": {
+            "ceterms:postalCode": buildAvailableAtQuery()
+          }
         },
         {
           "search:operator": "search:andTerms",

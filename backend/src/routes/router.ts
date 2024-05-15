@@ -63,7 +63,14 @@ export const routerFactory = ({
       limit = 10;
     }
     
-    searchTrainings({searchQuery: req.query.query as string, page: page, limit: limit, sort: req.query.sort as string})
+    searchTrainings({
+      searchQuery: req.query.query as string,
+      page: page,
+      limit: limit,
+      sort: req.query.sort as string,
+      zip: req.query.zip as string,
+      miles: req.query.miles as string,
+    })
       .then((trainings: TrainingData) => {
         res.status(200).json(trainings);
       })
