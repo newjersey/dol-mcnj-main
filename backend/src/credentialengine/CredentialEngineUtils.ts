@@ -68,6 +68,24 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   }
 };
 
+const getAddress = async (resource: CTDLResource): Promise<Address> => {
+  try {
+    const address = resource["ceterms:address"]?.[0];
+    const zipCode = address?.["ceterms:postalCode"] ?? "";
+
+    return {
+      street_address: address?.["ceterms:streetAddress"]?.["en-US"] ?? "",
+      city: address?.["ceterms:addressLocality"]?.["en-US"] ?? "",
+      state: address?.["ceterms:addressRegion"]?.["en-US"] ?? "",
+      zipCode,
+      county: convertZipCodeToCounty(zipCode) ?? ""
+    };
+  } catch (error) {
+    logError(`Error getting ceterms:address`, error as Error);
+    throw error;
+  }
+};
+
 const getAvailableAtAddress = async (certificate: CTDLResource): Promise<Address> => {
   try {
     const availableAt = certificate["ceterms:availableAt"]?.[0];
@@ -332,6 +350,7 @@ export const credentialEngineUtils = {
   getCtidFromURL,
   fetchCertificateData,
   fetchValidCEData,
+  getAddress,
   getAvailableAtAddress,
   extractCipCode,
   extractOccupations,

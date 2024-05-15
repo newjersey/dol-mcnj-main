@@ -328,10 +328,12 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                       <GraduationCap size={32} />
                                       {train.providerName}
                                     </span>
-                                    <span>
-                                      <MapPinLine size={32} />
-                                        {train.availableAt.city}, {train.availableAt.state}
-                                    </span>
+                                    {train.availableAt.map((address, index) => (
+                                      <span key={index}>
+                                        <MapPinLine size={32} />
+                                        {address.city}, {address.state}
+                                      </span>
+                                    ))}
                                     <span className="last-line">
                                       <span>
                                         <Hourglass size={32} />
