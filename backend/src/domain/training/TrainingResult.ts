@@ -1,5 +1,6 @@
 import { CalendarLength } from "../CalendarLength";
 import { CipDefinition } from "./Program";
+import {Ceterms} from "../credentialengine/CredentialEngine";
 
 export interface TrainingResult {
   id?: string;
@@ -24,7 +25,7 @@ export interface TrainingResult {
   isWheelchairAccessible?: boolean;
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
-  availableAt: Address;
+  availableAt: Address[];
 }
 
 type Address = {

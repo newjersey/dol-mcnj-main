@@ -95,7 +95,7 @@ const getAvailableAtAddress = async (certificate: CTDLResource): Promise<Address
       street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
       city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
       state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
-      zipCode,
+      zipCode: zipCode,
       county: convertZipCodeToCounty(zipCode) ?? ""
     };
   } catch (error) {

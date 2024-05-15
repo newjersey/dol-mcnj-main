@@ -181,7 +181,8 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getProviderAddresses = (): ReactElement => {
+  const getAvailableAtAddresses = (): ReactElement => {
+    alert(JSON.stringify(training));
     if (!training || !Array.isArray(training.availableAt) || training.availableAt.length === 0) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
@@ -565,11 +566,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                             </span>
                           </p>
                           {getProviderEmail()}
-                          {getProviderAddresses() && (
+                          {getAvailableAtAddresses() && (
                             <div className="mvd">
                               <span className="fin">
                                 <InlineIcon className="mrxs">location_on</InlineIcon>
-                                {getProviderAddresses()}
+                                {getAvailableAtAddresses()}
                               </span>
                             </div>
                           )}
