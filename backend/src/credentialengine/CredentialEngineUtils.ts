@@ -145,37 +145,6 @@ const extractCost = async (certificate: CTDLResource, costType: string): Promise
   }
 };
 
-const sumOtherCosts = async (certificate: CTDLResource): Promise<number> => {
-  try {
-    const excludedCostTypes = [
-      "costType:AggregateCost",
-      "costType:Tuition",
-      "costType:MixedFees",
-      "costType:LearningResource",
-      "costType:TechnologyFee",
-    ];
-
-    const estimatedCosts = certificate["ceterms:estimatedCost"];
-    let otherCosts = 0;
-    if (Array.isArray(estimatedCosts)) {
-      for (const costProfile of estimatedCosts) {
-        const directCostType = costProfile["ceterms:directCostType"];
-        const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
-        if (targetNode && !excludedCostTypes.includes(targetNode)) {
-          const price = costProfile["ceterms:price"];
-          if (price) {
-            otherCosts += Number(price);
-          }
-        }
-      }
-    }
-    return otherCosts;
-  } catch (error) {
-    logError(`Error summing other costs`, error as Error);
-    throw error;
-  }
-};
-
 const extractAverageSalary = async (certificate: CTDLResource): Promise<number | null> => {
   try {
     const averageSalaryData = certificate["ceterms:aggregateData"];
@@ -367,7 +336,6 @@ export const credentialEngineUtils = {
   extractCipCode,
   extractOccupations,
   extractCost,
-  sumOtherCosts,
   extractAverageSalary,
   extractEmploymentData,
   extractPrerequisites,

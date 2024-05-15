@@ -60,7 +60,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           feesCost: await credentialEngineUtils.extractCost(certificate, "costType:MixedFees"),
           booksMaterialsCost: await credentialEngineUtils.extractCost(certificate, "costType:LearningResource"),
           suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
-          otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
+          otherCost: await credentialEngineUtils.extractCost(certificate, "costType:ProgramSpecificFee"),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null,
           percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
