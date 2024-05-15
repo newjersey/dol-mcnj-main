@@ -13,10 +13,9 @@ export interface TrainingResult {
   online: boolean;
   providerId: string;
   providerName: string;
-  availableAt: Address;
+  availableAt: Address[];
   cities: string[];
   zipCodes: string[];
-  county: string;
   highlight: string;
   rank: number;
   socCodes: string[];
@@ -52,7 +51,7 @@ export interface TrainingData {
 }
 
 export interface Training {
-  availableAt: Address;
+  availableAt: Address[];
   averageSalary: number | null;
   booksMaterialsCost: number;
   calendarLength: CalendarLength;
