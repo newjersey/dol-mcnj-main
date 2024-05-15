@@ -169,3 +169,27 @@
     top: $size-16;
   }
 }
+
+a {
+  &.back-link {
+    color: $primary;
+    position: relative;
+    display: inline-block;
+    margin-left: $size-32;
+    margin-top: $size-16;
+    text-decoration: none;
+    border-bottom: $size-1 solid $primary;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -$size-32;
+      z-index: 10;
+    }
+
+    &:visited {
+      color: $primary;
+    }
+  }
+}
