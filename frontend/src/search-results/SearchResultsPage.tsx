@@ -105,6 +105,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
+    const zip = urlParams.get("zip") || undefined;
+    const miles = Number(urlParams.get("miles")) || undefined;
     setIsLoading(true);
 
     if (limit) {
@@ -139,6 +141,8 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           pageNumber,
           itemsPerPage,
           sorting,
+          zip,
+          miles
         );
       }
     }
