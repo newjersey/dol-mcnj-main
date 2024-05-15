@@ -181,7 +181,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     calendarlengthid: randomCalendarLengthId(),
     totalclockhours: randomInt().toString(),
     website: "some-website-" + randomInt(),
-    street_address: "some-street-" + randomInt(),
+    street_address: {"en-US": "some-street-" + randomInt()},
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zip: "some-zip-" + randomInt(),
