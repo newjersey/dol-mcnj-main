@@ -20,11 +20,9 @@ export class ApiClient implements Client {
     page?: number,
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-    zip?: string,
-    miles?: number,
   ): void {
     this.get(
-      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}&zip=${zip}&miles=${miles}`,
+      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}`,
       observer,
     );
   }

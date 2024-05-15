@@ -10,6 +10,7 @@ import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
 
 import zipcodeJson from "../utils/zip-county.json";
+
 import zipcodes from "zipcodes";
 
 // Ensure TrainingData is exported in ../types
@@ -20,14 +21,7 @@ import zipcodes from "zipcodes";
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
-  return async (params: {
-                  searchQuery: string,
-                  page?: number,
-                  limit?: number,
-                  sort?: string,
-                  zip?: string,
-                  miles?: number
-                }): Promise<TrainingData> => {
+  return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string }): Promise<TrainingData> => {
     const { page, limit, sort, cacheKey } = prepareSearchParameters(params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
@@ -60,7 +54,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   };
 };
 
-function prepareSearchParameters(params: { searchQuery: string, page?: number, limit?: number, sort?: string, zip?: string, miles?: number}) {
+function prepareSearchParameters(params: { searchQuery: string, page?: number, limit?: number, sort?: string }) {
   const page = params.page || 1;
   const limit = params.limit || 10;
 
@@ -82,31 +76,42 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
-function buildQuery(params: { searchQuery: string, zip?: string, miles?: number }) {
+function buildQuery(params: { searchQuery: string }) {
+  console.log(params.searchQuery)
+
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  const otherSearchQuery = isSOC || isCIP || !!isZipCode || isCounty;
-
-  function buildAvailableAtQuery() {
+  function queryType () {
+    if (isSOC) {
+      return { "ceterms:occupationType": {
+        "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      }};
+    };
+    if (isCIP) {
+      return { "ceterms:instructionalProgramType": {
+        "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      }};
+    };
     if (isZipCode) {
-      return params.searchQuery;
-    }
-
+      return { "ceterms:availableAt": {
+        "ceterms:postalCode": params.searchQuery
+      }};
+    };
     if (isCounty) {
-      return zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty];
+      return { "ceterms:availableAt": {
+        "ceterms:postalCode": zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+      }};
     }
 
-    console.log("No valid zip code or county found in search query")
-
-    if (params.miles && params.zip) {
-      const radius = zipcodes.radius(params.zip, params.miles);
-      return radius;
+    return {
+      "ceterms:name": params.searchQuery,
+      "ceterms:description": params.searchQuery,
+      "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
     }
-
-    return undefined;
   }
 
   return {
@@ -119,20 +124,7 @@ function buildQuery(params: { searchQuery: string, zip?: string, miles?: number 
       "search:value": [
         {
           "search:operator": "search:orTerms",
-          ...(otherSearchQuery ? {} : {
-            "ceterms:name": params.searchQuery,
-            "ceterms:description": params.searchQuery,
-            "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
-          }),
-          "ceterms:occupationType": isSOC ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
-          "ceterms:instructionalProgramType": isCIP ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
-          "ceterms:availableAt": {
-            "ceterms:postalCode": buildAvailableAtQuery()
-          }
+          ...(queryType())
         },
         {
           "search:operator": "search:andTerms",
@@ -142,7 +134,7 @@ function buildQuery(params: { searchQuery: string, zip?: string, miles?: number 
           "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
         },
       ],
-    },
+    }
   };
 }
 
