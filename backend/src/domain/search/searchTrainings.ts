@@ -101,8 +101,6 @@ function buildQuery(params: {
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  console.log({params})
-
   const buildAvailableAtQuery = () => {
     if (isZipCode) {
       return params.searchQuery;
@@ -112,10 +110,7 @@ function buildQuery(params: {
       return zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty];
     }
 
-    console.log("No valid zip code or county found in search query")
-
     if (params.miles && params.zip) {
-      console.log("WHOOP")
       const milesNum = Number(params.miles);
       console.log("params.miles", params.miles)
       const radius = zipcodes.radius(params.zip, milesNum);
