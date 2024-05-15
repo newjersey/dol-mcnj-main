@@ -1,10 +1,10 @@
-import { TrainingResult } from "../domain/Training";
-import { Filter, FilterableElement } from "../domain/Filter";
+import { TrainingResult } from "../../domain/Training";
+import { Filter, FilterableElement } from "../../domain/Filter";
 import { fireEvent, render, RenderResult, screen } from "@testing-library/react";
-import { FilterContext } from "./FilterContext";
-import { FilterBox } from "./FilterBox";
+import { FilterContext } from "../FilterContext";
+import { FilterBox } from "../FilterBox";
 import { useMediaQuery } from "@material-ui/core";
-import { en as Content } from "../locales/en";
+import { en as Content } from "../../locales/en";
 import { act } from "react-dom/test-utils";
 
 // TODO: Redo all tests for filters
