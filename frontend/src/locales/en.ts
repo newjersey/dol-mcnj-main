@@ -264,6 +264,7 @@ export const en = {
     comparisonEmploymentRateLabelMobile: "Employment Rate",
     comparisonTimeToCompleteLabel: "Time to Complete",
     comparisonSeeDetails: "See Details",
+    filtersButton: "Filters",
   },
   StatBlock: {
     dataSourceLabel: "Data source: ",

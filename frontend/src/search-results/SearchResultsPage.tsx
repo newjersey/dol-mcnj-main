@@ -20,9 +20,10 @@ import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { usePageTitle } from "../utils/usePageTitle";
 
 import { Breadcrumbs } from "./Breadcrumbs";
-import { TrainingComparison } from "./TrainingComparison";
+import { FilterDrawer } from "../filtering/FilterDrawer";
 import { ResultsCount } from "./ResultsCount";
 import { SortByAndLimitSelects } from "./SortByAndLimitSelects";
+import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 
 interface Props extends RouteComponentProps {
@@ -158,6 +159,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
                 sortBy={sortBy}
               />
             </div>
+            {!isLoading && (
+              <FilterDrawer />
+            )}
             <div>
               {isLoading ? (
                 <div className="fdr fjc ptl">
