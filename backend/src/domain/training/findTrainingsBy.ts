@@ -5,7 +5,6 @@ import { Training } from "./Training";
 import { Selector } from "./Selector";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import {
   CetermsConditionProfile,
@@ -30,8 +29,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
         const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
-        const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
-
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
         const certifications = await credentialEngineUtils.constructCertificationsString(certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[]);
@@ -45,9 +42,9 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             name: ownedByRecord["ceterms:name"]["en-US"],
             url: ownedByRecord["ceterms:subjectWebpage"],
             email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
-            county: convertZipCodeToCounty(address.zipCode),
+            address: await credentialEngineUtils.getAddress(ownedByRecord)
           },
-          availableAt: address,
+          availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: certifications,
           prerequisites: await credentialEngineUtils.extractPrerequisites(certificate),
@@ -60,7 +57,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           feesCost: await credentialEngineUtils.extractCost(certificate, "costType:MixedFees"),
           booksMaterialsCost: await credentialEngineUtils.extractCost(certificate, "costType:LearningResource"),
           suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
-          otherCost: await credentialEngineUtils.sumOtherCosts(certificate),
+          otherCost: await credentialEngineUtils.extractCost(certificate, "costType:ProgramSpecificFee"),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null,
           percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),

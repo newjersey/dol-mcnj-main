@@ -24,7 +24,8 @@ export interface CTDLResource {
   "ceterms:renewedBy"?:                   string[];
   "ceterms:approvedBy"?:                  string[];
   "ceterms:revokedBy"?:                   string[];
-  "ceterms:availableAt"?:                 CetermsAvailableAt[];
+  "ceterms:address"?:                     CetermsPlace[];
+  "ceterms:availableAt"?:                 CetermsPlace[];
   "ceterms:degreeMajor"?:                 CetermsCredentialAlignmentObject[];
   "ceterms:degreeMinor"?:                 CetermsCredentialAlignmentObject[];
   "ceterms:inLanguage"?:                  string[];
@@ -120,18 +121,6 @@ export interface CetermsAlternateName {
   "en-US"?: string[];
 }
 
-export interface CetermsAvailableAt {
-  "@type"?:                   string;
-  "ceterms:name"?:            Ceterms;
-  "ceterms:latitude"?:        number;
-  "ceterms:longitude"?:       number;
-  "ceterms:postalCode"?:      string;
-  "ceterms:addressRegion"?:   Ceterms;
-  "ceterms:streetAddress"?:   Ceterms;
-  "ceterms:addressCountry"?:  Ceterms;
-  "ceterms:addressLocality"?: Ceterms;
-}
-
 export interface CetermsCreditUnitType {
   "@type"?:                         string;
   "ceterms:framework"?:             string;
@@ -216,6 +205,7 @@ export interface CetermsPlace {
   "ceterms:postOfficeBoxNumber"?: string;
   "ceterms:addressLocality"?:     Ceterms;
   "ceterms:addressRegion"?:       Ceterms;
+  "ceterms:postalCode"?:          string;
   "ceterms:addressCountry"?:      Ceterms;
   "ceterms:targetContactPoint"?:  CetermsContactPoint[];
 }

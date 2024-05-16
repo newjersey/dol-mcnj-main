@@ -1,7 +1,7 @@
 import {
   CetermsAccommodationType,
   CetermsAggregateData,
-  CetermsConditionProfile,
+  CetermsConditionProfile, CetermsPlace,
   CetermsServiceType,
   CTDLResource,
   CtermsSupportServices
@@ -68,23 +68,45 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   }
 };
 
-const getAvailableAtAddress = async (certificate: CTDLResource): Promise<Address> => {
+const getAddress = async (resource: CTDLResource): Promise<Address> => {
   try {
-    const availableAt = certificate["ceterms:availableAt"]?.[0];
-    const zipCode = availableAt?.["ceterms:postalCode"] ?? "";
+    const address = resource["ceterms:address"]?.[0];
+    const zipCode = address?.["ceterms:postalCode"] ?? "";
 
     return {
-      street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
-      city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
-      state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
+      street_address: address?.["ceterms:streetAddress"]?.["en-US"] ?? "",
+      city: address?.["ceterms:addressLocality"]?.["en-US"] ?? "",
+      state: address?.["ceterms:addressRegion"]?.["en-US"] ?? "",
       zipCode,
       county: convertZipCodeToCounty(zipCode) ?? ""
     };
   } catch (error) {
-    logError(`Error getting available address`, error as Error);
+    logError(`Error getting ceterms:address`, error as Error);
     throw error;
   }
 };
+
+const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Address[]> => {
+  try {
+    const availableAt = certificate["ceterms:availableAt"] ?? [];
+
+    return availableAt.map((location: CetermsPlace) => {
+      const zipCode = location["ceterms:postalCode"] ?? "";
+
+      return {
+        street_address: location["ceterms:streetAddress"]?.["en-US"] ?? "",
+        city: location["ceterms:addressLocality"]?.["en-US"] ?? "",
+        state: location["ceterms:addressRegion"]?.["en-US"] ?? "",
+        zipCode: zipCode,
+        county: convertZipCodeToCounty(zipCode) ?? ""
+      };
+    });
+  } catch (error) {
+    logError(`Error getting available addresses`, error as Error);
+    throw error;
+  }
+};
+
 
 const extractCipCode = async (certificate: CTDLResource): Promise<string> => {
   try {
@@ -141,37 +163,6 @@ const extractCost = async (certificate: CTDLResource, costType: string): Promise
     return null;
   } catch (error) {
     logError(`Error extracting cost for type ${costType}`, error as Error);
-    throw error;
-  }
-};
-
-const sumOtherCosts = async (certificate: CTDLResource): Promise<number> => {
-  try {
-    const excludedCostTypes = [
-      "costType:AggregateCost",
-      "costType:Tuition",
-      "costType:MixedFees",
-      "costType:LearningResource",
-      "costType:TechnologyFee",
-    ];
-
-    const estimatedCosts = certificate["ceterms:estimatedCost"];
-    let otherCosts = 0;
-    if (Array.isArray(estimatedCosts)) {
-      for (const costProfile of estimatedCosts) {
-        const directCostType = costProfile["ceterms:directCostType"];
-        const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
-        if (targetNode && !excludedCostTypes.includes(targetNode)) {
-          const price = costProfile["ceterms:price"];
-          if (price) {
-            otherCosts += Number(price);
-          }
-        }
-      }
-    }
-    return otherCosts;
-  } catch (error) {
-    logError(`Error summing other costs`, error as Error);
     throw error;
   }
 };
@@ -363,11 +354,11 @@ export const credentialEngineUtils = {
   getCtidFromURL,
   fetchCertificateData,
   fetchValidCEData,
-  getAvailableAtAddress,
+  getAddress,
+  getAvailableAtAddresses,
   extractCipCode,
   extractOccupations,
   extractCost,
-  sumOtherCosts,
   extractAverageSalary,
   extractEmploymentData,
   extractPrerequisites,

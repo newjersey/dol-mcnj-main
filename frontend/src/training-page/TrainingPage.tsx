@@ -181,34 +181,30 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getProviderAddress = (): ReactElement => {
-    if (!training || !training.availableAt.street_address) {
+  const getAvailableAtAddress = (): ReactElement => {
+    if (training?.online) {
+      return <>{t("TrainingPage.onlineClass")}</>;
+    }
+
+    if (!training || !training.availableAt[0]) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const address = training.availableAt;
+    const address = training.availableAt[0];
     const nameAndAddressEncoded = encodeURIComponent(
-      `${training.provider.name} ${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
+      `${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
     );
     const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+
     return (
-      <div key={"address"}>
-        <div>
-          <a
-            href={googleUrl}
-            target="_blank"
-            className="link-format-blue"
-            rel="noopener noreferrer"
-          >
-            <div className="inline">
-              <span>{address.street_address}</span>
-              <div>
-                {address.city}, {address.state} {address.zipCode}
-              </div>
-            </div>
-          </a>
+      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+        <div className="inline">
+          <span>{address.street_address}</span>
+          <div>
+            {address.city}, {address.state} {address.zipCode}
+          </div>
         </div>
-      </div>
+      </a>
     );
   };
 
@@ -575,11 +571,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                             </span>
                           </p>
                           {getProviderEmail()}
-                          {getProviderAddress() && (
+                          {getAvailableAtAddress() && (
                             <div className="mvd">
                               <span className="fin">
                                 <InlineIcon className="mrxs">location_on</InlineIcon>
-                                {getProviderAddress()}
+                                {getAvailableAtAddress()}
                               </span>
                             </div>
                           )}

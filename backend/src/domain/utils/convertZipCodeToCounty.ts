@@ -2,7 +2,7 @@ import zipcodeJson from "./zip-county.json";
 
 export const convertZipCodeToCounty = (zip: string | undefined): string => {
   if (!zip) {
-    console.log("no zip found")
+    console.info("no zip found")
     return "";
   }
 
