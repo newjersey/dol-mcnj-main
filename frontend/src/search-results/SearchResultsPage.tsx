@@ -1,4 +1,10 @@
-import { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState
+} from "react";
 import { useTranslation } from "react-i18next";
 import { WindowLocation } from "@reach/router";
 import { RouteComponentProps } from "@reach/router";
@@ -6,6 +12,7 @@ import { RouteComponentProps } from "@reach/router";
 import { CircularProgress } from "@material-ui/core";
 
 import { logEvent } from "../analytics";
+import { ComparisonContext } from "../comparison/ComparisonContext";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { TrainingResult, TrainingData } from "../domain/Training";
@@ -13,6 +20,7 @@ import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { usePageTitle } from "../utils/usePageTitle";
 
 import { Breadcrumbs } from "./Breadcrumbs";
+import { TrainingComparison } from "./TrainingComparison";
 import { ResultsCount } from "./ResultsCount";
 import { TrainingResultCard } from "./TrainingResultCard";
 
@@ -35,6 +43,8 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   );
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+
+  const comparisonState = useContext(ComparisonContext).state;
 
   const searchString = location?.search;
   const regex = /(?<=\?q=).*?(?=&|$)/;
@@ -122,97 +132,102 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
         url: location?.pathname
       }}
     >
-      <div id="search-results-page" className="container">
-        <div className="results-count-container">
-          <Breadcrumbs />
+      <div id="search-results-page">
+        <div className="container">
+          <div className="results-count-container">
+            <Breadcrumbs />
 
-          <div className="results-container">
-            <div className="row fixed-wrapper">
-              <div className="col-md-12 fdr fac">
-                <div className="result-count-text">
-                  {!isLoading && (
-                    <ResultsCount
-                      searchQuery={searchQuery}
-                      metaCount={metaCount}
-                    />
-                  )}
+            <div className="results-container">
+              <div className="row fixed-wrapper">
+                <div className="col-md-12 fdr fac">
+                  <div className="result-count-text">
+                    {!isLoading && (
+                      <ResultsCount
+                        searchQuery={searchQuery}
+                        metaCount={metaCount}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
+              <div>
+                {trainings.length > 0 && (
+                  <div className="input-wrapper sorting-wrapper">
+                    <label className="usa-label" htmlFor="per-page">
+                      {t("SearchAndFilter.sortByLabel")}
+                    </label>
+
+                    <select
+                      className="usa-select"
+                      name="per-page"
+                      id="per-page"
+                      onChange={handleSortChange}
+                    >
+                      <option value="best_match">{t("SearchAndFilter.sortByBestMatch")}</option>
+                      <option value="asc">A to Z</option>
+                      <option value="desc">Z to A</option>
+                      <option value="price_asc">{t("SearchAndFilter.sortByCostLowToHigh")}</option>
+                      <option value="price_desc">{t("SearchAndFilter.sortByCostHighToLow")}</option>
+                      <option value="EMPLOYMENT_RATE">{t("SearchAndFilter.sortByEmploymentRate")}</option>
+                    </select>
+                  </div>
+                )}
+              </div>
+              <div>
               {trainings.length > 0 && (
-                <div className="input-wrapper sorting-wrapper">
+                <div className="input-wrapper per-page-wrapper">
                   <label className="usa-label" htmlFor="per-page">
-                    {t("SearchAndFilter.sortByLabel")}
+                    Results per page
                   </label>
 
                   <select
                     className="usa-select"
                     name="per-page"
+                    defaultValue={itemsPerPage}
                     id="per-page"
-                    onChange={handleSortChange}
+                    onChange={(e) => {
+                      setIsLoading(true);
+                      setItemsPerPage(
+                        e.target.options[e.target.selectedIndex].value as unknown as number,
+                      );
+                      const newUrl = new URL(window.location.href);
+                      newUrl.searchParams.set("p", "1");
+                      newUrl.searchParams.set("limit", e.target.value);
+                      window.history.pushState({}, "", newUrl.toString());
+                    }}
                   >
-                    <option value="best_match">{t("SearchAndFilter.sortByBestMatch")}</option>
-                    <option value="asc">A to Z</option>
-                    <option value="desc">Z to A</option>
-                    <option value="price_asc">{t("SearchAndFilter.sortByCostLowToHigh")}</option>
-                    <option value="price_desc">{t("SearchAndFilter.sortByCostHighToLow")}</option>
-                    <option value="EMPLOYMENT_RATE">{t("SearchAndFilter.sortByEmploymentRate")}</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
                   </select>
                 </div>
               )}
+              </div>
             </div>
             <div>
-            {trainings.length > 0 && (
-              <div className="input-wrapper per-page-wrapper">
-                <label className="usa-label" htmlFor="per-page">
-                  Results per page
-                </label>
-
-                <select
-                  className="usa-select"
-                  name="per-page"
-                  defaultValue={itemsPerPage}
-                  id="per-page"
-                  onChange={(e) => {
-                    setIsLoading(true);
-                    setItemsPerPage(
-                      e.target.options[e.target.selectedIndex].value as unknown as number,
-                    );
-                    const newUrl = new URL(window.location.href);
-                    newUrl.searchParams.set("p", "1");
-                    newUrl.searchParams.set("limit", e.target.value);
-                    window.history.pushState({}, "", newUrl.toString());
-                  }}
-                >
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-              </div>
-            )}
+              {isLoading ? (
+                <div className="fdr fjc ptl">
+                  <CircularProgress color="secondary" />
+                </div>
+              ) : (
+                <div>
+                  <h1>Search Results</h1>
+                  {trainings.map((training) => (
+                    <TrainingResultCard
+                      key={training.id}
+                      trainingResult={training}
+                      comparisonItems={comparisonState.comparison}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-          <div>
-            {isLoading ? (
-              <div className="fdr fjc ptl">
-                <CircularProgress color="secondary" />
-              </div>
-            ) : (
-              <div>
-                <h1>Search Results</h1>
-                {trainings.map((training) => (
-                  <TrainingResultCard
-                    key={training.id}
-                    trainingResult={training}
-                    // comparisonItems={comparisonState.comparison}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
         </div>
+        {!isLoading && (
+          <TrainingComparison comparisonItems={comparisonState.comparison} />
+        )}
       </div>
     </Layout>
   )
