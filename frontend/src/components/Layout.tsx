@@ -56,13 +56,12 @@ export const Layout = (props: LayoutProps) => {
         />
       )}
       {process.env.REACT_APP_FEATURE_BETA === "true" && (
-          <AlertBar
-              copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE}
-              type="info"
-              className="beta-alert"
-          />
+        <AlertBar
+          copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE}
+          type="info"
+          className="beta-alert"
+        />
       )}
-
 
       {props.seo && <Seo {...props.seo} />}
       <Header {...headerProps} />
