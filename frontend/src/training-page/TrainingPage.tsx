@@ -127,7 +127,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         <div>
           <p className="mvd" data-testid="shareInDemandTraining">
             Trainings related to occupations on the{" "}
-            <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List may
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may
             be eligible for funding. Contact your local One-Stop Career Center for more information
             regarding program and training availability.
           </p>
