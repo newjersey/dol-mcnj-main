@@ -1,7 +1,6 @@
 import { Occupation } from "../occupations/Occupation";
 import {CalendarLength} from "../CalendarLength";
 import {CipDefinition} from "./Program";
-import {Ceterms} from "../credentialengine/CredentialEngine";
 
 export interface Training {
   id?: string;
@@ -46,7 +45,6 @@ export interface Provider {
   name: string;
   targetContactPoints?: ContactPoint[];
 }
-
 export interface Address {
   street_address?: string;
   city?:string;
