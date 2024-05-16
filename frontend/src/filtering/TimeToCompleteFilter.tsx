@@ -5,6 +5,7 @@ import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { CalendarLength, TrainingResult } from "../domain/Training";
 import { useTranslation } from "react-i18next";
+import { toggleParams } from "../utils/updateUrlParams";
 
 interface TimeToComplete {
   days: boolean;
@@ -84,6 +85,43 @@ export const TimeToCompleteFilter = (): ReactElement => {
     });
   };
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const days = urlParams.get("days");
+    const weeks = urlParams.get("weeks");
+    const months = urlParams.get("months");
+    const years = urlParams.get("years");
+
+    if (days === "true") {
+      timeToComplete.days = true;
+    }
+
+    if (weeks === "true") {
+      timeToComplete.weeks = true;
+    }
+
+    if (months === "true") {
+      timeToComplete.months = true;
+    }
+
+    if (years === "true") {
+      timeToComplete.years = true;
+    }
+
+    if (
+      timeToComplete.days ||
+      timeToComplete.weeks ||
+      timeToComplete.months ||
+      timeToComplete.years
+    ) {
+      const timeToCompleteArray = Object.entries(timeToComplete).filter(([, value]) => value);
+
+      timeToCompleteArray.forEach(([key]) => {
+        handleCheckboxChange({ target: { name: key } } as ChangeEvent<HTMLInputElement>, true);
+      });
+    }
+  }, []);
+
   return (
     <label className="bold" htmlFor="timeToComplete">
       {t("SearchAndFilter.timeToCompleteFilterLabel")}
@@ -92,7 +130,15 @@ export const TimeToCompleteFilter = (): ReactElement => {
           control={
             <SpacedCheckbox
               checked={timeToComplete.days}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !timeToComplete.days);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "days",
+                  valid: true,
+                });
+              }}
               name="days"
               color="primary"
             />
@@ -103,7 +149,15 @@ export const TimeToCompleteFilter = (): ReactElement => {
           control={
             <SpacedCheckbox
               checked={timeToComplete.weeks}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !timeToComplete.weeks);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "weeks",
+                  valid: true,
+                });
+              }}
               name="weeks"
               color="primary"
             />
@@ -114,7 +168,15 @@ export const TimeToCompleteFilter = (): ReactElement => {
           control={
             <SpacedCheckbox
               checked={timeToComplete.months}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !timeToComplete.months);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "months",
+                  valid: true,
+                });
+              }}
               name="months"
               color="primary"
             />
@@ -125,7 +187,15 @@ export const TimeToCompleteFilter = (): ReactElement => {
           control={
             <SpacedCheckbox
               checked={timeToComplete.years}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                handleCheckboxChange(e, !timeToComplete.years);
+                toggleParams({
+                  condition: e.target.checked,
+                  value: "true",
+                  key: "years",
+                  valid: true,
+                });
+              }}
               name="years"
               color="primary"
             />

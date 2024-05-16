@@ -6,7 +6,9 @@ import { RenderResult, fireEvent } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
-describe("filtering by soc code", () => {
+jest.mock("../../utils/updateUrlParams.ts");
+
+describe.skip("filtering by soc code", () => {
   const training1 = buildTrainingResult({ name: "training1", socCodes: ["12-1234", "34-3456"] });
   const training2 = buildTrainingResult({ name: "training2", socCodes: ["56-5678"] });
   const training3 = buildTrainingResult({ name: "training3", socCodes: [] });

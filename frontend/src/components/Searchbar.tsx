@@ -39,12 +39,21 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
-      props.onSearch(searchQuery);
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.delete("q");
+      const newUrlString = `/training/search?q=${encodeURIComponent(searchQuery)}${
+        urlParams.toString() !== "" ? `&${urlParams.toString()}` : ""
+      }`;
+      window.location.href = newUrlString;
     }
   };
 
   const handleClearAll = (): void => {
     dispatch({ type: FilterActionType.REMOVE_ALL });
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryString = urlParams.get("q");
+
+    window.location.href = `/training/search?q=${queryString}`;
   };
 
   const flexDirection = props.stacked ? "fdc" : "fdr";
@@ -72,10 +81,18 @@ export const Searchbar = (props: Props): ReactElement<Props> => {
         <Button
           variant="primary"
           className="width-full"
-          onClick={(): void => props.onSearch(searchQuery)}
+          onClick={() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.delete("q");
+            const newUrlString = `/training/search?q=${encodeURIComponent(searchQuery)}${
+              urlParams.toString() !== "" ? `&${urlParams.toString()}` : ""
+            }`;
+            window.location.href = newUrlString;
+          }}
         >
           {props.buttonText ? props.buttonText : t("SearchAndFilter.searchButtonDefaultText")}
         </Button>
+
         {props.isLandingPage !== true && (
           <Button variant="outline" className="width-full mvs" onClick={handleClearAll}>
             {t("SearchAndFilter.clearAllFiltersButtonLabel")}

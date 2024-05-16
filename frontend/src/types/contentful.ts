@@ -167,6 +167,7 @@ export interface LinkObjectProps {
   className?: string;
   iconPrefix?: IconNames;
   iconSuffix?: IconNames;
+  iconSize?: number;
   svgFill?: boolean;
   svgName?: keyof typeof Svg;
   highlight?: ThemeColors;
