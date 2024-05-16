@@ -1,6 +1,5 @@
 import { CalendarLength } from "../CalendarLength";
 import { CipDefinition } from "./Program";
-import {Ceterms} from "../credentialengine/CredentialEngine";
 
 export interface TrainingResult {
   id?: string;
