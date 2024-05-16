@@ -26,12 +26,19 @@
     }
   }
 
+  label {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  select {
+    border: 2px solid $black;
+    border-radius: 3px;
+  }
+
   .card {
     border: 1px solid $light-grey;
     border-radius: 5px;
-  }
-
-  .card + .card {
     margin-top: $size-16;
   }
 
@@ -47,6 +54,25 @@
       display: none;
     }
   }
+
+  .results-count-selects-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $size-16;
+
+    h2 {
+      margin-bottom: $size-20;
+    }
+  }
+}
+
+#sort-and-limit-selects-container {
+  display: flex;
+  justify-content: space-between;
+
+  .input-wrapper + .input-wrapper {
+    margin-left: $size-16;
+  }
 }
 
 @media screen and (min-width: $tablet-md){
@@ -60,5 +86,15 @@
         display: none;
       }
     }
+
+    .results-count-selects-container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  #sort-and-limit-selects-container {
+    display: flex;
+    justify-content: right;
   }
 }
