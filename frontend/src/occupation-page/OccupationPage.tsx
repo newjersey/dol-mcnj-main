@@ -150,9 +150,11 @@ export const OccupationPage = (props: Props): ReactElement => {
       <Layout
         client={props.client}
         seo={{
-          title: `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`,
+          title: occupationDetail.title
+            ? `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`
+            : `Occupation | ${process.env.REACT_APP_SITE_NAME}`,
           pageDescription: occupationDetail.description,
-          url: props.location?.pathname,
+          url: props.location?.pathname || "/occupation",
         }}
       >
         <div className="container">
@@ -229,8 +231,10 @@ export const OccupationPage = (props: Props): ReactElement => {
               target="_blank"
               rel="noopener noreferrer"
               href={OPEN_JOBS_URL.replace(
-                  "{SOC_CODE}",
-                  occupationDetail.openJobsCount === 0 ? "" : (occupationDetail.openJobsSoc || "").toString(),
+                "{SOC_CODE}",
+                occupationDetail.openJobsCount === 0
+                  ? ""
+                  : (occupationDetail.openJobsSoc || "").toString(),
               )}
               onClick={() =>
                 logEvent(
@@ -260,7 +264,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                     backgroundColorClass="bg-purple"
                   >
                     <>
-                      {getTasksList(occupationDetail.tasks, 'occupation-details')}
+                      {getTasksList(occupationDetail.tasks, "occupation-details")}
                       {seeMore(occupationDetail.tasks)}
                     </>
                   </Grouping>

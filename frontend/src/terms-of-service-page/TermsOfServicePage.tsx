@@ -17,7 +17,7 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
       seo={{
         title: `Terms of Service | ${process.env.REACT_APP_SITE_NAME}`,
         pageDescription: `Terms of Service for ${process.env.REACT_APP_SITE_NAME}`,
-        url: props.location?.pathname,
+        url: props.location?.pathname || "/terms-of-service",
       }}
     >
       <div className="container">
