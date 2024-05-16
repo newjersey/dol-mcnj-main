@@ -140,17 +140,17 @@ export const TrainingPage = (props: Props): ReactElement => {
         <div>
           <p className="mvd" data-testid="shareInDemandTraining">
             Trainings related to occupations on the{" "}
-            <LinkObject url="/in-demand-occupations">In - Demand Occupations</LinkObject> List may
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may
             be eligible for funding. Contact your local One-Stop Career Center for more information
             regarding program and training availability.
           </p>
           <LinkObject
-            url="https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCp9aufXmVjuxHue2STv_YxBxUNDM2V1UwWkQ1QjVES0g2S01FNk03TEVERy4u"
+            url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
             className="usa-button primary usa-button--outline"
             iconSuffix={IconNames.ArrowSquareOut}
             iconSize={22}
           >
-            Contact Career Once Stop
+            New Jersey's One-Stop Career Centers
           </LinkObject>
         </div>
         <div>
