@@ -44,7 +44,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
             address: await credentialEngineUtils.getAddress(ownedByRecord)
           },
-          availableAt: await credentialEngineUtils.getAvailableAtAddress(certificate),
+          availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
           certifications: certifications,
           prerequisites: await credentialEngineUtils.extractPrerequisites(certificate),

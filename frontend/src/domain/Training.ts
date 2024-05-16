@@ -26,6 +26,10 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
+export interface Ceterms {
+  "en-US"?: string;
+}
+
 export interface Address {
   street_address?: string;
   city?: string;

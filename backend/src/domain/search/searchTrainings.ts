@@ -117,7 +117,6 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
 
     const ownedByCtid = await credentialEngineUtils.getCtidFromURL(certificate["ceterms:ownedBy"]?.[0] ?? "");
     const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-    const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
 
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -133,7 +132,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       online: certificate["ceterms:availableOnlineAt"] != null,
       providerId: ownedByCtid,
       providerName: ownedByRecord["ceterms:name"]?.["en-US"],
-      availableAt: address,
+      availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
       highlight: highlight,
       socCodes: [],
