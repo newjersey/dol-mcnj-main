@@ -12,6 +12,7 @@ import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { useContentful } from "../utils/useContentful";
+import { useTranslation } from "react-i18next";
 import pageImage from "../images/ogImages/trainingExplorer.jpg";
 
 interface Props extends RouteComponentProps {
@@ -19,6 +20,7 @@ interface Props extends RouteComponentProps {
 }
 
 export const TrainingExplorerPage = (props: Props): ReactElement => {
+  const { t } = useTranslation();
   const data: TrainingExplorerPageProps = useContentful({
     path: "/training-explorer",
   });
@@ -99,7 +101,66 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
           }
         >
           <PageBanner {...pageData?.pageBanner} theme="green" />
-          <SearchBlock drawerContent={pageData.drawerContent} />
+          <section>
+            <div className="container">
+              <div id="how-to-steps-section">
+                <div className="sectionHeading">
+                  <h2 className="heading-tag">{t("TrainingPage.trainingProviderStepsHeader")}:</h2>
+                </div>
+                <div>
+                  <ul>
+                    <li>
+                      <div className="list-num-container">
+                        <div className="list-num">
+                          1
+                        </div>
+                      </div>
+                      <div className="list-info">
+                        <h3>
+                          {t("TrainingPage.trainingStepOne")}
+                        </h3>
+                        <div>
+                          {t("TrainingPage.trainingStepOneDescription")}
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="list-num-container">
+                        <div className="list-num">
+                          2
+                        </div>
+                      </div>
+                      <div className="list-info">
+                        <h3>
+                          {t("TrainingPage.trainingStepTwo")}
+                        </h3>
+                        <div>
+                          {t("TrainingPage.trainingStepTwoDescriptionP1")}<a href="/training-provider-resources#etpl
+  ">{t("TrainingPage.trainingStepTwoDescriptionP2")}</a>{t("TrainingPage.trainingStepTwoDescriptionP3")}
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="list-num-container">
+                        <div className="list-num">
+                          3
+                        </div>
+                      </div>
+                      <div className="list-info">
+                        <h3>
+                          {t("TrainingPage.trainingStepThree")}
+                        </h3>
+                        <div>
+                          {t("TrainingPage.trainingStepThreeDescription")}
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <SearchBlock drawerContent={pageData.drawerContent} />
+          </section>
           <HowTo {...howToContent} />
           <Interrupter {...interrupterContent} />
           <section className="landing-faq">

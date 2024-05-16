@@ -40,8 +40,6 @@ describe("Search", () => {
   it("searches from the training explorer page with ampersands", () => {
     cy.visit("/training");
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000);
     // Use the custom command to type the search term into the input field.
     cy.typeSpecialCharacters('input[aria-label="search"]', "Python & Java");
 
@@ -49,7 +47,7 @@ describe("Search", () => {
 
     // Wait for the page to load results and assert the URL to ensure the search term was correctly processed.
     // This URL assertion checks that the encoded search term in the query parameters matches the expected format.
-    cy.url().should("include", "q=Python%20%26%20Java");
+    cy.url().should("include", "q=Python+%26+Java");
 
     // Verify that the search input on the results page retains the original search term.
     // This step checks that the application correctly decodes the query parameter for display.
