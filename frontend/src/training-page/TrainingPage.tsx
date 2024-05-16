@@ -137,7 +137,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             iconSuffix={IconNames.ArrowSquareOut}
             iconSize={22}
           >
-            Contact Career Once Stop
+            New Jersey's One-Stop Career Centers
           </LinkObject>
         </div>
         <div>
