@@ -1,7 +1,7 @@
 import {
   CetermsAccommodationType,
   CetermsAggregateData,
-  CetermsConditionProfile,
+  CetermsConditionProfile, CetermsPlace,
   CetermsServiceType,
   CTDLResource,
   CtermsSupportServices
@@ -86,23 +86,27 @@ const getAddress = async (resource: CTDLResource): Promise<Address> => {
   }
 };
 
-const getAvailableAtAddress = async (certificate: CTDLResource): Promise<Address> => {
+const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Address[]> => {
   try {
-    const availableAt = certificate["ceterms:availableAt"]?.[0];
-    const zipCode = availableAt?.["ceterms:postalCode"] ?? "";
+    const availableAt = certificate["ceterms:availableAt"] ?? [];
 
-    return {
-      street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
-      city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
-      state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
-      zipCode,
-      county: convertZipCodeToCounty(zipCode) ?? ""
-    };
+    return availableAt.map((location: CetermsPlace) => {
+      const zipCode = location["ceterms:postalCode"] ?? "";
+
+      return {
+        street_address: location["ceterms:streetAddress"]?.["en-US"] ?? "",
+        city: location["ceterms:addressLocality"]?.["en-US"] ?? "",
+        state: location["ceterms:addressRegion"]?.["en-US"] ?? "",
+        zipCode: zipCode,
+        county: convertZipCodeToCounty(zipCode) ?? ""
+      };
+    });
   } catch (error) {
-    logError(`Error getting available address`, error as Error);
+    logError(`Error getting available addresses`, error as Error);
     throw error;
   }
 };
+
 
 const extractCipCode = async (certificate: CTDLResource): Promise<string> => {
   try {
@@ -351,7 +355,7 @@ export const credentialEngineUtils = {
   fetchCertificateData,
   fetchValidCEData,
   getAddress,
-  getAvailableAtAddress,
+  getAvailableAtAddresses,
   extractCipCode,
   extractOccupations,
   extractCost,

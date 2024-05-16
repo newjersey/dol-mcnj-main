@@ -24,7 +24,7 @@ export interface TrainingResult {
   isWheelchairAccessible?: boolean;
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
-  availableAt: Address;
+  availableAt: Address[];
 }
 
 type Address = {
