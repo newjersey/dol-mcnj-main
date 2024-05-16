@@ -26,6 +26,15 @@
     }
   }
 
+  .card {
+    border: 1px solid $light-grey;
+    border-radius: 5px;
+  }
+
+  .card + .card {
+    margin-top: $size-16;
+  }
+
   .results-count-container {
     margin-bottom: $size-16;
   

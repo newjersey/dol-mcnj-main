@@ -23,8 +23,6 @@ export class ApiClient implements Client {
     zip?: string,
     miles?: string,
   ): void {
-    console.log("API CLIENT")
-    console.log({ query, page, limit, sort, zip, miles })
     this.get(
       `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}${zip && `&zip=${zip}`}${miles && `&miles=${miles}`}`,
       observer,
