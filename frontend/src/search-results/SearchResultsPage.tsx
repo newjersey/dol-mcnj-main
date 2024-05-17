@@ -45,6 +45,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
+  const [miles, setMiles] = useState<string | undefined>();
+  const [zip, setZip] = useState<string | undefined>();
+
   const comparisonState = useContext(ComparisonContext).state;
 
   const searchString = location?.search;
@@ -82,6 +85,14 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
       setPageNumber(Number(page));
     } else {
       setPageNumber(1);
+    }
+
+    if (miles) {
+      setMiles(miles);
+    }
+
+    if (zip) {
+      setZip(zip);
     }
 
     if (pageNumber) {
@@ -160,7 +171,11 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
               />
             </div>
             {!isLoading && (
-              <FilterDrawer />
+              <FilterDrawer
+                searchQuery={searchQuery}
+                miles={miles}
+                zip={zip}
+              />
             )}
             <div>
               {isLoading ? (

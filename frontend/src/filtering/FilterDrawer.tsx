@@ -1,10 +1,16 @@
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Drawer } from "@material-ui/core";
 
 import { FunnelSimple } from "@phosphor-icons/react";
 
-export const FilterDrawer = ({}): ReactElement => {
+interface Props {
+  searchQuery?: string;
+  miles?: string;
+  zip?: string;
+}
+
+export const FilterDrawer = ({
+}: Props): ReactElement => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
@@ -13,23 +19,14 @@ export const FilterDrawer = ({}): ReactElement => {
   }
 
   return (
-    <div id="filter-drawer">
-      <div className="button-container">
+    <>
+      <div className="filter-button-container">
         <button
           onClick={toggleDrawer}
         >
           {t("SearchResultsPage.filtersButton")} <FunnelSimple />
         </button>
       </div>
-      <Drawer
-        anchor="left"
-        open={isOpen}
-        onClose={toggleDrawer}
-      >
-        <div id="filter-drawer">
-          Book
-        </div>
-      </Drawer>
-    </div>
+    </>
   )
 };
