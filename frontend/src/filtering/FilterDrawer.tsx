@@ -65,8 +65,8 @@ export const FilterDrawer = ({
               <X />
             </button>
           </div>
-          <div id="form-container">
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div id="form-container">
               <FormProvider {...methods}>
                 <FilterFormInput
                   inputLabel="Search by training, provider, certifcation, SOC code, or keyword"
@@ -74,23 +74,28 @@ export const FilterDrawer = ({
                   hasIcon={true}
                   icon={<MagnifyingGlass />}
                 />
-                <div className="field-group zip-miles-group">
-                  <FilterFormDropDown
-                    dropdownLabel="Miles"
-                    dropdownName="miles"
-                    options_values={MILES_VALUES}
-                  />
-                  <div className="conjunction-container">
-                    from
+                <div className="field-group">
+                  <div className="label-container">
+                    <label>
+                      Distance from ZIP code
+                    </label>
                   </div>
-                  <FilterFormInput
-                    inputLabel="Zip Code"
-                    inputName="zip"
-                  />
+                  <div className="zip-miles-group">
+                    <FilterFormDropDown
+                      dropdownName="miles"
+                      options_values={MILES_VALUES}
+                    />
+                    <div className="conjunction-container">
+                      from
+                    </div>
+                    <FilterFormInput
+                      inputName="zip"
+                    />
+                  </div>
                 </div>
               </FormProvider>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </Drawer>
     </>

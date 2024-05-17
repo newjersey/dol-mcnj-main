@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 interface Props {
-  inputLabel: string;
   inputName: string;
+  inputLabel?: string;
   hasIcon?: boolean;
   icon?: ReactNode;
   inputType?: "text" | "number";
@@ -20,11 +20,13 @@ export const FilterFormInput = ({
 
   return (
     <div className="field-group">
-      <div className="label-container">
-        <label>
-          {inputLabel}
-        </label>
-      </div>
+      {inputLabel && (
+        <div className="label-container">
+          <label>
+            {inputLabel}
+          </label>
+        </div>
+      )}
       <div className="input-container">
         {hasIcon && icon && (
           <div className="icon-container">
