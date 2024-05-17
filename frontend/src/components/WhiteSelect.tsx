@@ -1,12 +1,18 @@
 import { Select, withStyles } from "@material-ui/core";
 
-export const WhiteSelect = withStyles({
+const styles = {
   root: {
-    paddingTop: "12px",
-    paddingBottom: "11px",
     backgroundColor: "#FFFFFF",
+    border: "1px solid #8f8f9d",
+    borderRadius: "3px",
+    height: "32px",
+    fontSize: "1rem",
+    padding: "0.5rem",
+    maxWidth: "100%",
     "&:focus": {
       backgroundColor: "#FFFFFF",
     },
   },
-})(Select);
+};
+
+export const WhiteSelect = withStyles(styles)(Select);

@@ -32,7 +32,7 @@
   }
   
   select {
-    border: 2px solid $black;
+    border: 1px solid #8f8f9d;
     border-radius: 3px;
   }
 
@@ -98,6 +98,92 @@
   }
 }
 
+#drawer-content-container {
+  background-color: $green-cool-5;
+  min-height: 100vh;
+  padding: $size-16;
+
+  .close-button {
+    border: 0px;
+    font-size: $size-24;
+    margin-left: $size-16;
+    padding: 0;
+
+    &:hover {
+      color: $blue-warm-70v;
+    }
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $size-16;
+
+    h2 {
+      font-size: $size-16;
+    }
+  }
+}
+
+#form-container {
+  .conjunction-container {
+    font-weight: 700;
+    margin: auto 0;
+    padding: $size-16 $size-16 0 $size-16;
+  }
+
+  .field-group {
+    label {
+      font-weight: 700;
+    }
+
+    input {
+      height: 50px;
+      box-sizing:border-box;
+      font-size: 1rem;
+      padding: 0.5rem;
+      max-width: 100%;
+    }
+
+    .label-container {
+      padding-bottom: $size-8;
+    }
+
+    .input-container {
+      margin-bottom: $size-16;
+      max-width: $mobile;
+      position: relative;
+    }
+
+    .icon-container {
+      padding: 4px 4px 4px 8px;
+      position: absolute;
+      box-sizing:border-box;
+      top:50%;
+      left:2px;
+      transform: translateY(-50%);
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    .w-icon {
+      padding-left: 2.5rem;
+    }
+
+  }
+
+  .zip-miles-group {
+    display: flex;
+
+    .input-container {
+      max-width: 100px;
+    }
+  }
+}
+
 @media screen and (min-width: $tablet-md){
   #search-results-page {
     .filter-button-container {
@@ -130,5 +216,9 @@
   #sort-and-limit-selects-container {
     display: flex;
     justify-content: right;
+  }
+
+  #drawer-content-container {
+    max-width: $mobile;
   }
 }
