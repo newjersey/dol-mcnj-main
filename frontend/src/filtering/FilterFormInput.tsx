@@ -18,7 +18,7 @@ export const FilterFormInput = ({
   hasIcon = false,
   icon,
   placeholder,
-  subLabel
+  subLabel,
 }: Props) => {
   const { control } = useFormContext();
 

@@ -5,12 +5,16 @@ import { Drawer } from "@material-ui/core";
 
 import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
+import { CountyProps } from "./newJerseyCounties";
+
 import { FilterFormInput } from "./FilterFormInput";
 import { FilterFormDropDown } from "./FilterFormDropDown";
 import { FilterFormSwitch } from "./FilterFormSwitch";
+import { FilterFormAutocomplete } from "./FilterFormAutocomplete";
 
 interface Props {
   searchQuery?: string;
+  county?: CountyProps | "";
   inDemand?: boolean;
   maxCost?: number;
   miles?: string;
@@ -23,8 +27,9 @@ const MILES_VALUES = [5, 10, 25, 50];
 
 export const FilterDrawer = ({
   searchQuery = "",
-  maxCost,
+  county = "",
   inDemand = false,
+  maxCost,
   miles = "10",
   zip = "",
   cipCode = "",
@@ -40,6 +45,7 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
+      county,
       inDemand,
       maxCost,
       miles,
@@ -97,6 +103,10 @@ export const FilterDrawer = ({
                   inputLabel="Max Cost"
                   inputName="maxCost"
                   inputType="number"
+                />
+                <FilterFormAutocomplete
+                  inputLabel="Filter by County"
+                  inputName="county"
                 />
                 <div className="field-group">
                   <div className="label-container">
