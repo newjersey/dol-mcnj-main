@@ -22,7 +22,7 @@ export const FilterFormInput = ({
     <div className="field-group">
       {inputLabel && (
         <div className="label-container">
-          <label>
+          <label htmlFor={inputName}>
             {inputLabel}
           </label>
         </div>

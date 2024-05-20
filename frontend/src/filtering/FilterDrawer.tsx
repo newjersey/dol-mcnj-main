@@ -7,9 +7,12 @@ import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
 import { FilterFormInput } from "./FilterFormInput";
 import { FilterFormDropDown } from "./FilterFormDropDown";
+import { FilterFormSwitch } from "./FilterFormSwitch";
 
 interface Props {
   searchQuery?: string;
+  inDemand?: boolean;
+  maxCost?: number;
   miles?: string;
   zip?: string;
 }
@@ -17,9 +20,11 @@ interface Props {
 const MILES_VALUES = [5, 10, 25, 50];
 
 export const FilterDrawer = ({
-  searchQuery,
-  miles,
-  zip
+  searchQuery = "",
+  maxCost,
+  inDemand = false,
+  miles = "10",
+  zip = "",
 }: Props): ReactElement => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -31,15 +36,18 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
+      inDemand,
+      maxCost,
       miles,
-      zip
+      zip,
     }
   });
   
-  const { handleSubmit } = methods;
+  const { handleSubmit, getValues } = methods;
 
-  const onSubmit = (data: Props) => {
-    console.log(data);
+  const onSubmit = () => {
+    const getValuesData = getValues();
+    console.log(getValuesData)
   }
 
   return (
@@ -74,6 +82,16 @@ export const FilterDrawer = ({
                   hasIcon={true}
                   icon={<MagnifyingGlass />}
                 />
+                <FilterFormSwitch
+                  inputLabel="Show In-Demand trainings only"
+                  inputName="inDemand"
+                  inputChecked={inDemand}
+                />
+                <FilterFormInput
+                  inputLabel="Max Cost"
+                  inputName="maxCost"
+                  inputType="number"
+                />
                 <div className="field-group">
                   <div className="label-container">
                     <label>
@@ -93,6 +111,7 @@ export const FilterDrawer = ({
                     />
                   </div>
                 </div>
+                <button type="submit">Apply Filters</button>
               </FormProvider>
             </div>
           </form>

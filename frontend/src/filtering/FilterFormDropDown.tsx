@@ -18,7 +18,7 @@ export const FilterFormDropDown = ({
     <div className="field-group">
       {dropdownLabel && (
         <div className="label-container">
-          <label>
+          <label htmlFor={dropdownName}>
             {dropdownLabel}
           </label>
         </div>
