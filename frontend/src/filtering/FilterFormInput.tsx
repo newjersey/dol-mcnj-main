@@ -7,6 +7,8 @@ interface Props {
   hasIcon?: boolean;
   icon?: ReactNode;
   inputType?: "text" | "number";
+  placeholder?: string;
+  subLabel?: string;
 }
 
 export const FilterFormInput = ({
@@ -14,7 +16,9 @@ export const FilterFormInput = ({
   inputName,
   inputType = "text",
   hasIcon = false,
-  icon
+  icon,
+  placeholder,
+  subLabel
 }: Props) => {
   const { control } = useFormContext();
 
@@ -24,6 +28,13 @@ export const FilterFormInput = ({
         <div className="label-container">
           <label htmlFor={inputName}>
             {inputLabel}
+          </label>
+        </div>
+      )}
+      {subLabel && (
+        <div className="sub-label-container">
+          <label>
+            {subLabel}
           </label>
         </div>
       )}
@@ -42,6 +53,7 @@ export const FilterFormInput = ({
               className={hasIcon ? "w-icon" : ""}
               type={inputType}
               onChange={onChange}
+              placeholder={placeholder}
             />
           )}
         />

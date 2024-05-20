@@ -15,6 +15,8 @@ interface Props {
   maxCost?: number;
   miles?: string;
   zip?: string;
+  cipCode?: string;
+  socCode?: string;
 }
 
 const MILES_VALUES = [5, 10, 25, 50];
@@ -25,6 +27,8 @@ export const FilterDrawer = ({
   inDemand = false,
   miles = "10",
   zip = "",
+  cipCode = "",
+  socCode = "",
 }: Props): ReactElement => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -40,6 +44,8 @@ export const FilterDrawer = ({
       maxCost,
       miles,
       zip,
+      cipCode,
+      socCode,
     }
   });
   
@@ -111,6 +117,18 @@ export const FilterDrawer = ({
                     />
                   </div>
                 </div>
+                <FilterFormInput
+                  inputLabel="Filter by CIP Code"
+                  inputName="cipCode"
+                  placeholder="##.####"
+                  subLabel="CIP codes are 6 digits."
+                />
+                <FilterFormInput
+                  inputLabel="Filter by SOC Code"
+                  inputName="socCode"
+                  placeholder="##-####"
+                  subLabel="SOC codes are 6 digits."
+                />
                 <button type="submit">Apply Filters</button>
               </FormProvider>
             </div>
