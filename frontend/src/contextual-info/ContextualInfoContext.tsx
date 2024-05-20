@@ -4,6 +4,7 @@ export interface ContextualInfo {
   isOpen: boolean;
   title: string;
   body: string;
+  disclaimer: string | undefined;
   linkUrl: string | undefined;
   linkText: string | undefined;
 }
@@ -17,6 +18,7 @@ export const initialContextualInfoState = {
   isOpen: false,
   title: "",
   body: "",
+  disclaimer: "",
   linkUrl: undefined,
   linkText: undefined,
 };
