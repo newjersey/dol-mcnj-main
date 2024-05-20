@@ -101,6 +101,7 @@
 #drawer-content-container {
   background-color: $green-cool-5;
   min-height: 100vh;
+  overflow: auto;
   padding: $size-16;
 
   .close-button {
@@ -143,6 +144,7 @@
       font-size: 1rem;
       padding: 0.5rem;
       max-width: 100%;
+      min-width: 100px;
     }
 
     .label-container {

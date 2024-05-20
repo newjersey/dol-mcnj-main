@@ -3,9 +3,9 @@ import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 
 interface Props {
-  inputLabel: string;
   inputName: string;
   options: string[]; // Add the 'options' property to the 'Props' interface
+  inputLabel?: string;
 }
 
 export const FilterFormAutocomplete = ({
@@ -16,11 +16,13 @@ export const FilterFormAutocomplete = ({
   const { register } = useFormContext();
   return (
     <div className="field-group">
-      <div className="label-container">
-        <label htmlFor={inputName}>
-          {inputLabel}
-        </label>
-      </div>
+      {inputLabel && (
+        <div className="label-container">
+          <label htmlFor={inputName}>
+            {inputLabel}
+          </label>
+        </div>
+      )}
       <div className="input-wrapper">
         <Autocomplete
           data-testid="county-search"

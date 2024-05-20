@@ -8,31 +8,42 @@ import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { CountyProps } from "./newJerseyCounties";
 
 import { FilterFormInput } from "./FilterFormInput";
-import { FilterFormDropDown } from "./FilterFormDropDown";
 import { FilterFormSwitch } from "./FilterFormSwitch";
 import { FilterFormAutocomplete } from "./FilterFormAutocomplete";
 
 import { COUNTIES } from "./newJerseyCounties";
+import { FilterFormMulti } from "./FilterFormMulti";
+import {
+  completeInList,
+  languageList,
+  serviceList
+} from "./filterLists";
 
 interface Props {
   searchQuery?: string;
+  completeIn?: {id: string, label: string}[];
   county?: CountyProps | "";
   inDemand?: boolean;
+  languages?: {id: string, label: string}[];
   maxCost?: number;
   miles?: string;
+  services?: {id: string, label: string}[];
   zip?: string;
   cipCode?: string;
   socCode?: string;
 }
 
-const MILES_VALUES = [5, 10, 25, 50];
+const MILES_VALUES = ["5", "10", "25", "50"];
 
 export const FilterDrawer = ({
   searchQuery = "",
+  completeIn = [],
   county = "",
   inDemand = false,
+  languages = [],
   maxCost,
   miles = "10",
+  services = [],
   zip = "",
   cipCode = "",
   socCode = "",
@@ -47,10 +58,13 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
+      completeIn,
       county,
       inDemand,
+      languages,
       maxCost,
       miles,
+      services,
       zip,
       cipCode,
       socCode,
@@ -118,9 +132,9 @@ export const FilterDrawer = ({
                     </label>
                   </div>
                   <div className="zip-miles-group">
-                    <FilterFormDropDown
-                      dropdownName="miles"
-                      options_values={MILES_VALUES}
+                    <FilterFormAutocomplete
+                      inputName="miles"
+                      options={MILES_VALUES}
                     />
                     <div className="conjunction-container">
                       from
@@ -130,6 +144,26 @@ export const FilterDrawer = ({
                     />
                   </div>
                 </div>
+                <FilterFormMulti
+                  inputLabel="Time to Complete"
+                  inputName="completeIn"
+                  options={completeInList}
+                />
+                <FilterFormMulti
+                  inputLabel="Languages"
+                  inputName="languages"
+                  options={languageList}
+                />
+                <FilterFormMulti
+                  inputLabel="Languages"
+                  inputName="languages"
+                  options={languageList}
+                />
+                <FilterFormMulti
+                  inputLabel="Provider Services"
+                  inputName="services"
+                  options={serviceList}
+                />
                 <FilterFormInput
                   inputLabel="Filter by CIP Code"
                   inputName="cipCode"
