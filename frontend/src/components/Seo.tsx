@@ -10,6 +10,7 @@ export const Seo = (props: SeoProps) => {
       <meta property="og:title" content={props.title} />
       {props.pageDescription && <meta property="og:description" content={props.pageDescription} />}
       {props.ogImage?.url && <meta property="og:image" content={props.ogImage?.url} />}
+      {props.image && !props.ogImage?.url && <meta property="og:image" content={props.image} />}
       <meta property="og:type" content="website" />
       {props.url && <meta property="og:url" content={`https://mycareer.nj.gov${props.url}`} />}
       <meta property="og:site_name" content="My Career NJ" />

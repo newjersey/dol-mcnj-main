@@ -11,9 +11,9 @@ import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
 import { IconNames } from "../types/icons";
 import { SectionHeading } from "../components/modules/SectionHeading";
-import { usePageTitle } from "../utils/usePageTitle";
 import { useContentful } from "../utils/useContentful";
 import { useTranslation } from "react-i18next";
+import pageImage from "../images/ogImages/trainingExplorer.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -54,14 +54,16 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     links: pageData?.interrupterLinksCollection.items,
   };
 
-  usePageTitle(`${pageData?.title} | ${process.env.REACT_APP_SITE_NAME}`);
-
   const seoObject = {
-    title: `${pageData?.title} | ${process.env.REACT_APP_SITE_NAME}`,
-    description: pageData?.pageDescription,
-    image: pageData?.ogImage?.url,
+    title: pageData?.title
+      ? `${pageData?.title} | ${process.env.REACT_APP_SITE_NAME}`
+      : `New Jersey Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
+    description:
+      pageData?.pageDescription ||
+      "Certifications, Professional Development, Apprenticeships & More!",
+    image: pageData?.ogImage?.url || pageImage,
     keywords: pageData?.keywords,
-    url: props.location?.pathname,
+    url: props.location?.pathname || "/training",
   };
 
   return (
