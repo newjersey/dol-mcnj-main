@@ -12,6 +12,8 @@ import { FilterFormDropDown } from "./FilterFormDropDown";
 import { FilterFormSwitch } from "./FilterFormSwitch";
 import { FilterFormAutocomplete } from "./FilterFormAutocomplete";
 
+import { COUNTIES } from "./newJerseyCounties";
+
 interface Props {
   searchQuery?: string;
   county?: CountyProps | "";
@@ -107,6 +109,7 @@ export const FilterDrawer = ({
                 <FilterFormAutocomplete
                   inputLabel="Filter by County"
                   inputName="county"
+                  options={COUNTIES}
                 />
                 <div className="field-group">
                   <div className="label-container">

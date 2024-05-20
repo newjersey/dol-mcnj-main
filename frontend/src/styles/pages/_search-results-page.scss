@@ -247,6 +247,26 @@
   .slider.round:before {
     border-radius: 50%;
   } 
+
+  .filter-dropdown {
+    margin-bottom: $size-16;
+
+    .MuiInputBase-root {
+      background-color: $white;
+      border: 1px solid #8f8f9d;
+      height: 50px;
+      max-width: 264px;
+
+      .MuiOutlinedInput-input {
+        height: 50px;
+      }
+    }
+
+    .MuiOutlinedInput-root {
+      border: 0;
+      padding: 0;
+    }
+  }
 }
 
 @media screen and (min-width: $tablet-md){

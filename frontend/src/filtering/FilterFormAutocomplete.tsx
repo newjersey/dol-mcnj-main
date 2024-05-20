@@ -2,16 +2,16 @@ import { useFormContext } from 'react-hook-form';
 import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 
-import { COUNTIES } from "./newJerseyCounties";
-
 interface Props {
   inputLabel: string;
   inputName: string;
+  options: string[]; // Add the 'options' property to the 'Props' interface
 }
 
 export const FilterFormAutocomplete = ({
   inputLabel,
-  inputName
+  inputName,
+  options
 }: Props) => {
   const { register } = useFormContext();
   return (
@@ -21,14 +21,21 @@ export const FilterFormAutocomplete = ({
           {inputLabel}
         </label>
       </div>
-      <Autocomplete
-        data-testid="county-search"
-        id="county"
-        options={COUNTIES}
-        renderInput={(params) => (
-          <TextField {...params} variant="outlined" {...register(inputName)} />
-        )}
-      />
+      <div className="input-wrapper">
+        <Autocomplete
+          data-testid="county-search"
+          id={inputName}
+          options={options}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              className="filter-dropdown"
+              variant="outlined"
+              {...register(inputName)}
+            />
+          )}
+        />
+      </div>
     </div>
   )
 }
