@@ -17,6 +17,7 @@ import { SectionHeading } from "../components/modules/SectionHeading";
 import { Stepper } from "../components/Stepper";
 import { HowToUse } from "../components/modules/HowToUse";
 import { usePageTitle } from "../utils/usePageTitle";
+import pageImage from "../images/ogImages/careerPathways.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -99,11 +100,22 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   }
 
   const seoObject = {
-    title: `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`,
-    description: data?.page.pageDescription,
-    image: data?.page.ogImage?.url,
-    keywords: data?.page.keywords,
-    url: props.location?.pathname,
+    title: data
+      ? `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
+      : `Career Pathways | ${process.env.REACT_APP_SITE_NAME}`,
+    description:
+      data?.page.pageDescription ||
+      "Explore popular industries and careers in the state of New Jersey.",
+    image: data?.page.ogImage?.url || pageImage,
+    keywords: data?.page.keywords || [
+      "New Jersey",
+      "Career",
+      "Job",
+      "Training",
+      "New Jersey Career Central",
+      "Career Pathways",
+    ],
+    url: props.location?.pathname || "/career-pathways",
   };
 
   return (

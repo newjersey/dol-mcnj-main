@@ -461,6 +461,7 @@ export interface SeoProps {
   pageDescription?: string;
   keywords?: string[];
   ogImage?: ImageProps;
+  image?: string;
   url?: string;
 }
 
