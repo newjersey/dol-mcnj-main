@@ -68,13 +68,12 @@ jobs:
       - run:
           name: SSH into EC2 and Deploy
           command: |
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_IP <<EOF
-              cd d4ad
-              git pull origin master 
-              ./scripts/install-all.sh
-              rm -rf backend/dist/
-              ./scripts/build.sh
-            EOF
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_IP \
+              "cd d4ad && \
+              git pull origin master && \
+              ./scripts/install-all.sh && \
+              rm -rf backend/dist/ && \
+              ./scripts/build.sh"
 
 workflows:
   build-test-deploy:
