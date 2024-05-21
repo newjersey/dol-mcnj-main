@@ -157,6 +157,7 @@ export const en = {
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
+    jobsOpenDiscrepencyDisclaimer: "The number of jobs shown may differ from the number of jobs shown on the CareerOneStop Job Finder and/or in National Labor Exchange (NLx) data.",
     salaryTitle: "Median Salary",
     salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
     searchOpenJobsText: "Search job openings in New Jersey >",
