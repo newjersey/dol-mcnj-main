@@ -51,7 +51,36 @@ jobs:
           root: ~/project
           paths:
             - .
+
+  deploy_dev:
+    circleci_ip_ranges: true
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "$SSH_KEY_FINGERPRINT"
+      - run:
+          name: Set up SSH
+          command: |
+            mkdir -p ~/.ssh
+            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
+      - run:
+          name: SSH into EC2 and Deploy
+          command: |
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_IP <<EOF
+              cd d4ad
+              git pull origin master 
+              ./scripts/install-all.sh
+              rm -rf backend/dist/
+              ./scripts/build.sh
+            EOF
+
 workflows:
   build-test-deploy:
     jobs:
       - build-and-test
+      - deploy:
+          requires:
+            - build
+            
