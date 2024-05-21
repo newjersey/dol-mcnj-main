@@ -80,7 +80,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-      - deploy:
+      - deploy_dev:
           requires:
             - build
             
