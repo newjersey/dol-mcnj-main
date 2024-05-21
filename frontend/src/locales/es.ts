@@ -165,6 +165,7 @@ export const es = {
     jobsOpenTooltip:
       "El número de puestos de trabajo publicados actualmente para esta ocupación en el estado de NJ.",
     jobsOpenSource: "Bolsa Nacional de Trabajo",
+    jobsOpenDiscrepencyDisclaimer: "El número de trabajos en este resultado puede ser diferente al número de trabajos disponibles en el  portal de Búsqueda de Trabajo de CareerOneStop, o de los datos encontrados en la Bolsa Nacional de Trabajo (NLx).",
     salaryTitle: "Salario medio",
     salaryTooltip:
       "En promedio, los trabajadores en esta ocupación ganan esta cantidad en el estado de NJ.",
