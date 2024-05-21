@@ -71,6 +71,9 @@
       "--no-sandbox",
       "--disable-setuid-sandbox"
     ],
+    "puppeteer": {
+      "timeout": 120000
+    },
     "crawl": true,
     "skipThirdPartyRequests": false
   },

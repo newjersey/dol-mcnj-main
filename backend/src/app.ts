@@ -202,15 +202,15 @@ const router = routerFactory({
       postgresDataClient
   ),
 });
-
 app.use(express.static("dist/build", { etag: false, lastModified: false }));
+
+//app.use(express.static(path.join(__dirname, 'build'), { etag: false, lastModified: false }));
 app.use(express.json());
 
 app.use("/api", router);
 app.use('/api/emails', emailSubmissionRouter);
 app.use('/api/contentful', contentfulRouter);
 
-// Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
@@ -220,7 +220,6 @@ app.get("*", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());

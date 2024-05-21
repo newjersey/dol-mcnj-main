@@ -1,24 +1,18 @@
 import { ReactElement, useEffect, useState, useRef } from "react";
 import { Link, RouteComponentProps } from "@reach/router";
-
 import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
-
-import { Seo } from "../components/Seo"
+import { Seo } from "../components/Seo";
 import { Grouping } from "../components/Grouping";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
-
-
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-
 import { Icon } from "@material-ui/core";
 import { formatMoney } from "accounting";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -42,54 +36,39 @@ export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   const [training, setTraining] = useState<Training | undefined>(undefined);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const [copy, setCopy] = useState<Copy | null>(null);
+  const [seoObject, setSeoObject] = useState<{ title: string; pageDescription: string; url: string } | undefined>(undefined);
   const componentRef = useRef<HTMLDivElement>(null);
 
-  // Set up the printing functionality
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
-  let seoObject;
 
   useEffect(() => {
     if (props.id) {
       props.client.getTrainingById(props.id, {
         onSuccess: (result: Training) => {
           setTraining(result);
-          console.log("FOO. training title");
-          console.log(result.name);
-
-          seoObject = {
+          setSeoObject({
             title: `${result.name} | Training | ${process.env.REACT_APP_SITE_NAME}`,
             pageDescription: result.description,
             url: props.location?.pathname || "/training",
-          };
-          setLoading(false);  // Update loading state
-
+          });
+          setIsLoading(false);
         },
         onError: (receivedError: Error) => {
           setError(receivedError);
-          setLoading(false);  // Update loading state
+          setIsLoading(false);
         },
       });
     }
-  }, [props.id, props.client]);
-
-  // Notify React Snap that the page is ready
-  useEffect(() => {
-    if (!isLoading) {
-      if (typeof window.snapSaveState === "function") {
-        window.snapSaveState();
-      }
-    }
-  }, [isLoading]);
+  }, [props.id, props.client, props.location?.pathname]);
 
   const printHandler = () => {
     if (handlePrint) {
-      handlePrint(); // Call the print function returned from useReactToPrint
+      handlePrint();
     }
   };
 
@@ -223,6 +202,10 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   if (!training) {
     if (error === Error.SYSTEM_ERROR) {
       return <SomethingWentWrongPage client={props.client} />;
@@ -256,7 +239,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   return (
       <div ref={componentRef}>
-        <Seo title={seoObject.title} pageDescription={seoObject.pageDescription} url={seoObject.url} />
+        {seoObject && <Seo title={seoObject.title} pageDescription={seoObject.pageDescription} url={seoObject.url} />}
         <Layout client={props.client} seo={seoObject}>
           <div className="container">
             <div className="detail-page">
@@ -342,64 +325,64 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <>
                         {training.certifications && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">school</InlineIcon>
-                            {t("TrainingPage.certificationsLabel")}&nbsp;
-                            <b>{training.certifications}</b>
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">school</InlineIcon>
+                          {t("TrainingPage.certificationsLabel")}&nbsp;
+                          <b>{training.certifications}</b>
+                        </span>
                             </p>
                         )}
                         {training.prerequisites && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">list_alt</InlineIcon>
-                            {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">list_alt</InlineIcon>
+                          {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
+                        </span>
                             </p>
                         )}
                         <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">av_timer</InlineIcon>
-                          {t("TrainingPage.completionTimeLabel")}&nbsp;
-                          <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
-                        </span>
+                      <span className="fin">
+                        <InlineIcon className="mrxs">av_timer</InlineIcon>
+                        {t("TrainingPage.completionTimeLabel")}&nbsp;
+                        <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
+                      </span>
                         </p>
                         {training.totalClockHours && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">schedule</InlineIcon>
-                            {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                            <InlineIcon
-                                className="mrxs"
-                                data-tooltip-id="totalClockHours-tooltip"
-                                data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                            >
-                              info
-                            </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                            <b>
-                              {t("TrainingPage.totalClockHours", {
-                                hours: training.totalClockHours,
-                              })}
-                            </b>
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">schedule</InlineIcon>
+                          {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                          <InlineIcon
+                              className="mrxs"
+                              data-tooltip-id="totalClockHours-tooltip"
+                              data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                          >
+                            info
+                          </InlineIcon>
+                          <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                          <b>
+                            {t("TrainingPage.totalClockHours", {
+                              hours: training.totalClockHours,
+                            })}
+                          </b>
+                        </span>
                             </p>
                         )}
                         {training.cipCode && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">qr_code</InlineIcon>
-                            {t("TrainingPage.cipCodeLabel")}&nbsp;
-                            <InlineIcon
-                                className="mrxs"
-                                data-tooltip-id="totalClockHours-tooltip"
-                                data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
-                            >
-                              info
-                            </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                            <b>{t(training.cipCode)}</b>
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">qr_code</InlineIcon>
+                          {t("TrainingPage.cipCodeLabel")}&nbsp;
+                          <InlineIcon
+                              className="mrxs"
+                              data-tooltip-id="totalClockHours-tooltip"
+                              data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
+                          >
+                            info
+                          </InlineIcon>
+                          <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                          <b>{t(training.cipCode)}</b>
+                        </span>
                             </p>
                         )}
                       </>
@@ -423,16 +406,16 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </UnstyledButton>
                           {copy && (
                               <span className={`text-s weight-500 mls ${copy?.class}`}>
-                            {copy?.text}
-                          </span>
+                          {copy?.text}
+                        </span>
                           )}
                         </p>
                         <p>
                           <UnstyledButton className="link-format-blue" onClick={printHandler}>
                             <Icon className="accessible-gray weight-500">print</Icon>
                             <span className="mlxs weight-500">
-                            {t("TrainingPage.savePrintLinkText")}
-                          </span>
+                          {t("TrainingPage.savePrintLinkText")}
+                        </span>
                           </UnstyledButton>
                         </p>
                         <p>
@@ -458,8 +441,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <p>
                           <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                           <span className="text-l pull-right weight-500">
-                          {formatMoney(training.totalCost)}
-                        </span>
+                        {formatMoney(training.totalCost)}
+                      </span>
                         </p>
                         <div className="grey-line" />
                         <div className="mvd">
@@ -474,14 +457,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <div>
                             <span>{t("TrainingPage.materialsCostLabel")}</span>
                             <span className="pull-right">
-                            {formatMoney(training.booksMaterialsCost)}
-                          </span>
+                          {formatMoney(training.booksMaterialsCost)}
+                        </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.suppliesCostLabel")}</span>
                             <span className="pull-right">
-                            {formatMoney(training.suppliesToolsCost)}
-                          </span>
+                          {formatMoney(training.suppliesToolsCost)}
+                        </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.otherCostLabel")}</span>
@@ -494,28 +477,28 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <Grouping title={t("TrainingPage.providerGroupHeader")}>
                       <>
                         <p>
-                        <span className="fin fas">
+                      <span className="fin">
                           <InlineIcon className="mrxs">school</InlineIcon>
-                          {training.provider.name}
-                        </span>
+                        {training.provider.name}
+                      </span>
                         </p>
                         <div className="mvd">
-                        <span className="fin">
+                      <span className="fin">
                           <InlineIcon className="mrxs">location_on</InlineIcon>
-                          {getProviderAddress()}
-                        </span>
+                        {getProviderAddress()}
+                      </span>
                         </div>
                         <div className="mvd">
-                        <span className="fin">
+                      <span className="fin">
                           <InlineIcon className="mrxs">person</InlineIcon>
-                          {getProviderContact()}
-                        </span>
+                        {getProviderContact()}
+                      </span>
                         </div>
                         <p>
-                        <span className="fin">
+                      <span className="fin">
                           <InlineIcon className="mrxs">link</InlineIcon>
-                          {getProviderUrl()}
-                        </span>
+                        {getProviderUrl()}
+                      </span>
                         </p>
                       </>
                     </Grouping>
@@ -524,42 +507,42 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <>
                         {training.hasEveningCourses && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">nightlight_round</InlineIcon>
-                            {t("TrainingPage.eveningCoursesServiceLabel")}
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">nightlight_round</InlineIcon>
+                          {t("TrainingPage.eveningCoursesServiceLabel")}
+                        </span>
                             </p>
                         )}
                         {training.languages.length > 0 && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">language</InlineIcon>
-                            {t("TrainingPage.otherLanguagesServiceLabel")}
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">language</InlineIcon>
+                          {t("TrainingPage.otherLanguagesServiceLabel")}
+                        </span>
                             </p>
                         )}
                         {training.isWheelchairAccessible && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">accessible_forward</InlineIcon>
-                            {t("TrainingPage.wheelchairAccessibleServiceLabel")}
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">accessible_forward</InlineIcon>
+                          {t("TrainingPage.wheelchairAccessibleServiceLabel")}
+                        </span>
                             </p>
                         )}
                         {training.hasChildcareAssistance && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">family_restroom</InlineIcon>
-                            {t("TrainingPage.childcareAssistanceServiceLabel")}
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">family_restroom</InlineIcon>
+                          {t("TrainingPage.childcareAssistanceServiceLabel")}
+                        </span>
                             </p>
                         )}
                         {training.hasJobPlacementAssistance && (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">work_outline</InlineIcon>
-                            {t("TrainingPage.jobAssistanceServiceLabel")}
-                          </span>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">work_outline</InlineIcon>
+                          {t("TrainingPage.jobAssistanceServiceLabel")}
+                        </span>
                             </p>
                         )}
                         <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
