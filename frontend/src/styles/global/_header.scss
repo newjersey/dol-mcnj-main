@@ -3,8 +3,11 @@ header {
     background-color: $white;
     width: 100%;
     z-index: 12;
+    min-height: 187px;
 
     @media screen and (max-width: ($tablet-md)) {
+      min-height: 135px;
+
       background-color: $dark-blue;
       color: $white;
     }
