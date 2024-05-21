@@ -1,4 +1,10 @@
 header {
+  min-height: 187px;
+
+  @media screen and (max-width: ($tablet-md)) {
+    min-height: 135px;
+  }
+
   &.header {
     background-color: $white;
     width: 100%;
