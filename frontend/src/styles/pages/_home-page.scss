@@ -1,4 +1,10 @@
 .home-page {
+  min-height: 3000px;
+
+  @media screen and (max-width: ($tablet-md)) {
+    min-height: 5100px;
+  }
+
   .container {
     @media screen and (min-width: ($widescreen)) {
       width: 100%;
