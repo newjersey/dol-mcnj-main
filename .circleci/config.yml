@@ -81,5 +81,5 @@ workflows:
       - build-and-test
       - deploy_dev:
           requires:
-            - build
+            - build-and-test
             
