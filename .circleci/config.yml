@@ -55,7 +55,7 @@ jobs:
   deploy_dev:
     circleci_ip_ranges: true
     docker:
-      - image: amazon/aws-cli
+      - image: circleci/python:3.8
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -72,6 +72,7 @@ jobs:
               "cd d4ad && \
               git pull origin master && \
               ./scripts/install-all.sh && \
+              ./scripts/db-migrate.sh && \
               rm -rf backend/dist/ && \
               ./scripts/build.sh"
 
