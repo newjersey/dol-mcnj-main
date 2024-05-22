@@ -59,6 +59,7 @@ export const LandingPage = (props: Props): ReactElement => {
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
               subheading={pageData.bannerMessage}
+              preload
             />
             {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
             <div className="container" id="homeContent">
