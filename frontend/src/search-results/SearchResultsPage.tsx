@@ -29,7 +29,8 @@ import { TrainingResultCard } from "./TrainingResultCard";
 import {
   ClassFormatProps,
   CompleteInProps,
-  LanguageProps
+  LanguageProps,
+  ServiceProps
 } from "../filtering/filterLists";
 import { CountyProps } from "../filtering/newJerseyCounties";
 
@@ -59,6 +60,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [languages, setLanguages] = useState<LanguageProps[]>([]);
   const [maxCost, setMaxCost] = useState<string | undefined>();
   const [miles, setMiles] = useState<string | undefined>();
+  const [services, setServices] = useState<ServiceProps[]>([]);
   const [zip, setZip] = useState<string | undefined>();
 
   const comparisonState = useContext(ComparisonContext).state;
@@ -123,6 +125,12 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           break;
         case "p":
           setPageNumber(Number(value));
+          break;
+        case "services":
+          if (services?.includes(value as ServiceProps)) {
+            break;
+          }
+          setServices((prev) => [...prev, value as ServiceProps]);
           break;
         case "sort":
           setSortBy(value as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
@@ -222,6 +230,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
                 languages={languages}
                 maxCost={maxCost}
                 miles={miles}
+                services={services}
                 zip={zip}
               />
             )}

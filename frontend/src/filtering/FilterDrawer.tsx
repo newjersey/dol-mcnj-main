@@ -173,6 +173,7 @@ export const FilterDrawer = ({
                     options={languageList}
                   />
                   <FilterFormMulti
+                    defaultValues={services}
                     inputLabel="Provider Services"
                     inputName="services"
                     options={serviceList}
