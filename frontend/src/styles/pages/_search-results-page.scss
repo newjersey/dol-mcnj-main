@@ -189,8 +189,8 @@
   .switch {
     position: relative;
     display: inline-block;
-    width: 3rem;
-    height: 1.5rem;
+    width: 3.25rem;
+    height: 1.75rem;
   }
 
   /* Hide default HTML checkbox */
@@ -208,31 +208,37 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: $gray-cool-30;
+    border: 1px solid $gray-cool-50;
     -webkit-transition: .4s;
     transition: .4s;
   }
 
-  $slider-size: 17px;
+  $slider-size: 20px;
 
   .slider:before {
     position: absolute;
     content: "";
     height: $slider-size;
     width: $slider-size;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    left: 3px;
+    bottom: 3px;
+    background-color: $gray-cool-50;
     -webkit-transition: .4s;
     transition: .4s;
   }
 
+  .isChecked:before {
+    background-color: $white;
+  }
+
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: $green-cool-50v;
+    border: 1px solid $green-cool-50v;
   }
 
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px $gray-cool-50;
   }
 
   input:checked + .slider:before {
@@ -255,7 +261,7 @@
 
     .MuiInputBase-root {
       background-color: $white;
-      border: 1px solid #8f8f9d;
+      border: 1px solid $gray-cool-50;
       height: 50px;
       max-width: 264px;
 
@@ -268,6 +274,44 @@
       border: 0;
       padding: 0;
     }
+  }
+
+  #drawer-btn-container {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+
+    background-color: $green-cool-20;
+    display: flex;
+    justify-content: space-between;
+    padding: $size-16;
+    width: 320px;
+
+    button {
+      border: 2px solid $green-cool-50v;
+      border-radius: 8px;
+      font-weight: 700;
+      padding: $size-16 $size-32;
+      text-align: center;
+    }
+
+    button + button {
+      margin-left: $size-16;
+    }
+  }
+
+  #form-fields {
+    margin-bottom: $size-112;
+  }
+
+  #submit-button {
+    background-color: $green-cool-50v;
+    color: $white;
+  }
+
+  #reset-button {
+    background-color: $white;
+    color: $green-cool-50v;
   }
 }
 

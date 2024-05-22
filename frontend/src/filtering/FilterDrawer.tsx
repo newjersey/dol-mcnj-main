@@ -104,79 +104,84 @@ export const FilterDrawer = ({
           <form onSubmit={handleSubmit(onSubmit)}>
             <div id="form-container">
               <FormProvider {...methods}>
-                <FilterFormInput
-                  inputLabel="Search by training, provider, certifcation, SOC code, or keyword"
-                  inputName="searchQuery"
-                  hasIcon={true}
-                  icon={<MagnifyingGlass />}
-                />
-                <FilterFormSwitch
-                  inputLabel="Show In-Demand trainings only"
-                  inputName="inDemand"
-                  inputChecked={inDemand}
-                />
-                <FilterFormInput
-                  inputLabel="Max Cost"
-                  inputName="maxCost"
-                  inputType="number"
-                />
-                <FilterFormAutocomplete
-                  inputLabel="Filter by County"
-                  inputName="county"
-                  options={COUNTIES}
-                />
-                <div className="field-group">
-                  <div className="label-container">
-                    <label>
-                      Distance from ZIP code
-                    </label>
-                  </div>
-                  <div className="zip-miles-group">
-                    <FilterFormAutocomplete
-                      inputName="miles"
-                      options={MILES_VALUES}
-                    />
-                    <div className="conjunction-container">
-                      from
+                <div id="form-fields">
+                  <FilterFormInput
+                    inputLabel="Search by training, provider, certifcation, SOC code, or keyword"
+                    inputName="searchQuery"
+                    hasIcon={true}
+                    icon={<MagnifyingGlass />}
+                  />
+                  <FilterFormSwitch
+                    inputLabel="Show In-Demand trainings only"
+                    inputName="inDemand"
+                    inputChecked={inDemand}
+                  />
+                  <FilterFormInput
+                    inputLabel="Max Cost"
+                    inputName="maxCost"
+                    inputType="number"
+                  />
+                  <FilterFormAutocomplete
+                    inputLabel="Filter by County"
+                    inputName="county"
+                    options={COUNTIES}
+                  />
+                  <div className="field-group">
+                    <div className="label-container">
+                      <label>
+                        Distance from ZIP code
+                      </label>
                     </div>
-                    <FilterFormInput
-                      inputName="zip"
-                    />
+                    <div className="zip-miles-group">
+                      <FilterFormAutocomplete
+                        inputName="miles"
+                        options={MILES_VALUES}
+                      />
+                      <div className="conjunction-container">
+                        from
+                      </div>
+                      <FilterFormInput
+                        inputName="zip"
+                      />
+                    </div>
                   </div>
+                  <FilterFormMulti
+                    inputLabel="Time to Complete"
+                    inputName="completeIn"
+                    options={completeInList}
+                  />
+                  <FilterFormMulti
+                    inputLabel="Languages"
+                    inputName="languages"
+                    options={languageList}
+                  />
+                  <FilterFormMulti
+                    inputLabel="Languages"
+                    inputName="languages"
+                    options={languageList}
+                  />
+                  <FilterFormMulti
+                    inputLabel="Provider Services"
+                    inputName="services"
+                    options={serviceList}
+                  />
+                  <FilterFormInput
+                    inputLabel="Filter by CIP Code"
+                    inputName="cipCode"
+                    placeholder="##.####"
+                    subLabel="CIP codes are 6 digits."
+                  />
+                  <FilterFormInput
+                    inputLabel="Filter by SOC Code"
+                    inputName="socCode"
+                    placeholder="##-####"
+                    subLabel="SOC codes are 6 digits."
+                  />
                 </div>
-                <FilterFormMulti
-                  inputLabel="Time to Complete"
-                  inputName="completeIn"
-                  options={completeInList}
-                />
-                <FilterFormMulti
-                  inputLabel="Languages"
-                  inputName="languages"
-                  options={languageList}
-                />
-                <FilterFormMulti
-                  inputLabel="Languages"
-                  inputName="languages"
-                  options={languageList}
-                />
-                <FilterFormMulti
-                  inputLabel="Provider Services"
-                  inputName="services"
-                  options={serviceList}
-                />
-                <FilterFormInput
-                  inputLabel="Filter by CIP Code"
-                  inputName="cipCode"
-                  placeholder="##.####"
-                  subLabel="CIP codes are 6 digits."
-                />
-                <FilterFormInput
-                  inputLabel="Filter by SOC Code"
-                  inputName="socCode"
-                  placeholder="##-####"
-                  subLabel="SOC codes are 6 digits."
-                />
-                <button type="submit">Apply Filters</button>
+                <div id="drawer-btn-container" className="row">
+                  <button type="submit" id="submit-button">Apply Filters</button>
+                  <button type="reset" id="reset-button">Clear Filters</button>
+                </div>
               </FormProvider>
             </div>
           </form>

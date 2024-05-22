@@ -42,7 +42,7 @@ export const FilterFormSwitch = ({
                   onChange(e);
                 }}
               />
-              <span className="slider round"></span>
+              <span className={`slider round${checked ? ' isChecked' : ''}`}></span>
             </label>
           )}
         />
