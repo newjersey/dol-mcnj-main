@@ -45,7 +45,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
-  const [miles, setMiles] = useState<string | undefined>();
+  const [miles, setMiles] = useState<number | undefined>();
   const [zip, setZip] = useState<string | undefined>();
 
   const comparisonState = useContext(ComparisonContext).state;
@@ -88,7 +88,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
     }
 
     if (miles) {
-      setMiles(miles);
+      setMiles(Number(miles));
     }
 
     if (zip) {

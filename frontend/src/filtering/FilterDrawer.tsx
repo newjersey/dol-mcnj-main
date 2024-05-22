@@ -18,31 +18,32 @@ import {
   languageList,
   serviceList
 } from "./filterLists";
+import { FilterFormChecks } from "./FilterFormChecks";
 
 interface Props {
   searchQuery?: string;
-  completeIn?: {id: string, label: string}[];
+  classFormat?: 'inPerson' | 'online' | undefined;
+  completeIn?: ('days' | 'weeks' | 'months' | 'years')[];
   county?: CountyProps | "";
   inDemand?: boolean;
   languages?: {id: string, label: string}[];
   maxCost?: string;
-  miles?: string;
+  miles?: number | undefined;
   services?: {id: string, label: string}[];
   zip?: string;
   cipCode?: string;
   socCode?: string;
 }
 
-const MILES_VALUES = ["5", "10", "25", "50"];
-
 export const FilterDrawer = ({
   searchQuery = "",
+  classFormat,
   completeIn = [],
   county = "",
   inDemand = false,
   languages = [],
   maxCost = "",
-  miles = "",
+  miles,
   services = [],
   zip = "",
   cipCode = "",
@@ -58,6 +59,7 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
+      classFormat,
       completeIn,
       county,
       inDemand,
@@ -128,6 +130,10 @@ export const FilterDrawer = ({
                     inputName="county"
                     options={COUNTIES}
                   />
+                  <FilterFormChecks
+                    inputLabel="Class Format"
+                    inputName="classFormat"
+                  />
                   <div className="field-group">
                     <div className="label-container">
                       <label>
@@ -135,9 +141,9 @@ export const FilterDrawer = ({
                       </label>
                     </div>
                     <div className="zip-miles-group">
-                      <FilterFormAutocomplete
+                      <FilterFormInput
                         inputName="miles"
-                        options={MILES_VALUES}
+                        inputType="number"
                       />
                       <div className="conjunction-container">
                         from
