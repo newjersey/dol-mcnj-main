@@ -51,6 +51,7 @@ export interface Address {
   state?: string;
   zipCode?: string;
   county?: string;
+  targetContactPoints?: ContactPoint[];
 }
 
 export interface ContactPoint {

@@ -278,14 +278,27 @@ export const TrainingPage = (props: Props): ReactElement => {
       },
     ];
 
+    let contactName, contactTitle, phoneNumber;
+    if (training.provider.addresses && training.provider.addresses.length > 0) {
+      for (const address of training.provider.addresses) {
+        if (address.targetContactPoints && address.targetContactPoints.length > 0) {
+          const mainContactPoint = address.targetContactPoints[0];
+          contactName = mainContactPoint.name;
+          contactTitle = mainContactPoint.contactType;
+          phoneNumber = mainContactPoint.telephone?.[0];
+          break; // Assuming we only need the first contact point found
+        }
+      }
+    }
+
     const courseInstance = {
       "@type": "CourseInstance",
       "courseMode": training.online ? "online" : "onsite",
       "instructor": {
         "@type": "Person",
-        "name": training.provider.contactName,
-        "jobTitle": training.provider.contactTitle,
-        "telephone": training.provider.phoneNumber,
+        "name": contactName,
+        "jobTitle": contactTitle,
+        "telephone": phoneNumber,
       },
       "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : undefined,
     };

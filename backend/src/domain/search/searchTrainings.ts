@@ -1,4 +1,4 @@
-import NodeCache from "node-cache";
+import NodeCache = require("node-cache");
 import * as Sentry from "@sentry/node";
 import { SearchTrainings,  } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
@@ -115,8 +115,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
 
-    const ownedByCtid = await credentialEngineUtils.getCtidFromURL(certificate["ceterms:ownedBy"]?.[0] ?? "");
-    const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+    const provider = await credentialEngineUtils.getProviderData(certificate);
 
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -130,8 +129,8 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       online: certificate["ceterms:availableOnlineAt"] != null,
-      providerId: ownedByCtid,
-      providerName: ownedByRecord["ceterms:name"]?.["en-US"],
+      providerId: provider.id,
+      providerName: provider.name,
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
       highlight: highlight,
