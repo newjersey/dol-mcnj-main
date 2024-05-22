@@ -60,11 +60,6 @@ jobs:
           fingerprints:
             - "$SSH_KEY_FINGERPRINT"
       - run:
-          name: Set up SSH
-          command: |
-            mkdir -p ~/.ssh
-            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
-      - run:
           name: SSH into EC2 and Deploy
           command: |
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_IP \
