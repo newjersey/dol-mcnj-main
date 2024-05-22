@@ -589,72 +589,83 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <div className="container-fluid mbm">
                   <div className="row">
                     <Grouping title={t("TrainingPage.costGroupHeader")}>
-                      {training.totalCost && training.totalCost !== 0 ? (
                       <>
                         <p>
                           <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                           <span className="text-l pull-right weight-500">
-                            {formatMoney(training.totalCost)}
-                          </span>
+                          {training.totalCost
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
+                        </span>
                         </p>
                         <div className="grey-line" />
                         <div className="mvd">
                           <div>
                             <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                            <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                            <span className="pull-right">
+                            {training.tuitionCost
+                              ? formatMoney(training.tuitionCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.feesCostLabel")}</span>
-                            <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                            <span className="pull-right">
+                            {training.feesCost
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.materialsCostLabel")}</span>
                             <span className="pull-right">
-                              {formatMoney(training.booksMaterialsCost)}
-                            </span>
+                            {training.booksMaterialsCost
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.suppliesCostLabel")}</span>
                             <span className="pull-right">
-                              {formatMoney(training.suppliesToolsCost)}
-                            </span>
+                            {training.suppliesToolsCost
+                              ? formatMoney(training.suppliesToolsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.otherCostLabel")}</span>
-                            <span className="pull-right">{formatMoney(training.otherCost)}</span>
+                            <span className="pull-right">
+                            {training.otherCost
+                              ? formatMoney(training.otherCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                         </div>
-                      <div id="contact-provider-info">
-                        {training?.provider?.url ? (
-                          <div className="provider-btn-container">
-                            <Button
-                              copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
-                              type="link"
-                              url={
-                                training.provider.url.startsWith("http")
-                                  ? training.provider.url
-                                  : `https://${training.provider.url}`
-                              }
-                            />
-                            <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
-                          </div>
-                        ) : (
-                          <div className="provider-no-url">
-                            <div className="icon-container">
-                              <UserSound />
+                        <div id="contact-provider-info">
+                          {training?.provider?.url ? (
+                            <div className="provider-btn-container">
+                              <Button
+                                copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                                type="link"
+                                url={
+                                  training.provider.url.startsWith("http")
+                                    ? training.provider.url
+                                    : `https://${training.provider.url}`
+                                }
+                              />
+                              <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
                             </div>
-                            {t("TrainingPage.providerWebsiteMissingLabel")}
-                          </div>
-                        )}
-                      </div>
-                    </>
-                    ) : (
-                      <>
-                        <p>{t("Global.noDataAvailableText")}</p>
+                          ) : (
+                            <div className="provider-no-url">
+                              <div className="icon-container">
+                                <UserSound />
+                              </div>
+                              {t("TrainingPage.providerWebsiteMissingLabel")}
+                            </div>
+                          )}
+                        </div>
                       </>
-                      )}
                     </Grouping>
-
                     <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
                       {training.provider && training.provider.id ? (

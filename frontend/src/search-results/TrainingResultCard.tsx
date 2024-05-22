@@ -107,7 +107,11 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           </h2>
         </div>
         <div className="col-xs-4 align-right">
-          <h3 className="text-m weight-500">{formatMoney(props.trainingResult.totalCost)}</h3>
+          <h3 className="text-m weight-500">
+            {props.trainingResult.totalCost !== null && props.trainingResult.totalCost !== undefined
+              ? formatMoney(props.trainingResult.totalCost)
+              : t("Global.noDataAvailableText")}
+          </h3>
         </div>
       </div>
       <div className="row">
