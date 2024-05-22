@@ -467,7 +467,6 @@ export interface SeoProps {
 
 export interface HomepageProps {
   homePage: {
-    pageDescription?: string;
     bannerButtonCopy: string;
     bannerMessage?: string;
     bannerImage?: ImageProps;

@@ -24,7 +24,7 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
     title: data
       ? `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`
       : `Training Provider | ${process.env.REACT_APP_SITE_NAME}`,
-    description:
+    pageDescription:
       data?.page?.pageDescription ||
       "As a training program provider, you may have questions about data collection requirements, Eligible Training Provider List (ETPL) listing, and how the Department of Labor deals with Quality Assurance. You can find answers to your questions here.",
     image: data?.page?.ogImage?.url || pageImage,
