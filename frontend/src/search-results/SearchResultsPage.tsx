@@ -26,6 +26,8 @@ import { SortByAndLimitSelects } from "./SortByAndLimitSelects";
 import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 
+import { ClassFormatProps } from "../filtering/filterLists";
+
 interface Props extends RouteComponentProps {
   client: Client;
   location?: WindowLocation<unknown> | undefined;
@@ -45,7 +47,10 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
-  const [miles, setMiles] = useState<number | undefined>();
+  const [classFormat, setClassFormat] = useState<ClassFormatProps[]>([]);
+  const [inDemand, setInDemand] = useState<boolean>(false);
+  const [maxCost, setMaxCost] = useState<string | undefined>();
+  const [miles, setMiles] = useState<string | undefined>();
   const [zip, setZip] = useState<string | undefined>();
 
   const comparisonState = useContext(ComparisonContext).state;
@@ -70,31 +75,42 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location?.search);
-    const limit = urlParams.get("limit");
-    const page = urlParams.get("p");
-    
-    const miles = urlParams.get("miles") || undefined;
-    const zip = urlParams.get("zip") || undefined;
 
     setIsLoading(true);
 
-    if (limit) {
-      setItemsPerPage(Number(limit));
-    }
-
-    if (page) {
-      setPageNumber(Number(page));
-    } else {
-      setPageNumber(1);
-    }
-
-    if (miles) {
-      setMiles(Number(miles));
-    }
-
-    if (zip) {
-      setZip(zip);
-    }
+    urlParams.forEach((value, key) => {
+      switch (key) {
+        case "classFormat":
+          if (classFormat.includes(value as ClassFormatProps)) {
+            break;
+          }
+          setClassFormat((prev) => [...prev, value as ClassFormatProps]);
+          break;
+        case "inDemand":
+          setInDemand(Boolean(value));
+          break;
+        case "limit":
+          setItemsPerPage(Number(value));
+          break;
+        case "maxCost":
+          setMaxCost(value);
+          break;
+        case "miles":
+          setMiles(value);
+          break;
+        case "p":
+          setPageNumber(Number(value));
+          break;
+        case "sort":
+          setSortBy(value as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
+          break;
+        case "zip":
+          setZip(value);
+          break;
+        default:
+          break;
+      }
+    })
 
     if (pageNumber) {
       const queryToSearch = searchQuery || "";
@@ -176,6 +192,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
             {!isLoading && (
               <FilterDrawer
                 searchQuery={searchQuery}
+                classFormat={classFormat}
+                inDemand={inDemand}
+                maxCost={maxCost}
                 miles={miles}
                 zip={zip}
               />

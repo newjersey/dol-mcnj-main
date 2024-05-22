@@ -32,8 +32,8 @@ interface Props {
   county?: CountyProps | "";
   inDemand?: boolean;
   languages?: (LanguageProps)[];
-  maxCost?: string;
-  miles?: number | undefined;
+  maxCost?: string | undefined;
+  miles?: string | undefined;
   services?: (ServiceProps)[];
   zip?: string;
   cipCode?: string;
@@ -136,6 +136,7 @@ export const FilterDrawer = ({
                     options={COUNTIES}
                   />
                   <FilterFormChecks
+                    defaultValues={classFormat}
                     inputLabel="Class Format"
                     inputName="classFormat"
                     options={classFormatList}
