@@ -34,6 +34,7 @@ export const FilterFormMulti = ({
               onChange={(_, data) => onChange(data)}
               options={options}
               getOptionLabel={(option) => option.label}
+              getOptionSelected={(option, value) => option.label === value.label }
               renderInput={(params) => (
                 <TextField
                   {...params}
