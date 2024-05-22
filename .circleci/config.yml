@@ -80,9 +80,6 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - build-and-test:
-          filters:
-            branches:
-              ignore: CircleCI/EC2_Deployment_Test            
+      - build-and-test:        
       - deploy_dev:
             
