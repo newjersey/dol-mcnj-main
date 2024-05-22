@@ -161,11 +161,13 @@ export const FilterDrawer = ({
                     </div>
                   </div>
                   <FilterFormMulti
+                    defaultValues={completeIn}
                     inputLabel="Time to Complete"
                     inputName="completeIn"
                     options={completeInList}
                   />
                   <FilterFormMulti
+                    defaultValues={languages}
                     inputLabel="Languages"
                     inputName="languages"
                     options={languageList}

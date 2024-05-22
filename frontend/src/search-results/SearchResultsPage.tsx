@@ -28,7 +28,8 @@ import { TrainingResultCard } from "./TrainingResultCard";
 
 import {
   ClassFormatProps,
-  CompleteInProps
+  CompleteInProps,
+  LanguageProps
 } from "../filtering/filterLists";
 import { CountyProps } from "../filtering/newJerseyCounties";
 
@@ -55,6 +56,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [completeIn, setCompleteIn] = useState<CompleteInProps[]>([]);
   const [county, setCounty] = useState<CountyProps>();
   const [inDemand, setInDemand] = useState<boolean>(false);
+  const [languages, setLanguages] = useState<LanguageProps[]>([]);
   const [maxCost, setMaxCost] = useState<string | undefined>();
   const [miles, setMiles] = useState<string | undefined>();
   const [zip, setZip] = useState<string | undefined>();
@@ -103,6 +105,12 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           break;
         case "inDemand":
           setInDemand(Boolean(value));
+          break;
+        case "languages":
+          if (languages?.includes(value as LanguageProps)) {
+            break;
+          }
+          setLanguages((prev) => [...prev, value as LanguageProps]);
           break;
         case "limit":
           setItemsPerPage(Number(value));
@@ -208,8 +216,10 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
               <FilterDrawer
                 searchQuery={searchQuery}
                 classFormat={classFormat}
+                completeIn={completeIn}
                 county={county}
                 inDemand={inDemand}
+                languages={languages}
                 maxCost={maxCost}
                 miles={miles}
                 zip={zip}

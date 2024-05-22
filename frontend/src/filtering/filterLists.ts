@@ -76,24 +76,24 @@ export type LanguageProps = "ar" | "zh" | "fr" | "cre" | "de" | "el" | "he" | "h
 
 export const serviceList = [
   {
-    id: "WHEELCHAIR",
+    id: "wheelchair",
     label: "Wheelchair Accessible"
   },
   {
-    id: "CHILDCARE",
+    id: "childcare",
     label: "Childcare Assistance"
   },
   {
-    id: "EVENING",
+    id: "evening",
     label: "Offers Evening Hours"
   },
   {
-    id: "PLACEMENT",
+    id: "placement",
     label: "Job Placement Assistance"
   }
 ]
 
-export type ServiceProps = "WHEELCHAIR" | "CHILDCARE" | "EVENING" | "PLACEMENT";
+export type ServiceProps = "wheelchair" | "childcare" | "evening" | "placement";
 
 export const completeInList = [
   {
