@@ -33,6 +33,7 @@ import { Tooltip } from "react-tooltip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
+import {Helmet} from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -242,17 +243,8 @@ export const TrainingPage = (props: Props): ReactElement => {
     url: props.location?.pathname || "/training",
   };
 
-  const structuredData = {
-    "@context": "http://schema.org",
-    "@type": "Course",
-    "name": training?.name,
-    "description": training?.description,
-    "provider": {
-      "@type": "Organization",
-      "name": training?.provider?.name,
-      "sameAs": training?.provider?.url,
-    },
-    "audience": [
+  const generateJsonLd = (training: Training) => {
+    const audience = [
       {
         "@type": "Audience",
         "audienceType": "Students",
@@ -261,10 +253,10 @@ export const TrainingPage = (props: Props): ReactElement => {
           "name": "New Jersey",
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 40.0583,  // New Jersey's approximate latitude
-            "longitude": -74.4057 // New Jersey's approximate longitude
-          }
-        }
+            "latitude": 40.0583, // New Jersey's approximate latitude
+            "longitude": -74.4057, // New Jersey's approximate longitude
+          },
+        },
       },
       {
         "@type": "Audience",
@@ -274,17 +266,30 @@ export const TrainingPage = (props: Props): ReactElement => {
           "name": "New Jersey",
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 40.0583,  // New Jersey's approximate latitude
-            "longitude": -74.4057 // New Jersey's approximate longitude
-          }
-        }
-      }
-    ],
-    "identifier": {
-      "@type": "PropertyValue",
-      "name": "Program ID",
-      "value": training?.id,
-    },
+            "latitude": 40.0583, // New Jersey's approximate latitude
+            "longitude": -74.4057, // New Jersey's approximate longitude
+          },
+        },
+      },
+    ];
+
+    return {
+      "@context": "http://schema.org",
+      "@type": "Course",
+      "name": training.name,
+      "description": training.description,
+      "provider": {
+        "@type": "Organization",
+        "name": training.provider.name,
+        "sameAs": training.provider.url,
+      },
+      "audience": audience,
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Program ID",
+        "value": training.id,
+      },
+    };
   };
 
   if (!training) {
@@ -321,6 +326,9 @@ export const TrainingPage = (props: Props): ReactElement => {
   return (
       <div ref={componentRef}>
         <Layout client={props.client} seo={seoObject}>
+          <Helmet>
+            <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
+          </Helmet>
           <div className="container">
             <div className="detail-page">
               <div className="page-banner">
@@ -654,9 +662,6 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
           </div>
         </Layout>
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
       </div>
   );
 };
