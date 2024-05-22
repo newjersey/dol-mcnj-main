@@ -273,6 +273,28 @@ export const TrainingPage = (props: Props): ReactElement => {
       },
     ];
 
+    const courseInstance = {
+      "@type": "CourseInstance",
+      "courseMode": training.online ? "Online" : "Offline",
+      "instructor": {
+        "@type": "Person",
+        "name": training.provider.contactName,
+        "jobTitle": training.provider.contactTitle,
+        "telephone": training.provider.phoneNumber,
+      },
+    };
+
+    const offer = {
+      "@type": "Offer",
+      "url": training.provider.url,
+      "priceCurrency": "USD",
+      "price": training.totalCost,
+      "eligibleRegion": {
+        "@type": "Place",
+        "name": "New Jersey",
+      },
+    };
+
     return {
       "@context": "http://schema.org",
       "@type": "Course",
@@ -289,6 +311,8 @@ export const TrainingPage = (props: Props): ReactElement => {
         "name": "Program ID",
         "value": training.id,
       },
+      "hasCourseInstance": courseInstance,
+      "offers": offer,
     };
   };
 
