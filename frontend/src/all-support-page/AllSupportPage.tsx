@@ -41,7 +41,7 @@ export const AllSupportPage = (props: Props): ReactElement => {
     title: data
       ? `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
       : `Support and Assistance Resources | ${process.env.REACT_APP_SITE_NAME}`,
-    description:
+    pageDescription:
       data?.page.pageDescription || "Browse support and assistance resources by category.",
     image: data?.page.ogImage?.url || pageImage,
     keywords: data?.page.keywords || [
