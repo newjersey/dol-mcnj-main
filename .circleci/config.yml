@@ -63,7 +63,7 @@ jobs:
           name: Add SSH host to known
           command: |
             mkdir -p ~/.ssh
-            ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
       - run:
           name: SSH into EC2 and Deploy
           command: |
