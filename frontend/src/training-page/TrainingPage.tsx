@@ -275,13 +275,13 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     const courseInstance = {
       "@type": "CourseInstance",
-      "courseMode": training.online ? "Online" : "Offline",
-      "instructor": {
+      "courseMode": training.online ? "online" : "offline",      "instructor": {
         "@type": "Person",
         "name": training.provider.contactName,
         "jobTitle": training.provider.contactTitle,
         "telephone": training.provider.phoneNumber,
       },
+      "courseWorkload": training.totalClockHours ? `${training.totalClockHours} hours` : undefined,
     };
 
     const offer = {
