@@ -51,7 +51,6 @@ jobs:
           root: ~/project
           paths:
             - .
-
   deploy_dev:
     circleci_ip_ranges: true
     docker:
@@ -64,8 +63,7 @@ jobs:
           name: Set up SSH
           command: |
             mkdir -p ~/.ssh
-            echo "EC2_IP: $EC2_IP"
-            ssh-keyscan -v -H $EC2_IP >> ~/.ssh/known_hosts
+            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
       - run:
           name: SSH into EC2 and Deploy
           command: |
@@ -76,12 +74,10 @@ jobs:
               ./scripts/db-migrate.sh && \
               rm -rf backend/dist/ && \
               ./scripts/build.sh"
-
 workflows:
   build-test-deploy:
     jobs:
-      - build-and-test:          
+      - build-and-test
       - deploy_dev:
           requires:
             - build-and-test
-            
