@@ -103,7 +103,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
     title: data
       ? `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
       : `Career Pathways | ${process.env.REACT_APP_SITE_NAME}`,
-    description:
+    pageDescription:
       data?.page.pageDescription ||
       "Explore popular industries and careers in the state of New Jersey.",
     image: data?.page.ogImage?.url || pageImage,

@@ -18,6 +18,7 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
 import { TrainingResult } from "../domain/Training";
 import { TrainingResultCard } from "../search-results/TrainingResultCard";
+import {Helmet} from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -145,6 +146,30 @@ export const OccupationPage = (props: Props): ReactElement => {
       : `Occupation | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
+  const generateJsonLd = (detail: OccupationDetail) => {
+    return {
+      "@context": "https://schema.org/",
+      "@type": "Occupation",
+      "name": detail.title,
+      "description": detail.description,
+      // "qualifications": "Qualifications information",
+      // "skills": ["Skills information"],
+      "responsibilities": detail.tasks,
+      "educationRequirements": detail.education,
+      // "experienceRequirements": "Experience requirements information",
+      "occupationalCategory": detail.soc,
+      "estimatedSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": {
+          "@type": "QuantitativeValue",
+          "value": detail.medianSalary,
+          "unitText": "YEAR"
+        }
+      }
+    };
+  };
+
   if (occupationDetail) {
     return (
       <Layout
@@ -157,6 +182,12 @@ export const OccupationPage = (props: Props): ReactElement => {
           url: props.location?.pathname || "/occupation",
         }}
       >
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(generateJsonLd(occupationDetail))}
+          </script>
+        </Helmet>
+
         <div className="container">
           <div className="detail-page">
             <div className="page-banner">
