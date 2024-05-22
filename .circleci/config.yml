@@ -61,7 +61,7 @@ jobs:
           command: sudo apt-get install -y openssh-client
       - add_ssh_keys:
           fingerprints:
-            - "$SSH_KEY_FINGERPRINT"
+            - "SHA256:UkBaGthILXKNTD7u0bbWle4fJwGE3thGwtiC3huxLAw"
       - run:
           name: SSH into EC2 and Deploy
           command: |
