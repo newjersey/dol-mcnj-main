@@ -61,7 +61,9 @@ jobs:
             - "$SSH_KEY_FINGERPRINT"
       - run:
           name: Add SSH host to known
-          command: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+          command: |
+            mkdir -p ~/.ssh
+            ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
       - run:
           name: SSH into EC2 and Deploy
           command: |
