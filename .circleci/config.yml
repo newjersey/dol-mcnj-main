@@ -56,14 +56,12 @@ jobs:
     docker:
       - image: circleci/python:3.8
     steps:
+      - run:
+          name: Install SSH
+          command: sudo apt-get install -y openssh-client
       - add_ssh_keys:
           fingerprints:
             - "$SSH_KEY_FINGERPRINT"
-      - run:
-          name: Add SSH host to known
-          command: |
-            mkdir -p ~/.ssh
-            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
       - run:
           name: SSH into EC2 and Deploy
           command: |
