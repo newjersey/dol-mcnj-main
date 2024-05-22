@@ -1,13 +1,13 @@
 import {
   CetermsAccommodationType,
   CetermsAggregateData,
-  CetermsConditionProfile, CetermsPlace,
+  CetermsConditionProfile, CetermsContactPoint, CetermsPlace,
   CetermsServiceType,
   CTDLResource,
   CtermsSupportServices
 } from "../domain/credentialengine/CredentialEngine";
 import { Occupation } from "../domain/occupations/Occupation";
-import { Address } from "../domain/training/Training";
+import {Address} from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 
@@ -68,24 +68,63 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   }
 };
 
-const getAddress = async (resource: CTDLResource): Promise<Address> => {
+const getProviderData = async (certificate: CTDLResource) => {
   try {
-    const address = resource["ceterms:address"]?.[0];
-    const zipCode = address?.["ceterms:postalCode"] ?? "";
+    const ownedBy = certificate["ceterms:ownedBy"] || [];
+    const ownedByCtid = await getCtidFromURL(ownedBy[0]);
+    const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
 
     return {
-      street_address: address?.["ceterms:streetAddress"]?.["en-US"] ?? "",
-      city: address?.["ceterms:addressLocality"]?.["en-US"] ?? "",
-      state: address?.["ceterms:addressRegion"]?.["en-US"] ?? "",
-      zipCode,
-      county: convertZipCodeToCounty(zipCode) ?? ""
+      id: ownedByRecord["ceterms:ctid"],
+      name: ownedByRecord["ceterms:name"]["en-US"],
+      url: ownedByRecord["ceterms:subjectWebpage"],
+      email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
+      address: await getAddress(ownedByRecord),
     };
+  } catch (error) {
+    logError(`Error getting provider data`, error as Error);
+    throw error;
+  }
+};
+
+const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
+  try {
+    const addresses = resource["ceterms:address"] ?? [];
+    const result: Address[] = [];
+
+    for (const address of addresses) {
+      const zipCode = address["ceterms:postalCode"] ?? "";
+      const baseAddress = {
+        street_address: address["ceterms:streetAddress"]?.["en-US"] ?? "",
+        city: address["ceterms:addressLocality"]?.["en-US"] ?? "",
+        state: address["ceterms:addressRegion"]?.["en-US"] ?? "",
+        zipCode,
+        county: convertZipCodeToCounty(zipCode) ?? ""
+      };
+
+      const contactPoints = address["ceterms:targetContactPoint"] ?? [];
+      if (contactPoints.length > 0) {
+        result.push({
+          ...baseAddress,
+          targetContactPoints: contactPoints.map((contactPoint: CetermsContactPoint) => ({
+            name: contactPoint["ceterms:name"]?.["en-US"] ?? "",
+            telephone: contactPoint["ceterms:telephone"] ?? []
+          }))
+        });
+      } else {
+        result.push({
+          ...baseAddress,
+          targetContactPoints: []
+        });
+      }
+    }
+
+    return result;
   } catch (error) {
     logError(`Error getting ceterms:address`, error as Error);
     throw error;
   }
 };
-
 const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Address[]> => {
   try {
     const availableAt = certificate["ceterms:availableAt"] ?? [];
@@ -354,6 +393,7 @@ export const credentialEngineUtils = {
   getCtidFromURL,
   fetchCertificateData,
   fetchValidCEData,
+  getProviderData,
   getAddress,
   getAvailableAtAddresses,
   extractCipCode,

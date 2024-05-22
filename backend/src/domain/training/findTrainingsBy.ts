@@ -1,9 +1,7 @@
-// Import necessary modules and functions
 import { DataClient } from "../DataClient";
 import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
 import { Selector } from "./Selector";
-import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import {
@@ -25,28 +23,22 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
     return await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
-        const ownedBy = certificate["ceterms:ownedBy"] || [];
-        const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedBy[0]);
-        const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+        const provider = await credentialEngineUtils.getProviderData(certificate);
         const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
+
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
+
         const certifications = await credentialEngineUtils.constructCertificationsString(certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[]);
 
         const training = {
           id: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipDefinition: cipDefinition ? cipDefinition[0] : null,
-          provider: {
-            id: ownedByRecord["ceterms:ctid"],
-            name: ownedByRecord["ceterms:name"]["en-US"],
-            url: ownedByRecord["ceterms:subjectWebpage"],
-            email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
-            address: await credentialEngineUtils.getAddress(ownedByRecord)
-          },
+          provider,
           availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
-          certifications: certifications,
+          certifications,
           prerequisites: await credentialEngineUtils.extractPrerequisites(certificate),
           totalClockHours: null,
           calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
