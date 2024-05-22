@@ -25,7 +25,7 @@ interface Props {
   county?: CountyProps | "";
   inDemand?: boolean;
   languages?: {id: string, label: string}[];
-  maxCost?: number;
+  maxCost?: string;
   miles?: string;
   services?: {id: string, label: string}[];
   zip?: string;
@@ -41,8 +41,8 @@ export const FilterDrawer = ({
   county = "",
   inDemand = false,
   languages = [],
-  maxCost,
-  miles = "10",
+  maxCost = "",
+  miles = "",
   services = [],
   zip = "",
   cipCode = "",
@@ -119,7 +119,7 @@ export const FilterDrawer = ({
                   <FilterFormInput
                     inputLabel="Max Cost"
                     inputName="maxCost"
-                    inputType="number"
+                    inputType="text"
                     hasIcon={true}
                     icon={<CurrencyDollar />}
                   />

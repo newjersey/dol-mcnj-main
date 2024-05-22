@@ -16,7 +16,6 @@ export const FilterFormSwitch = ({
   const [checked, setChecked] = useState(inputChecked);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("DLfjaijfdiojasi")
     setChecked(event.target.checked);
   };
 
