@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer } from "@material-ui/core";
 
-import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
 import { CountyProps } from "./newJerseyCounties";
 
@@ -120,6 +120,8 @@ export const FilterDrawer = ({
                     inputLabel="Max Cost"
                     inputName="maxCost"
                     inputType="number"
+                    hasIcon={true}
+                    icon={<CurrencyDollar />}
                   />
                   <FilterFormAutocomplete
                     inputLabel="Filter by County"
@@ -149,11 +151,6 @@ export const FilterDrawer = ({
                     inputLabel="Time to Complete"
                     inputName="completeIn"
                     options={completeInList}
-                  />
-                  <FilterFormMulti
-                    inputLabel="Languages"
-                    inputName="languages"
-                    options={languageList}
                   />
                   <FilterFormMulti
                     inputLabel="Languages"

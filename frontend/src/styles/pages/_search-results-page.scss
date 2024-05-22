@@ -148,7 +148,7 @@
     }
 
     .label-container {
-      padding-bottom: $size-8;
+      padding: $size-12 0 $size-8 0;
     }
 
     .input-container {
@@ -157,30 +157,30 @@
       position: relative;
     }
 
-    .icon-container {
-      padding: 4px 4px 4px 8px;
-      position: absolute;
-      box-sizing:border-box;
-      top:50%;
-      left:2px;
-      transform: translateY(-50%);
+    .filter-input {
+      .MuiOutlinedInput-root {
+        background-color: $white;
+        min-height: 4.25rem;
+        width: 100%;
+      }
 
       svg {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.25rem;
+        height: 1.25rem;
       }
     }
+  }
 
-    .w-icon {
-      padding-left: 2.5rem;
+  .sub-label-container {
+    label {
+      font-weight: 400;
     }
-
   }
 
   .zip-miles-group {
     display: flex;
 
-    .input-container {
+    .filter-input {
       max-width: 100px;
     }
   }
@@ -254,26 +254,6 @@
 
   .slider.round:before {
     border-radius: 50%;
-  } 
-
-  .filter-dropdown {
-    margin-bottom: $size-16;
-
-    .MuiInputBase-root {
-      background-color: $white;
-      border: 1px solid $gray-cool-50;
-      height: 50px;
-      max-width: 264px;
-
-      .MuiOutlinedInput-input {
-        height: 50px;
-      }
-    }
-
-    .MuiOutlinedInput-root {
-      border: 0;
-      padding: 0;
-    }
   }
 
   #drawer-btn-container {

@@ -157,12 +157,14 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           <div className="results-count-container">
             <Breadcrumbs />
             <div className="results-count-selects-container">
-              {!isLoading && (
-                <ResultsCount
-                  searchQuery={searchQuery}
-                  metaCount={metaCount}
-                />
-              )}
+              <div>
+                {!isLoading && (
+                  <ResultsCount
+                    searchQuery={searchQuery}
+                    metaCount={metaCount}
+                  />
+                )}
+              </div>
               <SortByAndLimitSelects
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}

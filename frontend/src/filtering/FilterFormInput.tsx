@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { InputAdornment, TextField } from '@material-ui/core';
 
 interface Props {
   inputName: string;
@@ -22,6 +23,12 @@ export const FilterFormInput = ({
 }: Props) => {
   const { control } = useFormContext();
 
+  const inputIcon = () => hasIcon ? (
+    <InputAdornment position="start">
+      {icon}
+    </InputAdornment>
+  ) : null;
+
   return (
     <div className="field-group">
       {inputLabel && (
@@ -39,21 +46,20 @@ export const FilterFormInput = ({
         </div>
       )}
       <div className="input-container">
-        {hasIcon && icon && (
-          <div className="icon-container">
-            {icon}
-          </div>
-        )}
         <Controller
           control={control}
           name={inputName}
           render={({ field: { onChange, ...props } }) => (
-            <input
+            <TextField
               {...props}
-              className={hasIcon ? "w-icon" : ""}
-              type={inputType}
               onChange={onChange}
+              className="filter-input"
               placeholder={placeholder}
+              type={inputType}
+              variant="outlined"
+              InputProps={{
+                startAdornment: inputIcon(),
+              }}
             />
           )}
         />

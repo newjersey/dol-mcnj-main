@@ -31,7 +31,7 @@ export const FilterFormAutocomplete = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              className="filter-dropdown"
+              className="filter-input"
               variant="outlined"
               {...register(inputName)}
             />

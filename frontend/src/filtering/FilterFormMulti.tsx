@@ -37,7 +37,7 @@ export const FilterFormMulti = ({
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  className="filter-dropdown"
+                  className="filter-input"
                   variant="outlined"
                 />
               )}
