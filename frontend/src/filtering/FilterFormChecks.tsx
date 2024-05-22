@@ -16,7 +16,8 @@ export const FilterFormChecks = ({
   options
 }: Props) => {
   const { setValue } = useFormContext();
-  const [selected, setSelected] = useState(defaultValues);
+  const lowerCaseValues = defaultValues.map(value => value.toLowerCase());
+  const [selected, setSelected] = useState(lowerCaseValues);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.id;

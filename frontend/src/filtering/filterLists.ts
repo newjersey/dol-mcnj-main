@@ -122,9 +122,9 @@ export const classFormatList = [
     label: "Online"
   },
   {
-    id: "inPerson",
+    id: "inperson",
     label: "In Person"
   }
 ]
 
-export type ClassFormatProps = "online" | "inPerson";
+export type ClassFormatProps = "online" | "inperson";

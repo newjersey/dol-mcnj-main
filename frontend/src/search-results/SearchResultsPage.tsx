@@ -26,7 +26,11 @@ import { SortByAndLimitSelects } from "./SortByAndLimitSelects";
 import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 
-import { ClassFormatProps } from "../filtering/filterLists";
+import {
+  ClassFormatProps,
+  CompleteInProps
+} from "../filtering/filterLists";
+import { CountyProps } from "../filtering/newJerseyCounties";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -48,6 +52,8 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   const [classFormat, setClassFormat] = useState<ClassFormatProps[]>([]);
+  const [completeIn, setCompleteIn] = useState<CompleteInProps[]>([]);
+  const [county, setCounty] = useState<CountyProps>();
   const [inDemand, setInDemand] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string | undefined>();
   const [miles, setMiles] = useState<string | undefined>();
@@ -85,6 +91,15 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
             break;
           }
           setClassFormat((prev) => [...prev, value as ClassFormatProps]);
+          break;
+        case "completeIn":
+          if (completeIn?.includes(value as CompleteInProps)) {
+            break;
+          }
+          setCompleteIn((prev) => [...prev, value as CompleteInProps]);
+          break;
+        case "county":
+          setCounty(value as CountyProps);
           break;
         case "inDemand":
           setInDemand(Boolean(value));
@@ -193,6 +208,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
               <FilterDrawer
                 searchQuery={searchQuery}
                 classFormat={classFormat}
+                county={county}
                 inDemand={inDemand}
                 maxCost={maxCost}
                 miles={miles}

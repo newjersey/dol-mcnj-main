@@ -8,12 +8,12 @@ import { useTranslation } from "react-i18next";
 
 interface ClassFormat {
   online: boolean;
-  inPerson: boolean;
+  inperson: boolean;
 }
 
 const INITIAL_STATE = {
   online: false,
-  inPerson: false,
+  inperson: false,
 };
 
 export const ClassFormatFilter = (): ReactElement => {
@@ -37,17 +37,17 @@ export const ClassFormatFilter = (): ReactElement => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const inPerson = urlParams.get("inPerson");
+    const inperson = urlParams.get("inperson");
     const online = urlParams.get("online");
 
-    if (inPerson === "true") {
-      classFormat.inPerson = true;
+    if (inperson === "true") {
+      classFormat.inperson = true;
     }
     if (online === "true") {
       classFormat.online = true;
     }
 
-    if (inPerson === "true" || online === "true") {
+    if (inperson === "true" || online === "true") {
       const classFormatArray = Object.entries(classFormat).filter(([, value]) => value);
 
       classFormatArray.forEach(([key]) => {
@@ -68,11 +68,11 @@ export const ClassFormatFilter = (): ReactElement => {
 
     const urlParams = new URLSearchParams(window.location.search);
 
-    if (newClassFormat.inPerson) {
-      urlParams.set("inPerson", "true");
+    if (newClassFormat.inperson) {
+      urlParams.set("inperson", "true");
       window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
     } else {
-      urlParams.delete("inPerson");
+      urlParams.delete("inperson");
       window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
     }
 
@@ -91,7 +91,7 @@ export const ClassFormatFilter = (): ReactElement => {
         value: newClassFormat,
         func: (trainingResults): TrainingResult[] =>
           trainingResults.filter((it) => {
-            return (newClassFormat.inPerson && !it.online) || (newClassFormat.online && it.online);
+            return (newClassFormat.inperson && !it.online) || (newClassFormat.online && it.online);
           }),
       },
     });
@@ -104,13 +104,13 @@ export const ClassFormatFilter = (): ReactElement => {
         <FormControlLabel
           control={
             <SpacedCheckbox
-              checked={classFormat.inPerson}
+              checked={classFormat.inperson}
               onChange={handleCheckboxChange}
-              name="inPerson"
+              name="inperson"
               color="primary"
             />
           }
-          label={t("SearchAndFilter.classFormatInPersonLabel")}
+          label={t("SearchAndFilter.classFormatinpersonLabel")}
         />
         <FormControlLabel
           control={

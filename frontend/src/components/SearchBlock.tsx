@@ -8,7 +8,7 @@ import { ContentfulRichText as RichText } from "./ContentfulRichText";
 import {CipDrawerContent} from "./CipDrawerContent";
 
 export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
-  const [inPerson, setInPerson] = useState<boolean>(false);
+  const [inperson, setInperson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
   const [online, setOnline] = useState<boolean>(false);
@@ -37,7 +37,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       select.value = "Miles";
     });
     // clear state
-    setInPerson(false);
+    setInperson(false);
     setMaxCost("");
     setMiles("");
     setOnline(false);
@@ -66,8 +66,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
   useEffect(() => {
     // Build the search parameters
     const params = [];
-    if (inPerson) {
-      params.push("inPerson=true");
+    if (inperson) {
+      params.push("inperson=true");
     }
     if (maxCost) {
       params.push(`maxCost=${maxCost}`);
@@ -92,7 +92,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
     } else {
       setSearchUrl(url);
     }
-  }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
+  }, [searchTerm, inperson, maxCost, miles, online, zipCode]);
   return (
     <div className="search-block">
       <div>
@@ -280,7 +280,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                       id="in-person"
                       type="checkbox"
                       onChange={() => {
-                        setInPerson(!inPerson);
+                        setInperson(!inperson);
                       }}
                     />
                     <label className="usa-checkbox__label" htmlFor="in-person">
