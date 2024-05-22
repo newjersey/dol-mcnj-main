@@ -78,8 +78,4 @@ workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-          branches:
-            ignore: CircleCI/EC2_Deployment_Test
-      - deploy_dev:
-          requires:
-            - build-and-test
+      - deploy_dev
