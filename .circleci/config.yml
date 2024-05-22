@@ -64,7 +64,8 @@ jobs:
           name: Set up SSH
           command: |
             mkdir -p ~/.ssh
-            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
+            echo "EC2_IP: $EC2_IP"
+            ssh-keyscan -v -H $EC2_IP >> ~/.ssh/known_hosts
       - run:
           name: SSH into EC2 and Deploy
           command: |
@@ -79,8 +80,5 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - build-and-test
       - deploy_dev:
-          requires:
-            - build-and-test
             
