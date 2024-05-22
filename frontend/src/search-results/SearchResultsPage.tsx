@@ -71,8 +71,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   useEffect(() => {
     const urlParams = new URLSearchParams(location?.search);
     const limit = urlParams.get("limit");
-    const miles = urlParams.get("miles") || undefined;
     const page = urlParams.get("p");
+    
+    const miles = urlParams.get("miles") || undefined;
     const zip = urlParams.get("zip") || undefined;
 
     setIsLoading(true);

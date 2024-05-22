@@ -93,7 +93,7 @@ export const serviceList = [
   }
 ]
 
-export type ServiceProps = "WHEELCHAIR" | "CHILDCARE" | "EVENING" | "PLACEMENT" | "";
+export type ServiceProps = "WHEELCHAIR" | "CHILDCARE" | "EVENING" | "PLACEMENT";
 
 export const completeInList = [
   {
@@ -113,3 +113,18 @@ export const completeInList = [
     label: "Years"
   }
 ]
+
+export type CompleteInProps = "days" | "weeks" | "months" | "years";
+
+export const classFormatList = [
+  {
+    id: "online",
+    label: "Online"
+  },
+  {
+    id: "inPerson",
+    label: "In Person"
+  }
+]
+
+export type ClassFormatProps = "online" | "inPerson";

@@ -177,6 +177,16 @@
     }
   }
 
+  .checkbox-container {
+    label {
+      font-weight: 400;
+    }
+
+    path {
+      background-color: $white;
+    }
+  }
+
   .zip-miles-group {
     display: flex;
 

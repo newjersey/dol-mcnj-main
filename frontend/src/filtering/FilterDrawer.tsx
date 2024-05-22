@@ -14,22 +14,27 @@ import { FilterFormAutocomplete } from "./FilterFormAutocomplete";
 import { COUNTIES } from "./newJerseyCounties";
 import { FilterFormMulti } from "./FilterFormMulti";
 import {
+  classFormatList,
+  ClassFormatProps,
   completeInList,
+  CompleteInProps,
   languageList,
-  serviceList
+  LanguageProps,
+  serviceList,
+  ServiceProps
 } from "./filterLists";
 import { FilterFormChecks } from "./FilterFormChecks";
 
 interface Props {
   searchQuery?: string;
-  classFormat?: 'inPerson' | 'online' | undefined;
-  completeIn?: ('days' | 'weeks' | 'months' | 'years')[];
+  classFormat?: ClassFormatProps[];
+  completeIn?: (CompleteInProps)[];
   county?: CountyProps | "";
   inDemand?: boolean;
-  languages?: {id: string, label: string}[];
+  languages?: (LanguageProps)[];
   maxCost?: string;
   miles?: number | undefined;
-  services?: {id: string, label: string}[];
+  services?: (ServiceProps)[];
   zip?: string;
   cipCode?: string;
   socCode?: string;
@@ -37,7 +42,7 @@ interface Props {
 
 export const FilterDrawer = ({
   searchQuery = "",
-  classFormat,
+  classFormat = [],
   completeIn = [],
   county = "",
   inDemand = false,
@@ -133,6 +138,7 @@ export const FilterDrawer = ({
                   <FilterFormChecks
                     inputLabel="Class Format"
                     inputName="classFormat"
+                    options={classFormatList}
                   />
                   <div className="field-group">
                     <div className="label-container">
