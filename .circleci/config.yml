@@ -59,18 +59,16 @@ jobs:
       - run:
           name: Install SSH
           command: sudo apt-get install -y openssh-client
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:UkBaGthILXKNTD7u0bbWle4fJwGE3thGwtiC3huxLAw"
       - run:
-          name: Testing file transfer 
-          command: mkdir -p test-folder/sub-folder
-      - run: 
-          name: Create a Test File
-          command: echo "This is a test file" > test-folder/sub-folder/test-file.txt
+          name: Create Directory for SSH Key
+          command: mkdir -p ~/.ssh
       - run:
-          name: Copy Test Folder to Remote Server
-          command: scp -r test-folder $EC2_USERNAME@$EC2_IP:/
+          name: Write PEM File from Environment Variable
+          command: echo "$DEV_KEY" > ~/.ssh/mykey.pem && chmod 400 ~/.ssh/mykey.pem
+      - run:
+          name: SSH into EC2
+          command: |
+            ssh -i ~/.ssh/mykey.pem $EC2_USERNAME@$EC2_IP
 workflows:
   build-test-deploy:
     jobs:
