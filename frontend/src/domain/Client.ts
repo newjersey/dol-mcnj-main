@@ -10,16 +10,32 @@ import {
   CareerPathwaysPageProps,
   JobCountProps,
 } from "../types/contentful";
+import {
+  ClassFormatProps,
+  CompleteInProps,
+  LanguageProps,
+  ServiceProps
+} from "../filtering/filterLists";
+import { CountyProps } from "../filtering/newJerseyCounties";
 
 export interface Client {
   getTrainingsByQuery: (
-      query: string,
-      observer: Observer<TrainingData>,
-      page?: number,
-      limit?: number | undefined,
-      sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-      zip?: string,
-      miles?: string,
+    query: string,
+    observer: Observer<TrainingData>,
+    page?: number,
+    limit?: number | undefined,
+    sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    classFormat?: ClassFormatProps[],
+    completeIn?: CompleteInProps[],
+    county?: CountyProps,
+    inDemand?: boolean,
+    languages?: LanguageProps[],
+    maxCost?: string,
+    miles?: string,
+    services?: ServiceProps[],
+    zip?: string,
+    cipCode?: string,
+    socCode?: string,
   ) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;

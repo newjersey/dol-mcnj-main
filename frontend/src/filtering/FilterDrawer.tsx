@@ -28,13 +28,13 @@ import { FilterFormChecks } from "./FilterFormChecks";
 interface Props {
   searchQuery?: string;
   classFormat?: ClassFormatProps[];
-  completeIn?: (CompleteInProps)[];
+  completeIn?: CompleteInProps[];
   county?: CountyProps | "";
   inDemand?: boolean;
-  languages?: (LanguageProps)[];
+  languages?: LanguageProps[];
   maxCost?: string | undefined;
   miles?: string | undefined;
-  services?: (ServiceProps)[];
+  services?: ServiceProps[];
   zip?: string;
   cipCode?: string;
   socCode?: string;

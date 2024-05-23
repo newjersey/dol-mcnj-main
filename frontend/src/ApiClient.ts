@@ -12,6 +12,13 @@ import {
   CareerPathwaysPageProps,
   JobCountProps,
 } from "./types/contentful";
+import {
+  ClassFormatProps,
+  CompleteInProps,
+  LanguageProps,
+  ServiceProps
+} from "./filtering/filterLists";
+import { CountyProps } from "./filtering/newJerseyCounties";
 
 export class ApiClient implements Client {
   getTrainingsByQuery(
@@ -20,8 +27,17 @@ export class ApiClient implements Client {
     page?: number,
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-    zip?: string,
+    classFormat?: ClassFormatProps[],
+    completeIn?: CompleteInProps[],
+    county?: CountyProps,
+    inDemand?: boolean,
+    languages?: LanguageProps[],
+    maxCost?: string,
     miles?: string,
+    services?: ServiceProps[],
+    zip?: string,
+    cipCode?: string,
+    socCode?: string,
   ): void {
     this.get(
       `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}${zip && `&zip=${zip}`}${miles && `&miles=${miles}`}`,
