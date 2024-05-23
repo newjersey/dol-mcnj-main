@@ -64,7 +64,7 @@ jobs:
             - "SHA256:UkBaGthILXKNTD7u0bbWle4fJwGE3thGwtiC3huxLAw"
       - run:
           name: Testing file transfer 
-          command: mkdir -p test-folder/subfolder
+          command: mkdir -p test-folder/sub-folder
       - run: 
           name: Create a Test File
           command: echo "This is a test file" > test-folder/sub-folder/test-file.txt
