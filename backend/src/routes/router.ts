@@ -68,8 +68,17 @@ export const routerFactory = ({
       page: page,
       limit: limit,
       sort: req.query.sort as string,
-      zip: req.query.zip as string,
+      classFormat: req.query.classFormat as string,
+      completeIn: req.query.completeIn as string[],
+      county: req.query.county as string,
+      inDemand: req.query.inDemand as string === "true",
+      languages: req.query.languages as string[],
+      maxCost: req.query.maxCost as string,
       miles: req.query.miles as string,
+      services: req.query.services as string[],
+      zip: req.query.zip as string,
+      cipCode: req.query.cipCode as string,
+      socCode: req.query.socCode as string,
     })
       .then((trainings: TrainingData) => {
         res.status(200).json(trainings);

@@ -25,8 +25,19 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     page?: number,
     limit?: number,
     sort?: string,
+    classFormat?: string,
+    completeIn?: string[],
+    county?: string,
+    inDemand?: boolean,
+    languages?: string[],
+    maxCost?: string,
+    miles?: string,
+    services?: string[],
     zip?: string,
-    miles?: string }): Promise<TrainingData> => {
+    cipCode?: string,
+    socCode?: string
+  }): Promise<TrainingData> => {
+    console.log(params)
     const { page, limit, sort, zip, miles, cacheKey } = prepareSearchParameters(params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
@@ -64,18 +75,52 @@ function prepareSearchParameters(params: {
   page?: number,
   limit?: number,
   sort?: string,
+  classFormat?: string,
+  completeIn?: string[],
+  county?: string,
+  inDemand?: boolean,
+  languages?: string[],
+  maxCost?: string,
+  miles?: string,
+  services?: string[],
   zip?: string,
-  miles?: string
+  cipCode?: string,
+  socCode?: string
  }) {
   const page = params.page || 1;
   const limit = params.limit || 10;
+  const classFormat = params.classFormat;
+  const completeIn = params.completeIn;
+  const county = params.county;
+  const inDemand = params.inDemand;
+  const languages = params.languages;
+  const maxCost = params.maxCost;
   const miles = params.miles;
+  const services = params.services;
   const zip = params.zip;
+  const cipCode = params.cipCode;
+  const socCode = params.socCode;
 
   const sort = determineSortOption(params.sort);
   const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${zip && miles ? `-${zip}-${miles}` : ""}`;
 
-  return { page, limit, sort, zip, miles, cacheKey };
+  return {
+    page,
+    limit,
+    sort,
+    classFormat,
+    completeIn,
+    county,
+    inDemand,
+    languages,
+    maxCost,
+    miles,
+    services,
+    zip,
+    cipCode,
+    socCode,
+    cacheKey
+  };
 }
 
 function determineSortOption(sortOption?: string) {

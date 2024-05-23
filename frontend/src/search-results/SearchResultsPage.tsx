@@ -171,12 +171,37 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           pageNumber,
           itemsPerPage,
           sortBy,
-          zip,
+          classFormat,
+          completeIn,
+          county,
+          inDemand,
+          languages,
+          maxCost,
           miles,
+          services,
+          zip,
+          cipCode,
+          socCode
         );
       }
     }
-  }, [location?.pathname, pageNumber, itemsPerPage, sortBy]);
+  }, [
+    location?.pathname,
+    pageNumber,
+    itemsPerPage,
+    sortBy,
+    classFormat,
+    completeIn,
+    county,
+    inDemand,
+    languages,
+    maxCost,
+    miles,
+    services,
+    zip,
+    cipCode,
+    socCode
+  ]);
 
   if (isError) {
     return <SomethingWentWrongPage client={client} />;

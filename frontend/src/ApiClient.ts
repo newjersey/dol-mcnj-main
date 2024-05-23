@@ -39,8 +39,25 @@ export class ApiClient implements Client {
     cipCode?: string,
     socCode?: string,
   ): void {
+    const queryString = `query=${query}&page=${page}&limit=${limit}&sort=${sort}`;
+    const classFormatString = classFormat?.length === 1 ? `&classFormat=${classFormat[0]}` : "";
+    const completeInString = (completeIn?.length ?? 0) > 0 ? completeIn?.map((ci) => `&completeIn=${ci}`).join("") : "";
+    const countyString = county ? `&county=${county}` : "";
+    const inDemandString = inDemand ? `&inDemand=${inDemand}` : "";
+    const languagesString = (languages?.length ?? 0) > 0 ? languages?.map((lang) => `&languages=${lang}`).join("") : "";
+    const maxCostString = maxCost ? `&maxCost=${maxCost}` : "";
+    const servicesString = (services?.length ?? 0) > 0 ? services?.map((service) => `&services=${service}`).join("") : "";
+    const milesString = miles ? `&miles=${miles}` : "";
+    const zipString = zip ? `&zip=${zip}` : "";
+    const cipCodeString = cipCode ? `&cipCode=${cipCode}` : "";
+    const socCodeString = socCode ? `&socCode=${socCode}` : "";
+
+    const finalString = `/api/trainings/search?${queryString}${classFormatString}${completeInString}${countyString}${inDemandString}${languagesString}${maxCostString}${servicesString}${milesString}${zipString}${cipCodeString}${socCodeString}`;
+
+    console.log({ finalString })
+
     this.get(
-      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}${zip && `&zip=${zip}`}${miles && `&miles=${miles}`}`,
+      finalString,
       observer,
     );
   }

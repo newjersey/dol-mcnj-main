@@ -14,8 +14,17 @@ export type SearchTrainings = (params: {
   page?: number,
   limit?: number,
   sort?: string,
+  classFormat?: string,
+  completeIn?: string[],
+  county?: string,
+  inDemand?: boolean,
+  languages?: string[],
+  maxCost?: string,
+  miles?: string,
+  services?: string[],
   zip?: string,
-  miles?: string
+  cipCode?: string,
+  socCode?: string
 }) => Promise<TrainingData>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
 export type GetInDemandOccupations = () => Promise<InDemandOccupation[]>;
