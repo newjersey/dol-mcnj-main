@@ -63,15 +63,14 @@ jobs:
           fingerprints:
             - "SHA256:UkBaGthILXKNTD7u0bbWle4fJwGE3thGwtiC3huxLAw"
       - run:
-          name: SSH into EC2 and Deploy
-          command: |
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_IP \
-              "cd d4ad && \
-              git pull origin master && \
-              ./scripts/install-all.sh && \
-              ./scripts/db-migrate.sh && \
-              rm -rf backend/dist/ && \
-              ./scripts/build.sh"
+          name: Testing file transfer 
+          command: mkdir -p test-folder/subfolder
+      - run: 
+          name: Create a Test File
+          command: echo "This is a test file" > test-folder/sub-folder/test-file.txt
+      - run:
+          name: Copy Test Folder to Remote Server
+          command: scp -r test-folder $EC2_USERNAME@$EC2_IP:/
 workflows:
   build-test-deploy:
     jobs:
