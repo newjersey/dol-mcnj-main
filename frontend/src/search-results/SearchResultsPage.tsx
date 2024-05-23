@@ -53,6 +53,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
+  const [cipCode, setCipCode] = useState<string | undefined>();
   const [classFormat, setClassFormat] = useState<ClassFormatProps[]>([]);
   const [completeIn, setCompleteIn] = useState<CompleteInProps[]>([]);
   const [county, setCounty] = useState<CountyProps>();
@@ -61,6 +62,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   const [maxCost, setMaxCost] = useState<string | undefined>();
   const [miles, setMiles] = useState<string | undefined>();
   const [services, setServices] = useState<ServiceProps[]>([]);
+  const [socCode, setSocCode] = useState<string | undefined>();
   const [zip, setZip] = useState<string | undefined>();
 
   const comparisonState = useContext(ComparisonContext).state;
@@ -90,6 +92,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
 
     urlParams.forEach((value, key) => {
       switch (key) {
+        case "cipCode": 
+          setCipCode(value);
+          break;
         case "classFormat":
           if (classFormat.includes(value as ClassFormatProps)) {
             break;
@@ -131,6 +136,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
             break;
           }
           setServices((prev) => [...prev, value as ServiceProps]);
+          break;
+        case "socCode":
+          setSocCode(value);
           break;
         case "sort":
           setSortBy(value as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
@@ -223,6 +231,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
             {!isLoading && (
               <FilterDrawer
                 searchQuery={searchQuery}
+                cipCode={cipCode}
                 classFormat={classFormat}
                 completeIn={completeIn}
                 county={county}
@@ -231,6 +240,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
                 maxCost={maxCost}
                 miles={miles}
                 services={services}
+                socCode={socCode}
                 zip={zip}
               />
             )}
