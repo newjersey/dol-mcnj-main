@@ -282,7 +282,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         "jobTitle": training.provider.contactTitle,
         "telephone": training.provider.phoneNumber,
       },
-      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : undefined,
+      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : null,
     };
 
     const offer = {
