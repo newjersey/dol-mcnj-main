@@ -11,6 +11,7 @@ import {
 
 export type SearchTrainings = (params: {
   searchQuery: string,
+  maxCost?: number,
   miles?: number,
   zipCode?: string,
   page?: number,

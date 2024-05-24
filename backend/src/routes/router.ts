@@ -65,6 +65,7 @@ export const routerFactory = ({
     
     searchTrainings({
       searchQuery: req.query.query as string,
+      maxCost: parseInt(req.query.maxCost as string),
       miles: parseInt(req.query.miles as string),
       zipCode: req.query.zipCode as string,
       page: page,

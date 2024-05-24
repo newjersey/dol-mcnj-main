@@ -22,13 +22,15 @@ const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
     searchQuery: string,
+    maxCost?: number,
     miles?: number,
     zipCode?: string,
     page?: number,
     limit?: number,
     sort?: string,
   }): Promise<TrainingData> => {
-    const { miles, zipCode, page, limit, sort, cacheKey } = prepareSearchParameters(params);
+    console.log(params);
+    const { maxCost, miles, zipCode, page, limit, sort, cacheKey } = prepareSearchParameters(params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
     if (cachedResults) {
@@ -62,12 +64,14 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
 function prepareSearchParameters(params: {
   searchQuery: string,
+  maxCost?: number,
   miles?: number,
   zipCode?: string,
   page?: number,
   limit?: number,
   sort?: string
 }) {
+  const maxCost = params.maxCost;
   const miles = params.miles;
   const zipCode = params.zipCode;
 
@@ -75,9 +79,9 @@ function prepareSearchParameters(params: {
   const limit = params.limit || 10;
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${miles ? `-${miles}` : ""}${zipCode ? `-${zipCode}` : ""}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${miles ? `-${miles}` : ""}${zipCode ? `-${zipCode}` : ""}${maxCost ? `-${maxCost}` : ""}`;
 
-  return { miles, zipCode, page, limit, sort, cacheKey };
+  return { maxCost, miles, zipCode, page, limit, sort, cacheKey };
 }
 
 function determineSortOption(sortOption?: string) {
@@ -113,7 +117,12 @@ function buildAvailableAtQuery (zipCode?: string | string[] | undefined, miles?:
   return zip;
 }
 
-function buildQuery(params: { searchQuery: string, miles?: number, zipCode?: string }) {
+function buildQuery(params: {
+  searchQuery: string,
+  maxCost?: number,
+  miles?: number,
+  zipCode?: string
+}) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
@@ -156,7 +165,18 @@ function buildQuery(params: { searchQuery: string, miles?: number, zipCode?: str
           } : undefined,
           "ceterms:availableAt": {
             "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
-          }
+          },
+        },
+        {
+          "ceterms:estimatedCost": params.maxCost ? {
+            "ceterms:directCostType": {
+              "ceterms:targetNode": "costType:AggregateCost"
+            },
+            "ceterms:price": [
+              0,
+              params.maxCost
+            ]
+          } : undefined,
         },
         {
           "search:operator": "search:andTerms",
