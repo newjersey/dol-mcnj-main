@@ -97,7 +97,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   return (
-    <div data-testid="card" className="card mbs container-fluid pam hover-shadow">
+    <div data-testid="card" className="result-card mbs container-fluid pam hover-shadow">
       <div className="row mbd">
         <div className="col-xs-8">
           <h2 className="blue text-m weight-500">
