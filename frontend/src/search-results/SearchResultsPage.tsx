@@ -72,12 +72,15 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
 
     setIsLoading(true);
 
+    let miles, zipCode;
+
     urlParams.forEach((value, key) => {
       switch (key) {
         case "limit":
           setItemsPerPage(Number(value));
           break;
         case "miles":
+          if (value) miles = value;
           setMiles(value);
           break;
         case "p":
@@ -87,6 +90,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           setSortBy(value as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
           break;
         case "zipCode":
+          if (value) zipCode = value;
           setZipCode(value);
           break;
         default:
@@ -124,9 +128,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
     location?.search,
     pageNumber,
     itemsPerPage,
-    sortBy,
-    miles,
-    zipCode,
+    sortBy
   ]);
 
   if (isError) {
