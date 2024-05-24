@@ -114,6 +114,8 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           pageNumber,
           itemsPerPage,
           sortBy,
+          miles,
+          zipCode
         );
       }
     }
@@ -122,7 +124,9 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
     location?.search,
     pageNumber,
     itemsPerPage,
-    sortBy
+    sortBy,
+    miles,
+    zipCode,
   ]);
 
   if (isError) {
@@ -177,6 +181,7 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
             </div>
             {!isLoading && (
               <FilterDrawer
+                setLoading={setIsLoading}
                 searchQuery={searchQuery}
                 miles={miles}
                 zipCode={zipCode}

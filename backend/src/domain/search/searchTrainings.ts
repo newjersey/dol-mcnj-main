@@ -26,7 +26,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     zipCode?: string,
     page?: number,
     limit?: number,
-    sort?: string
+    sort?: string,
   }): Promise<TrainingData> => {
     const { miles, zipCode, page, limit, sort, cacheKey } = prepareSearchParameters(params);
 

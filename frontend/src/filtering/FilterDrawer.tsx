@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "@reach/router";
 import { FormProvider, useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import { FunnelSimple, X } from "@phosphor-icons/react";
 import { FilterInput } from "./FilterInput";
 
 interface Props {
+  setLoading: Dispatch<SetStateAction<boolean>>;
   searchQuery?: string;
   inDemand?: boolean;
   miles?: string | undefined;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const FilterDrawer = ({
+  setLoading,
   searchQuery = "",
   miles,
   zipCode = "",
@@ -46,6 +48,7 @@ export const FilterDrawer = ({
       miles,
       zipCode
     } = getValues();
+    setLoading(true);
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set("q", searchQuery || "");
     newUrl.searchParams.set("p", "1");
