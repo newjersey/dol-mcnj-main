@@ -96,7 +96,7 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
-function buildAvailableAtQuery (zipCode?: string | string[] | undefined, miles?: number | undefined) {
+function buildAvailableAtQuery (zipCode?: string | string[] | undefined, miles?: number) {
   let zip;
 
   if (Array.isArray(zipCode) && zipCode.length > 1) {
@@ -109,12 +109,18 @@ function buildAvailableAtQuery (zipCode?: string | string[] | undefined, miles?:
     zip = zipCode as string;
   }
 
-  if (zip && miles) {
+  console.log(miles)
+
+  if (zip && miles && !isNaN(miles)) {
     const radius = zipcodes.radius(zip, miles);
     return radius;
   }
 
-  return zip;
+  if (zip) {
+    return zip;
+  }
+
+  return undefined;
 }
 
 function buildQuery(params: {
@@ -127,6 +133,7 @@ function buildQuery(params: {
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
+  const maxCost = params.maxCost;
 
   let zipCode
 
@@ -168,6 +175,15 @@ function buildQuery(params: {
           "ceterms:availableAt": {
             "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
           },
+          "ceterms:estimatedCost": maxCost && !isNaN(maxCost) && maxCost > 0 ? {
+            "ceterms:directCostType": {
+              "ceterms:targetNode": "costType:AggregateCost"
+            },
+            "ceterms:price": [
+              0,
+              maxCost
+            ]
+          } : undefined,
         },
         {
           "search:operator": "search:andTerms",
