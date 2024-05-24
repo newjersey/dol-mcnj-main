@@ -168,15 +168,6 @@ function buildQuery(params: {
           "ceterms:availableAt": {
             "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
           },
-          "ceterms:estimatedCost": params.maxCost ? {
-            "ceterms:directCostType": {
-              "ceterms:targetNode": "costType:AggregateCost"
-            },
-            "ceterms:price": [
-              0,
-              params.maxCost
-            ]
-          } : undefined,
         },
         {
           "search:operator": "search:andTerms",
