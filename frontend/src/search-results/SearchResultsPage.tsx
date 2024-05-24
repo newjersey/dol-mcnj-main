@@ -20,10 +20,11 @@ import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { usePageTitle } from "../utils/usePageTitle";
 
 import { Breadcrumbs } from "./Breadcrumbs";
+import { FilterDrawer } from "../filtering/FilterDrawer";
 import { ResultsCount } from "./ResultsCount";
+import { SearchSelects } from "./SearchSelects";
 import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { SearchSelects } from "./SearchSelects";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -43,9 +44,6 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
   );
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
-
-  const [cipCode, setCipCode] = useState<string | undefined>();
-  const [maxCost, setMaxCost] = useState<string | undefined>();
   const [miles, setMiles] = useState<string | undefined>();
   const [zipCode, setZipCode] = useState<string | undefined>();
 
@@ -76,14 +74,8 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
 
     urlParams.forEach((value, key) => {
       switch (key) {
-        case "cipCode": 
-          setCipCode(value);
-          break;
         case "limit":
           setItemsPerPage(Number(value));
-          break;
-        case "maxCost":
-          setMaxCost(value);
           break;
         case "miles":
           setMiles(value);
@@ -121,19 +113,16 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
           },
           pageNumber,
           itemsPerPage,
-          sortBy
+          sortBy,
         );
       }
     }
   }, [
     location?.pathname,
+    location?.search,
     pageNumber,
     itemsPerPage,
-    sortBy,
-    maxCost,
-    miles,
-    zipCode,
-    cipCode,
+    sortBy
   ]);
 
   if (isError) {
@@ -186,6 +175,13 @@ export const SearchResultsPage = ({ client, location }: Props) : ReactElement<Pr
                 sortBy={sortBy}
               />
             </div>
+            {!isLoading && (
+              <FilterDrawer
+                searchQuery={searchQuery}
+                miles={miles}
+                zipCode={zipCode}
+              />
+            )}
             <div>
               {isLoading ? (
                 <div className="fdr fjc ptl">
