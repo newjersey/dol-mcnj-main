@@ -1,0 +1,9 @@
+.result-card {
+  border: 1px solid $light-grey;
+  border-radius: 5px;
+  margin-top: $size-16;
+
+  &:hover {
+    box-shadow: 0 0 10px $base-lighter;
+  }
+}
