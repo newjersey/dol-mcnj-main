@@ -163,11 +163,11 @@ function buildQuery(params: {
           "ceterms:instructionalProgramType": isCIP ? {
             "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
           } : undefined,
+        },
+        {
           "ceterms:availableAt": {
             "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
           },
-        },
-        {
           "ceterms:estimatedCost": params.maxCost ? {
             "ceterms:directCostType": {
               "ceterms:targetNode": "costType:AggregateCost"
