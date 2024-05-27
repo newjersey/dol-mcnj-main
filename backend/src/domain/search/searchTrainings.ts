@@ -172,19 +172,8 @@ function buildQuery(params: {
           } : undefined,
         },
         {
-          "ceterms:requires": {
-            "ceterms:availableAt": {
-              "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
-            },
-            "ceterms:estimatedCost": maxCost && !isNaN(maxCost) && maxCost > 0 ? {
-              "ceterms:directCostType": {
-                "ceterms:targetNode": "costType:AggregateCost"
-              },
-              "ceterms:price": [
-                0,
-                maxCost
-              ]
-            } : undefined,
+          "ceterms:availableAt": {
+            "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
           },
         },
         {
