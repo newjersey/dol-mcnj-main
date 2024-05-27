@@ -41,7 +41,7 @@ export const FilterBox = ({
 
   return (
     <>
-      <div className="filter-button-container">
+      <div id="filter-button-container">
         <button
           onClick={toggleDrawer}
         >

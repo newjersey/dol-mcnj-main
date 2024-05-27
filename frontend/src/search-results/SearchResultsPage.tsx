@@ -182,7 +182,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         <Breadcrumbs />
         <div className="results-heading">
           <div id="results-selects-container">
-            <div>
+            <div className="result-count-container">
               {!isLoading && (
                 <ResultsCount
                   searchQuery={searchQuery}

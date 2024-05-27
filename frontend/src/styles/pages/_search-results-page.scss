@@ -51,7 +51,33 @@
 #results-selects-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: $size-16;
+
+  .result-count-container {
+    margin: auto 0;
+  }
+}
+  
+#filter-button-container {
+  margin: 0 auto $size-16 auto; 
+  width: 21.4375rem;
+
+  button {
+    align-items: center;
+    border: 2px solid $blue-60v;
+    border-radius: 0.25rem;
+    color: $blue-60v;
+    gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+    width: 100%;
+
+    &:hover {
+      color: $blue-warm-70v;
+      border: 2px solid $blue-warm-70v;
+      box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.10);;
+    }
+  }
 }
 
 #sort-limit-selects-container {
@@ -85,6 +111,17 @@
 
     .usa-breadcrumb__list {
       display: block;
+    }
+  }
+
+  #filter-button-container {
+    margin: 0 0 $size-16 0;
+    max-width: 21.4375rem;
+    min-width: 6.25rem;
+
+    button {
+      justify-content: left;
+      width: auto;
     }
   }
 
