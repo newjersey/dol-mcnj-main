@@ -172,18 +172,20 @@ function buildQuery(params: {
           } : undefined,
         },
         {
-          "ceterms:availableAt": {
-            "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
-          },
-          "ceterms:estimatedCost": maxCost && !isNaN(maxCost) && maxCost > 0 ? {
-            "ceterms:directCostType": {
-              "ceterms:targetNode": "costType:AggregateCost"
+          "ceterms:requires": {
+            "ceterms:availableAt": {
+              "ceterms:postalCode": buildAvailableAtQuery(zipCode, params.miles)
             },
-            "ceterms:price": [
-              0,
-              maxCost
-            ]
-          } : undefined,
+            "ceterms:estimatedCost": maxCost && !isNaN(maxCost) && maxCost > 0 ? {
+              "ceterms:directCostType": {
+                "ceterms:targetNode": "costType:AggregateCost"
+              },
+              "ceterms:price": [
+                0,
+                maxCost
+              ]
+            } : undefined,
+          },
         },
         {
           "search:operator": "search:andTerms",

@@ -38,7 +38,71 @@
 }
 
 #filter-drawer {
-  min-width: $mobile;
+  background-color: $green-cool-5;
+  padding: $size-16;
+  min-height: 100%;
+  max-width: $mobile-md;
+
+  input {
+    background-color: $white;
+  }
+
+  label {
+    font-weight: 700;
+  }
+
+  .field-group {
+    padding: 1rem 0;
+  }
+
+  .input-container {
+    width: 100%;
+
+    .MuiFormControl-root {
+      width: 100%;
+    }
+  }
+
+  .label-container {
+    padding-bottom: 0.5rem;
+  }
+
+  .MuiInputBase-root {
+    background-color: $white;
+  }
+
+  .conjunction-container {
+    margin: auto 0;
+    padding: 0 0.5rem;
+  }
+
+  .zip-miles-group {
+    display: flex;
+    justify-content: space-between;
+    max-width: 225px;
+    margin-bottom: 1rem;
+
+    .field-group {
+      max-width: 100px;
+      padding: 0;
+    }
+  }
+}
+
+#filter-drawer-heading {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  button {
+    color: $blue-60v;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
 }
 
 .filter-button-container {

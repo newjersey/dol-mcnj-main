@@ -4,7 +4,7 @@ import { useNavigate } from "@reach/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer } from "@material-ui/core";
 
-import { FunnelSimple, X } from "@phosphor-icons/react";
+import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
 import { FilterInput } from "./FilterInput";
 
@@ -12,7 +12,8 @@ interface Props {
   setLoading: Dispatch<SetStateAction<boolean>>;
   searchQuery?: string;
   inDemand?: boolean;
-  miles?: string | undefined;
+  maxCost?: string;
+  miles?: string;
   zipCode?: string;
   cipCode?: string;
   socCode?: string;
@@ -20,9 +21,10 @@ interface Props {
 
 export const FilterDrawer = ({
   setLoading,
-  searchQuery = "",
+  searchQuery,
+  maxCost,
   miles,
-  zipCode = "",
+  zipCode,
 }: Props): ReactElement => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -35,6 +37,7 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
+      maxCost,
       miles,
       zipCode,
     }
@@ -45,16 +48,18 @@ export const FilterDrawer = ({
   const onSubmit = () => {
     const {
       searchQuery,
+      maxCost,
       miles,
       zipCode
     } = getValues();
     setLoading(true);
     const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set("q", searchQuery || "");
-    newUrl.searchParams.set("p", "1");
-    newUrl.searchParams.set("miles", miles || "");
-    newUrl.searchParams.set("zipCode", zipCode || "");
+    if (searchQuery) newUrl.searchParams.set("q", searchQuery);
+    if (maxCost) newUrl.searchParams.set("maxCost", maxCost);
+    if (miles) newUrl.searchParams.set("miles", miles);
+    if (zipCode) newUrl.searchParams.set("zipCode", zipCode);
     const newSearchParams = newUrl.toString();
+    console.log(newSearchParams)
     navigate(newSearchParams);
   }
 
@@ -71,8 +76,8 @@ export const FilterDrawer = ({
         anchor="left"
         open={isOpen}
       >
-        <div>
-          <div>
+        <div id="filter-drawer">
+          <div id="filter-drawer-heading">
             <h2>Add Filters</h2>
             <button
               onClick={toggleDrawer}
@@ -81,13 +86,21 @@ export const FilterDrawer = ({
             </button>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div id="filter-drawer">
+            <div id="filter-drawer-content">
               <FormProvider {...methods}>
                 <div>
                   <FilterInput
-                    inputLabel="Search Query"
+                    inputLabel="Search by training, provider, certification, SOC code, or keyword"
                     inputName="searchQuery"
                     placeholder="Search Query"
+                    hasIcon={true}
+                    icon={<MagnifyingGlass />}
+                  />
+                  <FilterInput
+                    inputLabel="Max Cost"
+                    inputName="maxCost"
+                    hasIcon={true}
+                    icon={<CurrencyDollar />}
                   />
                   <div className="field-group">
                     <div className="label-container">

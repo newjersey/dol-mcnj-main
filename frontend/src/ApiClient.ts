@@ -20,11 +20,13 @@ export class ApiClient implements Client {
     page?: number,
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    maxCost?: string,
     miles?: string,
     zipCode?: string,
   ): void {
+    console.log({ query, page, limit, sort, maxCost, miles, zipCode })
     this.get(
-      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}${miles && `&miles=${miles}`}${zipCode && `&zipCode=${zipCode}`}`,
+      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}${miles && `&miles=${miles}`}${zipCode && `&zipCode=${zipCode}`}${maxCost && `&maxCost=${maxCost}`}`,
       observer,
     );
   }
