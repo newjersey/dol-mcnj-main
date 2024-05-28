@@ -216,6 +216,20 @@
   }
 }
 
+.zip-miles-group {
+  display: flex;
+
+  .conjunction-container {
+    font-weight: 700;
+    margin: auto 0;
+    padding: 0 $size-16 $size-16 $size-16;
+  }
+
+  .filter-input {
+    max-width: 100px;
+  }
+}
+
 @media screen and (min-width: $tablet-md) {
   #search-results-page {
     a {

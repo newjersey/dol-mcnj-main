@@ -17,6 +17,8 @@ import { usePageTitle } from "../utils/usePageTitle";
 import { Pagination } from "./Pagination";
 import pageImage from "../images/ogImages/searchResults.png";
 
+import { CountyProps } from "../filtering/newJerseyCounties";
+
 import { Breadcrumbs } from "./Breadcrumbs";
 import { FilterBox } from "../filtering/FilterBox";
 import { ResultsCount } from "./ResultsCount";
@@ -53,7 +55,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const searchString = props.location?.search;
   const regex = /\?q=([^&]*)/;
   const matches = searchString?.match(regex);
+  
   const searchQuery = matches ? decodeURIComponent(matches[1]) : null;
+  const [county, setCounty] = useState<CountyProps | undefined>();
+  const [miles, setMiles] = useState<string | undefined>()
+  const [zipcode, setZipcode] = useState<string | undefined>()
 
   usePageTitle(pageTitle);
 
@@ -199,7 +205,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
             <FilterBox
               isMobile={isTabletAndBelow}
               resetStateForReload={resetState}
-              searchQuery={searchQuery}
+              searchQuery={searchQuery || ""}
+              county={county}
+              miles={miles}
+              zipcode={zipcode}
             />
           )}
         </div>

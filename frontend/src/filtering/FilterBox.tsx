@@ -24,23 +24,32 @@ import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
 import { FilterFormInput } from "./FilterFormInput";
 
-import { CountyProps } from "./newJerseyCounties";
+import { CountyProps, COUNTIES } from "./newJerseyCounties";
+import { FilterFormDropDown } from "./FilterFormDropDown";
 
 interface Props {
   resetStateForReload: () => void;
-  searchQuery: string | null;
+  searchQuery: string;
+  county?: CountyProps;
   isMobile?: boolean;
+  miles?: string;
+  zipcode?: string;
 }
 
 interface FormProps {
   searchQuery: string;
   county: CountyProps | "";
+  miles?: string;
+  zipcode?: string;
 }
 
 export const FilterBox = ({
   resetStateForReload,
   searchQuery,
+  county,
   isMobile,
+  miles,
+  zipcode
 }: Props): ReactElement => {
   const { t } = useTranslation();
 
@@ -52,11 +61,14 @@ export const FilterBox = ({
 
   const methods = useForm<FormProps>({
     defaultValues: {
-      searchQuery: searchQuery || ""
+      searchQuery,
+      county: county || "",
+      miles: miles || "",
+      zipcode: zipcode || ""
     }
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
 
   const onSubmit = (data: FormProps) => {
     console.log(data);
@@ -65,6 +77,14 @@ export const FilterBox = ({
   const handleApplyFilters = () => {
     // toggleDrawer();
     handleSubmit(onSubmit)();
+  }
+
+  const handleClearFilters = () => {
+    reset({
+      county: undefined,
+      miles: undefined,
+      zipcode: undefined
+    });
   }
 
   // const executeSearch = (newQuery: string): void => {
@@ -111,6 +131,30 @@ export const FilterBox = ({
                 hasIcon={true}
                 icon={<MagnifyingGlass />}
               />
+              <FilterFormDropDown
+                inputName="county"
+                options={COUNTIES}
+                inputLabel="County"
+              />
+              <div className="field-group">
+                <div className="label-container">
+                  <label>
+                    Distance from ZIP code
+                  </label>
+                </div>
+                <div className="zip-miles-group">
+                  <FilterFormInput
+                    inputName="miles"
+                    inputType="number"
+                  />
+                  <div className="conjunction-container">
+                    from
+                  </div>
+                  <FilterFormInput
+                    inputName="zipcode"
+                  />
+                </div>
+              </div>
             </div>
           </FormProvider>
           <div className="filter-button-container">
@@ -121,6 +165,7 @@ export const FilterBox = ({
               Apply Filters
             </button>
             <button
+              onClick={handleClearFilters}
               className="filter-clear-button"
             >
               Clear Filters
