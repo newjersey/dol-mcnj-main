@@ -77,21 +77,13 @@ export const FilterBox = ({
 
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
-    if (county) {
-      urlParams.set("county", county);
-    } else {
-      urlParams.delete("county");
-    }
-    if (miles) {
-      urlParams.set("miles", miles);
-    } else {
-      urlParams.delete("miles");
-    }
-    if (zipcode) {
-      urlParams.set("zipcode", zipcode);
-    } else {
-      urlParams.delete("zipcode");
-    }
+    
+    county ? urlParams.set("county", county) : urlParams.delete("county");
+
+    miles ? urlParams.set("miles", miles) : urlParams.delete("miles");
+    
+    zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
+    
     const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
     navigate(newUrl);
     window.location.reload();

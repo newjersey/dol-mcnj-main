@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";

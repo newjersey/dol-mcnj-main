@@ -111,6 +111,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     const miles = urlParams.get("miles");
     const zipcode = urlParams.get("zipcode");
     const county = urlParams.get("county");
+    
     setIsLoading(true);
 
     limit ? setItemsPerPage(parseInt(limit)) : setItemsPerPage(10);
