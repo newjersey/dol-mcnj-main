@@ -19,9 +19,12 @@ import { LanguagesFilter } from "./LanguagesFilter";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
 
-import { FunnelSimple } from "@phosphor-icons/react";
+import { Drawer } from "@material-ui/core";
+
+import { FunnelSimple, X } from "@phosphor-icons/react";
 
 interface Props {
+  isMobile?: boolean;
   searchQuery?: string;
 }
 
@@ -34,10 +37,15 @@ const usePrevious = <T extends {}>(value: T): T | undefined => {
 };
 
 export const FilterBox = ({
+  isMobile
 }: Props): ReactElement => {
   const { t } = useTranslation();
 
-  const toggleDrawer = () => {}
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+  }
 
   return (
     <>
@@ -48,6 +56,22 @@ export const FilterBox = ({
           {t("SearchResultsPage.filtersButton")} <FunnelSimple />
         </button>
       </div>
+      <Drawer
+        anchor={isMobile ? "bottom" : "left"}
+        open={isOpen}
+      >
+        <div id="filter-content">
+          <div id="filter-heading">
+            <h2>Add Filters</h2>
+            <button
+              className="close-button"
+              onClick={toggleDrawer}
+            >
+              <X />
+            </button>
+          </div>
+        </div>
+      </Drawer>
     </>
   )
 };

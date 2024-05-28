@@ -80,6 +80,31 @@
   }
 }
 
+#filter-content {
+  background-color: $green-cool-5;
+  padding: 1.5rem 1rem;
+  height: 100vh;
+
+  h2 {
+    font-size: $size-24;
+  }
+}
+
+#filter-heading {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: $blue-60v;
+    cursor: pointer;
+    font-size: $size-24;
+    font-weight: 700;
+    padding: 0;
+  }
+}
+
 #sort-limit-selects-container {
   display: flex;
   justify-content: space-between;
@@ -123,6 +148,10 @@
       justify-content: left;
       width: auto;
     }
+  }
+
+  #filter-content {
+    min-width: $mobile-md;
   }
 
   #results-selects-container {

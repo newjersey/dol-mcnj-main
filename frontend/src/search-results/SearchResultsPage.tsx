@@ -197,8 +197,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
               sortBy={sortBy}
             />
           </div>
-          <FilterBox
-          />
+          {!isLoading && (
+            <FilterBox
+              isMobile={isTabletAndBelow}
+            />
+          )}
         </div>
         <div>
           {isLoading ? (
