@@ -2,20 +2,18 @@ import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "reac
 import { WindowLocation } from "@reach/router";
 import { Client } from "../domain/Client";
 import { TrainingResult, TrainingData } from "../domain/Training";
-import { RouteComponentProps, Link } from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { CircularProgress, useMediaQuery, Icon } from "@material-ui/core";
+import { CircularProgress, useMediaQuery } from "@material-ui/core";
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { SortOrder } from "../sorting/SortOrder";
 import { SortContext } from "../sorting/SortContext";
 import { FilterContext } from "../filtering/FilterContext";
 import { TrainingComparison } from "./TrainingComparison";
 import { ComparisonContext } from "../comparison/ComparisonContext";
-import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
-import { ArrowLeft } from "@phosphor-icons/react";
 import { Pagination } from "./Pagination";
 import pageImage from "../images/ogImages/searchResults.png";
 
@@ -31,16 +29,13 @@ interface Props extends RouteComponentProps {
 
 export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const isTabletAndBelow = useMediaQuery("(max-width:767px)");
-  const { t } = useTranslation();
 
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [metaCount, setMetaCount] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>();
   const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
-  const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(false);
   const [showSearchTips, setShowSearchTips] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [pageTitle, setPageTitle] = useState<string>(
@@ -90,15 +85,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     sortedResults ? setFilteredTrainings([...sortedResults]) : setFilteredTrainings([]);
 
     setShowSearchTips(pageNumber === 1 && newFilteredTrainings?.length < 5);
-
-    if (newFilteredTrainings?.length > 0 && searchQuery !== "null") {
-      setShouldShowTrainings(true);
-    }
   }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
-
-  if (isError) {
-    return <SomethingWentWrongPage client={props.client} />;
-  }
 
   const getPageTitle = (): void => {
     if (!searchQuery || searchQuery === "null") {
@@ -155,6 +142,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     }
   }, [searchQuery, props.client, itemsPerPage, pageNumber, sortBy]);
 
+  if (isError) {
+    return <SomethingWentWrongPage client={props.client} />;
+  }
+
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
     setSortBy(newSortOrder);
@@ -166,6 +157,11 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setItemsPerPage(
       event.target.value as unknown as number,
     );
+  };
+
+  const resetState = (): void => {
+    setIsLoading(true);
+    setTrainings([]);
   };
 
   return (
@@ -190,16 +186,20 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 />
               )}
             </div>
-            <SearchSelects
-              handleSortChange={handleSortChange}
-              handleLimitChange={handleLimitChange}
-              itemsPerPage={itemsPerPage}
-              sortBy={sortBy}
-            />
+            {!isLoading && (
+              <SearchSelects
+                handleSortChange={handleSortChange}
+                handleLimitChange={handleLimitChange}
+                itemsPerPage={itemsPerPage}
+                sortBy={sortBy}
+              />
+            )}
           </div>
           {!isLoading && (
             <FilterBox
               isMobile={isTabletAndBelow}
+              resetStateForReload={resetState}
+              searchQuery={searchQuery}
             />
           )}
         </div>
