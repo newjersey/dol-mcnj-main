@@ -2,31 +2,39 @@
 
 import {
   ReactElement,
-  useEffect,
   useState
 } from "react";
-import { CostFilter } from "./CostFilter";
-import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
-import { Searchbar } from "../components/Searchbar";
-import { navigate } from "@reach/router";
-import { ClassFormatFilter } from "./ClassFormatFilter";
-import { LocationFilter } from "./LocationFilter";
-import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
-import { CountyFilter } from "./CountyFilter";
-import { SocCodeFilter } from "./SocCodeFilter";
-import { CipCodeFilter } from "./CipCodeFilter";
-import { ProgramServicesFilter } from "./ProgramServicesFilter";
-import { LanguagesFilter } from "./LanguagesFilter";
+// import { CostFilter } from "./CostFilter";
+// import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
+// import { Searchbar } from "../components/Searchbar";
+// import { navigate } from "@reach/router";
+// import { ClassFormatFilter } from "./ClassFormatFilter";
+// import { LocationFilter } from "./LocationFilter";
+// import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
+// import { CountyFilter } from "./CountyFilter";
+// import { SocCodeFilter } from "./SocCodeFilter";
+// import { CipCodeFilter } from "./CipCodeFilter";
+// import { ProgramServicesFilter } from "./ProgramServicesFilter";
+// import { LanguagesFilter } from "./LanguagesFilter";
 import { useTranslation } from "react-i18next";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { Drawer } from "@material-ui/core";
+import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
-import { FunnelSimple, X } from "@phosphor-icons/react";
+import { FilterFormInput } from "./FilterFormInput";
+
+import { CountyProps } from "./newJerseyCounties";
 
 interface Props {
   resetStateForReload: () => void;
   searchQuery: string | null;
   isMobile?: boolean;
+}
+
+interface FormProps {
+  searchQuery: string;
+  county: CountyProps | "";
 }
 
 export const FilterBox = ({
@@ -37,31 +45,40 @@ export const FilterBox = ({
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [pagePath, setPagePath] = useState<string>("");
-
-  useEffect(() => {
-    // check if window exists (for SSR)
-    if (typeof window !== "undefined") {
-      setPagePath(window.location.pathname);
-    }
-  }, [searchQuery]);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   }
 
-  const executeSearch = (newQuery: string): void => {
-    if (isMobile) {
-      setIsOpen(false);
+  const methods = useForm<FormProps>({
+    defaultValues: {
+      searchQuery: searchQuery || ""
     }
+  });
 
-    if (newQuery === searchQuery) {
-      return;
-    }
+  const { handleSubmit } = methods;
 
-    resetStateForReload();
-    navigate(`/training/search?q=${encodeURIComponent(newQuery)}`);
+  const onSubmit = (data: FormProps) => {
+    console.log(data);
   };
+
+  const handleApplyFilters = () => {
+    // toggleDrawer();
+    handleSubmit(onSubmit)();
+  }
+
+  // const executeSearch = (newQuery: string): void => {
+  //   if (isMobile) {
+  //     setIsOpen(false);
+  //   }
+
+  //   if (newQuery === searchQuery) {
+  //     return;
+  //   }
+
+  //   resetStateForReload();
+  //   navigate(`/training/search?q=${encodeURIComponent(newQuery)}`);
+  // };
 
   return (
     <>
@@ -86,59 +103,19 @@ export const FilterBox = ({
               <X />
             </button>
           </div>
-          <div className="filter-fields">
-            <div>
-              <Searchbar
-                onSearch={executeSearch}
-                initialValue={searchQuery !== "null" ? searchQuery?.replace(/\+/g, " ") : undefined}
-                stacked={true}
-                isLandingPage={pagePath === "/training/search"}
-                buttonText={t("SearchAndFilter.searchButtonDefaultText")}
+          <FormProvider {...methods}>
+            <div className="filter-fields">
+              <FilterFormInput
+                inputLabel="Search by training, provider, certifcation, SOC code, or keyword"
+                inputName="searchQuery"
+                hasIcon={true}
+                icon={<MagnifyingGlass />}
               />
             </div>
-            
-            <div className="mtd">
-              <LocationFilter />
-            </div>
-
-            <div className="mtd">
-              <CountyFilter />
-            </div>
-
-            <div className="mtd">
-              <InDemandOnlyFilter />
-            </div>
-
-            <div className="mtd">
-              <CostFilter />
-            </div>
-
-            <div className="mtd">
-              <ClassFormatFilter />
-            </div>
-
-            <div className="mtd">
-              <TimeToCompleteFilter />
-            </div>
-
-            <div className="mtd">
-              <ProgramServicesFilter />
-            </div>
-
-            <div className="mtd">
-              <LanguagesFilter />
-            </div>
-            <div className="mtl">
-              <CipCodeFilter />
-            </div>
-
-            <div className="mtd">
-              <SocCodeFilter />
-            </div>
-          </div>
+          </FormProvider>
           <div className="filter-button-container">
             <button
-              onClick={toggleDrawer}
+              onClick={handleApplyFilters}
               className="filter-apply-button"
             >
               Apply Filters

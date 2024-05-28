@@ -43,6 +43,10 @@
     }
   }
 
+  .field-group {
+    margin-bottom: $size-16;
+  }
+
   .usa-breadcrumb__list {
     display: none;
   }
@@ -150,6 +154,7 @@
 #filter-heading {
   display: flex;
   justify-content: space-between;
+  margin-bottom: $size-16;
 
   button {
     background-color: transparent;
@@ -183,6 +188,34 @@
   }
 }
 
+.input-container {
+  margin-bottom: $size-16;
+  max-width: $mobile;
+  position: relative;
+
+  .filter-input {
+    width: 100%;
+  }
+
+  .MuiOutlinedInput-root {
+    background-color: $white;
+    min-height: 4.25rem;
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.label-container {
+  padding: $size-12 0 $size-8 0;
+
+  label {
+    font-weight: 700;
+  }
+}
+
 @media screen and (min-width: $tablet-md) {
   #search-results-page {
     a {
@@ -208,7 +241,8 @@
   }
 
   #filter-content {
-    min-width: $mobile-md;
+    width: 393px;
+
 
     .filter-button-container {
       width: 393px;
