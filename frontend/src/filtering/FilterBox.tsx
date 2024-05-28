@@ -4,10 +4,10 @@ import {
   ReactElement,
   useState
 } from "react";
+import { navigate } from "@reach/router";
 // import { CostFilter } from "./CostFilter";
 // import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 // import { Searchbar } from "../components/Searchbar";
-// import { navigate } from "@reach/router";
 // import { ClassFormatFilter } from "./ClassFormatFilter";
 // import { LocationFilter } from "./LocationFilter";
 // import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
@@ -30,7 +30,7 @@ import { FilterFormDropDown } from "./FilterFormDropDown";
 interface Props {
   resetStateForReload: () => void;
   searchQuery: string;
-  county?: CountyProps;
+  county?: CountyProps | "";
   isMobile?: boolean;
   miles?: string;
   zipcode?: string;
@@ -72,16 +72,37 @@ export const FilterBox = ({
 
   const onSubmit = (data: FormProps) => {
     console.log(data);
+    const { searchQuery, county, miles, zipcode } = data;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("q", searchQuery);
+    if (county) {
+      urlParams.set("county", county);
+    } else {
+      urlParams.delete("county");
+    }
+    if (miles) {
+      urlParams.set("miles", miles);
+    } else {
+      urlParams.delete("miles");
+    }
+    if (zipcode) {
+      urlParams.set("zipcode", zipcode);
+    } else {
+      urlParams.delete("zipcode");
+    }
+    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+    navigate(newUrl);
   };
 
   const handleApplyFilters = () => {
-    // toggleDrawer();
+    toggleDrawer();
     handleSubmit(onSubmit)();
   }
 
   const handleClearFilters = () => {
     reset({
-      county: undefined,
+      county: "",
       miles: undefined,
       zipcode: undefined
     });

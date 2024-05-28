@@ -108,18 +108,30 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
+    const miles = urlParams.get("miles");
+    const zipcode = urlParams.get("zipcode");
+    const county = urlParams.get("county");
     setIsLoading(true);
 
-    if (limit) {
-      setItemsPerPage(parseInt(limit));
-    } else {
-      setItemsPerPage(10);
+    limit ? setItemsPerPage(parseInt(limit)) : setItemsPerPage(10);
+
+    page ? setPageNumber(parseInt(page)) : setPageNumber(1);
+
+    let milesValue, zipcodeValue, countyValue;
+
+    if (miles) {
+      milesValue = miles;
+      setMiles(miles);
     }
 
-    if (page) {
-      setPageNumber(parseInt(page));
-    } else {
-      setPageNumber(1);
+    if (zipcode) {
+      zipcodeValue = zipcode;
+      setZipcode(zipcode);
+    }
+
+    if (county) {
+      countyValue = county;
+      setCounty(county as CountyProps);
     }
 
     if (pageNumber) {
