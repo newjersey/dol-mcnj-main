@@ -9,6 +9,9 @@ import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
 
+import ZipcodeJson from "../utils/zip-county.json";
+import zipcodes from "zipcodes";
+
 // Ensure TrainingData is exported in ../types
 // types.ts:
 // export interface TrainingData { ... }
@@ -17,7 +20,16 @@ import {TrainingData, TrainingResult} from "../training/TrainingResult";
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
-  return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string }): Promise<TrainingData> => {
+  return async (params: {
+    searchQuery: string,
+    page?: number,
+    limit?: number,
+    sort?: string,
+    county?: string,
+    miles?: string,
+    zipcode?: string,
+  }): Promise<TrainingData> => {
+    console.log(params)
     const { page, limit, sort, cacheKey } = prepareSearchParameters(params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
@@ -50,12 +62,23 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   };
 };
 
-function prepareSearchParameters(params: { searchQuery: string, page?: number, limit?: number, sort?: string }) {
+function prepareSearchParameters(params: {
+  searchQuery: string,
+  page?: number,
+  limit?: number,
+  sort?: string,
+  county?: string,
+  miles?: string,
+  zipcode?: string,
+}) {
   const page = params.page || 1;
   const limit = params.limit || 10;
+  const county = params.county;
+  const miles = params.miles;
+  const zipcode = params.zipcode;
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${county ? `-${county}` : ""}${miles ? `-${miles}` : ""}${zipcode ? `-${zipcode}` : ""}`;
 
   return { page, limit, sort, cacheKey };
 }
@@ -72,9 +95,45 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
-function buildQuery(params: { searchQuery: string }) {
+function buildAvailableAt (zipcode: string[] | string | undefined, miles: string | undefined) {
+  if (Array.isArray(zipcode)) {
+    return zipcode;
+  }
+
+  if (!miles) {
+    return zipcode;
+  }
+
+  if (!!zipcode && !!miles) {
+    const radius = zipcodes.radius(zipcode, parseInt(miles));
+    return radius;
+  }
+
+  return undefined;
+}
+
+function buildQuery(params: {
+  searchQuery: string,
+  county?: string,
+  miles?: string,
+  zipcode?: string
+}) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+
+  let zipcodes;
+
+  if (params.county) {
+    zipcodes = (ZipcodeJson.byCounty as { [key: string]: string[] })[params.county];
+  }
+
+  if (params.zipcode) {
+    zipcodes = params.zipcode;
+  }
+
+  console.log(zipcodes)
+  const availableAt = buildAvailableAt(zipcodes, params.miles);
+  console.log(availableAt)
 
   return {
     "@type": {
@@ -97,6 +156,10 @@ function buildQuery(params: { searchQuery: string }) {
           "ceterms:instructionalProgramType": isCIP ? {
             "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
           } : undefined,
+        },{
+          "ceterms:availableAt": {
+            "ceterms:postalCode": availableAt
+          }
         },
         {
           "search:operator": "search:andTerms",

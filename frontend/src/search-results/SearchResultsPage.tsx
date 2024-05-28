@@ -155,6 +155,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           pageNumber,
           itemsPerPage,
           sortBy,
+          countyValue as CountyProps,
+          milesValue,
+          zipcodeValue,
         );
       }
     }

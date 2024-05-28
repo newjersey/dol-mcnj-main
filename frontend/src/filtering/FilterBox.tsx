@@ -4,7 +4,7 @@ import {
   ReactElement,
   useState
 } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "@reach/router";
 // import { CostFilter } from "./CostFilter";
 // import { TimeToCompleteFilter } from "./TimeToCompleteFilter";
 // import { Searchbar } from "../components/Searchbar";
@@ -52,6 +52,7 @@ export const FilterBox = ({
   zipcode
 }: Props): ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -93,6 +94,7 @@ export const FilterBox = ({
     }
     const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
     navigate(newUrl);
+    window.location.reload();
   };
 
   const handleApplyFilters = () => {
@@ -103,8 +105,8 @@ export const FilterBox = ({
   const handleClearFilters = () => {
     reset({
       county: "",
-      miles: undefined,
-      zipcode: undefined
+      miles: "",
+      zipcode: ""
     });
   }
 

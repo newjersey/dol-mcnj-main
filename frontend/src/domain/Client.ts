@@ -10,6 +10,7 @@ import {
   CareerPathwaysPageProps,
   JobCountProps,
 } from "../types/contentful";
+import { CountyProps } from "../filtering/newJerseyCounties";
 
 export interface Client {
   getTrainingsByQuery: (
@@ -18,6 +19,9 @@ export interface Client {
       page?: number,
       limit?: number | undefined,
       sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+      county?: CountyProps,
+      miles?: string,
+      zipcode?: string,
   ) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;
