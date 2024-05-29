@@ -1,48 +1,45 @@
-describe.skip("Filtering", () => {
+describe("Filtering", () => {
   it("filters by max cost", () => {
-    cy.intercept("api/trainings/search?query=baking", { fixture: "baking-search-results.json" })
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
 
     cy.visit("/training/search?q=baking");
-    cy.contains("Baking and Pastry").should("exist");
-    cy.contains('8 results found for "baking"').should("exist");
+    cy.contains("Culinary Arts / Baking & Pastry").should("exist");
+    cy.contains('10 results found for "baking"').should("exist");
 
     cy.contains("Max Cost").within(() => {
-      cy.get('input[id="maxCost"]').type("2000");
+      cy.get('input[id="maxCost"]').type("4000");
       cy.get('input[id="maxCost"]').blur();
     });
 
-    cy.contains("Baking and Pastry").should("not.exist");
-    cy.contains('3 results found for "baking"').should("exist");
+    cy.contains("Culinary Arts / Baking & Pastry").should("not.exist");
+    cy.get('.card').should('have.length', 2);
 
     cy.contains("Max Cost").within(() => {
       cy.get('input[id="maxCost"]').clear();
       cy.get('input[id="maxCost"]').blur();
     });
 
-    cy.contains("Baking and Pastry").should("exist");
-    cy.contains('8 results found for "baking"').should("exist");
+    cy.contains("Culinary Arts / Baking & Pastry").should("exist");
+    cy.get('.card').should('have.length', 10);
   });
 
   it("filters by training length", () => {
-    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+    cy.intercept("/api/trainings/search?query=accountant&page=1&limit=10&sort=best_match", { fixture: "accounting-search-results.json" });
+    cy.intercept("/api/trainings/search?query=teacher&page=1&limit=10&sort=best_match", { fixture: "teacher-search-results.json" });
+    cy.intercept("/api/trainings/search?query=electric&page=1&limit=10&sort=best_match", { fixture: "electric-search-results.json" });
 
-    cy.visit("/training/search?q=digital%20marketing");
+    cy.visit("/training/search?q=accountant");
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("exist");
-    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("exist");
-    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
-    cy.contains('49 results found for "digital marketing"').should("exist");
+    cy.contains("Accounts Payable Specialist Certification (Exam Cost Included)").should("exist");
+    cy.contains("Accounting & Bookkeeping").should("exist");
+    cy.contains('10 results found for "accountant"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="days"]').check();
     });
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
-    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("not.exist");
-    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('4 results found for "digital marketing"').should("exist");
+    cy.contains("Accounts Payable Specialist Certification (Exam Cost Included)").should("exist");
+    cy.contains("Accounting & Bookkeeping").should("not.exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="days"]').uncheck();
@@ -51,11 +48,14 @@ describe.skip("Filtering", () => {
       cy.get('[type="checkbox"][name="weeks"]').check();
     });
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
-    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("exist");
-    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('20 results found for "digital marketing"').should("exist");
+    cy.contains("Accounts Payable Specialist Certification (Exam Cost Included)").should("not.exist");
+    cy.contains("Accounting & Bookkeeping").should("exist");
+
+    cy.visit("/training/search?q=teacher");
+
+    cy.contains("Classroom Technology Specialist: Teachers").should("exist");
+    cy.contains("Yoga Teacher Training Certification Program (300 Hours)").should("exist");
+    cy.contains('10 results found for "teacher"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="weeks"]').uncheck();
@@ -64,11 +64,14 @@ describe.skip("Filtering", () => {
       cy.get('[type="checkbox"][name="months"]').check();
     });
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("exist");
-    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("not.exist");
-    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("not.exist");
-    cy.contains('18 results found for "digital marketing"').should("exist");
+    cy.contains("Classroom Technology Specialist: Teachers").should("not.exist");
+    cy.contains("Yoga Teacher Training Certification Program (300 Hours)").should("exist");
+
+    cy.visit("/training/search?q=electric");
+
+    cy.contains("EKG Technician").should("exist");
+    cy.contains("Electrical and Electronic Systems Technology").should("exist");
+    cy.contains('10 results found for "electric"').should("exist");
 
     cy.contains("Time to Complete").within(() => {
       cy.get('[type="checkbox"][name="months"]').uncheck();
@@ -77,11 +80,9 @@ describe.skip("Filtering", () => {
       cy.get('[type="checkbox"][name="years"]').check();
     });
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("Certified Digital Marketing Professional (Voucher Included)").should("not.exist");
-    cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should("not.exist");
-    cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should("exist");
-    cy.contains('7 results found for "digital marketing"').should("exist");
+    cy.contains("EKG Technician").should("not.exist");
+    cy.contains("Electrical and Electronic Systems Technology").should("exist");
+
   });
 
   it("filters by class format", () => {
