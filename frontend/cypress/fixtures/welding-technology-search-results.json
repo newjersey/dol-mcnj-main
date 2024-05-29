@@ -1,0 +1,340 @@
+{
+  "data": [
+      {
+          "id": "ce-6a64dcfa-5194-44e3-9a0b-7a3f58c3f74e",
+          "name": "Welding Technology",
+          "totalCost": 28360,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-193e3a33-1972-4e5b-a593-e731645e1ffc",
+          "providerName": "Lincoln Technical Institute - East Windsor, CT_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "97 Newberry Road",
+                  "city": "East Windsor",
+                  "state": "Connecticut",
+                  "zipCode": "06088",
+                  "county": ""
+              }
+          ],
+          "inDemand": false,
+          "highlight": "The Welding Technology program prepares students for entry-level welder positions as structural and pipe welders. Students develop key fundamentals",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-a4ea47a7-c48f-4873-b48b-5809bc40b411",
+          "name": "Welding Technology",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 32407,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-838711a5-821e-4690-acc8-7c7bf86b497c",
+          "providerName": "Lincoln Technical Institute - Mahwah - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "70 McKee Drive",
+                  "city": "Mahwah",
+                  "state": "New Jersey",
+                  "zipCode": "07430",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Welding Technology program prepares students for entry level welder positions as structural and pipe welders. Students develop key",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-1144d156-7563-4258-b7ff-e3fb5b2146ed",
+          "name": "Welding and Metal Fabrication Technology",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 21434,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-838711a5-821e-4690-acc8-7c7bf86b497c",
+          "providerName": "Lincoln Technical Institute - Mahwah - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "70 McKee Drive",
+                  "city": "Mahwah",
+                  "state": "New Jersey",
+                  "zipCode": "07430",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Welding and Metal Fabrication Technology program prepares students for entry level welder positions as structural welders. Students develop",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-e620e2cb-9944-4369-8ac4-10187645b85d",
+          "name": "Welding Technology - Hybrid",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 21645,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-6d551b97-7685-4835-ba21-70b48a45a152",
+          "providerName": "Universal Technical Institute Northeast, LLC - PCS_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "4225 E Windrose Drive, Ste 200",
+                  "city": "Phoenix",
+                  "state": "Arizona",
+                  "zipCode": "85254",
+                  "county": ""
+              }
+          ],
+          "inDemand": true,
+          "highlight": "With UTl's Welding Technology program, students can gain the training required to pursue a career as an entry-level welder",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-93be4969-7529-4041-a6c4-579714c7c046",
+          "name": "Welding Technology",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 30941,
+          "percentEmployed": null,
+          "calendarLength": 7,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e8792041-cd0c-4d60-8a38-d2826b5dabcc",
+          "providerName": "Lincoln Technical Institute - S. Plainfield - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "901 Hadley Road",
+                  "city": "South Plainfield",
+                  "state": "New Jersey",
+                  "zipCode": "07080",
+                  "county": "Middlesex"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Welding Technology program prepares students for entry-level welder positions as structural and pipe welders. Students develop key fundamental",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-fa26f76c-c5ab-44e9-ba78-53f420d88540",
+          "name": "Welding and Metal Fabrication Technology",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 23663,
+          "percentEmployed": null,
+          "calendarLength": 7,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e8792041-cd0c-4d60-8a38-d2826b5dabcc",
+          "providerName": "Lincoln Technical Institute - S. Plainfield - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "901 Hadley Road",
+                  "city": "South Plainfield",
+                  "state": "New Jersey",
+                  "zipCode": "07080",
+                  "county": "Middlesex"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Welding and Metal Fabrication Technology program prepares students for entry level welder positions as structural welders.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-2f415a9b-0578-4cde-9278-1a70131b552f",
+          "name": "Welding I & II",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 5291,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-5275b22d-7af6-4a65-94b6-886daab8e4a9",
+          "providerName": "Burlington County Institute of Technology - Adult Education Division_ETP",
+          "availableAt": [
+              {
+                  "street_address": "BCIT - Adult Education, 695 Woodlane Rd.",
+                  "city": "Westampton",
+                  "state": "New Jersey",
+                  "zipCode": "08060",
+                  "county": "Burlington"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "Program of Study is Welding Technology. This program provides Hobart Institute courses which are aligned with the objectives and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-0a1b6867-a2c2-493d-a6b3-f8991fd0a2be",
+          "name": "Welding Technology",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 5250,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-00c4be05-623f-4f6a-9008-1d367243cf06",
+          "providerName": "Rowan College of South Jersey Cumberland Campus_ETP",
+          "availableAt": [
+              {
+                  "street_address": "3322 College Drive",
+                  "city": "Vineland",
+                  "state": "New Jersey",
+                  "zipCode": "08360",
+                  "county": "Cumberland"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "Welding Technology is a skill that requires a lot of practice to master.  The program provides instruction and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-b7ac89d7-c931-424a-bdfe-9e4ff07dcd8c",
+          "name": "Welding Techology Certificate of Achievement",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 3951,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c55842df-df0a-49b5-a4fd-db23369942c0",
+          "providerName": "Sussex County Community College_ETP",
+          "availableAt": [
+              {
+                  "street_address": "One College Hill Road",
+                  "city": "Newton",
+                  "state": "New Jersey",
+                  "zipCode": "07860",
+                  "county": "Sussex"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Welding Technology Program provides students with a comprehensive understanding of the science, technology, and applications essential for successful",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-53cb05fa-1e61-4d44-80e2-4a94a89e3f0e",
+          "name": "Welding",
+          "cipDefinition": {
+              "cipcode": "480508",
+              "ciptitle": "Welding Technology/Welder."
+          },
+          "totalCost": 2350,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-460f8783-1c0b-40c2-9828-0dcf83a6dcea",
+          "providerName": "Monmouth County Vocational School - Adult Post Secondary Evening Education_ETP",
+          "availableAt": [
+              {
+                  "street_address": "4000 Kozloski Road, PO Box  5033",
+                  "city": "Freehold",
+                  "state": "New Jersey",
+                  "zipCode": "07728",
+                  "county": "Monmouth"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "Welding This practical hands-on course is designed to provide a foundation for the welding processes. This is an entry-level",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalItems": 10,
+      "itemsPerPage": 10,
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "nextPage": null,
+      "previousPage": null
+  }
+}

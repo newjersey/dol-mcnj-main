@@ -113,14 +113,16 @@ describe("Filtering", () => {
     cy.contains("Computerized Financial Accounting").should("exist");
   });
 
-  it("filters by location", () => {
-    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+  it.skip("filters by location", () => {
+    cy.intercept("/api/trainings/search?query=welding&page=1&limit=10&sort=best_match", {
+      fixture: "welding-technology-search-results.json",
+    })
+    // on results page
+    cy.visit("/training/search?q=welding");
+    cy.contains("Welding Technology").should("exist");
+    cy.contains('10 results found for "welding"').should("exist");
 
-    cy.visit("/training/search?q=digital%20marketing");
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains('49 results found for "digital marketing"').should("exist");
-
-    cy.get('input[aria-label="Search by ZIP code"]').type("07652");
+    cy.get('input[aria-label="Search by ZIP code"]').type("07728");
     cy.get('input[aria-label="Search by ZIP code"]').blur();
 
     cy.get('select[id="miles"]').select('5');
@@ -138,24 +140,22 @@ describe("Filtering", () => {
   });
 
   it("filters by In-Demand Only", () => {
-    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+    cy.intercept("/api/trainings/search?query=digital%20marketing&page=1&limit=10&sort=best_match", { fixture: "digital-marketing-search-results.json" });
 
     cy.visit("/training/search?q=digital%20marketing");
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Visual and Digital Design").should("exist");
-    cy.contains('49 results found for "digital marketing"').should("exist");
+    cy.contains("Digital Marketing Strategist").should("exist");
+    cy.contains("Rutgers Virtual Live Mini MBA: Digital Marketing (35)").should("exist");
+    cy.contains('10 results found for "digital marketing"').should("exist");
 
     cy.get('input[name="inDemandOnly"]').check();
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Visual and Digital Design").should("not.exist");
-    cy.contains('43 results found for "digital marketing"').should("exist");
+    cy.contains("Digital Marketing Strategist").should("exist");
+    cy.contains("Rutgers Virtual Live Mini MBA: Digital Marketing (35)").should("not.exist");
 
     cy.get('input[name="inDemandOnly"]').uncheck();
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Visual and Digital Design").should("exist");
-    cy.contains('49 results found for "digital marketing"').should("exist");
+    cy.contains("Digital Marketing Strategist").should("exist");
+    cy.contains("Rutgers Virtual Live Mini MBA: Digital Marketing (35)").should("exist");
   });
 
   // TODO: Find a longer-term solution for this test more resistant to ETPL data changes

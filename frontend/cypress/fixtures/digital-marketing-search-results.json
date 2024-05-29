@@ -89,7 +89,7 @@
                   "county": "Middlesex"
               }
           ],
-          "inDemand": true,
+          "inDemand": false,
           "highlight": "Rutgers Virtual Live Mini MBA: Digital Marketing program offers a unique opportunity to build your understanding of digital marketing",
           "socCodes": [],
           "hasEveningCourses": false,
@@ -122,7 +122,7 @@
                   "county": "Middlesex"
               }
           ],
-          "inDemand": true,
+          "inDemand": false,
           "highlight": "Rutgers Virtual Live Mini MBA: Digital Marketing program offers a unique opportunity to build your understanding of digital marketing",
           "socCodes": [],
           "hasEveningCourses": false,
@@ -221,7 +221,7 @@
                   "county": "Middlesex"
               }
           ],
-          "inDemand": true,
+          "inDemand": false,
           "highlight": "This course will help you learn the basics of digital marketing and different modules like SEO optimization, content marketing,",
           "socCodes": [],
           "hasEveningCourses": false,
