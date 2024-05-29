@@ -36,7 +36,7 @@
           "percentEmployed": null,
           "calendarLength": 0,
           "localExceptionCounty": [],
-          "online": true,
+          "online": false,
           "providerId": "ce-5766364d-46e5-403e-904d-313000bbcba1",
           "providerName": "Atlantic Cape Community College - CMCH_ETP",
           "availableAt": [
@@ -127,7 +127,7 @@
           "percentEmployed": null,
           "calendarLength": 2,
           "localExceptionCounty": [],
-          "online": true,
+          "online": false,
           "providerId": "ce-c446cbcc-4d44-4b1d-9cda-5b11965f11ca",
           "providerName": "Camden County College - Continuing Education_ETP",
           "availableAt": [
@@ -189,7 +189,7 @@
           "percentEmployed": null,
           "calendarLength": 4,
           "localExceptionCounty": [],
-          "online": true,
+          "online": false,
           "providerId": "ce-65abaa2f-178e-4c4b-af26-a8ce950b199a",
           "providerName": "LasComp Institute of IT - Montvale_ETP",
           "availableAt": [

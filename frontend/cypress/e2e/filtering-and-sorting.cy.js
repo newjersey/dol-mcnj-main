@@ -86,21 +86,20 @@ describe("Filtering", () => {
   });
 
   it("filters by class format", () => {
-    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+    cy.intercept("/api/trainings/search?query=accountant&page=1&limit=10&sort=best_match", { fixture: "accounting-search-results.json" });
 
-    cy.visit("/training/search?q=digital%20marketing");
+    cy.visit("/training/search?q=accountant");
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Social Media Marketing with Digital Marketing and Digital Graphics Design Online").should("exist");
-    cy.contains('49 results found for "digital marketing"').should("exist");
+    cy.contains("Computerized Accounting Specialist").should("exist");
+    cy.contains("Computerized Financial Accounting").should("exist");
+    cy.contains('10 results found for "accountant"').should("exist");
 
     cy.contains("Class Format").within(() => {
       cy.get('[type="checkbox"][name="inPerson"]').check();
     });
 
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
-    cy.contains("Social Media Marketing with Digital Marketing and Digital Graphics Design Online").should("not.exist");
-    cy.contains('42 results found for "digital marketing"').should("exist");
+    cy.contains("Computerized Accounting Specialist").should("exist");
+    cy.contains("Computerized Financial Accounting").should("not.exist");
 
     cy.contains("Class Format").within(() => {
       cy.get('[type="checkbox"][name="inPerson"]').uncheck();
@@ -110,9 +109,8 @@ describe("Filtering", () => {
       cy.get('[type="checkbox"][name="online"]').check();
     });
 
-    cy.contains("Social Media Marketing with Digital Marketing and Digital Graphics Design Online").should("exist");
-    cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains('7 results found for "digital marketing"').should("exist");
+    cy.contains("Computerized Accounting Specialist").should("not.exist");
+    cy.contains("Computerized Financial Accounting").should("exist");
   });
 
   it("filters by location", () => {
