@@ -8,6 +8,8 @@ import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
+import zipcodeJson from "../utils/zip-county.json";
+import zipcodes from "zipcodes";
 
 // Ensure TrainingData is exported in ../types
 // types.ts:
@@ -75,6 +77,16 @@ function determineSortOption(sortOption?: string) {
 function buildQuery(params: { searchQuery: string }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+  const isZipCode = zipcodes.lookup(params.searchQuery);
+  const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
+
+  let zipcodesList: unknown[] = []
+
+  if (isZipCode) {
+    zipcodesList = [params.searchQuery]
+  } else if (isCounty) {
+    zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+  }
 
   return {
     "@type": {
@@ -86,7 +98,7 @@ function buildQuery(params: { searchQuery: string }) {
       "search:value": [
         {
           "search:operator": "search:orTerms",
-          ...(isCIP || isSOC ? {} : {
+          ...(isSOC || isCIP || !!isZipCode || isCounty ? {} : {
             "ceterms:name": params.searchQuery,
             "ceterms:description": params.searchQuery,
             "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
@@ -96,7 +108,11 @@ function buildQuery(params: { searchQuery: string }) {
           } : undefined,
           "ceterms:instructionalProgramType": isCIP ? {
             "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
+          } : undefined
+        },{
+          "ceterms:availableAt": {
+            "ceterms:postalCode": zipcodesList
+          }
         },
         {
           "search:operator": "search:andTerms",
