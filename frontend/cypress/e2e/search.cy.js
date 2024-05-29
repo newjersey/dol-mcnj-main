@@ -1,5 +1,7 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+
     // on homepage
     cy.visit("/training");
     cy.injectAxe();
@@ -49,6 +51,9 @@ describe("Search", () => {
   });
 
   it("searches from the search results page", () => {
+    cy.intercept("/api/trainings/search?query=welding technology&page=1&limit=10&sort=best_match", {
+      fixture: "welding-technology-search-results.json",
+    })
     // on results page
     cy.visit("/training/search?q=welding%20technology");
     cy.injectAxe();
@@ -102,7 +107,7 @@ describe("Search", () => {
   });
 
   it("links to a training detail page", () => {
-    cy.intercept("api/trainings/search?query=digital%20marketing", { fixture: "digital-marketing-search-results.json" });
+    cy.intercept("/api/trainings/search?query=digital%20marketing&page=1&limit=10&sort=best_match", { fixture: "digital-marketing-search-results.json" });
 
     cy.visit("/training/search?q=digital%20marketing");
 
