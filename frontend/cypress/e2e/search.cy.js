@@ -51,7 +51,7 @@ describe("Search", () => {
   });
 
   it("searches from the search results page", () => {
-    cy.intercept("/api/trainings/search?query=welding technology&page=1&limit=10&sort=best_match", {
+    cy.intercept("/api/trainings/search?query=welding%20technology&page=1&limit=10&sort=best_match", {
       fixture: "welding-technology-search-results.json",
     })
     // on results page

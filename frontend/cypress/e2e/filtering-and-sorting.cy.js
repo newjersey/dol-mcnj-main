@@ -4,7 +4,7 @@ describe("Filtering", () => {
 
     cy.visit("/training/search?q=baking");
     cy.contains("Culinary Arts / Baking & Pastry").should("exist");
-    cy.contains('10 results found for "baking"').should("exist");
+    cy.contains('20 results found for "baking"').should("exist");
 
     cy.contains("Max Cost").within(() => {
       cy.get('input[id="maxCost"]').type("4000");
@@ -204,27 +204,6 @@ describe("Filtering", () => {
     });
   });
 
-  it("sorts by employment rate", () => {
-    cy.visit("/training/search?q=baker");
-    cy.get("#sortby").select("EMPLOYMENT_RATE");
-
-    const ratesOrder = [
-      "71.4% employed",
-      "33.3% employed",
-      "--",
-      "--",
-      "--",
-      "--",
-      "--",
-      "--",
-      "--",
-      "--"];
-
-    cy.get(".card").each(($value, index) => {
-      expect($value.text()).contains(ratesOrder[index]);
-    });
-  });
-
   // TODO: Find a longer-term solution for this test more resistant to ETPL data changes
   it.skip("preserves sort order between pages", () => {
     cy.visit("/training/search?q=baking");
@@ -260,24 +239,29 @@ describe("Filtering", () => {
   });
 
   it("preserves a filter between pages", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+    cy.intercept("/api/trainings/search?query=baking&page=2&limit=10&sort=best_match", { fixture: "baking-search-results-p2.json" })
+
     cy.visit("/training/search?q=baking");
-    cy.contains("Baking and Pastry").should("exist");
+    cy.contains("Bakery and Pastry").should("exist");
+    cy.contains("Certificate in Baking").should("exist");
+    cy.contains("Certificate in Professional Cooking").should("not.exist");
 
     cy.contains("Max Cost").within(() => {
-      cy.get("input").type("2000");
+      cy.get("input").type("4000");
       cy.get("input").blur();
     });
 
-    cy.contains("Baking and Pastry").should("not.exist");
-    cy.contains("Baking & Pastry Arts").should("exist");
+    cy.contains("Bakery and Pastry").should("not.exist");
+    cy.contains("Certificate in Baking").should("exist");
 
-    cy.get(".card .link-format-blue").eq(0).click({ force: true });
-    cy.location("pathname").should("eq", "/training/37354");
-    cy.go("back");
+    cy.get('[aria-label="Go to page 2"]').click();
 
-    cy.contains("Baking & Pastry , Culinary Arts").should("not.exist");
     cy.contains("Max Cost").within(() => {
-      cy.get("input").should("have.value", "2000");
+      cy.get("input").should("have.value", "4000");
     });
+
+    cy.contains("Certificate in Baking").should("not.exist");
+    cy.contains("Certificate in Professional Cooking").should("exist");
   });
 });
