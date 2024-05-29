@@ -5,7 +5,7 @@
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.4.0",
     "@contentful/rich-text-react-renderer": "^15.20.0",
-    "@contentful/rich-text-types": "^16.4.0",
+    "@contentful/rich-text-types": "^16.5.2",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@newjersey/njwds": "^1.0.0",
@@ -80,7 +80,7 @@
   "proxy": "http://localhost:8080",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.24.5",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.6",
     "@types/dompurify": "^3.0.5",
     "@types/markdown-it": "^14.1.1",
     "@types/node": "^16.18.97",
