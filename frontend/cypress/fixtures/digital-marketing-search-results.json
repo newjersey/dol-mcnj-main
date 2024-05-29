@@ -11,7 +11,7 @@
           "percentEmployed": null,
           "calendarLength": 2,
           "localExceptionCounty": [],
-          "online": true,
+          "online": false,
           "providerId": "ce-d1450f7b-3f8e-47f0-9c05-1b340b0a011e",
           "providerName": "Rutgers Executive Education (REE)_ETP",
           "availableAt": [
@@ -110,7 +110,7 @@
           "percentEmployed": null,
           "calendarLength": 2,
           "localExceptionCounty": [],
-          "online": true,
+          "online": false,
           "providerId": "ce-d1450f7b-3f8e-47f0-9c05-1b340b0a011e",
           "providerName": "Rutgers Executive Education (REE)_ETP",
           "availableAt": [
@@ -209,7 +209,7 @@
           "percentEmployed": null,
           "calendarLength": 3,
           "localExceptionCounty": [],
-          "online": true,
+          "online": false,
           "providerId": "ce-6aae0229-d6de-4c09-972a-c40a5027dd3e",
           "providerName": "Rutgers Center for Continuing Professional Development_ETP",
           "availableAt": [
