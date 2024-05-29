@@ -1,0 +1,340 @@
+{
+  "data": [
+      {
+          "id": "ce-2ac7ce23-b16f-41b5-9433-beea5d283d16",
+          "name": "Baking for Beginners",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 2107,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-b42aaaf8-3d3a-4820-98d8-c958805135b7",
+          "providerName": "Institute for Contemporary Careers - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "30 Galesi Drive",
+                  "city": "Wayne",
+                  "state": "New Jersey",
+                  "zipCode": "07470",
+                  "county": "Passaic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "for students, who are interested in dessert, pastry, and classic baking techniques. Participants will learn various baking principles such as artisanal",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-0f68ac61-5246-4a8f-aa78-f0c9e370875e",
+          "name": "Baking and Pastry",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 2900,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c446cbcc-4d44-4b1d-9cda-5b11965f11ca",
+          "providerName": "Camden County College - Continuing Education_ETP",
+          "availableAt": [
+              {
+                  "street_address": "200 College Drive",
+                  "city": "Blackwood",
+                  "state": "New Jersey",
+                  "zipCode": "08012",
+                  "county": "Camden"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Arts program is designed to teach an overview of the baking industry from the ground up.  Exam not included in",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-ecee31ea-b549-4ddd-84b6-fc0d1d8a8f23",
+          "name": "Baking and Pastry Certificate",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 8085,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c55842df-df0a-49b5-a4fd-db23369942c0",
+          "providerName": "Sussex County Community College_ETP",
+          "availableAt": [
+              {
+                  "street_address": "One College Hill Road",
+                  "city": "Newton",
+                  "state": "New Jersey",
+                  "zipCode": "07860",
+                  "county": "Sussex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "comprehensive curriculum and actual practice in all aspects of the baking & pastry arts",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-975b9f29-be87-4479-a907-ff05d61ece04",
+          "name": "Culinary Baking Kitchen Manager",
+          "cipDefinition": {
+              "cipcode": "120503",
+              "ciptitle": "Culinary Arts/Chef Training."
+          },
+          "totalCost": 4040,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-b42aaaf8-3d3a-4820-98d8-c958805135b7",
+          "providerName": "Institute for Contemporary Careers - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "30 Galesi Drive",
+                  "city": "Wayne",
+                  "state": "New Jersey",
+                  "zipCode": "07470",
+                  "county": "Passaic"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "understanding of the structure and functions of standardized cooking and baking recipes. Hands-on experience will be available through an off-site fully-equipped",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-ecbb53e5-89e3-4711-9959-56fa2421b171",
+          "name": "Certified Fundamentals Cook",
+          "cipDefinition": {
+              "cipcode": "120500",
+              "ciptitle": "Cooking and Related Culinary Arts, General."
+          },
+          "totalCost": 6995,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c54c759c-8d99-49f8-8d7d-cdf0f15f4685",
+          "providerName": "Atlantic Cape Community College - Atlantic City_ETP",
+          "availableAt": [
+              {
+                  "street_address": "1535 Bacharach Blvd",
+                  "city": "Atlantic City",
+                  "state": "New Jersey",
+                  "zipCode": "08401",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "the students experience, students are introduced to healthy cooking and baking as part of this certification training program.\r\nThe program consists of",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-3f89e4f3-3535-4ca0-93d1-f53aff97f0f4",
+          "name": "Baking & Pastry Option Culinary Arts",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 33553,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c4c6622b-917d-4c07-b2c9-23f227631312",
+          "providerName": "Atlantic Cape Community College - Mays Landing_ETP",
+          "availableAt": [
+              {
+                  "street_address": "5100 Black Horse PIke",
+                  "city": "Mays Landing",
+                  "state": "New Jersey",
+                  "zipCode": "08330",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Provides students with an opportunity to explore their interests in the pastry field while maintaining fundamental concepts in core",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-26b7742a-f688-40be-87a5-fd7502817957",
+          "name": "The Art of Home Baking",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 200,
+          "percentEmployed": null,
+          "calendarLength": 1,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-5275b22d-7af6-4a65-94b6-886daab8e4a9",
+          "providerName": "Burlington County Institute of Technology - Adult Education Division_ETP",
+          "availableAt": [
+              {
+                  "street_address": "BCIT - Adult Education, 695 Woodlane Rd.",
+                  "city": "Westampton",
+                  "state": "New Jersey",
+                  "zipCode": "08060",
+                  "county": "Burlington"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Course is both demonstration and hands-on.  Tarts, breads, coffee cakes, buns, etc.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-480e0764-6a5b-4999-9eb9-45e3ed3798fa",
+          "name": "Certificate in Professional Cooking",
+          "cipDefinition": {
+              "cipcode": "120503",
+              "ciptitle": "Culinary Arts/Chef Training."
+          },
+          "totalCost": 3449,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-031e64cb-5df2-4969-aa20-f0053e7de098",
+          "providerName": "Bergen Community College - Continuing Education Program_ETP",
+          "availableAt": [
+              {
+                  "street_address": "400 Paramus Road, TEC 115H",
+                  "city": "Paramus",
+                  "state": "New Jersey",
+                  "zipCode": "07652",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Certificate in Professional Cooking is designed to prepare entry-level or working foodservice professionals to enhance hands-on skills or",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-848e32d9-1d5c-4539-93fa-0841adc36dbb",
+          "name": "Culinary Arts Training  Program",
+          "totalCost": 3325,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-743eb90f-66d6-4a77-bd4b-5bbce90ff520",
+          "providerName": "Employment Horizons, Inc.-Vocational Rehabilitation Services - DVRS_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "10 Ridgedale Avenue",
+                  "city": "Cedar Knolls",
+                  "state": "New Jersey",
+                  "zipCode": "07927",
+                  "county": "Morris"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "sanitation. A few of the cooking methods that taught are, baking basics, hot and cold food production, while learning about recipe",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-c5444151-b994-4b97-8b95-c64aab50a599",
+          "name": "Baking & Pastry Arts",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 999,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-4c436f58-3731-43e8-ad7f-2dcb31b4478a",
+          "providerName": "Gloucester County Institute of Technology_ETP",
+          "availableAt": [
+              {
+                  "street_address": "1360 Tanyard Road",
+                  "city": "Sewell",
+                  "state": "New Jersey",
+                  "zipCode": "08080",
+                  "county": "Gloucester"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Students will be trained and become proficient in basic and advanced level dough work and cakes.  Upon completion",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 2,
+      "totalPages": 2,
+      "totalItems": 20,
+      "itemsPerPage": 10,
+      "hasNextPage": false,
+      "hasPreviousPage": true,
+      "nextPage": null,
+      "previousPage": 1
+  }
+}

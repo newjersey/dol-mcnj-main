@@ -333,12 +333,12 @@
   ],
   "meta": {
       "currentPage": 1,
-      "totalPages": 1,
-      "totalItems": 10,
+      "totalPages": 2,
+      "totalItems": 20,
       "itemsPerPage": 10,
-      "hasNextPage": false,
+      "hasNextPage": true,
       "hasPreviousPage": false,
-      "nextPage": null,
+      "nextPage": 2,
       "previousPage": null
   }
 }
