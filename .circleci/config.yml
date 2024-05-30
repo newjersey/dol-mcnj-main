@@ -59,17 +59,27 @@ jobs:
       - run:
           name: Install SSH
           command: sudo apt-get install -y openssh-client
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:UkBaGthILXKNTD7u0bbWle4fJwGE3thGwtiC3huxLAw"
       - run:
-          name: Create Directory for SSH Key
-          command: mkdir -p ~/.ssh
-      - run:
-          name: Write PEM File from Environment Variable
-          command: echo "$DEV_KEY" > ~/.ssh/mykey.pem && chmod 400 ~/.ssh/mykey.pem
-      - run:
-          name: SSH into EC2
+          name: SSH into EC2 and Deploy
           command: |
-            ssh -i ~/.ssh/mykey.pem $EC2_USERNAME@$EC2_IP
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_IP \
+              "cd d4ad && \
+              git pull origin master && \
+              ./scripts/install-all.sh && \
+              ./scripts/db-migrate.sh && \
+              rm -rf backend/dist/ && \
+              ./scripts/build.sh"
 workflows:
   build-test-deploy:
     jobs:
-      - deploy_dev
+      - build-and-test
+      - deploy_dev:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only:
+                - master
