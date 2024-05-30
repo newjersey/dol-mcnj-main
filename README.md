@@ -196,7 +196,7 @@ Additionally, fences are used in the backend subdirectories to enforce [dependen
 The `routes` and `database` folders depend on the interfaces defined in `domain` (only - not on each other), and `domain` is not allowed to
 import from any of these implementation directories.
 
-Fences are enforced via a linting-like command that will fail when any violations are flagged:
+Fences are enforced via a linting-like command that will fail when any violations are flagged: 
 
 ```shell script
 npm --prefix=backend run fences
