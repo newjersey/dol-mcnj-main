@@ -41,6 +41,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     }
 
     const certificates = ceRecordsResponse.data.data as CTDLResource[];
+    console.log(certificates[0]['ceterms:estimatedDuration']) // Added null check
     const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
 
     const totalResults = ceRecordsResponse.data.extra.TotalResults;
