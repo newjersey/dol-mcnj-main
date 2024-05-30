@@ -33,6 +33,7 @@ import { Tooltip } from "react-tooltip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
+import {Helmet} from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -242,6 +243,81 @@ export const TrainingPage = (props: Props): ReactElement => {
     url: props.location?.pathname || "/training",
   };
 
+  const generateJsonLd = (training: Training) => {
+    const audience = [
+      {
+        "@type": "Audience",
+        "audienceType": "Students",
+        "geographicArea": {
+          "@type": "Place",
+          "name": "New Jersey",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.0583, // New Jersey's approximate latitude
+            "longitude": -74.4057, // New Jersey's approximate longitude
+          },
+        },
+      },
+      {
+        "@type": "Audience",
+        "audienceType": "Workers",
+        "geographicArea": {
+          "@type": "Place",
+          "name": "New Jersey",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.0583, // New Jersey's approximate latitude
+            "longitude": -74.4057, // New Jersey's approximate longitude
+          },
+        },
+      },
+    ];
+
+    const courseInstance = {
+      "@type": "CourseInstance",
+      "courseMode": training.online ? "online" : "onsite",
+      "instructor": {
+        "@type": "Person",
+        "name": training.provider.contactName,
+        "jobTitle": training.provider.contactTitle,
+        "telephone": training.provider.phoneNumber,
+      },
+      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
+    };
+
+    const offer = {
+      "@type": "Offer",
+      "url": training.provider.url,
+      "priceCurrency": "USD",
+      "price": training.totalCost,
+      "eligibleRegion": {
+        "@type": "Place",
+        "name": "New Jersey",
+      },
+      "category": "Tuition"
+    };
+
+    return {
+      "@context": "http://schema.org",
+      "@type": "Course",
+      "name": training.name,
+      "description": training.description,
+      "provider": {
+        "@type": "Organization",
+        "name": training.provider.name,
+        "sameAs": training.provider.url,
+      },
+      "audience": audience,
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Program ID",
+        "value": training.id,
+      },
+      "hasCourseInstance": courseInstance,
+      "offers": offer,
+    };
+  };
+
   if (!training) {
     if (error === Error.SYSTEM_ERROR) {
       return <SomethingWentWrongPage client={props.client} />;
@@ -274,341 +350,344 @@ export const TrainingPage = (props: Props): ReactElement => {
   }
 
   return (
-    <div ref={componentRef}>
-      <Layout client={props.client} seo={seoObject}>
-        <div className="container">
-          <div className="detail-page">
-            <div className="page-banner">
-              <div className="top-nav">
-                <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                  <Icon>keyboard_backspace</Icon>
-                  <ol className="usa-breadcrumb__list">
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/">
-                        Home
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training">
-                        Training Explorer
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training/search">
-                        Search
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                      <span>{training.name}</span>
-                    </li>
-                  </ol>
-                </nav>
+      <div ref={componentRef}>
+        <Layout client={props.client} seo={seoObject}>
+          <Helmet>
+            <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
+          </Helmet>
+          <div className="container">
+            <div className="detail-page">
+              <div className="page-banner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/training">
+                          Training Explorer
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/training/search">
+                          Search
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span>{training.name}</span>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="title-box">
-            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-              {training.name}
-            </h2>
-            <ul className="save-controls unstyled">
-              <li>
-                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                  <LinkSimple size={26} className={copy ? "green" : undefined} />
-                  <span className={copy ? "green" : undefined}>
+            <div className="title-box">
+              <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+                {training.name}
+              </h2>
+              <ul className="save-controls unstyled">
+                <li>
+                  <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                    <LinkSimple size={26} className={copy ? "green" : undefined}/>
+                    <span className={copy ? "green" : undefined}>
                     {copy ? "Copied!" : "Copy link"}
                   </span>
+                  </UnstyledButton>
+                </li>
+                <li>
+                  <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                    <Printer size={26}/>
+                    <span className="mlxs weight-500">Print and Save</span>
+                  </UnstyledButton>
+                </li>
+              </ul>
+            </div>
+            <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
+            <div className="stat-block-stack mtm">
+              {training.inDemand ? <InDemandBlock/> : <></>}
+
+              {!training.inDemand &&
+              training.localExceptionCounty &&
+              training.localExceptionCounty.length !== 0 ? (
+                  <InDemandBlock counties={training.localExceptionCounty}/>
+              ) : (
+                  <></>
+              )}
+
+              <div className="stat-block-container">
+                <StatBlock
+                    title={t("TrainingPage.avgSalaryTitle")}
+                    tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                    data={
+                      training.averageSalary
+                          ? formatMoney(training.averageSalary, {precision: 0})
+                          : STAT_MISSING_DATA_INDICATOR
+                    }
+                    backgroundColorClass="bg-lightest-purple"
+                />
+                <StatBlock
+                    title={t("TrainingPage.employmentRateTitle")}
+                    tooltipText={t("TrainingPage.employmentRateTooltip")}
+                    data={
+                      training.percentEmployed
+                          ? formatPercentEmployed(training.percentEmployed)
+                          : STAT_MISSING_DATA_INDICATOR
+                    }
+                    backgroundColorClass="bg-light-purple-50"
+                />
+              </div>
+            </div>
+            <ul className="save-controls mobile-only unstyled">
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                  <LinkSimple size={26} className={copy ? "green" : undefined}/>
+                  <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
                 </UnstyledButton>
               </li>
               <li>
                 <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                  <Printer size={26} />
+                  <Printer size={26}/>
                   <span className="mlxs weight-500">Print and Save</span>
                 </UnstyledButton>
               </li>
             </ul>
-          </div>
-          <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
-          <div className="stat-block-stack mtm">
-            {training.inDemand ? <InDemandBlock /> : <></>}
+            <div className="row pbm group-wrapper">
+              <div className="col-md-8">
+                <div className="container-fluid">
+                  <div className="row">
+                    <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
+                      <>
+                        {training.description.split("\n").map((line, i) => (
+                            <p key={i}>{line}</p>
+                        ))}
+                      </>
+                    </Grouping>
 
-            {!training.inDemand &&
-            training.localExceptionCounty &&
-            training.localExceptionCounty.length !== 0 ? (
-              <InDemandBlock counties={training.localExceptionCounty} />
-            ) : (
-              <></>
-            )}
-
-            <div className="stat-block-container">
-              <StatBlock
-                title={t("TrainingPage.avgSalaryTitle")}
-                tooltipText={t("TrainingPage.avgSalaryTooltip")}
-                data={
-                  training.averageSalary
-                    ? formatMoney(training.averageSalary, { precision: 0 })
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-lightest-purple"
-              />
-              <StatBlock
-                title={t("TrainingPage.employmentRateTitle")}
-                tooltipText={t("TrainingPage.employmentRateTooltip")}
-                data={
-                  training.percentEmployed
-                    ? formatPercentEmployed(training.percentEmployed)
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-light-purple-50"
-              />
-            </div>
-          </div>
-          <ul className="save-controls mobile-only unstyled">
-            <li>
-              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                <LinkSimple size={26} className={copy ? "green" : undefined} />
-                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
-              </UnstyledButton>
-            </li>
-            <li>
-              <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                <Printer size={26} />
-                <span className="mlxs weight-500">Print and Save</span>
-              </UnstyledButton>
-            </li>
-          </ul>
-          <div className="row pbm group-wrapper">
-            <div className="col-md-8">
-              <div className="container-fluid">
-                <div className="row">
-                  <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
-                    <>
-                      {training.description.split("\n").map((line, i) => (
-                        <p key={i}>{line}</p>
-                      ))}
-                    </>
-                  </Grouping>
-
-                  <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
-                    <>
-                      {training.certifications && (
-                        <p>
+                    <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
+                      <>
+                        {training.certifications && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">school</InlineIcon>
                             {t("TrainingPage.certificationsLabel")}&nbsp;
                             <b>{training.certifications}</b>
                           </span>
-                        </p>
-                      )}
-                      {training.prerequisites && (
-                        <p>
+                            </p>
+                        )}
+                        {training.prerequisites && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">list_alt</InlineIcon>
                             {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
                           </span>
-                        </p>
-                      )}
-                      <p>
+                            </p>
+                        )}
+                        <p>
                         <span className="fin">
                           <InlineIcon className="mrxs">av_timer</InlineIcon>
                           {t("TrainingPage.completionTimeLabel")}&nbsp;
                           <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
                         </span>
-                      </p>
-                      {training.totalClockHours && (
-                        <p>
+                        </p>
+                        {training.totalClockHours && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">schedule</InlineIcon>
                             {t("TrainingPage.totalClockHoursLabel")}&nbsp;
                             <InlineIcon
-                              className="mrxs"
-                              data-tooltip-id="totalClockHours-tooltip"
-                              data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
                             >
                               info
                             </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
                             <b>
                               {t("TrainingPage.totalClockHours", {
                                 hours: training.totalClockHours,
                               })}
                             </b>
                           </span>
-                        </p>
-                      )}
-                      {training.cipCode && (
-                        <p>
+                            </p>
+                        )}
+                        {training.cipCode && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">qr_code</InlineIcon>
                             {t("TrainingPage.cipCodeLabel")}&nbsp;
                             <InlineIcon
-                              className="mrxs"
-                              data-tooltip-id="totalClockHours-tooltip"
-                              data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
                             >
                               info
                             </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
                             <b>{t(training.cipCode)}</b>
                           </span>
-                        </p>
-                      )}
-                    </>
-                  </Grouping>
+                            </p>
+                        )}
+                      </>
+                    </Grouping>
 
-                  <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
-                    <>{getAssociatedOccupations()}</>
-                  </Grouping>
+                    <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
+                      <>{getAssociatedOccupations()}</>
+                    </Grouping>
 
-                  <div className="desktop-only">{fundingContent}</div>
+                    <div className="desktop-only">{fundingContent}</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="col-md-4">
-              <div className="container-fluid mbm">
-                <div className="row">
-                  <Grouping title={t("TrainingPage.costGroupHeader")}>
-                    <>
-                      <p>
-                        <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
-                        <span className="text-l pull-right weight-500">
+              <div className="col-md-4">
+                <div className="container-fluid mbm">
+                  <div className="row">
+                    <Grouping title={t("TrainingPage.costGroupHeader")}>
+                      <>
+                        <p>
+                          <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
+                          <span className="text-l pull-right weight-500">
                           {formatMoney(training.totalCost)}
                         </span>
-                      </p>
-                      <div className="grey-line" />
-                      <div className="mvd">
-                        <div>
-                          <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.feesCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.feesCost)}</span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.materialsCostLabel")}</span>
-                          <span className="pull-right">
+                        </p>
+                        <div className="grey-line"/>
+                        <div className="mvd">
+                          <div>
+                            <span>{t("TrainingPage.tuitionCostLabel")}</span>
+                            <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.feesCostLabel")}</span>
+                            <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.materialsCostLabel")}</span>
+                            <span className="pull-right">
                             {formatMoney(training.booksMaterialsCost)}
                           </span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.suppliesCostLabel")}</span>
-                          <span className="pull-right">
+                          </div>
+                          <div>
+                            <span>{t("TrainingPage.suppliesCostLabel")}</span>
+                            <span className="pull-right">
                             {formatMoney(training.suppliesToolsCost)}
                           </span>
-                        </div>
-                        <div>
-                          <span>{t("TrainingPage.otherCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.otherCost)}</span>
-                        </div>
-                      </div>
-                      <div id="contact-provider-info">
-                        {training?.provider?.url ? (
-                          <div className="provider-btn-container">
-                            <Button
-                              copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
-                              type="link"
-                              url={
-                                training.provider.url.startsWith("http")
-                                  ? training.provider.url
-                                  : `https://${training.provider.url}`
-                              }
-                            />
-                            <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
                           </div>
-                        ) : (
-                          <div className="provider-no-url">
-                            <div className="icon-container">
-                              <UserSound />
-                            </div>
-                            {t("TrainingPage.providerWebsiteMissingLabel")}
+                          <div>
+                            <span>{t("TrainingPage.otherCostLabel")}</span>
+                            <span className="pull-right">{formatMoney(training.otherCost)}</span>
                           </div>
-                        )}
-                      </div>
-                    </>
-                  </Grouping>
+                        </div>
+                        <div id="contact-provider-info">
+                          {training?.provider?.url ? (
+                              <div className="provider-btn-container">
+                                <Button
+                                    copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                                    type="link"
+                                    url={
+                                      training.provider.url.startsWith("http")
+                                          ? training.provider.url
+                                          : `https://${training.provider.url}`
+                                    }
+                                />
+                                <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
+                              </div>
+                          ) : (
+                              <div className="provider-no-url">
+                                <div className="icon-container">
+                                  <UserSound/>
+                                </div>
+                                {t("TrainingPage.providerWebsiteMissingLabel")}
+                              </div>
+                          )}
+                        </div>
+                      </>
+                    </Grouping>
 
-                  <Grouping title={t("TrainingPage.providerGroupHeader")}>
-                    <>
-                      <p>
+                    <Grouping title={t("TrainingPage.providerGroupHeader")}>
+                      <>
+                        <p>
                         <span className="fin fas">
                           <InlineIcon className="mrxs">school</InlineIcon>
                           {training.provider.name}
                         </span>
-                      </p>
-                      <div className="mvd">
+                        </p>
+                        <div className="mvd">
                         <span className="fin">
                           <InlineIcon className="mrxs">location_on</InlineIcon>
                           {getProviderAddress()}
                         </span>
-                      </div>
-                      <div className="mvd">
+                        </div>
+                        <div className="mvd">
                         <span className="fin">
                           <InlineIcon className="mrxs">person</InlineIcon>
                           {getProviderContact()}
                         </span>
-                      </div>
-                      <p>
+                        </div>
+                        <p>
                         <span className="fin">
                           <InlineIcon className="mrxs">link</InlineIcon>
                           {getProviderUrl()}
                         </span>
-                      </p>
-                    </>
-                  </Grouping>
+                        </p>
+                      </>
+                    </Grouping>
 
-                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
-                    <>
-                      {training.hasEveningCourses && (
-                        <p>
+                    <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
+                      <>
+                        {training.hasEveningCourses && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">nightlight_round</InlineIcon>
                             {t("TrainingPage.eveningCoursesServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.languages.length > 0 && (
-                        <p>
+                            </p>
+                        )}
+                        {training.languages.length > 0 && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">language</InlineIcon>
                             {t("TrainingPage.otherLanguagesServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.isWheelchairAccessible && (
-                        <p>
+                            </p>
+                        )}
+                        {training.isWheelchairAccessible && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">accessible_forward</InlineIcon>
                             {t("TrainingPage.wheelchairAccessibleServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.hasChildcareAssistance && (
-                        <p>
+                            </p>
+                        )}
+                        {training.hasChildcareAssistance && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">family_restroom</InlineIcon>
                             {t("TrainingPage.childcareAssistanceServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.hasJobPlacementAssistance && (
-                        <p>
+                            </p>
+                        )}
+                        {training.hasJobPlacementAssistance && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">work_outline</InlineIcon>
                             {t("TrainingPage.jobAssistanceServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
-                    </>
-                  </Grouping>
-                  <div className="mobile-only">{fundingContent}</div>
+                            </p>
+                        )}
+                        <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
+                      </>
+                    </Grouping>
+                    <div className="mobile-only">{fundingContent}</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </Layout>
-    </div>
+        </Layout>
+      </div>
   );
 };

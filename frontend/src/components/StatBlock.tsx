@@ -7,6 +7,7 @@ import { ContextualInfoContext } from "../contextual-info/ContextualInfoContext"
 interface Props {
   title: string;
   tooltipText?: string;
+  disclaimer?: string;
   data: string;
   dataSource?: string;
   backgroundColorClass: string;
@@ -23,14 +24,17 @@ export const StatBlock = (props: Props): ReactElement => {
       ? t("StatBlock.missingDataExplanation")
       : `${t("StatBlock.dataSourceLabel")} ${props.dataSource ?? t("StatBlock.defaultDataSource")}`;
 
+      
   const onClickInfo = useCallback(() => {
     setContextualInfo((prevValue) => ({
       ...prevValue,
       isOpen: true,
       title: props.title,
-      body: props.tooltipText + ". " + dataMissingOrSource ?? "",
+      body: `${props.tooltipText}. ${dataMissingOrSource ?? ""}*`,
+      disclaimer: `*${props.disclaimer}`
     }));
-  }, [dataMissingOrSource, props.title, props.tooltipText, setContextualInfo]);
+  }, [dataMissingOrSource, props.title, props.tooltipText, props.disclaimer, setContextualInfo]);
+
 
   const tooltipTargetIfMobile = (): Record<string, string> | undefined => {
     if (!isTabletAndUp) {
@@ -61,6 +65,7 @@ export const StatBlock = (props: Props): ReactElement => {
         {!isTabletAndUp && <div className="stat-block-number mla mrs">{props.data}</div>}
       </div>
       {isTabletAndUp && <div className="stat-block-number ptm pbs">{props.data}</div>}
+      <div></div>
     </div>
   );
 };

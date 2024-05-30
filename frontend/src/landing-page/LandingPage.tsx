@@ -28,9 +28,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
   const seoObject = {
     title: pageData?.title || (process.env.REACT_APP_SITE_NAME as string),
-    description:
-      pageData?.pageDescription ||
-      "Your home for career exploration, job training, and workforce support tools and resources in New Jersey.",
+    pageDescription: "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
     image: pageData?.ogImage?.url || pageImage,
     keywords: pageData?.keywords,
     url: props.location?.pathname || "/",
@@ -59,6 +57,7 @@ export const LandingPage = (props: Props): ReactElement => {
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
               subheading={pageData.bannerMessage}
+              preload
             />
             {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
             <div className="container" id="homeContent">
