@@ -1,0 +1,314 @@
+[
+  {
+      "id": "ce-ed30d519-1b57-4e24-901e-ffb44420854a",
+      "name": "Masters in Social Work",
+      "cipDefinition": {
+          "cipcode": "440701",
+          "ciptitle": "Social Work."
+      },
+      "totalCost": 41701,
+      "percentEmployed": null,
+      "calendarLength": 5,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-e5eabd29-4522-424a-a3be-c39946f240b4",
+      "providerName": "Stockton University_ETP",
+      "availableAt": [
+          {
+              "street_address": "101 Vera King Farris Drive",
+              "city": "Galloway",
+              "state": "New Jersey",
+              "zipCode": "08205",
+              "county": "Atlantic"
+          }
+      ],
+      "inDemand": true,
+      "highlight": "Stockton's Master of Social Work (MSW) Program is designed to educate social workers who are prepared for advanced-level practice",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-18908a13-d37c-492a-b387-965f2131fcbd",
+      "name": "Social Work",
+      "cipDefinition": {
+          "cipcode": "511503",
+          "ciptitle": "Clinical/Medical Social Work."
+      },
+      "totalCost": 25053,
+      "percentEmployed": null,
+      "calendarLength": 0,
+      "localExceptionCounty": [
+          "Monmouth"
+      ],
+      "online": true,
+      "providerId": "ce-e5eabd29-4522-424a-a3be-c39946f240b4",
+      "providerName": "Stockton University_ETP",
+      "availableAt": [
+          {
+              "street_address": "101 Vera King Farris Drive",
+              "city": "Galloway",
+              "state": "New Jersey",
+              "zipCode": "08205",
+              "county": "Atlantic"
+          }
+      ],
+      "inDemand": true,
+      "highlight": "Social work is a profession concerned with conditions that limit the social functioning of individuals, groups, and communities. ",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-2fd76fe6-f283-49db-aae1-f053f2505d4e",
+      "name": "Certificate in Social Media",
+      "cipDefinition": {
+          "cipcode": "520208",
+          "ciptitle": "E-Commerce/Electronic Commerce."
+      },
+      "totalCost": 2500,
+      "percentEmployed": null,
+      "calendarLength": 3,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-031e64cb-5df2-4969-aa20-f0053e7de098",
+      "providerName": "Bergen Community College - Continuing Education Program_ETP",
+      "availableAt": [
+          {
+              "street_address": "400 Paramus Road, TEC 115H",
+              "city": "Paramus",
+              "state": "New Jersey",
+              "zipCode": "07652",
+              "county": "Bergen"
+          }
+      ],
+      "inDemand": true,
+      "highlight": "Certificate in Social Media for Business Master the fundamentals of adding social media to your business's marketing mix. Using",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-95292e2d-4be2-4c4d-9a7a-d6588b42ee70",
+      "name": "Work Retention and Readiness",
+      "totalCost": null,
+      "percentEmployed": null,
+      "calendarLength": 0,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-1ce747e9-3113-4763-93dd-e0e1198bc987",
+      "providerName": "Jewish Family Service of Atlantic County - Pathways to Recovery_ETP",
+      "availableAt": [
+          {
+              "street_address": "607 N. Jerome Avenue",
+              "city": "Margate",
+              "state": "New Jersey",
+              "zipCode": "08402",
+              "county": "Atlantic"
+          }
+      ],
+      "inDemand": false,
+      "highlight": "Pathways to recovery provides trainings which support individuals impacted by opioid use in obtaining and maintaining employment.\r\nWork Retention and",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-45b06e3e-8e3c-4ef6-bba3-85bd242c86ba",
+      "name": "Social/Comunity Services",
+      "cipDefinition": {
+          "cipcode": "459999",
+          "ciptitle": "Social Sciences, Other."
+      },
+      "totalCost": 11774,
+      "percentEmployed": null,
+      "calendarLength": 5,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-d47ec693-0260-45cf-82c8-1f8c7317112c",
+      "providerName": "Salem Community College - Credit Programs_ETP",
+      "availableAt": [
+          {
+              "street_address": "460 Hollywood Avenue",
+              "city": "Carney's Point",
+              "state": "New Jersey",
+              "zipCode": "08069",
+              "county": "Salem"
+          }
+      ],
+      "inDemand": false,
+      "highlight": "The Social/Community Service program explores the application of history, sociology and psychology to the field of social and community",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-dcadf750-e15d-4bf4-b072-3a8f12836383",
+      "name": "Chemical Dependency Certificate",
+      "totalCost": 10640,
+      "percentEmployed": null,
+      "calendarLength": 0,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-7968df5f-bab8-4893-a2ce-be959449713d",
+      "providerName": "Raritan Valley Community College_ETP",
+      "availableAt": [
+          {
+              "street_address": "118 Lamington Road",
+              "city": "Branchburg",
+              "state": "New Jersey",
+              "zipCode": "08876",
+              "county": "Somerset"
+          }
+      ],
+      "inDemand": false,
+      "highlight": "The Chemical Dependency Certificate offers those with and without prior academic experience a pathway to a career in substance",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-2efaf54e-af78-4977-8dfb-45bd16b66e39",
+      "name": "Social Media and Marketing Online with Non-Profit management in-Person",
+      "cipDefinition": {
+          "cipcode": "521401",
+          "ciptitle": "Marketing/Marketing Management, General."
+      },
+      "totalCost": 2540,
+      "percentEmployed": null,
+      "calendarLength": 3,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-278e9fd8-45bb-4fe0-aa7c-cb63284922ea",
+      "providerName": "William Paterson University_ETP",
+      "availableAt": [
+          {
+              "street_address": "1800 Valley Road",
+              "city": "Wayne",
+              "state": "New Jersey",
+              "zipCode": "07470",
+              "county": "Passaic"
+          }
+      ],
+      "inDemand": true,
+      "highlight": "This 10 week course is designed to provide students with an insight to the background, history, technology, the impact,",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-f8128255-6eb2-4865-8c60-5493014147db",
+      "name": "Social Media and Marketing with Non-Profit Management - All Online",
+      "cipDefinition": {
+          "cipcode": "521401",
+          "ciptitle": "Marketing/Marketing Management, General."
+      },
+      "totalCost": 2669,
+      "percentEmployed": null,
+      "calendarLength": 4,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-278e9fd8-45bb-4fe0-aa7c-cb63284922ea",
+      "providerName": "William Paterson University_ETP",
+      "availableAt": [
+          {
+              "street_address": "1800 Valley Road",
+              "city": "Wayne",
+              "state": "New Jersey",
+              "zipCode": "07470",
+              "county": "Passaic"
+          }
+      ],
+      "inDemand": true,
+      "highlight": "Please note: Registration is ongoing through the semester.\r\nThis 10 week course is designed to provide students with an insight",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-79974888-f040-467c-8e02-9cd019b43d9b",
+      "name": "Community Based Work Evaluation (CBWE)",
+      "totalCost": null,
+      "percentEmployed": null,
+      "calendarLength": 0,
+      "localExceptionCounty": [],
+      "online": false,
+      "providerId": "ce-54c800b0-5073-4093-a4e1-dc460e710c07",
+      "providerName": "North Jersey Friendship House - DVRS_ETP",
+      "availableAt": [],
+      "inDemand": false,
+      "highlight": "Community Based Work Evaluation (CBWE) is a time limited assessment to determine an individual's work related skills, behaviors, interests,",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  },
+  {
+      "id": "ce-b7332a50-13c8-48be-b8d4-ce9b70463e88",
+      "name": "Social Media and Marketing (on-line)",
+      "cipDefinition": {
+          "cipcode": "521401",
+          "ciptitle": "Marketing/Marketing Management, General."
+      },
+      "totalCost": 2000,
+      "percentEmployed": null,
+      "calendarLength": 3,
+      "localExceptionCounty": [],
+      "online": true,
+      "providerId": "ce-278e9fd8-45bb-4fe0-aa7c-cb63284922ea",
+      "providerName": "William Paterson University_ETP",
+      "availableAt": [
+          {
+              "street_address": "1800 Valley Road",
+              "city": "Wayne",
+              "state": "New Jersey",
+              "zipCode": "07470",
+              "county": "Passaic"
+          }
+      ],
+      "inDemand": true,
+      "highlight": "This 10 week course is disgned to provide students with an insight to the background, history, technology, the impact,",
+      "socCodes": [],
+      "hasEveningCourses": false,
+      "languages": "",
+      "isWheelchairAccessible": false,
+      "hasJobPlacementAssistance": false,
+      "hasChildcareAssistance": false,
+      "totalClockHours": null
+  }
+]
