@@ -45,8 +45,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     `Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
-  console.log(JSON.stringify(trainings))
-
   const filterState = useContext(FilterContext).state;
   const comparisonState = useContext(ComparisonContext).state;
   const sortContextValue = useContext(SortContext);
