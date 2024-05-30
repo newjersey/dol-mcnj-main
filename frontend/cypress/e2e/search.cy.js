@@ -1,5 +1,7 @@
 describe("Search", () => {
   it("searches from the training explorer page", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+
     // on homepage
     cy.visit("/training");
     cy.injectAxe();
@@ -49,6 +51,9 @@ describe("Search", () => {
   });
 
   it("searches from the search results page", () => {
+    cy.intercept("/api/trainings/search?query=welding%20technology&page=1&limit=10&sort=best_match", {
+      fixture: "welding-technology-search-results.json",
+    })
     // on results page
     cy.visit("/training/search?q=welding%20technology");
     cy.injectAxe();
@@ -86,25 +91,28 @@ describe("Search", () => {
     // cy.checkA11y();
   });
 
-  it.skip("shows getting started messaging when no search", () => {
+  it("shows getting started messaging when no search", () => {
     // on results page
     cy.visit("/training/search");
     cy.injectAxe();
 
     // displays zero state
-    cy.contains("Find Training").should("exist");
+    cy.contains("What Can I Search for?").should("exist");
   });
 
-  it.skip("links back to home page", () => {
+  it("links back to home page", () => {
     cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
     cy.location("pathname").should("eq", "/training");
   });
 
-  it.skip("links to a training detail page", () => {
+  it("links to a training detail page", () => {
+    cy.intercept("/api/trainings/search?query=digital%20marketing&page=1&limit=10&sort=best_match", { fixture: "digital-marketing-search-results.json" });
+
     cy.visit("/training/search?q=digital%20marketing");
+
     cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.location("pathname").should("eq", "/training/51388");
+    cy.location("pathname").should("eq", "/training/ce-2bcfd3f3-17c4-4001-9215-7770d5f193e7");
 
     // removes search results
     cy.contains("Rutgers Virtual Live Mini MBA").should("not.exist");
@@ -113,7 +121,9 @@ describe("Search", () => {
     cy.contains("Certified Digital Marketing Fundamental").should("exist");
   });
 
-  it.skip("tags trainings on in-demand", () => {
+  it("tags trainings on in-demand", () => {
+    cy.intercept("api/trainings/search?query=social%20work", { fixture: "social-work-search-results.json" });
+
     cy.visit("/training/search?q=social%20work");
 
     // in-demand training
@@ -124,11 +134,11 @@ describe("Search", () => {
       });
 
     // not in-demand training
-    cy.contains("Job Readiness").within(() => {
+    cy.contains("Work Retention and Readiness").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("A.S.Degree: Social Service").click({ force: true });
+    cy.contains("Masters in Social Work").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
 
