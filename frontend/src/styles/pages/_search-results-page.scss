@@ -186,6 +186,20 @@
   }
 }
 
+.conjunction-container {
+  font-weight: 700;
+  margin: auto 0;
+  padding: 0 $size-16 $size-16 $size-16;
+}
+
+.zip-miles-group {
+  display: flex;
+
+  .filter-input {
+    max-width: 100px;
+  }
+}
+
 @media (min-width: $tablet-md) {
   #filter-button-container {
     margin: $size-24 0;

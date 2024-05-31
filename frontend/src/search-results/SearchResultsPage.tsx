@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   ReactElement,
   useContext,
   useEffect,
@@ -7,6 +8,7 @@ import {
 import { RouteComponentProps, WindowLocation } from "@reach/router";
 import { CircularProgress } from "@material-ui/core";
 
+import { logEvent } from "../analytics";
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
@@ -34,46 +36,89 @@ interface Props extends RouteComponentProps {
 export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
+  const [miles, setMiles] = useState<number>();
   const [pageNumber, setPageNumber] = useState<number>();
   const [pageTitle, setPageTitle] = useState<string>(
     `Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
   );
+  const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+  const [zipcode, setZipcode] = useState<string>();
 
   const comparisonState = useContext(ComparisonContext).state;
   const searchQuery = getSearchQuery(location?.search);
 
   usePageTitle(pageTitle);
 
+  const getTrainingData = (
+    pageNumber: number,
+    itemsPerPage: number,
+    sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") => {
+    const queryToSearch = searchQuery ? searchQuery : "";
+  
+    if (queryToSearch && queryToSearch !== "null") {
+      client.getTrainingsByQuery(
+        queryToSearch,
+        {
+          onSuccess: ({ data, meta }: TrainingData) => {
+            setTrainings(data);
+            setMetaData(meta);
+            getPageTitle(setPageTitle, searchQuery);
+            setIsLoading(false);
+          },
+          onError: () => {
+            setIsError(true);
+          },
+        },
+        pageNumber,
+        itemsPerPage,
+        sortBy
+      );
+    }
+  }
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
+    const limit = urlParams.get("limit");
+    const milesValue = urlParams.get("miles");
+    const zipcodeValue = urlParams.get("zipcode");
     
     setIsLoading(true)
     setPageNumber(page ? parseInt(page) : 1);
+    setItemsPerPage(limit ? parseInt(limit) : 10);
+
+    let miles, zipcode;
+    
+    if (milesValue) {
+      setMiles(parseInt(milesValue))
+      miles = parseInt(milesValue);
+    };
+    
+    if (zipcodeValue) {
+      setZipcode(zipcodeValue);
+      zipcode = zipcodeValue;
+    }
 
     if (pageNumber) {
-      const queryToSearch = searchQuery ? searchQuery : "";
-  
-      if (queryToSearch && queryToSearch !== "null") {
-        client.getTrainingsByQuery(
-          queryToSearch,
-          {
-            onSuccess: ({ data, meta }: TrainingData) => {
-              setTrainings(data);
-              setMetaData(meta);
-              getPageTitle(setPageTitle, searchQuery);
-              setIsLoading(false);
-            },
-            onError: () => {
-              setIsError(true);
-            },
-          }
-        );
-      }
+      getTrainingData(pageNumber, itemsPerPage, sortBy);
     }
-  }, [searchQuery, client, pageNumber]);
+  }, [searchQuery, client, pageNumber, itemsPerPage, sortBy]);
+  
+  const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
+    setIsLoading(true);
+    setItemsPerPage(
+      event.target.value as unknown as number,
+    );
+  };
+  
+  const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
+    const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
+    setSortBy(newSortOrder);
+    logEvent("Search", "Updated sort", newSortOrder);
+  };
 
   return (
     <Layout
@@ -103,10 +148,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
                 && trainings.length > 0
                 && (
                   <SearchSelects
-                    handleSortChange={() => {}}
-                    handleLimitChange={() => {}}
+                    handleSortChange={handleSortChange}
+                    handleLimitChange={handleLimitChange}
                     itemsPerPage={10}
-                    sortBy={undefined}
+                    sortBy={sortBy}
                   />
               )}
             </div>
@@ -116,6 +161,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             && (
             <FilterDrawer
               searchQuery={searchQuery || ""}
+              miles={miles}
+              zipcode={zipcode}
             />
           )}
         </div>

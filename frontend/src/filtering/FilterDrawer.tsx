@@ -5,13 +5,18 @@ import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 
 import { FilterFormInput } from "./FilterFormInput";
+import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 
 interface Props {
   searchQuery: string;
+  miles?: number;
+  zipcode?: string;
 }
 
 export const FilterDrawer = ({
-  searchQuery
+  searchQuery,
+  miles = 0,
+  zipcode = ""
 }: Props): ReactElement => {
   const { t } = useTranslation();
   const mobile = useMediaQuery("(max-width:767px)");
@@ -23,11 +28,13 @@ export const FilterDrawer = ({
 
   const methods = useForm<Props>({
     defaultValues: {
-      searchQuery
+      searchQuery,
+      miles,
+      zipcode
     }
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
 
   const onSubmit = (data: Props) => {
     console.log(data);
@@ -57,7 +64,10 @@ export const FilterDrawer = ({
               <X />
             </button>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            onReset={() => reset()}
+          >
             <div id="form-container">
               <FormProvider {...methods}>
                 <div id="form-fields">
@@ -67,6 +77,27 @@ export const FilterDrawer = ({
                     hasIcon={true}
                     icon={<MagnifyingGlass />}
                   />
+
+                  <InDemandOnlyFilter />
+                  <div className="field-group">
+                    <div className="label-container">
+                      <label>
+                        Distance from ZIP code
+                      </label>
+                    </div>
+                    <div className="zip-miles-group">
+                      <FilterFormInput
+                        inputName="miles"
+                        inputType="number"
+                      />
+                      <div className="conjunction-container">
+                        from
+                      </div>
+                      <FilterFormInput
+                        inputName="zipcode"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div id="drawer-btn-container" className="row">
                   <button type="submit" id="submit-button">Apply Filters</button>
