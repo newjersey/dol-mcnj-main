@@ -1,0 +1,324 @@
+{
+  "data": [
+      {
+          "id": "ce-cef2779b-6dec-48b8-afb8-70484fc72351",
+          "name": "Teacher Assistant Prep",
+          "cipDefinition": {
+              "cipcode": "131501",
+              "ciptitle": "Teacher Assistant/Aide."
+          },
+          "totalCost": 1070,
+          "percentEmployed": null,
+          "calendarLength": 2,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-b42aaaf8-3d3a-4820-98d8-c958805135b7",
+          "providerName": "Institute for Contemporary Careers - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "30 Galesi Drive",
+                  "city": "Wayne",
+                  "state": "New Jersey",
+                  "zipCode": "07470",
+                  "county": "Passaic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "on educational laws, history of education, rules of classroom management, teacher-paraprofessional interaction,\r\nprofessional ethics and intensive PRAXIS/PARAPRO preparation. Students enrolled will learn",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-19209b42-a4e1-4402-9853-52b9821fa4e3",
+          "name": "Classroom Technology Specialist:  Teachers",
+          "cipDefinition": {
+              "cipcode": "110103",
+              "ciptitle": "Information Technology."
+          },
+          "totalCost": 799,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-82882983-3d98-475f-a6ee-425bcc6e1aea",
+          "providerName": "Americation Career and Training School, LLC - PCS_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "24 Commerce Street - Suite 401",
+                  "city": "Newark",
+                  "state": "New Jersey",
+                  "zipCode": "07102",
+                  "county": "Essex"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "program is geared towards the knowledge of equipping the modern-day teachers into integrating technology in their classroom set up. The world",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-cc1abe05-1f4f-4e40-b62f-ce5a2eb25a80",
+          "name": "Yoga Teacher Training Certification Program (300 Hours)",
+          "cipDefinition": {
+              "cipcode": "513602",
+              "ciptitle": "Yoga Teacher Training/Yoga Therapy."
+          },
+          "totalCost": 5650,
+          "percentEmployed": null,
+          "calendarLength": 6,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c2b175f9-a2fc-4805-b6b8-3bff862c0bc2",
+          "providerName": "Param Institute of Education - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "200 Middlesex Essex Turnpike, Suite 105",
+                  "city": "Iselin",
+                  "state": "New Jersey",
+                  "zipCode": "08830",
+                  "county": "Middlesex"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The 300-Hour Advanced Teacher Certification (YSS300) is offered to those looking to take the next step in advancing his",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-06f48b0c-0e06-4a0e-bf74-f25d397f0dbc",
+          "name": "Teacher Training Program: TESL /TEFL",
+          "totalCost": 1397,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c7e0e757-aa2c-4156-948f-9b8afe6f58cf",
+          "providerName": "Zoni Language Center - Newark - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "16 Ferry Street",
+                  "city": "Newark",
+                  "state": "New Jersey",
+                  "zipCode": "07105",
+                  "county": "Essex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "This program is designed for self ¿ motivated teachers wanting to enhance their knowledge and skills in teaching English",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-adad6c4a-2cbd-4ff2-b46e-83b726f4133c",
+          "name": "Teacher Training Program: TESL /TEFL",
+          "totalCost": 1397,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-12495095-6c89-4209-b0e4-c070f00d56b5",
+          "providerName": "Zoni Language Center- Passaic_ETP",
+          "availableAt": [
+              {
+                  "street_address": "585 Main Center",
+                  "city": "PAssaic",
+                  "state": "New Jersey",
+                  "zipCode": "07055",
+                  "county": "Passaic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "This program is designed for self motivated teachers wanting to enhance their knowledge and skills in teaching English",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-a7afa399-d1d3-462e-b06a-f14d63d9d95a",
+          "name": "Teacher Education",
+          "cipDefinition": {
+              "cipcode": "131201",
+              "ciptitle": "Adult and Continuing Education and Teaching."
+          },
+          "totalCost": 25053,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e5eabd29-4522-424a-a3be-c39946f240b4",
+          "providerName": "Stockton University_ETP",
+          "availableAt": [
+              {
+                  "street_address": "101 Vera King Farris Drive",
+                  "city": "Galloway",
+                  "state": "New Jersey",
+                  "zipCode": "08205",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "arts and science majors to become creative, resourceful, and successful teachers.  It emphasizes extensive and diverse field experiences and educational",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-14933c25-018b-406b-9e3b-da3dfbe93855",
+          "name": "Cosmetology Teacher Training",
+          "totalCost": 9747,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-4222bc0e-27e5-4e5c-b1e9-bb0a550bfec2",
+          "providerName": "Shore Beauty School_ETP",
+          "availableAt": [
+              {
+                  "street_address": "English Creek Shopping Center, 3003 English Creek Avenue",
+                  "city": "Egg Harbor Township",
+                  "state": "New Jersey",
+                  "zipCode": "08234",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "The Teacher Training course consists of six hundred (600) clock hours of instruction in the art, science and business",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-cd7fee58-77a7-4b54-a209-a192edeae653",
+          "name": "Business Administration & Management",
+          "totalCost": 9283,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-72c58db5-77d0-4aa9-b2c4-343e000f3b51",
+          "providerName": "Bergen County Technical Schools - Hackensack- WIOA Title 2_ETP",
+          "availableAt": [
+              {
+                  "street_address": "190 Hackensack Avenue, Adult Ed Building",
+                  "city": "Hackensack",
+                  "state": "New Jersey",
+                  "zipCode": "07601",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "a wide range of gainful employment opportunities.\r\nIn addition to the teacher-directed, web-based instruction, students will take part in the Work Based",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-fba5f28c-d442-4ea9-bebb-5faf7f3ada94",
+          "name": "Teacher Assistant Aid",
+          "totalCost": 705,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-0cdafacc-7525-4609-8a95-249db018d66a",
+          "providerName": "Chindlers Academy - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "4900 Bergenline Avenue, 2nd Floor",
+                  "city": "Union City",
+                  "state": "New Jersey",
+                  "zipCode": "07087",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "As a teaching assistant you'll be providing support for classroom teachers in K-12 or preschool education. This support in­cludes instruction (the",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-a48ca23b-9afd-4bee-bef3-0cbf780636d0",
+          "name": "Teacher Training",
+          "cipDefinition": {
+              "cipcode": "120413",
+              "ciptitle": "Cosmetology, Barber/Styling, and Nail Instructor."
+          },
+          "totalCost": 9975,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-9cd26d65-e7dd-4006-a951-c81716a94256",
+          "providerName": "Parisian Beauty Academy, Paul Mitchell Partner School_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "21 Passaic Street",
+                  "city": "Hackensack",
+                  "state": "New Jersey",
+                  "zipCode": "07601",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Teacher training course consists of 500 clock hours as prescribed by the NJ Board of Cosmetology and Hairstyling.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalItems": 10,
+      "itemsPerPage": 10,
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "nextPage": null,
+      "previousPage": null
+  }
+}
