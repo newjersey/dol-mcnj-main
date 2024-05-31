@@ -56,6 +56,33 @@
   }
 }
 
+#filter-drawer-container {
+  background-color: $green-cool-5;
+  min-height: 100vh;
+  overflow: auto;
+  padding: $size-16;
+  width: 100%;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $size-16;
+
+  h2 {
+    margin: 0;
+  }
+
+  button {
+    background-color: $green-cool-5;
+    border: none;
+    color: $blue-60v;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0;
+  }
+}
+
 #results-container {
   margin: $size-20 0;
 }
@@ -98,6 +125,10 @@
       justify-content: left;
       width: auto;
     }
+  }
+
+  #filter-drawer-container {
+    width: $mobile-md;
   }
 
   #results-heading {
