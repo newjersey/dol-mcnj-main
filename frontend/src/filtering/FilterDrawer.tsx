@@ -1,13 +1,19 @@
 import { ReactElement, useState } from "react";
+import { navigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import { FormProvider, useForm } from "react-hook-form";
 import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 
 import { FilterFormInput } from "./FilterFormInput";
-import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 
 interface Props {
+  searchQuery: string;
+  miles?: number;
+  zipcode?: string;
+}
+
+interface FormProps {
   searchQuery: string;
   miles?: number;
   zipcode?: string;
@@ -36,8 +42,17 @@ export const FilterDrawer = ({
 
   const { handleSubmit, reset } = methods;
 
-  const onSubmit = (data: Props) => {
+  const onSubmit = (data: FormProps) => {
     console.log(data);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("q", data.searchQuery);
+    if (data.miles && data.miles > 0) urlParams.set("miles", data.miles?.toString() || "");
+    urlParams.set("zipcode", data.zipcode || "");
+    console.log(window.location)
+    const newUrl = `${window.location.host}${window.location.pathname}?${urlParams.toString()}`;
+    console.log(newUrl)
+    window.location.href = newUrl;
   };
 
   return (
@@ -77,8 +92,6 @@ export const FilterDrawer = ({
                     hasIcon={true}
                     icon={<MagnifyingGlass />}
                   />
-
-                  <InDemandOnlyFilter />
                   <div className="field-group">
                     <div className="label-container">
                       <label>

@@ -53,11 +53,13 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   usePageTitle(pageTitle);
 
   const getTrainingData = (
+    queryToSearch: string | null,
     pageNumber: number,
     itemsPerPage: number,
-    sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") => {
-    const queryToSearch = searchQuery ? searchQuery : "";
-  
+    sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    miles: number | undefined,
+    zipcode: string | undefined,
+  ): void => {  
     if (queryToSearch && queryToSearch !== "null") {
       client.getTrainingsByQuery(
         queryToSearch,
@@ -74,7 +76,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         },
         pageNumber,
         itemsPerPage,
-        sortBy
+        sortBy,
+        miles,
+        zipcode,
       );
     }
   }
@@ -90,6 +94,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     setPageNumber(page ? parseInt(page) : 1);
     setItemsPerPage(limit ? parseInt(limit) : 10);
 
+    const queryToSearch = searchQuery ? searchQuery : "";
+
     let miles, zipcode;
     
     if (milesValue) {
@@ -103,7 +109,14 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }
 
     if (pageNumber) {
-      getTrainingData(pageNumber, itemsPerPage, sortBy);
+      getTrainingData(
+        queryToSearch,
+        pageNumber,
+        itemsPerPage,
+        sortBy,
+        miles,
+        zipcode
+      );
     }
   }, [searchQuery, client, pageNumber, itemsPerPage, sortBy]);
   
@@ -157,7 +170,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             </div>
           </div>
           {!isLoading
-            && trainings.length > 0
             && (
             <FilterDrawer
               searchQuery={searchQuery || ""}

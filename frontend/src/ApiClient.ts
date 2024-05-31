@@ -20,11 +20,14 @@ export class ApiClient implements Client {
     page?: number,
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    miles?: number | undefined,
+    zipcode?: string | undefined,
   ): void {
-    this.get(
-      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}`,
-      observer,
-    );
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${miles && miles > 0 ? `&miles=${miles}` : ''}${zipcode && zipcode.length > 0 ? `&zipcode=${zipcode}` : ''}`
+
+    console.log(url)
+
+    this.get(url, observer);
   }
 
   getTrainingById(id: string, observer: Observer<Training>): void {
