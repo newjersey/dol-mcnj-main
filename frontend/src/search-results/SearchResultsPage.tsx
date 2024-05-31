@@ -55,7 +55,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         }
       );
     }
-  }, [searchQuery]);
+    // setIsLoading(false);
+  }, [searchQuery, client]);
 
   return (
     <Layout
@@ -93,7 +94,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               )}
             </div>
           </div>
-          <FilterDrawer />
+          {!isLoading
+            && trainings.length > 0
+            && (
+            <FilterDrawer />
+          )}
         </div>
         <div id="results-container">
           {isLoading && (
@@ -109,6 +114,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           )}
         </div>
       </div>
-    </Layout>
+  </Layout>
   );
 };

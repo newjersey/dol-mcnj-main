@@ -13,7 +13,7 @@ export const FilterDrawer = (): ReactElement => {
 
   return (
     <>
-      <div className="filter-button-container">
+      <div id="filter-button-container">
         <button
           onClick={toggleDrawer}
         >
