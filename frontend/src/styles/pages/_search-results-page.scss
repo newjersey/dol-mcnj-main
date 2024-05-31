@@ -32,6 +32,27 @@
   }
 }
 
+#results-container {
+  margin: $size-20 0;
+}
+
+#results-heading {
+  display: flex;
+  flex-direction: column;
+
+  .results-count {
+    margin: auto 0;
+  }
+}
+
+#selects-container {
+  display: flex;
+
+  .input-container + .input-container {
+    margin-left: $size-16;
+  }
+}
+
 .breadcrumb-container {
   .usa-breadcrumb {
     padding-top: $size-16;
@@ -44,9 +65,14 @@
 }
 
 @media (min-width: $tablet-md) {
+  #results-heading {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .breadcrumb-container {
     margin-top: $size-16;
-    
+
     .usa-breadcrumb__list {
       display: block;
     }
