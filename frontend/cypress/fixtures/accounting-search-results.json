@@ -1,0 +1,312 @@
+{
+  "data": [
+      {
+          "id": "ce-13918c2b-dbcf-49ce-a31c-24568a17e41d",
+          "name": "Computerized Accounting",
+          "totalCost": 4888,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-ccb0d518-4e90-4568-8c74-1cf3f37a6205",
+          "providerName": "Kaizen Technologies, Inc. - PCS_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "1 Lincoln Highway - Suite# 8 & 10",
+                  "city": "Edison",
+                  "state": "New Jersey",
+                  "zipCode": "08820",
+                  "county": "Middlesex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Kaizen' s Computerized Accounting and Microsoft Administration program will provide the student with an understanding of basic accounting terms",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-c3ff0b9f-a096-4cf1-a1eb-2b2874699f4e",
+          "name": "Computerized Accounting Specialist",
+          "totalCost": 3922,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": false,
+          "providerId": "ce-5766364d-46e5-403e-904d-313000bbcba1",
+          "providerName": "Atlantic Cape Community College - CMCH_ETP",
+          "availableAt": [
+              {
+                  "street_address": "341 Court House-South Dennis Road",
+                  "city": "Cape May Court House",
+                  "state": "New Jersey",
+                  "zipCode": "08210",
+                  "county": "Cape May"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "A series of five courses designed for the individual who is interested in acquiring a concentrated core of entry",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-0cdf0605-b757-49ad-abe7-9909872d1f36",
+          "name": "Computerized Financial Accounting",
+          "totalCost": 5100,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-11e2e3a6-667d-4716-ae1f-8fb39b7a9a1f",
+          "providerName": "Avtech Institute of Technology - Fairfield - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "130 Clinton Road - 2nd Floor",
+                  "city": "Fairfield",
+                  "state": "New Jersey",
+                  "zipCode": "07004",
+                  "county": "Essex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "This course will cover the basic functionality of the Accounting Principle, and how to use Peachtree accounting, and Quick",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-202e7982-07de-493c-bf89-e727372fa6c9",
+          "name": "Office and Accounting Adminstration",
+          "totalCost": 4000,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-7596f1a7-81fc-465c-b563-e4fabc0357d1",
+          "providerName": "Eastwick College - Nutley Campus_ETP",
+          "availableAt": [
+              {
+                  "street_address": "103 Park Avenue",
+                  "city": "Nutley",
+                  "state": "New Jersey",
+                  "zipCode": "07110",
+                  "county": "Essex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Office and Accounting Administration; Credit-Bearing, Non-Degree Certificate Programs; 6 months, Full-Time; 18 Quarter Credits. Eastwick College's Office and Accounting",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-8444ddb8-15c3-4c63-94f7-23fbc66ee9f7",
+          "name": "Accounts Payable Specialist Certification (Exam Cost Included)",
+          "cipDefinition": {
+              "cipcode": "520304",
+              "ciptitle": "Accounting and Finance."
+          },
+          "totalCost": 1295,
+          "percentEmployed": null,
+          "calendarLength": 2,
+          "localExceptionCounty": [],
+          "online": false,
+          "providerId": "ce-c446cbcc-4d44-4b1d-9cda-5b11965f11ca",
+          "providerName": "Camden County College - Continuing Education_ETP",
+          "availableAt": [
+              {
+                  "street_address": "200 College Drive",
+                  "city": "Blackwood",
+                  "state": "New Jersey",
+                  "zipCode": "08012",
+                  "county": "Camden"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "This on-line course will prepare you for the Institute of Finance & Management's (IOFM) Accounts Payable Specialist (APS) certification.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-8ce4bc1d-3d59-446e-9364-d240a006de11",
+          "name": "Computerized Accounting Systems",
+          "totalCost": 2300,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e0ebd7fa-5c9b-4d52-b653-c03f03232944",
+          "providerName": "Middlesex County College - Career Training Center_ETP",
+          "availableAt": [
+              {
+                  "street_address": "2600 Woodbridge Avenue",
+                  "city": "Edison",
+                  "state": "New Jersey",
+                  "zipCode": "08818",
+                  "county": "Middlesex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "This course is designed to teach you accounting and bookkeeping principles. Topics include: accounting terminology, accounts receivable and payable,",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-654f688c-7eba-4084-98c7-76e78f228f9a",
+          "name": "Accounting & Bookkeeping",
+          "cipDefinition": {
+              "cipcode": "520304",
+              "ciptitle": "Accounting and Finance."
+          },
+          "totalCost": 4265,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": false,
+          "providerId": "ce-65abaa2f-178e-4c4b-af26-a8ce950b199a",
+          "providerName": "LasComp Institute of IT - Montvale_ETP",
+          "availableAt": [
+              {
+                  "street_address": "85 Chestnut Ridge Road, Suite 115",
+                  "city": "Montvale",
+                  "state": "New Jersey",
+                  "zipCode": "07645",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "This program will cover introduction of accounting functions. Financial concepts such as the accounting equation, definitions of assets, liabilities",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-c332314f-1691-4936-85d4-10410c7cf4d9",
+          "name": "Computerized Accounting",
+          "totalCost": null,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-0aa27d77-c400-41ea-abce-c8af19e6eb6b",
+          "providerName": "Campus Education - Jersey City - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "35 Journal Square, 7th Floor",
+                  "city": "Jersey City",
+                  "state": "New Jersey",
+                  "zipCode": "07306",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Through this program, students gain comprehensive career-oriented skills in foundational and computerized accounting procedures used in the modern office.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-ba9ca6be-edc8-4be5-a5f2-69d1c39351f8",
+          "name": "Computerized Accounting Program with MS Office",
+          "totalCost": 4000,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e0ebd7fa-5c9b-4d52-b653-c03f03232944",
+          "providerName": "Middlesex County College - Career Training Center_ETP",
+          "availableAt": [
+              {
+                  "street_address": "2600 Woodbridge Avenue",
+                  "city": "Edison",
+                  "state": "New Jersey",
+                  "zipCode": "08818",
+                  "county": "Middlesex"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "This course is designed to teach you accounting and bookkeeping principles. Topics include: accounting terminology, accounts receivable and payable,",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-01ad2fa9-46b0-4680-b783-11af181c22aa",
+          "name": "Computerized Accounting with Intensive Lab",
+          "totalCost": null,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-0aa27d77-c400-41ea-abce-c8af19e6eb6b",
+          "providerName": "Campus Education - Jersey City - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "35 Journal Square, 7th Floor",
+                  "city": "Jersey City",
+                  "state": "New Jersey",
+                  "zipCode": "07306",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Through this program, students gain comprehensive career-oriented skills in foundational and computerized accounting procedures used in the modern office.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalItems": 10,
+      "itemsPerPage": 10,
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "nextPage": null,
+      "previousPage": null
+  }
+}
