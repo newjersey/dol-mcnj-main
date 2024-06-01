@@ -144,32 +144,31 @@ DEGREE_AWARDED_TO_CREDENTIAL_TYPE : dict[str, CredentialType]= {
 
 
 def label_credential_type(row: pd.Series):
-    # Certification
-    official_name : str = row['OFFICIALNAME']
+    official_name: str = row['OFFICIALNAME']
 
     if row['LEADTOLICENSE'] == "1" and row['LEADTOINDUSTRYCREDENTIAL'] == "0":
         return CredentialType.License
 
-    if 'M.' in official_name and 'Master' in row['DEGREEAWARDEDNAME']:
+    degree_awarded_name = row['DEGREEAWARDEDNAME']
+    if pd.isna(degree_awarded_name):
+        degree_awarded_name = ''
+
+    if 'M.' in official_name and 'Master' in degree_awarded_name:
         return CredentialType.MasterDegree
 
-    ASSOCIATE_NAME_TOKENS = { 'A.S.', 'A.A.', 'A.A.S'}
+    ASSOCIATE_NAME_TOKENS = {'A.S.', 'A.A.', 'A.A.S'}
     if any(map(official_name.__contains__, ASSOCIATE_NAME_TOKENS)) and ('A.S.E' not in official_name):
         return CredentialType.AssociateDegree
 
-    # TODO: Track Down Lookup Values for Provider TYPEIDs.
-    # https://github.com/newjersey/d4ad/issues/411
-    # However, data analysis of our current dataset showed looking at the degree awarded field
-    # for providers with these TYPEIDs where true postitives for that credential type while
-    # providers with other TYPEIDs where false postitives for degree credential types
-    TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS = { "3", "4" }
-
-    # Label academic degrees awarded from degree granting providers
+    TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS = {"3", "4"}
     degree_awarded_id = row['DEGREEAWARDED']
+    if pd.isna(degree_awarded_id):
+        degree_awarded_id = ''
+
     if DEGREE_AWARDED_TO_CREDENTIAL_TYPE.get(degree_awarded_id) and row['PROVIDERS_TYPEID'] in TYPEIDS_FOR_DEGREE_GRANTING_PROVIDERS:
         return DEGREE_AWARDED_TO_CREDENTIAL_TYPE[degree_awarded_id]
 
-    ESL_NAME_TOKENS = { 'ESL', 'English as a Second Language'}
+    ESL_NAME_TOKENS = {'ESL', 'English as a Second Language'}
     if any(map(official_name.__contains__, ESL_NAME_TOKENS)):
         return CredentialType.ESL
 
@@ -182,7 +181,7 @@ def label_credential_type(row: pd.Series):
     if 'Pre-Apprentice' in official_name:
         return CredentialType.PreApprenticeship
 
-    GED_NAME_TOKENS = { 'GED', 'General Education Diploma', 'High School Equivalence', 'High School Equivalency'}
+    GED_NAME_TOKENS = {'GED', 'General Education Diploma', 'High School Equivalence', 'High School Equivalency'}
     if any(map(official_name.__contains__, GED_NAME_TOKENS)):
         return CredentialType.GeneralEducationDevelopment
 
@@ -192,6 +191,7 @@ def label_credential_type(row: pd.Series):
     return CredentialType.CertificateOfCompletion
 
 
+
 def export(df, yyyymmdd):
     df.to_csv(f'../programs_{yyyymmdd}_merged.csv', index=False, encoding='utf-8-sig')
 
@@ -199,11 +199,8 @@ def export(df, yyyymmdd):
 def main():
     yyyymmdd = sys.argv[1]
 
-    # Read in source data files
-    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv", dtype={
-        # Read enum and lookup fields from csv as strings to preserve
-        # value for comparison and prevent type coercion to floating point
-        # types.
+    # Specify data types for columns to avoid mixed type warnings
+    dtype_dict = {
         "LEADTODEGREE": "str",
         "DEGREEAWARDED": "str",
         "LEADTOLICENSE": "str",
@@ -213,47 +210,43 @@ def main():
         "FINANCIALAID": "str",
         "CREDIT": "str",
         "CALENDARLENGTHID": "str",
-        "PHONEEXTENSION": "str"
-    })
+        "PHONEEXTENSION": "str",
+        "FEATURESDESCRIPTION": "str",
+        "CONTACTNAME": "str"
+    }
+
+    # Read in source data files with specified dtypes and low_memory=False to avoid mixed type warnings
+    programs_df = pd.read_csv(f"../programs_{yyyymmdd}.csv", dtype=dtype_dict, low_memory=False)
     degree_lookup_df = pd.read_csv("./TBLDEGREELU_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
-        'ID': "str", # match type for DEGREEAWARDED
-        'Name': "str"
+        'ID': "str",
+        'NAME': "str"
     })
     industry_credentials_lookup_df = pd.read_csv("./TBLINDUSTRYCREDENTIAL_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
-        'ID': "str", # match type for INDUSTRYCREDENTIAL
-        'Name': "str"
+        'ID': "str",
+        'NAME': "str"
     })
     license_lookup_df = pd.read_csv("./TBLLICENSE_DATA_TABLE.csv", usecols=['ID', 'NAME'], dtype={
-        'ID': "str", # match type for LICENSEAWARDED
-        'Name': "str"
+        'ID': "str",
+        'NAME': "str"
     })
     providers_df = pd.read_csv(f"../providers_{yyyymmdd}.csv", dtype={
         "TYPEID": "str"
     }).add_prefix("PROVIDERS_")
 
-    # Remove private data from programs file
+    # Ensure columns with mixed types are converted to strings
+    programs_df['FEATURESDESCRIPTION'] = programs_df['FEATURESDESCRIPTION'].fillna('').astype(str)
+    programs_df['CONTACTNAME'] = programs_df['CONTACTNAME'].fillna('').astype(str)
+
     programs_df.drop(['SUBMITTERNAME', 'SUBMITTERTITLE'], axis=1, inplace=True)
+    programs_df = merge_lookup_label(result=programs_df, lookup_df=degree_lookup_df, column="DEGREEAWARDED")
+    programs_df = merge_lookup_label(result=programs_df, lookup_df=industry_credentials_lookup_df, column="INDUSTRYCREDENTIAL")
+    programs_df = merge_lookup_label(result=programs_df, lookup_df=license_lookup_df, column="LICENSEAWARDED")
 
-    # merge degree
-    programs_df = merge_lookup_label(result=programs_df,lookup_df=degree_lookup_df, column="DEGREEAWARDED")
-
-    # merge industry credential
-    programs_df = merge_lookup_label(result=programs_df,lookup_df=industry_credentials_lookup_df, column="INDUSTRYCREDENTIAL")
-
-    # merge license
-    programs_df = merge_lookup_label(result=programs_df,lookup_df=license_lookup_df, column="LICENSEAWARDED")
-
-    # Clean up Official Name
     programs_df = programs_df.pipe(clean_official_name)
-
-    # Clean up excessive line wraps
     programs_df = programs_df.pipe(clean_excessive_line_wraps)
 
-    # merge providers information for use in credential type labeling
     merged_programs_providers = programs_df.merge(providers_df, how='left', left_on='PROVIDERID', right_on='PROVIDERS_PROVIDERID')
-    # add Credential Types
     programs_df['CREDENTIALTYPE'] = merged_programs_providers.apply(label_credential_type, axis=1)
-    # export to csv
     export(programs_df, yyyymmdd)
 
 
