@@ -9,6 +9,7 @@ import { FilterFormCheckGroup } from "./FilterFormCheckGroup";
 import { FilterFormInput } from "./FilterFormInput";
 import { FilterFormMultiDD } from "./FilterFormMultiDD";
 import { FilterFormSingleDD } from "./FilterFormSingleDD";
+import { FilterFormSwitch } from "./FilterFormSwitch";
 
 import {
   classFormatList,
@@ -105,6 +106,10 @@ export const FilterDrawer = ({
                     inputName="searchQuery"
                     hasIcon={true}
                     icon={<MagnifyingGlass />}
+                  />
+                  <FilterFormSwitch
+                    inputLabel="Show In-Demand trainings only"
+                    inputName="inDemand"
                   />
                   <FilterFormInput
                     inputLabel="Max Cost"
