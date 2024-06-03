@@ -60,7 +60,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   useEffect(() => {
     let newFilteredTrainings = trainings;
-    
 
     filterState.filters.forEach((filter) => {
       newFilteredTrainings = filter.func(newFilteredTrainings);
