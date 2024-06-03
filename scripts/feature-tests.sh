@@ -15,6 +15,12 @@ while ! echo exit | nc localhost ${APP_PORT}; do sleep 1; done
 
 echo "app started"
 
+# Source the .env file
+source ./backend/.env
+
+# Export NODE_OPTIONS from the sourced environment variables
+export NODE_OPTIONS
+
 npm --prefix=frontend run cypress:run -- --config baseUrl=http://localhost:${APP_PORT}
 
 set +e
