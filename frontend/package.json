@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "^16.3.5",
-    "@contentful/rich-text-react-renderer": "^15.20.0",
-    "@contentful/rich-text-types": "^16.4.0",
+    "@contentful/rich-text-html-renderer": "^16.5.2",
+    "@contentful/rich-text-react-renderer": "^15.21.2",
+    "@contentful/rich-text-types": "^16.5.2",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@newjersey/njwds": "^1.0.0",
@@ -22,12 +22,12 @@
     "@typescript-eslint/parser": "^6.21.0",
     "accounting": "^0.4.1",
     "axios": "^1.7.2",
-    "contentful": "^10.11.1",
+    "contentful": "^10.11.7",
     "dayjs": "^1.11.11",
-    "dompurify": "^3.1.4",
+    "dompurify": "^3.1.5",
     "graphql-request": "^7.0.1",
     "i18next": "^23.11.5",
-    "libphonenumber-js": "^1.11.1",
+    "libphonenumber-js": "^1.11.2",
     "markdown-it": "^14.1.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -35,11 +35,11 @@
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",
-    "react-i18next": "^14.1.1",
+    "react-i18next": "^14.1.2"
     "react-paginate": "^8.2.0",
     "react-scripts": "5.0.1",
     "react-tooltip": "^5.26.4",
-    "sass": "^1.77.2",
+    "sass": "^1.77.4",
     "typescript": "^5.4.5",
     "winston": "^3.13.0",
     "winston-cloudwatch": "^6.3.0"
@@ -83,7 +83,7 @@
   "proxy": "http://localhost:8080",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.24.5",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.6",
     "@types/dompurify": "^3.0.5",
     "@types/markdown-it": "^14.1.1",
     "@types/node": "^16.18.97",
@@ -94,12 +94,14 @@
     "cypress-axe": "^1.4.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-cypress": "^3.2.0",
+    "eslint-plugin-cypress": "^3.3.0",
     "good-fences": "^1.2.0",
-    "prettier": "3.2.5",
+    "prettier": "3.3.0",
     "react-to-print": "^2.14.15"
   },
   "overrides": {
+    "nth-check": "https://registry.npmjs.org/nth-check/-/nth-check-2.1.1.tgz",
+    "postcss": "https://registry.npmjs.org/postcss/-/postcss-8.4.31.tgz",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "react-scripts": {
       "typescript": "^5"
