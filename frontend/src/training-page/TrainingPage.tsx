@@ -300,7 +300,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         "jobTitle": contactTitle,
         "telephone": phoneNumber,
       },
-      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : undefined,
+      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
     };
 
     const offer = {
