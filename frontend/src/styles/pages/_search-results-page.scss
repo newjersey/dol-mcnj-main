@@ -48,7 +48,7 @@
   display: flex;
   justify-content: space-between;
   padding: $size-16;
-  width: 320px;
+  width: 100%;
 
   button {
     border: 2px solid $green-cool-50v;
@@ -93,6 +93,16 @@
   overflow: auto;
   padding: $size-16;
   width: 100%;
+
+  #submit-button {
+    background-color: $green-cool-50v;
+    color: $white;
+  }
+
+  #reset-button {
+    background-color: $white;
+    color: $green-cool-50v;
+  }
 
   .field-group {
     input {
@@ -201,6 +211,10 @@
 }
 
 @media (min-width: $tablet-md) {
+  #drawer-btn-container {
+    width: 374px;
+  }
+
   #filter-button-container {
     margin: $size-24 0;
     max-width: 21.4375rem;

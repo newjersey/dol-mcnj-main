@@ -20,6 +20,7 @@ const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string }): Promise<TrainingData> => {
+    console.log(params)
     const { page, limit, sort, cacheKey } = prepareSearchParameters(params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
@@ -41,7 +42,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     }
 
     const certificates = ceRecordsResponse.data.data as CTDLResource[];
-    console.log(certificates[0]['ceterms:estimatedDuration']) // Added null check
+    // Added null check
     const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
 
     const totalResults = ceRecordsResponse.data.extra.TotalResults;
@@ -53,12 +54,19 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   };
 };
 
-function prepareSearchParameters(params: { searchQuery: string, page?: number, limit?: number, sort?: string }) {
+function prepareSearchParameters(params: {
+  searchQuery: string,
+  page?: number,
+  limit?: number,
+  sort?: string,
+  miles?: number,
+  zipcode?: string
+}) {
   const page = params.page || 1;
   const limit = params.limit || 10;
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.miles}-${params.zipcode}`;
 
   return { page, limit, sort, cacheKey };
 }
@@ -75,18 +83,30 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
-function buildQuery(params: { searchQuery: string }) {
+function buildQuery(params: {
+  searchQuery: string,
+  miles?: number,
+  zipcode?: string
+}) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  let zipcodesList: unknown[] = []
+  const miles = params.miles;
+  const zipcode = params.zipcode;
+
+  let zipcodesList: string[] | zipcodes.ZipCode[] = []
 
   if (isZipCode) {
     zipcodesList = [params.searchQuery]
   } else if (isCounty) {
     zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+  }
+
+  if (miles && miles > 0 && zipcode) {
+    const zipcodesInRadius = zipcodes.radius(zipcode, miles);
+    zipcodesList = zipcodesInRadius;
   }
 
   return {

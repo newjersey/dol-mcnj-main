@@ -23,7 +23,9 @@ export class ApiClient implements Client {
     miles?: number | undefined,
     zipcode?: string | undefined,
   ): void {
-    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${miles && miles > 0 ? `&miles=${miles}` : ''}${zipcode && zipcode.length > 0 ? `&zipcode=${zipcode}` : ''}`
+    const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
+
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}`
 
     console.log(url)
 

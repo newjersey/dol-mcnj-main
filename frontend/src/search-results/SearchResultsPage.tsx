@@ -60,7 +60,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     miles: number | undefined,
     zipcode: string | undefined,
   ): void => {  
-    if (queryToSearch && queryToSearch !== "null") {
+    if (queryToSearch && queryToSearch !== null) {
       client.getTrainingsByQuery(
         queryToSearch,
         {
@@ -71,6 +71,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             setIsLoading(false);
           },
           onError: () => {
+            console.log("ERR")
             setIsError(true);
           },
         },
@@ -80,6 +81,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         miles,
         zipcode,
       );
+    } else {
+      setIsLoading(false);
     }
   }
 

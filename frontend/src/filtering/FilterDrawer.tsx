@@ -48,11 +48,12 @@ export const FilterDrawer = ({
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", data.searchQuery);
     if (data.miles && data.miles > 0) urlParams.set("miles", data.miles?.toString() || "");
-    urlParams.set("zipcode", data.zipcode || "");
+    if (data.zipcode) urlParams.set("zipcode", data.zipcode || "");
     console.log(window.location)
-    const newUrl = `${window.location.host}${window.location.pathname}?${urlParams.toString()}`;
+    const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
     console.log(newUrl)
-    window.location.href = newUrl;
+    navigate(newUrl);
+    window.location.reload();
   };
 
   return (
@@ -113,7 +114,7 @@ export const FilterDrawer = ({
                   </div>
                 </div>
                 <div id="drawer-btn-container" className="row">
-                  <button type="submit" id="submit-button">Apply Filters</button>
+                  <button type="submit" id="submit-button">Apply</button>
                   <button type="reset" id="reset-button">Clear Filters</button>
                 </div>
               </FormProvider>
