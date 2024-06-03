@@ -39,6 +39,9 @@ calendarlength_dict = {
 
 # Initialize a session for API requests to reuse the connection
 session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 
 # Cache for storing previously fetched SOC values
 soc_cache = {}
