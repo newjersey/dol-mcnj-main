@@ -6,6 +6,14 @@ import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icon
 import { Drawer, useMediaQuery } from "@material-ui/core";
 
 import { FilterFormInput } from "./FilterFormInput";
+import { FilterFormMultiDD } from "./FilterFormMultiDD";
+import { FilterFormSingleDD } from "./FilterFormSingleDD";
+
+import {
+  completeInList,
+  languageList
+} from "./filterLists";
+import { COUNTIES } from "./newJerseyCounties";
 
 interface Props {
   searchQuery: string;
@@ -103,8 +111,13 @@ export const FilterDrawer = ({
                     hasIcon={true}
                     icon={<CurrencyDollar />}
                   />
+                  <FilterFormSingleDD
+                    inputLabel="County"
+                    inputName="county"
+                    options={COUNTIES}
+                  />
                   <div className="field-group">
-                    <div className="label-container">
+                    <div className="label-container zip-label">
                       <label>
                         Distance from ZIP code
                       </label>
@@ -122,6 +135,16 @@ export const FilterDrawer = ({
                       />
                     </div>
                   </div>
+                  <FilterFormMultiDD
+                    inputLabel="Time to Complete"
+                    inputName="completeIn"
+                    options={completeInList}
+                  />
+                  <FilterFormMultiDD
+                    inputLabel="Languages"
+                    inputName="languages"
+                    options={languageList}
+                  />
                   <FilterFormInput
                     inputLabel="Filter by CIP Code"
                     inputName="cipCode"

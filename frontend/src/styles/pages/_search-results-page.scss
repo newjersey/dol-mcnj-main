@@ -154,6 +154,10 @@
   }
 }
 
+#form-fields {
+  margin-bottom: 5.5rem;
+}
+
 .drawer-header {
   display: flex;
   justify-content: space-between;
@@ -210,6 +214,10 @@
   font-weight: 700;
   margin: auto 0;
   padding: 0 $size-16 $size-16 $size-16;
+}
+
+.zip-label {
+  padding-top: 1.75rem !important;
 }
 
 .zip-miles-group {
