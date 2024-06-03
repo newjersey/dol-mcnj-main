@@ -1,28 +1,28 @@
 import { ReactElement, useState } from "react";
-import { navigate } from "@reach/router";
+// import { navigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import { FormProvider, useForm } from "react-hook-form";
-import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 
 import { FilterFormInput } from "./FilterFormInput";
 
 interface Props {
   searchQuery: string;
+  cipCode?: string;
+  maxCost?: number;
   miles?: number;
-  zipcode?: string;
-}
-
-interface FormProps {
-  searchQuery: string;
-  miles?: number;
+  socCode?: string;
   zipcode?: string;
 }
 
 export const FilterDrawer = ({
   searchQuery,
-  miles = 0,
-  zipcode = ""
+  cipCode,
+  maxCost,
+  miles,
+  socCode,
+  zipcode
 }: Props): ReactElement => {
   const { t } = useTranslation();
   const mobile = useMediaQuery("(max-width:767px)");
@@ -35,25 +35,28 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
+      cipCode,
+      maxCost,
       miles,
+      socCode,
       zipcode
     }
   });
 
   const { handleSubmit, reset } = methods;
 
-  const onSubmit = (data: FormProps) => {
+  const onSubmit = (data: Props) => {
     console.log(data);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("q", data.searchQuery);
-    if (data.miles && data.miles > 0) urlParams.set("miles", data.miles?.toString() || "");
-    if (data.zipcode) urlParams.set("zipcode", data.zipcode || "");
-    console.log(window.location)
-    const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
-    console.log(newUrl)
-    navigate(newUrl);
-    window.location.reload();
+    // const urlParams = new URLSearchParams(window.location.search);
+    // urlParams.set("q", data.searchQuery);
+    // if (data.miles && data.miles > 0) urlParams.set("miles", data.miles?.toString() || "");
+    // if (data.zipcode) urlParams.set("zipcode", data.zipcode || "");
+    // console.log(window.location)
+    // const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
+    // console.log(newUrl)
+    // navigate(newUrl);
+    // window.location.reload();
   };
 
   return (
@@ -93,6 +96,13 @@ export const FilterDrawer = ({
                     hasIcon={true}
                     icon={<MagnifyingGlass />}
                   />
+                  <FilterFormInput
+                    inputLabel="Max Cost"
+                    inputName="maxCost"
+                    inputType="number"
+                    hasIcon={true}
+                    icon={<CurrencyDollar />}
+                  />
                   <div className="field-group">
                     <div className="label-container">
                       <label>
@@ -112,6 +122,18 @@ export const FilterDrawer = ({
                       />
                     </div>
                   </div>
+                  <FilterFormInput
+                    inputLabel="Filter by CIP Code"
+                    inputName="cipCode"
+                    placeholder="##.####"
+                    subLabel="CIP codes are 6-digit codes that identify programs of study."
+                  />
+                  <FilterFormInput
+                    inputLabel="Filter by SOC Code"
+                    inputName="socCode"
+                    placeholder="##-####"
+                    subLabel="SOC codes are 6-digit codes that identify occupations."
+                  />
                 </div>
                 <div id="drawer-btn-container" className="row">
                   <button type="submit" id="submit-button">Apply</button>

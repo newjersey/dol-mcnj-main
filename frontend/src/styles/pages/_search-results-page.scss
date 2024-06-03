@@ -133,6 +133,16 @@
         height: 1.25rem;
       }
     }
+
+    .sub-label-container {
+      margin-bottom: $size-12;
+      
+      label {
+        color: $gray-40;
+        font-size: 0.975rem;
+        font-weight: 400;
+      }
+    }
   }
 
   .label-container {
@@ -206,7 +216,7 @@
   display: flex;
 
   .filter-input {
-    max-width: 100px;
+    max-width: 125px;
   }
 }
 

@@ -36,15 +36,20 @@ interface Props extends RouteComponentProps {
 export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
-  const [miles, setMiles] = useState<number>();
   const [pageNumber, setPageNumber] = useState<number>();
   const [pageTitle, setPageTitle] = useState<string>(
     `Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
   );
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+
+  const [cipCode, setCipCode] = useState<string>();
+  const [maxCost, setMaxCost] = useState<number>();
+  const [miles, setMiles] = useState<number>();
+  const [socCode, setSocCode] = useState<string>();
   const [zipcode, setZipcode] = useState<string>();
 
   const comparisonState = useContext(ComparisonContext).state;
@@ -90,7 +95,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
+    const cipCodeValue = urlParams.get("cip");
+    const maxCostValue = urlParams.get("maxCost");
     const milesValue = urlParams.get("miles");
+    const socCodeValue = urlParams.get("soc");
     const zipcodeValue = urlParams.get("zipcode");
     
     setIsLoading(true)
@@ -100,11 +108,23 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const queryToSearch = searchQuery ? searchQuery : "";
 
     let miles, zipcode;
+
+    if (cipCodeValue) {
+      setCipCode(cipCodeValue);
+    }
+
+    if (maxCostValue) {
+      setMaxCost(parseInt(maxCostValue));
+    }
     
     if (milesValue) {
       setMiles(parseInt(milesValue))
       miles = parseInt(milesValue);
     };
+
+    if (socCodeValue) {
+      setSocCode(socCodeValue);
+    }
     
     if (zipcodeValue) {
       setZipcode(zipcodeValue);
@@ -176,7 +196,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             && (
             <FilterDrawer
               searchQuery={searchQuery || ""}
+              cipCode={cipCode}
+              maxCost={maxCost}
               miles={miles}
+              socCode={socCode}
               zipcode={zipcode}
             />
           )}
