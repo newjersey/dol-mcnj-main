@@ -18,6 +18,38 @@ import zipcodes from "zipcodes";
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
+const paginateCerts = (certs: CTDLResource[], page: number, limit: number) => {
+  const start = (page - 1) * limit;
+  const end = start + limit;
+  return certs.slice(start, end);
+};
+
+const hasAllCerts = (certNum: number, totalResults: number) => certNum === totalResults;
+
+const fetchAllCerts = async (query: object, sort: string) => {
+  const firstBatch = await credentialEngineAPI.getResults(query, 0, 100, sort);
+  const totalResults = firstBatch.data.extra.TotalResults;
+
+  let allCerts;
+  if (hasAllCerts(firstBatch.data.data.length, totalResults)) {
+    allCerts = firstBatch.data.data;
+  } else {
+    // How many fetches need to be made
+    const remainingCerts = totalResults - 100;
+    const numOfFetches = parseInt(Math.ceil(remainingCerts / 100).toString().split(".")[0], 10);
+    console.log({ remainingCerts, numOfFetches });
+
+    allCerts = firstBatch.data.data;
+
+    for (let i = 1; i <= numOfFetches; i++) {
+      const nextBatch = await credentialEngineAPI.getResults(query, i * 100, 100, sort);
+      allCerts = allCerts.concat(nextBatch.data.data);
+    }
+  }
+
+  return { allCerts, totalResults };
+}
+
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string }): Promise<TrainingData> => {
     console.log(params)
@@ -34,18 +66,21 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     let ceRecordsResponse;
     try {
-      ceRecordsResponse = await credentialEngineAPI.getResults(query, (page - 1) * limit, limit, sort);
+      ceRecordsResponse = await fetchAllCerts(query, sort);
     } catch (error) {
       Sentry.captureException(error);
       console.error("Error fetching results from Credential Engine API:", error);
       throw new Error("Failed to fetch results from Credential Engine API.");
     }
 
-    const certificates = ceRecordsResponse.data.data as CTDLResource[];
-    // Added null check
-    const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
+    const certificates = ceRecordsResponse.allCerts as CTDLResource[];
 
-    const totalResults = ceRecordsResponse.data.extra.TotalResults;
+    const paginatedCerts = paginateCerts(certificates, page, limit);
+
+    // Added null check
+    const results = await Promise.all(paginatedCerts.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
+
+    const totalResults = ceRecordsResponse.totalResults;
 
     const data = packageResults(page, limit, results, totalResults);
 
