@@ -21,6 +21,7 @@ import { COUNTIES } from "./newJerseyCounties";
 interface Props {
   searchQuery: string;
   cipCode?: string;
+  county?: string;
   maxCost?: number;
   miles?: number;
   socCode?: string;
@@ -30,6 +31,7 @@ interface Props {
 export const FilterDrawer = ({
   searchQuery,
   cipCode,
+  county,
   maxCost,
   miles,
   socCode,
@@ -47,6 +49,7 @@ export const FilterDrawer = ({
     defaultValues: {
       searchQuery,
       cipCode,
+      county,
       maxCost,
       miles,
       socCode,

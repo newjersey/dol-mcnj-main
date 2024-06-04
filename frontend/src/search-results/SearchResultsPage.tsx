@@ -47,6 +47,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   const [cipCode, setCipCode] = useState<string>();
+  const [county, setCounty] = useState<string>();
   const [maxCost, setMaxCost] = useState<number>();
   const [miles, setMiles] = useState<number>();
   const [socCode, setSocCode] = useState<string>();
@@ -62,6 +63,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: number,
     itemsPerPage: number,
     sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    county: string | undefined,
     maxCost: number | undefined,
     miles: number | undefined,
     zipcode: string | undefined,
@@ -84,6 +86,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        county,
         maxCost,
         miles,
         zipcode,
@@ -98,6 +101,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
     const cipCodeValue = urlParams.get("cip");
+    const countyValue = urlParams.get("county");
     const maxCostValue = urlParams.get("maxCost");
     const milesValue = urlParams.get("miles");
     const socCodeValue = urlParams.get("soc");
@@ -109,10 +113,15 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     const queryToSearch = searchQuery ? searchQuery : "";
 
-    let maxCost, miles, zipcode;
+    let county, maxCost, miles, zipcode;
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
+    }
+
+    if (countyValue) {
+      setCounty(countyValue);
+      county = countyValue;
     }
 
     if (maxCostValue) {
@@ -140,6 +149,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        county,
         maxCost,
         miles,
         zipcode
@@ -201,6 +211,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             <FilterDrawer
               searchQuery={searchQuery || ""}
               cipCode={cipCode}
+              county={county}
               maxCost={maxCost}
               miles={miles}
               socCode={socCode}
