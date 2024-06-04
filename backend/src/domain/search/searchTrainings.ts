@@ -108,6 +108,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const paginatedResults = paginateCerts(filteredResults, page, limit);
 
+    console.log(paginatedResults)
+
     const totalResults = filteredResults.length;
 
     const data = packageResults(page, limit, paginatedResults, totalResults);

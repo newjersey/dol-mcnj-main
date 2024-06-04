@@ -32,7 +32,7 @@ export async function transformCertificateToTraining(dataClient: DataClient, cer
       highlight: highlight,
       socCodes: [],
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-      languages: "",
+      languages: certificate["ceterms:inLanguage"],
       isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
       hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
       hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
