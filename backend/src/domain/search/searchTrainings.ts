@@ -25,6 +25,7 @@ const paginateCerts = (certs: TrainingResult[], page: number, limit: number) => 
 const hasAllCerts = (certNum: number, totalResults: number) => certNum === totalResults;
 
 const fetchAllCerts = async (query: object, sort: string) => {
+  console.log("FETCHING CERTS")
   const firstBatch = await credentialEngineAPI.getResults(query, 0, 100, sort);
   const totalResults = firstBatch.data.extra.TotalResults;
 
@@ -47,8 +48,23 @@ const fetchAllCerts = async (query: object, sort: string) => {
   return { allCerts, totalResults };
 }
 
+const filterResults = async (results: TrainingResult[], maxCost?: number) => {
+  console.log("FILTERING RESULTS")
+  let filteredResults = results;
+
+  // Filter by maxCost
+  if (maxCost && maxCost > 0) {
+    console.log("FILTER BY MAX COST")
+    filteredResults = filteredResults.filter(result => {
+      return result.totalCost !== null && result.totalCost !== undefined && result.totalCost <= maxCost;
+    });
+  }
+
+  return filteredResults;
+};
+
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
-  return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string }): Promise<TrainingData> => {
+  return async (params: { searchQuery: string, page?: number, limit?: number, sort?: string, maxCost?: number }): Promise<TrainingData> => {
     console.log(params)
     const { page, limit, sort, cacheKey } = prepareSearchParameters(params);
 
@@ -75,9 +91,11 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     // Added null check
     const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
 
-    const paginatedResults = paginateCerts(results, page, limit);
+    const filteredResults = await filterResults(results, params.maxCost)
 
-    const totalResults = ceRecordsResponse.totalResults;
+    const paginatedResults = paginateCerts(filteredResults, page, limit);
+
+    const totalResults = filteredResults.length;
 
     const data = packageResults(page, limit, paginatedResults, totalResults);
 
