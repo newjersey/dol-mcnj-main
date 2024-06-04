@@ -48,6 +48,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
   const [cipCode, setCipCode] = useState<string>();
   const [county, setCounty] = useState<string>();
+  const [inDemand, setInDemand] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<number>();
   const [miles, setMiles] = useState<number>();
   const [socCode, setSocCode] = useState<string>();
@@ -63,6 +64,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: number,
     itemsPerPage: number,
     sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    inDemand: string | undefined,
     county: string | undefined,
     maxCost: number | undefined,
     miles: number | undefined,
@@ -87,6 +89,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         itemsPerPage,
         sortBy,
         county,
+        inDemand,
         maxCost,
         miles,
         zipcode,
@@ -102,6 +105,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const limit = urlParams.get("limit");
     const cipCodeValue = urlParams.get("cip");
     const countyValue = urlParams.get("county");
+    const inDemandValue = urlParams.get("inDemand");
     const maxCostValue = urlParams.get("maxCost");
     const milesValue = urlParams.get("miles");
     const socCodeValue = urlParams.get("soc");
@@ -113,7 +117,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     const queryToSearch = searchQuery ? searchQuery : "";
 
-    let county, maxCost, miles, zipcode;
+    let county, inDemand, maxCost, miles, zipcode;
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
@@ -122,6 +126,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     if (countyValue) {
       setCounty(countyValue);
       county = countyValue;
+    }
+
+    if (inDemandValue) {
+      setInDemand(inDemandValue === "true");
+      inDemand = inDemandValue;
     }
 
     if (maxCostValue) {
@@ -150,6 +159,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         itemsPerPage,
         sortBy,
         county,
+        inDemand,
         maxCost,
         miles,
         zipcode
@@ -212,6 +222,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               searchQuery={searchQuery || ""}
               cipCode={cipCode}
               county={county}
+              inDemand={inDemand}
               maxCost={maxCost}
               miles={miles}
               socCode={socCode}

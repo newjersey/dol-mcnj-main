@@ -22,6 +22,7 @@ interface Props {
   searchQuery: string;
   cipCode?: string;
   county?: string;
+  inDemand?: boolean;
   maxCost?: number;
   miles?: number;
   socCode?: string;
@@ -32,6 +33,7 @@ export const FilterDrawer = ({
   searchQuery,
   cipCode,
   county,
+  inDemand,
   maxCost,
   miles,
   socCode,
@@ -50,6 +52,7 @@ export const FilterDrawer = ({
       searchQuery,
       cipCode,
       county,
+      inDemand,
       maxCost,
       miles,
       socCode,
@@ -113,6 +116,7 @@ export const FilterDrawer = ({
                   <FilterFormSwitch
                     inputLabel="Show In-Demand trainings only"
                     inputName="inDemand"
+                    inputChecked={inDemand}
                   />
                   <FilterFormInput
                     inputLabel="Max Cost"
