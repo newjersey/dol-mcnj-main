@@ -29,8 +29,9 @@ export class ApiClient implements Client {
     const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
     const maxCostValue = maxCost && maxCost > 0 ? `&maxCost=${maxCost}` : '';
     const inDemanValue = inDemand && inDemand === "true" ? "&inDemand=true" : "";
+    const countyValue = county ? `&county=${county}` : '';
 
-    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${county ? `&county=${county}` : ''}${inDemanValue}`;
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}`;
 
     console.log(url)
 

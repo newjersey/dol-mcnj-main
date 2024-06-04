@@ -15,6 +15,7 @@ export type SearchTrainings = (params: {
   limit?: number,
   sort?: string,
   county?: string,
+  inDemand?: boolean,
   maxCost?: number,
   miles?: number,
   zipcode?: string

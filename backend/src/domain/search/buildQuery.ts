@@ -4,7 +4,6 @@ import zipcodes from "zipcodes";
 export function buildQuery(params: {
   searchQuery: string,
   county?: string,
-  maxCost?: number,
   miles?: number,
   zipcode?: string
 }) {
