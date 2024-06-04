@@ -68,6 +68,7 @@ export const routerFactory = ({
       page: page,
       limit: limit,
       sort: req.query.sort as string,
+      maxCost: parseInt(req.query.maxCost as string),
       miles: parseInt(req.query.miles as string),
       zipcode: req.query.zipcode as string,
     })

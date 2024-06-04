@@ -59,6 +59,7 @@ function prepareSearchParameters(params: {
   page?: number,
   limit?: number,
   sort?: string,
+  maxCost?: number,
   miles?: number,
   zipcode?: string
 }) {
@@ -66,7 +67,7 @@ function prepareSearchParameters(params: {
   const limit = params.limit || 10;
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.miles}-${params.zipcode}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.miles}-${params.zipcode}-${params.maxCost}`;
 
   return { page, limit, sort, cacheKey };
 }
@@ -85,6 +86,7 @@ function determineSortOption(sortOption?: string) {
 
 function buildQuery(params: {
   searchQuery: string,
+  maxCost?: number,
   miles?: number,
   zipcode?: string
 }) {

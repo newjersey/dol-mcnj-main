@@ -62,6 +62,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: number,
     itemsPerPage: number,
     sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    maxCost: number | undefined,
     miles: number | undefined,
     zipcode: string | undefined,
   ): void => {  
@@ -83,6 +84,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        maxCost,
         miles,
         zipcode,
       );
@@ -107,7 +109,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     const queryToSearch = searchQuery ? searchQuery : "";
 
-    let miles, zipcode;
+    let maxCost, miles, zipcode;
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
@@ -115,6 +117,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     if (maxCostValue) {
       setMaxCost(parseInt(maxCostValue));
+      maxCost = parseInt(maxCostValue);
     }
     
     if (milesValue) {
@@ -137,6 +140,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        maxCost,
         miles,
         zipcode
       );
