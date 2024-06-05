@@ -53,6 +53,7 @@ const filterResults = async (
   maxCost?: number,
   inDemand?: boolean,
   completeIn?: number[],
+  languages?: string[]
 ) => {
   console.log("FILTERING RESULTS")
   let filteredResults = results;
@@ -75,6 +76,11 @@ const filterResults = async (
     filteredResults = filteredResults.filter(result => !!completeIn.includes(result.calendarLength as number));
   }
 
+  if (languages && languages.length > 0) {
+    console.log("FILTER BY LANGUAGES")
+    filteredResults = filteredResults.filter(result => languages.some(lang => result.languages?.includes(lang)));
+  }
+
   return filteredResults;
 };
 
@@ -87,6 +93,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     completeIn?: number[],
     county?: string,
     inDemand?: boolean,
+    languages?: string[],
     maxCost?: number
   }): Promise<TrainingData> => {
     console.log(params)
@@ -118,7 +125,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const filteredResults = await filterResults(results,
                                                 params.maxCost,
                                                 params.inDemand,
-                                                params.completeIn)
+                                                params.completeIn,
+                                                params.languages)
 
     const paginatedResults = paginateCerts(filteredResults, page, limit);
 

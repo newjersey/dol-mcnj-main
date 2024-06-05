@@ -71,6 +71,7 @@ export const routerFactory = ({
       completeIn: req.query.completeIn ? (req.query.completeIn as string).split(",").map((v) => parseInt(v)) : undefined,
       county: req.query.county as string,
       inDemand: req.query.inDemand === "true",
+      languages: req.query.languages ? (req.query.languages as string).split(",") : undefined,
       maxCost: parseInt(req.query.maxCost as string),
       miles: parseInt(req.query.miles as string),
       zipcode: req.query.zipcode as string,
