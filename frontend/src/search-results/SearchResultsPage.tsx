@@ -48,7 +48,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   const [cipCode, setCipCode] = useState<string>();
-  const [classFormat, setClassFormat] = useState<('inPerson' | 'online')[]>([]);
   const [county, setCounty] = useState<string>();
   const [inDemand, setInDemand] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<number>();
@@ -66,7 +65,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: number,
     itemsPerPage: number,
     sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-    classFormat: string[] | undefined,
     county: string | undefined,
     inDemand: string | undefined,
     maxCost: number | undefined,
@@ -92,7 +90,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
-        classFormat,
         county,
         inDemand,
         maxCost,
@@ -109,7 +106,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
     const cipCodeValue = urlParams.get("cip");
-    const classFormatValue = urlParams.get("classFormat");
     const countyValue = urlParams.get("county");
     const inDemandValue = urlParams.get("inDemand");
     const maxCostValue = urlParams.get("maxCost");
@@ -123,16 +119,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     const queryToSearch = searchQuery ? searchQuery : "";
 
-    let classFormat, county, inDemand, maxCost, miles, zipcode;
+    let county, inDemand, maxCost, miles, zipcode;
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
-    }
-
-    if (classFormatValue) {
-      const classFormatArray = classFormatValue.split(",");
-      setClassFormat(classFormatArray as ('inPerson' | 'online')[]);
-      classFormat = classFormatArray;
     }
 
     if (countyValue) {
@@ -170,7 +160,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
-        classFormat,
         county,
         inDemand,
         maxCost,
@@ -234,7 +223,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             <FilterDrawer
               searchQuery={searchQuery || ""}
               cipCode={cipCode}
-              classFormat={classFormat}
               county={county}
               inDemand={inDemand}
               maxCost={maxCost}

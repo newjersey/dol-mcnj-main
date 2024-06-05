@@ -21,7 +21,6 @@ import { COUNTIES } from "./newJerseyCounties";
 interface Props {
   searchQuery: string;
   cipCode?: string;
-  classFormat?: ('inPerson' | 'online')[];
   county?: string;
   inDemand?: boolean;
   maxCost?: number;
@@ -33,7 +32,6 @@ interface Props {
 export const FilterDrawer = ({
   searchQuery,
   cipCode,
-  classFormat,
   county,
   inDemand,
   maxCost,
@@ -53,7 +51,6 @@ export const FilterDrawer = ({
     defaultValues: {
       searchQuery,
       cipCode,
-      classFormat,
       county,
       inDemand,
       maxCost,
@@ -132,12 +129,6 @@ export const FilterDrawer = ({
                     inputLabel="County"
                     inputName="county"
                     options={COUNTIES}
-                  />
-                  <FilterFormCheckGroup
-                    inputLabel="Class Format"
-                    inputName="classFormat"
-                    options={classFormatList}
-                    defaultValues={classFormat}
                   />
                   <div className="field-group">
                     <div className="label-container zip-label">
