@@ -5,14 +5,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 
-import { FilterFormCheckGroup } from "./FilterFormCheckGroup";
 import { FilterFormInput } from "./FilterFormInput";
 import { FilterFormMultiDD } from "./FilterFormMultiDD";
 import { FilterFormSingleDD } from "./FilterFormSingleDD";
 import { FilterFormSwitch } from "./FilterFormSwitch";
 
 import {
-  classFormatList,
   completeInList,
   languageList
 } from "./filterLists";

@@ -16,6 +16,8 @@ import { TrainingResult, TrainingData } from "../domain/Training";
 import pageImage from "../images/ogImages/searchResults.png";
 import { usePageTitle } from "../utils/usePageTitle";
 
+import { ErrorBlock } from "../error/ErrorPage";
+
 import { FilterDrawer } from "../filtering/FilterDrawer";
 
 import { Breadcrumbs } from "./Breadcrumbs";
@@ -27,7 +29,6 @@ import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 
 import { getPageTitle, getSearchQuery } from "./searchResultFunctions";
-import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -239,7 +240,13 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             </div>
           )}
           {isError && (
-            <SomethingWentWrongPage client={client} />
+            <ErrorBlock
+              headerText="Could not load search results"
+            >
+              <p>
+                Try reloading the page or searching again. If problem persists, please try again later.
+              </p>
+            </ErrorBlock>
           )}
           {!isLoading
             && !isError

@@ -68,7 +68,6 @@ export const routerFactory = ({
       page: page,
       limit: limit,
       sort: req.query.sort as string,
-      classFormat: req.query.classFormat as string,
       county: req.query.county as string,
       inDemand: req.query.inDemand === "true",
       maxCost: parseInt(req.query.maxCost as string),
