@@ -5,6 +5,8 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { DataClient } from "../DataClient";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
+import zipcodeJson from "../utils/zip-county.json";
+import zipcodes from "zipcodes";
 
 import { buildQuery } from "./buildQuery";
 import { transformCertificateToTraining } from "./transformCertificateToTraining";
