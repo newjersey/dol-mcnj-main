@@ -22,6 +22,7 @@ interface Props {
   completeIn?: string[];
   county?: string;
   inDemand?: boolean;
+  languages?: string[];
   maxCost?: number;
   miles?: number;
   socCode?: string;
@@ -34,6 +35,7 @@ export const FilterDrawer = ({
   completeIn,
   county,
   inDemand,
+  languages,
   maxCost,
   miles,
   socCode,
@@ -54,6 +56,7 @@ export const FilterDrawer = ({
       completeIn,
       county,
       inDemand,
+      languages,
       maxCost,
       miles,
       socCode,
@@ -160,6 +163,7 @@ export const FilterDrawer = ({
                     inputLabel="Languages"
                     inputName="languages"
                     options={languageList}
+                    defaultValues={languages}
                   />
                   <FilterFormInput
                     inputLabel="Filter by CIP Code"

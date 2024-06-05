@@ -21,6 +21,7 @@ export interface Client {
       completeIn?: number[] | undefined,
       county?: string | undefined,
       inDemand?: string | undefined,
+      languages?: string[] | undefined,
       maxCost?: number | undefined,
       miles?: number | undefined,
       zipcode?: string | undefined,

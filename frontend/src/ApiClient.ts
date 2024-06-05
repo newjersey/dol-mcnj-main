@@ -23,6 +23,7 @@ export class ApiClient implements Client {
     completeIn?: number[] | undefined,
     county?: string | undefined,
     inDemand?: string | undefined,
+    languages?: string[] | undefined,
     maxCost?: number | undefined,
     miles?: number | undefined,
     zipcode?: string | undefined,
@@ -30,10 +31,11 @@ export class ApiClient implements Client {
     const completeInValue = completeIn && completeIn.length > 0 ? `&completeIn=${completeIn.join(",")}` : '';
     const countyValue = county ? `&county=${county}` : '';
     const inDemanValue = inDemand && inDemand === "true" ? "&inDemand=true" : "";
+    const languagesValue = languages && languages.length > 0 ? `&languages=${languages.join(",")}` : '';
     const maxCostValue = maxCost && maxCost > 0 ? `&maxCost=${maxCost}` : '';
     const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
 
-    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${completeInValue}`;
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${completeInValue}${languagesValue}`;
 
     console.log(url)
 

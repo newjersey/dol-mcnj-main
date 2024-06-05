@@ -52,6 +52,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const [completeIn, setCompleteIn] = useState<string[]>();
   const [county, setCounty] = useState<string>();
   const [inDemand, setInDemand] = useState<boolean>(false);
+  const [languages, setLanguages] = useState<string[]>();
   const [maxCost, setMaxCost] = useState<number>();
   const [miles, setMiles] = useState<number>();
   const [socCode, setSocCode] = useState<string>();
@@ -70,6 +71,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     completeIn: number[] | undefined,
     county: string | undefined,
     inDemand: string | undefined,
+    languages: string[] | undefined,
     maxCost: number | undefined,
     miles: number | undefined,
     zipcode: string | undefined,
@@ -96,6 +98,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         completeIn,
         county,
         inDemand,
+        languages,
         maxCost,
         miles,
         zipcode,
@@ -113,6 +116,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const completeInValue = urlParams.get("completeIn");
     const countyValue = urlParams.get("county");
     const inDemandValue = urlParams.get("inDemand");
+    const languagesValue = urlParams.get("languages");
     const maxCostValue = urlParams.get("maxCost");
     const milesValue = urlParams.get("miles");
     const socCodeValue = urlParams.get("soc");
@@ -124,7 +128,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     const queryToSearch = searchQuery ? searchQuery : "";
 
-    let county, inDemand, maxCost, miles, zipcode;
+    let county, inDemand, languages, maxCost, miles, zipcode;
     const completeIn:number[] = [];
 
     if (cipCodeValue) {
@@ -162,6 +166,12 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       inDemand = inDemandValue;
     }
 
+    if (languagesValue) {
+      const langArray = languagesValue.split(",");
+      setLanguages(langArray);
+      languages = langArray;
+    }
+
     if (maxCostValue) {
       setMaxCost(parseInt(maxCostValue));
       maxCost = parseInt(maxCostValue);
@@ -190,6 +200,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         completeIn,
         county,
         inDemand,
+        languages,
         maxCost,
         miles,
         zipcode
@@ -254,6 +265,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               completeIn={completeIn}
               county={county}
               inDemand={inDemand}
+              languages={languages}
               maxCost={maxCost}
               miles={miles}
               socCode={socCode}
