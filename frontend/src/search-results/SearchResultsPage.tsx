@@ -49,6 +49,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   const [cipCode, setCipCode] = useState<string>();
+  const [completeIn, setCompleteIn] = useState<string[]>();
   const [county, setCounty] = useState<string>();
   const [inDemand, setInDemand] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<number>();
@@ -107,6 +108,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
     const cipCodeValue = urlParams.get("cip");
+    const completeInValue = urlParams.get("completeIn");
     const countyValue = urlParams.get("county");
     const inDemandValue = urlParams.get("inDemand");
     const maxCostValue = urlParams.get("maxCost");
@@ -124,6 +126,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
+    }
+
+    if (completeInValue) {
+      setCompleteIn(completeInValue.split(","));
     }
 
     if (countyValue) {
@@ -224,6 +230,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             <FilterDrawer
               searchQuery={searchQuery || ""}
               cipCode={cipCode}
+              completeIn={completeIn}
               county={county}
               inDemand={inDemand}
               maxCost={maxCost}

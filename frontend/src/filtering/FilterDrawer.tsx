@@ -19,6 +19,7 @@ import { COUNTIES } from "./newJerseyCounties";
 interface Props {
   searchQuery: string;
   cipCode?: string;
+  completeIn?: string[];
   county?: string;
   inDemand?: boolean;
   maxCost?: number;
@@ -30,6 +31,7 @@ interface Props {
 export const FilterDrawer = ({
   searchQuery,
   cipCode,
+  completeIn,
   county,
   inDemand,
   maxCost,
@@ -49,6 +51,7 @@ export const FilterDrawer = ({
     defaultValues: {
       searchQuery,
       cipCode,
+      completeIn,
       county,
       inDemand,
       maxCost,
@@ -151,6 +154,7 @@ export const FilterDrawer = ({
                     inputLabel="Time to Complete"
                     inputName="completeIn"
                     options={completeInList}
+                    defaultValues={completeIn}
                   />
                   <FilterFormMultiDD
                     inputLabel="Languages"
