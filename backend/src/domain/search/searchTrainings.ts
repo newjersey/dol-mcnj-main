@@ -48,7 +48,12 @@ const fetchAllCerts = async (query: object, sort: string) => {
   return { allCerts, totalResults };
 }
 
-const filterResults = async (results: TrainingResult[], maxCost?: number, inDemand?: boolean) => {
+const filterResults = async (
+  results: TrainingResult[],
+  maxCost?: number,
+  inDemand?: boolean,
+  completeIn?: number[],
+) => {
   console.log("FILTERING RESULTS")
   let filteredResults = results;
 
@@ -65,6 +70,11 @@ const filterResults = async (results: TrainingResult[], maxCost?: number, inDema
     filteredResults = filteredResults.filter(result => !!result.inDemand);
   }
 
+  if (completeIn && completeIn.length > 0) {
+    console.log("FILTER BY CALENDAR LENGTH")
+    filteredResults = filteredResults.filter(result => !!completeIn.includes(result.calendarLength as number));
+  }
+
   return filteredResults;
 };
 
@@ -74,6 +84,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     page?: number,
     limit?: number,
     sort?: string,
+    completeIn?: number[],
     county?: string,
     inDemand?: boolean,
     maxCost?: number
@@ -106,7 +117,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const filteredResults = await filterResults(results,
                                                 params.maxCost,
-                                                params.inDemand)
+                                                params.inDemand,
+                                                params.completeIn)
 
     const paginatedResults = paginateCerts(filteredResults, page, limit);
 
@@ -126,6 +138,7 @@ function prepareSearchParameters(params: {
   page?: number,
   limit?: number,
   sort?: string,
+  completeIn?: number[],
   county?: string,
   inDemand?: boolean,
   maxCost?: number,
@@ -134,9 +147,11 @@ function prepareSearchParameters(params: {
 }) {
   const page = params.page || 1;
   const limit = params.limit || 10;
+  const hasCompleteIn = params.completeIn && params.completeIn.length > 0;
+  const completeInValue = hasCompleteIn ? params.completeIn?.join(",") : "";
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.county}-${params.maxCost}-${params.miles}-${params.zipcode}${params.inDemand ? "-inDemand" : ""}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.county}-${params.maxCost}-${params.miles}-${params.zipcode}${params.inDemand ? "-inDemand" : ""}${hasCompleteIn ? `-${completeInValue}` : ""}`;
 
   return { page, limit, sort, cacheKey };
 }

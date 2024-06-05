@@ -68,6 +68,7 @@ export const routerFactory = ({
       page: page,
       limit: limit,
       sort: req.query.sort as string,
+      completeIn: req.query.completeIn ? (req.query.completeIn as string).split(",").map((v) => parseInt(v)) : undefined,
       county: req.query.county as string,
       inDemand: req.query.inDemand === "true",
       maxCost: parseInt(req.query.maxCost as string),
