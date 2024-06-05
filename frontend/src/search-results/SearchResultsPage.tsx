@@ -67,6 +67,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: number,
     itemsPerPage: number,
     sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    completeIn: number[] | undefined,
     county: string | undefined,
     inDemand: string | undefined,
     maxCost: number | undefined,
@@ -92,6 +93,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        completeIn,
         county,
         inDemand,
         maxCost,
@@ -123,13 +125,31 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const queryToSearch = searchQuery ? searchQuery : "";
 
     let county, inDemand, maxCost, miles, zipcode;
+    const completeIn:number[] = [];
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
     }
 
     if (completeInValue) {
-      setCompleteIn(completeInValue.split(","));
+      const completeValues = completeInValue.split(",");
+      setCompleteIn(completeValues);
+      completeValues.map((value) => {
+        switch(value) {
+          case "days":
+            completeIn.push(1, 2, 3);
+            break;
+          case "weeks":
+            completeIn.push(4,5);
+            break;
+          case "months":
+            completeIn.push(6, 7);
+            break;
+          case "years":
+            completeIn.push(8, 9, 10);
+            break;
+        }
+      });
     }
 
     if (countyValue) {
@@ -167,6 +187,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        completeIn,
         county,
         inDemand,
         maxCost,
