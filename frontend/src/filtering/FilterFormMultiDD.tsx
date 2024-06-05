@@ -6,6 +6,7 @@ import { TextField } from "@material-ui/core";
 interface OptionProps {
   id: string;
   label: string;
+  values?: number[];
 }
 
 interface Props {

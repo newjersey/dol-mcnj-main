@@ -27,6 +27,7 @@ import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 
 import { getPageTitle, getSearchQuery } from "./searchResultFunctions";
+import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -85,11 +86,13 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           onError: () => {
             console.log("ERR")
             setIsError(true);
+            setIsLoading(false);
           },
         },
         pageNumber,
         itemsPerPage,
         sortBy,
+        classFormat,
         county,
         inDemand,
         maxCost,
@@ -246,6 +249,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             <div className="fdr fjc ptl">
               <CircularProgress color="secondary" />
             </div>
+          )}
+          {isError && (
+            <SomethingWentWrongPage client={client} />
           )}
           {!isLoading
             && !isError

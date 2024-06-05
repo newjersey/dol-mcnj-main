@@ -98,19 +98,23 @@ export type ServiceProps = "wheelchair" | "childcare" | "evening" | "placement";
 export const completeInList = [
   {
     id: "days",
-    label: "Days"
+    label: "Days",
+    values: [1, 2, 3]
   },
   {
     id: "weeks",
-    label: "Weeks"
+    label: "Weeks",
+    values: [4, 5]
   },
   {
     id: "months",
-    label: "Months"
+    label: "Months",
+    values: [6, 7]
   },
   {
     id: "years",
-    label: "Years"
+    label: "Years",
+    values: [8, 9, 10]
   }
 ]
 

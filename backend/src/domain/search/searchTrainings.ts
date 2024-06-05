@@ -48,7 +48,7 @@ const fetchAllCerts = async (query: object, sort: string) => {
   return { allCerts, totalResults };
 }
 
-const filterResults = async (results: TrainingResult[], maxCost?: number, inDemand?: boolean) => {
+const filterResults = async (results: TrainingResult[], maxCost?: number, inDemand?: boolean, classFormat?: string) => {
   console.log("FILTERING RESULTS")
   let filteredResults = results;
 
@@ -65,6 +65,11 @@ const filterResults = async (results: TrainingResult[], maxCost?: number, inDema
     filteredResults = filteredResults.filter(result => !!result.inDemand);
   }
 
+  if (classFormat === "online") {
+    console.log("FILTER BY CLASS FORMAT")
+    filteredResults = filteredResults.filter(result => !!result.online);
+  }
+
   return filteredResults;
 };
 
@@ -74,6 +79,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     page?: number,
     limit?: number,
     sort?: string,
+    classFormat?: string,
     county?: string,
     inDemand?: boolean,
     maxCost?: number
@@ -104,7 +110,10 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     // Added null check
     const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
 
-    const filteredResults = await filterResults(results, params.maxCost, params.inDemand)
+    const filteredResults = await filterResults(results,
+                                                params.maxCost,
+                                                params.inDemand,
+                                                params.classFormat)
 
     const paginatedResults = paginateCerts(filteredResults, page, limit);
 
@@ -124,6 +133,7 @@ function prepareSearchParameters(params: {
   page?: number,
   limit?: number,
   sort?: string,
+  classFormat?: string,
   county?: string,
   inDemand?: boolean,
   maxCost?: number,
@@ -134,7 +144,7 @@ function prepareSearchParameters(params: {
   const limit = params.limit || 10;
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.county}-${params.maxCost}-${params.miles}-${params.zipcode}${params.inDemand ? "-inDemand" : ""}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.county}-${params.maxCost}-${params.miles}-${params.zipcode}${params.inDemand ? "-inDemand" : ""}${params.classFormat ? "-classFormatOnline" : ""}`;
 
   return { page, limit, sort, cacheKey };
 }

@@ -20,18 +20,20 @@ export class ApiClient implements Client {
     page?: number,
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    classFormat?: string[] | undefined,
     county?: string | undefined,
     inDemand?: string | undefined,
     maxCost?: number | undefined,
     miles?: number | undefined,
     zipcode?: string | undefined,
   ): void {
-    const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
-    const maxCostValue = maxCost && maxCost > 0 ? `&maxCost=${maxCost}` : '';
-    const inDemanValue = inDemand && inDemand === "true" ? "&inDemand=true" : "";
+    const classFormatValue = classFormat && classFormat.length === 1 && classFormat.includes('online') ? "&classFormat=online" : '';
     const countyValue = county ? `&county=${county}` : '';
+    const inDemanValue = inDemand && inDemand === "true" ? "&inDemand=true" : "";
+    const maxCostValue = maxCost && maxCost > 0 ? `&maxCost=${maxCost}` : '';
+    const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
 
-    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}`;
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${classFormatValue}`;
 
     console.log(url)
 
