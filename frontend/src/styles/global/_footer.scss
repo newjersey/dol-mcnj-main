@@ -2,6 +2,11 @@ footer {
   background-color: $footer-grey;
   color: white;
   padding: 1.5rem 0 0;
+  min-height: 690px;
+
+  @media screen and (max-width: ($tablet-md)) {
+    min-height: 1600px;
+  }
 
   > .container {
     @media screen and (min-width: ($tablet-md + 1)) {
