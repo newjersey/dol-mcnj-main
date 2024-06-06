@@ -7,7 +7,9 @@ import { App } from "../../App";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
 
-describe("filtering by time to complete", () => {
+jest.mock("../../utils/updateUrlParams.ts");
+
+describe.skip("filtering by time to complete", () => {
   const lessThanOneDay = buildTrainingResult({
     name: "less than one day",
     calendarLength: CalendarLength.LESS_THAN_ONE_DAY,

@@ -1,6 +1,6 @@
 # My Career NJ
 
-[![build](https://circleci.com/gh/newjersey/dol-my-career-nj.svg?style=shield)](https://circleci.com/gh/newjersey/dol-my-career-nj)
+[![build](https://circleci.com/gh/newjersey/dol-mcnj-main.svg?style=shield)](https://circleci.com/gh/newjersey/dol-mcnj-main)
 
 ## Overview
 

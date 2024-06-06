@@ -46,6 +46,16 @@
     }
   }
 
+  &.usa-button--outline {
+    box-shadow: none;
+
+    &:focus,
+    &:hover {
+      outline-offset: 0;
+      box-shadow: $shadow-3;
+    }
+  }
+
   &.primary {
     &:not(.usa-button--outline) {
       background: $primary;
@@ -54,8 +64,17 @@
 
     &.usa-button--outline {
       background: $white;
-      box-shadow: inset 0 0 0 $size-2 $primary;
+      outline: $size-2 $primary solid;
       color: $primary;
+
+      &:hover,
+      &:focus {
+        @media screen and (min-width: ($tablet)) {
+          outline-color: $primary-dark;
+          color: $primary-dark;
+          background-color: $white;
+        }
+      }
     }
 
     &:hover {
@@ -79,8 +98,17 @@
 
     &.usa-button--outline {
       background: $white;
-      box-shadow: inset 0 0 0 $size-2 $secondary;
+      outline: $size-2 $secondary solid;
       color: $secondary;
+
+      &:hover,
+      &:focus {
+        @media screen and (min-width: ($tablet)) {
+          outline-color: $secondary-dark;
+          color: $secondary-dark;
+          background-color: $white;
+        }
+      }
     }
 
     &:hover {
@@ -104,8 +132,17 @@
 
     &.usa-button--outline {
       background: $white;
-      box-shadow: inset 0 0 0 $size-2 $tertiary;
+      outline: $size-2 $tertiary solid;
       color: $tertiary;
+
+      &:hover,
+      &:focus {
+        @media screen and (min-width: ($tablet)) {
+          outline-color: $tertiary-dark;
+          color: $tertiary-dark;
+          background-color: $white;
+        }
+      }
     }
 
     &:hover {
@@ -129,8 +166,17 @@
 
     &.usa-button--outline {
       background: $white;
-      box-shadow: inset 0 0 0 $size-2 $info-darker;
+      outline: $size-2 $info-darker solid;
       color: $info-darker;
+
+      &:hover,
+      &:focus {
+        @media screen and (min-width: ($tablet)) {
+          outline-color: $info-dark;
+          color: $info-dark;
+          background-color: $white;
+        }
+      }
     }
 
     &:hover {
@@ -154,7 +200,7 @@
 
     &.usa-button--outline {
       background: $white;
-      box-shadow: inset 0 0 0 $size-2 $accent-warm;
+      outline: $size-2 $accent-warm solid;
       color: $accent-warm;
     }
 
