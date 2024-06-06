@@ -39,7 +39,7 @@
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
-    "graphql-request": "^6.1.0",
+    "graphql-request": "^7.0.1",
     "knex": "^3.0.1",
     "node-cache": "^5.1.2",
     "nodemon": "^3.0.1",
