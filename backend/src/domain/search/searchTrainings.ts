@@ -47,6 +47,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const data = packageResults(page, limit, results, totalResults);
 
+    const dataJSON = JSON.stringify(data);
+    console.log(dataJSON);
+
     cache.set(cacheKey, data);
     return data;
   };
