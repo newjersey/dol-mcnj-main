@@ -39,23 +39,20 @@ export const ClassFormatFilter = (): ReactElement => {
     const urlParams = new URLSearchParams(window.location.search);
     const inPerson = urlParams.get("inPerson");
     const online = urlParams.get("online");
-    const inPersonCheckbox = document.getElementsByName("inPerson")[0] as HTMLInputElement;
-    const onlineCheckbox = document.getElementsByName("online")[0] as HTMLInputElement;
-
-    if (online === "true") {
-      if (onlineCheckbox && !onlineCheckbox.checked) {
-        setTimeout(() => {
-          onlineCheckbox.click();
-        }, 200);
-      }
-    }
 
     if (inPerson === "true") {
-      if (inPersonCheckbox && !inPersonCheckbox.checked) {
-        setTimeout(() => {
-          inPersonCheckbox.click();
-        }, 200);
-      }
+      classFormat.inPerson = true;
+    }
+    if (online === "true") {
+      classFormat.online = true;
+    }
+
+    if (inPerson === "true" || online === "true") {
+      const classFormatArray = Object.entries(classFormat).filter(([, value]) => value);
+
+      classFormatArray.forEach(([key]) => {
+        handleCheckboxChange({ target: { name: key } } as ChangeEvent<HTMLInputElement>, true);
+      });
     }
   }, []);
 
@@ -68,6 +65,24 @@ export const ClassFormatFilter = (): ReactElement => {
     setClassFormat(newClassFormat);
 
     const nothingIsChecked = Object.values(newClassFormat).every((value) => !value);
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (newClassFormat.inPerson) {
+      urlParams.set("inPerson", "true");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    } else {
+      urlParams.delete("inPerson");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    }
+
+    if (newClassFormat.online) {
+      urlParams.set("online", "true");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    } else {
+      urlParams.delete("online");
+      window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+    }
 
     dispatch({
       type: nothingIsChecked ? FilterActionType.REMOVE : FilterActionType.ADD,

@@ -14,7 +14,7 @@ describe("Home Page", () => {
       // { title: "Explore Careers", link: "#explore" },
       { title: "Support and Assistance", link: "#support" },
       { title: "CareerOneStop Job Board", link: "https://www.careeronestop.org" },
-      // { title: "Career Navigator", link: "/navigator" },
+      { title: "Career Navigator", link: "/navigator" },
       { title: "In-Demand Occupations List", link: "/in-demand-occupations" },
       {
         title: "Apprenticeship Programs",

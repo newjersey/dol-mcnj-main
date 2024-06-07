@@ -357,7 +357,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           )}
                         </ul>
 
-                        <a className="usa-button" href="/search">
+                        <a className="usa-button" href="/training/search">
                           <span>
                             <Selector name="trainingBold" />
                             See more trainings on the Training Explorer
