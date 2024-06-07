@@ -68,12 +68,14 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: number,
     itemsPerPage: number,
     sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    cipCode: string | undefined,
     completeIn: number[] | undefined,
     county: string | undefined,
     inDemand: string | undefined,
     languages: string[] | undefined,
     maxCost: number | undefined,
     miles: number | undefined,
+    socCode: string | undefined,
     zipcode: string | undefined,
   ): void => {  
     if (queryToSearch && queryToSearch !== null) {
@@ -95,12 +97,14 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
+        cipCode,
         completeIn,
         county,
         inDemand,
         languages,
         maxCost,
         miles,
+        socCode,
         zipcode,
       );
     } else {
@@ -128,11 +132,12 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     const queryToSearch = searchQuery ? searchQuery : "";
 
-    let county, inDemand, languages, maxCost, miles, zipcode;
-    const completeIn:number[] = [];
+    let cipCode, county, inDemand, languages, maxCost, miles, socCode, zipcode;
+    const completeInArray:number[] = [];
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
+      cipCode = cipCodeValue;
     }
 
     if (completeInValue) {
@@ -141,16 +146,16 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       completeValues.map((value) => {
         switch(value) {
           case "days":
-            completeIn.push(1, 2, 3);
+            completeInArray.push(1, 2, 3);
             break;
           case "weeks":
-            completeIn.push(4,5);
+            completeInArray.push(4,5);
             break;
           case "months":
-            completeIn.push(6, 7);
+            completeInArray.push(6, 7);
             break;
           case "years":
-            completeIn.push(8, 9, 10);
+            completeInArray.push(8, 9, 10);
             break;
         }
       });
@@ -184,6 +189,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     if (socCodeValue) {
       setSocCode(socCodeValue);
+      socCode = socCodeValue;
     }
     
     if (zipcodeValue) {
@@ -197,12 +203,14 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         pageNumber,
         itemsPerPage,
         sortBy,
-        completeIn,
+        cipCode,
+        completeInArray,
         county,
         inDemand,
         languages,
         maxCost,
         miles,
+        socCode,
         zipcode
       );
     }

@@ -20,12 +20,14 @@ export class ApiClient implements Client {
     page?: number,
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    cipCode?: string | undefined,
     completeIn?: number[] | undefined,
     county?: string | undefined,
     inDemand?: string | undefined,
     languages?: string[] | undefined,
     maxCost?: number | undefined,
     miles?: number | undefined,
+    socCode?: string | undefined,
     zipcode?: string | undefined,
   ): void {
     const completeInValue = completeIn && completeIn.length > 0 ? `&completeIn=${completeIn.join(",")}` : '';
