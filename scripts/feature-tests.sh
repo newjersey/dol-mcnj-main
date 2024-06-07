@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
 cd $(git rev-parse --show-toplevel)
-# Source the .env file
-source ./backend/.env
 
-# Export NODE_OPTIONS from the sourced environment variables
-export NODE_OPTIONS
 APP_PORT=8080
 
 kill $(lsof -i:${APP_PORT} -t)
