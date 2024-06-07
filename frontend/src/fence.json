@@ -27,6 +27,7 @@
     "react-ga",
     "react-helmet",
     "react-hook-form",
+    "react-helmet-async",
     "react-i18next",
     "react-to-print",
     "react-tooltip",

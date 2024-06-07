@@ -17,7 +17,7 @@ export const PrivacyPolicyPage = (props: Props): ReactElement => {
       seo={{
         title: `Privacy Policy | ${process.env.REACT_APP_SITE_NAME}`,
         pageDescription: "Privacy Policy and Information Collection Statement",
-        url: props.location?.pathname,
+        url: props.location?.pathname || "/privacy-policy",
       }}
     >
       <div className="container">

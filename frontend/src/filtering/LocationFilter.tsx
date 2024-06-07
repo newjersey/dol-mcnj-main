@@ -9,6 +9,7 @@ import { WhiteSelect } from "../components/WhiteSelect";
 import { getZipCodesInRadius } from "./findZipCodesInRadius";
 import { useTranslation } from "react-i18next";
 import { checkValidZipCode } from "../utils/checkValidZipCode";
+import { updateUrlParams } from "../utils/updateUrlParams";
 export interface SearchArea {
   center: string;
   radius: number;
@@ -76,6 +77,10 @@ export const LocationFilter = (): ReactElement => {
       setIsValidZipCode(validZipCode);
       if (!validZipCode) {
         return;
+      } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("zip", currentSearchArea.center);
+        window.history.pushState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
       }
     }
 
@@ -115,6 +120,11 @@ export const LocationFilter = (): ReactElement => {
     const newSearchArea = { ...searchArea, radius: Number(event.target.value) };
     setSearchArea(newSearchArea);
     applyLocationFilter(newSearchArea, false);
+    updateUrlParams({
+      key: "miles",
+      value: `${event.target.value}`,
+      valid: true,
+    });
   };
 
   const handleZipCodeInput = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -123,6 +133,16 @@ export const LocationFilter = (): ReactElement => {
   };
 
   const milesActive = isValidZipCode && attempted;
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasMiles = urlParams.has("miles");
+    updateUrlParams({
+      key: "miles",
+      value: "10",
+      valid: isValidZipCode && attempted && !hasMiles,
+    });
+  }, [isValidZipCode, attempted]);
 
   return (
     <section>

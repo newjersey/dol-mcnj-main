@@ -15,21 +15,21 @@ import { useContentful } from "../utils/useContentful";
 import { AlertBar } from "./AlertBar";
 
 interface ResourceTagListProps {
-  tags: TagProps[];
   audience: TagProps[];
   category?: string;
-  info?: string;
   cta: ResourceCategoryPageProps["cta"];
+  info?: string;
   related?: RelatedCategoryProps[];
+  tags: TagProps[];
 }
 
 export const ResourceList = ({
-  tags,
-  info,
-  category = "All Resources",
   audience,
-  related,
+  category = "All Resources",
   cta,
+  info,
+  related,
+  tags,
 }: ResourceTagListProps) => {
   // get the title from all tags and audience and map them to a single array
   const allTags = [...tags].map((tag) => tag.title);
