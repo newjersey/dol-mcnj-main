@@ -26,10 +26,10 @@ describe("ApiClient", () => {
       const dummyObserver = { onSuccess: jest.fn(), onError: jest.fn() };
       mockedAxios.get.mockResolvedValue({ data: [] });
 
-      apiClient.getTrainingsByQuery("penguins", dummyObserver, 1, 10);
+      apiClient.getTrainingsByQuery("penguins", dummyObserver, 1, 10, undefined, "12345", [1, 2, 3], "county", "true", ["fr"], 100, 50, "12-3456", "12345");
 
       expect(mockedAxios.get).toHaveBeenCalledWith(
-        "/api/trainings/search?query=penguins&page=1&limit=10&sort=undefined",
+        "/api/trainings/search?query=penguins&page=1&limit=10&sort=best_match&miles=50&zipcode=12345&maxCost=100&county=county&inDemand=true&completeIn=1,2,3&languages=fr&cipCode=12345&socCode=12-3456",
       );
     });
 

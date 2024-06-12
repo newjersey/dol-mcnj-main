@@ -19,7 +19,7 @@ export class ApiClient implements Client {
     observer: Observer<TrainingData>,
     page?: number,
     limit?: number | undefined,
-    sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined,
     cipCode?: string | undefined,
     completeIn?: number[] | undefined,
     county?: string | undefined,
@@ -37,7 +37,7 @@ export class ApiClient implements Client {
     const maxCostValue = maxCost && maxCost > 0 ? `&maxCost=${maxCost}` : '';
     const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
 
-    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${completeInValue}${languagesValue}${cipCode ? `&cipCode=${cipCode}` : ''}${socCode ? `&socCode=${socCode}` : ''}`;
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort ? sort : 'best_match'}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${completeInValue}${languagesValue}${cipCode ? `&cipCode=${cipCode}` : ''}${socCode ? `&socCode=${socCode}` : ''}`;
 
     console.log(url)
 
