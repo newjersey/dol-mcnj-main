@@ -45,7 +45,7 @@ export const FilterDrawer = ({
   const mobile = useMediaQuery("(max-width:767px)");
   const [open, setOpen] = useState<boolean>(false);
 
-  const cipHyphen = cipCode?.replace(/(\d{2})/, "$1-")
+  const cipDeci = cipCode?.replace(/(\d{2})/, "$1.")
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -54,7 +54,7 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
-      cipCode: cipHyphen,
+      cipCode: cipDeci,
       completeIn,
       county,
       inDemand,

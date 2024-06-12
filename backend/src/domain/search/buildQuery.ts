@@ -1,6 +1,9 @@
 
 import zipcodeJson from "../utils/zip-county.json";
 import zipcodes from "zipcodes";
+
+export const isCIP = (item: string) => /^\d{2}\.?\d{4}$/.test(item);
+
 export function buildQuery(params: {
   searchQuery: string,
   county?: string,
@@ -8,7 +11,7 @@ export function buildQuery(params: {
   zipcode?: string
 }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
-  const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+  const searchIsCIP = isCIP(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
@@ -42,7 +45,7 @@ export function buildQuery(params: {
       "search:value": [
         {
           "search:operator": "search:orTerms",
-          ...(isSOC || isCIP || !!isZipCode || isCounty ? {} : {
+          ...(isSOC || searchIsCIP || !!isZipCode || isCounty ? {} : {
             "ceterms:name": params.searchQuery,
             "ceterms:description": params.searchQuery,
             "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
@@ -50,8 +53,8 @@ export function buildQuery(params: {
           "ceterms:occupationType": isSOC ? {
             "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
           } : undefined,
-          "ceterms:instructionalProgramType": isCIP ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+          "ceterms:instructionalProgramType": searchIsCIP ? {
+            "ceterms:codedNotation": { "search:value": params.searchQuery.replace(/(\d{2})/, "$1."), "search:matchType": "search:startsWith" }
           } : undefined
         },{
           "ceterms:availableAt": {

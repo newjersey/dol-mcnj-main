@@ -5,11 +5,11 @@ import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI"
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { DataClient } from "../DataClient";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
-import zipcodeJson from "../utils/zip-county.json";
-import zipcodes from "zipcodes";
 
 import { buildQuery } from "./buildQuery";
 import { transformCertificateToTraining } from "./transformCertificateToTraining";
+
+import { isCIP } from "./buildQuery";
 
 // Ensure TrainingData is exported in ../types
 // types.ts:
@@ -55,10 +55,16 @@ const filterResults = async (
   maxCost?: number,
   inDemand?: boolean,
   completeIn?: number[],
-  languages?: string[]
+  languages?: string[],
+  cipCode?: string
 ) => {
   console.log("FILTERING RESULTS")
   let filteredResults = results;
+
+  if (cipCode && cipCode.length > 0 && isCIP(cipCode)) {
+    console.log("FILTER BY CIP CODE")
+    filteredResults = filteredResults.filter(result => result.cipDefinition?.cipcode === cipCode);
+  }
 
   // Filter by maxCost
   if (maxCost && maxCost > 0) {
@@ -92,6 +98,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     page?: number,
     limit?: number,
     sort?: string,
+    cipCode?: string,
     completeIn?: number[],
     county?: string,
     inDemand?: boolean,
@@ -130,7 +137,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
                                                 params.maxCost,
                                                 params.inDemand,
                                                 params.completeIn,
-                                                params.languages)
+                                                params.languages,
+                                                params.cipCode)
 
     const paginatedResults = paginateCerts(filteredResults, page, limit);
 
