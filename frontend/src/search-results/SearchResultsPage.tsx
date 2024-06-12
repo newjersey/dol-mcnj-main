@@ -136,8 +136,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const completeInArray:number[] = [];
 
     if (cipCodeValue) {
-      setCipCode(cipCodeValue);
-      cipCode = cipCodeValue;
+      const numOnly = cipCodeValue.replace(/\D/g,'');
+      setCipCode(numOnly);
+      cipCode = numOnly;
     }
 
     if (completeInValue) {
@@ -189,7 +190,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     if (socCodeValue) {
       setSocCode(socCodeValue);
-      socCode = socCodeValue;
+      socCode = socCodeValue.replace(/\D/g,'');
     }
     
     if (zipcodeValue) {

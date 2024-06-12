@@ -14,12 +14,14 @@ export type SearchTrainings = (params: {
   page?: number,
   limit?: number,
   sort?: string,
+  cipCode?: string,
   completeIn?: number[],
   county?: string,
   inDemand?: boolean,
   languages?: string[],
   maxCost?: number,
   miles?: number,
+  socCode?: string,
   zipcode?: string
 }) => Promise<TrainingData>;
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;

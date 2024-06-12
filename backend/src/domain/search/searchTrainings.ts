@@ -108,7 +108,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     }
 
     const query = buildQuery(params);
-    console.log("Executing search with query:", JSON.stringify(query));
+    const JSONQuery = JSON.stringify(query);
+
+    console.log("Executing search with query:", JSONQuery);
 
     let ceRecordsResponse;
     try {
@@ -148,11 +150,13 @@ function prepareSearchParameters(params: {
   page?: number,
   limit?: number,
   sort?: string,
+  cipCode?: string,
   completeIn?: number[],
   county?: string,
   inDemand?: boolean,
   maxCost?: number,
   miles?: number,
+  socCode?: string,
   zipcode?: string
 }) {
   const page = params.page || 1;
@@ -161,7 +165,7 @@ function prepareSearchParameters(params: {
   const completeInValue = hasCompleteIn ? params.completeIn?.join(",") : "";
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.county}-${params.maxCost}-${params.miles}-${params.zipcode}${params.inDemand ? "-inDemand" : ""}${hasCompleteIn ? `-${completeInValue}` : ""}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}-${params.county}-${params.maxCost}-${params.miles}-${params.zipcode}${params.inDemand ? "-inDemand" : ""}${hasCompleteIn ? `-${completeInValue}` : ""}${params.cipCode ? `-${params.cipCode}` : ""}${params.socCode ? `-${params.socCode}` : ""}`;
 
   return { page, limit, sort, cacheKey };
 }

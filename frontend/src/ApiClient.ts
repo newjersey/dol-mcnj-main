@@ -37,7 +37,7 @@ export class ApiClient implements Client {
     const maxCostValue = maxCost && maxCost > 0 ? `&maxCost=${maxCost}` : '';
     const zipcodeAndMiles = miles && miles > 0 && zipcode ? `&miles=${miles}&zipcode=${zipcode}` : '';
 
-    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${completeInValue}${languagesValue}`;
+    const url = `/api/trainings/search?query=${query}&page=${page}&limit=${limit}${sort ? `&sort=${sort}` : ''}${zipcodeAndMiles}${maxCostValue}${countyValue}${inDemanValue}${completeInValue}${languagesValue}${cipCode ? `&cipCode=${cipCode}` : ''}${socCode ? `&socCode=${socCode}` : ''}`;
 
     console.log(url)
 
