@@ -140,6 +140,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const data = packageResults(page, limit, paginatedResults, totalResults);
 
+    const dataJSON = JSON.stringify(data);
+    console.log(dataJSON);
+
     cache.set(cacheKey, data);
     return data;
   };
