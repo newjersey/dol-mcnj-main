@@ -142,7 +142,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }
 
     if (completeInValue) {
-      const completeValues = completeInValue.split(",");
+      const completeValues = completeInValue.includes("," || "%2C") ? completeInValue.split("," || "%2C") : [completeInValue];
       setCompleteIn(completeValues);
       completeValues.map((value) => {
         switch(value) {
@@ -173,7 +173,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }
 
     if (languagesValue) {
-      const langArray = languagesValue.split(",");
+      const langArray = languagesValue.includes("," || "%2C") ? languagesValue.split("," || "%2C") : [languagesValue];
       setLanguages(langArray);
       languages = langArray;
     }

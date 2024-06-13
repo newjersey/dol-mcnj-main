@@ -1,5 +1,5 @@
 import { ReactElement, useState } from "react";
-// import { navigate } from "@reach/router";
+import { navigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import { FormProvider, useForm } from "react-hook-form";
 import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
@@ -29,6 +29,24 @@ interface Props {
   zipcode?: string;
 }
 
+interface ObjProps {
+  id: string;
+  label: string;
+  values?: number[];
+}
+interface FormProps {
+  searchQuery: string;
+  cipCode?: string;
+  completeIn?: (string | ObjProps)[];
+  county?: string;
+  inDemand?: boolean;
+  languages?: (string | ObjProps)[];
+  maxCost?: number;
+  miles?: number;
+  socCode?: string;
+  zipcode?: string;
+}
+
 export const FilterDrawer = ({
   searchQuery,
   cipCode,
@@ -51,7 +69,7 @@ export const FilterDrawer = ({
     setOpen(!open);
   };
 
-  const methods = useForm<Props>({
+  const methods = useForm<FormProps>({
     defaultValues: {
       searchQuery,
       cipCode: cipDeci,
@@ -68,18 +86,55 @@ export const FilterDrawer = ({
 
   const { handleSubmit, reset } = methods;
 
-  const onSubmit = (data: Props) => {
-    console.log(data);
+  const onSubmit = (data: FormProps) => {
+    console.log({data})
+    const {
+      searchQuery,
+      cipCode,
+      completeIn,
+      county,
+      inDemand,
+      languages,
+      maxCost,
+      miles,
+      socCode,
+      zipcode
+    } = data;
 
-    // const urlParams = new URLSearchParams(window.location.search);
-    // urlParams.set("q", data.searchQuery);
-    // if (data.miles && data.miles > 0) urlParams.set("miles", data.miles?.toString() || "");
-    // if (data.zipcode) urlParams.set("zipcode", data.zipcode || "");
-    // console.log(window.location)
-    // const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
-    // console.log(newUrl)
-    // navigate(newUrl);
-    // window.location.reload();
+    console.log(completeIn)
+
+    let completeInArr: string[] = [];
+    let langArr: string[] = [];
+
+    if (completeIn && completeIn.length > 0 && typeof completeIn !== "string") {
+      completeInArr = completeIn.map((item: ObjProps | string) => typeof item !== "string" ? item.id : item);
+
+      console.log(completeInArr)
+    }
+
+    if (languages && languages.length > 0) {
+      langArr = languages.map((item: ObjProps | string) => typeof item !== "string" ? item.id : item);
+
+      console.log(langArr)
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams)
+    urlParams.set("q", searchQuery);
+    cipCode ? urlParams.set("cip", cipCode) : urlParams.delete("cip");
+    completeInArr.length > 0 ? urlParams.set("completeIn", completeInArr.join(",")) : urlParams.delete("completeIn");
+    county && county.length > 0 ? urlParams.set("county", county) : urlParams.delete("county");
+    inDemand ? urlParams.set("inDemand", inDemand.toString()) : urlParams.delete("inDemand");
+    langArr.length > 0 ? urlParams.set("languages", langArr.join(",")) : urlParams.delete("languages");
+    maxCost ? urlParams.set("maxCost", maxCost.toString()) : urlParams.delete("maxCost");
+    miles ? urlParams.set("miles", miles.toString()) : urlParams.delete("miles");
+    socCode ? urlParams.set("soc", socCode) : urlParams.delete("soc");
+    zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
+
+    const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
+    console.log(newUrl)
+    navigate(newUrl);
+    window.location.reload();
   };
 
   return (
@@ -94,7 +149,7 @@ export const FilterDrawer = ({
       <Drawer
         anchor={mobile ? "bottom" : "left"}
         open={open}
-        // onClose={toggleDrawer}
+        onClose={toggleDrawer}
       >
         <div id="filter-drawer-container">
           <div className="drawer-header">
