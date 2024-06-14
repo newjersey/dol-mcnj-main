@@ -159,6 +159,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             completeInArray.push(8, 9, 10);
             break;
         }
+        return;
       });
     }
 
