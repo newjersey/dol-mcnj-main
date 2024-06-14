@@ -12,7 +12,7 @@
       "id": "ctid123",
       "inDemand": false,
       "isWheelchairAccessible": false,
-      "languages": "English",
+      "languages": ["en"],
       "localExceptionCounty": [],
       "name": "Example Training Program",
       "occupations": [
@@ -59,7 +59,7 @@
       "id": "ctid123",
       "inDemand": false,
       "isWheelchairAccessible": false,
-      "languages": "English",
+      "languages": ["en"],
       "localExceptionCounty": [],
       "name": "Example Training Program",
       "occupations": [

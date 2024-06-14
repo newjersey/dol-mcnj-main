@@ -48,9 +48,18 @@ describe("router", () => {
           expect(response.status).toEqual(200);
           expect(response.body).toEqual(trainings);
           expect(stubSearchTrainings).toHaveBeenCalledWith({
+            cipCode: undefined,
+            completeIn: undefined,
+            county: undefined,
+            inDemand: false,
+            languages: undefined,
             limit: 10,
+            maxCost: NaN,
+            miles: NaN,
             page: 1,
             searchQuery: "penguins",
+            sort: undefined,
+            zipcode: undefined,
           });
           done();
         });
