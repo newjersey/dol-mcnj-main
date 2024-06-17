@@ -7,12 +7,14 @@ interface Props {
   inputName: string;
   options: string[]; // Add the 'options' property to the 'Props' interface
   inputLabel?: string;
+  placeholder?: string
 }
 
 export const FilterFormSingleDD = ({
   inputLabel,
   inputName,
-  options
+  options,
+  placeholder
 }: Props) => {
   const { getValues, register } = useFormContext();
   const [selected, setSelected] = useState<string | null>(null);
@@ -46,6 +48,7 @@ export const FilterFormSingleDD = ({
               {...params}
               className="filter-input"
               variant="outlined"
+              placeholder={placeholder}
               {...register(inputName)}
             />
           )}

@@ -14,12 +14,14 @@ interface Props {
   options: OptionProps[];
   defaultValues?: string[];
   inputLabel?: string;
+  placeholder?: string;
 }
 export const FilterFormMultiDD = ({
   defaultValues = [],
   inputLabel,
   inputName,
-  options
+  options,
+  placeholder
 }: Props) => {
   const { control } = useFormContext();
   const lowerCaseValues = defaultValues.map(value => value.toLowerCase());
@@ -63,6 +65,7 @@ export const FilterFormMultiDD = ({
                   {...params}
                   className="filter-input"
                   variant="outlined"
+                  placeholder={placeholder}
                 />
               )}
             />

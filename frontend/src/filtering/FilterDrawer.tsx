@@ -185,11 +185,13 @@ export const FilterDrawer = ({
                     inputType="number"
                     hasIcon={true}
                     icon={<CurrencyDollar />}
+                    placeholder="max cost"
                   />
                   <FilterFormSingleDD
                     inputLabel="County"
                     inputName="county"
                     options={COUNTIES}
+                    placeholder="Choose a county"
                   />
                   <div className="field-group">
                     <div className="label-container zip-label">
@@ -201,12 +203,14 @@ export const FilterDrawer = ({
                       <FilterFormInput
                         inputName="miles"
                         inputType="number"
+                        placeholder="miles"
                       />
                       <div className="conjunction-container">
                         from
                       </div>
                       <FilterFormInput
                         inputName="zipcode"
+                        placeholder="ZIP code"
                       />
                     </div>
                   </div>
@@ -215,12 +219,14 @@ export const FilterDrawer = ({
                     inputName="completeIn"
                     options={completeInList}
                     defaultValues={completeIn}
+                    placeholder="Time to Complete"
                   />
                   <FilterFormMultiDD
                     inputLabel="Languages"
                     inputName="languages"
                     options={languageList}
                     defaultValues={languages}
+                    placeholder="Languages"
                   />
                   <FilterFormInput
                     inputLabel="Filter by CIP Code"
