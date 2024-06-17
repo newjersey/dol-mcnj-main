@@ -73,7 +73,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
-    languages: ["some-language-" + randomInt()],
+    languages: "some-language-" + randomInt(),
     availableAt: [{}],
     ...overrides,
   };
