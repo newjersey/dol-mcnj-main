@@ -25,7 +25,7 @@ export interface Training {
   percentEmployed: number | null;
   averageSalary?: number | null;
   hasEveningCourses: boolean;
-  languages: string[];
+  languages: string | null;
   availableAt: Address[]
 }
 

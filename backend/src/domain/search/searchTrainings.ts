@@ -155,7 +155,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       highlight: highlight,
       socCodes: [],
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-      languages: certificate["ceterms:inLanguage"],
+      languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
       totalClockHours: null,
     };
   } catch (error) {
