@@ -25,10 +25,7 @@ export interface Training {
   percentEmployed: number | null;
   averageSalary?: number | null;
   hasEveningCourses: boolean;
-  languages: string | null;
-  isWheelchairAccessible: boolean;
-  hasJobPlacementAssistance: boolean;
-  hasChildcareAssistance: boolean;
+  languages: string[];
   availableAt: Address[]
 }
 
