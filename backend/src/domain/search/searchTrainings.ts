@@ -155,10 +155,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       highlight: highlight,
       socCodes: [],
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-      languages: "",
-      isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
-      hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
-      hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
+      languages: certificate["ceterms:inLanguage"],
       totalClockHours: null,
     };
   } catch (error) {

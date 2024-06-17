@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
+import { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { FilterContext } from "./FilterContext";
 import { useMediaQuery } from "@material-ui/core";
 import { CostFilter } from "./CostFilter";
@@ -14,7 +14,6 @@ import { InDemandOnlyFilter } from "./InDemandOnlyFilter";
 import { CountyFilter } from "./CountyFilter";
 import { SocCodeFilter } from "./SocCodeFilter";
 import { CipCodeFilter } from "./CipCodeFilter";
-import { ProgramServicesFilter } from "./ProgramServicesFilter";
 import { LanguagesFilter } from "./LanguagesFilter";
 import { Button } from "../components/Button";
 import { useTranslation } from "react-i18next";
@@ -184,10 +183,6 @@ export const FilterBox = ({
 
         <div className="mtd">
           <TimeToCompleteFilter />
-        </div>
-
-        <div className="mtd">
-          <ProgramServicesFilter />
         </div>
 
         <div className="mtd">
