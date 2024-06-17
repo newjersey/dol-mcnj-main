@@ -34,10 +34,6 @@ export interface Program {
   onlineprogramid: string | null;
   eveningcourses: string;
   languages: string | null;
-  accessfordisabled: string | null;
-  personalassist: string | null;
-  childcare: string | null;
-  assistobtainingchildcare: string | null;
 }
 
 export interface LocalException {
