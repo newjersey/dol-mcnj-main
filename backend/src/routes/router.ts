@@ -15,6 +15,7 @@ import { Selector } from "../domain/training/Selector";
 import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
 
 interface RouterActions {
+  allTrainings: any;
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
@@ -24,6 +25,7 @@ interface RouterActions {
 }
 
 export const routerFactory = ({
+  allTrainings,
   searchTrainings,
   findTrainingsBy,
   getInDemandOccupations,
@@ -51,6 +53,14 @@ export const routerFactory = ({
         .catch((e) => res.status(500).send(e));
     },
   );
+
+  router.get("/trainings", (req: Request, res: Response) => {
+      allTrainings()
+      .then((trainings: TrainingData) => {
+        res.status(200).json(trainings);
+      })
+      .catch((e:any) => res.status(500).send(e));
+  })
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
     let page = parseInt(req.query.page as string);

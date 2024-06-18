@@ -12,7 +12,7 @@ export const credentialEngineUtils = {
 
   getCtidFromURL: async function (url: string) {
     try {
-      console.log(`Getting CTID from URL: ${url}`);
+      // console.log(`Getting CTID from URL: ${url}`);
       const lastSlashIndex: number = url.lastIndexOf("/");
       const ctid: string = url.substring(lastSlashIndex + 1);
       return ctid;

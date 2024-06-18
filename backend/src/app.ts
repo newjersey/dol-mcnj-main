@@ -19,6 +19,7 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { credentialEngineFactory } from "./domain/credentialengine/CredentialEngineFactory";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
+import { allTrainings } from "./domain/search/allTrainings";
 
 dotenv.config();
 // console.log(process.env);
@@ -163,6 +164,7 @@ const postgresDataClient = new PostgresDataClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
+  allTrainings: allTrainings(postgresDataClient),
   searchTrainings: searchTrainingsFactory(postgresDataClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
