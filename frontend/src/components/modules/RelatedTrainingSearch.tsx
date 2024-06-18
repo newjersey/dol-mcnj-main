@@ -39,8 +39,8 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
       ) : (
         <>
           {trainings?.slice(0, 3).map((train) => (
-            <li key={train.id}>
-              <a href={`/training/${train.id}`} target="_blank" rel="noopener noreferrer">
+            <li key={train.ctid}>
+              <a href={`/training/${train.ctid}`} target="_blank" rel="noopener noreferrer">
                 <p className="title">
                   {train.name}
                   <ArrowUpRight size={24} />

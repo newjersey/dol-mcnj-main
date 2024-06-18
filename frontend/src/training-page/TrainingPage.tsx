@@ -84,7 +84,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const printHandler = (): void => {
     printReactContent();
-    logEvent("Training page", "Clicked print link", training?.id);
+    logEvent("Training page", "Clicked print link", training?.ctid);
   };
 
   const copyHandler = (): void => {
@@ -106,7 +106,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       setCopy(null);
     }, 5000);
 
-    logEvent("Training page", "Clicked copy link", training?.id);
+    logEvent("Training page", "Clicked copy link", training?.ctid);
   };
 
   const getHttpUrl = (url: string): string => {
@@ -128,7 +128,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         rel="noopener noreferrer"
         className="break-text link-format-blue"
         href={getHttpUrl(training.provider.url)}
-        onClick={() => logEvent("Training page", "Clicked provider link", training?.id)}
+        onClick={() => logEvent("Training page", "Clicked provider link", training?.ctid)}
       >
         {training.provider.url}
       </a>
@@ -329,7 +329,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       "identifier": {
         "@type": "PropertyValue",
         "name": "Program ID",
-        "value": training.id,
+        "value": training.ctid,
       },
       "hasCourseInstance": courseInstance,
       "offers": offer,
@@ -668,7 +668,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </Grouping>
                     <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
-                      {training.provider && training.provider.id ? (
+                      {training.provider && training.provider.ctid ? (
                         <>
                           <p>
                             <span className="fin fas">

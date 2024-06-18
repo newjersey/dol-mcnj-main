@@ -14,7 +14,7 @@ export const randomBool = (): boolean => !!Math.round(Math.random());
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
-    id: "some-id-" + randomInt(),
+    ctid: "some-ctid-" + randomInt(),
     name: "some-name-" + randomInt(),
     cipDefinition: {
       cip: "some-cip-" + randomInt(),
@@ -47,7 +47,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
 
 export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
-    id: "some-id-" + randomInt(),
+    ctid: "some-ctid-" + randomInt(),
     name: "some-name-" + randomInt(),
     cipDefinition: {
       cip: "some-cip-" + randomInt(),
@@ -84,7 +84,8 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
 
 export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
-    id: "some-id-" + randomInt(),
+    ctid: "some-ctid-" + randomInt(),
+    providerId: "some-id-" + randomInt(),
     url: "some-url-" + randomInt(),
     addresses: buildAddress({}),
     name: "some-name-" + randomInt(),

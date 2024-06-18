@@ -3,7 +3,7 @@ import {CalendarLength} from "../CalendarLength";
 import {CipDefinition} from "./Program";
 
 export interface Training {
-  id?: string;
+  ctid?: string;
   name?: string;
   cipDefinition?: CipDefinition | null;
   provider: Provider;
@@ -33,7 +33,8 @@ export interface Training {
 }
 
 export interface Provider {
-  id: string;
+  ctid: string;
+  providerId?: string;
   url?: string;
   contactName?: string;
   contactTitle?: string;
