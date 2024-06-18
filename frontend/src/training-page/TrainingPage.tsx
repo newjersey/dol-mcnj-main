@@ -699,14 +699,6 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                     <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
                       <>
-                        {training.hasEveningCourses && (
-                            <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">nightlight_round</InlineIcon>
-                            {t("TrainingPage.eveningCoursesServiceLabel")}
-                          </span>
-                            </p>
-                        )}
                         {training.languages.length > 0 && (
                             <p>
                           <span className="fin">
@@ -715,30 +707,6 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </span>
                             </p>
                         )}
-                        {training.isWheelchairAccessible && (
-                            <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">accessible_forward</InlineIcon>
-                            {t("TrainingPage.wheelchairAccessibleServiceLabel")}
-                          </span>
-                            </p>
-                        )}
-                        {training.hasChildcareAssistance && (
-                            <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">family_restroom</InlineIcon>
-                            {t("TrainingPage.childcareAssistanceServiceLabel")}
-                          </span>
-                            </p>
-                        )}
-                        {training.hasJobPlacementAssistance && (
-                            <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">work_outline</InlineIcon>
-                            {t("TrainingPage.jobAssistanceServiceLabel")}
-                          </span>
-                        </p>
-                      )}
                       <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                     </>
                   </Grouping>

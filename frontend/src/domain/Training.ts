@@ -19,11 +19,7 @@ export interface TrainingResult {
   highlight: string;
   rank: number;
   socCodes: string[];
-  hasEveningCourses: boolean;
   languages: string[];
-  isWheelchairAccessible: boolean;
-  hasJobPlacementAssistance: boolean;
-  hasChildcareAssistance: boolean;
 }
 
 export interface Ceterms {
@@ -63,12 +59,8 @@ export interface Training {
   cipDefinition: CipDefinition;
   description: string;
   feesCost: number;
-  hasChildcareAssistance: boolean;
-  hasEveningCourses: boolean;
-  hasJobPlacementAssistance: boolean;
   id: string;
   inDemand: boolean;
-  isWheelchairAccessible: boolean;
   languages: string[];
   localExceptionCounty: string[];
   name: string;

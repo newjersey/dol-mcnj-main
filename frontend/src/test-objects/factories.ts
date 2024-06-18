@@ -46,11 +46,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
     socCodes: ["some-soc-" + randomInt()],
-    hasEveningCourses: randomBool(),
     languages: ["some-language-" + randomInt()],
-    isWheelchairAccessible: randomBool(),
-    hasJobPlacementAssistance: randomBool(),
-    hasChildcareAssistance: randomBool(),
     ...overrides,
   };
 };
@@ -82,11 +78,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     online: randomBool(),
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
-    hasEveningCourses: randomBool(),
     languages: ["some-language-" + randomInt()],
-    isWheelchairAccessible: randomBool(),
-    hasJobPlacementAssistance: randomBool(),
-    hasChildcareAssistance: randomBool(),
     ...overrides,
   };
 };
