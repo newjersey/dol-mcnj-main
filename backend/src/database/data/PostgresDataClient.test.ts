@@ -53,10 +53,6 @@ describe.skip("PostgresDataClient", () => {
     onlineprogramid: "1",
     eveningcourses: "1",
     languages: null,
-    accessfordisabled: "1",
-    personalassist: "2",
-    childcare: "2",
-    assistobtainingchildcare: "1",
   };
 */
 
