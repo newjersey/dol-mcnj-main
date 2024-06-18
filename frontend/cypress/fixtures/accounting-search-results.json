@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-13918c2b-dbcf-49ce-a31c-24568a17e41d",
+          "ctid": "ce-13918c2b-dbcf-49ce-a31c-24568a17e41d",
           "name": "Computerized Accounting",
           "totalCost": 4888,
           "percentEmployed": null,
@@ -30,7 +30,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-c3ff0b9f-a096-4cf1-a1eb-2b2874699f4e",
+          "ctid": "ce-c3ff0b9f-a096-4cf1-a1eb-2b2874699f4e",
           "name": "Computerized Accounting Specialist",
           "totalCost": 3922,
           "percentEmployed": null,
@@ -59,7 +59,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-0cdf0605-b757-49ad-abe7-9909872d1f36",
+          "ctid": "ce-0cdf0605-b757-49ad-abe7-9909872d1f36",
           "name": "Computerized Financial Accounting",
           "totalCost": 5100,
           "percentEmployed": null,
@@ -88,7 +88,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-202e7982-07de-493c-bf89-e727372fa6c9",
+          "ctid": "ce-202e7982-07de-493c-bf89-e727372fa6c9",
           "name": "Office and Accounting Adminstration",
           "totalCost": 4000,
           "percentEmployed": null,
@@ -117,7 +117,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-8444ddb8-15c3-4c63-94f7-23fbc66ee9f7",
+          "ctid": "ce-8444ddb8-15c3-4c63-94f7-23fbc66ee9f7",
           "name": "Accounts Payable Specialist Certification (Exam Cost Included)",
           "cipDefinition": {
               "cipcode": "520304",
@@ -150,7 +150,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-8ce4bc1d-3d59-446e-9364-d240a006de11",
+          "ctid": "ce-8ce4bc1d-3d59-446e-9364-d240a006de11",
           "name": "Computerized Accounting Systems",
           "totalCost": 2300,
           "percentEmployed": null,
@@ -179,7 +179,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-654f688c-7eba-4084-98c7-76e78f228f9a",
+          "ctid": "ce-654f688c-7eba-4084-98c7-76e78f228f9a",
           "name": "Accounting & Bookkeeping",
           "cipDefinition": {
               "cipcode": "520304",
@@ -212,7 +212,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-c332314f-1691-4936-85d4-10410c7cf4d9",
+          "ctid": "ce-c332314f-1691-4936-85d4-10410c7cf4d9",
           "name": "Computerized Accounting",
           "totalCost": null,
           "percentEmployed": null,
@@ -241,7 +241,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-ba9ca6be-edc8-4be5-a5f2-69d1c39351f8",
+          "ctid": "ce-ba9ca6be-edc8-4be5-a5f2-69d1c39351f8",
           "name": "Computerized Accounting Program with MS Office",
           "totalCost": 4000,
           "percentEmployed": null,
@@ -270,7 +270,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-01ad2fa9-46b0-4680-b783-11af181c22aa",
+          "ctid": "ce-01ad2fa9-46b0-4680-b783-11af181c22aa",
           "name": "Computerized Accounting with Intensive Lab",
           "totalCost": null,
           "percentEmployed": null,

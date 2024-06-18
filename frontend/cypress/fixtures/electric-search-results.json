@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-514abe4a-a52f-40d1-8aec-b03beca3bac2",
+          "ctid": "ce-514abe4a-a52f-40d1-8aec-b03beca3bac2",
           "name": "EKG Technician",
           "cipDefinition": {
               "cipcode": "510902",
@@ -34,7 +34,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-23b8d32f-5ad0-45f4-88a5-160ec3b6ea45",
+          "ctid": "ce-23b8d32f-5ad0-45f4-88a5-160ec3b6ea45",
           "name": "EKG Technician",
           "cipDefinition": {
               "cipcode": "510902",
@@ -67,7 +67,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-cdd07f6c-eda3-4a6c-8afe-b4891e9a99f5",
+          "ctid": "ce-cdd07f6c-eda3-4a6c-8afe-b4891e9a99f5",
           "name": "EKG Technician",
           "totalCost": null,
           "percentEmployed": null,
@@ -96,7 +96,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-fbf13b60-b82d-4147-acc1-cdc8e6b220bf",
+          "ctid": "ce-fbf13b60-b82d-4147-acc1-cdc8e6b220bf",
           "name": "EKG Technician",
           "totalCost": 990,
           "percentEmployed": null,
@@ -125,7 +125,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-e385df38-cfd8-41d8-8817-eaa3e2540727",
+          "ctid": "ce-e385df38-cfd8-41d8-8817-eaa3e2540727",
           "name": "Electrocardiograph (EKG) Technician Training",
           "cipDefinition": {
               "cipcode": "510902",
@@ -150,7 +150,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-08eeefd2-4d3b-45a6-be1c-7d10d38c6d28",
+          "ctid": "ce-08eeefd2-4d3b-45a6-be1c-7d10d38c6d28",
           "name": "Laser/Electro-Optic Tech  (PHT.A.A.S.)",
           "totalCost": 12210,
           "percentEmployed": null,
@@ -179,7 +179,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-b41645d6-7e00-4986-b6cb-11d064fe0497",
+          "ctid": "ce-b41645d6-7e00-4986-b6cb-11d064fe0497",
           "name": "Electricity II (Spring)",
           "cipDefinition": {
               "cipcode": "460302",
@@ -212,7 +212,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-175f19ad-c839-465b-a7dc-9d2805617017",
+          "ctid": "ce-175f19ad-c839-465b-a7dc-9d2805617017",
           "name": "Electrical-Electronic Engineering (EET.A.A.S.)",
           "totalCost": 12193,
           "percentEmployed": null,
@@ -241,7 +241,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-148ef811-5be6-455c-ad69-b423a417b8df",
+          "ctid": "ce-148ef811-5be6-455c-ad69-b423a417b8df",
           "name": "Electrical and Electronic Systems Technology",
           "cipDefinition": {
               "cipcode": "460302",
@@ -274,7 +274,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-bd48aa66-bd89-44db-87cd-b8d505809b3e",
+          "ctid": "ce-bd48aa66-bd89-44db-87cd-b8d505809b3e",
           "name": "Electrical and Electronic Systems Technology",
           "totalCost": 30739,
           "percentEmployed": null,

@@ -139,16 +139,19 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
 
+    const outcomesDefinition = await dataClient.findOutcomeDefinition(cipCode, provider.providerId);
+
     return {
-      id: certificate["ceterms:ctid"] || "",
+      ctid: certificate["ceterms:ctid"] || "",
       name: certificate["ceterms:name"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
-      percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
+      // percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),d
+      percentEmployed:outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
       calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       online: certificate["ceterms:availableOnlineAt"] != null,
-      providerId: provider.id,
+      providerId: provider.providerId,
       providerName: provider.name,
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
@@ -186,3 +189,13 @@ function packageResults(page: number, limit: number, results: TrainingResult[], 
     },
   };
 }
+
+const NAN_INDICATOR = "-99999";
+
+const formatPercentEmployed = (perEmployed: string | null): number | null => {
+  if (perEmployed === null || perEmployed === NAN_INDICATOR) {
+    return null;
+  }
+
+  return parseFloat(perEmployed);
+};

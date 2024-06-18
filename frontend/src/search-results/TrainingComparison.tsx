@@ -24,7 +24,7 @@ export const TrainingComparison = (props: Props): ReactElement => {
 
   const compareItems = (): void => {
     setShowComparison(true);
-    logEvent("Search", "Clicked Compare button", props.comparisonItems.map((i) => i.id).join(","));
+    logEvent("Search", "Clicked Compare button", props.comparisonItems.map((i) => i.ctid).join(","));
   };
 
   const collapseItems = (): void => {
@@ -61,9 +61,9 @@ export const TrainingComparison = (props: Props): ReactElement => {
     return (
       <>
         {items.map((item, key) => {
-          if (item?.id) {
+          if (item?.ctid) {
             return (
-              <div className="comparison-item fdc" key={item.id}>
+              <div className="comparison-item fdc" key={item.ctid}>
                 <h4 className={isTabletAndUp ? "" : "truncated"}>{item.name}</h4>
                 <p className={isTabletAndUp ? "mbs" : "truncated mbs"}>{item.providerName}</p>
 

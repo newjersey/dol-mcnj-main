@@ -8,7 +8,7 @@ export const convertTrainingToTrainingResult = (
   rank: number,
 ): TrainingResult => {
   return {
-    id: training.id,
+    ctid: training.ctid,
     name: training.name,
     cipDefinition: training.cipDefinition,
     totalCost: training.totalCost,
@@ -17,7 +17,7 @@ export const convertTrainingToTrainingResult = (
     totalClockHours: training.totalClockHours,
     localExceptionCounty: training.localExceptionCounty,
     online: training.online,
-    providerId: training.provider.id,
+    providerId: training.provider.ctid,
     providerName: training.provider.name,
     availableAt: training.availableAt,
     // cities: training.provider.addresses ? training.provider.addresses.map(a => a.city) : [],

@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-cef2779b-6dec-48b8-afb8-70484fc72351",
+          "ctid": "ce-cef2779b-6dec-48b8-afb8-70484fc72351",
           "name": "Teacher Assistant Prep",
           "cipDefinition": {
               "cipcode": "131501",
@@ -34,7 +34,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-19209b42-a4e1-4402-9853-52b9821fa4e3",
+          "ctid": "ce-19209b42-a4e1-4402-9853-52b9821fa4e3",
           "name": "Classroom Technology Specialist:  Teachers",
           "cipDefinition": {
               "cipcode": "110103",
@@ -67,7 +67,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-cc1abe05-1f4f-4e40-b62f-ce5a2eb25a80",
+          "ctid": "ce-cc1abe05-1f4f-4e40-b62f-ce5a2eb25a80",
           "name": "Yoga Teacher Training Certification Program (300 Hours)",
           "cipDefinition": {
               "cipcode": "513602",
@@ -100,7 +100,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-06f48b0c-0e06-4a0e-bf74-f25d397f0dbc",
+          "ctid": "ce-06f48b0c-0e06-4a0e-bf74-f25d397f0dbc",
           "name": "Teacher Training Program: TESL /TEFL",
           "totalCost": 1397,
           "percentEmployed": null,
@@ -129,7 +129,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-adad6c4a-2cbd-4ff2-b46e-83b726f4133c",
+          "ctid": "ce-adad6c4a-2cbd-4ff2-b46e-83b726f4133c",
           "name": "Teacher Training Program: TESL /TEFL",
           "totalCost": 1397,
           "percentEmployed": null,
@@ -158,7 +158,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-a7afa399-d1d3-462e-b06a-f14d63d9d95a",
+          "ctid": "ce-a7afa399-d1d3-462e-b06a-f14d63d9d95a",
           "name": "Teacher Education",
           "cipDefinition": {
               "cipcode": "131201",
@@ -191,7 +191,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-14933c25-018b-406b-9e3b-da3dfbe93855",
+          "ctid": "ce-14933c25-018b-406b-9e3b-da3dfbe93855",
           "name": "Cosmetology Teacher Training",
           "totalCost": 9747,
           "percentEmployed": null,
@@ -220,7 +220,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-cd7fee58-77a7-4b54-a209-a192edeae653",
+          "ctid": "ce-cd7fee58-77a7-4b54-a209-a192edeae653",
           "name": "Business Administration & Management",
           "totalCost": 9283,
           "percentEmployed": null,
@@ -249,7 +249,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-fba5f28c-d442-4ea9-bebb-5faf7f3ada94",
+          "ctid": "ce-fba5f28c-d442-4ea9-bebb-5faf7f3ada94",
           "name": "Teacher Assistant Aid",
           "totalCost": 705,
           "percentEmployed": null,
@@ -278,7 +278,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-a48ca23b-9afd-4bee-bef3-0cbf780636d0",
+          "ctid": "ce-a48ca23b-9afd-4bee-bef3-0cbf780636d0",
           "name": "Teacher Training",
           "cipDefinition": {
               "cipcode": "120413",
