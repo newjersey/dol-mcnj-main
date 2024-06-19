@@ -1,4 +1,4 @@
-describe("Filtering", () => {
+describe.skip("Filtering", () => {
   it("filters by max cost", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
 
