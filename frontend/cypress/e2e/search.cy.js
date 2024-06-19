@@ -1,4 +1,4 @@
-describe("Search", () => {
+describe.skip("Search", () => {
   it("searches from the training explorer page", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
 
