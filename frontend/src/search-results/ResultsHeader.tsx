@@ -15,12 +15,14 @@ export const ResultsHeader = ({
   });
 
   return (
-    <h2  className="text-xl weight-500 pts mbs cutoff-text">
-      {!searchQuery || searchQuery === "null" ? (
-        t("SearchResultsPage.noSearchTermHeader")
-      ) : (
-        message
-      )}
-    </h2>
+    <div id="search-header-container">
+      <h2 className="text-xl weight-500 pts cutoff-text">
+        {!searchQuery || searchQuery === "null" ? (
+          t("SearchResultsPage.noSearchTermHeader")
+        ) : (
+          message
+        )}
+      </h2>
+    </div>
   )
 };
