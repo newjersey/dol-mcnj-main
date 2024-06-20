@@ -15,6 +15,8 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import { ResultsHeader } from "./ResultsHeader";
 import { SearchSelects } from "./SearchSelects";
 
+import { FilterDrawer } from "../filtering/FilterDrawer";
+
 import { getSearchQuery } from "./searchResultFunctions";
 
 interface Props extends RouteComponentProps {
@@ -27,7 +29,7 @@ export const SearchResultsPage = ({
   location
 }: Props): ReactElement<Props> => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   
@@ -60,17 +62,22 @@ export const SearchResultsPage = ({
     >
       <div id="search-results-page" className="container">
         <Breadcrumbs />
-        <div id="search-results-heading">
-          <ResultsHeader 
-            searchQuery={searchQuery || ""}
-            metaCount={metaData?.totalItems || 0}
-          />
-          <SearchSelects
-            handleSortChange={handleSortChange}
-            handleLimitChange={handleLimitChange}
-            itemsPerPage={itemsPerPage}
-            sortBy={sortBy}
-          />
+        <div>
+          <div id="search-results-heading">
+            <ResultsHeader 
+              searchQuery={searchQuery || ""}
+              metaCount={metaData?.totalItems || 0}
+            />
+            <SearchSelects
+              handleSortChange={handleSortChange}
+              handleLimitChange={handleLimitChange}
+              itemsPerPage={itemsPerPage}
+              sortBy={sortBy}
+            />
+          </div>
+          {!loading && (
+            <FilterDrawer />
+          )}
         </div>
       </div>
     </Layout>
