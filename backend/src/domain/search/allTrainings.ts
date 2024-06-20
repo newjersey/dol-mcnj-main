@@ -2,26 +2,26 @@ import * as Sentry from "@sentry/node";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
-import { DataClient } from "../DataClient";
 import NodeCache from "node-cache";
+import { AllTrainingsResult } from "../training/TrainingResult";
+import { AllTrainings } from "../types";
 
 const cache = new NodeCache({ stdTTL: 3600, checkperiod: 3600 });
 
-export const allTrainings = (dataClient: DataClient): any => {
-  return async (): Promise<any> => {
+export const allTrainings = (): AllTrainings => {
+  return async (): Promise<AllTrainingsResult[]> => {
     const query = buildQuery();
     let ceRecordsResponse1;
     let ceRecordsResponse2;
 
     const cacheKey = 'all-trainings'
-    const cachedResults = cache.get(cacheKey);
+    const cachedResults:Promise<AllTrainingsResult[]> | undefined = cache.get(cacheKey);
 
     if (cachedResults) {
       console.log("Returning cached results for key:", cacheKey);
       return cachedResults;
     }
     try {
-      console.log("I am called")
       ceRecordsResponse1 = await credentialEngineAPI.getResults(query, 0, 1, "^search:relevance");
       const totalResults = ceRecordsResponse1.data.extra.TotalResults;
       if (totalResults > 1) {
@@ -36,7 +36,7 @@ export const allTrainings = (dataClient: DataClient): any => {
       throw new Error("Failed to fetch results from Credential Engine API.");
     }
     const certificates = ceRecordsResponse2.data.data as CTDLResource[];
-    const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate)));
+    const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(certificate)));
     cache.set(cacheKey, results);
     return results;
   };
@@ -74,9 +74,9 @@ function buildQuery() {
   };
 }
 
-async function transformCertificateToTraining(dataClient: DataClient, certificate: CTDLResource): Promise<any> {
+async function transformCertificateToTraining(certificate: CTDLResource): Promise<AllTrainingsResult> {
   try {
-    const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
+    const address = await credentialEngineUtils.getAvailableAtAddresses(certificate);
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const socName = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]!["en-US"] as string : 'Not Available'
     const socCode = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999'
@@ -85,7 +85,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     return {
       training_id: certificate["ceterms:ctid"] || "",
       title: certificate["ceterms:name"]?.["en-US"] || "",
-      area: address.city,
+      area: address[0].city || "",
       link: `https://mycareer.nj.gov/training/${cipCode}`,
       duration: 15.0, //TODO: replace with actual duration
       soc: socCodeReplaced,
@@ -94,7 +94,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       id: `training#${cipCode}`,
       method: `classroom`,
       soc_name: socName,
-      location: `Essex`, //TODO: replace with actual county || use utility to get county |
+      location: address[0].county || "",
       title_en: certificate["ceterms:name"]?.["en-US"] || "",
       soc_name_en: socName,
       title_es: certificate["ceterms:name"]?.["en-US"] || "",
