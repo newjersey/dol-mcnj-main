@@ -68,7 +68,7 @@
 }
 
 #search-results-heading {
-  margin: $size-16 0;
+  margin: $size-16 0 0 0;
 }
 
 #search-header-container {
@@ -105,6 +105,17 @@
 }
 
 @media (min-width: $tablet) {
+  #filter-button-container {
+    margin: 0 0 $size-24 0;
+    max-width: 21.4375rem;
+    min-width: 6.25rem;
+
+    button {
+      justify-content: left;
+      width: auto;
+    }
+  }
+
   #search-results-heading {
     display: flex;
     flex-direction: row;
