@@ -31,10 +31,40 @@
     font-weight: bold;
   }
 
+  select {
+    border: $black solid 2px;
+    border-radius: 4px;
+  }
+
   .card {
     border: 1px solid $light-grey;
     border-radius: 5px;
     margin-top: $size-16;
+  }
+}
+
+#search-results-heading {
+  margin: $size-16 0;
+}
+
+#search-header-container {
+  margin-bottom: $size-28;
+  h2 {
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
+
+#selects-container {
+  display: flex;
+  flex-direction: row;
+
+  .input-container {
+    width: 50%;
+  }
+
+  .input-container + .input-container {
+    margin-left: $size-16;
   }
 }
 
@@ -46,6 +76,14 @@
 
   .usa-breadcrumb__list {
     display: none;
+  }
+}
+
+@media (min-width: $tablet) {
+  #search-results-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
