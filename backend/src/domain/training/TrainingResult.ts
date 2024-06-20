@@ -12,7 +12,7 @@ export interface TrainingResult {
   inDemand?: boolean;
   localExceptionCounty?: string[];
   online?: boolean;
-  providerId?: string;
+  providerId?: string | null;
   providerName?: string;
   cities?: (string | undefined)[];
   zipCodes?: (string | undefined)[];
@@ -24,7 +24,7 @@ export interface TrainingResult {
   isWheelchairAccessible?: boolean;
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
-  availableAt: Address;
+  availableAt: Address[];
 }
 
 type Address = {

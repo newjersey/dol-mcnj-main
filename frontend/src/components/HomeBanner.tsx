@@ -6,12 +6,16 @@ interface HomeBannerProps {
   subheading?: string;
   image?: ImageProps;
   buttonCopy?: string;
+  preload?: boolean;
 }
 
-export const HomeBanner = ({ heading, subheading, image, buttonCopy }: HomeBannerProps) => {
+export const HomeBanner = ({ heading, subheading, image, buttonCopy, preload }: HomeBannerProps) => {
   return (
     <section className="homeBanner">
       <div className="container">
+        {preload && image && (
+            <link rel="preload" as="image" href={image.url} /> // Preload the image
+        )}
         <div className="copy">
           <h1>{heading}</h1>
           {subheading && <p>{subheading}</p>}

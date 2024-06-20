@@ -130,6 +130,8 @@ export const en = {
     inDemandTitle: "In-Demand in all of New Jersey.",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
+    inDemandText: "This training may be eligible for funding from your",
+    inDemandLinkText: "One-Stop Career Center",
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
@@ -155,6 +157,7 @@ export const en = {
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
+    jobsOpenDiscrepencyDisclaimer: "The number of jobs shown may differ from the number of jobs shown on the CareerOneStop Job Finder and/or in National Labor Exchange (NLx) data.",
     salaryTitle: "Median Salary",
     salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
     searchOpenJobsText: "Search job openings in New Jersey >",
@@ -320,5 +323,20 @@ export const en = {
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
       "Services are subject to provider details, contact this provider for more information on services",
+    visitTrainingProviderBtnLabel: "Visit Training Provider Website to Sign Up",
+    providerWebsiteDisclaimerLabel:
+      "You will leave My Career NJ and be taken to the provider's website",
+    providerWebsiteMissingLabel:
+      "To sign up for this training opportunity, please contact the provider at the details below.",
+    trainingProviderStepsHeader: "Follow these steps",
+    trainingStepOne: "Search for Training",
+    trainingStepOneDescription: "Enter a field of study you are interested in exploring.",
+    trainingStepTwo: "Filter and Compare",
+    trainingStepTwoDescriptionP1: "Filter and compare ",
+    trainingStepTwoDescriptionP2: "accredited programs from the ETPL",
+    trainingStepTwoDescriptionP3: " to identify the best fit for you.",
+    trainingStepThree: "Visit Training Provider Website",
+    trainingStepThreeDescription:
+      "Call or visit the provider's website to learn more about the training or to sign up.",
   },
 };

@@ -18,6 +18,7 @@ import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { Pagination } from "./Pagination";
+import pageImage from "../images/ogImages/searchResults.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -50,9 +51,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const sortState = sortContextValue.state;
 
   const searchString = props.location?.search;
-  const regex = /(?<=\?q=).*?(?=&|$)/;
+  const regex = /\?q=([^&]*)/;
+  const matches = searchString?.match(regex);
+  const searchQuery = matches ? decodeURIComponent(matches[1]) : null;
 
-  const searchQuery = `${searchString?.match(regex)}`;
 
   usePageTitle(pageTitle);
 
@@ -274,8 +276,9 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       noFooter
       client={props.client}
       seo={{
-        title: pageTitle,
-        url: props.location?.pathname,
+        title: pageTitle || `Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
+        url: props.location?.pathname || "/training/search",
+        image: pageImage,
       }}
     >
       {isTabletAndUp && (

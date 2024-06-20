@@ -45,7 +45,6 @@ const renderInput = (params: AutocompleteRenderInputParams): ReactElement => (
 
 export const CountyFilter = (): ReactElement => {
   const { t } = useTranslation();
-
   const { state, dispatch } = useContext(FilterContext);
   const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
 
@@ -58,8 +57,7 @@ export const CountyFilter = (): ReactElement => {
     } else if (countyFilter == null && selectedCounty != null) {
       setSelectedCounty(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.filters]);
+  }, [state.filters, selectedCounty]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -80,7 +78,9 @@ export const CountyFilter = (): ReactElement => {
           element: FilterableElement.COUNTY,
           value,
           func: (trainingResults): TrainingResult[] =>
-            trainingResults.filter((it) => it.county === value),
+            trainingResults.filter((it) =>
+              it.availableAt.some((address) => address.county === value)
+            ),
         },
       });
     } else {

@@ -1206,6 +1206,7 @@ export enum IconNames {
   UserMinus = "UserMinus",
   UserPlus = "UserPlus",
   UserRectangle = "UserRectangle",
+  UserSound = "UserSound",
   UserSquare = "UserSquare",
   UserSwitch = "UserSwitch",
   Users = "Users",

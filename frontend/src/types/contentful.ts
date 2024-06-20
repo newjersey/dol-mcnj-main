@@ -167,6 +167,7 @@ export interface LinkObjectProps {
   className?: string;
   iconPrefix?: IconNames;
   iconSuffix?: IconNames;
+  iconSize?: number;
   svgFill?: boolean;
   svgName?: keyof typeof Svg;
   highlight?: ThemeColors;
@@ -460,12 +461,12 @@ export interface SeoProps {
   pageDescription?: string;
   keywords?: string[];
   ogImage?: ImageProps;
+  image?: string;
   url?: string;
 }
 
 export interface HomepageProps {
   homePage: {
-    pageDescription?: string;
     bannerButtonCopy: string;
     bannerMessage?: string;
     bannerImage?: ImageProps;

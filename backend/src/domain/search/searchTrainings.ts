@@ -1,14 +1,15 @@
-import NodeCache from "node-cache";
+import NodeCache = require("node-cache");
 import * as Sentry from "@sentry/node";
 import { SearchTrainings,  } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
-import { CalendarLength } from "../CalendarLength";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import {TrainingData, TrainingResult} from "../training/TrainingResult";
+import zipcodeJson from "../utils/zip-county.json";
+import zipcodes from "zipcodes";
 
 // Ensure TrainingData is exported in ../types
 // types.ts:
@@ -46,6 +47,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const data = packageResults(page, limit, results, totalResults);
 
+    const dataJSON = JSON.stringify(data);
+    console.log(dataJSON);
+
     cache.set(cacheKey, data);
     return data;
   };
@@ -76,6 +80,16 @@ function determineSortOption(sortOption?: string) {
 function buildQuery(params: { searchQuery: string }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
+  const isZipCode = zipcodes.lookup(params.searchQuery);
+  const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
+
+  let zipcodesList: unknown[] = []
+
+  if (isZipCode) {
+    zipcodesList = [params.searchQuery]
+  } else if (isCounty) {
+    zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+  }
 
   return {
     "@type": {
@@ -87,7 +101,7 @@ function buildQuery(params: { searchQuery: string }) {
       "search:value": [
         {
           "search:operator": "search:orTerms",
-          ...(isCIP || isSOC ? {} : {
+          ...(isSOC || isCIP || !!isZipCode || isCounty ? {} : {
             "ceterms:name": params.searchQuery,
             "ceterms:description": params.searchQuery,
             "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
@@ -97,17 +111,11 @@ function buildQuery(params: { searchQuery: string }) {
           } : undefined,
           "ceterms:instructionalProgramType": isCIP ? {
             "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
-        },
-        {
-          "search:operator": "search:orTerms",
-          "ceterms:availableOnlineAt": "search:anyValue",
+          } : undefined
+        },{
           "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-              { "search:value": "NJ", "search:matchType": "search:exactMatch" },
-              { "search:value": "jersey", "search:matchType": "search:exactMatch" },
-            ],
-          },
+            "ceterms:postalCode": zipcodesList
+          }
         },
         {
           "search:operator": "search:andTerms",
@@ -126,9 +134,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
 
-    const ownedByCtid = await credentialEngineUtils.getCtidFromURL(certificate["ceterms:ownedBy"]?.[0] ?? "");
-    const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-    const address = await credentialEngineUtils.getAvailableAtAddress(certificate);
+    const provider = await credentialEngineUtils.getProviderData(certificate);
 
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -139,12 +145,12 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
       percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
-      calendarLength: CalendarLength.NULL,
+      calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       online: certificate["ceterms:availableOnlineAt"] != null,
-      providerId: ownedByCtid,
-      providerName: ownedByRecord["ceterms:name"]?.["en-US"],
-      availableAt: address,
+      providerId: provider.id,
+      providerName: provider.name,
+      availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
       highlight: highlight,
       socCodes: [],

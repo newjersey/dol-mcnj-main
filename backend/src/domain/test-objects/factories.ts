@@ -40,7 +40,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
-    availableAt: {},
+    availableAt: [],
     ...overrides,
   };
 };
@@ -77,7 +77,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
-    availableAt: {},
+    availableAt: [{}],
     ...overrides,
   };
 };
@@ -97,6 +97,7 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     street_address: "some-name-" + randomInt(),
     city: "some-street1-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
     ...overrides,
   };
 };
@@ -180,10 +181,9 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     calendarlengthid: randomCalendarLengthId(),
     totalclockhours: randomInt().toString(),
     website: "some-website-" + randomInt(),
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    state: "some-state-" + randomInt(),
+    street_address: {"en-US": "some-street-" + randomInt()},
+    city: {"en-US": "some-city-" + randomInt()},
+    state: {"en-US": "some-state-" + randomInt()},
     zip: "some-zip-" + randomInt(),
     county: "some-county-" + randomInt(),
     contactfirstname: "some-contactfirstname-" + randomInt(),

@@ -5,6 +5,7 @@ import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
+import { UserSound } from "@phosphor-icons/react";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -15,6 +16,7 @@ import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
 import { CipDrawerContent } from "../components/CipDrawerContent";
+import { Button } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -30,6 +32,10 @@ import { logEvent } from "../analytics";
 import { Tooltip } from "react-tooltip";
 import { cleanProviderName } from "../utils/cleanProviderName";
 import { formatCip } from "../utils/formatCip";
+import { LinkObject } from "../components/modules/LinkObject";
+import { IconNames } from "../types/icons";
+import { LinkSimple, Printer } from "@phosphor-icons/react";
+import {Helmet} from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -129,6 +135,38 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  const fundingContent = (
+    <Grouping title="How to get funding">
+      <div className="funding-content">
+        <div>
+          <p className="mvd" data-testid="shareInDemandTraining">
+            Trainings related to occupations on the{" "}
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may
+            be eligible for funding. Contact your local One-Stop Career Center for more information
+            regarding program and training availability.
+          </p>
+          <LinkObject
+            url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
+            className="usa-button primary usa-button--outline"
+            iconSuffix={IconNames.ArrowSquareOut}
+            iconSize={22}
+          >
+            New Jersey's One-Stop Career Centers
+          </LinkObject>
+        </div>
+        <div>
+          <p>You can also check out other tuition assistance opportunities.</p>
+          <LinkObject
+            url="/support-resources/tuition-assistance"
+            className="usa-button secondary usa-button--outline"
+          >
+            View Tuition Assistance Resource
+          </LinkObject>
+        </div>
+      </div>
+    </Grouping>
+  );
+
   const getProviderEmail = (): ReactElement => {
     if (!training?.provider?.email) {
       return <></>;
@@ -144,31 +182,30 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getProviderAddress = (): ReactElement => {
-    if (!training || !training.availableAt.street_address) {
+  const getAvailableAtAddress = (): ReactElement => {
+    if (training?.online) {
+      return <>{t("TrainingPage.onlineClass")}</>;
+    }
+
+    if (!training || !training.availableAt[0]) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const address = training.availableAt;
+    const address = training.availableAt[0];
+    const nameAndAddressEncoded = encodeURIComponent(
+      `${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
+    );
+    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
     return (
-      <div key={"address"}>
-        <div>
-          <a
-            href={training.provider.url}
-            target="_blank"
-            className="link-format-blue"
-            rel="noopener noreferrer"
-          >
-            <div className="inline">
-              <span>{address.street_address}</span>
-              <div>
-                {address.city}, {address.state} {address.zipCode}
-              </div>
-            </div>
-          </a>
+      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+        <div className="inline">
+          <span>{address.street_address}</span>
+          <div>
+            {address.city}, {address.state} {address.zipCode}
+          </div>
         </div>
-      </div>
+      </a>
     );
   };
 
@@ -204,9 +241,99 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
   const seoObject = {
-    title: `${training ? training.name : ""} | Training | ${process.env.REACT_APP_SITE_NAME}`,
+    title: training
+      ? `${training ? training.name : ""} | Training | ${process.env.REACT_APP_SITE_NAME}`
+      : `Training | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription: training?.description,
-    url: props.location?.pathname,
+    url: props.location?.pathname || "/training",
+  };
+
+  const generateJsonLd = (training: Training) => {
+    const audience = [
+      {
+        "@type": "Audience",
+        "audienceType": "Students",
+        "geographicArea": {
+          "@type": "Place",
+          "name": "New Jersey",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.0583, // New Jersey's approximate latitude
+            "longitude": -74.4057, // New Jersey's approximate longitude
+          },
+        },
+      },
+      {
+        "@type": "Audience",
+        "audienceType": "Workers",
+        "geographicArea": {
+          "@type": "Place",
+          "name": "New Jersey",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.0583, // New Jersey's approximate latitude
+            "longitude": -74.4057, // New Jersey's approximate longitude
+          },
+        },
+      },
+    ];
+
+    let contactName, contactTitle, phoneNumber;
+    if (training.provider.addresses && training.provider.addresses.length > 0) {
+      for (const address of training.provider.addresses) {
+        if (address.targetContactPoints && address.targetContactPoints.length > 0) {
+          const mainContactPoint = address.targetContactPoints[0];
+          contactName = mainContactPoint.name;
+          contactTitle = mainContactPoint.contactType;
+          phoneNumber = mainContactPoint.telephone?.[0];
+          break; // Assuming we only need the first contact point found
+        }
+      }
+    }
+
+    const courseInstance = {
+      "@type": "CourseInstance",
+      "courseMode": training.online ? "online" : "onsite",
+      "instructor": {
+        "@type": "Person",
+        "name": contactName,
+        "jobTitle": contactTitle,
+        "telephone": phoneNumber,
+      },
+      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
+    };
+
+    const offer = {
+      "@type": "Offer",
+      "url": training.provider.url,
+      "priceCurrency": "USD",
+      "price": training.totalCost,
+      "eligibleRegion": {
+        "@type": "Place",
+        "name": "New Jersey",
+      },
+      "category": "Tuition"
+    };
+
+    return {
+      "@context": "http://schema.org",
+      "@type": "Course",
+      "name": training.name,
+      "description": training.description,
+      "provider": {
+        "@type": "Organization",
+        "name": training.provider.name,
+        "sameAs": training.provider.url,
+      },
+      "audience": audience,
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Program ID",
+        "value": training.id,
+      },
+      "hasCourseInstance": courseInstance,
+      "offers": offer,
+    };
   };
 
   if (!training) {
@@ -245,108 +372,143 @@ export const TrainingPage = (props: Props): ReactElement => {
   }
 
   return (
-    <div ref={componentRef} className="training-detail">
-      <Layout client={props.client} seo={seoObject}>
-        <div className="container">
-          <div className="detail-page">
-            <div className="page-banner">
-              <div className="top-nav">
-                <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                  <Icon>keyboard_backspace</Icon>
-                  <ol className="usa-breadcrumb__list">
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/">
-                        Home
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training">
-                        Training Explorer
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training/search">
-                        Search
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                      <span>{training.name}</span>
-                    </li>
-                  </ol>
-                </nav>
+      <div ref={componentRef} className="training-detail">
+        <Layout client={props.client} seo={seoObject}>
+          <Helmet>
+            <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
+          </Helmet>
+          <div className="container">
+            <div className="detail-page">
+              <div className="page-banner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/training">
+                          Training Explorer
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/training/search">
+                          Search
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span>{training.name}</span>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
               </div>
             </div>
-          </div>
-          <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-            {training.name}
-          </h2>
-          <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
+            <div className="title-box">
+              <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+                {training.name}
+              </h2>
+              <ul className="save-controls unstyled">
+                <li>
+                  <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                    <LinkSimple size={26} className={copy ? "green" : undefined}/>
+                    <span className={copy ? "green" : undefined}>
+                    {copy ? "Copied!" : "Copy link"}
+                  </span>
+                  </UnstyledButton>
+                </li>
+                <li>
+                  <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                    <Printer size={26}/>
+                    <span className="mlxs weight-500">Print and Save</span>
+                  </UnstyledButton>
+                </li>
+              </ul>
+            </div>
+            <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
+            <div className="stat-block-stack mtm">
+              {training.inDemand ? <InDemandBlock/> : <></>}
 
-          <div className="stat-block-stack mtm">
-            {training.inDemand ? <InDemandBlock /> : <></>}
+              {!training.inDemand &&
+              training.localExceptionCounty &&
+              training.localExceptionCounty.length !== 0 ? (
+                  <InDemandBlock counties={training.localExceptionCounty}/>
+              ) : (
+                  <></>
+              )}
 
-            {!training.inDemand &&
-            training.localExceptionCounty &&
-            training.localExceptionCounty.length !== 0 ? (
-              <InDemandBlock counties={training.localExceptionCounty} />
-            ) : (
-              <></>
-            )}
+              <div className="stat-block-container">
+                <StatBlock
+                    title={t("TrainingPage.avgSalaryTitle")}
+                    tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                    data={
+                      training.averageSalary
+                          ? formatMoney(training.averageSalary, {precision: 0})
+                          : STAT_MISSING_DATA_INDICATOR
+                    }
+                    backgroundColorClass="bg-lightest-purple"
+                />
+                <StatBlock
+                    title={t("TrainingPage.employmentRateTitle")}
+                    tooltipText={t("TrainingPage.employmentRateTooltip")}
+                    data={
+                      training.percentEmployed
+                          ? formatPercentEmployed(training.percentEmployed)
+                          : STAT_MISSING_DATA_INDICATOR
+                    }
+                    backgroundColorClass="bg-light-purple-50"
+                />
+              </div>
+            </div>
+            <ul className="save-controls mobile-only unstyled">
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                  <LinkSimple size={26} className={copy ? "green" : undefined}/>
+                  <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
+                </UnstyledButton>
+              </li>
+              <li>
+                <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                  <Printer size={26}/>
+                  <span className="mlxs weight-500">Print and Save</span>
+                </UnstyledButton>
+              </li>
+            </ul>
+            <div className="row pbm group-wrapper">
+              <div className="col-md-8">
+                <div className="container-fluid">
+                  <div className="row">
+                    <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
+                      <>
+                        {training.description.split("\n").map((line, i) => (
+                            <p key={i}>{line}</p>
+                        ))}
+                      </>
+                    </Grouping>
 
-            <StatBlock
-              title={t("TrainingPage.avgSalaryTitle")}
-              tooltipText={t("TrainingPage.avgSalaryTooltip")}
-              data={
-                training.averageSalary
-                  ? formatMoney(training.averageSalary, { precision: 0 })
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("TrainingPage.employmentRateTitle")}
-              tooltipText={t("TrainingPage.employmentRateTooltip")}
-              data={
-                training.percentEmployed
-                  ? formatPercentEmployed(training.percentEmployed)
-                  : STAT_MISSING_DATA_INDICATOR
-              }
-              backgroundColorClass="bg-light-purple-50"
-            />
-          </div>
-
-          <div className="row pbm">
-            <div className="col-md-8">
-              <div className="container-fluid">
-                <div className="row">
-                  <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
-                    <>
-                      {training.description.split("\n").map((line, i) => (
-                        <p key={i}>{line}</p>
-                      ))}
-                    </>
-                  </Grouping>
-
-                  <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
-                    <>
-                      {training.certifications && (
-                        <p>
+                    <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
+                      <>
+                        {training.certifications && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">school</InlineIcon>
                             {t("TrainingPage.certificationsLabel")}&nbsp;
                             <b>{training.certifications}</b>
                           </span>
-                        </p>
-                      )}
-                      {training.prerequisites && (
-                        <p>
+                            </p>
+                        )}
+                        {training.prerequisites && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">list_alt</InlineIcon>
                             {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
                           </span>
-                        </p>
-                      )}
-                      <p>
+                            </p>
+                        )}
+                        <p>
                         <span className="fin">
                           <InlineIcon className="mrxs">av_timer</InlineIcon>
                           {t("TrainingPage.completionTimeLabel")}&nbsp;
@@ -399,114 +561,112 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <>
                             <a
                               href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                               {formatCip(training.cipDefinition.cipcode)}
                             </a>
-                            <br />
+                            <br/>
                             <b>{training.cipDefinition.ciptitle}</b>
                           </>
                         ) : (
                           <span>{t("Global.noDataAvailableText")}</span>
                         )}
                       </p>
-                    </>
-                  </Grouping>
+                      </>
+                    </Grouping>
 
-                  <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
-                    <>{getAssociatedOccupations()}</>
-                  </Grouping>
+                    <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
+                      <>{getAssociatedOccupations()}</>
+                    </Grouping>
 
-                  <Grouping title={t("TrainingPage.shareGroupHeader")}>
-                    <>
-                      {training.inDemand && (
-                        <p className="mvd" data-testid="shareInDemandTraining">
-                          {t("TrainingPage.inDemandDescription")}
-                        </p>
-                      )}
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                          <Icon className="accessible-gray weight-500">link</Icon>
-                          <span className="mlxs weight-500">{t("TrainingPage.copyLinkText")}</span>
-                        </UnstyledButton>
-                        {copy && (
-                          <span className={`text-s weight-500 mls ${copy?.class}`}>
-                            {copy?.text}
-                          </span>
-                        )}
-                      </p>
-                      <p>
-                        <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                          <Icon className="accessible-gray weight-500">print</Icon>
-                          <span className="mlxs weight-500">
-                            {t("TrainingPage.savePrintLinkText")}
-                          </span>
-                        </UnstyledButton>
-                      </p>
-                      <p>
-                        <Link
-                          className="link-format-blue weight-500 fin"
-                          to="/support-resources/tuition-assistance"
-                        >
-                          <Icon className="accessible-gray">attach_money</Icon>
-                          <span className="blue">{t("TrainingPage.fundingLinkText")}</span>
-                        </Link>
-                      </p>
-                    </>
-                  </Grouping>
+                    <div className="desktop-only">{fundingContent}</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="col-md-4">
-              <div className="container-fluid mbm">
-                <div className="row">
-                  <Grouping title={t("TrainingPage.costGroupHeader")}>
-                    {training.totalCost && training.totalCost !== 0 ? (
+              <div className="col-md-4">
+                <div className="container-fluid mbm">
+                  <div className="row">
+                    <Grouping title={t("TrainingPage.costGroupHeader")}>
                       <>
                         <p>
                           <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                           <span className="text-l pull-right weight-500">
-                            {formatMoney(training.totalCost)}
-                          </span>
+                          {training.totalCost
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
+                        </span>
                         </p>
                         <div className="grey-line" />
                         <div className="mvd">
                           <div>
                             <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                            <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                            <span className="pull-right">
+                            {training.tuitionCost
+                              ? formatMoney(training.tuitionCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.feesCostLabel")}</span>
-                            <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                            <span className="pull-right">
+                            {training.feesCost
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.materialsCostLabel")}</span>
                             <span className="pull-right">
-                              {formatMoney(training.booksMaterialsCost)}
-                            </span>
+                            {training.booksMaterialsCost
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.suppliesCostLabel")}</span>
                             <span className="pull-right">
-                              {formatMoney(training.suppliesToolsCost)}
-                            </span>
+                            {training.suppliesToolsCost
+                              ? formatMoney(training.suppliesToolsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                           <div>
                             <span>{t("TrainingPage.otherCostLabel")}</span>
-                            <span className="pull-right">{formatMoney(training.otherCost)}</span>
+                            <span className="pull-right">
+                            {training.otherCost
+                              ? formatMoney(training.otherCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                           </div>
                         </div>
+                        <div id="contact-provider-info">
+                          {training?.provider?.url ? (
+                            <div className="provider-btn-container">
+                              <Button
+                                copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                                type="link"
+                                url={
+                                  training.provider.url.startsWith("http")
+                                    ? training.provider.url
+                                    : `https://${training.provider.url}`
+                                }
+                              />
+                              <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
+                            </div>
+                          ) : (
+                            <div className="provider-no-url">
+                              <div className="icon-container">
+                                <UserSound />
+                              </div>
+                              {t("TrainingPage.providerWebsiteMissingLabel")}
+                            </div>
+                          )}
+                        </div>
                       </>
-                    ) : (
-                      <>
-                        <p>{t("Global.noDataAvailableText")}</p>
-                      </>
-                    )}
-                  </Grouping>
-
-                  <Grouping title={t("TrainingPage.locationGroupHeader")}>
+                    </Grouping>
+                    <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
                       {training.provider && training.provider.id ? (
                         <>
@@ -516,11 +676,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                             </span>
                           </p>
                           {getProviderEmail()}
-                          {getProviderAddress() && (
+                          {getAvailableAtAddress() && (
                             <div className="mvd">
                               <span className="fin">
                                 <InlineIcon className="mrxs">location_on</InlineIcon>
-                                {getProviderAddress()}
+                                {getAvailableAtAddress()}
                               </span>
                             </div>
                           )}
@@ -534,45 +694,45 @@ export const TrainingPage = (props: Props): ReactElement => {
                       ) : (
                         <>Data unavailable</>
                       )}
-                    </>
-                  </Grouping>
+                      </>
+                    </Grouping>
 
-                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
-                    <>
-                      {training.hasEveningCourses && (
-                        <p>
+                    <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
+                      <>
+                        {training.hasEveningCourses && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">nightlight_round</InlineIcon>
                             {t("TrainingPage.eveningCoursesServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.languages.length > 0 && (
-                        <p>
+                            </p>
+                        )}
+                        {training.languages.length > 0 && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">language</InlineIcon>
                             {t("TrainingPage.otherLanguagesServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.isWheelchairAccessible && (
-                        <p>
+                            </p>
+                        )}
+                        {training.isWheelchairAccessible && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">accessible_forward</InlineIcon>
                             {t("TrainingPage.wheelchairAccessibleServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.hasChildcareAssistance && (
-                        <p>
+                            </p>
+                        )}
+                        {training.hasChildcareAssistance && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">family_restroom</InlineIcon>
                             {t("TrainingPage.childcareAssistanceServiceLabel")}
                           </span>
-                        </p>
-                      )}
-                      {training.hasJobPlacementAssistance && (
-                        <p>
+                            </p>
+                        )}
+                        {training.hasJobPlacementAssistance && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">work_outline</InlineIcon>
                             {t("TrainingPage.jobAssistanceServiceLabel")}
@@ -582,6 +742,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                     </>
                   </Grouping>
+                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>

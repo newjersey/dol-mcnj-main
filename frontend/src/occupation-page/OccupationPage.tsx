@@ -18,6 +18,7 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
 import { TrainingResult } from "../domain/Training";
 import { TrainingResultCard } from "../search-results/TrainingResultCard";
+import {Helmet} from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -145,16 +146,48 @@ export const OccupationPage = (props: Props): ReactElement => {
       : `Occupation | ${process.env.REACT_APP_SITE_NAME}`,
   );
 
+  const generateJsonLd = (detail: OccupationDetail) => {
+    return {
+      "@context": "https://schema.org/",
+      "@type": "Occupation",
+      "name": detail.title,
+      "description": detail.description,
+      // "qualifications": "Qualifications information",
+      // "skills": ["Skills information"],
+      "responsibilities": detail.tasks,
+      "educationRequirements": detail.education,
+      // "experienceRequirements": "Experience requirements information",
+      "occupationalCategory": detail.soc,
+      "estimatedSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": {
+          "@type": "QuantitativeValue",
+          "value": detail.medianSalary,
+          "unitText": "YEAR"
+        }
+      }
+    };
+  };
+
   if (occupationDetail) {
     return (
       <Layout
         client={props.client}
         seo={{
-          title: `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`,
+          title: occupationDetail.title
+            ? `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`
+            : `Occupation | ${process.env.REACT_APP_SITE_NAME}`,
           pageDescription: occupationDetail.description,
-          url: props.location?.pathname,
+          url: props.location?.pathname || "/occupation",
         }}
       >
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(generateJsonLd(occupationDetail))}
+          </script>
+        </Helmet>
+
         <div className="container">
           <div className="detail-page">
             <div className="page-banner">
@@ -197,27 +230,31 @@ export const OccupationPage = (props: Props): ReactElement => {
               <></>
             )}
 
-            <StatBlock
-              title={t("OccupationPage.jobsOpenTitle")}
-              tooltipText={t("OccupationPage.jobsOpenTooltip")}
-              dataSource={t("OccupationPage.jobsOpenSource")}
-              data={
-                occupationDetail.openJobsCount
-                  ? occupationDetail.openJobsCount.toLocaleString()
-                  : t("Global.noDataAvailableText")
-              }
-              backgroundColorClass="bg-lightest-purple"
-            />
-            <StatBlock
-              title={t("OccupationPage.salaryTitle")}
-              tooltipText={t("OccupationPage.salaryTooltip")}
-              data={
-                occupationDetail.medianSalary
-                  ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
-                  : t("Global.noDataAvailableText")
-              }
-              backgroundColorClass="bg-light-purple-50"
-            />
+            <div className="stat-block-container">
+              <StatBlock
+                title={t("OccupationPage.jobsOpenTitle")}
+                tooltipText={t("OccupationPage.jobsOpenTooltip")}
+                disclaimer={t("OccupationPage.jobsOpenDiscrepencyDisclaimer")}
+                dataSource={t("OccupationPage.jobsOpenSource")}
+                data={
+                  occupationDetail.openJobsCount
+                    ? occupationDetail.openJobsCount.toLocaleString()
+                    : t("Global.noDataAvailableText")
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("OccupationPage.salaryTitle")}
+                tooltipText={t("OccupationPage.salaryTooltip")}
+                data={
+                  occupationDetail.medianSalary
+                    ? formatMoney(occupationDetail.medianSalary, { precision: 0 })
+                    : t("Global.noDataAvailableText")
+                }
+                backgroundColorClass="bg-light-purple-50"
+              />
+            </div>
+
           </div>
           <div>
             <a
@@ -226,8 +263,10 @@ export const OccupationPage = (props: Props): ReactElement => {
               target="_blank"
               rel="noopener noreferrer"
               href={OPEN_JOBS_URL.replace(
-                  "{SOC_CODE}",
-                  occupationDetail.openJobsCount === 0 ? "" : (occupationDetail.openJobsSoc || "").toString(),
+                "{SOC_CODE}",
+                occupationDetail.openJobsCount === 0
+                  ? ""
+                  : (occupationDetail.openJobsSoc || "").toString(),
               )}
               onClick={() =>
                 logEvent(
@@ -257,7 +296,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                     backgroundColorClass="bg-purple"
                   >
                     <>
-                      {getTasksList(occupationDetail.tasks, 'occupation-details')}
+                      {getTasksList(occupationDetail.tasks, "occupation-details")}
                       {seeMore(occupationDetail.tasks)}
                     </>
                   </Grouping>

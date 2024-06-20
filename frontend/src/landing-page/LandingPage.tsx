@@ -13,6 +13,7 @@ import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
 import { UpdateNotifier } from "../components/UpdateNotifier";
 import { usePageTitle } from "../utils/usePageTitle";
+import pageImage from "../images/ogImages/homePage.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -28,11 +29,11 @@ export const LandingPage = (props: Props): ReactElement => {
   usePageTitle(pageData?.title);
 
   const seoObject = {
-    title: pageData?.title,
-    description: pageData?.pageDescription,
-    image: pageData?.ogImage?.url,
+    title: pageData?.title || (process.env.REACT_APP_SITE_NAME as string),
+    pageDescription: "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
+    image: pageData?.ogImage?.url || pageImage,
     keywords: pageData?.keywords,
-    url: props.location?.pathname,
+    url: props.location?.pathname || "/",
   };
 
   function findSvg(sectionIcon: string | undefined) {
@@ -69,6 +70,7 @@ export const LandingPage = (props: Props): ReactElement => {
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
               subheading={pageData.bannerMessage}
+              preload
             />
             {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
             <div className="container" id="homeContent">

@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from "react";
-import { TrainingAddress, TrainingResult } from "../domain/Training";
+import { Address, TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
@@ -31,13 +31,24 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   const getLocationOrOnline = (): string => {
-    const address: TrainingAddress = props.trainingResult.availableAt;
-    if (address && address.city !== "") {
-      return address.city;
-    } else {
+    const addresses: Address[] | undefined = props.trainingResult.availableAt;
+
+    if (!Array.isArray(addresses)) {
       return "No Provider Locations Listed";
     }
+
+    const addressStrings = addresses.map(address => {
+      if (address.city && address.county) {
+        return `${address.city}, ${address.county} County`;
+      } else if (address.city && address.state && !address.county) {
+        return `${address.city}, ${address.state}`;
+      }
+      return "No Provider Locations Listed";
+    });
+
+    return addressStrings.join('; ');
   };
+
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
     if (highlight === "") {
@@ -96,7 +107,11 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           </h2>
         </div>
         <div className="col-xs-4 align-right">
-          <h3 className="text-m weight-500">{formatMoney(props.trainingResult.totalCost)}</h3>
+          <h3 className="text-m weight-500">
+            {props.trainingResult.totalCost !== null && props.trainingResult.totalCost !== undefined
+              ? formatMoney(props.trainingResult.totalCost)
+              : t("Global.noDataAvailableText")}
+          </h3>
         </div>
       </div>
       <div className="row">

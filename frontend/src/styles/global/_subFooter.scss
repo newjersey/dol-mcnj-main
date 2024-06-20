@@ -1,6 +1,11 @@
 .sub-footer {
   background-color: $header-black;
   padding: $size-16 0;
+  min-height: 160px;
+
+  @media screen and (max-width: ($tablet-md)) {
+    min-height: 335px;
+  }
 
   .container {
     display: block;

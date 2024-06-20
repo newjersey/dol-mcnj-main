@@ -14,8 +14,8 @@ const COUNTY_NAMES = TEST_COUNTIES.map((county) => getCountyName(county));
 jest.mock("../../utils/updateUrlParams.ts");
 
 describe.skip("filtering by county", () => {
-  const training1 = buildTrainingResult({ name: "training1", county: TEST_COUNTIES[0] });
-  const training2 = buildTrainingResult({ name: "training2", county: TEST_COUNTIES[1] });
+  const training1 = buildTrainingResult({ name: "training1", availableAt: [{county: TEST_COUNTIES[0] }] });
+  const training2 = buildTrainingResult({ name: "training2", availableAt: [{county: TEST_COUNTIES[1] }] });
 
   const getCountyInput = (subject: RenderResult): HTMLElement | null => {
     const autocomplete = subject.getByTestId("county-search");

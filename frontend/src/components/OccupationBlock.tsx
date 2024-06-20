@@ -20,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import { CircularProgress, Tooltip } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { TrainingResult } from "../domain/Training";
-import { calendarLength } from "../utils/calendarLength";
 import { InDemandTag } from "./InDemandTag";
 import { SectionHeading } from "./modules/SectionHeading";
 import { Selector } from "../svg/Selector";
@@ -329,16 +328,18 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                       <GraduationCap size={32} />
                                       {train.providerName}
                                     </span>
-                                    <span>
-                                      <MapPinLine size={32} />
-                                      TODO: REIMPLEMENT TRAINING ADDRESS HERE
-                                      {/*{train.city}, {train.county}*/}
-                                    </span>
+                                    {train.availableAt.map((address, index) => (
+                                      <span key={index}>
+                                        <MapPinLine size={32} />
+                                        {address.city}, {address.state}
+                                      </span>
+                                    ))}
                                     <span className="last-line">
                                       <span>
                                         <Hourglass size={32} />
+
                                         {train.calendarLength
-                                          ? `${calendarLength(train.calendarLength)} to complete`
+                                          ? `${t(`CalendarLengthLookup.${train.calendarLength}`)} to complete`
                                           : "--"}
                                       </span>
                                       <span className="salary">

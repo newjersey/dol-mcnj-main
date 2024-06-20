@@ -8,6 +8,7 @@ import { IconCard } from "../components/IconCard";
 import { FooterCta } from "../components/FooterCta";
 import { usePageTitle } from "../utils/usePageTitle";
 import { useContentful } from "../utils/useContentful";
+import pageImage from "../images/ogImages/supportAssistance.jpg";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -37,11 +38,23 @@ export const AllSupportPage = (props: Props): ReactElement => {
   usePageTitle(`${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`);
 
   const seoObject = {
-    title: `${data?.page.title} |${process.env.REACT_APP_SITE_NAME}`,
-    description: data?.page.pageDescription,
-    image: data?.page.ogImage?.url,
-    keywords: data?.page.keywords,
-    url: props.location?.pathname,
+    title: data
+      ? `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
+      : `Support and Assistance Resources | ${process.env.REACT_APP_SITE_NAME}`,
+    pageDescription:
+      data?.page.pageDescription || "Browse support and assistance resources by category.",
+    image: data?.page.ogImage?.url || pageImage,
+    keywords: data?.page.keywords || [
+      "New Jersey",
+      "Support",
+      "Assistance",
+      "Resources",
+      "Training",
+      "Job",
+      "Career",
+      "My Career NJ",
+    ],
+    url: props.location?.pathname || "/support-resources",
   };
 
   return (

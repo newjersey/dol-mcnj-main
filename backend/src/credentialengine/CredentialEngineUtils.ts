@@ -1,65 +1,179 @@
 import {
   CetermsAccommodationType,
   CetermsAggregateData,
-  CetermsConditionProfile, CetermsServiceType,
+  CetermsConditionProfile, CetermsContactPoint, CetermsPlace,
+  CetermsServiceType,
   CTDLResource,
   CtermsSupportServices
 } from "../domain/credentialengine/CredentialEngine";
-import {Occupation} from "../domain/occupations/Occupation";
+import { Occupation } from "../domain/occupations/Occupation";
 import {Address} from "../domain/training/Training";
+import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
+import { credentialEngineAPI } from "./CredentialEngineAPI";
 
-export const credentialEngineUtils = {
+const logError = (message: string, error: Error) => {
+  console.error(`${message}: ${error.message}`);
+};
 
-  getCtidFromURL: async function (url: string) {
-    try {
-      // console.log(`Getting CTID from URL: ${url}`);
-      const lastSlashIndex: number = url.lastIndexOf("/");
-      const ctid: string = url.substring(lastSlashIndex + 1);
-      return ctid;
-    } catch (error) {
-      console.error(`Error extracting CTID from URL: ${url}, Error: ${error}`);
-      throw error;
-    }
-  },
+const validateCtId = async (id: string): Promise<boolean> => {
+  const pattern = /^ce-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  try {
+    return pattern.test(id);
+  } catch (error) {
+    logError(`Error validating CTID: ${id}`, error as Error);
+    throw error;
+  }
+};
 
-  getAvailableAtAddress: async  function (certificate: CTDLResource): Promise<Address> {
-    const availableAt = certificate["ceterms:availableAt"]?.[0];
+const getCtidFromURL = async (url: string): Promise<string> => {
+  try {
+    console.log(`Getting CTID from URL: ${url}`);
+    const lastSlashIndex = url.lastIndexOf("/");
+    return url.substring(lastSlashIndex + 1);
+  } catch (error) {
+    logError(`Error extracting CTID from URL: ${url}`, error as Error);
+    throw error;
+  }
+};
+
+const fetchCertificateData = async (url: string): Promise<CTDLResource | null> => {
+  try {
+    const ctid = await getCtidFromURL(url);
+    const query = {
+      "ceterms:ctid": ctid,
+      "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+    };
+    const response = await credentialEngineAPI.getResults(query, 0, 10, "^search:relevance");
+    return response.data.data.length > 0 ? response.data.data[0] : null;
+  } catch (error) {
+    logError(`Error fetching data for CTID`, error as Error);
+    return null;
+  }
+};
+
+const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
+  try {
+    const ceDataPromises = urls.map(async url => {
+      if (!(await validateCtId(url))) {
+        console.error(`Invalid CE ID: ${url}`);
+        return null;
+      }
+      return await fetchCertificateData(url);
+    });
+
+    return (await Promise.all(ceDataPromises)).filter((record): record is CTDLResource => record !== null);
+  } catch (error) {
+    logError(`Error fetching valid CE data`, error as Error);
+    throw error;
+  }
+};
+
+const getProviderData = async (certificate: CTDLResource) => {
+  try {
+    const ownedBy = certificate["ceterms:ownedBy"] || [];
+    const ownedByCtid = await getCtidFromURL(ownedBy[0]);
+    const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+
     return {
-      street_address: availableAt?.["ceterms:streetAddress"]?.["en-US"] ?? "",
-      city: availableAt?.["ceterms:addressLocality"]?.["en-US"] ?? "",
-      state: availableAt?.["ceterms:addressRegion"]?.["en-US"] ?? "",
-      zipCode: availableAt?.["ceterms:postalCode"] ?? "",
-    }
-  },
+      id: ownedByRecord["ceterms:ctid"],
+      name: ownedByRecord["ceterms:name"]["en-US"],
+      url: ownedByRecord["ceterms:subjectWebpage"],
+      email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
+      address: await getAddress(ownedByRecord),
+    };
+  } catch (error) {
+    logError(`Error getting provider data`, error as Error);
+    throw error;
+  }
+};
 
-  extractCipCode: async function (certificate: CTDLResource) {
-    try {
-      const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
-      if (Array.isArray(instructionalProgramTypes)) {
-        for (const programType of instructionalProgramTypes) {
-          if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
-            return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
-          }
+const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
+  try {
+    const addresses = resource["ceterms:address"] ?? [];
+    const result: Address[] = [];
+
+    for (const address of addresses) {
+      const zipCode = address["ceterms:postalCode"] ?? "";
+      const baseAddress = {
+        street_address: address["ceterms:streetAddress"]?.["en-US"] ?? "",
+        city: address["ceterms:addressLocality"]?.["en-US"] ?? "",
+        state: address["ceterms:addressRegion"]?.["en-US"] ?? "",
+        zipCode,
+        county: convertZipCodeToCounty(zipCode) ?? ""
+      };
+
+      const contactPoints = address["ceterms:targetContactPoint"] ?? [];
+      if (contactPoints.length > 0) {
+        result.push({
+          ...baseAddress,
+          targetContactPoints: contactPoints.map((contactPoint: CetermsContactPoint) => ({
+            name: contactPoint["ceterms:name"]?.["en-US"] ?? "",
+            telephone: contactPoint["ceterms:telephone"] ?? []
+          }))
+        });
+      } else {
+        result.push({
+          ...baseAddress,
+          targetContactPoints: []
+        });
+      }
+    }
+
+    return result;
+  } catch (error) {
+    logError(`Error getting ceterms:address`, error as Error);
+    throw error;
+  }
+};
+const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Address[]> => {
+  try {
+    const availableAt = certificate["ceterms:availableAt"] ?? [];
+
+    return availableAt.map((location: CetermsPlace) => {
+      const zipCode = location["ceterms:postalCode"] ?? "";
+
+      return {
+        street_address: location["ceterms:streetAddress"]?.["en-US"] ?? "",
+        city: location["ceterms:addressLocality"]?.["en-US"] ?? "",
+        state: location["ceterms:addressRegion"]?.["en-US"] ?? "",
+        zipCode: zipCode,
+        county: convertZipCodeToCounty(zipCode) ?? ""
+      };
+    });
+  } catch (error) {
+    logError(`Error getting available addresses`, error as Error);
+    throw error;
+  }
+};
+
+
+const extractCipCode = async (certificate: CTDLResource): Promise<string> => {
+  try {
+    const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
+    if (Array.isArray(instructionalProgramTypes)) {
+      for (const programType of instructionalProgramTypes) {
+        if (programType["ceterms:frameworkName"]?.["en-US"] === "Classification of Instructional Programs") {
+          return (programType["ceterms:codedNotation"] || "").replace(/[^\w\s]/g, "");
         }
       }
-      return ""; // Return empty string if no match is found
-    } catch (error) {
-      console.error(`Error extracting CIP code: ${error}`);
-      throw error;
     }
-  },
+    return "";
+  } catch (error) {
+    logError(`Error extracting CIP code`, error as Error);
+    throw error;
+  }
+};
 
-  extractOccupations: async function (certificate: CTDLResource): Promise<Occupation[]> {
-    try {
-      console.log("Extracting occupations...");
-      const occupationTypes = certificate["ceterms:occupationType"];
-      if (!occupationTypes || occupationTypes.length === 0) return [];
+const extractOccupations = async (certificate: CTDLResource): Promise<Occupation[]> => {
+  try {
+    const occupationTypes = certificate["ceterms:occupationType"];
+    if (!occupationTypes || occupationTypes.length === 0) return [];
 
-      return occupationTypes
+    return occupationTypes
         .filter((occupation) =>
-          occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" &&
-          occupation["ceterms:codedNotation"] &&
-          occupation["ceterms:targetNodeName"]?.["en-US"]
+            occupation["ceterms:frameworkName"]?.["en-US"] === "Standard Occupational Classification" &&
+            occupation["ceterms:codedNotation"] &&
+            occupation["ceterms:targetNodeName"]?.["en-US"]
         )
         .map((occupation) => {
           const soc = occupation["ceterms:codedNotation"]?.replace(".00", "");
@@ -67,165 +181,160 @@ export const credentialEngineUtils = {
           return { soc, title };
         })
         .filter((occupation): occupation is Occupation => !!occupation.soc && !!occupation.title);
-    } catch (error) {
-      console.error(`Error extracting occupations: ${error}`);
-      throw error;
-    }
-  },
+  } catch (error) {
+    logError(`Error extracting occupations`, error as Error);
+    throw error;
+  }
+};
 
-  extractCost: async function (certificate: CTDLResource, costType: string) {
-    try {
-      console.log(`Extracting cost of type ${costType}...`);
-      const estimatedCosts = certificate["ceterms:estimatedCost"];
-      if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
-        for (const costProfile of estimatedCosts) {
-          const directCostType = costProfile["ceterms:directCostType"];
-          if (directCostType && directCostType["ceterms:targetNode"] === costType) {
-            const price = costProfile["ceterms:price"];
-            return price ? Number(price) : null;
-          }
+const extractCost = async (certificate: CTDLResource, costType: string): Promise<number | null> => {
+  try {
+    const estimatedCosts = certificate["ceterms:estimatedCost"];
+    if (Array.isArray(estimatedCosts)) {
+      for (const costProfile of estimatedCosts) {
+        const directCostType = costProfile["ceterms:directCostType"];
+        if (directCostType?.["ceterms:targetNode"] === costType) {
+          const price = costProfile["ceterms:price"];
+          return price ? Number(price) : null;
         }
       }
-      return null;
-    } catch (error) {
-      console.error(`Error extracting cost for type ${costType}: ${error}`);
-      throw error;
     }
-  },
+    return null;
+  } catch (error) {
+    logError(`Error extracting cost for type ${costType}`, error as Error);
+    throw error;
+  }
+};
 
-  sumOtherCosts: async function (certificate: CTDLResource) {
-    try {
-      const excludedCostTypes = [
-        "costType:AggregateCost",
-        "costType:Tuition",
-        "costType:MixedFees",
-        "costType:LearningResource",
-        "costType:TechnologyFee",
-      ];
+const extractAverageSalary = async (certificate: CTDLResource): Promise<number | null> => {
+  try {
+    const averageSalaryData = certificate["ceterms:aggregateData"];
+    if (!averageSalaryData) return null;
 
-      const estimatedCosts = certificate["ceterms:estimatedCost"];
-      let otherCosts = 0;
-      if (Array.isArray(estimatedCosts) && estimatedCosts.length > 0) {
-        for (const costProfile of estimatedCosts) {
-          const directCostType = costProfile["ceterms:directCostType"];
-          const targetNode = directCostType ? directCostType["ceterms:targetNode"] : "";
-          if (targetNode && !excludedCostTypes.includes(targetNode)) {
-            const price = costProfile["ceterms:price"];
-            if (price) {
-              otherCosts += Number(price);
-            }
-          }
-        }
+    const averageSalaryProfile = averageSalaryData.find(
+        (aggData: CetermsAggregateData) => aggData["ceterms:medianEarnings"] !== undefined && aggData["ceterms:medianEarnings"] !== null
+    );
+
+    if (!averageSalaryProfile) return null;
+
+    const medianEarnings = averageSalaryProfile["ceterms:medianEarnings"];
+    if (typeof medianEarnings !== 'number') {
+      throw new Error(`Median earnings is not a number: ${medianEarnings}`);
+    }
+
+    return medianEarnings;
+  } catch (error) {
+    logError(`Error extracting average salary`, error as Error);
+    throw error;
+  }
+};
+
+const extractEmploymentData = async (certificate: CTDLResource): Promise<number | null> => {
+  try {
+    const aggData = certificate["ceterms:aggregateData"];
+    if (!aggData) return null;
+
+    for (const data of aggData) {
+      const jobObtained = data["ceterms:jobsObtained"]?.find(job => job["qdata:percentage"] != null);
+      if (jobObtained?.["qdata:percentage"] != null) {
+        return jobObtained["qdata:percentage"];
       }
-      return otherCosts;
-    } catch (error) {
-      console.error(`Error summing other costs: ${error}`);
-      throw error;
     }
-  },
+    return null;
+  } catch (error) {
+    logError(`Error extracting employment data`, error as Error);
+    throw error;
+  }
+};
 
-  extractAverageSalary: async function (certificate: CTDLResource) {
-    try {
-      const averageSalaryData = certificate["ceterms:aggregateData"];
-      if (!averageSalaryData) return null;
-
-      const averageSalaryProfile = averageSalaryData.find((aggData: CetermsAggregateData) => aggData["ceterms:medianEarnings"] != null);
-
-      return averageSalaryProfile ? averageSalaryProfile["ceterms:medianEarnings"] : null;
-    } catch (error) {
-      console.error(`Error extracting average salary: ${error}`);
-      throw error;
-    }
-  },
-
-  extractEmploymentData: async function (certificate: CTDLResource) {
-    try {
-      const aggData = certificate["ceterms:aggregateData"];
-      if (!aggData) return null;
-
-      for (const data of aggData) {
-        const jobObtained = data["ceterms:jobsObtained"]?.find(job => job["qdata:percentage"] != null);
-        if (jobObtained?.["qdata:percentage"] != null) {
-          return jobObtained["qdata:percentage"];
-        }
-      }
-      return null;
-    } catch (error) {
-      console.error(`Error extracting employment data: ${error}`);
-      throw error;
-    }
-  },
-
-  extractPrerequisites: async function (certificate: CTDLResource): Promise<string[] | null> {
-    try {
-      const prerequisites = certificate["ceterms:requires"]
+const extractPrerequisites = async (certificate: CTDLResource): Promise<string[] | null> => {
+  try {
+    const prerequisites = certificate["ceterms:requires"]
         ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
         .map(req => req["ceterms:description"]?.["en-US"])
         .filter((description): description is string => description !== undefined);
 
-      return prerequisites && prerequisites.length > 0 ? prerequisites : null;
-    } catch (error) {
-      console.error(`Error extracting prerequisites: ${error}`);
-      throw error;
-    }
-  },
+    return prerequisites && prerequisites.length > 0 ? prerequisites : null;
+  } catch (error) {
+    logError(`Error extracting prerequisites`, error as Error);
+    throw error;
+  }
+};
 
-
-  checkSupportService: async function (certificate: CTDLResource, targetNode: string): Promise<boolean> {
+const checkSupportService = async (certificate: CTDLResource, targetNode: string): Promise<boolean> => {
+  try {
     const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
 
     return supportServices.some((service: CtermsSupportServices) =>
-      service["ceterms:supportServiceType"]?.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
+        service["ceterms:supportServiceType"]?.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
     );
-  },
+  } catch (error) {
+    logError(`Error checking support service`, error as Error);
+    throw error;
+  }
+};
 
-  checkAccommodation: async function (certificate: CTDLResource, targetNode: string): Promise<boolean> {
+const checkAccommodation = async (certificate: CTDLResource, targetNode: string): Promise<boolean> => {
+  try {
     const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
 
     return supportServices.some((service: CtermsSupportServices) =>
-      service["ceterms:accommodationType"]?.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)
+        service["ceterms:accommodationType"]?.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)
     );
-  },
+  } catch (error) {
+    logError(`Error checking accommodation`, error as Error);
+    throw error;
+  }
+};
 
-
-  constructCertificationsString: async function (isPreparationForObject: CetermsConditionProfile[]): Promise<string> {
+const constructCertificationsString = async (isPreparationForObject: CetermsConditionProfile[]): Promise<string> => {
+  try {
     if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
 
     return isPreparationForObject
-      .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
-      .filter((name) => name) // Filter out empty strings
-      .join(", "); // Join the names with a comma and space as separator
-  },
+        .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
+        .filter((name) => name) // Filter out empty strings
+        .join(", "); // Join the names with a comma and space as separator
+  } catch (error) {
+    logError(`Error constructing certifications string`, error as Error);
+    throw error;
+  }
+};
 
-  getCalendarLengthId: async function (certificate: CTDLResource): Promise<number> {
+const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> => {
+  try {
     const estimatedDuration = certificate["ceterms:estimatedDuration"];
     if (!estimatedDuration || estimatedDuration.length === 0) return 0;
     const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
     if (!exactDuration) return 0;
-    return await credentialEngineUtils.convertIso8601DurationToCalendarLengthId(exactDuration);
-  },
+    return await convertIso8601DurationToCalendarLengthId(exactDuration);
+  } catch (error) {
+    logError(`Error getting calendar length ID`, error as Error);
+    throw error;
+  }
+};
 
-  hasEveningSchedule: async function (certificate: CTDLResource) {
-    try {
-      const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
-      if (!scheduleTimingTypes) return false;
+const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> => {
+  try {
+    const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
+    if (!scheduleTimingTypes) return false;
 
-      const hasEvening = scheduleTimingTypes.some((timingType) => timingType["ceterms:targetNode"] === "scheduleTiming:Evening");
+    const hasEvening = scheduleTimingTypes.some((timingType) => timingType["ceterms:targetNode"] === "scheduleTiming:Evening");
 
-      return hasEvening;
-    } catch (error) {
-      console.error(`Error checking evening schedule: ${error}`);
-      throw error;
-    }
-  },
+    return hasEvening;
+  } catch (error) {
+    logError(`Error checking evening schedule`, error as Error);
+    throw error;
+  }
+};
 
-  // Function to convert ISO 8601 duration to total hours
-  convertIso8601DurationToTotalHours: async function (isoString: string) {
+const convertIso8601DurationToTotalHours = async (isoString: string): Promise<number> => {
+  try {
     const match = isoString.match(
-      /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
+        /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
     );
     if (!match) {
-      return 0; // Return 0 if the string does not match the pattern
+      throw new Error("Invalid ISO 8601 duration string");
     }
 
     const years = parseInt(match[1] || "0", 10) * 365 * 24;
@@ -236,15 +345,20 @@ export const credentialEngineUtils = {
     const minutes = parseInt(match[6] || "0", 10) / 60;
     const seconds = parseInt(match[7] || "0", 10) / 3600;
 
-    return years + months + weeks + days + hours + minutes + seconds; // Sum up all components
-  },
+    return years + months + weeks + days + hours + minutes + seconds;
+  } catch (error) {
+    logError(`Error converting ISO 8601 duration to total hours`, error as Error);
+    throw error;
+  }
+};
 
-  convertIso8601DurationToCalendarLengthId: async function (isoString: string): Promise<number> {
+const convertIso8601DurationToCalendarLengthId = async (isoString: string): Promise<number> => {
+  try {
     const match = isoString.match(
-      /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/
+        /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/
     );
     if (!match) {
-      return 0;
+      throw new Error("Invalid ISO 8601 duration string");
     }
 
     const years = parseInt(match[1]) || 0;
@@ -268,5 +382,31 @@ export const credentialEngineUtils = {
     if (totalDays <= 730) return 8;
     if (totalDays <= 1460) return 9;
     return 10;
-  },
-}
+  } catch (error) {
+    logError(`Error converting ISO 8601 duration to calendar length ID`, error as Error);
+    throw error;
+  }
+};
+
+export const credentialEngineUtils = {
+  validateCtId,
+  getCtidFromURL,
+  fetchCertificateData,
+  fetchValidCEData,
+  getProviderData,
+  getAddress,
+  getAvailableAtAddresses,
+  extractCipCode,
+  extractOccupations,
+  extractCost,
+  extractAverageSalary,
+  extractEmploymentData,
+  extractPrerequisites,
+  checkSupportService,
+  checkAccommodation,
+  constructCertificationsString,
+  getCalendarLengthId,
+  hasEveningSchedule,
+  convertIso8601DurationToTotalHours,
+  convertIso8601DurationToCalendarLengthId
+};

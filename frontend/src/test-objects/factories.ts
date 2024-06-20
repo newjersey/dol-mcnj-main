@@ -37,15 +37,12 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     online: randomBool(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
-    availableAt: {
-      street_address: "some-street-address-" + randomInt(),
-      city: "some-city-" + randomInt(),
-      state: "some-state-" + randomInt(),
-      zipCode: "some-zipcode-" + randomInt(),
-    },
+    availableAt: [
+      buildAddress({}),
+      buildAddress({}),
+    ],
     cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
     zipCodes: ["some-zipcode-" + randomInt(), "some-zipcode-" + randomInt()],
-    county: "some-county-" + randomInt(),
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
     socCodes: ["some-soc-" + randomInt()],
@@ -61,12 +58,10 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
 export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
-    availableAt: {
-      street_address: "some-street-address-" + randomInt(),
-      city: "some-city-" + randomInt(),
-      state: "some-state-" + randomInt(),
-      zipCode: "some-zipcode-" + randomInt(),
-    },
+    availableAt: [
+      buildAddress({}),
+      buildAddress({}),
+    ],
     name: "some-name-" + randomInt(),
     cipDefinition: buildCipDefinition({}),
     provider: buildProvider({}),
@@ -103,12 +98,6 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     email: "some-provider-email-" + randomInt() + "@FAKE-PROVIDER-DOMAIN.com",
     url: "some-url-" + randomInt(),
     addresses: [buildAddress({}), buildAddress({})],
-    /*contactName: "some-contactName-" + randomInt(),
-    contactTitle: "some-contactTitle-" + randomInt(),
-    phoneNumber: "some-phoneNumber-" + randomInt(),
-    phoneExtension: "some-phoneExtension-" + randomInt(),
-    phoneExtension: "some-phoneExtension-" + randomInt(),
-    county: "some-county-" + randomInt(),*/
     ...overrides,
   };
 };
@@ -116,11 +105,11 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
     name: "some-location-name-" + randomInt(),
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
+    street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
     targetContactPoints: [],
     ...overrides,
   };
@@ -132,6 +121,7 @@ export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefini
     cip: formatCip(randomCipCode),
     cipcode: randomCipCode,
     ciptitle: `some-ciptitle-${randomInt()}`,
+    ...overrides,
   };
 };
 
