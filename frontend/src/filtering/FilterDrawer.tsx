@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { FunnelSimple } from "@phosphor-icons/react";
+import { FunnelSimple, X } from "@phosphor-icons/react";
 
 export const FilterDrawer = () => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => setOpen(!open);
 
@@ -23,8 +23,20 @@ export const FilterDrawer = () => {
       <Drawer
         anchor={mobile ? "bottom" : "left"}
         open={open}
-        onClose={toggleDrawer}
+        // onClose={toggleDrawer}
       >
+        <div id="drawer-container">
+          <div id="drawer-header">
+            <h2>Add Filters</h2>
+            <button
+              className="close-button"
+              onClick={toggleDrawer}
+            >
+              <X />
+            </button>
+          </div>
+          Drawer
+        </div>
       </Drawer>
     </>
   )
