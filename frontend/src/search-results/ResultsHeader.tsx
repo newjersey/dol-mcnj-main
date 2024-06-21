@@ -1,9 +1,11 @@
 import { useTranslation } from "react-i18next";
 
 export const ResultsHeader = ({
+  loading,
   searchQuery,
   metaCount
 }:{
+  loading: boolean,
   searchQuery: string,
   metaCount: number
 }) => {
@@ -17,7 +19,7 @@ export const ResultsHeader = ({
   return (
     <div id="search-header-container">
       <h2 className="text-xl weight-500 pts cutoff-text">
-        {!searchQuery || searchQuery === "null" ? (
+        {!searchQuery || searchQuery === "null" || loading ? (
           t("SearchResultsPage.noSearchTermHeader")
         ) : (
           message
