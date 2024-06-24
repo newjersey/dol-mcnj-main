@@ -164,7 +164,7 @@ const postgresDataClient = new PostgresDataClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
-  allTrainings: allTrainings(postgresDataClient),
+  allTrainings: allTrainings(),
   searchTrainings: searchTrainingsFactory(postgresDataClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),

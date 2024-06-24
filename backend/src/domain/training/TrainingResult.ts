@@ -32,7 +32,7 @@ export interface AllTrainingsResult {
   duration_units_tl: string;
   duration_units_zh: string;
   duration_units_ja: string;
-};
+}
 
 export interface TrainingResult {
   id?: string;
@@ -58,7 +58,7 @@ export interface TrainingResult {
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
   availableAt: Address[];
-};
+}
 
 type Address = {
   street_address?: string;

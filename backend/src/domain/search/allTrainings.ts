@@ -78,7 +78,8 @@ async function transformCertificateToTraining(certificate: CTDLResource): Promis
   try {
     const address = await credentialEngineUtils.getAvailableAtAddresses(certificate);
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
-    const socName = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]!["en-US"] as string : 'Not Available'
+    const socName = certificate["ceterms:occupationType"] && certificate["ceterms:occupationType"][0] && certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"] && certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"]
+    ? certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
     const socCode = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999'
     const socCodeReplaced = socCode.replace(/-/g, '').replace(/\.00$/, '')
     

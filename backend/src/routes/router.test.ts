@@ -13,6 +13,7 @@ import { Selector } from "../domain/training/Selector";
 describe("router", () => {
   let app: Express;
   let router: Router;
+  let stubAllTrainings: jest.Mock;
   let stubSearchTrainings: jest.Mock;
   let stubFindTrainingsBy: jest.Mock;
   let stubGetInDemandOccupations: jest.Mock;
@@ -21,12 +22,14 @@ describe("router", () => {
   let stubGetOccupationDetailByCIP: jest.Mock;
 
   beforeEach(() => {
+    stubAllTrainings = jest.fn();
     stubSearchTrainings = jest.fn();
     stubFindTrainingsBy = jest.fn();
     stubGetInDemandOccupations = jest.fn();
     stubGetOccupationDetail = jest.fn();
 
     router = routerFactory({
+      allTrainings: stubAllTrainings,
       searchTrainings: stubSearchTrainings,
       findTrainingsBy: stubFindTrainingsBy,
       getInDemandOccupations: stubGetInDemandOccupations,
@@ -36,6 +39,25 @@ describe("router", () => {
     });
     app = express();
     app.use(router);
+  });
+
+  describe("/allTrainings", () => {
+    it("fetches all Trainings", (done) => {
+      stubAllTrainings.mockImplementationOnce(() => Promise.resolve([]));
+      request(app)
+        .get("/allTrainings")
+        .then((response) => {
+          expect(response.status).toEqual(200);
+          expect(response.body).toEqual([]);
+          expect(stubAllTrainings).toHaveBeenCalled();
+          done();
+        });
+    });
+
+    it("sends a 500 when the fetch fails", (done) => {
+      stubGetInDemandOccupations.mockImplementationOnce(() => Promise.reject());
+      request(app).get("/allTrainings").expect(500).end(done);
+    });
   });
 
   describe("/trainings/search", () => {
@@ -87,6 +109,7 @@ describe("router", () => {
     });
 
     it("sends a 404 when the id does not exist", (done) => {
+      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
       request(app).get("/trainings/").expect(404).end(done);
     });
   });
