@@ -120,7 +120,7 @@ try:
 
         # Use ThreadPoolExecutor to process rows in parallel
         with ThreadPoolExecutor(max_workers=20) as executor:
-            futures = [executor.submit(process_row, row) for row in reader]
+            futures = [executor.submit(process_row, row) for row in reader if row["statusname"] == "Approved"]
             for future in as_completed(futures):
                 output_rows = future.result()
                 for output_row in output_rows:
