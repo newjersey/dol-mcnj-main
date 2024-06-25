@@ -12,6 +12,9 @@
     "knex",
     "supertest",
     "node-cache",
-    "winston"
+    "express-rate-limit",
+    "winston",
+    "express-validator",
+    "nodemailer"
   ]
 }

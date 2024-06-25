@@ -33,6 +33,7 @@ import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 const SearchResultsPage = React.lazy(() => import("./search-results/SearchResultsPage").then(module => ({ default: module.SearchResultsPage })));
 const TrainingPage = React.lazy(() => import("./training-page/TrainingPage").then(module => ({ default: module.TrainingPage })));
 const OccupationPage = React.lazy(() => import("./occupation-page/OccupationPage").then(module => ({ default: module.OccupationPage })));
+const ContactUsPage = React.lazy(() => import("./contact-us-page/ContactUsPage").then(module => ({ default: module.ContactUsPage })));
 const PrivacyPolicyPage = React.lazy(() => import("./privacy-policy-page/PrivacyPolicyPage").then(module => ({ default: module.PrivacyPolicyPage })));
 const TermsOfServicePage = React.lazy(() => import("./terms-of-service-page/TermsOfServicePage").then(module => ({ default: module.TermsOfServicePage })));
 const FaqPage = React.lazy(() => import("./faq-page/FaqPage").then(module => ({ default: module.FaqPage })));
@@ -106,6 +107,7 @@ export const App = (props: Props): ReactElement => {
                   <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
                   <TermsOfServicePage path="/terms-of-service" client={props.client} />
                   <FaqPage path="/faq" client={props.client} />
+                  <ContactUsPage path="/contact" client={props.client} />
                   <TrainingProviderPage path="/training-provider-resources" client={props.client} />
                   <AllSupportPage path="/support-resources" client={props.client} />
                   <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
