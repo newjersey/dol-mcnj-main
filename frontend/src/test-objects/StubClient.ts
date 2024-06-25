@@ -3,7 +3,6 @@
 import { Client, Observer } from "../domain/Client";
 import { Training, TrainingData } from "../domain/Training";
 import { InDemandOccupation, OccupationDetail } from "../domain/Occupation";
-import { SearchArea } from "../filtering/LocationFilter";
 import { Certificates } from "../domain/CredentialEngine";
 import {
   FaqPageProps,
@@ -22,7 +21,6 @@ export class StubClient implements Client {
 
   capturedQuery: string | undefined = undefined;
   capturedId: string | undefined = undefined;
-  capturedSearchArea: SearchArea | undefined = undefined;
   getOccupationsWasCalled = false;
 
   getTrainingsByQuery(query: string, observer: Observer<TrainingData>): void {
