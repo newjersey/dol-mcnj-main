@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactElement, useState, StrictMode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
@@ -36,7 +36,7 @@ export const FilterDrawer = ({
   completeIn,
   languages,
   services
-}: Props) => {
+}: Props): ReactElement<Props> => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
 
@@ -63,7 +63,7 @@ export const FilterDrawer = ({
   }
 
   return (
-    <>
+    <StrictMode>
       <div id="filter-button-container">
         <button
           onClick={toggleDrawer}
@@ -179,6 +179,6 @@ export const FilterDrawer = ({
           </div>
         </div>
       </Drawer>
-    </>
+    </StrictMode>
   )
 }
