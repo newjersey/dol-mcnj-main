@@ -25,6 +25,7 @@
     "react-dom/test-utils",
     "react-ga",
     "react-helmet-async",
+    "react-hook-form",
     "react-i18next",
     "react-paginate",
     "react-to-print",
