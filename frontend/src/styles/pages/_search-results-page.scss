@@ -271,6 +271,11 @@
     width: 7.25rem;
     height: 48px;
     z-index: 1000;
+    &:hover {
+      @media screen and (min-width: ($tablet)) {
+        outline: $size-2 solid $primary-light;
+      }
+    }
   }
 }
 
