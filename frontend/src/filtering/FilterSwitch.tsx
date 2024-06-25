@@ -1,13 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Controller, useFormContext } from 'react-hook-form';
 
 interface Props {
   inputLabel: string;
   inputName: string;
+  clearSelected?: boolean;
   inputChecked?: boolean;
 }
 
 export const FilterFormSwitch = ({
+  clearSelected = false,
   inputLabel,
   inputName,
   inputChecked = false
@@ -18,6 +20,12 @@ export const FilterFormSwitch = ({
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
+
+  useEffect(() => {
+    if (clearSelected) {
+      setChecked(false);
+    }
+  }, [clearSelected]);
 
   return (
     <div className="field-group">

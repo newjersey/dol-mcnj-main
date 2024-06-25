@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "@material-ui/core";
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
   inputName: string;
+  clearSelected?: boolean;
   defaultValues?: string[];
   inputLabel?: string;
   options: {id: string, label: string}[];
@@ -11,6 +12,7 @@ interface Props {
 
 export const FilterFormCheckGroup = ({
   inputName,
+  clearSelected = false,
   defaultValues = [],
   inputLabel,
   options
@@ -33,6 +35,13 @@ export const FilterFormCheckGroup = ({
     setSelected(newSelected);
     setValue(inputName, newSelected);
   }
+
+  useEffect(() => {
+    if (clearSelected) {
+      setSelected([]);
+      setValue(inputName, []);
+    }
+  }, [clearSelected])
 
 
   return (
