@@ -103,7 +103,9 @@ export const SearchResultsPage = ({
             )}
           </div>
           {!loading && (
-            <FilterDrawer />
+            <FilterDrawer
+              searchQuery={searchQuery}
+            />
           )}
         </div>
         <div id="results-container">
