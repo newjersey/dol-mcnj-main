@@ -24,7 +24,7 @@ import { SearchTips } from "./SearchTips";
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { FilterDrawer } from "../filtering/FilterDrawer";
 
-import { getTrainingData, getSearchQuery } from "./searchResultFunctions";
+import { getTrainingData, getSearchQuery } from "./searchFunctions";
 
 interface Props extends RouteComponentProps {
   client: Client;
