@@ -2,16 +2,22 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
 import { FilterFormInput } from "./FilterInput";
+import { FilterFormSingleDD } from "./FilterSingleDD";
+import { FilterFormSwitch } from "./FilterSwitch";
 
 interface Props {
   searchQuery?: string;
+  inDemand?: boolean;
+  maxCost?: number;
 }
 
 export const FilterDrawer = ({
-  searchQuery
+  searchQuery = "",
+  inDemand = false,
+  maxCost
 }: Props) => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
@@ -22,7 +28,9 @@ export const FilterDrawer = ({
 
   const methods = useForm<Props>({
     defaultValues: {
-      searchQuery: searchQuery || ""
+      searchQuery,
+      inDemand,
+      maxCost
     }
   })
 
@@ -59,14 +67,22 @@ export const FilterDrawer = ({
           <div id="filter-form-container">
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormProvider {...methods}>
-                <div className="field-group">
-                  <FilterFormInput
-                    inputLabel={t("SearchResultsPage.searchQueryLabel")}
-                    inputName="searchQuery"
-                    hasIcon={true}
-                    icon={<MagnifyingGlass />}
-                  />
-                </div>
+                <FilterFormInput
+                  inputLabel={t("SearchResultsPage.searchQueryLabel")}
+                  inputName="searchQuery"
+                  hasIcon={true}
+                  icon={<MagnifyingGlass />}
+                />
+                <FilterFormSwitch
+                  inputLabel={t("SearchResultsPage.inDemandLabel")}
+                  inputName="inDemand"
+                />
+                <FilterFormInput
+                  inputLabel={t("SearchResultsPage.maxCostLabel")}
+                  inputName="maxCost"
+                  hasIcon={true}
+                  icon={<CurrencyDollar />}
+                />
                 <div id="drawer-btn-container" className="row">
                   <button type="submit" id="submit-button">Apply</button>
                   <button type="reset" id="reset-button">Clear Filters</button>
