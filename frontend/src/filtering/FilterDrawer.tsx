@@ -20,22 +20,29 @@ import {
 
 interface Props {
   searchQuery?: string;
-  inDemand?: boolean;
-  maxCost?: number;
+  cipCode?: string;
   county?: string;
   completeIn?: string[];
+  inDemand?: boolean;
   languages?: string[];
+  maxCost?: number | undefined;
+  miles?: number | undefined;
   services?: string[];
+  socCode?: string;
+  zipcode?: string;
 }
 
 export const FilterDrawer = ({
-  searchQuery = "",
-  inDemand = false,
-  maxCost,
-  county,
+  searchQuery,
+  cipCode,
   completeIn,
+  county,
+  inDemand,
   languages,
-  services
+  maxCost,
+  services,
+  socCode,
+  zipcode
 }: Props): ReactElement<Props> => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
@@ -47,12 +54,15 @@ export const FilterDrawer = ({
   const methods = useForm<Props>({
     defaultValues: {
       searchQuery,
-      inDemand,
-      maxCost,
-      county,
+      cipCode,
       completeIn,
+      county,
+      inDemand,
       languages,
-      services
+      maxCost,
+      services,
+      socCode,
+      zipcode
     }
   })
 
@@ -98,6 +108,7 @@ export const FilterDrawer = ({
                 <FilterFormSwitch
                   inputLabel={t("SearchResultsPage.inDemandLabel")}
                   inputName="inDemand"
+                  inputChecked={inDemand}
                 />
                 <FilterFormInput
                   inputLabel={t("SearchResultsPage.maxCostLabel")}
