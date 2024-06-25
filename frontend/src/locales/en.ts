@@ -265,7 +265,8 @@ export const en = {
     comparisonEmploymentRateLabelMobile: "Employment Rate",
     comparisonTimeToCompleteLabel: "Time to Complete",
     comparisonSeeDetails: "See Details",
-    filtersButton: "Filters"
+    filtersButton: "Filters",
+    searchQueryLabel: "Search by training, provider, certifcation, SOC code, or keyword"
   },
   StatBlock: {
     dataSourceLabel: "Data source: ",
