@@ -269,6 +269,7 @@ export const en = {
     searchQueryLabel: "Search by training, provider, certifcation, SOC code, or keyword",
     inDemandLabel: "Show In-Demand trainings only",
     maxCostLabel: "Max Cost",
+    countyLabel: "County",
   },
   StatBlock: {
     dataSourceLabel: "Data source: ",

@@ -4,20 +4,25 @@ import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
+// import { FilterFormCheckGroup } from "./FilterCheckBoxGroup";
 import { FilterFormInput } from "./FilterInput";
 import { FilterFormSingleDD } from "./FilterSingleDD";
 import { FilterFormSwitch } from "./FilterSwitch";
+
+import { COUNTIES } from "./newJerseyCounties";
 
 interface Props {
   searchQuery?: string;
   inDemand?: boolean;
   maxCost?: number;
+  county?: string;
 }
 
 export const FilterDrawer = ({
   searchQuery = "",
   inDemand = false,
-  maxCost
+  maxCost,
+  county
 }: Props) => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
@@ -30,7 +35,8 @@ export const FilterDrawer = ({
     defaultValues: {
       searchQuery,
       inDemand,
-      maxCost
+      maxCost,
+      county
     }
   })
 
@@ -82,6 +88,12 @@ export const FilterDrawer = ({
                   inputName="maxCost"
                   hasIcon={true}
                   icon={<CurrencyDollar />}
+                />
+                <FilterFormSingleDD
+                  inputName="county"
+                  inputLabel={t("SearchResultsPage.countyLabel")}
+                  options={COUNTIES}
+                  placeholder="Choose a county"
                 />
                 <div id="drawer-btn-container" className="row">
                   <button type="submit" id="submit-button">Apply</button>
