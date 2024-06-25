@@ -17,6 +17,7 @@ import pageImage from "../images/ogImages/searchResults.png";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { Pagination } from "./Pagination";
 import { ResultsHeader } from "./ResultsHeader";
+import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { SearchSelects } from "./SearchSelects";
 import { SearchTips } from "./SearchTips";
@@ -255,6 +256,9 @@ export const SearchResultsPage = ({
                 />
               )}
             </div>
+          )}
+          {!isLoading && (
+            <TrainingComparison comparisonItems={comparisonState.comparison} />
           )}
         </div>
       </div>
