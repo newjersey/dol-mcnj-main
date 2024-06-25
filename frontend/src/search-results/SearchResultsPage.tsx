@@ -47,6 +47,7 @@ export const SearchResultsPage = ({
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   const [cipCode, setCipCode] = useState<string | undefined>(undefined);
+  const [classFormat, setClassFormat] = useState<string[]>([]);
   const [completeIn, setCompleteIn] = useState<string[]>([]);
   const [county, setCounty] = useState<CountyProps | undefined>(undefined);
   const [inDemand, setInDemand] = useState<boolean>(false);
@@ -65,6 +66,7 @@ export const SearchResultsPage = ({
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
     const cipCodeValue = urlParams.get("cip");
+    const classFormatValue = urlParams.get("format");
     const completeInValue = urlParams.get("completeIn");
     const countyValue = urlParams.get("county");
     const inDemandValue = urlParams.get("inDemand");
@@ -84,7 +86,12 @@ export const SearchResultsPage = ({
     setItemsPerPage(limitValue);
 
     if (cipCodeValue) {
-      setCipCode(cipCode);
+      setCipCode(cipCodeValue);
+    }
+
+    if (classFormatValue) {
+      const classFormatArray = classFormatValue.includes("," || "%2C") ? classFormatValue.split("," || "%2C") : [classFormatValue];
+      setClassFormat(classFormatArray);
     }
 
     if (completeInValue) {
@@ -197,7 +204,8 @@ export const SearchResultsPage = ({
           {!isLoading && (
             <FilterDrawer
               searchQuery={searchQuery}
-              cipCode={cipCode || ""}
+              cipCode={cipCode}
+              classFormat={classFormat}
               completeIn={completeIn}
               county={county || ""}
               inDemand={inDemand}
