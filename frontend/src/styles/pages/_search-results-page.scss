@@ -90,6 +90,24 @@
   padding: $size-16;
   width: 100%;
 
+  .checkbox-container,.MuiIconButton-label {
+    &:hover {
+      cursor: pointer;
+    }
+
+    label {
+      &:hover {
+        cursor: pointer !important;
+      }
+    }
+
+    svg {
+      path {
+        fill: $green-cool-50v;
+      }
+    }
+  }
+
   .field-group {
     margin-bottom: 24px;
   }
