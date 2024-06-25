@@ -266,7 +266,9 @@ export const en = {
     comparisonTimeToCompleteLabel: "Time to Complete",
     comparisonSeeDetails: "See Details",
     filtersButton: "Filters",
-    searchQueryLabel: "Search by training, provider, certifcation, SOC code, or keyword"
+    searchQueryLabel: "Search by training, provider, certifcation, SOC code, or keyword",
+    inDemandLabel: "Show In-Demand trainings only",
+    maxCostLabel: "Max Cost",
   },
   StatBlock: {
     dataSourceLabel: "Data source: ",
