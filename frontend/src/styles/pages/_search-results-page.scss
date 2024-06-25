@@ -246,6 +246,7 @@
 
   button {
     align-items: center;
+    background-color: $white;
     border: 2px solid $blue-60v;
     border-radius: 0.25rem;
     color: $blue-60v;
@@ -260,6 +261,16 @@
       border: 2px solid $blue-warm-70v;
       box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.10);;
     }
+  }
+
+  .floating {
+    border: 1px solid;
+    position: fixed !important;
+    bottom: $size-16;
+    right: $size-75;
+    width: 7.25rem;
+    height: 48px;
+    z-index: 1000;
   }
 }
 

@@ -3,8 +3,9 @@ import { navigate } from "@reach/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { CurrencyDollar, MagnifyingGlass, X } from "@phosphor-icons/react";
 
+import { FilterButton } from "./FilterButton";
 import { FilterFormCheckGroup } from "./FilterCheckBoxGroup";
 import { FilterFormInput } from "./FilterInput";
 import { FilterFormMultiDD } from "./FilterMultiDD";
@@ -99,13 +100,7 @@ export const FilterDrawer = ({
 
   return (
     <StrictMode>
-      <div id="filter-button-container">
-        <button
-          onClick={toggleDrawer}
-        >
-          {t("SearchResultsPage.filtersButton")} <FunnelSimple />
-        </button>
-      </div>
+      <FilterButton toggleDrawer={toggleDrawer} />
       <Drawer
         anchor={mobile ? "bottom" : "left"}
         open={open}
