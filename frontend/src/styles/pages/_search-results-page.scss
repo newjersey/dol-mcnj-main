@@ -219,9 +219,15 @@
 }
 
 #drawer-header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+
+  background-color: $green-cool-5;
   display: flex;
   justify-content: space-between;
-  margin-bottom: $size-16;
+  padding: $size-16 0;
+  width: 93%;
 
   h2 {
     font-size: 1.25rem;
@@ -325,11 +331,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 374px;
+    max-width: 22.5rem;
   }
 
   #drawer-container {
     width: $mobile-md;
+  }
+
+  #drawer-header {
+    max-width: 21rem;
   }
 
   #filter-button-container {
