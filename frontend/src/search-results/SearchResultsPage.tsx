@@ -23,6 +23,7 @@ import { SearchTips } from "./SearchTips";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { FilterDrawer } from "../filtering/FilterDrawer";
+import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
 import { getTrainingData, getSearchQuery } from "./searchFunctions";
 
@@ -36,12 +37,25 @@ export const SearchResultsPage = ({
   location
 }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>();
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+
+  const [cipCode, setCipCode] = useState<string | undefined>(undefined);
+  const [completeIn, setCompleteIn] = useState<string[]>([]);
+  const [county, setCounty] = useState<CountyProps | undefined>(undefined);
+  const [inDemand, setInDemand] = useState<boolean>(false);
+  const [languages, setLanguages] = useState<LanguageProps[]>([]);
+  const [maxCost, setMaxCost] = useState<number | undefined>(undefined);
+  const [miles, setMiles] = useState<number | undefined>(undefined);
+  const [services, setServices] = useState<string[]>([]);
+  const [socCode, setSocCode] = useState<string | undefined>(undefined);
+  const [zipcode, setZipcode] = useState<string | undefined>(undefined);
   
   const comparisonState = useContext(ComparisonContext).state;
   const searchQuery = getSearchQuery(location?.search);
@@ -49,20 +63,98 @@ export const SearchResultsPage = ({
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
+    const limit = urlParams.get("limit");
+    const cipCodeValue = urlParams.get("cip");
+    const completeInValue = urlParams.get("completeIn");
+    const countyValue = urlParams.get("county");
+    const inDemandValue = urlParams.get("inDemand");
+    const languagesValue = urlParams.get("languages");
+    const maxCostValue = urlParams.get("maxCost");
+    const milesValue = urlParams.get("miles");
+    const servicesValue = urlParams.get("services");
+    const socCodeValue = urlParams.get("soc");
+    const zipcodeValue = urlParams.get("zipcode");
+
+    const completeInArray:number[] = [];
+    const limitValue = limit ? parseInt(limit) : 10;
     const pageNumberValue = page ? parseInt(page) : 1;
-    setLoading(true);
+
+    setIsLoading(true);
     setPageNumber(pageNumberValue);
+    setItemsPerPage(limitValue);
+
+    if (cipCodeValue) {
+      setCipCode(cipCode);
+    }
+
+    if (completeInValue) {
+      const completeValues = completeInValue.includes("," || "%2C") ? completeInValue.split("," || "%2C") : [completeInValue];
+      setCompleteIn(completeValues);
+      completeValues.map((value) => {
+        switch(value) {
+          case "days":
+            completeInArray.push(1, 2, 3);
+            break;
+          case "weeks":
+            completeInArray.push(4,5);
+            break;
+          case "months":
+            completeInArray.push(6, 7);
+            break;
+          case "years":
+            completeInArray.push(8, 9, 10);
+            break;
+        }
+        return console.log('Organize completeIn times');
+      });
+    }
+
+    if (countyValue) {
+      setCounty(countyValue as CountyProps);
+    }
+
+    if (inDemandValue) {
+      const inDemandText = inDemandValue.toLowerCase();
+      setInDemand(inDemandText === "true");
+    }
+
+    if (languagesValue) {
+      const languagesArray = languagesValue.includes("," || "%2C") ? languagesValue.split("," || "%2C") : [languagesValue];
+      setLanguages(languagesArray as LanguageProps[]);
+    }
+
+    if (maxCostValue) {
+      setMaxCost(parseInt(maxCostValue));
+    }
+
+    if (milesValue) {
+      setMiles(parseInt(milesValue));
+    }
+
+    if (servicesValue) {
+      const servicesArray = servicesValue.includes("," || "%2C") ? servicesValue.split("," || "%2C") : [servicesValue];
+      setServices(servicesArray);
+    }
+
+    if (socCodeValue) {
+      setSocCode(socCodeValue);
+    }
+
+    if (zipcodeValue) {
+      setZipcode(zipcodeValue);
+    }
+
     const queryToSearch = searchQuery ? searchQuery : "";
     getTrainingData(client,
                     queryToSearch,
                     setIsError,
-                    setLoading,
+                    setIsLoading,
                     setMetaData,
                     setTrainings);
   }, [client, searchQuery]);
   
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
-    setLoading(true);
+    setIsLoading(true);
     setItemsPerPage(
       event.target.value as unknown as number,
     );
@@ -89,11 +181,11 @@ export const SearchResultsPage = ({
         <div>
           <div id="search-results-heading">
             <ResultsHeader
-              loading={loading}
+              loading={isLoading}
               searchQuery={searchQuery || ""}
               metaCount={metaData?.totalItems || 0}
             />
-            {!loading && trainings.length > 0 && (
+            {!isLoading && trainings.length > 0 && (
               <SearchSelects
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
@@ -102,25 +194,35 @@ export const SearchResultsPage = ({
               />
             )}
           </div>
-          {!loading && (
+          {!isLoading && (
             <FilterDrawer
               searchQuery={searchQuery}
+              cipCode={cipCode || ""}
+              completeIn={completeIn}
+              county={county || ""}
+              inDemand={inDemand}
+              languages={languages}
+              maxCost={maxCost}
+              miles={miles}
+              services={services}
+              socCode={socCode || ""}
+              zipcode={zipcode || ""}
             />
           )}
         </div>
         <div id="results-container">
-          {loading && (
+          {isLoading && (
             <div className="fdr fjc ptl">
               <CircularProgress color="secondary" />
             </div>
           )}
-          {!loading
+          {!isLoading
             && !isError
             && trainings.length <= 5
             && (
               <SearchTips />
           )}
-          {!loading
+          {!isLoading
             && !isError
             && trainings.length > 0
             && (
@@ -135,8 +237,8 @@ export const SearchResultsPage = ({
               {pageNumber
                 && (
                 <Pagination
-                  isLoading={loading}
-                  setIsLoading={setLoading}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
                   currentPage={pageNumber || 1}
                   totalPages={metaData?.totalPages || 0}
                   hasPreviousPage={metaData?.hasPreviousPage || false}
