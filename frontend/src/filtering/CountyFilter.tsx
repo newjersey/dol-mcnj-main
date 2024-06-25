@@ -10,7 +10,7 @@ import {
 import { FilterActionType, FilterContext } from "./FilterContext";
 import { FilterableElement } from "../domain/Filter";
 import { TrainingResult } from "../domain/Training";
-import { COUNTIES, getCountyName } from "./newJerseyCounties";
+import { COUNTIES, getCountyName } from "./filterLists";
 import { useTranslation } from "react-i18next";
 import { toggleParams } from "../utils/updateUrlParams";
 

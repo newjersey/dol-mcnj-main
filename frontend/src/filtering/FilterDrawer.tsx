@@ -4,25 +4,38 @@ import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { CurrencyDollar, FunnelSimple, MagnifyingGlass, X } from "@phosphor-icons/react";
 
-// import { FilterFormCheckGroup } from "./FilterCheckBoxGroup";
+import { FilterFormCheckGroup } from "./FilterCheckBoxGroup";
 import { FilterFormInput } from "./FilterInput";
+import { FilterFormMultiDD } from "./FilterMultiDD";
 import { FilterFormSingleDD } from "./FilterSingleDD";
 import { FilterFormSwitch } from "./FilterSwitch";
 
-import { COUNTIES } from "./newJerseyCounties";
+import {
+  classFormatList,
+  completeInList,
+  COUNTIES,
+  languageList,
+  serviceList
+} from "./filterLists";
 
 interface Props {
   searchQuery?: string;
   inDemand?: boolean;
   maxCost?: number;
   county?: string;
+  completeIn?: string[];
+  languages?: string[];
+  services?: string[];
 }
 
 export const FilterDrawer = ({
   searchQuery = "",
   inDemand = false,
   maxCost,
-  county
+  county,
+  completeIn,
+  languages,
+  services
 }: Props) => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
@@ -36,7 +49,10 @@ export const FilterDrawer = ({
       searchQuery,
       inDemand,
       maxCost,
-      county
+      county,
+      completeIn,
+      languages,
+      services
     }
   })
 
@@ -94,6 +110,65 @@ export const FilterDrawer = ({
                   inputLabel={t("SearchResultsPage.countyLabel")}
                   options={COUNTIES}
                   placeholder="Choose a county"
+                />
+                <FilterFormCheckGroup
+                  inputName="classFormat"
+                  inputLabel={t("SearchResultsPage.classFormatLabel")}
+                  options={classFormatList}
+                />
+                <div className="field-group">
+                  <div className="label-container zip-label">
+                    <label>
+                      Distance from ZIP code
+                    </label>
+                  </div>
+                  <div className="zip-miles-group">
+                    <FilterFormInput
+                      inputName="miles"
+                      inputType="number"
+                      placeholder="miles"
+                    />
+                    <div className="conjunction-container">
+                      from
+                    </div>
+                    <FilterFormInput
+                      inputName="zipcode"
+                      placeholder="ZIP code"
+                    />
+                  </div>
+                </div>
+                <FilterFormMultiDD
+                  inputLabel={t("SearchResultsPage.completeInLabel")}
+                  inputName="completeIn"
+                  options={completeInList}
+                  defaultValues={completeIn}
+                  placeholder="Time to Complete"
+                />
+                <FilterFormMultiDD
+                  inputLabel={t("SearchResultsPage.languagesLabel")}
+                  inputName="languages"
+                  options={languageList}
+                  defaultValues={languages}
+                  placeholder="Languages"
+                />
+                <FilterFormMultiDD
+                  inputLabel={t("SearchResultsPage.servicesLabel")}
+                  inputName="services"
+                  options={serviceList}
+                  defaultValues={services}
+                  placeholder="Languages"
+                />
+                <FilterFormInput
+                  inputLabel={t("SearchResultsPage.cidCodeLabel")}
+                  inputName="cipCode"
+                  placeholder="##.####"
+                  subLabel={t("SearchResultsPage.cipCodeSubLabel")}
+                />
+                <FilterFormInput
+                  inputLabel={t("SearchResultsPage.socCodeLabel")}
+                  inputName="socCode"
+                  placeholder="##-####"
+                  subLabel={t("SearchResultsPage.socCodeSubLabel")}
                 />
                 <div id="drawer-btn-container" className="row">
                   <button type="submit" id="submit-button">Apply</button>

@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 import { fireEvent, RenderResult, within } from "@testing-library/react";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
-import { COUNTIES, getCountyName } from "../newJerseyCounties";
+import { COUNTIES, getCountyName } from "../filterLists";
 
 const TEST_COUNTIES = [COUNTIES[0], COUNTIES[1]];
 const COUNTY_NAMES = TEST_COUNTIES.map((county) => getCountyName(county));

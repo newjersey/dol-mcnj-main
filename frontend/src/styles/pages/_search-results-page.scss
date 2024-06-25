@@ -51,19 +51,35 @@
   background-color: $green-cool-20;
   display: flex;
   justify-content: space-between;
-  padding: $size-16;
+  padding: $size-16 0;
   width: 100%;
 
   button {
     border: 2px solid $green-cool-50v;
     border-radius: 8px;
     font-weight: 700;
-    padding: $size-16 $size-32;
+    padding: $size-16 0;
     text-align: center;
+    width: 150px;
   }
 
-  button + button {
-    margin-left: $size-16;
+  #submit-button {
+    background-color: $green-cool-50v;
+    color: $white;
+
+    &:hover {
+      background-color: $green-cool-60v;
+      border: 2px solid $green-cool-60v;
+    }
+  }
+
+  #reset-button {
+    background-color: $white;
+    color: $green-cool-50v;
+
+    &:hover {
+      background-color: $gray-cool-10;
+    }
   }
 }
 
@@ -79,14 +95,15 @@
   }
 
   .filter-input {
+    background-color: $white;
     width: 100%;
   }
 
   .label-container {
-    padding-bottom: 12px;
     label {
       font-size: 1rem;
       font-weight: 700;
+      line-height: 24px;
     }
   }
   /* The switch - the box around the slider */
@@ -159,6 +176,28 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .zip-miles-group {
+    display: flex;
+    justify-content: space-between;
+
+    .conjunction-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-weight: 700;
+      padding: 0;
+      height: 56px;
+    }
+
+    .field-group {
+      margin: 0;
+    }
+
+    .filter-input {
+      max-width: 125px;
+    }
+  }
 }
 
 #drawer-header {
@@ -206,6 +245,10 @@
   }
 }
 
+#filter-form-container {
+  padding-bottom: $size-75;
+}
+
 #search-results-heading {
   margin: $size-16 0 0 0;
 }
@@ -245,6 +288,9 @@
 
 @media (min-width: $tablet) {
   #drawer-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 374px;
   }
 
