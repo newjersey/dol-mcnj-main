@@ -26,30 +26,31 @@ interface Props {
   completeIn?: string[];
   inDemand?: boolean;
   languages?: string[];
-  maxCost?: number | undefined;
-  miles?: number | undefined;
+  maxCost?: string;
+  miles?: string;
   services?: string[];
   socCode?: string;
   zipcode?: string;
 }
 
 export const FilterDrawer = ({
-  searchQuery,
-  cipCode,
+  searchQuery = "",
+  cipCode = "",
   classFormat,
   completeIn,
   county,
   inDemand,
   languages,
-  maxCost,
-  miles,
+  maxCost = "",
+  miles = "",
   services,
-  socCode,
-  zipcode
+  socCode = "",
+  zipcode = ""
 }: Props): ReactElement<Props> => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
 
+  const [clearSelected, setClearSelected] = useState(false);
   const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => setOpen(!open);
@@ -71,10 +72,19 @@ export const FilterDrawer = ({
     }
   })
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
 
   const onSubmit = (data: Props) => {
     console.log(data);
+  }
+
+  const onReset = () => {
+    setClearSelected(true);
+    reset();
+
+    setTimeout(() => {
+      setClearSelected(false);
+    }, 50);
   }
 
   return (
@@ -102,7 +112,7 @@ export const FilterDrawer = ({
             </button>
           </div>
           <div id="filter-form-container">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
               <FormProvider {...methods}>
                 <FilterFormInput
                   inputLabel={t("SearchResultsPage.searchQueryLabel")}
@@ -111,6 +121,7 @@ export const FilterDrawer = ({
                   icon={<MagnifyingGlass />}
                 />
                 <FilterFormSwitch
+                  clearSelected={clearSelected}
                   inputLabel={t("SearchResultsPage.inDemandLabel")}
                   inputName="inDemand"
                   inputChecked={inDemand}
@@ -128,6 +139,7 @@ export const FilterDrawer = ({
                   placeholder="Choose a county"
                 />
                 <FilterFormCheckGroup
+                  clearSelected={clearSelected}
                   inputName="classFormat"
                   inputLabel={t("SearchResultsPage.classFormatLabel")}
                   options={classFormatList}
@@ -155,6 +167,7 @@ export const FilterDrawer = ({
                   </div>
                 </div>
                 <FilterFormMultiDD
+                  clearSelected={clearSelected}
                   inputLabel={t("SearchResultsPage.completeInLabel")}
                   inputName="completeIn"
                   options={completeInList}
@@ -162,6 +175,7 @@ export const FilterDrawer = ({
                   placeholder="Time to Complete"
                 />
                 <FilterFormMultiDD
+                  clearSelected={clearSelected}
                   inputLabel={t("SearchResultsPage.languagesLabel")}
                   inputName="languages"
                   options={languageList}
@@ -169,6 +183,7 @@ export const FilterDrawer = ({
                   placeholder="Languages"
                 />
                 <FilterFormMultiDD
+                  clearSelected={clearSelected}
                   inputLabel={t("SearchResultsPage.servicesLabel")}
                   inputName="services"
                   options={serviceList}

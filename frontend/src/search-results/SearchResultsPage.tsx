@@ -52,8 +52,8 @@ export const SearchResultsPage = ({
   const [county, setCounty] = useState<CountyProps | undefined>(undefined);
   const [inDemand, setInDemand] = useState<boolean>(false);
   const [languages, setLanguages] = useState<LanguageProps[]>([]);
-  const [maxCost, setMaxCost] = useState<number | undefined>(undefined);
-  const [miles, setMiles] = useState<number | undefined>(undefined);
+  const [maxCost, setMaxCost] = useState<string | undefined>(undefined);
+  const [miles, setMiles] = useState<string | undefined>(undefined);
   const [services, setServices] = useState<string[]>([]);
   const [socCode, setSocCode] = useState<string | undefined>(undefined);
   const [zipcode, setZipcode] = useState<string | undefined>(undefined);
@@ -131,11 +131,11 @@ export const SearchResultsPage = ({
     }
 
     if (maxCostValue) {
-      setMaxCost(parseInt(maxCostValue));
+      setMaxCost(maxCostValue);
     }
 
     if (milesValue) {
-      setMiles(parseInt(milesValue));
+      setMiles(milesValue);
     }
 
     if (servicesValue) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from 'react-hook-form';
 import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
@@ -12,11 +12,13 @@ interface OptionProps {
 interface Props {
   inputName: string;
   options: OptionProps[];
+  clearSelected?: boolean;
   defaultValues?: string[];
   inputLabel?: string;
   placeholder?: string;
 }
 export const FilterFormMultiDD = ({
+  clearSelected = false,
   defaultValues = [],
   inputLabel,
   inputName,
@@ -31,6 +33,12 @@ export const FilterFormMultiDD = ({
   const handleChange = (data: (string | OptionProps)[]) => {
     setSelected(data as OptionProps[]);
   }
+
+  useEffect(() => {
+    if (clearSelected) {
+      setSelected([]);
+    }
+  }, [clearSelected])
 
   return (
     <div className="field-group">
