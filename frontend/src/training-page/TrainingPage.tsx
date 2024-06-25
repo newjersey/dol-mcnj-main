@@ -15,7 +15,7 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
-import { Button } from "../components/modules/Button";
+import { Button as ModuleButton } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -34,6 +34,8 @@ import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
 import {Helmet} from "react-helmet-async";
+import { Button } from "../components/Button";
+import { Flag } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -355,7 +357,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <Helmet>
             <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
           </Helmet>
-          <div className="container">
+          <div className="container plus">
             <div className="detail-page">
               <div className="page-banner">
                 <div className="top-nav">
@@ -584,7 +586,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div id="contact-provider-info">
                           {training?.provider?.url ? (
                               <div className="provider-btn-container">
-                                <Button
+                                <ModuleButton
                                     copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
                                     type="link"
                                     url={
@@ -604,12 +606,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                               </div>
                           )}
                         </div>
-                      </>
-                    </Grouping>
-
-                    <Grouping title={t("TrainingPage.providerGroupHeader")}>
-                      <>
-                        <p>
+                    </>
+                  </Grouping>
+                  <Grouping title={t("TrainingPage.providerGroupHeader")}>
+                    <>
+                      <p>
                         <span className="fin fas">
                           <InlineIcon className="mrxs">school</InlineIcon>
                           {training.provider.name}
@@ -632,14 +633,13 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <InlineIcon className="mrxs">link</InlineIcon>
                           {getProviderUrl()}
                         </span>
-                        </p>
-                      </>
-                    </Grouping>
-
-                    <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
-                      <>
-                        {training.hasEveningCourses && (
-                            <p>
+                      </p>
+                    </>
+                  </Grouping>
+                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
+                    <>
+                      {training.hasEveningCourses && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">nightlight_round</InlineIcon>
                             {t("TrainingPage.eveningCoursesServiceLabel")}
@@ -681,6 +681,18 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                       </>
                     </Grouping>
+                      <Button
+                          variant="custom"
+                          className="usa-button margin-right-0 custom-button report"
+                          onClick={() => {
+                              const pageSlug = `/training/${training.id}`;
+                              const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
+                              window.open(url, '_blank');
+                          }}
+                      >
+                          <Flag size={32} />
+                          <span>See something wrong? Report an Issue.</span>
+                      </Button>
                     <div className="mobile-only">{fundingContent}</div>
                   </div>
                 </div>
