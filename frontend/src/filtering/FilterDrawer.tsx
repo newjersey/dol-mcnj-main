@@ -1,4 +1,5 @@
 import { ReactElement, useState, StrictMode } from "react";
+import { navigate } from "@reach/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer, useMediaQuery } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
@@ -51,7 +52,7 @@ export const FilterDrawer = ({
   const { t } = useTranslation();
 
   const [clearSelected, setClearSelected] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => setOpen(!open);
 
@@ -75,7 +76,16 @@ export const FilterDrawer = ({
   const { handleSubmit, reset } = methods;
 
   const onSubmit = (data: Props) => {
-    console.log(data);
+    const { searchQuery } = data;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    searchQuery ? urlParams.set("q", searchQuery) : urlParams.delete("q");
+
+    const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
+    navigate(newUrl);
+    window.location.reload();
+
+    toggleDrawer();
   }
 
   const onReset = () => {
