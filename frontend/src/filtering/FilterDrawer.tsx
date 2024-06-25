@@ -21,6 +21,7 @@ import {
 interface Props {
   searchQuery?: string;
   cipCode?: string;
+  classFormat?: string[];
   county?: string;
   completeIn?: string[];
   inDemand?: boolean;
@@ -35,11 +36,13 @@ interface Props {
 export const FilterDrawer = ({
   searchQuery,
   cipCode,
+  classFormat,
   completeIn,
   county,
   inDemand,
   languages,
   maxCost,
+  miles,
   services,
   socCode,
   zipcode
@@ -55,11 +58,13 @@ export const FilterDrawer = ({
     defaultValues: {
       searchQuery,
       cipCode,
+      classFormat,
       completeIn,
       county,
       inDemand,
       languages,
       maxCost,
+      miles,
       services,
       socCode,
       zipcode
@@ -84,7 +89,7 @@ export const FilterDrawer = ({
       <Drawer
         anchor={mobile ? "bottom" : "left"}
         open={open}
-        // onClose={toggleDrawer}
+        onClose={toggleDrawer}
       >
         <div id="drawer-container">
           <div id="drawer-header">
@@ -126,6 +131,7 @@ export const FilterDrawer = ({
                   inputName="classFormat"
                   inputLabel={t("SearchResultsPage.classFormatLabel")}
                   options={classFormatList}
+                  defaultValues={classFormat}
                 />
                 <div className="field-group">
                   <div className="label-container zip-label">
