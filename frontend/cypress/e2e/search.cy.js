@@ -54,11 +54,22 @@ describe("Filter Drawer", () => {
     cy.get("#filter-form-container").should("exist");
   });
 
-  it.skip("should apply filters and close drawer when apply button is clicked", () => {
+  it("should apply filters and close drawer when apply button is clicked", { scrollBehavior: false }, () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+    cy.intercept("/api/trainings/search?query=teaching&page=1&limit=10&sort=best_match", { fixture: "teacher-search-results-filters.json" })
     cy.visit("/training/search?q=baking");
     cy.get("#filter-form-container").should("not.exist");
     cy.get("button").contains("Filters").click();
+    cy.get("#filter-form-container").should("exist");
+    cy.get('input[name="searchQuery"]').clear().type("teaching");
+    cy.get('input[name="inDemand"]').click({ force: true });
+    cy.get('input[name="maxCost"]').clear().type("1000");
+    cy.get('input[name="county"]').click();
+    cy.findByRole("option", { name: "Atlantic" }).click({force: true});
+    cy.get('input[name="classFormat"]input[type="checkbox"]input[value="inperson"]').click();
+    cy.get('button').contains("Apply").click();
+    cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=teaching&inDemand=true&maxCost=1000&county=Atlantic&format=inperson`);
+    cy.get("#filter-form-container").should("not.exist");
   });
 })
 
