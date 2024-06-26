@@ -18,7 +18,7 @@ export const FilterFormSingleDD = ({
   options,
   placeholder
 }: Props) => {
-  const { getValues, register } = useFormContext();
+  const { getValues, register, setValue } = useFormContext();
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
@@ -51,6 +51,10 @@ export const FilterFormSingleDD = ({
           id={inputName}
           value={selected}
           options={options}
+          onChange={(_, newValue: string | null) => {
+            setSelected(newValue);
+            setValue(inputName, newValue);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
