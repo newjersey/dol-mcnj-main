@@ -29,7 +29,7 @@ describe("ApiClient", () => {
       apiClient.getTrainingsByQuery("penguins", dummyObserver, 1, 10);
 
       expect(mockedAxios.get).toHaveBeenCalledWith(
-        "/api/trainings/search?query=penguins&page=1&limit=10&sort=undefined",
+        "/api/trainings/search?query=penguins&page=1&limit=10&sort=best_match",
       );
     });
 
