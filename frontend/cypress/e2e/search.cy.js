@@ -61,9 +61,10 @@ describe("Filter Drawer", () => {
     cy.get("#filter-form-container").should("not.exist");
     cy.get("button").contains("Filters").click();
     cy.get("#filter-form-container").should("exist");
-    cy.get('input[name="searchQuery"]').clear().type("teaching");
+    cy.get('input[name="searchQuery"]').clear()
+    cy.get('input[name="searchQuery"]').type("teaching");
     cy.get('input[name="inDemand"]').click({ force: true });
-    cy.get('input[name="maxCost"]').clear().type("1000");
+    cy.get('input[name="maxCost"]').type("1000");
     cy.get('input[name="county"]').click();
     cy.findByRole("option", { name: "Atlantic" }).click({force: true});
     cy.get('input[name="classFormat"]input[type="checkbox"]input[value="inperson"]').click();
