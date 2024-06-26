@@ -34,6 +34,7 @@ export const getTrainingData = (
       },
       onError: () => {
         setIsError(true);
+        setLoading(false);
       },
     });
   }

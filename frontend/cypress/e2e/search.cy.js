@@ -1,5 +1,93 @@
-describe.skip("Search", () => {
-  it("searches from the training explorer page", () => {
+describe("Filter Drawer", () => {
+  it("should not be visible by default", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+    cy.visit("/training/search?q=baking");
+    cy.get("#filter-form-container").should("not.exist");
+    cy.get("button").contains("Filters").click();
+    cy.get("#filter-form-container").should("exist");
+  });
+
+  it("should have filters that reflect the url/search", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results-filters.json" })
+    cy.visit("/training/search?q=baking&inDemand=true&maxCost=20000&county=Bergen&format=online&miles=10&zipcode=07625&completeIn=days,weeks&languages=es,fr&services=placement&cip=12.0503&soc=22222")
+
+    cy.get("#filter-form-container").should("not.exist");
+    cy.get("button").contains("Filters").click();
+    cy.get('input[name="searchQuery"]').should("have.value", "baking");
+    cy.get('input[name="inDemand"]').should("have.value", "true");
+    cy.get('input[name="maxCost"]').should("have.value", "20000");
+    cy.get('input[name="county"]').should("have.value", "Bergen");
+    cy.get('input[name="classFormat"]input[type="checkbox"]input[value="online"]').should("be.checked");
+    cy.get('input[name="classFormat"]input[type="checkbox"]input[value="inperson"]').should("not.be.checked");
+    cy.get('input[name="miles"]').should("have.value", "10");
+    cy.get('input[name="zipcode"]').should("have.value", "07625");
+    cy.get('div[name="completeIn"]').find('.MuiChip-label').should("have.length", 2);
+    cy.get('div[name="completeIn"]').contains("Days");
+    cy.get('div[name="completeIn"]').contains("Weeks");
+    cy.get('div[name="languages"]').find('.MuiChip-label').should("have.length", 2);
+    cy.get('div[name="languages"]').contains("Spanish");
+    cy.get('div[name="languages"]').contains("French");
+    cy.get('div[name="services"]').find('.MuiChip-label').should("have.length", 1);
+    cy.get('div[name="services"]').contains("Job Placement Assistance");
+    cy.get('input[name="cipCode"]').should("have.value", "12.0503");
+    cy.get('input[name="socCode"]').should("have.value", "22222");
+  });
+  
+  it("should clear filters when clear button is clicked", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+    cy.visit("/training/search?q=baking&inDemand=true&maxCost=20000&county=Bergen&format=online&miles=10&zipcode=07625&completeIn=days,weeks&languages=es,fr&services=placement&cip=12.0503&soc=22222")
+
+    cy.get("button").contains("Filters").click();
+    cy.get("button").contains("Clear").click();
+    cy.get('input[name="inDemand"]').should("have.value", "false");
+    cy.get('input[name="maxCost"]').should("have.value", "");
+    cy.get('input[name="county"]').should("have.value", "");
+    cy.get('input[name="classFormat"]input[type="checkbox"]input[value="online"]').should("not.be.checked");
+    cy.get('input[name="classFormat"]input[type="checkbox"]input[value="inperson"]').should("not.be.checked");
+    cy.get('input[name="miles"]').should("have.value", "");
+    cy.get('input[name="zipcode"]').should("have.value", "");
+    cy.get('div[name="completeIn"]').find('.MuiChip-label').should("have.length", 0);
+    cy.get('div[name="languages"]').find('.MuiChip-label').should("have.length", 0);
+    cy.get('div[name="services"]').find('.MuiChip-label').should("have.length", 0);
+    cy.get('input[name="cipCode"]').should("have.value", "");
+    cy.get('input[name="socCode"]').should("have.value", "");
+    cy.get("#filter-form-container").should("exist");
+  });
+
+  it.skip("should apply filters and close drawer when apply button is clicked", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+    cy.visit("/training/search?q=baking");
+    cy.get("#filter-form-container").should("not.exist");
+    cy.get("button").contains("Filters").click();
+  });
+})
+
+describe("Search", () => {
+  it("should show search results from training explorer page", () => {
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
+
+    // on homepage
+    cy.visit("/training");
+    cy.injectAxe();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
+    cy.checkA11y();
+
+    // input search
+    cy.get('input[aria-label="search"]').type("baking");
+    cy.wait(1000);
+    cy.get("a#search-button").contains("Search").click({ force: true });
+
+    // matches by title
+    cy.contains("Bakery and Pastry").should(
+      "exist",
+    );
+    cy.contains(
+      "...career preparation program offers hands-on courses in the fundamentals of baking and pastry. It will also prepare you for the National Restaurant...",
+    ).should("exist");
+  })
+
+  it.skip("searches from the training explorer page", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
 
     // on homepage
@@ -33,7 +121,7 @@ describe.skip("Search", () => {
     ).should("exist");
   });
 
-  it("searches from the training explorer page with ampersands", () => {
+  it.skip("searches from the training explorer page with ampersands", () => {
     cy.visit("/training");
 
     // Use the custom command to type the search term into the input field.
@@ -50,7 +138,7 @@ describe.skip("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "Python & Java");
   });
 
-  it("searches from the search results page", () => {
+  it.skip("searches from the search results page", () => {
     cy.intercept("/api/trainings/search?query=welding%20technology&page=1&limit=10&sort=best_match", {
       fixture: "welding-technology-search-results.json",
     })
@@ -93,7 +181,7 @@ describe.skip("Search", () => {
     // cy.checkA11y();
   });
 
-  it("shows getting started messaging when no search", () => {
+  it.skip("shows getting started messaging when no search", () => {
     // on results page
     cy.visit("/training/search");
     cy.injectAxe();
@@ -102,13 +190,13 @@ describe.skip("Search", () => {
     cy.contains("What Can I Search for?").should("exist");
   });
 
-  it("links back to home page", () => {
+  it.skip("links back to home page", () => {
     cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
     cy.location("pathname").should("eq", "/training");
   });
 
-  it("links to a training detail page", () => {
+  it.skip("links to a training detail page", () => {
     cy.intercept("/api/trainings/search?query=digital%20marketing&page=1&limit=10&sort=best_match", { fixture: "digital-marketing-search-results.json" });
 
     cy.visit("/training/search?q=digital%20marketing");
@@ -123,7 +211,7 @@ describe.skip("Search", () => {
     cy.contains("Certified Digital Marketing Fundamental").should("exist");
   });
 
-  it("tags trainings on in-demand", () => {
+  it.skip("tags trainings on in-demand", () => {
     cy.intercept("api/trainings/search?query=social%20work", { fixture: "social-work-search-results.json" });
 
     cy.visit("/training/search?q=social%20work");
@@ -144,7 +232,7 @@ describe.skip("Search", () => {
     cy.contains("In-Demand").should("exist");
   });
 
-  it("tags shows search training tips", () => {
+  it.skip("tags shows search training tips", () => {
     cy.visit("/training/search?q=braider");
 
     // search tips
@@ -154,7 +242,7 @@ describe.skip("Search", () => {
     );
   });
 
-  it("shows comparison items when checked", () => {
+  it.skip("shows comparison items when checked", () => {
     cy.intercept("/api/trainings/search?query=painting&page=1&limit=10&sort=best_match", { fixture: "painting-search-results.json" });
 
     cy.visit("/training/search?q=painting");

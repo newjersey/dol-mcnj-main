@@ -78,8 +78,7 @@ export const Pagination = ({
   }, [currentPage, totalPages]);
 
   return (
-    <nav
-      role="navigation"
+    <div
       aria-label="Pagination"
       className={`usa-pagination${isLoading ? " disabled" : ""}${breakCount === 1 ? " single-break" : breakCount === 2 ? " multi-break" : " no-break"}`}
     >
@@ -124,6 +123,6 @@ export const Pagination = ({
           return newUrl.toString();
         }}
       />
-    </nav>
+    </div>
   );
 };

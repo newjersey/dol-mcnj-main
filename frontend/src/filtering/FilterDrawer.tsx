@@ -74,13 +74,39 @@ export const FilterDrawer = ({
     }
   })
 
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const onSubmit = (data: Props) => {
-    const { searchQuery } = data;
+    console.log(data);
+    
+    const {
+      searchQuery,
+      inDemand,
+      maxCost,
+      county,
+      classFormat,
+      miles,
+      zipcode,
+      completeIn,
+      languages,
+      services,
+      cipCode,
+      socCode
+     } = data;
 
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery ? urlParams.set("q", searchQuery) : urlParams.delete("q");
+    inDemand ? urlParams.set("inDemand", inDemand.toString()) : urlParams.delete("inDemand");
+    maxCost ? urlParams.set("maxCost", maxCost) : urlParams.delete("maxCost");
+    county ? urlParams.set("county", county) : urlParams.delete("county");
+    classFormat && classFormat.length > 0 ? urlParams.set("format", classFormat.join(",")) : urlParams.delete("format");
+    miles ? urlParams.set("miles", miles) : urlParams.delete("miles");
+    zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
+    completeIn && completeIn.length > 0 ? urlParams.set("completeIn", completeIn.join(",")) : urlParams.delete("completeIn");
+    languages && languages.length > 0 ? urlParams.set("languages", languages.join(",")) : urlParams.delete("languages");
+    services && services.length > 0 ? urlParams.set("services", services.join(",")) : urlParams.delete("services");
+    cipCode ? urlParams.set("cip", cipCode) : urlParams.delete("cip");
+    socCode ? urlParams.set("soc", socCode) : urlParams.delete("soc");
 
     const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
     navigate(newUrl);
@@ -90,9 +116,18 @@ export const FilterDrawer = ({
   }
 
   const onReset = () => {
+    setValue("inDemand", false);
+    setValue("maxCost", "");
+    setValue("county", "");
+    setValue("classFormat", []);
+    setValue("miles", "");
+    setValue("zipcode", "");
+    setValue("completeIn", []);
+    setValue("languages", []);
+    setValue("services", []);
+    setValue("cipCode", "");
+    setValue("socCode", "");
     setClearSelected(true);
-    reset();
-
     setTimeout(() => {
       setClearSelected(false);
     }, 50);
@@ -106,14 +141,14 @@ export const FilterDrawer = ({
         open={open}
         onClose={toggleDrawer}
       >
-        <div id="drawer-container">
+        <div id="drawer-container" role="form">
           <div id="drawer-header">
             <h2>Add Filters</h2>
             <button
               className="close-button"
               onClick={toggleDrawer}
             >
-              <X />
+              <X aria-label="close form" />
             </button>
           </div>
           <div id="filter-form-container">
@@ -124,6 +159,7 @@ export const FilterDrawer = ({
                   inputName="searchQuery"
                   hasIcon={true}
                   icon={<MagnifyingGlass />}
+                  placeholder={t("SearchResultsPage.searchQueryPlaceholder")}
                 />
                 <FilterFormSwitch
                   clearSelected={clearSelected}
@@ -136,8 +172,10 @@ export const FilterDrawer = ({
                   inputName="maxCost"
                   hasIcon={true}
                   icon={<CurrencyDollar />}
+                  placeholder={t("SearchResultsPage.maxCostPlaceholder")}
                 />
                 <FilterFormSingleDD
+                  clearSelected={clearSelected}
                   inputName="county"
                   inputLabel={t("SearchResultsPage.countyLabel")}
                   options={COUNTIES}

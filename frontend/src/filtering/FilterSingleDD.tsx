@@ -6,11 +6,13 @@ import { TextField } from "@material-ui/core";
 interface Props {
   inputName: string;
   options: string[]; // Add the 'options' property to the 'Props' interface
+  clearSelected?: boolean;
   inputLabel?: string;
   placeholder?: string
 }
 
 export const FilterFormSingleDD = ({
+  clearSelected,
   inputLabel,
   inputName,
   options,
@@ -27,6 +29,12 @@ export const FilterFormSingleDD = ({
       setSelected(capitalizedValue);
     }
   }, [getValues, inputName]);
+
+  useEffect(() => {
+    if (clearSelected) {
+      setSelected(null);
+    }
+  }, [clearSelected]);
 
   return (
     <div className="field-group">
