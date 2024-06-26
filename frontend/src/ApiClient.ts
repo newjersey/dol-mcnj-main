@@ -21,8 +21,12 @@ export class ApiClient implements Client {
     limit?: number | undefined,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
   ): void {
+    const url = `/api/trainings/search?query=${query}&page=${page || 1}&limit=${limit || 10}&sort=${sort || 'best_match'}`;
+
+    console.log(url);
+
     this.get(
-      `/api/trainings/search?query=${query}&page=${page}&limit=${limit}&sort=${sort}`,
+      url,
       observer,
     );
   }

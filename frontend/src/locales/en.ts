@@ -278,6 +278,8 @@ export const en = {
     cipCodeSubLabel: "CIP codes are 6 digits.",
     socCodeLabel: "Filter by SOC Code",
     socCodeSubLabel: "SOC codes are 6 digits.",
+    searchQueryPlaceholder: "Search for training courses",
+    maxCostPlaceholder: "12345",
   },
   StatBlock: {
     dataSourceLabel: "Data source: ",

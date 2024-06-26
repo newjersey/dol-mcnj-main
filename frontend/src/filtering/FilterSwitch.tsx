@@ -4,11 +4,13 @@ import { Controller, useFormContext } from 'react-hook-form';
 interface Props {
   inputLabel: string;
   inputName: string;
+  ariaLabel?: string;
   clearSelected?: boolean;
   inputChecked?: boolean;
 }
 
 export const FilterFormSwitch = ({
+  ariaLabel,
   clearSelected = false,
   inputLabel,
   inputName,
@@ -43,6 +45,7 @@ export const FilterFormSwitch = ({
               <input
                 {...props}
                 type="checkbox"
+                aria-label={ariaLabel || inputLabel}
                 checked={checked}
                 onChange={e => {
                   handleChange(e);
