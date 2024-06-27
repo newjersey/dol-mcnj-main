@@ -20,7 +20,7 @@ import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
-import { rateLimiter } from "./utils/rateLimiter";
+// import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
 // console.log(process.env);
