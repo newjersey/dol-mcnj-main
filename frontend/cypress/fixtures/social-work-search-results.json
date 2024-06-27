@@ -1,6 +1,6 @@
 [
   {
-      "id": "ce-ed30d519-1b57-4e24-901e-ffb44420854a",
+      "ctid": "ce-ed30d519-1b57-4e24-901e-ffb44420854a",
       "name": "Masters in Social Work",
       "cipDefinition": {
           "cipcode": "440701",
@@ -33,7 +33,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-18908a13-d37c-492a-b387-965f2131fcbd",
+      "ctid": "ce-18908a13-d37c-492a-b387-965f2131fcbd",
       "name": "Social Work",
       "cipDefinition": {
           "cipcode": "511503",
@@ -68,7 +68,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-2fd76fe6-f283-49db-aae1-f053f2505d4e",
+      "ctid": "ce-2fd76fe6-f283-49db-aae1-f053f2505d4e",
       "name": "Certificate in Social Media",
       "cipDefinition": {
           "cipcode": "520208",
@@ -101,7 +101,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-95292e2d-4be2-4c4d-9a7a-d6588b42ee70",
+      "ctid": "ce-95292e2d-4be2-4c4d-9a7a-d6588b42ee70",
       "name": "Work Retention and Readiness",
       "totalCost": null,
       "percentEmployed": null,
@@ -130,7 +130,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-45b06e3e-8e3c-4ef6-bba3-85bd242c86ba",
+      "ctid": "ce-45b06e3e-8e3c-4ef6-bba3-85bd242c86ba",
       "name": "Social/Comunity Services",
       "cipDefinition": {
           "cipcode": "459999",
@@ -163,7 +163,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-dcadf750-e15d-4bf4-b072-3a8f12836383",
+      "ctid": "ce-dcadf750-e15d-4bf4-b072-3a8f12836383",
       "name": "Chemical Dependency Certificate",
       "totalCost": 10640,
       "percentEmployed": null,
@@ -192,7 +192,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-2efaf54e-af78-4977-8dfb-45bd16b66e39",
+      "ctid": "ce-2efaf54e-af78-4977-8dfb-45bd16b66e39",
       "name": "Social Media and Marketing Online with Non-Profit management in-Person",
       "cipDefinition": {
           "cipcode": "521401",
@@ -225,7 +225,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-f8128255-6eb2-4865-8c60-5493014147db",
+      "ctid": "ce-f8128255-6eb2-4865-8c60-5493014147db",
       "name": "Social Media and Marketing with Non-Profit Management - All Online",
       "cipDefinition": {
           "cipcode": "521401",
@@ -258,7 +258,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-79974888-f040-467c-8e02-9cd019b43d9b",
+      "ctid": "ce-79974888-f040-467c-8e02-9cd019b43d9b",
       "name": "Community Based Work Evaluation (CBWE)",
       "totalCost": null,
       "percentEmployed": null,
@@ -279,7 +279,7 @@
       "totalClockHours": null
   },
   {
-      "id": "ce-b7332a50-13c8-48be-b8d4-ce9b70463e88",
+      "ctid": "ce-b7332a50-13c8-48be-b8d4-ce9b70463e88",
       "name": "Social Media and Marketing (on-line)",
       "cipDefinition": {
           "cipcode": "521401",

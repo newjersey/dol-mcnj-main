@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-f2561d2e-95e5-4456-83d6-720bdb18d67c",
+          "ctid": "ce-f2561d2e-95e5-4456-83d6-720bdb18d67c",
           "name": "Painting Level 1",
           "totalCost": 5000,
           "percentEmployed": null,
@@ -30,7 +30,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-ff8c79b2-0a8a-4685-a41c-e0042cf8574f",
+          "ctid": "ce-ff8c79b2-0a8a-4685-a41c-e0042cf8574f",
           "name": "Painting Level II",
           "totalCost": 5000,
           "percentEmployed": null,
@@ -59,7 +59,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-f940203f-1ba9-40d0-835f-d50f2c08b7e5",
+          "ctid": "ce-f940203f-1ba9-40d0-835f-d50f2c08b7e5",
           "name": "Construction Level 1 & Level 2 Painting OSHA 30",
           "totalCost": 4000,
           "percentEmployed": null,
@@ -88,7 +88,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-9854b9b6-ee4c-4933-88ad-a478bba1394e",
+          "ctid": "ce-9854b9b6-ee4c-4933-88ad-a478bba1394e",
           "name": "Finished Carpentry",
           "cipDefinition": {
               "cipcode": "460201",
@@ -125,7 +125,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-c7b3a2fb-516c-4e7e-afdc-e99ff4000693",
+          "ctid": "ce-c7b3a2fb-516c-4e7e-afdc-e99ff4000693",
           "name": "Collision Repair (Auto Body)",
           "cipDefinition": {
               "cipcode": "470603",
@@ -158,7 +158,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-e8e86813-6d55-458f-9214-4b5ee073bafd",
+          "ctid": "ce-e8e86813-6d55-458f-9214-4b5ee073bafd",
           "name": "ESL & Construction Specialist",
           "cipDefinition": {
               "cipcode": "131401",
@@ -191,7 +191,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-fd1b98c3-b408-465b-b6fe-80ac543c5c98",
+          "ctid": "ce-fd1b98c3-b408-465b-b6fe-80ac543c5c98",
           "name": "Collision Repair and Refinishing Technology",
           "totalCost": 26048,
           "percentEmployed": null,
@@ -220,7 +220,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-042c171a-7b21-4c6d-81f4-e879b7da1564",
+          "ctid": "ce-042c171a-7b21-4c6d-81f4-e879b7da1564",
           "name": "Studio Art AFA",
           "cipDefinition": {
               "cipcode": "500702",
@@ -253,7 +253,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-e79269cf-dd80-4b62-b084-cef6bb165ee0",
+          "ctid": "ce-e79269cf-dd80-4b62-b084-cef6bb165ee0",
           "name": "Plumber's Assistant and Building Maintenance",
           "cipDefinition": {
               "cipcode": "460503",
@@ -286,7 +286,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-f8aa44f3-52f2-4d23-a184-1a07ed604ed7",
+          "ctid": "ce-f8aa44f3-52f2-4d23-a184-1a07ed604ed7",
           "name": "Carpentry & Property Management",
           "cipDefinition": {
               "cipcode": "460201",

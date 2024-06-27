@@ -7,6 +7,7 @@ import {
   EducationText,
   SalaryEstimate,
   NullableOccupation,
+  OutcomeDefinition,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
@@ -107,6 +108,18 @@ export class PostgresDataClient implements DataClient {
         return Promise.reject();
       });
   };
+
+  findOutcomeDefinition = (providerid: string, cip: string): Promise<OutcomeDefinition> => {
+    return this.kdb("outcomes_cip")
+      .select("peremployed2", "avgquarterlywage2")
+      .where("cipcode", cip)
+      .where("providerid", providerid)
+      .first()
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  }
 
   find2018OccupationsBySoc2010 = (soc2010: string): Promise<Occupation[]> => {
     return this.kdb("soc2010to2018crosswalk")

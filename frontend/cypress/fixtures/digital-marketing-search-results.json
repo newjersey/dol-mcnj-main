@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-2f0ce66e-34ba-4bae-a083-655936846966",
+          "ctid": "ce-2f0ce66e-34ba-4bae-a083-655936846966",
           "name": "Rutgers Virtual Live Mini-MBA: Digital Marketing (5)",
           "cipDefinition": {
               "cipcode": "520201",
@@ -34,7 +34,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-e058511a-23e1-447f-a3b0-d6fa13c4abf5",
+          "ctid": "ce-e058511a-23e1-447f-a3b0-d6fa13c4abf5",
           "name": "Rutgers Virtual Live Mini-MBA: Digital Marketing (5)",
           "cipDefinition": {
               "cipcode": "520201",
@@ -67,7 +67,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-81314750-df6d-4c11-8f9e-e3f6e3f3637a",
+          "ctid": "ce-81314750-df6d-4c11-8f9e-e3f6e3f3637a",
           "name": "Rutgers Virtual Live Mini MBA: Digital Marketing (35)",
           "cipDefinition": {
               "cipcode": "520201",
@@ -100,7 +100,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-dd7fca49-aac4-49f5-9bf3-00391e826c44",
+          "ctid": "ce-dd7fca49-aac4-49f5-9bf3-00391e826c44",
           "name": "Rutgers Virtual Live Mini MBA: Digital Marketing (35)",
           "cipDefinition": {
               "cipcode": "520201",
@@ -133,7 +133,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-2bcfd3f3-17c4-4001-9215-7770d5f193e7",
+          "ctid": "ce-2bcfd3f3-17c4-4001-9215-7770d5f193e7",
           "name": "Certified Digital Marketing Fundamental (exam included) online",
           "cipDefinition": {
               "cipcode": "521401",
@@ -166,7 +166,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-53b16667-2cfe-456c-b204-76c15b2e57f0",
+          "ctid": "ce-53b16667-2cfe-456c-b204-76c15b2e57f0",
           "name": "Certified Digital Marketing Fundamental (exam included) online",
           "cipDefinition": {
               "cipcode": "521401",
@@ -199,7 +199,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-aa510da9-1729-494b-903b-b863b58f5306",
+          "ctid": "ce-aa510da9-1729-494b-903b-b863b58f5306",
           "name": "Certified Digital Marketing Fundamental (exam included) online",
           "cipDefinition": {
               "cipcode": "521401",
@@ -232,7 +232,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-ac0a0297-6ff1-44d3-a492-1f7d6ca4d20e",
+          "ctid": "ce-ac0a0297-6ff1-44d3-a492-1f7d6ca4d20e",
           "name": "Certified Digital Marketing Professional (Voucher Included)",
           "cipDefinition": {
               "cipcode": "521401",
@@ -265,7 +265,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-c3044275-8cc8-490c-83a8-83385b4bbb97",
+          "ctid": "ce-c3044275-8cc8-490c-83a8-83385b4bbb97",
           "name": "Digital Marketing Strategist",
           "cipDefinition": {
               "cipcode": "521401",
@@ -298,7 +298,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-4b1897b6-40b0-4cea-8e84-01205c2cfddb",
+          "ctid": "ce-4b1897b6-40b0-4cea-8e84-01205c2cfddb",
           "name": "Rutgers Mini MBA: Digital Marketing",
           "cipDefinition": {
               "cipcode": "520201",

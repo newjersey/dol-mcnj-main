@@ -29,10 +29,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
 
+        const outcomesDefinition = await dataClient.findOutcomeDefinition(cipCode, provider.providerId);
+
         const certifications = await credentialEngineUtils.constructCertificationsString(certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[]);
 
         const training = {
-          id: certificate["ceterms:ctid"],
+          ctid: certificate["ceterms:ctid"],
           name: certificate["ceterms:name"] ? certificate["ceterms:name"]["en-US"] : "",
           cipDefinition: cipDefinition ? cipDefinition[0] : null,
           provider,
@@ -52,8 +54,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           otherCost: await credentialEngineUtils.extractCost(certificate, "costType:ProgramSpecificFee"),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
           online: availableOnlineAt != null,
-          percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
-          averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
+          // percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
+          percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
+          // averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
+          averageSalary: outcomesDefinition ? formatAverageSalary(outcomesDefinition.avgquarterlywage2) : null,
           hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
           languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
           isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
@@ -65,4 +69,23 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
       })
     );
   };
+};
+
+const NAN_INDICATOR = "-99999";
+
+const formatPercentEmployed = (perEmployed: string | null): number | null => {
+  if (perEmployed === null || perEmployed === NAN_INDICATOR) {
+    return null;
+  }
+
+  return parseFloat(perEmployed);
+};
+
+const formatAverageSalary = (averageQuarterlyWage: string | null): number | null => {
+  if (averageQuarterlyWage === null || averageQuarterlyWage === NAN_INDICATOR) {
+    return null;
+  }
+
+  const QUARTERS_IN_A_YEAR = 4;
+  return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };

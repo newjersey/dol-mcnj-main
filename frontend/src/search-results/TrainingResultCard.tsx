@@ -72,11 +72,11 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   const ComparisonCheckbox = (): ReactElement => {
     const isChecked =
       state.comparison &&
-      state.comparison.filter((el) => el.id === props.trainingResult.id).length > 0;
+      state.comparison.filter((el) => el.ctid === props.trainingResult.ctid).length > 0;
 
     return (
       <label className="bold mla" htmlFor="comparison">
-        <FormGroup id={`comparison-${props.trainingResult.id}`}>
+        <FormGroup id={`comparison-${props.trainingResult.ctid}`}>
           <FormControlLabel
             control={
               <SpacedCheckbox
@@ -101,7 +101,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       <div className="row mbd">
         <div className="col-xs-8">
           <h2 className="blue text-m weight-500">
-            <Link className="link-format-blue" to={`/training/${props.trainingResult.id}`}>
+            <Link className="link-format-blue" to={`/training/${props.trainingResult.ctid}`}>
               {props.trainingResult.name}
             </Link>
           </h2>
