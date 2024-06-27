@@ -371,7 +371,7 @@ export const OccupationPage = (props: Props): ReactElement => {
           </p>
           <a
             style={{ color: "#005EA2", marginTop: "22px", display: "inline-block" }}
-            href="https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/formrestricted/"
+            href="/contact"
             target="_blank"
             rel="noopener noreferrer"
           >

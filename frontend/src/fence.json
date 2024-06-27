@@ -3,6 +3,7 @@
   "dependencies": [
     "@contentful/rich-text-react-renderer",
     "@contentful/rich-text-types",
+    "@hookform/resolvers/yup",
     "@material-ui/core",
     "@material-ui/core/styles",
     "@material-ui/lab",
@@ -24,11 +25,14 @@
     "react-dom",
     "react-dom/test-utils",
     "react-ga",
+    "react-helmet",
+    "react-hook-form",
     "react-helmet-async",
     "react-i18next",
     "react-paginate",
     "react-to-print",
     "react-tooltip",
-    "react"
+    "react",
+    "yup"
   ]
 }
