@@ -59,6 +59,11 @@ export interface CipDefinition {
   ciptitle: string;
 }
 
+export interface OutcomeDefinition {
+  peremployed2: string | null;
+  avgquarterlywage2: string | null;
+}
+
 export interface NullableOccupation {
   soc: string;
   title: string | null;

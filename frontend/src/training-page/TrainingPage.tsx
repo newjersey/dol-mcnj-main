@@ -15,8 +15,8 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
+import { Button as ModuleButton } from "../components/modules/Button";
 import { CipDrawerContent } from "../components/CipDrawerContent";
-import { Button } from "../components/modules/Button";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -36,6 +36,8 @@ import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
 import {Helmet} from "react-helmet-async";
+import { Button } from "../components/Button";
+import { Flag } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -84,7 +86,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const printHandler = (): void => {
     printReactContent();
-    logEvent("Training page", "Clicked print link", training?.id);
+    logEvent("Training page", "Clicked print link", training?.ctid);
   };
 
   const copyHandler = (): void => {
@@ -106,7 +108,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       setCopy(null);
     }, 5000);
 
-    logEvent("Training page", "Clicked copy link", training?.id);
+    logEvent("Training page", "Clicked copy link", training?.ctid);
   };
 
   const getHttpUrl = (url: string): string => {
@@ -128,7 +130,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         rel="noopener noreferrer"
         className="break-text link-format-blue"
         href={getHttpUrl(training.provider.url)}
-        onClick={() => logEvent("Training page", "Clicked provider link", training?.id)}
+        onClick={() => logEvent("Training page", "Clicked provider link", training?.ctid)}
       >
         {training.provider.url}
       </a>
@@ -329,7 +331,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       "identifier": {
         "@type": "PropertyValue",
         "name": "Program ID",
-        "value": training.id,
+        "value": training.ctid,
       },
       "hasCourseInstance": courseInstance,
       "offers": offer,
@@ -377,7 +379,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <Helmet>
             <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
           </Helmet>
-          <div className="container">
+          <div className="container plus">
             <div className="detail-page">
               <div className="page-banner">
                 <div className="top-nav">
@@ -643,18 +645,18 @@ export const TrainingPage = (props: Props): ReactElement => {
                         </div>
                         <div id="contact-provider-info">
                           {training?.provider?.url ? (
-                            <div className="provider-btn-container">
-                              <Button
-                                copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
-                                type="link"
-                                url={
-                                  training.provider.url.startsWith("http")
-                                    ? training.provider.url
-                                    : `https://${training.provider.url}`
-                                }
-                              />
-                              <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
-                            </div>
+                              <div className="provider-btn-container">
+                                <ModuleButton
+                                    copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
+                                    type="link"
+                                    url={
+                                      training.provider.url.startsWith("http")
+                                          ? training.provider.url
+                                          : `https://${training.provider.url}`
+                                    }
+                                />
+                                <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
+                              </div>
                           ) : (
                             <div className="provider-no-url">
                               <div className="icon-container">
@@ -668,7 +670,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </Grouping>
                     <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
-                      {training.provider && training.provider.id ? (
+                      {training.provider && training.provider.ctid ? (
                         <>
                           <p>
                             <span className="fin fas">
@@ -742,7 +744,19 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
                     </>
                   </Grouping>
-                  <div className="mobile-only">{fundingContent}</div>
+                  <Button
+                          variant="custom"
+                          className="usa-button margin-right-0 custom-button report"
+                          onClick={() => {
+                              const pageSlug = `/training/${training.ctid}`;
+                              const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
+                              window.open(url, '_blank');
+                          }}
+                      >
+                          <Flag size={32} />
+                          <span>See something wrong? Report an Issue.</span>
+                      </Button>
+                    <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>

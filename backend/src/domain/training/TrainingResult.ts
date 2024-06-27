@@ -2,7 +2,7 @@ import { CalendarLength } from "../CalendarLength";
 import { CipDefinition } from "./Program";
 
 export interface TrainingResult {
-  id?: string;
+  ctid?: string;
   name?: string;
   cipDefinition?: CipDefinition | null;
   totalCost?: number | null;

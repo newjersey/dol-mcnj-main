@@ -7,8 +7,6 @@ import {
 } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { checkValidEmail } from "../utils/checkValidEmail";
-import { LinkObject } from "./modules/LinkObject";
-
 interface UpdateNotifierProps {
   className?: string;
   isDrawer?: boolean;
@@ -155,10 +153,7 @@ const Content = ({
                   <Warning size={48} color="#d54309" />
                   <p className="status-message">
                     There was an error with your submission and our team has been alerted. Please try
-                    again and if the issue persists you can{" "}
-                    <LinkObject url="https://docs.google.com/forms/d/e/1FAIpQLScAP50OMhuAgb9Q44TMefw7y5p4dGoE_czQuwGq2Z9mKmVvVQ/viewform">
-                      contact us.
-                    </LinkObject>
+                    again and if the issue persists you can <a href="/contact">contact us</a>.
                   </p>
                   <button
                       name="reset-form"
