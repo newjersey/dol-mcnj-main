@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-6a64dcfa-5194-44e3-9a0b-7a3f58c3f74e",
+          "ctid": "ce-6a64dcfa-5194-44e3-9a0b-7a3f58c3f74e",
           "name": "Welding Technology",
           "totalCost": 28360,
           "percentEmployed": null,
@@ -30,7 +30,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-a4ea47a7-c48f-4873-b48b-5809bc40b411",
+          "ctid": "ce-a4ea47a7-c48f-4873-b48b-5809bc40b411",
           "name": "Welding Technology",
           "cipDefinition": {
               "cipcode": "480508",
@@ -63,7 +63,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-1144d156-7563-4258-b7ff-e3fb5b2146ed",
+          "ctid": "ce-1144d156-7563-4258-b7ff-e3fb5b2146ed",
           "name": "Welding and Metal Fabrication Technology",
           "cipDefinition": {
               "cipcode": "480508",
@@ -96,7 +96,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-e620e2cb-9944-4369-8ac4-10187645b85d",
+          "ctid": "ce-e620e2cb-9944-4369-8ac4-10187645b85d",
           "name": "Welding Technology - Hybrid",
           "cipDefinition": {
               "cipcode": "480508",
@@ -129,7 +129,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-93be4969-7529-4041-a6c4-579714c7c046",
+          "ctid": "ce-93be4969-7529-4041-a6c4-579714c7c046",
           "name": "Welding Technology",
           "cipDefinition": {
               "cipcode": "480508",
@@ -162,7 +162,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-fa26f76c-c5ab-44e9-ba78-53f420d88540",
+          "ctid": "ce-fa26f76c-c5ab-44e9-ba78-53f420d88540",
           "name": "Welding and Metal Fabrication Technology",
           "cipDefinition": {
               "cipcode": "480508",
@@ -195,7 +195,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-2f415a9b-0578-4cde-9278-1a70131b552f",
+          "ctid": "ce-2f415a9b-0578-4cde-9278-1a70131b552f",
           "name": "Welding I & II",
           "cipDefinition": {
               "cipcode": "480508",
@@ -228,7 +228,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-0a1b6867-a2c2-493d-a6b3-f8991fd0a2be",
+          "ctid": "ce-0a1b6867-a2c2-493d-a6b3-f8991fd0a2be",
           "name": "Welding Technology",
           "cipDefinition": {
               "cipcode": "480508",
@@ -261,7 +261,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-b7ac89d7-c931-424a-bdfe-9e4ff07dcd8c",
+          "ctid": "ce-b7ac89d7-c931-424a-bdfe-9e4ff07dcd8c",
           "name": "Welding Techology Certificate of Achievement",
           "cipDefinition": {
               "cipcode": "480508",
@@ -294,7 +294,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-53cb05fa-1e61-4d44-80e2-4a94a89e3f0e",
+          "ctid": "ce-53cb05fa-1e61-4d44-80e2-4a94a89e3f0e",
           "name": "Welding",
           "cipDefinition": {
               "cipcode": "480508",

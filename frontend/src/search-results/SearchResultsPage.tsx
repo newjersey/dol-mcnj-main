@@ -361,7 +361,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                 {!isLoading &&
                   filteredTrainings.map((training) => (
                     <TrainingResultCard
-                      key={training.id}
+                      key={training.ctid}
                       trainingResult={training}
                       comparisonItems={comparisonState.comparison}
                     />

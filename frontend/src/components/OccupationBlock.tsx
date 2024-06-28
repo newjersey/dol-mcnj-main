@@ -313,9 +313,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         <ul className="unstyled">
                           {sortedTraining && sortedTraining.length > 0 ? (
                             sortedTraining.slice(0, 3).map((train) => (
-                              <li key={train.id}>
+                              <li key={train.ctid}>
                                 <a
-                                  href={`/training/${train.id}`}
+                                  href={`/training/${train.ctid}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >

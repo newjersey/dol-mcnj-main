@@ -25,6 +25,27 @@
   gap: $size-8;
   padding: $size-16 $size-24;
 
+  &.custom-button {
+    &.report {
+      background-color: $accent-warm-lighter;
+      color: $black;
+      width: 100%;
+      padding: $size-16;
+      margin-top: $size-24;
+
+      &:hover {
+        @media screen and (min-width: ($tablet)) {
+          background-color: $accent-warm;
+        }
+      }
+
+      span {
+        text-align: left;
+        width: 100%;
+      }
+    }
+  }
+
   &.usa-button--outline {
     box-shadow: none;
 

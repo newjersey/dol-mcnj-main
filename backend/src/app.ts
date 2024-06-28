@@ -8,6 +8,7 @@ import AWS from 'aws-sdk';
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
 import contentfulRouter from './contentful/index';
+import contactRouter from './routes/contactRoutes'
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
@@ -20,6 +21,7 @@ import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { credentialEngineFactory } from "./domain/credentialengine/CredentialEngineFactory";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
 import { allTrainings } from "./domain/search/allTrainings";
+// import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
 // console.log(process.env);
@@ -58,6 +60,10 @@ const corsOptions = {
 
 };
 
+
+// const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
+// const contactLimiter = rateLimiter(3600, 20) // max 20 emails in 1 hour per ip
+// app.set('trust proxy', 1)
 app.use(cors(corsOptions));
 
 // RequestHandler and TracingHandler configuration...
@@ -204,8 +210,8 @@ const router = routerFactory({
 
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use(express.json());
-
 app.use("/api", router);
+app.use('/api/contact', contactRouter)
 app.use('/api/emails', emailSubmissionRouter);
 app.use('/api/contentful', contentfulRouter);
 

@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-0b613057-0b82-4abc-9140-797aa3e3a386",
+          "ctid": "ce-0b613057-0b82-4abc-9140-797aa3e3a386",
           "name": "Bakery and Pastry",
           "cipDefinition": {
               "cipcode": "120501",
@@ -34,7 +34,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-787f9188-6491-424e-8612-e46b95905996",
+          "ctid": "ce-787f9188-6491-424e-8612-e46b95905996",
           "name": "Culinary Arts / Baking & Pastry",
           "cipDefinition": {
               "cipcode": "120503",
@@ -67,7 +67,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-4cbd8435-236b-4ec7-b127-2a6bf7a7009b",
+          "ctid": "ce-4cbd8435-236b-4ec7-b127-2a6bf7a7009b",
           "name": "Certificate in Baking",
           "cipDefinition": {
               "cipcode": "120501",
@@ -100,7 +100,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-035bc6ea-1946-444a-94bf-38a13693ea99",
+          "ctid": "ce-035bc6ea-1946-444a-94bf-38a13693ea99",
           "name": "Baking and Pastry Arts-Day",
           "cipDefinition": {
               "cipcode": "120501",
@@ -133,7 +133,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-cef604ff-a8d9-4cfc-aeba-fa1a52c83c37",
+          "ctid": "ce-cef604ff-a8d9-4cfc-aeba-fa1a52c83c37",
           "name": "Baking and Pastry Arts-Night",
           "cipDefinition": {
               "cipcode": "120501",
@@ -166,7 +166,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-ffd7a186-f2ca-45f2-a556-472b77e913c9",
+          "ctid": "ce-ffd7a186-f2ca-45f2-a556-472b77e913c9",
           "name": "Baking and Pastry Arts",
           "cipDefinition": {
               "cipcode": "120501",
@@ -199,7 +199,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-fbf8b5dc-676d-4c0f-ba35-547e75bcfafa",
+          "ctid": "ce-fbf8b5dc-676d-4c0f-ba35-547e75bcfafa",
           "name": "Baking & Pastry Arts - Evening",
           "cipDefinition": {
               "cipcode": "120501",
@@ -232,7 +232,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-01d44a12-45b3-4a1e-b1f8-c01aaeffeb9f",
+          "ctid": "ce-01d44a12-45b3-4a1e-b1f8-c01aaeffeb9f",
           "name": "Culinary Opportunity Program for Adults with Developmental Disabilities",
           "cipDefinition": {
               "cipcode": "120599",
@@ -265,7 +265,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-3b853147-fdf9-4810-9252-dd0aa57b8471",
+          "ctid": "ce-3b853147-fdf9-4810-9252-dd0aa57b8471",
           "name": "Baking & Pastry Certificate Culinary Arts",
           "cipDefinition": {
               "cipcode": "120503",
@@ -298,7 +298,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-bc8af74d-6a18-48c5-8323-87565879718e",
+          "ctid": "ce-bc8af74d-6a18-48c5-8323-87565879718e",
           "name": "Baking & Pastry Certificate Culinary Arts",
           "cipDefinition": {
               "cipcode": "120503",

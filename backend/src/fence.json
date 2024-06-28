@@ -14,6 +14,9 @@
     "supertest",
     "node-cache",
     "winston",
-    "zipcodes"
+    "zipcodes",
+    "express-rate-limit",
+    "express-validator",
+    "nodemailer"
   ]
 }

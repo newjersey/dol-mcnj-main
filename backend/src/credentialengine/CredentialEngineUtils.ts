@@ -70,15 +70,23 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
 
 const getProviderData = async (certificate: CTDLResource) => {
   try {
-    const ownedBy = certificate["ceterms:ownedBy"] || [];
-    const ownedByCtid = await getCtidFromURL(ownedBy[0]);
+    const ownedBy = certificate["ceterms:ownedBy"]?.[0];
+    if (!ownedBy) throw new Error("OwnedBy field is missing");
+
+    const ownedByCtid = await getCtidFromURL(ownedBy);
     const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
 
+    const providerId = ownedByRecord["ceterms:identifier"]
+      ?.find((identifier: { "ceterms:identifierTypeName": { "en-US": string }; "ceterms:identifierValueCode": string }) =>
+        identifier["ceterms:identifierTypeName"]["en-US"] === "NJDOL Provider ID"
+      )?.["ceterms:identifierValueCode"] ?? null;
+
     return {
-      id: ownedByRecord["ceterms:ctid"],
+      ctid: ownedByRecord["ceterms:ctid"],
+      providerId,
       name: ownedByRecord["ceterms:name"]["en-US"],
       url: ownedByRecord["ceterms:subjectWebpage"],
-      email: ownedByRecord["ceterms:email"] ? ownedByRecord["ceterms:email"][0] : null,
+      email: ownedByRecord["ceterms:email"]?.[0] ?? null,
       address: await getAddress(ownedByRecord),
     };
   } catch (error) {

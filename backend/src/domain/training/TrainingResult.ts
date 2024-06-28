@@ -35,7 +35,7 @@ export interface AllTrainingsResult {
 }
 
 export interface TrainingResult {
-  id?: string;
+  ctid?: string;
   name?: string;
   cipDefinition?: CipDefinition | null;
   totalCost?: number | null;

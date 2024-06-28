@@ -1,7 +1,7 @@
 {
   "data": [
       {
-          "id": "ce-2ac7ce23-b16f-41b5-9433-beea5d283d16",
+          "ctid": "ce-2ac7ce23-b16f-41b5-9433-beea5d283d16",
           "name": "Baking for Beginners",
           "cipDefinition": {
               "cipcode": "120501",
@@ -34,7 +34,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-0f68ac61-5246-4a8f-aa78-f0c9e370875e",
+          "ctid": "ce-0f68ac61-5246-4a8f-aa78-f0c9e370875e",
           "name": "Baking and Pastry",
           "cipDefinition": {
               "cipcode": "120501",
@@ -67,7 +67,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-ecee31ea-b549-4ddd-84b6-fc0d1d8a8f23",
+          "ctid": "ce-ecee31ea-b549-4ddd-84b6-fc0d1d8a8f23",
           "name": "Baking and Pastry Certificate",
           "cipDefinition": {
               "cipcode": "120501",
@@ -100,7 +100,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-975b9f29-be87-4479-a907-ff05d61ece04",
+          "ctid": "ce-975b9f29-be87-4479-a907-ff05d61ece04",
           "name": "Culinary Baking Kitchen Manager",
           "cipDefinition": {
               "cipcode": "120503",
@@ -133,7 +133,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-ecbb53e5-89e3-4711-9959-56fa2421b171",
+          "ctid": "ce-ecbb53e5-89e3-4711-9959-56fa2421b171",
           "name": "Certified Fundamentals Cook",
           "cipDefinition": {
               "cipcode": "120500",
@@ -166,7 +166,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-3f89e4f3-3535-4ca0-93d1-f53aff97f0f4",
+          "ctid": "ce-3f89e4f3-3535-4ca0-93d1-f53aff97f0f4",
           "name": "Baking & Pastry Option Culinary Arts",
           "cipDefinition": {
               "cipcode": "120501",
@@ -199,7 +199,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-26b7742a-f688-40be-87a5-fd7502817957",
+          "ctid": "ce-26b7742a-f688-40be-87a5-fd7502817957",
           "name": "The Art of Home Baking",
           "cipDefinition": {
               "cipcode": "120501",
@@ -232,7 +232,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-480e0764-6a5b-4999-9eb9-45e3ed3798fa",
+          "ctid": "ce-480e0764-6a5b-4999-9eb9-45e3ed3798fa",
           "name": "Certificate in Professional Cooking",
           "cipDefinition": {
               "cipcode": "120503",
@@ -265,7 +265,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-848e32d9-1d5c-4539-93fa-0841adc36dbb",
+          "ctid": "ce-848e32d9-1d5c-4539-93fa-0841adc36dbb",
           "name": "Culinary Arts Training  Program",
           "totalCost": 3325,
           "percentEmployed": null,
@@ -294,7 +294,7 @@
           "totalClockHours": null
       },
       {
-          "id": "ce-c5444151-b994-4b97-8b95-c64aab50a599",
+          "ctid": "ce-c5444151-b994-4b97-8b95-c64aab50a599",
           "name": "Baking & Pastry Arts",
           "cipDefinition": {
               "cipcode": "120501",

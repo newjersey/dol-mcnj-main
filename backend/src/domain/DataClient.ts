@@ -4,7 +4,7 @@ import {
   CipDefinition,
   EducationText,
   SalaryEstimate,
-  NullableOccupation,
+  NullableOccupation, OutcomeDefinition,
 } from "./training/Program";
 import { Occupation } from "./occupations/Occupation";
 
@@ -13,6 +13,7 @@ export interface DataClient {
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
   findCipDefinitionBySoc2018: (soc: string) => Promise<CipDefinition[]>;
   findCipDefinitionByCip: (cip: string) => Promise<CipDefinition[]>;
+  findOutcomeDefinition: (cip: string, providerId: string) => Promise<OutcomeDefinition>;
   find2018OccupationsBySoc2010: (soc2010: string) => Promise<Occupation[]>;
   find2010OccupationsBySoc2018: (soc2018: string) => Promise<Occupation[]>;
   findLocalExceptionsBySoc: (soc: string) => Promise<LocalException[]>;
