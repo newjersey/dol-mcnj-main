@@ -15,6 +15,7 @@ export interface DataClient {
   findOccupationsByCip: (cip: string) => Promise<Occupation[]>;
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
   findCipDefinitionBySoc2018: (soc: string) => Promise<CipDefinition[]>;
+  findCipDefinitionByCip: (cip: string) => Promise<CipDefinition[]>;
   find2018OccupationsBySoc2010: (soc2010: string) => Promise<Occupation[]>;
   find2010OccupationsBySoc2018: (soc2018: string) => Promise<Occupation[]>;
   findLocalExceptionsBySoc: (soc: string) => Promise<LocalException[]>;
