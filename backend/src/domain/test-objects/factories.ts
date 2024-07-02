@@ -7,7 +7,7 @@ import {
   OccupationDetailPartial,
 } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
-import { LocalException, NullableOccupation, Program, SocDefinition } from "../training/Program";
+import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -17,7 +17,6 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     ctid: "some-ctid-" + randomInt(),
     name: "some-name-" + randomInt(),
     cipDefinition: {
-      cip: "some-cip-" + randomInt(),
       cipcode: "some-cipcode-" + randomInt(),
       ciptitle: "some-ciptitle-" + randomInt(),
     },
@@ -50,7 +49,6 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     ctid: "some-ctid-" + randomInt(),
     name: "some-name-" + randomInt(),
     cipDefinition: {
-      cip: "some-cip-" + randomInt(),
       cipcode: "some-cipcode-" + randomInt(),
       ciptitle: "some-ciptitle-" + randomInt(),
     },
@@ -167,6 +165,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
   return {
     programid: "some-programid-" + randomInt(),
     cipcode: "some-cipcode-" + randomInt(),
+    ciptitle: "some-ciptitle-" + randomInt(),
     officialname: "some-officialname-" + randomInt(),
     description: "some-description-" + randomInt(),
     industrycredentialname: "tree identifier",
@@ -224,6 +223,14 @@ export const buildNullableOccupation = (
     ...overrides,
   };
 };
+
+export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefinition => {
+  return {
+    cipcode: "some-cipcode-" + randomInt(),
+    ciptitle: "some-ciptitle-" + randomInt(),
+    ...overrides,
+  }
+}
 
 export const buildLocalException = (overrides: Partial<LocalException>): LocalException => {
   return {
