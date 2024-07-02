@@ -10,9 +10,18 @@ import { en as Content } from "../../locales/en";
 jest.mock("../../utils/updateUrlParams.ts");
 
 describe.skip("filtering by cip code", () => {
-  const training1 = buildTrainingResult({ name: "training1", cipCode: "123456" });
-  const training2 = buildTrainingResult({ name: "training2", cipCode: "234567" });
-  const training3 = buildTrainingResult({ name: "training3", cipCode: "345678" });
+  const training1 = buildTrainingResult({
+    name: "training1",
+    cipDefinition: { ciptitle: "Cip Title 1", cip: "123456", cipcode: "123456" },
+  });
+  const training2 = buildTrainingResult({
+    name: "training2",
+    cipDefinition: { ciptitle: "Cip Title 2", cip: "234567", cipcode: "234567" },
+  });
+  const training3 = buildTrainingResult({
+    name: "training3",
+    cipDefinition: { ciptitle: "Cip Title 3", cip: "345678", cipcode: "345678" },
+  });
 
   const getCipCodeInput = (subject: RenderResult): HTMLElement => {
     return subject.getByLabelText(Content.SearchAndFilter.cipCodeFilterLabel, {

@@ -16,6 +16,7 @@ import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
 import { Button as ModuleButton } from "../components/modules/Button";
+import { CipDrawerContent } from "../components/CipDrawerContent";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
@@ -36,6 +37,7 @@ import { LinkSimple, Printer } from "@phosphor-icons/react";
 import {Helmet} from "react-helmet-async";
 import { Button } from "../components/Button";
 import { Flag } from "@phosphor-icons/react";
+import {formatCip} from "../utils/formatCip";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -49,7 +51,7 @@ interface Copy {
 
 export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
-
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [error, setError] = useState<Error | null>(null);
   const [copy, setCopy] = useState<Copy | null>(null);
@@ -66,6 +68,17 @@ export const TrainingPage = (props: Props): ReactElement => {
       onError: (error: Error) => setError(error),
     });
   }, [props.id, props.client]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const overlay = document.querySelector("#drawerOverlay");
+      if (overlay) {
+        overlay.addEventListener("click", () => {
+          setDrawerOpen(false);
+        });
+      }
+    }
+  }, [drawerOpen]);
 
   const printReactContent = useReactToPrint({
     content: () => componentRef.current,
@@ -352,7 +365,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   }
 
   return (
-      <div ref={componentRef}>
+      <div ref={componentRef} className="training-detail">
         <Layout client={props.client} seo={seoObject}>
           <Helmet>
             <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
@@ -495,43 +508,60 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
                         </span>
                         </p>
-                        {training.totalClockHours && (
+
+                        <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">schedule</InlineIcon>
+                          {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                          <InlineIcon
+                              className="mrxs"
+                              data-tooltip-id="totalClockHours-tooltip"
+                              data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                          >
+                            info
+                          </InlineIcon>
+                          <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
+                          <b>
+                            {training.totalClockHours
+                                ? t("TrainingPage.totalClockHours", {
+                                  hours: training.totalClockHours,
+                                })
+                                : t("Global.noDataAvailableText")}
+                          </b>
+                        </span>
+                        </p>
+
+
+                        {training.cipDefinition ? (
                             <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">schedule</InlineIcon>
-                            {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                            <InlineIcon
-                                className="mrxs"
-                                data-tooltip-id="totalClockHours-tooltip"
-                                data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                            >
-                              info
-                            </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
-                            <b>
-                              {t("TrainingPage.totalClockHours", {
-                                hours: training.totalClockHours,
-                              })}
-                            </b>
-                          </span>
+                                <span className="fin">
+                                  <InlineIcon className="mrxs">book</InlineIcon>
+                                  <button
+                                      type="button"
+                                      className="toggle"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setDrawerOpen(true);
+                                      }}
+                                  >
+                                    {t("TrainingPage.cipCodeLabel")}
+                                  </button>
+                                  &nbsp;&nbsp;
+                                </span>
+                              <>
+                                <a
+                                    href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                  {formatCip(training.cipDefinition.cipcode)}
+                                </a>
+                                <br/>
+                                <b>{training.cipDefinition.ciptitle}</b>
+                              </>
                             </p>
-                        )}
-                        {training.cipCode && (
-                            <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">qr_code</InlineIcon>
-                            {t("TrainingPage.cipCodeLabel")}&nbsp;
-                            <InlineIcon
-                                className="mrxs"
-                                data-tooltip-id="totalClockHours-tooltip"
-                                data-tooltip-content={t("TrainingPage.cipCodeTooltip")}
-                            >
-                              info
-                            </InlineIcon>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip"/>
-                            <b>{t(training.cipCode)}</b>
-                          </span>
-                            </p>
+                        ) : (
+                            <span>{t("Global.noDataAvailableText")}</span>
                         )}
                       </>
                     </Grouping>
@@ -699,6 +729,15 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
+          {/* Overlay and Drawer for CIP code information */}
+          {drawerOpen && (
+              <>
+                <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`}/>
+                <div className={`panel${drawerOpen ? " open" : ""}`}>
+                  <CipDrawerContent onClose={() => setDrawerOpen(false)} />
+                </div>
+              </>
+          )}
         </Layout>
       </div>
   );
