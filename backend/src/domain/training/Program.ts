@@ -1,6 +1,7 @@
 export interface Program {
   programid: string;
   cipcode: string;
+  ciptitle: string;
   officialname: string;
   description: string | null;
   industrycredentialname: string;

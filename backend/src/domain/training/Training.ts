@@ -1,10 +1,11 @@
 import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
+import {CipDefinition} from "./Program";
 
 export interface Training {
   id: string;
   name: string;
-  cipCode: string;
+  cipDefinition: CipDefinition | null;
   provider: Provider;
   description: string;
   certifications: string;

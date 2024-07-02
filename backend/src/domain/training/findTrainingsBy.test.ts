@@ -4,7 +4,7 @@ import { FindTrainingsBy } from "../types";
 import { CalendarLength } from "../CalendarLength";
 import { findTrainingsByFactory, formatLanguages, mapStrNumToBool } from "./findTrainingsBy";
 import { StubDataClient } from "../test-objects/StubDataClient";
-import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
+import { buildLocalException, buildOccupation, buildProgram} from "../test-objects/factories";
 import { Selector } from "./Selector";
 
 describe("findTrainingsBy", () => {
@@ -23,7 +23,8 @@ describe("findTrainingsBy", () => {
   it("finds training by one id", async () => {
     const program = buildProgram({
       programid: "123",
-      cipcode: "123456",
+      cipcode: "000000",
+      ciptitle: "Some CIP Title",
       indemandcip: "123456",
       onlineprogramid: "123",
     });
@@ -35,12 +36,21 @@ describe("findTrainingsBy", () => {
     stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
     ]);
+    stubDataClient.findCipDefinitionByCip.mockResolvedValue([
+      {
+        cipCode: program.cipcode,
+        cipTitle: program.ciptitle,
+      }
+    ]);
 
     expect(await findTrainingsBy(Selector.ID, ["123"])).toEqual([
       {
         id: program.programid,
         name: program.officialname,
-        cipCode: program.cipcode,
+        cipDefinition: {
+          cipCode: program.cipcode,
+          cipTitle: program.ciptitle,
+        },
         provider: {
           name: program.providername,
           id: program.providerid,
@@ -141,12 +151,21 @@ describe("findTrainingsBy", () => {
     stubDataClient.getLocalExceptionsByCip.mockResolvedValue([
       buildLocalException({ cipcode: program.cipcode, county: "Atlantic" }),
     ]);
+    stubDataClient.findCipDefinitionByCip.mockResolvedValue([
+      {
+        cipCode: program.cipcode,
+        cipTitle: program.ciptitle,
+      }
+    ]);
 
     expect(await findTrainingsBy(Selector.CIP_CODE, ["123456"])).toEqual([
       {
         id: program.programid,
         name: program.officialname,
-        cipCode: program.cipcode,
+        cipDefinition: {
+          cipCode: program.cipcode,
+          cipTitle: program.ciptitle,
+        },
         provider: {
           name: program.providername,
           id: program.providerid,

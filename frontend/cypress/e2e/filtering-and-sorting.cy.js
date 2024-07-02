@@ -262,14 +262,14 @@ describe("Filtering", () => {
 
   it("preserves a filter between pages", () => {
     cy.visit("/training/search?q=baking");
-    cy.contains("Baking and Pastry").should("exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("exist");
 
     cy.contains("Max Cost").within(() => {
       cy.get("input").type("2000");
       cy.get("input").blur();
     });
 
-    cy.contains("Baking and Pastry").should("not.exist");
+    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should("not.exist");
     cy.contains("Baking & Pastry Arts").should("exist");
 
     cy.get(".card .link-format-blue").eq(0).click({ force: true });

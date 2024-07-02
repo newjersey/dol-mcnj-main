@@ -24,10 +24,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 .filter((localException) => localException.cipcode === program.cipcode)
                 .map((localException) => convertToTitleCaseIfUppercase(localException.county));
 
+              const cipDefinition = await dataClient.findCipDefinitionByCip(program.cipcode);
+
               return {
                 id: program.programid,
                 name: stripSurroundingQuotes(convertToTitleCaseIfUppercase(program.officialname)),
-                cipCode: program.cipcode,
+                cipDefinition: cipDefinition !== undefined ? cipDefinition[0] : null,
                 provider: {
                   id: program.providerid,
                   name: program.providername ? stripSurroundingQuotes(program.providername) : "",
@@ -93,7 +95,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             }
           }),
         )
-      ).filter((item): item is Training => item !== undefined);
+      ).filter((item): item is Training => item !== null);
     } catch (error) {
       console.error(`Error while fetching programs: `, error);
 

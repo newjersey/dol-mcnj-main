@@ -37,7 +37,7 @@ export const searchTrainingsFactory = (
           const result = {
             id: training.id,
             name: training.name,
-            cipCode: training.cipCode,
+            cipDefinition: training.cipDefinition,
             totalCost: training.totalCost,
             percentEmployed: training.percentEmployed,
             calendarLength: training.calendarLength,

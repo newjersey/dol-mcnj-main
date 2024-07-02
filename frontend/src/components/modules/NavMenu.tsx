@@ -100,7 +100,7 @@ export const NavMenu = ({
                                   <span>{subItem.copy}</span>
                                 </>
                               ) : (
-                                <li>
+                                <li key={subItem.sys?.id}>
                                   <LinkObject icons={icons} {...subItem} />
                                 </li>
                               )}
