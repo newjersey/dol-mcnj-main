@@ -7,7 +7,7 @@ import {
   OccupationDetailPartial,
 } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
-import { LocalException, NullableOccupation, Program, SocDefinition } from "../training/Program";
+import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -16,7 +16,10 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cipcode: "some-cipcode-" + randomInt(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     totalCost: randomInt(),
     percentEmployed: randomInt(),
     calendarLength: randomCalendarLength(),
@@ -45,7 +48,10 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
     id: "some-id-" + randomInt(),
     name: "some-name-" + randomInt(),
-    cipCode: "some-cip-" + randomInt(),
+    cipDefinition: {
+      cipcode: "some-cipcode-" + randomInt(),
+      ciptitle: "some-ciptitle-" + randomInt(),
+    },
     provider: buildProvider({}),
     description: "some-description-" + randomInt(),
     certifications: "some-certifications-" + randomInt(),
@@ -152,6 +158,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
   return {
     programid: "some-programid-" + randomInt(),
     cipcode: "some-cipcode-" + randomInt(),
+    ciptitle: "some-ciptitle-" + randomInt(),
     officialname: "some-officialname-" + randomInt(),
     description: "some-description-" + randomInt(),
     industrycredentialname: "tree identifier",
@@ -210,6 +217,14 @@ export const buildNullableOccupation = (
     ...overrides,
   };
 };
+
+export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefinition => {
+  return {
+    cipcode: "some-cipcode-" + randomInt(),
+    ciptitle: "some-ciptitle-" + randomInt(),
+    ...overrides,
+  }
+}
 
 export const buildLocalException = (overrides: Partial<LocalException>): LocalException => {
   return {
