@@ -84,6 +84,12 @@ export interface Training {
   tuitionCost: number;
 }
 
+export interface CipDefinition {
+  cip: string;
+  cipcode: string;
+  ciptitle: string;
+}
+
 export interface Provider {
   ctid: string;
   providerId: string;
