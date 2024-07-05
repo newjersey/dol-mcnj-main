@@ -1,31 +1,29 @@
 describe("Training Page", () => {
   it("displays training details", () => {
-    cy.visit("/training/33127");
+    cy.visit("/training/47148");
     cy.injectAxe();
 
     // titles
-    cy.contains("Building Maintenance").should("exist");
-    cy.contains("h3", "Orleans Technical College").should("exist");
+    cy.contains("Building Maintenance Technician").should("exist");
+    cy.contains("h3", "Lincoln Technical Institute").should("exist");
 
     // stat boxes
     cy.contains("In-Demand").should("exist");
-    cy.contains("35.2%").should("exist");
-    cy.contains("$27,556").should("exist");
+    cy.contains("60.4%").should("exist");
+    cy.contains("$29,890").should("exist");
 
     // description
     cy.contains(
-      "This program teaches diversified skills needed to maintain and renovate commercial and residential properties. Students are taught basic skills in electricity, carpentry, plumbing, heating and air conditioning maintenance. Training also includes painting, papering, and tiling. Students acquire skills in appliance repair.",
+      "This four unit course of study is designed to introduce students to preventive maintenance concepts as they apply to Heating, Ventilation and Air Conditioning systems.",
     ).should("exist");
 
     // quick stats
-    cy.contains(
-      "Prerequisites: High school Diploma or GED, valid driver's license, pass math/reading entrance test",
-    ).should("exist");
-    cy.contains("Completion time: 6-12 months").should("exist");
+    cy.contains("High School Diploma or GED",).should("exist");
+    cy.contains("Completion time: 3-5 months").should("exist");
 
     // associated occupations
-    cy.contains("Facilities Managers").should("exist");
-    cy.contains("Maintenance and Repair Workers, General").should("exist");
+    cy.contains("Engineering Technologists and Technicians, Except Drafters, All Other").should("exist");
+    cy.contains("Heating, Air Conditioning, and Refrigeration Mechanics and Installers").should("exist");
 
     // share trainings
     cy.contains("How to get funding").should("exist");
@@ -35,21 +33,21 @@ describe("Training Page", () => {
     cy.contains("You can also check out other tuition assistance opportunities.").should("exist");
 
     // cost
-    cy.contains("$17,855.00").should("exist");
-    cy.contains("$13,500.00").should("exist");
+    cy.contains("$3,995.00").should("exist");
+    cy.contains("$2,088.00").should("exist");
+    cy.contains("$154.00").should("exist");
     cy.contains("$0.00").should("exist");
-    cy.contains("$1,810.00").should("exist");
-    cy.contains("$2,320.00").should("exist");
-    cy.contains("$225.00").should("exist");
+    cy.contains("$1,753.00").should("exist");
+    cy.contains("$0.00").should("exist");
 
     // provider details
-    cy.contains("span", "Orleans Technical College").should("exist");
-    cy.contains("2770 Red Lion Road").should("exist");
-    cy.contains("Philadelphia, PA 19114").should("exist");
-    cy.contains("Debbie Bello").should("exist");
-    cy.contains("Director of Admissions").should("exist");
-    cy.contains("(215) 728-4733").should("exist");
-    cy.contains("www.orleanstech.edu").should("exist");
+    cy.contains("span", "Lincoln Technical Institute").should("exist");
+    cy.contains("2299 Vauxhall Rd.").should("exist");
+    cy.contains("Union, NJ 07083").should("exist");
+    cy.contains("Kevin L. Kirkley").should("exist");
+    cy.contains("Director").should("exist");
+    cy.contains("(908) 964-7800 Ext: 40253").should("exist");
+    cy.contains("www.lincolntech.com").should("exist");
 
     cy.checkA11y();
   });
