@@ -5,7 +5,7 @@ import { checkValidZipCode } from "../utils/checkValidZipCode";
 import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
 import { ContentfulRichText as RichText } from "./ContentfulRichText";
-import {CipDrawerContent} from "./CipDrawerContent";
+import { CipDrawerContent } from "./CipDrawerContent";
 
 export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
   const [socDrawerOpen, setSocDrawerOpen] = useState<boolean>(false);
   const [cipDrawerOpen, setCipDrawerOpen] = useState<boolean>(false);
 
-  const sanitizedValue = (value: string | Node) => DOMPurify.sanitize(value);
+  const sanitizedValue = (value: string) => DOMPurify.sanitize(value);
 
   const clearAllInputs = () => {
     const inputs = document.querySelectorAll("input");
@@ -64,35 +64,18 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
   }, []);
 
   useEffect(() => {
-    // Build the search parameters
     const params = [];
-    if (inPerson) {
-      params.push("inPerson=true");
-    }
-    if (maxCost) {
-      params.push(`maxCost=${maxCost}`);
-    }
-    if (miles) {
-      params.push(`miles=${miles}`);
-    }
-    if (online) {
-      params.push("online=true");
-    }
-    if (zipCode) {
-      params.push(`zip=${zipCode}`);
-    }
+    if (inPerson) params.push("inPerson=true");
+    if (maxCost) params.push(`maxCost=${encodeURIComponent(maxCost)}`);
+    if (miles) params.push(`miles=${encodeURIComponent(miles)}`);
+    if (online) params.push("online=true");
+    if (zipCode) params.push(`zip=${encodeURIComponent(zipCode)}`);
 
     const encodedSearchTerm = encodeURIComponent(searchTerm);
-    const url = `/training/search?q=${encodedSearchTerm}${params.length > 0 ? "&" : ""}`;
-
-    // Concatenate the search parameters to the url
-    if (params.length > 0) {
-      const queryParams = params.join("&");
-      setSearchUrl(url + queryParams);
-    } else {
-      setSearchUrl(url);
-    }
+    const url = `/training/search?q=${encodedSearchTerm}${params.length > 0 ? "&" : ""}${params.join("&")}`;
+    setSearchUrl(url);
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
+
   return (
       <section className="search-block">
         <form
@@ -156,8 +139,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                 aria-label="search"
                 className="search-input usa-input"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setSearchTerm(e.target.value);
-
+                  setSearchTerm(sanitizedValue(e.target.value));
                 }}
                 defaultValue={searchTerm}
             />
@@ -167,7 +149,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
               </button>
               <a
                   id="search-button"
-                  href={`/training/search?q=${searchTerm}`}
+                  href={`/training/search?q=${encodeURIComponent(searchTerm)}`}
                   className="usa-button usa-button--unstyled"
               >
                 Advanced Search
@@ -212,7 +194,8 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                       id="zipCode"
                       placeholder="ZIP code"
                       onBlur={(e: ChangeEvent<HTMLInputElement>) => {
-                        setZipValid(checkValidZipCode(e.target.value));
+                        const value = sanitizedValue(e.target.value);
+                        setZipValid(checkValidZipCode(value));
                         setAttempted(true);
 
                         if (zipValid) {
@@ -226,9 +209,10 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                         }
                       }}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        const value = sanitizedValue(e.target.value);
                         const select = document.getElementById("miles") as HTMLSelectElement;
-                        if (checkValidZipCode(e.target.value)) {
-                          setZipCode(sanitizedValue(e.target.value));
+                        if (checkValidZipCode(value)) {
+                          setZipCode(value);
                           setAttempted(false);
                           if (select) {
                             select.value = "10";
