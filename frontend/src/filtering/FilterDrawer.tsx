@@ -231,7 +231,7 @@ export const FilterDrawer = ({
                   inputName="services"
                   options={serviceList}
                   defaultValues={services}
-                  placeholder="Languages"
+                  placeholder={t("SearchResultsPage.servicesLabel")}
                 />
                 <FilterFormInput
                   inputLabel={t("SearchResultsPage.cidCodeLabel")}
