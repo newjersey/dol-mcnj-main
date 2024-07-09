@@ -143,7 +143,7 @@ export const FilterDrawer = ({
       >
         <div id="drawer-container" role="form">
           <div id="drawer-header">
-            <h2>Add Filters</h2>
+            <h2>{t("SearchResultsPage.addFiltersLabel")}</h2>
             <button
               className="close-button"
               onClick={toggleDrawer}
@@ -191,21 +191,21 @@ export const FilterDrawer = ({
                 <div className="field-group">
                   <div className="label-container zip-label">
                     <label>
-                      Distance from ZIP code
+                      {t("SearchAndFilter.locationFilterLabel")}
                     </label>
                   </div>
                   <div className="zip-miles-group">
                     <FilterFormInput
                       inputName="miles"
                       inputType="number"
-                      placeholder="miles"
+                      placeholder={t("SearchAndFilter.locationFilterMilesInputLabel")}
                     />
                     <div className="conjunction-container">
                       from
                     </div>
                     <FilterFormInput
                       inputName="zipcode"
-                      placeholder="ZIP code"
+                      placeholder={t("SearchAndFilter.locationFilterZipCodePlaceholder")}
                     />
                   </div>
                 </div>
@@ -215,7 +215,7 @@ export const FilterDrawer = ({
                   inputName="completeIn"
                   options={completeInList}
                   defaultValues={completeIn}
-                  placeholder="Time to Complete"
+                  placeholder={t("SearchResultsPage.completeInLabel")}
                 />
                 <FilterFormMultiDD
                   clearSelected={clearSelected}
@@ -223,7 +223,7 @@ export const FilterDrawer = ({
                   inputName="languages"
                   options={languageList}
                   defaultValues={languages}
-                  placeholder="Languages"
+                  placeholder={t("SearchResultsPage.languagesLabel")}
                 />
                 <FilterFormMultiDD
                   clearSelected={clearSelected}
@@ -246,8 +246,8 @@ export const FilterDrawer = ({
                   subLabel={t("SearchResultsPage.socCodeSubLabel")}
                 />
                 <div id="drawer-btn-container" className="row">
-                  <button type="submit" id="submit-button">Apply</button>
-                  <button type="reset" id="reset-button">Clear Filters</button>
+                  <button type="submit" id="submit-button">{t("SearchAndFilter.applyFiltersButtontText")}</button>
+                  <button type="reset" id="reset-button">{t("SearchAndFilter.clearAllFiltersButtonLabel")}</button>
                 </div>
               </FormProvider>
             </form>
