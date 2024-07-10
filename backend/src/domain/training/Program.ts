@@ -3,6 +3,7 @@ import {Ceterms} from "../credentialengine/CredentialEngine";
 export interface Program {
   programid: string;
   cipcode: string;
+  ciptitle: string;
   officialname: string;
   description: string | null;
   industrycredentialname: string;
@@ -57,6 +58,11 @@ export interface CipDefinition {
   cip: string;
   cipcode: string;
   ciptitle: string;
+}
+
+export interface OutcomeDefinition {
+  peremployed2: string | null;
+  avgquarterlywage2: string | null;
 }
 
 export interface NullableOccupation {

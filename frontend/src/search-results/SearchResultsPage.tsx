@@ -238,7 +238,7 @@ export const SearchResultsPage = ({
             <div id="results-list">
               {trainings.map((training) => (
                 <TrainingResultCard
-                  key={training.id}
+                  key={training.ctid}
                   trainingResult={training}
                   comparisonItems={comparisonState.comparison}
                 />

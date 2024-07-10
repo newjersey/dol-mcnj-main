@@ -42,7 +42,7 @@ curl "https://sandbox.credentialengine.org/assistant/search/ctdl" \
   -H "Origin: http://localhost:3000" \
   -H 'Access-Control-Request-Method: POST' \
   -H 'Access-Control-Request-Headers: Content-Type, Authorization' \
-  -H "Authorization: Bearer bc5989e5-8b5b-4099-85f3-961b4913c24c" \
+  -H "Authorization: ***REMOVED***" \
   -H 'Content-Type: application/json' \
   -d "{'Query': { '@type': 'ceterms:Certificate' }, 'Skip': 0, 'Take': 5, 'Sort': '^search:recordCreated' }"
  

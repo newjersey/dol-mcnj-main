@@ -1,7 +1,7 @@
 import { Occupation } from "./Occupation";
 
 export interface TrainingResult {
-  id: string;
+  ctid: string;
   name: string;
   cipDefinition: CipDefinition;
   totalCost: number;
@@ -66,7 +66,7 @@ export interface Training {
   hasChildcareAssistance: boolean;
   hasEveningCourses: boolean;
   hasJobPlacementAssistance: boolean;
-  id: string;
+  ctid: string;
   inDemand: boolean;
   isWheelchairAccessible: boolean;
   languages: string[];
@@ -84,8 +84,15 @@ export interface Training {
   tuitionCost: number;
 }
 
+export interface CipDefinition {
+  cip: string;
+  cipcode: string;
+  ciptitle: string;
+}
+
 export interface Provider {
-  id: string;
+  ctid: string;
+  providerId: string;
   name: string;
   email: string;
   url: string;
