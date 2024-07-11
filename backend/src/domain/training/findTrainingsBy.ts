@@ -24,7 +24,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     return await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
         const provider = await credentialEngineUtils.getProviderData(certificate);
-        const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
