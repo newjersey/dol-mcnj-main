@@ -20,20 +20,28 @@ import {
   serviceList
 } from "./filterLists";
 
+interface ArrayProps {
+  id: string;
+  label: string;
+  values?: number[];
+}
+
 interface Props {
   searchQuery?: string;
   cipCode?: string;
   classFormat?: string[];
   county?: string;
-  completeIn?: string[];
+  completeIn?: string[] | ArrayProps[];
   inDemand?: boolean;
-  languages?: string[];
+  languages?: string[] | ArrayProps[];
   maxCost?: string;
   miles?: string;
-  services?: string[];
+  services?: string[] | ArrayProps[];
   socCode?: string;
   zipcode?: string;
 }
+
+const extractIds = (arr: ArrayProps[]): string[] => arr.map(({ id }) => id);
 
 export const FilterDrawer = ({
   searchQuery = "",
@@ -95,6 +103,9 @@ export const FilterDrawer = ({
      } = data;
 
     const urlParams = new URLSearchParams(window.location.search);
+
+    let completeInList, languagesList, servicesList;
+
     searchQuery ? urlParams.set("q", searchQuery) : urlParams.delete("q");
     inDemand ? urlParams.set("inDemand", inDemand.toString()) : urlParams.delete("inDemand");
     maxCost ? urlParams.set("maxCost", maxCost) : urlParams.delete("maxCost");
@@ -102,9 +113,16 @@ export const FilterDrawer = ({
     classFormat && classFormat.length > 0 ? urlParams.set("format", classFormat.join(",")) : urlParams.delete("format");
     miles ? urlParams.set("miles", miles) : urlParams.delete("miles");
     zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
-    completeIn && completeIn.length > 0 ? urlParams.set("completeIn", completeIn.join(",")) : urlParams.delete("completeIn");
-    languages && languages.length > 0 ? urlParams.set("languages", languages.join(",")) : urlParams.delete("languages");
-    services && services.length > 0 ? urlParams.set("services", services.join(",")) : urlParams.delete("services");
+    
+    if (completeIn && completeIn.length > 0) completeInList = extractIds(completeIn as ArrayProps[]);
+    completeInList && completeInList.length > 0 ? urlParams.set("completeIn", completeInList.join(",")) : urlParams.delete("completeIn");
+    
+    if (languages && languages.length > 0) languagesList = extractIds(languages as ArrayProps[]);
+    languagesList && languagesList.length >0 ? urlParams.set("languages", languagesList.join(",")) : urlParams.delete("languages");
+    
+    if (services && services.length > 0) servicesList = extractIds(services as ArrayProps[]);
+    servicesList && servicesList.length > 0 ? urlParams.set("services", servicesList.join(",")) : urlParams.delete("services");
+    
     cipCode ? urlParams.set("cip", cipCode) : urlParams.delete("cip");
     socCode ? urlParams.set("soc", socCode) : urlParams.delete("soc");
 
@@ -214,7 +232,7 @@ export const FilterDrawer = ({
                   inputLabel={t("SearchResultsPage.completeInLabel")}
                   inputName="completeIn"
                   options={completeInList}
-                  defaultValues={completeIn}
+                  defaultValues={completeIn as string[]}
                   placeholder={t("SearchResultsPage.completeInLabel")}
                 />
                 <FilterFormMultiDD
@@ -222,7 +240,7 @@ export const FilterDrawer = ({
                   inputLabel={t("SearchResultsPage.languagesLabel")}
                   inputName="languages"
                   options={languageList}
-                  defaultValues={languages}
+                  defaultValues={languages as string[]}
                   placeholder={t("SearchResultsPage.languagesLabel")}
                 />
                 <FilterFormMultiDD
@@ -230,7 +248,7 @@ export const FilterDrawer = ({
                   inputLabel={t("SearchResultsPage.servicesLabel")}
                   inputName="services"
                   options={serviceList}
-                  defaultValues={services}
+                  defaultValues={services as string[]}
                   placeholder={t("SearchResultsPage.servicesLabel")}
                 />
                 <FilterFormInput
