@@ -26,7 +26,7 @@ describe('allTrainings', () => {
 
   it('should return all trainings', async () => {
     getResultsSpy.mockResolvedValue(ceData);
-    getAddressSpy.mockResolvedValue([{city: 'Newark'}])
+    getAddressSpy.mockResolvedValue([{city: 'Newark', county:'Middlesex'}])
     const result = await getAllTrainings();
     expect(result).toEqual(expectedData);
     expect(getResultsSpy).toHaveBeenCalledTimes(2);

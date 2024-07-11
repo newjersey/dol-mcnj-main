@@ -41,11 +41,11 @@ describe("router", () => {
     app.use(router);
   });
 
-  describe("/allTrainings", () => {
+  describe("/trainings/all", () => {
     it("fetches all Trainings", (done) => {
       stubAllTrainings.mockImplementationOnce(() => Promise.resolve([]));
       request(app)
-        .get("/allTrainings")
+        .get("/trainings/all")
         .then((response) => {
           expect(response.status).toEqual(200);
           expect(response.body).toEqual([]);
@@ -56,7 +56,7 @@ describe("router", () => {
 
     it("sends a 500 when the fetch fails", (done) => {
       stubGetInDemandOccupations.mockImplementationOnce(() => Promise.reject());
-      request(app).get("/allTrainings").expect(500).end(done);
+      request(app).get("/trainings/all").expect(500).end(done);
     });
   });
 

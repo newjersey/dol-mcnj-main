@@ -55,7 +55,7 @@ export const routerFactory = ({
     },
   );
 
-  router.get("/allTrainings", (req: Request, res: Response) => {
+  router.get("/trainings/all", (req: Request, res: Response) => {
       allTrainings()
       .then((trainings: AllTrainingsResult[]) => {
         res.status(200).json(trainings);

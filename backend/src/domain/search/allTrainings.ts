@@ -12,38 +12,47 @@ export const allTrainings = (): AllTrainings => {
   return async (): Promise<AllTrainingsResult[]> => {
     const query = buildQuery();
     let ceRecordsResponse1;
-    let ceRecordsResponse2;
 
-    const cacheKey = 'all-trainings'
-    const cachedResults:Promise<AllTrainingsResult[]> | undefined = cache.get(cacheKey);
+    const cacheKey = 'all-trainings';
+    const cachedResults: Promise<AllTrainingsResult[]> | undefined = cache.get(cacheKey);
 
     if (cachedResults) {
       console.log("Returning cached results for key:", cacheKey);
       return cachedResults;
     }
+
     try {
       ceRecordsResponse1 = await credentialEngineAPI.getResults(query, 0, 1, "^search:relevance");
       const totalResults = ceRecordsResponse1.data.extra.TotalResults;
-      if (totalResults > 1) {
-        ceRecordsResponse2 = await credentialEngineAPI.getResults(query, 0, totalResults, "^search:relevance");
-      } else {
-        ceRecordsResponse2 = ceRecordsResponse1;
+      const batchSize = 100;
+      let allRecords: CTDLResource[] = [];
+
+      const fetchBatch = async (skip: number) => {
+        const response = await credentialEngineAPI.getResults(query, skip, batchSize, "^search:relevance");
+        return response.data.data as CTDLResource[];
+      };
+
+      const batchPromises = [];
+      for (let skip = 0; skip < totalResults; skip += batchSize) {
+        batchPromises.push(fetchBatch(skip));
       }
+
+      const batchResults = await Promise.all(batchPromises);
+      allRecords = batchResults.flat();
+
+      const results = await Promise.all(allRecords.map(certificate => transformCertificateToTraining(certificate)));
+      cache.set(cacheKey, results);
+      return results;
 
     } catch (error) {
       Sentry.captureException(error);
       console.error("Error fetching results from Credential Engine API:", error);
       throw new Error("Failed to fetch results from Credential Engine API.");
     }
-    const certificates = ceRecordsResponse2.data.data as CTDLResource[];
-    const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(certificate)));
-    cache.set(cacheKey, results);
-    return results;
   };
 };
 
 function buildQuery() {
-
   return {
     "@type": {
       "search:value": "ceterms:Credential",
@@ -55,12 +64,6 @@ function buildQuery() {
         {
           "search:operator": "search:orTerms",
           "ceterms:availableOnlineAt": "search:anyValue",
-          "ceterms:availableAt": {
-            "ceterms:addressRegion": [
-              { "search:value": "NJ", "search:matchType": "search:exactMatch" },
-              { "search:value": "jersey", "search:matchType": "search:exactMatch" },
-            ],
-          },
         },
         {
           "search:operator": "search:andTerms",
@@ -79,14 +82,14 @@ async function transformCertificateToTraining(certificate: CTDLResource): Promis
     const address = await credentialEngineUtils.getAvailableAtAddresses(certificate);
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const socName = certificate["ceterms:occupationType"] && certificate["ceterms:occupationType"][0] && certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"] && certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"]
-    ? certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
-    const socCode = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999'
-    const socCodeReplaced = socCode.replace(/-/g, '').replace(/\.00$/, '')
-    
+      ? certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
+    const socCode = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999';
+    const socCodeReplaced = socCode.replace(/-/g, '').replace(/\.00$/, '');
+
     return {
       training_id: certificate["ceterms:ctid"] || "",
       title: certificate["ceterms:name"]?.["en-US"] || "",
-      area: address[0].city || "",
+      area: address.length > 0 ? address[0].city as string : "",
       link: `https://mycareer.nj.gov/training/${cipCode}`,
       duration: 15.0, //TODO: replace with actual duration
       soc: socCodeReplaced,
@@ -95,7 +98,7 @@ async function transformCertificateToTraining(certificate: CTDLResource): Promis
       id: `training#${cipCode}`,
       method: `classroom`,
       soc_name: socName,
-      location: address[0].county || "",
+      location: address.length > 0 ? address[0].county as string : "",
       title_en: certificate["ceterms:name"]?.["en-US"] || "",
       soc_name_en: socName,
       title_es: certificate["ceterms:name"]?.["en-US"] || "",
