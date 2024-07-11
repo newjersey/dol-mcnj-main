@@ -150,7 +150,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       percentEmployed:outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
       calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
-      online: certificate["ceterms:availableOnlineAt"] != null,
+      online: await credentialEngineUtils.hasOnlineOffering(certificate),
       providerId: provider.providerId,
       providerName: provider.name,
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),

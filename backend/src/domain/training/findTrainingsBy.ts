@@ -53,7 +53,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
           otherCost: await credentialEngineUtils.extractCost(certificate, "costType:ProgramSpecificFee"),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
-          online: availableOnlineAt != null,
+          online: await credentialEngineUtils.hasOnlineOffering(certificate),
           // percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
           // averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
