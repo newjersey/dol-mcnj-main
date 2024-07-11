@@ -55,7 +55,7 @@ export interface SocDefinition {
 }
 
 export interface CipDefinition {
-  cip: string;
+  cip?: string;
   cipcode: string;
   ciptitle: string;
 }
