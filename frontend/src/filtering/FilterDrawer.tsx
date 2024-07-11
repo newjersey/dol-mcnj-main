@@ -114,14 +114,20 @@ export const FilterDrawer = ({
     miles ? urlParams.set("miles", miles) : urlParams.delete("miles");
     zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
     
-    if (completeIn && completeIn.length > 0) completeInList = extractIds(completeIn as ArrayProps[]);
-    completeInList && completeInList.length > 0 ? urlParams.set("completeIn", completeInList.join(",")) : urlParams.delete("completeIn");
+    if (completeIn && completeIn.length > 0) {
+      completeInList = extractIds(completeIn as ArrayProps[]);
+      completeInList?.length > 0 ? urlParams.set("completeIn", completeInList.join(",")) : urlParams.delete("completeIn");
+    }
     
-    if (languages && languages.length > 0) languagesList = extractIds(languages as ArrayProps[]);
-    languagesList && languagesList.length >0 ? urlParams.set("languages", languagesList.join(",")) : urlParams.delete("languages");
+    if (languages && languages.length > 0) {
+      languagesList = extractIds(languages as ArrayProps[]);
+      languagesList?.length >0 ? urlParams.set("languages", languagesList.join(",")) : urlParams.delete("languages");
+    }
     
-    if (services && services.length > 0) servicesList = extractIds(services as ArrayProps[]);
-    servicesList && servicesList.length > 0 ? urlParams.set("services", servicesList.join(",")) : urlParams.delete("services");
+    if (services && services.length > 0) {
+      servicesList = extractIds(services as ArrayProps[]);
+      servicesList?.length > 0 ? urlParams.set("services", servicesList.join(",")) : urlParams.delete("services");
+    }
     
     cipCode ? urlParams.set("cip", cipCode) : urlParams.delete("cip");
     socCode ? urlParams.set("soc", socCode) : urlParams.delete("soc");
