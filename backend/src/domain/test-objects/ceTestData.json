@@ -63,7 +63,10 @@
       ],
       "ceterms:occupationType": [
         {
-          "ceterms:codedNotation": "15-1121"
+          "ceterms:codedNotation": "15-1121",
+          "ceterms:targetNodeName" : {
+            "en-US": "Software Engineer"
+          }
         }
       ],
       "ceterms:scheduleTimingType": [
@@ -122,7 +125,7 @@
           "ceterms:exactDuration": "P1Y"
         }
       ],
-    "ceterms:instructionalProgramType": [
+      "ceterms:instructionalProgramType": [
       {
         "ceterms:frameworkName": {
           "en-US": "Cost Type"
@@ -134,8 +137,8 @@
           "en-US": "Sum of direct costs."
         }
       }
-    ],
-    "ceterms:occupationType": [
+      ],
+      "ceterms:occupationType": [
       {
         "@type": "ceterms:CredentialAlignmentObject",
         "ceterms:framework": "https://www.onetcenter.org/taxonomy.html",
@@ -151,9 +154,9 @@
           "en-US": "Plan, direct, or coordinate activities in such fields as electronic data processing, information systems, systems analysis, and computer programming."
         }
       }
-    ],
-    "ceterms:subjectWebpage": "https://www.liit.com",
-    "ceterms:isPreparationFor": [
+      ],
+      "ceterms:subjectWebpage": "https://www.liit.com",
+      "ceterms:isPreparationFor": [
       {
         "@type": "ceterms:ConditionProfile",
         "ceterms:name": {
@@ -163,11 +166,11 @@
           "en-US": "This certification will prepare a student for the target credential"
         }
       }
-    ],
-    "ceterms:availableOnlineAt": [
-      "https://www.liit.com"
-    ],
-    "ceterms:estimatedDuration": [
+      ],
+      "ceterms:availableOnlineAt": [
+        "https://www.liit.com"
+      ],
+      "ceterms:estimatedDuration": [
       {
         "@type": "ceterms:DurationProfile",
         "ceterms:description": {
@@ -175,8 +178,8 @@
         },
         "ceterms:exactDuration": "PT272H"
       }
-    ],
-    "ceterms:credentialStatusType": {
+      ],
+      "ceterms:credentialStatusType": {
       "@type": "ceterms:CredentialAlignmentObject",
       "ceterms:framework": "https://credreg.net/ctdl/terms/CredentialStatus",
       "ceterms:targetNode": "credentialStat:Active",
@@ -189,8 +192,8 @@
       "ceterms:targetNodeDescription": {
         "en-US": "Awards of the credential are ongoing."
       }
-    },
-    "ceterms:instructionalProgramType": [
+      },
+      "ceterms:instructionalProgramType": [
       {
         "@type": "ceterms:CredentialAlignmentObject",
         "ceterms:framework": "https://nces.ed.gov/ipeds/cipcode/Default.aspx?y=56",

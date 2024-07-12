@@ -6,15 +6,17 @@ import {
   GetOccupationDetail,
   GetAllCertificates,
   GetOccupationDetailByCIP,
+  AllTrainings,
 } from "../domain/types";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
-import { TrainingData } from "../domain/training/TrainingResult";
+import { AllTrainingsResult, TrainingData } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
 import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
 
 interface RouterActions {
+  allTrainings: AllTrainings;
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
@@ -24,6 +26,7 @@ interface RouterActions {
 }
 
 export const routerFactory = ({
+  allTrainings,
   searchTrainings,
   findTrainingsBy,
   getInDemandOccupations,
@@ -51,6 +54,14 @@ export const routerFactory = ({
         .catch((e) => res.status(500).send(e));
     },
   );
+
+  router.get("/trainings/all", (req: Request, res: Response) => {
+      allTrainings()
+      .then((trainings: AllTrainingsResult[]) => {
+        res.status(200).json(trainings);
+      })
+      .catch((e) => res.status(500).send(e));
+  })
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
     let page = parseInt(req.query.page as string);
