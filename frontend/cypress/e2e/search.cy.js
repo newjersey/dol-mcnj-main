@@ -108,14 +108,14 @@ describe("Search", () => {
 
   it("links to a training detail page", () => {
     cy.visit("/training/search?q=digital%20marketing");
-    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.location("pathname").should("eq", "/training/51388");
+    cy.contains("Web Mobile and Digital Marketing").click({ force: true });
+    cy.location("pathname").should("eq", "/training/52224");
 
     // removes search results
     cy.contains("Rutgers Virtual Live Mini MBA").should("not.exist");
 
     // shows program
-    cy.contains("Certified Digital Marketing Fundamental").should("exist");
+    cy.contains("Web Mobile and Digital Marketing").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
