@@ -59,7 +59,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
           averageSalary: outcomesDefinition ? formatAverageSalary(outcomesDefinition.avgquarterlywage2) : null,
           hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-          languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
+          languages: await credentialEngineUtils.getLanguages(certificate),
           isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
           hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
           hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare")
@@ -89,3 +89,10 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };
+
+export const formatLanguages = (languages: string | null): string[] => {
+  if (languages == null || languages.length === 0) return [];
+  const languagesWithoutQuotes = languages.replace(/["\s]+/g, "");
+  return languagesWithoutQuotes.split(",");
+};
+

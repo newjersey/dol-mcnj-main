@@ -20,7 +20,7 @@ export interface TrainingResult {
   rank?: number;
   socCodes?: string[];
   hasEveningCourses?: boolean;
-  languages?: string | null;
+  languages?: string[] | null;
   isWheelchairAccessible?: boolean;
   hasJobPlacementAssistance?: boolean;
   hasChildcareAssistance?: boolean;
