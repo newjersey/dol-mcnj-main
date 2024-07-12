@@ -1,6 +1,39 @@
 import { CalendarLength } from "../CalendarLength";
 import { CipDefinition } from "./Program";
 
+export interface AllTrainingsResult {
+  training_id: string;
+  title: string;
+  area: string;
+  link: string;
+  duration: number;
+  soc: string;
+  roi: number;
+  soc3: string;
+  id: string;
+  method: string;
+  soc_name: string;
+  location: string;
+  title_en: string;
+  soc_name_en: string;
+  title_es: string;
+  soc_name_es: string;
+  title_tl: string;
+  soc_name_tl: string;
+  title_zh: string;
+  soc_name_zh: string;
+  title_ja: string;
+  soc_name_ja: string;
+  duration_units: string;
+  duration_slider_val_min: string;
+  duration_slider_val_max: string;
+  duration_units_en: string;
+  duration_units_es: string;
+  duration_units_tl: string;
+  duration_units_zh: string;
+  duration_units_ja: string;
+}
+
 export interface TrainingResult {
   ctid?: string;
   name?: string;
