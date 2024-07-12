@@ -82,17 +82,21 @@ export const SearchResultsPage = ({
     const limitValue = limit ? parseInt(limit) : 10;
     const pageNumberValue = page ? parseInt(page) : 1;
 
+    let cipCode, classFormat, county, inDemand, languages, maxCost, miles, services, socCode, sortBy, zipCode;
+
     setIsLoading(true);
     setPageNumber(pageNumberValue);
     setItemsPerPage(limitValue);
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
+      cipCode = cipCodeValue;
     }
 
     if (classFormatValue) {
       const classFormatArray = classFormatValue.includes("," || "%2C") ? classFormatValue.split("," || "%2C") : [classFormatValue];
       setClassFormat(classFormatArray);
+      classFormat = classFormatArray;
     }
 
     if (completeInValue) {
@@ -119,37 +123,46 @@ export const SearchResultsPage = ({
 
     if (countyValue) {
       setCounty(countyValue as CountyProps);
+      county = countyValue;
     }
 
     if (inDemandValue) {
       const inDemandText = inDemandValue.toLowerCase();
-      setInDemand(inDemandText === "true");
+      const inDemandBool = inDemandText === "true";
+      setInDemand(inDemandBool);
+      inDemand = inDemandBool;
     }
 
     if (languagesValue) {
       const languagesArray = languagesValue.includes("," || "%2C") ? languagesValue.split("," || "%2C") : [languagesValue];
       setLanguages(languagesArray as LanguageProps[]);
+      languages = languagesArray;
     }
 
     if (maxCostValue) {
       setMaxCost(maxCostValue);
+      maxCost = parseInt(maxCostValue);
     }
 
     if (milesValue) {
       setMiles(milesValue);
+      miles = parseInt(milesValue);
     }
 
     if (servicesValue) {
       const servicesArray = servicesValue.includes("," || "%2C") ? servicesValue.split("," || "%2C") : [servicesValue];
       setServices(servicesArray);
+      services = servicesArray;
     }
 
     if (socCodeValue) {
       setSocCode(socCodeValue);
+      socCode = socCodeValue;
     }
 
     if (zipcodeValue) {
       setZipcode(zipcodeValue);
+      zipCode = zipcodeValue;
     }
 
     const queryToSearch = searchQuery ? searchQuery : "";
@@ -158,7 +171,21 @@ export const SearchResultsPage = ({
                     setIsError,
                     setIsLoading,
                     setMetaData,
-                    setTrainings);
+                    setTrainings,
+                    cipCode,
+                    classFormat,
+                    completeInArray,
+                    county,
+                    inDemand,
+                    limitValue,
+                    languages,
+                    maxCost,
+                    miles,
+                    pageNumberValue,
+                    services,
+                    socCode,
+                    sortBy,
+                    zipCode);
   }, [client, searchQuery]);
   
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {

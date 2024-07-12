@@ -84,9 +84,7 @@ export const FilterDrawer = ({
 
   const { handleSubmit, setValue } = methods;
 
-  const onSubmit = (data: Props) => {
-    console.log(data);
-    
+  const onSubmit = (data: Props) => {    
     const {
       searchQuery,
       inDemand,

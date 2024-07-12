@@ -24,6 +24,20 @@ export const getTrainingData = (
   setLoading: Dispatch<SetStateAction<boolean>>,
   setMetaData: Dispatch<SetStateAction<TrainingData["meta"] | undefined>>,
   setTrainings: Dispatch<SetStateAction<TrainingResult[]>>,
+  cipCode?: string,
+  classFormat?: string[],
+  completeIn?: number[],
+  county?: string,
+  inDemand?: boolean,
+  itemsPerPage?: number,
+  languages?: string[],
+  maxCost?: number,
+  miles?: number,
+  pageNum?: number,
+  services?: string[],
+  socCode?: string,
+  sortBy?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+  zipCode?: string
 ): void => {
   if (queryToSearch && queryToSearch !== "" && queryToSearch !== "null") {
     client.getTrainingsByQuery(queryToSearch, {
@@ -36,7 +50,23 @@ export const getTrainingData = (
         setIsError(true);
         setLoading(false);
       },
-    });
+    },
+      cipCode,
+      classFormat,
+      completeIn,
+      county,
+      inDemand,
+      itemsPerPage,
+      languages,
+      maxCost,
+      miles,
+      pageNum,
+      services,
+      socCode,
+      sortBy,
+      zipCode);
+  } else {
+    setLoading(false);
   }
 }
 
