@@ -139,6 +139,9 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
 
+    const occupations = await credentialEngineUtils.extractOccupations(certificate);
+    const socCodes = occupations.map((occupation: { soc: string }) => occupation.soc);
+
     const outcomesDefinition = await dataClient.findOutcomeDefinition(cipCode, provider.providerId);
 
     return {
@@ -156,7 +159,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
       highlight: highlight,
-      socCodes: [],
+      socCodes: socCodes,
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
       languages: "",
       isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
