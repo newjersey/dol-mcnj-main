@@ -197,15 +197,28 @@ export const SearchResultsPage = ({
   }, [client, searchQuery, pageNumber]);
   
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
-    setIsLoading(true);
-    setItemsPerPage(
-      event.target.value as unknown as number,
-    );
+    const newNumber = parseInt(event.target.value);
+    setItemsPerPage(newNumber);
+
+    const urlParams = window.location.search;
+
+    let newUrl;
+    if (urlParams.includes("limit")) {
+      newUrl = newNumber !== 10 ? urlParams.replace(/limit=[^&]*/, `limit=${newNumber}`) : urlParams.replace(/&?limit=[^&]*/, "");
+      window.history.replaceState({}, "", newUrl);
+    } else if (newNumber !== 10) {
+      newUrl = `${urlParams}&limit=${newNumber}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+
+    if (newUrl) {
+      navigate(newUrl);
+      window.location.reload();
+    }
   };
   
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
-    setSortBy(newSortOrder);
     logEvent("Search", "Updated sort", newSortOrder);
 
     const urlParams = window.location.search;
