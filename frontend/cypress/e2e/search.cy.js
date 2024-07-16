@@ -220,7 +220,7 @@ describe("Search", () => {
     cy.contains("Rutgers Virtual Live Mini MBA").should("not.exist");
 
     // shows program
-    cy.contains("Certified Digital Marketing Fundamental").should("exist");
+    cy.contains("Web Mobile and Digital Marketing").should("exist");
   });
 
   it.skip("tags trainings on in-demand", () => {

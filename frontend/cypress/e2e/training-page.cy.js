@@ -38,6 +38,7 @@ describe("Training Page", () => {
     cy.contains("You can also check out other tuition assistance opportunities.").should("exist");
 
     // cost
+<<<<<<< HEAD
     cy.contains("$800.00").should("exist");
     /*    cy.contains("$13,500.00").should("exist");
     cy.contains("$0.00").should("exist");
@@ -54,6 +55,23 @@ describe("Training Page", () => {
     cy.contains("(215) 728-4733").should("exist");*/
     cy.contains("ezwheels@hotmail.com").should("exist");
     cy.contains("http://ezwheelsdriving.com").should("exist");
+=======
+    cy.contains("$3,995.00").should("exist");
+    cy.contains("$2,088.00").should("exist");
+    cy.contains("$154.00").should("exist");
+    cy.contains("$0.00").should("exist");
+    cy.contains("$1,753.00").should("exist");
+    cy.contains("$0.00").should("exist");
+
+    // provider details
+    cy.contains("span", "Lincoln Technical Institute").should("exist");
+    cy.contains("2299 Vauxhall Rd.").should("exist");
+    cy.contains("Union, NJ 07083").should("exist");
+    cy.contains("Kevin L. Kirkley").should("exist");
+    cy.contains("Director").should("exist");
+    cy.contains("(908) 964-7800 Ext: 40253").should("exist");
+    cy.contains("www.lincolntech.com").should("exist");
+>>>>>>> 3f5fe768273431e7a28ada92e2d0c193a8f1994d
 
     cy.checkA11y();
   });
