@@ -112,7 +112,7 @@ export const FilterDrawer = ({
     miles ? urlParams.set("miles", miles) : urlParams.delete("miles");
     zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
     
-    if (completeIn && completeIn.length > 0) {
+    if (completeIn) {
       completeInList = extractIds(completeIn as ArrayProps[]);
       completeInList?.length > 0 ? urlParams.set("completeIn", completeInList.join(",")) : urlParams.delete("completeIn");
     }

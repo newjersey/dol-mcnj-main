@@ -43,7 +43,7 @@ export const SearchResultsPage = ({
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [pageNumber, setPageNumber] = useState<number>();
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
@@ -85,7 +85,7 @@ export const SearchResultsPage = ({
     let cipCode, classFormat, county, inDemand, languages, maxCost, miles, services, socCode, sortBy, zipCode;
 
     setIsLoading(true);
-    setPageNumber(pageNumberValue);
+    if (pageNumberValue !== pageNumber) setPageNumber(pageNumberValue);
     setItemsPerPage(limitValue);
 
     if (cipCodeValue) {
@@ -186,7 +186,7 @@ export const SearchResultsPage = ({
                     socCode,
                     sortBy,
                     zipCode);
-  }, [client, searchQuery]);
+  }, [client, searchQuery, pageNumber]);
   
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     setIsLoading(true);
