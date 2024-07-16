@@ -5,6 +5,7 @@ import {
   useEffect,
   useState
 } from "react";
+import { navigate } from "@reach/router";
 import { RouteComponentProps, WindowLocation } from "@reach/router";
 import { CircularProgress } from "@material-ui/core";
 
@@ -66,6 +67,7 @@ export const SearchResultsPage = ({
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
+    const sortByValue = urlParams.get("sort");
     const cipCodeValue = urlParams.get("cip");
     const classFormatValue = urlParams.get("format");
     const completeInValue = urlParams.get("completeIn");
@@ -82,11 +84,17 @@ export const SearchResultsPage = ({
     const limitValue = limit ? parseInt(limit) : 10;
     const pageNumberValue = page ? parseInt(page) : 1;
 
-    let cipCode, classFormat, county, inDemand, languages, maxCost, miles, services, socCode, sortBy, zipCode;
+    let cipCode, classFormat, county, inDemand, languages, maxCost, miles, services, socCode, zipCode;
 
     setIsLoading(true);
     if (pageNumberValue !== pageNumber) setPageNumber(pageNumberValue);
-    setItemsPerPage(limitValue);
+    if (itemsPerPage !== limitValue) setItemsPerPage(limitValue);
+
+    if (sortBy) {
+      setSortBy(sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
+    } else {
+      setSortBy("best_match");
+    }
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
@@ -184,7 +192,7 @@ export const SearchResultsPage = ({
                     pageNumberValue,
                     services,
                     socCode,
-                    sortBy,
+                    sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
                     zipCode);
   }, [client, searchQuery, pageNumber]);
   
@@ -199,6 +207,22 @@ export const SearchResultsPage = ({
     const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
     setSortBy(newSortOrder);
     logEvent("Search", "Updated sort", newSortOrder);
+
+    const urlParams = window.location.search;
+    
+    let newUrl;
+    if (urlParams.includes("sort")) {
+      newUrl = newSortOrder !== "best_match" ? urlParams.replace(/sort=[^&]*/, `sort=${newSortOrder}`) : urlParams.replace(/&?sort=[^&]*/, "");
+      window.history.replaceState({}, "", newUrl);
+    } else if (newSortOrder !== "best_match") {
+      newUrl = `${urlParams}&sort=${newSortOrder}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+
+    if (newUrl) {
+      navigate(newUrl);
+      window.location.reload();
+    }
   };
 
   return (

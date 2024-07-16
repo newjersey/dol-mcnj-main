@@ -45,6 +45,7 @@ const fetchAllCerts = async (query: object, sort: string) => {
 
 const filterCerts = async (
   results: TrainingResult[],
+  sortby: string,
   cip_code?: string,
   complete_in?: number[],
   in_demand?: boolean,
@@ -71,6 +72,26 @@ const filterCerts = async (
 
   if (languages && languages.length > 0) {
     filteredResults = filteredResults.filter((result) => result.languages && result.languages.length > 0 && result.languages.some((language) => languages.includes(language)));
+  }
+
+  if (sortby.includes("price_")) {
+    filteredResults = filteredResults.sort((a, b) => {
+      if (sortby === "price_asc") {
+        return a.totalCost! - b.totalCost!;
+      } else {
+        return b.totalCost! - a.totalCost!;
+      }
+    });
+  } else if (sortby === ("asc" || "desc")) {
+    filteredResults = filteredResults.sort((a, b) => {
+      const aname = a.name?.toLowerCase() as string;
+      const bname = b.name?.toLowerCase() as string;
+      if (sortby === "asc") {
+        return aname.localeCompare(bname);
+      } else {
+        return bname.localeCompare(aname);
+      }
+    });
   }
 
   return filteredResults;
@@ -127,12 +148,15 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const certificates = ceRecordsResponse.allCerts as CTDLResource[];
     const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
 
-    const filteredResults = await filterCerts(results,
-                                                params.cip_code,
-                                                params.complete_in,
-                                                params.in_demand,
-                                                params.languages,
-                                                params.max_cost);
+    const filteredResults = await filterCerts(
+      results,
+      sort,
+      params.cip_code,
+      params.complete_in,
+      params.in_demand,
+      params.languages,
+      params.max_cost,
+    );
 
     const paginatedResults = paginateCerts(filteredResults, page, limit);
 
