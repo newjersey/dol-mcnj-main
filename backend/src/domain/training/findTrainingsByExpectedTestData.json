@@ -41,7 +41,7 @@
     "percentEmployed": null,
     "averageSalary": 0,
     "hasEveningCourses": false,
-    "languages": "en",
+    "languages": ["en"],
     "isWheelchairAccessible": false,
     "hasJobPlacementAssistance": false,
     "hasChildcareAssistance": false

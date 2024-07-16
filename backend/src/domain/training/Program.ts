@@ -34,7 +34,7 @@ export interface Program {
   avgquarterlywage2: string | null;
   onlineprogramid: string | null;
   eveningcourses: string;
-  languages: string | null;
+  languages: string[] | null;
   accessfordisabled: string | null;
   personalassist: string | null;
   childcare: string | null;

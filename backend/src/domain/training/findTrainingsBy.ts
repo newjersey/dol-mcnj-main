@@ -59,7 +59,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
           averageSalary: outcomesDefinition ? formatAverageSalary(outcomesDefinition.avgquarterlywage2) : null,
           hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-          languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
+          languages: certificate["ceterms:inLanguage"] ? [certificate["ceterms:inLanguage"][0]] : null,
           isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
           hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
           hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare")
