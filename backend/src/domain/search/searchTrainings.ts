@@ -75,7 +75,7 @@ const filterCerts = async (
   }
 
   if (sortby.includes("price_")) {
-    filteredResults = filteredResults.sort((a, b) => {
+    filteredResults = filteredResults.sort((a: TrainingResult, b: TrainingResult): number => {
       if (a.totalCost && b.totalCost) {
         if (sortby === "price_asc") {
           return a.totalCost! - b.totalCost!;
@@ -83,6 +83,7 @@ const filterCerts = async (
           return b.totalCost! - a.totalCost!;
         } 
       }
+      return 0;
     });
   } else if (sortby === ("asc" || "desc")) {
     filteredResults = filteredResults.sort((a, b) => {
