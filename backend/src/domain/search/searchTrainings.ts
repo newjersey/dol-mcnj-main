@@ -76,14 +76,12 @@ const filterCerts = async (
 
   if (sortby.includes("price_")) {
     filteredResults = filteredResults.sort((a, b) => {
-      if (a.totalCost === null || a.totalCost === undefined) {
-        return 1;
-      }
-      
-      if (sortby === "price_asc") {
-        return a.totalCost! - b.totalCost!;
-      } else {
-        return b.totalCost! - a.totalCost!;
+      if (a.totalCost && b.totalCost) {
+        if (sortby === "price_asc") {
+          return a.totalCost! - b.totalCost!;
+        } else {
+          return b.totalCost! - a.totalCost!;
+        } 
       }
     });
   } else if (sortby === ("asc" || "desc")) {
