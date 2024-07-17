@@ -26,7 +26,7 @@ describe("ApiClient", () => {
       const dummyObserver = { onSuccess: jest.fn(), onError: jest.fn() };
       mockedAxios.get.mockResolvedValue({ data: [] });
 
-      apiClient.getTrainingsByQuery("penguins", dummyObserver, 1, 10);
+      apiClient.getTrainingsByQuery("penguins", dummyObserver);
 
       expect(mockedAxios.get).toHaveBeenCalledWith(
         "/api/trainings/search?query=penguins&page=1&limit=10&sort=best_match",
@@ -45,7 +45,7 @@ describe("ApiClient", () => {
         onError: jest.fn(),
       };
 
-      apiClient.getTrainingsByQuery("some query", observer, 1, 10);
+      apiClient.getTrainingsByQuery("some query", observer);
     });
 
     it("calls observer with error and type when GET fails", (done) => {
@@ -58,7 +58,7 @@ describe("ApiClient", () => {
         },
       };
 
-      apiClient.getTrainingsByQuery("some query", observer, 1, 10);
+      apiClient.getTrainingsByQuery("some query", observer);
     });
   });
 
