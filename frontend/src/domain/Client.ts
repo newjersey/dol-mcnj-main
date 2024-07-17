@@ -15,9 +15,20 @@ export interface Client {
   getTrainingsByQuery: (
       query: string,
       observer: Observer<TrainingData>,
+      cipCode?: string,
+      classFormat?: string[],
+      completeIn?: number[],
+      county?: string,
+      inDemand?: boolean,
+      limit?: number,
+      languages?: string[],
+      maxCost?: number,
+      miles?: number,
       page?: number,
-      limit?: number | undefined,
+      services?: string[],
+      socCode?: string,
       sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+      zipCode?: string
   ) => void;
   getTrainingById: (id: string, observer: Observer<Training>) => void;
   getInDemandOccupations: (observer: Observer<InDemandOccupation[]>) => void;

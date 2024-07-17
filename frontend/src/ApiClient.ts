@@ -17,13 +17,36 @@ export class ApiClient implements Client {
   getTrainingsByQuery(
     query: string,
     observer: Observer<TrainingData>,
+    cipCode?: string,
+    classFormat?: string[],
+    completeIn?: number[],
+    county?: string,
+    inDemand?: boolean,
+    limit?: number,
+    languages?: string[],
+    maxCost?: number,
+    miles?: number,
     page?: number,
-    limit?: number | undefined,
+    services?: string[],
+    socCode?: string,
     sort?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    zipCode?: string
   ): void {
-    const url = `/api/trainings/search?query=${query}&page=${page || 1}&limit=${limit || 10}&sort=${sort || 'best_match'}`;
+    const cipCodeQuery = cipCode ? `&cip_code=${cipCode}` : "";
+    const classFormatQuery = classFormat && classFormat.length > 0 ? `&class_format=${classFormat.join(",")}` : "";
+    const completeInQuery = completeIn && completeIn.length > 0 ? `&complete_in=${completeIn.join(",")}` : "";
+    const countyQuery = county ? `&county=${county}` : "";
+    const inDemandQuery = inDemand ? `&in_demand=${inDemand}` : "";
+    const limitQuery = `&limit=${limit || 10}`;
+    const languagesQuery = languages && languages.length > 0 ? `&languages=${languages.join(",")}` : "";
+    const maxCostQuery = maxCost ? `&max_cost=${maxCost}` : "";
+    const pageQuery = `&page=${page || 1}`;
+    const servicesQuery = services && services.length > 0 ? `&services=${services.join(",")}` : "";
+    const socCodeQuery = socCode ? `&soc_code=${socCode}` : "";
+    const sortQuery = `&sort=${sort || 'best_match'}`;
+    const milesZipCodeQuery = miles && zipCode ? `&miles=${miles}&zip_code=${zipCode}` : "";
 
-    console.log(url);
+    const url = `/api/trainings/search?query=${query}${pageQuery}${limitQuery}${sortQuery}${cipCodeQuery}${classFormatQuery}${completeInQuery}${countyQuery}${inDemandQuery}${languagesQuery}${maxCostQuery}${servicesQuery}${socCodeQuery}${milesZipCodeQuery}`;
 
     this.get(
       url,

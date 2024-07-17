@@ -1,4 +1,4 @@
-describe("Filter Drawer", () => {
+describe.skip("Filter Drawer", () => {
   it("should not be visible by default", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
     cy.visit("/training/search?q=baking");

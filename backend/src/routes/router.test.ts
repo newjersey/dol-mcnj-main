@@ -70,9 +70,21 @@ describe("router", () => {
           expect(response.status).toEqual(200);
           expect(response.body).toEqual(trainings);
           expect(stubSearchTrainings).toHaveBeenCalledWith({
+            cip_code: undefined,
+            class_format: undefined,
+            complete_in: undefined,
+            county: undefined,
+            in_demand: false,
+            languages: undefined,
             limit: 10,
+            max_cost: NaN,
+            miles: NaN,
             page: 1,
             searchQuery: "penguins",
+            services: undefined,
+            soc_code: undefined,
+            sort: undefined,
+            zip_code: undefined
           });
           done();
         });

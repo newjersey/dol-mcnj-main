@@ -5,6 +5,7 @@ import {
   useEffect,
   useState
 } from "react";
+import { navigate } from "@reach/router";
 import { RouteComponentProps, WindowLocation } from "@reach/router";
 import { CircularProgress } from "@material-ui/core";
 
@@ -43,7 +44,7 @@ export const SearchResultsPage = ({
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [pageNumber, setPageNumber] = useState<number>();
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
@@ -66,6 +67,7 @@ export const SearchResultsPage = ({
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
+    const sortByValue = urlParams.get("sort");
     const cipCodeValue = urlParams.get("cip");
     const classFormatValue = urlParams.get("format");
     const completeInValue = urlParams.get("completeIn");
@@ -82,17 +84,27 @@ export const SearchResultsPage = ({
     const limitValue = limit ? parseInt(limit) : 10;
     const pageNumberValue = page ? parseInt(page) : 1;
 
+    let cipCode, classFormat, county, inDemand, languages, maxCost, miles, services, socCode, zipCode;
+
     setIsLoading(true);
-    setPageNumber(pageNumberValue);
-    setItemsPerPage(limitValue);
+    if (pageNumberValue !== pageNumber) setPageNumber(pageNumberValue);
+    if (itemsPerPage !== limitValue) setItemsPerPage(limitValue);
+
+    if (sortBy) {
+      setSortBy(sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
+    } else {
+      setSortBy("best_match");
+    }
 
     if (cipCodeValue) {
       setCipCode(cipCodeValue);
+      cipCode = cipCodeValue;
     }
 
     if (classFormatValue) {
       const classFormatArray = classFormatValue.includes("," || "%2C") ? classFormatValue.split("," || "%2C") : [classFormatValue];
       setClassFormat(classFormatArray);
+      classFormat = classFormatArray;
     }
 
     if (completeInValue) {
@@ -113,43 +125,52 @@ export const SearchResultsPage = ({
             completeInArray.push(8, 9, 10);
             break;
         }
-        return console.log('Organize completeIn times');
+        return completeInArray;
       });
     }
 
     if (countyValue) {
       setCounty(countyValue as CountyProps);
+      county = countyValue;
     }
 
     if (inDemandValue) {
       const inDemandText = inDemandValue.toLowerCase();
-      setInDemand(inDemandText === "true");
+      const inDemandBool = inDemandText === "true";
+      setInDemand(inDemandBool);
+      inDemand = inDemandBool;
     }
 
     if (languagesValue) {
       const languagesArray = languagesValue.includes("," || "%2C") ? languagesValue.split("," || "%2C") : [languagesValue];
       setLanguages(languagesArray as LanguageProps[]);
+      languages = languagesArray;
     }
 
     if (maxCostValue) {
       setMaxCost(maxCostValue);
+      maxCost = parseInt(maxCostValue);
     }
 
     if (milesValue) {
       setMiles(milesValue);
+      miles = parseInt(milesValue);
     }
 
     if (servicesValue) {
       const servicesArray = servicesValue.includes("," || "%2C") ? servicesValue.split("," || "%2C") : [servicesValue];
       setServices(servicesArray);
+      services = servicesArray;
     }
 
     if (socCodeValue) {
       setSocCode(socCodeValue);
+      socCode = socCodeValue;
     }
 
     if (zipcodeValue) {
       setZipcode(zipcodeValue);
+      zipCode = zipcodeValue;
     }
 
     const queryToSearch = searchQuery ? searchQuery : "";
@@ -158,20 +179,63 @@ export const SearchResultsPage = ({
                     setIsError,
                     setIsLoading,
                     setMetaData,
-                    setTrainings);
-  }, [client, searchQuery]);
+                    setTrainings,
+                    cipCode,
+                    classFormat,
+                    completeInArray,
+                    county,
+                    inDemand,
+                    limitValue,
+                    languages,
+                    maxCost,
+                    miles,
+                    pageNumberValue,
+                    services,
+                    socCode,
+                    sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+                    zipCode);
+  }, [client, searchQuery, pageNumber]);
   
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
-    setIsLoading(true);
-    setItemsPerPage(
-      event.target.value as unknown as number,
-    );
+    const newNumber = parseInt(event.target.value);
+    setItemsPerPage(newNumber);
+
+    const urlParams = window.location.search;
+
+    let newUrl;
+    if (urlParams.includes("limit")) {
+      newUrl = newNumber !== 10 ? urlParams.replace(/limit=[^&]*/, `limit=${newNumber}`) : urlParams.replace(/&?limit=[^&]*/, "");
+      window.history.replaceState({}, "", newUrl);
+    } else if (newNumber !== 10) {
+      newUrl = `${urlParams}&limit=${newNumber}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+
+    if (newUrl) {
+      navigate(newUrl);
+      window.location.reload();
+    }
   };
   
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
-    setSortBy(newSortOrder);
     logEvent("Search", "Updated sort", newSortOrder);
+
+    const urlParams = window.location.search;
+    
+    let newUrl;
+    if (urlParams.includes("sort")) {
+      newUrl = newSortOrder !== "best_match" ? urlParams.replace(/sort=[^&]*/, `sort=${newSortOrder}`) : urlParams.replace(/&?sort=[^&]*/, "");
+      window.history.replaceState({}, "", newUrl);
+    } else if (newSortOrder !== "best_match") {
+      newUrl = `${urlParams}&sort=${newSortOrder}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+
+    if (newUrl) {
+      navigate(newUrl);
+      window.location.reload();
+    }
   };
 
   return (
