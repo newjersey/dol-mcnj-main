@@ -48,8 +48,6 @@ export class ApiClient implements Client {
 
     const url = `/api/trainings/search?query=${query}${pageQuery}${limitQuery}${sortQuery}${cipCodeQuery}${classFormatQuery}${completeInQuery}${countyQuery}${inDemandQuery}${languagesQuery}${maxCostQuery}${servicesQuery}${socCodeQuery}${milesZipCodeQuery}`;
 
-    console.log(url);
-
     this.get(
       url,
       observer,
