@@ -95,6 +95,7 @@ const filterCerts = async (
         return bname.localeCompare(aname);
       }
     });
+    return 0;
   }
 
   return filteredResults;
