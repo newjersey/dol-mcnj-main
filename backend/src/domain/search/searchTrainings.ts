@@ -45,11 +45,9 @@ const fetchAllCerts = async (query: object, sort: string) => {
 
 const filterCerts = async (
   results: TrainingResult[],
-  sortby: string,
   cip_code?: string,
   complete_in?: number[],
   in_demand?: boolean,
-  languages?: string[],
   max_cost?: number,
 ) => {
   let filteredResults = results;
@@ -80,6 +78,23 @@ const paginateCerts = (certs: TrainingResult[], page: number, limit: number) => 
   const start = (page - 1) * limit;
   const end = start + limit;
   return certs.slice(start, end);
+};
+
+export const sortTrainings = (trainings: TrainingResult[], sort: string): TrainingResult[] => {
+  switch (sort) {
+    case "asc":
+      return trainings.sort((a, b) => (a.name && b.name) ? a.name.localeCompare(b.name) : 0);
+    case "desc":
+      return trainings.sort((a, b) => (b.name && a.name) ? b.name.localeCompare(a.name) : 0);
+    case "price_asc":
+      return trainings.sort((a, b) => (a.totalCost || 0) - (b.totalCost || 0));
+    case "price_desc":
+      return trainings.sort((a, b) => (b.totalCost || 0) - (a.totalCost || 0));
+    case "EMPLOYMENT_RATE":
+      return trainings.sort((a, b) => (b.percentEmployed || 0) - (a.percentEmployed || 0));
+    default:
+      return trainings;
+  }
 };
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
@@ -126,15 +141,15 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const filteredResults = await filterCerts(
       results,
-      sort,
       params.cip_code,
       params.complete_in,
       params.in_demand,
-      params.languages,
-      params.max_cost,
+      params.max_cost
     );
 
-    const paginatedResults = paginateCerts(filteredResults, page, limit);
+    const sortedResults = await sortTrainings(filteredResults, sort);
+
+    const paginatedResults = paginateCerts(sortedResults, page, limit);
 
     console.log(paginatedResults)
 
@@ -149,6 +164,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     return data;
   };
 };
+
 
 function prepareSearchParameters(params: {
   searchQuery: string,
