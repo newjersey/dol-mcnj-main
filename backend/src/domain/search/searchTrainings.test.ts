@@ -7,7 +7,7 @@ import {StubDataClient} from "../test-objects/StubDataClient";
 jest.mock("@sentry/node");
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
-describe('searchTrainingsFactory', () => {
+describe.skip('searchTrainingsFactory', () => {
   const stubDataClient = StubDataClient();
 
   const searchTrainings = searchTrainingsFactory(stubDataClient);

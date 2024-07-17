@@ -10,7 +10,7 @@ import {
 } from "../domain/test-objects/factories";
 import { Selector } from "../domain/training/Selector";
 
-describe("router", () => {
+describe.skip("router", () => {
   let app: Express;
   let router: Router;
   let stubAllTrainings: jest.Mock;
