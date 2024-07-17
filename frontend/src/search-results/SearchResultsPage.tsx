@@ -125,7 +125,7 @@ export const SearchResultsPage = ({
             completeInArray.push(8, 9, 10);
             break;
         }
-        return;
+        return completeInArray;
       });
     }
 
