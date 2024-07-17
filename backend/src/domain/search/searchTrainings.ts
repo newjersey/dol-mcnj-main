@@ -89,6 +89,9 @@ const filterCerts = async (
     filteredResults = filteredResults.sort((a, b) => {
       const aname = a.name?.toLowerCase() as string;
       const bname = b.name?.toLowerCase() as string;
+      if (!aname || !bname) {
+        return 0;
+      }
       if (sortby === "asc") {
         return aname.localeCompare(bname);
       } else {
