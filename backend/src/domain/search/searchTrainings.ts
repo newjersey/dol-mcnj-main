@@ -74,33 +74,6 @@ const filterCerts = async (
     filteredResults = filteredResults.filter((result) => result.languages && result.languages.length > 0 && result.languages.some((language) => languages.includes(language)));
   }
 
-  if (sortby.includes("price_")) {
-    filteredResults = filteredResults.sort((a: TrainingResult, b: TrainingResult): number => {
-      if (a.totalCost && b.totalCost) {
-        if (sortby === "price_asc") {
-          return a.totalCost! - b.totalCost!;
-        } else {
-          return b.totalCost! - a.totalCost!;
-        } 
-      }
-      return 0;
-    });
-  } else if (sortby === ("asc" || "desc")) {
-    filteredResults = filteredResults.sort((a, b) => {
-      const aname = a.name?.toLowerCase() as string;
-      const bname = b.name?.toLowerCase() as string;
-      if (!aname || !bname) {
-        return 0;
-      }
-      if (sortby === "asc") {
-        return aname.localeCompare(bname);
-      } else {
-        return bname.localeCompare(aname);
-      }
-    });
-    return 0;
-  }
-
   return filteredResults;
 }
 
