@@ -115,8 +115,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     soc_code?: string,
     zip_code?: string,
   }): Promise<TrainingData> => {
-    console.log(params);
-    const { page, limit, sort, cacheKey } = prepareSearchParameters(params);
+    const cip_code = params.cip_code?.split(".").join("") || "";
+    const soc_code = params.soc_code?.split("-").join("") || "";
+    const { page, limit, sort, cacheKey } = prepareSearchParameters(cip_code, soc_code, params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
     if (cachedResults) {
@@ -141,7 +142,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const filteredResults = await filterCerts(
       results,
-      params.cip_code,
+      cip_code,
       params.complete_in,
       params.in_demand,
       params.max_cost
@@ -166,26 +167,27 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 };
 
 
-function prepareSearchParameters(params: {
-  searchQuery: string,
-  page?: number,
-  limit?: number,
-  sort?: string,
-  cip_code?: string
-  class_format?: string[],
-  complete_in?: number[],
-  county?: string,
-  in_demand?: boolean,
-  languages?: string[],
-  max_cost?: number,
-  miles?: number,
-  services?: string[],
-  soc_code?: string,
-  zip_code?: string
+function prepareSearchParameters(
+  cip_code_value: string,
+  soc_code_value: string,
+  params: {
+    searchQuery: string,
+    page?: number,
+    limit?: number,
+    sort?: string,
+    class_format?: string[],
+    complete_in?: number[],
+    county?: string,
+    in_demand?: boolean,
+    languages?: string[],
+    max_cost?: number,
+    miles?: number,
+    services?: string[],
+    zip_code?: string
 }) {
   const page = params.page || 1;
   const limit = params.limit || 10;
-  const cip_code = `-cip:${params.cip_code}` || "";
+  const cip_code = `-cip:${cip_code_value}` || "";
   const class_format = `-format:${params.class_format?.join(",")}` || [];
   const complete_in = `-complete:${params.complete_in?.join(",")}` || [];
   const county = `-${params.county}` || "";
@@ -194,7 +196,7 @@ function prepareSearchParameters(params: {
   const max_cost = `-max:${params.max_cost}` || "";
   const miles = `-miles:${params.miles}` || "";
   const services = `-services:${params.services?.join(",")}` || "";
-  const soc_code = `-soc:${params.soc_code}` || "";
+  const soc_code = `-soc:${soc_code_value}` || "";
   const zip_code = `-zip:${params.zip_code}` || "";
 
   const sort = determineSortOption(params.sort);
