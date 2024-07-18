@@ -20,7 +20,7 @@ import { Pagination } from "./Pagination";
 import { ResultsHeader } from "./ResultsHeader";
 import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
-import { SearchSelects } from "./SearchSelects";
+import { SearchFilters } from "./SearchFilters";
 import { SearchTips } from "./SearchTips";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
@@ -251,36 +251,37 @@ export const SearchResultsPage = ({
       <div id="search-results-page" className="container">
         <Breadcrumbs />
         <div>
-          <div id="search-results-heading">
+          <div>
             <ResultsHeader
               loading={isLoading}
               searchQuery={searchQuery || ""}
               metaCount={metaData?.totalItems || 0}
             />
-            {!isLoading && trainings.length > 0 && (
-              <SearchSelects
+          </div>
+          {!isLoading && (
+            <div id="search-filters-container">
+              <SearchFilters
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
                 itemsPerPage={itemsPerPage}
                 sortBy={sortBy}
               />
-            )}
-          </div>
-          {!isLoading && (
-            <FilterDrawer
-              searchQuery={searchQuery}
-              cipCode={cipCode}
-              classFormat={classFormat}
-              completeIn={completeIn}
-              county={county || ""}
-              inDemand={inDemand}
-              languages={languages}
-              maxCost={maxCost}
-              miles={miles}
-              services={services}
-              socCode={socCode || ""}
-              zipcode={zipcode || ""}
-            />
+
+              <FilterDrawer
+                searchQuery={searchQuery}
+                cipCode={cipCode}
+                classFormat={classFormat}
+                completeIn={completeIn}
+                county={county || ""}
+                inDemand={inDemand}
+                languages={languages}
+                maxCost={maxCost}
+                miles={miles}
+                services={services}
+                socCode={socCode || ""}
+                zipcode={zipcode || ""}
+              />
+            </div>
           )}
         </div>
         <div id="results-container">

@@ -328,9 +328,11 @@
   }
 
   #filter-button-container {
-    margin: 0 0 $size-24 0;
-    max-width: 21.4375rem;
-    min-width: 6.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin: 0 0 0 $size-12;
+    width: 6.25rem;
 
     button {
       justify-content: left;
@@ -338,9 +340,13 @@
     }
   }
 
-  #search-results-heading {
+  #search-header-container {
+    margin-bottom: 0;
+  }
+
+  #search-filters-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
   }
 }

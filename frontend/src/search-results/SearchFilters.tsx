@@ -15,7 +15,7 @@ const limitOptions = [
   "100"
 ];
 
-export const SearchSelects = ({
+export const SearchFilters = ({
   handleSortChange,
   handleLimitChange,
   itemsPerPage,
