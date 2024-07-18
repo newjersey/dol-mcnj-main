@@ -268,21 +268,6 @@
       box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.10);;
     }
   }
-
-  .floating {
-    border: 1px solid;
-    position: fixed !important;
-    bottom: $size-16;
-    right: $size-75;
-    width: 7.25rem;
-    height: 48px;
-    z-index: 1000;
-    &:hover {
-      @media screen and (min-width: ($tablet)) {
-        outline: $size-2 solid $primary-light;
-      }
-    }
-  }
 }
 
 #filter-form-container {
