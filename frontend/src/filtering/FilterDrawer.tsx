@@ -117,12 +117,12 @@ export const FilterDrawer = ({
       completeInList?.length > 0 ? urlParams.set("completeIn", completeInList.join(",")) : urlParams.delete("completeIn");
     }
     
-    if (languages && languages.length > 0) {
+    if (languages) {
       languagesList = extractIds(languages as ArrayProps[]);
-      languagesList?.length >0 ? urlParams.set("languages", languagesList.join(",")) : urlParams.delete("languages");
+      languagesList?.length > 0 ? urlParams.set("languages", languagesList.join(",")) : urlParams.delete("languages");
     }
     
-    if (services && services.length > 0) {
+    if (services) {
       servicesList = extractIds(services as ArrayProps[]);
       servicesList?.length > 0 ? urlParams.set("services", servicesList.join(",")) : urlParams.delete("services");
     }
