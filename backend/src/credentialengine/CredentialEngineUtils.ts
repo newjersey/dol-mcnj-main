@@ -348,6 +348,18 @@ const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> =
   }
 };
 
+const getLanguages = async (certificate: CTDLResource): Promise<string[]> => {
+  try {
+    const languages = certificate["ceterms:inLanguage"];
+    if (!languages || languages.length === 0) return [];
+
+    return languages.map((languageTag: string) => DATA_VALUE_TO_LANGUAGE[languageTag] || languageTag);
+  } catch (error) {
+    logError(`Error getting languages`, error as Error);
+    throw error;
+  }
+};
+
 const convertIso8601DurationToTotalHours = async (isoString: string): Promise<number> => {
   try {
     const match = isoString.match(
@@ -408,6 +420,28 @@ const convertIso8601DurationToCalendarLengthId = async (isoString: string): Prom
   }
 };
 
+export const DATA_VALUE_TO_LANGUAGE: { [key: string]: string } = {
+  ar: "Arabic",
+  zh: "Chinese",
+  fr: "French",
+  "fr-HT": "French Creole",
+  de: "German",
+  el: "Greek",
+  he: "Hebrew",
+  hi: "Hindi",
+  hu: "Hungarian",
+  it: "Italian",
+  ja: "Japanese",
+  ko: "Korean",
+  pl: "Polish",
+  pt: "Portuguese",
+  ru: "Russian",
+  es: "Spanish",
+  tl: "Tagalog",
+  vi: "Vietnamese",
+  yi: "Yiddish",
+};
+
 export const credentialEngineUtils = {
   validateCtId,
   getCtidFromURL,
@@ -428,6 +462,7 @@ export const credentialEngineUtils = {
   getCalendarLengthId,
   hasOnlineOffering,
   hasEveningSchedule,
+  getLanguages,
   convertIso8601DurationToTotalHours,
   convertIso8601DurationToCalendarLengthId
 };

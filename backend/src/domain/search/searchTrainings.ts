@@ -161,7 +161,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       highlight: highlight,
       socCodes: socCodes,
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-      languages: "",
+      languages: await credentialEngineUtils.getLanguages(certificate),
       isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
       hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
       hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
