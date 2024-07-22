@@ -322,6 +322,18 @@ const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> =
   }
 };
 
+const hasOnlineOffering = async (certificate: CTDLResource): Promise<boolean> => {
+  try {
+    const learningDeliveryTypes = certificate["ceterms:learningDeliveryType"] ?? [];
+    return learningDeliveryTypes.some(
+      (deliveryType: CetermsServiceType) => deliveryType["ceterms:targetNode"] === "deliveryType:OnlineOnly"
+    );
+  } catch (error) {
+    logError(`Error checking for online offering`, error as Error);
+    throw error;
+  }
+};
+
 const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> => {
   try {
     const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
@@ -414,6 +426,7 @@ export const credentialEngineUtils = {
   checkAccommodation,
   constructCertificationsString,
   getCalendarLengthId,
+  hasOnlineOffering,
   hasEveningSchedule,
   convertIso8601DurationToTotalHours,
   convertIso8601DurationToCalendarLengthId

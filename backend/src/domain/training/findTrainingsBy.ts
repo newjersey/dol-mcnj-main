@@ -24,7 +24,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     return await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
         const provider = await credentialEngineUtils.getProviderData(certificate);
-        const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -53,7 +52,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
           otherCost: await credentialEngineUtils.extractCost(certificate, "costType:ProgramSpecificFee"),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
-          online: availableOnlineAt != null,
+          online: await credentialEngineUtils.hasOnlineOffering(certificate),
           // percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
           // averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
