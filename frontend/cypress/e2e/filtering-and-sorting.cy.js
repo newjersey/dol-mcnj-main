@@ -273,7 +273,7 @@ describe("Filtering", () => {
     cy.contains("Baking & Pastry Arts").should("exist");
 
     cy.get(".card .link-format-blue").eq(0).click({ force: true });
-    cy.location("pathname").should("eq", "/training/37354");
+    cy.location("pathname").should("eq", "/training/41169");
     cy.go("back");
 
     cy.contains("Baking & Pastry , Culinary Arts").should("not.exist");
