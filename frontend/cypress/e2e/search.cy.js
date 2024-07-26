@@ -129,7 +129,7 @@ describe("Search", () => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("A.S.Degree: Social Service").click({ force: true });
+    cy.contains("Chemical Dependency Certificate").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
 
