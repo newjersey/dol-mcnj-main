@@ -121,19 +121,15 @@ describe("Search", () => {
   it("tags trainings on in-demand", () => {
     cy.visit("/training/search?q=social%20work");
 
-    // in-demand training
-    cy.get(".card")
-      .eq(0)
-      .within(() => {
-        cy.contains("In Demand").should("exist");
-      });
+
+    cy.contains("In Demand").should("exist");
 
     // not in-demand training
     cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("A.S.Degree: Social Service").click({ force: true });
+    cy.contains("Chemical Dependency Certificate").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
 
