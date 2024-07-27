@@ -24,7 +24,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     return await Promise.all(
       ceRecords.map(async (certificate: CTDLResource) => {
         const provider = await credentialEngineUtils.getProviderData(certificate);
-        const availableOnlineAt = certificate["ceterms:availableOnlineAt"];
 
         const cipCode = await credentialEngineUtils.extractCipCode(certificate);
         const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
@@ -53,13 +52,13 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           suppliesToolsCost: await credentialEngineUtils.extractCost(certificate, "costType:TechnologyFee"),
           otherCost: await credentialEngineUtils.extractCost(certificate, "costType:ProgramSpecificFee"),
           totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
-          online: availableOnlineAt != null,
+          online: await credentialEngineUtils.hasOnlineOffering(certificate),
           // percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),
           percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
           // averageSalary: await credentialEngineUtils.extractAverageSalary(certificate),
           averageSalary: outcomesDefinition ? formatAverageSalary(outcomesDefinition.avgquarterlywage2) : null,
           hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-          languages: certificate["ceterms:inLanguage"] ? certificate["ceterms:inLanguage"][0] : null,
+          languages: await credentialEngineUtils.getLanguages(certificate),
           isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
           hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
           hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare")
@@ -89,3 +88,10 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };
+
+export const formatLanguages = (languages: string | null): string[] => {
+  if (languages == null || languages.length === 0) return [];
+  const languagesWithoutQuotes = languages.replace(/["\s]+/g, "");
+  return languagesWithoutQuotes.split(",");
+};
+

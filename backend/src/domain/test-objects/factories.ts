@@ -8,9 +8,16 @@ import {
 } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
 import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
+import {DATA_VALUE_TO_LANGUAGE} from "../../credentialengine/CredentialEngineUtils";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
+
+export const randomLanguageTag = (): string => {
+  const languageTags = Object.keys(DATA_VALUE_TO_LANGUAGE);
+  const randomIndex = Math.floor(Math.random() * languageTags.length);
+  return languageTags[randomIndex];
+};
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
@@ -35,7 +42,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     providerName: "some-provider-name-" + randomInt(),
     socCodes: ["some-soc-" + randomInt()],
     hasEveningCourses: randomBool(),
-    languages: "some-language-" + randomInt(),
+    languages: [randomLanguageTag(), randomLanguageTag(), randomLanguageTag()],
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
@@ -71,7 +78,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
-    languages: "some-language-" + randomInt(),
+    languages: [randomLanguageTag(), randomLanguageTag(), randomLanguageTag()],
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),

@@ -322,6 +322,18 @@ const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> =
   }
 };
 
+const hasOnlineOffering = async (certificate: CTDLResource): Promise<boolean> => {
+  try {
+    const learningDeliveryTypes = certificate["ceterms:learningDeliveryType"] ?? [];
+    return learningDeliveryTypes.some(
+      (deliveryType: CetermsServiceType) => deliveryType["ceterms:targetNode"] === "deliveryType:OnlineOnly"
+    );
+  } catch (error) {
+    logError(`Error checking for online offering`, error as Error);
+    throw error;
+  }
+};
+
 const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> => {
   try {
     const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
@@ -332,6 +344,18 @@ const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> =
     return hasEvening;
   } catch (error) {
     logError(`Error checking evening schedule`, error as Error);
+    throw error;
+  }
+};
+
+const getLanguages = async (certificate: CTDLResource): Promise<string[]> => {
+  try {
+    const languages = certificate["ceterms:inLanguage"];
+    if (!languages || languages.length === 0) return [];
+
+    return languages.map((languageTag: string) => DATA_VALUE_TO_LANGUAGE[languageTag] || languageTag);
+  } catch (error) {
+    logError(`Error getting languages`, error as Error);
     throw error;
   }
 };
@@ -396,6 +420,28 @@ const convertIso8601DurationToCalendarLengthId = async (isoString: string): Prom
   }
 };
 
+export const DATA_VALUE_TO_LANGUAGE: { [key: string]: string } = {
+  ar: "Arabic",
+  zh: "Chinese",
+  fr: "French",
+  "fr-HT": "French Creole",
+  de: "German",
+  el: "Greek",
+  he: "Hebrew",
+  hi: "Hindi",
+  hu: "Hungarian",
+  it: "Italian",
+  ja: "Japanese",
+  ko: "Korean",
+  pl: "Polish",
+  pt: "Portuguese",
+  ru: "Russian",
+  es: "Spanish",
+  tl: "Tagalog",
+  vi: "Vietnamese",
+  yi: "Yiddish",
+};
+
 export const credentialEngineUtils = {
   validateCtId,
   getCtidFromURL,
@@ -414,7 +460,9 @@ export const credentialEngineUtils = {
   checkAccommodation,
   constructCertificationsString,
   getCalendarLengthId,
+  hasOnlineOffering,
   hasEveningSchedule,
+  getLanguages,
   convertIso8601DurationToTotalHours,
   convertIso8601DurationToCalendarLengthId
 };
