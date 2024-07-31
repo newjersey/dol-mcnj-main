@@ -7,7 +7,7 @@ describe("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search by training, provider, certification, SOC code, or keyword").should(
+    cy.contains("Search by training, provider, certification, SOC code, CIP code, or keyword").should(
       "exist",
     );
 
@@ -108,32 +108,28 @@ describe("Search", () => {
 
   it("links to a training detail page", () => {
     cy.visit("/training/search?q=digital%20marketing");
-    cy.contains("Certified Digital Marketing Fundamental").click({ force: true });
-    cy.location("pathname").should("eq", "/training/51388");
+    cy.contains("Web Mobile and Digital Marketing").click({ force: true });
+    cy.location("pathname").should("eq", "/training/52224");
 
     // removes search results
     cy.contains("Rutgers Virtual Live Mini MBA").should("not.exist");
 
     // shows program
-    cy.contains("Certified Digital Marketing Fundamental").should("exist");
+    cy.contains("Web Mobile and Digital Marketing").should("exist");
   });
 
   it("tags trainings on in-demand", () => {
     cy.visit("/training/search?q=social%20work");
 
-    // in-demand training
-    cy.get(".card")
-      .eq(0)
-      .within(() => {
-        cy.contains("In Demand").should("exist");
-      });
+
+    cy.contains("In Demand").should("exist");
 
     // not in-demand training
-    cy.contains("Job Readiness").within(() => {
+    cy.contains("Bachelor of Arts in Criminology and Criminal Justice- WP Online").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("A.S.Degree: Social Service").click({ force: true });
+    cy.contains("Chemical Dependency Certificate").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
 

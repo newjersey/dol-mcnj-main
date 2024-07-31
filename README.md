@@ -1,6 +1,6 @@
 # My Career NJ
 
-[![build](https://circleci.com/gh/newjersey/dol-my-career-nj.svg?style=shield)](https://circleci.com/gh/newjersey/dol-my-career-nj)
+[![build](https://circleci.com/gh/newjersey/dol-mcnj-main.svg?style=shield)](https://circleci.com/gh/newjersey/dol-mcnj-main)
 
 ## Overview
 
@@ -202,4 +202,3 @@ Fences are enforced via a linting-like command that will fail when any violation
 npm --prefix=backend run fences
 npm --prefix=frontend run fences
 ```
-
