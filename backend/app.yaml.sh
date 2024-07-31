@@ -20,6 +20,6 @@ env_variables:
   SPACE_ID: \"$SPACE_ID\"
   DELIVERY_API: \"$DELIVERY_API\"
   SENTRY_DSN: \"$SENTRY_DSN\"
-  NODE_OPTIONS: --max_old_space_size=4096
+  NODE_OPTIONS: --max_old_space_size=6144
   NODE_ENV: gcp
 """
