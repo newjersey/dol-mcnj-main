@@ -77,25 +77,39 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
+type SearchTerm = {
+  "search:value": string;
+  "search:matchType": string;
+};
+
+type TermGroup = {
+  "search:operator": string;
+  "ceterms:name"?: SearchTerm | SearchTerm[];
+  "ceterms:description"?: SearchTerm | SearchTerm[];
+  "ceterms:ownedBy"?: { "ceterms:name": SearchTerm | SearchTerm[] };
+  "ceterms:occupationType"?: { "ceterms:codedNotation": SearchTerm };
+  "ceterms:instructionalProgramType"?: { "ceterms:codedNotation": SearchTerm };
+};
+
 function buildQuery(params: { searchQuery: string }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-/*  let zipcodesList: unknown[] = []
+/*  let zipcodesList: unknown[] = [];
 
   if (isZipCode) {
-    zipcodesList = [params.searchQuery]
+    zipcodesList = [params.searchQuery];
   } else if (isCounty) {
-    zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+    zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty];
   }*/
 
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
   const [ownedByPart, trainingPart] = queryParts;
 
-  let termGroup: any = {
+  let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
       "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
