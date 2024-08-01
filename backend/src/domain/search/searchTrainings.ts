@@ -217,6 +217,20 @@ function determineSortOption(sortOption?: string) {
   }
 }
 
+type SearchTerm = {
+  "search:value": string;
+  "search:matchType": string;
+};
+
+type TermGroup = {
+  "search:operator": string;
+  "ceterms:name"?: SearchTerm | SearchTerm[];
+  "ceterms:description"?: SearchTerm | SearchTerm[];
+  "ceterms:ownedBy"?: { "ceterms:name": SearchTerm | SearchTerm[] };
+  "ceterms:occupationType"?: { "ceterms:codedNotation": SearchTerm };
+  "ceterms:instructionalProgramType"?: { "ceterms:codedNotation": SearchTerm };
+};
+
 function buildQuery(params: {
   searchQuery: string,
   county?: string,
@@ -224,7 +238,7 @@ function buildQuery(params: {
   zip_code?: string
 }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
-  const searchIsCIP = isCIP(params.searchQuery);
+  const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
@@ -248,41 +262,43 @@ function buildQuery(params: {
     zipcodesList = zipcodesInRadius;
   }
 
+  const queryParts = params.searchQuery.split('+').map(part => part.trim());
+  const hasMultipleParts = queryParts.length > 1;
+  const [ownedByPart, trainingPart] = queryParts;
+
+  let termGroup: TermGroup = {
+    "search:operator": "search:orTerms",
+    ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
+      "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      "ceterms:description": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
+    }),
+    "ceterms:occupationType": isSOC ? {
+      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+    } : undefined,
+    "ceterms:instructionalProgramType": isCIP ? {
+      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+    } : undefined
+  };
+
+  if (hasMultipleParts) {
+    termGroup = {
+      "search:operator": "search:andTerms",
+      "ceterms:ownedBy": { "ceterms:name": { "search:value": ownedByPart, "search:matchType": "search:contains" } },
+      "ceterms:name": { "search:value": trainingPart, "search:matchType": "search:contains" }
+    };
+  }
+
   return {
     "@type": {
       "search:value": "ceterms:Credential",
       "search:matchType": "search:subClassOf",
     },
-    "search:termGroup": {
-      "search:operator": "search:andTerms",
-      "search:value": [
-        {
-          "search:operator": "search:orTerms",
-          ...(isSOC || searchIsCIP || !!isZipCode || isCounty ? {} : {
-            "ceterms:name": params.searchQuery,
-            "ceterms:description": params.searchQuery,
-            "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
-          }),
-          "ceterms:occupationType": isSOC ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
-          "ceterms:instructionalProgramType": searchIsCIP ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery.replace(/(\d{2})/, "$1."), "search:matchType": "search:startsWith" }
-          } : undefined
-        },{
-          "ceterms:availableAt": {
-            "ceterms:postalCode": zipcodesList
-          }
-        },
-        {
-          "search:operator": "search:andTerms",
-          "ceterms:credentialStatusType": {
-            "ceterms:targetNode": "credentialStat:Active",
-          },
-          "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
-        },
-      ],
+    "ceterms:credentialStatusType": {
+      "ceterms:targetNode": "credentialStat:Active",
     },
+    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+    "search:termGroup": termGroup
   };
 }
 
