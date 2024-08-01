@@ -83,12 +83,39 @@ function buildQuery(params: { searchQuery: string }) {
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  let zipcodesList: unknown[] = []
+/*  let zipcodesList: unknown[] = []
 
   if (isZipCode) {
     zipcodesList = [params.searchQuery]
   } else if (isCounty) {
     zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+  }*/
+
+  const queryParts = params.searchQuery.split('+').map(part => part.trim());
+  const hasMultipleParts = queryParts.length > 1;
+  const [ownedByPart, trainingPart] = queryParts;
+
+  let termGroup: any = {
+    "search:operator": "search:orTerms",
+    ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
+      "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      "ceterms:description": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
+    }),
+    "ceterms:occupationType": isSOC ? {
+      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+    } : undefined,
+    "ceterms:instructionalProgramType": isCIP ? {
+      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+    } : undefined
+  };
+
+  if (hasMultipleParts) {
+    termGroup = {
+      "search:operator": "search:andTerms",
+      "ceterms:ownedBy": { "ceterms:name": { "search:value": ownedByPart, "search:matchType": "search:contains" } },
+      "ceterms:name": { "search:value": trainingPart, "search:matchType": "search:contains" }
+    };
   }
 
   return {
@@ -96,36 +123,11 @@ function buildQuery(params: { searchQuery: string }) {
       "search:value": "ceterms:Credential",
       "search:matchType": "search:subClassOf",
     },
-    "search:termGroup": {
-      "search:operator": "search:andTerms",
-      "search:value": [
-        {
-          "search:operator": "search:orTerms",
-          ...(isSOC || isCIP || !!isZipCode || isCounty ? {} : {
-            "ceterms:name": params.searchQuery,
-            "ceterms:description": params.searchQuery,
-            "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
-          }),
-          "ceterms:occupationType": isSOC ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined,
-          "ceterms:instructionalProgramType": isCIP ? {
-            "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
-          } : undefined
-        },{
-          "ceterms:availableAt": {
-            "ceterms:postalCode": zipcodesList
-          }
-        },
-        {
-          "search:operator": "search:andTerms",
-          "ceterms:credentialStatusType": {
-            "ceterms:targetNode": "credentialStat:Active",
-          },
-          "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
-        },
-      ],
+    "ceterms:credentialStatusType": {
+      "ceterms:targetNode": "credentialStat:Active",
     },
+    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+    "search:termGroup": termGroup
   };
 }
 
