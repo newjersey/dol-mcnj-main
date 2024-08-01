@@ -1,9 +1,7 @@
 #!/bin/bash
 echo """
 runtime: nodejs18
-resources:
-  cpu: 2
-  memory_gb: 16
+instance_class: F4
 env_variables:
   DB_USER: postgres
   DB_PASS: \"$DB_PASS\"
