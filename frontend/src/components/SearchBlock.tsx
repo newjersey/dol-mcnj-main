@@ -314,16 +314,6 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           {cipDrawerOpen && (
             <div className="panel open">
               <div className="copy">
-                <button
-                  aria-label="Close"
-                  title="Close"
-                  className="close"
-                  onClick={() => setCipDrawerOpen(false)}
-                  type="button"
-                >
-                  <X size={28} />
-                  <div className="sr-only">Close</div>
-                </button>
                 <CipDrawerContent onClose={() => setCipDrawerOpen(false)} />
               </div>
             </div>
