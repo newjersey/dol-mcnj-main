@@ -34,6 +34,10 @@
       width: $size-320;
       justify-content: center;
       margin: 0 auto;
+
+      &:hover {
+        background-color: $secondary-dark;
+      }
     }
   }
 
