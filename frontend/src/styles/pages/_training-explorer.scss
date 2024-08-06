@@ -15,88 +15,141 @@
   }
 }
 
-#how-to-steps-section {
-  padding: 3rem 0;
+.how-to-steps-section {
+  background-color: white;
+  border-radius: $size-16;
+  padding: $size-16;
+  max-width: $desktop-lg - 50;
+  margin: $size-32 auto;
+
+  @media screen and (min-width: ($tablet-md + 1)) {
+    border-radius: $size-80;
+  }
 
   ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  ul li {
     display: flex;
-    padding-bottom: 40px;
-    position: relative;
-  }
-
-  ul li .list-num {
-    border-radius: 50%;
-    border: 1px solid $green-cool-50v;
-    padding: 5px 10px;
-    margin-right: 10px;
-    background: $green-cool-50v;
-    color: $white;
-    font-weight: 700;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-  }
+    justify-content: space-between;
+    width: 100%;
+    gap: $size-16;
 
-  ul li .list-num:before {
-    content: "";
-    position: absolute;
-    border-left: 3px dashed $green-cool-50v;
-    left: 14px;
-    bottom: 0;
-    z-index: -1;
-    height: 100%;
-  }
+    @media screen and (max-width: ($tablet-md)) {
+      align-items: flex-start;
+      flex-direction: column;
+    }
 
-  ul li:last-child {
-    padding-bottom: 0;
-  }
+    li {
+      display: flex;
+      align-items: center;
+      gap: $size-8;
+      font-size: $size-16;
 
-  h3 {
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin: 0.25rem 0 0.5rem 0;
-  }
+      @media screen and (min-width: ($tablet-md + 1)) {
+        font-size: $size-18;
 
-  .list-num-container {
-    width: 50px;
-    height: 50px;
-  }
+        font-weight: 600;
+      }
 
-  .sectionHeading {
-    .heading-tag {
-      border-bottom: 0;
+      p {
+        line-height: 1;
+      }
+    }
+
+    .list-num {
+      align-items: center;
+      background-color: $secondary;
+      border-radius: 100%;
+      color: $white;
+      display: flex;
+      font-size: $size-16;
+      font-weight: bold;
+      height: $size-24;
+      justify-content: center;
+      width: $size-24;
     }
   }
 }
 
-@media screen and (min-width: $tablet) {
-  #how-to-steps-section {
-    ul {
+.training-explorer-heading {
+  background-color: $base-lightest;
+
+  p {
+    line-height: 1;
+  }
+
+  .top-nav {
+    margin: $size-32 0;
+  }
+
+  .heading-tag {
+    text-align: center;
+    font-size: $size-48;
+
+    @media screen and (max-width: ($tablet-md)) {
+      font-size: $size-32;
+      margin-bottom: $size-32;
+    }
+  }
+
+  .learn-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: $size-32 0;
+
+    p {
+      background-color: white;
+      border-radius: $size-80;
+      padding: $size-16;
+      font-size: $size-18;
+      display: inline-block;
+
+      @media screen and (max-width: ($tablet-md)) {
+        font-size: $size-16;
+        border-radius: $size-16;
+      }
+    }
+  }
+
+  .cta {
+    .heading-tag {
+      font-size: $size-22;
+      margin-bottom: $size-16;
+
+      @media screen and (min-width: ($tablet-md + 1)) {
+        font-weight: bold;
+      }
+
+      @media screen and (max-width: ($tablet-md)) {
+        font-size: $size-18;
+      }
+    }
+
+    .btns {
       display: flex;
-      justify-content: space-between;
-    }
+      gap: $size-18;
+      justify-content: center;
+      align-items: center;
 
-    ul li {
-      width: 33%;
-      margin: 0 16px;
-      padding-bottom: 0;
-    }
+      @media screen and (max-width: ($tablet-md)) {
+        flex-direction: column;
+        gap: $size-8;
+      }
 
-    ul li .list-num:before {
-      content: "";
-      position: absolute;
-      border-left: 0;
-      left: 14px;
-      bottom: 0;
-      z-index: -1;
-      height: 100%;
+      a {
+        span {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          gap: $size-8;
+        }
+
+        @media screen and (max-width: ($tablet-md)) {
+          padding: $size-16 $size-8;
+          width: 100%;
+        }
+      }
     }
   }
 }
