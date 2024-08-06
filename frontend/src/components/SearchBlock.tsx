@@ -123,7 +123,12 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             defaultValue={searchTerm}
           />
           <div className="submit">
-            <button type="submit" data-testid="search-submit" className="usa-button">
+            <button
+              type="submit"
+              id="search-button"
+              data-testid="search-submit"
+              className="usa-button"
+            >
               Search
             </button>
           </div>
