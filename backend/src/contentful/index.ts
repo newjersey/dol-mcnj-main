@@ -20,6 +20,7 @@ import { CAREER_PATHWAY_QUERY } from "./queries/careerPathway";
 const router = express.Router();
 
 router.get("/all-support", routeHandler(ALL_SUPPORT_PAGE_QUERY));
+router.get("/career-map-occupation/:id", routeHandler(OCCUPATION_QUERY));
 router.get("/career-map-node/:id", routeHandler(CAREER_MAP_NODE_QUERY));
 router.get("/career-navigator", routeHandler(CAREER_NAVIGATOR_QUERY));
 router.get("/career-pathways", routeHandler(CAREER_PATHWAYS_PAGE_QUERY));
