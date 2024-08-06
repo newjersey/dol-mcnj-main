@@ -31,7 +31,7 @@ export const StatBlock = (props: Props): ReactElement => {
       isOpen: true,
       title: props.title,
       body: `${props.tooltipText}. ${dataMissingOrSource ?? ""}*`,
-      disclaimer: `*${props.disclaimer}`
+      disclaimer: `${props.disclaimer}`
     }));
   }, [dataMissingOrSource, props.title, props.tooltipText, props.disclaimer, setContextualInfo]);
 
