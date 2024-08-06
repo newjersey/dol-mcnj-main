@@ -60,6 +60,14 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           setCipDrawerOpen(false);
         });
       }
+
+      // close drawer on escape key
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          setSocDrawerOpen(false);
+          setCipDrawerOpen(false);
+        }
+      });
     }
   }, []);
 
@@ -293,31 +301,27 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             id="drawerOverlay"
             className={`overlay${socDrawerOpen || cipDrawerOpen ? " open" : ""}`}
           />
-          {socDrawerOpen && (
-            <div className="panel open">
-              <div className="copy">
-                <button
-                  aria-label="Close"
-                  title="Close"
-                  className="close"
-                  onClick={() => setSocDrawerOpen(false)}
-                  type="button"
-                >
-                  <X size={28} />
-                  <div className="sr-only">Close</div>
-                </button>
-                <RichText document={drawerContent.json} assets={drawerContent.links} />
-              </div>
+          <div className={`panel${socDrawerOpen ? " open" : ""}`}>
+            <div className="copy">
+              <button
+                aria-label="Close"
+                title="Close"
+                className="close"
+                onClick={() => setSocDrawerOpen(false)}
+                type="button"
+              >
+                <X size={28} />
+                <div className="sr-only">Close</div>
+              </button>
+              <RichText document={drawerContent.json} assets={drawerContent.links} />
             </div>
-          )}
+          </div>
 
-          {cipDrawerOpen && (
-            <div className="panel open">
-              <div className="copy">
-                <CipDrawerContent onClose={() => setCipDrawerOpen(false)} />
-              </div>
+          <div className={`panel${cipDrawerOpen ? " open" : ""}`}>
+            <div className="copy">
+              <CipDrawerContent onClose={() => setCipDrawerOpen(false)} />
             </div>
-          )}
+          </div>
         </>
       )}
     </section>
