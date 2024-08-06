@@ -437,6 +437,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <StatBlock
                     title={t("TrainingPage.avgSalaryTitle")}
                     tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                    disclaimer={t("")}
                     data={
                       training.averageSalary
                           ? formatMoney(training.averageSalary, {precision: 0})
@@ -447,6 +448,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <StatBlock
                     title={t("TrainingPage.employmentRateTitle")}
                     tooltipText={t("TrainingPage.employmentRateTooltip")}
+                    disclaimer={t("")}
                     data={
                       training.percentEmployed
                           ? formatPercentEmployed(training.percentEmployed)
