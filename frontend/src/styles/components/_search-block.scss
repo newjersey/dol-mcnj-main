@@ -60,7 +60,7 @@
       }
     }
 
-    button {
+    button:not(.usa-tooltip__trigger) {
       text-align: right;
       width: 70px;
 
