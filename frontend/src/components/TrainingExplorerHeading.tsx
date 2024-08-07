@@ -3,8 +3,7 @@ import { Heading } from "./modules/Heading";
 import { SearchBlock } from "./SearchBlock";
 import { ContentfulRichText } from "../types/contentful";
 import { LinkObject } from "./modules/LinkObject";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { ArrowSquareOut } from "@phosphor-icons/react";
+import { ArrowSquareOut, ArrowRight } from "@phosphor-icons/react";
 
 export const TrainingExplorerHeading = ({
   steps,
