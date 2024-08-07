@@ -1,7 +1,6 @@
 import { CurrencyDollarSimple, Info, X } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
-import "@newjersey/njwds/dist/js/uswds.min.js";
 import { checkValidZipCode } from "../utils/checkValidZipCode";
 import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
@@ -88,7 +87,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       >
         <div className="heading">
           <p className="heading-tag">
-            <span>Search for Training </span>
+            <span>Search for training </span>
             <button
               type="button"
               className="unstyled usa-tooltip"
@@ -106,7 +105,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
               clearAllInputs();
             }}
           >
-            Clear All
+            Clear all
           </button>
         </div>
         <div className="row">
@@ -139,7 +138,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           <p className="heading-tag">Filters</p>
           <div className="row">
             <div className="area">
-              <div className="label">Miles from Zip Code </div>
+              <div className="label">Miles from ZIP code </div>
               <div className="inputs">
                 <label htmlFor="miles" className="sr-only">
                   Miles
@@ -211,7 +210,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             </div>
             <div className="cost">
               <label className="label" htmlFor="maxCost">
-                Max Cost
+                Max cost
               </label>
               <CurrencyDollarSimple />
               <input
@@ -224,7 +223,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
               />
             </div>
             <div className="format">
-              <div className="label">Class Format</div>
+              <div className="label">Class format</div>
               <div className="checks">
                 <div className="usa-checkbox">
                   <input
@@ -236,7 +235,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                     }}
                   />
                   <label className="usa-checkbox__label" htmlFor="in-person">
-                    In-Person
+                    In-person
                   </label>
                 </div>
                 <div className="usa-checkbox">
