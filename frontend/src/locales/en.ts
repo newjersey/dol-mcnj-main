@@ -329,7 +329,7 @@ export const en = {
     providerWebsiteMissingLabel:
       "To sign up for this training opportunity, please contact the provider at the details below.",
     trainingStepOneDescription: "Search by occupation, provider, and more",
-    trainingStepTwoDescription: "Filter and Compare Results",
-    trainingStepThreeDescription: "Visit Training Provider’s website to enroll",
+    trainingStepTwoDescription: "Filter and compare results",
+    trainingStepThreeDescription: "Visit training provider’s website to enroll",
   },
 };

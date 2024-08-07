@@ -56,7 +56,7 @@ export const TrainingExplorerHeading = ({
         <div className="learn-more">
           <p>
             Trainings and programs on the Training Explorer are accredited.{" "}
-            <LinkObject url="/accreditation" copy="Learn more">
+            <LinkObject url="/faq#etpl-program-general-information" copy="Learn more">
               Learn more.
             </LinkObject>
           </p>
@@ -65,14 +65,14 @@ export const TrainingExplorerHeading = ({
           <Heading level={2}>Not ready to search for training yet?</Heading>
           <div className="btns">
             <LinkObject
-              url="/"
+              url="https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx"
               className="usa-button usa-button--outline bg-white margin-right-0 primary"
             >
               Search for jobs
               <ArrowSquareOut size={24} />
             </LinkObject>
             <LinkObject
-              url="/"
+              url="/support-resources/tuition-assistance"
               className="usa-button usa-button--outline bg-white margin-right-0 secondary"
             >
               Find out about tuition resources

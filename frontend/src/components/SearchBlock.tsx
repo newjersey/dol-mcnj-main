@@ -1,12 +1,12 @@
 import { CurrencyDollarSimple, Info, X } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
+import "@newjersey/njwds/dist/js/uswds.min.js";
 import { checkValidZipCode } from "../utils/checkValidZipCode";
 import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
 import { ContentfulRichText as RichText } from "./ContentfulRichText";
 import { CipDrawerContent } from "./CipDrawerContent";
-import { Tooltip } from "@material-ui/core";
 
 export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -89,12 +89,14 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
         <div className="heading">
           <p className="heading-tag">
             <span>Search for Training </span>
-            <Tooltip
-              placement="top"
+            <button
+              type="button"
+              className="unstyled usa-tooltip"
+              data-position="top"
               title="Search by training, provider, certification, SOC code, CIP code, or keyword."
             >
               <Info />
-            </Tooltip>
+            </button>
           </p>
           <button
             type="button"
