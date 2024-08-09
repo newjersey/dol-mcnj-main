@@ -13,7 +13,7 @@ describe("Home Page", () => {
       { title: "Get Training", link: "#training" },
       // { title: "Explore Careers", link: "#explore" },
       { title: "Support and Assistance", link: "#support" },
-      { title: "CareerOneStop Job Board", link: "https://www.careeronestop.org" },
+      { title: "CareerOneStop Job Board", link: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx" },
       { title: "Career Navigator", link: "/navigator" },
       { title: "In-Demand Occupations List", link: "/in-demand-occupations" },
       {
