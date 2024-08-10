@@ -40,6 +40,12 @@
     &.usa-button--unstyled {
       font-weight: bold;
     }
+
+    &[type="submit"] {
+      &:hover {
+        background-color: $secondary-dark;
+      }
+    }
   }
   input,
   select {
