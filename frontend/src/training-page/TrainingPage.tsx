@@ -5,7 +5,6 @@ import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { Training } from "../domain/Training";
 import { InlineIcon } from "../components/InlineIcon";
-import { UserSound } from "@phosphor-icons/react";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -15,7 +14,6 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
 import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
-import { Button as ModuleButton } from "../components/modules/Button";
 import { CipDrawerContent } from "../components/CipDrawerContent";
 
 import { usePageTitle } from "../utils/usePageTitle";
@@ -35,7 +33,7 @@ import { formatCip } from "../utils/formatCip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
-import {Helmet} from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import { Button } from "../components/Button";
 import { Flag } from "@phosphor-icons/react";
 
@@ -254,27 +252,27 @@ export const TrainingPage = (props: Props): ReactElement => {
     const audience = [
       {
         "@type": "Audience",
-        "audienceType": "Students",
-        "geographicArea": {
+        audienceType: "Students",
+        geographicArea: {
           "@type": "Place",
-          "name": "New Jersey",
-          "geo": {
+          name: "New Jersey",
+          geo: {
             "@type": "GeoCoordinates",
-            "latitude": 40.0583, // New Jersey's approximate latitude
-            "longitude": -74.4057, // New Jersey's approximate longitude
+            latitude: 40.0583, // New Jersey's approximate latitude
+            longitude: -74.4057, // New Jersey's approximate longitude
           },
         },
       },
       {
         "@type": "Audience",
-        "audienceType": "Workers",
-        "geographicArea": {
+        audienceType: "Workers",
+        geographicArea: {
           "@type": "Place",
-          "name": "New Jersey",
-          "geo": {
+          name: "New Jersey",
+          geo: {
             "@type": "GeoCoordinates",
-            "latitude": 40.0583, // New Jersey's approximate latitude
-            "longitude": -74.4057, // New Jersey's approximate longitude
+            latitude: 40.0583, // New Jersey's approximate latitude
+            longitude: -74.4057, // New Jersey's approximate longitude
           },
         },
       },
@@ -295,46 +293,46 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     const courseInstance = {
       "@type": "CourseInstance",
-      "courseMode": training.online ? "online" : "onsite",
-      "instructor": {
+      courseMode: training.online ? "online" : "onsite",
+      instructor: {
         "@type": "Person",
-        "name": contactName,
-        "jobTitle": contactTitle,
-        "telephone": phoneNumber,
+        name: contactName,
+        jobTitle: contactTitle,
+        telephone: phoneNumber,
       },
-      "courseWorkload": training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
+      courseWorkload: training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
     };
 
     const offer = {
       "@type": "Offer",
-      "url": training.provider.url,
-      "priceCurrency": "USD",
-      "price": training.totalCost,
-      "eligibleRegion": {
+      url: training.provider.url,
+      priceCurrency: "USD",
+      price: training.totalCost,
+      eligibleRegion: {
         "@type": "Place",
-        "name": "New Jersey",
+        name: "New Jersey",
       },
-      "category": "Tuition"
+      category: "Tuition",
     };
 
     return {
       "@context": "http://schema.org",
       "@type": "Course",
-      "name": training.name,
-      "description": training.description,
-      "provider": {
+      name: training.name,
+      description: training.description,
+      provider: {
         "@type": "Organization",
-        "name": training.provider.name,
-        "sameAs": training.provider.url,
+        name: training.provider.name,
+        sameAs: training.provider.url,
       },
-      "audience": audience,
-      "identifier": {
+      audience: audience,
+      identifier: {
         "@type": "PropertyValue",
-        "name": "Program ID",
-        "value": training.ctid,
+        name: "Program ID",
+        value: training.ctid,
       },
-      "hasCourseInstance": courseInstance,
-      "offers": offer,
+      hasCourseInstance: courseInstance,
+      offers: offer,
     };
   };
 
@@ -374,143 +372,143 @@ export const TrainingPage = (props: Props): ReactElement => {
   }
 
   return (
-      <div ref={componentRef} className="training-detail">
-        <Layout client={props.client} seo={seoObject}>
-          <Helmet>
-            <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
-          </Helmet>
-          <div className="container plus">
-            <div className="detail-page">
-              <div className="page-banner">
-                <div className="top-nav">
-                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                    <Icon>keyboard_backspace</Icon>
-                    <ol className="usa-breadcrumb__list">
-                      <li className="usa-breadcrumb__list-item">
-                        <a className="usa-breadcrumb__link" href="/">
-                          Home
-                        </a>
-                      </li>
-                      <li className="usa-breadcrumb__list-item">
-                        <a className="usa-breadcrumb__link" href="/training">
-                          Training Explorer
-                        </a>
-                      </li>
-                      <li className="usa-breadcrumb__list-item">
-                        <a className="usa-breadcrumb__link" href="/training/search">
-                          Search
-                        </a>
-                      </li>
-                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                        <span>{training.name}</span>
-                      </li>
-                    </ol>
-                  </nav>
-                </div>
+    <div ref={componentRef} className="training-detail">
+      <Layout client={props.client} seo={seoObject}>
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
+        </Helmet>
+        <div className="container plus">
+          <div className="detail-page">
+            <div className="page-banner">
+              <div className="top-nav">
+                <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                  <Icon>keyboard_backspace</Icon>
+                  <ol className="usa-breadcrumb__list">
+                    <li className="usa-breadcrumb__list-item">
+                      <a className="usa-breadcrumb__link" href="/">
+                        Home
+                      </a>
+                    </li>
+                    <li className="usa-breadcrumb__list-item">
+                      <a className="usa-breadcrumb__link" href="/training">
+                        Training Explorer
+                      </a>
+                    </li>
+                    <li className="usa-breadcrumb__list-item">
+                      <a className="usa-breadcrumb__link" href="/training/search">
+                        Search
+                      </a>
+                    </li>
+                    <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                      <span>{training.name}</span>
+                    </li>
+                  </ol>
+                </nav>
               </div>
             </div>
-            <div className="title-box">
-              <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-                {training.name}
-              </h2>
-              <ul className="save-controls unstyled">
-                <li>
-                  <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                    <LinkSimple size={26} className={copy ? "green" : undefined}/>
-                    <span className={copy ? "green" : undefined}>
-                    {copy ? "Copied!" : "Copy link"}
-                  </span>
-                  </UnstyledButton>
-                </li>
-                <li>
-                  <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                    <Printer size={26}/>
-                    <span className="mlxs weight-500">Print and Save</span>
-                  </UnstyledButton>
-                </li>
-              </ul>
-            </div>
-            <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
-            <div className="stat-block-stack mtm">
-              {training.inDemand ? <InDemandBlock/> : <></>}
-
-              {!training.inDemand &&
-              training.localExceptionCounty &&
-              training.localExceptionCounty.length !== 0 ? (
-                  <InDemandBlock counties={training.localExceptionCounty}/>
-              ) : (
-                  <></>
-              )}
-
-              <div className="stat-block-container">
-                <StatBlock
-                    title={t("TrainingPage.avgSalaryTitle")}
-                    tooltipText={t("TrainingPage.avgSalaryTooltip")}
-                    data={
-                      training.averageSalary
-                          ? formatMoney(training.averageSalary, {precision: 0})
-                          : STAT_MISSING_DATA_INDICATOR
-                    }
-                    backgroundColorClass="bg-lightest-purple"
-                />
-                <StatBlock
-                    title={t("TrainingPage.employmentRateTitle")}
-                    tooltipText={t("TrainingPage.employmentRateTooltip")}
-                    data={
-                      training.percentEmployed
-                          ? formatPercentEmployed(training.percentEmployed)
-                          : STAT_MISSING_DATA_INDICATOR
-                    }
-                    backgroundColorClass="bg-light-purple-50"
-                />
-              </div>
-            </div>
-            <ul className="save-controls mobile-only unstyled">
+          </div>
+          <div className="title-box">
+            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
+              {training.name}
+            </h2>
+            <ul className="save-controls unstyled">
               <li>
                 <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                  <LinkSimple size={26} className={copy ? "green" : undefined}/>
-                  <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
+                  <LinkSimple size={26} className={copy ? "green" : undefined} />
+                  <span className={copy ? "green" : undefined}>
+                    {copy ? "Copied!" : "Copy link"}
+                  </span>
                 </UnstyledButton>
               </li>
               <li>
                 <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                  <Printer size={26}/>
+                  <Printer size={26} />
                   <span className="mlxs weight-500">Print and Save</span>
                 </UnstyledButton>
               </li>
             </ul>
-            <div className="row pbm group-wrapper">
-              <div className="col-md-8">
-                <div className="container-fluid">
-                  <div className="row">
-                    <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
-                      <>
-                        {training.description.split("\n").map((line, i) => (
-                            <p key={i}>{line}</p>
-                        ))}
-                      </>
-                    </Grouping>
+          </div>
+          <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
+          <div className="stat-block-stack mtm">
+            {training.inDemand ? <InDemandBlock /> : <></>}
 
-                    <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
-                      <>
-                        {training.certifications && (
-                            <p>
+            {!training.inDemand &&
+            training.localExceptionCounty &&
+            training.localExceptionCounty.length !== 0 ? (
+              <InDemandBlock counties={training.localExceptionCounty} />
+            ) : (
+              <></>
+            )}
+
+            <div className="stat-block-container">
+              <StatBlock
+                title={t("TrainingPage.avgSalaryTitle")}
+                tooltipText={t("TrainingPage.avgSalaryTooltip")}
+                data={
+                  training.averageSalary
+                    ? formatMoney(training.averageSalary, { precision: 0 })
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-lightest-purple"
+              />
+              <StatBlock
+                title={t("TrainingPage.employmentRateTitle")}
+                tooltipText={t("TrainingPage.employmentRateTooltip")}
+                data={
+                  training.percentEmployed
+                    ? formatPercentEmployed(training.percentEmployed)
+                    : STAT_MISSING_DATA_INDICATOR
+                }
+                backgroundColorClass="bg-light-purple-50"
+              />
+            </div>
+          </div>
+          <ul className="save-controls mobile-only unstyled">
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
+                <LinkSimple size={26} className={copy ? "green" : undefined} />
+                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
+              </UnstyledButton>
+            </li>
+            <li>
+              <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                <Printer size={26} />
+                <span className="mlxs weight-500">Print and Save</span>
+              </UnstyledButton>
+            </li>
+          </ul>
+          <div className="row pbm group-wrapper">
+            <div className="col-md-8">
+              <div className="container-fluid">
+                <div className="row">
+                  <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
+                    <>
+                      {training.description.split("\n").map((line, i) => (
+                        <p key={i}>{line}</p>
+                      ))}
+                    </>
+                  </Grouping>
+
+                  <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
+                    <>
+                      {training.certifications && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">school</InlineIcon>
                             {t("TrainingPage.certificationsLabel")}&nbsp;
                             <b>{training.certifications}</b>
                           </span>
-                            </p>
-                        )}
-                        {training.prerequisites && (
-                            <p>
+                        </p>
+                      )}
+                      {training.prerequisites && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">list_alt</InlineIcon>
                             {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
                           </span>
-                            </p>
-                        )}
-                        <p>
+                        </p>
+                      )}
+                      <p>
                         <span className="fin">
                           <InlineIcon className="mrxs">av_timer</InlineIcon>
                           {t("TrainingPage.completionTimeLabel")}&nbsp;
@@ -575,97 +573,74 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <span>{t("Global.noDataAvailableText")}</span>
                         )}
                       </p>
-                      </>
-                    </Grouping>
+                    </>
+                  </Grouping>
 
-                    <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
-                      <>{getAssociatedOccupations()}</>
-                    </Grouping>
+                  <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
+                    <>{getAssociatedOccupations()}</>
+                  </Grouping>
 
-                    <div className="desktop-only">{fundingContent}</div>
-                  </div>
+                  <div className="desktop-only">{fundingContent}</div>
                 </div>
               </div>
+            </div>
 
-              <div className="col-md-4">
-                <div className="container-fluid mbm">
-                  <div className="row">
-                    <Grouping title={t("TrainingPage.costGroupHeader")}>
-                      <>
-                        <p>
-                          <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
-                          <span className="text-l pull-right weight-500">
+            <div className="col-md-4">
+              <div className="container-fluid mbm">
+                <div className="row">
+                  <Grouping title={t("TrainingPage.costGroupHeader")}>
+                    <>
+                      <p>
+                        <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
+                        <span className="text-l pull-right weight-500">
                           {training.totalCost
                             ? formatMoney(training.totalCost)
                             : t("Global.noDataAvailableText")}
                         </span>
-                        </p>
-                        <div className="grey-line" />
-                        <div className="mvd">
-                          <div>
-                            <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                            <span className="pull-right">
+                      </p>
+                      <div className="grey-line" />
+                      <div className="mvd">
+                        <div>
+                          <span>{t("TrainingPage.tuitionCostLabel")}</span>
+                          <span className="pull-right">
                             {training.tuitionCost
                               ? formatMoney(training.tuitionCost)
                               : t("Global.noDataAvailableText")}
                           </span>
-                          </div>
-                          <div>
-                            <span>{t("TrainingPage.feesCostLabel")}</span>
-                            <span className="pull-right">
+                        </div>
+                        <div>
+                          <span>{t("TrainingPage.feesCostLabel")}</span>
+                          <span className="pull-right">
                             {training.feesCost
                               ? formatMoney(training.feesCost)
                               : t("Global.noDataAvailableText")}
                           </span>
-                          </div>
-                          <div>
-                            <span>{t("TrainingPage.materialsCostLabel")}</span>
-                            <span className="pull-right">
+                        </div>
+                        <div>
+                          <span>{t("TrainingPage.materialsCostLabel")}</span>
+                          <span className="pull-right">
                             {training.booksMaterialsCost
                               ? formatMoney(training.booksMaterialsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
-                          </div>
-                          <div>
-                            <span>{t("TrainingPage.suppliesCostLabel")}</span>
-                            <span className="pull-right">
+                        </div>
+                        <div>
+                          <span>{t("TrainingPage.suppliesCostLabel")}</span>
+                          <span className="pull-right">
                             {training.suppliesToolsCost
                               ? formatMoney(training.suppliesToolsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
-                          </div>
-                          <div>
-                            <span>{t("TrainingPage.otherCostLabel")}</span>
-                            <span className="pull-right">
+                        </div>
+                        <div>
+                          <span>{t("TrainingPage.otherCostLabel")}</span>
+                          <span className="pull-right">
                             {training.otherCost
                               ? formatMoney(training.otherCost)
                               : t("Global.noDataAvailableText")}
                           </span>
-                          </div>
                         </div>
-                        <div id="contact-provider-info">
-                          {training?.provider?.url ? (
-                              <div className="provider-btn-container">
-                                <ModuleButton
-                                    copy={t("TrainingPage.visitTrainingProviderBtnLabel")}
-                                    type="link"
-                                    url={
-                                      training.provider.url.startsWith("http")
-                                          ? training.provider.url
-                                          : `https://${training.provider.url}`
-                                    }
-                                />
-                                <div>{t("TrainingPage.providerWebsiteDisclaimerLabel")}</div>
-                              </div>
-                          ) : (
-                            <div className="provider-no-url">
-                              <div className="icon-container">
-                                <UserSound />
-                              </div>
-                              {t("TrainingPage.providerWebsiteMissingLabel")}
-                            </div>
-                          )}
-                        </div>
+                      </div>
                       </>
                     </Grouping>
                     <Grouping title={t("TrainingPage.locationGroupHeader")}>
@@ -707,34 +682,34 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <InlineIcon className="mrxs">nightlight_round</InlineIcon>
                             {t("TrainingPage.eveningCoursesServiceLabel")}
                           </span>
-                            </p>
-                        )}
-                        {training.languages.length > 0 && (
-                            <p>
+                        </p>
+                      )}
+                      {training.languages.length > 0 && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">language</InlineIcon>
                             {t("TrainingPage.otherLanguagesServiceLabel")}
                           </span>
-                            </p>
-                        )}
-                        {training.isWheelchairAccessible && (
-                            <p>
+                        </p>
+                      )}
+                      {training.isWheelchairAccessible && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">accessible_forward</InlineIcon>
                             {t("TrainingPage.wheelchairAccessibleServiceLabel")}
                           </span>
-                            </p>
-                        )}
-                        {training.hasChildcareAssistance && (
-                            <p>
+                        </p>
+                      )}
+                      {training.hasChildcareAssistance && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">family_restroom</InlineIcon>
                             {t("TrainingPage.childcareAssistanceServiceLabel")}
                           </span>
-                            </p>
-                        )}
-                        {training.hasJobPlacementAssistance && (
-                            <p>
+                        </p>
+                      )}
+                      {training.hasJobPlacementAssistance && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">work_outline</InlineIcon>
                             {t("TrainingPage.jobAssistanceServiceLabel")}
@@ -745,18 +720,18 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
                   <Button
-                          variant="custom"
-                          className="usa-button margin-right-0 custom-button report"
-                          onClick={() => {
-                              const pageSlug = `/training/${training.ctid}`;
-                              const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
-                              window.open(url, '_blank');
-                          }}
-                      >
-                          <Flag size={32} />
-                          <span>See something wrong? Report an Issue.</span>
-                      </Button>
-                    <div className="mobile-only">{fundingContent}</div>
+                    variant="custom"
+                    className="usa-button margin-right-0 custom-button report"
+                    onClick={() => {
+                      const pageSlug = `/training/${training.ctid}`;
+                      const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
+                      window.open(url, "_blank");
+                    }}
+                  >
+                    <Flag size={32} />
+                    <span>See something wrong? Report an Issue.</span>
+                  </Button>
+                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>
@@ -765,7 +740,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         {/* Overlay and Drawer for CIP code information */}
         {drawerOpen && (
           <>
-            <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`}/>
+            <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
             <div className={`panel${drawerOpen ? " open" : ""}`}>
               <CipDrawerContent onClose={() => setDrawerOpen(false)} />
             </div>

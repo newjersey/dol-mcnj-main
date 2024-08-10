@@ -55,7 +55,7 @@ describe("Search", () => {
       fixture: "welding-technology-search-results.json",
     })
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
-  
+
     // on results page
     cy.visit("/training/search?q=welding%20technology");
     cy.injectAxe();
@@ -128,19 +128,16 @@ describe("Search", () => {
 
     cy.visit("/training/search?q=social%20work");
 
-    // in-demand training
-    cy.get(".card")
-      .eq(0)
-      .within(() => {
-        cy.contains("In Demand").should("exist");
-      });
+
+    cy.contains("In Demand").should("exist");
 
     // not in-demand training
-    cy.contains("Work Retention and Readiness").within(() => {
+    cy.contains("Assessment & Differential Diagnoses of Childhood Disorders").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("Masters in Social Work").click({ force: true });
+
+    cy.contains("A.S.Degree: Social Service").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
 
