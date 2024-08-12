@@ -29,6 +29,8 @@
     "react-helmet-async",
     "react-helmet",
     "react-hook-form",
+    "react-helmet-async",
+    "react-hook-form",
     "react-i18next",
     "react-paginate",
     "react-to-print",

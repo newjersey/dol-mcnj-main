@@ -9,7 +9,23 @@ import {
   Occupation,
 } from "./occupations/Occupation";
 
-export type SearchTrainings = (params: {searchQuery: string, page?: number, limit?: number, sort?: string}) => Promise<TrainingData>;
+export type SearchTrainings = (params: {
+  searchQuery: string,
+  page?: number,
+  limit?: number,
+  sort?: string,
+  cip_code?: string,
+  class_format?: string[],
+  complete_in?: number[],
+  county?: string,
+  in_demand?: boolean,
+  languages?: string[],
+  max_cost?: number,
+  services?: string[],
+  soc_code?: string,
+  miles?: number,
+  zip_code?: string
+}) => Promise<TrainingData>;
 export type AllTrainings = () => Promise<AllTrainingsResult[]>
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;
 export type GetInDemandOccupations = () => Promise<InDemandOccupation[]>;

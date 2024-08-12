@@ -185,7 +185,7 @@ export const es = {
   },
   SearchAndFilter: {
     searchButtonDefaultText: "Búsqueda",
-    searchButtonUpdateResultsText: "Actualizar resultados",
+    applyFiltersButtontText: "Aplicar",
     searchBarDefaultPlaceholderText: "Buscar cursos de formación",
     sortByLabel: "Ordenar por",
     sortByBestMatch: "Mejor partido",
@@ -195,7 +195,7 @@ export const es = {
     resultCountString_one: "{{count}} resultado",
     resultCountString_other: "{{count}} resultados",
     mobileFilterText: "Editar búsqueda o filtro",
-    locationFilterLabel: "Millas desde el código postal",
+    locationFilterLabel: "Distancia desde el código postal",
     locationFilterMilesInputLabel: "Millas",
     locationFilterZipCodePlaceholder: "Código postal",
     locationFilterZipCodeInvalid: "Ingrese un código postal de Nueva Jersey de 5 dígitos.",
@@ -274,6 +274,8 @@ export const es = {
     comparisonEmploymentRateLabelMobile: "Tasa de empleo",
     comparisonTimeToCompleteLabel: "Tiempo para completar",
     comparisonSeeDetails: "Ver detalles",
+    addFiltersLabel: "Agregar filtros",
+    filtersButton: "Filtros"
   },
   StatBlock: {
     dataSourceLabel: "Fuente de datos: ",

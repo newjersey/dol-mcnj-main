@@ -166,6 +166,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
               </span>
             </span>
           </p>
+          <br />
         </div>
       </div>
       <div className="row">
