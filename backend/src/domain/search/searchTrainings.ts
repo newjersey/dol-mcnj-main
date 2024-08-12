@@ -15,8 +15,6 @@ import zipcodes from "zipcodes";
 // types.ts:
 // export interface TrainingData { ... }
 
-const isCIP = (item: string) => /^\d{2}\.?\d{4}$/.test(item);
-
 const hasAllCerts = (certNum: number, totalResults: number) => certNum === totalResults;
 
 const fetchAllCerts = async (query: object, sort: string) => {
@@ -242,9 +240,9 @@ function buildQuery(params: {
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  const miles = params.miles;
-  const zipcode = params.zip_code;
-
+/*  const miles = params.miles;
+  const zipcode = params.zip_code;*/
+/*
   let zipcodesList: string[] | zipcodes.ZipCode[] = []
 
   if (isZipCode) {
@@ -260,7 +258,7 @@ function buildQuery(params: {
   if (miles && miles > 0 && zipcode) {
     const zipcodesInRadius = zipcodes.radius(zipcode, miles);
     zipcodesList = zipcodesInRadius;
-  }
+  }*/
 
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
