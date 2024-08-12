@@ -157,7 +157,8 @@ export const en = {
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
-    jobsOpenDiscrepencyDisclaimer: "The number of jobs shown may differ from the number of jobs shown on the CareerOneStop Job Finder and/or in National Labor Exchange (NLx) data.",
+    jobsOpenDiscrepencyDisclaimer:
+      "The number of jobs shown may differ from the number of jobs shown on the CareerOneStop Job Finder and/or in National Labor Exchange (NLx) data.",
     salaryTitle: "Median Salary",
     salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
     searchOpenJobsText: "Search job openings in New Jersey >",
@@ -328,15 +329,8 @@ export const en = {
       "You will leave My Career NJ and be taken to the provider's website",
     providerWebsiteMissingLabel:
       "To sign up for this training opportunity, please contact the provider at the details below.",
-    trainingProviderStepsHeader: "Follow these steps",
-    trainingStepOne: "Search for Training",
-    trainingStepOneDescription: "Enter a field of study you are interested in exploring.",
-    trainingStepTwo: "Filter and Compare",
-    trainingStepTwoDescriptionP1: "Filter and compare ",
-    trainingStepTwoDescriptionP2: "accredited programs from the ETPL",
-    trainingStepTwoDescriptionP3: " to identify the best fit for you.",
-    trainingStepThree: "Visit Training Provider Website",
-    trainingStepThreeDescription:
-      "Call or visit the provider's website to learn more about the training or to sign up.",
+    trainingStepOneDescription: "Search by occupation, provider, and more",
+    trainingStepTwoDescription: "Filter and compare results",
+    trainingStepThreeDescription: "Visit training provider’s website to enroll",
   },
 };

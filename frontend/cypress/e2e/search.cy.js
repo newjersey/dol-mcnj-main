@@ -9,15 +9,13 @@ describe("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search by training, provider, certification, SOC code, CIP code, or keyword").should(
-      "exist",
-    );
+    cy.contains("Search for training").should("exist");
 
     cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
     cy.wait(1000);
-    cy.get("a#search-button").contains("Search").click({ force: true });
+    cy.get("button#search-button").contains("Search").click({ force: true });
 
     // on search results page
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
@@ -127,7 +125,6 @@ describe("Search", () => {
     cy.intercept("api/trainings/search?query=social%20work", { fixture: "social-work-search-results.json" });
 
     cy.visit("/training/search?q=social%20work");
-
 
     cy.contains("In Demand").should("exist");
 
