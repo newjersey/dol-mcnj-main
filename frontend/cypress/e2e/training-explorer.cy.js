@@ -3,7 +3,7 @@ describe("Training Explorer Page", () => {
     cy.visit("/training");
     cy.injectAxe();
 
-    cy.contains("Search for Training").should("exist");
+    cy.contains("Search for training").should("exist");
     cy.checkA11y();
   });
 });
