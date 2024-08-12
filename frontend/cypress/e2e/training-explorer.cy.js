@@ -3,9 +3,7 @@ describe("Training Explorer Page", () => {
     cy.visit("/training");
     cy.injectAxe();
 
-    cy.contains("Search by job, training program, and more to find a training that works for you.").should(
-      "exist",
-    );
+    cy.contains("Search for training").should("exist");
     cy.checkA11y();
   });
 });
