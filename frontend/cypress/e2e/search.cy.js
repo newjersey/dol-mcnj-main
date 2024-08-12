@@ -88,7 +88,7 @@ describe("Search", () => {
     // input search
     cy.get('input[aria-label="search"]').type("baking");
     cy.wait(1000);
-    cy.get("a#search-button").contains("Search").click({ force: true });
+    cy.get("button#search-button").contains("Search").click({ force: true });
 
     // matches by title
     cy.contains("Bakery and Pastry").should(
@@ -109,15 +109,13 @@ describe("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search by training, provider, certification, SOC code, CIP code, or keyword").should(
-      "exist",
-    );
+    cy.contains("Search for training").should("exist");
 
     cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
     cy.wait(1000);
-    cy.get("a#search-button").contains("Search").click({ force: true });
+    cy.get("button#search-button").contains("Search").click({ force: true });
 
     // on search results page
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
@@ -155,7 +153,7 @@ describe("Search", () => {
       fixture: "welding-technology-search-results.json",
     })
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
-  
+
     // on results page
     cy.visit("/training/search?q=welding%20technology");
     cy.injectAxe();
@@ -228,19 +226,15 @@ describe("Search", () => {
 
     cy.visit("/training/search?q=social%20work");
 
-    // in-demand training
-    cy.get(".card")
-      .eq(0)
-      .within(() => {
-        cy.contains("In Demand").should("exist");
-      });
+    cy.contains("In Demand").should("exist");
 
     // not in-demand training
-    cy.contains("Work Retention and Readiness").within(() => {
+    cy.contains("Assessment & Differential Diagnoses of Childhood Disorders").within(() => {
       cy.contains("In-Demand").should("not.exist");
     });
 
-    cy.contains("Masters in Social Work").click({ force: true });
+
+    cy.contains("A.S.Degree: Social Service").click({ force: true });
     cy.contains("In-Demand").should("exist");
   });
 

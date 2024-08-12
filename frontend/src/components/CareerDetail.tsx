@@ -71,7 +71,7 @@ export const CareerDetail = ({
       setLoadingJobs(true);
       try {
         /* eslint-disable-next-line  */
-        const result: any = await fetch(`/api/contentful/career-map-node/${detailsId}`);
+        const result: any = await fetch(`/api/contentful/career-map-occupation/${detailsId}`);
         const resultJson = await result.json();
         setData(resultJson);
 

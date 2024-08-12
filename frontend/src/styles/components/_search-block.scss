@@ -1,9 +1,38 @@
 .search-block {
   background-color: $secondary-lighter;
-  padding: $size-56 0;
+  padding: $size-32 $size-16;
+  border: 1px solid $black;
+  border-radius: $size-16;
 
-  .container {
-    max-width: $desktop-xl;
+  @media screen and (max-width: ($tablet-md)) {
+    padding: $size-24 $size-16 $size-16;
+  }
+
+  form {
+    max-width: $tablet-xl;
+    margin: 0 auto;
+  }
+
+  .row {
+    margin: 0;
+
+    @media screen and (max-width: ($tablet-md)) {
+      flex-direction: column;
+      gap: $size-8;
+    }
+  }
+
+  .heading-tag {
+    text-align: left;
+    font-weight: bold;
+    font-size: $size-18;
+    margin-bottom: $size-8;
+
+    @media screen and (min-width: ($tablet-md)) {
+      font-size: $size-24;
+      margin-bottom: $size-16;
+      width: calc(100% - 70px);
+    }
   }
 
   .heading {
@@ -11,36 +40,44 @@
     justify-content: space-between;
     align-items: flex-start;
 
-    h2 {
-      width: calc(100% - 70px);
+    .heading-tag {
+      display: flex;
+      align-items: center;
+      gap: $size-8;
+
+      svg {
+        color: $primary;
+      }
+
+      button {
+        &.unstyled {
+          width: auto;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
     }
-    button {
+
+    button:not(.usa-tooltip__trigger) {
       text-align: right;
       width: 70px;
+
+      @media screen and (max-width: ($tablet-md)) {
+        display: none !important;
+      }
     }
   }
 
-  h2,
-  h3 {
-    font-size: 1.35rem;
-
-    + p {
-      font-size: $size-16;
-      margin-bottom: 0.5rem;
-    }
+  .row,
+  .checks {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
   }
 
-  .usa-button:not(.usa-button--unstyled) {
-    background-color: $green;
-    font-size: 1.3rem;
-    font-weight: normal;
-  }
-
-  .usa-button {
-    &.usa-button--unstyled {
-      font-weight: bold;
-    }
-  }
   input,
   select {
     padding: 0.5rem;
@@ -49,24 +86,27 @@
     border: none;
   }
 
+  .usa-button:not(.usa-button--unstyled) {
+    background-color: $green;
+    font-size: 1.3rem;
+    font-weight: normal;
+  }
+
   .search-input {
-    border-radius: 5px;
-    margin: 0;
     width: calc(100% - 175px);
-    border: $size-1 solid $base-light;
     max-width: none;
     height: 45px;
+    margin: 0;
 
-    @media screen and (max-width: ($tablet - 1)) {
+    @media screen and (max-width: ($tablet-md)) {
       width: 100%;
-      margin-bottom: $size-16;
     }
   }
 
   .submit {
     width: 100%;
 
-    @media screen and (min-width: ($tablet)) {
+    @media screen and (min-width: ($tablet-md)) {
       width: 175px;
       padding-left: $size-16;
     }
@@ -94,33 +134,11 @@
     }
   }
 
-  .row,
-  .checks {
-    margin: 0;
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .row {
-    @media screen and (max-width: ($tablet - 1)) {
-      flex-direction: column;
-    }
-  }
-
-  .usa-checkbox,
-  .usa-checkbox__label::before {
-    background-color: transparent;
-  }
-
   .filters {
-    margin-top: 2.5rem;
+    margin-top: $size-20;
 
-    h3 {
-      margin-bottom: $size-16;
-      @media screen and (max-width: ($tablet - 1)) {
-        margin-bottom: 2rem;
-      }
+    @media screen and (max-width: ($tablet-md )) {
+      display: none;
     }
 
     input,
@@ -129,7 +147,7 @@
       margin-top: 0.5rem;
 
       &[disabled] {
-        background-color: $base-lighter;
+        background-color: $base-lightest;
       }
     }
 
@@ -216,72 +234,11 @@
     }
 
     .usa-checkbox {
+      background-color: transparent;
+
       + .usa-checkbox {
         margin-left: $size-16;
       }
-    }
-  }
-
-  button {
-    &.toggle {
-      border-bottom: $size-2 dashed $black;
-      padding: 0;
-      margin-bottom: $size-8;
-    }
-  }
-
-  .panel,
-  .overlay {
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-  }
-
-  .panel {
-    position: fixed;
-    border-left: $size-4 solid $secondary-dark;
-    top: 0;
-    right: -100%;
-    background: $secondary-lighter;
-    padding: 3rem;
-    max-width: $size-520;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-
-    @media screen and (max-width: ($tablet - 1)) {
-      padding: 3rem $size-16;
-    }
-
-    &.open {
-      right: 0;
-    }
-
-    .close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: $size-16;
-      cursor: pointer;
-      z-index: 11;
-    }
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
-    background: $ink;
-    opacity: 0;
-    z-index: 9;
-
-    &.open {
-      pointer-events: all;
-      opacity: 0.5;
     }
   }
 }

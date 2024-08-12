@@ -318,7 +318,7 @@ ol {
 .section-padding {
   padding: 4rem 0;
 
-  @media screen and (max-width: ($tablet-md - 1)) {
+  @media screen and (max-width: ($tablet-md)) {
     padding: 2rem 0;
   }
 }
@@ -326,7 +326,7 @@ ol {
 .mobile-only {
   display: none;
 
-  @media screen and (max-width: ($tablet-md - 1)) {
+  @media screen and (max-width: ($tablet-md)) {
     display: block;
   }
 }
@@ -334,7 +334,7 @@ ol {
 .desktop-only {
   display: block;
 
-  @media screen and (max-width: ($tablet-md - 1)) {
+  @media screen and (max-width: ($tablet-md)) {
     display: none;
   }
 }
