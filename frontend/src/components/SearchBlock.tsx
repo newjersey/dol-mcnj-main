@@ -1,4 +1,4 @@
-import { ArrowRight, CurrencyDollarSimple, X } from "@phosphor-icons/react";
+import { CurrencyDollarSimple, Info, X } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import { checkValidZipCode } from "../utils/checkValidZipCode";
@@ -91,51 +91,32 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           e.preventDefault();
           window.location.href = searchUrl;
         }}
-        className="container"
         data-testid="search-form"
       >
         <div className="heading">
-          <h2>Find Training</h2>
+          <p className="heading-tag">
+            <span>Search for training </span>
+            <button
+              type="button"
+              className="unstyled usa-tooltip"
+              data-position="top"
+              title="Search by training, provider, certification, SOC code, CIP code, or keyword."
+            >
+              <Info />
+              <div className="sr-only">Information</div>
+            </button>
+          </p>
           <button
             type="button"
             id="clearAll"
-            className="usa-button usa-button--unstyled"
+            className="usa-button usa-button--unstyled clear-all"
             onClick={() => {
               clearAllInputs();
             }}
           >
-            Clear All
+            Clear all
           </button>
         </div>
-        <p>
-          Search by training, provider, certification,{" "}
-          {drawerContent ? (
-            <button
-              className="toggle"
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setSocDrawerOpen(true);
-              }}
-            >
-              SOC code
-            </button>
-          ) : (
-            "SOC code"
-          )}
-          ,&nbsp;
-          <button
-            className="toggle"
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              setCipDrawerOpen(true);
-            }}
-          >
-            CIP code
-          </button>
-          , or keyword
-        </p>
         <div className="row">
           <label htmlFor="search-input" className="sr-only">
             Search
@@ -152,26 +133,21 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             defaultValue={searchTerm}
           />
           <div className="submit">
-            <button type="submit" data-testid="search-submit" className="usa-button">
+            <button
+              type="submit"
+              id="search-button"
+              data-testid="search-submit"
+              className="usa-button"
+            >
               Search
             </button>
-            <a
-              id="search-button"
-              href={`/training/search?q=${encodeURIComponent(searchTerm)}`}
-              className="usa-button usa-button--unstyled"
-            >
-              Advanced Search
-              <ArrowRight />
-            </a>
           </div>
         </div>
         <div className="filters">
-          <h3>Filters</h3>
+          <p className="heading-tag">Filters</p>
           <div className="row">
             <div className="area">
-              <div className="label">
-                {zipValid ? "Miles from Zip Code" : "Enter a New Jersey Zip Code"}
-              </div>
+              <div className="label">Miles from ZIP code </div>
               <div className="inputs">
                 <label htmlFor="miles" className="sr-only">
                   Miles
@@ -243,7 +219,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             </div>
             <div className="cost">
               <label className="label" htmlFor="maxCost">
-                Max Cost
+                Max cost
               </label>
               <CurrencyDollarSimple />
               <input
@@ -254,15 +230,9 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                   setMaxCost(sanitizedValue(e.target.value));
                 }}
               />
-              <a
-                href="/support-resources/tuition-assistance"
-                className="usa-button usa-button--unstyled"
-              >
-                Tuition Assistance Information
-              </a>
             </div>
-            <div className="class">
-              <div className="label">Class Format</div>
+            <div className="format">
+              <div className="label">Class format</div>
               <div className="checks">
                 <div className="usa-checkbox">
                   <input
@@ -274,7 +244,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                     }}
                   />
                   <label className="usa-checkbox__label" htmlFor="in-person">
-                    In-Person
+                    In-person
                   </label>
                 </div>
                 <div className="usa-checkbox">
@@ -301,27 +271,41 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
             id="drawerOverlay"
             className={`overlay${socDrawerOpen || cipDrawerOpen ? " open" : ""}`}
           />
-          <div className={`panel${socDrawerOpen ? " open" : ""}`}>
-            <div className="copy">
-              <button
-                aria-label="Close"
-                title="Close"
-                className="close"
-                onClick={() => setSocDrawerOpen(false)}
-                type="button"
-              >
-                <X size={28} />
-                <div className="sr-only">Close</div>
-              </button>
-              <RichText document={drawerContent.json} assets={drawerContent.links} />
+          {socDrawerOpen && (
+            <div className="panel open">
+              <div className="copy">
+                <button
+                  aria-label="Close"
+                  title="Close"
+                  className="close"
+                  onClick={() => setSocDrawerOpen(false)}
+                  type="button"
+                >
+                  <X size={28} />
+                  <div className="sr-only">Close</div>
+                </button>
+                <RichText document={drawerContent.json} assets={drawerContent.links} />
+              </div>
             </div>
-          </div>
+          )}
 
-          <div className={`panel${cipDrawerOpen ? " open" : ""}`}>
-            <div className="copy">
-              <CipDrawerContent onClose={() => setCipDrawerOpen(false)} />
+          {cipDrawerOpen && (
+            <div className="panel open">
+              <div className="copy">
+                <button
+                  aria-label="Close"
+                  title="Close"
+                  className="close"
+                  onClick={() => setCipDrawerOpen(false)}
+                  type="button"
+                >
+                  <X size={28} />
+                  <div className="sr-only">Close</div>
+                </button>
+                <CipDrawerContent onClose={() => setCipDrawerOpen(false)} />
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
     </section>
