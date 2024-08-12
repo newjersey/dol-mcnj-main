@@ -7,7 +7,7 @@ describe("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search for Training").should("exist");
+    cy.contains("Search for training").should("exist");
 
     cy.wait(1000);
     // input search

@@ -95,6 +95,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
               title="Search by training, provider, certification, SOC code, CIP code, or keyword."
             >
               <Info />
+              <div className="sr-only">Information</div>
             </button>
           </p>
           <button
