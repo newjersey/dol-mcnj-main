@@ -60,6 +60,14 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
           setCipDrawerOpen(false);
         });
       }
+
+      // close drawer on escape key
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          setSocDrawerOpen(false);
+          setCipDrawerOpen(false);
+        }
+      });
     }
   }, []);
 
