@@ -29,7 +29,7 @@
   "license": "ISC",
   "dependencies": {
     "@contentful/rich-text-types": "^16.0.3",
-    "@sentry/node": "^7.55.2",
+    "@sentry/node": "^8.25.0",
     "@types/dotenv": "^8.2.0",
     "@types/winston": "^2.4.4",
     "aws-sdk": "^2.1448.0",
