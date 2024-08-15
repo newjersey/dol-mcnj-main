@@ -1,45 +1,34 @@
 import NodeCache = require("node-cache");
 import * as Sentry from "@sentry/node";
-import { SearchTrainings,  } from "../types";
+import { SearchTrainings } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
-import {TrainingData, TrainingResult} from "../training/TrainingResult";
+import { TrainingData, TrainingResult } from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
 import zipcodes from "zipcodes";
 
-// Ensure TrainingData is exported in ../types
-// types.ts:
-// export interface TrainingData { ... }
+// Initializing a simple in-memory cache
+const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
+/*
 const hasAllCerts = (certNum: number, totalResults: number) => certNum === totalResults;
+*/
 
-const fetchAllCerts = async (query: object, sort: string) => {
-  console.log("FETCHING CERTS")
-  const firstBatch = await credentialEngineAPI.getResults(query, 0, 100, sort);
-  const totalResults = firstBatch.data.extra.TotalResults;
+const fetchAllCerts = async (query: object, sort: string, offset = 0, limit = 10) => {
+  console.log(`FETCHING CERTS with offset ${offset} and limit ${limit}`);
 
-  let allCerts;
-  if (hasAllCerts(firstBatch.data.data.length, totalResults)) {
-    allCerts = firstBatch.data.data;
-  } else {
-    // How many fetches need to be made
-    const remainingCerts = totalResults - 100;
-    const numOfFetches = parseInt(Math.ceil(remainingCerts / 100).toString().split(".")[0], 10);
+  // Fetch only the requested page of results based on offset and limit
+  const response = await credentialEngineAPI.getResults(query, offset, limit, sort);
+  const totalResults = response.data.extra.TotalResults;
 
-    allCerts = firstBatch.data.data;
-
-    for (let i = 1; i <= numOfFetches; i++) {
-      const nextBatch = await credentialEngineAPI.getResults(query, i * 100, 100, sort);
-      allCerts = allCerts.concat(nextBatch.data.data);
-    }
-  }
+  const allCerts = response.data.data;
 
   return { allCerts, totalResults };
-}
+};
 
 const filterCerts = async (
   results: TrainingResult[],
@@ -69,9 +58,6 @@ const filterCerts = async (
   return filteredResults;
 }
 
-// Initializing a simple in-memory cache
-const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
-
 const paginateCerts = (certs: TrainingResult[], page: number, limit: number) => {
   const start = (page - 1) * limit;
   const end = start + limit;
@@ -100,8 +86,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     searchQuery: string,
     page?: number,
     limit?: number,
-    sort?: string
-    cip_code?: string
+    sort?: string,
+    cip_code?: string,
+    soc_code?: string,
     class_format?: string[],
     complete_in?: number[],
     county?: string,
@@ -110,25 +97,31 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     max_cost?: number,
     miles?: number,
     services?: string[],
-    soc_code?: string,
     zip_code?: string,
   }): Promise<TrainingData> => {
     const cip_code = params.cip_code?.split(".").join("") || "";
     const soc_code = params.soc_code?.split("-").join("") || "";
-    const { page, limit, sort, cacheKey } = prepareSearchParameters(cip_code, soc_code, params);
+    const { page = 1, limit = 10, sort, cacheKey } = prepareSearchParameters(cip_code, soc_code, params);
 
     const cachedResults = cache.get<TrainingData>(cacheKey);
     if (cachedResults) {
-      console.log("Returning cached results for key:", cacheKey);
+      console.log(`Returning cached results for key: ${cacheKey}`);
+
+      // Trigger the background fetch for the next pages
+      fetchNextSearchPages(buildQuery(params), page, limit, sort, dataClient, { ...params, totalResults: cachedResults.meta.totalItems });
+
       return cachedResults;
     }
 
+    // If not in cache, fetch the current page's data
     const query = buildQuery(params);
-    console.log("Executing search with query:", JSON.stringify(query));
+    console.log(`Executing search with query: ${JSON.stringify(query)}`);
 
     let ceRecordsResponse;
     try {
-      ceRecordsResponse = await fetchAllCerts(query, sort);
+      const offset = (page - 1) * limit;  // Calculate the correct offset for pagination
+      console.log(`Fetching results with offset ${offset} and limit ${limit} for page ${page}`);
+      ceRecordsResponse = await fetchAllCerts(query, sort, offset, limit);  // Fetch only the current page
     } catch (error) {
       Sentry.captureException(error);
       console.error("Error fetching results from Credential Engine API:", error);
@@ -148,26 +141,90 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const sortedResults = await sortTrainings(filteredResults, sort);
 
-    const paginatedResults = paginateCerts(sortedResults, page, limit);
+    const paginatedResults = paginateCerts(sortedResults, 1, limit);
 
-    console.log(paginatedResults)
-
-    const totalResults = filteredResults.length;
+    const totalResults = ceRecordsResponse.totalResults;
 
     const data = packageResults(page, limit, paginatedResults, totalResults);
 
-    const dataJSON = JSON.stringify(data);
-    console.log(dataJSON);
-
     cache.set(cacheKey, data);
+    console.log(`Caching results for page ${page} with key ${cacheKey}`);
+
+    // Trigger the background fetch for the next pages
+    fetchNextSearchPages(query, page, limit, sort, dataClient, { ...params, totalResults });
+
     return data;
   };
 };
 
+interface SearchParams {
+  searchQuery: string;
+  page?: number;
+  limit?: number;
+  sort?: string;
+  cip_code?: string;
+  soc_code?: string;
+  class_format?: string[];
+  complete_in?: number[];
+  county?: string;
+  in_demand?: boolean;
+  languages?: string[];
+  max_cost?: number;
+  miles?: number;
+  services?: string[];
+  zip_code?: string;
+  totalResults: number;
+}
+
+async function fetchNextSearchPages(query: object, currentPage: number, limit: number, sort: string, dataClient: DataClient, params: SearchParams) {  const totalPages = Math.ceil(params.totalResults / limit);
+
+  // Fetch the next two pages, if available
+  for (let i = 1; i <= 2; i++) {
+    const pageToFetch = currentPage + i;
+
+    if (pageToFetch > totalPages) {
+      console.log(`Reached the last page, no more pages to fetch.`);
+      break;
+    }
+
+    const { cip_code, soc_code } = params;
+    const { cacheKey } = prepareSearchParameters(cip_code, soc_code, { ...params, page: pageToFetch, limit, sort });
+
+    if (!cache.get(cacheKey)) {
+      const offset = (pageToFetch - 1) * limit;
+      console.log(`Asynchronously fetching data for page ${pageToFetch}, offset ${offset}, limit ${limit}`);
+
+      try {
+        const ceRecordsResponse = await fetchAllCerts(query, sort, offset, limit);
+        const certificates = ceRecordsResponse.allCerts as CTDLResource[];
+
+        if (certificates.length === 0) {
+          console.log(`No records found for page ${pageToFetch}`);
+          return;
+        }
+
+        const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
+
+        const filteredResults = await filterCerts(results, cip_code, params.complete_in, params.in_demand, params.max_cost);
+        const sortedResults = await sortTrainings(filteredResults, sort);
+        const paginatedResults = paginateCerts(sortedResults, 1, limit);
+
+        const data = packageResults(pageToFetch, limit, paginatedResults, ceRecordsResponse.totalResults);
+
+        cache.set(cacheKey, data);
+        console.log(`Caching results for page ${pageToFetch} with key ${cacheKey}`);
+      } catch (error) {
+        console.error(`Error asynchronously fetching page ${pageToFetch}:`, error);
+      }
+    } else {
+      console.log(`Cache hit for page ${pageToFetch} with key ${cacheKey}`);
+    }
+  }
+}
 
 function prepareSearchParameters(
-  cip_code_value: string,
-  soc_code_value: string,
+  cip_code_value= "",
+  soc_code_value = "",
   params: {
     searchQuery: string,
     page?: number,
@@ -181,21 +238,23 @@ function prepareSearchParameters(
     max_cost?: number,
     miles?: number,
     services?: string[],
-    zip_code?: string
-}) {
+    zip_code?: string,
+    cip_code?: string,
+    soc_code?: string,
+  }) {
   const page = params.page || 1;
   const limit = params.limit || 10;
-  const cip_code = `-cip:${cip_code_value}` || "";
-  const class_format = `-format:${params.class_format?.join(",")}` || [];
-  const complete_in = `-complete:${params.complete_in?.join(",")}` || [];
-  const county = `-${params.county}` || "";
+  const cip_code = params.cip_code ? `-cip:${cip_code_value}` : "";
+  const class_format = params.class_format ? `-format:${params.class_format.join(",")}` : "";
+  const complete_in = params.complete_in ? `-complete:${params.complete_in.join(",")}` : "";
+  const county = params.county ? `-${params.county}` : "";
   const in_demand = params.in_demand ? "-in_demand" : "";
-  const languages = `-${params.languages?.join(",")}` || "";
-  const max_cost = `-max:${params.max_cost}` || "";
-  const miles = `-miles:${params.miles}` || "";
-  const services = `-services:${params.services?.join(",")}` || "";
-  const soc_code = `-soc:${soc_code_value}` || "";
-  const zip_code = `-zip:${params.zip_code}` || "";
+  const languages = params.languages ? `-${params.languages.join(",")}` : "";
+  const max_cost = params.max_cost ? `-max:${params.max_cost}` : "";
+  const miles = params.miles ? `-miles:${params.miles}` : "";
+  const services = params.services ? `-services:${params.services.join(",")}` : "";
+  const soc_code = params.soc_code ? `-soc:${soc_code_value}` : "";
+  const zip_code = params.zip_code ? `-zip:${params.zip_code}` : "";
 
   const sort = determineSortOption(params.sort);
   const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${cip_code}${class_format}${complete_in}${county}${in_demand}${languages}${max_cost}${miles}${services}${soc_code}${zip_code}`;
@@ -240,25 +299,25 @@ function buildQuery(params: {
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-/*  const miles = params.miles;
+  /*  const miles = params.miles;
   const zipcode = params.zip_code;*/
-/*
-  let zipcodesList: string[] | zipcodes.ZipCode[] = []
+  /*
+    let zipcodesList: string[] | zipcodes.ZipCode[] = []
 
-  if (isZipCode) {
-    zipcodesList = [params.searchQuery]
-  } else if (isCounty) {
-    zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
-  }
+    if (isZipCode) {
+      zipcodesList = [params.searchQuery]
+    } else if (isCounty) {
+      zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
+    }
 
-  if (params.county) {
-    zipcodesList = zipcodeJson.byCounty[params.county as keyof typeof zipcodeJson.byCounty]
-  }
+    if (params.county) {
+      zipcodesList = zipcodeJson.byCounty[params.county as keyof typeof zipcodeJson.byCounty]
+    }
 
-  if (miles && miles > 0 && zipcode) {
-    const zipcodesInRadius = zipcodes.radius(zipcode, miles);
-    zipcodesList = zipcodesInRadius;
-  }*/
+    if (miles && miles > 0 && zipcode) {
+      const zipcodesInRadius = zipcodes.radius(zipcode, miles);
+      zipcodesList = zipcodesInRadius;
+    }*/
 
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
@@ -320,8 +379,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       name: certificate["ceterms:name"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
-      // percentEmployed: await credentialEngineUtils.extractEmploymentData(certificate),d
-      percentEmployed:outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
+      percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
       calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       online: await credentialEngineUtils.hasOnlineOffering(certificate),
