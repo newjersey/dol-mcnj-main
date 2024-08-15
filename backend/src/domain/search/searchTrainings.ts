@@ -14,9 +14,11 @@ import zipcodes from "zipcodes";
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
+/*
 const hasAllCerts = (certNum: number, totalResults: number) => certNum === totalResults;
+*/
 
-const fetchAllCerts = async (query: object, sort: string, offset: number = 0, limit: number = 10) => {
+const fetchAllCerts = async (query: object, sort: string, offset = 0, limit = 10) => {
   console.log(`FETCHING CERTS with offset ${offset} and limit ${limit}`);
 
   // Fetch only the requested page of results based on offset and limit
@@ -155,8 +157,26 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   };
 };
 
-async function fetchNextSearchPages(query: object, currentPage: number, limit: number, sort: string, dataClient: DataClient, params: any) {
-  const totalPages = Math.ceil(params.totalResults / limit);
+interface SearchParams {
+  searchQuery: string;
+  page?: number;
+  limit?: number;
+  sort?: string;
+  cip_code?: string;
+  soc_code?: string;
+  class_format?: string[];
+  complete_in?: number[];
+  county?: string;
+  in_demand?: boolean;
+  languages?: string[];
+  max_cost?: number;
+  miles?: number;
+  services?: string[];
+  zip_code?: string;
+  totalResults: number;
+}
+
+async function fetchNextSearchPages(query: object, currentPage: number, limit: number, sort: string, dataClient: DataClient, params: SearchParams) {  const totalPages = Math.ceil(params.totalResults / limit);
 
   // Fetch the next two pages, if available
   for (let i = 1; i <= 2; i++) {
