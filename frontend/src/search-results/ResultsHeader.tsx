@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 export const ResultsHeader = ({
   loading,
   searchQuery,
-  metaCount
-}:{
-  loading: boolean,
-  searchQuery: string,
-  metaCount: number
+  metaCount,
+}: {
+  loading: boolean;
+  searchQuery: string;
+  metaCount: number;
 }) => {
   const { t } = useTranslation();
   const query = decodeURIComponent(searchQuery.replace(/\+/g, " "));
@@ -19,12 +19,16 @@ export const ResultsHeader = ({
   return (
     <div id="search-header-container">
       <h2 className="text-xl weight-500 pts cutoff-text">
-        {!searchQuery || searchQuery === "null" || loading ? (
-          t("SearchResultsPage.noSearchTermHeader")
+        {loading ? (
+          "Searching training data for your results..."
         ) : (
-          message
+          <>
+            {!searchQuery || searchQuery === "null"
+              ? t("SearchResultsPage.noSearchTermHeader")
+              : message}
+          </>
         )}
       </h2>
     </div>
-  )
+  );
 };
