@@ -20,7 +20,7 @@ export const ResultsHeader = ({
     <div id="search-header-container">
       <h2 className="text-xl weight-500 pts cutoff-text">
         {loading ? (
-          "Searching training data for your results..."
+          t("SearchResultsPage.loadingHeader")
         ) : (
           <>
             {!searchQuery || searchQuery === "null"

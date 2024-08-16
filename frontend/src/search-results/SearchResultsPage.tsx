@@ -15,6 +15,7 @@ import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { SearchFilters } from "./SearchFilters";
 import { SearchTips } from "./SearchTips";
+import { useTranslation } from "react-i18next";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { FilterDrawer } from "../filtering/FilterDrawer";
@@ -55,6 +56,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
   const comparisonState = useContext(ComparisonContext).state;
   const searchQuery = getSearchQuery(location?.search);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -293,7 +295,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               searchQuery={searchQuery || ""}
               metaCount={metaData?.totalItems || 0}
             />
-            {isLoading && <p>This may take a few seconds</p>}
+            {isLoading && <p>{t("SearchResultsPage.loadingHeaderMessage")}</p>}
           </div>
           {!isLoading && (
             <div id="search-filters-container">

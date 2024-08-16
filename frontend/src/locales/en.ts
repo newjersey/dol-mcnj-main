@@ -176,7 +176,6 @@ export const en = {
       "Bureau of Labor Statistics, U.S. Department of Labor, Occupational Outlook Handbook",
   },
   SearchAndFilter: {
-
     searchButtonDefaultText: "Search",
     applyFiltersButtontText: "Apply",
     searchBarDefaultPlaceholderText: "Search for training courses",
@@ -222,6 +221,8 @@ export const en = {
     pageTitle: "{{query}} - Search Results",
     noSearchTermPageTitle: "Search for Training",
     noSearchTermHeader: "Find Training",
+    loadingHeader: "Searching training data for your results...",
+    loadingHeaderMessage: "This may take a few seconds",
     sectionOneHeader: "What is the Training Explorer?",
     sectionOneHeaderSmallScreen: "Getting Started",
     introText:
