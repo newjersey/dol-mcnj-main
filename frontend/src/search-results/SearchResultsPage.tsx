@@ -324,7 +324,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           )}
         </div>
         <div id="results-container">
-          {isLoading && <div>{Array(5).fill(<SkeletonCard />)}</div>}
+          {isLoading && <div>{Array(10).fill(<SkeletonCard />)}</div>}
           {!isLoading && !isError && trainings.length <= 5 && <SearchTips />}
           {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">

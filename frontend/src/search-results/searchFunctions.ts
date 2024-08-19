@@ -37,20 +37,40 @@ export const getTrainingData = (
   services?: string[],
   socCode?: string,
   sortBy?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-  zipCode?: string
+  zipCode?: string,
 ): void => {
   if (queryToSearch && queryToSearch !== "" && queryToSearch !== "null") {
-    client.getTrainingsByQuery(queryToSearch, {
-      onSuccess: (data: TrainingData) => {
-        setMetaData(data.meta);
-        setTrainings(data.data);
-        setLoading(false);
+    // Generate a cache key based on the query and parameters
+    const cacheKey = `${queryToSearch}-${cipCode}-${classFormat}-${completeIn}-${county}-${inDemand}-${itemsPerPage}-${languages}-${maxCost}-${miles}-${pageNum}-${services}-${socCode}-${sortBy}-${zipCode}`;
+
+    // Check if data is cached
+    const cachedData = sessionStorage.getItem(cacheKey);
+
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData) as TrainingData;
+      setMetaData(parsedData.meta);
+      setTrainings(parsedData.data);
+      setLoading(false); // Set loading to false immediately
+      return; // Skip the API call
+    }
+
+    // If no cached data, proceed with API call
+    client.getTrainingsByQuery(
+      queryToSearch,
+      {
+        onSuccess: (data: TrainingData) => {
+          // Cache the data for future use
+          sessionStorage.setItem(cacheKey, JSON.stringify(data));
+
+          setMetaData(data.meta);
+          setTrainings(data.data);
+          setLoading(false);
+        },
+        onError: () => {
+          setIsError(true);
+          setLoading(false);
+        },
       },
-      onError: () => {
-        setIsError(true);
-        setLoading(false);
-      },
-    },
       cipCode,
       classFormat,
       completeIn,
@@ -64,11 +84,12 @@ export const getTrainingData = (
       services,
       socCode,
       sortBy,
-      zipCode);
+      zipCode,
+    );
   } else {
     setLoading(false);
   }
-}
+};
 
 export const getSearchQuery = (searchString: string | undefined): string | undefined => {
   const regex = /\?q=([^&]*)/;
