@@ -14,23 +14,44 @@ export class PostgresSearchClient implements SearchClient {
   }
 
   search = (searchQuery: string): Promise<SearchResult[]> => {
+    console.log(`Executing search for query: "${searchQuery}"`);
+
     return this.kdb("programtokens")
-      .select(
-        "programid",
-        this.kdb.raw("ts_rank_cd(tokens, websearch_to_tsquery(?), 1) AS rank", [searchQuery]),
-      )
-      .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
-      .orderBy("rank", "desc")
-      .then((data: SearchEntity[]) =>
-        data.map((entity) => ({
-          id: entity.programid,
-          rank: entity.rank,
-        })),
-      )
-      .catch((e) => {
-        console.log("db error: ", e);
-        return Promise.reject();
-      });
+        .select(
+            "programid",
+            this.kdb.raw("ts_rank_cd(tokens, websearch_to_tsquery(?), 1) AS rank", [searchQuery]),
+        )
+        .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
+        .orderBy("rank", "desc")
+        .then((data: SearchEntity[]) => {
+          console.log(`Raw search results for query "${searchQuery}":`, data);
+
+          if (data.length === 0) {
+            console.error(`No results found for query: ${searchQuery}`);
+            return Promise.reject(new Error('NOT_FOUND'));
+          }
+
+          const results = data.map((entity) => {
+            const rank = entity.rank || 0;
+            if (rank === 0) {
+              console.warn(`Rank is 0 for program ID: ${entity.programid}`);
+            }
+            return {
+              id: entity.programid,
+              rank: rank,
+            };
+          });
+
+          console.log(`Processed search results:`, results);
+          return results;
+        })
+        .catch((e) => {
+          console.error("Error during search operation: ", e);
+          if (e.message === 'NOT_FOUND') {
+            return Promise.reject(new Error('NOT_FOUND'));
+          }
+          return Promise.reject(new Error('SEARCH_FAILURE'));
+        });
   };
 
   getHighlight = async (id: string, searchQuery: string): Promise<string> => {
