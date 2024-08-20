@@ -7,7 +7,6 @@ export const Pagination = ({
   totalPages,
   setPageNumber,
   isLoading,
-  setIsLoading,
 }: {
   currentPage: number;
   totalPages: number;
@@ -15,7 +14,6 @@ export const Pagination = ({
   hasNextPage: boolean;
   setPageNumber: (pageNumber: number) => void;
   isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
 }) => {
   const [breakCount, setBreakCount] = useState(0);
 
@@ -115,7 +113,6 @@ export const Pagination = ({
           newUrl.searchParams.set("p", `${page.selected + 1}`);
           window.history.pushState({}, "", newUrl.toString());
           setPageNumber(page.selected + 1);
-          setIsLoading(true);
         }}
         hrefBuilder={(page) => {
           const newUrl = new URL(window.location.href);

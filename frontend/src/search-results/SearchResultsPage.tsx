@@ -338,7 +338,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               {pageNumber && (
                 <Pagination
                   isLoading={isLoading}
-                  setIsLoading={setIsLoading}
                   currentPage={pageNumber || 1}
                   totalPages={metaData?.totalPages || 0}
                   hasPreviousPage={metaData?.hasPreviousPage || false}

@@ -47,10 +47,10 @@ export const getTrainingData = (
     const cachedData = sessionStorage.getItem(cacheKey);
 
     if (cachedData) {
+      setLoading(false); // Set loading to false immediately
       const parsedData = JSON.parse(cachedData) as TrainingData;
       setMetaData(parsedData.meta);
       setTrainings(parsedData.data);
-      setLoading(false); // Set loading to false immediately
       return; // Skip the API call
     }
 
