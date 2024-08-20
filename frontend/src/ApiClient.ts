@@ -14,7 +14,8 @@ import {
 
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
-    this.get(`/api/trainings/search?query=${query}`, observer);
+    const encodedQuery = encodeURIComponent(query);
+    this.get(`/api/trainings/search?query=${encodedQuery}`, observer);
   }
 
   getTrainingById(id: string, observer: Observer<Training>): void {
