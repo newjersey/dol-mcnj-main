@@ -30,12 +30,17 @@ export const routerFactory = ({
 }: RouterActions): Router => {
   const router = Router();
 
-  router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
+  router.get("/trainings/search", (req: Request, res: Response<TrainingResult[] | { error: string }>) => {
     searchTrainings(req.query.query as string)
-      .then((trainings: TrainingResult[]) => {
-        res.status(200).json(trainings);
-      })
-      .catch((e) => res.status(500).send(e));
+        .then((trainings: TrainingResult[]) => {
+          console.log(`Successfully retrieved training programs: `, trainings);
+          res.status(200).json(trainings);
+        })
+        .catch((error: unknown) => {
+          console.error(`Error caught in catch block:`, error);
+          return res.status(500).json({ error: 'Internal server error' });
+
+        });
   });
 
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {

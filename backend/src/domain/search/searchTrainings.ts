@@ -11,6 +11,11 @@ export const searchTrainingsFactory = (
   searchClient: SearchClient,
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
+    // Check for a blank query
+    if (!searchQuery || searchQuery.trim() === '') {
+      return [];
+    }
+
     try {
       const searchResults = await searchClient.search(searchQuery);
       const trainings = await findTrainingsBy(
