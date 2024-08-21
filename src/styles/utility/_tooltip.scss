@@ -1,0 +1,37 @@
+.popup-tooltip {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  z-index: 100;
+
+  &:hover {
+    span {
+      display: block;
+    }
+  }
+
+  span {
+    display: none;
+    background-color: $black;
+    color: $white;
+    font-size: $size-14;
+    position: absolute;
+    bottom: calc(100% + $size-5);
+    left: 50%;
+    min-width: $size-200;
+    line-height: 1.2;
+    padding: $size-8;
+    transform: translateX(-50%);
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      border-width: $size-8;
+      border-style: solid;
+      border-color: $black transparent transparent transparent;
+      transform: translateX(-50%);
+    }
+  }
+}

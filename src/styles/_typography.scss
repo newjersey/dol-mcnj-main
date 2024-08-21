@@ -1,0 +1,156 @@
+main {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol {
+    max-width: none;
+    margin: $size-20 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    li {
+      margin: $size-8 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+  }
+
+  .text-4xl {
+    font-size: $size-64;
+  }
+
+  .text-3xl {
+    font-size: $size-48;
+  }
+
+  h1,
+  .text-2xl {
+    font-size: $size-40;
+  }
+
+  h2,
+  .text-xl {
+    font-size: $size-32;
+  }
+
+  h3,
+  .text-lrg {
+    font-size: $size-24;
+  }
+
+  h4,
+  .text-md {
+    font-size: $size-20;
+  }
+
+  h5,
+  .text-base {
+    font-size: $size-16;
+  }
+
+  h6,
+  .text-sm {
+    font-size: $size-12;
+  }
+
+  .text-xs {
+    font-size: $size-8;
+  }
+
+  p,
+  li {
+    font-size: $size-16;
+  }
+
+  ul,
+  ol {
+    padding-left: $size-20;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  em,
+  i,
+  cite,
+  var,
+  address {
+    font-style: italic;
+  }
+
+  strong,
+  b,
+  dfn,
+  th {
+    font-weight: 800;
+  }
+
+  a {
+    color: $primary-vivid;
+    text-decoration: underline;
+    display: inline;
+    align-items: center;
+    gap: $size-2;
+    position: relative;
+
+    &.linkObject {
+      display: inline-flex;
+    }
+
+    &:visited {
+      color: $primary-vivid;
+    }
+
+    &:hover {
+      color: $tertiary;
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: $size-1;
+    height: $size-1;
+    padding: 0;
+    margin: -$size-1;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+}

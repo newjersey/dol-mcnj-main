@@ -1,0 +1,58 @@
+@mixin linkColor {
+  color: $primary-vivid;
+
+  &:visited {
+    color: $primary-vivid;
+  }
+
+  &:hover {
+    @media screen and (min-width: ($desktop)) {
+      color: $primary-vivid;
+    }
+  }
+}
+
+@mixin sectionPadding {
+  padding: $size-48 0;
+
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    padding: $size-32 0;
+  }
+}
+
+// customizable border radius mixin
+@mixin radius5 {
+  border-radius: $border-radius-5;
+}
+
+@mixin radius10 {
+  border-radius: $border-radius-10;
+}
+
+@mixin radius15 {
+  border-radius: $border-radius-15;
+}
+
+@mixin radius20 {
+  border-radius: $border-radius-20;
+}
+
+@mixin radius5overflow {
+  @include radius5;
+  overflow: hidden;
+}
+
+@mixin radius10overflow {
+  @include radius10;
+  overflow: hidden;
+}
+
+@mixin radius15overflow {
+  @include radius15;
+  overflow: hidden;
+}
+
+@mixin radius20overflow {
+  @include radius20;
+  overflow: hidden;
+}

@@ -1,0 +1,39 @@
+.costTable {
+  width: 100%;
+
+  th,
+  td {
+    vertical-align: middle;
+    padding: 0;
+    font-size: $size-16;
+    font-weight: 500;
+
+    + th,
+    + td {
+      text-align: right;
+    }
+  }
+
+  thead {
+    border-bottom: $size-1 solid $base-lightest;
+
+    th {
+      padding-bottom: $size-14;
+
+      + th {
+        text-align: right;
+        font-size: $size-24;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:first-of-type {
+        td {
+          padding-top: $size-14;
+        }
+      }
+    }
+  }
+}

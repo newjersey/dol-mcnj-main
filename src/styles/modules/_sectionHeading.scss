@@ -1,0 +1,154 @@
+.sectionHeading {
+  margin-bottom: $size-32;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $ink;
+    font-size: $size-32;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: $size-8;
+    border-bottom: $size-1 solid $base-lighter;
+    padding-bottom: $size-16;
+  }
+
+  &.strikeThrough {
+    text-align: center;
+    padding-bottom: 0;
+    position: relative;
+
+    &:before {
+      content: "";
+      height: $size-1;
+      width: 100%;
+      background: $base-lighter;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      border: 0;
+      background: $white;
+      width: initial;
+      position: relative;
+      padding: 0 $size-16;
+    }
+
+    &.color-blue {
+      &:before {
+        background: $primary;
+      }
+    }
+
+    &.color-green {
+      &:before {
+        background: $secondary;
+      }
+    }
+
+    &.color-purple {
+      &:before {
+        background: $tertiary;
+      }
+    }
+
+    &.color-navy {
+      &:before {
+        background: $info-darker;
+      }
+    }
+
+    &.color-orange {
+      &:before {
+        background: $accent-warm-dark;
+      }
+    }
+  }
+
+  &.color-blue {
+    border-color: $primary;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: $primary;
+    }
+  }
+
+  &.color-green {
+    border-color: $secondary;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: $secondary;
+    }
+  }
+
+  &.color-purple {
+    border-color: $tertiary;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: $tertiary;
+    }
+  }
+
+  &.color-navy {
+    border-color: $info-darker;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: $info-darker;
+    }
+  }
+
+  &.color-orange {
+    border-color: $accent-warm-dark;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: $accent-warm-dark;
+    }
+  }
+
+  .description {
+    margin: $size-1 0 0;
+    font-size: $size-16;
+  }
+}

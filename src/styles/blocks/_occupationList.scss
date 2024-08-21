@@ -1,0 +1,15 @@
+.occupationList {
+  display: flex;
+  flex-direction: column;
+  gap: $size-8;
+
+  .occupation-search {
+    margin-bottom: $size-22;
+
+    > div {
+      > div {
+        gap: $size-8;
+      }
+    }
+  }
+}

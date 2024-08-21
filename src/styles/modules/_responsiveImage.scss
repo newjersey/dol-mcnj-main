@@ -1,0 +1,25 @@
+.image-container,
+.background-container {
+  position: relative;
+}
+
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.image-container {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

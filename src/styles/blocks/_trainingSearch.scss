@@ -1,0 +1,161 @@
+.trainingSearch {
+  background-color: $secondary-lighter;
+  padding: $size-32 $size-16;
+  border: 1px solid $black;
+  border-radius: $size-16;
+
+  label {
+    margin: 0;
+  }
+
+  .inner {
+    max-width: $tablet-xl;
+    margin: 0 auto;
+  }
+
+  .heading-tag {
+    font-size: $size-24;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    border: none;
+  }
+
+  .input-heading {
+    .clear-all {
+      @media screen and (max-width: ($tablet-md - 1)) {
+        display: none !important;
+      }
+    }
+  }
+
+  .items {
+    margin-top: $size-8;
+    min-height: $size-48;
+
+    input {
+      &.usa-checkbox__input {
+        &:checked {
+          + .usa-checkbox__label {
+            margin: 0;
+            &:before {
+              background-color: $secondary;
+            }
+          }
+        }
+      }
+    }
+
+    .usa-checkbox__label {
+      margin: 0;
+      &:before {
+        background-color: $white;
+      }
+    }
+  }
+
+  .miles-container {
+    .select,
+    .text {
+      width: 100%;
+      max-width: $size-200;
+    }
+
+    .from {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: $size-48;
+    }
+  }
+
+  .maxCost {
+    position: relative;
+
+    svg {
+      position: absolute;
+      bottom: $size-16;
+      opacity: 0.8;
+      left: $size-12;
+      z-index: 1;
+    }
+
+    .formField {
+      input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+          [type="submit"]
+        ) {
+        padding-left: $size-32;
+      }
+    }
+  }
+
+  span:not(.formField) {
+    &.error {
+      @media screen and (min-width: ($tablet)) {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 200%;
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    gap: $size-16;
+    width: 100%;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      flex-direction: column;
+    }
+
+    .formField {
+      width: 100%;
+
+      @media screen and (min-width: ($tablet)) {
+        width: calc(100% - 200px);
+      }
+    }
+
+    input {
+      margin: 0;
+      border: none;
+      max-width: none;
+      width: 100%;
+    }
+
+    .usa-button {
+      margin: 0;
+      min-width: 100%;
+
+      @media screen and (min-width: ($tablet)) {
+        min-width: 200px;
+      }
+    }
+  }
+
+  .usa-select {
+    &:disabled,
+    &[aria-disabled="true"] {
+      background-color: $base-lightest;
+      color: $base;
+    }
+  }
+
+  .filter-row {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: none;
+    }
+  }
+
+  .filters {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      align-items: flex-start;
+    }
+  }
+}

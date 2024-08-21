@@ -1,0 +1,68 @@
+.labelBox {
+  border: $size-1 solid $base-lighter;
+
+  .title {
+    background: $primary;
+    color: $ink;
+    padding: 0.625rem $size-16;
+    margin: 0;
+    font-size: $size-16;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: $size-8;
+    border-radius: $size-9 $size-9 0 0;
+  }
+
+  .content {
+    padding: $size-24 $size-16;
+  }
+
+  &.centered {
+    .title {
+      padding: $size-16;
+      font-size: $size-18;
+      justify-content: center;
+    }
+  }
+
+  &.bg-fill {
+    background: $base-cool;
+
+    > div {
+      background: $base-cool;
+    }
+  }
+
+  &.color-blue {
+    .title {
+      background: $primary;
+      color: $white;
+    }
+  }
+
+  &.color-green {
+    .title {
+      background: $secondary-lighter;
+    }
+  }
+
+  &.color-purple {
+    .title {
+      background: $tertiary-lighter;
+    }
+  }
+
+  &.color-orange {
+    .title {
+      background: $accent-warm-light;
+    }
+  }
+
+  &.color-navy {
+    .title {
+      background: $info-darker;
+      color: $white;
+    }
+  }
+}

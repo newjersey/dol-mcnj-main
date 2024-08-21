@@ -1,0 +1,220 @@
+@mixin customLayouts {
+  &.one-third-two-thirds {
+    & > *:first-child {
+      flex: 0 33.3333%;
+      max-width: 33.3333%;
+    }
+
+    & > *:last-child {
+      flex: 0 66.6667%;
+      max-width: 66.6667%;
+    }
+  }
+
+  &.two-thirds-one-third {
+    & > *:first-child {
+      flex: 0 66.6667%;
+      max-width: 66.6667%;
+    }
+
+    & > *:last-child {
+      flex: 0 33.3333%;
+      max-width: 33.3333%;
+    }
+  }
+
+  &.one-quarter-three-quarters {
+    & > *:first-child {
+      flex: 0 25%;
+      max-width: 25%;
+    }
+
+    & > *:last-child {
+      flex: 0 75%;
+      max-width: 75%;
+    }
+  }
+
+  &.three-quarters-one-quarter {
+    & > *:first-child {
+      flex: 0 75%;
+      max-width: 75%;
+    }
+
+    & > *:last-child {
+      flex: 0 25%;
+      max-width: 25%;
+    }
+  }
+}
+
+@mixin columnBreaks {
+  &.column-xxs {
+    @media screen and (max-width: ($mobile - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  &.column-xs {
+    @media screen and (max-width: ($mobile-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  &.column-sm {
+    @media screen and (max-width: ($tablet - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  &.column-md {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  &.column-lg {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  &.column-xl {
+    @media screen and (max-width: ($desktop-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  &.column-xxl {
+    @media screen and (max-width: ($widescreen - 1)) {
+      flex-direction: column;
+    }
+  }
+}
+
+.mcnj-flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  @include columnBreaks;
+
+  &.no-break {
+    flex-wrap: nowrap;
+  }
+
+  &.fill {
+    width: 100%;
+
+    > * {
+      width: 100%;
+    }
+  }
+
+  &.direction-row {
+    flex-direction: row;
+    @include columnBreaks;
+  }
+
+  &.direction-row-reverse {
+    flex-direction: row-reverse;
+    @include columnBreaks;
+  }
+
+  &.direction-column {
+    flex-direction: column;
+  }
+
+  &.direction-column-reverse {
+    flex-direction: column-reverse;
+  }
+
+  &.align-flex-start {
+    align-items: flex-start;
+  }
+
+  &.align-flex-end {
+    align-items: flex-end;
+  }
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &.align-stretch {
+    align-items: stretch;
+  }
+
+  &.justify-flex-start {
+    justify-content: flex-start;
+  }
+
+  &.justify-flex-end {
+    justify-content: flex-end;
+  }
+
+  &.justify-center {
+    justify-content: center;
+  }
+
+  &.justify-space-between {
+    justify-content: space-between;
+  }
+
+  &.justify-space-around {
+    justify-content: space-around;
+  }
+
+  &.break-xxs {
+    @media screen and (min-width: ($mobile)) {
+      @include customLayouts;
+    }
+  }
+
+  &.break-xs {
+    @media screen and (min-width: ($mobile-lg)) {
+      @include customLayouts;
+    }
+  }
+
+  &.break-sm {
+    @media screen and (min-width: ($tablet)) {
+      @include customLayouts;
+    }
+  }
+
+  &.break-md {
+    @media screen and (min-width: ($tablet-md)) {
+      @include customLayouts;
+    }
+  }
+
+  &.break-lg {
+    @media screen and (min-width: $tablet-xl) {
+      @include customLayouts;
+    }
+  }
+
+  &.break-xl {
+    @media screen and (min-width: $desktop-lg) {
+      @include customLayouts;
+    }
+  }
+
+  &.break-xxl {
+    @media screen and (min-width: $widescreen) {
+      @include customLayouts;
+    }
+  }
+
+  &.wrap-wrap {
+    flex-wrap: wrap;
+  }
+
+  &.wrap-nowrap {
+    flex-wrap: nowrap;
+  }
+
+  &.wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+}

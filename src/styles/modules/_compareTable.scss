@@ -1,0 +1,143 @@
+.compareTable {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: $secondary-lighter;
+  z-index: 1000;
+  width: 100%;
+
+  .compare-inner {
+    max-width: $desktop-xl;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $size-48;
+    padding: $size-16;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (max-width: ($desktop-lg - 1)) {
+    flex-direction: column;
+  }
+
+  .buttons {
+    display: flex;
+    gap: $size-8;
+
+    @media screen and (min-width: ($tablet-lg)) {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      > button {
+        margin: 0;
+      }
+    }
+  }
+
+  .boxes {
+    justify-content: center;
+    display: flex;
+    gap: $size-48;
+    width: 100%;
+
+    @media screen and (max-width: ($desktop-lg - 1)) {
+      gap: $size-24;
+    }
+  }
+
+  .box {
+    width: $size-256;
+    padding: $size-8;
+    background: $white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+    min-height: $size-128;
+
+    @media screen and (max-width: ($desktop-lg - 1)) {
+      width: 33.333%;
+    }
+
+    &.empty {
+      opacity: 0.5;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    button {
+      position: absolute;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      border-radius: 100%;
+      top: -$size-20;
+      right: -$size-5;
+      height: $size-16;
+      width: $size-16;
+      background: $black;
+      cursor: pointer;
+    }
+  }
+
+  .usa-table {
+    max-width: 864px;
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    tbody {
+      tr {
+        &:last-child {
+          td {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+
+    thead {
+      td {
+        vertical-align: bottom;
+
+        > div {
+          display: flex;
+          flex-direction: column;
+          gap: $size-8;
+          justify-content: flex-end;
+          align-items: center;
+          height: 100%;
+          padding-bottom: $size-8;
+        }
+      }
+    }
+
+    td {
+      width: 25%;
+      min-width: $size-216;
+      text-align: center;
+      border-color: $base-light;
+      border-top: 0;
+      border-left: 0;
+      background: transparent;
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

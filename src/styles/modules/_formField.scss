@@ -1,0 +1,111 @@
+.formField {
+  position: relative;
+
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="submit"]
+    ),
+  textarea,
+  select {
+    background-color: $white;
+    border: $size-1 solid $base-light;
+    border-radius: $size-4;
+    min-height: $size-48;
+    padding: $size-12 $size-8;
+    text-align: left;
+
+    &::placeholder {
+      color: $base-light;
+    }
+  }
+  select {
+    cursor: pointer;
+  }
+
+  &.error {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+        [type="submit"]
+      ),
+    textarea,
+    select {
+      border-color: $error;
+    }
+
+    span {
+      &.error {
+        font-weight: bolder;
+      }
+    }
+  }
+
+  &.hideLabel {
+    .usa-label {
+      height: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 0;
+    }
+  }
+
+  &.textarea {
+    textarea {
+      margin-top: $size-4;
+      min-height: $size-96;
+    }
+  }
+
+  &.radio {
+    &.error {
+      label:before {
+        box-shadow: 0 0 0 $size-2 $error;
+      }
+
+      span {
+        &.error {
+          margin-top: $size-20;
+        }
+      }
+    }
+  }
+
+  .error {
+    color: $error;
+    display: flex;
+    min-height: none;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $size-4;
+    margin-top: $size-4;
+
+    svg {
+      position: relative;
+      display: inline-block;
+    }
+  }
+
+  &.email {
+    position: relative;
+
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+        [type="submit"]
+      ) {
+      padding-left: $size-52;
+    }
+
+    svg {
+      &.icon {
+        position: absolute;
+        bottom: $size-12;
+        left: $size-16;
+        width: auto;
+      }
+    }
+
+    &.error {
+      svg {
+        &.icon {
+          bottom: $size-32 + $size-4;
+        }
+      }
+    }
+  }
+}
