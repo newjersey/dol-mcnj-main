@@ -1,0 +1,55 @@
+.training-explorer-heading {
+  background-color: $base-lightest;
+
+  p {
+    margin: 0;
+  }
+
+  .usa-breadcrumb {
+    padding: $size-32 0;
+  }
+
+  .heading-tag {
+    &.main {
+      text-align: center;
+      font-size: $size-48;
+      margin: 0;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-size: $size-32;
+        margin-bottom: $size-32;
+      }
+    }
+  }
+
+  .usa-tooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .learn-more {
+    margin: $size-32 0;
+
+    @media screen and (min-width: ($tablet-lg + 1)) {
+      text-align: center;
+    }
+
+    p {
+      background-color: white;
+      border-radius: $size-16;
+      padding: $size-16;
+      display: inline-block;
+
+      @media screen and (min-width: ($tablet-lg + 1)) {
+        text-align: center;
+        font-size: $size-18;
+        border-radius: $size-80;
+      }
+    }
+  }
+
+  .cta {
+    padding: $size-32 0;
+  }
+}

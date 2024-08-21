@@ -1,0 +1,75 @@
+.dropNav {
+  .dropGroup {
+    background-color: $base-lightest;
+    border: $size-1 solid $base-lighter;
+
+    li {
+      background-color: $base-lightest;
+      margin: 0;
+
+      &:last-of-type {
+        button {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    ul {
+      height: 0;
+      overflow: hidden;
+      transition-duration: $transition-speed;
+      transition-timing-function: ease-in-out;
+
+      button {
+        padding-left: $size-32;
+      }
+
+      li {
+        button {
+          color: $ink;
+          font-weight: normal;
+          border-top: $size-1 solid $base-lighter;
+        }
+
+        &.active {
+          button {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    &.active {
+      background-color: $base-lighter;
+      font-weight: bold;
+      color: $info-darker;
+
+      ul {
+        display: block;
+      }
+
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  svg {
+    transition-duration: $transition-speed;
+    transition-timing-function: ease-in-out;
+    transform: rotate(0deg);
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: $size-8 $size-16;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}

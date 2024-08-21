@@ -1,0 +1,22 @@
+.supportResources {
+  .categories {
+    padding: $size-48 0;
+
+    .inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $size-32;
+      justify-content: center;
+    }
+  }
+
+  .iconCard {
+    width: 100%;
+    max-width: $size-240;
+
+    a {
+      display: block;
+      height: 100%;
+    }
+  }
+}

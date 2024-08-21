@@ -1,0 +1,136 @@
+.sub-footer {
+  background-color: $njBlack;
+  padding: $size-16 0;
+
+  a {
+    display: block;
+  }
+
+  .image-container {
+    img {
+      width: auto;
+    }
+  }
+
+  .container {
+    display: block;
+    width: 100%;
+
+    > a {
+      @media screen and (min-width: ($tablet-md + 1)) {
+        text-align: right;
+      }
+
+      @media screen and (max-width: ($tablet-md)) {
+        display: block;
+        margin: 2rem auto;
+        text-align: center;
+      }
+    }
+  }
+
+  .links {
+    @media screen and (min-width: ($tablet-md + 1)) {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    > div {
+      &:first-of-type {
+        img {
+          display: block;
+          margin-bottom: 0.5rem;
+
+          @media screen and (max-width: ($tablet-md)) {
+            margin: 0 auto 0.5rem;
+          }
+        }
+      }
+      &:last-of-type {
+        ul {
+          display: flex;
+          gap: 5px;
+          width: 100%;
+          justify-content: flex-end;
+
+          @media screen and (max-width: ($tablet-md)) {
+            justify-content: center;
+            margin: 2rem 0;
+          }
+        }
+      }
+    }
+  }
+
+  .powered-link {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  svg {
+    width: 25px;
+    height: auto;
+  }
+
+  p {
+    margin: 0;
+    font-size: $size-14;
+
+    @media screen and (max-width: ($tablet-md)) {
+      text-align: center;
+    }
+  }
+
+  .socials {
+    color: $white;
+    a {
+      display: block;
+      opacity: 0.5;
+      color: $white;
+
+      &:hover {
+        @media screen and (min-width: ($desktop + 1)) {
+          opacity: 1;
+        }
+      }
+
+      &.twitter {
+        &:hover {
+          svg {
+            * {
+              fill: #1da1f2;
+            }
+          }
+        }
+      }
+      &.facebook {
+        &:hover {
+          svg {
+            * {
+              fill: #3b5998;
+            }
+          }
+        }
+      }
+      &.youtube {
+        &:hover {
+          svg {
+            * {
+              fill: #ff0000;
+            }
+          }
+        }
+      }
+      &.linkedin {
+        &:hover {
+          svg {
+            * {
+              fill: #007bb5;
+            }
+          }
+        }
+      }
+    }
+  }
+}

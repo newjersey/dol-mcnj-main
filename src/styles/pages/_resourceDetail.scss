@@ -1,0 +1,91 @@
+.resourceDetail {
+  .resourceCardsBlock {
+    padding: $size-48 0;
+  }
+
+  hr {
+    background-color: $base-cool;
+    margin: $size-32 0;
+  }
+  .inner {
+    display: flex;
+    gap: $size-32;
+    width: 100%;
+    align-items: flex-start;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .filterWrapper {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: calc(100% + 2rem);
+      margin: 0 -1rem;
+    }
+
+    @media screen and (min-width: ($tablet-lg)) {
+      top: $size-32;
+      max-width: $size-411;
+    }
+  }
+
+  .resourceCards {
+    @media screen and (min-width: ($tablet-lg)) {
+      width: calc(100% - $size-411);
+    }
+
+    .resourceLinkBox {
+      margin-top: $size-32;
+
+      @media screen and (min-width: ($tablet-lg)) {
+        display: none;
+      }
+    }
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: $size-32;
+
+    .spinner {
+      text-align: center;
+    }
+  }
+
+  .listHeading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: $size-32;
+
+    > * {
+      width: calc(100% - 155px);
+
+      &:last-child {
+        width: 155px;
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      font-size: $size-16;
+
+      &.lrg {
+        font-size: $size-22;
+        text-align: right;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .tags {
+    margin-top: $size-16;
+  }
+}

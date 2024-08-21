@@ -1,0 +1,71 @@
+.wdrlscw-grid {
+  display: grid;
+
+  &.columns-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  &.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+
+    @media screen and (max-width: ($tablet - 1)) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+
+    @media screen and (max-width: ($tablet-xl - 1)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+
+    @media screen and (max-width: ($tablet-xl - 1)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &.columns-5 {
+    grid-template-columns: repeat(5, 1fr);
+
+    @media screen and (max-width: ($widescreen - 1)) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: ($tablet-xl - 1)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &.columns-6 {
+    grid-template-columns: repeat(6, 1fr);
+
+    @media screen and (max-width: ($widescreen - 1)) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: ($tablet-xl - 1)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

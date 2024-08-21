@@ -1,0 +1,19 @@
+.resourceCard {
+  border: $size-2 solid #e5e5e5;
+  padding: $size-24;
+
+  a.title {
+    color: $primary;
+    font-size: $size-24;
+    margin-bottom: 0;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-light;
+    }
+  }
+
+  .tag-item {
+    border: none;
+  }
+}

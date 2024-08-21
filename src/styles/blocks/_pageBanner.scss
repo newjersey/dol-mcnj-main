@@ -1,0 +1,381 @@
+.pageBanner {
+  padding: $size-32 0 $size-12;
+  background-color: $base-cool;
+
+  &.noBreadcrumbs {
+    @media screen and (min-width: ($tablet-lg)) {
+      padding: $size-32 0;
+    }
+  }
+
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    padding: $size-16 0;
+  }
+
+  .usa-breadcrumb {
+    border-bottom: $size-1 solid $base-lighter;
+    padding-bottom: $size-8;
+    width: 100%;
+  }
+
+  .save-buttons {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      margin-top: $size-16;
+    }
+
+    ul {
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        justify-content: center;
+      }
+    }
+
+    li {
+      margin: 0;
+    }
+
+    button {
+      text-decoration: none;
+
+      &.usa-button {
+        &.green {
+          color: $secondary;
+        }
+
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+  }
+
+  h1 {
+    font-size: $size-56;
+    font-weight: 500;
+    margin: 0 0 $size-16;
+    padding: 0;
+    line-height: 1;
+
+    @media screen and (max-width: ($tablet-lg)) {
+      font-size: $size-40;
+      margin-bottom: $size-16;
+    }
+  }
+
+  .copy {
+    padding: $size-45 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: $size-20;
+    gap: $size-48;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      display: block;
+    }
+
+    @media screen and (max-width: ($tablet-lg)) {
+      padding: $size-28 0;
+      font-size: $size-16;
+    }
+  }
+
+  .heading {
+    width: calc(100% - 335px);
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: 100%;
+    }
+
+    .eyebrow {
+      margin: 0;
+      text-transform: uppercase;
+      margin-bottom: $size-16;
+      border-bottom: 1px solid $ink;
+      display: inline-block;
+    }
+  }
+
+  .cta {
+    width: 335px;
+    padding: 0;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: 100%;
+      max-width: $size-320;
+      margin: $size-32 0 0;
+    }
+
+    .heading-text {
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        text-align: left;
+      }
+    }
+
+    .links {
+      a {
+        @media screen and (max-width: ($tablet-lg - 1)) {
+          max-width: none;
+        }
+      }
+    }
+  }
+
+  &.data {
+    h1 {
+      font-size: 2.45rem;
+    }
+
+    .copy {
+      > * {
+        @media screen and (min-width: ($tablet-lg)) {
+          width: 50%;
+        }
+      }
+    }
+  }
+
+  &.info {
+    h1 {
+      font-size: $size-30;
+      margin: 0;
+
+      @media screen and (min-width: ($tablet-lg)) {
+        font-size: $size-48;
+      }
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-weight: 600;
+      }
+    }
+    .subHeading {
+      font-size: $size-20;
+      margin-top: $size-8;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-size: $size-18;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .tag-item {
+    font-size: initial;
+    margin-top: $size-16;
+  }
+
+  .highlights {
+    border-radius: 10px;
+    padding: $size-16;
+    background-color: $base-lightest;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      margin-top: $size-32;
+    }
+
+    button {
+      margin: $size-16 auto 0;
+      color: $primary;
+      text-decoration: underline;
+      width: $size-120;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: center;
+    gap: $size-16;
+    margin-top: $size-16;
+
+    .value {
+      font-size: $size-24;
+      font-weight: bold;
+    }
+
+    a {
+      color: $ink;
+      line-height: 1.2;
+    }
+  }
+
+  &.counties-empty {
+    .infoBlocks {
+      .box {
+        &:first-of-type {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: -$size-480;
+    background-color: $secondary-lighter;
+    height: 100%;
+    z-index: 2;
+    max-width: $size-480;
+    padding: $size-48 $size-32;
+    transition-duration: $transition-speed;
+    transition-timing-function: ease-in-out;
+
+    &.open {
+      box-shadow: $shadow-5;
+      right: 0;
+    }
+
+    > button {
+      position: absolute;
+      transition-duration: $transition-speed;
+      transition-timing-function: ease-in-out;
+      cursor: pointer;
+      top: $size-22;
+      right: $size-32;
+      height: $size-32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $size-32;
+      border-radius: 100%;
+
+      &:hover {
+        @media screen and (min-width: ($tablet)) {
+          background-color: rgba($ink, 0.1);
+        }
+      }
+    }
+  }
+
+  .overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: $ink;
+    opacity: 0;
+    z-index: 1;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
+  }
+
+  .infoBlocks {
+    max-width: 375px;
+
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $size-16;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        flex-direction: column;
+        gap: $size-16;
+      }
+
+      + a {
+        margin-top: $size-12;
+      }
+    }
+
+    .box {
+      padding: $size-12;
+
+      @media screen and (min-width: ($tablet)) {
+        width: calc(50% - $size-8);
+      }
+
+      @media screen and (max-width: ($tablet - 1)) {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      button {
+        cursor: pointer;
+
+        span {
+          border-bottom-width: 2px;
+          border-bottom-style: dashed;
+          border-color: #000000;
+        }
+
+        &:hover {
+          @media screen and (min-width: ($tablet)) {
+            text-decoration: none;
+          }
+        }
+      }
+
+      p {
+        margin-bottom: $size-8;
+
+        @media screen and (max-width: ($tablet - 1)) {
+          margin-bottom: 0;
+        }
+      }
+
+      a {
+        margin: 0;
+      }
+
+      &:first-of-type {
+        background-color: $accent-warm-lighter;
+
+        @media screen and (min-width: ($tablet)) {
+          width: 100%;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          display: block;
+        }
+
+        p {
+          font-size: $size-16;
+          margin: $size-4 0;
+          line-height: 1.2;
+
+          &.title {
+            font-weight: bold;
+          }
+
+          @media screen and (max-width: ($tablet - 1)) {
+            margin-bottom: $size-8;
+          }
+        }
+      }
+
+      &.cost {
+        background-color: $tertiary-lighter;
+
+        p {
+          border-bottom: dashed;
+        }
+      }
+
+      &.rate {
+        background-color: rgba($tertiary-lighter, 0.5);
+
+        p {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .value {
+      display: block;
+      margin-top: $size-16;
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+.occupationListItem {
+  padding: $size-8 $size-8 $size-4;
+  border: $size-1 solid $base-lighter;
+  border-radius: $border-radius-5;
+
+  button {
+    width: 100%;
+    justify-content: space-between;
+    text-decoration: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    > span {
+      display: flex;
+      align-items: center;
+      gap: $size-16;
+    }
+
+    svg {
+      width: auto;
+      height: $size-24;
+      color: $ink;
+    }
+
+    .occ-icon {
+      svg {
+        width: auto;
+        height: $size-40;
+      }
+    }
+  }
+
+  ul {
+    border-top: $size-1 solid $base-lighter;
+    margin-top: $size-8;
+    padding: $size-8;
+    list-style-type: none;
+
+    @media screen and (min-width: ($tablet)) {
+      padding: $size-8 $size-8 $size-8 $size-80;
+    }
+  }
+
+  li {
+    display: flex;
+
+    @media screen and (min-width: ($tablet)) {
+      gap: $size-16;
+      align-items: center;
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      flex-direction: column;
+    }
+
+    + li {
+      margin-top: $size-6;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

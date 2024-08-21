@@ -1,0 +1,11 @@
+.showMore {
+  button {
+    color: $primary;
+    display: flex;
+    align-items: center;
+    gap: $size-4;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
