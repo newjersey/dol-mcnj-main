@@ -1,13 +1,6 @@
-import {
-  ChangeEvent,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState
-} from "react";
+import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { RouteComponentProps, WindowLocation } from "@reach/router";
-import { CircularProgress } from "@material-ui/core";
 
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
@@ -22,22 +15,21 @@ import { TrainingComparison } from "./TrainingComparison";
 import { TrainingResultCard } from "./TrainingResultCard";
 import { SearchFilters } from "./SearchFilters";
 import { SearchTips } from "./SearchTips";
+import { useTranslation } from "react-i18next";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { FilterDrawer } from "../filtering/FilterDrawer";
 import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
 import { getTrainingData, getSearchQuery } from "./searchFunctions";
+import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
   client: Client;
   location?: WindowLocation<unknown> | undefined;
 }
 
-export const SearchResultsPage = ({
-  client,
-  location
-}: Props): ReactElement<Props> => {
+export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -45,7 +37,9 @@ export const SearchResultsPage = ({
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [sortBy, setSortBy] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match">("best_match");
+  const [sortBy, setSortBy] = useState<
+    "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match"
+  >("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
 
   const [cipCode, setCipCode] = useState<string | undefined>(undefined);
@@ -59,9 +53,10 @@ export const SearchResultsPage = ({
   const [services, setServices] = useState<string[]>([]);
   const [socCode, setSocCode] = useState<string | undefined>(undefined);
   const [zipcode, setZipcode] = useState<string | undefined>(undefined);
-  
+
   const comparisonState = useContext(ComparisonContext).state;
   const searchQuery = getSearchQuery(location?.search);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -80,18 +75,35 @@ export const SearchResultsPage = ({
     const socCodeValue = urlParams.get("soc");
     const zipcodeValue = urlParams.get("zipcode");
 
-    const completeInArray:number[] = [];
+    const completeInArray: number[] = [];
     const limitValue = limit ? parseInt(limit) : 10;
     const pageNumberValue = page ? parseInt(page) : 1;
 
-    let cipCode, classFormat, county, inDemand, languages, maxCost, miles, services, socCode, zipCode;
+    let cipCode,
+      classFormat,
+      county,
+      inDemand,
+      languages,
+      maxCost,
+      miles,
+      services,
+      socCode,
+      zipCode;
 
     setIsLoading(true);
     if (pageNumberValue !== pageNumber) setPageNumber(pageNumberValue);
     if (itemsPerPage !== limitValue) setItemsPerPage(limitValue);
 
     if (sortBy) {
-      setSortBy(sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
+      setSortBy(
+        sortByValue as
+          | "asc"
+          | "desc"
+          | "price_asc"
+          | "price_desc"
+          | "EMPLOYMENT_RATE"
+          | "best_match",
+      );
     } else {
       setSortBy("best_match");
     }
@@ -102,21 +114,27 @@ export const SearchResultsPage = ({
     }
 
     if (classFormatValue) {
-      const classFormatArray = classFormatValue.includes("," || "%2C") ? classFormatValue.split("," || "%2C") : [classFormatValue];
+      const classFormatArray =
+        classFormatValue.includes(",") || classFormatValue.includes("%2C")
+          ? classFormatValue.split(",")
+          : [classFormatValue];
       setClassFormat(classFormatArray);
       classFormat = classFormatArray;
     }
 
     if (completeInValue) {
-      const completeValues = completeInValue.includes("," || "%2C") ? completeInValue.split("," || "%2C") : [completeInValue];
+      const completeValues =
+        completeInValue.includes(",") || completeInValue.includes("%2C")
+          ? completeInValue.split(",")
+          : [completeInValue];
       setCompleteIn(completeValues);
       completeValues.map((value) => {
-        switch(value) {
+        switch (value) {
           case "days":
             completeInArray.push(1, 2, 3);
             break;
           case "weeks":
-            completeInArray.push(4,5);
+            completeInArray.push(4, 5);
             break;
           case "months":
             completeInArray.push(6, 7);
@@ -142,7 +160,10 @@ export const SearchResultsPage = ({
     }
 
     if (languagesValue) {
-      const languagesArray = languagesValue.includes("," || "%2C") ? languagesValue.split("," || "%2C") : [languagesValue];
+      const languagesArray =
+        languagesValue.includes(",") || languagesValue.includes("%2C")
+          ? languagesValue.split(",")
+          : [languagesValue];
       setLanguages(languagesArray as LanguageProps[]);
       languages = languagesArray;
     }
@@ -158,7 +179,10 @@ export const SearchResultsPage = ({
     }
 
     if (servicesValue) {
-      const servicesArray = servicesValue.includes("," || "%2C") ? servicesValue.split("," || "%2C") : [servicesValue];
+      const servicesArray =
+        servicesValue.includes(",") || servicesValue.includes("%2C")
+          ? servicesValue.split(",")
+          : [servicesValue];
       setServices(servicesArray);
       services = servicesArray;
     }
@@ -174,28 +198,30 @@ export const SearchResultsPage = ({
     }
 
     const queryToSearch = searchQuery ? searchQuery : "";
-    getTrainingData(client,
-                    queryToSearch,
-                    setIsError,
-                    setIsLoading,
-                    setMetaData,
-                    setTrainings,
-                    cipCode,
-                    classFormat,
-                    completeInArray,
-                    county,
-                    inDemand,
-                    limitValue,
-                    languages,
-                    maxCost,
-                    miles,
-                    pageNumberValue,
-                    services,
-                    socCode,
-                    sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-                    zipCode);
+    getTrainingData(
+      client,
+      queryToSearch,
+      setIsError,
+      setIsLoading,
+      setMetaData,
+      setTrainings,
+      cipCode,
+      classFormat,
+      completeInArray,
+      county,
+      inDemand,
+      limitValue,
+      languages,
+      maxCost,
+      miles,
+      pageNumberValue,
+      services,
+      socCode,
+      sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+      zipCode,
+    );
   }, [client, searchQuery, pageNumber]);
-  
+
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     const newNumber = parseInt(event.target.value);
     setItemsPerPage(newNumber);
@@ -204,7 +230,10 @@ export const SearchResultsPage = ({
 
     let newUrl;
     if (urlParams.includes("limit")) {
-      newUrl = newNumber !== 10 ? urlParams.replace(/limit=[^&]*/, `limit=${newNumber}`) : urlParams.replace(/&?limit=[^&]*/, "");
+      newUrl =
+        newNumber !== 10
+          ? urlParams.replace(/limit=[^&]*/, `limit=${newNumber}`)
+          : urlParams.replace(/&?limit=[^&]*/, "");
       window.history.replaceState({}, "", newUrl);
     } else if (newNumber !== 10) {
       newUrl = `${urlParams}&limit=${newNumber}`;
@@ -216,16 +245,25 @@ export const SearchResultsPage = ({
       window.location.reload();
     }
   };
-  
+
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
-    const newSortOrder = event.target.value as "asc" | "desc" | "price_asc"  | "price_desc" | "EMPLOYMENT_RATE" | "best_match";
+    const newSortOrder = event.target.value as
+      | "asc"
+      | "desc"
+      | "price_asc"
+      | "price_desc"
+      | "EMPLOYMENT_RATE"
+      | "best_match";
     logEvent("Search", "Updated sort", newSortOrder);
 
     const urlParams = window.location.search;
-    
+
     let newUrl;
     if (urlParams.includes("sort")) {
-      newUrl = newSortOrder !== "best_match" ? urlParams.replace(/sort=[^&]*/, `sort=${newSortOrder}`) : urlParams.replace(/&?sort=[^&]*/, "");
+      newUrl =
+        newSortOrder !== "best_match"
+          ? urlParams.replace(/sort=[^&]*/, `sort=${newSortOrder}`)
+          : urlParams.replace(/&?sort=[^&]*/, "");
       window.history.replaceState({}, "", newUrl);
     } else if (newSortOrder !== "best_match") {
       newUrl = `${urlParams}&sort=${newSortOrder}`;
@@ -257,6 +295,7 @@ export const SearchResultsPage = ({
               searchQuery={searchQuery || ""}
               metaCount={metaData?.totalItems || 0}
             />
+            {isLoading && <p>{t("SearchResultsPage.loadingHeaderMessage")}</p>}
           </div>
           {!isLoading && (
             <div id="search-filters-container">
@@ -285,21 +324,9 @@ export const SearchResultsPage = ({
           )}
         </div>
         <div id="results-container">
-          {isLoading && (
-            <div className="fdr fjc ptl">
-              <CircularProgress color="secondary" />
-            </div>
-          )}
-          {!isLoading
-            && !isError
-            && trainings.length <= 5
-            && (
-              <SearchTips />
-          )}
-          {!isLoading
-            && !isError
-            && trainings.length > 0
-            && (
+          {isLoading && <div>{Array(10).fill(<SkeletonCard />)}</div>}
+          {!isLoading && !isError && trainings.length <= 5 && <SearchTips />}
+          {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">
               {trainings.map((training) => (
                 <TrainingResultCard
@@ -308,11 +335,9 @@ export const SearchResultsPage = ({
                   comparisonItems={comparisonState.comparison}
                 />
               ))}
-              {pageNumber
-                && (
+              {pageNumber && (
                 <Pagination
                   isLoading={isLoading}
-                  setIsLoading={setIsLoading}
                   currentPage={pageNumber || 1}
                   totalPages={metaData?.totalPages || 0}
                   hasPreviousPage={metaData?.hasPreviousPage || false}
@@ -322,9 +347,7 @@ export const SearchResultsPage = ({
               )}
             </div>
           )}
-          {!isLoading && (
-            <TrainingComparison comparisonItems={comparisonState.comparison} />
-          )}
+          {!isLoading && <TrainingComparison comparisonItems={comparisonState.comparison} />}
         </div>
       </div>
     </Layout>

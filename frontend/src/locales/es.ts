@@ -139,7 +139,7 @@ export const es = {
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
-    inDemandLinkText: "Career One-Stop"
+    inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
@@ -165,7 +165,8 @@ export const es = {
     jobsOpenTooltip:
       "El número de puestos de trabajo publicados actualmente para esta ocupación en el estado de NJ.",
     jobsOpenSource: "Bolsa Nacional de Trabajo",
-    jobsOpenDiscrepencyDisclaimer: "El número de trabajos en este resultado puede ser diferente al número de trabajos disponibles en el  portal de Búsqueda de Trabajo de CareerOneStop, o de los datos encontrados en la Bolsa Nacional de Trabajo (NLx).",
+    jobsOpenDiscrepencyDisclaimer:
+      "El número de trabajos en este resultado puede ser diferente al número de trabajos disponibles en el  portal de Búsqueda de Trabajo de CareerOneStop, o de los datos encontrados en la Bolsa Nacional de Trabajo (NLx).",
     salaryTitle: "Salario medio",
     salaryTooltip:
       "En promedio, los trabajadores en esta ocupación ganan esta cantidad en el estado de NJ.",
@@ -230,6 +231,8 @@ export const es = {
     noSearchTermPageTitle: "Buscar Entrenamiento",
     noSearchTermHeader: "Buscar formación",
     sectionOneHeader: "¿Qué es el New Jersey Training Explorer?",
+    loadingHeader: "Buscando datos de entrenamiento para tus resultados...",
+    loadingHeaderMessage: "Esto puede tardar unos segundos",
     sectionOneHeaderSmallScreen: "Empezando",
     introText:
       "El New Jersey Training Explorer es una lista completa de todas las escuelas y organizaciones que ofrecen educación y capacitación laboral que pueden ser elegibles para recibir",
@@ -275,7 +278,7 @@ export const es = {
     comparisonTimeToCompleteLabel: "Tiempo para completar",
     comparisonSeeDetails: "Ver detalles",
     addFiltersLabel: "Agregar filtros",
-    filtersButton: "Filtros"
+    filtersButton: "Filtros",
   },
   StatBlock: {
     dataSourceLabel: "Fuente de datos: ",
