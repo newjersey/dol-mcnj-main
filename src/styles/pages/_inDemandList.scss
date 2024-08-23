@@ -1,0 +1,18 @@
+.inDemandList {
+  .hero {
+    padding-top: $size-32;
+
+    .heading-tag {
+      font-size: $size-32;
+    }
+  }
+
+  .listBlock {
+    padding: $size-22 0 $size-48;
+  }
+
+  .usa-breadcrumb {
+    border-bottom: $size-1 solid $base-lighter;
+    padding-bottom: $size-8;
+  }
+}

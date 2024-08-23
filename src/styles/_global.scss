@@ -1,0 +1,613 @@
+html {
+  background-color: $njBlack;
+}
+
+* {
+  &::selection {
+    background-color: $primary-light;
+    color: $white;
+    text-shadow: $size-2 $size-2 $size-2 rgba(0, 0, 0, 0.5);
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: $line-height;
+  color: $ink;
+  background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.usa-alert {
+  + .usa-alert {
+    margin-top: 0;
+  }
+
+  .usa-alert__body {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+.skip-to-content {
+  position: absolute;
+  transform: translateY(-300%);
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  background-color: $white;
+  color: $ink;
+  border-radius: 5px;
+  padding: 10px $size-20;
+  z-index: 0;
+  top: $size-8;
+  left: $size-8;
+
+  &:focus {
+    transform: translateY(0);
+    z-index: 99;
+  }
+}
+
+.hide {
+  pointer-events: none;
+  position: absolute !important;
+  height: $size-1;
+  width: $size-1;
+  overflow: hidden;
+  clip: rect($size-1 $size-1 $size-1 $size-1); /* IE6, IE7 */
+  clip: rect($size-1, $size-1, $size-1, $size-1);
+}
+
+.desktop-only {
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    display: none;
+  }
+}
+
+.mobile-only {
+  @media screen and (min-width: ($tablet-lg)) {
+    display: none;
+  }
+}
+
+.highlight {
+  display: inline-block;
+  color: $accent-warm;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+hr {
+  height: $size-2;
+  background-color: $ink;
+}
+
+.container {
+  max-width: $desktop-xl;
+  margin: 0 auto;
+  padding: 0 $size-16;
+
+  &.narrow {
+    max-width: $desktop;
+  }
+}
+
+ul {
+  &.unstyled {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 0;
+    }
+  }
+}
+
+a {
+  @include linkColor;
+}
+
+button:not([disabled]):focus,
+input:not([disabled]):focus,
+select:not([disabled]):focus,
+textarea:not([disabled]):focus,
+[contentEditable="true"]:focus,
+[href]:focus,
+[tabindex]:focus,
+iframe:focus {
+  outline: $size-4 solid $primary;
+}
+
+.spinner {
+  svg {
+    display: inline-block;
+    animation: spin 1s steps(8) infinite;
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+.gap-none {
+  gap: 0;
+}
+
+.gap-micro {
+  gap: $size-4;
+}
+
+.gap-xxs {
+  gap: $size-8;
+}
+
+.gap-xs {
+  gap: $size-16;
+}
+
+.gap-sm {
+  gap: $size-24;
+}
+
+.gap-md {
+  gap: $size-32;
+}
+
+.gap-lg {
+  gap: $size-40;
+}
+
+.gap-xl {
+  gap: $size-52;
+}
+
+.gap-xxl {
+  gap: $size-72;
+}
+
+.gap-mega {
+  gap: $size-80;
+}
+
+.bg-base-cool {
+  background-color: $base-cool;
+}
+.bg-base-lightest {
+  background-color: $base-lightest;
+}
+.bg-base-lighter {
+  background-color: $base-lighter;
+}
+.bg-base-light {
+  background-color: $base-light;
+}
+.bg-base-extra-light {
+  background-color: $base-extra-light;
+}
+.bg-base {
+  background-color: $base;
+}
+.bg-base-dark {
+  background-color: $base-dark;
+}
+.bg-base-darker {
+  background-color: $base-darker;
+}
+.bg-base-darkest {
+  background-color: $base-darkest;
+}
+.bg-ink {
+  background-color: $ink;
+}
+.bg-primary {
+  background-color: $primary;
+}
+.bg-primary-vivid {
+  background-color: $primary-vivid;
+}
+.bg-primary-light {
+  background-color: $primary-light;
+}
+.bg-primary-lighter {
+  background-color: $primary-lighter;
+}
+.bg-primary-extra-light {
+  background-color: $primary-extra-light;
+}
+.bg-primary-dark {
+  background-color: $primary-dark;
+}
+.bg-primary-darker {
+  background-color: $primary-darker;
+}
+.bg-secondary {
+  background-color: $secondary;
+}
+.bg-secondary-light {
+  background-color: $secondary-light;
+}
+.bg-secondary-lighter {
+  background-color: $secondary-lighter;
+}
+.bg-secondary-extra-light {
+  background-color: $secondary-extra-light;
+}
+.bg-secondary-vivid {
+  background-color: $secondary-vivid;
+}
+.bg-secondary-dark {
+  background-color: $secondary-dark;
+}
+.bg-secondary-darker {
+  background-color: $secondary-darker;
+}
+.bg-tertiary {
+  background-color: $tertiary;
+}
+.bg-tertiary-light {
+  background-color: $tertiary-light;
+}
+.bg-tertiary-lighter {
+  background-color: $tertiary-lighter;
+}
+.bg-tertiary-extra-light {
+  background-color: $tertiary-extra-light;
+}
+.bg-tertiary-vivid {
+  background-color: $tertiary-vivid;
+}
+.bg-tertiary-dark {
+  background-color: $tertiary-dark;
+}
+.bg-tertiary-darker {
+  background-color: $tertiary-darker;
+}
+.bg-accent-cool {
+  background-color: $accent-cool;
+}
+.bg-accent-cool-light {
+  background-color: $accent-cool-light;
+}
+.bg-accent-cool-lighter {
+  background-color: $accent-cool-lighter;
+}
+.bg-accent-cool-extra-light {
+  background-color: $accent-cool-extra-light;
+}
+.bg-accent-cool-dark {
+  background-color: $accent-cool-dark;
+}
+.bg-accent-cool-darker {
+  background-color: $accent-cool-darker;
+}
+.bg-accent-warm {
+  background-color: $accent-warm;
+}
+.bg-accent-warm-light {
+  background-color: $accent-warm-light;
+}
+.bg-accent-warm-lighter {
+  background-color: $accent-warm-lighter;
+}
+.bg-accent-warm-extra-light {
+  background-color: $accent-warm-extra-light;
+}
+.bg-accent-warm-dark {
+  background-color: $accent-warm-dark;
+}
+.bg-accent-warm-darker {
+  background-color: $accent-warm-darker;
+}
+.bg-info-lighter {
+  background-color: $info-lighter;
+}
+.bg-info-light {
+  background-color: $info-light;
+}
+.bg-info {
+  background-color: $info;
+}
+.bg-info-dark {
+  background-color: $info-dark;
+}
+.bg-info-darker {
+  background-color: $info-darker;
+}
+.bg-error-lighter {
+  background-color: $error-lighter;
+}
+.bg-error-light {
+  background-color: $error-light;
+}
+.bg-error {
+  background-color: $error;
+}
+.bg-error-dark {
+  background-color: $error-dark;
+}
+.bg-error-darker {
+  background-color: $error-darker;
+}
+.bg-warning-lighter {
+  background-color: $warning-lighter;
+}
+.bg-warning-light {
+  background-color: $warning-light;
+}
+.bg-warning {
+  background-color: $warning;
+}
+.bg-warning-dark {
+  background-color: $warning-dark;
+}
+.bg-warning-darker {
+  background-color: $warning-darker;
+}
+.bg-success-lighter {
+  background-color: $success-lighter;
+}
+.bg-success-light {
+  background-color: $success-light;
+}
+.bg-success {
+  background-color: $success;
+}
+.bg-success-dark {
+  background-color: $success-dark;
+}
+.bg-success-darker {
+  background-color: $success-darker;
+}
+.bg-disabled-light {
+  background-color: $disabled-light;
+}
+.bg-disabled {
+  background-color: $disabled;
+}
+.bg-disabled-dark {
+  background-color: $disabled-dark;
+}
+.bg-emergency {
+  background-color: $emergency;
+}
+.bg-emergency-dark {
+  background-color: $emergency-dark;
+}
+.bg-njBlack {
+  background-color: $njBlack;
+}
+.bg-white {
+  background-color: $white;
+}
+.bg-black {
+  background-color: $black;
+}
+
+.text-base-cool {
+  color: $base-cool;
+}
+.text-base-lightest {
+  color: $base-lightest;
+}
+.text-base-lighter {
+  color: $base-lighter;
+}
+.text-base-light {
+  color: $base-light;
+}
+.text-base-extra-light {
+  color: $base-extra-light;
+}
+.text-base {
+  color: $base;
+}
+.text-base-dark {
+  color: $base-dark;
+}
+.text-base-darker {
+  color: $base-darker;
+}
+.text-base-darkest {
+  color: $base-darkest;
+}
+.text-ink {
+  color: $ink;
+}
+.text-primary {
+  color: $primary;
+}
+.text-primary-vivid {
+  color: $primary-vivid;
+}
+.text-primary-light {
+  color: $primary-light;
+}
+.text-primary-lighter {
+  color: $primary-lighter;
+}
+.text-primary-extra-light {
+  color: $primary-extra-light;
+}
+.text-primary-dark {
+  color: $primary-dark;
+}
+.text-primary-darker {
+  color: $primary-darker;
+}
+.text-secondary {
+  color: $secondary;
+}
+.text-secondary-light {
+  color: $secondary-light;
+}
+.text-secondary-lighter {
+  color: $secondary-lighter;
+}
+.text-secondary-extra-light {
+  color: $secondary-extra-light;
+}
+.text-secondary-vivid {
+  color: $secondary-vivid;
+}
+.text-secondary-dark {
+  color: $secondary-dark;
+}
+.text-secondary-darker {
+  color: $secondary-darker;
+}
+.text-tertiary {
+  color: $tertiary;
+}
+.text-tertiary-light {
+  color: $tertiary-light;
+}
+.text-tertiary-lighter {
+  color: $tertiary-lighter;
+}
+.text-tertiary-extra-light {
+  color: $tertiary-extra-light;
+}
+.text-tertiary-vivid {
+  color: $tertiary-vivid;
+}
+.text-tertiary-dark {
+  color: $tertiary-dark;
+}
+.text-tertiary-darker {
+  color: $tertiary-darker;
+}
+.text-accent-cool {
+  color: $accent-cool;
+}
+.text-accent-cool-light {
+  color: $accent-cool-light;
+}
+.text-accent-cool-lighter {
+  color: $accent-cool-lighter;
+}
+.text-accent-cool-extra-light {
+  color: $accent-cool-extra-light;
+}
+.text-accent-cool-dark {
+  color: $accent-cool-dark;
+}
+.text-accent-cool-darker {
+  color: $accent-cool-darker;
+}
+.text-accent-warm {
+  color: $accent-warm;
+}
+.text-accent-warm-light {
+  color: $accent-warm-light;
+}
+.text-accent-warm-lighter {
+  color: $accent-warm-lighter;
+}
+.text-accent-warm-extra-light {
+  color: $accent-warm-extra-light;
+}
+.text-accent-warm-dark {
+  color: $accent-warm-dark;
+}
+.text-accent-warm-darker {
+  color: $accent-warm-darker;
+}
+.text-info-lighter {
+  color: $info-lighter;
+}
+.text-info-light {
+  color: $info-light;
+}
+.text-info {
+  color: $info;
+}
+.text-info-dark {
+  color: $info-dark;
+}
+.text-info-darker {
+  color: $info-darker;
+}
+.text-error-lighter {
+  color: $error-lighter;
+}
+.text-error-light {
+  color: $error-light;
+}
+.text-error {
+  color: $error;
+}
+.text-error-dark {
+  color: $error-dark;
+}
+.text-error-darker {
+  color: $error-darker;
+}
+.text-warning-lighter {
+  color: $warning-lighter;
+}
+.text-warning-light {
+  color: $warning-light;
+}
+.text-warning {
+  color: $warning;
+}
+.text-warning-dark {
+  color: $warning-dark;
+}
+.text-warning-darker {
+  color: $warning-darker;
+}
+.text-success-lighter {
+  color: $success-lighter;
+}
+.text-success-light {
+  color: $success-light;
+}
+.text-success {
+  color: $success;
+}
+.text-success-dark {
+  color: $success-dark;
+}
+.text-success-darker {
+  color: $success-darker;
+}
+.text-disabled-light {
+  color: $disabled-light;
+}
+.text-disabled {
+  color: $disabled;
+}
+.text-disabled-dark {
+  color: $disabled-dark;
+}
+.text-emergency {
+  color: $emergency;
+}
+.text-emergency-dark {
+  color: $emergency-dark;
+}
+.text-njBlack {
+  color: $njBlack;
+}
+.text-white {
+  color: $white;
+}
+.text-black {
+  color: $black;
+}

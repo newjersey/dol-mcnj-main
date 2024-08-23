@@ -1,0 +1,74 @@
+.river {
+  padding: $size-48 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: $size-100;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      gap: $size-48;
+    }
+
+    &:before,
+    &:after {
+      content: none;
+    }
+  }
+
+  .item {
+    display: flex;
+    gap: $size-32;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      flex-direction: column-reverse;
+    }
+
+    .image {
+      @media screen and (min-width: ($tablet-lg)) {
+        width: 60%;
+      }
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        padding-bottom: 56.25%;
+      }
+    }
+
+    .content {
+      @media screen and (min-width: ($tablet-lg)) {
+        width: 40%;
+      }
+    }
+
+    &:nth-child(2n) {
+      @media screen and (min-width: ($tablet-lg)) {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  .image {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .heading {
+    font-weight: bold;
+    color: $tertiary-dark;
+    font-size: $size-32;
+    line-height: 1.2;
+    margin-bottom: $size-20;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      font-size: $size-20;
+    }
+  }
+
+  .content {
+    @media screen and (min-width: ($tablet-lg)) {
+      padding: $size-80 0;
+    }
+  }
+}

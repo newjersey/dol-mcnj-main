@@ -1,0 +1,101 @@
+.occupationSelector {
+  max-width: 36rem;
+  display: block;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 2.2rem;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: $size-16;
+    bottom: $size-16;
+    width: 0;
+    height: 0;
+    border-left: 0.35rem solid transparent;
+    border-right: 0.35rem solid transparent;
+    border-top: 0.35rem solid $ink;
+  }
+
+  select {
+    margin-top: 0.7rem;
+    width: 100%;
+    appearance: none;
+    padding: 0.7rem 1.5rem 0.7rem 0.7rem;
+  }
+  .select-button {
+    margin-top: 0.7rem;
+    width: 100%;
+    color: $ink;
+    appearance: none;
+    padding: 0.7rem $size-32 0.7rem 0.7rem;
+    position: relative;
+    border: $size-1 solid $base-lighter;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: $size-16;
+      bottom: $size-16;
+      width: 0;
+      height: 0;
+      border-left: 0.35rem solid transparent;
+      border-right: 0.35rem solid transparent;
+      border-top: 0.35rem solid $ink;
+    }
+  }
+
+  .dropdown-select {
+    font-weight: normal;
+    margin-top: $size-16;
+    box-shadow: 0 10px 20px -15px $ink;
+    position: absolute;
+    background-color: $base-cool;
+    z-index: 1;
+    max-height: $size-330;
+    overflow: auto;
+    outline: 1px solid $base-lighter;
+
+    border-radius: $size-8;
+    width: 100%;
+
+    &[aria-expanded="true"] {
+      display: block;
+    }
+
+    .path-title,
+    button {
+      display: block;
+      width: 100%;
+    }
+
+    .path-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $base-lighter;
+      padding: 0.5rem $size-16;
+    }
+
+    button {
+      cursor: pointer;
+      padding: $size-16;
+
+      @media screen and (min-width: ($tablet)) {
+        padding: $size-16;
+      }
+
+      &:nth-of-type(2n - 1) {
+        background: $base-lightest;
+      }
+
+      &:hover {
+        @media screen and (min-width: ($tablet)) {
+          background: $tertiary-light;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,302 @@
+header {
+  &.header {
+    background-color: $white;
+    width: 100%;
+    z-index: 12;
+
+    @media screen and (max-width: ($desktop)) {
+      background-color: $primary-dark;
+      color: $white;
+    }
+
+    .usa-nav-container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 $size-16;
+      max-width: $desktop-xl;
+
+      &.flex {
+        @media screen and (min-width: ($desktop)) {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        &:after {
+          content: none;
+        }
+      }
+    }
+  }
+
+  li,
+  li.nav-item,
+  .sub-menu li {
+    margin: 0;
+  }
+
+  .basic-logo {
+    @media screen and (max-width: ($desktop - 1)) {
+      display: flex;
+      padding: $size-8 0;
+      align-items: center;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      color: $ink;
+      text-decoration: none;
+      padding: $size-16 0;
+      width: calc(100% - 55px);
+
+      @media screen and (min-width: ($desktop + 1)) {
+        width: 50%;
+      }
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-top: 0;
+      font-weight: bold;
+
+      @media screen and (min-width: ($desktop + 1)) {
+        width: calc(100% - 45px);
+        margin-left: 10px;
+      }
+
+      @media screen and (max-width: ($desktop)) {
+        color: $white;
+        font-size: $size-14;
+      }
+    }
+
+    svg {
+      width: $size-48;
+      height: auto;
+
+      @media screen and (max-width: ($desktop)) {
+        display: none;
+      }
+    }
+
+    button {
+      width: 55px;
+      border: $size-2 solid $white;
+      padding: $size-2;
+      border-radius: 5px;
+
+      span {
+        margin: 0 auto;
+        font-size: 2rem;
+      }
+    }
+
+    button {
+      &.toggle-button {
+        @media screen and (min-width: ($desktop)) {
+          display: none !important;
+        }
+
+        &:hover {
+          border: $size-2 solid $white;
+        }
+      }
+      .toggle {
+        height: $size-32;
+        width: 51px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+        transform-origin: center;
+        &.open {
+          transform: rotate(90deg);
+          > span {
+            &:nth-child(1) {
+              transform: rotate(45deg);
+              top: 7px;
+            }
+
+            &:nth-child(2) {
+              transform: scale(0);
+            }
+
+            &:nth-child(3) {
+              transform: rotate(-45deg);
+              top: -7px;
+            }
+          }
+        }
+
+        > span {
+          display: block;
+          width: 25px;
+          height: $size-3;
+          position: relative;
+          border-radius: 5px;
+          top: 0;
+          background-color: $white;
+          margin: $size-2 auto;
+          transition-duration: 0.3s;
+          transition-timing-function: ease-in-out;
+        }
+      }
+    }
+  }
+
+  .mobile-menu {
+    min-height: $size-64;
+  }
+
+  .main-nav {
+    background-color: $primary-dark;
+    min-height: 54px;
+
+    @media screen and (max-width: ($desktop - 1)) {
+      display: none;
+    }
+
+    &.open {
+      display: block;
+    }
+
+    ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      @media screen and (min-width: ($desktop + 1)) {
+        gap: 2.5rem;
+      }
+
+      @media screen and (max-width: ($desktop)) {
+        flex-direction: column;
+      }
+    }
+
+    a,
+    button {
+      color: $white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 1.18rem 0;
+      font-size: 0.9rem;
+      position: relative;
+      font-weight: 600;
+
+      @media screen and (max-width: ($desktop)) {
+        padding: 0.95rem 0;
+      }
+
+      svg {
+        height: auto;
+        margin: 0 0 $size-2 $size-4;
+      }
+
+      > span {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: $size-16;
+          margin-top: -$size-2;
+          margin-left: $size-2;
+        }
+
+        + .indicator {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: $size-20;
+          right: 0;
+
+          @media screen and (min-width: ($desktop + 1)) {
+            right: -$size-20;
+          }
+        }
+      }
+
+      &:hover {
+        @media screen and (min-width: ($desktop + 1)) {
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            left: 0;
+            height: $size-2;
+            background-color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  li {
+    &.has-sub {
+      position: relative;
+      z-index: 1;
+
+      .sub-menu {
+        background: $white;
+        flex-direction: column;
+        box-shadow: $shadow-1;
+        gap: 0;
+
+        @media screen and (min-width: ($desktop + 1)) {
+          width: 300px;
+          position: absolute;
+        }
+
+        @media screen and (max-width: ($desktop)) {
+          margin-bottom: $size-16;
+        }
+
+        a {
+          color: $ink;
+          padding: 0.5rem $size-16;
+
+          &:hover {
+            @media screen and (min-width: ($desktop + 1)) {
+              background-color: $njBlack;
+              color: $white;
+            }
+
+            &:after {
+              @media screen and (min-width: ($desktop + 1)) {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+
+      button {
+        @media screen and (max-width: ($desktop)) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.below-banners {
+  min-height: calc(100% - 6.125rem);
+  padding: 0 0 5rem;
+
+  @media print {
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .footer-banner,
+  .footer-cta {
+    margin: 5rem 0 -5rem;
+  }
+}

@@ -1,0 +1,13 @@
+.divider {
+  width: 100%;
+
+  &.size-sm {
+    padding: $size-40 0;
+  }
+  &.size-md {
+    padding: $size-80 0;
+  }
+  &.size-lg {
+    padding: $size-112 0;
+  }
+}

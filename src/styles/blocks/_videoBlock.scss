@@ -1,0 +1,47 @@
+.videoBlock {
+  background-color: $secondary-lighter;
+  padding: $size-16;
+
+  .video {
+    margin: 0 auto;
+    max-width: $size-320;
+    width: 100%;
+  }
+
+  .link {
+    text-align: center;
+  }
+
+  .usa-button {
+    background-color: $secondary;
+    max-width: $size-320;
+    margin: 0;
+    width: 100%;
+
+    &:hover {
+      @media screen and (min-width: ($tablet-lg)) {
+        background-color: $secondary-dark;
+      }
+    }
+  }
+
+  .embed-youtube {
+    position: relative;
+    padding-bottom: 56.25%; /* - 16:9 aspect ratio */
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .embed-youtube iframe,
+  .embed-youtube object,
+  .embed-youtube embed {
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,45 @@
+.alertBar {
+  display: flex;
+  gap: $size-16;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: $size-16;
+  left: $size-16;
+  z-index: 99;
+  padding: $size-8;
+  width: calc(100% - $size-32);
+  transition-duration: 0.3s;
+  transition-property: opacity, visibility;
+
+  &.fade {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &.info {
+    background-color: $primary;
+    color: $white;
+  }
+  &.success {
+    background-color: $secondary;
+    color: $ink;
+  }
+  &.warning {
+    background-color: $accent-warm-light;
+    color: $ink;
+  }
+  &.error {
+    background-color: $error;
+    color: $white;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}

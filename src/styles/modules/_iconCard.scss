@@ -1,0 +1,302 @@
+.iconCard {
+  p {
+    max-width: none;
+    line-height: 1.2;
+  }
+
+  a {
+    border: $size-2 solid $base-lighter;
+    border-radius: $size-16;
+    padding: $size-16;
+    color: $ink;
+    background: $white;
+    text-decoration: none;
+    display: block;
+
+    &.linkObject {
+      display: block;
+    }
+
+    @media screen and (min-width: ($desktop)) {
+      transition-duration: $transition-speed;
+      transition-timing-function: ease-in-out;
+      transition-property: transform, box-shadow, background-color, border-color;
+    }
+
+    &:hover {
+      color: $ink;
+      box-shadow: $shadow-3;
+    }
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+  }
+
+  .title {
+    font-weight: bold;
+    margin: $size-12 0;
+    font-size: $size-18;
+  }
+
+  .description {
+    font-size: $size-14;
+    line-height: $size-20;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  &.blue {
+    a {
+      border: $size-2 solid $primary;
+    }
+
+    &.fill {
+      a {
+        background-color: $primary-lighter;
+
+        &:hover {
+          @media screen and (min-width: ($desktop)) {
+            color: $white;
+            background-color: $primary;
+
+            svg {
+              color: $black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.green {
+    a {
+      border: $size-2 solid $secondary-light;
+    }
+
+    &.fill {
+      a {
+        background-color: $secondary-lighter;
+
+        &:hover {
+          @media screen and (min-width: ($desktop)) {
+            color: $white;
+            background-color: $secondary-light;
+
+            svg {
+              color: $black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.purple {
+    a {
+      border: $size-2 solid $tertiary-vivid;
+    }
+
+    &.fill {
+      a {
+        background-color: $tertiary-lighter;
+
+        &:hover {
+          @media screen and (min-width: ($desktop)) {
+            color: $white;
+            background-color: $tertiary-vivid;
+
+            svg {
+              color: $black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.navy {
+    a {
+      border: $size-2 solid $info-dark;
+    }
+
+    &.fill {
+      a {
+        background-color: $info-lighter;
+
+        &:hover {
+          @media screen and (min-width: ($desktop)) {
+            color: $white;
+            background-color: $info-dark;
+
+            svg {
+              color: $black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.orange {
+    a {
+      border: $size-2 solid $accent-warm;
+    }
+
+    &.fill {
+      a {
+        background-color: $accent-warm-lighter;
+
+        &:hover {
+          @media screen and (min-width: ($desktop)) {
+            color: $white;
+            background-color: $accent-warm;
+
+            svg {
+              color: $black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.centered {
+    text-align: center;
+
+    a {
+      padding: $size-20;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        padding: $size-8 $size-16;
+        display: flex;
+        gap: $size-16;
+        align-items: center;
+      }
+
+      &:hover {
+        @media screen and (min-width: ($desktop)) {
+          box-shadow: $shadow-3;
+        }
+      }
+    }
+
+    p {
+      margin: $size-16 0 0;
+      font-size: $size-20;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        margin-top: 0;
+      }
+    }
+
+    .icons {
+      justify-content: center;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        height: 32px;
+      }
+
+      svg {
+        height: 46px;
+        width: auto;
+
+        @media screen and (max-width: ($tablet-lg - 1)) {
+          height: 32px;
+        }
+      }
+    }
+
+    &.hoverFill {
+      svg {
+        width: auto;
+        height: $size-32;
+      }
+
+      a {
+        &:hover {
+          @media screen and (min-width: ($tablet-lg)) {
+            background: $tertiary-lighter;
+            border-color: $tertiary-vivid;
+          }
+        }
+      }
+    }
+  }
+
+  &.fill {
+    .title {
+      font-size: $size-28;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        font-size: $size-22;
+      }
+    }
+  }
+
+  &.noLink {
+    background: $primary-lighter;
+    border-radius: $size-8;
+    padding: $size-24;
+
+    &.blue {
+      background-color: $primary-lighter;
+
+      svg {
+        color: $primary-dark;
+      }
+    }
+
+    &.green {
+      background-color: $secondary-lighter;
+
+      svg {
+        color: $secondary-dark;
+      }
+    }
+
+    &.purple {
+      background-color: $tertiary-lighter;
+
+      svg {
+        color: $tertiary-dark;
+      }
+    }
+
+    &.navy {
+      background-color: $info-lighter;
+
+      svg {
+        color: $info-dark;
+      }
+    }
+
+    &.orange {
+      background-color: $accent-warm-lighter;
+
+      svg {
+        color: $accent-warm-dark;
+      }
+    }
+
+    .title {
+      margin: $size-8 0;
+      font-size: $size-22;
+    }
+
+    svg {
+      height: auto;
+      width: 32px;
+    }
+  }
+}

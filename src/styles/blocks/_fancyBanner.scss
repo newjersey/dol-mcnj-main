@@ -1,0 +1,87 @@
+.fancyBanner {
+  background-color: $primary-darker;
+  color: $white;
+  font-size: $size-16;
+  line-height: 1;
+  padding: $size-64 0;
+
+  @media screen and (max-width: ($tablet-lg - 1)) {
+    padding: $size-32 0;
+  }
+
+  p {
+    font-size: $size-20_8;
+    line-height: 1.5;
+
+    @media screen and (min-width: ($tablet-lg)) {
+      padding-right: $size-128;
+    }
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      font-size: 1.1rem;
+    }
+  }
+
+  h1 {
+    line-height: 1;
+    font-weight: 400;
+    margin: 0 0 $size-24;
+    color: $primary-lighter;
+
+    @media screen and (min-width: ($tablet-lg)) {
+      font-size: $size-72;
+    }
+
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-lg + 1)) {
+      font-size: $size-48;
+    }
+  }
+
+  button {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: $size-48;
+    align-items: center;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .copy,
+  .image {
+    width: 100%;
+  }
+
+  .copy {
+    @media screen and (min-width: ($desktop-lg)) {
+      width: calc(100% - $size-480);
+    }
+
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-lg + 1)) {
+      width: 50%;
+    }
+  }
+
+  .image {
+    @media screen and (min-width: ($desktop-lg)) {
+      width: $size-480;
+    }
+
+    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-lg + 1)) {
+      width: 50%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

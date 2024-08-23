@@ -1,0 +1,16 @@
+#storybook-docs > div > div {
+  max-width: 1500px;
+}
+
+#storybook-docs h1,
+#storybook-docs h2,
+#storybook-docs h3,
+#storybook-docs h4,
+#storybook-docs h5,
+#storybook-docs h6,
+#storybook-docs p,
+#storybook-docs li,
+#storybook-docs ul,
+#storybook-docs ol {
+  max-width: none;
+}

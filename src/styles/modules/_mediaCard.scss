@@ -1,0 +1,19 @@
+.media-card {
+  text-decoration: none;
+  color: $ink;
+  border: $size-2 solid $ink;
+  padding: $size-16;
+
+  &:hover {
+    color: $primary;
+
+    > span {
+      background-color: $secondary;
+    }
+  }
+
+  .image {
+    height: 200px;
+    position: relative;
+  }
+}

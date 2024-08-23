@@ -1,0 +1,48 @@
+.careerNavigator {
+  .info {
+    padding: $size-48 0;
+
+    .inner {
+      display: flex;
+      gap: $size-32;
+      padding-top: $size-24;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        flex-direction: column;
+      }
+    }
+
+    .iconCard {
+      width: 100%;
+    }
+  }
+
+  .opportunities {
+    padding: $size-80 0;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      padding: $size-48 0;
+    }
+
+    .inner {
+      display: flex;
+      gap: $size-32;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        flex-direction: column;
+      }
+
+      .iconCard {
+        width: 100%;
+
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .howTo {
+    padding: $size-48 0;
+  }
+}

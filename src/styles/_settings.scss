@@ -1,0 +1,293 @@
+$transition-speed: 0.2s;
+
+// FONTS
+
+$font-size: 1rem;
+$font-family:
+  Public Sans Web,
+  -apple-system,
+  BlinkMacSystemFont,
+  Segoe UI,
+  Roboto,
+  Helvetica,
+  Arial,
+  sans-serif,
+  Apple Color Emoji,
+  Segoe UI Emoji,
+  Segoe UI Symbol;
+$line-height: 1.2;
+
+// THEME COLORS
+
+$base-cool: $gray-2;
+$base-lightest: $gray-5;
+$base-lighter: $gray-10;
+$base-light: $gray-30;
+$base-extra-light: $gray-3;
+$base: $gray-50;
+$base-dark: $gray-60;
+$base-darker: $gray-70;
+$base-darkest: $gray-90;
+$ink: $gray-90;
+$primary: $blue-60v;
+$primary-vivid: $blue-warm-60v;
+$primary-light: $blue-30;
+$primary-lighter: $blue-10;
+$primary-extra-light: $blue-5;
+$primary-dark: $blue-warm-70v;
+$primary-darker: $blue-warm-80v;
+$secondary: $green-cool-50v;
+$secondary-light: $green-cool-20;
+$secondary-lighter: $green-cool-10;
+$secondary-extra-light: #f6f9f6;
+$secondary-vivid: $green-cool-60v;
+$secondary-dark: $green-cool-70v;
+$secondary-darker: $green-cool-80v;
+$tertiary: $indigo-50;
+$tertiary-light: $indigo-30;
+$tertiary-lighter: $indigo-cool-5v;
+$tertiary-extra-light: #f8f8ff;
+$tertiary-vivid: $indigo-50v;
+$tertiary-dark: $indigo-60v;
+$tertiary-darker: $indigo-70v;
+$accent-cool: $cyan-30v;
+$accent-cool-light: $blue-cool-20v;
+$accent-cool-lighter: $blue-cool-10v;
+$accent-cool-extra-light: #f0f9fc;
+$accent-cool-dark: $blue-cool-40v;
+$accent-cool-darker: $blue-cool-60v;
+$accent-warm: $orange-30v;
+$accent-warm-light: $orange-20;
+$accent-warm-lighter: $orange-10;
+$accent-warm-extra-light: $orange-5v;
+$accent-warm-dark: $orange-50v;
+$accent-warm-darker: $orange-60;
+
+$info-lighter: $cyan-5;
+$info-light: $cyan-20;
+$info: $cyan-30v;
+$info-dark: $cyan-40v;
+$info-darker: $blue-cool-60;
+$error-lighter: $red-warm-10;
+$error-light: $red-warm-30v;
+$error: $red-warm-50v;
+$error-dark: $red-60v;
+$error-darker: $red-70;
+$warning-lighter: $yellow-5;
+$warning-light: $yellow-10v;
+$warning: $gold-20v;
+$warning-dark: $gold-30v;
+$warning-darker: $gold-50v;
+$success-lighter: $green-cool-5;
+$success-light: $green-cool-20v;
+$success: $green-cool-40v;
+$success-dark: $green-cool-50v;
+$success-darker: $green-cool-60v;
+$disabled-light: $gray-10;
+$disabled: $gray-20;
+$disabled-dark: $gray-30;
+$emergency: $red-warm-60v;
+$emergency-dark: $red-warm-80;
+
+$njBlack: #363636;
+$white: #ffffff;
+$black: #000000;
+
+// SPACING
+
+$size-1: 0.0625rem;
+$size-2: 0.125rem;
+$size-3: 0.1875rem;
+$size-4: 0.25rem;
+$size-4_8: 0.3rem;
+$size-5: 0.3125rem;
+$size-6: 0.375rem;
+$size-8: 0.5rem;
+$size-9: 0.5625rem;
+$size-10: 0.625rem;
+$size-12: 0.75rem;
+$size-14: 0.875rem;
+$size-16: 1rem;
+$size-18: 1.125rem;
+$size-20: 1.25rem;
+$size-20_8: 1.3rem;
+$size-22: 1.375rem;
+$size-24: 1.5rem;
+$size-26: 1.625rem;
+$size-28: 1.75rem;
+$size-30: 1.875rem;
+$size-32: 2rem;
+$size-40: 2.5rem;
+$size-45: 2.8125rem;
+$size-48: 3rem;
+$size-50: 3.125rem;
+$size-52: 3.25rem;
+$size-56: 3.5rem;
+$size-60: 3.75rem;
+$size-64: 4rem;
+$size-72: 4.5rem;
+$size-75: 4.6875rem;
+$size-80: 5rem;
+$size-90: 5.625rem;
+$size-96: 6rem;
+$size-100: 6.25rem;
+$size-112: 7rem;
+$size-120: 7.5rem;
+$size-128: 8rem;
+$size-160: 10rem;
+$size-175: 10.9375rem;
+$size-200: 12.5rem;
+$size-216: 13.5rem;
+$size-240: 15rem;
+$size-256: 16rem;
+$size-280: 17.5rem;
+$size-300: 18.75rem;
+$size-320: 20rem;
+$size-330: 20.625rem;
+$size-340: 21.25rem;
+$size-360: 22.5rem;
+$size-400: 25rem;
+$size-411: 25.6875rem;
+$size-480: 30rem;
+$size-520: 32.5rem;
+$size-560: 35rem;
+$size-640: 40rem;
+$size-720: 45rem;
+$size-880: 55rem;
+$size-1024: 64rem;
+$size-1200: 75rem;
+$size-1400: 87.5rem;
+
+// BREAKPOINTS
+
+$card: 160px;
+$card-lg: 240px;
+$mobile: 320px;
+$mobile-md: 375px;
+$mobile-lg: 480px;
+$tablet: 640px;
+$tablet-md: 768px;
+$tablet-lg: 880px;
+$tablet-xl: 992px;
+$desktop: 1024px;
+$desktop-lg: 1200px;
+$desktop-md: 1080px;
+$desktop-xl: 1300px;
+$widescreen: 1400px;
+
+// BOX SHADOWS
+
+$shadow-none: none;
+$shadow-1: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+$shadow-2: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+$shadow-3: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+$shadow-4: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
+$shadow-5: 0 16px 32px 0 rgba(0, 0, 0, 0.1);
+
+// LINE HEIGHT
+
+$line-height-mono-1: 1.05;
+$line-height-mono-2: 1.21;
+$line-height-mono-3: 1.42;
+$line-height-mono-4: 1.57;
+$line-height-mono-5: 1.7;
+$line-height-mono-6: 1.84;
+$line-height-sans-1: 0.94;
+$line-height-sans-2: 1.08;
+$line-height-sans-3: 1.27;
+$line-height-sans-4: 1.41;
+$line-height-sans-5: 1.52;
+$line-height-sans-6: 1.64;
+$line-height-serif-1: 1.02;
+$line-height-serif-2: 1.18;
+$line-height-serif-3: 1.38;
+$line-height-serif-4: 1.54;
+$line-height-serif-5: 1.66;
+$line-height-serif-6: 1.79;
+
+// FONT SIZES
+
+$font-mono-3xs: 12.4px;
+$font-mono-2xs: 13.3px;
+$font-mono-xs: 14.3px;
+$font-mono-sm: 15.2px;
+$font-mono-md: 16.2px;
+$font-mono-lg: 21px;
+$font-mono-xl: 30.5px;
+$font-mono-2xl: 38.1px;
+$font-mono-3xl: 45.7px;
+$font-sans-3xs: 13.8px;
+$font-sans-2xs: 14.9px;
+$font-sans-xs: 16px;
+$font-sans-sm: 17px;
+$font-sans-md: 18.1px;
+$font-sans-lg: 23.4px;
+$font-sans-xl: 34.1px;
+$font-sans-2xl: 42.6px;
+$font-sans-3xl: 51.1px;
+$font-serif-3xs: 12.7px;
+$font-serif-2xs: 13.7px;
+$font-serif-xs: 14.6px;
+$font-serif-sm: 15.6px;
+$font-serif-md: 16.6px;
+$font-serif-lg: 21.5px;
+$font-serif-xl: 31.2px;
+$font-serif-2xl: 39px;
+$font-serif-3xl: 46.8px;
+$font-alt-3xs: 12.7px;
+$font-alt-2xs: 13.7px;
+$font-alt-xs: 14.6px;
+$font-alt-sm: 15.6px;
+$font-alt-md: 16.6px;
+$font-alt-lg: 21.5px;
+$font-alt-xl: 31.2px;
+$font-alt-2xl: 39px;
+$font-alt-3xl: 46.8px;
+$font-body-3xs: 13.8px;
+$font-body-2xs: 14.9px;
+$font-body-xs: 16px;
+$font-body-sm: 17px;
+$font-body-md: 18.1px;
+$font-body-lg: 23.4px;
+$font-body-xl: 34.1px;
+$font-body-2xl: 42.6px;
+$font-body-3xl: 51.1px;
+$font-code-3xs: 12.4px;
+$font-code-2xs: 13.3px;
+$font-code-xs: 14.3px;
+$font-code-sm: 15.2px;
+$font-code-md: 16.2px;
+$font-code-lg: 21px;
+$font-code-xl: 30.5px;
+$font-code-2xl: 38.1px;
+$font-code-3xl: 45.7px;
+$font-heading-3xs: 12.7px;
+$font-heading-2xs: 13.7px;
+$font-heading-xs: 14.6px;
+$font-heading-sm: 15.6px;
+$font-heading-md: 16.6px;
+$font-heading-lg: 21.5px;
+$font-heading-xl: 31.2px;
+$font-heading-2xl: 39px;
+$font-heading-3xl: 46.8px;
+$font-ui-3xs: 13.8px;
+$font-ui-2xs: 14.9px;
+$font-ui-xs: 16px;
+$font-ui-sm: 17px;
+$font-ui-md: 18.1px;
+$font-ui-lg: 23.4px;
+$font-ui-xl: 34.1px;
+$font-ui-2xl: 42.6px;
+$font-ui-3xl: 51.1px;
+
+// BORDER RADIUS
+$border-radius-5: 5px;
+$border-radius-10: 10px;
+$border-radius-15: 15px;
+$border-radius-20: 20px;
+$border-radius-25: 25px;
+$border-radius-30: 30px;
+$border-radius-35: 35px;
+$border-radius-40: 40px;
+$border-radius-45: 45px;
+$border-radius-50: 50px;

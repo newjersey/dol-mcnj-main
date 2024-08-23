@@ -1,0 +1,71 @@
+.occupationPage {
+  .pageBanner {
+    background: $white;
+  }
+
+  .related {
+    margin: 0 0 $size-48;
+
+    .inner {
+      max-width: $size-880;
+      display: flex;
+      flex-direction: column;
+      gap: $size-16;
+    }
+
+    .container-full {
+      margin-top: $size-72;
+    }
+  }
+
+  .body-copy {
+    margin: $size-32 0;
+
+    .openingsLink {
+      margin: 0 0 $size-32 0;
+    }
+
+    .relatedBox {
+      a {
+        display: block;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: $size-8;
+      }
+    }
+
+    .inner {
+      display: flex;
+      gap: $size-16;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        flex-direction: column;
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        gap: $size-16;
+
+        &:first-of-type {
+          @media screen and (min-width: ($tablet-lg)) {
+            width: calc(100% - $size-360);
+          }
+        }
+        &:last-of-type {
+          @media screen and (min-width: ($tablet-lg)) {
+            width: $size-360;
+          }
+        }
+      }
+    }
+  }
+}

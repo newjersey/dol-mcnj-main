@@ -1,0 +1,47 @@
+.usa-breadcrumb {
+  padding: 0;
+  display: flex;
+  background-color: transparent;
+  gap: $size-16;
+  align-items: center;
+
+  @media screen and (max-width: ($mobile-lg)) {
+    gap: $size-8;
+  }
+
+  .backIcon {
+    height: auto;
+    width: $size-20;
+
+    @media screen and (min-width: ($mobile-lg + 1)) {
+      display: none;
+    }
+  }
+
+  .usa-breadcrumb__list {
+    .usa-breadcrumb__list-item {
+      &:not(:last-child) {
+        &::after {
+          margin: 0 $size-8;
+        }
+      }
+      a {
+        @include linkColor;
+        font-size: $size-16;
+        text-decoration: underline;
+
+        &.usa-breadcrumb__link:visited,
+        &.usa-breadcrumb__link {
+          @media screen and (max-width: ($mobile-lg)) {
+            padding-top: $size-12;
+            padding-bottom: $size-12;
+          }
+
+          &:before {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+}

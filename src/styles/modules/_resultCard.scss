@@ -1,0 +1,127 @@
+.resultCard {
+  border-radius: $border-radius-5;
+  border: $size-1 solid $base-lighter;
+  padding: $size-24;
+  display: flex;
+  gap: $size-14;
+  flex-direction: column;
+  color: $ink;
+  transition-duration: $transition-speed;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    @media screen and (min-width: ($tablet)) {
+      box-shadow: $shadow-3;
+      color: $ink;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .heading,
+  .education-row,
+  .footing {
+    display: flex;
+
+    @media screen and (min-width: ($mobile-md)) {
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media screen and (max-width: ($mobile-md - 1)) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $size-16;
+    }
+
+    .formField {
+      label {
+        margin: 0;
+      }
+    }
+  }
+
+  .footing {
+    margin-top: $size-16;
+
+    &.noLabel {
+      justify-content: flex-end;
+    }
+  }
+
+  .heading {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: $size-14;
+
+    .heading-tag {
+      color: $primary-vivid;
+      margin: 0;
+    }
+  }
+
+  .footing {
+    .usa-checkbox {
+      @media screen and (max-width: ($tablet - 1)) {
+        justify-content: flex-end;
+        display: flex;
+      }
+    }
+  }
+
+  .heading {
+    .heading-tag {
+      font-size: $size-18;
+    }
+
+    > span {
+      font-size: $size-20;
+      font-weight: bold;
+    }
+  }
+
+  .information {
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: $size-8;
+
+      &.cipCode {
+        display: block;
+
+        b {
+          display: block;
+          width: 100%;
+          padding-left: $size-24;
+        }
+      }
+
+      svg {
+        width: $size-16;
+      }
+
+      span {
+        width: calc(100% - $size-16);
+      }
+
+      &.description {
+        span {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

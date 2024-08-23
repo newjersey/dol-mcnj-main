@@ -1,0 +1,337 @@
+.occupation-box {
+  border: 0;
+  border-radius: 0;
+  background: white;
+  padding: $size-32 0;
+
+  @media screen and (min-width: ($tablet + 1)) {
+    padding: $size-32 0;
+  }
+
+  .usa-breadcrumb {
+    margin-bottom: $size-16;
+
+    .usa-breadcrumb__list-item {
+      &:not(:last-child) {
+        &::after {
+          content: "/";
+          background-color: transparent;
+          margin: 0;
+          mask: none;
+          bottom: 0;
+          left: $size-5;
+        }
+      }
+    }
+  }
+
+  .heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+    gap: $size-32;
+    flex-wrap: nowrap;
+
+    @media screen and (max-width: ($desktop - 1)) {
+      display: block;
+    }
+
+    @media screen and (max-width: ($mobile-lg - 1)) {
+      flex-direction: column;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 0.5rem;
+      width: 100%;
+      margin: 0;
+      width: 100%;
+
+      @media screen and (min-width: ($desktop)) {
+        margin-right: 1.5rem;
+      }
+    }
+
+    > div:not(.meta) {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: $size-16;
+      max-width: $size-720;
+
+      @media screen and (min-width: ($desktop)) {
+        width: calc(100% - $size-520);
+      }
+    }
+
+    .meta {
+      padding: $size-16 0;
+      gap: $size-16;
+      width: 100%;
+      max-width: $size-520;
+    }
+
+    .tag {
+      @media screen and (min-width: ($mobile-lg)) {
+        margin-left: $size-16;
+      }
+      @media screen and (max-width: ($mobile-lg - 1)) {
+        margin: 0 0 0.5rem;
+      }
+    }
+
+    + .single-path {
+      padding: 0.5rem $size-16 0.5rem 0.2rem;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        padding: 0.5rem $size-16;
+      }
+    }
+  }
+
+  .occu-row {
+    display: flex;
+    width: 100%;
+    gap: $size-32;
+    align-items: flex-start;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      flex-direction: column;
+    }
+
+    @media screen and (min-width: ($tablet)) {
+      max-width: $desktop-xl;
+      margin: 0 auto;
+    }
+
+    > div {
+      width: 100%;
+
+      @media screen and (min-width: ($tablet)) {
+        max-width: $size-520;
+      }
+
+      &:first-of-type {
+        @media screen and (min-width: ($tablet-xl)) {
+          max-width: calc(100% - $size-520);
+        }
+      }
+
+      @media screen and (min-width: ($tablet)) {
+        width: 100%;
+      }
+    }
+
+    &.info {
+      @media screen and (max-width: ($tablet-xl - 1)) {
+        flex-direction: column-reverse;
+      }
+
+      > div {
+        @media screen and (max-width: ($tablet-xl - 1)) {
+          width: 100%;
+        }
+      }
+
+      .box {
+        @media screen and (min-width: ($tablet-xl)) {
+          width: calc(100% - $size-520);
+        }
+      }
+    }
+  }
+
+  .meta {
+    display: flex;
+    gap: $size-32;
+
+    @media screen and (max-width: ($mobile-lg - 1)) {
+      gap: $size-16;
+      flex-direction: column;
+    }
+
+    @media screen and (min-width: ($tablet-xl)) {
+      width: 25rem;
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: 0 $size-16;
+    }
+
+    .infoBox {
+      width: 100%;
+    }
+  }
+
+  .labelBox {
+    width: 100%;
+    margin-bottom: $size-32;
+
+    @media screen and (min-width: ($tablet)) {
+      overflow: hidden;
+      border-radius: $size-10;
+    }
+
+    @media screen and (max-width: ($tablet - 1)) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .content {
+      padding: $size-16;
+
+      @media screen and (min-width: ($tablet)) {
+        border-left: $size-1 solid $base-lightest;
+        border-right: $size-1 solid $base-lightest;
+        border-bottom: $size-1 solid $base-lightest;
+        border-bottom-left-radius: $size-10;
+        border-bottom-right-radius: $size-10;
+      }
+
+      a {
+        &.usa-button {
+          text-align: left;
+          background-color: $secondary-lighter;
+          width: 100%;
+          border: $size-2 solid $secondary;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: $size-16;
+          color: $ink;
+          border-radius: 10px;
+          padding: 0.5rem;
+
+          span {
+            gap: $size-16;
+            display: inline-flex;
+            align-items: center;
+          }
+
+          + .usa-button {
+            margin-top: 1.5rem;
+            background-color: $info-lighter;
+            border: $size-2 solid $info;
+          }
+
+          @media screen and (max-width: ($tablet-xl - 1)) {
+            display: flex;
+            width: 100%;
+          }
+
+          &:hover {
+            @media screen and (min-width: ($tablet-xl + 1)) {
+              background: white;
+            }
+          }
+
+          svg {
+            width: $size-28;
+            height: auto;
+          }
+
+          + .usa-button {
+            margin-top: $size-16;
+          }
+        }
+      }
+    }
+  }
+
+  .related-jobs {
+    .content {
+      a {
+        &.usa-button {
+          background-color: $primary-lighter;
+          border: $size-2 solid $primary-light;
+        }
+      }
+    }
+  }
+
+  .related-training,
+  .related-occupations {
+    a:not(.usa-button) {
+      color: $primary;
+      text-decoration: none;
+      display: block;
+    }
+  }
+
+  .related-training {
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: $size-24;
+      margin: $size-16 0 $size-32;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    a:not(.usa-button) {
+      border: 2px solid $base-lighter;
+      border-radius: $size-8;
+      padding: $size-16;
+      transition-duration: $transition-speed;
+
+      &:hover {
+        @media screen and (min-width: ($tablet-md)) {
+          box-shadow: $shadow-2;
+        }
+      }
+
+      .title-bar {
+        line-height: 1.2;
+        font-size: $size-16;
+        margin-bottom: $size-16;
+        font-weight: bold;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        svg {
+          color: $ink;
+        }
+      }
+
+      .span-grid {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        gap: $size-16;
+
+        span {
+          color: $ink;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          &.last-line {
+            justify-content: space-between;
+          }
+
+          &.salary {
+            color: $white;
+            background-color: $base;
+            padding: $size-4 $size-8 $size-2;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.filterControl {
+  &.open {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      box-shadow: $shadow-2;
+    }
+
+    .content {
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        display: block;
+      }
+    }
+  }
+  .labelBox {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      border-radius: 0;
+    }
+
+    .heading-tag {
+      justify-content: center;
+
+      svg {
+        @media screen and (min-width: ($tablet-lg)) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .group-heading {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .heading {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    margin: $size-16 0;
+  }
+
+  .clear {
+    margin: $size-16 0 0;
+  }
+
+  .clear-all {
+    padding: $size-12 $size-20_8;
+  }
+
+  button {
+    width: auto;
+  }
+
+  .content {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      display: none;
+    }
+  }
+
+  .resourceLinkBox {
+    margin-top: $size-32;
+
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      display: none;
+    }
+  }
+}

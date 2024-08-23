@@ -1,0 +1,97 @@
+.infoBox {
+  border-radius: 10px;
+  padding: $size-16;
+
+  p,
+  a {
+    margin: 0;
+  }
+
+  .copy {
+    font-size: $size-16;
+    font-weight: bold;
+    margin-top: $size-6;
+  }
+
+  .number {
+    font-size: $size-22;
+    font-weight: bold;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: $size-8;
+    font-size: $size-16;
+
+    .tooltip,
+    .tooltip button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .tooltip {
+    display: block;
+    position: relative;
+
+    .content {
+      position: absolute;
+      background: $white;
+      left: calc(100% + 10px);
+      width: 200px;
+      padding: $size-4_8 $size-24 $size-4_8 $size-8;
+      line-height: 1.3;
+      box-shadow: $shadow-2;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid $white;
+        transform: translateY(-50%);
+      }
+
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $white;
+        border: none;
+        padding: $size-4_8;
+        cursor: pointer;
+      }
+    }
+  }
+
+  a {
+    color: $primary;
+    display: flex;
+    align-items: center;
+    gap: $size-8;
+    width: 100%;
+
+    &:hover {
+      color: $primary-dark;
+    }
+  }
+
+  &.color-blue {
+    background-color: $primary-lighter;
+  }
+  &.color-green {
+    background-color: $secondary-lighter;
+  }
+  &.color-purple {
+    background-color: $tertiary-lighter;
+  }
+  &.color-orange {
+    background-color: $accent-warm-lighter;
+  }
+}

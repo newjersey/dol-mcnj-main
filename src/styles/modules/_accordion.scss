@@ -1,0 +1,62 @@
+.accordion-block {
+  max-width: $desktop;
+  margin: 0 auto;
+}
+
+.accordion {
+  button {
+    font-weight: bold;
+    color: $ink;
+    background-color: $base-lighter;
+    width: 100%;
+    padding: $size-20 $size-64 $size-20 $size-16;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: $size-16;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      height: $size-2;
+      border-radius: $size-2;
+      width: 15px;
+      background: black;
+      top: 50%;
+      right: $size-24;
+      z-index: 1;
+      transition-duration: $transition-speed;
+      transition-timing-function: ease-in-out;
+    }
+
+    &:after {
+      transform: rotate(90deg);
+    }
+
+    &:focus {
+      background: $tertiary-lighter;
+    }
+  }
+
+  &.open {
+    button {
+      &:after {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  .content {
+    height: 0px;
+    overflow: hidden;
+    transition-duration: $transition-speed;
+    transition-timing-function: ease-in-out;
+
+    .inner {
+      max-width: $size-560;
+      padding: $size-16 $size-24;
+    }
+  }
+}

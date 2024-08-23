@@ -1,0 +1,45 @@
+.faq {
+  .faqSection {
+    padding: $size-50 0;
+
+    .inner {
+      display: flex;
+      gap: $size-28;
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        gap: $size-20;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .dropNav,
+  nav {
+    @media screen and (min-width: ($tablet-lg - 1)) {
+      width: $size-300;
+    }
+  }
+
+  .accordion-block {
+    width: 100%;
+
+    .container {
+      padding: 0;
+    }
+  }
+
+  p.title {
+    font-size: $size-18;
+    font-weight: 700;
+    margin-bottom: $size-16;
+  }
+
+  hr {
+    background-color: $base-cool;
+    margin: 0 $size-8;
+  }
+
+  .spinner {
+    margin: 0 auto;
+  }
+}

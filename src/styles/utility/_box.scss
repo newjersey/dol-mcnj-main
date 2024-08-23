@@ -1,0 +1,49 @@
+.mcnj-box {
+  &.radius-5 {
+    @include radius5;
+  }
+
+  &.radius-10 {
+    @include radius10;
+  }
+
+  &.radius-15 {
+    @include radius15;
+  }
+
+  &.radius-20 {
+    @include radius20;
+  }
+
+  &.radius-5-overflow {
+    @include radius5overflow;
+  }
+
+  &.radius-10-overflow {
+    @include radius10overflow;
+  }
+
+  &.radius-15-overflow {
+    @include radius15overflow;
+  }
+
+  &.radius-20-overflow {
+    @include radius20overflow;
+  }
+
+  &.shadow-1 {
+    box-shadow: $shadow-1;
+  }
+
+  &.shadow-2 {
+    box-shadow: $shadow-2;
+  }
+
+  &.shadow-3 {
+    box-shadow: $shadow-3;
+  }
+
+  &.shadow-4 {
+    box-shadow: $shadow-4;
+  }
+}

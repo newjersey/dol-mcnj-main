@@ -1,0 +1,51 @@
+.home {
+  .tools {
+    @include sectionPadding;
+
+    .container {
+      max-width: $desktop-xl;
+    }
+
+    .iconCard {
+      width: 100%;
+
+      @media screen and (min-width: ($tablet-lg)) {
+        max-width: 200px;
+      }
+
+      a {
+        height: 100%;
+      }
+    }
+
+    .row {
+      display: flex;
+      gap: $size-32;
+
+      @media screen and (min-width: ($tablet-lg)) {
+        justify-content: center;
+      }
+
+      @media screen and (max-width: ($tablet-lg - 1)) {
+        gap: $size-16;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .cardSlider {
+    &:nth-child(2n) {
+      background-color: $base-cool;
+
+      .inner {
+        &:before {
+          background: linear-gradient(to right, $base-cool, transparent);
+        }
+        &:after {
+          border-right: 1rem solid $base-cool;
+          background: linear-gradient(to left, $base-cool, transparent);
+        }
+      }
+    }
+  }
+}

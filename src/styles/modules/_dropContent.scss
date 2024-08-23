@@ -1,0 +1,36 @@
+.dropContent {
+  border-radius: $border-radius-5;
+  border: $size-1 solid $base-lightest;
+
+  button {
+    &.usa-button {
+      width: 100%;
+    }
+
+    span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: $size-16;
+    }
+  }
+
+  .heading-tag {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $size-20;
+  }
+
+  .content {
+    padding: $size-32 $size-16;
+    background: $white;
+    border-top: $size-1 solid $base-lightest;
+    display: none;
+
+    &.open {
+      display: block;
+    }
+  }
+}

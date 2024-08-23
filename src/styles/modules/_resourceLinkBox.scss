@@ -1,0 +1,36 @@
+.resourceLinkBox {
+  border-radius: $border-radius-10;
+  overflow: hidden;
+  padding: $size-48 $size-16;
+
+  .heading-tag {
+    color: $white;
+    text-align: center;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: $size-24;
+  }
+
+  .usa-button {
+    margin: 0;
+  }
+
+  &.color-navy {
+    background: $info-darker;
+  }
+  &.color-blue {
+    background: $primary;
+  }
+  &.color-green {
+    background: $secondary-dark;
+  }
+  &.color-purple {
+    background: $tertiary;
+  }
+  &.color-orange {
+    background: $accent-warm-dark;
+  }
+}
