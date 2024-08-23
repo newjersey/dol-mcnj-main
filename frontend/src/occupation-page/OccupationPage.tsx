@@ -234,7 +234,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               <StatBlock
                 title={t("OccupationPage.jobsOpenTitle")}
                 tooltipText={t("OccupationPage.jobsOpenTooltip")}
-                disclaimer={t("OccupationPage.jobsOpenDiscrepencyDisclaimer")}
+                disclaimer={`*${t("OccupationPage.jobsOpenDiscrepencyDisclaimer")}`}
                 dataSource={t("OccupationPage.jobsOpenSource")}
                 data={
                   occupationDetail.openJobsCount
@@ -246,6 +246,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               <StatBlock
                 title={t("OccupationPage.salaryTitle")}
                 tooltipText={t("OccupationPage.salaryTooltip")}
+                disclaimer={t("")}
                 data={
                   occupationDetail.medianSalary
                     ? formatMoney(occupationDetail.medianSalary, { precision: 0 })

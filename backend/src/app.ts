@@ -110,9 +110,9 @@ switch (process.env.NODE_ENV) {
   case "awsdev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_DEV || '',
+      host: process.env.DB_HOST_WRITER_AWSDEV || '',
       database: "d4addev",
-      password: process.env.DB_PASS_DEV || '',
+      password: process.env.DB_PASS_AWSDEV || '',
       port: 5432,
     };
     break;
