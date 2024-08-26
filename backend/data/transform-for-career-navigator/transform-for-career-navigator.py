@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 # Append a timestamp to the output file name to make it unique
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-input_file_path = 'standardized_etpl.csv'
+input_file_path = '../standardized_etpl.csv'
 output_file_path = f'cn_training_{timestamp}.csv'
 
 # Define the output columns for the CSV file
