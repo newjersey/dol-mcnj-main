@@ -46,7 +46,7 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <script>
-      if (document.location.hostname.startsWith("mycareer.nj.gov")) {
+      if (document.location.hostname === "mycareer.nj.gov") {
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);
@@ -87,7 +87,7 @@
   <body>
     <!-- Google Tag Manager (noscript) for Google Ads -->
     <script>
-      if (document.location.hostname.startsWith("mycareer.nj.gov")) {
+      if (document.location.hostname === "mycareer.nj.gov") {
         document.body.insertAdjacentHTML('afterbegin', '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBN58VK9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
       }
     </script>
