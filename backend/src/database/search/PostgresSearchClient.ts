@@ -45,7 +45,6 @@ export class PostgresSearchClient implements SearchClient {
           return results;
         })
         .catch((e) => {
-          console.error(JSON.stringify(e));
           console.error("Error during search operation: ", e);
           if (e.message === 'NOT_FOUND') {
             return Promise.reject(new Error('NOT_FOUND'));
