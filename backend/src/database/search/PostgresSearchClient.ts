@@ -28,7 +28,6 @@ export class PostgresSearchClient implements SearchClient {
 
           if (data.length === 0) {
             console.error(`No results found for query: ${searchQuery}`);
-            return Promise.reject(new Error('NOT_FOUND'));
           }
 
           const results = data.map((entity) => {
