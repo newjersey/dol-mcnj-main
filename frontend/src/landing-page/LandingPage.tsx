@@ -12,6 +12,7 @@ import { IntroBlocks } from "../components/IntroBlocks";
 import { UpdateNotifier } from "../components/UpdateNotifier";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/homePage.jpg";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -23,12 +24,14 @@ export const LandingPage = (props: Props): ReactElement => {
   });
 
   const pageData = data?.homePage;
+  const { t } = useTranslation();
 
   usePageTitle(pageData?.title);
 
   const seoObject = {
     title: pageData?.title || (process.env.REACT_APP_SITE_NAME as string),
-    pageDescription: "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
+    pageDescription:
+      "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
     image: pageData?.ogImage?.url || pageImage,
     keywords: pageData?.keywords,
     url: props.location?.pathname || "/",
@@ -56,7 +59,8 @@ export const LandingPage = (props: Props): ReactElement => {
               heading={pageData.title}
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
-              subheading={pageData.bannerMessage}
+              subheading={t("LandingPage.bannerSubheading")}
+              message={t("LandingPage.bannerMessageCopy")}
               preload
             />
             {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}

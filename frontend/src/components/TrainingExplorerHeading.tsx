@@ -4,6 +4,7 @@ import { SearchBlock } from "./SearchBlock";
 import { ContentfulRichText } from "../types/contentful";
 import { LinkObject } from "./modules/LinkObject";
 import { ArrowSquareOut, ArrowRight } from "@phosphor-icons/react";
+import { useTranslation } from "react-i18next";
 
 export const TrainingExplorerHeading = ({
   steps,
@@ -14,6 +15,7 @@ export const TrainingExplorerHeading = ({
   title: string;
   drawerContent: ContentfulRichText;
 }) => {
+  const { t } = useTranslation();
   const HowTo = ({ className }: { className: string }) => (
     <div className={`how-to-steps-section ${className}`}>
       <ul className="unstyled">
@@ -49,6 +51,10 @@ export const TrainingExplorerHeading = ({
           </nav>
         </div>
         <Heading level={1}>{title}</Heading>
+        <div className="subheading">
+          <p className="heading">{t("ExplorerPage.bannerSubheading")}</p>
+          <p>{t("ExplorerPage.bannerMessageCopy")}</p>
+        </div>
         <HowTo className="desktop-only" />
         <SearchBlock drawerContent={drawerContent} />
         <HowTo className="mobile-only" />
