@@ -113,6 +113,7 @@ export const Pagination = ({
           newUrl.searchParams.set("p", `${page.selected + 1}`);
           window.history.pushState({}, "", newUrl.toString());
           setPageNumber(page.selected + 1);
+          window.scrollTo(0, 0);
         }}
         hrefBuilder={(page) => {
           const newUrl = new URL(window.location.href);
