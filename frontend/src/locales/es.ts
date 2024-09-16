@@ -29,6 +29,9 @@ export const es = {
     somethingWentWrongText: "Por favor, inténtelo de nuevo más tarde",
   },
   ExplorerPage: {
+    bannerSubheading: "Encuentre clases que lo ayudarán a calificar para trabajos en demanda.",
+    bannerMessageCopy:
+      "Imagina tener un guía personal que te ayude a elegir la mejor formación para tu futuro. New Jersey Training Explorer facilita la búsqueda de las clases y programas de capacitación que necesita. Consulte el catálogo de escuelas y cursos aprobados que mejorarán sus habilidades, para que esté listo para aprovechar nuevas oportunidades profesionales.",
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
     sectionOneHeader: "Empecemos!",
     sectionOneText:
@@ -149,6 +152,10 @@ export const es = {
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
+    bannerSubheading:
+      "Las herramientas que necesita para encontrar un trabajo que funcione para usted.",
+    bannerMessageCopy:
+      "El trabajo adecuado está ahí fuera, si sabe dónde buscarlo. MyCareerNJ es un excelente lugar para comenzar, con ofertas de trabajo en todo el estado de Nueva Jersey. También podemos ayudarlo a descubrir posibilidades profesionales, aprender nuevas habilidades laborales, ayudarlo con cambios de carrera y ofrecer asesoramiento para nuevos empleados. Vea usted mismo cómo MyCareerNJ puede ayudarle.",
     headerText:
       "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
     searchBoxPlaceholder: "Ingrese ocupación, certificación, proveedor, o código SOC",
