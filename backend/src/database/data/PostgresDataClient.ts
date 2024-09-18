@@ -190,6 +190,7 @@ export class PostgresDataClient implements DataClient {
   };
 
   findCipDefinitionByCip = (cip: string): Promise<CipDefinition[]> => {
+    cip = cip.length == 5 ? "0"+cip : cip
     return this.kdb("soccipcrosswalk")
         .select("cipcode", "cip2020title as ciptitle")
         .where("cipcode", cip)
