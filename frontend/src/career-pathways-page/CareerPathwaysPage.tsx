@@ -7,7 +7,6 @@ import { IndustrySelector } from "../components/IndustrySelector";
 import { useContentful } from "../utils/useContentful";
 import { NotFoundPage } from "../error/NotFoundPage";
 import { CtaBanner } from "../components/CtaBanner";
-import { HowToUse } from "../components/modules/HowToUse";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/careerPathways.png";
 import { Icon, Tooltip } from "@material-ui/core";
@@ -104,51 +103,70 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           className="career-pathways-page"
           seo={seoObject}
         >
-          <div className="container">
-            <div className="top-nav">
-              <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                <Icon>keyboard_backspace</Icon>
-                <ol className="usa-breadcrumb__list">
-                  {data.page.pageBanner.breadcrumbsCollection?.items.map((crumb) => {
-                    return (
-                      <li className="usa-breadcrumb__list-item" key={crumb.sys?.id || crumb.copy}>
-                        <a className="usa-breadcrumb__link" href={crumb.url}>
-                          {crumb.copy}
-                        </a>
+          <section className="banner">
+            <div className="container">
+              <div className="inner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      {data.page.pageBanner.breadcrumbsCollection?.items.map((crumb) => {
+                        return (
+                          <li
+                            className="usa-breadcrumb__list-item"
+                            key={crumb.sys?.id || crumb.copy}
+                          >
+                            <a className="usa-breadcrumb__link" href={crumb.url}>
+                              {crumb.copy}
+                            </a>
+                          </li>
+                        );
+                      })}
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span data-testid="title">
+                          {data.page.pageBanner.breadcrumbTitle || data.page.title}
+                        </span>
                       </li>
-                    );
-                  })}
-                  <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                    <span data-testid="title">
-                      {data.page.pageBanner.breadcrumbTitle || data.page.title}
-                    </span>
-                  </li>
-                </ol>
-              </nav>
+                    </ol>
+                  </nav>
+                </div>
+                <div className="content">
+                  <Heading level={1}>
+                    {content.banner.title}
+                    <Tooltip placement="top" title={content.betaToolTip}>
+                      <span className="tag-item color-navy">
+                        <Info /> Beta
+                      </span>
+                    </Tooltip>
+                  </Heading>
+                  <p>{content.banner.description}</p>
+                </div>
+              </div>
             </div>
-            <div className="banner">
-              <Heading level={1}>
-                {content.banner.title}
-                <Tooltip placement="top" title={content.betaToolTip}>
-                  <span className="tag">
-                    <Info /> Beta
-                  </span>
-                </Tooltip>
-              </Heading>
-              <p>{content.banner.description}</p>
-            </div>
-          </div>
+          </section>
 
           <IndustrySelector />
+          <section className="body-copy">
+            <div className="container">
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{
+                  __html: parseMarkdownToHTML(`${content.markdownSection}`),
+                }}
+              />
+            </div>
+          </section>
 
-          <div className="container">
-            <div
-              className="content"
-              dangerouslySetInnerHTML={{
-                __html: parseMarkdownToHTML(`${content.markdownSection}`),
-              }}
-            />
-          </div>
+          <section className="contact-cta">
+            <div className="container">
+              <div className="inner">
+                <Heading level={3}>{content.cta.heading}</Heading>
+                <a href={content.cta.button.url} className="usa-button margin-right-0 primary">
+                  {content.cta.button.text}
+                </a>
+              </div>
+            </div>
+          </section>
 
           <CtaBanner
             heading={data.page.exploreHeading}
@@ -159,7 +177,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           />
         </Layout>
       )}
-      <HowToUse />
     </>
   );
 };
