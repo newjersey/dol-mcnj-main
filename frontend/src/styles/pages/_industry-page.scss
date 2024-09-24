@@ -1,0 +1,53 @@
+.industry-pathways-page {
+  .banner {
+    .inner {
+      display: flex;
+      flex-direction: column;
+      gap: $size-64;
+      padding: $size-32 0 $size-64;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        padding: $size-16 0 $size-32;
+        gap: $size-32;
+      }
+
+      @media screen and (max-width: ($mobile-lg - 1)) {
+        padding-top: 0;
+      }
+    }
+
+    .heading-tag {
+      font-size: $size-32;
+      display: inline-flex;
+      align-items: center;
+      gap: $size-16;
+      cursor: default;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        font-size: $size-22;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        font-weight: bold;
+      }
+
+      span {
+        font-size: $size-12;
+        font-weight: normal;
+      }
+    }
+
+    p {
+      font-size: $size-22;
+      margin: 0;
+      @media screen and (max-width: ($tablet-md - 1)) {
+        font-size: $size-18;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: $size-8;
+    }
+  }
+}
