@@ -127,6 +127,9 @@
     z-index: 10;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
 
     @media screen and (max-width: ($tablet-md - 1)) {
       padding: 3rem $size-16;
@@ -144,6 +147,14 @@
       cursor: pointer;
       z-index: 11;
     }
+
+    .heading-tag {
+      font-size: $size-32;
+    }
+
+    img {
+      display: block;
+    }
   }
 
   .overlay {
@@ -160,6 +171,46 @@
     &.open {
       pointer-events: all;
       opacity: 0.5;
+    }
+  }
+
+  .boxes-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
+
+    .box {
+      border: $size-1 solid $base-lighter;
+      border-radius: $size-8;
+      overflow: hidden;
+    }
+
+    .heading-bar {
+      background-color: $secondary-lighter;
+      align-items: center;
+      display: flex;
+      gap: $size-16;
+      font-size: $size-18;
+      padding: $size-10 $size-20;
+    }
+
+    .content {
+      padding: $size-24;
+      display: flex;
+      flex-direction: column;
+      gap: $size-16;
+
+      > * {
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: bold;
+      }
     }
   }
 }
