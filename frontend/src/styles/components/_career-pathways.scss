@@ -1,10 +1,155 @@
 .career-pathways {
-  padding: 6rem 0 0;
+  .path-selector {
+    .selection-container {
+      border: $size-1 solid $base-lighter;
+      border-radius: $size-8;
+      padding: $size-16;
+      display: flex;
+      flex-direction: column;
+      gap: $size-16;
 
-  .sectionHeading {
-    margin-bottom: 2.5rem;
+      .heading-tag {
+        font-weight: bold;
+        font-size: $size-22;
+      }
+
+      .selection-content {
+        @media screen and (max-width: ($tablet - 1)) {
+          display: none;
+        }
+      }
+    }
+
+    .selections {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $size-32;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        grid-template-columns: repeat(1, 1fr);
+        gap: $size-12;
+      }
+
+      .buttons {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        gap: $size-16;
+
+        @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          flex-direction: column;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          margin-top: 0;
+          align-items: center;
+        }
+
+        > * {
+          width: 100%;
+        }
+      }
+
+      .button-radio {
+        width: calc(100% - 156px);
+        @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          width: 100%;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          width: calc(100% - 56px);
+        }
+      }
+
+      .industry-field-drawer {
+        width: 156px;
+
+        @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          width: 100%;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 56px;
+          height: 54px;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        .panel {
+          button {
+            width: auto;
+          }
+        }
+      }
+
+      label.usa-button.primary.usa-button--outline,
+      button.usa-button.usa-button--outline.bg-white.margin-right-0.primary {
+        text-align: left;
+        display: flex !important;
+        padding: $size-16 $size-8;
+        justify-content: center;
+      }
+
+      label.usa-button.primary.usa-button--outline {
+        @media screen and (max-width: ($tablet - 1)) {
+          justify-content: flex-start;
+
+          span span {
+            display: none;
+          }
+        }
+      }
+
+      button.usa-button.usa-button--outline.bg-white.margin-right-0.primary {
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 56px;
+          height: 54px;
+          padding: 0 $size-8;
+
+          span {
+            display: none;
+          }
+
+          svg {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
   }
 
+  .radio-dot {
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    svg {
+      + svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
   .select {
     max-width: $size-560;
     font-weight: bold;
@@ -28,6 +173,11 @@
       position: relative;
       border: $size-1 solid $base-lighter;
       border-radius: 5px;
+
+      &:disabled {
+        background-color: $base-lighter;
+        color: $base-light;
+      }
 
       &:after {
         content: "";
@@ -87,41 +237,6 @@
           @media screen and (min-width: ($tablet)) {
             background: $purple;
           }
-        }
-      }
-    }
-  }
-
-  .path-selector {
-    > .heading {
-      @media screen and (max-width: ($tablet - 1)) {
-        margin-left: $size-16;
-        margin-right: $size-16;
-      }
-    }
-  }
-
-  .selections {
-    display: flex;
-    align-items: flex-start;
-    gap: $size-32;
-    flex-wrap: wrap;
-
-    @media screen and (max-width: ($tablet - 1)) {
-      gap: $size-24;
-    }
-
-    > div {
-      @media screen and (max-width: ($tablet - 1)) {
-        width: 100%;
-      }
-    }
-
-    .button-radio {
-      .label {
-        @media screen and (max-width: ($tablet - 1)) {
-          width: 100%;
-          max-width: none;
         }
       }
     }

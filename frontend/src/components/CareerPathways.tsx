@@ -3,8 +3,8 @@ import { OccupationNodeProps, CareerMapProps, SinglePathwayProps } from "../type
 import { PathwayGroup } from "./PathwayGroup";
 import { Client } from "../domain/Client";
 import { CareerDetail } from "./CareerDetail";
-import { SectionHeading } from "./modules/SectionHeading";
 import { Path } from "@phosphor-icons/react";
+import { Heading } from "./modules/Heading";
 
 interface SelectedProps {
   pathway?: OccupationNodeProps[];
@@ -27,7 +27,6 @@ export const CareerPathways = ({
   client: Client;
 }) => {
   const [selected, setSelected] = useState<SelectedProps>({});
-  const [localData, setLocalData] = useState<SelectedProps>();
   const [fieldChanged, setFieldChanged] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [paths, setPaths] = useState<{
@@ -41,22 +40,7 @@ export const CareerPathways = ({
     setFieldChanged(true);
   }, [paths]);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("occupation");
-    const pathItems = localStorage.getItem("pathItems");
-    if (stored) {
-      setLocalData(JSON.parse(stored));
-    }
-
-    if (pathItems) {
-      setPaths(JSON.parse(pathItems));
-      setTimeout(() => {
-        setFieldChanged(false);
-      }, 100);
-    }
-  }, []);
-
-  const details = selected.id ? selected : localData || {};
+  const details = selected.id ? selected : {};
 
   const breadcrumbs = {
     industry,
@@ -71,27 +55,19 @@ export const CareerPathways = ({
     <div className="career-pathways">
       <div className="container">
         <div className="path-selector">
-          <SectionHeading
-            headingLevel={3}
-            heading={`Select a ${industry} Field`}
-            description="Select a field and explore different career pathways or click the tool tip to learn more about it."
-          />
-
-          <p>
-            <strong>Select a {industry} Field</strong>
-          </p>
           <div className="selections">
-            {careerMaps.map((map, index) => (
+            {careerMaps.map((map) => (
               <PathwayGroup
                 key={map.sys.id}
                 {...map}
                 icon={icon}
-                selected={selected.id ? selected : localData || {}}
+                selected={selected.id ? selected : {}}
                 setSelected={setSelected}
                 active={details?.groupId === map.sys.id}
                 activeGroup={details?.groupId === map.sys.id}
                 setPaths={setPaths}
                 setMapOpen={setMapOpen}
+                industry={industry}
                 setOpen={setOpen}
               />
             ))}
@@ -99,18 +75,16 @@ export const CareerPathways = ({
         </div>
 
         <div className="groups">
-          <SectionHeading
-            headingLevel={3}
-            heading={`Explore  ${paths?.listTitle} Occupations and Pathways`}
-            description="Explore related occupations and learn important details."
-          />
+          <Heading level={3}>
+            {`Select ${paths ? `a ${paths.listTitle.toLocaleLowerCase()}` : "an"} occupation`}
+          </Heading>
 
           <div className="select">
-            Select a {paths?.listTitle.toLowerCase()} occupation
             <button
               type="button"
               aria-label="occupation-selector"
               className="select-button"
+              disabled={!paths}
               onClick={() => {
                 setOpen(!open);
               }}
@@ -174,8 +148,8 @@ export const CareerPathways = ({
           setMapOpen={setMapOpen}
           mapOpen={mapOpen}
           client={client}
-          pathway={selected.id ? selected.pathway : localData?.pathway || []}
-          selected={selected.id ? selected : localData || {}}
+          pathway={selected.id ? selected.pathway : []}
+          selected={selected.id ? selected : {}}
           setSelected={setSelected}
           groupTitle={paths?.listTitle}
         />

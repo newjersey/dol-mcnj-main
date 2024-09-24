@@ -164,53 +164,19 @@
   }
 }
 
-.pathway-button {
-  display: flex;
-  align-items: center;
-  gap: $size-8;
-  text-decoration: none;
-  outline: $size-1 solid $ink;
-  justify-content: center;
-  border-radius: $size-8;
-  padding: $size-10 $size-16 $size-10 $size-12;
-  min-width: 300px;
-  min-height: $size-48;
-  cursor: pointer;
-
-  @media screen and (min-width: ($tablet)) {
-    max-width: 400px;
-  }
-
-  @media screen and (max-width: ($tablet-md - 1)) {
-    width: 100%;
-  }
-
-  &.active {
-    font-weight: bold;
-    background-color: $tertiary-lighter;
-  }
-
-  &.active,
-  &:hover {
-    outline-width: $size-2;
-    outline-color: $tertiary;
-    border-color: $tertiary;
-  }
-
-  svg {
-    height: $size-24;
-  }
-
-  span {
-    color: $ink;
-  }
-}
-
 .button-radio {
   appearance: none;
 
   label {
-    @extend .pathway-button;
+    &.usa-button.primary.usa-button--outline {
+      outline-color: $base-light;
+      color: $text;
+      font-weight: normal;
+
+      svg {
+        color: $base-light;
+      }
+    }
   }
 
   input {
@@ -223,11 +189,19 @@
 
     &:checked {
       + label {
-        outline-width: $size-2;
-        outline-color: $tertiary;
-        border-color: $tertiary;
-        font-weight: bold;
-        background-color: $tertiary-lighter;
+        &.usa-button.primary.usa-button--outline {
+          background-color: $primary-lighter;
+          outline-color: $text;
+
+          .radio-dot {
+            svg {
+              color: $primary;
+              + svg {
+                opacity: 1;
+              }
+            }
+          }
+        }
       }
     }
   }

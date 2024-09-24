@@ -3,12 +3,15 @@ import { useContentful } from "../utils/useContentful";
 import { useEffect } from "react";
 import { groupObjectsByLevel } from "../utils/groupObjectsByLevel";
 import { IndustryFieldDrawer } from "./IndustryFieldDrawer";
+import { Circle } from "@phosphor-icons/react";
+import { Heading } from "./modules/Heading";
 
 export const PathwayGroup = (props: {
   sys: {
     id: string;
   };
   activeGroup?: boolean;
+  industry: string;
   active?: boolean;
   setSelected: (id: SelectProps) => void;
   selected?: SelectProps;
@@ -42,42 +45,58 @@ export const PathwayGroup = (props: {
   }, [data, props.activeGroup]);
 
   return (
-    <div>
+    <div className="selection-container">
       {data && (
         <>
-          <div className="button-radio">
-            <input
-              id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
-              type="radio"
-              name={`${props.icon}-pathways`}
-              defaultChecked={props.active}
-              onChange={(e) => {
-                props.setPaths({
-                  mapId: data.careerMap.sys.id,
-                  listTitle: data.careerMap.title,
-                  items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
-                });
-                localStorage.setItem(
-                  "pathItems",
-                  JSON.stringify({
+          <div className="selection-content">
+            <Heading level={2}>{data.careerMap.title}</Heading>
+            <p>{`Explore ${data.careerMap.title} pathways in the field of ${props.industry} in the state of New Jersey.`}</p>
+          </div>
+          <div className="buttons">
+            <div className="button-radio">
+              <input
+                id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
+                type="radio"
+                name={`${props.icon}-pathways`}
+                defaultChecked={props.active}
+                onChange={(e) => {
+                  props.setPaths({
                     mapId: data.careerMap.sys.id,
                     listTitle: data.careerMap.title,
                     items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
-                  }),
-                );
-              }}
-            />
+                  });
+                  localStorage.setItem(
+                    "pathItems",
+                    JSON.stringify({
+                      mapId: data.careerMap.sys.id,
+                      listTitle: data.careerMap.title,
+                      items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
+                    }),
+                  );
+                }}
+              />
 
-            <label htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}>
-              {data.careerMap.title}
-            </label>
+              <label
+                htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}
+                className="usa-button usa-button--outline bg-white margin-right-0 primary"
+              >
+                <div className="radio-dot">
+                  <Circle size={22} weight="bold" />
+                  <Circle size={14} weight="fill" />
+                </div>
+                <span>
+                  <span>Select </span>
+                  {data.careerMap.title}
+                </span>
+              </label>
+            </div>
+            {data.careerMap.learnMoreBoxes && (
+              <IndustryFieldDrawer
+                title={data.careerMap.title}
+                boxes={data.careerMap.learnMoreBoxes}
+              />
+            )}
           </div>
-          {data.careerMap.learnMoreBoxes && (
-            <IndustryFieldDrawer
-              title={data.careerMap.title}
-              boxes={data.careerMap.learnMoreBoxes}
-            />
-          )}
         </>
       )}
     </div>

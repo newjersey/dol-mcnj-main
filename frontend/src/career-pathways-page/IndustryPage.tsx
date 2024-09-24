@@ -1,20 +1,18 @@
 import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { CareerPathwaysPageData, IndustryProps, ThemeColors } from "../types/contentful";
+import { CareerPathwaysPageData, IndustryProps } from "../types/contentful";
 import { Layout } from "../components/Layout";
-import { IndustrySelector } from "../components/IndustrySelector";
-import { IndustryBlock } from "../components/IndustryBlock";
 import { OccupationDetail } from "../domain/Occupation";
 import { Error } from "../domain/Error";
 import { OccupationBlock } from "../components/OccupationBlock";
 import { useContentful } from "../utils/useContentful";
 import { CareerPathways } from "../components/CareerPathways";
 import { NotFoundPage } from "../error/NotFoundPage";
-import { CtaBanner } from "../components/CtaBanner";
-import { HowToUse } from "../components/modules/HowToUse";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/careerPathways.png";
+import { Heading } from "../components/modules/Heading";
+import { Icon } from "@material-ui/core";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -66,22 +64,6 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
     return <NotFoundPage client={props.client} />;
   }
 
-  const exploreLinks = data?.page.exploreButtonsCollection.items.map((link, index: number) => {
-    const highlight =
-      (index + 1) % 4 === 1
-        ? "purple"
-        : (index + 1) % 4 === 2
-          ? "orange"
-          : (index + 1) % 4 === 3
-            ? "blue"
-            : "green";
-    return {
-      ...link,
-      iconPrefix: link.icon,
-      highlight: highlight as ThemeColors,
-    };
-  });
-
   const breadcrumbs = data
     ? { items: [...data.page.pageBanner.breadcrumbsCollection.items] }
     : { items: [] };
@@ -98,7 +80,7 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
 
   const seoObject = {
     title: data
-      ? `${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
+      ? `${industry ? `${industry.title} | ` : ""}${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`
       : `Career Pathways | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription:
       data?.page.pageDescription ||
@@ -117,57 +99,70 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
 
   return (
     <>
-      {data && (
+      {data && industry && (
         <Layout
           client={props.client}
           theme="support"
           noPad
-          className="career-pathways-page"
+          className="industry-pathways-page"
           seo={seoObject}
         >
-          {!industry ? (
-            <>
-              <IndustrySelector />
-              <CtaBanner
-                heading={data.page.exploreHeading}
-                headingLevel={3}
-                theme="purple"
-                fullColor
-                links={exploreLinks}
-              />
-            </>
-          ) : (
-            <>
-              <IndustryBlock {...industry} />
-              <div id="industry-container">
-                {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                  <CareerPathways
-                    careerMaps={industry.careerMaps.items}
-                    icon={industry?.slug}
-                    industry={industry.title}
-                    client={props.client}
-                  />
-                ) : (
-                  <>
-                    {industry.inDemandCollection?.items &&
-                      industry.inDemandCollection?.items.length > 0 && (
-                        <OccupationBlock
-                          content={occupationDetail}
-                          industry={industry.shorthandTitle || industry.title}
-                          inDemandList={industry.inDemandCollection?.items}
-                          setOccupation={setOccupation}
-                          error={error}
-                          loading={loading}
-                        />
-                      )}
-                  </>
-                )}
+          <section className="banner">
+            <div className="container">
+              <div className="inner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item">
+                        <a className="usa-breadcrumb__link" href="/career-pathways">
+                          {data.page.title}
+                        </a>
+                      </li>
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span data-testid="title">Select a {industry.title} Field</span>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+                <div className="content">
+                  <Heading level={1}>{`Select a ${industry.title} Field`}</Heading>
+                </div>
               </div>
-            </>
-          )}
+            </div>
+          </section>
+
+          <div id="industry-container">
+            {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
+              <CareerPathways
+                careerMaps={industry.careerMaps.items}
+                icon={industry?.slug}
+                industry={industry.title}
+                client={props.client}
+              />
+            ) : (
+              <>
+                {industry.inDemandCollection?.items &&
+                  industry.inDemandCollection?.items.length > 0 && (
+                    <OccupationBlock
+                      content={occupationDetail}
+                      industry={industry.shorthandTitle || industry.title}
+                      inDemandList={industry.inDemandCollection?.items}
+                      setOccupation={setOccupation}
+                      error={error}
+                      loading={loading}
+                    />
+                  )}
+              </>
+            )}
+          </div>
         </Layout>
       )}
-      <HowToUse />
     </>
   );
 };
