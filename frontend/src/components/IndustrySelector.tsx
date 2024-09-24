@@ -1,4 +1,4 @@
-import { ArrowRight, DotsThreeVertical, Fire, X } from "@phosphor-icons/react";
+import { ArrowRight, DotsThreeVertical, Star, X } from "@phosphor-icons/react";
 import { content } from "../career-pathways-page/content";
 import { Heading } from "./modules/Heading";
 import { LinkObject } from "./modules/LinkObject";
@@ -19,7 +19,7 @@ const Panel = ({
 }: {
   open: boolean;
   photo: string;
-  description: string;
+  description?: string;
   title: string;
   setOpen: (index: number | null) => void;
   shorthandTitle?: string;
@@ -44,30 +44,26 @@ const Panel = ({
           <div className="sr-only">Close</div>
         </button>
 
-        <div className="heading">
-          <h2>
-            <span>{shorthandTitle || title} in New Jersey</span>
-          </h2>
+        <Heading level={3}>{shorthandTitle || title} in New Jersey</Heading>
+
+        <div className="copy">
+          {description && <p>{description}</p>}
+          {photo && <img src={photo} alt={title} className="photo" />}
         </div>
-        <div className="content-wrapper">
-          <div className="copy">
-            <p>{description}</p>
-            <img src={photo} alt={title} className="photo" />
-          </div>
-          <div className="accordion-wrapper">
-            {drawerCards.map((card) => (
-              <div className="box">
-                <div className="heading-bar">
-                  {card.icon ? <Selector name={card.icon} /> : <Fire size={32} />}
-                  {card.title}
-                </div>
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(card.copy) }}
-                />
+
+        <div className="boxes-wrapper">
+          {drawerCards.map((card) => (
+            <div className="box">
+              <div className="heading-bar">
+                {card.icon ? <Selector name={card.icon} /> : <Star size={32} />}
+                {card.title}
               </div>
-            ))}
-          </div>
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(card.copy) }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </>
@@ -102,7 +98,16 @@ export const IndustrySelector = () => {
 
           <ul className="unstyled">
             {content.industrySelector.items.map((props, index) => {
-              const { image, title, slug, description, active, drawerCards } = props;
+              const {
+                image,
+                title,
+                slug,
+                description,
+                shorthandTitle,
+                drawerDescription,
+                active,
+                drawerCards,
+              } = props;
               return (
                 <li key={image}>
                   <div>
@@ -138,9 +143,9 @@ export const IndustrySelector = () => {
                     drawerCards={drawerCards}
                     setOpen={setActivePanel}
                     photo={image}
-                    description={description}
+                    description={drawerDescription}
                     title={title}
-                    shorthandTitle={slug}
+                    shorthandTitle={shorthandTitle}
                   />
                 </li>
               );

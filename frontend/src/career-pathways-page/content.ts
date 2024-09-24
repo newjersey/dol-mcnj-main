@@ -21,6 +21,8 @@ export const content = {
         active: true,
         description:
           "Explore career pathways in the field of Manufacturing in the state of New Jersey.",
+        drawerDescription:
+          "Everything that doesn’t exist in nature has to be manufactured, such as candy bars, apparel and shoes, airplanes, and wind turbines. Simply put, manufacturing means “making things.”",
         drawerCards: [
           {
             icon: "manufacturing" as SelectorProps["name"],
@@ -29,7 +31,7 @@ export const content = {
           },
           {
             title: "Top Manufacturing Sectors",
-            copy: "### Food\n\nFood manufacturers pick New Jersey because the state is at the center of one of the nation’s largest metropolitan areas. And so, food produced in New Jersey easily reaches millions of people. Our state is home to some of the world’s leading food brands like Campbells Soup, Mars Bars, M&Ms, and Nabisco – all made right here in the state. New and upcoming brands like Oatly and Bai started here too\n\n### Pharmaceuticals\n\nNew Jersey is known as “The Medicine Chest of the World” because of its importance to the global pharmaceutical industry. Novartis, Merck & Co., Johnson & Johnson, Bristol-Myers Squibb, Novo Nordisk, and Bayer Healthcare are among the state’s leading firms in the industry. Pharmaceutical companies are in New Jersey because the state has a highly educated workforce, including scientists.### Fabricated Metals\n\nMetal manufacturers transform metals into parts that are used in airplanes, bridges, buildings, computers, machinery, ships, power generation, and more.  Companies in this industry forge, stamp, bend, weld, shape, and machine metals. Nowadays, metal manufacturers achieve a level of precision that was undreamed of just 20 years ago to do things like lathing, 3-D printing, plasma cutting, and milling using computer numerical control (CNC) devices.",
+            copy: "### Food\n\nFood manufacturers pick New Jersey because the state is at the center of one of the nation’s largest metropolitan areas. And so, food produced in New Jersey easily reaches millions of people. Our state is home to some of the world’s leading food brands like Campbells Soup, Mars Bars, M&Ms, and Nabisco – all made right here in the state. New and upcoming brands like Oatly and Bai started here too\n\n### Pharmaceuticals\n\nNew Jersey is known as “The Medicine Chest of the World” because of its importance to the global pharmaceutical industry. Novartis, Merck & Co., Johnson & Johnson, Bristol-Myers Squibb, Novo Nordisk, and Bayer Healthcare are among the state’s leading firms in the industry. Pharmaceutical companies are in New Jersey because the state has a highly educated workforce, including scientists.\n\n### Fabricated Metals\n\nMetal manufacturers transform metals into parts that are used in airplanes, bridges, buildings, computers, machinery, ships, power generation, and more.  Companies in this industry forge, stamp, bend, weld, shape, and machine metals. Nowadays, metal manufacturers achieve a level of precision that was undreamed of just 20 years ago to do things like lathing, 3-D printing, plasma cutting, and milling using computer numerical control (CNC) devices.",
           },
         ],
       },
@@ -40,7 +42,19 @@ export const content = {
         active: false,
         description:
           "Pathways for this sector are in development but you can still explore the most in-demand healthcare occupations.",
-        drawerCards: [],
+        drawerDescription:
+          "Promote and maintain the well-being of your community — discover your next career move in healthcare. The jobs below represent the latest in-demand healthcare positions in the state of New Jersey. Anyone interested in a career in healthcare is required to pass a background check to keep patients safe.",
+        drawerCards: [
+          {
+            icon: "healthcare" as SelectorProps["name"],
+            title: "Why to consider a Healthcare Career",
+            copy: "### Job Security\n\nHealthcare is one of the fastest growing and most stable industries to work in. Health care is the only industry that has added jobs in the state every year from 1990 through 2019, even in times of recessions.\n\n### Educational Options\n\nThere are jobs for people at all education levels.\n\n### Well Paid Meaningful Work\n\nYou can make a meaningful difference in people’s lives while earning a living.",
+          },
+          {
+            title: "Top Healthcare Sectors",
+            copy: "Pellentesque porta quis dolor non mattis. Donec in neque vitae eros vehicula elementum. Aliquam erat volutpat. Nulla nibh nisi, bibendum vitae libero maximus, suscipit tincidunt magna. Proin vestibulum orci at sapien ullamcorper congue. Aliquam vel nulla sollicitudin augue eleifend scelerisque eget ut velit. Nunc non est ultrices, efficitur erat eget, lobortis tortor. Aliquam erat volutpat. Donec sollicitudin lorem urna, vitae sodales massa facilisis eu. Aenean hendrerit, nunc sed interdum semper, arcu tellus ultricies nulla, vel viverra quam ipsum id libero. Suspendisse pulvinar dignissim odio eget sagittis.",
+          },
+        ],
       },
       {
         image: tdlImage,
@@ -50,7 +64,19 @@ export const content = {
         active: false,
         description:
           "Pathways for this sector are in development but you can still explore the most in-demand TDL occupations.",
-        drawerCards: [],
+        drawerDescription:
+          "Be an important part of our nation’s supply chain with a career in transportation, distribution, and logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
+        drawerCards: [
+          {
+            icon: "manufacturing" as SelectorProps["name"],
+            title: "Why to consider a TDL Career",
+            copy: "### Quality Jobs\n\nMany jobs in transportation distribution and logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.\n\n### For a variety of interests\n\nThe industry offers opportunities for people who like working with customers – flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.\n\n### Important Contribution\n\nTransportation disctribulation and logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.",
+          },
+          {
+            title: "Top Manufacturing Sectors",
+            copy: "Pellentesque porta quis dolor non mattis. Donec in neque vitae eros vehicula elementum. Aliquam erat volutpat. Nulla nibh nisi, bibendum vitae libero maximus, suscipit tincidunt magna. Proin vestibulum orci at sapien ullamcorper congue. Aliquam vel nulla sollicitudin augue eleifend scelerisque eget ut velit. Nunc non est ultrices, efficitur erat eget, lobortis tortor. Aliquam erat volutpat. Donec sollicitudin lorem urna, vitae sodales massa facilisis eu. Aenean hendrerit, nunc sed interdum semper, arcu tellus ultricies nulla, vel viverra quam ipsum id libero. Suspendisse pulvinar dignissim odio eget sagittis.",
+          },
+        ],
       },
     ],
   },
