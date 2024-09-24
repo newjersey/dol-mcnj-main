@@ -138,30 +138,40 @@
     }
   }
 
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
-  ///////////////////////////////////////////////////
   .select {
     max-width: $size-560;
     font-weight: bold;
+
+    > p {
+      margin: 0;
+      font-weight: normal;
+    }
   }
 
   .groups {
     background: white;
     position: relative;
-    margin: $size-96 0 $size-48;
+    margin: $size-48 0;
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
+
+    &.disabled {
+      .heading-tag {
+        color: $base-light;
+      }
+    }
 
     .select {
       position: relative;
+    }
+
+    .heading-tag {
+      font-size: $size-32;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        font-size: $size-22;
+      }
     }
 
     .select-button {
@@ -171,12 +181,13 @@
       color: $ink;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: $size-1 solid $base-lighter;
+      border: $size-2 solid $base-light;
       border-radius: 5px;
 
       &:disabled {
         background-color: $base-lighter;
         color: $base-light;
+        cursor: not-allowed;
       }
 
       &:after {

@@ -74,12 +74,12 @@ export const CareerPathways = ({
           </div>
         </div>
 
-        <div className="groups">
+        <div className={`groups${!paths ? " disabled" : ""}`}>
           <Heading level={3}>
             {`Select ${paths ? `a ${paths.listTitle.toLocaleLowerCase()}` : "an"} occupation`}
           </Heading>
-
           <div className="select">
+            {!paths && <p>Select a {industry.toLocaleLowerCase()} field above first.</p>}
             <button
               type="button"
               aria-label="occupation-selector"
@@ -89,7 +89,13 @@ export const CareerPathways = ({
                 setOpen(!open);
               }}
             >
-              {!fieldChanged ? details?.shortTitle || details?.title || "---" : "---"}
+              {!paths
+                ? "-Select an occupation-"
+                : !fieldChanged
+                  ? details?.shortTitle ||
+                    details?.title ||
+                    `Select a ${paths.listTitle.toLocaleLowerCase()} occupation`
+                  : `Select a ${paths.listTitle.toLocaleLowerCase()} occupation`}
             </button>
             {open && (
               <div className="dropdown-select">
