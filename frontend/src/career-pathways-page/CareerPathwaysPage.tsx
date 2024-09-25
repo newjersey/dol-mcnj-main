@@ -156,7 +156,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
               />
             </div>
           </section>
-
           <section className="contact-cta">
             <div className="container">
               <div className="inner">
@@ -167,7 +166,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
               </div>
             </div>
           </section>
-
           <CtaBanner
             heading={data.page.exploreHeading}
             headingLevel={3}

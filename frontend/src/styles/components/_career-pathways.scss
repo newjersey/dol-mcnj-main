@@ -1,12 +1,15 @@
 .career-pathways {
   .path-selector {
     .selection-container {
-      border: $size-1 solid $base-lighter;
-      border-radius: $size-8;
-      padding: $size-16;
       display: flex;
       flex-direction: column;
       gap: $size-16;
+
+      @media screen and (min-width: ($tablet)) {
+        border: $size-1 solid $base-lighter;
+        padding: $size-16;
+        border-radius: $size-8;
+      }
 
       .heading-tag {
         font-weight: bold;
@@ -27,13 +30,13 @@
 
       @media screen and (max-width: ($tablet - 1)) {
         grid-template-columns: repeat(1, 1fr);
-        gap: $size-12;
+        gap: $size-16;
       }
 
       .buttons {
         width: 100%;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: $size-16;
 
         @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
@@ -51,26 +54,25 @@
       }
 
       .button-radio {
-        width: calc(100% - 156px);
+        width: calc(100% - $size-140);
         @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
           width: 100%;
         }
 
         @media screen and (max-width: ($tablet - 1)) {
-          width: calc(100% - 56px);
+          width: calc(100% - 40px);
         }
       }
 
       .industry-field-drawer {
-        width: 156px;
+        width: $size-140;
 
         @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
           width: 100%;
         }
 
         @media screen and (max-width: ($tablet - 1)) {
-          width: 56px;
-          height: 54px;
+          width: 40px;
         }
 
         button {
@@ -89,7 +91,6 @@
         text-align: left;
         display: flex !important;
         padding: $size-16 $size-8;
-        justify-content: center;
       }
 
       label.usa-button.primary.usa-button--outline {
@@ -102,20 +103,21 @@
         }
       }
 
-      button.usa-button.usa-button--outline.bg-white.margin-right-0.primary {
+      button.usa-button.usa-button--unstyled {
+        color: $primary;
+        height: 100%;
+
         @media screen and (max-width: ($tablet - 1)) {
-          width: 56px;
-          height: 54px;
-          padding: 0 $size-8;
+          justify-content: center;
 
           span {
             display: none;
           }
 
-          svg {
-            width: 40px;
-            height: 40px;
-          }
+          // svg {
+          //   width: 40px;
+          //   height: 40px;
+          // }
         }
       }
     }
@@ -155,6 +157,10 @@
     display: flex;
     flex-direction: column;
     gap: $size-16;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      margin: $size-24 0 $size-48;
+    }
 
     &.disabled {
       .heading-tag {

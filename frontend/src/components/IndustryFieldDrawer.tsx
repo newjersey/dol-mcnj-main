@@ -1,4 +1,4 @@
-import { DotsThreeVertical, X } from "@phosphor-icons/react";
+import { Info, X } from "@phosphor-icons/react";
 import { PathwayGroupProps } from "../types/contentful";
 import { useEffect, useState } from "react";
 import { slugify } from "../utils/slugify";
@@ -12,6 +12,12 @@ export const IndustryFieldDrawer = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const overlay = document.querySelector(`#overlay-${slugify(title)}`);
@@ -20,19 +26,28 @@ export const IndustryFieldDrawer = ({
           setOpen(false);
         });
       }
+      document.addEventListener("keydown", handleKeyDown);
     }
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
 
   return (
     <div className="industry-field-drawer">
       <button
-        className="usa-button usa-button--outline bg-white margin-right-0 primary"
+        className="usa-button usa-button--unstyled"
         onClick={() => {
           setOpen(!open);
         }}
       >
+        <Info size={22} />
         <span>Learn more</span>
-        <DotsThreeVertical size={22} weight="bold" />
       </button>
       <div className={`overlay${open ? " open" : ""}`} id={`overlay-${slugify(title)}`} />
       <div className={`panel${open ? " open" : ""}`}>

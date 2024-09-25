@@ -13,6 +13,7 @@ import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/careerPathways.png";
 import { Heading } from "../components/modules/Heading";
 import { Icon } from "@material-ui/core";
+import { ArrowLeft } from "@phosphor-icons/react";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -131,6 +132,10 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
                   </nav>
                 </div>
                 <div className="content">
+                  <a className="back-link" href="/career-pathways">
+                    <ArrowLeft size={24} />
+                    Back
+                  </a>
                   <Heading level={1}>{`Select a ${industry.title} Field`}</Heading>
                 </div>
               </div>
