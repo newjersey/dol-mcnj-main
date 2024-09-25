@@ -73,6 +73,12 @@ export const PathwayGroup = (props: {
                       items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
                     }),
                   );
+
+                  // scroll to #groups
+                  const groups = document.getElementById("groups");
+                  if (groups) {
+                    groups.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }
                 }}
               />
 
@@ -81,8 +87,8 @@ export const PathwayGroup = (props: {
                 className="usa-button usa-button--outline bg-white margin-right-0 primary"
               >
                 <div className="radio-dot">
-                  <Circle size={22} weight="bold" />
-                  <Circle size={14} weight="fill" />
+                  <Circle size={24} weight="regular" />
+                  <Circle size={16} weight="fill" />
                 </div>
                 <span>
                   <span>Select </span>

@@ -74,7 +74,7 @@ export const CareerPathways = ({
           </div>
         </div>
 
-        <div className={`groups${!paths ? " disabled" : ""}`}>
+        <div id="groups" className={`groups${!paths ? " disabled" : ""}`}>
           <Heading level={3}>
             {`Select ${paths ? `a ${paths.listTitle.toLocaleLowerCase()}` : "an"} occupation`}
           </Heading>

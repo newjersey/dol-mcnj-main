@@ -1,12 +1,10 @@
-import { ArrowRight, DotsThreeVertical, Star, X } from "@phosphor-icons/react";
+import { ArrowRight, Info, Star, X } from "@phosphor-icons/react";
 import { content } from "../career-pathways-page/content";
 import { Heading } from "./modules/Heading";
 import { LinkObject } from "./modules/LinkObject";
 import { useEffect, useState } from "react";
 import { Selector, SelectorProps } from "../svg/Selector";
 import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
-// import { Accordion } from "./Accordion";
-// import { Selector } from "../svg/Selector";
 
 const Panel = ({
   open,
@@ -71,7 +69,7 @@ const Panel = ({
 };
 
 export const IndustrySelector = () => {
-  const [activePanel, setActivePanel] = useState<number | null>();
+  const [activePanel, setActivePanel] = useState<number | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -89,6 +87,15 @@ export const IndustrySelector = () => {
     document.addEventListener("click", handleClick);
     document.addEventListener("keydown", handleKeyDown);
   }, []);
+
+  useEffect(() => {
+    if (activePanel !== null) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [activePanel]);
 
   return (
     <section className="industry-selector">
@@ -130,12 +137,13 @@ export const IndustrySelector = () => {
                       Explore <ArrowRight size={22} />
                     </LinkObject>
                     <button
-                      className="usa-button usa-button--outline bg-white margin-right-0 primary"
+                      className="usa-button usa-button--unstyled"
                       onClick={() => {
                         setActivePanel(index);
                       }}
                     >
-                      Learn more <DotsThreeVertical size={22} weight="bold" />
+                      <Info size={22} weight="bold" />
+                      <span>Learn more</span>
                     </button>
                   </div>
                   <Panel
