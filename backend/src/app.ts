@@ -119,9 +119,9 @@ switch (process.env.NODE_ENV) {
   case "awstest":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_TEST || '',
+      host: process.env.DB_HOST_WRITER_AWSTEST || '',
       database: "d4adtest",
-      password: process.env.DB_PASS_TEST || '',
+      password: process.env.DB_PASS_AWSTEST || '',
       port: 5432,
     };
     break;
