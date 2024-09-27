@@ -19,6 +19,7 @@ import { numberWithCommas } from "../utils/numberWithCommas";
 import { Selector } from "../svg/Selector";
 import { InDemandTag } from "./InDemandTag";
 import { CircularProgress, Tooltip } from "@material-ui/core";
+import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -178,26 +179,40 @@ export const CareerDetail = ({
                 <div>
                   <h3>{data.careerMapObject.title}</h3>
                   {data.careerMapObject.inDemand && <InDemandTag />}
-                  {data.careerMapObject.description && <p>{data.careerMapObject.description}</p>}
+                  {data.careerMapObject.description && (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: parseMarkdownToHTML(data.careerMapObject.description),
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="meta">
                   <div>
                     <p className="title">
-                      Median Salary{" "}
-                      <Tooltip placement="top" title="TEST">
+                      Salary Range{" "}
+                      <Tooltip
+                        placement="top"
+                        title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
+                      >
                         <Info size={20} weight="fill" />
                       </Tooltip>
                     </p>
                     <p>
-                      {data.careerMapObject.medianSalary
-                        ? toUsCurrency(data.careerMapObject.medianSalary)
-                        : "---"}
+                      <strong>
+                        {data.careerMapObject.medianSalary
+                          ? toUsCurrency(data.careerMapObject.medianSalary)
+                          : "---"}
+                      </strong>
                     </p>
                   </div>
                   <div>
                     <p className="title">
                       Jobs Open in NJ{" "}
-                      <Tooltip placement="top" title="TEST">
+                      <Tooltip
+                        placement="top"
+                        title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
+                      >
                         <Info size={20} weight="fill" />
                       </Tooltip>
                     </p>
