@@ -74,11 +74,12 @@ export const PathwayGroup = (props: {
                     }),
                   );
 
-                  // scroll to #groups
                   const groups = document.getElementById("groups");
                   if (groups) {
                     groups.scrollIntoView({ behavior: "smooth", block: "center" });
                   }
+
+                  props.setOpen(false);
                 }}
               />
 
