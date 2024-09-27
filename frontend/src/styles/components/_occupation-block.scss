@@ -177,64 +177,6 @@
     > div {
       width: 100%;
       background-color: $tertiary-lighter;
-      margin-bottom: $size-32;
-      border-radius: $size-10;
-      overflow: hidden;
-      min-height: $size-120;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: $size-16;
-
-      @media screen and (min-width: ($mobile-lg)) {
-        width: 50%;
-      }
-
-      &:first-of-type {
-        @media screen and (max-width: ($mobile-lg - 1)) {
-          margin-bottom: 0;
-        }
-
-        p {
-          text-align: right;
-        }
-      }
-
-      p {
-        line-height: 1;
-        font-size: 1.5rem;
-        margin: 0;
-
-        &.title {
-          font-size: $size-16;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          text-align: left;
-          gap: 0.5rem;
-          margin-bottom: 0.6rem;
-
-          strong {
-            font-size: $size-22;
-            width: 100%;
-            display: block;
-          }
-        }
-      }
-
-      a {
-        color: $primary;
-        font-size: $size-16;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        span {
-          line-height: 1.5;
-          display: block;
-          width: 80%;
-        }
-      }
     }
   }
 
@@ -494,13 +436,21 @@
           div {
             padding: 0.5rem $size-16;
             margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            gap: $size-4;
 
             p {
               margin: 0;
+            }
 
-              &.title {
-                margin-bottom: $size-8;
-              }
+            .title,
+            a {
+              font-size: $size-16;
+              display: flex;
+              align-items: center;
+              gap: $size-4;
+              margin: 0;
             }
 
             a {
