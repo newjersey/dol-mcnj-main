@@ -2,7 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import { ArrowUpRight, GraduationCap, Hourglass, MapPinLine, Warning } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Client } from "../../domain/Client";
-import { TrainingResult } from "../../domain/Training";
+import { TrainingData, TrainingResult } from "../../domain/Training";
 import { toUsCurrency } from "../../utils/toUsCurrency";
 import { calendarLength } from "../../utils/calendarLength";
 
@@ -13,13 +13,13 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
 
   useEffect(() => {
     client.getTrainingsByQuery(query, {
-      onSuccess: (data: TrainingResult[]) => {
-        setTrainings(data);
-        setLoading(false);
-      },
-      onError: () => {
-        setIsError(true);
-      },
+        onSuccess: ({data}: TrainingData) => {
+            setTrainings(data);
+            setLoading(false);
+        },
+        onError: () => {
+            setIsError(true);
+        },
     });
   }, [query]);
   return (
@@ -39,8 +39,8 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
       ) : (
         <>
           {trainings?.slice(0, 3).map((train) => (
-            <li key={train.id}>
-              <a href={`/training/${train.id}`} target="_blank" rel="noopener noreferrer">
+            <li key={train.ctid}>
+              <a href={`/training/${train.ctid}`} target="_blank" rel="noopener noreferrer">
                 <p className="title">
                   {train.name}
                   <ArrowUpRight size={24} />
@@ -52,7 +52,10 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
                   </span>
                   <span>
                     <MapPinLine size={32} />
+                    TODO: Implement this part
+                    {/*
                     {train.city}, {train.county}
+*/}
                   </span>
                   <span className="last-line">
                     <span>

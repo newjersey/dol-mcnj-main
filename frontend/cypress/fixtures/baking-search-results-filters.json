@@ -1,0 +1,344 @@
+{
+  "data": [
+      {
+          "id": "ce-0b613057-0b82-4abc-9140-797aa3e3a386",
+          "name": "Bakery and Pastry",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 4995,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c54c759c-8d99-49f8-8d7d-cdf0f15f4685",
+          "providerName": "Atlantic Cape Community College - Atlantic City_ETP",
+          "availableAt": [
+              {
+                  "street_address": "1535 Bacharach Blvd",
+                  "city": "Atlantic City",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "career preparation program offers hands-on courses in the fundamentals of baking and pastry.\r\nIt will also prepare you for the National Restaurant",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["fr"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-787f9188-6491-424e-8612-e46b95905996",
+          "name": "Culinary Arts / Baking & Pastry",
+          "cipDefinition": {
+              "cipcode": "120503",
+              "ciptitle": "Culinary Arts/Chef Training."
+          },
+          "totalCost": 4600,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c446cbcc-4d44-4b1d-9cda-5b11965f11ca",
+          "providerName": "Camden County College - Continuing Education_ETP",
+          "availableAt": [
+              {
+                  "street_address": "200 College Drive",
+                  "city": "Blackwood",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Camden"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "this program is designed to cover the basic skills for baking industry employment or continuing education. Includes the following areas of",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["es"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-4cbd8435-236b-4ec7-b127-2a6bf7a7009b",
+          "name": "Certificate in Baking",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 3217,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-031e64cb-5df2-4969-aa20-f0053e7de098",
+          "providerName": "Bergen Community College - Continuing Education Program_ETP",
+          "availableAt": [
+              {
+                  "street_address": "400 Paramus Road, TEC 115H",
+                  "city": "Paramus",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The Certificate in Baking at Bergen Community College Division of Continuing Education and Workforce Development provides an introduction to",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["fr"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-035bc6ea-1946-444a-94bf-38a13693ea99",
+          "name": "Baking and Pastry Arts-Day",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 5100,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-3737e385-5ddd-48e6-9530-9045ca36b266",
+          "providerName": "Elijah's Promise - Promise Jobs Culinary School - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "211 Livingston Ave.",
+                  "city": "New Brunswick",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "and prepares students  for entry level employment in the baking and pastry field . Students learn a comprehensive set of",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["es"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-cef604ff-a8d9-4cfc-aeba-fa1a52c83c37",
+          "name": "Baking and Pastry Arts-Night",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 5100,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-3737e385-5ddd-48e6-9530-9045ca36b266",
+          "providerName": "Elijah's Promise - Promise Jobs Culinary School - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "211 Livingston Ave.",
+                  "city": "New Brunswick",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "and prepares students  for entry level employment in the baking and pastry field . Students learn a comprehensive set of",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["fr"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-ffd7a186-f2ca-45f2-a556-472b77e913c9",
+          "name": "Baking and Pastry Arts",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 5010,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-3737e385-5ddd-48e6-9530-9045ca36b266",
+          "providerName": "Elijah's Promise - Promise Jobs Culinary School - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "211 Livingston Ave.",
+                  "city": "New Brunswick",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The baking and pastry program us a 675 hour program that teaches",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["es"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-fbf8b5dc-676d-4c0f-ba35-547e75bcfafa",
+          "name": "Baking & Pastry Arts - Evening",
+          "cipDefinition": {
+              "cipcode": "120501",
+              "ciptitle": "Baking and Pastry Arts/Baker/Pastry Chef."
+          },
+          "totalCost": 5010,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-3737e385-5ddd-48e6-9530-9045ca36b266",
+          "providerName": "Elijah's Promise - Promise Jobs Culinary School - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "211 Livingston Ave.",
+                  "city": "New Brunswick",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "Arts program preparing participants for entry level employment in the baking and pastry field. Students learn all aspects of baking and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["fr"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-01d44a12-45b3-4a1e-b1f8-c01aaeffeb9f",
+          "name": "Culinary Opportunity Program for Adults with Developmental Disabilities",
+          "cipDefinition": {
+              "cipcode": "120599",
+              "ciptitle": "Culinary Arts and Related Services, Other."
+          },
+          "totalCost": 2999,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-b7cc9912-7f7c-45c0-bf39-d1776f4d7eef",
+          "providerName": "County College of Morris_ETP",
+          "availableAt": [
+              {
+                  "street_address": "214 Center Grove Rd.",
+                  "city": "Randolph",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Morris"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "Designed for individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["es"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-3b853147-fdf9-4810-9252-dd0aa57b8471",
+          "name": "Baking & Pastry Certificate Culinary Arts",
+          "cipDefinition": {
+              "cipcode": "120503",
+              "ciptitle": "Culinary Arts/Chef Training."
+          },
+          "totalCost": 2839,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c54c759c-8d99-49f8-8d7d-cdf0f15f4685",
+          "providerName": "Atlantic Cape Community College - Atlantic City_ETP",
+          "availableAt": [
+              {
+                  "street_address": "1535 Bacharach Blvd",
+                  "city": "Atlantic City",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "provide students with career training for entry-level positions in the baking and pastry. The Certificate can also be used as a",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["fr"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "id": "ce-bc8af74d-6a18-48c5-8323-87565879718e",
+          "name": "Baking & Pastry Certificate Culinary Arts",
+          "cipDefinition": {
+              "cipcode": "120503",
+              "ciptitle": "Culinary Arts/Chef Training."
+          },
+          "totalCost": 2839,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-c4c6622b-917d-4c07-b2c9-23f227631312",
+          "providerName": "Atlantic Cape Community College - Mays Landing_ETP",
+          "availableAt": [
+              {
+                  "street_address": "5100 Black Horse PIke",
+                  "city": "Mays Landing",
+                  "state": "New Jersey",
+                  "zipCode": "07625",
+                  "county": "Bergen"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "provide students with career training for entry-level positions in the baking and pastry. The Certificate can also be used as a",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": ["es"],
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": true,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 1,
+      "totalPages": 2,
+      "totalItems": 20,
+      "itemsPerPage": 10,
+      "hasNextPage": true,
+      "hasPreviousPage": false,
+      "nextPage": 2,
+      "previousPage": null
+  }
+}

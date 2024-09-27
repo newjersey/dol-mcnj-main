@@ -4,23 +4,22 @@ import {
   GetEducationText,
   GetSalaryEstimate,
   GetOpenJobsCount,
-  FindTrainingsBy,
 } from "../types";
 import { Occupation, OccupationDetail, OccupationDetailPartial } from "./Occupation";
 import { DataClient } from "../DataClient";
-import { Selector } from "../training/Selector";
-import { convertTrainingToTrainingResult } from "../training/convertTrainingToTrainingResult";
-import { Training } from "../training/Training";
+// import { Selector } from "../training/Selector";
+// import { convertTrainingToTrainingResult } from "../training/convertTrainingToTrainingResult";
+// import { Training } from "../training/Training";
 import { TrainingResult } from "../training/TrainingResult";
 import { LocalException, NullableOccupation } from "../training/Program";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
+import { searchTrainingsFactory } from "../search/searchTrainings";
 
 export const getOccupationDetailFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
   getEducationText: GetEducationText,
   getSalaryEstimate: GetSalaryEstimate,
   getOpenJobsCount: GetOpenJobsCount,
-  findTrainingsBy: FindTrainingsBy,
   dataClient: DataClient,
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
@@ -87,13 +86,14 @@ export const getOccupationDetailFactory = (
     };
 
     const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
-      const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
-      const cipcodes = cipDefinitions.map((it) => it.cipcode);
-      const trainings = await findTrainingsBy(Selector.CIP_CODE, cipcodes);
-
-      return trainings.map((training: Training) => {
-        return convertTrainingToTrainingResult(training, "", 0);
-      });
+      // const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
+      // const cipcodes = cipDefinitions.map((it) => it.cipcode);
+      // const trainings = await findTrainingsBy(Selector.CIP_CODE, cipcodes);
+      // return trainings.map((training: Training) => {
+      //   return convertTrainingToTrainingResult(training, "", 0);
+      // });
+      const trainings = await searchTrainingsFactory(dataClient)({searchQuery: soc, limit:4})
+      return trainings.data
     };
 
     return getOccupationDetailFromOnet(soc)

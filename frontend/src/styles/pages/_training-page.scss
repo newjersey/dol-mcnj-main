@@ -133,9 +133,76 @@
   }
 
   .group-padding {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 1em;
+    padding: 1em;
+  }
+}
+
+.training-detail {
+  button {
+    &.toggle {
+      border-bottom: $size-2 dashed $black;
+      padding: 0;
+      margin-bottom: $size-8;
+    }
+  }
+
+  .panel,
+  .overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .panel {
+    position: fixed;
+    border-left: $size-4 solid $secondary-dark;
+    top: 0;
+    right: -100%;
+    background: $secondary-lighter;
+    padding: 3rem;
+    max-width: $size-520;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: 3rem $size-16;
+    }
+
+    &.open {
+      right: 0;
+    }
+
+    h3 {
+      font-size: $size-22;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: $size-16;
+      cursor: pointer;
+      z-index: 11;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: $ink;
+    opacity: 0;
+    z-index: 9;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
   }
 }
 .title-box {

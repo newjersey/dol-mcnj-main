@@ -7,7 +7,7 @@ module.exports = async () => {
     console.log("Database created successfully.");
 
     console.log("Running database migrations...");
-    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test'], true); // Added a third parameter to indicate silent execution
+    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test']); // Added a third parameter to indicate silent execution
     console.log("Database migrations applied successfully.");
   } catch (error) {
     console.error("Error during global setup:", error);

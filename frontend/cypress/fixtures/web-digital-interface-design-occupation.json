@@ -48,7 +48,7 @@
   "openJobsSoc": "15-1255",
   "relatedTrainings": [
     {
-      "id": "36867",
+      "ctid": "36867",
       "name": "CCNA (Cisco Certified Network Associate)",
       "cipCode": "110101",
       "totalCost": 1300,
@@ -98,7 +98,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "5309",
+      "ctid": "5309",
       "name": "CCNA (CISCO Cert Network Administrator)",
       "cipCode": "110101",
       "totalCost": 1300,
@@ -148,7 +148,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "47624",
+      "ctid": "47624",
       "name": "Cyber Crime Investigation",
       "cipCode": "110101",
       "totalCost": 4386,
@@ -185,7 +185,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47938",
+      "ctid": "47938",
       "name": "IT-1000 IT Support Professional",
       "cipCode": "110101",
       "totalCost": 4000,
@@ -222,7 +222,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36869",
+      "ctid": "36869",
       "name": "CCSA (Checkpoint Certified Security Admin.)",
       "cipCode": "110101",
       "totalCost": 1300,
@@ -272,7 +272,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "47617",
+      "ctid": "47617",
       "name": "Computer Information Systems Certificate",
       "cipCode": "110101",
       "totalCost": 10288,
@@ -309,7 +309,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "45017",
+      "ctid": "45017",
       "name": "Microsoft Suites",
       "cipCode": "110101",
       "totalCost": 400,
@@ -351,7 +351,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "51379",
+      "ctid": "51379",
       "name": "A.S. Degree: Computer Information Systems",
       "cipCode": "110101",
       "totalCost": 13805,
@@ -393,7 +393,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47627",
+      "ctid": "47627",
       "name": "Technical Support",
       "cipCode": "110101",
       "totalCost": 5235,
@@ -430,7 +430,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "41431",
+      "ctid": "41431",
       "name": "Computer Systems Technology (CST.CT)",
       "cipCode": "110101",
       "totalCost": 6440,
@@ -467,7 +467,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48876",
+      "ctid": "48876",
       "name": "PC Applications",
       "cipCode": "110101",
       "totalCost": 4210,
@@ -508,7 +508,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47619",
+      "ctid": "47619",
       "name": "Interactive Design Skills Certificate of Achievement",
       "cipCode": "110101",
       "totalCost": 6305,
@@ -545,7 +545,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "24202",
+      "ctid": "24202",
       "name": "Computer Science A.S. - Transfer Option",
       "cipCode": "110101",
       "totalCost": 11413,
@@ -582,7 +582,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47625",
+      "ctid": "47625",
       "name": "Computer-Aided Design/Drawing Software",
       "cipCode": "110101",
       "totalCost": 4246,
@@ -619,7 +619,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "26402",
+      "ctid": "26402",
       "name": "Computer Basic (online)",
       "cipCode": "110101",
       "totalCost": 502,
@@ -661,7 +661,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "36001",
+      "ctid": "36001",
       "name": "Computer Science (CSC.AS)",
       "cipCode": "110101",
       "totalCost": 11466,
@@ -698,7 +698,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50382",
+      "ctid": "50382",
       "name": "IC3 Digital Literacy Certification",
       "cipCode": "110101",
       "totalCost": 2000,
@@ -740,7 +740,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "22685",
+      "ctid": "22685",
       "name": "Technology Business Administrator",
       "cipCode": "110101",
       "totalCost": 3390,
@@ -777,7 +777,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "15320",
+      "ctid": "15320",
       "name": "Computer Science A.A.S. - CIS Option",
       "cipCode": "110101",
       "totalCost": 12347,
@@ -814,7 +814,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "52021",
+      "ctid": "52021",
       "name": "Data Analytics Career Track",
       "cipCode": "110101",
       "totalCost": 8500,
@@ -851,7 +851,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "22686",
+      "ctid": "22686",
       "name": "Technology Business Management",
       "cipCode": "110101",
       "totalCost": 4795,
@@ -888,7 +888,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "51608",
+      "ctid": "51608",
       "name": "Guided IT Microbachelors with ShiftUp",
       "cipCode": "110101",
       "totalCost": 5000,
@@ -925,7 +925,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36000",
+      "ctid": "36000",
       "name": "Computer Science (CSC.AA)",
       "cipCode": "110101",
       "totalCost": 11229,
@@ -962,7 +962,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "20451",
+      "ctid": "20451",
       "name": "A.S.Degree: Computer Science",
       "cipCode": "110101",
       "totalCost": 13805,
@@ -1004,7 +1004,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "50661",
+      "ctid": "50661",
       "name": "Python Programming",
       "cipCode": "110201",
       "totalCost": 5000,
@@ -1039,7 +1039,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51912",
+      "ctid": "51912",
       "name": "E-Commerce Program",
       "cipCode": "110201",
       "totalCost": 10000,
@@ -1072,7 +1072,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "9854",
+      "ctid": "9854",
       "name": "Java Programming Certification",
       "cipCode": "110201",
       "totalCost": 1575,
@@ -1105,7 +1105,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "16402",
+      "ctid": "16402",
       "name": "Intro. to C# Programming for .NET",
       "cipCode": "110201",
       "totalCost": 1675,
@@ -1138,7 +1138,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "24926",
+      "ctid": "24926",
       "name": "C# Programming",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -1173,7 +1173,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "25007",
+      "ctid": "25007",
       "name": "SAS Programming",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -1208,7 +1208,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "26980",
+      "ctid": "26980",
       "name": "Asp.net",
       "cipCode": "110201",
       "totalCost": 675,
@@ -1254,7 +1254,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "31435",
+      "ctid": "31435",
       "name": "CNC/CAM Programming Project",
       "cipCode": "110201",
       "totalCost": 3999,
@@ -1287,7 +1287,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "33008",
+      "ctid": "33008",
       "name": "Java Programming Certification",
       "cipCode": "110201",
       "totalCost": 4809,
@@ -1323,7 +1323,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "33958",
+      "ctid": "33958",
       "name": "Microsoft .Net Pkg",
       "cipCode": "110201",
       "totalCost": 4500,
@@ -1358,7 +1358,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44994",
+      "ctid": "44994",
       "name": "Web Tools Java Certifications",
       "cipCode": "110201",
       "totalCost": 4074,
@@ -1395,7 +1395,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50107",
+      "ctid": "50107",
       "name": "Data Science & Big Data Analytics Certification (Virtual)",
       "cipCode": "110201",
       "totalCost": 4275,
@@ -1431,7 +1431,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "46768",
+      "ctid": "46768",
       "name": "Database & Data Science Specialist (DDSS)",
       "cipCode": "110201",
       "totalCost": 24155,
@@ -1464,7 +1464,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "46767",
+      "ctid": "46767",
       "name": "Data Science & Big Data Analytics Certification",
       "cipCode": "110201",
       "totalCost": 4275,
@@ -1497,7 +1497,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50108",
+      "ctid": "50108",
       "name": "Database & Data Science Specialist (DDSS) - Virtual",
       "cipCode": "110201",
       "totalCost": 24155,
@@ -1533,7 +1533,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50684",
+      "ctid": "50684",
       "name": "AWS Cloud Practitioner Certification",
       "cipCode": "110201",
       "totalCost": 4950,
@@ -1568,7 +1568,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51914",
+      "ctid": "51914",
       "name": "Quality Analysis Program",
       "cipCode": "110201",
       "totalCost": 10000,
@@ -1601,7 +1601,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51839",
+      "ctid": "51839",
       "name": "Data Science Certification",
       "cipCode": "110201",
       "totalCost": 3000,
@@ -1636,7 +1636,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "11630",
+      "ctid": "11630",
       "name": "Java Developing Cert. (Advanced Java)",
       "cipCode": "110201",
       "totalCost": 1875,
@@ -1669,7 +1669,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "25012",
+      "ctid": "25012",
       "name": "Oracle Database Developer",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -1704,7 +1704,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "15621",
+      "ctid": "15621",
       "name": "Java Triple Certification",
       "cipCode": "110201",
       "totalCost": 4074,
@@ -1737,7 +1737,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "23518",
+      "ctid": "23518",
       "name": "Oracle Database Administrator",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -1772,7 +1772,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "7575",
+      "ctid": "7575",
       "name": "Oracle 9i PL/SQL",
       "cipCode": "110201",
       "totalCost": 675,
@@ -1818,7 +1818,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "7569",
+      "ctid": "7569",
       "name": "E-Commerce II",
       "cipCode": "110201",
       "totalCost": 845,
@@ -1864,7 +1864,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "15623",
+      "ctid": "15623",
       "name": "Object-Oriented Programming",
       "cipCode": "110201",
       "totalCost": 15074,
@@ -1897,7 +1897,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "15740",
+      "ctid": "15740",
       "name": "ASP/Visual Basic Script",
       "cipCode": "110201",
       "totalCost": 675,
@@ -1943,7 +1943,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "25004",
+      "ctid": "25004",
       "name": "Financial Analysis For Computer Programmers",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -1978,7 +1978,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "33957",
+      "ctid": "33957",
       "name": "Java Package",
       "cipCode": "110201",
       "totalCost": 4500,
@@ -2013,7 +2013,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "33961",
+      "ctid": "33961",
       "name": "Computer Programmer's Package",
       "cipCode": "110201",
       "totalCost": 4500,
@@ -2048,7 +2048,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "43637",
+      "ctid": "43637",
       "name": "Agile/Scrum Master",
       "cipCode": "110201",
       "totalCost": 1000,
@@ -2083,7 +2083,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44961",
+      "ctid": "44961",
       "name": "Object-Oriented Programming",
       "cipCode": "110201",
       "totalCost": 17474,
@@ -2120,7 +2120,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45318",
+      "ctid": "45318",
       "name": "Financial Analysis with Series 7",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -2155,7 +2155,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "46776",
+      "ctid": "46776",
       "name": "Data Science & Big Data Analytics Certification",
       "cipCode": "110201",
       "totalCost": 4275,
@@ -2191,7 +2191,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49890",
+      "ctid": "49890",
       "name": "AWS Developer & DevOps Engineer",
       "cipCode": "110201",
       "totalCost": 4375,
@@ -2228,7 +2228,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49902",
+      "ctid": "49902",
       "name": "Python Programming Certifications",
       "cipCode": "110201",
       "totalCost": 4370,
@@ -2264,7 +2264,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "5324",
+      "ctid": "5324",
       "name": "Visual Basic .NET",
       "cipCode": "110201",
       "totalCost": 675,
@@ -2310,7 +2310,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "15620",
+      "ctid": "15620",
       "name": "Web Tools Java Certifications",
       "cipCode": "110201",
       "totalCost": 4074,
@@ -2343,7 +2343,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "23513",
+      "ctid": "23513",
       "name": "Java Developer Package",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -2378,7 +2378,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51678",
+      "ctid": "51678",
       "name": "Adobe Certified Professional (Vouchers Included)",
       "cipCode": "110201",
       "totalCost": 2795,
@@ -2411,7 +2411,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "33007",
+      "ctid": "33007",
       "name": "Web Tools Java Certifications",
       "cipCode": "110201",
       "totalCost": 4484,
@@ -2447,7 +2447,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36863",
+      "ctid": "36863",
       "name": "Programmer Analyst with Intensive Lab",
       "cipCode": "110201",
       "totalCost": 2900,
@@ -2493,7 +2493,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "39916",
+      "ctid": "39916",
       "name": "Java Programming Certificate of Achievement (CSJAVA.COA)",
       "cipCode": "110201",
       "totalCost": 2800,
@@ -2526,7 +2526,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "46758",
+      "ctid": "46758",
       "name": "Data Science & Big Data Analytics Certification",
       "cipCode": "110201",
       "totalCost": 4275,
@@ -2563,7 +2563,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50211",
+      "ctid": "50211",
       "name": "AWS Big Data & Data Warehousing - Virtual",
       "cipCode": "110201",
       "totalCost": 4225,
@@ -2599,7 +2599,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50112",
+      "ctid": "50112",
       "name": "MSCD:  Web Applications Certification - Virtual",
       "cipCode": "110201",
       "totalCost": 4570,
@@ -2635,7 +2635,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44786",
+      "ctid": "44786",
       "name": "SharePoint",
       "cipCode": "110201",
       "totalCost": 2200,
@@ -2670,7 +2670,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44974",
+      "ctid": "44974",
       "name": "MCSD: Windows Metro Style Apps Using HTML5",
       "cipCode": "110201",
       "totalCost": 5445,
@@ -2707,7 +2707,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "46863",
+      "ctid": "46863",
       "name": "Data Analysis Comprehensive Course (Python ML Excel Tableau SQL)",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -2742,7 +2742,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "46759",
+      "ctid": "46759",
       "name": "Database & Data Science Specialist (DDSS)",
       "cipCode": "110201",
       "totalCost": 24155,
@@ -2779,7 +2779,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49161",
+      "ctid": "49161",
       "name": "Intro to C# Programming for .NET",
       "cipCode": "110201",
       "totalCost": 1840,
@@ -2815,7 +2815,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50034",
+      "ctid": "50034",
       "name": "Object-Oriented Programming (Virtual)",
       "cipCode": "110201",
       "totalCost": 17474,
@@ -2852,7 +2852,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50038",
+      "ctid": "50038",
       "name": "Data Science & Big Data Analytics Certification (Virtual)",
       "cipCode": "110201",
       "totalCost": 4275,
@@ -2889,7 +2889,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50046",
+      "ctid": "50046",
       "name": "AWS Big Data & Data Warehousing - Virtual",
       "cipCode": "110201",
       "totalCost": 4225,
@@ -2926,7 +2926,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49898",
+      "ctid": "49898",
       "name": "AWS Developer & DevOps Engineer",
       "cipCode": "110201",
       "totalCost": 4375,
@@ -2959,7 +2959,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49899",
+      "ctid": "49899",
       "name": "AWS Big Data & Data Warehousing",
       "cipCode": "110201",
       "totalCost": 4225,
@@ -2992,7 +2992,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51771",
+      "ctid": "51771",
       "name": "COA: Business Software Tools",
       "cipCode": "110201",
       "totalCost": 2625,
@@ -3030,7 +3030,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "20081",
+      "ctid": "20081",
       "name": "MCSD: Windows Metro Style Apps Using HTML5",
       "cipCode": "110201",
       "totalCost": 4074,
@@ -3063,7 +3063,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "5313",
+      "ctid": "5313",
       "name": "Internet and Programming with HTML",
       "cipCode": "110201",
       "totalCost": 467,
@@ -3109,7 +3109,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "9853",
+      "ctid": "9853",
       "name": "Web Programming Certification",
       "cipCode": "110201",
       "totalCost": 5074,
@@ -3142,7 +3142,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "23520",
+      "ctid": "23520",
       "name": "Software Specialist",
       "cipCode": "110201",
       "totalCost": 9000,
@@ -3177,7 +3177,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "14066",
+      "ctid": "14066",
       "name": "Client Server Programmer",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -3223,7 +3223,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "26283",
+      "ctid": "26283",
       "name": "Visual Basic Programming",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -3258,7 +3258,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44782",
+      "ctid": "44782",
       "name": "Business Intelligence with SQL Server",
       "cipCode": "110201",
       "totalCost": 2200,
@@ -3293,7 +3293,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44966",
+      "ctid": "44966",
       "name": "Java Triple Certification",
       "cipCode": "110201",
       "totalCost": 4320,
@@ -3330,7 +3330,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45872",
+      "ctid": "45872",
       "name": "QA/QC Package",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -3365,7 +3365,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45764",
+      "ctid": "45764",
       "name": "C# & ASP.NET Programming",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -3400,7 +3400,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45898",
+      "ctid": "45898",
       "name": "Trading Fundamentals with Series 57",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -3435,7 +3435,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50116",
+      "ctid": "50116",
       "name": "Python Programming Certifications (Virtual)",
       "cipCode": "110201",
       "totalCost": 4370,
@@ -3471,7 +3471,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50030",
+      "ctid": "50030",
       "name": "Python Programming Certifications (Virtual)",
       "cipCode": "110201",
       "totalCost": 4440,
@@ -3508,7 +3508,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50486",
+      "ctid": "50486",
       "name": "HSEAP & Networking and Security",
       "cipCode": "110201",
       "totalCost": 13301,
@@ -3543,7 +3543,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49886",
+      "ctid": "49886",
       "name": "Python Programming Certifications",
       "cipCode": "110201",
       "totalCost": 4370,
@@ -3580,7 +3580,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "7565",
+      "ctid": "7565",
       "name": "Swing and Java Beans",
       "cipCode": "110201",
       "totalCost": 495,
@@ -3626,7 +3626,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "10177",
+      "ctid": "10177",
       "name": "Computer Programming Certificate",
       "cipCode": "110201",
       "totalCost": 10390,
@@ -3659,7 +3659,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "5316",
+      "ctid": "5316",
       "name": "Java Programming",
       "cipCode": "110201",
       "totalCost": 675,
@@ -3705,7 +3705,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "25013",
+      "ctid": "25013",
       "name": "Oracle Financials",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -3740,7 +3740,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "23507",
+      "ctid": "23507",
       "name": "Web Developer/E-Commerce",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -3775,7 +3775,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "32977",
+      "ctid": "32977",
       "name": "MCSD: Windows Metro Style Apps Using HTML5",
       "cipCode": "110201",
       "totalCost": 4074,
@@ -3811,7 +3811,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36897",
+      "ctid": "36897",
       "name": "CNC Operations",
       "cipCode": "110201",
       "totalCost": 446,
@@ -3844,7 +3844,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "36631",
+      "ctid": "36631",
       "name": "Java Programming",
       "cipCode": "110201",
       "totalCost": 5000,
@@ -3879,7 +3879,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36670",
+      "ctid": "36670",
       "name": "Microsoft SQL Server Database Developer",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -3914,7 +3914,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "47103",
+      "ctid": "47103",
       "name": "CNC/Metal Fabrication",
       "cipCode": "110201",
       "totalCost": 6000,
@@ -3947,7 +3947,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "46775",
+      "ctid": "46775",
       "name": "Database & Data Science Specialist (DDSS)",
       "cipCode": "110201",
       "totalCost": 24155,
@@ -3983,7 +3983,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48086",
+      "ctid": "48086",
       "name": "Web Development with SQL Server",
       "cipCode": "110201",
       "totalCost": 22400,
@@ -4018,7 +4018,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49160",
+      "ctid": "49160",
       "name": "Object-Oriented Programming",
       "cipCode": "110201",
       "totalCost": 17474,
@@ -4054,7 +4054,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50487",
+      "ctid": "50487",
       "name": "HSEAP & Software Development",
       "cipCode": "110201",
       "totalCost": 22701,
@@ -4089,7 +4089,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49906",
+      "ctid": "49906",
       "name": "AWS Developer & DevOps Engineer",
       "cipCode": "110201",
       "totalCost": 4375,
@@ -4125,7 +4125,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51782",
+      "ctid": "51782",
       "name": "COA: Technology Help Desk Support",
       "cipCode": "110201",
       "totalCost": 4025,
@@ -4163,7 +4163,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "24925",
+      "ctid": "24925",
       "name": "Asp.net",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -4198,7 +4198,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36860",
+      "ctid": "36860",
       "name": "Client Server Programmer with Intensive Lab",
       "cipCode": "110201",
       "totalCost": 2900,
@@ -4244,7 +4244,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "38850",
+      "ctid": "38850",
       "name": "MCPD: Microsoft SharePoint Developer",
       "cipCode": "110201",
       "totalCost": 4570,
@@ -4280,7 +4280,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49167",
+      "ctid": "49167",
       "name": "Web Programming Certification",
       "cipCode": "110201",
       "totalCost": 5729,
@@ -4316,7 +4316,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48715",
+      "ctid": "48715",
       "name": "Data Analysis with Business Intelligence (Excel Tableau SQL BI)",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -4351,7 +4351,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50114",
+      "ctid": "50114",
       "name": "Object-Oriented Programming - Virtual",
       "cipCode": "110201",
       "totalCost": 17474,
@@ -4387,7 +4387,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50041",
+      "ctid": "50041",
       "name": "Java Programming Certifications (Virtual)",
       "cipCode": "110201",
       "totalCost": 4320,
@@ -4424,7 +4424,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49891",
+      "ctid": "49891",
       "name": "AWS Big Data & Data Warehousing",
       "cipCode": "110201",
       "totalCost": 4225,
@@ -4461,7 +4461,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51915",
+      "ctid": "51915",
       "name": "Software Quality Assurance and Test Automation Combo",
       "cipCode": "110201",
       "totalCost": 8000,
@@ -4494,7 +4494,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51840",
+      "ctid": "51840",
       "name": "Executive Data Science Program",
       "cipCode": "110201",
       "totalCost": 2000,
@@ -4529,7 +4529,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "5311",
+      "ctid": "5311",
       "name": "Introduction to Programming (C/C++)",
       "cipCode": "110201",
       "totalCost": 675,
@@ -4575,7 +4575,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "10848",
+      "ctid": "10848",
       "name": "Computer Programming Certificate",
       "cipCode": "110201",
       "totalCost": 6451,
@@ -4608,7 +4608,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "15749",
+      "ctid": "15749",
       "name": "Programmer Analyst",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -4654,7 +4654,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36898",
+      "ctid": "36898",
       "name": "CNC Programming",
       "cipCode": "110201",
       "totalCost": 446,
@@ -4687,7 +4687,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "38840",
+      "ctid": "38840",
       "name": "MCSA: Web Applications Certification",
       "cipCode": "110201",
       "totalCost": 4570,
@@ -4723,7 +4723,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "43634",
+      "ctid": "43634",
       "name": "Core Java Developer",
       "cipCode": "110201",
       "totalCost": 1225,
@@ -4758,7 +4758,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "43635",
+      "ctid": "43635",
       "name": "Advanced Java Developer",
       "cipCode": "110201",
       "totalCost": 1000,
@@ -4793,7 +4793,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45253",
+      "ctid": "45253",
       "name": "Python Programming Fundamentals",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -4828,7 +4828,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "46917",
+      "ctid": "46917",
       "name": "Software Tester",
       "cipCode": "110201",
       "totalCost": 16100,
@@ -4863,7 +4863,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48251",
+      "ctid": "48251",
       "name": "Computer Programming Bundle R + Python",
       "cipCode": "110201",
       "totalCost": 998,
@@ -4896,7 +4896,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50049",
+      "ctid": "50049",
       "name": "AWS Developer & DevOps Engineer - Virtual",
       "cipCode": "110201",
       "totalCost": 4375,
@@ -4933,7 +4933,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49894",
+      "ctid": "49894",
       "name": "Python Programming Certifications",
       "cipCode": "110201",
       "totalCost": 4370,
@@ -4966,7 +4966,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49907",
+      "ctid": "49907",
       "name": "AWS Big Data & Data Warehousing",
       "cipCode": "110201",
       "totalCost": 4225,
@@ -5002,7 +5002,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51837",
+      "ctid": "51837",
       "name": "Data Science Package",
       "cipCode": "110201",
       "totalCost": 4500,
@@ -5037,7 +5037,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "7558",
+      "ctid": "7558",
       "name": "Java Script",
       "cipCode": "110201",
       "totalCost": 950,
@@ -5083,7 +5083,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "7543",
+      "ctid": "7543",
       "name": "Advanced C++ Programming",
       "cipCode": "110201",
       "totalCost": 675,
@@ -5129,7 +5129,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "23514",
+      "ctid": "23514",
       "name": "Microsoft C Sharp and .Net",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -5164,7 +5164,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "14057",
+      "ctid": "14057",
       "name": "Visual Basic Script",
       "cipCode": "110201",
       "totalCost": 950,
@@ -5210,7 +5210,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "15746",
+      "ctid": "15746",
       "name": "ASP (Active Server Pages)",
       "cipCode": "110201",
       "totalCost": 950,
@@ -5256,7 +5256,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "25002",
+      "ctid": "25002",
       "name": "UNIX Fundamentals and Shell Programming",
       "cipCode": "110201",
       "totalCost": 2550,
@@ -5291,7 +5291,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "33955",
+      "ctid": "33955",
       "name": "Advanced Software Testing Package",
       "cipCode": "110201",
       "totalCost": 4000,
@@ -5326,7 +5326,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "36633",
+      "ctid": "36633",
       "name": "SQL Server Database Administration",
       "cipCode": "110201",
       "totalCost": 3500,
@@ -5361,7 +5361,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "38841",
+      "ctid": "38841",
       "name": "Microsoft .NET Enterprise Developing - Master Program",
       "cipCode": "110201",
       "totalCost": 15565,
@@ -5397,7 +5397,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51746",
+      "ctid": "51746",
       "name": "Data Analyst",
       "cipCode": "110401",
       "totalCost": 15000,
@@ -5432,7 +5432,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "8834",
+      "ctid": "8834",
       "name": "Computer Science",
       "cipCode": "110701",
       "totalCost": 7550,
@@ -5471,7 +5471,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "42532",
+      "ctid": "42532",
       "name": "Web Design and Development (WEB.A.A.S.)",
       "cipCode": "110801",
       "totalCost": 11956,
@@ -5504,7 +5504,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50667",
+      "ctid": "50667",
       "name": "Front End Web Developer",
       "cipCode": "110801",
       "totalCost": 5750,
@@ -5539,7 +5539,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50033",
+      "ctid": "50033",
       "name": "Web Designer Certification - Virtual",
       "cipCode": "110801",
       "totalCost": 4165,
@@ -5576,7 +5576,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "32971",
+      "ctid": "32971",
       "name": "Web Designer Certification",
       "cipCode": "110801",
       "totalCost": 4165,
@@ -5612,7 +5612,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45591",
+      "ctid": "45591",
       "name": "Web Development",
       "cipCode": "110801",
       "totalCost": 4700,
@@ -5647,7 +5647,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51783",
+      "ctid": "51783",
       "name": "COA: Website Development",
       "cipCode": "110801",
       "totalCost": 3805,
@@ -5685,7 +5685,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "44167",
+      "ctid": "44167",
       "name": "Web Design with Dreamweaver CS5: III",
       "cipCode": "110801",
       "totalCost": 299,
@@ -5718,7 +5718,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "50120",
+      "ctid": "50120",
       "name": "Web Designer Certification - Virtual",
       "cipCode": "110801",
       "totalCost": 4165,
@@ -5754,7 +5754,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "29453",
+      "ctid": "29453",
       "name": "Web Design Specialist",
       "cipCode": "110801",
       "totalCost": 5200,
@@ -5787,7 +5787,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "44165",
+      "ctid": "44165",
       "name": "Web Design with Dreamweaver CS5:1",
       "cipCode": "110801",
       "totalCost": 299,
@@ -5820,7 +5820,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "43868",
+      "ctid": "43868",
       "name": "Web Design Professional-online",
       "cipCode": "110801",
       "totalCost": 4095,
@@ -5856,7 +5856,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "35702",
+      "ctid": "35702",
       "name": "Graphic and Web Design Package",
       "cipCode": "110801",
       "totalCost": 4000,
@@ -5889,7 +5889,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "45873",
+      "ctid": "45873",
       "name": "Web Design Specialist",
       "cipCode": "110801",
       "totalCost": 4000,
@@ -5924,7 +5924,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48643",
+      "ctid": "48643",
       "name": "Web Design & Development Project Study",
       "cipCode": "110801",
       "totalCost": 4000,
@@ -5957,7 +5957,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "31048",
+      "ctid": "31048",
       "name": "Web Designer Certification",
       "cipCode": "110801",
       "totalCost": 4000,
@@ -5990,7 +5990,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44993",
+      "ctid": "44993",
       "name": "Web Designer Certification",
       "cipCode": "110801",
       "totalCost": 4165,
@@ -6027,7 +6027,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51539",
+      "ctid": "51539",
       "name": "Graphic Design and Wed Development",
       "cipCode": "110801",
       "totalCost": 20250,
@@ -6060,7 +6060,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44166",
+      "ctid": "44166",
       "name": "Web Design with Dreamweaver CS5:II",
       "cipCode": "110801",
       "totalCost": 299,
@@ -6093,7 +6093,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "10849",
+      "ctid": "10849",
       "name": "Java and Web Programming Certificate of Achievement",
       "cipCode": "110801",
       "totalCost": 3260,
@@ -6126,7 +6126,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "49377",
+      "ctid": "49377",
       "name": "Front-End Web Developer-online",
       "cipCode": "111004",
       "totalCost": 2725,
@@ -6157,7 +6157,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49965",
+      "ctid": "49965",
       "name": "Web Application Developer Plus online",
       "cipCode": "111004",
       "totalCost": 3370,
@@ -6188,7 +6188,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "40950",
+      "ctid": "40950",
       "name": "Web Application Developer-online",
       "cipCode": "111004",
       "totalCost": 2695,
@@ -6219,7 +6219,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48497",
+      "ctid": "48497",
       "name": "Amazon Web Services",
       "cipCode": "111004",
       "totalCost": 1139,
@@ -6247,7 +6247,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "48139",
+      "ctid": "48139",
       "name": "Osha 30",
       "cipCode": "303101",
       "totalCost": 268,
@@ -6278,7 +6278,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "4869",
+      "ctid": "4869",
       "name": "Design & Visual Communications",
       "cipCode": "500401",
       "totalCost": 8050,
@@ -6312,7 +6312,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49961",
+      "ctid": "49961",
       "name": "Adobe Certified Professional (Vouchers Included)",
       "cipCode": "500401",
       "totalCost": 2795,
@@ -6346,7 +6346,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "38851",
+      "ctid": "38851",
       "name": "Visual Communication Arts",
       "cipCode": "500401",
       "totalCost": 4240,
@@ -6383,7 +6383,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "38803",
+      "ctid": "38803",
       "name": "Computer Graphics Designer",
       "cipCode": "500401",
       "totalCost": 3975,
@@ -6417,7 +6417,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "38820",
+      "ctid": "38820",
       "name": "Visual Communication Arts",
       "cipCode": "500401",
       "totalCost": 4075,
@@ -6451,7 +6451,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50022",
+      "ctid": "50022",
       "name": "Computer Graphics Designer - Virtual",
       "cipCode": "500409",
       "totalCost": 4260,
@@ -6489,7 +6489,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "47632",
+      "ctid": "47632",
       "name": "WordPress Theme Design",
       "cipCode": "500409",
       "totalCost": 5577,
@@ -6523,7 +6523,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47635",
+      "ctid": "47635",
       "name": "Social Media",
       "cipCode": "500409",
       "totalCost": 5912,
@@ -6557,7 +6557,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47618",
+      "ctid": "47618",
       "name": "Digital Art and Illustration",
       "cipCode": "500409",
       "totalCost": 6490,
@@ -6591,7 +6591,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "38833",
+      "ctid": "38833",
       "name": "Computer Graphics Designer",
       "cipCode": "500409",
       "totalCost": 4260,
@@ -6628,7 +6628,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51383",
+      "ctid": "51383",
       "name": "A.A.S. Degree: Computer Graphic Arts/Print Design",
       "cipCode": "500409",
       "totalCost": 14285,
@@ -6667,7 +6667,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "44958",
+      "ctid": "44958",
       "name": "Computer Graphics Designer",
       "cipCode": "500409",
       "totalCost": 4260,
@@ -6705,7 +6705,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "47623",
+      "ctid": "47623",
       "name": "Multimedia Artist Certificate of Achievement",
       "cipCode": "500409",
       "totalCost": 6305,
@@ -6739,7 +6739,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47628",
+      "ctid": "47628",
       "name": "Web Design",
       "cipCode": "500409",
       "totalCost": 9390,
@@ -6773,7 +6773,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47622",
+      "ctid": "47622",
       "name": "Graphic and Digital Design",
       "cipCode": "500409",
       "totalCost": 6261,
@@ -6807,7 +6807,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "50102",
+      "ctid": "50102",
       "name": "Computer Graphics Designer - Virtual",
       "cipCode": "500409",
       "totalCost": 4260,

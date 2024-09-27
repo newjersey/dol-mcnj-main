@@ -1,21 +1,16 @@
 import knex from "knex";
 import { type Knex } from "knex";
 import {
+  LocalException,
   SocDefinition,
   CipDefinition,
-  Program,
   EducationText,
   SalaryEstimate,
   NullableOccupation,
-  LocalException,
+  OutcomeDefinition,
 } from "../../domain/training/Program";
 import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
-import { Selector } from "../../domain/training/Selector";
-import { Error } from "../../domain/Error";
-
-const APPROVED = "Approved";
-
 export class PostgresDataClient implements DataClient {
   kdb: Knex;
 
@@ -25,91 +20,6 @@ export class PostgresDataClient implements DataClient {
       connection: connection,
     });
   }
-
-    findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
-        console.log(`Executing findProgramsBy with selector: ${selector}, values: ${values}`);
-
-        if (values.length === 0) {
-            console.warn("No values provided to findProgramsBy; returning an empty array.");
-            return [];
-        }
-
-        const column = selector === Selector.CIP_CODE ? "cipcode" : "programid";
-
-        try {
-            console.log(`Querying programs before status filtering...`);
-
-            const programsBeforeFilter = await this.kdb("etpl")
-                .select(
-                    "etpl.programid",
-                    "etpl.providerid",
-                    "etpl.officialname",
-                    "etpl.calendarlengthid",
-                    "etpl.totalclockhours",
-                    "etpl.standardized_description as description",
-                    "etpl.industrycredentialname",
-                    "etpl.prerequisites",
-                    "etpl.cipcode",
-                    "etpl.tuition",
-                    "etpl.fees",
-                    "etpl.booksmaterialscost",
-                    "etpl.suppliestoolscost",
-                    "etpl.othercosts",
-                    "etpl.totalcost",
-                    "etpl.website",
-                    "etpl.standardized_name_1 as providername",
-                    "etpl.street1",
-                    "etpl.street2",
-                    "etpl.city",
-                    "etpl.state",
-                    "etpl.zip",
-                    "etpl.county",
-                    "etpl.statusname",  // Log statusname
-                    "etpl.providerstatusname",  // Log providerstatusname
-                    "etpl.contactfirstname",
-                    "etpl.contactlastname",
-                    "etpl.contacttitle",
-                    "etpl.phone",
-                    "etpl.phoneextension",
-                    "etpl.eveningcourses",
-                    "etpl.languages",
-                    "etpl.accessfordisabled",
-                    "etpl.personalassist",
-                    "etpl.childcare",
-                    "etpl.assistobtainingchildcare",
-                    "indemandcips.cipcode as indemandcip",
-                    "onlineprograms.programid as onlineprogramid",
-                    "outcomes_cip.peremployed2",
-                    "outcomes_cip.avgquarterlywage2",
-                )
-                .leftOuterJoin("indemandcips", "indemandcips.cipcode", "etpl.cipcode")
-                .leftOuterJoin("onlineprograms", "onlineprograms.programid", "etpl.programid")
-                .leftOuterJoin("outcomes_cip", function () {
-                    this.on("outcomes_cip.cipcode", "etpl.cipcode").on(
-                        "outcomes_cip.providerid",
-                        "etpl.providerid",
-                    );
-                })
-                .whereIn(`etpl.${column}`, values);
-
-
-            // Apply the status filtering using the APPROVED constant
-            const programs = programsBeforeFilter.filter(program =>
-                program.statusname === APPROVED && program.providerstatusname === APPROVED
-            );
-
-            if (programs.length === 0) {
-                console.warn(`No non-suspended programs found for selector: ${selector} and values: ${values}`);
-                return Promise.reject(Error.NOT_FOUND);
-            }
-
-            return programs;
-
-        } catch (error) {
-            console.error(`Error while fetching programs with selector: ${selector} and values: ${values}`, error);
-            throw Error;
-        }
-    };
 
   getLocalExceptionsByCip = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
@@ -134,7 +44,7 @@ export class PostgresDataClient implements DataClient {
         .whereNull("indemandsocs.soc")
         .whereNull("indemandsocs2010.soc")
         .then((result) => {
-          console.log("Local exceptions:", result);
+          // console.log("Local exceptions:", result);
           return result;
         })
         .catch((e) => {
@@ -149,7 +59,7 @@ export class PostgresDataClient implements DataClient {
       .where("soc", soc)
       .distinctOn("soc")
       .then((result) => {
-        console.log("Local exceptions:", result);
+        // console.log("Local exceptions:", result);
         return result;
       })
       .catch((e) => {
@@ -191,13 +101,25 @@ export class PostgresDataClient implements DataClient {
 
   findCipDefinitionByCip = (cip: string): Promise<CipDefinition[]> => {
     return this.kdb("soccipcrosswalk")
-        .select("cipcode", "cip2020title as ciptitle")
-        .where("cipcode", cip)
-        .catch((e) => {
-          console.log("db error: ", e);
-          return Promise.reject();
-        });
+      .select("cipcode", "cip2020title as ciptitle")
+      .where("cipcode", cip)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   };
+
+  findOutcomeDefinition = (providerid: string, cip: string): Promise<OutcomeDefinition> => {
+    return this.kdb("outcomes_cip")
+      .select("peremployed2", "avgquarterlywage2")
+      .where("cipcode", cip)
+      .where("providerid", providerid)
+      .first()
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  }
 
   find2018OccupationsBySoc2010 = (soc2010: string): Promise<Occupation[]> => {
     return this.kdb("soc2010to2018crosswalk")
@@ -228,6 +150,15 @@ export class PostgresDataClient implements DataClient {
     return this.kdb("indemandsocs")
       .select("soc", "socdefinitions.soctitle as title")
       .leftOuterJoin("socdefinitions", "socdefinitions.soccode", "indemandsocs.soc")
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
+  };
+
+  getCIPsInDemand = async (): Promise<CipDefinition[]> => {
+    return this.kdb("indemandcips")
+      .select("cipcode as cipcode")
       .catch((e) => {
         console.log("db error: ", e);
         return Promise.reject();

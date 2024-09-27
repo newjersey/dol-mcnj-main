@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from "react";
-import { TrainingResult } from "../domain/Training";
+import { Address, TrainingResult } from "../domain/Training";
 import { formatMoney } from "accounting";
 import { Link } from "@reach/router";
 import { InlineIcon } from "../components/InlineIcon";
@@ -9,6 +9,7 @@ import { SpacedCheckbox } from "../components/SpacedCheckbox";
 import { FormGroup, FormControlLabel, useMediaQuery } from "@material-ui/core";
 import { ComparisonActionType, ComparisonContext } from "../comparison/ComparisonContext";
 import { useTranslation } from "react-i18next";
+import { cleanProviderName } from "../utils/cleanProviderName";
 import { formatCip } from "../utils/formatCip";
 
 interface Props {
@@ -30,12 +31,24 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   };
 
   const getLocationOrOnline = (): string => {
-    if (props.trainingResult.online) {
-      return t("SearchResultsPage.onlineClassLabel");
+    const addresses: Address[] | undefined = props.trainingResult.availableAt;
+
+    if (!Array.isArray(addresses)) {
+      return "No Provider Locations Listed";
     }
 
-    return `${props.trainingResult.city}, ${props.trainingResult.county}`;
+    const addressStrings = addresses.map(address => {
+      if (address.city && address.county) {
+        return `${address.city}, ${address.county} County`;
+      } else if (address.city && address.state && !address.county) {
+        return `${address.city}, ${address.state}`;
+      }
+      return "No Provider Locations Listed";
+    });
+
+    return addressStrings.join('; ');
   };
+
 
   const boldHighlightedSection = (highlight: string): ReactElement[] => {
     if (highlight === "") {
@@ -59,11 +72,11 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   const ComparisonCheckbox = (): ReactElement => {
     const isChecked =
       state.comparison &&
-      state.comparison.filter((el) => el.id === props.trainingResult.id).length > 0;
+      state.comparison.filter((el) => el.ctid === props.trainingResult.ctid).length > 0;
 
     return (
       <label className="bold mla" htmlFor="comparison">
-        <FormGroup id={`comparison-${props.trainingResult.id}`}>
+        <FormGroup id={`comparison-${props.trainingResult.ctid}`}>
           <FormControlLabel
             control={
               <SpacedCheckbox
@@ -88,13 +101,17 @@ export const TrainingResultCard = (props: Props): ReactElement => {
       <div className="row mbd">
         <div className="col-xs-8">
           <h2 className="blue text-m weight-500">
-            <Link className="link-format-blue" to={`/training/${props.trainingResult.id}`}>
+            <Link className="link-format-blue" to={`/training/${props.trainingResult.ctid}`}>
               {props.trainingResult.name}
             </Link>
           </h2>
         </div>
         <div className="col-xs-4 align-right">
-          <h3 className="text-m weight-500">{formatMoney(props.trainingResult.totalCost)}</h3>
+          <h3 className="text-m weight-500">
+            {props.trainingResult.totalCost !== null && props.trainingResult.totalCost !== undefined
+              ? formatMoney(props.trainingResult.totalCost)
+              : t("Global.noDataAvailableText")}
+          </h3>
         </div>
       </div>
       <div className="row">
@@ -114,7 +131,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">school</InlineIcon>
-              {props.trainingResult.providerName}
+              {cleanProviderName(props.trainingResult.providerName)}
             </span>
           </p>
           <p className="mtxs mbz">
@@ -124,30 +141,32 @@ export const TrainingResultCard = (props: Props): ReactElement => {
             </span>
           </p>
           <p className="mtxs mbz">
+            ``
             <span className="fin fas">
               <InlineIcon className="mrs">av_timer</InlineIcon>
-              {t("SearchResultsPage.timeToComplete", {
-                time: t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`),
-              })}
+              {t("TrainingPage.completionTimeLabel") +
+                " " +
+                t(`CalendarLengthLookup.${props.trainingResult.calendarLength}`)}
             </span>
           </p>
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">book</InlineIcon>
-                <span>
-                  {props.trainingResult.cipDefinition ? (
-                      <>
-                        {t("SearchResultsPage.cipCode") +
-                            `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
-                        <br />
-                        <b>{props.trainingResult.cipDefinition.ciptitle}</b>
-                      </>
-                  ) : (
-                      t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
-                  )}
-                </span>
+              <span>
+                {props.trainingResult.cipDefinition ? (
+                  <>
+                    {t("SearchResultsPage.cipCode") +
+                      `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
+                    <br />
+                    <b>{props.trainingResult.cipDefinition.ciptitle}</b>
+                  </>
+                ) : (
+                  t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
+                )}
+              </span>
             </span>
           </p>
+          <br />
         </div>
       </div>
       <div className="row">

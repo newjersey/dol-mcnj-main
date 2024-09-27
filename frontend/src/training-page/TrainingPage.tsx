@@ -22,20 +22,20 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 
 import { Icon } from "@material-ui/core";
 import { formatMoney } from "accounting";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
-
+// import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
-import { useReactToPrint } from "react-to-print";
 import { Tooltip } from "react-tooltip";
+import { cleanProviderName } from "../utils/cleanProviderName";
+import { formatCip } from "../utils/formatCip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, Printer } from "@phosphor-icons/react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "../components/Button";
 import { Flag } from "@phosphor-icons/react";
-import { formatCip } from "../utils/formatCip";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -84,7 +84,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const printHandler = (): void => {
     printReactContent();
-    logEvent("Training page", "Clicked print link", training?.id);
+    logEvent("Training page", "Clicked print link", training?.ctid);
   };
 
   const copyHandler = (): void => {
@@ -106,7 +106,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       setCopy(null);
     }, 5000);
 
-    logEvent("Training page", "Clicked copy link", training?.id);
+    logEvent("Training page", "Clicked copy link", training?.ctid);
   };
 
   const getHttpUrl = (url: string): string => {
@@ -128,7 +128,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         rel="noopener noreferrer"
         className="break-text link-format-blue"
         href={getHttpUrl(training.provider.url)}
-        onClick={() => logEvent("Training page", "Clicked provider link", training?.id)}
+        onClick={() => logEvent("Training page", "Clicked provider link", training?.ctid)}
       >
         {training.provider.url}
       </a>
@@ -167,53 +167,45 @@ export const TrainingPage = (props: Props): ReactElement => {
     </Grouping>
   );
 
-  const getProviderAddress = (): ReactElement => {
+  const getProviderEmail = (): ReactElement => {
+    if (!training?.provider?.email) {
+      return <></>;
+    }
+
+    return (
+      <p>
+        <span className="fin fas">
+          <InlineIcon className="mrxs">email</InlineIcon>
+          <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
+        </span>
+      </p>
+    );
+  };
+
+  const getAvailableAtAddress = (): ReactElement => {
     if (training?.online) {
       return <>{t("TrainingPage.onlineClass")}</>;
     }
 
-    if (!training || !training.provider.address.city) {
+    if (!training || !training.availableAt[0]) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const address = training.provider.address;
+    const address = training.availableAt[0];
     const nameAndAddressEncoded = encodeURIComponent(
-      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`,
+      `${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
     );
     const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
 
     return (
       <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
         <div className="inline">
-          <span>{address.street1}</span>
-          <div>{address.street2}</div>
+          <span>{address.street_address}</span>
           <div>
             {address.city}, {address.state} {address.zipCode}
           </div>
         </div>
       </a>
-    );
-  };
-
-  const getProviderContact = (): ReactElement => {
-    if (!training) {
-      return <></>;
-    }
-
-    let phoneNumber = parsePhoneNumberFromString(
-      training.provider.phoneNumber,
-      "US",
-    )?.formatNational();
-    if (training.provider.phoneExtension) {
-      phoneNumber = `${phoneNumber} Ext: ${training.provider.phoneExtension}`;
-    }
-
-    return (
-      <div className="inline">
-        <span>{training.provider.contactName}</span>
-        <div>{training.provider.contactTitle}</div>
-        <div>{phoneNumber}</div>
-      </div>
     );
   };
 
@@ -286,14 +278,27 @@ export const TrainingPage = (props: Props): ReactElement => {
       },
     ];
 
+    let contactName, contactTitle, phoneNumber;
+    if (training.provider.addresses && training.provider.addresses.length > 0) {
+      for (const address of training.provider.addresses) {
+        if (address.targetContactPoints && address.targetContactPoints.length > 0) {
+          const mainContactPoint = address.targetContactPoints[0];
+          contactName = mainContactPoint.name;
+          contactTitle = mainContactPoint.contactType;
+          phoneNumber = mainContactPoint.telephone?.[0];
+          break; // Assuming we only need the first contact point found
+        }
+      }
+    }
+
     const courseInstance = {
       "@type": "CourseInstance",
       courseMode: training.online ? "online" : "onsite",
       instructor: {
         "@type": "Person",
-        name: training.provider.contactName,
-        jobTitle: training.provider.contactTitle,
-        telephone: training.provider.phoneNumber,
+        name: contactName,
+        jobTitle: contactTitle,
+        telephone: phoneNumber,
       },
       courseWorkload: training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
     };
@@ -324,7 +329,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       identifier: {
         "@type": "PropertyValue",
         name: "Program ID",
-        value: training.id,
+        value: training.ctid,
       },
       hasCourseInstance: courseInstance,
       offers: offer,
@@ -333,7 +338,11 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   if (!training) {
     if (error === Error.SYSTEM_ERROR) {
-      return <SomethingWentWrongPage client={props.client} />;
+      return (
+        <>
+          <SomethingWentWrongPage client={props.client} />
+        </>
+      );
     } else if (error === Error.NOT_FOUND) {
       return (
         <NotFoundPage client={props.client} heading="Training not found">
@@ -419,7 +428,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               </li>
             </ul>
           </div>
-          <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
+          <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
           <div className="stat-block-stack mtm">
             {training.inDemand ? <InDemandBlock /> : <></>}
 
@@ -505,7 +514,11 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <span className="fin">
                           <InlineIcon className="mrxs">av_timer</InlineIcon>
                           {t("TrainingPage.completionTimeLabel")}&nbsp;
-                          <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
+                          <b>
+                            {training.calendarLength
+                              ? t(`CalendarLengthLookup.${training.calendarLength}`)
+                              : t("Global.noDataAvailableText")}
+                          </b>{" "}
                         </span>
                       </p>
 
@@ -530,38 +543,38 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </b>
                         </span>
                       </p>
+                      <p>
+                        <span className="fin">
+                          <InlineIcon className="mrxs">book</InlineIcon>
+                          <button
+                            type="button"
+                            className="toggle"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setDrawerOpen(true);
+                            }}
+                          >
+                            {t("TrainingPage.cipCodeLabel")}
+                          </button>
+                          &nbsp;&nbsp;
+                        </span>
 
-                      {training.cipDefinition ? (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">book</InlineIcon>
-                            <button
-                              type="button"
-                              className="toggle"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                setDrawerOpen(true);
-                              }}
-                            >
-                              {t("TrainingPage.cipCodeLabel")}
-                            </button>
-                            &nbsp;&nbsp;
-                          </span>
+                        {training.cipDefinition ? (
                           <>
                             <a
                               href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                               {formatCip(training.cipDefinition.cipcode)}
                             </a>
-                            <br />
+                            <br/>
                             <b>{training.cipDefinition.ciptitle}</b>
                           </>
-                        </p>
-                      ) : (
-                        <span>{t("Global.noDataAvailableText")}</span>
-                      )}
+                        ) : (
+                          <span>{t("Global.noDataAvailableText")}</span>
+                        )}
+                      </p>
                     </>
                   </Grouping>
 
@@ -582,70 +595,91 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>
                         <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                         <span className="text-l pull-right weight-500">
-                          {formatMoney(training.totalCost)}
+                          {training.totalCost
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
                         </span>
                       </p>
                       <div className="grey-line" />
                       <div className="mvd">
                         <div>
                           <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                          <span className="pull-right">
+                            {training.tuitionCost
+                              ? formatMoney(training.tuitionCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                         </div>
                         <div>
                           <span>{t("TrainingPage.feesCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                          <span className="pull-right">
+                            {training.feesCost
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                         </div>
                         <div>
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
-                            {formatMoney(training.booksMaterialsCost)}
+                            {training.booksMaterialsCost
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div>
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
-                            {formatMoney(training.suppliesToolsCost)}
+                            {training.suppliesToolsCost
+                              ? formatMoney(training.suppliesToolsCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div>
                           <span>{t("TrainingPage.otherCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.otherCost)}</span>
+                          <span className="pull-right">
+                            {training.otherCost
+                              ? formatMoney(training.otherCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                         </div>
                       </div>
-                    </>
-                  </Grouping>
-                  <Grouping title={t("TrainingPage.providerGroupHeader")}>
+                      </>
+                    </Grouping>
+                    <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
-                      <p>
-                        <span className="fin fas">
-                          <InlineIcon className="mrxs">school</InlineIcon>
-                          {training.provider.name}
-                        </span>
-                      </p>
-                      <div className="mvd">
-                        <span className="fin">
-                          <InlineIcon className="mrxs">location_on</InlineIcon>
-                          {getProviderAddress()}
-                        </span>
-                      </div>
-                      <div className="mvd">
-                        <span className="fin">
-                          <InlineIcon className="mrxs">person</InlineIcon>
-                          {getProviderContact()}
-                        </span>
-                      </div>
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">link</InlineIcon>
-                          {getProviderUrl()}
-                        </span>
-                      </p>
-                    </>
-                  </Grouping>
-                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
-                    <>
-                      {training.hasEveningCourses && (
-                        <p>
+                      {training.provider && training.provider.ctid ? (
+                        <>
+                          <p>
+                            <span className="fin fas">
+                              {cleanProviderName(training.provider.name)}
+                            </span>
+                          </p>
+                          {getProviderEmail()}
+                          {getAvailableAtAddress() && (
+                            <div className="mvd">
+                              <span className="fin">
+                                <InlineIcon className="mrxs">location_on</InlineIcon>
+                                {getAvailableAtAddress()}
+                              </span>
+                            </div>
+                          )}
+                          <p>
+                            <span className="fin">
+                              <InlineIcon className="mrxs">link</InlineIcon>
+                              {getProviderUrl()}
+                            </span>
+                          </p>
+                        </>
+                      ) : (
+                        <>Data unavailable</>
+                      )}
+                      </>
+                    </Grouping>
+
+                    <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
+                      <>
+                        {training.hasEveningCourses && (
+                            <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">nightlight_round</InlineIcon>
                             {t("TrainingPage.eveningCoursesServiceLabel")}
@@ -691,7 +725,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     variant="custom"
                     className="usa-button margin-right-0 custom-button report"
                     onClick={() => {
-                      const pageSlug = `/training/${training.id}`;
+                      const pageSlug = `/training/${training.ctid}`;
                       const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
                       window.open(url, "_blank");
                     }}

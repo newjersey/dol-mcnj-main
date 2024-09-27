@@ -4,43 +4,97 @@ import {
   GetInDemandOccupations,
   SearchTrainings,
   GetOccupationDetail,
+  GetAllCertificates,
   GetOccupationDetailByCIP,
+  AllTrainings,
 } from "../domain/types";
-import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
+import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
-import { TrainingResult } from "../domain/training/TrainingResult";
+import { AllTrainingsResult, TrainingData } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
 import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
 
 interface RouterActions {
+  allTrainings: AllTrainings;
   searchTrainings: SearchTrainings;
   findTrainingsBy: FindTrainingsBy;
   getInDemandOccupations: GetInDemandOccupations;
   getOccupationDetail: GetOccupationDetail;
+  getAllCertificates: GetAllCertificates;
   getOccupationDetailByCIP: GetOccupationDetailByCIP;
 }
 
 export const routerFactory = ({
+  allTrainings,
   searchTrainings,
   findTrainingsBy,
   getInDemandOccupations,
   getOccupationDetail,
+  getAllCertificates,
   getOccupationDetailByCIP,
 }: RouterActions): Router => {
   const router = Router();
 
-  router.get("/trainings/search", (req: Request, res: Response<TrainingResult[] | { error: string }>) => {
-    searchTrainings(req.query.query as string)
-        .then((trainings: TrainingResult[]) => {
-          console.log(`Successfully retrieved training programs: `, trainings);
-          res.status(200).json(trainings);
+  /**
+   *
+   */
+  router.get(
+    "/ce/getallcredentials/:skip/:take/:sort/:cancel",
+    async (req: Request, res: Response<Certificates>) => {
+      getAllCertificates(
+        req.params.skip as unknown as number,
+        req.params.take as unknown as number,
+        req.params.sort as string,
+        req.params.cancel as unknown as boolean,
+      )
+        .then((certificates: Certificates) => {
+          res.status(200).json(certificates);
         })
-        .catch((error: unknown) => {
-          console.error(`Error caught in catch block:`, error);
-          return res.status(500).json({ error: 'Internal server error' });
+        .catch((e) => res.status(500).send(e));
+    },
+  );
 
-        });
+  router.get("/trainings/all", (req: Request, res: Response) => {
+      allTrainings()
+      .then((trainings: AllTrainingsResult[]) => {
+        res.status(200).json(trainings);
+      })
+      .catch((e) => res.status(500).send(e));
+  })
+
+  router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
+    let page = parseInt(req.query.page as string);
+    if (isNaN(page) || page < 1) {
+      page = 1;
+    }
+
+    let limit = parseInt(req.query.limit as string);
+    if (isNaN(limit) || limit < 1) {
+      limit = 10;
+    }
+    
+    searchTrainings({
+      searchQuery: req.query.query as string,
+      page: page,
+      limit: limit,
+      sort: req.query.sort as string,
+      cip_code: req.query.cip_code as string,
+      class_format: req.query.class_format ? (req.query.class_format as string).split(",") : undefined,
+      complete_in: req.query.complete_in ? (req.query.complete_in as string).split(",").map(Number) : undefined,
+      county: req.query.county as string,
+      in_demand: req.query.in_demand === "true",
+      languages: req.query.languages ? (req.query.languages as string).split(",") : undefined,
+      max_cost: parseInt(req.query.max_cost as string),
+      miles: parseInt(req.query.miles as string),
+      services: req.query.services ? (req.query.services as string).split(",") : undefined,
+      soc_code: req.query.soc_code as string,
+      zip_code: req.query.zip_code as string,
+    })
+      .then((trainings: TrainingData) => {
+        res.status(200).json(trainings);
+      })
+      .catch((e) => res.status(500).send(e));
   });
 
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
@@ -49,7 +103,7 @@ export const routerFactory = ({
         res.status(200).json(trainings[0]);
       })
       .catch((e) => {
-        if (e === Error.NOT_FOUND) {
+        if (e.message === "Not Found") {
           res.status(404).send();
         }
         res.status(500).send();
@@ -87,7 +141,7 @@ export const routerFactory = ({
   });
 
   router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
-    console.log("here");
+    // console.log("here");
     getOccupationDetailByCIP(req.params.cip as string)
       .then((occupationDetails: OccupationDetail[]) => {
         res.status(200).json(occupationDetails);
