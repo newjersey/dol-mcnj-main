@@ -5,6 +5,7 @@ describe("Career Support Page", () => {
     cy.contains(
       "Planning your future is hard when you don’t know where to start - We’ve put a list together to make it easier for you - find and connect with the programs and services you may need to help get your job search on track and jumpstart your career.",
     ).should("exist");
+
     /*
 
     This section commented out because indeterminate violation gets triggered in GCP builds in CI every now and then
