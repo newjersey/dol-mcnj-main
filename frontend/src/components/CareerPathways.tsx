@@ -40,6 +40,20 @@ export const CareerPathways = ({
     setFieldChanged(true);
   }, [paths]);
 
+  useEffect(() => {
+    const closeDropdown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".dropdown-select") || target.closest(".select-button")) return;
+      setOpen(false);
+    };
+
+    const closeOnEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEsc);
+    document.addEventListener("click", closeDropdown);
+  }, []);
+
   const details = selected.id ? selected : {};
 
   const breadcrumbs = {
