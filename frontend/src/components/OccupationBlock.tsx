@@ -99,6 +99,20 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
       : "a"
     : "a";
 
+  useEffect(() => {
+    const closeDropdown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".dropdown-select") || target.closest(".select-button")) return;
+      setOpen(false);
+    };
+
+    const closeOnEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEsc);
+    document.addEventListener("click", closeDropdown);
+  }, []);
+
   return (
     <section className="occupation-block">
       <div className="container">
@@ -141,7 +155,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
         </div>
       </div>
       {props.loading ? (
-        <div className="container fdr fjc fac ptl">
+        <div className="loading container fdr fjc fac ptl">
           <CircularProgress color="secondary" />
         </div>
       ) : props.error === Error.NOT_FOUND ? (
@@ -183,24 +197,34 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <div className="meta">
                     <div>
                       <p className="title">
-                        Median Salary
-                        <Tooltip placement="top" title="TEST">
+                        Salary Range{" "}
+                        <Tooltip
+                          placement="top"
+                          title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
+                        >
                           <Info size={20} weight="fill" />
                         </Tooltip>
                       </p>
                       <p>
-                        {props.content.medianSalary
-                          ? toUsCurrency(props.content.medianSalary)
-                          : "N/A"}
+                        <strong>
+                          {props.content.medianSalary
+                            ? toUsCurrency(props.content.medianSalary)
+                            : "N/A"}
+                        </strong>
                       </p>
                     </div>
                     <div>
                       <p className="title">
                         Jobs Open in NJ
-                        <Tooltip placement="top" title="TEST">
+                        <Tooltip
+                          placement="top"
+                          title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
+                        >
                           <Info size={20} weight="fill" />
                         </Tooltip>
-                        <br />
+                      </p>
+                      <p>
+                        {" "}
                         <strong>
                           {props.content.openJobsCount ||
                             numberWithCommas(

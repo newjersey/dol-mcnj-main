@@ -98,6 +98,8 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
     url: props.location?.pathname || "/career-pathways",
   };
 
+  const hasMaps = industry?.careerMaps?.items && industry?.careerMaps?.items.length > 0;
+
   return (
     <>
       {data && industry && (
@@ -125,8 +127,11 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
                           {data.page.title}
                         </a>
                       </li>
+
                       <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                        <span data-testid="title">Select a {industry.title} Field</span>
+                        <span data-testid="title">
+                          Select a {industry.title} {hasMaps ? "Field" : "occupation"}
+                        </span>
                       </li>
                     </ol>
                   </nav>
@@ -136,7 +141,7 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
                     <ArrowLeft size={24} />
                     Back
                   </a>
-                  <Heading level={1}>{`Select a ${industry.title} Field`}</Heading>
+                  {hasMaps && <Heading level={1}>{`Select a ${industry.title} Field`}</Heading>}
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 .occupation-block {
-  margin: 0 0 $size-60 0;
+  // margin: 0 0 $size-60 0;
 
   button {
     &.usa-button--unstyled {
@@ -27,7 +27,6 @@
     display: block;
     font-weight: bold;
     position: relative;
-    opacity: 0.3;
     margin-bottom: 2.2rem;
 
     &:after {
@@ -159,7 +158,9 @@
 
   .meta {
     display: flex;
-    gap: $size-32;
+    gap: $size-16;
+    width: 100%;
+    max-width: $size-520;
 
     @media screen and (max-width: ($mobile-lg - 1)) {
       gap: $size-16;
@@ -172,11 +173,35 @@
 
     @media screen and (max-width: ($tablet - 1)) {
       padding: 0 $size-16;
+      margin-bottom: $size-16;
     }
 
-    > div {
+    div {
+      padding: 0.5rem $size-16;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: $size-4;
+      border-radius: $size-8;
       width: 100%;
       background-color: $tertiary-lighter;
+
+      p {
+        margin: 0;
+      }
+
+      .title,
+      a {
+        font-size: $size-16;
+        display: flex;
+        align-items: center;
+        gap: $size-4;
+        margin: 0;
+      }
+
+      a {
+        font-size: $size-16;
+      }
     }
   }
 
@@ -382,7 +407,8 @@
 
     .meta {
       width: 100%;
-      max-width: $size-520;
+      max-width: $size-520 + $size-16;
+      margin-bottom: $size-32;
     }
   }
 
@@ -428,33 +454,17 @@
         }
 
         .meta {
-          padding: $size-16 0;
-          gap: $size-16;
           width: 100%;
-          max-width: $size-520;
+
+          @media screen and (max-width: ($tablet-xl - 1)) {
+            padding: 0;
+            margin-top: $size-16;
+            // opacity: 0.3;
+          }
 
           div {
-            padding: 0.5rem $size-16;
-            margin-bottom: 0;
-            display: flex;
-            flex-direction: column;
-            gap: $size-4;
-
             p {
               margin: 0;
-            }
-
-            .title,
-            a {
-              font-size: $size-16;
-              display: flex;
-              align-items: center;
-              gap: $size-4;
-              margin: 0;
-            }
-
-            a {
-              font-size: $size-16;
             }
           }
         }
