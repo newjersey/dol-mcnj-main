@@ -1,15 +1,9 @@
-$gap: $size-52;
-$gapHalf: $size-26;
-$column-gap: $size-32;
-$line-width: $size-6;
-$line-width-half: $size-3;
-
 .single-path {
   list-style: none;
   padding: 0;
   display: flex;
   align-items: center;
-  gap: $gap;
+  gap: $size-28;
   overflow: auto;
   padding: $size-8 $size-2;
   -webkit-overflow-scrolling: touch;
@@ -17,23 +11,33 @@ $line-width-half: $size-3;
   .arrow {
     width: 0;
     height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
+    border-top: $size-10 solid transparent;
+    border-bottom: $size-10 solid transparent;
     display: block;
     position: absolute;
     top: 50%;
     right: calc(100% + 0px);
     transform: translateY(-50%);
     z-index: 10;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: $size-20 solid $middle-gray;
+    border-top: $size-5 solid $white;
+    border-bottom: $size-5 solid $white;
+    border-left: $size-10 solid $base;
   }
 
   li {
     display: flex;
     flex-direction: column;
-    gap: $column-gap;
+    gap: 32px;
+
+    &:not(.tall) {
+      &:first-of-type {
+        .path-stop {
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
 
     &:first-of-type {
       .path-stop {
@@ -64,28 +68,77 @@ $line-width-half: $size-3;
 
     + li {
       &.tall {
+        margin-left: $size-30;
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + ($gapHalf - $size-3));
+            right: calc(100% + ($size-24 - $size-1));
           }
 
           &:first-of-type,
           &:last-of-type {
             .path-connector {
-              left: calc(100% + ($gapHalf + $size-1));
+              left: calc(100% + ($size-24 - $size-1));
             }
           }
 
           .path-connector {
-            left: calc(100% + ($gapHalf + $size-1));
+            left: calc(100% + ($size-24 - $size-1));
+          }
+        }
+
+        + .tall {
+          margin-left: 0;
+
+          .path-stop {
+            .prev-path-connector {
+              right: calc(100% + ($size-28 + $size-1));
+            }
           }
         }
       }
 
       &:not(.tall) {
+        + li {
+          &:not(.tall) {
+            .path-stop {
+              &.active,
+              &:hover {
+                .prev-path-connector {
+                  right: calc(100% + $size-3);
+                }
+              }
+
+              &.active {
+                background: $tertiary;
+                color: $white;
+                border-color: $tertiary;
+              }
+
+              .prev-path-connector {
+                display: block;
+                height: $size-10;
+                background-color: $white;
+                width: $size-4;
+                top: 50%;
+                position: absolute;
+                transform: translateY(-50%);
+                right: calc(100% + $size-2);
+              }
+
+              &:after {
+                background: $white;
+              }
+            }
+          }
+        }
+
         .path-stop {
+          &:after {
+            background: $base;
+          }
           .arrow {
-            right: calc(100% + 15px);
+            display: block;
+            right: calc(100% + $size-6);
           }
         }
       }
@@ -93,6 +146,13 @@ $line-width-half: $size-3;
 
     &.tall {
       position: relative;
+      margin-right: $size-30;
+
+      .path-stop {
+        .arrow {
+          right: calc(100% + $size-6);
+        }
+      }
 
       &:first-of-type {
         .prev-path-connector {
@@ -101,13 +161,11 @@ $line-width-half: $size-3;
       }
 
       + .tall {
-        .path-stop {
-          &:before {
-            width: $gapHalf;
-          }
+        margin-left: 0;
 
+        .path-stop {
           .prev-path-connector {
-            right: calc(100% + ($gapHalf - $size-3));
+            right: calc(100% + ($size-28 + $size-1));
           }
         }
       }
@@ -115,19 +173,19 @@ $line-width-half: $size-3;
       + li:not(.tall) {
         .path-stop {
           .arrow {
-            right: calc(100% + 0px);
+            right: calc(100% + $size-6);
           }
         }
       }
 
       .prev-path-connector {
-        width: $line-width;
-        background-color: $middle-gray;
+        width: $size-10;
+        background-color: $base;
         display: block;
-        height: 130%;
+        height: 135%;
         top: 50%;
         transform: translateY(-50%);
-        right: calc(100% + ($gapHalf + $size-1));
+        right: calc(100% + ($size-26 + $size-1));
         z-index: 10;
         position: absolute;
       }
@@ -138,7 +196,7 @@ $line-width-half: $size-3;
         &:first-of-type {
           .path-connector,
           .prev-path-connector {
-            top: calc(50% - $line-width-half);
+            top: calc(50% - $size-5);
             transform: none;
             height: 100%;
           }
@@ -150,34 +208,38 @@ $line-width-half: $size-3;
             top: auto;
             height: 100%;
             transform: none;
-            bottom: calc(50% - $line-width-half);
+            bottom: calc(50% - $size-5);
           }
         }
 
         &:before {
-          width: $gapHalf - $size-5;
+          width: ($size-16 + $size-1);
+          right: calc(100% + $size-16);
         }
 
         &:after {
-          width: $gapHalf + $size-1;
+          width: $size-26 + $size-1;
         }
 
         .path-connector {
-          width: $line-width;
-          background-color: $middle-gray;
+          width: $size-10;
+          background-color: $base;
           display: block;
-          height: 130%;
+          height: 135%;
           top: 50%;
           transform: translateY(-50%);
-          left: calc(100% + ($gapHalf - $size-3));
+          left: calc(100% + ($size-26 - $size-3));
           z-index: 10;
         }
       }
 
-      + li:not(.tall) {
-        .path-stop {
-          &:before {
-            width: $gapHalf + $size-1;
+      + li {
+        &:not(.tall) {
+          .path-stop {
+            &:before {
+              width: $size-20;
+              right: calc(100% + $size-10);
+            }
           }
         }
       }
@@ -189,24 +251,25 @@ $line-width-half: $size-3;
   }
 
   .path-stop {
-    border: $size-2 solid $ink;
+    border: 2px solid $text;
     border-radius: 0.3rem;
-    background-color: $mint;
+    background-color: $secondary-lighter;
     width: $size-200;
     min-height: $size-120;
-    color: $ink;
+    color: $text;
     padding: 0.3rem 0.8rem;
     position: relative;
 
     &:hover {
       border-color: $tertiary;
-      outline: $size-1 solid $tertiary;
+      outline: 1px solid $tertiary;
     }
 
     &.active {
-      background: $tertiary-lighter;
+      background: $tertiary;
+      color: $white;
       border-color: $tertiary;
-      outline: $size-1 solid $tertiary;
+      outline: 1px solid $tertiary;
     }
 
     &:before {
@@ -214,11 +277,11 @@ $line-width-half: $size-3;
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($gapHalf + $size-5);
-      height: $line-width;
+      width: $size-10;
+      height: $size-10;
       display: block;
-      background: $middle-gray;
-      right: calc(100% + $size-2);
+      background: $base;
+      right: calc(100% + $size-16);
     }
 
     &:after {
@@ -226,11 +289,11 @@ $line-width-half: $size-3;
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($gapHalf + $size-5);
-      height: $line-width;
+      width: calc($size-26 + $size-5);
+      height: $size-10;
       display: block;
-      background: $middle-gray;
-      left: calc(100% + $size-2);
+      background: $base;
+      left: calc(100% + $size-6);
     }
 
     p {

@@ -3,10 +3,9 @@ import { JobCountProps, OccupationNodeProps, SelectProps } from "../types/conten
 import {
   ArrowSquareOut,
   ArrowUpRight,
-  ArrowsInSimple,
-  ArrowsOutSimple,
   Briefcase,
   Info,
+  MapTrifold,
   RocketLaunch,
   X,
 } from "@phosphor-icons/react";
@@ -131,11 +130,7 @@ export const CareerDetail = ({
                 }, 100);
               }}
             >
-              {mapOpen ? (
-                <ArrowsInSimple size={25} weight="bold" />
-              ) : (
-                <ArrowsOutSimple size={25} weight="bold" />
-              )}
+              {mapOpen ? <X size={25} /> : <MapTrifold size={25} />}
               See {mapOpen ? "less" : "full"} <strong>{groupTitle} Pathways</strong>
               map
             </button>
