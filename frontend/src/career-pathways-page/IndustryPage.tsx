@@ -137,10 +137,15 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
                   </nav>
                 </div>
                 <div className="content">
-                  <a className="back-link" href="/career-pathways">
+                  <button
+                    className="back-link usa-button unstyled"
+                    onClick={() => {
+                      window.location.href = "/career-pathways";
+                    }}
+                  >
                     <ArrowLeft size={24} />
                     Back
-                  </a>
+                  </button>
                   {hasMaps && <Heading level={1}>{`Select a ${industry.title} Field`}</Heading>}
                 </div>
               </div>

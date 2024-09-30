@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { JobCountProps, OccupationNodeProps, SelectProps } from "../types/contentful";
 import {
+  ArrowsInSimple,
+  ArrowsOutSimple,
   ArrowSquareOut,
   ArrowUpRight,
   Briefcase,
   Info,
-  MapTrifold,
   RocketLaunch,
   X,
 } from "@phosphor-icons/react";
@@ -18,7 +19,7 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { Selector } from "../svg/Selector";
 import { InDemandTag } from "./InDemandTag";
-import { CircularProgress, Tooltip } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 interface OccupationDataProps {
@@ -117,55 +118,56 @@ export const CareerDetail = ({
     <>
       {data && (
         <div className="career-detail occupation-block">
-          <div className="container">
-            <button
-              className="explore-button"
-              type="button"
-              onClick={() => {
-                setMapOpen(!mapOpen);
-                const element = document.querySelector(
-                  ".full-map .path-stop.active",
-                ) as HTMLElement;
-                setTimeout(() => {
-                  element.focus();
-                }, 100);
-              }}
-            >
-              {mapOpen ? <X size={25} /> : <MapTrifold size={25} />}
-              See {mapOpen ? "less" : "full"} <strong>{groupTitle} Pathways</strong>
-              map
-            </button>
-          </div>
-
           <div className="occupation-box">
             <div className="container">
-              <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
-                <button className="close" onClick={() => setMapOpen(false)}>
-                  <X size={25} />
+              <div className="map-block">
+                <button
+                  className="explore-button"
+                  type="button"
+                  onClick={() => {
+                    setMapOpen(!mapOpen);
+                    const element = document.querySelector(
+                      ".full-map .path-stop.active",
+                    ) as HTMLElement;
+                    setTimeout(() => {
+                      element.focus();
+                    }, 100);
+                  }}
+                >
+                  {mapOpen ? <ArrowsInSimple size={25} /> : <ArrowsOutSimple size={25} />}
+                  {mapOpen ? "Collapse" : "Expand"} <strong>{groupTitle} Pathways map</strong>
+                  map
                 </button>
-                <div className="inner">
-                  <SinglePath
-                    heading={selected?.pathTitle}
-                    items={groupedArray}
-                    setSelected={setSelected}
-                    setOpen={setMapOpen}
-                    onClick={() => {
-                      setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
-                    }}
-                  />
-                  <div className="extra">
-                    {filteredMap?.map((path) => (
-                      <SinglePath
-                        key={path.title}
-                        heading={path.title}
-                        items={path.groups}
-                        setSelected={setSelected}
-                        setOpen={setMapOpen}
-                        onClick={() => {
-                          setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
-                        }}
-                      />
-                    ))}
+                <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
+                  <button className="close" onClick={() => setMapOpen(false)}>
+                    <X size={25} />
+                  </button>
+                  <div className="inner">
+                    <SinglePath
+                      heading={selected?.pathTitle}
+                      items={groupedArray}
+                      setSelected={setSelected}
+                      setOpen={setMapOpen}
+                      onClick={() => {
+                        setFilteredMap(map?.filter((path) => path.title !== selected?.pathTitle));
+                      }}
+                    />
+                    <div className="extra">
+                      {filteredMap?.map((path) => (
+                        <SinglePath
+                          key={path.title}
+                          heading={path.title}
+                          items={path.groups}
+                          setSelected={setSelected}
+                          setOpen={setMapOpen}
+                          onClick={() => {
+                            setFilteredMap(
+                              map?.filter((path) => path.title !== selected?.pathTitle),
+                            );
+                          }}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -190,18 +192,23 @@ export const CareerDetail = ({
                 <div className="meta">
                   <div>
                     <p className="title">
-                      Salary Range{" "}
-                      <Tooltip
-                        placement="top"
+                      Salary Range
+                      <button
+                        data-position="top"
                         title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
+                        id="sal-tooltip"
+                        type="button"
+                        className="unstyled usa-tooltip"
                       >
                         <Info size={20} weight="fill" />
-                      </Tooltip>
+                      </button>
                     </p>
                     <p>
                       <strong>
                         {data.careerMapObject.medianSalary
-                          ? toUsCurrency(data.careerMapObject.medianSalary)
+                          ? `${toUsCurrency(data.careerMapObject.salaryRangeStart)} - ${toUsCurrency(
+                              data.careerMapObject.salaryRangeEnd,
+                            )}`
                           : "---"}
                       </strong>
                     </p>
@@ -209,12 +216,15 @@ export const CareerDetail = ({
                   <div>
                     <p className="title">
                       Jobs Open in NJ{" "}
-                      <Tooltip
-                        placement="top"
+                      <button
+                        data-position="top"
+                        id="jobs-tooltip"
                         title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
+                        type="button"
+                        className="unstyled usa-tooltip"
                       >
                         <Info size={20} weight="fill" />
-                      </Tooltip>
+                      </button>
                     </p>
                     <>
                       {loadingJobs ? (
@@ -234,7 +244,7 @@ export const CareerDetail = ({
                     <a
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${
                         data.careerMapObject.trainingSearchTerms || data.careerMapObject.title
-                      }&amp;location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1`}
+                      }&location=New%20Jersey&radius=25&source=NLX&curPage=1`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

@@ -24,6 +24,7 @@ import { calendarLength } from "../utils/calendarLength";
 import { InDemandTag } from "./InDemandTag";
 import { SectionHeading } from "./modules/SectionHeading";
 import { Selector } from "../svg/Selector";
+import { LinkObject } from "./modules/LinkObject";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -122,7 +123,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
         />
         <div className="occupation-selector">
           <label htmlFor="occupation-selector">
-            Select an in-demand {props.industry?.toLocaleLowerCase()} occupation
+            Select an in-demand {props.industry} occupation
             <button
               type="button"
               aria-label="occupation selector"
@@ -381,19 +382,17 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           )}
                         </ul>
 
-                        <a className="usa-button" href="/training/search">
+                        <a className="usa-button" href="/training/search" target="_blank">
                           <span>
                             <Selector name="trainingBold" />
                             See more trainings on the Training Explorer
                           </span>
-                          <ArrowUpRight size={20} />
                         </a>
-                        <a className="usa-button" href="/tuition-assistance">
+                        <a className="usa-button" href="/tuition-assistance" target="_blank">
                           <span>
                             <Selector name="supportBold" />
                             Learn more financial assistance opportunities
                           </span>
-                          <ArrowUpRight size={20} />
                         </a>
                       </div>
                     </div>
@@ -403,16 +402,16 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         Related Job Opportunities
                       </div>
                       <div className="content">
-                        <a
+                        <LinkObject
                           className="solid usa-button"
-                          href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+                          url={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
                         >
                           <span>
                             <Briefcase size={32} />
                             Check out related jobs on Career One Stop
                           </span>
-                          <ArrowUpRight size={20} />
-                        </a>
+                          <ArrowSquareOut size={20} />
+                        </LinkObject>
                       </div>
                     </div>
                   </div>
