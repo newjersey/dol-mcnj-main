@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   env: {
@@ -8,22 +7,23 @@ const nextConfig = {
     REACT_APP_ENVIRONMENT: process.env.REACT_APP_ENVIRONMENT,
     REACT_APP_PREVIEW_API: process.env.REACT_APP_PREVIEW_API,
     REACT_APP_SPACE_ID: process.env.REACT_APP_SPACE_ID,
-    REACT_APP_FEATURE_CAREER_PATHWAYS:
-      process.env.REACT_APP_FEATURE_CAREER_PATHWAYS,
+    REACT_APP_FEATURE_CAREER_PATHWAYS: process.env.REACT_APP_FEATURE_CAREER_PATHWAYS,
     REACT_APP_FEATURE_MULTILANG: process.env.REACT_APP_FEATURE_MULTILANG,
     REACT_APP_FEATURE_PINPOINT: process.env.REACT_APP_FEATURE_PINPOINT,
-    REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS:
-      process.env.REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS,
+    REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS: process.env.REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS,
     REACT_APP_SITE_NAME: process.env.REACT_APP_SITE_NAME,
     REACT_APP_SITE_URL: process.env.REACT_APP_SITE_URL,
   },
   images: {
-    remotePatterns: [
+    unoptimized: true,
+  },
+  async rewrites() {
+    return [
       {
-        protocol: "https",
-        hostname: "images.ctfassets.net",
+        source: '/api/:path*',
+        destination: 'http://localhost:8080/:path*', // Proxy all API calls to backend
       },
-    ],
+    ];
   },
 };
 
