@@ -19,8 +19,8 @@
     right: calc(100% + 0px);
     transform: translateY(-50%);
     z-index: 10;
-    border-top: $size-5 solid $white;
-    border-bottom: $size-5 solid $white;
+    border-top: $size-5 solid $gray-cool-5;
+    border-bottom: $size-5 solid $gray-cool-5;
     border-left: $size-10 solid $base;
   }
 
@@ -110,14 +110,14 @@
 
               &.active {
                 background: $tertiary;
-                color: $white;
+                color: $gray-cool-5;
                 border-color: $tertiary;
               }
 
               .prev-path-connector {
                 display: block;
                 height: $size-10;
-                background-color: $white;
+                background-color: $gray-cool-5;
                 width: $size-4;
                 top: 50%;
                 position: absolute;
@@ -126,7 +126,7 @@
               }
 
               &:after {
-                background: $white;
+                background: $gray-cool-5;
               }
             }
           }
@@ -267,7 +267,7 @@
 
     &.active {
       background: $tertiary;
-      color: $white;
+      color: $gray-cool-5;
       border-color: $tertiary;
       outline: 1px solid $tertiary;
     }

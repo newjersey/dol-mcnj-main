@@ -413,6 +413,12 @@
   }
 
   &.career-detail {
+    .map-block {
+      background-color: $gray-cool-5;
+      padding: $size-16;
+      border-radius: $size-16;
+    }
+
     .occupation-box {
       border: 0;
       border-radius: 0;
@@ -498,7 +504,7 @@
     -webkit-overflow-scrolling: touch;
 
     .extra {
-      background-color: white;
+      background-color: $gray-cool-5;
       z-index: 20;
       height: 0;
       visibility: hidden;
