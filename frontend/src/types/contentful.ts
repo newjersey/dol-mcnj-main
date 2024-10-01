@@ -50,6 +50,7 @@ export interface OccupationNodeProps {
   advancement?: string;
   tasks?: string;
   howToGetStarted?: string;
+  howToGetHere?: string;
   education?: string;
   credentials?: string;
   skills?: string;
