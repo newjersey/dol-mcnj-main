@@ -1,6 +1,5 @@
 import {
   ArrowSquareOut,
-  ArrowUpRight,
   Briefcase,
   CalendarCheck,
   CaretDown,
@@ -17,14 +16,14 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { ReactNode, useEffect, useState } from "react";
 import { Error } from "../domain/Error";
 import { useTranslation } from "react-i18next";
-import { CircularProgress, Tooltip } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { TrainingResult } from "../domain/Training";
 import { calendarLength } from "../utils/calendarLength";
 import { InDemandTag } from "./InDemandTag";
-import { SectionHeading } from "./modules/SectionHeading";
 import { Selector } from "../svg/Selector";
 import { LinkObject } from "./modules/LinkObject";
+import { Heading } from "./modules/Heading";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -117,13 +116,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
   return (
     <section className="occupation-block">
       <div className="container">
-        <SectionHeading
-          heading={`Select ${article} ${props.industry} occupation`}
-          description="Select a field and explore different career pathways or click the tool tip to learn more about it."
-        />
+        <Heading level={2}>{`Select ${article} ${props.industry} occupation`}</Heading>
         <div className="occupation-selector">
           <label htmlFor="occupation-selector">
-            Select an in-demand {props.industry} occupation
             <button
               type="button"
               aria-label="occupation selector"
@@ -198,13 +193,20 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <div className="meta">
                     <div>
                       <p className="title">
-                        Salary Range{" "}
-                        <Tooltip
-                          placement="top"
-                          title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
+                        Median Salary{" "}
+                        <button
+                          data-position="top"
+                          title="The median salary is an estimate based on available data and may vary depending on factors such as location, experience, and employer."
+                          id="sal-tooltip"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                          type="button"
+                          className="unstyled usa-tooltip"
                         >
                           <Info size={20} weight="fill" />
-                        </Tooltip>
+                        </button>
                       </p>
                       <p>
                         <strong>
@@ -217,12 +219,19 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                     <div>
                       <p className="title">
                         Jobs Open in NJ
-                        <Tooltip
-                          placement="top"
+                        <button
+                          data-position="top"
                           title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
+                          id="sal-tooltip"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                          type="button"
+                          className="unstyled usa-tooltip"
                         >
                           <Info size={20} weight="fill" />
-                        </Tooltip>
+                        </button>
                       </p>
                       <p>
                         {" "}
@@ -345,10 +354,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
-                                  <p className="title">
-                                    {train.name}
-                                    <ArrowUpRight size={24} />
-                                  </p>
+                                  <p className="title">{train.name}</p>
                                   <span className="span-grid">
                                     <span>
                                       <GraduationCap size={32} />

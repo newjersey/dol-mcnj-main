@@ -1,6 +1,10 @@
 .occupation-block {
   // margin: 0 0 $size-60 0;
 
+  .error-message {
+    margin-bottom: $size-48;
+  }
+
   button {
     &.usa-button--unstyled {
       color: $primary;
@@ -18,8 +22,9 @@
     }
   }
 
-  .sectionHeading {
-    margin-bottom: 2.2rem;
+  .heading-tag {
+    font-size: $size-32;
+    margin-bottom: $size-24;
   }
 
   .occupation-selector {
@@ -52,6 +57,15 @@
   .occupation-box {
     @media screen and (min-width: ($tablet + 1)) {
       padding: $size-32 0 0;
+    }
+
+    .usa-tooltip__body {
+      width: $size-160;
+      white-space: normal;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        width: $size-200;
+      }
     }
 
     .path-title {
@@ -117,7 +131,6 @@
     @media screen and (min-width: ($tablet)) {
       max-width: 1294px;
       margin: 0 auto $size-48;
-      padding: 0 15px;
     }
 
     > div {
@@ -424,7 +437,7 @@
       border: 0;
       border-radius: 0;
       background: white;
-      padding: $size-32 0 0;
+      padding: 0;
 
       .heading {
         margin-bottom: 1.5rem;
@@ -544,7 +557,6 @@
   }
 
   .select-button {
-    margin-top: 0.7rem;
     width: 100%;
     color: $ink;
     appearance: none;
