@@ -108,6 +108,7 @@
     width: 100%;
     gap: $size-32;
     align-items: flex-start;
+    margin-bottom: $size-48;
 
     @media screen and (max-width: ($tablet - 1)) {
       flex-direction: column;
@@ -115,7 +116,7 @@
 
     @media screen and (min-width: ($tablet)) {
       max-width: 1294px;
-      margin: 0 auto;
+      margin: 0 auto $size-48;
       padding: 0 15px;
     }
 

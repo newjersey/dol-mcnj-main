@@ -13,6 +13,7 @@ export const OccupationCopyColumn = (props: OccupationNodeProps) => {
   const contentMapping: ContentMapping = {
     tasks: { title: "What do they do?", icon: "Briefcase" },
     howToGetStarted: { title: "How to get started", icon: "RocketLaunch" },
+    howToGetHere: { title: "How to get to here", icon: "MapPin" },
     education: { title: "Education", icon: "GraduationCap" },
     experience: { title: "Other Experience", icon: "ReadCvLogo" },
     skills: { title: "Skills Needed", icon: "SealCheck" },
