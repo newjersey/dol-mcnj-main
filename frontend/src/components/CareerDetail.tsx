@@ -4,11 +4,9 @@ import {
   ArrowsInSimple,
   ArrowsOutSimple,
   ArrowSquareOut,
-  ArrowUpRight,
   Briefcase,
   Info,
   RocketLaunch,
-  X,
 } from "@phosphor-icons/react";
 import { Client } from "../domain/Client";
 import { OccupationCopyColumn } from "./modules/OccupationCopyColumn";
@@ -120,7 +118,7 @@ export const CareerDetail = ({
         <div className="career-detail occupation-block">
           <div className="occupation-box">
             <div className="container">
-              <div className="map-block">
+              <div id="map-block" className="map-block">
                 <button
                   className="explore-button"
                   type="button"
@@ -135,13 +133,9 @@ export const CareerDetail = ({
                   }}
                 >
                   {mapOpen ? <ArrowsInSimple size={25} /> : <ArrowsOutSimple size={25} />}
-                  {mapOpen ? "Collapse" : "Expand"} <strong>{groupTitle} Pathways map</strong>
-                  map
+                  {mapOpen ? "Collapse" : "Expand"} <strong>{groupTitle} Pathways </strong>map
                 </button>
                 <div className={`full-map${map && mapOpen ? " open" : ""}`} id="full-career-map">
-                  <button className="close" onClick={() => setMapOpen(false)}>
-                    <X size={25} />
-                  </button>
                   <div className="inner">
                     <SinglePath
                       heading={selected?.pathTitle}
@@ -197,6 +191,10 @@ export const CareerDetail = ({
                         data-position="top"
                         title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
                         id="sal-tooltip"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                         type="button"
                         className="unstyled usa-tooltip"
                       >
@@ -205,7 +203,8 @@ export const CareerDetail = ({
                     </p>
                     <p>
                       <strong>
-                        {data.careerMapObject.medianSalary
+                        {data.careerMapObject.salaryRangeStart &&
+                        data.careerMapObject.salaryRangeEnd
                           ? `${toUsCurrency(data.careerMapObject.salaryRangeStart)} - ${toUsCurrency(
                               data.careerMapObject.salaryRangeEnd,
                             )}`
@@ -219,6 +218,10 @@ export const CareerDetail = ({
                       <button
                         data-position="top"
                         id="jobs-tooltip"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                         title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
                         type="button"
                         className="unstyled usa-tooltip"
@@ -278,20 +281,25 @@ export const CareerDetail = ({
                     </ul>
                     <a
                       className="usa-button"
+                      target="_blank"
                       href={`/search/${data.careerMapObject.title.toLowerCase()}`}
+                      rel="noopener noreferrer"
                     >
                       <span>
                         <Selector name="trainingBold" />
                         See more trainings on the Training Explorer
                       </span>
-                      <ArrowUpRight size={20} />
                     </a>
-                    <a className="usa-button" href="/tuition-assistance">
+                    <a
+                      className="usa-button"
+                      href="/tuition-assistance"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <span>
                         <Selector name="supportBold" />
                         Learn more financial assistance opportunities
                       </span>
-                      <ArrowUpRight size={20} />
                     </a>
                   </div>
                 </div>
@@ -309,7 +317,7 @@ export const CareerDetail = ({
                         <Briefcase size={32} />
                         Check out related jobs on Career One Stop
                       </span>
-                      <ArrowUpRight size={20} />
+                      <ArrowSquareOut size={20} />
                     </a>
                   </div>
                 </div>

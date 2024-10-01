@@ -55,6 +55,21 @@ export const CareerPathways = ({
   }, []);
 
   const details = selected.id ? selected : {};
+  useEffect(() => {
+    // if details.id and #map-block exists, scroll to it's middle
+
+    if (details.id) {
+      setTimeout(() => {
+        const el = document.getElementById("map-block");
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const top = rect.top + scrollTop;
+          window.scrollTo({ top: top - window.innerHeight / 2, behavior: "smooth" });
+        }
+      }, 300);
+    }
+  }, [details.id]);
 
   const breadcrumbs = {
     industry,
@@ -160,7 +175,6 @@ export const CareerPathways = ({
           </div>
         </div>
       </div>
-
       {details.id && notEmpty && (
         <CareerDetail
           detailsId={details.id}

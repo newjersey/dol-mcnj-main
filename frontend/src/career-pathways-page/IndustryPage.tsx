@@ -166,7 +166,7 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
                   industry.inDemandCollection?.items.length > 0 && (
                     <OccupationBlock
                       content={occupationDetail}
-                      industry={industry.shorthandTitle || industry.title}
+                      industry={industry.title}
                       inDemandList={industry.inDemandCollection?.items}
                       setOccupation={setOccupation}
                       error={error}

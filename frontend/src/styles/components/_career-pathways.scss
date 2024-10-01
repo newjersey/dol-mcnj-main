@@ -69,6 +69,15 @@
         @media screen and (max-width: ($tablet - 1)) {
           width: calc(100% - 40px);
         }
+
+        input {
+          &:focus {
+            + label {
+              outline-offset: $size-4;
+              outline: $size-4 solid $primary;
+            }
+          }
+        }
       }
 
       .industry-field-drawer {

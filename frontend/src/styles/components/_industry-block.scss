@@ -50,7 +50,7 @@
     height: 100%;
     background: $ink;
     opacity: 0;
-    z-index: 9;
+    z-index: 11;
 
     &.open {
       pointer-events: all;
@@ -175,12 +175,19 @@
 .explore-button {
   background-color: $primary-lighter;
   display: flex;
+  font-size: $size-14;
   align-items: center;
   color: $ink;
   margin-bottom: $size-16;
   gap: $size-8;
   padding: $size-8 $size-16;
   border-radius: $size-4;
+
+  @media screen and (max-width: ($tablet - 1)) {
+    strong {
+      display: none;
+    }
+  }
 
   &:hover {
     box-shadow: $shadow-2;
