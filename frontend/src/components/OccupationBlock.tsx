@@ -388,13 +388,23 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           )}
                         </ul>
 
-                        <a className="usa-button" href="/training/search" target="_blank">
+                        <a
+                          className="usa-button"
+                          href={`/training/search?q=${props.content.title.toLowerCase()}`}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
                           <span>
                             <Selector name="trainingBold" />
                             See more trainings on the Training Explorer
                           </span>
                         </a>
-                        <a className="usa-button" href="/tuition-assistance" target="_blank">
+                        <a
+                          className="usa-button"
+                          href="/support-resources/tuition-assistance"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <span>
                             <Selector name="supportBold" />
                             Learn more financial assistance opportunities

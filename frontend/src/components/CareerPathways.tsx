@@ -38,6 +38,7 @@ export const CareerPathways = ({
 
   useEffect(() => {
     setFieldChanged(true);
+    setSelected({});
   }, [paths]);
 
   useEffect(() => {
@@ -92,12 +93,13 @@ export const CareerPathways = ({
           <Heading level={3}>
             {`Select ${paths ? `a ${paths.listTitle}` : "an"} occupation`}
           </Heading>
+
           <div className="select">
             {!paths && <p>Select a {industry} field above first.</p>}
             <button
               type="button"
               aria-label="occupation-selector"
-              className="select-button"
+              className={`select-button${selected.id ? "" : " inactive"}`}
               disabled={!paths}
               onClick={() => {
                 setOpen(!open);
@@ -108,8 +110,8 @@ export const CareerPathways = ({
                 : !fieldChanged
                   ? details?.shortTitle ||
                     details?.title ||
-                    `Select a ${paths.listTitle} occupation`
-                  : `Select a ${paths.listTitle} occupation`}
+                    `-Select a ${paths.listTitle} occupation-`
+                  : `-Select a ${paths.listTitle} occupation-`}
             </button>
             {open && (
               <div className="dropdown-select">

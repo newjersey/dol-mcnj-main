@@ -56,7 +56,7 @@ export const PathwayGroup = (props: {
             <div className="button-radio">
               <input
                 id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
-                type="radio"
+                type="checkbox"
                 name={`${props.icon}-pathways`}
                 defaultChecked={props.active}
                 onChange={(e) => {
@@ -73,6 +73,16 @@ export const PathwayGroup = (props: {
                       items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
                     }),
                   );
+
+                  // uncheck all other checkboxes
+                  // Uncheck all other checkboxes
+                  const checkboxes: NodeListOf<HTMLInputElement> =
+                    document.querySelectorAll("input[type=checkbox]");
+                  checkboxes.forEach((checkbox: HTMLInputElement) => {
+                    if (checkbox.id !== `${data.careerMap.title}-${data.careerMap.sys.id}`) {
+                      checkbox.checked = false;
+                    }
+                  });
 
                   const groups = document.getElementById("groups");
                   if (groups) {

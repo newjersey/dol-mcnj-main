@@ -200,15 +200,16 @@
       margin-top: 0.7rem;
       width: 100%;
       appearance: none;
-      color: $ink;
+      color: $text;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: $size-2 solid $base-light;
+      border: $size-2 solid $base;
       border-radius: 5px;
+      font-weight: normal;
 
       &:disabled {
         background-color: $base-lighter;
-        color: $base-light;
+        color: $base;
         cursor: not-allowed;
       }
 
@@ -222,6 +223,10 @@
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
         border-top: 0.35rem solid $ink;
+      }
+
+      &.inactive {
+        color: $base-light;
       }
     }
 
@@ -257,6 +262,7 @@
 
       button {
         padding: $size-16;
+        margin-top: 0;
 
         @media screen and (min-width: ($tablet)) {
           padding: $size-16 $size-16 $size-16 5rem;
