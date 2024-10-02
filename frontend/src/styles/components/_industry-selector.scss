@@ -273,4 +273,37 @@
       }
     }
   }
+
+  .pathway-group-button {
+    width: 100%;
+    &.usa-button.primary.usa-button--outline {
+      outline-color: $base-light;
+      color: $text;
+      font-weight: normal;
+
+      svg {
+        color: $base-light;
+      }
+
+      &:focus {
+        outline: $size-4 solid $primary;
+        outline-color: $primary !important;
+      }
+
+      &.active {
+        background-color: $primary-lighter;
+        outline-color: $text;
+
+        .radio-dot {
+          svg {
+            color: $primary;
+
+            + svg {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
 }

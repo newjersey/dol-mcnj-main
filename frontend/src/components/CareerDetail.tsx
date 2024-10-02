@@ -112,6 +112,15 @@ export const CareerDetail = ({
 
   const groupedArray: OccupationNodeProps[][] = groupObjectsByLevel(pathway || []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [data]);
+
   return (
     <>
       {data && (
@@ -189,6 +198,7 @@ export const CareerDetail = ({
                       Salary Range
                       <button
                         data-position="top"
+                        onFocus={(e) => e.preventDefault()}
                         title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
                         id="sal-tooltip"
                         style={{
@@ -208,7 +218,7 @@ export const CareerDetail = ({
                           ? `${toUsCurrency(data.careerMapObject.salaryRangeStart)} - ${toUsCurrency(
                               data.careerMapObject.salaryRangeEnd,
                             )}`
-                          : "---"}
+                          : "Salary data not available"}
                       </strong>
                     </p>
                   </div>
@@ -216,6 +226,7 @@ export const CareerDetail = ({
                     <p className="title">
                       Jobs Open in NJ{" "}
                       <button
+                        onFocus={(e) => e.preventDefault()}
                         data-position="top"
                         id="jobs-tooltip"
                         style={{

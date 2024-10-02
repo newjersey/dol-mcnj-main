@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Client } from "../domain/Client";
@@ -43,14 +43,6 @@ export const Layout = (props: LayoutProps) => {
     globalNav,
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const script = document.createElement("script");
-      script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
   return (
     <>
       {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (

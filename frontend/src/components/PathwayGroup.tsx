@@ -54,12 +54,10 @@ export const PathwayGroup = (props: {
           </div>
           <div className="buttons">
             <div className="button-radio">
-              <input
+              <button
                 id={`${data.careerMap.title}-${data.careerMap.sys.id}`}
-                type="checkbox"
-                name={`${props.icon}-pathways`}
-                defaultChecked={props.active}
-                onChange={(e) => {
+                className="pathway-group-button usa-button usa-button--outline bg-white margin-right-0 primary"
+                onClick={() => {
                   props.setPaths({
                     mapId: data.careerMap.sys.id,
                     listTitle: data.careerMap.title,
@@ -73,29 +71,25 @@ export const PathwayGroup = (props: {
                       items: data.careerMap.pathways ? data.careerMap.pathways?.items || [] : [],
                     }),
                   );
-
-                  // uncheck all other checkboxes
-                  // Uncheck all other checkboxes
-                  const checkboxes: NodeListOf<HTMLInputElement> =
-                    document.querySelectorAll("input[type=checkbox]");
-                  checkboxes.forEach((checkbox: HTMLInputElement) => {
-                    if (checkbox.id !== `${data.careerMap.title}-${data.careerMap.sys.id}`) {
-                      checkbox.checked = false;
-                    }
-                  });
-
                   const groups = document.getElementById("groups");
                   if (groups) {
                     groups.scrollIntoView({ behavior: "smooth", block: "center" });
                   }
 
                   props.setOpen(false);
-                }}
-              />
 
-              <label
-                htmlFor={`${data.careerMap.title}-${data.careerMap.sys.id}`}
-                className="usa-button usa-button--outline bg-white margin-right-0 primary"
+                  // onClick add active class to button and remove from others
+                  const buttons = document.querySelectorAll(".button-radio button");
+                  buttons.forEach((button) => {
+                    button.classList.remove("active");
+                  });
+                  const button = document.getElementById(
+                    `${data.careerMap.title}-${data.careerMap.sys.id}`,
+                  );
+                  if (button) {
+                    button.classList.add("active");
+                  }
+                }}
               >
                 <div className="radio-dot">
                   <Circle size={24} weight="regular" />
@@ -105,7 +99,7 @@ export const PathwayGroup = (props: {
                   <span>Select </span>
                   {data.careerMap.title}
                 </span>
-              </label>
+              </button>
             </div>
             {data.careerMap.learnMoreBoxes && (
               <IndustryFieldDrawer
