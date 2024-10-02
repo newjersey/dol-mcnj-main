@@ -84,6 +84,15 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
     setSearchUrl(url);
   }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
     <section className="search-block">
       <form

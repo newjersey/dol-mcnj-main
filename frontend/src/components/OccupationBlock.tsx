@@ -117,17 +117,20 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
     <section className="occupation-block">
       <div className="container">
         <Heading level={2}>{`Select ${article} ${props.industry} occupation`}</Heading>
+
         <div className="occupation-selector">
           <label htmlFor="occupation-selector">
             <button
               type="button"
               aria-label="occupation selector"
-              className="select-button"
+              className={`select-button${!props.content || !!props.error ? " inactive" : ""}`}
               onClick={() => {
                 setOpen(!open);
               }}
             >
-              {props.content?.title || "Please choose an occupation"}
+              {props.error
+                ? "-Please choose an occupation-"
+                : props.content?.title || "-Please choose an occupation-"}
             </button>
           </label>
           {open && (
@@ -204,6 +207,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           }}
                           type="button"
                           className="unstyled usa-tooltip"
+                          onFocus={(e) => e.preventDefault()}
                         >
                           <Info size={20} weight="fill" />
                         </button>
@@ -222,7 +226,8 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         <button
                           data-position="top"
                           title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
-                          id="sal-tooltip"
+                          onFocus={(e) => e.preventDefault()}
+                          id="job-tooltip"
                           style={{
                             display: "flex",
                             alignItems: "center",

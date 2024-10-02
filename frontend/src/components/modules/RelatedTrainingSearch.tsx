@@ -58,9 +58,10 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
                         ? `${calendarLength(train.calendarLength)} to complete`
                         : "--"}
                     </span>
-                    <span className="salary">
-                      {train.totalCost && toUsCurrency(train.totalCost)}
-                    </span>
+
+                    {train.totalCost !== 0 && (
+                      <span className="salary">{toUsCurrency(train.totalCost)}</span>
+                    )}
                   </span>
                 </span>
               </a>

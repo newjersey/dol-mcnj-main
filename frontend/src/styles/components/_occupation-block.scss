@@ -562,8 +562,15 @@
     appearance: none;
     padding: 0.7rem $size-32 0.7rem 0.7rem;
     position: relative;
+    font-weight: normal;
     border: $size-1 solid $base-lighter;
     border-radius: 5px;
+
+    &:disabled {
+      background-color: $base-lighter;
+      color: $base;
+      cursor: not-allowed;
+    }
 
     &:after {
       content: "";
@@ -575,6 +582,10 @@
       border-left: 0.35rem solid transparent;
       border-right: 0.35rem solid transparent;
       border-top: 0.35rem solid $ink;
+    }
+
+    &.inactive {
+      color: $base-light;
     }
   }
 

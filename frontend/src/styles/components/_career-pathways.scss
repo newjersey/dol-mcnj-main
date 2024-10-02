@@ -52,10 +52,12 @@
           width: 100%;
         }
 
-        svg {
-          @media screen and (max-width: ($tablet - 1)) {
-            width: $size-32;
-            height: $size-32;
+        .industry-field-drawer {
+          svg {
+            @media screen and (max-width: ($tablet - 1)) {
+              width: $size-32;
+              height: $size-32;
+            }
           }
         }
       }
@@ -102,14 +104,20 @@
         }
       }
 
-      label.usa-button.primary.usa-button--outline,
+      .pathway-group-button {
+        &.active {
+          background-color: $primary-lighter;
+        }
+      }
+
+      .pathway-group-button.usa-button.primary.usa-button--outline,
       button.usa-button.usa-button--outline.bg-white.margin-right-0.primary {
         text-align: left;
         display: flex !important;
         padding: $size-16 $size-8;
       }
 
-      label.usa-button.primary.usa-button--outline {
+      .pathway-group-button.usa-button.primary.usa-button--outline {
         @media screen and (max-width: ($tablet - 1)) {
           justify-content: flex-start;
 
