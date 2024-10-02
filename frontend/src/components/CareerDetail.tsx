@@ -282,7 +282,7 @@ export const CareerDetail = ({
                     <a
                       className="usa-button"
                       target="_blank"
-                      href={`/search/${data.careerMapObject.title.toLowerCase()}`}
+                      href={`/training/search?q=${data.careerMapObject.title.toLowerCase()}`}
                       rel="noopener noreferrer"
                     >
                       <span>
@@ -292,7 +292,7 @@ export const CareerDetail = ({
                     </a>
                     <a
                       className="usa-button"
-                      href="/tuition-assistance"
+                      href="/support-resources/tuition-assistance"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

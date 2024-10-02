@@ -129,7 +129,7 @@
     max-width: 800px;
     width: 100%;
     height: 100%;
-    z-index: 10;
+    z-index: 12;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     display: flex;
@@ -245,11 +245,17 @@
 
     &:focus {
       + label {
-        outline: $size-2 solid $primary-lighter;
+        outline: $size-2 solid $primary;
       }
     }
 
     &:checked {
+      &:focus {
+        + label {
+          outline-color: $primary !important;
+        }
+      }
+
       + label {
         &.usa-button.primary.usa-button--outline {
           background-color: $primary-lighter;
