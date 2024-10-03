@@ -1,65 +1,222 @@
-.pathway-button {
-  display: flex;
-  align-items: center;
-  gap: $size-8;
-  text-decoration: none;
-  outline: $size-1 solid $ink;
-  justify-content: center;
-  border-radius: $size-8;
-  padding: $size-10 $size-16 $size-10 $size-12;
-  min-width: 300px;
-  min-height: $size-48;
-  cursor: pointer;
-
-  @media screen and (min-width: ($tablet)) {
-    max-width: 400px;
-  }
-
-  @media screen and (max-width: ($tablet - 1)) {
-    width: 100%;
-  }
-
-  &.active {
-    font-weight: bold;
-    background-color: $tertiary-lighter;
-  }
-
-  &.active,
-  &:hover {
-    outline-width: $size-2;
-    outline-color: $tertiary;
-    border-color: $tertiary;
-  }
-
-  svg {
-    height: $size-24;
-  }
-
-  span {
-    color: $ink;
-  }
-}
-
 .industry-selector {
-  padding: $size-48 0 0;
+  .container {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      padding: 0;
+    }
+    .inner {
+      background-color: $base-extra-light;
+      padding: $size-32;
+      border-radius: $size-16;
+      display: flex;
+      flex-direction: column;
+      gap: $size-32;
 
-  nav {
-    padding: $size-40 0;
+      @media screen and (max-width: ($tablet-md - 1)) {
+        padding: $size-32 $size-16;
+      }
+    }
+  }
+
+  .heading-tag {
+    font-size: $size-32;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      font-size: $size-22;
+      font-weight: bold;
+    }
   }
 
   ul {
     display: flex;
-    gap: $size-32;
-    flex-wrap: wrap;
+    align-items: stretch;
+    gap: $size-24;
 
-    @media screen and (max-width: ($tablet - 1)) {
-      gap: $size-16;
+    @media screen and (max-width: ($tablet-md - 1)) {
       flex-direction: column;
+    }
+
+    li {
+      width: 100%;
+      background-color: $white;
+      border-radius: $size-16;
+      border: $size-1 solid $base-lighter;
+      padding: $size-16;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 
-  a {
-    @extend .pathway-button;
+  .tag-item {
+    margin: 0;
+    border: none;
+  }
+
+  .heading-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $size-16;
+  }
+
+  .title {
+    font-size: $size-22;
+    font-weight: 700;
+    line-height: $size-26;
+  }
+
+  .image {
+    position: relative;
+    height: $size-146;
+    border-radius: $size-16;
+    overflow: hidden;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: $size-16;
+    align-items: center;
+    margin-top: $size-16;
+
+    @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+      flex-direction: column;
+    }
+
+    > * {
+      width: 100%;
+      justify-content: center;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        padding: $size-16 $size-4;
+        font-size: $size-14;
+      }
+
+      span {
+        display: flex;
+        gap: $size-8;
+        align-items: center;
+      }
+    }
+
+    .usa-button--unstyled {
+      color: $primary;
+    }
+  }
+
+  .panel,
+  .overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .panel {
+    position: fixed;
+    border-left: $size-4 solid $tertiary-vivid;
+    top: 0;
+    right: -100%;
+    background: $white;
+    padding: 3rem;
+    max-width: 800px;
+    width: 100%;
+    height: 100%;
+    z-index: 12;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      padding: 3rem $size-16;
+    }
+
+    &.open {
+      right: 0;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: $size-16;
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    .heading-tag {
+      font-size: $size-32;
+    }
+
+    img {
+      display: block;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: $ink;
+    opacity: 0;
+    z-index: 11;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
+  }
+
+  .boxes-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
+
+    .box {
+      border: $size-1 solid $base-lighter;
+      border-radius: $size-8;
+      overflow: hidden;
+    }
+
+    .heading-bar {
+      background-color: $secondary-lighter;
+      align-items: center;
+      display: flex;
+      gap: $size-16;
+      font-size: $size-18;
+      padding: $size-10 $size-20;
+    }
+
+    .content {
+      padding: $size-24;
+      display: flex;
+      flex-direction: column;
+      gap: $size-16;
+
+      > * {
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: bold;
+      }
+    }
   }
 }
 
@@ -67,7 +224,15 @@
   appearance: none;
 
   label {
-    @extend .pathway-button;
+    &.usa-button.primary.usa-button--outline {
+      outline-color: $base-light;
+      color: $text;
+      font-weight: normal;
+
+      svg {
+        color: $base-light;
+      }
+    }
   }
 
   input {
@@ -78,13 +243,66 @@
     position: absolute;
     z-index: -1;
 
-    &:checked {
+    &:focus {
       + label {
-        outline-width: $size-2;
-        outline-color: $tertiary;
-        border-color: $tertiary;
-        font-weight: bold;
-        background-color: $tertiary-lighter;
+        outline: $size-2 solid $primary;
+      }
+    }
+
+    &:checked {
+      &:focus {
+        + label {
+          outline-color: $primary !important;
+        }
+      }
+
+      + label {
+        &.usa-button.primary.usa-button--outline {
+          background-color: $primary-lighter;
+          outline-color: $text;
+
+          .radio-dot {
+            svg {
+              color: $primary;
+              + svg {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pathway-group-button {
+    width: 100%;
+    &.usa-button.primary.usa-button--outline {
+      outline-color: $base-light;
+      color: $text;
+      font-weight: normal;
+
+      svg {
+        color: $base-light;
+      }
+
+      &:focus {
+        outline: $size-4 solid $primary;
+        outline-color: $primary !important;
+      }
+
+      &.active {
+        background-color: $primary-lighter;
+        outline-color: $text;
+
+        .radio-dot {
+          svg {
+            color: $primary;
+
+            + svg {
+              opacity: 1;
+            }
+          }
+        }
       }
     }
   }

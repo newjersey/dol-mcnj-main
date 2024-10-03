@@ -49,6 +49,8 @@ export interface OccupationNodeProps {
   educationLevel: string;
   advancement?: string;
   tasks?: string;
+  howToGetStarted?: string;
+  howToGetHere?: string;
   education?: string;
   credentials?: string;
   skills?: string;
@@ -272,10 +274,6 @@ export interface CareerPathwaysPageData {
     pageBanner: PageBannerProps;
     industries: {
       items: IndustryProps[];
-    };
-    stepsHeading: string;
-    stepsCollection: {
-      items: IconCardProps[];
     };
     exploreHeading: string;
     exploreButtonsCollection: { items: LinkObjectProps[] };

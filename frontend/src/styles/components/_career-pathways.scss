@@ -1,33 +1,225 @@
 .career-pathways {
-  padding: 6rem 0 0;
+  .path-selector {
+    .selection-container {
+      display: flex;
+      flex-direction: column;
+      gap: $size-16;
 
-  .sectionHeading {
-    margin-bottom: 2.5rem;
+      @media screen and (min-width: ($tablet)) {
+        border: $size-1 solid $base-lighter;
+        padding: $size-16;
+        border-radius: $size-8;
+      }
+
+      .heading-tag {
+        font-weight: bold;
+        font-size: $size-22;
+      }
+
+      .selection-content {
+        @media screen and (max-width: ($tablet - 1)) {
+          display: none;
+        }
+      }
+    }
+
+    .selections {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $size-32;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        grid-template-columns: repeat(1, 1fr);
+        gap: $size-16;
+      }
+
+      .buttons {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: $size-16;
+
+        @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          flex-direction: column;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          margin-top: 0;
+          align-items: center;
+        }
+
+        > * {
+          width: 100%;
+        }
+
+        .industry-field-drawer {
+          svg {
+            @media screen and (max-width: ($tablet - 1)) {
+              width: $size-32;
+              height: $size-32;
+            }
+          }
+        }
+      }
+
+      .button-radio {
+        width: calc(100% - $size-140);
+        @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          width: 100%;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          width: calc(100% - 40px);
+        }
+
+        input {
+          &:focus {
+            + label {
+              outline-offset: $size-4;
+              outline: $size-4 solid $primary;
+            }
+          }
+        }
+      }
+
+      .industry-field-drawer {
+        width: $size-140;
+
+        @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          width: 100%;
+        }
+
+        @media screen and (max-width: ($tablet - 1)) {
+          width: 40px;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        .panel {
+          button {
+            width: auto;
+          }
+        }
+      }
+
+      .pathway-group-button {
+        &.active {
+          background-color: $primary-lighter;
+        }
+      }
+
+      .pathway-group-button.usa-button.primary.usa-button--outline,
+      button.usa-button.usa-button--outline.bg-white.margin-right-0.primary {
+        text-align: left;
+        display: flex !important;
+        padding: $size-16 $size-8;
+      }
+
+      .pathway-group-button.usa-button.primary.usa-button--outline {
+        @media screen and (max-width: ($tablet - 1)) {
+          justify-content: flex-start;
+
+          span span {
+            display: none;
+          }
+        }
+      }
+
+      button.usa-button.usa-button--unstyled {
+        color: $primary;
+        height: 100%;
+
+        @media screen and (max-width: ($tablet - 1)) {
+          justify-content: center;
+
+          span {
+            display: none;
+          }
+
+          // svg {
+          //   width: 40px;
+          //   height: 40px;
+          // }
+        }
+      }
+    }
+  }
+
+  .radio-dot {
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    svg {
+      + svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
 
   .select {
     max-width: $size-560;
     font-weight: bold;
+
+    > p {
+      margin: 0;
+      font-weight: normal;
+    }
   }
 
   .groups {
     background: white;
     position: relative;
-    margin: $size-96 0 $size-48;
+    margin: $size-48 0;
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      margin: $size-24 0 $size-48;
+    }
+
+    &.disabled {
+      .heading-tag {
+        color: $base-light;
+      }
+    }
 
     .select {
       position: relative;
+    }
+
+    .heading-tag {
+      font-size: $size-32;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        font-size: $size-22;
+      }
     }
 
     .select-button {
       margin-top: 0.7rem;
       width: 100%;
       appearance: none;
-      color: $ink;
+      color: $text;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: $size-1 solid $base-lighter;
+      border: $size-2 solid $base;
       border-radius: 5px;
+      font-weight: normal;
+
+      &:disabled {
+        background-color: $base-lighter;
+        color: $base;
+        cursor: not-allowed;
+      }
 
       &:after {
         content: "";
@@ -39,6 +231,10 @@
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
         border-top: 0.35rem solid $ink;
+      }
+
+      &.inactive {
+        color: $base-light;
       }
     }
 
@@ -74,6 +270,7 @@
 
       button {
         padding: $size-16;
+        margin-top: 0;
 
         @media screen and (min-width: ($tablet)) {
           padding: $size-16 $size-16 $size-16 5rem;
@@ -87,41 +284,6 @@
           @media screen and (min-width: ($tablet)) {
             background: $purple;
           }
-        }
-      }
-    }
-  }
-
-  .path-selector {
-    > .heading {
-      @media screen and (max-width: ($tablet - 1)) {
-        margin-left: $size-16;
-        margin-right: $size-16;
-      }
-    }
-  }
-
-  .selections {
-    display: flex;
-    align-items: flex-start;
-    gap: $size-32;
-    flex-wrap: wrap;
-
-    @media screen and (max-width: ($tablet - 1)) {
-      gap: $size-24;
-    }
-
-    > div {
-      @media screen and (max-width: ($tablet - 1)) {
-        width: 100%;
-      }
-    }
-
-    .button-radio {
-      .label {
-        @media screen and (max-width: ($tablet - 1)) {
-          width: 100%;
-          max-width: none;
         }
       }
     }
