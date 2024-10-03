@@ -1,23 +1,19 @@
 import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { PageBanner } from "../components/PageBanner";
 import { CareerPathwaysPageData, IndustryProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { IndustrySelector } from "../components/IndustrySelector";
-import { IndustryBlock } from "../components/IndustryBlock";
-import { OccupationDetail } from "../domain/Occupation";
-import { Error } from "../domain/Error";
-import { OccupationBlock } from "../components/OccupationBlock";
 import { useContentful } from "../utils/useContentful";
-import { CareerPathways } from "../components/CareerPathways";
 import { NotFoundPage } from "../error/NotFoundPage";
 import { CtaBanner } from "../components/CtaBanner";
-import { SectionHeading } from "../components/modules/SectionHeading";
-import { Stepper } from "../components/Stepper";
-import { HowToUse } from "../components/modules/HowToUse";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/careerPathways.png";
+import { Icon, Tooltip } from "@material-ui/core";
+import { Heading } from "../components/modules/Heading";
+import { content } from "./content";
+import { Info } from "@phosphor-icons/react";
+import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -26,10 +22,6 @@ interface Props extends RouteComponentProps {
 
 export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   const [industry, setIndustry] = useState<IndustryProps>();
-  const [occupation, setOccupation] = useState<string>();
-  const [occupationDetail, setOccupationDetail] = useState<OccupationDetail>();
-  const [error, setError] = useState<Error | undefined>();
-  const [loading, setLoading] = useState<boolean>();
 
   const data: CareerPathwaysPageData = useContentful({ path: "/career-pathways" });
   const industryData: {
@@ -47,23 +39,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
   }, [industryData]);
 
   usePageTitle(`${data?.page.title} | ${process.env.REACT_APP_SITE_NAME}`);
-
-  useEffect(() => {
-    if ((occupation !== undefined || occupation !== null || occupation !== "") && occupation) {
-      setLoading(true);
-      props.client.getOccupationDetailBySoc(occupation, {
-        onSuccess: (result: OccupationDetail) => {
-          setLoading(false);
-          setError(undefined);
-          setOccupationDetail(result);
-        },
-        onError: (error: Error) => {
-          setLoading(false);
-          setError(error);
-        },
-      });
-    }
-  }, [occupation]);
 
   if (props.slug && industryData?.industryCollection?.items.length === 0) {
     return <NotFoundPage client={props.client} />;
@@ -128,67 +103,78 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           className="career-pathways-page"
           seo={seoObject}
         >
-          <PageBanner
-            {...data.page.pageBanner}
-            breadcrumbsCollection={breadcrumbs}
-            breadcrumbTitle={industry?.title}
-          />
-          <IndustrySelector industries={data.page.industries.items} current={industry?.slug} />
-
-          {!industry ? (
-            <>
-              <section className="landing">
-                <div className="container">
-                  {data.page.stepsHeading && <SectionHeading heading={data.page.stepsHeading} />}
+          <section className="banner">
+            <div className="container">
+              <div className="inner">
+                <div className="top-nav">
+                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+                    <Icon>keyboard_backspace</Icon>
+                    <ol className="usa-breadcrumb__list">
+                      {data.page.pageBanner.breadcrumbsCollection?.items.map((crumb) => {
+                        return (
+                          <li
+                            className="usa-breadcrumb__list-item"
+                            key={crumb.sys?.id || crumb.copy}
+                          >
+                            <a className="usa-breadcrumb__link" href={crumb.url}>
+                              {crumb.copy}
+                            </a>
+                          </li>
+                        );
+                      })}
+                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                        <span data-testid="title">
+                          {data.page.pageBanner.breadcrumbTitle || data.page.title}
+                        </span>
+                      </li>
+                    </ol>
+                  </nav>
                 </div>
-                <div className="container">
-                  <div className="steps">
-                    {data.page.stepsCollection && (
-                      <Stepper theme="purple" steps={data.page.stepsCollection.items} />
-                    )}
-                  </div>
+                <div className="content">
+                  <Heading level={1}>
+                    {content.banner.title}
+                    <Tooltip placement="top" title={content.betaToolTip}>
+                      <span className="tag-item color-navy">
+                        <Info /> Beta
+                      </span>
+                    </Tooltip>
+                  </Heading>
+                  <p>{content.banner.description}</p>
                 </div>
-              </section>
-              <CtaBanner
-                heading={data.page.exploreHeading}
-                headingLevel={3}
-                theme="purple"
-                fullColor
-                links={exploreLinks}
-              />
-            </>
-          ) : (
-            <>
-              <IndustryBlock {...industry} />
-              <div id="industry-container">
-                {industry.careerMaps?.items && industry.careerMaps?.items.length > 0 ? (
-                  <CareerPathways
-                    careerMaps={industry.careerMaps.items}
-                    icon={industry?.slug}
-                    industry={industry.title}
-                    client={props.client}
-                  />
-                ) : (
-                  <>
-                    {industry.inDemandCollection?.items &&
-                      industry.inDemandCollection?.items.length > 0 && (
-                        <OccupationBlock
-                          content={occupationDetail}
-                          industry={industry.shorthandTitle || industry.title}
-                          inDemandList={industry.inDemandCollection?.items}
-                          setOccupation={setOccupation}
-                          error={error}
-                          loading={loading}
-                        />
-                      )}
-                  </>
-                )}
               </div>
-            </>
-          )}
+            </div>
+          </section>
+
+          <IndustrySelector />
+          <section className="body-copy">
+            <div className="container">
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{
+                  __html: parseMarkdownToHTML(`${content.markdownSection}`),
+                }}
+              />
+            </div>
+          </section>
+          <section className="contact-cta">
+            <div className="container">
+              <div className="inner">
+                <Heading level={3}>{content.cta.heading}</Heading>
+                <a href={content.cta.button.url} className="usa-button margin-right-0 primary">
+                  {content.cta.button.text}
+                </a>
+              </div>
+            </div>
+          </section>
+          <CtaBanner
+            heading={data.page.exploreHeading}
+            headingLevel={3}
+            theme="purple"
+            fullColor
+            links={exploreLinks}
+          />
         </Layout>
       )}
-      <HowToUse />
     </>
   );
 };

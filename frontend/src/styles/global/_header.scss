@@ -271,13 +271,15 @@ header {
   position: absolute;
   top: -100%;
   left: 0;
-  width: 100%;
+  width: auto;
   background-color: $white;
   color: $ink;
   padding: $size-16;
   z-index: 100;
 
-  &:focus, &:hover, &:active {
+  &:focus,
+  &:hover,
+  &:active {
     top: 0;
   }
 }
