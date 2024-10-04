@@ -87,7 +87,6 @@ export const routerFactory = ({
   });
 
   router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
-    console.log("here");
     getOccupationDetailByCIP(req.params.cip as string)
       .then((occupationDetails: OccupationDetail[]) => {
         res.status(200).json(occupationDetails);
