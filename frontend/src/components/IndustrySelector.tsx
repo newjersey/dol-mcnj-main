@@ -121,7 +121,7 @@ export const IndustrySelector = () => {
                     <div className="heading-section">
                       <p className="title">{title}</p>
                       <span className={`tag-item color-${active ? "purple" : "navy"}`}>
-                        {active ? "Pathway included" : "Pathway coming soon"}
+                        {active ? "Pathways included" : "Pathways coming soon"}
                       </span>
                       <div className="image">
                         <img src={image} alt={title} />
