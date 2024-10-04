@@ -9,7 +9,8 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { CtaBanner } from "../components/CtaBanner";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/careerPathways.png";
-import { Icon, Tooltip } from "@material-ui/core";
+import { Icon } from "@material-ui/core";
+import { Tooltip } from "react-tooltip";
 import { Heading } from "../components/modules/Heading";
 import { content } from "./content";
 import { Info } from "@phosphor-icons/react";
@@ -133,11 +134,11 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                 <div className="content">
                   <Heading level={1}>
                     {content.banner.title}
-                    <Tooltip placement="top" title={content.betaToolTip}>
-                      <span className="tag-item color-navy">
-                        <Info /> Beta
-                      </span>
-                    </Tooltip>
+                    <span className="tag-item color-navy" data-tooltip-id="beta-tooltip"
+                          data-tooltip-content={content.betaToolTip}>
+                    <Info/> Beta
+                  </span>
+                    <Tooltip id="beta-tooltip" className="custom-tooltip" />
                   </Heading>
                   <p>{content.banner.description}</p>
                 </div>
