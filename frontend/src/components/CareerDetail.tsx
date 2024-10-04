@@ -69,9 +69,9 @@ export const CareerDetail = ({
       setLoadingJobs(true);
       console.log(`Fetching data for detailsId: ${detailsId}`); // Log detailsId
       try {
-        const result: any = await fetch(`/api/contentful/career-map-occupation/${detailsId}`);
-        const resultJson = await result.json();
-        console.log("Fetched occupation data:", resultJson); // Log the entire data response
+        const result = await fetch(`/api/contentful/career-map-occupation/${detailsId}`);
+        const resultJson: OccupationDataProps = await result.json(); // Specify the correct type here
+        console.log("Fetched occupation data:", resultJson);
         setData(resultJson);
 
         const searchTerm =
