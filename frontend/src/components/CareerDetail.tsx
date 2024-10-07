@@ -114,8 +114,11 @@ export const CareerDetail = ({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      if (document.getElementById("uswds") !== null) return;
+
       const script = document.createElement("script");
       script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
+      script.id = "uswds";
       script.async = true;
       document.body.appendChild(script);
     }
