@@ -97,13 +97,15 @@ export const LandingPage = (props: Props): ReactElement => {
               heading="All Training Tools"
               theme="green"
             />
-            <CardRow
-              sectionId="explore"
-              allSameIcon
-              cards={pageData.careerExplorationToolLinksCollection.items}
-              heading="All Career Exploration Resources"
-              theme="purple"
-            />
+            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" && (
+              <CardRow
+                sectionId="explore"
+                allSameIcon
+                cards={pageData.careerExplorationToolLinksCollection.items}
+                heading="All Career Exploration Resources"
+                theme="purple"
+              />
+            )}
             <CardRow
               sectionId="support"
               allSameIcon
