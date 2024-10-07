@@ -85,18 +85,28 @@ export const LandingPage = (props: Props): ReactElement => {
             </div>
             <CardRow
               sectionId="jobs"
+              allSameIcon
               cards={pageData.jobSearchToolLinksCollection.items}
               heading="All Job Search Tools"
               theme="blue"
             />
             <CardRow
               sectionId="training"
+              allSameIcon
               cards={pageData.trainingToolLinksCollection.items}
               heading="All Training Tools"
               theme="green"
             />
             <CardRow
+              sectionId="explore"
+              allSameIcon
+              cards={pageData.careerExplorationToolLinksCollection.items}
+              heading="All Career Exploration Resources"
+              theme="purple"
+            />
+            <CardRow
               sectionId="support"
+              allSameIcon
               cards={pageData.supportAndAssistanceLinksCollection.items}
               heading="All Support and Assistance Resources"
               theme="navy"
