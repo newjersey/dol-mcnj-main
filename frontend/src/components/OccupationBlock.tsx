@@ -113,6 +113,18 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
     document.addEventListener("click", closeDropdown);
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (document.getElementById("uswds") !== null) return;
+
+      const script = document.createElement("script");
+      script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
+      script.id = "uswds";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [props.content]);
+
   return (
     <section className="occupation-block">
       <div className="container">
