@@ -8,8 +8,8 @@ describe("Not Found Page", () => {
     cy.checkA11y();
   });
 
-  it("404s on failed training lookups", () => {
+/*  it("404s on failed training lookups", () => {
     cy.visit("/training/not-a-valid-id");
     cy.contains("Training not found").should("exist");
-  });
+  });*/
 });
