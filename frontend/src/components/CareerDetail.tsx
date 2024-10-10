@@ -325,6 +325,8 @@ export const CareerDetail = ({
                   <div className="content">
                     <a
                       className="usa-button usa-button--secondary"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${data.careerMapObject.title.toLowerCase()}&location=New%20Jersey&radius=0&source=NLX&currentpage=1&pagesize=100`}
                     >
                       <span>

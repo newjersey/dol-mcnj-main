@@ -32,7 +32,9 @@ export const PrivacyPolicyPage = (props: Props): ReactElement => {
               practices.
             </p>
 
-            <h3 className="text-l">Definition of Personal Information</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Definition of Personal Information
+            </h3>
             <p>
               For purposes of this Information Collection Statement, "Personal Information" means
               any information that can be used to distinguish or trace an individual’s identity,
@@ -40,7 +42,9 @@ export const PrivacyPolicyPage = (props: Props): ReactElement => {
               linked or linkable to a specific individual.
             </p>
 
-            <h3 className="text-l">What We Collect</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              What We Collect
+            </h3>
             <p>
               The User Created Content that you voluntarily provide to us or post to the Website or
               use to access the Website, which may include personal information or training search
@@ -207,7 +211,9 @@ export const PrivacyPolicyPage = (props: Props): ReactElement => {
               </li>
             </ol>
 
-            <h3 className="text-l">When We Disclose Your Information</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              When We Disclose Your Information
+            </h3>
             <p>We may disclose your information as follows: </p>
             <ul className="plm mvd">
               <li className="mbd">
@@ -245,7 +251,9 @@ export const PrivacyPolicyPage = (props: Props): ReactElement => {
               </li>
             </ul>
 
-            <h3 className="text-l">Other Important Information</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Other Important Information
+            </h3>
 
             <ul className="plm mvd">
               <li className="mbd">

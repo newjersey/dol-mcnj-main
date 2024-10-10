@@ -22,7 +22,6 @@ import { TrainingResult } from "../domain/Training";
 import { calendarLength } from "../utils/calendarLength";
 import { InDemandTag } from "./InDemandTag";
 import { Selector } from "../svg/Selector";
-import { LinkObject } from "./modules/LinkObject";
 import { Heading } from "./modules/Heading";
 
 interface OccupationBlockProps {
@@ -435,16 +434,18 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         Related Job Opportunities
                       </div>
                       <div className="content">
-                        <LinkObject
+                        <a
                           className="solid usa-button"
-                          url={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
                         >
                           <span>
                             <Briefcase size={32} />
                             Check out related jobs on Career One Stop
                           </span>
                           <ArrowSquareOut size={20} />
-                        </LinkObject>
+                        </a>
                       </div>
                     </div>
                   </div>

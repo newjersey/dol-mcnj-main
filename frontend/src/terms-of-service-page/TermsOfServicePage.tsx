@@ -57,7 +57,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               .
             </p>
 
-            <h3 className="text-l">Section A. Information Disclaimer</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section A. Information Disclaimer
+            </h3>
             <p>
               We make great effort to provide secure, accurate and complete information on this
               Website. Any errors or omissions should be reported to us at{" "}
@@ -91,7 +93,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               information contained on this Website.
             </p>
 
-            <h3 className="text-l">Section B. Links to Other Sites</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section B. Links to Other Sites
+            </h3>
             <p>
               This Website provides links to other websites as a convenience to you. These include
               links to websites operated by third-party government agencies, nonprofit
@@ -115,7 +119,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               timeliness of any information published by external sites.
             </p>
 
-            <h3 className="text-l">Section C. Endorsement Disclaimer</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section C. Endorsement Disclaimer
+            </h3>
             <p>
               Reference in this web site to any specific commercial products, processes, or
               services, or the use of any trade, firm, or corporation name is for the information
@@ -123,7 +129,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               favoring by us.
             </p>
 
-            <h3 className="text-l">Section D. Intrusion Detection</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section D. Intrusion Detection
+            </h3>
             <p>
               This Website may be subject to monitoring to assure proper functioning of the systems,
               to provide security for the computer system's operation and information contained
@@ -131,7 +139,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               There is no reasonable expectation of privacy in the use of this Website.
             </p>
 
-            <h3 className="text-l">Section E. Intellectual Property Licenses</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section E. Intellectual Property Licenses
+            </h3>
             <ol className="plm mvd">
               <li className="mbd">
                 We have made the original content ("Content") of these pages available to the
@@ -162,7 +172,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               </li>
             </ol>
 
-            <h3 className="text-l">Section F. Your Conduct</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section F. Your Conduct
+            </h3>
             <p>
               You may submit content (collectively, "User Created Content") to the Website, provided
               that you abide by these common sense rules. You may not:
@@ -212,7 +224,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               <li className="mbd">Post any third-party links.</li>
             </ol>
 
-            <h3 className="text-l">Section G. DMCA Notice</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section G. DMCA Notice
+            </h3>
             <p>
               We respect the intellectual property of others, and we ask users of our Website to do
               the same. In accordance with the Digital Millennium Copyright Act (DMCA) and other
@@ -262,7 +276,9 @@ export const TermsOfServicePage = (props: Props): ReactElement => {
               </li>
             </ol>
 
-            <h3 className="text-l">Section H – Correcting Your Information</h3>
+            <h3 className="text-l" style={{ margin: "revert" }}>
+              Section H – Correcting Your Information
+            </h3>
             <p>
               We may also ask you to verify your identity and to provide further details relating to
               your request.
