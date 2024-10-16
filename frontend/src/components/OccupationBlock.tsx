@@ -1,6 +1,5 @@
 import {
   ArrowSquareOut,
-  ArrowUpRight,
   Briefcase,
   CalendarCheck,
   CaretDown,
@@ -17,12 +16,12 @@ import { toUsCurrency } from "../utils/toUsCurrency";
 import { ReactNode, useEffect, useState } from "react";
 import { Error } from "../domain/Error";
 import { useTranslation } from "react-i18next";
-import { CircularProgress, Tooltip } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { TrainingResult } from "../domain/Training";
 import { InDemandTag } from "./InDemandTag";
-import { SectionHeading } from "./modules/SectionHeading";
 import { Selector } from "../svg/Selector";
+import { Heading } from "./modules/Heading";
 
 interface OccupationBlockProps {
   content?: OccupationDetail;
@@ -98,25 +97,50 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
       : "a"
     : "a";
 
+  useEffect(() => {
+    const closeDropdown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".dropdown-select") || target.closest(".select-button")) return;
+      setOpen(false);
+    };
+
+    const closeOnEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEsc);
+    document.addEventListener("click", closeDropdown);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (document.getElementById("uswds") !== null) return;
+
+      const script = document.createElement("script");
+      script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
+      script.id = "uswds";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [props.content]);
+
   return (
     <section className="occupation-block">
       <div className="container">
-        <SectionHeading
-          heading={`Select ${article} ${props.industry} occupation`}
-          description="Select a field and explore different career pathways or click the tool tip to learn more about it."
-        />
+        <Heading level={2}>{`Select ${article} ${props.industry} occupation`}</Heading>
+
         <div className="occupation-selector">
           <label htmlFor="occupation-selector">
-            Select an in-demand {props.industry?.toLocaleLowerCase()} occupation
             <button
               type="button"
               aria-label="occupation selector"
-              className="select-button"
+              className={`select-button${!props.content || !!props.error ? " inactive" : ""}`}
               onClick={() => {
                 setOpen(!open);
               }}
             >
-              {props.content?.title || "Please choose an occupation"}
+              {props.error
+                ? "-Please choose an occupation-"
+                : props.content?.title || "-Please choose an occupation-"}
             </button>
           </label>
           {open && (
@@ -140,7 +164,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
         </div>
       </div>
       {props.loading ? (
-        <div className="container fdr fjc fac ptl">
+        <div className="loading container fdr fjc fac ptl">
           <CircularProgress color="secondary" />
         </div>
       ) : props.error === Error.NOT_FOUND ? (
@@ -182,24 +206,50 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   <div className="meta">
                     <div>
                       <p className="title">
-                        Median Salary
-                        <Tooltip placement="top" title="TEST">
+                        Median Salary{" "}
+                        <button
+                          data-position="top"
+                          title="The median salary is an estimate based on available data and may vary depending on factors such as location, experience, and employer."
+                          id="sal-tooltip"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                          type="button"
+                          className="unstyled usa-tooltip"
+                          onFocus={(e) => e.preventDefault()}
+                        >
                           <Info size={20} weight="fill" />
-                        </Tooltip>
+                        </button>
                       </p>
                       <p>
-                        {props.content.medianSalary
-                          ? toUsCurrency(props.content.medianSalary)
-                          : "N/A"}
+                        <strong>
+                          {props.content.medianSalary
+                            ? toUsCurrency(props.content.medianSalary)
+                            : "N/A"}
+                        </strong>
                       </p>
                     </div>
                     <div>
                       <p className="title">
                         Jobs Open in NJ
-                        <Tooltip placement="top" title="TEST">
+                        <button
+                          data-position="top"
+                          title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
+                          onFocus={(e) => e.preventDefault()}
+                          id="job-tooltip"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                          type="button"
+                          className="unstyled usa-tooltip"
+                        >
                           <Info size={20} weight="fill" />
-                        </Tooltip>
-                        <br />
+                        </button>
+                      </p>
+                      <p>
+                        {" "}
                         <strong>
                           {props.content.openJobsCount ||
                             numberWithCommas(
@@ -319,10 +369,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
-                                  <p className="title">
-                                    {train.name}
-                                    <ArrowUpRight size={24} />
-                                  </p>
+                                  <p className="title">{train.name}</p>
                                   <span className="span-grid">
                                     <span>
                                       <GraduationCap size={32} />
@@ -359,19 +406,27 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                           )}
                         </ul>
 
-                        <a className="usa-button" href="/training/search">
+                        <a
+                          className="usa-button"
+                          href={`/training/search?q=${props.content.title.toLowerCase()}`}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
                           <span>
                             <Selector name="trainingBold" />
                             See more trainings on the Training Explorer
                           </span>
-                          <ArrowUpRight size={20} />
                         </a>
-                        <a className="usa-button" href="/tuition-assistance">
+                        <a
+                          className="usa-button"
+                          href="/support-resources/tuition-assistance"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <span>
                             <Selector name="supportBold" />
                             Learn more financial assistance opportunities
                           </span>
-                          <ArrowUpRight size={20} />
                         </a>
                       </div>
                     </div>
@@ -383,13 +438,15 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                       <div className="content">
                         <a
                           className="solid usa-button"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
                         >
                           <span>
                             <Briefcase size={32} />
                             Check out related jobs on Career One Stop
                           </span>
-                          <ArrowUpRight size={20} />
+                          <ArrowSquareOut size={20} />
                         </a>
                       </div>
                     </div>

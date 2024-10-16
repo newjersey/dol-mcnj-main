@@ -5,11 +5,12 @@ import { SectionHeading } from "./modules/SectionHeading";
 interface CardRowProps {
   heading?: string;
   sectionId?: string;
+  allSameIcon?: boolean;
   cards: IconLinkProps[];
   theme?: "blue" | "green" | "purple" | "navy";
 }
 
-const CardRow = ({ cards, heading, theme, sectionId }: CardRowProps) => {
+const CardRow = ({ cards, heading, theme, allSameIcon, sectionId }: CardRowProps) => {
   return (
     <div className="card-row" id={sectionId}>
       <div className="container">
@@ -18,12 +19,13 @@ const CardRow = ({ cards, heading, theme, sectionId }: CardRowProps) => {
           <div className="slider-container">
             {cards.map((card) => {
               const isExternal = card.url.includes("http");
+              const cardId = allSameIcon ? sectionId || card.sectionIcon : card.sectionIcon;
               const svgName =
-                card.sectionIcon === "explore"
+                cardId === "explore"
                   ? "ExploreBold"
-                  : card.sectionIcon === "jobs"
+                  : cardId === "jobs"
                     ? "JobsBold"
-                    : card.sectionIcon === "support"
+                    : cardId === "support"
                       ? "SupportBold"
                       : "TrainingBold";
               return (

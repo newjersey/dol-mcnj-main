@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Client } from "../domain/Client";
@@ -7,6 +7,7 @@ import { SeoProps } from "../types/contentful";
 import { Seo } from "./Seo";
 import { useContentful } from "../utils/useContentful";
 import { AlertBar } from "./AlertBar";
+import { defaultKeywords } from "../utils/defaultKeywords";
 
 interface LayoutProps {
   client: Client;
@@ -43,14 +44,25 @@ export const Layout = (props: LayoutProps) => {
     globalNav,
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const script = document.createElement("script");
-      script.src = "https://newjersey.github.io/njwds/dist/js/uswds.min.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
+  const defaultSeo = {
+    title: process.env.REACT_APP_SITE_NAME as string,
+    keywords: defaultKeywords,
+    pageDescription:
+      "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
+    image: "https://mycareer.nj.gov/thumbnail.png",
+    url: "/",
+  } as SeoProps;
+
+  // if there are missing fields in props.seo then fill it in with defaultSeo
+  if (props.seo) {
+    (Object.keys(defaultSeo) as (keyof SeoProps)[]).forEach((key) => {
+      if (props.seo![key] === undefined) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (props.seo as any)[key] = defaultSeo[key];
+      }
+    });
+  }
+
   return (
     <>
       {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
@@ -71,7 +83,7 @@ export const Layout = (props: LayoutProps) => {
         />
       )}
 
-      {props.seo && <Seo {...props.seo} />}
+      {props.seo ? <Seo {...props.seo} /> : <Seo {...defaultSeo} />}
       <Header {...headerProps} />
       <main
         id="main"

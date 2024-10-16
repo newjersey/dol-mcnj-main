@@ -8,6 +8,7 @@ import {
   GetOccupationDetailByCIP,
   AllTrainings,
 } from "../domain/types";
+import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
@@ -73,7 +74,7 @@ export const routerFactory = ({
     if (isNaN(limit) || limit < 1) {
       limit = 10;
     }
-    
+
     searchTrainings({
       searchQuery: req.query.query as string,
       page: page,
@@ -103,7 +104,7 @@ export const routerFactory = ({
         res.status(200).json(trainings[0]);
       })
       .catch((e) => {
-        if (e.message === "Not Found") {
+        if (e === Error.NOT_FOUND) {
           res.status(404).send();
         }
         res.status(500).send();

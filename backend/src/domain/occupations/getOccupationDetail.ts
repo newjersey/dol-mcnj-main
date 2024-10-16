@@ -20,6 +20,7 @@ export const getOccupationDetailFactory = (
   getEducationText: GetEducationText,
   getSalaryEstimate: GetSalaryEstimate,
   getOpenJobsCount: GetOpenJobsCount,
+  findTrainingsBy: FindTrainingsBy,
   dataClient: DataClient,
 ): GetOccupationDetail => {
   return async (soc: string): Promise<OccupationDetail> => {
