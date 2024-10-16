@@ -6,7 +6,7 @@ import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";
 import { App } from "./App";
 import { ApiClient } from "./ApiClient";
-import { createTheme, ThemeProvider } from "@material-ui/core";
+import { unstable_createMuiStrictModeTheme as createTheme, ThemeProvider } from "@material-ui/core";
 import "./i18n";
 
 const password = process.env.DEV_PASS;

@@ -1,0 +1,45 @@
+.usa-pagination {
+  &.disabled {
+    opacity: 0.5;
+    user-select: none;
+    pointer-events: none;
+  }
+  .usa-pagination__overflow {
+    a {
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &.multi-break {
+    .start_2,
+    .start_3,
+    .end_1,
+    .end_2 {
+      @media screen and (max-width: ($desktop-md - 1)) {
+        display: none;
+      }
+    }
+  }
+
+  .control {
+    &.disabled {
+      display: none;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: none;
+    }
+
+    a {
+      width: $size-60;
+      display: flex;
+      align-items: center;
+      gap: $size-4;
+    }
+  }
+}

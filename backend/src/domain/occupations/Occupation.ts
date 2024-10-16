@@ -1,4 +1,6 @@
+/*
 import { TrainingResult } from "../training/TrainingResult";
+*/
 
 export interface InDemandOccupation {
   soc: string;
@@ -12,9 +14,9 @@ export interface Occupation {
   title: string;
 }
 
-export interface ExpandedOccupation extends Occupation {
+/*export interface ExpandedOccupation extends Occupation {
   counties: string[];
-}
+}*/
 
 export interface OccupationDetail {
   soc: string;
@@ -28,7 +30,9 @@ export interface OccupationDetail {
   openJobsCount: number | null;
   openJobsSoc?: string;
   relatedOccupations: Occupation[];
+/*
   relatedTrainings: TrainingResult[];
+*/
 }
 
 export interface OccupationDetailPartial {

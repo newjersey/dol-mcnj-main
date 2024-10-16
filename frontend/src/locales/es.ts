@@ -193,7 +193,7 @@ export const es = {
   },
   SearchAndFilter: {
     searchButtonDefaultText: "Búsqueda",
-    searchButtonUpdateResultsText: "Actualizar resultados",
+    applyFiltersButtontText: "Aplicar",
     searchBarDefaultPlaceholderText: "Buscar cursos de formación",
     sortByLabel: "Ordenar por",
     sortByBestMatch: "Mejor partido",
@@ -203,7 +203,7 @@ export const es = {
     resultCountString_one: "{{count}} resultado",
     resultCountString_other: "{{count}} resultados",
     mobileFilterText: "Editar búsqueda o filtro",
-    locationFilterLabel: "Millas desde el código postal",
+    locationFilterLabel: "Distancia desde el código postal",
     locationFilterMilesInputLabel: "Millas",
     locationFilterZipCodePlaceholder: "Código postal",
     locationFilterZipCodeInvalid: "Ingrese un código postal de Nueva Jersey de 5 dígitos.",
@@ -238,6 +238,8 @@ export const es = {
     noSearchTermPageTitle: "Buscar Entrenamiento",
     noSearchTermHeader: "Buscar formación",
     sectionOneHeader: "¿Qué es el New Jersey Training Explorer?",
+    loadingHeader: "Buscando datos de entrenamiento para tus resultados...",
+    loadingHeaderMessage: "Esto puede tardar unos segundos",
     sectionOneHeaderSmallScreen: "Empezando",
     introText:
       "El New Jersey Training Explorer es una lista completa de todas las escuelas y organizaciones que ofrecen educación y capacitación laboral que pueden ser elegibles para recibir",
@@ -282,6 +284,8 @@ export const es = {
     comparisonEmploymentRateLabelMobile: "Tasa de empleo",
     comparisonTimeToCompleteLabel: "Tiempo para completar",
     comparisonSeeDetails: "Ver detalles",
+    addFiltersLabel: "Agregar filtros",
+    filtersButton: "Filtros",
   },
   StatBlock: {
     dataSourceLabel: "Fuente de datos: ",
@@ -331,6 +335,7 @@ export const es = {
     suppliesCostLabel: "Suministros y herramientas",
     otherCostLabel: "Otro",
     providerGroupHeader: "Detalles del proveedor",
+    locationGroupHeader: "Detalles de ubicación",
     onlineClass: "Clase en línea",
     providerServicesGroupHeader: "Servicios del proveedor",
     eveningCoursesServiceLabel: "Este proveedor ofrece cursos nocturnos.",

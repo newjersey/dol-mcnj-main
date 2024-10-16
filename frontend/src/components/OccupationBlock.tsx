@@ -19,7 +19,6 @@ import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { TrainingResult } from "../domain/Training";
-import { calendarLength } from "../utils/calendarLength";
 import { InDemandTag } from "./InDemandTag";
 import { Selector } from "../svg/Selector";
 import { Heading } from "./modules/Heading";
@@ -364,9 +363,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                         <ul className="unstyled">
                           {sortedTraining && sortedTraining.length > 0 ? (
                             sortedTraining.slice(0, 3).map((train) => (
-                              <li key={train.id}>
+                              <li key={train.ctid}>
                                 <a
-                                  href={`/training/${train.id}`}
+                                  href={`/training/${train.ctid}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
@@ -376,15 +375,18 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                                       <GraduationCap size={32} />
                                       {train.providerName}
                                     </span>
-                                    <span>
-                                      <MapPinLine size={32} />
-                                      {train.city}, {train.county}
-                                    </span>
+                                    {train.availableAt.map((address, index) => (
+                                      <span key={index}>
+                                        <MapPinLine size={32} />
+                                        {address.city}, {address.state}
+                                      </span>
+                                    ))}
                                     <span className="last-line">
                                       <span>
                                         <Hourglass size={32} />
+
                                         {train.calendarLength
-                                          ? `${calendarLength(train.calendarLength)} to complete`
+                                          ? `${t(`CalendarLengthLookup.${train.calendarLength}`)} to complete`
                                           : "--"}
                                       </span>
                                       <span className="salary">

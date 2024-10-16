@@ -1,0 +1,96 @@
+[
+    {
+      "averageSalary": 0,
+      "booksMaterialsCost": 0,
+      "certifications": "Certification Name",
+      "cipCode": "123456",
+      "description": "This is an example description for the training program.",
+      "feesCost": 0,
+      "hasChildcareAssistance": false,
+      "hasEveningCourses": false,
+      "hasJobPlacementAssistance": false,
+      "id": "ctid123",
+      "inDemand": false,
+      "isWheelchairAccessible": false,
+      "languages": "English",
+      "localExceptionCounty": [],
+      "name": "Example Training Program",
+      "occupations": [
+        {
+          "soc": "123",
+          "title": "test"
+        }
+      ],
+      "online": true,
+      "otherCost": 0,
+      "percentEmployed": 0,
+      "prerequisites": [
+        "Example requirement description"
+      ],
+      "provider": {
+        "county": "Middlesex",
+        "email": null,
+        "id": "ctid123",
+        "name": "Example Training Program",
+        "url": "someurl"
+      },
+      "availableAt": {
+        "street_address": "112 Rues Lane",
+        "city": "East Brunswick",
+        "state": "New Jersey",
+        "zipCode": "08816"
+      },
+      "suppliesToolsCost": 0,
+      "totalClockHours": null,
+      "calendarLength": null,
+      "totalCost": 1000,
+      "tuitionCost": 0
+    },
+    {
+      "averageSalary": 0,
+      "booksMaterialsCost": 0,
+      "certifications": "Certification Name",
+      "cipCode": "123456",
+      "description": "This is an example description for the training program.",
+      "feesCost": 0,
+      "hasChildcareAssistance": false,
+      "hasEveningCourses": false,
+      "hasJobPlacementAssistance": false,
+      "id": "ctid123",
+      "inDemand": false,
+      "isWheelchairAccessible": false,
+      "languages": "English",
+      "localExceptionCounty": [],
+      "name": "Example Training Program",
+      "occupations": [
+        {
+          "soc": "123",
+          "title": "test"
+        }
+      ],
+      "online": true,
+      "otherCost": 0,
+      "percentEmployed": 0,
+      "prerequisites": [
+        "Example requirement description"
+      ],
+      "provider": {
+        "county": "Middlesex",
+        "email": null,
+        "id": "ctid123",
+        "name": "Example Training Program",
+        "url": "someurl"
+      },
+      "availableAt": {
+        "street_address": "112 Rues Lane",
+        "city": "East Brunswick",
+        "state": "New Jersey",
+        "zipCode": "08816"
+      },
+      "suppliesToolsCost": 0,
+      "totalClockHours": null,
+      "calendarLength": null,
+      "totalCost": 1000,
+      "tuitionCost": 0
+    }
+  ]
