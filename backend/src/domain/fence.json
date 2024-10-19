@@ -1,4 +1,4 @@
 {
   "tags": ["domain"],
-  "imports": []
+  "imports": ["credentialengine"]
 }

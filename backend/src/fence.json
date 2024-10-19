@@ -9,11 +9,13 @@
     "dotenv",
     "express",
     "graphql-request",
+    "jest-mock-axios",
     "knex",
     "supertest",
     "node-cache",
-    "express-rate-limit",
     "winston",
+    "zipcodes",
+    "express-rate-limit",
     "express-validator",
     "nodemailer"
   ]

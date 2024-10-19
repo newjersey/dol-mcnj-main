@@ -1,0 +1,336 @@
+{
+  "data": [
+      {
+          "ctid": "ce-f2561d2e-95e5-4456-83d6-720bdb18d67c",
+          "name": "Painting Level 1",
+          "totalCost": 5000,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-bd57db6b-0230-4995-9dca-159372b864b8",
+          "providerName": "B and B Power Wash & Paint Job Training, Inc. - PCS_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "207 Sycamore Avenue",
+                  "city": "Egg Harbor Township",
+                  "state": "New Jersey",
+                  "zipCode": "08234",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "a comprehensive overview of the theory and practices of professional painting. This empowering course ensures students enroll in painting courses receive",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-ff8c79b2-0a8a-4685-a41c-e0042cf8574f",
+          "name": "Painting Level II",
+          "totalCost": 5000,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-bd57db6b-0230-4995-9dca-159372b864b8",
+          "providerName": "B and B Power Wash & Paint Job Training, Inc. - PCS_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "207 Sycamore Avenue",
+                  "city": "Egg Harbor Township",
+                  "state": "New Jersey",
+                  "zipCode": "08234",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "practices of professional. This empowering course ensures students enrolled in painting courses receive in depth painting training, from chemical safety and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-f940203f-1ba9-40d0-835f-d50f2c08b7e5",
+          "name": "Construction Level 1 & Level 2 Painting OSHA 30",
+          "totalCost": 4000,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-a03da5c8-c8a9-4daa-95ca-8b08fadf2964",
+          "providerName": "B and B Power Wash & Paint Job Training Inc. - APPRENTICESHIP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "5080 Atlantic Avenue, Atlantic County Institute of Technology",
+                  "city": "Mays Landing",
+                  "state": "New Jersey",
+                  "zipCode": "08330",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Level 1: Pinting Safety OSHA, Ladders, Scaffolds lift & fall protection, Identifying surface/ substrate \r\nprotection, basic surface preparation sealants",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-9854b9b6-ee4c-4933-88ad-a478bba1394e",
+          "name": "Finished Carpentry",
+          "cipDefinition": {
+              "cipcode": "460201",
+              "ciptitle": "Carpentry/Carpenter."
+          },
+          "totalCost": 2230,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [
+              "Cape May",
+              "Cumberland",
+              "Salem"
+          ],
+          "online": true,
+          "providerId": "ce-f401b78f-873f-4c0f-837d-422991869fae",
+          "providerName": "HoHoKus School of Trade - Customized Trainer_ETP",
+          "availableAt": [
+              {
+                  "street_address": "634 Market Street",
+                  "city": "Paterson",
+                  "state": "New Jersey",
+                  "zipCode": "07513",
+                  "county": "Passaic"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "know how to prepare a room for taping, spackling or painting; estimate the amount of materials to complete a job; and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-c7b3a2fb-516c-4e7e-afdc-e99ff4000693",
+          "name": "Collision Repair (Auto Body)",
+          "cipDefinition": {
+              "cipcode": "470603",
+              "ciptitle": "Autobody/Collision and Repair Technology/Technician."
+          },
+          "totalCost": 7650,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-fd1e0bb6-dc34-4e03-9fdb-c9db6cc6225b",
+          "providerName": "Ocean County Vocational Technical Schools - Jackson_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "Adult Education Division, 850 Toms River Road",
+                  "city": "Jackson",
+                  "state": "New Jersey",
+                  "zipCode": "08753",
+                  "county": "Ocean"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "provides  entry-level skills and knowledge required by the collision repair and automotive restoration industry.  automotive paints and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-e8e86813-6d55-458f-9214-4b5ee073bafd",
+          "name": "ESL & Construction Specialist",
+          "cipDefinition": {
+              "cipcode": "131401",
+              "ciptitle": "Teaching English as a Second or Foreign Language/ESL Language Instructor."
+          },
+          "totalCost": 34130,
+          "percentEmployed": null,
+          "calendarLength": 6,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-a5687cea-db3b-497a-ae6b-8aefa6612f07",
+          "providerName": "Ideal Institute of Technology - Mays Landing - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "4403 Black Horse Pike, Unit 2141",
+                  "city": "Mays Landing",
+                  "state": "New Jersey",
+                  "zipCode": "08330",
+                  "county": "Atlantic"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "The goal of the ESL Program is to provide English Language Learners (ELLs) with instructional support that will enable",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-fd1b98c3-b408-465b-b6fe-80ac543c5c98",
+          "name": "Collision Repair and Refinishing Technology",
+          "totalCost": 26048,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-193e3a33-1972-4e5b-a593-e731645e1ffc",
+          "providerName": "Lincoln Technical Institute - East Windsor, CT_ETP_ETP",
+          "availableAt": [
+              {
+                  "street_address": "97 Newberry Road",
+                  "city": "East Windsor",
+                  "state": "Connecticut",
+                  "zipCode": "06088",
+                  "county": ""
+              }
+          ],
+          "inDemand": false,
+          "highlight": "This program is designed to provide the student with a comprehensive understanding and hands on application of industry standard",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-042c171a-7b21-4c6d-81f4-e879b7da1564",
+          "name": "Studio Art AFA",
+          "cipDefinition": {
+              "cipcode": "500702",
+              "ciptitle": "Fine/Studio Arts, General."
+          },
+          "totalCost": 11542,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-d47ec693-0260-45cf-82c8-1f8c7317112c",
+          "providerName": "Salem Community College - Credit Programs_ETP",
+          "availableAt": [
+              {
+                  "street_address": "460 Hollywood Avenue",
+                  "city": "Carney's Point",
+                  "state": "New Jersey",
+                  "zipCode": "08069",
+                  "county": "Salem"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "commitment to a balanced learning process combining fine art fundamentals 9drawing/painting/seeing) with life experience and aesthetic theory will prepare students for",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-e79269cf-dd80-4b62-b084-cef6bb165ee0",
+          "name": "Plumber's Assistant and Building Maintenance",
+          "cipDefinition": {
+              "cipcode": "460503",
+              "ciptitle": "Plumbing Technology/Plumber."
+          },
+          "totalCost": 12000,
+          "percentEmployed": null,
+          "calendarLength": 5,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-925f2772-1300-49e9-a02e-7c8bf881226f",
+          "providerName": "National Career Institute - East Orange - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "134 Evergreen Place",
+                  "city": "East Orange",
+                  "state": "New Jersey",
+                  "zipCode": "07018",
+                  "county": "Essex"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "repairs, asphalt repairs, security/safety, blue print reading, wood studs, framing, painting and roof patching.",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-f8aa44f3-52f2-4d23-a184-1a07ed604ed7",
+          "name": "Carpentry & Property Management",
+          "cipDefinition": {
+              "cipcode": "460201",
+              "ciptitle": "Carpentry/Carpenter."
+          },
+          "totalCost": 5400,
+          "percentEmployed": null,
+          "calendarLength": 4,
+          "localExceptionCounty": [
+              "Cape May",
+              "Cumberland",
+              "Salem"
+          ],
+          "online": true,
+          "providerId": "ce-3c659eea-01c9-4f8d-a85e-ee6b6b1dc4a2",
+          "providerName": "Cape May County Technical School - Adult/Post Secondary Day Division_ETP",
+          "availableAt": [
+              {
+                  "street_address": "Attn: Adult Education Division, 188 Crest Haven Road",
+                  "city": "Cape May Court House",
+                  "state": "New Jersey",
+                  "zipCode": "08210",
+                  "county": "Cape May"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "The Carpentry & Property Management program is a course of study focusing on skills in carpentry, masonry, electric and",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 1,
+      "totalPages": 3,
+      "totalItems": 21,
+      "itemsPerPage": 10,
+      "hasNextPage": true,
+      "hasPreviousPage": false,
+      "nextPage": 2,
+      "previousPage": null
+  }
+}
