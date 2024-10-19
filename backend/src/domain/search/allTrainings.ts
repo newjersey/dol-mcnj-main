@@ -55,25 +55,13 @@ export const allTrainings = (): AllTrainings => {
 function buildQuery() {
   return {
     "@type": {
-      "search:value": "ceterms:Credential",
-      "search:matchType": "search:subClassOf",
+      "search:value": "ceterms:LearningOpportunityProfile",
+      "search:matchType": "search:subClassOf"
     },
-    "search:termGroup": {
-      "search:operator": "search:andTerms",
-      "search:value": [
-        {
-          "search:operator": "search:orTerms",
-          "ceterms:availableOnlineAt": "search:anyValue",
-        },
-        {
-          "search:operator": "search:andTerms",
-          "ceterms:credentialStatusType": {
-            "ceterms:targetNode": "credentialStat:Active",
-          },
-          "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
-        },
-      ],
+    "ceterms:lifeCycleStatusType": {
+      "ceterms:targetNode": "lifeCycle:Active"
     },
+    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
   };
 }
 
