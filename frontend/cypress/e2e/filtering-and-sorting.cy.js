@@ -239,6 +239,8 @@ describe("Filtering", () => {
     ];
 
     cy.get(".card").each(($value, index) => {
+      cy.log(`Card ${index} content: ${$value.text()}`);
+      cy.screenshot(`card-${index}`);
       expect($value.text()).contains(ratesOrder[index]);
     });
   });
