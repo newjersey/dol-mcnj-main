@@ -97,6 +97,7 @@ export interface Provider {
   email: string;
   url: string;
   addresses: Address[];
+  identifier: string[];
 }
 
 export interface Address {

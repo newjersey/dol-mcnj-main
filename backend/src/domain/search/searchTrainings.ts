@@ -372,7 +372,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const occupations = await credentialEngineUtils.extractOccupations(certificate);
     const socCodes = occupations.map((occupation: { soc: string }) => occupation.soc);
 
-    const outcomesDefinition = await dataClient.findOutcomeDefinition(cipCode, provider.providerId);
+    const outcomesDefinition = provider.providerId ? await dataClient.findOutcomeDefinition(cipCode, provider.providerId) : null;
 
     return {
       ctid: certificate["ceterms:ctid"] || "",

@@ -21,6 +21,7 @@ export interface CTDLResource {
   "ceterms:subject"?:                     CetermsCredentialAlignmentObject[];
   "ceterms:requires"?:                    CetermsRequire[];
   "ceterms:offeredBy"?:                   string[];
+  "ceterms:email"?:                       string[];
   "ceterms:renewedBy"?:                   string[];
   "ceterms:approvedBy"?:                  string[];
   "ceterms:revokedBy"?:                   string[];
@@ -79,6 +80,7 @@ export interface CTDLResource {
   "ceterms:processStandardsDescription"?: Ceterms;
   "ceterms:latestVersion"?:               string;
   "ceterms:aggregateData"?:               CetermsAggregateData[];
+  "ceterms:identifier"?:                  CetermsVersionIdentifier[];
   "ceterms:hasSupportService"?:           string[];
 }
 
