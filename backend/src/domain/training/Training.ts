@@ -33,18 +33,19 @@ export interface Training {
 }
 
 export interface Provider {
-  ctid: string;
-  providerId?: string;
+  ctid?: string;
+  providerId?: string | null | undefined;
   url?: string;
   contactName?: string;
   contactTitle?: string;
   phoneNumber?: string;
   county?: string;
   phoneExtension?: string;
-  email?: string;
+  email?: string | null;
   addresses?: Address;
-  name: string;
+  name?: string;
   targetContactPoints?: ContactPoint[];
+  identifier?: string[] | null;
 }
 export interface Address {
   street_address?: string;
