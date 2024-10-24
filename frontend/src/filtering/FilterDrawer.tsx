@@ -17,7 +17,7 @@ import {
   completeInList,
   COUNTIES,
   languageList,
-  serviceList
+  serviceList,
 } from "./filterLists";
 
 interface ArrayProps {
@@ -55,7 +55,7 @@ export const FilterDrawer = ({
   miles = "",
   services,
   socCode = "",
-  zipcode = ""
+  zipcode = "",
 }: Props): ReactElement<Props> => {
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
@@ -78,13 +78,13 @@ export const FilterDrawer = ({
       miles,
       services,
       socCode,
-      zipcode
-    }
-  })
+      zipcode,
+    },
+  });
 
   const { handleSubmit, setValue } = methods;
 
-  const onSubmit = (data: Props) => {    
+  const onSubmit = (data: Props) => {
     const {
       searchQuery,
       inDemand,
@@ -97,8 +97,8 @@ export const FilterDrawer = ({
       languages,
       services,
       cipCode,
-      socCode
-     } = data;
+      socCode,
+    } = data;
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -108,25 +108,33 @@ export const FilterDrawer = ({
     inDemand ? urlParams.set("inDemand", inDemand.toString()) : urlParams.delete("inDemand");
     maxCost ? urlParams.set("maxCost", maxCost) : urlParams.delete("maxCost");
     county ? urlParams.set("county", county) : urlParams.delete("county");
-    classFormat && classFormat.length > 0 ? urlParams.set("format", classFormat.join(",")) : urlParams.delete("format");
+    classFormat && classFormat.length > 0
+      ? urlParams.set("format", classFormat.join(","))
+      : urlParams.delete("format");
     miles ? urlParams.set("miles", miles) : urlParams.delete("miles");
     zipcode ? urlParams.set("zipcode", zipcode) : urlParams.delete("zipcode");
-    
+
     if (completeIn) {
       completeInList = extractIds(completeIn as ArrayProps[]);
-      completeInList?.length > 0 ? urlParams.set("completeIn", completeInList.join(",")) : urlParams.delete("completeIn");
+      completeInList?.length > 0
+        ? urlParams.set("completeIn", completeInList.join(","))
+        : urlParams.delete("completeIn");
     }
-    
+
     if (languages) {
       languagesList = extractIds(languages as ArrayProps[]);
-      languagesList?.length > 0 ? urlParams.set("languages", languagesList.join(",")) : urlParams.delete("languages");
+      languagesList?.length > 0
+        ? urlParams.set("languages", languagesList.join(","))
+        : urlParams.delete("languages");
     }
-    
+
     if (services) {
       servicesList = extractIds(services as ArrayProps[]);
-      servicesList?.length > 0 ? urlParams.set("services", servicesList.join(",")) : urlParams.delete("services");
+      servicesList?.length > 0
+        ? urlParams.set("services", servicesList.join(","))
+        : urlParams.delete("services");
     }
-    
+
     cipCode ? urlParams.set("cip", cipCode) : urlParams.delete("cip");
     socCode ? urlParams.set("soc", socCode) : urlParams.delete("soc");
 
@@ -135,7 +143,7 @@ export const FilterDrawer = ({
     window.location.reload();
 
     toggleDrawer();
-  }
+  };
 
   const onReset = () => {
     setValue("inDemand", false);
@@ -153,23 +161,16 @@ export const FilterDrawer = ({
     setTimeout(() => {
       setClearSelected(false);
     }, 50);
-  }
+  };
 
   return (
     <StrictMode>
       <FilterButton toggleDrawer={toggleDrawer} />
-      <Drawer
-        anchor={mobile ? "bottom" : "left"}
-        open={open}
-        onClose={toggleDrawer}
-      >
+      <Drawer anchor={mobile ? "bottom" : "left"} open={open} onClose={toggleDrawer}>
         <div id="drawer-container" role="form">
           <div id="drawer-header">
             <h2>{t("SearchResultsPage.addFiltersLabel")}</h2>
-            <button
-              className="close-button"
-              onClick={toggleDrawer}
-            >
+            <button className="close-button" onClick={toggleDrawer}>
               <X aria-label="close form" />
             </button>
           </div>
@@ -212,9 +213,7 @@ export const FilterDrawer = ({
                 />
                 <div className="field-group">
                   <div className="label-container zip-label">
-                    <label>
-                      {t("SearchAndFilter.locationFilterLabel")}
-                    </label>
+                    <label>{t("SearchAndFilter.locationFilterLabel")}</label>
                   </div>
                   <div className="zip-miles-group">
                     <FilterFormInput
@@ -222,9 +221,7 @@ export const FilterDrawer = ({
                       inputType="number"
                       placeholder={t("SearchAndFilter.locationFilterMilesInputLabel")}
                     />
-                    <div className="conjunction-container">
-                      from
-                    </div>
+                    <div className="conjunction-container">from</div>
                     <FilterFormInput
                       inputName="zipcode"
                       placeholder={t("SearchAndFilter.locationFilterZipCodePlaceholder")}
@@ -268,8 +265,12 @@ export const FilterDrawer = ({
                   subLabel={t("SearchResultsPage.socCodeSubLabel")}
                 />
                 <div id="drawer-btn-container" className="row">
-                  <button type="submit" id="submit-button">{t("SearchAndFilter.applyFiltersButtontText")}</button>
-                  <button type="reset" id="reset-button">{t("SearchAndFilter.clearAllFiltersButtonLabel")}</button>
+                  <button type="submit" id="submit-button">
+                    {t("SearchAndFilter.applyFiltersButtontText")}
+                  </button>
+                  <button type="reset" id="reset-button">
+                    {t("SearchAndFilter.clearAllFiltersButtonLabel")}
+                  </button>
                 </div>
               </FormProvider>
             </form>
@@ -277,5 +278,5 @@ export const FilterDrawer = ({
         </div>
       </Drawer>
     </StrictMode>
-  )
-}
+  );
+};
