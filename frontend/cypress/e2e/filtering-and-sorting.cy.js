@@ -204,6 +204,29 @@ describe.skip("Filtering", () => {
     });
   });
 
+  it.skip("sorts by employment rate", () => {
+    //TODO: Fix this and enable
+    cy.visit("/training/search?q=baker");
+    cy.get("#sortby").select("EMPLOYMENT_RATE");
+
+    const ratesOrder = [
+      "71.4% employed",
+      "33.3% employed",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+    ];
+
+    cy.get(".card").each(($value, index) => {
+      expect($value.text()).contains(ratesOrder[index]);
+    });
+  });
+
   // TODO: Find a longer-term solution for this test more resistant to ETPL data changes
   it.skip("preserves sort order between pages", () => {
     cy.visit("/training/search?q=baking");
