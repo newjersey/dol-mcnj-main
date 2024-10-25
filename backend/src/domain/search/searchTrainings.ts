@@ -348,11 +348,11 @@ function buildQuery(params: {
 
   return {
     "@type": {
-      "search:value": "ceterms:LearningOpportunityProfile",
-      "search:matchType": "search:subClassOf",
+      "search:value": "ceterms:Credential",
+      "search:matchType": "search:subClassOf"
     },
-    "ceterms:lifeCycleStatusType": {
-      "ceterms:targetNode": "lifeCycle:Active",
+    "ceterms:credentialStatusType": {
+      "ceterms:targetNode": "credentialStat:Active"
     },
     "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
     "search:termGroup": termGroup
