@@ -39,6 +39,8 @@ interface Props {
   services?: string[] | ArrayProps[];
   socCode?: string;
   zipcode?: string;
+  filterCount?: number;
+  allFilterFields?: Props;
 }
 
 const extractIds = (arr: ArrayProps[]): string[] => arr.map(({ id }) => id);
@@ -51,6 +53,8 @@ export const FilterDrawer = ({
   county,
   inDemand,
   languages,
+  filterCount,
+  allFilterFields,
   maxCost = "",
   miles = "",
   services,
@@ -85,6 +89,7 @@ export const FilterDrawer = ({
   const { handleSubmit, setValue } = methods;
 
   const onSubmit = (data: Props) => {
+    console.log({ data });
     const {
       searchQuery,
       inDemand,
@@ -116,23 +121,42 @@ export const FilterDrawer = ({
 
     if (completeIn) {
       completeInList = extractIds(completeIn as ArrayProps[]);
-      completeInList?.length > 0
-        ? urlParams.set("completeIn", completeInList.join(","))
-        : urlParams.delete("completeIn");
+      console.log({ completeInList });
+
+      if (typeof completeIn[0] === "string") {
+        urlParams.set("completeIn", completeIn.join(","));
+      } else {
+        completeInList?.length > 0
+          ? urlParams.set("completeIn", completeInList.join(","))
+          : urlParams.delete("completeIn");
+      }
     }
 
     if (languages) {
       languagesList = extractIds(languages as ArrayProps[]);
-      languagesList?.length > 0
-        ? urlParams.set("languages", languagesList.join(","))
-        : urlParams.delete("languages");
+      console.log({ languages, languagesList, typeof: typeof languages[0] });
+
+      if (typeof languages[0] === "string") {
+        urlParams.set("languages", languages.join(","));
+      } else if (typeof languages[0] === "object") {
+        languagesList?.length > 0
+          ? urlParams.set("languages", languagesList.join(","))
+          : urlParams.delete("languages");
+      } else {
+        urlParams.delete("languages");
+      }
     }
 
     if (services) {
       servicesList = extractIds(services as ArrayProps[]);
-      servicesList?.length > 0
-        ? urlParams.set("services", servicesList.join(","))
-        : urlParams.delete("services");
+
+      if (typeof services[0] === "string") {
+        urlParams.set("services", services.join(","));
+      } else {
+        servicesList?.length > 0
+          ? urlParams.set("services", servicesList.join(","))
+          : urlParams.delete("services");
+      }
     }
 
     cipCode ? urlParams.set("cip", cipCode) : urlParams.delete("cip");
@@ -141,6 +165,8 @@ export const FilterDrawer = ({
     const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
     navigate(newUrl);
     window.location.reload();
+
+    console.log({ newUrl });
 
     toggleDrawer();
   };
@@ -165,7 +191,7 @@ export const FilterDrawer = ({
 
   return (
     <StrictMode>
-      <FilterButton toggleDrawer={toggleDrawer} />
+      <FilterButton toggleDrawer={toggleDrawer} count={filterCount} />
       <Drawer anchor={mobile ? "bottom" : "left"} open={open} onClose={toggleDrawer}>
         <div id="drawer-container" role="form">
           <div id="drawer-header">

@@ -276,6 +276,46 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }
   };
 
+  const allFilterFields = {
+    searchQuery,
+    cipCode,
+    classFormat,
+    completeIn,
+    county,
+    inDemand,
+    languages,
+    maxCost,
+    miles,
+    services,
+    socCode,
+    zipcode,
+  };
+
+  type FilterFields = {
+    [key: string]: string | number | boolean | string[] | number[] | boolean[];
+  };
+
+  const filterCount = (filters: FilterFields): number => {
+    let count = 0;
+
+    for (const key in filters) {
+      // Skip counting 'searchQuery'
+      if (key === "searchQuery") continue;
+
+      const value = filters[key];
+
+      if (Array.isArray(value)) {
+        // check if value in array is not "" or false
+        const filteredArray = value.filter((item) => item !== "" && item !== false);
+        count += filteredArray.length;
+      } else if (value !== undefined && value !== null && value !== "" && value !== false) {
+        count++;
+      }
+    }
+
+    return count;
+  };
+
   return (
     <Layout
       noFooter
@@ -305,8 +345,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
                 itemsPerPage={itemsPerPage}
                 sortBy={sortBy}
               />
-
               <FilterDrawer
+                filterCount={filterCount(allFilterFields as FilterFields)}
+                allFilterFields={allFilterFields}
                 searchQuery={searchQuery}
                 cipCode={cipCode}
                 classFormat={classFormat}
@@ -324,7 +365,13 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           )}
         </div>
         <div id="results-container">
-          {isLoading && <div>{Array(10).fill(<SkeletonCard />)}</div>}
+          {isLoading && (
+            <div>
+              {Array.from({ length: itemsPerPage }, (_, index) => (
+                <SkeletonCard key={`skel-${index}`} />
+              ))}
+            </div>
+          )}
           {!isLoading && !isError && trainings.length <= 5 && <SearchTips />}
           {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">

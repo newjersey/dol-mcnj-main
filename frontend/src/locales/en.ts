@@ -276,6 +276,8 @@ export const en = {
     comparisonSeeDetails: "See Details",
     addFiltersLabel: "Add Filters",
     filtersButton: "Filters",
+    filtersButtonSingle: "filter applied",
+    filtersButtonMultiple: "filters applied",
     searchQueryLabel: "Search by training, provider, certification, SOC code, CIP code, or keyword",
     inDemandLabel: "Show in-demand trainings only",
     maxCostLabel: "Max cost",
