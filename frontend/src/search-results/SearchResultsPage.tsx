@@ -300,7 +300,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     for (const key in filters) {
       // Skip counting 'searchQuery'
-      if (key === "searchQuery") continue;
+      if (key === "searchQuery" || key === "q") continue;
 
       const value = filters[key];
 
@@ -345,21 +345,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
                 itemsPerPage={itemsPerPage}
                 sortBy={sortBy}
               />
+
               <FilterDrawer
                 filterCount={filterCount(allFilterFields as FilterFields)}
-                allFilterFields={allFilterFields}
-                searchQuery={searchQuery}
-                cipCode={cipCode}
-                classFormat={classFormat}
-                completeIn={completeIn}
-                county={county || ""}
-                inDemand={inDemand}
-                languages={languages}
-                maxCost={maxCost}
-                miles={miles}
-                services={services}
-                socCode={socCode || ""}
-                zipcode={zipcode || ""}
+                {...allFilterFields}
               />
             </div>
           )}
