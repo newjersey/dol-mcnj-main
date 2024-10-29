@@ -55,7 +55,7 @@ export const allTrainings = (): AllTrainings => {
 function buildQuery() {
   return {
     "@type": {
-      "search:value": "ceterms:Credential",
+      "search:value": "ceterms:LearningOpportunityProfile",
       "search:matchType": "search:subClassOf"
     },
     "ceterms:lifeCycleStatusType": {
