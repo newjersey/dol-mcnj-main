@@ -367,6 +367,7 @@
 #selects-container {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 
   .input-container {
     width: 50%;
