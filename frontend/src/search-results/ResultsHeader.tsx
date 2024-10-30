@@ -33,8 +33,14 @@ export const ResultsHeader = ({
       <form
         className="usa-search usa-search--small"
         role="search"
-        onSubmit={() => {
-          console.log({ searchQuery });
+        onSubmit={(e) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          const urlParams = new URLSearchParams(window.location.search);
+          const filteredParams = new URLSearchParams(
+            Array.from(urlParams).filter(([key]) => key !== "q"),
+          );
+          window.location.href = `${window.location.origin}${window.location.pathname}?q=${form.search.value}&${filteredParams.toString()}`;
         }}
       >
         <input
