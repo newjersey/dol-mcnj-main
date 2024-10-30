@@ -11,7 +11,7 @@
       margin-bottom: $size-16;
       text-decoration: none;
       border-bottom: $size-1 solid $primary;
-  
+
       svg {
         position: absolute;
         top: 50%;
@@ -19,7 +19,7 @@
         left: -$size-32;
         z-index: 10;
       }
-  
+
       &:visited {
         color: $primary;
       }
@@ -90,7 +90,8 @@
   padding: $size-16;
   width: 100%;
 
-  .checkbox-container,.MuiIconButton-label {
+  .checkbox-container,
+  .MuiIconButton-label {
     &:hover {
       cursor: pointer;
     }
@@ -149,8 +150,8 @@
     bottom: 0;
     background-color: $gray-cool-30;
     border: 1px solid $gray-cool-50;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
 
   $slider-size: 20px;
@@ -163,8 +164,8 @@
     left: 3px;
     bottom: 3px;
     background-color: $gray-cool-50;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
 
   .isChecked:before {
@@ -247,15 +248,14 @@
 
 #filter-button-container {
   align-items: center;
-  margin: $size-24 auto;
   width: 100%;
 
   button {
     align-items: center;
     background-color: $white;
-    border: 2px solid $blue-60v;
+    border: 2px solid $base-light;
     border-radius: 0.25rem;
-    color: $blue-60v;
+    color: $base;
     gap: 0.5rem;
     display: flex;
     justify-content: center;
@@ -265,7 +265,7 @@
     &:hover {
       color: $blue-warm-70v;
       border: 2px solid $blue-warm-70v;
-      box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.10);;
+      box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -280,9 +280,9 @@
 
 #search-header-container {
   margin-bottom: $size-28;
+
   h2 {
-    margin-top: $size-16;
-    margin-bottom: 0;
+    margin: $size-16 0;
     width: 100%;
   }
 }
@@ -310,8 +310,12 @@
     display: none;
   }
 }
-
-@media (min-width: $tablet) {
+#search-filters-container {
+  .chip-container {
+    display: none;
+  }
+}
+@media (min-width: $tablet-lg) {
   #drawer-btn-container {
     display: flex;
     flex-direction: row;
@@ -328,12 +332,6 @@
   }
 
   #filter-button-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    margin: 0 0 0 $size-12;
-    width: 6.25rem;
-
     button {
       justify-content: left;
       width: auto;
@@ -346,8 +344,32 @@
 
   #search-filters-container {
     display: flex;
-    flex-direction: row-reverse;
+    align-items: end;
     justify-content: space-between;
+
+    .chip-container {
+      display: block;
+
+      .chips {
+        display: flex;
+        gap: $size-16;
+        margin-top: $size-16;
+      }
+
+      .clear-filters-button {
+        color: $error;
+        align-items: center;
+        display: flex;
+        gap: $size-8;
+        padding: 0;
+        font-weight: bold;
+        margin-top: $size-16;
+
+        svg {
+          margin-bottom: $size-2;
+        }
+      }
+    }
   }
 }
 

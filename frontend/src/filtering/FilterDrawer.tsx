@@ -1,4 +1,4 @@
-import { ReactElement, useState, StrictMode } from "react";
+import { ReactElement, useState, StrictMode, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { Drawer, useMediaQuery } from "@material-ui/core";
@@ -19,6 +19,7 @@ import {
   languageList,
   serviceList,
 } from "./filterLists";
+import { Chip } from "./Chip";
 
 interface ArrayProps {
   id: string;
@@ -26,6 +27,12 @@ interface ArrayProps {
   values?: number[];
 }
 
+export interface ChipProps {
+  id: string;
+  title: string;
+  label: string;
+  value: string;
+}
 interface Props {
   searchQuery?: string;
   cipCode?: string;
@@ -39,28 +46,34 @@ interface Props {
   services?: string[] | ArrayProps[];
   socCode?: string;
   zipcode?: string;
-  filterCount?: number;
+  chips?: {
+    id: string;
+    title: string;
+    label: string;
+    value: string;
+  }[];
   allFilterFields?: Props;
 }
 
 const extractIds = (arr: ArrayProps[]): string[] => arr.map(({ id }) => id);
 
-export const FilterDrawer = ({
-  searchQuery = "",
-  cipCode = "",
-  classFormat,
-  completeIn,
-  county,
-  inDemand,
-  languages,
-  filterCount,
-  allFilterFields,
-  maxCost = "",
-  miles = "",
-  services,
-  socCode = "",
-  zipcode = "",
-}: Props): ReactElement<Props> => {
+export const FilterDrawer = (props: Props): ReactElement<Props> => {
+  const {
+    chips,
+    cipCode = "",
+    classFormat,
+    completeIn,
+    county,
+    inDemand,
+    languages,
+    maxCost = "",
+    miles = "",
+    searchQuery = "",
+    services,
+    socCode = "",
+    zipcode = "",
+  } = props;
+
   const mobile = useMediaQuery("(max-width:640px)");
   const { t } = useTranslation();
 
@@ -189,9 +202,33 @@ export const FilterDrawer = ({
     }, 50);
   };
 
+  useEffect(() => {
+    // convert props to an array of objects,
+  }, []);
+
   return (
     <StrictMode>
-      <FilterButton toggleDrawer={toggleDrawer} count={filterCount} />
+      <div>
+        <FilterButton toggleDrawer={toggleDrawer} count={chips?.length} />
+        {chips && chips.length > 0 && (
+          <div className="chip-container">
+            <div className="chips">
+              {chips.map((chip, index) => (
+                <Chip key={chip.id + index} {...chip} />
+              ))}
+            </div>
+            <button
+              className="clear-filters-button"
+              onClick={() => {
+                window.location.href =
+                  window.location.origin + window.location.pathname + "?q=" + searchQuery;
+              }}
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
+      </div>
       <Drawer anchor={mobile ? "bottom" : "left"} open={open} onClose={toggleDrawer}>
         <div id="drawer-container" role="form">
           <div id="drawer-header">
@@ -206,6 +243,7 @@ export const FilterDrawer = ({
                 <FilterFormInput
                   inputLabel={t("SearchResultsPage.searchQueryLabel")}
                   inputName="searchQuery"
+                  defaultValue={searchQuery}
                   hasIcon={true}
                   icon={<MagnifyingGlass />}
                   placeholder={t("SearchResultsPage.searchQueryPlaceholder")}
@@ -281,12 +319,14 @@ export const FilterDrawer = ({
                 <FilterFormInput
                   inputLabel={t("SearchResultsPage.cidCodeLabel")}
                   inputName="cipCode"
+                  defaultValue={cipCode}
                   placeholder="##.####"
                   subLabel={t("SearchResultsPage.cipCodeSubLabel")}
                 />
                 <FilterFormInput
                   inputLabel={t("SearchResultsPage.socCodeLabel")}
                   inputName="socCode"
+                  defaultValue={socCode}
                   placeholder="##-####"
                   subLabel={t("SearchResultsPage.socCodeSubLabel")}
                 />

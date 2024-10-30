@@ -18,10 +18,10 @@ import { SearchTips } from "./SearchTips";
 import { useTranslation } from "react-i18next";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
-import { FilterDrawer } from "../filtering/FilterDrawer";
+import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
 import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
-import { getTrainingData, getSearchQuery } from "./searchFunctions";
+import { getTrainingData, getSearchQuery, filterChips } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
@@ -295,27 +295,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     [key: string]: string | number | boolean | string[] | number[] | boolean[];
   };
 
-  const filterCount = (filters: FilterFields): number => {
-    let count = 0;
-
-    for (const key in filters) {
-      // Skip counting 'searchQuery'
-      if (key === "searchQuery" || key === "q") continue;
-
-      const value = filters[key];
-
-      if (Array.isArray(value)) {
-        // check if value in array is not "" or false
-        const filteredArray = value.filter((item) => item !== "" && item !== false);
-        count += filteredArray.length;
-      } else if (value !== undefined && value !== null && value !== "" && value !== false) {
-        count++;
-      }
-    }
-
-    return count;
-  };
-
   return (
     <Layout
       noFooter
@@ -339,16 +318,15 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           </div>
           {!isLoading && (
             <div id="search-filters-container">
+              <FilterDrawer
+                chips={filterChips(allFilterFields as FilterFields) as ChipProps[]}
+                {...allFilterFields}
+              />
               <SearchFilters
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
                 itemsPerPage={itemsPerPage}
                 sortBy={sortBy}
-              />
-
-              <FilterDrawer
-                filterCount={filterCount(allFilterFields as FilterFields)}
-                {...allFilterFields}
               />
             </div>
           )}
