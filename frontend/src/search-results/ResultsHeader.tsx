@@ -1,3 +1,4 @@
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
 
 export const ResultsHeader = ({
@@ -29,6 +30,24 @@ export const ResultsHeader = ({
           </>
         )}
       </h2>
+      <form
+        className="usa-search usa-search--small"
+        role="search"
+        onSubmit={() => {
+          console.log({ searchQuery });
+        }}
+      >
+        <input
+          className="usa-input"
+          type="search"
+          placeholder="search"
+          defaultValue={searchQuery}
+          name="search"
+        />
+        <button className="usa-button" type="submit">
+          <MagnifyingGlass weight="bold" />
+        </button>
+      </form>
     </div>
   );
 };

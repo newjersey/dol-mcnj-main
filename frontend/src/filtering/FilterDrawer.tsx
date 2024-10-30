@@ -208,24 +208,44 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
 
   return (
     <StrictMode>
-      <div>
-        <FilterButton toggleDrawer={toggleDrawer} count={chips?.length} />
+      <div className="filter-drawer">
+        <div className="filter-button-row">
+          <form
+            className="usa-search usa-search--small"
+            role="search"
+            onSubmit={() => {
+              console.log({ searchQuery });
+            }}
+          >
+            <input
+              className="usa-input"
+              type="search"
+              placeholder="search"
+              defaultValue={searchQuery}
+              name="search"
+            />
+            <button className="usa-button" type="submit">
+              <MagnifyingGlass weight="bold" />
+            </button>
+          </form>
+          <FilterButton toggleDrawer={toggleDrawer} count={chips?.length} />
+        </div>
         {chips && chips.length > 0 && (
           <div className="chip-container">
             <div className="chips">
               {chips.map((chip, index) => (
                 <Chip key={chip.id + index} {...chip} />
               ))}
+              <button
+                className="clear-filters-button"
+                onClick={() => {
+                  window.location.href =
+                    window.location.origin + window.location.pathname + "?q=" + searchQuery;
+                }}
+              >
+                Clear filters
+              </button>
             </div>
-            <button
-              className="clear-filters-button"
-              onClick={() => {
-                window.location.href =
-                  window.location.origin + window.location.pathname + "?q=" + searchQuery;
-              }}
-            >
-              Clear filters
-            </button>
           </div>
         )}
       </div>
@@ -240,14 +260,6 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
           <div id="filter-form-container">
             <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
               <FormProvider {...methods}>
-                <FilterFormInput
-                  inputLabel={t("SearchResultsPage.searchQueryLabel")}
-                  inputName="searchQuery"
-                  defaultValue={searchQuery}
-                  hasIcon={true}
-                  icon={<MagnifyingGlass />}
-                  placeholder={t("SearchResultsPage.searchQueryPlaceholder")}
-                />
                 <FilterFormSwitch
                   clearSelected={clearSelected}
                   inputLabel={t("SearchResultsPage.inDemandLabel")}
@@ -330,7 +342,7 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
                   placeholder="##-####"
                   subLabel={t("SearchResultsPage.socCodeSubLabel")}
                 />
-                <div id="drawer-btn-container" className="row">
+                <div id="drawer-btn-container">
                   <button type="submit" id="submit-button">
                     {t("SearchAndFilter.applyFiltersButtontText")}
                   </button>

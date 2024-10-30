@@ -12,12 +12,15 @@ export const FilterButton = ({ toggleDrawer, count }: Props): ReactElement<Props
   return (
     <div id="filter-button-container">
       <button onClick={toggleDrawer}>
-        {count
-          ? count > 1
-            ? `${count} ${t("SearchResultsPage.filtersButtonMultiple")}`
-            : `${count} ${t("SearchResultsPage.filtersButtonSingle")}`
-          : t("SearchResultsPage.filtersButton")}
+        <span className="desktop-only">
+          {count
+            ? count > 1
+              ? `${count} ${t("SearchResultsPage.filtersButtonMultiple")}`
+              : `${count} ${t("SearchResultsPage.filtersButtonSingle")}`
+            : t("SearchResultsPage.filtersButton")}
+        </span>
         <FunnelSimple />
+        {!!count && count > 0 && <span className="mobile-only">{count}</span>}
       </button>
     </div>
   );
