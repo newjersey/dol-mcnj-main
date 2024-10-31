@@ -48,17 +48,18 @@
   z-index: 1000;
   bottom: 0;
   left: 0;
-  background-color: $green-cool-20;
+  background-color: $secondary-light;
   display: flex;
   justify-content: space-between;
   padding: $size-16;
   width: 100%;
+  border-radius: $size-8 $size-8 0 0;
   display: flex;
   gap: $size-16;
   justify-content: center;
 
   button {
-    border: 2px solid $green-cool-50v;
+    border: 2px solid $secondary;
     border-radius: 8px;
     font-weight: 700;
     padding: $size-16 0;
@@ -67,18 +68,18 @@
   }
 
   #submit-button {
-    background-color: $green-cool-50v;
+    background-color: $secondary;
     color: $white;
 
     &:hover {
-      background-color: $green-cool-60v;
-      border: 2px solid $green-cool-60v;
+      background-color: $secondary-dark;
+      border: 2px solid $secondary-dark;
     }
   }
 
   #reset-button {
     background-color: $white;
-    color: $green-cool-50v;
+    color: $secondary;
 
     &:hover {
       background-color: $gray-cool-10;
@@ -87,11 +88,14 @@
 }
 
 #drawer-container {
-  background-color: $green-cool-5;
-  min-height: 100vh;
+  background-color: $secondary-lighter;
   overflow: auto;
   padding: $size-16;
   width: 100%;
+
+  @media screen and (min-width: ($tablet-md)) {
+    min-height: 100svh;
+  }
 
   .checkbox-container,
   .MuiIconButton-label {
@@ -107,7 +111,7 @@
 
     svg {
       path {
-        fill: $green-cool-50v;
+        fill: $primary-dark;
       }
     }
   }
@@ -141,6 +145,13 @@
     opacity: 0;
     width: 0;
     height: 0;
+
+    &:focus {
+      + .slider {
+        outline: $size-4 solid $blue-60v;
+        outline-offset: $size-4;
+      }
+    }
   }
 
   /* The slider */
@@ -151,10 +162,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $gray-cool-30;
-    border: 1px solid $gray-cool-50;
+    background-color: $base-light;
+    border: 1px solid $base;
     -webkit-transition: 0.4s;
     transition: 0.4s;
+    transition-property: transform, background-color;
   }
 
   $slider-size: 20px;
@@ -176,8 +188,8 @@
   }
 
   input:checked + .slider {
-    background-color: $green-cool-50v;
-    border: 1px solid $green-cool-50v;
+    background-color: $secondary;
+    border: 1px solid $secondary;
   }
 
   input:focus + .slider {
@@ -228,10 +240,10 @@
   z-index: 1000;
   top: 0;
   left: 0;
-  background-color: $green-cool-5;
+  background-color: $secondary-lighter;
   display: flex;
   justify-content: space-between;
-  padding: $size-8 $size-16;
+  padding: $size-16;
   width: 100%;
 
   h2 {
@@ -241,7 +253,7 @@
   }
 
   button {
-    background-color: $green-cool-5;
+    background-color: $secondary-lighter;
     border: none;
     color: $blue-60v;
     cursor: pointer;
@@ -322,6 +334,7 @@
   margin: $size-16 0;
   align-items: flex-end;
   justify-content: space-between;
+  gap: $size-16;
 
   @media screen and (max-width: ($tablet-md - 1)) {
     flex-direction: column;
@@ -348,13 +361,20 @@
     }
 
     input {
+      height: $size-40;
       max-width: none;
       width: calc(100% - $size-48);
+      border-radius: $size-4 0 0 $size-4;
     }
 
     button {
+      height: $size-40;
       justify-content: center;
       background-color: $secondary;
+
+      &:hover {
+        background-color: $secondary-dark;
+      }
     }
 
     input {
@@ -448,6 +468,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    gap: $size-16;
   }
 }
 
@@ -483,6 +504,7 @@
     input {
       max-width: none;
       height: $size-40;
+      border-radius: $size-4 0 0 $size-4;
       width: calc(100% - $size-48);
     }
 
@@ -490,11 +512,27 @@
       height: $size-40;
       justify-content: center;
       background-color: $secondary;
+
+      &:hover {
+        background-color: $secondary-dark;
+      }
     }
 
     input {
       border-color: $base-light;
       border-width: $size-2;
+    }
+  }
+}
+
+.search-drawer {
+  .MuiDrawer-paper {
+    border-radius: 0 $size-8 $size-8 0;
+    background-color: $secondary-lighter;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      border-radius: $size-8 $size-8 0 0;
+      height: 90svh;
     }
   }
 }

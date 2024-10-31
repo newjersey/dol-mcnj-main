@@ -73,11 +73,13 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
 
   useEffect(() => {
     const params = [];
-    if (inPerson) params.push("inPerson=true");
+    const formatArray = [];
     if (maxCost) params.push(`maxCost=${encodeURIComponent(maxCost)}`);
     if (miles) params.push(`miles=${encodeURIComponent(miles)}`);
-    if (online) params.push("online=true");
-    if (zipCode) params.push(`zip=${encodeURIComponent(zipCode)}`);
+    if (zipCode) params.push(`zipcode=${encodeURIComponent(zipCode)}`);
+    if (inPerson) formatArray.push("inperson");
+    if (online) formatArray.push("online");
+    if (formatArray.length > 0) params.push(`format=${formatArray.join(",")}`);
 
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const url = `/training/search?q=${encodedSearchTerm}${params.length > 0 ? "&" : ""}${params.join("&")}`;

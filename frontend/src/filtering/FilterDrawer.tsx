@@ -255,10 +255,17 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
           </div>
         )}
       </div>
-      <Drawer anchor={mobile ? "bottom" : "left"} open={open} onClose={toggleDrawer}>
+      <Drawer
+        className="search-drawer"
+        anchor={mobile ? "bottom" : "left"}
+        open={open}
+        onClose={toggleDrawer}
+      >
         <div id="drawer-container" role="form">
           <div id="drawer-header">
-            <h2>{t("SearchResultsPage.addFiltersLabel")}</h2>
+            <h2>
+              <strong>{t("SearchResultsPage.addFiltersLabel")}</strong>
+            </h2>
             <button className="close-button" onClick={toggleDrawer}>
               <X aria-label="close form" />
             </button>

@@ -274,7 +274,7 @@ export const en = {
     comparisonEmploymentRateLabelMobile: "Employment Rate",
     comparisonTimeToCompleteLabel: "Time to complete",
     comparisonSeeDetails: "See Details",
-    addFiltersLabel: "Add Filters",
+    addFiltersLabel: "Filters",
     filtersButton: "Filters",
     filtersButtonSingle: "filter applied",
     filtersButtonMultiple: "filters applied",

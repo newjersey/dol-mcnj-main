@@ -12,7 +12,7 @@ export const SearchTips = (): ReactElement => {
   };
 
   return (
-    <div className="mbm" data-testid="searchTips">
+    <div className="mbm mtm" data-testid="searchTips">
       <p>{t("SearchResultsPage.searchTips1")}</p>
       <p>Check your spelling to ensure it is correct.</p>
       <p>Verify and adjust any filters that you might have applied to your search.</p>
@@ -42,5 +42,5 @@ export const SearchTips = (): ReactElement => {
         </div>
       )}
     </div>
-  )
+  );
 };

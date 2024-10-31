@@ -104,7 +104,7 @@ type FilterFields = {
 export const filterChips = (filters: FilterFields) => {
   // make array from the object "filters" and convert the items into {name: key, value: value} pairs
 
-  const labelMaker = (string: string) => {
+  const titleMaker = (string: string) => {
     if (string === "cipCode") {
       return "CIP code";
     }
@@ -145,7 +145,7 @@ export const filterChips = (filters: FilterFields) => {
     return param;
   };
 
-  const valueMatcher = (lang: string) => {
+  const labelMaker = (lang: string, key: string) => {
     // if lang matches an id in languageList, return the label
     const language = [...languageList, ...serviceList, ...classFormatList].find(
       (item) => item.id === lang,
@@ -153,7 +153,7 @@ export const filterChips = (filters: FilterFields) => {
     if (language) {
       return language.label;
     }
-    return lang;
+    return key === "maxCost" ? `$${lang}` : lang;
   };
 
   const filterArray = Object.entries(filters).map(([key, value]) => {
@@ -162,15 +162,15 @@ export const filterChips = (filters: FilterFields) => {
       const filteredArray = value.filter((item) => item !== "" && item !== false);
       return filteredArray.map((item) => ({
         id: paramMatcher(key),
-        title: labelMaker(key),
-        label: valueMatcher(item as string),
+        title: titleMaker(key),
+        label: labelMaker(item as string, key),
         value: item,
       }));
     } else if (value !== undefined && value !== null && value !== "" && value !== false) {
       return {
         id: paramMatcher(key),
-        title: labelMaker(key),
-        label: valueMatcher(value as string),
+        title: titleMaker(key),
+        label: labelMaker(value as string, key),
         value,
       };
     }
