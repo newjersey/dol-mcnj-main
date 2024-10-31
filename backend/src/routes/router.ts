@@ -48,12 +48,14 @@ export const routerFactory = ({
       .then((trainings: Training[]) => {
         res.status(200).json(trainings[0]);
       })
-      .catch((e) => {
-        if (e === Error.NOT_FOUND) {
-          res.status(404).send();
-        }
-        res.status(500).send();
-      });
+        .catch((e) => {
+          if (e === Error.NOT_FOUND) {
+            res.status(404).send();
+          }
+          else {
+            res.status(500).send();
+          }
+        });
   });
 
   router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
