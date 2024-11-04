@@ -12,7 +12,7 @@
 
     h2 {
       font-size: $size-40;
-      font-weight: 600;
+      font-weight: 700;
 
       @media screen and (max-width: ($tablet-lg - 1)) {
         font-size: $size-32;
@@ -64,7 +64,7 @@
       p {
         &.heading {
           font-size: $size-22;
-          font-weight: 600;
+          font-weight: 700;
         }
       }
 
