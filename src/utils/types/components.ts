@@ -1,77 +1,19 @@
-import { IconNames } from "@utils/enums";
 import * as Svg from "@components/svgs";
 import * as Icons from "@phosphor-icons/react";
+import { IconNames } from "@utils/enums";
+import {
+  BreakNames,
+  CalendarLength,
+  Elements,
+  Gaps,
+  SectionIcons,
+  ThemeColors,
+} from "./types";
 import { CSSProperties, ReactNode } from "react";
 import { Document } from "@contentful/rich-text-types";
 
-export enum CalendarLength {
-  NULL = 0,
-  LESS_THAN_ONE_DAY = 1,
-  ONE_TO_TWO_DAYS = 2,
-  THREE_TO_SEVEN_DAYS = 3,
-  TWO_TO_THREE_WEEKS = 4,
-  FOUR_TO_ELEVEN_WEEKS = 5,
-  THREE_TO_FIVE_MONTHS = 6,
-  SIX_TO_TWELVE_MONTHS = 7,
-  THIRTEEN_MONTHS_TO_TWO_YEARS = 8,
-  THREE_TO_FOUR_YEARS = 9,
-  MORE_THAN_FOUR_YEARS = 10,
-}
-
-export type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6;
-
-export type ThemeColors = "navy" | "blue" | "green" | "purple" | "orange";
-
-export type Elements =
-  | "div"
-  | "section"
-  | "article"
-  | "aside"
-  | "header"
-  | "footer"
-  | "main"
-  | "nav"
-  | "span"
-  | "p"
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "ul"
-  | "ol"
-  | "li";
-
-export type IconWeight =
-  | "regular"
-  | "bold"
-  | "thin"
-  | "light"
-  | "duotone"
-  | "fill";
-
-export type SectionIcons =
-  | "explore"
-  | "jobs"
-  | "support"
-  | "training"
-  | "exploreBold"
-  | "jobsBold"
-  | "supportBold"
-  | "trainingBold";
-
-export type BreakNames =
-  | "none"
-  | "xxs"
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | "xxl";
-
-export type Gaps = BreakNames | "none" | "micro" | "mega";
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface ComponentProps {
   className?: string;
@@ -79,11 +21,8 @@ export interface ComponentProps {
   componentId?: string;
 }
 
-export interface CipDefinition {
-  cip: string;
-  cipcode: string;
-  ciptitle: string;
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface FlexGridProps extends ComponentProps {
   children: ReactNode;
@@ -93,6 +32,9 @@ export interface FlexGridProps extends ComponentProps {
   style?: CSSProperties;
   gap?: Gaps;
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface FlexProps extends FlexGridProps {
   alignItems?: "center" | "flex-start" | "flex-end" | "stretch";
@@ -116,96 +58,8 @@ export interface FlexProps extends FlexGridProps {
   noBreak?: boolean;
 }
 
-export interface OccupationListItemProps {
-  className?: string;
-  title: string;
-  items: {
-    soc: string;
-    title: string;
-    majorGroup: string;
-    counties: string[];
-  }[];
-}
-
-export interface RiverItemProps {
-  sys: {
-    id: string;
-  };
-  heading: string;
-  copy: string;
-  image: ImageProps;
-}
-
-export interface CareerMapProps {
-  sys: {
-    id: string;
-  };
-  title: string;
-  learnMoreBoxes: {
-    title?: string;
-    copy?: string;
-    tags?: string[];
-  }[];
-}
-
-export interface SvgProps {
-  color?: string;
-  size?: number;
-  className?: string;
-}
-
-export interface AssetBlock {
-  sys: {
-    id: string;
-  };
-  url?: string;
-  title?: string;
-  description?: string;
-  width?: number;
-  height?: number;
-  contentType?: string;
-}
-
-export interface ContentfulRichTextProps {
-  json: Document;
-  links?: {
-    assets: {
-      block: AssetBlock[];
-    };
-  };
-}
-
-export interface MinimalImageProps {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface ImageProps {
-  sys: {
-    id: string;
-  };
-  url: string;
-  title?: string;
-  description?: string;
-  width: number;
-  height: number;
-  fileName?: string;
-  contentType?: string;
-}
-
-export interface LinkProps {
-  sys?: {
-    id: string;
-  };
-  url?: string;
-  copy?: string;
-  screenReaderOnlyCopy?: string;
-  children?: ReactNode;
-  icon?: IconNames;
-  systemIcon?: SectionIcons;
-  message?: string;
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface CardSliderProps {
   className?: string;
@@ -224,19 +78,8 @@ export interface CardSliderProps {
   theme?: ThemeColors;
 }
 
-export interface NavItemProps {
-  sys: {
-    id: string;
-  };
-  copy: string;
-  screenReaderOnlyCopy?: string;
-  classes?: string;
-  url?: string;
-}
-
-export interface TopNavItemProps extends NavItemProps {
-  subItemsCollection?: { items: NavItemProps[] };
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface NavMenuProps {
   sys: {
@@ -250,21 +93,8 @@ export interface NavMenuProps {
   };
 }
 
-export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
-
-export interface ResourceTagProps {
-  sys: {
-    id: string;
-  };
-  title: string;
-  category: {
-    sys: {
-      id: string;
-    };
-    title: string;
-    slug: string;
-  };
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface TopicProps {
   sys: { id: string };
@@ -272,10 +102,16 @@ export interface TopicProps {
   itemsCollection: { items: FaqItem[] };
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface TopicGroupProps {
   title: string;
   topics: TopicProps[];
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface IconCardProps extends MediaObjectProps {
   alignLeft?: boolean;
@@ -287,63 +123,8 @@ export interface IconCardProps extends MediaObjectProps {
   indicator?: string;
 }
 
-export interface ButtonProps {
-  buttonId?: string;
-  children?: ReactNode;
-  className?: string;
-  loading?: boolean;
-  customBgColor?: string;
-  customBorderColor?: string;
-  customTextColor?: string;
-  defaultStyle?:
-    | "primary"
-    | "secondary"
-    | "tertiary"
-    | "quaternary"
-    | "quinary"
-    | "cool";
-  disabled?: boolean;
-  fontColor?: string;
-  highlight?: ThemeColors;
-  iconPrefix?: keyof typeof Icons;
-  iconSuffix?: keyof typeof Icons;
-  iconWeight?: string;
-  info?: boolean;
-  label?: string;
-  link?: string;
-  noIndicator?: boolean;
-  onClick?: (e?: any) => void;
-  outlined?: boolean;
-  role?: string;
-  svgFill?: boolean;
-  svgName?: keyof typeof Svg;
-  tag?: boolean;
-  type: "button" | "link" | "submit";
-  unstyled?: boolean;
-}
-
-export interface TabItemProps {
-  sys: {
-    id: string;
-  };
-  heading: string;
-  copy: ContentfulRichTextProps;
-}
-
-export interface IconLinkProps {
-  sys: {
-    id: string;
-  };
-  icon?: IconNames;
-  sectionIcon?: SectionIcons;
-  copy: string;
-  url: string;
-  description?: string;
-}
-export interface FaqItemTopic {
-  topic: string;
-  order: number;
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface PageBannerProps {
   className?: string;
@@ -388,6 +169,228 @@ export interface PageBannerProps {
   };
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface ImageProps {
+  sys: {
+    id: string;
+  };
+  url: string;
+  title?: string;
+  description?: string;
+  width: number;
+  height: number;
+  fileName?: string;
+  contentType?: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface MinimalImageProps {
+  url: string;
+  width: number;
+  height: number;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface LinkProps {
+  sys?: {
+    id: string;
+  };
+  url?: string;
+  copy?: string;
+  screenReaderOnlyCopy?: string;
+  children?: ReactNode;
+  icon?: IconNames;
+  systemIcon?: SectionIcons;
+  message?: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface CipDefinition {
+  cip: string;
+  cipcode: string;
+  ciptitle: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface OccupationListItemProps {
+  className?: string;
+  title: string;
+  items: {
+    soc: string;
+    title: string;
+    majorGroup: string;
+    counties: string[];
+  }[];
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface NavItemProps {
+  sys: {
+    id: string;
+  };
+  copy: string;
+  screenReaderOnlyCopy?: string;
+  classes?: string;
+  url?: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface TopNavItemProps extends NavItemProps {
+  subItemsCollection?: { items: NavItemProps[] };
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface ButtonProps {
+  buttonId?: string;
+  children?: ReactNode;
+  className?: string;
+  loading?: boolean;
+  customBgColor?: string;
+  customBorderColor?: string;
+  customTextColor?: string;
+  defaultStyle?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "quaternary"
+    | "quinary"
+    | "cool";
+  disabled?: boolean;
+  fontColor?: string;
+  highlight?: ThemeColors;
+  iconPrefix?: keyof typeof Icons;
+  iconSuffix?: keyof typeof Icons;
+  iconWeight?: string;
+  info?: boolean;
+  label?: string;
+  link?: string;
+  noIndicator?: boolean;
+  onClick?: (e?: any) => void;
+  outlined?: boolean;
+  role?: string;
+  svgFill?: boolean;
+  svgName?: keyof typeof Svg;
+  tag?: boolean;
+  type: "button" | "link" | "submit";
+  unstyled?: boolean;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface AssetBlock {
+  sys: {
+    id: string;
+  };
+  url?: string;
+  title?: string;
+  description?: string;
+  width?: number;
+  height?: number;
+  contentType?: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface RiverItemProps {
+  sys: {
+    id: string;
+  };
+  heading: string;
+  copy: string;
+  image: ImageProps;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface SvgProps {
+  color?: string;
+  size?: number;
+  className?: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface ContentfulRichTextProps {
+  json: Document;
+  links?: {
+    assets: {
+      block: AssetBlock[];
+    };
+  };
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface ResourceTagProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  category: {
+    sys: {
+      id: string;
+    };
+    title: string;
+    slug: string;
+  };
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface TabItemProps {
+  sys: {
+    id: string;
+  };
+  heading: string;
+  copy: ContentfulRichTextProps;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface IconLinkProps {
+  sys: {
+    id: string;
+  };
+  icon?: IconNames;
+  sectionIcon?: SectionIcons;
+  copy: string;
+  url: string;
+  description?: string;
+}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface FaqItemTopic {
+  topic: string;
+  order: number;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface FaqItem {
   sys: {
     id: string;
@@ -398,6 +401,9 @@ export interface FaqItem {
   topic: string;
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface FaqTopic {
   sys: {
     id: string;
@@ -407,6 +413,9 @@ export interface FaqTopic {
     items: FaqItem[];
   };
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface TagProps {
   sys: {
@@ -422,6 +431,9 @@ export interface TagProps {
   };
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface RelatedCategoryProps {
   sys: {
     id: string;
@@ -429,6 +441,9 @@ export interface RelatedCategoryProps {
   title: string;
   slug: string;
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface ResourceCardProps {
   sys: {
@@ -456,29 +471,17 @@ export interface ResourceCardProps {
 
 // PAGES
 
-export interface OccupationPageProps {
-  soc: string;
-  title: string;
-  description: string;
-  tasks: string[];
-  relatedOccupations: {
-    soc: string;
-    title: string;
-  }[];
-  education?: string;
-  inDemand?: boolean;
-  counties: string[];
-  medianSalary?: number;
-  openJobsCount?: number | null;
-  openJobsSoc?: string;
-  relatedTrainings: ResultProps[];
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface MediaObjectsArrayProps {
   heading?: string;
   subheading?: string;
   items: MediaObjectProps[];
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface MediaObjectProps {
   sys: {
@@ -494,219 +497,8 @@ export interface MediaObjectProps {
   links?: LinkProps[];
 }
 
-export interface GlobalPageProps {
-  footerNav1: NavMenuProps;
-  footerNav2: NavMenuProps;
-  globalNav: NavMenuProps;
-  mainNav: NavMenuProps;
-}
-
-export interface PageMetaProps {
-  title: string;
-  pageDescription?: string;
-  ogImage?: ImageProps;
-  keywords?: string[];
-}
-
-export interface HomepageProps extends GlobalPageProps {
-  homePage: PageMetaProps & {
-    pageDescription?: string;
-    bannerButtonCopy: string;
-    bannerMessage?: string;
-    bannerImage?: ImageProps;
-    introBlocks?: IntroBlocksProps;
-    toolsCollection: {
-      items: IconLinkProps[];
-    };
-    jobSearchToolLinksCollection: {
-      items: IconLinkProps[];
-    };
-    trainingToolLinksCollection: {
-      items: IconLinkProps[];
-    };
-    supportAndAssistanceLinksCollection: {
-      items: IconLinkProps[];
-    };
-  };
-}
-export interface CareerNavigatorProps extends GlobalPageProps {
-  page: PageMetaProps & {
-    pageBanner: PageBannerProps;
-    footerCtaHeading: string;
-    footerCtaLink: LinkProps;
-    stepsHeading?: string;
-    midPageCtaHeading?: string;
-    interrupterHeading?: string;
-    interrupterLinks?: {
-      items: LinkProps[];
-    };
-    infoHeading?: string;
-    infoCards?: {
-      items: {
-        sys: {
-          id: string;
-        };
-        heading?: string;
-        icon?: IconNames;
-        description?: string;
-        sectionIcon?: SectionIcons;
-      }[];
-    };
-    midPageCtaLinks?: {
-      items: LinkProps[];
-    };
-    opportunitiesHeading?: string;
-    opportunityCards: {
-      items: {
-        sys: {
-          id: string;
-        };
-        copy?: string;
-        screenReaderOnlyCopy?: string;
-        url?: string;
-        icon?: IconNames;
-        customSvg?: string;
-        description?: string;
-      }[];
-    };
-    stepsCollection: {
-      items: IconCardProps[];
-    };
-    river?: {
-      items: RiverItemProps[];
-    };
-  };
-}
-
-export interface CareerPathwaysPageProps extends GlobalPageProps {
-  page: PageMetaProps & {
-    pageBanner: PageBannerProps;
-    stepsHeading?: string;
-    stepsCollection: {
-      items: IconCardProps[];
-    };
-    exploreSection: MediaObjectsArrayProps;
-    industries: {
-      items: IndustryProps[];
-    };
-    exploreHeading: string;
-    exploreButtonsCollection: { items: LinkProps[] };
-  };
-}
-
-export interface FaqPageProps extends GlobalPageProps {
-  page: PageMetaProps & {
-    sys: {
-      publishedAt: Date;
-    };
-    pageBanner: PageBannerProps;
-    bannerHeading: string;
-    bannerImage?: ImageProps;
-    categoriesCollection: {
-      items: {
-        sys: { id: string };
-        title: string;
-        topics: {
-          items: {
-            sys: { id: string };
-            topic: string;
-            itemsCollection: { items: FaqItem[] };
-          }[];
-        };
-      }[];
-    };
-    resourceLinkHeading?: string;
-    resourceLinks: {
-      items: LinkProps[];
-    };
-  };
-}
-
-export interface TrainingExplorerPageProps extends GlobalPageProps {
-  page: PageMetaProps & {
-    demoVideoUrl: string;
-    faqsCollection: { items: FaqItem[] };
-    footerCtaHeading: string;
-    footerCtaLinkCollection: { items: LinkProps[] };
-    interrupterBannerHeading: string;
-    interrupterLinksCollection: { items: LinkProps[] };
-    pageBanner: PageBannerProps;
-    stepOneHeading: string;
-    stepOneIcon: IconNames;
-    stepOneText: string;
-    stepThreeHeading: string;
-    stepThreeIcon: IconNames;
-    stepThreeText: string;
-    stepTwoHeading: string;
-    stepTwoIcon: IconNames;
-    stepTwoText: string;
-    drawerContent: ContentfulRichTextProps;
-  };
-}
-
-export interface SupportResourcesPageProps extends GlobalPageProps {
-  page: PageMetaProps & {
-    pageBanner: PageBannerProps;
-    footerCtaHeading: string;
-    footerCtaLink: LinkProps;
-  };
-  categories: {
-    items: {
-      sys: {
-        id: string;
-      };
-      title: string;
-      slug: string;
-      description?: string;
-    }[];
-  };
-}
-
-export interface TrainingProviderPageData extends GlobalPageProps {
-  page: PageMetaProps & {
-    sys: {
-      publishedAt: Date;
-    };
-    pageBanner: PageBannerProps;
-    bannerHeading: string;
-    bannerImage: ImageProps;
-    tabs: {
-      items: TabItemProps[];
-    };
-  };
-}
-
-export interface ResourceCategoryPageProps extends GlobalPageProps {
-  page: {
-    items: {
-      sys: {
-        id: string;
-      };
-      title: string;
-      slug: string;
-      description?: string;
-      infoBox?: string;
-      related?: {
-        items: RelatedCategoryProps[];
-      };
-    }[];
-  };
-  tags: {
-    items: TagProps[];
-  };
-  audience: {
-    items: TagProps[];
-  };
-  cta: {
-    footerCtaHeading: string;
-    footerCtaLink: LinkProps;
-  };
-  listingItems: {
-    resources: {
-      items: ResourceCardProps[];
-    };
-  };
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface TrainingProps {
   id: string;
@@ -755,6 +547,9 @@ export interface TrainingProps {
   };
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface TrainingResult {
   id: string;
   name: string;
@@ -781,11 +576,8 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
-export interface CipDefinition {
-  cip: string;
-  cipcode: string;
-  ciptitle: string;
-}
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface FetchResultsProps {
   itemCount: number;
@@ -795,6 +587,9 @@ export interface FetchResultsProps {
   searchParamsArray: { key: string; value: string }[];
   totalPages: number;
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface ResultProps {
   id: string;
@@ -822,11 +617,17 @@ export interface ResultProps {
   hasChildcareAssistance?: boolean;
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface InDemandItemProps {
   title: string;
   idNumber: string;
   numberOfJobs?: number;
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface IndustryProps {
   sys: {
@@ -867,6 +668,25 @@ export interface IndustryProps {
     }[];
   };
 }
+
+////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+// export interface CareerMapProps {
+//   sys: {
+//     id: string;
+//   };
+//   title: string;
+//   learnMoreBoxes: {
+//     title?: string;
+//     copy?: string;
+//     tags?: string[];
+//   }[];
+// }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface CareerMapProps {
   careerMap: {
     sys: {
@@ -883,6 +703,9 @@ export interface CareerMapProps {
     };
   };
 }
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface SinglePathwayProps {
   sys: {
     id: string;
@@ -892,6 +715,9 @@ export interface SinglePathwayProps {
     items: OccupationNodeProps[];
   };
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface OccupationNodeProps {
   sys: {
@@ -916,10 +742,16 @@ export interface OccupationNodeProps {
   experience?: string;
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface Occupation {
   soc: string;
   title: string;
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface OccupationDetail {
   soc: string;
@@ -936,6 +768,9 @@ export interface OccupationDetail {
   relatedTrainings: TrainingResult[];
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface IntroBlockSectionProps {
   link?: {
     copy?: string;
@@ -946,12 +781,18 @@ export interface IntroBlockSectionProps {
   message?: string;
 }
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface IntroBlocksProps {
   heading?: string;
   message?: string;
   sectionsHeading?: string;
   sections?: IntroBlockSectionProps[];
 }
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 export interface FormInputProps {
   ariaLabel?: string;
