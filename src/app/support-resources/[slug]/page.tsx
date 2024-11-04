@@ -7,14 +7,10 @@ import {
 import { RESOURCE_CATEGORY_QUERY } from "queries/resourceCategory";
 import { Filter } from "./Filter";
 import { notFound } from "next/navigation";
-import { MainLayout } from "@components/global/MainLayout";
-import { getNav } from "@utils/getNav";
 import { RESOURCE_LISTING_QUERY } from "queries/resourceListing";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData(slug: string) {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page, tags, audience, cta } = await client({
     query: RESOURCE_CATEGORY_QUERY,
     variables: {
@@ -53,10 +49,6 @@ async function getData(slug: string) {
       ),
     },
     cta,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 
@@ -96,15 +88,6 @@ export default async function ResourcesPage({
     notFound();
   }
 
-  const { footerNav1, footerNav2, mainNav, globalNav } = data;
-
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   const message = {
     json: {
       data: {},
@@ -127,28 +110,26 @@ export default async function ResourcesPage({
   } as ContentfulRichTextProps;
 
   return (
-    <MainLayout {...navs}>
-      <div className="page resourceDetail">
-        <PageBanner
-          theme="navy"
-          title={data.page.items[0].title}
-          message={message}
-          breadcrumbsCollection={{
-            items: [
-              {
-                copy: "Home",
-                url: "/",
-              },
-              {
-                copy: "Support Resources",
-                url: "/support-resources",
-              },
-            ],
-          }}
-        />
+    <div className="page resourceDetail">
+      <PageBanner
+        theme="navy"
+        title={data.page.items[0].title}
+        message={message}
+        breadcrumbsCollection={{
+          items: [
+            {
+              copy: "Home",
+              url: "/",
+            },
+            {
+              copy: "Support Resources",
+              url: "/support-resources",
+            },
+          ],
+        }}
+      />
 
-        <Filter {...data} />
-      </div>
-    </MainLayout>
+      <Filter {...data} />
+    </div>
   );
 }

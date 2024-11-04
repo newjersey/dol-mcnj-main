@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { PageBanner } from "@components/blocks/PageBanner";
-import { MainLayout } from "@components/global/MainLayout";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { RelatedHeading } from "@components/modules/RelatedHeading";
@@ -10,7 +9,6 @@ import { numberWithCommas } from "@utils/numberWithCommas";
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { OccupationPageProps } from "@utils/types";
 import { notFound } from "next/navigation";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import careeronestop from "@images/careeronestop.png";
 import {
@@ -22,17 +20,11 @@ import {
 import Script from "next/script";
 
 async function getData(soc: string) {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const pageData = await fetch(
     `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`,
   );
 
   return {
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
     pageData,
   };
 }
@@ -79,8 +71,7 @@ export default async function OccupationPage({
   };
   params: { code: string };
 }) {
-  const { footerNav1, footerNav2, mainNav, globalNav, pageData } =
-    await getData(params.code);
+  const { pageData } = await getData(params.code);
 
   if (pageData.status !== 200 && !searchParams.mockData) {
     notFound();
@@ -106,13 +97,6 @@ export default async function OccupationPage({
   }) as {
     copy: string;
   }[];
-
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
 
   const counties =
     occupation.counties && occupation.counties.length > 0
@@ -149,7 +133,7 @@ export default async function OccupationPage({
   };
 
   return (
-    <MainLayout {...navs}>
+    <>
       <Script type="application/ld+json" id="occupation">
         {JSON.stringify(generateJsonLd)}
       </Script>
@@ -329,6 +313,6 @@ export default async function OccupationPage({
           </div>
         </section>
       </div>
-    </MainLayout>
+    </>
   );
 }

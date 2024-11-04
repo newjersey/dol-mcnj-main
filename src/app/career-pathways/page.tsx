@@ -12,12 +12,9 @@ import {
 import { CAREER_PATHWAYS_PAGE_QUERY } from "queries/careerPathwaysPage";
 import { PathwaysLayout } from "./PathwaysLayout";
 import { notFound } from "next/navigation";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page } = await client({
     query: CAREER_PATHWAYS_PAGE_QUERY,
   });
@@ -28,10 +25,6 @@ async function getData() {
 
   return {
     page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 export const revalidate = 86400;
@@ -53,15 +46,7 @@ export async function generateMetadata({}) {
 }
 
 export default async function CareerPathwaysPage() {
-  const { page, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as CareerPathwaysPageProps;
-
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
+  const { page } = (await getData()) as CareerPathwaysPageProps;
 
   const interrupterLinksConverter = (links: LinkProps[]): ButtonProps[] => {
     return links.map((link, index: number): ButtonProps => {
@@ -85,7 +70,7 @@ export default async function CareerPathwaysPage() {
   };
 
   return (
-    <PathwaysLayout page={page} navs={navs}>
+    <PathwaysLayout page={page}>
       <section className="stepCards">
         <div className="container">
           {page.stepsCollection &&
