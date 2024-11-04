@@ -6,6 +6,7 @@ export type {
   Gaps,
   IconWeight,
   SectionIcons,
+  HeadingLevel,
   ThemeColors,
 } from "./types";
 

@@ -137,7 +137,7 @@ export interface PageBannerProps {
   buttonCopy?: string;
   theme: ThemeColors;
   image?: ImageProps;
-  message?: ContentfulRichTextProps;
+  message?: string;
   inDemand?: boolean;
   saveButtons?: ReactNode;
   title: string;
