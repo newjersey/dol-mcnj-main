@@ -53,6 +53,12 @@ export default async function Home() {
       cards: homePage.trainingToolLinksCollection.items,
     },
     {
+      heading: "All Career Exploration Resources",
+      theme: "purple",
+      sectionId: "explore",
+      cards: homePage.careerExplorationToolLinksCollection.items,
+    },
+    {
       heading: "All Support and Assistance Resources",
       theme: "navy",
       sectionId: "support",
