@@ -12,6 +12,7 @@
   .subheading {
     font-size: $size-32;
     line-height: 1;
+    font-weight: 600;
 
     @media screen and (min-width: ($tablet-lg)) {
       padding-right: $size-128;
