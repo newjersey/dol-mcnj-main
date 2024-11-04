@@ -1,22 +1,9 @@
-import { MainLayout } from "@components/global/MainLayout";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { PageBanner } from "@components/blocks/PageBanner";
 import { ContactForm } from "./ContactForm";
 import { Heading } from "@components/modules/Heading";
 import { Flex } from "@components/utility/Flex";
 import { Box } from "@components/utility/Box";
-
-async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
-  return {
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
-  };
-}
 
 export const revalidate = 86400;
 
@@ -33,17 +20,8 @@ export async function generateMetadata({}) {
 }
 
 export default async function ContactPage() {
-  const { footerNav1, footerNav2, mainNav, globalNav } = await getData();
-
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   return (
-    <MainLayout {...navs}>
+    <>
       <PageBanner
         title="Contact Us"
         theme="blue"
@@ -70,6 +48,6 @@ export default async function ContactPage() {
 
         <ContactForm />
       </Flex>
-    </MainLayout>
+    </>
   );
 }

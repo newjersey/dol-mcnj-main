@@ -1,0 +1,35 @@
+{
+  "Map Loop": {
+    "prefix": "map-loop",
+    "body": ["{$1.map($2 => (", "  $3", "))}"]
+  },
+  "Dangerously Set HTML": {
+    "prefix": "danger-html",
+    "body": ["<div dangerouslySetInnerHTML={{", "  __html: copy,", "}}", "/>"]
+  },
+  "Dump": {
+    "prefix": "dump",
+    "body": [
+      "",
+      "",
+      "",
+      "<code>",
+      "  <pre style={{",
+      "    fontFamily: 'monospace',",
+      "    display: 'block',",
+      "    padding: '50px',",
+      "    color: '#88ffbf',",
+      "    backgroundColor: 'black',",
+      "    textAlign: 'left',",
+      "    whiteSpace: 'pre-wrap',",
+      "  }}",
+      "  >",
+      "    {JSON.stringify($1, null, '    ')}",
+      "  </pre>",
+      "</code>",
+      "",
+      "",
+      ""
+    ]
+  },
+}

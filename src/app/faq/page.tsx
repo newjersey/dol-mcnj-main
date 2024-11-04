@@ -1,27 +1,19 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
 import { FaqSection } from "@components/blocks/FaqSection";
 import { PageBanner } from "@components/blocks/PageBanner";
-import { MainLayout } from "@components/global/MainLayout";
 import { client } from "@utils/client";
 import { createButtonObject } from "@utils/createButtonObject";
-import { getNav } from "@utils/getNav";
 import { FaqPageProps, LinkProps, ThemeColors } from "@utils/types";
 import { FAQ_PAGE_QUERY } from "queries/faqPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page } = await client({
     query: FAQ_PAGE_QUERY,
   });
 
   return {
     page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 export const revalidate = 86400;
@@ -40,8 +32,7 @@ export async function generateMetadata({}) {
 }
 
 export default async function FaqPage() {
-  const { page, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as FaqPageProps;
+  const { page } = (await getData()) as FaqPageProps;
 
   const ctaLinkConverter = (links: LinkProps[]) => {
     return links.map((link, index: number) => {
@@ -74,37 +65,28 @@ export default async function FaqPage() {
     });
   };
 
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   return (
-    <MainLayout {...navs}>
-      <div className="page faq">
-        <PageBanner {...page.pageBanner} />
-        <FaqSection items={page.categoriesCollection.items} />
-        <CtaBanner
-          fullColor
-          {...page.resourceLinks}
-          heading={page.resourceLinkHeading}
-          headingLevel={2}
-          customLinks={ctaLinkConverter(page.resourceLinks.items)}
-        />
-        <CtaBanner
-          headingLevel={3}
-          heading="Still have questions?"
-          inlineButtons
-          items={[
-            {
-              copy: "Contact Us",
-              url: "/contact",
-            },
-          ]}
-        />
-      </div>
-    </MainLayout>
+    <div className="page faq">
+      <PageBanner {...page.pageBanner} />
+      <FaqSection items={page.categoriesCollection.items} />
+      <CtaBanner
+        fullColor
+        {...page.resourceLinks}
+        heading={page.resourceLinkHeading}
+        headingLevel={2}
+        customLinks={ctaLinkConverter(page.resourceLinks.items)}
+      />
+      <CtaBanner
+        headingLevel={3}
+        heading="Still have questions?"
+        inlineButtons
+        items={[
+          {
+            copy: "Contact Us",
+            url: "/contact",
+          },
+        ]}
+      />
+    </div>
   );
 }

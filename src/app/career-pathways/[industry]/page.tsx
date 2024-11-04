@@ -5,12 +5,9 @@ import { PathwaysLayout } from "../PathwaysLayout";
 import { INDUSTRY_QUERY } from "queries/industryQuery";
 import { Content } from "./Content";
 import { notFound } from "next/navigation";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page } = await client({
     query: CAREER_PATHWAYS_PAGE_QUERY,
   });
@@ -21,10 +18,6 @@ async function getData() {
 
   return {
     page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 
@@ -66,8 +59,7 @@ export default async function PathwayPage({
     industry: string;
   };
 }) {
-  const { page, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as CareerPathwaysPageProps;
+  const { page } = (await getData()) as CareerPathwaysPageProps;
   const { industryCollection } = (await getIndustryData(params.industry)) as {
     industryCollection: {
       items: IndustryProps[];
@@ -83,15 +75,8 @@ export default async function PathwayPage({
     return notFound();
   }
 
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   return (
-    <PathwaysLayout page={page} navs={navs} currentIndustry={thisIndustry}>
+    <PathwaysLayout page={page} currentIndustry={thisIndustry}>
       <Content thisIndustry={thisIndustry} />
     </PathwaysLayout>
   );

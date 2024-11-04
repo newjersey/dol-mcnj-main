@@ -1,12 +1,8 @@
 import { notFound } from "next/navigation";
 import { Content } from "./Content";
-import { MainLayout } from "@components/global/MainLayout";
 import { TrainingProps } from "@utils/types";
-import { getNav } from "@utils/getNav";
 
 async function getData(soc: string) {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const pageData = await fetch(
     `${process.env.REACT_APP_API_URL}/api/trainings/${soc}`,
   );
@@ -16,10 +12,6 @@ async function getData(soc: string) {
   }
 
   return {
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
     pageData,
   };
 }
@@ -55,8 +47,7 @@ export default async function TrainingPage({
 }: {
   params: { code: string };
 }) {
-  const { footerNav1, footerNav2, mainNav, globalNav, pageData } =
-    await getData(params.code);
+  const { pageData } = await getData(params.code);
 
   if (pageData.status !== 200) {
     notFound();
@@ -64,18 +55,9 @@ export default async function TrainingPage({
 
   const training: TrainingProps = await pageData.json();
 
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   return (
-    <MainLayout {...navs}>
-      <div className="page trainingPage">
-        <Content training={training} />
-      </div>
-    </MainLayout>
+    <div className="page trainingPage">
+      <Content training={training} />
+    </div>
   );
 }

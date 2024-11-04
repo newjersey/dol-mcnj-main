@@ -5,25 +5,17 @@ import { client } from "@utils/client";
 import { HomepageProps, SectionIcons, ThemeColors } from "@utils/types";
 import { HOMEPAGE_QUERY } from "queries/homePage";
 import { CardSlider } from "@components/blocks/CardSlider";
-import { MainLayout } from "@components/global/MainLayout";
 import { IntroBlocks } from "@components/blocks/IntroBlocks";
-import { getNav } from "@utils/getNav";
 import { UpdateNotifier } from "@components/blocks/UpdateNotifier";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const page = await client({
     query: HOMEPAGE_QUERY,
   });
 
   return {
     ...page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 
@@ -45,8 +37,7 @@ export async function generateMetadata({}) {
 }
 
 export default async function Home() {
-  const { homePage, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as HomepageProps;
+  const { homePage } = (await getData()) as HomepageProps;
 
   const sliders = [
     {
@@ -69,15 +60,8 @@ export default async function Home() {
     },
   ];
 
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   return (
-    <MainLayout {...navs}>
+    <>
       <div className="page home">
         <FancyBanner
           title={homePage.title}
@@ -121,6 +105,6 @@ export default async function Home() {
         ))}
       </div>
       {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
-    </MainLayout>
+    </>
   );
 }

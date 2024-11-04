@@ -15,6 +15,17 @@ export async function getSearchData(props: {
     `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchParams.q}`,
   );
 
+  if (!searchData.ok) {
+    return {
+      pageData: [],
+      searchParams: "",
+      searchParamsArray: [],
+      itemCount: 0,
+      totalPages: 0,
+      pageNumber: 1,
+    };
+  }
+
   const searchParamsArray = Object.keys(searchParams)
     .filter((key) => key !== "q")
     .filter((key) => key !== "p")
