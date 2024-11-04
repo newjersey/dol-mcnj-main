@@ -87,5 +87,8 @@
 
   .tags {
     margin-top: $size-16;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $size-16;
   }
 }

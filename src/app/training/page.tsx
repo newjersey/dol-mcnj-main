@@ -77,7 +77,11 @@ export default async function TrainingExplorerPage() {
 
   return (
     <div className="page trainingExplorer">
-      <TrainingExplorerHeading heading={page.title} />
+      <TrainingExplorerHeading
+        heading={page.title}
+        subheading="Find classes to help you qualify for in-demand jobs."
+        message="Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you’ll be ready to take on new career opportunities."
+      />
 
       <section className="howTo">
         <div className="container">

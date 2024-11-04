@@ -1,6 +1,22 @@
 .training-explorer-heading {
   background-color: $base-lightest;
 
+  .subheading,
+  .message {
+    margin: $size-16 auto;
+    max-width: $tablet-lg;
+    text-align: center;
+
+    * {
+      line-height: 1.2;
+    }
+  }
+
+  .subheading {
+    font-size: $size-24;
+    font-weight: 600;
+  }
+
   p {
     margin: 0;
   }
@@ -14,6 +30,7 @@
       text-align: center;
       font-size: $size-48;
       margin: 0;
+      font-weight: 600;
 
       @media screen and (max-width: ($tablet-lg - 1)) {
         font-size: $size-32;
