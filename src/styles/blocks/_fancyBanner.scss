@@ -9,6 +9,15 @@
     padding: $size-32 0;
   }
 
+  .subheading {
+    font-size: $size-32;
+    line-height: 1;
+
+    @media screen and (min-width: ($tablet-lg)) {
+      padding-right: $size-128;
+    }
+  }
+
   p {
     font-size: $size-20_8;
     line-height: 1.5;
@@ -22,9 +31,20 @@
     }
   }
 
+  .message {
+    margin-bottom: $size-24;
+
+    * {
+      font-size: $size-16;
+
+      @media screen and (min-width: ($tablet-lg)) {
+        padding-right: $size-50;
+      }
+    }
+  }
+
   h1 {
     line-height: 1;
-    font-weight: 400;
     margin: 0 0 $size-24;
     color: $primary-lighter;
 
