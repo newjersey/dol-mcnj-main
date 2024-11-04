@@ -45,7 +45,7 @@ export const FilterControl = ({
   }, [open]);
 
   return (
-    <aside
+    <div
       className={`filterControl${className ? ` ${className}` : ""}${
         open ? ` open` : ""
       }`}
@@ -122,6 +122,6 @@ export const FilterControl = ({
         ))}
       </LabelBox>
       {children}
-    </aside>
+    </div>
   );
 };
