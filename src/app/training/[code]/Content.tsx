@@ -328,7 +328,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
                   </Flex>
                 )}
 
-                {training.totalClockHours && (
+                {!!training.totalClockHours && (
                   <Flex alignItems="center" gap="xxs" elementTag="p">
                     <Clock size={18} />
                     <span>Total Hours: </span>

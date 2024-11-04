@@ -2,6 +2,7 @@
 import { Button } from "@components/modules/Button";
 import { ContentfulRichText } from "@components/modules/ContentfulRichText";
 import { ResponsiveImage } from "@components/modules/ResponsiveImage";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { PageBannerProps } from "@utils/types";
 
 export const FancyBanner = ({
@@ -10,13 +11,20 @@ export const FancyBanner = ({
   className,
   image,
   buttonCopy,
+  subHeading,
 }: PageBannerProps) => {
   return (
     <section className={`fancyBanner${className ? ` ${className}` : ""}`}>
       <div className="container">
         <div className="copy">
           <h1>{title}</h1>
-          {message && <ContentfulRichText document={message.json} />}
+          {subHeading && <p className="subheading">{subHeading}</p>}
+          {message && (
+            <div
+              className="message"
+              dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(message) }}
+            />
+          )}
           {buttonCopy && (
             <Button
               type="button"

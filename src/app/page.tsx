@@ -74,6 +74,8 @@ export default async function Home() {
           theme="blue"
           buttonCopy={homePage.bannerButtonCopy}
           image={homePage.bannerImage}
+          subHeading="The tools you need to find a job that works for you."
+          message="The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you."
         />
         {homePage.introBlocks && <IntroBlocks {...homePage.introBlocks} />}
 
