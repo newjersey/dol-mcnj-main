@@ -1,0 +1,32 @@
+.minimalBanner {
+  padding: $size-32 0 $size-64;
+
+  @media screen and (max-width: ($tablet - 1)) {
+    padding: $size-16 0 $size-32;
+  }
+
+  .heading-tag {
+    margin: 0;
+  }
+  .tag-item {
+    position: relative;
+    bottom: $size-4;
+    margin-left: $size-16;
+  }
+
+  .heading-tag {
+    font-size: $size-32;
+    margin: 0;
+    display: inline;
+    font-weight: 500;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      font-size: $size-24;
+      font-weight: bold;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}

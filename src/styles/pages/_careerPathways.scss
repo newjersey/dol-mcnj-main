@@ -163,3 +163,39 @@
     margin: 0 auto $size-48;
   }
 }
+
+.careerPathwaysLanding {
+  .body-copy {
+    &.container {
+      max-width: $size-880;
+      margin: 0 auto;
+      padding-top: $size-96;
+      padding-bottom: $size-96;
+
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 600;
+      }
+
+      h2 {
+        font-size: $size-32;
+
+        @media screen and (max-width: ($tablet-md - 1)) {
+          font-size: $size-22;
+          font-weight: bold;
+        }
+      }
+
+      h3 {
+        font-size: $size-22;
+
+        @media screen and (max-width: ($tablet-md - 1)) {
+          font-size: $size-18;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

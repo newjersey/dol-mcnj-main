@@ -2,6 +2,26 @@
   padding: $size-48 0;
   background: $white;
 
+  &.light {
+    @extend .container;
+    margin-bottom: $size-48;
+    .cta {
+      padding-top: $size-52;
+      padding-bottom: $size-52;
+      background: $info-lighter;
+      border-radius: $size-8;
+    }
+
+    .heading-tag {
+      font-size: $size-22;
+      max-width: $size-300;
+    }
+
+    .usa-button {
+      width: auto;
+    }
+  }
+
   &.fullColor {
     background-color: $primary;
     color: $white;

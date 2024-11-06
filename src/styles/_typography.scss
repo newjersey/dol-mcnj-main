@@ -157,5 +157,9 @@ main {
   .lrg-txt {
     font-weight: 600;
     font-size: $size-22;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      font-size: $size-18;
+    }
   }
 }

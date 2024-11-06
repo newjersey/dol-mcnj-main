@@ -19,6 +19,7 @@ import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 import { MinimalBanner } from "@components/blocks/MinimalBanner";
 import { IconNames } from "@utils/enums";
 import { IndustrySelector } from "@components/blocks/IndustrySelector";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 async function getData() {
   const { page } = await client({
@@ -76,7 +77,7 @@ export default async function CareerPathwaysPage() {
   };
 
   return (
-    <>
+    <div className="careerPathwaysLanding">
       <MinimalBanner
         crumbs={{
           items: page.pageBanner.breadcrumbsCollection?.items || [],
@@ -93,6 +94,23 @@ export default async function CareerPathwaysPage() {
         }}
       />
       <IndustrySelector {...content.industrySelector} />
+      <section
+        className="body-copy container"
+        dangerouslySetInnerHTML={{
+          __html: parseMarkdownToHTML(content.markdownSection),
+        }}
+      />
+
+      <CtaBanner
+        className="light"
+        heading={content.cta.heading}
+        items={[
+          {
+            copy: content.cta.button.text,
+            url: content.cta.button.url,
+          },
+        ]}
+      />
 
       {page.exploreHeading && (
         <CtaBanner
@@ -105,6 +123,6 @@ export default async function CareerPathwaysPage() {
           )}
         />
       )}
-    </>
+    </div>
   );
 }
