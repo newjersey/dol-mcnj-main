@@ -5,7 +5,7 @@ import { IndustrySelectorProps } from "@utils/types/components";
 
 export const IndustrySelector = ({ items, heading }: IndustrySelectorProps) => {
   return (
-    <div className="industrySelector">
+    <section className="industrySelector">
       <div className="container">
         <div className="inner">
           <Flex direction="column">
@@ -18,6 +18,6 @@ export const IndustrySelector = ({ items, heading }: IndustrySelectorProps) => {
           </Flex>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
