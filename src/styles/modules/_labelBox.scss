@@ -1,6 +1,18 @@
 .labelBox {
   border: $size-1 solid $base-lighter;
 
+  &.large {
+    svg {
+      width: $size-32;
+      height: $size-32;
+    }
+
+    .heading-tag {
+      font-size: $size-18;
+      font-weight: 500;
+    }
+  }
+
   .title {
     background: $primary;
     color: $ink;

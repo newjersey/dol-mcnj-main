@@ -20,7 +20,7 @@ describe("Grid component", () => {
   it("renders with default props", () => {
     const { container } = renderComponent();
     expect(container.firstChild).toHaveClass(
-      "wdrlscw-grid gap-undefined columns-3",
+      "mcnj-grid gap-undefined columns-3",
     );
   });
 

@@ -7,6 +7,17 @@
   color: $ink;
   border: $size-1 solid;
 
+  &.small {
+    padding: $size-2 $size-8;
+    font-size: $size-12;
+    line-height: 1;
+
+    svg {
+      width: $size-14;
+      height: $size-14;
+    }
+  }
+
   &.chip {
     padding: 5px 15px;
     border-radius: $size-20;
@@ -51,7 +62,7 @@
 
   &.color-navy {
     background-color: $info-lighter;
-    border-color: $info-darker;
+    border-color: $info-light;
   }
 
   &.color-orange {

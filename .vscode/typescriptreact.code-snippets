@@ -32,4 +32,36 @@
       ""
     ]
   },
+  "New Component": {
+    "prefix": "newComponent",
+    "body": [
+      "interface ${TM_FILENAME_BASE/(.*)/${1}/}Props {}",
+      "",
+      "export const ${TM_FILENAME_BASE/(.*)/${1}/} = (props: ${TM_FILENAME_BASE/(.*)/${1}/}Props) => {",
+      "  return (",
+      "    <div className=\"${TM_FILENAME_BASE/(.*)/${1:/camelcase}/}\">",
+      "      <div className=\"container\">",
+      "        <code>",
+      "          <pre",
+      "            style={{",
+      "              fontFamily: 'monospace',",
+      "              display: 'block',",
+      "              padding: '50px',",
+      "              color: '#88ffbf',",
+      "              backgroundColor: 'black',",
+      "              textAlign: 'left',",
+      "              whiteSpace: 'pre-wrap',",
+      "            }}",
+      "          >",
+      "            {JSON.stringify(props, null, '    ')}",
+      "          </pre>",
+      "        </code>",
+      "      </div>",
+      "    </div>",
+      "  );",
+      "};",
+      ""
+    ],
+    "description": "Module"
+  },
 }

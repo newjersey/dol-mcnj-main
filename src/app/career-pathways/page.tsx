@@ -13,6 +13,12 @@ import { CAREER_PATHWAYS_PAGE_QUERY } from "queries/careerPathwaysPage";
 import { PathwaysLayout } from "./PathwaysLayout";
 import { notFound } from "next/navigation";
 import globalOgImage from "@images/globalOgImage.jpeg";
+import { content } from "@data/careerPathways";
+import { Heading } from "@components/modules/Heading";
+import { Breadcrumbs } from "@components/modules/Breadcrumbs";
+import { MinimalBanner } from "@components/blocks/MinimalBanner";
+import { IconNames } from "@utils/enums";
+import { IndustrySelector } from "@components/blocks/IndustrySelector";
 
 async function getData() {
   const { page } = await client({
@@ -70,17 +76,24 @@ export default async function CareerPathwaysPage() {
   };
 
   return (
-    <PathwaysLayout page={page}>
-      <section className="stepCards">
-        <div className="container">
-          {page.stepsCollection &&
-            page.stepsCollection.items.length > 0 &&
-            page.stepsHeading && (
-              <SectionHeading heading={page.stepsHeading} headingLevel={2} />
-            )}
-          <Stepper steps={page.stepsCollection.items} />
-        </div>
-      </section>
+    <>
+      <MinimalBanner
+        crumbs={{
+          items: page.pageBanner.breadcrumbsCollection?.items || [],
+          pageTitle: page.title,
+        }}
+        heading={content.banner.title}
+        description={content.banner.description}
+        tag={{
+          color: "navy",
+          title: "Beta",
+          tooltip:
+            "Our team is currently researching and developing more pathways. Check back regularly for updates.",
+          icon: IconNames.Info as string,
+        }}
+      />
+      <IndustrySelector {...content.industrySelector} />
+
       {page.exploreHeading && (
         <CtaBanner
           fullColor
@@ -92,6 +105,6 @@ export default async function CareerPathwaysPage() {
           )}
         />
       )}
-    </PathwaysLayout>
+    </>
   );
 }

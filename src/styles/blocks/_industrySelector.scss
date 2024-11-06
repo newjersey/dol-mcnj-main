@@ -1,0 +1,27 @@
+.industrySelector {
+  .container {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      padding: 0;
+    }
+
+    > .inner {
+      background-color: $base-extra-light;
+      padding: $size-32;
+      border-radius: $size-16;
+      overflow: hidden;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        padding: $size-32 $size-16;
+      }
+    }
+
+    h2 {
+      margin: 0;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        font-size: $size-24;
+        font-weight: bold;
+      }
+    }
+  }
+}
