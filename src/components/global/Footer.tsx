@@ -20,6 +20,7 @@ export const Footer = ({
             <NavMenu
               noDropdowns
               id="footer1"
+              icons
               menu={items.footerNav1}
               className="footer-nav-l"
               label="Footer Navigation 1"
@@ -31,6 +32,7 @@ export const Footer = ({
             <NavMenu
               noDropdowns
               id="footer2"
+              icons
               menu={items.footerNav2}
               className="footer-nav-r"
               label="Footer Navigation 2"
