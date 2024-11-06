@@ -1,0 +1,80 @@
+.industryItem {
+  border: $size-1 solid $base-lighter;
+  border-radius: $size-16;
+  overflow: hidden;
+  padding: $size-16;
+  background-color: $white;
+
+  * {
+    margin: 0;
+  }
+
+  .title {
+    font-size: $size-22;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .tag-item {
+    border: none;
+  }
+
+  .image {
+    position: relative;
+    height: $size-146;
+    border-radius: $size-16;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .inner {
+    height: 100%;
+  }
+
+  .drawer {
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .labelBox {
+      .content {
+        > div {
+          display: flex;
+          flex-direction: column;
+          gap: $size-16;
+        }
+
+        h3,
+        h4,
+        h5 {
+          font-size: $size-16;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: $size-16;
+    margin-top: $size-16;
+    width: 100%;
+
+    @media (max-width: ($desktop-md - 1)) and (min-width: ($tablet-md)) {
+      flex-direction: column;
+    }
+
+    @media screen and (max-width: ($mobile-lg - 1)) {
+      flex-direction: column;
+    }
+
+    > * {
+      width: 100%;
+    }
+  }
+}

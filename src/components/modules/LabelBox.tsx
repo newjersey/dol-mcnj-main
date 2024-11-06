@@ -10,6 +10,7 @@ interface LabelBoxProps {
   color: ThemeColors;
   headingLevel?: HeadingLevel;
   bgFill?: boolean;
+  large?: boolean;
   icon?: string;
   iconSuffix?: string;
   iconWeight?: IconWeight;
@@ -18,6 +19,7 @@ interface LabelBoxProps {
 
 export const LabelBox = ({
   centered,
+  large,
   children,
   bgFill,
   className,
@@ -33,7 +35,9 @@ export const LabelBox = ({
       radius={10}
       className={`labelBox${className ? ` ${className}` : ""}${
         color ? ` color-${color}` : ""
-      }${centered ? ` centered` : ""}${bgFill ? ` bg-fill` : ""}`}
+      }${centered ? ` centered` : ""}${bgFill ? ` bg-fill` : ""}${
+        large ? ` large` : ""
+      }`}
     >
       <Heading className="title" level={headingLevel}>
         {icon && <IconSelector name={icon} size={20} weight={iconWeight} />}

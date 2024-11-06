@@ -57,7 +57,7 @@ const InfoBlocks = ({
         )}
         {rateBlock && (
           <DrawerButton
-            className="rate"
+            className=""
             copy={rateBlock.copy}
             number={rateBlock.number}
             definition={rateBlock.definition}

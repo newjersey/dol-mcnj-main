@@ -153,4 +153,9 @@ main {
     table-layout: fixed;
     border-collapse: collapse;
   }
+
+  .lrg-txt {
+    font-weight: 600;
+    font-size: $size-22;
+  }
 }

@@ -1,6 +1,7 @@
 import * as Svg from "@components/svgs";
 import * as Icons from "@phosphor-icons/react";
 import { IconNames } from "@utils/enums";
+import { ImageProps as NextImageProps } from "next/image";
 import {
   BreakNames,
   CalendarLength,
@@ -850,4 +851,35 @@ export interface FormInputProps {
     | "week";
   value?: string;
   variant?: "switch";
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface IndustryDrawerProps {
+  icon: string;
+  title: string;
+  copy: string;
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface IndustryItemProps {
+  image: NextImageProps;
+  title: string;
+  slug: string;
+  shorthandTitle?: string;
+  active?: boolean;
+  description?: string;
+  drawerDescription?: string;
+  drawerCards: IndustryDrawerProps[];
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+export interface IndustrySelectorProps {
+  heading: string;
+  items: IndustryItemProps[];
 }
