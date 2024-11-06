@@ -29,4 +29,15 @@
   p {
     margin: 0;
   }
+
+  .usa-tooltip__body {
+    @media screen and (min-width: ($tablet-md)) {
+      white-space: normal;
+      margin: 0 !important;
+      width: $size-216;
+      transform: translateX(calc(-50% + $size-8));
+      top: auto !important;
+      bottom: calc(100% + $size-4);
+    }
+  }
 }
