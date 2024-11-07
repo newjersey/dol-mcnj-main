@@ -44,9 +44,7 @@ export const OccupationGroups = ({
           />
 
           <div className="select">
-            {activeMap
-              ? `Select a ${activeMap.careerMap.title.toLowerCase()} occupation`
-              : `Select a ${industry.title} field above first`}
+            {activeMap ? "" : `Select a ${industry.title} field above first`}
             <button
               type="button"
               disabled={!activeMap}
