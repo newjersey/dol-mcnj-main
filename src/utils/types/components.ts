@@ -644,7 +644,7 @@ export interface IndustryProps {
     height: number;
   };
   careerMaps?: {
-    items: CareerMapProps[];
+    items: CareerMapItemProps[];
   };
   inDemandCollection?: {
     items: {
@@ -673,36 +673,26 @@ export interface IndustryProps {
 ////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
-// export interface CareerMapProps {
-//   sys: {
-//     id: string;
-//   };
-//   title: string;
-//   learnMoreBoxes: {
-//     title?: string;
-//     copy?: string;
-//     tags?: string[];
-//   }[];
-// }
+export interface CareerMapItemProps {
+  sys: {
+    id: string;
+  };
+  title: string;
+  learnMoreBoxes: {
+    title?: string;
+    copy?: string;
+    tags?: string[];
+  }[];
+  pathways?: {
+    items: SinglePathwayProps[];
+  };
+}
 
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
 export interface CareerMapProps {
-  careerMap: {
-    sys: {
-      id: string;
-    };
-    title: string;
-    learnMoreBoxes?: {
-      title?: string;
-      copy?: string;
-      tags?: string[];
-    }[];
-    pathways?: {
-      items: SinglePathwayProps[];
-    };
-  };
+  careerMap: CareerMapItemProps;
 }
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////

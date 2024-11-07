@@ -2,10 +2,10 @@
 import { Button } from "@components/modules/Button";
 import { Drawer } from "@components/modules/Drawer";
 import { Tag } from "@components/modules/Tag";
-import { CareerMapProps } from "@utils/types";
+import { CareerMapItemProps } from "@utils/types/components";
 import { useState } from "react";
 
-export const LearnMoreDrawer = ({ map }: { map: CareerMapProps }) => {
+export const LearnMoreDrawer = ({ map }: { map: CareerMapItemProps }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const evenNumberedBoxes = map.learnMoreBoxes?.filter(
     (_box, index) => index % 2 === 0,

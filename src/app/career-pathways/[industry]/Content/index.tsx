@@ -22,6 +22,7 @@ import { InDemandDetails } from "./InDemandDetails";
 import { Spinner } from "@components/modules/Spinner";
 import { ErrorBox } from "@components/modules/ErrorBox";
 import { colors } from "@utils/settings";
+import { CareerMapItemProps } from "@utils/types/components";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const [activeMap, setActiveMap] = useState<CareerMapProps>();

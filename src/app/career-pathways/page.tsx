@@ -1,6 +1,4 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
-import { Stepper } from "@components/blocks/Stepper";
-import { SectionHeading } from "@components/modules/SectionHeading";
 import { client } from "@utils/client";
 import { createButtonObject } from "@utils/createButtonObject";
 import {
@@ -10,12 +8,9 @@ import {
   ThemeColors,
 } from "@utils/types";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "queries/careerPathwaysPage";
-import { PathwaysLayout } from "./PathwaysLayout";
 import { notFound } from "next/navigation";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { content } from "@data/careerPathways";
-import { Heading } from "@components/modules/Heading";
-import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 import { MinimalBanner } from "@components/blocks/MinimalBanner";
 import { IconNames } from "@utils/enums";
 import { IndustrySelector } from "@components/blocks/IndustrySelector";
