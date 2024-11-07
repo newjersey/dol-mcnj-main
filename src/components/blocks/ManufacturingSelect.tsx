@@ -63,7 +63,7 @@ export const ManufacturingSelect = ({
               heading={`Select a ${industry.title} Field`}
             />
             {industry.careerMaps && industry.careerMaps.items.length > 0 && (
-              <Flex className="cards" fill>
+              <Flex className="cards" alignItems="stretch" fill>
                 {industry.careerMaps.items.map((map, index) => (
                   <Flex
                     direction="column"
