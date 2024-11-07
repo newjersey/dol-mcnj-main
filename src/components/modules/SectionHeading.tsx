@@ -6,12 +6,14 @@ interface SectionHeadingProps {
   color?: ThemeColors;
   description?: string;
   heading: string;
+  noDivider?: boolean;
   headingLevel?: HeadingLevel;
   strikeThrough?: boolean;
 }
 
 const SectionHeading = ({
   className,
+  noDivider,
   color,
   description,
   heading,
@@ -22,7 +24,7 @@ const SectionHeading = ({
     <div
       className={`sectionHeading${color ? ` color-${color}` : ""}${
         strikeThrough ? " strikeThrough" : ""
-      }${className ? ` ${className}` : ""}`}
+      }${noDivider ? " noDivider" : ""}${className ? ` ${className}` : ""}`}
     >
       <Heading level={headingLevel}>{heading}</Heading>
       {description && <p className="description">{description}</p>}

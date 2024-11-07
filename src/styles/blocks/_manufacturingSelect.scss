@@ -1,0 +1,160 @@
+.manufacturingSelect {
+  padding: $size-32 0 $size-64;
+
+  @media screen and (max-width: ($tablet - 1)) {
+    padding: $size-16 0 $size-32;
+  }
+
+  .sectionHeading {
+    margin: 0;
+  }
+
+  .heading-tag {
+    font-size: $size-32;
+    margin: 0;
+    display: inline;
+    font-weight: 500;
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      font-size: $size-24;
+      font-weight: bold;
+    }
+  }
+
+  .back {
+    color: $black;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $size-8;
+  }
+
+  .cards {
+    @media screen and (max-width: ($tablet - 1)) {
+      gap: $size-16;
+    }
+  }
+
+  .card {
+    @media screen and (min-width: ($tablet)) {
+      border: $size-1 solid $base-lighter;
+      border-radius: $size-8;
+      overflow: hidden;
+      padding: $size-16;
+    }
+
+    * + p,
+    p + * {
+      margin-top: 0;
+    }
+
+    p {
+      margin: 0;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        display: none;
+      }
+    }
+
+    .heading-tag {
+      font-size: $size-22;
+      font-weight: 700;
+
+      @media screen and (max-width: ($tablet - 1)) {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+      gap: $size-8;
+
+      @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .usa-button {
+        text-align: left;
+        margin: 0;
+        outline-offset: 0;
+        justify-content: flex-start;
+
+        @media screen and (min-width: ($tablet)) {
+          width: $size-128;
+        }
+
+        &.learn-more-button {
+          @media screen and (max-width: ($tablet - 1)) {
+            width: $size-48;
+            height: $size-48;
+            justify-content: center;
+          }
+
+          .copy {
+            @media screen and (max-width: ($tablet - 1)) {
+              display: none;
+            }
+          }
+
+          svg {
+            @media screen and (max-width: ($tablet - 1)) {
+              width: $size-32;
+              height: $size-32;
+            }
+          }
+        }
+        &.radio-button {
+          padding: $size-8 $size-8;
+          text-align: left;
+          min-height: $size-56;
+
+          @media screen and (min-width: ($desktop)) {
+            width: calc(100% - $size-128);
+          }
+
+          @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+            width: 100%;
+          }
+
+          @media screen and (max-width: ($tablet - 1)) {
+            width: calc(100% - $size-48);
+          }
+
+          svg {
+            color: $base;
+            width: $size-24;
+            height: $size-24;
+
+            + span {
+              display: inline-block;
+              width: calc(100% - $size-32);
+            }
+          }
+
+          span {
+            span {
+              @media screen and (max-width: ($tablet - 1)) {
+                display: none;
+              }
+            }
+          }
+
+          &.active {
+            background-color: $primary-lighter;
+            border-color: $black;
+
+            svg {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}
