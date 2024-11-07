@@ -1,15 +1,21 @@
 .sectionHeading {
   margin-bottom: $size-32;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  &.noDivider {
+    margin-bottom: $size-16;
+
+    .heading-tag {
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .heading-tag {
     color: $ink;
     font-size: $size-32;
     display: inline-block;
+    font-weight: 500;
     width: 100%;
     margin-bottom: $size-8;
     border-bottom: $size-1 solid $base-lighter;

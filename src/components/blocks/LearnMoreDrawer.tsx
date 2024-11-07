@@ -16,16 +16,15 @@ export const LearnMoreDrawer = ({ map }: { map: CareerMapItemProps }) => {
   return (
     <>
       <Button
-        tag
+        unstyled
+        className="learn-more-button"
         type="button"
         iconPrefix="Info"
         onClick={() => {
           setDrawerOpen(!drawerOpen);
         }}
       >
-        <span>
-          Learn more about <strong>{map.title}</strong>
-        </span>
+        <span className="copy">Learn more</span>
       </Button>
       <Drawer open={drawerOpen} setOpen={setDrawerOpen}>
         <div className="learn-more-content">
