@@ -8,7 +8,6 @@ import { ArrowRight, Info } from "@phosphor-icons/react/dist/ssr";
 import { Drawer } from "./Drawer";
 import { useState } from "react";
 import { Heading } from "./Heading";
-import { Accordion } from "@components/blocks/Accordion";
 import { LabelBox } from "./LabelBox";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
@@ -38,7 +37,13 @@ export const IndustryItem = ({
             title={`Pathways ${active ? "included" : "coming soon"}`}
           />
           <div className="image">
-            <Image src={image.src} alt="" fill />
+            <Image
+              src={image.src}
+              blurDataURL={image.blurDataURL}
+              placeholder="blur"
+              alt=""
+              fill
+            />
           </div>
           {description && <p>{description}</p>}
         </Flex>
@@ -63,7 +68,14 @@ export const IndustryItem = ({
             {shorthandTitle ? shorthandTitle : title} in New Jersey
           </Heading>
           <p>{drawerDescription}</p>
-          <Image {...image} alt="" />
+          <Image
+            src={image.src}
+            width={image.width}
+            height={image.height}
+            blurDataURL={image.blurDataURL}
+            placeholder="blur"
+            alt=""
+          />
           {drawerCards.map((card) => (
             <LabelBox
               color="green"

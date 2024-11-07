@@ -1,7 +1,6 @@
 import { client } from "@utils/client";
 import { CareerPathwaysPageProps, IndustryProps } from "@utils/types";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "queries/careerPathwaysPage";
-import { PathwaysLayout } from "../PathwaysLayout";
 import { INDUSTRY_QUERY } from "queries/industryQuery";
 import { Content } from "./Content";
 import { notFound } from "next/navigation";
@@ -59,7 +58,6 @@ export default async function PathwayPage({
     industry: string;
   };
 }) {
-  const { page } = (await getData()) as CareerPathwaysPageProps;
   const { industryCollection } = (await getIndustryData(params.industry)) as {
     industryCollection: {
       items: IndustryProps[];
@@ -76,8 +74,8 @@ export default async function PathwayPage({
   }
 
   return (
-    <PathwaysLayout page={page} currentIndustry={thisIndustry}>
+    <div className="careerPathways">
       <Content thisIndustry={thisIndustry} />
-    </PathwaysLayout>
+    </div>
   );
 }
