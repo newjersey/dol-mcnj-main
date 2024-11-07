@@ -1,7 +1,5 @@
 "use client";
 import { Button } from "@components/modules/Button";
-import { SectionHeading } from "@components/modules/SectionHeading";
-import { Path } from "@phosphor-icons/react";
 import { client } from "@utils/client";
 import {
   CareerMapProps,
@@ -22,6 +20,7 @@ import { Spinner } from "@components/modules/Spinner";
 import { ErrorBox } from "@components/modules/ErrorBox";
 import { colors } from "@utils/settings";
 import { ManufacturingSelect } from "@components/blocks/ManufacturingSelect";
+import { OccupationGroups } from "@components/blocks/OccupationGroups";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const [activeMap, setActiveMap] = useState<CareerMapProps>();
@@ -106,69 +105,22 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
         setMapOpen={setMapOpen}
         setOpen={setOpen}
       />
-      <div className="container">
+
+      <OccupationGroups
+        activeOccupation={activeOccupation}
+        activeMap={activeMap}
+        industry={thisIndustry}
+        getOccupation={getOccupation}
+        open={open}
+        setActivePathway={setActivePathway}
+        setMapOpen={setMapOpen}
+        setOpen={setOpen}
+      />
+      <div
+        className={`careerPathways container${activeMap ? "" : " disabled"}`}
+      >
         {hasPathways && activeMap ? (
           <>
-            <div className="groups">
-              <SectionHeading
-                headingLevel={4}
-                heading={`Explore ${activeMap.careerMap.title} Occupations and Pathways`}
-                description="Explore related occupations and learn important details."
-              />
-              <div className="select">
-                Select a {activeMap.careerMap.title.toLowerCase()} occupation
-                <button
-                  type="button"
-                  className="select-button"
-                  aria-label="occupationSelector"
-                  onClick={() => {
-                    setMapOpen(false);
-                    setOpen(!open);
-                  }}
-                >
-                  {activeOccupation
-                    ? activeOccupation.careerMapObject.title
-                    : `---`}
-                </button>
-                {open && (
-                  <div className="dropdown-select">
-                    {activeMap.careerMap.pathways?.items.map((path) => (
-                      <div key={path.sys.id}>
-                        <p className="path-title">
-                          <Path size={32} />
-                          {path.title}
-                        </p>
-                        {path.occupationsCollection.items.map((occupation) => (
-                          <button
-                            key={occupation.sys.id}
-                            aria-label="occupation-item"
-                            type="button"
-                            className="occupation"
-                            onClick={() => {
-                              setOpen(false);
-                              setMapOpen(false);
-                              setActivePathway(path);
-                              getOccupation(occupation.sys.id);
-                              sessionStorage.setItem(
-                                "pathway",
-                                JSON.stringify(path),
-                              );
-
-                              sessionStorage.setItem(
-                                "occupation",
-                                JSON.stringify(occupation),
-                              );
-                            }}
-                          >
-                            {occupation.title}
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
             {activeOccupation && (
               <>
                 <Button
@@ -217,17 +169,9 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                                 setMapOpen(false);
 
                                                 setActivePathway(pathItem);
-                                                sessionStorage.setItem(
-                                                  "pathway",
-                                                  JSON.stringify(pathItem),
-                                                );
 
                                                 getOccupation(
                                                   occupation.sys.id,
-                                                );
-                                                sessionStorage.setItem(
-                                                  "occupation",
-                                                  JSON.stringify(occupation),
                                                 );
                                               }}
                                               className={`path-stop${

@@ -1,0 +1,108 @@
+.occupationGroups {
+  margin-bottom: $size-48;
+  &.disabled {
+    .heading-tag {
+      color: $base-light;
+    }
+  }
+
+  .groups {
+    background: white;
+    position: relative;
+
+    .select {
+      max-width: $size-560;
+      position: relative;
+    }
+
+    .select-button {
+      margin-top: 0.7rem;
+      width: 100%;
+      font-weight: bold;
+      appearance: none;
+      color: $ink;
+      cursor: pointer;
+      padding: 0.7rem 2rem 0.7rem 0.7rem;
+      position: relative;
+      border: $size-1 solid $base-lighter;
+      border-radius: 5px;
+
+      &[disabled] {
+        background: $base-lighter;
+        border-color: $black;
+        color: $base-light;
+        cursor: not-allowed;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: $size-16;
+        bottom: $size-16;
+        width: 0;
+        height: 0;
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-top: 0.35rem solid $ink;
+      }
+    }
+
+    .dropdown-select {
+      font-weight: normal;
+      margin-top: $size-16;
+      box-shadow: 0 10px 20px -15px $ink;
+      max-height: $size-330;
+      border-radius: $size-8;
+      position: absolute;
+      overflow: auto;
+      z-index: 11;
+      background-color: $white;
+      width: 100%;
+
+      &[aria-expanded="true"] {
+        display: block;
+      }
+
+      .path-title,
+      button {
+        display: block;
+        width: 100%;
+      }
+
+      p {
+        &.path-title {
+          display: flex;
+          margin: 0;
+
+          align-items: center;
+          gap: 0.5rem;
+          background: $base-lighter;
+          padding: 0.5rem $size-16;
+
+          + * {
+            margin-top: 0;
+          }
+        }
+      }
+
+      button {
+        padding: $size-16;
+        cursor: pointer;
+
+        @media screen and (min-width: ($tablet)) {
+          padding: $size-16 $size-16 $size-16 5rem;
+        }
+
+        &:nth-of-type(2n - 1) {
+          background: $base-cool;
+        }
+
+        &:hover {
+          @media screen and (min-width: ($tablet)) {
+            background: $secondary-lighter;
+          }
+        }
+      }
+    }
+  }
+}
