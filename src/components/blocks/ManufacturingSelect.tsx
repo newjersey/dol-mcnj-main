@@ -70,10 +70,13 @@ export const ManufacturingSelect = ({
                     fill
                     key={map.sys.id}
                     gap="xs"
+                    justifyContent="space-between"
                     className="card"
                   >
-                    <Heading level={2}>{map.title}</Heading>
-                    <p>{`Explore ${map.title} pathways in the field of ${industry.title} in the state of New Jersey.`}</p>
+                    <Flex direction="column" fill gap="xs">
+                      <Heading level={2}>{map.title}</Heading>
+                      <p>{`Explore ${map.title} pathways in the field of ${industry.title} in the state of New Jersey.`}</p>
+                    </Flex>
                     <div className="buttons">
                       <Button
                         info
