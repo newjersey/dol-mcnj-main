@@ -11,7 +11,7 @@
       margin-bottom: $size-16;
       text-decoration: none;
       border-bottom: $size-1 solid $primary;
-  
+
       svg {
         position: absolute;
         top: 50%;
@@ -19,7 +19,7 @@
         left: -$size-32;
         z-index: 10;
       }
-  
+
       &:visited {
         color: $primary;
       }
@@ -44,18 +44,22 @@
 }
 
 #drawer-btn-container {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   bottom: 0;
-
-  background-color: $green-cool-20;
+  left: 0;
+  background-color: $secondary-light;
   display: flex;
   justify-content: space-between;
-  padding: $size-16 0;
+  padding: $size-16;
   width: 100%;
+  border-radius: $size-8 $size-8 0 0;
+  display: flex;
+  gap: $size-16;
+  justify-content: center;
 
   button {
-    border: 2px solid $green-cool-50v;
+    border: 2px solid $secondary;
     border-radius: 8px;
     font-weight: 700;
     padding: $size-16 0;
@@ -64,18 +68,18 @@
   }
 
   #submit-button {
-    background-color: $green-cool-50v;
+    background-color: $secondary;
     color: $white;
 
     &:hover {
-      background-color: $green-cool-60v;
-      border: 2px solid $green-cool-60v;
+      background-color: $secondary-dark;
+      border: 2px solid $secondary-dark;
     }
   }
 
   #reset-button {
     background-color: $white;
-    color: $green-cool-50v;
+    color: $secondary;
 
     &:hover {
       background-color: $gray-cool-10;
@@ -84,13 +88,17 @@
 }
 
 #drawer-container {
-  background-color: $green-cool-5;
-  min-height: 100vh;
+  background-color: $secondary-lighter;
   overflow: auto;
   padding: $size-16;
   width: 100%;
 
-  .checkbox-container,.MuiIconButton-label {
+  @media screen and (min-width: ($tablet-md)) {
+    min-height: 100svh;
+  }
+
+  .checkbox-container,
+  .MuiIconButton-label {
     &:hover {
       cursor: pointer;
     }
@@ -103,7 +111,7 @@
 
     svg {
       path {
-        fill: $green-cool-50v;
+        fill: $primary-dark;
       }
     }
   }
@@ -137,6 +145,13 @@
     opacity: 0;
     width: 0;
     height: 0;
+
+    &:focus {
+      + .slider {
+        outline: $size-4 solid $blue-60v;
+        outline-offset: $size-4;
+      }
+    }
   }
 
   /* The slider */
@@ -147,10 +162,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $gray-cool-30;
-    border: 1px solid $gray-cool-50;
-    -webkit-transition: .4s;
-    transition: .4s;
+    background-color: $base-light;
+    border: 1px solid $base;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    transition-property: transform, background-color;
   }
 
   $slider-size: 20px;
@@ -163,8 +179,8 @@
     left: 3px;
     bottom: 3px;
     background-color: $gray-cool-50;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
 
   .isChecked:before {
@@ -172,8 +188,8 @@
   }
 
   input:checked + .slider {
-    background-color: $green-cool-50v;
-    border: 1px solid $green-cool-50v;
+    background-color: $secondary;
+    border: 1px solid $secondary;
   }
 
   input:focus + .slider {
@@ -198,6 +214,7 @@
   .zip-miles-group {
     display: flex;
     justify-content: space-between;
+    max-width: $size-340;
 
     .conjunction-container {
       display: flex;
@@ -219,15 +236,15 @@
 }
 
 #drawer-header {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   top: 0;
-
-  background-color: $green-cool-5;
+  left: 0;
+  background-color: $secondary-lighter;
   display: flex;
   justify-content: space-between;
-  padding: $size-16 0;
-  width: 93%;
+  padding: $size-16;
+  width: 100%;
 
   h2 {
     font-size: 1.25rem;
@@ -236,7 +253,7 @@
   }
 
   button {
-    background-color: $green-cool-5;
+    background-color: $secondary-lighter;
     border: none;
     color: $blue-60v;
     cursor: pointer;
@@ -247,25 +264,58 @@
 
 #filter-button-container {
   align-items: center;
-  margin: $size-24 auto;
   width: 100%;
 
+  @media screen and (max-width: ($tablet-md - 1)) {
+    margin-bottom: $size-16;
+    width: $size-40;
+  }
+
   button {
+    position: relative;
     align-items: center;
     background-color: $white;
-    border: 2px solid $blue-60v;
+    border: 2px solid $base-light;
     border-radius: 0.25rem;
-    color: $blue-60v;
+    color: $base;
     gap: 0.5rem;
     display: flex;
     justify-content: center;
     padding: 0.75rem 1.25rem;
     width: 100%;
 
+    @media screen and (max-width: ($tablet-md - 1)) {
+      width: $size-40;
+      height: $size-40;
+      padding: 0;
+    }
+
     &:hover {
       color: $blue-warm-70v;
       border: 2px solid $blue-warm-70v;
-      box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.10);;
+      box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .mobile-only {
+    position: absolute;
+    top: -$size-12;
+    right: -$size-12;
+    background-color: $accent-cool-darker;
+    color: $white;
+    font-size: $size-12;
+    height: $size-24;
+    width: $size-24;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    display: flex;
+    line-height: 1;
+    border-radius: 100%;
+
+    @media screen and (min-width: ($tablet-md)) {
+      display: none;
     }
   }
 }
@@ -279,20 +329,81 @@
 }
 
 #search-header-container {
+  display: flex;
   margin-bottom: $size-28;
+  margin: $size-16 0;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $size-16;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
   h2 {
-    margin-top: $size-16;
-    margin-bottom: 0;
+    @media screen and (min-width: ($tablet-md)) {
+      width: 100%;
+    }
+  }
+
+  .usa-search {
+    max-width: none;
     width: 100%;
+
+    @media screen and (min-width: ($tablet-md)) {
+      max-width: $size-416;
+    }
+
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: none;
+    }
+
+    input {
+      height: $size-40;
+      max-width: none;
+      width: calc(100% - $size-48);
+      border-radius: $size-4 0 0 $size-4;
+    }
+
+    button {
+      height: $size-40;
+      justify-content: center;
+      background-color: $secondary;
+
+      &:hover {
+        background-color: $secondary-dark;
+      }
+    }
+
+    input {
+      border-color: $base-light;
+      border-width: $size-2;
+    }
   }
 }
 
 #selects-container {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 
   .input-container {
     width: 50%;
+
+    .usa-label {
+      color: $base-dark;
+    }
+
+    .usa-select {
+      border-color: $base-light;
+      color: $base;
+
+      @media screen and (min-width: ($tablet-md)) {
+        min-width: $size-200;
+      }
+    }
   }
 
   .input-container + .input-container {
@@ -310,44 +421,54 @@
     display: none;
   }
 }
+#search-filters-container {
+  .chip-container {
+    @media screen and (max-width: ($tablet-lg - 1)) {
+      display: none;
+    }
 
-@media (min-width: $tablet) {
-  #drawer-btn-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    max-width: 22.5rem;
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $size-8;
+      margin-top: $size-16;
+    }
+
+    .tag-item {
+      font-size: $size-14;
+      padding: $size-4 $size-8;
+    }
+
+    .clear-filters-button {
+      color: $error;
+      align-items: center;
+      display: flex;
+      gap: $size-8;
+      padding: 0;
+      font-weight: bold;
+      svg {
+        margin-bottom: $size-2;
+      }
+    }
   }
-
+}
+@media (min-width: $tablet-md) {
   #drawer-container {
     width: $mobile-md;
   }
 
-  #drawer-header {
-    max-width: 21rem;
-  }
-
   #filter-button-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    margin: 0 0 0 $size-12;
-    width: 6.25rem;
-
     button {
       justify-content: left;
       width: auto;
     }
   }
 
-  #search-header-container {
-    margin-bottom: 0;
-  }
-
   #search-filters-container {
     display: flex;
-    flex-direction: row-reverse;
+    align-items: flex-end;
     justify-content: space-between;
+    gap: $size-16;
   }
 }
 
@@ -361,6 +482,57 @@
 
     .back-link {
       display: none !important;
+    }
+  }
+}
+
+.filter-drawer {
+  .filter-button-row {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      display: flex;
+      gap: $size-12;
+    }
+  }
+  .usa-search {
+    max-width: none;
+    width: 100%;
+
+    @media screen and (min-width: ($tablet-md)) {
+      display: none;
+    }
+
+    input {
+      max-width: none;
+      height: $size-40;
+      border-radius: $size-4 0 0 $size-4;
+      width: calc(100% - $size-48);
+    }
+
+    button {
+      height: $size-40;
+      justify-content: center;
+      background-color: $secondary;
+
+      &:hover {
+        background-color: $secondary-dark;
+      }
+    }
+
+    input {
+      border-color: $base-light;
+      border-width: $size-2;
+    }
+  }
+}
+
+.search-drawer {
+  .MuiDrawer-paper {
+    border-radius: 0 $size-8 $size-8 0;
+    background-color: $secondary-lighter;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      border-radius: $size-8 $size-8 0 0;
+      height: 90svh;
     }
   }
 }

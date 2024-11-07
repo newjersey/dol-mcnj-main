@@ -1,3 +1,4 @@
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
 
 export const ResultsHeader = ({
@@ -29,6 +30,30 @@ export const ResultsHeader = ({
           </>
         )}
       </h2>
+      <form
+        className="usa-search usa-search--small"
+        role="search"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          const urlParams = new URLSearchParams(window.location.search);
+          const filteredParams = new URLSearchParams(
+            Array.from(urlParams).filter(([key]) => key !== "q"),
+          );
+          window.location.href = `${window.location.origin}${window.location.pathname}?q=${form.search.value}&${filteredParams.toString()}`;
+        }}
+      >
+        <input
+          className="usa-input"
+          type="search"
+          placeholder="search"
+          defaultValue={searchQuery}
+          name="search"
+        />
+        <button className="usa-button" type="submit">
+          <MagnifyingGlass weight="bold" />
+        </button>
+      </form>
     </div>
   );
 };

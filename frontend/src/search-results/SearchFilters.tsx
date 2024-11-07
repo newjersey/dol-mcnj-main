@@ -5,25 +5,29 @@ interface Props {
   handleSortChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   handleLimitChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   itemsPerPage: number;
-  sortBy: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined;
+  sortBy:
+    | "asc"
+    | "desc"
+    | "price_asc"
+    | "price_desc"
+    | "EMPLOYMENT_RATE"
+    | "best_match"
+    | undefined;
 }
 
-const limitOptions = [
-  "10",
-  "25",
-  "50",
-  "100"
-];
+const limitOptions = ["10", "25", "50", "100"];
 
 export const SearchFilters = ({
   handleSortChange,
   handleLimitChange,
   itemsPerPage,
-  sortBy
-}: Props) : ReactElement<Props> => {
+  sortBy,
+}: Props): ReactElement<Props> => {
   const { t } = useTranslation();
   const [limit, setLimit] = useState<number>(itemsPerPage);
-  const [sortByValue, setSortByValue] = useState<"asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined>(sortBy);
+  const [sortByValue, setSortByValue] = useState<
+    "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match" | undefined
+  >(sortBy);
 
   const sortOptions = [
     { value: "best_match", label: t("SearchAndFilter.sortByBestMatch") },
@@ -35,7 +39,15 @@ export const SearchFilters = ({
   ];
 
   const handleSortBy = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSortByValue(event.target.value as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match");
+    setSortByValue(
+      event.target.value as
+        | "asc"
+        | "desc"
+        | "price_asc"
+        | "price_desc"
+        | "EMPLOYMENT_RATE"
+        | "best_match",
+    );
     handleSortChange(event);
   };
 
@@ -58,7 +70,9 @@ export const SearchFilters = ({
           onChange={handleSortBy}
         >
           {sortOptions.map((option) => (
-            <option key={option.value} value={option.value}>{option.label}</option>
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
           ))}
         </select>
       </div>
@@ -74,10 +88,12 @@ export const SearchFilters = ({
           onChange={handleLimit}
         >
           {limitOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
+            <option key={option} value={option}>
+              {option}
+            </option>
           ))}
         </select>
       </div>
     </div>
-  )
-}
+  );
+};

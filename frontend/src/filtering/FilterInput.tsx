@@ -1,10 +1,11 @@
-import { ReactNode } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { InputAdornment, TextField } from '@material-ui/core';
+import { ReactNode } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { InputAdornment, TextField } from "@material-ui/core";
 
 interface Props {
   inputName: string;
   inputLabel?: string;
+  defaultValue?: string;
   hasIcon?: boolean;
   icon?: ReactNode;
   inputType?: "text" | "number";
@@ -15,6 +16,7 @@ interface Props {
 export const FilterFormInput = ({
   inputLabel,
   inputName,
+  defaultValue,
   inputType = "text",
   hasIcon = false,
   icon,
@@ -23,26 +25,19 @@ export const FilterFormInput = ({
 }: Props) => {
   const { control } = useFormContext();
 
-  const inputIcon = () => hasIcon ? (
-    <InputAdornment position="start">
-      {icon}
-    </InputAdornment>
-  ) : null;
+  const inputIcon = () =>
+    hasIcon ? <InputAdornment position="start">{icon}</InputAdornment> : null;
 
   return (
     <div className="field-group">
       {inputLabel && (
         <div className="label-container">
-          <label htmlFor={inputName}>
-            {inputLabel}
-          </label>
+          <label htmlFor={inputName}>{inputLabel}</label>
         </div>
       )}
       {subLabel && (
         <div className="sub-label-container">
-          <label>
-            {subLabel}
-          </label>
+          <label>{subLabel}</label>
         </div>
       )}
       <div className="input-container">
@@ -51,7 +46,8 @@ export const FilterFormInput = ({
           name={inputName}
           render={({ field: { onChange, ...props } }) => (
             <TextField
-              {...props}
+              name={props.name}
+              defaultValue={defaultValue}
               onChange={onChange}
               className="filter-input"
               placeholder={placeholder}
@@ -65,5 +61,5 @@ export const FilterFormInput = ({
         />
       </div>
     </div>
-  )
-}
+  );
+};

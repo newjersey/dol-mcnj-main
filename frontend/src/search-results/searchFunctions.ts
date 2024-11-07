@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-
+import { classFormatList, languageList, serviceList } from "../filtering/filterLists";
 import { Client } from "../domain/Client";
 import { TrainingData, TrainingResult } from "../domain/Training";
 
@@ -95,4 +95,122 @@ export const getSearchQuery = (searchString: string | undefined): string | undef
   const regex = /\?q=([^&]*)/;
   const matches = searchString?.match(regex);
   return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+type FilterFields = {
+  [key: string]: string | number | boolean | string[] | number[] | boolean[];
+};
+
+export const filterChips = (filters: FilterFields) => {
+  // make array from the object "filters" and convert the items into {name: key, value: value} pairs
+
+  const titleMaker = (string: string) => {
+    if (string === "cipCode") {
+      return "CIP code";
+    }
+    if (string === "socCode") {
+      return "SOC code";
+    }
+    if (string === "completeIn") {
+      return "Time to complete";
+    }
+    if (string === "languages") {
+      return "Language";
+    }
+    if (string === "zipcode") {
+      return "ZIP code";
+    }
+    if (string === "classFormat") {
+      return "Format";
+    }
+    if (string === "inDemand") {
+      return "In-demand";
+    }
+
+    const separatedString = string.replace(/([a-z])([A-Z])/g, "$1 $2");
+    return separatedString.charAt(0).toUpperCase() + separatedString.slice(1).toLowerCase();
+  };
+
+  const paramMatcher = (param: string) => {
+    if (param === "cipCode") {
+      return "cip";
+    }
+    if (param === "socCode") {
+      return "soc";
+    }
+    if (param === "classFormat") {
+      return "format";
+    }
+
+    return param;
+  };
+
+  const labelMaker = (lang: string, key: string) => {
+    // if lang matches an id in languageList, return the label
+    const language = [...languageList, ...serviceList, ...classFormatList].find(
+      (item) => item.id === lang,
+    );
+    if (language) {
+      return language.label;
+    }
+    return key === "maxCost" ? `$${lang}` : lang;
+  };
+
+  const filterArray = Object.entries(filters).map(([key, value]) => {
+    if (Array.isArray(value)) {
+      // filter out empty strings and false values
+      const filteredArray = value.filter((item) => item !== "" && item !== false);
+      return filteredArray.map((item) => ({
+        id: paramMatcher(key),
+        title: titleMaker(key),
+        label: labelMaker(item as string, key),
+        value: item,
+      }));
+    } else if (value !== undefined && value !== null && value !== "" && value !== false) {
+      return {
+        id: paramMatcher(key),
+        title: titleMaker(key),
+        label: labelMaker(value as string, key),
+        value,
+      };
+    }
+    return [];
+  });
+
+  const flattenedFilterArray = filterArray.flat();
+  const removeQueryArray = flattenedFilterArray.filter(
+    (item) => (item as { id?: string }).id !== "searchQuery",
+  );
+
+  // flatten the array
+  return removeQueryArray.flat();
+};
+
+export const handleChipClick = (id: string, value: string) => {
+  // Get the current URL and search parameters
+  const url = new URL(window.location.href);
+  const searchParams = new URLSearchParams(url.search);
+  const searchParam = searchParams.get(id);
+
+  if (searchParam) {
+    // Split the parameter value by commas to handle multiple values
+    const values = searchParam.split(",").filter(Boolean); // filter out any empty strings
+
+    // Check if the value exists in the list and remove it if present
+    const updatedValues = values.filter((v) => v !== value);
+
+    if (updatedValues.length > 0) {
+      // If there are still values left, set the parameter to the updated list
+      searchParams.set(id, updatedValues.join(","));
+    } else {
+      // If no values remain, delete the parameter
+      searchParams.delete(id);
+    }
+
+    // Update the URL without reloading the page
+    window.history.replaceState({}, "", `${url.pathname}?${searchParams.toString()}`);
+  }
+
+  // navigate to the new URL
+  window.location.href = `${url.pathname}?${searchParams.toString()}`;
 };

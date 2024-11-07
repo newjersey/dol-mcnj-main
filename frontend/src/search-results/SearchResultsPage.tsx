@@ -18,10 +18,10 @@ import { SearchTips } from "./SearchTips";
 import { useTranslation } from "react-i18next";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
-import { FilterDrawer } from "../filtering/FilterDrawer";
+import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
 import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
-import { getTrainingData, getSearchQuery } from "./searchFunctions";
+import { getTrainingData, getSearchQuery, filterChips } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
@@ -276,6 +276,25 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }
   };
 
+  const allFilterFields = {
+    searchQuery,
+    cipCode,
+    classFormat,
+    completeIn,
+    county,
+    inDemand,
+    languages,
+    maxCost,
+    miles,
+    services,
+    socCode,
+    zipcode,
+  };
+
+  type FilterFields = {
+    [key: string]: string | number | boolean | string[] | number[] | boolean[];
+  };
+
   return (
     <Layout
       noFooter
@@ -299,32 +318,27 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           </div>
           {!isLoading && (
             <div id="search-filters-container">
+              <FilterDrawer
+                chips={filterChips(allFilterFields as FilterFields) as ChipProps[]}
+                {...allFilterFields}
+              />
               <SearchFilters
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
                 itemsPerPage={itemsPerPage}
                 sortBy={sortBy}
               />
-
-              <FilterDrawer
-                searchQuery={searchQuery}
-                cipCode={cipCode}
-                classFormat={classFormat}
-                completeIn={completeIn}
-                county={county || ""}
-                inDemand={inDemand}
-                languages={languages}
-                maxCost={maxCost}
-                miles={miles}
-                services={services}
-                socCode={socCode || ""}
-                zipcode={zipcode || ""}
-              />
             </div>
           )}
         </div>
         <div id="results-container">
-          {isLoading && <div>{Array(10).fill(<SkeletonCard />)}</div>}
+          {isLoading && (
+            <div>
+              {Array.from({ length: itemsPerPage }, (_, index) => (
+                <SkeletonCard key={`skel-${index}`} />
+              ))}
+            </div>
+          )}
           {!isLoading && !isError && trainings.length <= 5 && <SearchTips />}
           {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">
