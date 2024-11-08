@@ -51,7 +51,7 @@ export const routerFactory = ({
         res.status(200).json(trainings[0]);
       })
         .catch((e) => {
-          if (e.message === "NOT_FOUND") {
+          if (e?.message === "NOT_FOUND") {
             res.status(404).send();
           }
           else {
