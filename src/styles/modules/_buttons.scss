@@ -8,8 +8,8 @@
 .usa-button {
   display: inline-flex !important;
   align-items: center;
+  justify-content: space-between;
   gap: $size-8;
-  justify-content: center;
   padding: $size-16 $size-24;
 
   &.unstyled {
@@ -234,7 +234,7 @@
 
   &[class*="highlight-"] {
     padding: $size-8 $size-16;
-    border-radius: $size-5;
+    border-radius: $size-10;
     border: $size-2 solid;
 
     &:hover {
@@ -243,7 +243,7 @@
       }
     }
 
-    span:not(.svg-container) {
+    span:not(.svg-container):not(.grouping) {
       display: block;
       width: 100%;
     }
@@ -298,7 +298,7 @@
 
   &.highlight-green {
     background: $secondary-lighter;
-    border-color: $secondary-light;
+    border-color: $secondary;
     color: $secondary-darker;
 
     &:hover {

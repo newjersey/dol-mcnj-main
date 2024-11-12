@@ -265,6 +265,7 @@ export interface ButtonProps {
   customBgColor?: string;
   customBorderColor?: string;
   customTextColor?: string;
+  style?: CSSProperties;
   defaultStyle?:
     | "primary"
     | "secondary"

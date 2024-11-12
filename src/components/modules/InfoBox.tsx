@@ -2,6 +2,7 @@ import { Info } from "@phosphor-icons/react";
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { ThemeColors } from "@utils/types";
 import { LinkObject } from "./LinkObject";
+import { Spinner } from "./Spinner";
 
 interface InfoBoxProps {
   className?: string;
@@ -9,10 +10,11 @@ interface InfoBoxProps {
   currency?: boolean;
   eyebrow?: string;
   link?: { url: string; copy: string };
+  loading?: boolean;
+  notAvailableText: string;
   number?: number;
   numberEnd?: number;
   theme?: ThemeColors;
-  notAvailableText: string;
   tooltip?: string;
 }
 
@@ -22,6 +24,7 @@ const InfoBox = ({
   currency,
   eyebrow,
   link,
+  loading,
   notAvailableText,
   number,
   numberEnd,
@@ -52,17 +55,26 @@ const InfoBox = ({
       {copy && <p className="copy">{copy}</p>}
 
       <p className="number">
-        {number ? (
-          currency ? (
-            <>
-              {toUsCurrency(number)}
-              {numberEnd ? ` - ${toUsCurrency(Number(numberEnd))}` : ""}
-            </>
-          ) : (
-            number
-          )
+        {loading ? (
+          <Spinner
+            style={{ margin: "5px 0", justifyContent: "flex-start" }}
+            size={20}
+          />
         ) : (
-          notAvailableText
+          <>
+            {number ? (
+              currency ? (
+                <>
+                  {toUsCurrency(number)}
+                  {numberEnd ? ` - ${toUsCurrency(Number(numberEnd))}` : ""}
+                </>
+              ) : (
+                number
+              )
+            ) : (
+              notAvailableText
+            )}
+          </>
         )}
       </p>
 

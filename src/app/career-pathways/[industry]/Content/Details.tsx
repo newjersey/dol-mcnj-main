@@ -6,16 +6,10 @@ import { InfoBox } from "@components/modules/InfoBox";
 import { LabelBox } from "@components/modules/LabelBox";
 import { Markdown } from "@components/modules/Markdown";
 import { Tag } from "@components/modules/Tag";
-import {
-  ArrowUpRight,
-  GraduationCap,
-  Hourglass,
-  MapPinLine,
-} from "@phosphor-icons/react";
-import { calendarLength } from "@utils/calendarLength";
-import { toUsCurrency } from "@utils/toUsCurrency";
 import { OccupationNodeProps, TrainingResult } from "@utils/types";
 import { useEffect, useState } from "react";
+import { RelatedTrainingCard } from "./RelatedTrainingCard";
+import { Flex } from "@components/utility/Flex";
 
 export const Details = ({
   content,
@@ -28,7 +22,19 @@ export const Details = ({
   };
 }) => {
   const [trainingData, setTrainingData] = useState<TrainingResult[]>([]);
+  const [jobNumbers, setJobNumbers] = useState<number | null>(null);
+  const [loadingNumber, setLoadingNumber] = useState(false);
   const boxArray = [];
+
+  const getJobNumbers = async () => {
+    const jobNumbers = await fetch(
+      `${process.env.REACT_APP_API_URL}/api/jobcount/${content.title}`,
+    );
+
+    const jobNumbersArray = await jobNumbers.json();
+
+    return jobNumbersArray.count;
+  };
 
   if (content.tasks) {
     boxArray.push({
@@ -103,6 +109,7 @@ export const Details = ({
   }
 
   useEffect(() => {
+    setLoadingNumber(true);
     const searchTerm = content.trainingSearchTerms || content.title;
     const getTrainingList = async () => {
       const training = await fetch(
@@ -113,6 +120,10 @@ export const Details = ({
 
       setTrainingData(trainingArray.slice(0, 3));
     };
+    getJobNumbers().then((count) => {
+      setJobNumbers(count);
+      setLoadingNumber(false);
+    });
 
     getTrainingList();
   }, [content]);
@@ -157,9 +168,11 @@ export const Details = ({
               theme="purple"
               tooltip="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
             />
+
             <InfoBox
               eyebrow="Jobs Open in NJ"
-              number={content.numberOfAvailableJobs}
+              number={jobNumbers as number}
+              loading={!jobNumbers || loadingNumber}
               theme="purple"
               notAvailableText="Job data not available"
               tooltip="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
@@ -195,42 +208,10 @@ export const Details = ({
               <ul className="unstyled">
                 {trainingData.length > 0 ? (
                   trainingData.map((trainingItem) => (
-                    <li key={trainingItem.id}>
-                      <a
-                        href={`/training/${trainingItem.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <p className="title-bar">
-                          {trainingItem.name}
-                          <ArrowUpRight size={24} />
-                        </p>
-                        <span className="span-grid">
-                          <span>
-                            <GraduationCap size={32} />
-                            {trainingItem.providerName}
-                          </span>
-                          <span>
-                            <MapPinLine size={32} />
-                            {trainingItem.city}, {trainingItem.county}
-                          </span>
-                          <span className="last-line">
-                            <span>
-                              <Hourglass size={32} />
-                              {trainingItem.calendarLength
-                                ? `${calendarLength(
-                                    trainingItem.calendarLength,
-                                  )} to complete`
-                                : "--"}
-                            </span>
-                            <span className="salary">
-                              {trainingItem.totalCost &&
-                                toUsCurrency(trainingItem.totalCost)}
-                            </span>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
+                    <RelatedTrainingCard
+                      key={trainingItem.id}
+                      {...trainingItem}
+                    />
                   ))
                 ) : (
                   <li>
@@ -240,26 +221,28 @@ export const Details = ({
                   </li>
                 )}
               </ul>
-              <Button
-                type="link"
-                highlight="green"
-                link={`/training/search/${
-                  content.trainingSearchTerms || content.title
-                }`}
-                label="See more trainings on the Training Explorer"
-                svgName="TrainingBold"
-                iconSuffix="ArrowUpRight"
-                defaultStyle="secondary"
-              />
-              <Button
-                highlight="navy"
-                defaultStyle="quinary"
-                label="Learn more financial assistance opportunities"
-                link="/tuition-assistance"
-                svgName="SupportBold"
-                iconSuffix="ArrowUpRight"
-                type="link"
-              />
+              <Flex direction="column" gap="xs">
+                <Button
+                  type="link"
+                  highlight="green"
+                  link={`/training/search?q=${
+                    content.trainingSearchTerms || content.title
+                  }`}
+                  label="See more trainings on the Training Explorer"
+                  style={{ width: "100%" }}
+                  svgName="TrainingBold"
+                  defaultStyle="secondary"
+                />
+                <Button
+                  highlight="navy"
+                  defaultStyle="quinary"
+                  label="Learn more financial assistance opportunities"
+                  link="/support-resources/tuition-assistance"
+                  style={{ width: "100%" }}
+                  svgName="SupportBold"
+                  type="link"
+                />
+              </Flex>
             </LabelBox>
             <LabelBox
               color="green"
@@ -270,7 +253,8 @@ export const Details = ({
                 highlight="blue"
                 iconPrefix="Briefcase"
                 iconWeight="bold"
-                iconSuffix="ArrowUpRight"
+                style={{ width: "100%" }}
+                iconSuffix="ArrowSquareOut"
                 label="Check out related jobs on Career One Stop"
                 link="https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=welder&amp;location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1&amp;pagesize=100"
                 type="link"

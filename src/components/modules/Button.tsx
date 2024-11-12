@@ -3,6 +3,7 @@ import { IconNames } from "@utils/enums";
 import { ButtonProps } from "@utils/types";
 import { IconSelector } from "./IconSelector";
 import { LinkObject } from "./LinkObject";
+import { Flex } from "@components/utility/Flex";
 
 const Button = ({
   buttonId,
@@ -25,6 +26,7 @@ const Button = ({
   outlined,
   svgFill,
   svgName,
+  style,
   tag,
   type,
   unstyled,
@@ -68,7 +70,9 @@ const Button = ({
                 ? `inset 0 0 0 2px ${customBorderColor}`
                 : undefined,
             }
-          : undefined
+          : style
+            ? style
+            : undefined
       }
     >
       {!noIndicator && svgName && !iconPrefix && (
@@ -116,7 +120,9 @@ const Button = ({
                 ? `inset 0 0 0 2px ${customBorderColor}`
                 : undefined,
             }
-          : undefined
+          : style
+            ? style
+            : undefined
       }
     >
       {!noIndicator && svgName && !iconPrefix && (
@@ -161,22 +167,31 @@ const Button = ({
               backgroundColor: customBgColor,
               color: customTextColor,
             }
-          : undefined
+          : style
+            ? style
+            : undefined
       }
     >
-      {!noIndicator && svgName && !iconPrefix && (
-        <span className="svg-container">
-          <IconSelector className="prefix" svgName={svgName} size={20} />
-        </span>
-      )}
-      {!noIndicator && iconPrefix && !svgName && (
-        <IconSelector
-          className="prefix"
-          name={iconPrefix ? (iconPrefix as IconNames) : undefined}
-          size={20}
-        />
-      )}
-      {children || <span>{label}</span>}
+      <Flex
+        className="grouping"
+        gap="xxs"
+        elementTag="span"
+        alignItems="center"
+      >
+        {!noIndicator && svgName && !iconPrefix && (
+          <span className="svg-container">
+            <IconSelector className="prefix" svgName={svgName} size={20} />
+          </span>
+        )}
+        {!noIndicator && iconPrefix && !svgName && (
+          <IconSelector
+            className="prefix"
+            name={iconPrefix ? (iconPrefix as IconNames) : undefined}
+            size={20}
+          />
+        )}
+        {children || <span>{label}</span>}
+      </Flex>
       {!noIndicator && iconSuffix && (
         <IconSelector
           className="suffix"

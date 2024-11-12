@@ -18,7 +18,7 @@ import { InDemandDetails } from "./InDemandDetails";
 import { Spinner } from "@components/modules/Spinner";
 import { ErrorBox } from "@components/modules/ErrorBox";
 import { colors } from "@utils/settings";
-import { ManufacturingSelect } from "@components/blocks/ManufacturingSelect";
+import { FieldSelect } from "@components/blocks/FieldSelect";
 import { OccupationGroups } from "@components/blocks/OccupationGroups";
 import { numberShorthand } from "@utils/numberShorthand";
 
@@ -59,6 +59,25 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   };
 
   useEffect(() => {
+    // if hit escape key, close .dropdown-select
+    const closeDropdown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setInDemandOpen(false);
+      }
+    };
+    window.addEventListener("keydown", closeDropdown);
+
+    // if click outside of .dropdown-select, close .dropdown-select
+    const closeDropdownClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest(".occupationSelector")) {
+        setInDemandOpen(false);
+      }
+    };
+
+    window.addEventListener("click", closeDropdownClick);
+  }, []);
+
+  useEffect(() => {
     const filteredPathways = activeMap?.careerMap.pathways?.items?.filter(
       (path) => path.title !== activePathway?.title,
     );
@@ -72,7 +91,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       const getInDemandOccupation = async () => {
         setLoading(true);
         const occupation = await fetch(
-          `${process.env.REACT_APP_SITE_URL}/api/getOccupation/${activeInDemand.idNumber}`,
+          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`,
         );
 
         if (!occupation.ok) {
@@ -95,7 +114,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
   return (
     <>
-      <ManufacturingSelect
+      <FieldSelect
         activeMap={activeMap}
         getCareerMap={getCareerMap}
         industry={thisIndustry}
@@ -104,18 +123,21 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
         setFullMap={setFullMap}
         setMapOpen={setMapOpen}
         setOpen={setOpen}
+        isField={!!hasPathways}
       />
 
-      <OccupationGroups
-        activeOccupation={activeOccupation}
-        activeMap={activeMap}
-        industry={thisIndustry}
-        getOccupation={getOccupation}
-        open={open}
-        setActivePathway={setActivePathway}
-        setMapOpen={setMapOpen}
-        setOpen={setOpen}
-      />
+      {hasPathways && (
+        <OccupationGroups
+          activeOccupation={activeOccupation}
+          activeMap={activeMap}
+          industry={thisIndustry}
+          getOccupation={getOccupation}
+          open={open}
+          setActivePathway={setActivePathway}
+          setMapOpen={setMapOpen}
+          setOpen={setOpen}
+        />
+      )}
       <div
         className={`careerPathways container${activeMap ? "" : " disabled"}`}
       >
@@ -244,26 +266,22 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
           thisIndustry.inDemandCollection &&
           thisIndustry.inDemandCollection.items.length > 0 && (
             <>
-              <div className="occupationSelector">
-                <label htmlFor="occupationSelector">
-                  Select an in-demand{" "}
-                  {(
-                    thisIndustry.shorthandTitle || thisIndustry.title
-                  ).toLocaleLowerCase()}{" "}
-                  occupation
-                  <button
-                    type="button"
-                    aria-label="occupation selector"
-                    className="select-button"
-                    onClick={() => {
-                      setInDemandOpen(!inDemandOpen);
-                    }}
-                  >
-                    {activeInDemand
-                      ? activeInDemand.title
-                      : "Please choose an occupation"}
-                  </button>
-                </label>
+              <div
+                className={`occupationSelector${activeInDemand ? "" : " inactive"}`}
+              >
+                <button
+                  type="button"
+                  aria-label="occupation selector"
+                  id="occupation-selector"
+                  className="select-button"
+                  onClick={() => {
+                    setInDemandOpen(!inDemandOpen);
+                  }}
+                >
+                  {activeInDemand
+                    ? activeInDemand.title
+                    : "-Select an occupation-"}
+                </button>
                 {inDemandOpen && (
                   <div className="dropdown-select">
                     {thisIndustry.inDemandCollection.items.map((item) => (
