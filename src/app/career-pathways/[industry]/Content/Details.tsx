@@ -39,6 +39,24 @@ export const Details = ({
     });
   }
 
+  if (content.howToGetStarted) {
+    boxArray.push({
+      name: "howToGetStarted",
+      icon: "RocketLaunch",
+      title: "How to get started",
+      content: content.howToGetStarted,
+    });
+  }
+
+  if (content.howToGetHere) {
+    boxArray.push({
+      name: "howToGetHere",
+      icon: "MapPin",
+      title: "How to get to here",
+      content: content.howToGetHere,
+    });
+  }
+
   if (content.education) {
     boxArray.push({
       name: "education",
@@ -48,11 +66,20 @@ export const Details = ({
     });
   }
 
+  if (content.experience) {
+    boxArray.push({
+      name: "experience",
+      icon: "ReadCvLogo",
+      title: "Other Experience",
+      content: content.experience,
+    });
+  }
+
   if (content.skills) {
     boxArray.push({
       name: "skills",
       icon: "SealCheck",
-      title: "Skills",
+      title: "Skills Needed",
       content: content.skills,
     });
   }
@@ -66,20 +93,11 @@ export const Details = ({
     });
   }
 
-  if (content.experience) {
-    boxArray.push({
-      name: "experience",
-      icon: "ReadCvLogo",
-      title: "Experience",
-      content: content.experience,
-    });
-  }
-
   if (content.advancement) {
     boxArray.push({
       name: "advancement",
-      icon: "ChartLineUp",
-      title: "Advancement",
+      icon: "TrendUp",
+      title: "How to move up",
       content: content.advancement,
     });
   }
@@ -131,17 +149,20 @@ export const Details = ({
           </div>
           <div className="meta">
             <InfoBox
-              eyebrow="Median Salary"
-              number={content.medianSalary}
+              eyebrow="Salary Range"
+              number={content.salaryRangeStart}
+              numberEnd={content.salaryRangeEnd}
               currency
+              notAvailableText="Salary data not available"
               theme="purple"
-              tooltip="Definition of median salary"
+              tooltip="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
             />
             <InfoBox
               eyebrow="Jobs Open in NJ"
               number={content.numberOfAvailableJobs}
               theme="purple"
-              tooltip="Description of this block."
+              notAvailableText="Job data not available"
+              tooltip="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
               link={{
                 copy: "See current job openings",
                 url: `https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${

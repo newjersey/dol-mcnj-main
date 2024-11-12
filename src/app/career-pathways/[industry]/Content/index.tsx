@@ -14,13 +14,13 @@ import { CAREER_PATHWAY_QUERY } from "queries/pathway";
 import { Fragment, useEffect, useState } from "react";
 import { Details } from "./Details";
 import { groupObjectsByLevel } from "@utils/groupObjectsByLevel";
-import { toUsCurrency } from "@utils/toUsCurrency";
 import { InDemandDetails } from "./InDemandDetails";
 import { Spinner } from "@components/modules/Spinner";
 import { ErrorBox } from "@components/modules/ErrorBox";
 import { colors } from "@utils/settings";
 import { ManufacturingSelect } from "@components/blocks/ManufacturingSelect";
 import { OccupationGroups } from "@components/blocks/OccupationGroups";
+import { numberShorthand } from "@utils/numberShorthand";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const [activeMap, setActiveMap] = useState<CareerMapProps>();
@@ -123,107 +123,113 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
           <>
             {activeOccupation && (
               <>
-                <Button
-                  tag
-                  type="button"
-                  iconWeight="bold"
-                  iconPrefix={mapOpen ? "ArrowsInSimple" : "ArrowsOutSimple"}
-                  onClick={() => {
-                    setMapOpen(!mapOpen);
-                  }}
-                >
-                  See the {mapOpen ? "full" : "less"}
-                  <strong>{activeMap?.careerMap.title} Pathways</strong>
-                  map
-                </Button>
+                <div id="map-block" className="map-block">
+                  <Button
+                    tag
+                    type="button"
+                    iconWeight="bold"
+                    iconPrefix={mapOpen ? "ArrowsInSimple" : "ArrowsOutSimple"}
+                    onClick={() => {
+                      setMapOpen(!mapOpen);
+                    }}
+                  >
+                    {mapOpen ? "Collapse" : "Expand"}
+                    <strong>{activeMap?.careerMap.title} Pathways</strong>
+                    map
+                  </Button>
 
-                {fullMap && (
-                  <>
-                    <div className="full-map" id="full-career-map">
-                      <div className="inner">
-                        {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
-                          (pathItem) => {
-                            const pathways = groupObjectsByLevel(
-                              pathItem.occupationsCollection.items,
-                            );
-                            return (
-                              <Fragment key={pathItem.sys.id}>
-                                <p className="path-title">{pathItem.title}</p>
-                                <ul className="single-path">
-                                  {pathways.map((path) => {
-                                    const isTall = path.length > 1;
-                                    return (
-                                      <li
-                                        key={path[0].sys.id}
-                                        className={isTall ? "tall" : undefined}
-                                      >
-                                        {path.map((occupation) => {
-                                          const isActive =
-                                            activeOccupation.careerMapObject.sys
-                                              .id === occupation.sys.id;
-                                          return (
-                                            <button
-                                              key={`occ${occupation.sys.id}`}
-                                              type="button"
-                                              onClick={() => {
-                                                setMapOpen(false);
+                  {fullMap && (
+                    <>
+                      <div className="full-map" id="full-career-map">
+                        <div className="inner">
+                          {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
+                            (pathItem) => {
+                              const pathways = groupObjectsByLevel(
+                                pathItem.occupationsCollection.items,
+                              );
+                              return (
+                                <Fragment key={pathItem.sys.id}>
+                                  <p className="path-title">{pathItem.title}</p>
+                                  <ul className="single-path">
+                                    {pathways.map((path) => {
+                                      const isTall = path.length > 1;
+                                      return (
+                                        <li
+                                          key={path[0].sys.id}
+                                          className={
+                                            isTall ? "tall" : undefined
+                                          }
+                                        >
+                                          {path.map((occupation) => {
+                                            const isActive =
+                                              activeOccupation.careerMapObject
+                                                .sys.id === occupation.sys.id;
+                                            return (
+                                              <button
+                                                key={`occ${occupation.sys.id}`}
+                                                type="button"
+                                                onClick={() => {
+                                                  setMapOpen(false);
 
-                                                setActivePathway(pathItem);
+                                                  setActivePathway(pathItem);
 
-                                                getOccupation(
-                                                  occupation.sys.id,
-                                                );
-                                              }}
-                                              className={`path-stop${
-                                                isActive ? " active" : ""
-                                              }`}
-                                            >
-                                              <span className="prev-path-connector"></span>
-                                              <span className="path-connector"></span>
-                                              <span className="arrow"></span>
-                                              <p className="title">
-                                                <strong>
-                                                  {occupation.title}
-                                                </strong>
-                                              </p>
-                                              <div className="salary">
-                                                <p>Salary Range</p>
-                                                <p>
+                                                  getOccupation(
+                                                    occupation.sys.id,
+                                                  );
+                                                }}
+                                                className={`path-stop${
+                                                  isActive ? " active" : ""
+                                                }`}
+                                              >
+                                                <span className="prev-path-connector"></span>
+                                                <span className="path-connector"></span>
+                                                <span className="arrow"></span>
+                                                <p className="title">
                                                   <strong>
-                                                    {toUsCurrency(
-                                                      occupation.salaryRangeStart,
-                                                    )}
-                                                    k -
-                                                    {toUsCurrency(
-                                                      occupation.salaryRangeEnd,
-                                                    )}
-                                                    k
+                                                    {occupation.title}
                                                   </strong>
                                                 </p>
-                                              </div>
-                                              <div className="education">
-                                                <p>Min. Education</p>
-                                                <p>
-                                                  <strong>
-                                                    High School Diploma
-                                                  </strong>
-                                                </p>
-                                              </div>
-                                            </button>
-                                          );
-                                        })}
-                                      </li>
-                                    );
-                                  })}
-                                </ul>
-                              </Fragment>
-                            );
-                          },
-                        )}
+                                                {!!occupation.salaryRangeStart && (
+                                                  <div className="salary">
+                                                    <p>Salary Range</p>
+                                                    <p>
+                                                      <strong>
+                                                        $
+                                                        {numberShorthand(
+                                                          occupation.salaryRangeStart,
+                                                        )}{" "}
+                                                        - $
+                                                        {numberShorthand(
+                                                          occupation.salaryRangeEnd,
+                                                        )}
+                                                      </strong>
+                                                    </p>
+                                                  </div>
+                                                )}
+                                                <div className="education">
+                                                  <p>Min. Education</p>
+                                                  <p>
+                                                    <strong>
+                                                      High School Diploma
+                                                    </strong>
+                                                  </p>
+                                                </div>
+                                              </button>
+                                            );
+                                          })}
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                </Fragment>
+                              );
+                            },
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
+                </div>
                 <Details
                   content={activeOccupation.careerMapObject}
                   parents={{

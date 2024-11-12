@@ -1,6 +1,6 @@
 .infoBox {
   border-radius: 10px;
-  padding: $size-16;
+  padding: $size-8 $size-16;
 
   p,
   a {
@@ -14,7 +14,6 @@
   }
 
   .number {
-    font-size: $size-22;
     font-weight: bold;
   }
 
@@ -29,6 +28,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  .usa-tooltip__body {
+    @media screen and (min-width: ($tablet-md)) {
+      white-space: normal;
+      width: $size-160;
     }
   }
 

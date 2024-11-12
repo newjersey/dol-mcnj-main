@@ -18,13 +18,12 @@
     .select-button {
       margin-top: 0.7rem;
       width: 100%;
-      font-weight: bold;
       appearance: none;
       color: $ink;
       cursor: pointer;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: $size-1 solid $base-lighter;
+      border: $size-2 solid $black;
       border-radius: 5px;
 
       &[disabled] {
@@ -99,7 +98,7 @@
 
         &:hover {
           @media screen and (min-width: ($tablet)) {
-            background: $secondary-lighter;
+            background: $tertiary-lighter;
           }
         }
       }

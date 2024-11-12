@@ -5,6 +5,7 @@ import {
   IndustryProps,
   OccupationNodeProps,
 } from "@utils/types";
+import { useEffect } from "react";
 
 interface OccupationGroupsProps {
   activeMap?: CareerMapProps;
@@ -29,6 +30,24 @@ export const OccupationGroups = ({
   getOccupation,
   open,
 }: OccupationGroupsProps) => {
+  useEffect(() => {
+    const closeDropdown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", closeDropdown);
+
+    const closeDropdownClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest(".select")) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("click", closeDropdownClick);
+  }, []);
+
   return (
     <div className={`occupationGroups${activeMap ? "" : " disabled"}`}>
       <div className="container">
@@ -50,6 +69,7 @@ export const OccupationGroups = ({
               disabled={!activeMap}
               className="select-button"
               aria-label="occupationSelector"
+              id="occupationSelector"
               onClick={() => {
                 setMapOpen(false);
                 setOpen(!open);
