@@ -2,7 +2,6 @@ import { Info } from "@phosphor-icons/react";
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { ThemeColors } from "@utils/types";
 import { LinkObject } from "./LinkObject";
-// import { Tooltip } from '@material-ui/core'
 
 interface InfoBoxProps {
   className?: string;
@@ -11,7 +10,9 @@ interface InfoBoxProps {
   eyebrow?: string;
   link?: { url: string; copy: string };
   number?: number;
+  numberEnd?: number;
   theme?: ThemeColors;
+  notAvailableText: string;
   tooltip?: string;
 }
 
@@ -21,34 +22,48 @@ const InfoBox = ({
   currency,
   eyebrow,
   link,
+  notAvailableText,
   number,
+  numberEnd,
   theme = "orange",
   tooltip,
 }: InfoBoxProps) => {
   return (
     <div
-      className={`infoBox
-      ${className ? className : ""}
-      ${theme ? `color-${theme}` : ""}
-    `}
+      className={`infoBox${className ? ` ${className}` : ""}${theme ? ` color-${theme}` : ""}`}
     >
       {eyebrow && (
         <p className="eyebrow">
           {eyebrow}
           {tooltip && (
             <>
-              <Info weight="fill" size={16} />
+              <button
+                type="button"
+                className="unstyled usa-tooltip"
+                data-position="top"
+                title={tooltip}
+              >
+                <Info weight="fill" size={16} />
+              </button>
             </>
-            // <Tooltip title={tooltip} placement="top">
-            //   <Info weight="fill" size={16} />
-            // </Tooltip>
           )}
         </p>
       )}
       {copy && <p className="copy">{copy}</p>}
 
       <p className="number">
-        {number ? (currency ? toUsCurrency(number) : number) : "--"}
+        {number ? (
+          currency ? (
+            <>
+              {toUsCurrency(number)}
+              {numberEnd ? ` - ${toUsCurrency(Number(numberEnd))}` : ""}
+            </>
+          ) : (
+            number
+          )
+        ) : (
+          notAvailableText
+        )}
       </p>
 
       {link?.url && (

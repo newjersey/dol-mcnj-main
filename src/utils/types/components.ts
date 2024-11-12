@@ -722,6 +722,8 @@ export interface OccupationNodeProps {
   medianSalary?: number;
   numberOfAvailableJobs?: number;
   trainingSearchTerms?: string;
+  howToGetStarted?: string;
+  howToGetHere?: string;
   salaryRangeStart: number;
   salaryRangeEnd: number;
   educationLevel: string;

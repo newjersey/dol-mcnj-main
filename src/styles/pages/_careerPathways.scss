@@ -1,4 +1,9 @@
 .careerPathways {
+  .map-block {
+    background-color: $base-lightest;
+    border-radius: $size-16;
+    padding: $size-16;
+  }
   .industries,
   .stepCards {
     padding: $size-80 0;
