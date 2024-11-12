@@ -5,6 +5,12 @@
   position: relative;
   margin-bottom: 2.2rem;
 
+  &.inactive {
+    > button {
+      color: $base-light;
+    }
+  }
+
   &:after {
     content: "";
     position: absolute;
@@ -52,7 +58,7 @@
     margin-top: $size-16;
     box-shadow: 0 10px 20px -15px $ink;
     position: absolute;
-    background-color: $base-cool;
+    background-color: $white;
     z-index: 1;
     max-height: $size-330;
     overflow: auto;
@@ -88,12 +94,12 @@
       }
 
       &:nth-of-type(2n - 1) {
-        background: $base-lightest;
+        background: $base-cool;
       }
 
       &:hover {
         @media screen and (min-width: ($tablet)) {
-          background: $tertiary-light;
+          background: $tertiary-lighter;
         }
       }
     }

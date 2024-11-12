@@ -1,8 +1,12 @@
-.manufacturingSelect {
+.fieldSelect {
   padding: $size-32 0 $size-64;
 
   @media screen and (max-width: ($tablet - 1)) {
     padding: $size-16 0 $size-32;
+  }
+
+  &.noPad {
+    padding-bottom: 0;
   }
 
   .sectionHeading {

@@ -4,7 +4,7 @@ import { LabelBox } from "@components/modules/LabelBox";
 import { SeeMoreList } from "@components/modules/SeeMoreList";
 import { Tag } from "@components/modules/Tag";
 import {
-  ArrowUpRight,
+  ArrowSquareOut,
   Briefcase,
   GraduationCap,
   Hourglass,
@@ -18,12 +18,17 @@ import {
   TrainingResult,
 } from "@utils/types";
 import { useEffect, useState } from "react";
+import { RelatedTrainingCard } from "./RelatedTrainingCard";
+import { Button } from "@components/modules/Button";
+import { Flex } from "@components/utility/Flex";
 
 export const InDemandDetails = (props: {
   inDemandList?: InDemandItemProps[];
   content: OccupationDetail;
 }) => {
   const [sortedTraining, setSortedTraining] = useState<TrainingResult[]>([]);
+  const [jobNumbers, setJobNumbers] = useState<number | null>(null);
+  const [loadingNumber, setLoadingNumber] = useState(false);
 
   const taskList = props.content?.tasks.map((task) => {
     return {
@@ -31,7 +36,18 @@ export const InDemandDetails = (props: {
     };
   });
 
+  const getJobNumbers = async () => {
+    const jobNumbers = await fetch(
+      `${process.env.REACT_APP_API_URL}/api/jobcount/${props.content.title}`,
+    );
+
+    const jobNumbersArray = await jobNumbers.json();
+
+    return jobNumbersArray.count;
+  };
+
   useEffect(() => {
+    setLoadingNumber(true);
     if (props.content && props.content.relatedTrainings) {
       const sortedCourses = props.content.relatedTrainings.sort((a, b) => {
         if (a.percentEmployed === null && b.percentEmployed === null) {
@@ -58,6 +74,11 @@ export const InDemandDetails = (props: {
       );
 
       setSortedTraining(uniqueTrainings);
+
+      getJobNumbers().then((count) => {
+        setJobNumbers(count);
+        setLoadingNumber(false);
+      });
     }
   }, [props.content]);
 
@@ -81,16 +102,19 @@ export const InDemandDetails = (props: {
           <div className="meta">
             <InfoBox
               currency
+              notAvailableText="Salary data not available"
               number={props.content.medianSalary || undefined}
               eyebrow="Median Salary"
               tooltip="Tooltip info here."
               theme="purple"
             />
             <InfoBox
+              notAvailableText="Open jobs data not available"
               eyebrow="Jobs Open in NJ"
               tooltip="Tooltip info here."
               theme="purple"
-              number={props.content.openJobsCount || undefined}
+              number={jobNumbers as number}
+              loading={!jobNumbers || loadingNumber}
               link={{
                 copy: "See current job openings",
                 url: `https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`,
@@ -158,43 +182,11 @@ export const InDemandDetails = (props: {
           >
             <ul className="unstyled">
               {sortedTraining && sortedTraining.length > 0 ? (
-                sortedTraining.slice(0, 3).map((train) => (
-                  <li key={train.id}>
-                    <a
-                      href={`/training/${train.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <p className="title-bar">
-                        {train.name}
-                        <ArrowUpRight size={24} />
-                      </p>
-                      <span className="span-grid">
-                        <span>
-                          <GraduationCap size={32} />
-                          {train.providerName}
-                        </span>
-                        <span>
-                          <MapPinLine size={32} />
-                          {train.city}, {train.county}
-                        </span>
-                        <span className="last-line">
-                          <span>
-                            <Hourglass size={32} />
-                            {train.calendarLength
-                              ? `${calendarLength(
-                                  train.calendarLength,
-                                )} to complete`
-                              : "--"}
-                          </span>
-                          <span className="salary">
-                            {train.totalCost && toUsCurrency(train.totalCost)}
-                          </span>
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                ))
+                sortedTraining
+                  .slice(0, 3)
+                  .map((train) => (
+                    <RelatedTrainingCard key={train.id} {...train} />
+                  ))
               ) : (
                 <li>
                   <p className="mbd">
@@ -205,22 +197,43 @@ export const InDemandDetails = (props: {
                 </li>
               )}
             </ul>
+            <Flex direction="column" gap="xs">
+              <Button
+                type="link"
+                highlight="green"
+                link={`/training/search?q=${props.content.title.toLowerCase()}`}
+                label="See more trainings on the Training Explorer"
+                style={{ width: "100%" }}
+                svgName="TrainingBold"
+                defaultStyle="secondary"
+              />
+              <Button
+                highlight="navy"
+                defaultStyle="quinary"
+                label="Learn more financial assistance opportunities"
+                link="/support-resources/tuition-assistance"
+                style={{ width: "100%" }}
+                svgName="SupportBold"
+                type="link"
+              />
+            </Flex>
           </LabelBox>
           <LabelBox
             title="Related Job Opportunities"
             icon="Briefcase"
             color="green"
           >
-            <a
-              className="solid usa-button"
-              href={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+            <Button
+              type="link"
+              defaultStyle="primary"
+              highlight="blue"
+              style={{ width: "100%" }}
+              iconPrefix="Briefcase"
+              iconSuffix="ArrowSquareOut"
+              link={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${props.content.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
             >
-              <span>
-                <Briefcase size={32} />
-                Check out related jobs on Career One Stop
-              </span>
-              <ArrowUpRight size={20} />
-            </a>
+              Check out related jobs on Career One Stop
+            </Button>
           </LabelBox>
         </div>
       </div>

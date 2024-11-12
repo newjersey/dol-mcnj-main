@@ -4,11 +4,12 @@ interface SpinnerProps {
   className?: string;
   size?: number;
   color?: string;
+  style?: React.CSSProperties;
 }
 
-const Spinner = ({ className, size = 50, color }: SpinnerProps) => {
+const Spinner = ({ className, style, size = 50, color }: SpinnerProps) => {
   return (
-    <div className={`spinner${className ? ` ${className}` : ""}`}>
+    <div style={style} className={`spinner${className ? ` ${className}` : ""}`}>
       <SpinnerGap size={size} color={color} />
     </div>
   );

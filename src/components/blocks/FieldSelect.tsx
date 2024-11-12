@@ -8,8 +8,9 @@ import { LearnMoreDrawer } from "@components/blocks/LearnMoreDrawer";
 import { LinkObject } from "@components/modules/LinkObject";
 import { SectionHeading } from "@components/modules/SectionHeading";
 
-interface ManufacturingSelectProps {
+interface FieldSelectProps {
   industry: IndustryProps;
+  isField: boolean;
   activeMap?: CareerMapProps;
   setOpen: (open: boolean) => void;
   setMapOpen: (open: boolean) => void;
@@ -19,18 +20,19 @@ interface ManufacturingSelectProps {
   setFullMap: (map: any) => void;
 }
 
-export const ManufacturingSelect = ({
+export const FieldSelect = ({
   industry,
   activeMap,
+  isField,
   setOpen,
   setMapOpen,
   setActiveOccupation,
   setActivePathway,
   getCareerMap,
   setFullMap,
-}: ManufacturingSelectProps) => {
+}: FieldSelectProps) => {
   return (
-    <section className="manufacturingSelect">
+    <section className={`fieldSelect${isField ? "" : " noPad"}`}>
       <div className="container">
         <Flex direction="column" gap="xxl">
           <Breadcrumbs
@@ -50,7 +52,7 @@ export const ManufacturingSelect = ({
                 },
               },
             ]}
-            pageTitle={`Select a ${industry.title} Field`}
+            pageTitle={`Select a ${industry.title} ${isField ? "field" : "occupation"}`}
           />
           <Flex direction="column" gap="xs" fill>
             <LinkObject url="/career-pathways" className="back">
@@ -60,7 +62,7 @@ export const ManufacturingSelect = ({
             <SectionHeading
               headingLevel={1}
               noDivider
-              heading={`Select a ${industry.title} Field`}
+              heading={`Select a ${industry.title} ${isField ? "field" : "occupation"}`}
             />
             {industry.careerMaps && industry.careerMaps.items.length > 0 && (
               <Flex className="cards" alignItems="stretch" fill>
