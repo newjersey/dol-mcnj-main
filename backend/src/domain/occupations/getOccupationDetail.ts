@@ -89,11 +89,14 @@ export const getOccupationDetailFactory = (
     const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
       const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
       const cipcodes = cipDefinitions.map((it) => it.cipcode);
-      const trainings = await findTrainingsBy(Selector.CIP_CODE, cipcodes);
-
-      return trainings.map((training: Training) => {
-        return convertTrainingToTrainingResult(training, "", 0);
-      });
+      try {
+        const trainings = await findTrainingsBy(Selector.CIP_CODE, cipcodes);
+        return trainings.map((training: Training) => {
+          return convertTrainingToTrainingResult(training, "", 0);
+        });
+      } catch (Error) {
+        return [];
+      }
     };
 
     return getOccupationDetailFromOnet(soc)

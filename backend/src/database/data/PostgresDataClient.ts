@@ -98,9 +98,8 @@ export class PostgresDataClient implements DataClient {
                 program.statusname === APPROVED && program.providerstatusname === APPROVED
             );
 
-            if (programs.length === 0) {
+           if (programs.length === 0) {
                 console.warn(`No non-suspended programs found for selector: ${selector} and values: ${values}`);
-                return Promise.reject(Error.NOT_FOUND);
             }
 
             return programs;
