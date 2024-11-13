@@ -27,7 +27,6 @@ const CardSlider = ({
                 <IconCard
                   key={card.sys.id}
                   {...card}
-                  icon={undefined}
                   theme={theme}
                   indicator={isExternal ? "ArrowSquareOut" : undefined}
                   systemIcon={sectionId as SectionIcons}
