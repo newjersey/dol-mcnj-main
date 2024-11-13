@@ -5,7 +5,6 @@ import { INDUSTRY_QUERY } from "queries/industryQuery";
 import { Content } from "./Content";
 import { notFound } from "next/navigation";
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { content } from "@data/careerPathways";
 
 async function getData() {
   const { page } = await client({

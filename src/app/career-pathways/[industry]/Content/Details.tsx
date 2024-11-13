@@ -10,6 +10,8 @@ import { OccupationNodeProps, TrainingResult } from "@utils/types";
 import { useEffect, useState } from "react";
 import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Flex } from "@components/utility/Flex";
+import { Spinner } from "@components/modules/Spinner";
+import { colors } from "@utils/settings";
 
 export const Details = ({
   content,
@@ -24,6 +26,7 @@ export const Details = ({
   const [trainingData, setTrainingData] = useState<TrainingResult[]>([]);
   const [jobNumbers, setJobNumbers] = useState<number | null>(null);
   const [loadingNumber, setLoadingNumber] = useState(false);
+  const [loadingTraining, setLoadingTraining] = useState(false);
   const boxArray = [];
 
   const getJobNumbers = async () => {
@@ -110,16 +113,19 @@ export const Details = ({
 
   useEffect(() => {
     setLoadingNumber(true);
+    setLoadingTraining(true);
     const searchTerm = content.trainingSearchTerms || content.title;
     const getTrainingList = async () => {
       const training = await fetch(
-        `${process.env.REACT_APP_SITE_URL}/api/searchTraining/${searchTerm}`,
+        `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchTerm}`,
       );
 
       const trainingArray = await training.json();
 
       setTrainingData(trainingArray.slice(0, 3));
+      setLoadingTraining(false);
     };
+
     getJobNumbers().then((count) => {
       setJobNumbers(count);
       setLoadingNumber(false);
@@ -205,22 +211,26 @@ export const Details = ({
               className="related-training"
               title="Related Training Opportunities"
             >
-              <ul className="unstyled">
-                {trainingData.length > 0 ? (
-                  trainingData.map((trainingItem) => (
-                    <RelatedTrainingCard
-                      key={trainingItem.id}
-                      {...trainingItem}
-                    />
-                  ))
-                ) : (
-                  <li>
-                    <strong>
-                      This data is not yet available for this occupation.
-                    </strong>
-                  </li>
-                )}
-              </ul>
+              {loadingTraining ? (
+                <Spinner size={100} color={colors.primary} />
+              ) : (
+                <ul className="unstyled">
+                  {trainingData.length > 0 ? (
+                    trainingData.map((trainingItem) => (
+                      <RelatedTrainingCard
+                        key={trainingItem.id}
+                        {...trainingItem}
+                      />
+                    ))
+                  ) : (
+                    <li>
+                      <strong>
+                        This data is not yet available for this occupation.
+                      </strong>
+                    </li>
+                  )}
+                </ul>
+              )}
               <Flex direction="column" gap="xs">
                 <Button
                   type="link"
