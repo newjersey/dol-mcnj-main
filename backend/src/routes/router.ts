@@ -6,7 +6,6 @@ import {
   GetOccupationDetail,
   GetOccupationDetailByCIP,
 } from "../domain/types";
-import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
@@ -46,10 +45,13 @@ export const routerFactory = ({
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
     findTrainingsBy(Selector.ID, [req.params.id as string])
       .then((trainings: Training[]) => {
+        if (trainings.length === 0) {
+          throw new Error('NOT_FOUND')
+        }
         res.status(200).json(trainings[0]);
       })
         .catch((e) => {
-          if (e === Error.NOT_FOUND) {
+          if (e?.message === "NOT_FOUND") {
             res.status(404).send();
           }
           else {
