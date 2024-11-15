@@ -258,7 +258,7 @@ const extractEmploymentData = async (certificate: CTDLResource): Promise<number 
 const extractPrerequisites = async (certificate: CTDLResource): Promise<string[] | null> => {
   try {
     const prerequisites = certificate["ceterms:requires"]
-        ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Requirements")
+        ?.filter(req => (req["ceterms:name"]?.["en-US"] ?? "") === "Prerequisites")
         .map(req => req["ceterms:description"]?.["en-US"])
         .filter((description): description is string => description !== undefined);
 
