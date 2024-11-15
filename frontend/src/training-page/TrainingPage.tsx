@@ -738,7 +738,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </span>
                         </p>
                       )}
-                      {training.languages.length > 0 && (
+                      {training.languages.some(lang => lang !== "en-US") && (
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">language</InlineIcon>
