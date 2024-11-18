@@ -122,5 +122,12 @@
         line-height: 1.2;
       }
     }
+
+    + .usa-button {
+      &.highlight-orange {
+        border: none;
+        padding: $size-16;
+      }
+    }
   }
 }

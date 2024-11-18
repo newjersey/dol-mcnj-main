@@ -23,6 +23,7 @@ const Button = ({
   link,
   noIndicator,
   onClick,
+  newTab,
   outlined,
   svgFill,
   svgName,
@@ -155,6 +156,7 @@ const Button = ({
       className={classNames}
       id={buttonId}
       noIndicator
+      target={newTab ? "_blank" : undefined}
       role="link"
       onClick={(e?: any) => {
         if (onClick) {

@@ -160,7 +160,9 @@ describe("PageBanner Component", () => {
   it("renders ContentfulRichText component with correct props", () => {
     const { getByTestId } = render(<PageBanner {...props} />);
     const richText = getByTestId("rich-text");
-    expect(richText).toHaveTextContent(JSON.stringify(props.message?.json));
+    if (typeof props.message === "object" && props.message !== null) {
+      expect(richText).toHaveTextContent(JSON.stringify(props.message.json));
+    }
   });
 
   it("renders Cta component with correct props when ctaMode is true", () => {

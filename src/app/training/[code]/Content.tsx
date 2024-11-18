@@ -536,6 +536,14 @@ const Content = ({ training }: { training: TrainingProps }) => {
                   provider for more information on services
                 </p>
               </LabelBox>
+              <Button
+                type="link"
+                highlight="orange"
+                label="See something wrong? Report an issue."
+                link="/contact"
+                newTab
+                iconPrefix="Flag"
+              />
             </div>
           </div>
         </div>
