@@ -32,7 +32,7 @@ export const LabelBox = ({
 }: LabelBoxProps) => {
   return (
     <Box
-      radius={10}
+      radius={5}
       className={`labelBox${className ? ` ${className}` : ""}${
         color ? ` color-${color}` : ""
       }${centered ? ` centered` : ""}${bgFill ? ` bg-fill` : ""}${

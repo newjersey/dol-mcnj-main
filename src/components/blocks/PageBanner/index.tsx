@@ -65,7 +65,11 @@ const PageBanner = ({
                 color="orange"
               />
             )}
-            {message && <ContentfulRichText document={message.json} />}
+            {typeof message !== "string" ? (
+              message?.json && <ContentfulRichText document={message.json} />
+            ) : (
+              <p>{message}</p>
+            )}
             {subHeading && (
               <Heading level={2} className="subHeading">
                 {subHeading}

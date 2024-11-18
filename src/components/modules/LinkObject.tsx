@@ -1,5 +1,6 @@
 "use client";
 import { ArrowSquareOut, House } from "@phosphor-icons/react";
+import Link from "next/link";
 
 interface LinkObjectProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface LinkObjectProps {
   role?: string;
   url: string;
   noIndicator?: boolean;
+  target?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
 }
@@ -17,6 +19,7 @@ const LinkObject = ({
   onClick,
   role,
   id,
+  target,
   className,
   noIndicator,
   url,
@@ -26,11 +29,12 @@ const LinkObject = ({
   const isHomePage = url === "/";
   const hasHttp = !isInternal && url.startsWith("http");
   return isInternal ? (
-    <a
+    <Link
       id={id}
       className={className}
       role={role}
       href={url}
+      target={target}
       onClick={(e) => {
         if (url.startsWith("#")) {
           e.preventDefault();
@@ -52,7 +56,7 @@ const LinkObject = ({
     >
       {children}
       {!noIndicator && isHomePage && <House weight="fill" size={14} />}
-    </a>
+    </Link>
   ) : (
     <a
       id={id}

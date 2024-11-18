@@ -205,6 +205,13 @@
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
       background: $accent-warm;
       color: $white;
+
+      &:hover {
+        @media screen and (min-width: ($tablet)) {
+          background-color: $accent-warm-dark;
+          color: $white;
+        }
+      }
     }
 
     &.usa-button--outline {
@@ -234,7 +241,7 @@
 
   &[class*="highlight-"] {
     padding: $size-8 $size-16;
-    border-radius: $size-10;
+    border-radius: $size-5;
     border: $size-2 solid;
 
     &:hover {
