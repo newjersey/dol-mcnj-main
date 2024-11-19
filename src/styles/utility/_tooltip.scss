@@ -1,3 +1,5 @@
+@use "../settings" as settings;
+
 .popup-tooltip {
   position: relative;
   cursor: pointer;
@@ -12,15 +14,15 @@
 
   span {
     display: none;
-    background-color: $black;
-    color: $white;
-    font-size: $size-14;
+    background-color: settings.$black;
+    color: settings.$white;
+    font-size: settings.$size-14;
     position: absolute;
-    bottom: calc(100% + $size-5);
+    bottom: calc(100% + settings.$size-5);
     left: 50%;
-    min-width: $size-200;
+    min-width: settings.$size-200;
     line-height: 1.2;
-    padding: $size-8;
+    padding: settings.$size-8;
     transform: translateX(-50%);
 
     &::after {
@@ -28,9 +30,9 @@
       position: absolute;
       top: 100%;
       left: 50%;
-      border-width: $size-8;
+      border-width: settings.$size-8;
       border-style: solid;
-      border-color: $black transparent transparent transparent;
+      border-color: settings.$black transparent transparent transparent;
       transform: translateX(-50%);
     }
   }

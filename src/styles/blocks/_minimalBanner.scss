@@ -1,8 +1,10 @@
-.minimalBanner {
-  padding: $size-32 0 $size-64;
+@use "../settings" as settings;
 
-  @media screen and (max-width: ($tablet - 1)) {
-    padding: $size-16 0 $size-32;
+.minimalBanner {
+  padding: settings.$size-32 0 settings.$size-64;
+
+  @media screen and (max-width: (settings.$tablet - 1)) {
+    padding: settings.$size-16 0 settings.$size-32;
   }
 
   .heading-tag {
@@ -10,18 +12,18 @@
   }
   .tag-item {
     position: relative;
-    bottom: $size-4;
-    margin-left: $size-16;
+    bottom: settings.$size-4;
+    margin-left: settings.$size-16;
   }
 
   .heading-tag {
-    font-size: $size-32;
+    font-size: settings.$size-32;
     margin: 0;
     display: inline;
     font-weight: 500;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
-      font-size: $size-24;
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
+      font-size: settings.$size-24;
       font-weight: bold;
     }
   }
@@ -31,13 +33,13 @@
   }
 
   .usa-tooltip__body {
-    @media screen and (min-width: ($tablet-md)) {
+    @media screen and (min-width: (settings.$tablet-md)) {
       white-space: normal;
       margin: 0 !important;
-      width: $size-216;
-      transform: translateX(calc(-50% + $size-8));
+      width: settings.$size-216;
+      transform: translateX(calc(-50% + settings.$size-8));
       top: auto !important;
-      bottom: calc(100% + $size-4);
+      bottom: calc(100% + settings.$size-4);
     }
   }
 }

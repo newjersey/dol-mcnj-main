@@ -1,18 +1,20 @@
+@use "../settings" as settings;
+
 .resultCard {
-  border-radius: $border-radius-5;
-  border: $size-1 solid $base-lighter;
-  padding: $size-24;
+  border-radius: settings.$border-radius-5;
+  border: settings.$size-1 solid settings.$base-lighter;
+  padding: settings.$size-24;
   display: flex;
-  gap: $size-14;
+  gap: settings.$size-14;
   flex-direction: column;
-  color: $ink;
-  transition-duration: $transition-speed;
+  color: settings.$ink;
+  transition-duration: settings.$transition-speed;
   transition-timing-function: ease-in-out;
 
   &:hover {
-    @media screen and (min-width: ($tablet)) {
-      box-shadow: $shadow-3;
-      color: $ink;
+    @media screen and (min-width: (settings.$tablet)) {
+      box-shadow: settings.$shadow-3;
+      color: settings.$ink;
     }
   }
 
@@ -29,15 +31,15 @@
   .footing {
     display: flex;
 
-    @media screen and (min-width: ($mobile-md)) {
+    @media screen and (min-width: (settings.$mobile-md)) {
       align-items: center;
       justify-content: space-between;
     }
 
-    @media screen and (max-width: ($mobile-md - 1)) {
+    @media screen and (max-width: (settings.$mobile-md - 1)) {
       flex-direction: column;
       align-items: flex-start;
-      gap: $size-16;
+      gap: settings.$size-16;
     }
 
     .formField {
@@ -48,7 +50,7 @@
   }
 
   .footing {
-    margin-top: $size-16;
+    margin-top: settings.$size-16;
 
     &.noLabel {
       justify-content: flex-end;
@@ -58,17 +60,17 @@
   .heading {
     flex-direction: row;
     justify-content: space-between;
-    gap: $size-14;
+    gap: settings.$size-14;
 
     .heading-tag {
-      color: $primary-vivid;
+      color: settings.$primary-vivid;
       margin: 0;
     }
   }
 
   .footing {
     .usa-checkbox {
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (settings.$tablet - 1)) {
         justify-content: flex-end;
         display: flex;
       }
@@ -77,11 +79,11 @@
 
   .heading {
     .heading-tag {
-      font-size: $size-18;
+      font-size: settings.$size-18;
     }
 
     > span {
-      font-size: $size-20;
+      font-size: settings.$size-20;
       font-weight: bold;
     }
   }
@@ -89,12 +91,12 @@
   .information {
     display: flex;
     flex-direction: column;
-    gap: $size-8;
+    gap: settings.$size-8;
 
     p {
       display: flex;
       align-items: center;
-      gap: $size-8;
+      gap: settings.$size-8;
 
       &.cipCode {
         display: block;
@@ -102,16 +104,16 @@
         b {
           display: block;
           width: 100%;
-          padding-left: $size-24;
+          padding-left: settings.$size-24;
         }
       }
 
       svg {
-        width: $size-16;
+        width: settings.$size-16;
       }
 
       span {
-        width: calc(100% - $size-16);
+        width: calc(100% - settings.$size-16);
       }
 
       &.description {

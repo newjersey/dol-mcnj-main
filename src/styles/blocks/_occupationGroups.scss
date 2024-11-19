@@ -1,8 +1,11 @@
+@use "../settings" as settings;
+
 .occupationGroups {
-  margin-bottom: $size-48;
+  margin-bottom: settings.$size-48;
+
   &.disabled {
     .heading-tag {
-      color: $base-light;
+      color: settings.$base-light;
     }
   }
 
@@ -11,7 +14,7 @@
     position: relative;
 
     .select {
-      max-width: $size-560;
+      max-width: settings.$size-560;
       position: relative;
     }
 
@@ -19,43 +22,43 @@
       margin-top: 0.7rem;
       width: 100%;
       appearance: none;
-      color: $ink;
+      color: settings.$ink;
       cursor: pointer;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: $size-2 solid $black;
+      border: settings.$size-2 solid settings.$black;
       border-radius: 5px;
 
       &[disabled] {
-        background: $base-lighter;
-        border-color: $black;
-        color: $base-light;
+        background: settings.$base-lighter;
+        border-color: settings.$black;
+        color: settings.$base-light;
         cursor: not-allowed;
       }
 
       &:after {
         content: "";
         position: absolute;
-        right: $size-16;
-        bottom: $size-16;
+        right: settings.$size-16;
+        bottom: settings.$size-16;
         width: 0;
         height: 0;
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
-        border-top: 0.35rem solid $ink;
+        border-top: 0.35rem solid settings.$ink;
       }
     }
 
     .dropdown-select {
       font-weight: normal;
-      margin-top: $size-16;
-      box-shadow: 0 10px 20px -15px $ink;
-      max-height: $size-330;
-      border-radius: $size-8;
+      margin-top: settings.$size-16;
+      box-shadow: 0 10px 20px -15px settings.$ink;
+      max-height: settings.$size-330;
+      border-radius: settings.$size-8;
       position: absolute;
       overflow: auto;
       z-index: 11;
-      background-color: $white;
+      background-color: settings.$white;
       width: 100%;
 
       &[aria-expanded="true"] {
@@ -75,8 +78,8 @@
 
           align-items: center;
           gap: 0.5rem;
-          background: $base-lighter;
-          padding: 0.5rem $size-16;
+          background: settings.$base-lighter;
+          padding: 0.5rem settings.$size-16;
 
           + * {
             margin-top: 0;
@@ -85,20 +88,20 @@
       }
 
       button {
-        padding: $size-16;
+        padding: settings.$size-16;
         cursor: pointer;
 
-        @media screen and (min-width: ($tablet)) {
-          padding: $size-16 $size-16 $size-16 5rem;
+        @media screen and (min-width: (settings.$tablet)) {
+          padding: settings.$size-16 settings.$size-16 settings.$size-16 5rem;
         }
 
         &:nth-of-type(2n - 1) {
-          background: $base-cool;
+          background: settings.$base-cool;
         }
 
         &:hover {
-          @media screen and (min-width: ($tablet)) {
-            background: $tertiary-lighter;
+          @media screen and (min-width: (settings.$tablet)) {
+            background: settings.$tertiary-lighter;
           }
         }
       }

@@ -1,8 +1,10 @@
+@use "../settings" as settings;
+
 .global-header {
-  background-color: $njBlack;
+  background-color: settings.$njBlack;
   min-height: 54px;
-  color: $white;
-  padding: $size-4 0;
+  color: settings.$white;
+  padding: settings.$size-4 0;
   font-size: 15px;
   min-height: 54px;
   letter-spacing: 0.1px;
@@ -12,12 +14,12 @@
   }
 
   svg {
-    fill: $white !important;
+    fill: settings.$white !important;
   }
 
-  @media screen and (max-width: ($desktop)) {
+  @media screen and (max-width: (settings.$desktop)) {
     min-height: 61px;
-    padding: $size-10 $size-16 $size-4;
+    padding: settings.$size-10 settings.$size-16 settings.$size-4;
   }
 
   .logo {
@@ -34,13 +36,13 @@
     font-size: 0.89rem;
     font-weight: 600;
 
-    @media screen and (max-width: ($desktop)) {
+    @media screen and (max-width: (settings.$desktop)) {
       font-size: 0.8rem;
       gap: 0.2rem;
     }
 
     img {
-      @media screen and (max-width: ($desktop)) {
+      @media screen and (max-width: (settings.$desktop)) {
         width: 30px;
       }
     }
@@ -54,17 +56,17 @@
   .container {
     width: 100%;
 
-    @media screen and (min-width: ($desktop + 1)) {
+    @media screen and (min-width: (settings.$desktop + 1)) {
       display: flex;
       align-items: flex-start;
     }
 
-    @media screen and (max-width: ($desktop)) {
+    @media screen and (max-width: (settings.$desktop)) {
       padding: 0;
     }
 
     > * {
-      @media screen and (min-width: ($desktop + 1)) {
+      @media screen and (min-width: (settings.$desktop + 1)) {
         width: 50%;
       }
     }
@@ -72,9 +74,9 @@
 
   nav {
     text-align: right;
-    font-size: $size-14;
+    font-size: settings.$size-14;
 
-    @media screen and (max-width: ($desktop)) {
+    @media screen and (max-width: (settings.$desktop)) {
       padding-top: 0;
       font-size: 11px;
     }
@@ -96,21 +98,21 @@
 
         &:before {
           content: "";
-          width: $size-1;
+          width: settings.$size-1;
           height: calc(100% - 5px);
-          background: $white;
+          background: settings.$white;
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           right: 0;
         }
 
-        @media screen and (max-width: ($desktop)) {
+        @media screen and (max-width: (settings.$desktop)) {
           padding: 0 5px;
         }
 
         &.desktop-only {
-          @media screen and (max-width: ($desktop)) {
+          @media screen and (max-width: (settings.$desktop)) {
             display: none;
           }
         }
@@ -126,16 +128,16 @@
         a {
           color: #fff;
           text-decoration: none;
-          font-size: $size-14;
+          font-size: settings.$size-14;
           font-weight: 600;
 
-          @media screen and (max-width: ($desktop)) {
+          @media screen and (max-width: (settings.$desktop)) {
             padding-top: 0;
-            font-size: $size-12;
+            font-size: settings.$size-12;
           }
 
           &:hover {
-            color: $primary-light;
+            color: settings.$primary-light;
           }
 
           svg {
@@ -150,10 +152,10 @@
   .gov {
     display: block;
     font-weight: bold;
-    color: $white;
+    color: settings.$white;
     text-decoration: none;
 
-    @media screen and (max-width: ($desktop)) {
+    @media screen and (max-width: (settings.$desktop)) {
       display: none;
     }
   }
@@ -171,10 +173,10 @@
 
 .sr-only {
   position: absolute;
-  width: $size-1;
-  height: $size-1;
+  width: settings.$size-1;
+  height: settings.$size-1;
   padding: 0;
-  margin: -$size-1;
+  margin: -(settings.$size-1);
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;

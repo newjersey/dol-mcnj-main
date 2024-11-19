@@ -1,20 +1,22 @@
+@use "../settings" as settings;
+
 .ctaBanner {
-  padding: $size-48 0;
-  background: $white;
+  padding: settings.$size-48 0;
+  background: settings.$white;
 
   &.light {
     @extend .container;
-    margin-bottom: $size-48;
+    margin-bottom: settings.$size-48;
     .cta {
-      padding-top: $size-52;
-      padding-bottom: $size-52;
-      background: $info-lighter;
-      border-radius: $size-8;
+      padding-top: settings.$size-52;
+      padding-bottom: settings.$size-52;
+      background: settings.$info-lighter;
+      border-radius: settings.$size-8;
     }
 
     .heading-tag {
-      font-size: $size-22;
-      max-width: $size-300;
+      font-size: settings.$size-22;
+      max-width: settings.$size-300;
     }
 
     .usa-button {
@@ -23,47 +25,47 @@
   }
 
   &.fullColor {
-    background-color: $primary;
-    color: $white;
+    background-color: settings.$primary;
+    color: settings.$white;
 
     .heading {
-      color: $white;
-      font-size: $size-32;
+      color: settings.$white;
+      font-size: settings.$size-32;
       margin-bottom: 0;
       line-height: 1.2;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        font-size: $size-24;
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        font-size: settings.$size-24;
       }
     }
 
     .heading {
-      @media screen and (min-width: ($desktop)) {
+      @media screen and (min-width: (settings.$desktop)) {
         width: 40%;
       }
     }
     .links {
-      @media screen and (min-width: ($desktop)) {
+      @media screen and (min-width: (settings.$desktop)) {
         width: 60%;
       }
     }
 
     .container {
       display: flex;
-      gap: $size-32;
+      gap: settings.$size-32;
       align-items: center;
 
-      @media screen and (max-width: ($desktop - 1)) {
+      @media screen and (max-width: (settings.$desktop - 1)) {
         flex-direction: column;
       }
     }
 
     .links {
       display: flex;
-      gap: $size-16;
+      gap: settings.$size-16;
       flex-wrap: wrap;
 
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (settings.$tablet - 1)) {
         flex-direction: column;
       }
 
@@ -71,52 +73,52 @@
         text-align: left;
         margin: 0;
 
-        @media screen and (min-width: ($tablet)) {
-          width: calc(50% - $size-8);
+        @media screen and (min-width: (settings.$tablet)) {
+          width: calc(50% - settings.$size-8);
         }
       }
     }
 
     &.color-blue {
-      background: $primary;
+      background: settings.$primary;
     }
 
     &.color-green {
-      background: $secondary-dark;
+      background: settings.$secondary-dark;
     }
 
     &.color-navy {
-      background: $info-darker;
+      background: settings.$info-darker;
     }
 
     &.color-purple {
-      background: $tertiary;
+      background: settings.$tertiary;
     }
   }
 
   &.contained {
-    max-width: $desktop-lg;
+    max-width: settings.$desktop-lg;
     margin: 0 auto;
 
-    @media screen and (min-width: ($desktop)) {
-      border-radius: $size-20;
-      padding-left: $size-80;
-      padding-right: $size-80;
+    @media screen and (min-width: (settings.$desktop)) {
+      border-radius: settings.$size-20;
+      padding-left: settings.$size-80;
+      padding-right: settings.$size-80;
     }
 
-    @media screen and (min-width: ($desktop-lg)) {
-      padding-left: $size-160;
-      padding-right: $size-160;
+    @media screen and (min-width: (settings.$desktop-lg)) {
+      padding-left: settings.$size-160;
+      padding-right: settings.$size-160;
     }
 
     .heading {
-      color: $white;
-      font-size: $size-24;
+      color: settings.$white;
+      font-size: settings.$size-24;
       margin-bottom: 0;
       line-height: 1.2;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        font-size: $size-24;
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        font-size: settings.$size-24;
       }
     }
 

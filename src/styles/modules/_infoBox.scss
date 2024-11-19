@@ -1,6 +1,8 @@
+@use "../settings" as settings;
+
 .infoBox {
   border-radius: 10px;
-  padding: $size-8 $size-16;
+  padding: settings.$size-8 settings.$size-16;
 
   p,
   a {
@@ -8,9 +10,9 @@
   }
 
   .copy {
-    font-size: $size-16;
+    font-size: settings.$size-16;
     font-weight: bold;
-    margin-top: $size-6;
+    margin-top: settings.$size-6;
   }
 
   .number {
@@ -20,8 +22,8 @@
   .eyebrow {
     display: flex;
     align-items: center;
-    gap: $size-8;
-    font-size: $size-16;
+    gap: settings.$size-8;
+    font-size: settings.$size-16;
 
     .tooltip,
     .tooltip button {
@@ -32,9 +34,9 @@
   }
 
   .usa-tooltip__body {
-    @media screen and (min-width: ($tablet-md)) {
+    @media screen and (min-width: (settings.$tablet-md)) {
       white-space: normal;
-      width: $size-160;
+      width: settings.$size-160;
     }
   }
 
@@ -44,12 +46,13 @@
 
     .content {
       position: absolute;
-      background: $white;
+      background: settings.$white;
       left: calc(100% + 10px);
       width: 200px;
-      padding: $size-4_8 $size-24 $size-4_8 $size-8;
+      padding: settings.$size-4_8 settings.$size-24 settings.$size-4_8
+        settings.$size-8;
       line-height: 1.3;
-      box-shadow: $shadow-2;
+      box-shadow: settings.$shadow-2;
 
       &:before {
         content: "";
@@ -60,7 +63,7 @@
         height: 0;
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
-        border-right: 10px solid $white;
+        border-right: 10px solid settings.$white;
         transform: translateY(-50%);
       }
 
@@ -68,36 +71,36 @@
         position: absolute;
         top: 0;
         right: 0;
-        background: $white;
+        background: settings.$white;
         border: none;
-        padding: $size-4_8;
+        padding: settings.$size-4_8;
         cursor: pointer;
       }
     }
   }
 
   a {
-    color: $primary;
+    color: settings.$primary;
     display: flex;
     align-items: center;
-    gap: $size-8;
+    gap: settings.$size-8;
     width: 100%;
 
     &:hover {
-      color: $primary-dark;
+      color: settings.$primary-dark;
     }
   }
 
   &.color-blue {
-    background-color: $primary-lighter;
+    background-color: settings.$primary-lighter;
   }
   &.color-green {
-    background-color: $secondary-lighter;
+    background-color: settings.$secondary-lighter;
   }
   &.color-purple {
-    background-color: $tertiary-lighter;
+    background-color: settings.$tertiary-lighter;
   }
   &.color-orange {
-    background-color: $accent-warm-lighter;
+    background-color: settings.$accent-warm-lighter;
   }
 }

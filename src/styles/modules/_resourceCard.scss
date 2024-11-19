@@ -1,15 +1,17 @@
+@use "../settings" as settings;
+
 .resourceCard {
-  border: $size-2 solid #e5e5e5;
-  padding: $size-24;
+  border: settings.$size-2 solid #e5e5e5;
+  padding: settings.$size-24;
 
   a.title {
-    color: $primary;
-    font-size: $size-24;
+    color: settings.$primary;
+    font-size: settings.$size-24;
     margin-bottom: 0;
     text-decoration: none;
 
     &:hover {
-      color: $primary-light;
+      color: settings.$primary-light;
     }
   }
 

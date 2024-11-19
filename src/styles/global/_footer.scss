@@ -1,34 +1,36 @@
+@use "../settings" as settings;
+
 footer {
   background-color: #53535d;
-  color: $white;
-  padding: $size-28 0 0;
+  color: settings.$white;
+  padding: settings.$size-28 0 0;
 
   li {
     margin: 0;
   }
 
   > .container {
-    @media screen and (min-width: ($tablet-md + 1)) {
+    @media screen and (min-width: (settings.$tablet-md + 1)) {
       display: flex;
       width: 100%;
       justify-content: space-between;
-      padding-bottom: $size-16;
+      padding-bottom: settings.$size-16;
     }
 
     > div {
       &:first-of-type {
-        @media screen and (min-width: ($tablet-md + 1)) {
+        @media screen and (min-width: (settings.$tablet-md + 1)) {
           width: calc(100% - 250px);
-          margin-right: $size-40;
+          margin-right: settings.$size-40;
         }
       }
 
       &:last-of-type {
-        @media screen and (min-width: ($tablet-md + 1)) {
+        @media screen and (min-width: (settings.$tablet-md + 1)) {
           width: 230px;
         }
 
-        @media screen and (max-width: ($tablet-md)) {
+        @media screen and (max-width: (settings.$tablet-md)) {
           padding-bottom: 2rem;
         }
       }
@@ -36,23 +38,23 @@ footer {
   }
 
   a {
-    color: $white;
+    color: settings.$white;
     text-decoration: none;
 
     &:hover {
-      @media screen and (min-width: ($tablet-md + 1)) {
+      @media screen and (min-width: (settings.$tablet-md + 1)) {
         text-decoration: underline;
-        color: $base-cool;
+        color: settings.$base-cool;
       }
     }
 
     &:visited {
-      color: $white;
+      color: settings.$white;
     }
   }
 
   .nav-heading {
-    border-bottom: $size-1 solid $white;
+    border-bottom: settings.$size-1 solid settings.$white;
     display: block;
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
@@ -63,8 +65,8 @@ footer {
     line-height: 1;
     font-weight: 600;
     > a {
-      font-size: $size-14;
-      border-bottom: $size-1 solid $white;
+      font-size: settings.$size-14;
+      border-bottom: settings.$size-1 solid settings.$white;
       display: block;
       padding-bottom: 0.5rem;
       margin-bottom: 1.5rem;
@@ -78,7 +80,7 @@ footer {
         margin-bottom: 0.3rem;
 
         > a {
-          font-size: $size-14;
+          font-size: settings.$size-14;
         }
       }
     }
@@ -91,33 +93,33 @@ footer {
   .footer-nav-l {
     > div {
       > ul {
-        @media screen and (min-width: ($tablet-md + 1)) {
+        @media screen and (min-width: (settings.$tablet-md + 1)) {
           column-count: 2;
           column-gap: 1.25rem;
           perspective: 1;
         }
 
-        @media screen and (min-width: ($desktop + 1)) {
+        @media screen and (min-width: (settings.$desktop + 1)) {
           column-count: 3;
         }
       }
     }
 
     .nav-item {
-      @media screen and (min-width: ($tablet-md + 1)) {
+      @media screen and (min-width: (settings.$tablet-md + 1)) {
         break-inside: avoid-column;
       }
     }
   }
   .footer-nav-r {
-    margin-bottom: $size-16;
+    margin-bottom: settings.$size-16;
     .nav-heading {
       margin-bottom: 1.5rem;
     }
 
     .nav-item {
       > a {
-        font-size: $size-14;
+        font-size: settings.$size-14;
         border-bottom: none;
         padding-bottom: 0;
         margin-bottom: 0.3rem;

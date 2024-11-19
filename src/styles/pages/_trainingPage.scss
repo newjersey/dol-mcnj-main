@@ -1,15 +1,17 @@
+@use "../settings" as settings;
+
 .trainingPage {
-  padding-bottom: $size-48;
+  padding-bottom: settings.$size-48;
 
   .pageBanner {
-    background: $white;
+    background: settings.$white;
   }
 
   .occupations {
     .content {
       display: flex;
       flex-direction: column;
-      gap: $size-8;
+      gap: settings.$size-8;
 
       a {
         text-decoration: none;
@@ -25,48 +27,48 @@
   .services {
     p {
       display: flex;
-      gap: $size-8;
+      gap: settings.$size-8;
       align-items: flex-start;
 
       span {
-        width: calc(100% - $size-24);
+        width: calc(100% - settings.$size-24);
       }
 
       svg {
-        width: $size-20;
-        margin-top: $size-4;
+        width: settings.$size-20;
+        margin-top: settings.$size-4;
       }
     }
   }
 
   .body-copy {
-    margin: 0 0 $size-32;
+    margin: 0 0 settings.$size-32;
 
-    @media screen and (min-width: ($tablet-lg)) {
-      margin: $size-32 0;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      margin: settings.$size-32 0;
     }
 
     .inner {
       display: flex;
-      gap: $size-32;
+      gap: settings.$size-32;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         flex-direction: column;
       }
 
       > div {
         display: flex;
         flex-direction: column;
-        gap: $size-32;
+        gap: settings.$size-32;
 
         &:first-of-type {
-          @media screen and (min-width: ($tablet-lg)) {
-            width: calc(100% - $size-411);
+          @media screen and (min-width: (settings.$tablet-lg)) {
+            width: calc(100% - settings.$size-411);
           }
         }
         &:last-of-type {
-          @media screen and (min-width: ($tablet-lg)) {
-            width: $size-411;
+          @media screen and (min-width: (settings.$tablet-lg)) {
+            width: settings.$size-411;
           }
         }
       }
@@ -78,7 +80,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: $size-5;
+      gap: settings.$size-5;
 
       .popup-tooltip {
         display: inline-flex;
@@ -90,7 +92,7 @@
     button {
       &.unstyled {
         text-decoration: none;
-        color: $black;
+        color: settings.$black;
         position: relative;
 
         &:after {
@@ -99,8 +101,8 @@
           position: absolute;
           width: 100%;
           height: 0;
-          border-bottom: $size-2 dashed $black;
-          top: calc(100% + $size-2);
+          border-bottom: settings.$size-2 dashed settings.$black;
+          top: calc(100% + settings.$size-2);
           left: 0;
         }
       }
@@ -108,17 +110,17 @@
 
     &.cost {
       .link {
-        margin-top: $size-32;
+        margin-top: settings.$size-32;
         text-align: center;
       }
 
       .usa-button {
-        font-size: $size-14;
+        font-size: settings.$size-14;
       }
 
       p {
-        margin-top: $size-8;
-        font-size: $size-14;
+        margin-top: settings.$size-8;
+        font-size: settings.$size-14;
         line-height: 1.2;
       }
     }
@@ -126,7 +128,7 @@
     + .usa-button {
       &.highlight-orange {
         border: none;
-        padding: $size-16;
+        padding: settings.$size-16;
       }
     }
   }

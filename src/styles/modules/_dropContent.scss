@@ -1,6 +1,8 @@
+@use "../settings" as settings;
+
 .dropContent {
-  border-radius: $border-radius-5;
-  border: $size-1 solid $base-lightest;
+  border-radius: settings.$border-radius-5;
+  border: settings.$size-1 solid settings.$base-lightest;
 
   button {
     &.usa-button {
@@ -11,7 +13,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: $size-16;
+      gap: settings.$size-16;
     }
   }
 
@@ -20,13 +22,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: $size-20;
+    font-size: settings.$size-20;
   }
 
   .content {
-    padding: $size-32 $size-16;
-    background: $white;
-    border-top: $size-1 solid $base-lightest;
+    padding: settings.$size-32 settings.$size-16;
+    background: settings.$white;
+    border-top: settings.$size-1 solid settings.$base-lightest;
     display: none;
 
     &.open {

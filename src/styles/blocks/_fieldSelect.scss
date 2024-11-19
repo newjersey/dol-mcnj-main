@@ -1,8 +1,10 @@
-.fieldSelect {
-  padding: $size-32 0 $size-64;
+@use "../settings" as settings;
 
-  @media screen and (max-width: ($tablet - 1)) {
-    padding: $size-16 0 $size-32;
+.fieldSelect {
+  padding: settings.$size-32 0 settings.$size-64;
+
+  @media screen and (max-width: (settings.$tablet - 1)) {
+    padding: settings.$size-16 0 settings.$size-32;
   }
 
   &.noPad {
@@ -14,40 +16,40 @@
   }
 
   .heading-tag {
-    font-size: $size-32;
+    font-size: settings.$size-32;
     margin: 0;
     display: inline;
     font-weight: 500;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
-      font-size: $size-24;
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
+      font-size: settings.$size-24;
       font-weight: bold;
     }
   }
 
   .back {
-    color: $black;
+    color: settings.$black;
     text-decoration: none;
     font-weight: bold;
     display: flex;
     width: auto;
     align-items: center;
     justify-content: flex-start;
-    gap: $size-8;
+    gap: settings.$size-8;
   }
 
   .cards {
-    @media screen and (max-width: ($tablet - 1)) {
-      gap: $size-16;
+    @media screen and (max-width: (settings.$tablet - 1)) {
+      gap: settings.$size-16;
     }
   }
 
   .card {
-    @media screen and (min-width: ($tablet)) {
-      border: $size-1 solid $base-lighter;
-      border-radius: $size-8;
+    @media screen and (min-width: (settings.$tablet)) {
+      border: settings.$size-1 solid settings.$base-lighter;
+      border-radius: settings.$size-8;
       overflow: hidden;
-      padding: $size-16;
+      padding: settings.$size-16;
     }
 
     * + p,
@@ -58,16 +60,16 @@
     p {
       margin: 0;
 
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (settings.$tablet - 1)) {
         display: none;
       }
     }
 
     .heading-tag {
-      font-size: $size-22;
+      font-size: settings.$size-22;
       font-weight: 700;
 
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (settings.$tablet - 1)) {
         display: none;
       }
     }
@@ -77,9 +79,9 @@
       justify-content: space-between;
       width: 100%;
       align-items: center;
-      gap: $size-8;
+      gap: settings.$size-8;
 
-      @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+      @media (max-width: (settings.$desktop - 1)) and (min-width: (settings.$tablet)) {
         flex-direction: column;
         align-items: stretch;
       }
@@ -90,72 +92,72 @@
         outline-offset: 0;
         justify-content: flex-start;
 
-        @media screen and (min-width: ($tablet)) {
-          width: $size-128;
+        @media screen and (min-width: (settings.$tablet)) {
+          width: settings.$size-128;
         }
 
         &.learn-more-button {
-          @media screen and (max-width: ($tablet - 1)) {
-            width: $size-48;
-            height: $size-48;
+          @media screen and (max-width: (settings.$tablet - 1)) {
+            width: settings.$size-48;
+            height: settings.$size-48;
             justify-content: center;
           }
 
           .copy {
-            @media screen and (max-width: ($tablet - 1)) {
+            @media screen and (max-width: (settings.$tablet - 1)) {
               display: none;
             }
           }
 
           svg {
-            @media screen and (max-width: ($tablet - 1)) {
-              width: $size-32;
-              height: $size-32;
+            @media screen and (max-width: (settings.$tablet - 1)) {
+              width: settings.$size-32;
+              height: settings.$size-32;
             }
           }
         }
         &.radio-button {
-          padding: $size-8 $size-8;
+          padding: settings.$size-8 settings.$size-8;
           text-align: left;
-          min-height: $size-56;
+          min-height: settings.$size-56;
 
-          @media screen and (min-width: ($desktop)) {
-            width: calc(100% - $size-128);
+          @media screen and (min-width: (settings.$desktop)) {
+            width: calc(100% - settings.$size-128);
           }
 
-          @media (max-width: ($desktop - 1)) and (min-width: ($tablet)) {
+          @media (max-width: (settings.$desktop - 1)) and (min-width: (settings.$tablet)) {
             width: 100%;
           }
 
-          @media screen and (max-width: ($tablet - 1)) {
-            width: calc(100% - $size-48);
+          @media screen and (max-width: (settings.$tablet - 1)) {
+            width: calc(100% - settings.$size-48);
           }
 
           svg {
-            color: $base;
-            width: $size-24;
-            height: $size-24;
+            color: settings.$base;
+            width: settings.$size-24;
+            height: settings.$size-24;
 
             + span {
               display: inline-block;
-              width: calc(100% - $size-32);
+              width: calc(100% - settings.$size-32);
             }
           }
 
           span {
             span {
-              @media screen and (max-width: ($tablet - 1)) {
+              @media screen and (max-width: (settings.$tablet - 1)) {
                 display: none;
               }
             }
           }
 
           &.active {
-            background-color: $primary-lighter;
-            border-color: $black;
+            background-color: settings.$primary-lighter;
+            border-color: settings.$black;
 
             svg {
-              color: $primary;
+              color: settings.$primary;
             }
           }
         }

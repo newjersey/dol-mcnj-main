@@ -1,18 +1,20 @@
+@use "../settings" as settings;
+
 .inDemandList {
   .hero {
-    padding-top: $size-32;
+    padding-top: settings.$size-32;
 
     .heading-tag {
-      font-size: $size-32;
+      font-size: settings.$size-32;
     }
   }
 
   .listBlock {
-    padding: $size-22 0 $size-48;
+    padding: settings.$size-22 0 settings.$size-48;
   }
 
   .usa-breadcrumb {
-    border-bottom: $size-1 solid $base-lighter;
-    padding-bottom: $size-8;
+    border-bottom: settings.$size-1 solid settings.$base-lighter;
+    padding-bottom: settings.$size-8;
   }
 }

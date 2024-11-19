@@ -1,31 +1,33 @@
+@use "../settings" as settings;
+
 .careerPathways {
   .map-block {
-    background-color: $base-lightest;
-    border-radius: $size-16;
-    padding: $size-16;
+    background-color: settings.$base-lightest;
+    border-radius: settings.$size-16;
+    padding: settings.$size-16;
   }
   .industries,
   .stepCards {
-    padding: $size-80 0;
+    padding: settings.$size-80 0;
   }
 
   .buttons {
-    gap: $size-16;
-    margin-bottom: $size-32;
+    gap: settings.$size-16;
+    margin-bottom: settings.$size-32;
     display: flex;
     flex-wrap: wrap;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       flex-direction: column;
     }
 
     .usa-button {
-      min-width: $size-320;
+      min-width: settings.$size-320;
       justify-content: center;
       text-align: left;
       text-align: center;
 
-      @media screen and (max-width: ($tablet-md - 1)) {
+      @media screen and (max-width: (settings.$tablet-md - 1)) {
         margin: 0;
         min-width: auto;
         justify-content: flex-start;
@@ -35,53 +37,53 @@
         max-width: none;
         text-align: left;
 
-        @media screen and (max-width: ($tablet-md - 1)) {
-          width: calc(100% - $size-40);
+        @media screen and (max-width: (settings.$tablet-md - 1)) {
+          width: calc(100% - settings.$size-40);
         }
 
         &:not(.svg-container) {
           width: auto;
 
-          @media screen and (max-width: ($tablet-md - 1)) {
-            width: calc(100% - $size-30);
+          @media screen and (max-width: (settings.$tablet-md - 1)) {
+            width: calc(100% - settings.$size-30);
           }
         }
       }
 
       svg {
-        width: $size-30;
+        width: settings.$size-30;
       }
     }
     .stack {
       display: flex;
-      gap: $size-16;
+      gap: settings.$size-16;
       flex-direction: column;
     }
 
     .highlight-purple {
-      min-height: $size-50;
+      min-height: settings.$size-50;
     }
   }
 
   .spinner {
     display: flex;
     justify-content: center;
-    margin-bottom: $size-48;
+    margin-bottom: settings.$size-48;
   }
 
   .errorBox {
-    max-width: $tablet-md;
-    margin: 0 auto $size-48;
+    max-width: settings.$tablet-md;
+    margin: 0 auto settings.$size-48;
   }
 }
 
 .careerPathwaysLanding {
   .body-copy {
     &.container {
-      max-width: $size-880;
+      max-width: settings.$size-880;
       margin: 0 auto;
-      padding-top: $size-96;
-      padding-bottom: $size-96;
+      padding-top: settings.$size-96;
+      padding-bottom: settings.$size-96;
 
       h2,
       h3,
@@ -91,19 +93,19 @@
       }
 
       h2 {
-        font-size: $size-32;
+        font-size: settings.$size-32;
 
-        @media screen and (max-width: ($tablet-md - 1)) {
-          font-size: $size-22;
+        @media screen and (max-width: (settings.$tablet-md - 1)) {
+          font-size: settings.$size-22;
           font-weight: bold;
         }
       }
 
       h3 {
-        font-size: $size-22;
+        font-size: settings.$size-22;
 
-        @media screen and (max-width: ($tablet-md - 1)) {
-          font-size: $size-18;
+        @media screen and (max-width: (settings.$tablet-md - 1)) {
+          font-size: settings.$size-18;
           font-weight: bold;
         }
       }

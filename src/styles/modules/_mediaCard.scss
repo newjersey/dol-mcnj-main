@@ -1,14 +1,16 @@
+@use "../settings" as settings;
+
 .media-card {
   text-decoration: none;
-  color: $ink;
-  border: $size-2 solid $ink;
-  padding: $size-16;
+  color: settings.$ink;
+  border: settings.$size-2 solid settings.$ink;
+  padding: settings.$size-16;
 
   &:hover {
-    color: $primary;
+    color: settings.$primary;
 
     > span {
-      background-color: $secondary;
+      background-color: settings.$secondary;
     }
   }
 

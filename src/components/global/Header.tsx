@@ -6,6 +6,7 @@ import NJLogo from "@components/svgs/NJLogo";
 import { Button } from "@components/modules/Button";
 import { useState } from "react";
 import { LinkObject } from "@components/modules/LinkObject";
+import Link from "next/link";
 
 interface HeaderProps {
   mainNav?: NavMenuProps;
@@ -27,10 +28,10 @@ const Header = ({ mainNav, globalNav }: HeaderProps) => {
         className="usa-nav-container plus"
       >
         <div className="basic-logo" id="basic-logo">
-          <a href="/" aria-label="My Career NJ">
+          <Link href="/" aria-label="My Career NJ">
             <NJLogo className="mrd" />
             <h1 className="bold">My Career NJ</h1>
-          </a>
+          </Link>
           <Button
             unstyled
             type="button"

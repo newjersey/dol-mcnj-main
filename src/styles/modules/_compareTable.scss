@@ -1,35 +1,37 @@
+@use "../settings" as settings;
+
 .compareTable {
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: $secondary-lighter;
+  background-color: settings.$secondary-lighter;
   z-index: 1000;
   width: 100%;
 
   .compare-inner {
-    max-width: $desktop-xl;
+    max-width: settings.$desktop-xl;
     width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: $size-48;
-    padding: $size-16;
+    gap: settings.$size-48;
+    padding: settings.$size-16;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
 
-  @media screen and (max-width: ($desktop-lg - 1)) {
+  @media screen and (max-width: (settings.$desktop-lg - 1)) {
     flex-direction: column;
   }
 
   .buttons {
     display: flex;
-    gap: $size-8;
+    gap: settings.$size-8;
 
-    @media screen and (min-width: ($tablet-lg)) {
+    @media screen and (min-width: (settings.$tablet-lg)) {
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -43,25 +45,25 @@
   .boxes {
     justify-content: center;
     display: flex;
-    gap: $size-48;
+    gap: settings.$size-48;
     width: 100%;
 
-    @media screen and (max-width: ($desktop-lg - 1)) {
-      gap: $size-24;
+    @media screen and (max-width: (settings.$desktop-lg - 1)) {
+      gap: settings.$size-24;
     }
   }
 
   .box {
-    width: $size-256;
-    padding: $size-8;
-    background: $white;
+    width: settings.$size-256;
+    padding: settings.$size-8;
+    background: settings.$white;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: $size-8;
-    min-height: $size-128;
+    gap: settings.$size-8;
+    min-height: settings.$size-128;
 
-    @media screen and (max-width: ($desktop-lg - 1)) {
+    @media screen and (max-width: (settings.$desktop-lg - 1)) {
       width: 33.333%;
     }
 
@@ -81,11 +83,11 @@
       align-items: center;
       align-content: center;
       border-radius: 100%;
-      top: -$size-20;
-      right: -$size-5;
-      height: $size-16;
-      width: $size-16;
-      background: $black;
+      top: -(settings.$size-20);
+      right: -(settings.$size-5);
+      height: settings.$size-16;
+      width: settings.$size-16;
+      background: settings.$black;
       cursor: pointer;
     }
   }
@@ -113,20 +115,20 @@
         > div {
           display: flex;
           flex-direction: column;
-          gap: $size-8;
+          gap: settings.$size-8;
           justify-content: flex-end;
           align-items: center;
           height: 100%;
-          padding-bottom: $size-8;
+          padding-bottom: settings.$size-8;
         }
       }
     }
 
     td {
       width: 25%;
-      min-width: $size-216;
+      min-width: settings.$size-216;
       text-align: center;
-      border-color: $base-light;
+      border-color: settings.$base-light;
       border-top: 0;
       border-left: 0;
       background: transparent;

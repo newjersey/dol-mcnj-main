@@ -1,7 +1,9 @@
-.tab-content {
-  margin-bottom: $size-60;
+@use "../settings" as settings;
 
-  @media screen and (min-width: ($tablet-md)) {
+.tab-content {
+  margin-bottom: settings.$size-60;
+
+  @media screen and (min-width: (settings.$tablet-md)) {
     margin-top: 2.5rem;
   }
 
@@ -14,28 +16,28 @@
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
-    gap: $size-32;
+    gap: settings.$size-32;
 
-    @media screen and (min-width: ($tablet-md)) {
+    @media screen and (min-width: (settings.$tablet-md)) {
       flex-direction: row-reverse;
     }
 
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       &:before {
         content: none;
       }
     }
   }
   .nav-title {
-    margin-bottom: $size-16;
+    margin-bottom: settings.$size-16;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       display: none;
     }
   }
 
   .nav-toggle {
-    background-color: $primary;
+    background-color: settings.$primary;
     margin: 0 auto;
   }
 
@@ -43,25 +45,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: $size-16;
+    margin-bottom: settings.$size-16;
 
-    @media screen and (min-width: ($tablet-md)) {
+    @media screen and (min-width: (settings.$tablet-md)) {
       display: none;
     }
   }
 
   .nav-wrap {
     position: sticky;
-    top: $size-64;
-    width: $size-300;
+    top: settings.$size-64;
+    width: settings.$size-300;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
-      background-color: $white;
-      padding-top: $size-16;
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
+      background-color: settings.$white;
+      padding-top: settings.$size-16;
       top: 0;
-      width: calc(100% + $size-32);
-      margin-left: -$size-16;
-      box-shadow: $shadow-2;
+      width: calc(100% + settings.$size-32);
+      margin-left: -(settings.$size-16);
+      box-shadow: settings.$shadow-2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -70,24 +72,24 @@
   }
 
   nav {
-    background-color: $white;
+    background-color: settings.$white;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       margin: 0 auto;
       position: absolute;
       top: 100%;
       left: 50%;
       width: 100%;
-      padding: 0 $size-16 $size-16;
+      padding: 0 settings.$size-16 settings.$size-16;
       transform: translateX(-50%);
-      box-shadow: $shadow-2;
-      max-height: calc(100vh - $size-96);
+      box-shadow: settings.$shadow-2;
+      max-height: calc(100vh - settings.$size-96);
       overflow: auto;
       -webkit-overflow-scrolling: touch;
     }
 
     &.closed {
-      @media screen and (max-width: ($tablet-md - 1)) {
+      @media screen and (max-width: (settings.$tablet-md - 1)) {
         height: 0;
         overflow: hidden;
         width: 0;
@@ -102,20 +104,20 @@
 
     > ul > li {
       &:last-of-type {
-        border-bottom: $size-1 solid $base-light;
+        border-bottom: settings.$size-1 solid settings.$base-light;
       }
     }
 
     ul {
       li {
-        border-top: $size-1 solid $base-light;
+        border-top: settings.$size-1 solid settings.$base-light;
       }
     }
   }
 
   .content {
-    @media screen and (min-width: ($tablet-md)) {
-      width: calc(100% - $size-300);
+    @media screen and (min-width: (settings.$tablet-md)) {
+      width: calc(100% - settings.$size-300);
     }
 
     > h2 {
@@ -141,11 +143,11 @@
       h4,
       h5 {
         font-weight: 600;
-        margin: $size-16 0;
+        margin: settings.$size-16 0;
       }
 
       table {
-        margin: $size-16 0;
+        margin: settings.$size-16 0;
         tr {
           th {
             text-align: left;
@@ -153,7 +155,7 @@
           td,
           th {
             padding: 0.5rem 0;
-            border-bottom: $size-1 solid $base-cool;
+            border-bottom: settings.$size-1 solid settings.$base-cool;
           }
         }
       }

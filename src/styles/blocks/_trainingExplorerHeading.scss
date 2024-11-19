@@ -1,10 +1,12 @@
+@use "../settings" as settings;
+
 .training-explorer-heading {
-  background-color: $base-lightest;
+  background-color: settings.$base-lightest;
 
   .subheading,
   .message {
-    margin: $size-16 auto;
-    max-width: $tablet-lg;
+    margin: settings.$size-16 auto;
+    max-width: settings.$tablet-lg;
     text-align: center;
 
     * {
@@ -13,7 +15,7 @@
   }
 
   .subheading {
-    font-size: $size-24;
+    font-size: settings.$size-24;
     font-weight: 600;
   }
 
@@ -22,19 +24,19 @@
   }
 
   .usa-breadcrumb {
-    padding: $size-32 0;
+    padding: settings.$size-32 0;
   }
 
   .heading-tag {
     &.main {
       text-align: center;
-      font-size: $size-48;
+      font-size: settings.$size-48;
       margin: 0;
       font-weight: 600;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        font-size: $size-32;
-        margin-bottom: $size-32;
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        font-size: settings.$size-32;
+        margin-bottom: settings.$size-32;
       }
     }
   }
@@ -46,27 +48,27 @@
   }
 
   .learn-more {
-    margin: $size-32 0;
+    margin: settings.$size-32 0;
 
-    @media screen and (min-width: ($tablet-lg + 1)) {
+    @media screen and (min-width: (settings.$tablet-lg + 1)) {
       text-align: center;
     }
 
     p {
       background-color: white;
-      border-radius: $size-16;
-      padding: $size-16;
+      border-radius: settings.$size-16;
+      padding: settings.$size-16;
       display: inline-block;
 
-      @media screen and (min-width: ($tablet-lg + 1)) {
+      @media screen and (min-width: (settings.$tablet-lg + 1)) {
         text-align: center;
-        font-size: $size-18;
-        border-radius: $size-80;
+        font-size: settings.$size-18;
+        border-radius: settings.$size-80;
       }
     }
   }
 
   .cta {
-    padding: $size-32 0;
+    padding: settings.$size-32 0;
   }
 }
