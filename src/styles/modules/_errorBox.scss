@@ -1,12 +1,14 @@
+@use "../settings" as settings;
+
 .errorBox {
-  border: $size-2 solid $base-lighter;
-  border-radius: $size-20;
-  padding: $size-24;
+  border: settings.$size-2 solid settings.$base-lighter;
+  border-radius: settings.$size-20;
+  padding: settings.$size-24;
   align-items: center;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: $size-24;
+  gap: settings.$size-24;
 
   .heading-tag,
   p {

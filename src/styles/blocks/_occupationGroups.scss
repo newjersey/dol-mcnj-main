@@ -1,0 +1,110 @@
+@use "../settings" as settings;
+
+.occupationGroups {
+  margin-bottom: settings.$size-48;
+
+  &.disabled {
+    .heading-tag {
+      color: settings.$base-light;
+    }
+  }
+
+  .groups {
+    background: white;
+    position: relative;
+
+    .select {
+      max-width: settings.$size-560;
+      position: relative;
+    }
+
+    .select-button {
+      margin-top: 0.7rem;
+      width: 100%;
+      appearance: none;
+      color: settings.$ink;
+      cursor: pointer;
+      padding: 0.7rem 2rem 0.7rem 0.7rem;
+      position: relative;
+      border: settings.$size-2 solid settings.$black;
+      border-radius: 5px;
+
+      &[disabled] {
+        background: settings.$base-lighter;
+        border-color: settings.$black;
+        color: settings.$base-light;
+        cursor: not-allowed;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: settings.$size-16;
+        bottom: settings.$size-16;
+        width: 0;
+        height: 0;
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-top: 0.35rem solid settings.$ink;
+      }
+    }
+
+    .dropdown-select {
+      font-weight: normal;
+      margin-top: settings.$size-16;
+      box-shadow: 0 10px 20px -15px settings.$ink;
+      max-height: settings.$size-330;
+      border-radius: settings.$size-8;
+      position: absolute;
+      overflow: auto;
+      z-index: 11;
+      background-color: settings.$white;
+      width: 100%;
+
+      &[aria-expanded="true"] {
+        display: block;
+      }
+
+      .path-title,
+      button {
+        display: block;
+        width: 100%;
+      }
+
+      p {
+        &.path-title {
+          display: flex;
+          margin: 0;
+
+          align-items: center;
+          gap: 0.5rem;
+          background: settings.$base-lighter;
+          padding: 0.5rem settings.$size-16;
+
+          + * {
+            margin-top: 0;
+          }
+        }
+      }
+
+      button {
+        padding: settings.$size-16;
+        cursor: pointer;
+
+        @media screen and (min-width: (settings.$tablet)) {
+          padding: settings.$size-16 settings.$size-16 settings.$size-16 5rem;
+        }
+
+        &:nth-of-type(2n - 1) {
+          background: settings.$base-cool;
+        }
+
+        &:hover {
+          @media screen and (min-width: (settings.$tablet)) {
+            background: settings.$tertiary-lighter;
+          }
+        }
+      }
+    }
+  }
+}

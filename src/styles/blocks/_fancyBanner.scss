@@ -1,44 +1,67 @@
-.fancyBanner {
-  background-color: $primary-darker;
-  color: $white;
-  font-size: $size-16;
-  line-height: 1;
-  padding: $size-64 0;
+@use "../settings" as settings;
 
-  @media screen and (max-width: ($tablet-lg - 1)) {
-    padding: $size-32 0;
+.fancyBanner {
+  background-color: settings.$primary-darker;
+  color: settings.$white;
+  font-size: settings.$size-16;
+  line-height: 1;
+  padding: settings.$size-64 0;
+
+  @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    padding: settings.$size-32 0;
+  }
+
+  .subheading {
+    font-size: settings.$size-32;
+    line-height: 1;
+    font-weight: 600;
+
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      padding-right: settings.$size-128;
+    }
   }
 
   p {
-    font-size: $size-20_8;
+    font-size: settings.$size-20_8;
     line-height: 1.5;
 
-    @media screen and (min-width: ($tablet-lg)) {
-      padding-right: $size-128;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      padding-right: settings.$size-128;
     }
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       font-size: 1.1rem;
+    }
+  }
+
+  .message {
+    margin-bottom: settings.$size-24;
+
+    * {
+      font-size: settings.$size-16;
+
+      @media screen and (min-width: (settings.$tablet-lg)) {
+        padding-right: settings.$size-50;
+      }
     }
   }
 
   h1 {
     line-height: 1;
-    font-weight: 400;
-    margin: 0 0 $size-24;
-    color: $primary-lighter;
+    margin: 0 0 settings.$size-24;
+    color: settings.$primary-lighter;
 
-    @media screen and (min-width: ($tablet-lg)) {
-      font-size: $size-72;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      font-size: settings.$size-72;
     }
 
-    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-lg + 1)) {
-      font-size: $size-48;
+    @media (max-width: (settings.$desktop-lg)) and (min-width: (settings.$tablet-lg + 1)) {
+      font-size: settings.$size-48;
     }
   }
 
   button {
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       width: 100%;
       justify-content: center;
     }
@@ -47,10 +70,10 @@
   .container {
     display: flex;
     justify-content: space-between;
-    gap: $size-48;
+    gap: settings.$size-48;
     align-items: center;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
@@ -61,21 +84,21 @@
   }
 
   .copy {
-    @media screen and (min-width: ($desktop-lg)) {
-      width: calc(100% - $size-480);
+    @media screen and (min-width: (settings.$desktop-lg)) {
+      width: calc(100% - settings.$size-480);
     }
 
-    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-lg + 1)) {
+    @media (max-width: (settings.$desktop-lg)) and (min-width: (settings.$tablet-lg + 1)) {
       width: 50%;
     }
   }
 
   .image {
-    @media screen and (min-width: ($desktop-lg)) {
-      width: $size-480;
+    @media screen and (min-width: (settings.$desktop-lg)) {
+      width: settings.$size-480;
     }
 
-    @media (max-width: ($desktop-lg)) and (min-width: ($tablet-lg + 1)) {
+    @media (max-width: (settings.$desktop-lg)) and (min-width: (settings.$tablet-lg + 1)) {
       width: 50%;
     }
   }

@@ -1,6 +1,4 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
-import { Stepper } from "@components/blocks/Stepper";
-import { SectionHeading } from "@components/modules/SectionHeading";
 import { client } from "@utils/client";
 import { createButtonObject } from "@utils/createButtonObject";
 import {
@@ -10,14 +8,15 @@ import {
   ThemeColors,
 } from "@utils/types";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "queries/careerPathwaysPage";
-import { PathwaysLayout } from "./PathwaysLayout";
 import { notFound } from "next/navigation";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
+import { content } from "@data/careerPathways";
+import { MinimalBanner } from "@components/blocks/MinimalBanner";
+import { IconNames } from "@utils/enums";
+import { IndustrySelector } from "@components/blocks/IndustrySelector";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page } = await client({
     query: CAREER_PATHWAYS_PAGE_QUERY,
   });
@@ -28,10 +27,6 @@ async function getData() {
 
   return {
     page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 export const revalidate = 86400;
@@ -53,15 +48,7 @@ export async function generateMetadata({}) {
 }
 
 export default async function CareerPathwaysPage() {
-  const { page, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as CareerPathwaysPageProps;
-
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
+  const { page } = (await getData()) as CareerPathwaysPageProps;
 
   const interrupterLinksConverter = (links: LinkProps[]): ButtonProps[] => {
     return links.map((link, index: number): ButtonProps => {
@@ -85,17 +72,41 @@ export default async function CareerPathwaysPage() {
   };
 
   return (
-    <PathwaysLayout page={page} navs={navs}>
-      <section className="stepCards">
-        <div className="container">
-          {page.stepsCollection &&
-            page.stepsCollection.items.length > 0 &&
-            page.stepsHeading && (
-              <SectionHeading heading={page.stepsHeading} headingLevel={2} />
-            )}
-          <Stepper steps={page.stepsCollection.items} />
-        </div>
-      </section>
+    <div className="careerPathwaysLanding">
+      <MinimalBanner
+        crumbs={{
+          items: page.pageBanner.breadcrumbsCollection?.items || [],
+          pageTitle: page.title,
+        }}
+        heading={content.banner.title}
+        description={content.banner.description}
+        tag={{
+          color: "navy",
+          title: "Beta",
+          tooltip:
+            "Our team is currently researching and developing more pathways. Check back regularly for updates.",
+          icon: IconNames.Info as string,
+        }}
+      />
+      <IndustrySelector {...content.industrySelector} />
+      <section
+        className="body-copy container"
+        dangerouslySetInnerHTML={{
+          __html: parseMarkdownToHTML(content.markdownSection),
+        }}
+      />
+
+      <CtaBanner
+        className="light"
+        heading={content.cta.heading}
+        items={[
+          {
+            copy: content.cta.button.text,
+            url: content.cta.button.url,
+          },
+        ]}
+      />
+
       {page.exploreHeading && (
         <CtaBanner
           fullColor
@@ -107,6 +118,6 @@ export default async function CareerPathwaysPage() {
           )}
         />
       )}
-    </PathwaysLayout>
+    </div>
   );
 }

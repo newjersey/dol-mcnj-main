@@ -1,62 +1,75 @@
+@use "../settings" as settings;
+
 .tag-item {
   display: inline-flex;
   align-items: center;
-  gap: $size-4;
-  padding: $size-4 $size-12;
-  border-radius: $size-2;
-  color: $ink;
-  border: $size-1 solid;
+  gap: settings.$size-4;
+  padding: settings.$size-4 settings.$size-12;
+  border-radius: settings.$size-2;
+  color: settings.$ink;
+  border: settings.$size-1 solid;
+
+  &.small {
+    padding: settings.$size-2 settings.$size-8;
+    font-size: settings.$size-12;
+    line-height: 1;
+
+    svg {
+      width: settings.$size-14;
+      height: settings.$size-14;
+    }
+  }
 
   &.chip {
     padding: 5px 15px;
-    border-radius: $size-20;
+    border-radius: settings.$size-20;
     border: none;
     font-weight: bold;
 
     &.color-green {
-      background-color: $secondary-light;
+      background-color: settings.$secondary-light;
     }
 
     &.color-blue {
-      background-color: $primary-light;
+      background-color: settings.$primary-light;
     }
 
     &.color-purple {
-      background-color: $tertiary-light;
+      background-color: settings.$tertiary-light;
     }
 
     &.color-navy {
-      background-color: $info-light;
+      background-color: settings.$info-light;
     }
 
     &.color-orange {
-      background-color: $accent-warm-light;
+      background-color: settings.$accent-warm-light;
     }
   }
 
   &.color-green {
-    background-color: $secondary-lighter;
-    border-color: $secondary-light;
+    background-color: settings.$secondary-lighter;
+    border-color: settings.$secondary-light;
   }
 
   &.color-blue {
-    background-color: $primary-lighter;
-    border-color: $primary-light;
+    background-color: settings.$primary-lighter;
+    border-color: settings.$primary-light;
   }
 
   &.color-purple {
-    background-color: $tertiary-lighter;
-    border-color: $tertiary-light;
+    background-color: settings.$tertiary-lighter;
+    border-color: settings.$tertiary-light;
   }
 
   &.color-navy {
-    background-color: $info-lighter;
-    border-color: $info-darker;
+    background-color: settings.$info-lighter;
+    border-color: settings.$info-light;
   }
 
   &.color-orange {
-    background-color: $accent-warm-lighter;
-    border-color: $accent-warm-light;
+    background-color: settings.$accent-warm-lighter;
+    border-color: settings.$accent-warm-light;
   }
 }
 
@@ -65,36 +78,36 @@ a {
   .tag-item {
     cursor: pointer;
     &:hover {
-      color: $white;
+      color: settings.$white;
     }
 
     &.color-green {
       &:hover {
-        background-color: $secondary;
+        background-color: settings.$secondary;
       }
     }
 
     &.color-blue {
       &:hover {
-        background-color: $primary-light;
+        background-color: settings.$primary-light;
       }
     }
 
     &.color-purple {
       &:hover {
-        background-color: $tertiary;
+        background-color: settings.$tertiary;
       }
     }
 
     &.color-navy {
       &:hover {
-        background-color: $info;
+        background-color: settings.$info;
       }
     }
 
     &.color-orange {
       &:hover {
-        background-color: $accent-warm;
+        background-color: settings.$accent-warm;
       }
     }
   }

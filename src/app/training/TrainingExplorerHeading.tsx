@@ -5,6 +5,7 @@ import { Heading } from "@components/modules/Heading";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 const stepContent = [
   "Search by occupation, provider, and more",
@@ -12,7 +13,15 @@ const stepContent = [
   "Visit training provider’s website to enroll",
 ];
 
-export const TrainingExplorerHeading = ({ heading }: { heading: string }) => {
+export const TrainingExplorerHeading = ({
+  heading,
+  subheading,
+  message,
+}: {
+  heading: string;
+  subheading?: string;
+  message?: string;
+}) => {
   return (
     <section className="training-explorer-heading">
       <div className="container">
@@ -28,6 +37,15 @@ export const TrainingExplorerHeading = ({ heading }: { heading: string }) => {
         <Heading level={1} className="main">
           {heading}
         </Heading>
+        {subheading && <p className="subheading">{subheading}</p>}
+        {message && (
+          <div
+            className="message"
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(message),
+            }}
+          />
+        )}
         <Steps items={stepContent} className="desktop-only" />
         <TrainingSearch />
         <Steps items={stepContent} className="mobile-only" />

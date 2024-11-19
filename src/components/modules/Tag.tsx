@@ -2,14 +2,16 @@ import { IconNames } from "@utils/enums";
 import { IconWeight, ThemeColors } from "@utils/types";
 import { IconSelector } from "./IconSelector";
 
-interface TagProps {
+export interface TagItemProps {
   chip?: boolean;
   className?: string;
   color: ThemeColors;
   icon?: string;
   iconWeight?: IconWeight;
+  small?: boolean;
   suffixIcon?: string;
   title: string;
+  tooltip?: string;
 }
 
 export const Tag = ({
@@ -17,15 +19,23 @@ export const Tag = ({
   className,
   color,
   icon,
+  tooltip,
   iconWeight,
+  small,
   suffixIcon,
   title,
-}: TagProps) => {
+}: TagItemProps) => {
+  const Element = (tooltip ? "button" : "span") as keyof JSX.IntrinsicElements;
+
   return (
-    <span
+    <Element
       className={`tag-item${className ? ` ${className}` : ""}${
         color ? ` color-${color}` : ""
-      }${chip ? ` chip` : ""}`}
+      }${chip ? ` chip` : ""}${small ? ` small` : ""}${
+        tooltip ? ` usa-tooltip` : ""
+      }`}
+      title={tooltip}
+      data-position="top"
     >
       {icon && (
         <IconSelector weight={iconWeight} name={icon as IconNames} size={15} />
@@ -38,6 +48,6 @@ export const Tag = ({
           size={15}
         />
       )}
-    </span>
+    </Element>
   );
 };

@@ -1,15 +1,17 @@
+@use "../settings" as settings;
+
 .occupation-box {
   border: 0;
   border-radius: 0;
   background: white;
-  padding: $size-32 0;
+  padding: settings.$size-32 0;
 
-  @media screen and (min-width: ($tablet + 1)) {
-    padding: $size-32 0;
+  @media screen and (min-width: (settings.$tablet + 1)) {
+    padding: settings.$size-32 0;
   }
 
   .usa-breadcrumb {
-    margin-bottom: $size-16;
+    margin-bottom: settings.$size-16;
 
     .usa-breadcrumb__list-item {
       &:not(:last-child) {
@@ -19,7 +21,7 @@
           margin: 0;
           mask: none;
           bottom: 0;
-          left: $size-5;
+          left: settings.$size-5;
         }
       }
     }
@@ -33,14 +35,14 @@
     border-bottom: none;
     margin-bottom: 1.5rem;
     max-width: 100%;
-    gap: $size-32;
+    gap: settings.$size-32;
     flex-wrap: nowrap;
 
-    @media screen and (max-width: ($desktop - 1)) {
+    @media screen and (max-width: (settings.$desktop - 1)) {
       display: block;
     }
 
-    @media screen and (max-width: ($mobile-lg - 1)) {
+    @media screen and (max-width: (settings.$mobile-lg - 1)) {
       flex-direction: column;
     }
 
@@ -56,7 +58,7 @@
       margin: 0;
       width: 100%;
 
-      @media screen and (min-width: ($desktop)) {
+      @media screen and (min-width: (settings.$desktop)) {
         margin-right: 1.5rem;
       }
     }
@@ -65,35 +67,35 @@
       align-items: center;
       display: flex;
       flex-wrap: wrap;
-      gap: $size-16;
-      max-width: $size-720;
+      gap: settings.$size-16;
+      max-width: settings.$size-720;
 
-      @media screen and (min-width: ($desktop)) {
-        width: calc(100% - $size-520);
+      @media screen and (min-width: (settings.$desktop)) {
+        width: calc(100% - settings.$size-520);
       }
     }
 
     .meta {
-      padding: $size-16 0;
-      gap: $size-16;
+      padding: settings.$size-16 0;
+      gap: settings.$size-16;
       width: 100%;
-      max-width: $size-520;
+      max-width: settings.$size-520;
     }
 
     .tag {
-      @media screen and (min-width: ($mobile-lg)) {
-        margin-left: $size-16;
+      @media screen and (min-width: (settings.$mobile-lg)) {
+        margin-left: settings.$size-16;
       }
-      @media screen and (max-width: ($mobile-lg - 1)) {
+      @media screen and (max-width: (settings.$mobile-lg - 1)) {
         margin: 0 0 0.5rem;
       }
     }
 
     + .single-path {
-      padding: 0.5rem $size-16 0.5rem 0.2rem;
+      padding: 0.5rem settings.$size-16 0.5rem 0.2rem;
 
-      @media screen and (max-width: ($tablet - 1)) {
-        padding: 0.5rem $size-16;
+      @media screen and (max-width: (settings.$tablet - 1)) {
+        padding: 0.5rem settings.$size-16;
       }
     }
   }
@@ -101,50 +103,50 @@
   .occu-row {
     display: flex;
     width: 100%;
-    gap: $size-32;
+    gap: settings.$size-32;
     align-items: flex-start;
 
-    @media screen and (max-width: ($tablet - 1)) {
+    @media screen and (max-width: (settings.$tablet - 1)) {
       flex-direction: column;
     }
 
-    @media screen and (min-width: ($tablet)) {
-      max-width: $desktop-xl;
+    @media screen and (min-width: (settings.$tablet)) {
+      max-width: settings.$desktop-xl;
       margin: 0 auto;
     }
 
     > div {
       width: 100%;
 
-      @media screen and (min-width: ($tablet)) {
-        max-width: $size-520;
+      @media screen and (min-width: (settings.$tablet)) {
+        max-width: settings.$size-520;
       }
 
       &:first-of-type {
-        @media screen and (min-width: ($tablet-xl)) {
-          max-width: calc(100% - $size-520);
+        @media screen and (min-width: (settings.$tablet-xl)) {
+          max-width: calc(100% - settings.$size-520);
         }
       }
 
-      @media screen and (min-width: ($tablet)) {
+      @media screen and (min-width: (settings.$tablet)) {
         width: 100%;
       }
     }
 
     &.info {
-      @media screen and (max-width: ($tablet-xl - 1)) {
+      @media screen and (max-width: (settings.$tablet-xl - 1)) {
         flex-direction: column-reverse;
       }
 
       > div {
-        @media screen and (max-width: ($tablet-xl - 1)) {
+        @media screen and (max-width: (settings.$tablet-xl - 1)) {
           width: 100%;
         }
       }
 
       .box {
-        @media screen and (min-width: ($tablet-xl)) {
-          width: calc(100% - $size-520);
+        @media screen and (min-width: (settings.$tablet-xl)) {
+          width: calc(100% - settings.$size-520);
         }
       }
     }
@@ -152,19 +154,19 @@
 
   .meta {
     display: flex;
-    gap: $size-32;
+    gap: settings.$size-32;
 
-    @media screen and (max-width: ($mobile-lg - 1)) {
-      gap: $size-16;
+    @media screen and (max-width: (settings.$mobile-lg - 1)) {
+      gap: settings.$size-16;
       flex-direction: column;
     }
 
-    @media screen and (min-width: ($tablet-xl)) {
+    @media screen and (min-width: (settings.$tablet-xl)) {
       width: 25rem;
     }
 
-    @media screen and (max-width: ($tablet - 1)) {
-      padding: 0 $size-16;
+    @media screen and (max-width: (settings.$tablet - 1)) {
+      padding: 0 settings.$size-16;
     }
 
     .infoBox {
@@ -174,14 +176,14 @@
 
   .labelBox {
     width: 100%;
-    margin-bottom: $size-32;
+    margin-bottom: settings.$size-32;
 
-    @media screen and (min-width: ($tablet)) {
+    @media screen and (min-width: (settings.$tablet)) {
       overflow: hidden;
-      border-radius: $size-10;
+      border-radius: settings.$size-10;
     }
 
-    @media screen and (max-width: ($tablet - 1)) {
+    @media screen and (max-width: (settings.$tablet - 1)) {
       display: flex;
       flex-direction: column;
     }
@@ -191,62 +193,14 @@
     }
 
     .content {
-      padding: $size-16;
+      padding: settings.$size-16;
 
-      @media screen and (min-width: ($tablet)) {
-        border-left: $size-1 solid $base-lightest;
-        border-right: $size-1 solid $base-lightest;
-        border-bottom: $size-1 solid $base-lightest;
-        border-bottom-left-radius: $size-10;
-        border-bottom-right-radius: $size-10;
-      }
-
-      a {
-        &.usa-button {
-          text-align: left;
-          background-color: $secondary-lighter;
-          width: 100%;
-          border: $size-2 solid $secondary;
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: $size-16;
-          color: $ink;
-          border-radius: 10px;
-          padding: 0.5rem;
-
-          span {
-            gap: $size-16;
-            display: inline-flex;
-            align-items: center;
-          }
-
-          + .usa-button {
-            margin-top: 1.5rem;
-            background-color: $info-lighter;
-            border: $size-2 solid $info;
-          }
-
-          @media screen and (max-width: ($tablet-xl - 1)) {
-            display: flex;
-            width: 100%;
-          }
-
-          &:hover {
-            @media screen and (min-width: ($tablet-xl + 1)) {
-              background: white;
-            }
-          }
-
-          svg {
-            width: $size-28;
-            height: auto;
-          }
-
-          + .usa-button {
-            margin-top: $size-16;
-          }
-        }
+      @media screen and (min-width: (settings.$tablet)) {
+        border-left: settings.$size-1 solid settings.$base-lightest;
+        border-right: settings.$size-1 solid settings.$base-lightest;
+        border-bottom: settings.$size-1 solid settings.$base-lightest;
+        border-bottom-left-radius: settings.$size-10;
+        border-bottom-right-radius: settings.$size-10;
       }
     }
   }
@@ -255,8 +209,8 @@
     .content {
       a {
         &.usa-button {
-          background-color: $primary-lighter;
-          border: $size-2 solid $primary-light;
+          background-color: settings.$primary-lighter;
+          border: settings.$size-2 solid settings.$primary-light;
         }
       }
     }
@@ -265,7 +219,7 @@
   .related-training,
   .related-occupations {
     a:not(.usa-button) {
-      color: $primary;
+      color: settings.$primary;
       text-decoration: none;
       display: block;
     }
@@ -275,8 +229,8 @@
     ul {
       display: flex;
       flex-direction: column;
-      gap: $size-24;
-      margin: $size-16 0 $size-32;
+      gap: settings.$size-24;
+      margin: settings.$size-16 0 settings.$size-32;
     }
 
     li {
@@ -284,28 +238,28 @@
     }
 
     a:not(.usa-button) {
-      border: 2px solid $base-lighter;
-      border-radius: $size-8;
-      padding: $size-16;
-      transition-duration: $transition-speed;
+      border: 2px solid settings.$base-lighter;
+      border-radius: settings.$size-8;
+      padding: settings.$size-16;
+      transition-duration: settings.$transition-speed;
 
       &:hover {
-        @media screen and (min-width: ($tablet-md)) {
-          box-shadow: $shadow-2;
+        @media screen and (min-width: (settings.$tablet-md)) {
+          box-shadow: settings.$shadow-2;
         }
       }
 
       .title-bar {
         line-height: 1.2;
-        font-size: $size-16;
-        margin-bottom: $size-16;
+        font-size: settings.$size-16;
+        margin-bottom: settings.$size-16;
         font-weight: bold;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
 
         svg {
-          color: $ink;
+          color: settings.$ink;
         }
       }
 
@@ -313,10 +267,10 @@
         display: flex;
         flex-direction: column;
         margin: 0;
-        gap: $size-16;
+        gap: settings.$size-16;
 
         span {
-          color: $ink;
+          color: settings.$ink;
           display: flex;
           align-items: center;
           gap: 0.5rem;
@@ -326,9 +280,9 @@
           }
 
           &.salary {
-            color: $white;
-            background-color: $base;
-            padding: $size-4 $size-8 $size-2;
+            color: settings.$white;
+            background-color: settings.$base;
+            padding: settings.$size-4 settings.$size-8 settings.$size-2;
           }
         }
       }

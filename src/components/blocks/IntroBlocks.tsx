@@ -57,7 +57,7 @@ const IntroBlocks = ({
                   activeSection.index % 4 === 0
                     ? " secondary"
                     : activeSection.index % 4 === 1
-                      ? " primary"
+                      ? " tertiary"
                       : activeSection.index % 4 === 2
                         ? " primary"
                         : " quaternary"

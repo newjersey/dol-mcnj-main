@@ -1,7 +1,9 @@
+@use "../settings" as settings;
+
 .occupationListItem {
-  padding: $size-8 $size-8 $size-4;
-  border: $size-1 solid $base-lighter;
-  border-radius: $border-radius-5;
+  padding: settings.$size-8 settings.$size-8 settings.$size-4;
+  border: settings.$size-1 solid settings.$base-lighter;
+  border-radius: settings.$border-radius-5;
 
   button {
     width: 100%;
@@ -15,48 +17,49 @@
     > span {
       display: flex;
       align-items: center;
-      gap: $size-16;
+      gap: settings.$size-16;
     }
 
     svg {
       width: auto;
-      height: $size-24;
-      color: $ink;
+      height: settings.$size-24;
+      color: settings.$ink;
     }
 
     .occ-icon {
       svg {
         width: auto;
-        height: $size-40;
+        height: settings.$size-40;
       }
     }
   }
 
   ul {
-    border-top: $size-1 solid $base-lighter;
-    margin-top: $size-8;
-    padding: $size-8;
+    border-top: settings.$size-1 solid settings.$base-lighter;
+    margin-top: settings.$size-8;
+    padding: settings.$size-8;
     list-style-type: none;
 
-    @media screen and (min-width: ($tablet)) {
-      padding: $size-8 $size-8 $size-8 $size-80;
+    @media screen and (min-width: (settings.$tablet)) {
+      padding: settings.$size-8 settings.$size-8 settings.$size-8
+        settings.$size-80;
     }
   }
 
   li {
     display: flex;
 
-    @media screen and (min-width: ($tablet)) {
-      gap: $size-16;
+    @media screen and (min-width: (settings.$tablet)) {
+      gap: settings.$size-16;
       align-items: center;
     }
 
-    @media screen and (max-width: ($tablet - 1)) {
+    @media screen and (max-width: (settings.$tablet - 1)) {
       flex-direction: column;
     }
 
     + li {
-      margin-top: $size-6;
+      margin-top: settings.$size-6;
     }
 
     a {

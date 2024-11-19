@@ -26,7 +26,7 @@ const DropNav = ({ className, elementId, onChange, items }: DropNavProps) => {
   }, [activeTopic]);
 
   return (
-    <aside className={`dropNav${className ? ` ${className}` : ""}`}>
+    <div className={`dropNav${className ? ` ${className}` : ""}`}>
       <nav
         id={elementId}
         aria-label="FAQ Navigation"
@@ -46,7 +46,7 @@ const DropNav = ({ className, elementId, onChange, items }: DropNavProps) => {
           ))}
         </ul>
       </nav>
-    </aside>
+    </div>
   );
 };
 

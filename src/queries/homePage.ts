@@ -47,6 +47,18 @@ export const HOMEPAGE_QUERY = `{
         description
       }
     }
+    careerExplorationToolLinksCollection(limit: 15) {
+      items {
+        sys {
+          id
+        }
+        icon
+        sectionIcon
+        copy
+        url
+        description
+      }
+    }
     supportAndAssistanceLinksCollection(limit: 15) {
       items {
         sys {

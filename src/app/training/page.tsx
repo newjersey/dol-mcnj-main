@@ -1,7 +1,5 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
-import { PageBanner } from "@components/blocks/PageBanner";
 import { Stepper } from "@components/blocks/Stepper";
-import { TrainingSearch } from "@components/blocks/TrainingSearch";
 import { VideoBlock } from "@components/blocks/VideoBlock";
 import { SectionHeading } from "@components/modules/SectionHeading";
 import { client } from "@utils/client";
@@ -9,24 +7,15 @@ import { createButtonObject } from "@utils/createButtonObject";
 import { TrainingExplorerPageProps } from "@utils/types";
 import { TRAINING_EXPLORER_PAGE_QUERY } from "queries/trainingExplorer";
 import { Accordion } from "@components/blocks/Accordion";
-import { MainLayout } from "@components/global/MainLayout";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { Steps } from "./Steps";
 import { TrainingExplorerHeading } from "./TrainingExplorerHeading";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page } = await client({
     query: TRAINING_EXPLORER_PAGE_QUERY,
   });
   return {
     page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 
@@ -49,8 +38,7 @@ export async function generateMetadata({}) {
 }
 
 export default async function TrainingExplorerPage() {
-  const { page, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as TrainingExplorerPageProps;
+  const { page } = (await getData()) as TrainingExplorerPageProps;
 
   const interrupterLinksConverter = page.interrupterLinksCollection?.items.map(
     (link) => {
@@ -65,13 +53,6 @@ export default async function TrainingExplorerPage() {
       );
     },
   );
-
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
 
   const stepArray = [
     {
@@ -95,54 +76,56 @@ export default async function TrainingExplorerPage() {
   ];
 
   return (
-    <MainLayout {...navs}>
-      <div className="page trainingExplorer">
-        <TrainingExplorerHeading heading={page.title} />
+    <div className="page trainingExplorer">
+      <TrainingExplorerHeading
+        heading={page.title}
+        subheading="Find classes to help you qualify for in-demand jobs."
+        message="Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you’ll be ready to take on new career opportunities."
+      />
 
-        <section className="howTo">
-          <div className="container">
-            {page.interrupterBannerHeading && (
-              <SectionHeading heading={page.interrupterBannerHeading} />
-            )}
-            <VideoBlock video={page.demoVideoUrl} />
-            <Stepper steps={stepArray} />
-          </div>
-        </section>
-        <CtaBanner
-          heading={page.interrupterBannerHeading}
-          customLinks={interrupterLinksConverter}
-          fullColor
-          theme="navy"
-        />
-        <section className="faq">
-          <div className="container">
-            <SectionHeading
-              headingLevel={3}
-              heading="Frequently Asked Questions"
-            />
-            <Accordion items={page.faqsCollection.items} />
-          </div>
-          <CtaBanner
-            heading="Don't see your question?"
-            inlineButtons
-            items={[
-              {
-                copy: "See all FAQs",
-                url: "/faq",
-              },
-            ]}
-          />
-        </section>
-        {page.footerCtaHeading &&
-          page.footerCtaLinkCollection &&
-          page.footerCtaLinkCollection.items.length > 0 && (
-            <CtaBanner
-              inlineButtons
-              heading={page.footerCtaHeading}
-              items={page.footerCtaLinkCollection.items}
-            />
+      <section className="howTo">
+        <div className="container">
+          {page.interrupterBannerHeading && (
+            <SectionHeading heading={page.interrupterBannerHeading} />
           )}
-      </div>
-    </MainLayout>
+          <VideoBlock video={page.demoVideoUrl} />
+          <Stepper steps={stepArray} />
+        </div>
+      </section>
+      <CtaBanner
+        heading={page.interrupterBannerHeading}
+        customLinks={interrupterLinksConverter}
+        fullColor
+        theme="navy"
+      />
+      <section className="faq">
+        <div className="container">
+          <SectionHeading
+            headingLevel={3}
+            heading="Frequently Asked Questions"
+          />
+          <Accordion items={page.faqsCollection.items} />
+        </div>
+        <CtaBanner
+          heading="Don't see your question?"
+          inlineButtons
+          items={[
+            {
+              copy: "See all FAQs",
+              url: "/faq",
+            },
+          ]}
+        />
+      </section>
+      {page.footerCtaHeading &&
+        page.footerCtaLinkCollection &&
+        page.footerCtaLinkCollection.items.length > 0 && (
+          <CtaBanner
+            inlineButtons
+            heading={page.footerCtaHeading}
+            items={page.footerCtaLinkCollection.items}
+          />
+        )}
+    </div>
   );
 }

@@ -1,40 +1,42 @@
+@use "./settings" as settings;
+
 @mixin linkColor {
-  color: $primary-vivid;
+  color: settings.$primary-vivid;
 
   &:visited {
-    color: $primary-vivid;
+    color: settings.$primary-vivid;
   }
 
   &:hover {
-    @media screen and (min-width: ($desktop)) {
-      color: $primary-vivid;
+    @media screen and (min-width: (settings.$desktop)) {
+      color: settings.$primary-vivid;
     }
   }
 }
 
 @mixin sectionPadding {
-  padding: $size-48 0;
+  padding: settings.$size-48 0;
 
-  @media screen and (max-width: ($tablet-lg - 1)) {
-    padding: $size-32 0;
+  @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    padding: settings.$size-32 0;
   }
 }
 
 // customizable border radius mixin
 @mixin radius5 {
-  border-radius: $border-radius-5;
+  border-radius: settings.$border-radius-5;
 }
 
 @mixin radius10 {
-  border-radius: $border-radius-10;
+  border-radius: settings.$border-radius-10;
 }
 
 @mixin radius15 {
-  border-radius: $border-radius-15;
+  border-radius: settings.$border-radius-15;
 }
 
 @mixin radius20 {
-  border-radius: $border-radius-20;
+  border-radius: settings.$border-radius-20;
 }
 
 @mixin radius5overflow {

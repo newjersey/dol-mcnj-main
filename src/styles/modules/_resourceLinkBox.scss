@@ -1,17 +1,19 @@
+@use "../settings" as settings;
+
 .resourceLinkBox {
-  border-radius: $border-radius-10;
+  border-radius: settings.$border-radius-10;
   overflow: hidden;
-  padding: $size-48 $size-16;
+  padding: settings.$size-48 settings.$size-16;
 
   .heading-tag {
-    color: $white;
+    color: settings.$white;
     text-align: center;
   }
 
   .links {
     display: flex;
     flex-direction: column;
-    gap: $size-24;
+    gap: settings.$size-24;
   }
 
   .usa-button {
@@ -19,18 +21,18 @@
   }
 
   &.color-navy {
-    background: $info-darker;
+    background: settings.$info-darker;
   }
   &.color-blue {
-    background: $primary;
+    background: settings.$primary;
   }
   &.color-green {
-    background: $secondary-dark;
+    background: settings.$secondary-dark;
   }
   &.color-purple {
-    background: $tertiary;
+    background: settings.$tertiary;
   }
   &.color-orange {
-    background: $accent-warm-dark;
+    background: settings.$accent-warm-dark;
   }
 }

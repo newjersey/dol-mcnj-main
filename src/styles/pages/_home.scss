@@ -1,15 +1,18 @@
+@use "../settings" as settings;
+@use "../mixins" as mixins;
+
 .home {
   .tools {
-    @include sectionPadding;
+    @include mixins.sectionPadding;
 
     .container {
-      max-width: $desktop-xl;
+      max-width: settings.$desktop-xl;
     }
 
     .iconCard {
       width: 100%;
 
-      @media screen and (min-width: ($tablet-lg)) {
+      @media screen and (min-width: (settings.$tablet-lg)) {
         max-width: 200px;
       }
 
@@ -20,14 +23,14 @@
 
     .row {
       display: flex;
-      gap: $size-32;
+      gap: settings.$size-32;
 
-      @media screen and (min-width: ($tablet-lg)) {
+      @media screen and (min-width: (settings.$tablet-lg)) {
         justify-content: center;
       }
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        gap: $size-16;
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        gap: settings.$size-16;
         flex-direction: column;
       }
     }
@@ -35,15 +38,23 @@
 
   .cardSlider {
     &:nth-child(2n) {
-      background-color: $base-cool;
+      background-color: settings.$base-cool;
 
       .inner {
         &:before {
-          background: linear-gradient(to right, $base-cool, transparent);
+          background: linear-gradient(
+            to right,
+            settings.$base-cool,
+            transparent
+          );
         }
         &:after {
-          border-right: 1rem solid $base-cool;
-          background: linear-gradient(to left, $base-cool, transparent);
+          border-right: 1rem solid settings.$base-cool;
+          background: linear-gradient(
+            to left,
+            settings.$base-cool,
+            transparent
+          );
         }
       }
     }

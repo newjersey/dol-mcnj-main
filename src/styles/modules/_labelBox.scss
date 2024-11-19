@@ -1,68 +1,81 @@
+@use "../settings" as settings;
+
 .labelBox {
-  border: $size-1 solid $base-lighter;
+  border: settings.$size-1 solid settings.$base-lighter;
+
+  &.large {
+    svg {
+      width: settings.$size-32;
+      height: settings.$size-32;
+    }
+
+    .heading-tag {
+      font-size: settings.$size-18;
+      font-weight: 500;
+    }
+  }
 
   .title {
-    background: $primary;
-    color: $ink;
-    padding: 0.625rem $size-16;
+    background: settings.$primary;
+    color: settings.$ink;
+    padding: 0.625rem settings.$size-16;
     margin: 0;
-    font-size: $size-16;
+    font-size: settings.$size-16;
     font-weight: bold;
     display: flex;
     align-items: center;
-    gap: $size-8;
-    border-radius: $size-9 $size-9 0 0;
+    gap: settings.$size-8;
   }
 
   .content {
-    padding: $size-24 $size-16;
+    padding: settings.$size-24 settings.$size-16;
   }
 
   &.centered {
     .title {
-      padding: $size-16;
-      font-size: $size-18;
+      padding: settings.$size-16;
+      font-size: settings.$size-18;
       justify-content: center;
     }
   }
 
   &.bg-fill {
-    background: $base-cool;
+    background: settings.$base-cool;
 
     > div {
-      background: $base-cool;
+      background: settings.$base-cool;
     }
   }
 
   &.color-blue {
     .title {
-      background: $primary;
-      color: $white;
+      background: settings.$primary;
+      color: settings.$white;
     }
   }
 
   &.color-green {
     .title {
-      background: $secondary-lighter;
+      background: settings.$secondary-lighter;
     }
   }
 
   &.color-purple {
     .title {
-      background: $tertiary-lighter;
+      background: settings.$tertiary-lighter;
     }
   }
 
   &.color-orange {
     .title {
-      background: $accent-warm-light;
+      background: settings.$accent-warm-light;
     }
   }
 
   &.color-navy {
     .title {
-      background: $info-darker;
-      color: $white;
+      background: settings.$info-darker;
+      color: settings.$white;
     }
   }
 }

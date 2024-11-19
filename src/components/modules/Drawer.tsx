@@ -25,6 +25,12 @@ export const Drawer = ({
       }
     };
     document.addEventListener("keydown", handleEscape);
+
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
   }, [open]);
 
   return (

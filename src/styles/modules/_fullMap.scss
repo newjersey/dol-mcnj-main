@@ -1,10 +1,12 @@
+@use "../settings" as settings;
+
 .full-map {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  margin-top: $size-32;
+  margin-top: settings.$size-32;
 
   .extra {
-    background-color: $white;
+    background-color: settings.$white;
     z-index: 20;
     height: 0;
     visibility: hidden;
@@ -26,7 +28,7 @@
   }
 
   .path-title {
-    font-size: $size-18;
+    font-size: settings.$size-18;
     font-weight: bold;
   }
 
@@ -41,8 +43,8 @@
 
   .close {
     position: absolute;
-    top: $size-32;
-    right: $size-32;
+    top: settings.$size-32;
+    right: settings.$size-32;
     cursor: pointer;
   }
 }

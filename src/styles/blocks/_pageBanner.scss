@@ -1,30 +1,32 @@
+@use "../settings" as settings;
+
 .pageBanner {
-  padding: $size-32 0 $size-12;
-  background-color: $base-cool;
+  padding: settings.$size-32 0 settings.$size-12;
+  background-color: settings.$base-cool;
 
   &.noBreadcrumbs {
-    @media screen and (min-width: ($tablet-lg)) {
-      padding: $size-32 0;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      padding: settings.$size-32 0;
     }
   }
 
-  @media screen and (max-width: ($tablet-lg - 1)) {
-    padding: $size-16 0;
+  @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    padding: settings.$size-16 0;
   }
 
   .usa-breadcrumb {
-    border-bottom: $size-1 solid $base-lighter;
-    padding-bottom: $size-8;
+    border-bottom: settings.$size-1 solid settings.$base-lighter;
+    padding-bottom: settings.$size-8;
     width: 100%;
   }
 
   .save-buttons {
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      margin-top: $size-16;
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      margin-top: settings.$size-16;
     }
 
     ul {
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         justify-content: center;
       }
     }
@@ -38,58 +40,58 @@
 
       &.usa-button {
         &.green {
-          color: $secondary;
+          color: settings.$secondary;
         }
 
         &:hover {
-          color: $black;
+          color: settings.$black;
         }
       }
     }
   }
 
   h1 {
-    font-size: $size-56;
+    font-size: settings.$size-56;
     font-weight: 500;
-    margin: 0 0 $size-16;
+    margin: 0 0 settings.$size-16;
     padding: 0;
     line-height: 1;
 
-    @media screen and (max-width: ($tablet-lg)) {
-      font-size: $size-40;
-      margin-bottom: $size-16;
+    @media screen and (max-width: (settings.$tablet-lg)) {
+      font-size: settings.$size-40;
+      margin-bottom: settings.$size-16;
     }
   }
 
   .copy {
-    padding: $size-45 0;
+    padding: settings.$size-45 0;
     display: flex;
     justify-content: space-between;
-    font-size: $size-20;
-    gap: $size-48;
+    font-size: settings.$size-20;
+    gap: settings.$size-48;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       display: block;
     }
 
-    @media screen and (max-width: ($tablet-lg)) {
-      padding: $size-28 0;
-      font-size: $size-16;
+    @media screen and (max-width: (settings.$tablet-lg)) {
+      padding: settings.$size-28 0;
+      font-size: settings.$size-16;
     }
   }
 
   .heading {
     width: calc(100% - 335px);
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       width: 100%;
     }
 
     .eyebrow {
       margin: 0;
       text-transform: uppercase;
-      margin-bottom: $size-16;
-      border-bottom: 1px solid $ink;
+      margin-bottom: settings.$size-16;
+      border-bottom: 1px solid settings.$ink;
       display: inline-block;
     }
   }
@@ -98,21 +100,21 @@
     width: 335px;
     padding: 0;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       width: 100%;
-      max-width: $size-320;
-      margin: $size-32 0 0;
+      max-width: settings.$size-320;
+      margin: settings.$size-32 0 0;
     }
 
     .heading-text {
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         text-align: left;
       }
     }
 
     .links {
       a {
-        @media screen and (max-width: ($tablet-lg - 1)) {
+        @media screen and (max-width: (settings.$tablet-lg - 1)) {
           max-width: none;
         }
       }
@@ -126,7 +128,7 @@
 
     .copy {
       > * {
-        @media screen and (min-width: ($tablet-lg)) {
+        @media screen and (min-width: (settings.$tablet-lg)) {
           width: 50%;
         }
       }
@@ -135,23 +137,23 @@
 
   &.info {
     h1 {
-      font-size: $size-30;
+      font-size: settings.$size-30;
       margin: 0;
 
-      @media screen and (min-width: ($tablet-lg)) {
-        font-size: $size-48;
+      @media screen and (min-width: (settings.$tablet-lg)) {
+        font-size: settings.$size-48;
       }
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         font-weight: 600;
       }
     }
     .subHeading {
-      font-size: $size-20;
-      margin-top: $size-8;
+      font-size: settings.$size-20;
+      margin-top: settings.$size-8;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        font-size: $size-18;
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        font-size: settings.$size-18;
         font-weight: 600;
       }
     }
@@ -159,23 +161,23 @@
 
   .tag-item {
     font-size: initial;
-    margin-top: $size-16;
+    margin-top: settings.$size-16;
   }
 
   .highlights {
     border-radius: 10px;
-    padding: $size-16;
-    background-color: $base-lightest;
+    padding: settings.$size-16;
+    background-color: settings.$base-lightest;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      margin-top: $size-32;
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      margin-top: settings.$size-32;
     }
 
     button {
-      margin: $size-16 auto 0;
-      color: $primary;
+      margin: settings.$size-16 auto 0;
+      color: settings.$primary;
       text-decoration: underline;
-      width: $size-120;
+      width: settings.$size-120;
       display: block;
       text-align: center;
       cursor: pointer;
@@ -185,16 +187,16 @@
   .highlight-item {
     display: flex;
     align-items: center;
-    gap: $size-16;
-    margin-top: $size-16;
+    gap: settings.$size-16;
+    margin-top: settings.$size-16;
 
     .value {
-      font-size: $size-24;
+      font-size: settings.$size-24;
       font-weight: bold;
     }
 
     a {
-      color: $ink;
+      color: settings.$ink;
       line-height: 1.2;
     }
   }
@@ -212,37 +214,37 @@
   .drawer {
     position: fixed;
     top: 0;
-    right: -$size-480;
-    background-color: $secondary-lighter;
+    right: -(settings.$size-480);
+    background-color: settings.$secondary-lighter;
     height: 100%;
     z-index: 2;
-    max-width: $size-480;
-    padding: $size-48 $size-32;
-    transition-duration: $transition-speed;
+    max-width: settings.$size-480;
+    padding: settings.$size-48 settings.$size-32;
+    transition-duration: settings.$transition-speed;
     transition-timing-function: ease-in-out;
 
     &.open {
-      box-shadow: $shadow-5;
+      box-shadow: settings.$shadow-5;
       right: 0;
     }
 
     > button {
       position: absolute;
-      transition-duration: $transition-speed;
+      transition-duration: settings.$transition-speed;
       transition-timing-function: ease-in-out;
       cursor: pointer;
-      top: $size-22;
-      right: $size-32;
-      height: $size-32;
+      top: settings.$size-22;
+      right: settings.$size-32;
+      height: settings.$size-32;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: $size-32;
+      width: settings.$size-32;
       border-radius: 100%;
 
       &:hover {
-        @media screen and (min-width: ($tablet)) {
-          background-color: rgba($ink, 0.1);
+        @media screen and (min-width: (settings.$tablet)) {
+          background-color: rgba(settings.$ink, 0.1);
         }
       }
     }
@@ -260,7 +262,7 @@
     pointer-events: none;
     width: 100%;
     height: 100%;
-    background: $ink;
+    background: settings.$ink;
     opacity: 0;
     z-index: 1;
 
@@ -276,26 +278,26 @@
     .items {
       display: flex;
       flex-wrap: wrap;
-      gap: $size-16;
+      gap: settings.$size-16;
 
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (settings.$tablet - 1)) {
         flex-direction: column;
-        gap: $size-16;
+        gap: settings.$size-16;
       }
 
       + a {
-        margin-top: $size-12;
+        margin-top: settings.$size-12;
       }
     }
 
     .box {
-      padding: $size-12;
+      padding: settings.$size-12;
 
-      @media screen and (min-width: ($tablet)) {
-        width: calc(50% - $size-8);
+      @media screen and (min-width: (settings.$tablet)) {
+        width: calc(50% - settings.$size-8);
       }
 
-      @media screen and (max-width: ($tablet - 1)) {
+      @media screen and (max-width: (settings.$tablet - 1)) {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
@@ -311,16 +313,16 @@
         }
 
         &:hover {
-          @media screen and (min-width: ($tablet)) {
+          @media screen and (min-width: (settings.$tablet)) {
             text-decoration: none;
           }
         }
       }
 
       p {
-        margin-bottom: $size-8;
+        margin-bottom: settings.$size-8;
 
-        @media screen and (max-width: ($tablet - 1)) {
+        @media screen and (max-width: (settings.$tablet - 1)) {
           margin-bottom: 0;
         }
       }
@@ -330,33 +332,33 @@
       }
 
       &:first-of-type {
-        background-color: $accent-warm-lighter;
+        background-color: settings.$accent-warm-lighter;
 
-        @media screen and (min-width: ($tablet)) {
+        @media screen and (min-width: (settings.$tablet)) {
           width: 100%;
         }
 
-        @media screen and (max-width: ($tablet - 1)) {
+        @media screen and (max-width: (settings.$tablet - 1)) {
           display: block;
         }
 
         p {
-          font-size: $size-16;
-          margin: $size-4 0;
+          font-size: settings.$size-16;
+          margin: settings.$size-4 0;
           line-height: 1.2;
 
           &.title {
             font-weight: bold;
           }
 
-          @media screen and (max-width: ($tablet - 1)) {
-            margin-bottom: $size-8;
+          @media screen and (max-width: (settings.$tablet - 1)) {
+            margin-bottom: settings.$size-8;
           }
         }
       }
 
       &.cost {
-        background-color: $tertiary-lighter;
+        background-color: settings.$tertiary-lighter;
 
         p {
           border-bottom: dashed;
@@ -364,7 +366,7 @@
       }
 
       &.rate {
-        background-color: rgba($tertiary-lighter, 0.5);
+        background-color: rgba(settings.$tertiary-lighter, 0.5);
 
         p {
           text-decoration: underline;
@@ -374,7 +376,7 @@
 
     .value {
       display: block;
-      margin-top: $size-16;
+      margin-top: settings.$size-16;
       font-weight: 600;
     }
   }
