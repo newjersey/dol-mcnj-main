@@ -45,7 +45,7 @@ async function getData(slug: string) {
     },
     audience: {
       items: [...audience.items].filter((tag) =>
-        usedAudience.includes(tag.title),
+        usedAudience.includes(tag.title)
       ),
     },
     cta,
@@ -53,10 +53,12 @@ async function getData(slug: string) {
 }
 
 export const generateMetadata = async ({
-  params: { slug },
+  params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) => {
+  const { slug } = await params;
+
   const data = (await getData(slug)) as ResourceCategoryPageProps;
 
   if (data.page.items.length === 0) {
@@ -78,10 +80,11 @@ export const generateMetadata = async ({
 export const revalidate = 1800;
 
 export default async function ResourcesPage({
-  params: { slug },
+  params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   const data = (await getData(slug)) as ResourceCategoryPageProps;
 
   if (data.page.items.length === 0) {

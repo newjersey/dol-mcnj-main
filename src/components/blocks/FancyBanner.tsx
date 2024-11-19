@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@components/modules/Button";
-import { ContentfulRichText } from "@components/modules/ContentfulRichText";
 import { ResponsiveImage } from "@components/modules/ResponsiveImage";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { PageBannerProps } from "@utils/types";
@@ -22,7 +21,9 @@ export const FancyBanner = ({
           {message && (
             <div
               className="message"
-              dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(message) }}
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(message as string),
+              }}
             />
           )}
           {buttonCopy && (
