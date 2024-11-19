@@ -1,0 +1,82 @@
+@use "../settings" as settings;
+
+.industryItem {
+  border: settings.$size-1 solid settings.$base-lighter;
+  border-radius: settings.$size-16;
+  overflow: hidden;
+  padding: settings.$size-16;
+  background-color: settings.$white;
+
+  * {
+    margin: 0;
+  }
+
+  .title {
+    font-size: settings.$size-22;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .tag-item {
+    border: none;
+  }
+
+  .image {
+    position: relative;
+    height: settings.$size-146;
+    border-radius: settings.$size-16;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .inner {
+    height: 100%;
+  }
+
+  .drawer {
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .labelBox {
+      .content {
+        > div {
+          display: flex;
+          flex-direction: column;
+          gap: settings.$size-16;
+        }
+
+        h3,
+        h4,
+        h5 {
+          font-size: settings.$size-16;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: settings.$size-16;
+    margin-top: settings.$size-16;
+    width: 100%;
+
+    @media (max-width: (settings.$desktop-md - 1)) and (min-width: (settings.$tablet-md)) {
+      flex-direction: column;
+    }
+
+    @media screen and (max-width: (settings.$mobile-lg - 1)) {
+      flex-direction: column;
+    }
+
+    > * {
+      width: 100%;
+    }
+  }
+}

@@ -1,13 +1,15 @@
+@use "../settings" as settings;
+
 .search {
-  margin-top: $size-24;
+  margin-top: settings.$size-24;
 
   .inner {
     display: flex;
     align-items: flex-start;
-    gap: $size-32;
-    padding: 0 0 $size-48;
+    gap: settings.$size-32;
+    padding: 0 0 settings.$size-48;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       flex-direction: column;
     }
   }
@@ -17,48 +19,48 @@
     justify-content: space-between;
     width: 100%;
     align-items: flex-end;
-    margin-bottom: $size-16;
-    gap: $size-16;
+    margin-bottom: settings.$size-16;
+    gap: settings.$size-16;
 
-    @media screen and (max-width: ($mobile-lg - 1)) {
+    @media screen and (max-width: (settings.$mobile-lg - 1)) {
       align-items: flex-start;
       flex-direction: column;
       gap: 0;
-      margin-top: $size-16;
+      margin-top: settings.$size-16;
     }
 
     .heading-tag {
-      @media screen and (max-width: ($tablet-md - 1)) {
-        font-size: $size-22;
+      @media screen and (max-width: (settings.$tablet-md - 1)) {
+        font-size: settings.$size-22;
       }
 
-      @media screen and (max-width: ($mobile-lg - 1)) {
-        font-size: $size-16;
+      @media screen and (max-width: (settings.$mobile-lg - 1)) {
+        font-size: settings.$size-16;
       }
     }
 
     .resultsCount {
-      margin: $size-30 0 0 0;
+      margin: settings.$size-30 0 0 0;
     }
 
     .sortBy {
       width: 100%;
-      @media screen and (min-width: ($mobile-lg)) {
-        width: $size-200;
+      @media screen and (min-width: (settings.$mobile-lg)) {
+        width: settings.$size-200;
       }
 
       label {
-        font-size: $size-12;
-        margin-left: $size-8;
+        font-size: settings.$size-12;
+        margin-left: settings.$size-8;
         margin-top: 0;
         display: inline-block;
         position: relative;
-        bottom: -$size-10;
+        bottom: -(settings.$size-10);
         user-select: none;
         z-index: 1;
         pointer-events: none;
-        padding: 0 $size-4;
-        background-color: $white;
+        padding: 0 settings.$size-4;
+        background-color: settings.$white;
       }
       select {
         margin: 0;
@@ -69,8 +71,8 @@
   aside {
     width: 100%;
 
-    @media screen and (min-width: ($tablet-md)) {
-      width: $size-400;
+    @media screen and (min-width: (settings.$tablet-md)) {
+      width: settings.$size-400;
     }
 
     input,
@@ -82,11 +84,11 @@
   .results {
     display: flex;
     flex-direction: column;
-    gap: $size-16;
+    gap: settings.$size-16;
     width: 100%;
 
-    @media screen and (min-width: ($tablet-md)) {
-      width: calc(100% - $size-400);
+    @media screen and (min-width: (settings.$tablet-md)) {
+      width: calc(100% - settings.$size-400);
     }
 
     .spinner {
@@ -96,9 +98,9 @@
 
   .editSearch {
     justify-content: center;
-    padding-left: $size-8;
-    padding-right: $size-8;
-    @media screen and (min-width: ($tablet-md)) {
+    padding-left: settings.$size-8;
+    padding-right: settings.$size-8;
+    @media screen and (min-width: (settings.$tablet-md)) {
       display: none !important;
     }
   }

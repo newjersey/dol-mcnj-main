@@ -1,20 +1,23 @@
+@use "../settings" as settings;
+@use "../mixins" as mixins;
+
 @mixin unstyledButton {
   padding: 0;
   background-color: transparent;
   color: inherit;
-  @include linkColor;
+  @include mixins.linkColor;
 }
 
 .usa-button {
   display: inline-flex !important;
   align-items: center;
-  gap: $size-8;
-  justify-content: center;
-  padding: $size-16 $size-24;
+  justify-content: space-between;
+  gap: settings.$size-8;
+  padding: settings.$size-16 settings.$size-24;
 
   &.unstyled {
     &:disabled {
-      color: $base !important;
+      color: settings.$base !important;
       cursor: not-allowed;
     }
   }
@@ -27,7 +30,7 @@
       &.tertiary,
       &.quaternary,
       &.quinary {
-        background-color: $base !important;
+        background-color: settings.$base !important;
         cursor: not-allowed;
       }
     }
@@ -35,24 +38,24 @@
 
   &.cool {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: $accent-cool-lighter;
-      color: $primary-darker;
+      background: settings.$accent-cool-lighter;
+      color: settings.$primary-darker;
 
       &:hover {
-        background: $accent-cool-light;
+        background: settings.$accent-cool-light;
       }
     }
 
     &.usa-button--outline {
-      background: $white;
-      box-shadow: inset 0 0 0 $size-2 $primary;
-      color: $primary;
+      background: settings.$white;
+      box-shadow: inset 0 0 0 settings.$size-2 settings.$primary;
+      color: settings.$primary;
     }
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        background-color: $primary-dark;
-        color: $primary-darker;
+      @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$primary-dark;
+        color: settings.$primary-darker;
       }
     }
 
@@ -63,31 +66,31 @@
 
   &.primary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: $primary;
-      color: $white;
+      background: settings.$primary;
+      color: settings.$white;
 
       &:hover {
-        background: $primary-dark;
+        background: settings.$primary-dark;
       }
     }
 
     &.usa-button--outline {
-      background: $white;
+      background: settings.$white;
       box-shadow: none;
-      outline: $size-2 solid $primary;
-      color: $primary;
+      outline: settings.$size-2 solid settings.$primary;
+      color: settings.$primary;
 
       &:hover {
-        background: $white;
-        color: $primary;
-        box-shadow: $shadow-3;
+        background: settings.$white;
+        color: settings.$primary;
+        box-shadow: settings.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        background-color: $primary-dark;
-        color: $white;
+      @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$primary-dark;
+        color: settings.$white;
       }
     }
 
@@ -98,31 +101,31 @@
 
   &.secondary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: $secondary;
-      color: $white;
+      background: settings.$secondary;
+      color: settings.$white;
 
       &:hover {
-        background: $secondary-dark;
+        background: settings.$secondary-dark;
       }
     }
 
     &.usa-button--outline {
-      background: $white;
+      background: settings.$white;
       box-shadow: none;
-      outline: $size-2 solid $secondary;
-      color: $secondary;
+      outline: settings.$size-2 solid settings.$secondary;
+      color: settings.$secondary;
 
       &:hover {
-        background: $white;
-        color: $secondary;
-        box-shadow: $shadow-3;
+        background: settings.$white;
+        color: settings.$secondary;
+        box-shadow: settings.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        background-color: $secondary-dark;
-        color: $white;
+      @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$secondary-dark;
+        color: settings.$white;
       }
     }
 
@@ -133,31 +136,31 @@
 
   &.tertiary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: $tertiary;
-      color: $white;
+      background: settings.$tertiary;
+      color: settings.$white;
 
       &:hover {
-        background: $tertiary-dark;
+        background: settings.$tertiary-dark;
       }
     }
 
     &.usa-button--outline {
-      background: $white;
+      background: settings.$white;
       box-shadow: none;
-      outline: $size-2 solid $tertiary;
-      color: $tertiary;
+      outline: settings.$size-2 solid settings.$tertiary;
+      color: settings.$tertiary;
 
       &:hover {
-        background: $white;
-        color: $tertiary;
-        box-shadow: $shadow-3;
+        background: settings.$white;
+        color: settings.$tertiary;
+        box-shadow: settings.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        background-color: $tertiary-dark;
-        color: $white;
+      @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$tertiary-dark;
+        color: settings.$white;
       }
     }
 
@@ -168,31 +171,31 @@
 
   &.quaternary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: $info-darker;
-      color: $white;
+      background: settings.$info-darker;
+      color: settings.$white;
 
       &:hover {
-        background: $info-dark;
+        background: settings.$info-dark;
       }
     }
 
     &.usa-button--outline {
-      background: $white;
+      background: settings.$white;
       box-shadow: none;
-      outline: $size-2 solid $info-darker;
-      color: $info-darker;
+      outline: settings.$size-2 solid settings.$info-darker;
+      color: settings.$info-darker;
 
       &:hover {
-        background: $white;
-        color: $info-darker;
-        box-shadow: $shadow-3;
+        background: settings.$white;
+        color: settings.$info-darker;
+        box-shadow: settings.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        background-color: $info-dark;
-        color: $white;
+      @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$info-dark;
+        color: settings.$white;
       }
     }
 
@@ -203,27 +206,34 @@
 
   &.quinary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: $accent-warm;
-      color: $white;
+      background: settings.$accent-warm;
+      color: settings.$white;
+
+      &:hover {
+        @media screen and (min-width: (settings.$tablet)) {
+          background-color: settings.$accent-warm-dark;
+          color: settings.$white;
+        }
+      }
     }
 
     &.usa-button--outline {
-      background: $white;
+      background: settings.$white;
       box-shadow: none;
-      outline: $size-2 solid $accent-warm;
-      color: $accent-warm;
+      outline: settings.$size-2 solid settings.$accent-warm;
+      color: settings.$accent-warm;
 
       &:hover {
-        background: $white;
-        color: $accent-warm;
-        box-shadow: $shadow-3;
+        background: settings.$white;
+        color: settings.$accent-warm;
+        box-shadow: settings.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        background-color: $accent-warm-dark;
-        color: $white;
+      @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$accent-warm-dark;
+        color: settings.$white;
       }
     }
 
@@ -233,17 +243,17 @@
   }
 
   &[class*="highlight-"] {
-    padding: $size-8 $size-16;
-    border-radius: $size-8;
-    border: $size-2 solid;
+    padding: settings.$size-8 settings.$size-16;
+    border-radius: settings.$size-5;
+    border: settings.$size-2 solid;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        box-shadow: $shadow-3;
+      @media screen and (min-width: (settings.$tablet)) {
+        box-shadow: settings.$shadow-3;
       }
     }
 
-    span:not(.svg-container) {
+    span:not(.svg-container):not(.grouping) {
       display: block;
       width: 100%;
     }
@@ -261,103 +271,104 @@
   }
 
   &.highlight-orange {
-    background: $accent-warm-lighter;
-    border-color: $accent-warm-light;
-    color: $accent-warm-darker;
+    background: settings.$accent-warm-lighter;
+    border-color: settings.$accent-warm-light;
+    color: settings.$accent-warm-darker;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        border-color: $accent-warm;
+      @media screen and (min-width: (settings.$tablet)) {
+        border-color: settings.$accent-warm;
       }
     }
   }
 
   &.highlight-blue {
-    background: $primary-lighter;
-    border-color: $primary-light;
-    color: $primary-darker;
+    background: settings.$primary-lighter;
+    border-color: settings.$primary-light;
+    color: settings.$primary-darker;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        border-color: $primary-vivid;
+      @media screen and (min-width: (settings.$tablet)) {
+        border-color: settings.$primary-vivid;
       }
     }
   }
 
   &.highlight-purple {
-    background: $tertiary-lighter;
-    border-color: $tertiary-light;
-    color: $tertiary-darker;
+    background: settings.$tertiary-lighter;
+    border-color: settings.$tertiary-light;
+    color: settings.$tertiary-darker;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        border-color: $tertiary-vivid;
+      @media screen and (min-width: (settings.$tablet)) {
+        border-color: settings.$tertiary-vivid;
       }
     }
   }
 
   &.highlight-green {
-    background: $secondary-lighter;
-    border-color: $secondary-light;
-    color: $secondary-darker;
+    background: settings.$secondary-lighter;
+    border-color: settings.$secondary;
+    color: settings.$secondary-darker;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        border-color: $secondary-vivid;
+      @media screen and (min-width: (settings.$tablet)) {
+        border-color: settings.$secondary-vivid;
       }
     }
   }
 
   &.highlight-navy {
-    background: $info-lighter;
-    border-color: $info-light;
-    color: $info-darker;
+    background: settings.$info-lighter;
+    border-color: settings.$info-light;
+    color: settings.$info-darker;
 
     &:hover {
-      @media screen and (min-width: ($tablet)) {
-        border-color: $info;
+      @media screen and (min-width: (settings.$tablet)) {
+        border-color: settings.$info;
       }
     }
   }
 
   &.info {
-    background: $white;
+    background: settings.$white;
+    font-weight: 500;
   }
 
   &.info,
   &.svg:not([class*="highlight-"]) {
-    padding: $size-8 $size-16;
-    color: $ink;
-    border-radius: $size-8;
-    min-height: $size-50;
-    border: $size-1 solid $ink;
+    padding: settings.$size-8 settings.$size-16;
+    color: settings.$ink;
+    border-radius: settings.$size-5;
+    min-height: settings.$size-50;
+    border: settings.$size-2 solid settings.$base-light;
 
     &:hover {
-      background: $white;
-      color: $ink;
-      border-radius: $size-8;
-      border: $size-1 solid $tertiary;
+      background: settings.$white;
+      color: settings.$ink;
+      border-radius: settings.$size-5;
+      border: settings.$size-2 solid settings.$base;
       opacity: 1;
 
-      @media screen and (min-width: ($desktop)) {
-        box-shadow: $shadow-2;
+      @media screen and (min-width: (settings.$desktop)) {
+        box-shadow: settings.$shadow-2;
       }
     }
 
     &.fill {
       .svg-container {
-        background-color: $primary-lighter;
+        background-color: settings.$primary-lighter;
         border-radius: 100%;
-        padding: $size-4;
-        height: $size-30;
-        width: $size-30;
+        padding: settings.$size-4;
+        height: settings.$size-30;
+        width: settings.$size-30;
       }
     }
 
     svg {
-      height: $size-30;
+      height: settings.$size-30;
       width: auto;
-      color: $ink;
+      color: settings.$ink;
     }
   }
   .svg-container {
@@ -371,23 +382,23 @@
   }
 
   &.tag {
-    background-color: $primary-lighter;
-    padding: $size-8 $size-16;
+    background-color: settings.$primary-lighter;
+    padding: settings.$size-8 settings.$size-16;
     font-weight: 500;
-    color: $ink;
+    color: settings.$ink;
 
     svg {
-      width: $size-20;
+      width: settings.$size-20;
     }
 
     span {
-      width: calc(100% - $size-20);
+      width: calc(100% - settings.$size-20);
     }
 
     &:hover {
-      background-color: $primary-lighter;
-      box-shadow: $shadow-2;
-      color: $ink;
+      background-color: settings.$primary-lighter;
+      box-shadow: settings.$shadow-2;
+      color: settings.$ink;
     }
   }
 }

@@ -1,0 +1,167 @@
+@use "../settings" as settings;
+
+.fieldSelect {
+  padding: settings.$size-32 0 settings.$size-64;
+
+  @media screen and (max-width: (settings.$tablet - 1)) {
+    padding: settings.$size-16 0 settings.$size-32;
+  }
+
+  &.noPad {
+    padding-bottom: 0;
+  }
+
+  .sectionHeading {
+    margin: 0;
+  }
+
+  .heading-tag {
+    font-size: settings.$size-32;
+    margin: 0;
+    display: inline;
+    font-weight: 500;
+
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
+      font-size: settings.$size-24;
+      font-weight: bold;
+    }
+  }
+
+  .back {
+    color: settings.$black;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    width: auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: settings.$size-8;
+  }
+
+  .cards {
+    @media screen and (max-width: (settings.$tablet - 1)) {
+      gap: settings.$size-16;
+    }
+  }
+
+  .card {
+    @media screen and (min-width: (settings.$tablet)) {
+      border: settings.$size-1 solid settings.$base-lighter;
+      border-radius: settings.$size-8;
+      overflow: hidden;
+      padding: settings.$size-16;
+    }
+
+    * + p,
+    p + * {
+      margin-top: 0;
+    }
+
+    p {
+      margin: 0;
+
+      @media screen and (max-width: (settings.$tablet - 1)) {
+        display: none;
+      }
+    }
+
+    .heading-tag {
+      font-size: settings.$size-22;
+      font-weight: 700;
+
+      @media screen and (max-width: (settings.$tablet - 1)) {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+      gap: settings.$size-8;
+
+      @media (max-width: (settings.$desktop - 1)) and (min-width: (settings.$tablet)) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .usa-button {
+        text-align: left;
+        margin: 0;
+        outline-offset: 0;
+        justify-content: flex-start;
+
+        @media screen and (min-width: (settings.$tablet)) {
+          width: settings.$size-128;
+        }
+
+        &.learn-more-button {
+          @media screen and (max-width: (settings.$tablet - 1)) {
+            width: settings.$size-48;
+            height: settings.$size-48;
+            justify-content: center;
+          }
+
+          .copy {
+            @media screen and (max-width: (settings.$tablet - 1)) {
+              display: none;
+            }
+          }
+
+          svg {
+            @media screen and (max-width: (settings.$tablet - 1)) {
+              width: settings.$size-32;
+              height: settings.$size-32;
+            }
+          }
+        }
+        &.radio-button {
+          padding: settings.$size-8 settings.$size-8;
+          text-align: left;
+          min-height: settings.$size-56;
+
+          @media screen and (min-width: (settings.$desktop)) {
+            width: calc(100% - settings.$size-128);
+          }
+
+          @media (max-width: (settings.$desktop - 1)) and (min-width: (settings.$tablet)) {
+            width: 100%;
+          }
+
+          @media screen and (max-width: (settings.$tablet - 1)) {
+            width: calc(100% - settings.$size-48);
+          }
+
+          svg {
+            color: settings.$base;
+            width: settings.$size-24;
+            height: settings.$size-24;
+
+            + span {
+              display: inline-block;
+              width: calc(100% - settings.$size-32);
+            }
+          }
+
+          span {
+            span {
+              @media screen and (max-width: (settings.$tablet - 1)) {
+                display: none;
+              }
+            }
+          }
+
+          &.active {
+            background-color: settings.$primary-lighter;
+            border-color: settings.$black;
+
+            svg {
+              color: settings.$primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

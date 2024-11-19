@@ -1,45 +1,47 @@
+@use "../settings" as settings;
+
 .cardSlider {
   position: relative;
   width: 100%;
-  padding: $size-48 0;
-  background-color: $white;
+  padding: settings.$size-48 0;
+  background-color: settings.$white;
 
   .container {
-    padding: 0 $size-16;
-    max-width: $desktop-xl + 16px;
+    padding: 0 settings.$size-16;
+    max-width: settings.$desktop-xl + 16px;
     position: relative;
   }
 
   .inner {
-    @media screen and (min-width: ($desktop-lg)) {
-      padding: 0 $size-16 $size-6;
+    @media screen and (min-width: (settings.$desktop-lg)) {
+      padding: 0 settings.$size-16 settings.$size-6;
       position: relative;
     }
   }
 
   .sectionHeading {
-    margin-bottom: $size-32;
+    margin-bottom: settings.$size-32;
 
-    @media screen and (max-width: ($tablet - 1)) {
+    @media screen and (max-width: (settings.$tablet - 1)) {
       position: sticky;
       top: 0;
       left: 0;
-      padding-top: $size-16;
+      padding-top: settings.$size-16;
       z-index: 1;
     }
   }
 
   .slider-container {
-    transition: transform $transition-speed ease;
-    margin-top: $size-4;
-    padding-bottom: $size-16;
+    transition: transform settings.$transition-speed ease;
+    margin-top: settings.$size-4;
+    padding-bottom: settings.$size-16;
 
-    @media screen and (max-width: ($desktop-lg - 1)) {
+    @media screen and (max-width: (settings.$desktop-lg - 1)) {
       transform: none !important;
     }
 
     .iconCard {
-      min-height: $size-160;
+      min-height: settings.$size-160;
 
       a {
         height: 100%;
@@ -49,11 +51,11 @@
 
   .arrow {
     position: absolute;
-    top: calc(50% + $size-40);
+    top: calc(50% + settings.$size-40);
     transform: translateY(-50%);
-    width: $size-40;
-    height: $size-40;
-    font-size: $size-24;
+    width: settings.$size-40;
+    height: settings.$size-40;
+    font-size: settings.$size-24;
     border: none;
     cursor: pointer;
     z-index: 2;
@@ -61,16 +63,16 @@
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: ($desktop-lg - 1)) {
+    @media screen and (max-width: (settings.$desktop-lg - 1)) {
       display: none;
     }
 
     &.left {
-      left: -$size-12;
+      left: -(settings.$size-12);
     }
 
     &.right {
-      right: -$size-12;
+      right: -(settings.$size-12);
     }
   }
 }

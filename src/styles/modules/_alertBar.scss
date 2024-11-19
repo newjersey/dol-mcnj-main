@@ -1,14 +1,16 @@
+@use "../settings" as settings;
+
 .alertBar {
   display: flex;
-  gap: $size-16;
+  gap: settings.$size-16;
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: $size-16;
-  left: $size-16;
+  top: settings.$size-16;
+  left: settings.$size-16;
   z-index: 99;
-  padding: $size-8;
-  width: calc(100% - $size-32);
+  padding: settings.$size-8;
+  width: calc(100% - settings.$size-32);
   transition-duration: 0.3s;
   transition-property: opacity, visibility;
 
@@ -19,20 +21,20 @@
   }
 
   &.info {
-    background-color: $primary;
-    color: $white;
+    background-color: settings.$primary;
+    color: settings.$white;
   }
   &.success {
-    background-color: $secondary;
-    color: $ink;
+    background-color: settings.$secondary;
+    color: settings.$ink;
   }
   &.warning {
-    background-color: $accent-warm-light;
-    color: $ink;
+    background-color: settings.$accent-warm-light;
+    color: settings.$ink;
   }
   &.error {
-    background-color: $error;
-    color: $white;
+    background-color: settings.$error;
+    color: settings.$white;
   }
 
   p {

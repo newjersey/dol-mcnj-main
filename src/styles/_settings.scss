@@ -1,93 +1,86 @@
+@use "./system-colors" as systemColors;
+
 $transition-speed: 0.2s;
 
 // FONTS
 
 $font-size: 1rem;
-$font-family:
-  Public Sans Web,
-  -apple-system,
-  BlinkMacSystemFont,
-  Segoe UI,
-  Roboto,
-  Helvetica,
-  Arial,
-  sans-serif,
-  Apple Color Emoji,
-  Segoe UI Emoji,
+$font-family: Public Sans Web, -apple-system, BlinkMacSystemFont, Segoe UI,
+  Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
   Segoe UI Symbol;
 $line-height: 1.2;
 
 // THEME COLORS
 
-$base-cool: $gray-2;
-$base-lightest: $gray-5;
-$base-lighter: $gray-10;
-$base-light: $gray-30;
-$base-extra-light: $gray-3;
-$base: $gray-50;
-$base-dark: $gray-60;
-$base-darker: $gray-70;
-$base-darkest: $gray-90;
-$ink: $gray-90;
-$primary: $blue-60v;
-$primary-vivid: $blue-warm-60v;
-$primary-light: $blue-30;
-$primary-lighter: $blue-10;
-$primary-extra-light: $blue-5;
-$primary-dark: $blue-warm-70v;
-$primary-darker: $blue-warm-80v;
-$secondary: $green-cool-50v;
-$secondary-light: $green-cool-20;
-$secondary-lighter: $green-cool-10;
+$base-cool: systemColors.$gray-2;
+$base-lightest: systemColors.$gray-5;
+$base-lighter: systemColors.$gray-10;
+$base-light: systemColors.$gray-30;
+$base-extra-light: systemColors.$gray-3;
+$base: systemColors.$gray-50;
+$base-dark: systemColors.$gray-60;
+$base-darker: systemColors.$gray-70;
+$base-darkest: systemColors.$gray-90;
+$ink: systemColors.$gray-90;
+$primary: systemColors.$blue-60v;
+$primary-vivid: systemColors.$blue-warm-60v;
+$primary-light: systemColors.$blue-30;
+$primary-lighter: systemColors.$blue-10;
+$primary-extra-light: systemColors.$blue-5;
+$primary-dark: systemColors.$blue-warm-70v;
+$primary-darker: systemColors.$blue-warm-80v;
+$secondary: systemColors.$green-cool-50v;
+$secondary-light: systemColors.$green-cool-20;
+$secondary-lighter: systemColors.$green-cool-10;
 $secondary-extra-light: #f6f9f6;
-$secondary-vivid: $green-cool-60v;
-$secondary-dark: $green-cool-70v;
-$secondary-darker: $green-cool-80v;
-$tertiary: $indigo-50;
-$tertiary-light: $indigo-30;
-$tertiary-lighter: $indigo-cool-5v;
+$secondary-vivid: systemColors.$green-cool-60v;
+$secondary-dark: systemColors.$green-cool-70v;
+$secondary-darker: systemColors.$green-cool-80v;
+$tertiary: systemColors.$indigo-50;
+$tertiary-light: systemColors.$indigo-30;
+$tertiary-lighter: systemColors.$indigo-cool-5v;
 $tertiary-extra-light: #f8f8ff;
-$tertiary-vivid: $indigo-50v;
-$tertiary-dark: $indigo-60v;
-$tertiary-darker: $indigo-70v;
-$accent-cool: $cyan-30v;
-$accent-cool-light: $blue-cool-20v;
-$accent-cool-lighter: $blue-cool-10v;
+$tertiary-vivid: systemColors.$indigo-50v;
+$tertiary-dark: systemColors.$indigo-60v;
+$tertiary-darker: systemColors.$indigo-70v;
+$accent-cool: systemColors.$cyan-30v;
+$accent-cool-light: systemColors.$blue-cool-20v;
+$accent-cool-lighter: systemColors.$blue-cool-10v;
 $accent-cool-extra-light: #f0f9fc;
-$accent-cool-dark: $blue-cool-40v;
-$accent-cool-darker: $blue-cool-60v;
-$accent-warm: $orange-30v;
-$accent-warm-light: $orange-20;
-$accent-warm-lighter: $orange-10;
-$accent-warm-extra-light: $orange-5v;
-$accent-warm-dark: $orange-50v;
-$accent-warm-darker: $orange-60;
+$accent-cool-dark: systemColors.$blue-cool-40v;
+$accent-cool-darker: systemColors.$blue-cool-60v;
+$accent-warm: systemColors.$orange-30v;
+$accent-warm-light: systemColors.$orange-20;
+$accent-warm-lighter: systemColors.$orange-10;
+$accent-warm-extra-light: systemColors.$orange-5v;
+$accent-warm-dark: systemColors.$orange-50v;
+$accent-warm-darker: systemColors.$orange-60;
 
-$info-lighter: $cyan-5;
-$info-light: $cyan-20;
-$info: $cyan-30v;
-$info-dark: $cyan-40v;
-$info-darker: $blue-cool-60;
-$error-lighter: $red-warm-10;
-$error-light: $red-warm-30v;
-$error: $red-warm-50v;
-$error-dark: $red-60v;
-$error-darker: $red-70;
-$warning-lighter: $yellow-5;
-$warning-light: $yellow-10v;
-$warning: $gold-20v;
-$warning-dark: $gold-30v;
-$warning-darker: $gold-50v;
-$success-lighter: $green-cool-5;
-$success-light: $green-cool-20v;
-$success: $green-cool-40v;
-$success-dark: $green-cool-50v;
-$success-darker: $green-cool-60v;
-$disabled-light: $gray-10;
-$disabled: $gray-20;
-$disabled-dark: $gray-30;
-$emergency: $red-warm-60v;
-$emergency-dark: $red-warm-80;
+$info-lighter: systemColors.$cyan-5;
+$info-light: systemColors.$cyan-20;
+$info: systemColors.$cyan-30v;
+$info-dark: systemColors.$cyan-40v;
+$info-darker: systemColors.$blue-cool-60;
+$error-lighter: systemColors.$red-warm-10;
+$error-light: systemColors.$red-warm-30v;
+$error: systemColors.$red-warm-50v;
+$error-dark: systemColors.$red-60v;
+$error-darker: systemColors.$red-70;
+$warning-lighter: systemColors.$yellow-5;
+$warning-light: systemColors.$yellow-10v;
+$warning: systemColors.$gold-20v;
+$warning-dark: systemColors.$gold-30v;
+$warning-darker: systemColors.$gold-50v;
+$success-lighter: systemColors.$green-cool-5;
+$success-light: systemColors.$green-cool-20v;
+$success: systemColors.$green-cool-40v;
+$success-dark: systemColors.$green-cool-50v;
+$success-darker: systemColors.$green-cool-60v;
+$disabled-light: systemColors.$gray-10;
+$disabled: systemColors.$gray-20;
+$disabled-dark: systemColors.$gray-30;
+$emergency: systemColors.$red-warm-60v;
+$emergency-dark: systemColors.$red-warm-80;
 
 $njBlack: #363636;
 $white: #ffffff;
@@ -134,6 +127,9 @@ $size-100: 6.25rem;
 $size-112: 7rem;
 $size-120: 7.5rem;
 $size-128: 8rem;
+$size-140: 8.75rem;
+$size-144: 9rem;
+$size-146: 9.125rem;
 $size-160: 10rem;
 $size-175: 10.9375rem;
 $size-200: 12.5rem;

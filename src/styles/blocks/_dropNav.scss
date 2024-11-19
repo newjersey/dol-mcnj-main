@@ -1,10 +1,12 @@
+@use "../settings" as settings;
+
 .dropNav {
   .dropGroup {
-    background-color: $base-lightest;
-    border: $size-1 solid $base-lighter;
+    background-color: settings.$base-lightest;
+    border: settings.$size-1 solid settings.$base-lighter;
 
     li {
-      background-color: $base-lightest;
+      background-color: settings.$base-lightest;
       margin: 0;
 
       &:last-of-type {
@@ -17,18 +19,18 @@
     ul {
       height: 0;
       overflow: hidden;
-      transition-duration: $transition-speed;
+      transition-duration: settings.$transition-speed;
       transition-timing-function: ease-in-out;
 
       button {
-        padding-left: $size-32;
+        padding-left: settings.$size-32;
       }
 
       li {
         button {
-          color: $ink;
+          color: settings.$ink;
           font-weight: normal;
-          border-top: $size-1 solid $base-lighter;
+          border-top: settings.$size-1 solid settings.$base-lighter;
         }
 
         &.active {
@@ -40,9 +42,9 @@
     }
 
     &.active {
-      background-color: $base-lighter;
+      background-color: settings.$base-lighter;
       font-weight: bold;
-      color: $info-darker;
+      color: settings.$info-darker;
 
       ul {
         display: block;
@@ -55,7 +57,7 @@
   }
 
   svg {
-    transition-duration: $transition-speed;
+    transition-duration: settings.$transition-speed;
     transition-timing-function: ease-in-out;
     transform: rotate(0deg);
   }
@@ -65,7 +67,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: $size-8 $size-16;
+    padding: settings.$size-8 settings.$size-16;
     cursor: pointer;
 
     &:focus {

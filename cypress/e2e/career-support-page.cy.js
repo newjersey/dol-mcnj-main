@@ -3,7 +3,7 @@ describe("Career Support Page", () => {
     cy.visit("/support-resources/career-support");
     cy.injectAxe();
     cy.contains(
-      "Career Guidance, Job Search Help, and Re-entering the Workforce",
+      "Planning your future is hard when you don’t know where to start",
     ).should("exist");
     cy.checkA11y();
   });

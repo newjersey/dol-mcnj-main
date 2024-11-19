@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { PageBanner } from "@components/blocks/PageBanner";
-import { MainLayout } from "@components/global/MainLayout";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { RelatedHeading } from "@components/modules/RelatedHeading";
@@ -10,7 +9,6 @@ import { numberWithCommas } from "@utils/numberWithCommas";
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { OccupationPageProps } from "@utils/types";
 import { notFound } from "next/navigation";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import careeronestop from "@images/careeronestop.png";
 import {
@@ -22,17 +20,11 @@ import {
 import Script from "next/script";
 
 async function getData(soc: string) {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`,
+    `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`
   );
 
   return {
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
     pageData,
   };
 }
@@ -41,16 +33,19 @@ export const generateMetadata = async ({
   params,
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     mockData: string;
-  };
-  params: { code: string };
+  }>;
+  params: Promise<{ code: string }>;
 }) => {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/occupations/${params.code}`,
+    `${process.env.REACT_APP_API_URL}/api/occupations/${resolvedParams.code}`
   );
 
-  if (pageData.status !== 200 && !searchParams.mockData) {
+  if (pageData.status !== 200 && !resolvedSearchParams.mockData) {
     notFound();
   }
 
@@ -74,15 +69,17 @@ export default async function OccupationPage({
   searchParams,
   params,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     mockData: string;
-  };
-  params: { code: string };
+  }>;
+  params: Promise<{ code: string }>;
 }) {
-  const { footerNav1, footerNav2, mainNav, globalNav, pageData } =
-    await getData(params.code);
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
 
-  if (pageData.status !== 200 && !searchParams.mockData) {
+  const { pageData } = await getData(resolvedParams.code);
+
+  if (pageData.status !== 200 && !resolvedSearchParams.mockData) {
     notFound();
   }
 
@@ -96,7 +93,7 @@ export default async function OccupationPage({
   } as any;
 
   const occupation =
-    (mockDataMap[searchParams.mockData] as OccupationPageProps) ||
+    (mockDataMap[resolvedSearchParams.mockData] as OccupationPageProps) ||
     occupationData;
 
   const tasks = occupation.tasks?.map((task: {}) => {
@@ -107,23 +104,16 @@ export default async function OccupationPage({
     copy: string;
   }[];
 
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
   const counties =
     occupation.counties && occupation.counties.length > 0
       ? occupation.counties.length === 1
         ? occupation.counties[0] + " County"
         : occupation.counties.length === 2
-          ? occupation.counties.join(" and ") + " Counties"
-          : occupation.counties.slice(0, -1).join(", ") +
-            ", and " +
-            occupation.counties.slice(-1) +
-            " Counties"
+        ? occupation.counties.join(" and ") + " Counties"
+        : occupation.counties.slice(0, -1).join(", ") +
+          ", and " +
+          occupation.counties.slice(-1) +
+          " Counties"
       : "N/A";
 
   const generateJsonLd = {
@@ -149,7 +139,7 @@ export default async function OccupationPage({
   };
 
   return (
-    <MainLayout {...navs}>
+    <>
       <Script type="application/ld+json" id="occupation">
         {JSON.stringify(generateJsonLd)}
       </Script>
@@ -177,7 +167,9 @@ export default async function OccupationPage({
           }}
           infoBlocks={{
             titleBlock: {
-              copy: `In-Demand in ${occupation.inDemand ? "all of New Jersey" : counties}.`,
+              copy: `In-Demand in ${
+                occupation.inDemand ? "all of New Jersey" : counties
+              }.`,
               message: "This training may be eligible for funding from your ",
               link: {
                 copy: "One-Stop Career Center.",
@@ -281,25 +273,23 @@ export default async function OccupationPage({
               />
               {occupation.relatedTrainings.length > 0 ? (
                 <>
-                  {occupation.relatedTrainings
-                    ?.splice(0, 3)
-                    .map((training) => (
-                      <ResultCard
-                        key={training.id}
-                        title={training.name}
-                        trainingId={training.id}
-                        url={`/training/${training.id}`}
-                        education={training.providerName}
-                        percentEmployed={training.percentEmployed || undefined}
-                        cipDefinition={training.cipDefinition}
-                        cost={training.totalCost}
-                        timeToComplete={training.calendarLength}
-                        inDemandLabel={
-                          training.inDemand ? "In Demand" : undefined
-                        }
-                        location={`${training.city}, ${training.county}`}
-                      />
-                    ))}
+                  {occupation.relatedTrainings?.splice(0, 3).map((training) => (
+                    <ResultCard
+                      key={training.id}
+                      title={training.name}
+                      trainingId={training.id}
+                      url={`/training/${training.id}`}
+                      education={training.providerName}
+                      percentEmployed={training.percentEmployed || undefined}
+                      cipDefinition={training.cipDefinition}
+                      cost={training.totalCost}
+                      timeToComplete={training.calendarLength}
+                      inDemandLabel={
+                        training.inDemand ? "In Demand" : undefined
+                      }
+                      location={`${training.city}, ${training.county}`}
+                    />
+                  ))}
                 </>
               ) : (
                 "This data is not yet available for this occupation."
@@ -329,6 +319,6 @@ export default async function OccupationPage({
           </div>
         </section>
       </div>
-    </MainLayout>
+    </>
   );
 }

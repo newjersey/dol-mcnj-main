@@ -1,16 +1,12 @@
 import { client } from "@utils/client";
 import { CareerPathwaysPageProps, IndustryProps } from "@utils/types";
 import { CAREER_PATHWAYS_PAGE_QUERY } from "queries/careerPathwaysPage";
-import { PathwaysLayout } from "../PathwaysLayout";
 import { INDUSTRY_QUERY } from "queries/industryQuery";
 import { Content } from "./Content";
 import { notFound } from "next/navigation";
-import { getNav } from "@utils/getNav";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
-
   const { page } = await client({
     query: CAREER_PATHWAYS_PAGE_QUERY,
   });
@@ -21,10 +17,6 @@ async function getData() {
 
   return {
     page,
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
   };
 }
 
@@ -62,13 +54,13 @@ export async function generateMetadata() {
 export default async function PathwayPage({
   params,
 }: {
-  params: {
-    industry: string;
-  };
+  params: Promise<{ industry: string }>; // Adjust the type to expect a Promise
 }) {
-  const { page, footerNav1, footerNav2, mainNav, globalNav } =
-    (await getData()) as CareerPathwaysPageProps;
-  const { industryCollection } = (await getIndustryData(params.industry)) as {
+  const resolvedParams = await params; // Await the params before accessing them
+
+  const { industryCollection } = (await getIndustryData(
+    resolvedParams.industry
+  )) as {
     industryCollection: {
       items: IndustryProps[];
     };
@@ -83,16 +75,5 @@ export default async function PathwayPage({
     return notFound();
   }
 
-  const navs = {
-    footerNav1,
-    footerNav2,
-    mainNav,
-    globalNav,
-  };
-
-  return (
-    <PathwaysLayout page={page} navs={navs} currentIndustry={thisIndustry}>
-      <Content thisIndustry={thisIndustry} />
-    </PathwaysLayout>
-  );
+  return <Content thisIndustry={thisIndustry} />;
 }

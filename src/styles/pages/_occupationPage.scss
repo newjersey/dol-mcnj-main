@@ -1,28 +1,30 @@
+@use "../settings" as settings;
+
 .occupationPage {
   .pageBanner {
-    background: $white;
+    background: settings.$white;
   }
 
   .related {
-    margin: 0 0 $size-48;
+    margin: 0 0 settings.$size-48;
 
     .inner {
-      max-width: $size-880;
+      max-width: settings.$size-880;
       display: flex;
       flex-direction: column;
-      gap: $size-16;
+      gap: settings.$size-16;
     }
 
     .container-full {
-      margin-top: $size-72;
+      margin-top: settings.$size-72;
     }
   }
 
   .body-copy {
-    margin: $size-32 0;
+    margin: settings.$size-32 0;
 
     .openingsLink {
-      margin: 0 0 $size-32 0;
+      margin: 0 0 settings.$size-32 0;
     }
 
     .relatedBox {
@@ -38,31 +40,31 @@
       .content {
         display: flex;
         flex-direction: column;
-        gap: $size-8;
+        gap: settings.$size-8;
       }
     }
 
     .inner {
       display: flex;
-      gap: $size-16;
+      gap: settings.$size-16;
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         flex-direction: column;
       }
 
       > div {
         display: flex;
         flex-direction: column;
-        gap: $size-16;
+        gap: settings.$size-16;
 
         &:first-of-type {
-          @media screen and (min-width: ($tablet-lg)) {
-            width: calc(100% - $size-360);
+          @media screen and (min-width: (settings.$tablet-lg)) {
+            width: calc(100% - settings.$size-360);
           }
         }
         &:last-of-type {
-          @media screen and (min-width: ($tablet-lg)) {
-            width: $size-360;
+          @media screen and (min-width: (settings.$tablet-lg)) {
+            width: settings.$size-360;
           }
         }
       }

@@ -1,27 +1,30 @@
+@use "../settings" as settings;
+@use "../mixins" as mixins;
+
 .seeMoreList {
   line-height: 1.6;
 
   > p {
-    font-size: $size-16;
+    font-size: settings.$size-16;
     font-weight: bold;
     margin: 0;
   }
 
   > ul {
-    margin: $size-8 0;
+    margin: settings.$size-8 0;
   }
 
   .hasLink {
-    color: $primary-vivid;
+    color: settings.$primary-vivid;
   }
 
   a {
-    @include linkColor;
+    @include mixins.linkColor;
   }
 
   .usa-button {
     &.show {
-      @include linkColor;
+      @include mixins.linkColor;
     }
   }
 }

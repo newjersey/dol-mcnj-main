@@ -1,6 +1,8 @@
+@use "../settings" as settings;
+
 .sub-footer {
-  background-color: $njBlack;
-  padding: $size-16 0;
+  background-color: settings.$njBlack;
+  padding: settings.$size-16 0;
 
   a {
     display: block;
@@ -17,11 +19,11 @@
     width: 100%;
 
     > a {
-      @media screen and (min-width: ($tablet-md + 1)) {
+      @media screen and (min-width: (settings.$tablet-md + 1)) {
         text-align: right;
       }
 
-      @media screen and (max-width: ($tablet-md)) {
+      @media screen and (max-width: (settings.$tablet-md)) {
         display: block;
         margin: 2rem auto;
         text-align: center;
@@ -30,7 +32,7 @@
   }
 
   .links {
-    @media screen and (min-width: ($tablet-md + 1)) {
+    @media screen and (min-width: (settings.$tablet-md + 1)) {
       display: flex;
       width: 100%;
       justify-content: space-between;
@@ -42,7 +44,7 @@
           display: block;
           margin-bottom: 0.5rem;
 
-          @media screen and (max-width: ($tablet-md)) {
+          @media screen and (max-width: (settings.$tablet-md)) {
             margin: 0 auto 0.5rem;
           }
         }
@@ -54,7 +56,7 @@
           width: 100%;
           justify-content: flex-end;
 
-          @media screen and (max-width: ($tablet-md)) {
+          @media screen and (max-width: (settings.$tablet-md)) {
             justify-content: center;
             margin: 2rem 0;
           }
@@ -75,22 +77,22 @@
 
   p {
     margin: 0;
-    font-size: $size-14;
+    font-size: settings.$size-14;
 
-    @media screen and (max-width: ($tablet-md)) {
+    @media screen and (max-width: (settings.$tablet-md)) {
       text-align: center;
     }
   }
 
   .socials {
-    color: $white;
+    color: settings.$white;
     a {
       display: block;
       opacity: 0.5;
-      color: $white;
+      color: settings.$white;
 
       &:hover {
-        @media screen and (min-width: ($desktop + 1)) {
+        @media screen and (min-width: (settings.$desktop + 1)) {
           opacity: 1;
         }
       }

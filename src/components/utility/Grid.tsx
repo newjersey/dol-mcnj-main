@@ -24,7 +24,7 @@ export const Grid = ({
       componentId={componentId}
       elementTag={elementTag}
       style={style}
-      className={`wdrlscw-grid gap-${gap} columns-${columns}${className ? ` ${className}` : ""}`}
+      className={`mcnj-grid gap-${gap} columns-${columns}${className ? ` ${className}` : ""}`}
       testId={testId}
     >
       {children}

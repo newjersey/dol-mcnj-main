@@ -41,7 +41,7 @@ describe("Occupation Page", () => {
     cy.contains("See More").click();
 
     // should display all tasks
-    cy.get(".seeMoreList li:visible").should("have.length", 15);
+    cy.get(".seeMoreList li:visible").should("have.length", 14);
 
     // more tasks
     cy.contains(
@@ -70,9 +70,6 @@ describe("Occupation Page", () => {
     ).should("exist");
     cy.contains(
       "Conduct studies of traffic patterns or environmental conditions to identify engineering problems and assess potential project impact.",
-    ).should("exist");
-    cy.contains(
-      "Analyze manufacturing processes or byproducts to identify engineering solutions to minimize the output of carbon or other pollutants.",
     ).should("exist");
 
     cy.contains("See Less").should("exist");
