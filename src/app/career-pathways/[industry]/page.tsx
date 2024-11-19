@@ -54,11 +54,13 @@ export async function generateMetadata() {
 export default async function PathwayPage({
   params,
 }: {
-  params: {
-    industry: string;
-  };
+  params: Promise<{ industry: string }>; // Adjust the type to expect a Promise
 }) {
-  const { industryCollection } = (await getIndustryData(params.industry)) as {
+  const resolvedParams = await params; // Await the params before accessing them
+
+  const { industryCollection } = (await getIndustryData(
+    resolvedParams.industry
+  )) as {
     industryCollection: {
       items: IndustryProps[];
     };

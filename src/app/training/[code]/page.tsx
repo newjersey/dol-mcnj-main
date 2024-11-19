@@ -4,7 +4,7 @@ import { TrainingProps } from "@utils/types";
 
 async function getData(soc: string) {
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/${soc}`,
+    `${process.env.REACT_APP_API_URL}/api/trainings/${soc}`
   );
 
   if (pageData.status !== 200) {
@@ -21,10 +21,11 @@ export const revalidate = 1800;
 export const generateMetadata = async ({
   params,
 }: {
-  params: { code: string };
+  params: Promise<{ code: string }>;
 }) => {
+  const resolvedParams = await params;
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/${params.code}`,
+    `${process.env.REACT_APP_API_URL}/api/trainings/${resolvedParams.code}`
   );
 
   if (pageData.status !== 200) {
@@ -45,9 +46,10 @@ export const generateMetadata = async ({
 export default async function TrainingPage({
   params,
 }: {
-  params: { code: string };
+  params: Promise<{ code: string }>;
 }) {
-  const { pageData } = await getData(params.code);
+  const resolvedParams = await params;
+  const { pageData } = await getData(resolvedParams.code);
 
   if (pageData.status !== 200) {
     notFound();

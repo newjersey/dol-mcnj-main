@@ -7,13 +7,15 @@ export const revalidate = 0;
 export const generateMetadata = async ({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string;
-  };
+  }>;
 }) => {
+  const resolvedSearchParams = await searchParams;
+
   return {
     title: `${
-      searchParams.q ? `Results for "${searchParams.q}" | ` : ""
+      resolvedSearchParams.q ? `Results for "${resolvedSearchParams.q}" | ` : ""
     }Search | ${process.env.REACT_APP_SITE_NAME}`,
     openGraph: {
       images: [globalOgImage.src],
@@ -25,11 +27,14 @@ export const generateMetadata = async ({
 };
 
 export default async function SearchPage(props: {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string;
-  };
+  }>;
 }) {
-  const searchProps = await getSearchData(props);
+  const resolvedSearchParams = await props.searchParams;
+  const searchProps = await getSearchData({
+    searchParams: resolvedSearchParams,
+  });
 
   const {
     pageData = [],

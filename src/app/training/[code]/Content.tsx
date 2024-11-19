@@ -11,9 +11,7 @@ import { Flex } from "@components/utility/Flex";
 import { Tooltip } from "@components/utility/Tooltip";
 import {
   Baby,
-  Book,
   BookBookmark,
-  Bookmark,
   Briefcase,
   CalendarBlank,
   Clock,
@@ -24,7 +22,6 @@ import {
   ListBullets,
   MapPin,
   Moon,
-  QrCode,
   User,
   WheelchairMotion,
 } from "@phosphor-icons/react";
@@ -53,7 +50,8 @@ const Content = ({ training }: { training: TrainingProps }) => {
   const componentRef = useRef<HTMLDivElement>(null);
 
   const printReactContent = useReactToPrint({
-    content: () => componentRef.current,
+    pageStyle: "@page { size: auto;  margin: 20mm; }",
+    documentTitle: "Training Content",
   });
 
   const [copy, setCopy] = useState<Copy | null>(null);
@@ -262,7 +260,9 @@ const Content = ({ training }: { training: TrainingProps }) => {
         }
         infoBlocks={{
           titleBlock: {
-            copy: `In-Demand in ${training.inDemand ? "all of New Jersey" : counties}.`,
+            copy: `In-Demand in ${
+              training.inDemand ? "all of New Jersey" : counties
+            }.`,
             message: "This training may be eligible for funding from your ",
             link: {
               copy: "One-Stop Career Center.",
@@ -356,7 +356,9 @@ const Content = ({ training }: { training: TrainingProps }) => {
                         <span>CIP Code: </span>
                       </Button>
                       <a
-                        href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                        href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
+                          training.cipDefinition.cipcode
+                        )}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

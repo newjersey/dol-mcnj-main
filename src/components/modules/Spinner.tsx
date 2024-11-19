@@ -9,9 +9,12 @@ interface SpinnerProps {
 
 const Spinner = ({ className, style, size = 50, color }: SpinnerProps) => {
   return (
-    <div style={style} className={`spinner${className ? ` ${className}` : ""}`}>
+    <span
+      style={style}
+      className={`spinner${className ? ` ${className}` : ""}`}
+    >
       <SpinnerGap size={size} color={color} />
-    </div>
+    </span>
   );
 };
 
