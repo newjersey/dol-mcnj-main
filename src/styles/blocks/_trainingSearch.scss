@@ -1,20 +1,22 @@
+@use "../settings" as settings;
+
 .trainingSearch {
-  background-color: $secondary-lighter;
-  padding: $size-32 $size-16;
-  border: 1px solid $black;
-  border-radius: $size-16;
+  background-color: settings.$secondary-lighter;
+  padding: settings.$size-32 settings.$size-16;
+  border: 1px solid settings.$black;
+  border-radius: settings.$size-16;
 
   label {
     margin: 0;
   }
 
   .inner {
-    max-width: $tablet-xl;
+    max-width: settings.$tablet-xl;
     margin: 0 auto;
   }
 
   .heading-tag {
-    font-size: $size-24;
+    font-size: settings.$size-24;
     margin: 0;
     font-weight: 600;
   }
@@ -26,15 +28,15 @@
 
   .input-heading {
     .clear-all {
-      @media screen and (max-width: ($tablet-md - 1)) {
+      @media screen and (max-width: (settings.$tablet-md - 1)) {
         display: none !important;
       }
     }
   }
 
   .items {
-    margin-top: $size-8;
-    min-height: $size-48;
+    margin-top: settings.$size-8;
+    min-height: settings.$size-48;
 
     input {
       &.usa-checkbox__input {
@@ -42,7 +44,7 @@
           + .usa-checkbox__label {
             margin: 0;
             &:before {
-              background-color: $secondary;
+              background-color: settings.$secondary;
             }
           }
         }
@@ -52,7 +54,7 @@
     .usa-checkbox__label {
       margin: 0;
       &:before {
-        background-color: $white;
+        background-color: settings.$white;
       }
     }
   }
@@ -61,14 +63,14 @@
     .select,
     .text {
       width: 100%;
-      max-width: $size-200;
+      max-width: settings.$size-200;
     }
 
     .from {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: $size-48;
+      min-height: settings.$size-48;
     }
   }
 
@@ -77,9 +79,9 @@
 
     svg {
       position: absolute;
-      bottom: $size-16;
+      bottom: settings.$size-16;
       opacity: 0.8;
-      left: $size-12;
+      left: settings.$size-12;
       z-index: 1;
     }
 
@@ -87,14 +89,14 @@
       input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
           [type="submit"]
         ) {
-        padding-left: $size-32;
+        padding-left: settings.$size-32;
       }
     }
   }
 
   span:not(.formField) {
     &.error {
-      @media screen and (min-width: ($tablet)) {
+      @media screen and (min-width: (settings.$tablet)) {
         position: absolute;
         top: 100%;
         left: 0;
@@ -107,17 +109,17 @@
     display: flex;
     align-items: center;
     margin: 0;
-    gap: $size-16;
+    gap: settings.$size-16;
     width: 100%;
 
-    @media screen and (max-width: ($tablet - 1)) {
+    @media screen and (max-width: (settings.$tablet - 1)) {
       flex-direction: column;
     }
 
     .formField {
       width: 100%;
 
-      @media screen and (min-width: ($tablet)) {
+      @media screen and (min-width: (settings.$tablet)) {
         width: calc(100% - 200px);
       }
     }
@@ -133,7 +135,7 @@
       margin: 0;
       min-width: 100%;
 
-      @media screen and (min-width: ($tablet)) {
+      @media screen and (min-width: (settings.$tablet)) {
         min-width: 200px;
       }
     }
@@ -142,19 +144,19 @@
   .usa-select {
     &:disabled,
     &[aria-disabled="true"] {
-      background-color: $base-lightest;
-      color: $base;
+      background-color: settings.$base-lightest;
+      color: settings.$base;
     }
   }
 
   .filter-row {
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       display: none;
     }
   }
 
   .filters {
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       align-items: flex-start;
     }
   }

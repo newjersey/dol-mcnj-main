@@ -1,14 +1,16 @@
+@use "../settings" as settings;
+
 .occupationList {
   display: flex;
   flex-direction: column;
-  gap: $size-8;
+  gap: settings.$size-8;
 
   .occupation-search {
-    margin-bottom: $size-22;
+    margin-bottom: settings.$size-22;
 
     > div {
       > div {
-        gap: $size-8;
+        gap: settings.$size-8;
       }
     }
   }

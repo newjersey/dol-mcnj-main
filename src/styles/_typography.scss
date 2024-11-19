@@ -1,3 +1,5 @@
+@use "./settings" as settings;
+
 main {
   h1,
   h2,
@@ -9,7 +11,7 @@ main {
   ul,
   ol {
     max-width: none;
-    margin: $size-20 0;
+    margin: settings.$size-20 0;
 
     &:first-child {
       margin-top: 0;
@@ -20,7 +22,7 @@ main {
     }
 
     li {
-      margin: $size-8 0;
+      margin: settings.$size-8 0;
 
       &:first-child {
         margin-top: 0;
@@ -42,55 +44,55 @@ main {
   }
 
   .text-4xl {
-    font-size: $size-64;
+    font-size: settings.$size-64;
   }
 
   .text-3xl {
-    font-size: $size-48;
+    font-size: settings.$size-48;
   }
 
   h1,
   .text-2xl {
-    font-size: $size-40;
+    font-size: settings.$size-40;
   }
 
   h2,
   .text-xl {
-    font-size: $size-32;
+    font-size: settings.$size-32;
   }
 
   h3,
   .text-lrg {
-    font-size: $size-24;
+    font-size: settings.$size-24;
   }
 
   h4,
   .text-md {
-    font-size: $size-20;
+    font-size: settings.$size-20;
   }
 
   h5,
   .text-base {
-    font-size: $size-16;
+    font-size: settings.$size-16;
   }
 
   h6,
   .text-sm {
-    font-size: $size-12;
+    font-size: settings.$size-12;
   }
 
   .text-xs {
-    font-size: $size-8;
+    font-size: settings.$size-8;
   }
 
   p,
   li {
-    font-size: $size-16;
+    font-size: settings.$size-16;
   }
 
   ul,
   ol {
-    padding-left: $size-20;
+    padding-left: settings.$size-20;
   }
 
   ul {
@@ -117,11 +119,11 @@ main {
   }
 
   a {
-    color: $primary-vivid;
+    color: settings.$primary-vivid;
     text-decoration: underline;
     display: inline;
     align-items: center;
-    gap: $size-2;
+    gap: settings.$size-2;
     position: relative;
 
     &.linkObject {
@@ -129,20 +131,20 @@ main {
     }
 
     &:visited {
-      color: $primary-vivid;
+      color: settings.$primary-vivid;
     }
 
     &:hover {
-      color: $tertiary;
+      color: settings.$tertiary;
     }
   }
 
   .sr-only {
     position: absolute;
-    width: $size-1;
-    height: $size-1;
+    width: settings.$size-1;
+    height: settings.$size-1;
     padding: 0;
-    margin: -$size-1;
+    margin: -(settings.$size-1);
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
@@ -156,10 +158,10 @@ main {
 
   .lrg-txt {
     font-weight: 600;
-    font-size: $size-22;
+    font-size: settings.$size-22;
 
-    @media screen and (max-width: ($tablet-md - 1)) {
-      font-size: $size-18;
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
+      font-size: settings.$size-18;
     }
   }
 }

@@ -1,3 +1,5 @@
+@use "../settings" as settings;
+
 .occupationSelector {
   max-width: 36rem;
   display: block;
@@ -7,20 +9,20 @@
 
   &.inactive {
     > button {
-      color: $base-light;
+      color: settings.$base-light;
     }
   }
 
   &:after {
     content: "";
     position: absolute;
-    right: $size-16;
-    bottom: $size-16;
+    right: settings.$size-16;
+    bottom: settings.$size-16;
     width: 0;
     height: 0;
     border-left: 0.35rem solid transparent;
     border-right: 0.35rem solid transparent;
-    border-top: 0.35rem solid $ink;
+    border-top: 0.35rem solid settings.$ink;
   }
 
   select {
@@ -32,39 +34,39 @@
   .select-button {
     margin-top: 0.7rem;
     width: 100%;
-    color: $ink;
+    color: settings.$ink;
     appearance: none;
-    padding: 0.7rem $size-32 0.7rem 0.7rem;
+    padding: 0.7rem settings.$size-32 0.7rem 0.7rem;
     position: relative;
-    border: $size-1 solid $base-lighter;
+    border: settings.$size-1 solid settings.$base-lighter;
     border-radius: 5px;
     cursor: pointer;
 
     &:after {
       content: "";
       position: absolute;
-      right: $size-16;
-      bottom: $size-16;
+      right: settings.$size-16;
+      bottom: settings.$size-16;
       width: 0;
       height: 0;
       border-left: 0.35rem solid transparent;
       border-right: 0.35rem solid transparent;
-      border-top: 0.35rem solid $ink;
+      border-top: 0.35rem solid settings.$ink;
     }
   }
 
   .dropdown-select {
     font-weight: normal;
-    margin-top: $size-16;
-    box-shadow: 0 10px 20px -15px $ink;
+    margin-top: settings.$size-16;
+    box-shadow: 0 10px 20px -15px settings.$ink;
     position: absolute;
-    background-color: $white;
+    background-color: settings.$white;
     z-index: 1;
-    max-height: $size-330;
+    max-height: settings.$size-330;
     overflow: auto;
-    outline: 1px solid $base-lighter;
+    outline: 1px solid settings.$base-lighter;
 
-    border-radius: $size-8;
+    border-radius: settings.$size-8;
     width: 100%;
 
     &[aria-expanded="true"] {
@@ -81,25 +83,25 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      background: $base-lighter;
-      padding: 0.5rem $size-16;
+      background: settings.$base-lighter;
+      padding: 0.5rem settings.$size-16;
     }
 
     button {
       cursor: pointer;
-      padding: $size-16;
+      padding: settings.$size-16;
 
-      @media screen and (min-width: ($tablet)) {
-        padding: $size-16;
+      @media screen and (min-width: (settings.$tablet)) {
+        padding: settings.$size-16;
       }
 
       &:nth-of-type(2n - 1) {
-        background: $base-cool;
+        background: settings.$base-cool;
       }
 
       &:hover {
-        @media screen and (min-width: ($tablet)) {
-          background: $tertiary-lighter;
+        @media screen and (min-width: (settings.$tablet)) {
+          background: settings.$tertiary-lighter;
         }
       }
     }

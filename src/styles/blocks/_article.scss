@@ -1,22 +1,24 @@
+@use "../settings" as settings;
+
 .article {
-  padding: $size-48 0;
+  padding: settings.$size-48 0;
 
   .spinner {
     display: flex;
     justify-content: center;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       display: none;
     }
   }
 
   .inner {
     display: flex;
-    gap: $size-32;
+    gap: settings.$size-32;
     align-items: flex-start;
     flex-direction: row-reverse;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
@@ -26,32 +28,32 @@
     top: 0;
     width: 100%;
     z-index: 1;
-    top: $size-16;
+    top: settings.$size-16;
 
-    @media screen and (min-width: ($tablet-lg)) {
-      width: $size-320;
-      top: $size-32;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      width: settings.$size-320;
+      top: settings.$size-32;
     }
   }
 
   nav {
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      background-color: $white;
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      background-color: settings.$white;
       display: none;
       width: 100%;
-      max-width: $size-480;
+      max-width: settings.$size-480;
       position: absolute;
       left: 50%;
       top: 100%;
-      border-top: 4px solid $base-lighter;
+      border-top: 4px solid settings.$base-lighter;
       transform: translateX(-50%);
-      box-shadow: $shadow-3;
-      max-height: calc(100vh - $size-120);
+      box-shadow: settings.$shadow-3;
+      max-height: calc(100vh - settings.$size-120);
       overflow: auto;
     }
 
     &.open {
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         display: block;
       }
     }
@@ -62,7 +64,7 @@
   }
 
   .toggle-container {
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -75,11 +77,11 @@
   }
 
   .content {
-    @media screen and (min-width: ($tablet-lg)) {
-      width: calc(100% - $size-320);
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      width: calc(100% - settings.$size-320);
     }
     h2 {
-      margin: $size-80 0 $size-48;
+      margin: settings.$size-80 0 settings.$size-48;
 
       &:first-of-type {
         margin: 0;

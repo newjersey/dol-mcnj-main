@@ -1,3 +1,5 @@
+@use "../settings" as settings;
+
 .costTable {
   width: 100%;
 
@@ -5,7 +7,7 @@
   td {
     vertical-align: middle;
     padding: 0;
-    font-size: $size-16;
+    font-size: settings.$size-16;
     font-weight: 500;
 
     + th,
@@ -15,14 +17,14 @@
   }
 
   thead {
-    border-bottom: $size-1 solid $base-lightest;
+    border-bottom: settings.$size-1 solid settings.$base-lightest;
 
     th {
-      padding-bottom: $size-14;
+      padding-bottom: settings.$size-14;
 
       + th {
         text-align: right;
-        font-size: $size-24;
+        font-size: settings.$size-24;
       }
     }
   }
@@ -31,7 +33,7 @@
     tr {
       &:first-of-type {
         td {
-          padding-top: $size-14;
+          padding-top: settings.$size-14;
         }
       }
     }

@@ -1,13 +1,15 @@
+@use "../settings" as settings;
+
 .river {
-  padding: $size-48 0;
+  padding: settings.$size-48 0;
 
   .container {
     display: flex;
     flex-direction: column;
-    gap: $size-100;
+    gap: settings.$size-100;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      gap: $size-48;
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      gap: settings.$size-48;
     }
 
     &:before,
@@ -18,30 +20,30 @@
 
   .item {
     display: flex;
-    gap: $size-32;
+    gap: settings.$size-32;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       flex-direction: column-reverse;
     }
 
     .image {
-      @media screen and (min-width: ($tablet-lg)) {
+      @media screen and (min-width: (settings.$tablet-lg)) {
         width: 60%;
       }
 
-      @media screen and (max-width: ($tablet-lg - 1)) {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
         padding-bottom: 56.25%;
       }
     }
 
     .content {
-      @media screen and (min-width: ($tablet-lg)) {
+      @media screen and (min-width: (settings.$tablet-lg)) {
         width: 40%;
       }
     }
 
     &:nth-child(2n) {
-      @media screen and (min-width: ($tablet-lg)) {
+      @media screen and (min-width: (settings.$tablet-lg)) {
         flex-direction: row-reverse;
       }
     }
@@ -56,19 +58,19 @@
 
   .heading {
     font-weight: bold;
-    color: $tertiary-dark;
-    font-size: $size-32;
+    color: settings.$tertiary-dark;
+    font-size: settings.$size-32;
     line-height: 1.2;
-    margin-bottom: $size-20;
+    margin-bottom: settings.$size-20;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      font-size: $size-20;
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      font-size: settings.$size-20;
     }
   }
 
   .content {
-    @media screen and (min-width: ($tablet-lg)) {
-      padding: $size-80 0;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      padding: settings.$size-80 0;
     }
   }
 }

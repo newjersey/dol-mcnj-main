@@ -1,3 +1,5 @@
+@use "../settings" as settings;
+
 .usa-pagination {
   &.disabled {
     opacity: 0.5;
@@ -20,7 +22,7 @@
     .start_3,
     .end_1,
     .end_2 {
-      @media screen and (max-width: ($desktop-md - 1)) {
+      @media screen and (max-width: (settings.$desktop-md - 1)) {
         display: none;
       }
     }
@@ -31,15 +33,15 @@
       display: none;
     }
 
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       display: none;
     }
 
     a {
-      width: $size-60;
+      width: settings.$size-60;
       display: flex;
       align-items: center;
-      gap: $size-4;
+      gap: settings.$size-4;
     }
   }
 

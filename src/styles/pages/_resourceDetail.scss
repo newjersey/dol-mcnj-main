@@ -1,19 +1,21 @@
+@use "../settings" as settings;
+
 .resourceDetail {
   .resourceCardsBlock {
-    padding: $size-48 0;
+    padding: settings.$size-48 0;
   }
 
   hr {
-    background-color: $base-cool;
-    margin: $size-32 0;
+    background-color: settings.$base-cool;
+    margin: settings.$size-32 0;
   }
   .inner {
     display: flex;
-    gap: $size-32;
+    gap: settings.$size-32;
     width: 100%;
     align-items: flex-start;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
@@ -24,26 +26,26 @@
     top: 0;
     z-index: 1;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       width: calc(100% + 2rem);
       margin: 0 -1rem;
     }
 
-    @media screen and (min-width: ($tablet-lg)) {
-      top: $size-32;
-      max-width: $size-411;
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      top: settings.$size-32;
+      max-width: settings.$size-411;
     }
   }
 
   .resourceCards {
-    @media screen and (min-width: ($tablet-lg)) {
-      width: calc(100% - $size-411);
+    @media screen and (min-width: (settings.$tablet-lg)) {
+      width: calc(100% - settings.$size-411);
     }
 
     .resourceLinkBox {
-      margin-top: $size-32;
+      margin-top: settings.$size-32;
 
-      @media screen and (min-width: ($tablet-lg)) {
+      @media screen and (min-width: (settings.$tablet-lg)) {
         display: none;
       }
     }
@@ -52,7 +54,7 @@
   .cards {
     display: flex;
     flex-direction: column;
-    gap: $size-32;
+    gap: settings.$size-32;
 
     .spinner {
       text-align: center;
@@ -63,7 +65,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: $size-32;
+    margin-bottom: settings.$size-32;
 
     > * {
       width: calc(100% - 155px);
@@ -75,10 +77,10 @@
 
     .label {
       font-weight: 700;
-      font-size: $size-16;
+      font-size: settings.$size-16;
 
       &.lrg {
-        font-size: $size-22;
+        font-size: settings.$size-22;
         text-align: right;
         font-weight: 600;
       }
@@ -86,9 +88,9 @@
   }
 
   .tags {
-    margin-top: $size-16;
+    margin-top: settings.$size-16;
     display: flex;
     flex-wrap: wrap;
-    gap: $size-16;
+    gap: settings.$size-16;
   }
 }

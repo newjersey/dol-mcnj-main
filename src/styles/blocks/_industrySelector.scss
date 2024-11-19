@@ -1,25 +1,27 @@
+@use "../settings" as settings;
+
 .industrySelector {
   .container {
-    @media screen and (max-width: ($tablet-md - 1)) {
+    @media screen and (max-width: (settings.$tablet-md - 1)) {
       padding: 0;
     }
 
     > .inner {
-      background-color: $base-extra-light;
-      padding: $size-32;
-      border-radius: $size-16;
+      background-color: settings.$base-extra-light;
+      padding: settings.$size-32;
+      border-radius: settings.$size-16;
       overflow: hidden;
 
-      @media screen and (max-width: ($tablet-md - 1)) {
-        padding: $size-32 $size-16;
+      @media screen and (max-width: (settings.$tablet-md - 1)) {
+        padding: settings.$size-32 settings.$size-16;
       }
     }
 
     h2 {
       margin: 0;
 
-      @media screen and (max-width: ($tablet-md - 1)) {
-        font-size: $size-24;
+      @media screen and (max-width: (settings.$tablet-md - 1)) {
+        font-size: settings.$size-24;
         font-weight: bold;
       }
     }

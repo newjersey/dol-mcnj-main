@@ -1,10 +1,12 @@
+@use "../settings" as settings;
+
 .trainingExplorer {
   .howTo {
-    padding: $size-48 0;
+    padding: settings.$size-48 0;
   }
 
   .faq {
-    padding: $size-48 0 0;
+    padding: settings.$size-48 0 0;
 
     + .ctaBanner {
       padding-top: 0;
@@ -12,12 +14,12 @@
   }
 
   .stepper {
-    margin-top: $size-48;
+    margin-top: settings.$size-48;
   }
 
   .accordion {
     > div {
-      background-color: $base-cool;
+      background-color: settings.$base-cool;
     }
   }
 }

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const express_1 = tslib_1.__importDefault(require("express"));
+const industry_1 = require("../../queries/industry");
+const subRouter_1 = tslib_1.__importDefault(require("./subRouter"));
+const routeHandler_1 = require("../../routeHandler");
+const industriesRouter = express_1.default.Router();
+industriesRouter.get('/', (0, routeHandler_1.routeHandler)(industry_1.INDUSTRY_QUERY));
+industriesRouter.use('/:id', subRouter_1.default);
+exports.default = industriesRouter;

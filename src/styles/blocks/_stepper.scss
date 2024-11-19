@@ -1,42 +1,44 @@
+@use "../settings" as settings;
+
 .stepper {
   .step {
-    background-color: $base-cool;
-    padding: $size-32;
+    background-color: settings.$base-cool;
+    padding: settings.$size-32;
     border-radius: 5px;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      padding: $size-16;
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      padding: settings.$size-16;
     }
 
     .title {
       display: block;
-      font-size: $size-22;
+      font-size: settings.$size-22;
       font-weight: bold;
-      margin: $size-8 0;
+      margin: settings.$size-8 0;
     }
   }
 
   &.theme-green {
     strong {
-      color: $secondary-dark;
+      color: settings.$secondary-dark;
     }
   }
 
   &.theme-blue {
     strong {
-      color: $primary;
+      color: settings.$primary;
     }
   }
 
   &.theme-purple {
     strong {
-      color: $tertiary-dark;
+      color: settings.$tertiary-dark;
     }
   }
 
   &.theme-navy {
     strong {
-      color: $info;
+      color: settings.$info;
     }
   }
 }

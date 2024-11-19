@@ -1,27 +1,30 @@
+@use "../settings" as settings;
+@use "../system-colors" as systemColors;
+
 .single-path {
   list-style: none;
   padding: 0;
   display: flex;
   align-items: center;
-  gap: $size-28;
+  gap: settings.$size-28;
   overflow: auto;
-  padding: $size-8 $size-2;
+  padding: settings.$size-8 settings.$size-2;
   -webkit-overflow-scrolling: touch;
 
   .arrow {
     width: 0;
     height: 0;
-    border-top: $size-10 solid transparent;
-    border-bottom: $size-10 solid transparent;
+    border-top: settings.$size-10 solid transparent;
+    border-bottom: settings.$size-10 solid transparent;
     display: block;
     position: absolute;
     top: 50%;
     right: calc(100% + 0px);
     transform: translateY(-50%);
     z-index: 10;
-    border-top: $size-5 solid $gray-cool-5;
-    border-bottom: $size-5 solid $gray-cool-5;
-    border-left: $size-10 solid $base;
+    border-top: settings.$size-5 solid systemColors.$gray-cool-5;
+    border-bottom: settings.$size-5 solid systemColors.$gray-cool-5;
+    border-left: settings.$size-10 solid settings.$base;
   }
 
   li {
@@ -69,21 +72,21 @@
 
     + li {
       &.tall {
-        margin-left: $size-30;
+        margin-left: settings.$size-30;
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + ($size-24 - $size-1));
+            right: calc(100% + (settings.$size-24 - settings.$size-1));
           }
 
           &:first-of-type,
           &:last-of-type {
             .path-connector {
-              left: calc(100% + ($size-24 - $size-1));
+              left: calc(100% + (settings.$size-24 - settings.$size-1));
             }
           }
 
           .path-connector {
-            left: calc(100% + ($size-24 - $size-1));
+            left: calc(100% + (settings.$size-24 - settings.$size-1));
           }
         }
 
@@ -92,7 +95,7 @@
 
           .path-stop {
             .prev-path-connector {
-              right: calc(100% + ($size-28 + $size-1));
+              right: calc(100% + (settings.$size-28 + settings.$size-1));
             }
           }
         }
@@ -105,29 +108,29 @@
               &.active,
               &:hover {
                 .prev-path-connector {
-                  right: calc(100% + $size-3);
+                  right: calc(100% + settings.$size-3);
                 }
               }
 
               &.active {
-                background: $tertiary;
-                color: $gray-cool-5;
-                border-color: $tertiary;
+                background: settings.$tertiary;
+                color: systemColors.$gray-cool-5;
+                border-color: settings.$tertiary;
               }
 
               .prev-path-connector {
                 display: block;
-                height: $size-10;
-                background-color: $gray-cool-5;
-                width: $size-4;
+                height: settings.$size-10;
+                background-color: systemColors.$gray-cool-5;
+                width: settings.$size-4;
                 top: 50%;
                 position: absolute;
                 transform: translateY(-50%);
-                right: calc(100% + $size-2);
+                right: calc(100% + settings.$size-2);
               }
 
               &:after {
-                background: $gray-cool-5;
+                background: systemColors.$gray-cool-5;
               }
             }
           }
@@ -135,11 +138,11 @@
 
         .path-stop {
           &:after {
-            background: $base;
+            background: settings.$base;
           }
           .arrow {
             display: block;
-            right: calc(100% + $size-6);
+            right: calc(100% + settings.$size-6);
           }
         }
       }
@@ -147,11 +150,11 @@
 
     &.tall {
       position: relative;
-      margin-right: $size-30;
+      margin-right: settings.$size-30;
 
       .path-stop {
         .arrow {
-          right: calc(100% + $size-6);
+          right: calc(100% + settings.$size-6);
         }
       }
 
@@ -166,7 +169,7 @@
 
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + ($size-28 + $size-1));
+            right: calc(100% + (settings.$size-28 + settings.$size-1));
           }
         }
       }
@@ -174,19 +177,19 @@
       + li:not(.tall) {
         .path-stop {
           .arrow {
-            right: calc(100% + $size-6);
+            right: calc(100% + settings.$size-6);
           }
         }
       }
 
       .prev-path-connector {
-        width: $size-10;
-        background-color: $base;
+        width: settings.$size-10;
+        background-color: settings.$base;
         display: block;
         height: 135%;
         top: 50%;
         transform: translateY(-50%);
-        right: calc(100% + ($size-26 + $size-1));
+        right: calc(100% + (settings.$size-26 + settings.$size-1));
         z-index: 10;
         position: absolute;
       }
@@ -197,7 +200,7 @@
         &:first-of-type {
           .path-connector,
           .prev-path-connector {
-            top: calc(50% - $size-5);
+            top: calc(50% - settings.$size-5);
             transform: none;
             height: 100%;
           }
@@ -209,27 +212,27 @@
             top: auto;
             height: 100%;
             transform: none;
-            bottom: calc(50% - $size-5);
+            bottom: calc(50% - settings.$size-5);
           }
         }
 
         &:before {
-          width: ($size-16 + $size-1);
-          right: calc(100% + $size-16);
+          width: (settings.$size-16 + settings.$size-1);
+          right: calc(100% + settings.$size-16);
         }
 
         &:after {
-          width: $size-26 + $size-1;
+          width: settings.$size-26 + settings.$size-1;
         }
 
         .path-connector {
-          width: $size-10;
-          background-color: $base;
+          width: settings.$size-10;
+          background-color: settings.$base;
           display: block;
           height: 135%;
           top: 50%;
           transform: translateY(-50%);
-          left: calc(100% + ($size-26 - $size-3));
+          left: calc(100% + (settings.$size-26 - settings.$size-3));
           z-index: 10;
         }
       }
@@ -238,8 +241,8 @@
         &:not(.tall) {
           .path-stop {
             &:before {
-              width: $size-20;
-              right: calc(100% + $size-10);
+              width: settings.$size-20;
+              right: calc(100% + settings.$size-10);
             }
           }
         }
@@ -252,26 +255,26 @@
   }
 
   .path-stop {
-    border: 2px solid $base-dark;
+    border: 2px solid settings.$base-dark;
     border-radius: 0.3rem;
-    background-color: $secondary-lighter;
-    width: $size-200;
-    min-height: $size-120;
-    color: $base-dark;
+    background-color: settings.$secondary-lighter;
+    width: settings.$size-200;
+    min-height: settings.$size-120;
+    color: settings.$base-dark;
     cursor: pointer;
     padding: 0.3rem 0.8rem;
     position: relative;
 
     &:hover {
-      border-color: $tertiary;
-      outline: 1px solid $tertiary;
+      border-color: settings.$tertiary;
+      outline: 1px solid settings.$tertiary;
     }
 
     &.active {
-      background: $tertiary;
-      color: $gray-cool-5;
-      border-color: $tertiary;
-      outline: 1px solid $tertiary;
+      background: settings.$tertiary;
+      color: systemColors.$gray-cool-5;
+      border-color: settings.$tertiary;
+      outline: 1px solid settings.$tertiary;
     }
 
     &:before {
@@ -279,11 +282,11 @@
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: $size-10;
-      height: $size-10;
+      width: settings.$size-10;
+      height: settings.$size-10;
       display: block;
-      background: $base;
-      right: calc(100% + $size-16);
+      background: settings.$base;
+      right: calc(100% + settings.$size-16);
     }
 
     &:after {
@@ -291,11 +294,11 @@
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc($size-26 + $size-5);
-      height: $size-10;
+      width: calc(settings.$size-26 + settings.$size-5);
+      height: settings.$size-10;
       display: block;
-      background: $base;
-      left: calc(100% + $size-6);
+      background: settings.$base;
+      left: calc(100% + settings.$size-6);
     }
 
     p {
@@ -306,7 +309,7 @@
 
     .title {
       line-height: 1.2;
-      font-size: $size-16;
+      font-size: settings.$size-16;
       text-align: center;
       margin: 0.2rem 0 0.6rem;
     }

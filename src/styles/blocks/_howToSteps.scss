@@ -1,31 +1,33 @@
+@use "../settings" as settings;
+
 .steps {
   background-color: white;
-  border-radius: $size-16;
-  padding: $size-16;
-  max-width: $desktop-lg - 50;
-  margin: $size-32 auto;
+  border-radius: settings.$size-16;
+  padding: settings.$size-16;
+  max-width: settings.$desktop-lg - 50;
+  margin: settings.$size-32 auto;
 
-  @media screen and (min-width: ($tablet-lg + 1)) {
-    border-radius: $size-80;
+  @media screen and (min-width: (settings.$tablet-lg + 1)) {
+    border-radius: settings.$size-80;
   }
 
   .list-num {
     align-items: center;
-    background-color: $secondary;
+    background-color: settings.$secondary;
     border-radius: 100%;
-    color: $white;
+    color: settings.$white;
     display: flex;
-    font-size: $size-16;
+    font-size: settings.$size-16;
     font-weight: bold;
-    height: $size-24;
+    height: settings.$size-24;
     justify-content: center;
-    width: $size-24;
+    width: settings.$size-24;
   }
 
   .container {
-    @media screen and (max-width: ($tablet-lg - 1)) {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
       align-items: flex-start;
-      gap: $size-16;
+      gap: settings.$size-16;
     }
   }
 
@@ -34,10 +36,10 @@
 
     p {
       line-height: 1.2;
-      font-size: $size-16;
+      font-size: settings.$size-16;
 
-      @media screen and (min-width: ($tablet-lg + 1)) {
-        font-size: $size-18;
+      @media screen and (min-width: (settings.$tablet-lg + 1)) {
+        font-size: settings.$size-18;
         font-weight: 600;
       }
     }

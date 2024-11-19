@@ -1,22 +1,26 @@
+@use "./settings" as settings;
+@use "./mixins" as mixins;
+
 html {
-  background-color: $njBlack;
+  background-color: settings.$njBlack;
 }
 
 * {
   &::selection {
-    background-color: $primary-light;
-    color: $white;
-    text-shadow: $size-2 $size-2 $size-2 rgba(0, 0, 0, 0.5);
+    background-color: settings.$primary-light;
+    color: settings.$white;
+    text-shadow: settings.$size-2 settings.$size-2 settings.$size-2
+      rgba(0, 0, 0, 0.5);
   }
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-size: $font-size;
-  line-height: $line-height;
-  color: $ink;
-  background-color: $white;
+  font-size: settings.$font-size;
+  line-height: settings.$line-height;
+  color: settings.$ink;
+  background-color: settings.$white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -41,13 +45,13 @@ body {
   transform: translateY(-300%);
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
-  background-color: $white;
-  color: $ink;
+  background-color: settings.$white;
+  color: settings.$ink;
   border-radius: 5px;
-  padding: 10px $size-20;
+  padding: 10px settings.$size-20;
   z-index: 0;
-  top: $size-8;
-  left: $size-8;
+  top: settings.$size-8;
+  left: settings.$size-8;
 
   &:focus {
     transform: translateY(0);
@@ -58,45 +62,52 @@ body {
 .hide {
   pointer-events: none;
   position: absolute !important;
-  height: $size-1;
-  width: $size-1;
+  height: settings.$size-1;
+  width: settings.$size-1;
   overflow: hidden;
-  clip: rect($size-1 $size-1 $size-1 $size-1); /* IE6, IE7 */
-  clip: rect($size-1, $size-1, $size-1, $size-1);
+  clip: rect(
+    settings.$size-1 settings.$size-1 settings.$size-1 settings.$size-1
+  ); /* IE6, IE7 */
+  clip: rect(
+    settings.$size-1,
+    settings.$size-1,
+    settings.$size-1,
+    settings.$size-1
+  );
 }
 
 .desktop-only {
-  @media screen and (max-width: ($tablet-lg - 1)) {
+  @media screen and (max-width: (settings.$tablet-lg - 1)) {
     display: none;
   }
 }
 
 .mobile-only {
-  @media screen and (min-width: ($tablet-lg)) {
+  @media screen and (min-width: (settings.$tablet-lg)) {
     display: none;
   }
 }
 
 .highlight {
   display: inline-block;
-  color: $accent-warm;
+  color: settings.$accent-warm;
   font-weight: bold;
   font-size: 1.2em;
   text-transform: uppercase;
 }
 
 hr {
-  height: $size-2;
-  background-color: $ink;
+  height: settings.$size-2;
+  background-color: settings.$ink;
 }
 
 .container {
-  max-width: $desktop-xl;
+  max-width: settings.$desktop-xl;
   margin: 0 auto;
-  padding: 0 $size-16;
+  padding: 0 settings.$size-16;
 
   &.narrow {
-    max-width: $desktop;
+    max-width: settings.$desktop;
   }
 }
 
@@ -113,7 +124,7 @@ ul {
 }
 
 a {
-  @include linkColor;
+  @include mixins.linkColor;
 }
 
 button:not([disabled]):focus,
@@ -124,7 +135,7 @@ textarea:not([disabled]):focus,
 [href]:focus,
 [tabindex]:focus,
 iframe:focus {
-  outline: $size-4 solid $primary;
+  outline: settings.$size-4 solid settings.$primary;
 }
 
 .spinner {
@@ -148,465 +159,465 @@ iframe:focus {
 }
 
 .gap-micro {
-  gap: $size-4;
+  gap: settings.$size-4;
 }
 
 .gap-xxs {
-  gap: $size-8;
+  gap: settings.$size-8;
 }
 
 .gap-xs {
-  gap: $size-16;
+  gap: settings.$size-16;
 }
 
 .gap-sm {
-  gap: $size-24;
+  gap: settings.$size-24;
 }
 
 .gap-md {
-  gap: $size-32;
+  gap: settings.$size-32;
 }
 
 .gap-lg {
-  gap: $size-40;
+  gap: settings.$size-40;
 }
 
 .gap-xl {
-  gap: $size-52;
+  gap: settings.$size-52;
 }
 
 .gap-xxl {
-  gap: $size-72;
+  gap: settings.$size-72;
 }
 
 .gap-mega {
-  gap: $size-80;
+  gap: settings.$size-80;
 }
 
 .bg-base-cool {
-  background-color: $base-cool;
+  background-color: settings.$base-cool;
 }
 .bg-base-lightest {
-  background-color: $base-lightest;
+  background-color: settings.$base-lightest;
 }
 .bg-base-lighter {
-  background-color: $base-lighter;
+  background-color: settings.$base-lighter;
 }
 .bg-base-light {
-  background-color: $base-light;
+  background-color: settings.$base-light;
 }
 .bg-base-extra-light {
-  background-color: $base-extra-light;
+  background-color: settings.$base-extra-light;
 }
 .bg-base {
-  background-color: $base;
+  background-color: settings.$base;
 }
 .bg-base-dark {
-  background-color: $base-dark;
+  background-color: settings.$base-dark;
 }
 .bg-base-darker {
-  background-color: $base-darker;
+  background-color: settings.$base-darker;
 }
 .bg-base-darkest {
-  background-color: $base-darkest;
+  background-color: settings.$base-darkest;
 }
 .bg-ink {
-  background-color: $ink;
+  background-color: settings.$ink;
 }
 .bg-primary {
-  background-color: $primary;
+  background-color: settings.$primary;
 }
 .bg-primary-vivid {
-  background-color: $primary-vivid;
+  background-color: settings.$primary-vivid;
 }
 .bg-primary-light {
-  background-color: $primary-light;
+  background-color: settings.$primary-light;
 }
 .bg-primary-lighter {
-  background-color: $primary-lighter;
+  background-color: settings.$primary-lighter;
 }
 .bg-primary-extra-light {
-  background-color: $primary-extra-light;
+  background-color: settings.$primary-extra-light;
 }
 .bg-primary-dark {
-  background-color: $primary-dark;
+  background-color: settings.$primary-dark;
 }
 .bg-primary-darker {
-  background-color: $primary-darker;
+  background-color: settings.$primary-darker;
 }
 .bg-secondary {
-  background-color: $secondary;
+  background-color: settings.$secondary;
 }
 .bg-secondary-light {
-  background-color: $secondary-light;
+  background-color: settings.$secondary-light;
 }
 .bg-secondary-lighter {
-  background-color: $secondary-lighter;
+  background-color: settings.$secondary-lighter;
 }
 .bg-secondary-extra-light {
-  background-color: $secondary-extra-light;
+  background-color: settings.$secondary-extra-light;
 }
 .bg-secondary-vivid {
-  background-color: $secondary-vivid;
+  background-color: settings.$secondary-vivid;
 }
 .bg-secondary-dark {
-  background-color: $secondary-dark;
+  background-color: settings.$secondary-dark;
 }
 .bg-secondary-darker {
-  background-color: $secondary-darker;
+  background-color: settings.$secondary-darker;
 }
 .bg-tertiary {
-  background-color: $tertiary;
+  background-color: settings.$tertiary;
 }
 .bg-tertiary-light {
-  background-color: $tertiary-light;
+  background-color: settings.$tertiary-light;
 }
 .bg-tertiary-lighter {
-  background-color: $tertiary-lighter;
+  background-color: settings.$tertiary-lighter;
 }
 .bg-tertiary-extra-light {
-  background-color: $tertiary-extra-light;
+  background-color: settings.$tertiary-extra-light;
 }
 .bg-tertiary-vivid {
-  background-color: $tertiary-vivid;
+  background-color: settings.$tertiary-vivid;
 }
 .bg-tertiary-dark {
-  background-color: $tertiary-dark;
+  background-color: settings.$tertiary-dark;
 }
 .bg-tertiary-darker {
-  background-color: $tertiary-darker;
+  background-color: settings.$tertiary-darker;
 }
 .bg-accent-cool {
-  background-color: $accent-cool;
+  background-color: settings.$accent-cool;
 }
 .bg-accent-cool-light {
-  background-color: $accent-cool-light;
+  background-color: settings.$accent-cool-light;
 }
 .bg-accent-cool-lighter {
-  background-color: $accent-cool-lighter;
+  background-color: settings.$accent-cool-lighter;
 }
 .bg-accent-cool-extra-light {
-  background-color: $accent-cool-extra-light;
+  background-color: settings.$accent-cool-extra-light;
 }
 .bg-accent-cool-dark {
-  background-color: $accent-cool-dark;
+  background-color: settings.$accent-cool-dark;
 }
 .bg-accent-cool-darker {
-  background-color: $accent-cool-darker;
+  background-color: settings.$accent-cool-darker;
 }
 .bg-accent-warm {
-  background-color: $accent-warm;
+  background-color: settings.$accent-warm;
 }
 .bg-accent-warm-light {
-  background-color: $accent-warm-light;
+  background-color: settings.$accent-warm-light;
 }
 .bg-accent-warm-lighter {
-  background-color: $accent-warm-lighter;
+  background-color: settings.$accent-warm-lighter;
 }
 .bg-accent-warm-extra-light {
-  background-color: $accent-warm-extra-light;
+  background-color: settings.$accent-warm-extra-light;
 }
 .bg-accent-warm-dark {
-  background-color: $accent-warm-dark;
+  background-color: settings.$accent-warm-dark;
 }
 .bg-accent-warm-darker {
-  background-color: $accent-warm-darker;
+  background-color: settings.$accent-warm-darker;
 }
 .bg-info-lighter {
-  background-color: $info-lighter;
+  background-color: settings.$info-lighter;
 }
 .bg-info-light {
-  background-color: $info-light;
+  background-color: settings.$info-light;
 }
 .bg-info {
-  background-color: $info;
+  background-color: settings.$info;
 }
 .bg-info-dark {
-  background-color: $info-dark;
+  background-color: settings.$info-dark;
 }
 .bg-info-darker {
-  background-color: $info-darker;
+  background-color: settings.$info-darker;
 }
 .bg-error-lighter {
-  background-color: $error-lighter;
+  background-color: settings.$error-lighter;
 }
 .bg-error-light {
-  background-color: $error-light;
+  background-color: settings.$error-light;
 }
 .bg-error {
-  background-color: $error;
+  background-color: settings.$error;
 }
 .bg-error-dark {
-  background-color: $error-dark;
+  background-color: settings.$error-dark;
 }
 .bg-error-darker {
-  background-color: $error-darker;
+  background-color: settings.$error-darker;
 }
 .bg-warning-lighter {
-  background-color: $warning-lighter;
+  background-color: settings.$warning-lighter;
 }
 .bg-warning-light {
-  background-color: $warning-light;
+  background-color: settings.$warning-light;
 }
 .bg-warning {
-  background-color: $warning;
+  background-color: settings.$warning;
 }
 .bg-warning-dark {
-  background-color: $warning-dark;
+  background-color: settings.$warning-dark;
 }
 .bg-warning-darker {
-  background-color: $warning-darker;
+  background-color: settings.$warning-darker;
 }
 .bg-success-lighter {
-  background-color: $success-lighter;
+  background-color: settings.$success-lighter;
 }
 .bg-success-light {
-  background-color: $success-light;
+  background-color: settings.$success-light;
 }
 .bg-success {
-  background-color: $success;
+  background-color: settings.$success;
 }
 .bg-success-dark {
-  background-color: $success-dark;
+  background-color: settings.$success-dark;
 }
 .bg-success-darker {
-  background-color: $success-darker;
+  background-color: settings.$success-darker;
 }
 .bg-disabled-light {
-  background-color: $disabled-light;
+  background-color: settings.$disabled-light;
 }
 .bg-disabled {
-  background-color: $disabled;
+  background-color: settings.$disabled;
 }
 .bg-disabled-dark {
-  background-color: $disabled-dark;
+  background-color: settings.$disabled-dark;
 }
 .bg-emergency {
-  background-color: $emergency;
+  background-color: settings.$emergency;
 }
 .bg-emergency-dark {
-  background-color: $emergency-dark;
+  background-color: settings.$emergency-dark;
 }
 .bg-njBlack {
-  background-color: $njBlack;
+  background-color: settings.$njBlack;
 }
 .bg-white {
-  background-color: $white;
+  background-color: settings.$white;
 }
 .bg-black {
-  background-color: $black;
+  background-color: settings.$black;
 }
 
 .text-base-cool {
-  color: $base-cool;
+  color: settings.$base-cool;
 }
 .text-base-lightest {
-  color: $base-lightest;
+  color: settings.$base-lightest;
 }
 .text-base-lighter {
-  color: $base-lighter;
+  color: settings.$base-lighter;
 }
 .text-base-light {
-  color: $base-light;
+  color: settings.$base-light;
 }
 .text-base-extra-light {
-  color: $base-extra-light;
+  color: settings.$base-extra-light;
 }
 .text-base {
-  color: $base;
+  color: settings.$base;
 }
 .text-base-dark {
-  color: $base-dark;
+  color: settings.$base-dark;
 }
 .text-base-darker {
-  color: $base-darker;
+  color: settings.$base-darker;
 }
 .text-base-darkest {
-  color: $base-darkest;
+  color: settings.$base-darkest;
 }
 .text-ink {
-  color: $ink;
+  color: settings.$ink;
 }
 .text-primary {
-  color: $primary;
+  color: settings.$primary;
 }
 .text-primary-vivid {
-  color: $primary-vivid;
+  color: settings.$primary-vivid;
 }
 .text-primary-light {
-  color: $primary-light;
+  color: settings.$primary-light;
 }
 .text-primary-lighter {
-  color: $primary-lighter;
+  color: settings.$primary-lighter;
 }
 .text-primary-extra-light {
-  color: $primary-extra-light;
+  color: settings.$primary-extra-light;
 }
 .text-primary-dark {
-  color: $primary-dark;
+  color: settings.$primary-dark;
 }
 .text-primary-darker {
-  color: $primary-darker;
+  color: settings.$primary-darker;
 }
 .text-secondary {
-  color: $secondary;
+  color: settings.$secondary;
 }
 .text-secondary-light {
-  color: $secondary-light;
+  color: settings.$secondary-light;
 }
 .text-secondary-lighter {
-  color: $secondary-lighter;
+  color: settings.$secondary-lighter;
 }
 .text-secondary-extra-light {
-  color: $secondary-extra-light;
+  color: settings.$secondary-extra-light;
 }
 .text-secondary-vivid {
-  color: $secondary-vivid;
+  color: settings.$secondary-vivid;
 }
 .text-secondary-dark {
-  color: $secondary-dark;
+  color: settings.$secondary-dark;
 }
 .text-secondary-darker {
-  color: $secondary-darker;
+  color: settings.$secondary-darker;
 }
 .text-tertiary {
-  color: $tertiary;
+  color: settings.$tertiary;
 }
 .text-tertiary-light {
-  color: $tertiary-light;
+  color: settings.$tertiary-light;
 }
 .text-tertiary-lighter {
-  color: $tertiary-lighter;
+  color: settings.$tertiary-lighter;
 }
 .text-tertiary-extra-light {
-  color: $tertiary-extra-light;
+  color: settings.$tertiary-extra-light;
 }
 .text-tertiary-vivid {
-  color: $tertiary-vivid;
+  color: settings.$tertiary-vivid;
 }
 .text-tertiary-dark {
-  color: $tertiary-dark;
+  color: settings.$tertiary-dark;
 }
 .text-tertiary-darker {
-  color: $tertiary-darker;
+  color: settings.$tertiary-darker;
 }
 .text-accent-cool {
-  color: $accent-cool;
+  color: settings.$accent-cool;
 }
 .text-accent-cool-light {
-  color: $accent-cool-light;
+  color: settings.$accent-cool-light;
 }
 .text-accent-cool-lighter {
-  color: $accent-cool-lighter;
+  color: settings.$accent-cool-lighter;
 }
 .text-accent-cool-extra-light {
-  color: $accent-cool-extra-light;
+  color: settings.$accent-cool-extra-light;
 }
 .text-accent-cool-dark {
-  color: $accent-cool-dark;
+  color: settings.$accent-cool-dark;
 }
 .text-accent-cool-darker {
-  color: $accent-cool-darker;
+  color: settings.$accent-cool-darker;
 }
 .text-accent-warm {
-  color: $accent-warm;
+  color: settings.$accent-warm;
 }
 .text-accent-warm-light {
-  color: $accent-warm-light;
+  color: settings.$accent-warm-light;
 }
 .text-accent-warm-lighter {
-  color: $accent-warm-lighter;
+  color: settings.$accent-warm-lighter;
 }
 .text-accent-warm-extra-light {
-  color: $accent-warm-extra-light;
+  color: settings.$accent-warm-extra-light;
 }
 .text-accent-warm-dark {
-  color: $accent-warm-dark;
+  color: settings.$accent-warm-dark;
 }
 .text-accent-warm-darker {
-  color: $accent-warm-darker;
+  color: settings.$accent-warm-darker;
 }
 .text-info-lighter {
-  color: $info-lighter;
+  color: settings.$info-lighter;
 }
 .text-info-light {
-  color: $info-light;
+  color: settings.$info-light;
 }
 .text-info {
-  color: $info;
+  color: settings.$info;
 }
 .text-info-dark {
-  color: $info-dark;
+  color: settings.$info-dark;
 }
 .text-info-darker {
-  color: $info-darker;
+  color: settings.$info-darker;
 }
 .text-error-lighter {
-  color: $error-lighter;
+  color: settings.$error-lighter;
 }
 .text-error-light {
-  color: $error-light;
+  color: settings.$error-light;
 }
 .text-error {
-  color: $error;
+  color: settings.$error;
 }
 .text-error-dark {
-  color: $error-dark;
+  color: settings.$error-dark;
 }
 .text-error-darker {
-  color: $error-darker;
+  color: settings.$error-darker;
 }
 .text-warning-lighter {
-  color: $warning-lighter;
+  color: settings.$warning-lighter;
 }
 .text-warning-light {
-  color: $warning-light;
+  color: settings.$warning-light;
 }
 .text-warning {
-  color: $warning;
+  color: settings.$warning;
 }
 .text-warning-dark {
-  color: $warning-dark;
+  color: settings.$warning-dark;
 }
 .text-warning-darker {
-  color: $warning-darker;
+  color: settings.$warning-darker;
 }
 .text-success-lighter {
-  color: $success-lighter;
+  color: settings.$success-lighter;
 }
 .text-success-light {
-  color: $success-light;
+  color: settings.$success-light;
 }
 .text-success {
-  color: $success;
+  color: settings.$success;
 }
 .text-success-dark {
-  color: $success-dark;
+  color: settings.$success-dark;
 }
 .text-success-darker {
-  color: $success-darker;
+  color: settings.$success-darker;
 }
 .text-disabled-light {
-  color: $disabled-light;
+  color: settings.$disabled-light;
 }
 .text-disabled {
-  color: $disabled;
+  color: settings.$disabled;
 }
 .text-disabled-dark {
-  color: $disabled-dark;
+  color: settings.$disabled-dark;
 }
 .text-emergency {
-  color: $emergency;
+  color: settings.$emergency;
 }
 .text-emergency-dark {
-  color: $emergency-dark;
+  color: settings.$emergency-dark;
 }
 .text-njBlack {
-  color: $njBlack;
+  color: settings.$njBlack;
 }
 .text-white {
-  color: $white;
+  color: settings.$white;
 }
 .text-black {
-  color: $black;
+  color: settings.$black;
 }
