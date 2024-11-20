@@ -3,8 +3,7 @@ import {
   CetermsAggregateData,
   CetermsConditionProfile, CetermsContactPoint, CetermsPlace,
   CetermsServiceType,
-  CTDLResource,
-  CtermsSupportServices
+  CTDLResource
 } from "../domain/credentialengine/CredentialEngine";
 import { Occupation } from "../domain/occupations/Occupation";
 import {Address} from "../domain/training/Training";
@@ -271,11 +270,27 @@ const extractPrerequisites = async (certificate: CTDLResource): Promise<string[]
 
 const checkSupportService = async (certificate: CTDLResource, targetNode: string): Promise<boolean> => {
   try {
-    const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
+    // The `ceterms:hasSupportService` should be an array of strings (URLs to linked resources)
+    const supportServices = certificate["ceterms:hasSupportService"] || [];
 
-    return supportServices.some((service: CtermsSupportServices) =>
-        service["ceterms:supportServiceType"]?.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
-    );
+    for (const serviceUrl of supportServices) {
+      if (!serviceUrl) continue;
+
+      // Extract the CTID from the service URL
+      const ctid = serviceUrl.split('/').pop();
+      if (!ctid) continue;
+
+      // Fetch the linked support service record using the CTID
+      const linkedServiceRecord = await credentialEngineAPI.getResourceByCTID(ctid);
+      if (!linkedServiceRecord) continue;
+
+      // Check for the support service type in the linked record
+      const serviceTypes = linkedServiceRecord["ceterms:supportServiceType"] || [];
+      if (serviceTypes.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)) {
+        return true;
+      }
+    }
+    return false;
   } catch (error) {
     logError(`Error checking support service`, error as Error);
     throw error;
@@ -284,11 +299,27 @@ const checkSupportService = async (certificate: CTDLResource, targetNode: string
 
 const checkAccommodation = async (certificate: CTDLResource, targetNode: string): Promise<boolean> => {
   try {
-    const supportServices = certificate["ceterms:hasSupportService"] as CtermsSupportServices[] || [];
+    // The `ceterms:hasSupportService` should be an array of strings (URLs to linked resources)
+    const supportServices = certificate["ceterms:hasSupportService"] || [];
 
-    return supportServices.some((service: CtermsSupportServices) =>
-        service["ceterms:accommodationType"]?.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)
-    );
+    for (const serviceUrl of supportServices) {
+      if (!serviceUrl) continue;
+
+      // Extract the CTID from the service URL
+      const ctid = serviceUrl.split('/').pop();
+      if (!ctid) continue;
+
+      // Fetch the linked support service record using the CTID
+      const linkedServiceRecord = await credentialEngineAPI.getResourceByCTID(ctid);
+      if (!linkedServiceRecord) continue;
+
+      // Check for the accommodation type in the linked record
+      const accommodationTypes = linkedServiceRecord["ceterms:accommodationType"] || [];
+      if (accommodationTypes.some((type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode)) {
+        return true;
+      }
+    }
+    return false;
   } catch (error) {
     logError(`Error checking accommodation`, error as Error);
     throw error;
