@@ -309,6 +309,19 @@ const constructCertificationsString = async (isPreparationForObject: CetermsCond
   }
 };
 
+const getTimeRequired = async (certificate: CTDLResource): Promise<number> => {
+  try {
+    const estimatedDuration = certificate["ceterms:estimatedDuration"];
+    if (!estimatedDuration || estimatedDuration.length === 0) return 0;
+    const exactDuration = estimatedDuration[0]["ceterms:timeRequired"];
+    if (!exactDuration) return 0;
+    return await convertIso8601DurationToTotalHours(exactDuration);
+  } catch (error) {
+    logError(`Error getting calendar length ID`, error as Error);
+    throw error;
+  }
+};
+
 const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> => {
   try {
     const estimatedDuration = certificate["ceterms:estimatedDuration"];
@@ -459,6 +472,7 @@ export const credentialEngineUtils = {
   checkSupportService,
   checkAccommodation,
   constructCertificationsString,
+  getTimeRequired,
   getCalendarLengthId,
   hasOnlineOffering,
   hasEveningSchedule,

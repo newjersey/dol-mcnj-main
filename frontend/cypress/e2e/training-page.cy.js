@@ -22,13 +22,12 @@ describe("Training Page", () => {
     cy.contains(
       "Prerequisites: Must be 18 years of age and possess a driver's license.",
     ).should("exist");
-    //cy.contains("20 hours").should("exist");
+    cy.contains("1000 hours").should("exist");
     cy.contains("49.0205").should("exist");
     cy.contains("Completion time: 4-11 weeks").should("exist");
 
     // associated occupations
     cy.contains("Agricultural Engineers").should("exist");
-    // cy.contains("Heavy and Tractor-Trailer Truck Drivers").should("exist");
 
     // share trainings
     cy.contains("How to get funding").should("exist");

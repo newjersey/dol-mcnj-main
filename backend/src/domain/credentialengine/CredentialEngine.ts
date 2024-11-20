@@ -149,6 +149,7 @@ export interface CetermsEstimatedDuration {
   "ceterms:exactDuration"?:   string;
   "ceterms:maximumDuration"?: string;
   "ceterms:minimumDuration"?: string;
+  "ceterms:timeRequired"?:    string;
 }
 
 export interface CetermsFinancialAssistance {
