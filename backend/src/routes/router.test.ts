@@ -1,7 +1,6 @@
 import request from "supertest";
 import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
-import { Error } from "../domain/Error";
 import {
   buildInDemandOccupation,
   buildOccupationDetail,
@@ -110,18 +109,18 @@ describe("router", () => {
         });
     });
 
-    it.skip("sends a 500 when the fetch fails", (done) => {
+    it("sends a 500 when the fetch fails", (done) => {
       stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject());
       request(app).get("/trainings/systemerror").expect(500).end(done);
     });
 
-    it.skip("sends a 404 when the fetch fails with a Not Found error", (done) => {
-      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
+    it("sends a 404 when the fetch fails with a Not Found error", (done) => {
+      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(new Error("NOT_FOUND")));
       request(app).get("/trainings/notfounderror").expect(404).end(done);
     });
 
     it("sends a 404 when the id does not exist", (done) => {
-      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
+  //    stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
       request(app).get("/trainings/").expect(404).end(done);
     });
   });

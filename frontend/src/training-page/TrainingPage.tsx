@@ -51,19 +51,25 @@ export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [training, setTraining] = useState<Training | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
   useEffect(() => {
+    setLoading(true);  // Start loading
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: (result: Training) => {
         setError(null);
         setTraining(result);
+        setLoading(false); // End loading
       },
-      onError: (error: Error) => setError(error),
+      onError: (error: Error) => {
+        setError(error);
+        setLoading(false);
+      },
     });
   }, [props.id, props.client]);
 
@@ -82,7 +88,13 @@ export const TrainingPage = (props: Props): ReactElement => {
     content: () => componentRef.current,
   });
 
-  if (!training) {
+  if (loading) return <div>Loading...</div>;
+  // Render error pages only if loading is complete
+  if (error === Error.NOT_FOUND) return <NotFoundPage client={props.client} />;
+  if (error) return <SomethingWentWrongPage client={props.client} />;
+  if (!training) return <></>;
+
+  if (!loading && !training) {
     if (error === Error.SYSTEM_ERROR) {
       return <SomethingWentWrongPage client={props.client} />;
     } else if (error === Error.NOT_FOUND) {

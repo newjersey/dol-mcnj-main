@@ -8,7 +8,6 @@ import {
   GetOccupationDetailByCIP,
   AllTrainings,
 } from "../domain/types";
-import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
@@ -101,14 +100,19 @@ export const routerFactory = ({
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
     findTrainingsBy(Selector.ID, [req.params.id as string])
       .then((trainings: Training[]) => {
+        if (trainings.length === 0) {
+          throw new Error('NOT_FOUND')
+        }
         res.status(200).json(trainings[0]);
       })
-      .catch((e) => {
-        if (e === Error.NOT_FOUND) {
-          res.status(404).send();
-        }
-        res.status(500).send();
-      });
+        .catch((e) => {
+          if (e?.message === "NOT_FOUND") {
+            res.status(404).send();
+          }
+          else {
+            res.status(500).send();
+          }
+        });
   });
 
   router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {

@@ -1,11 +1,11 @@
 describe("Training Page", () => {
   it("displays training details", () => {
-    cy.visit("/training/ce-ef0602b1-1f09-4fdc-a30b-e7f3bf7367bb");
+    cy.visit("/training/ce-58ea4f49-08ab-493d-b88d-cf36d507e536");
     cy.injectAxe();
 
     // titles
-    cy.contains("Forklift Operations").should("exist");
-    cy.contains("h3", "E-Z Wheels Driving School, Inc. - Hopelawn").should("exist");
+    cy.contains("ELDT Training").should("exist");
+    cy.contains("h3", "BH Test Organization").should("exist");
 
     // stat boxes
     cy.contains("In-Demand").should("exist");
@@ -14,20 +14,20 @@ describe("Training Page", () => {
 
     // description
     cy.contains(
-      "This program consists of classroom instructions to prepare for the written tests, instruction videos and one-one-one training on state of the art equipment.",
+      "If you do not yet hold a CLP, or if your CLP was issued on or after February 7th, 2022, you must complete entry-level driver training before you will be permitted to take your CDL skills test.",
     ).should("exist");
 
     // quick facts
-    cy.contains("Certifications: Certificate of Completion").should("exist");
+    cy.contains("Certifications: Drivers License, Truck Driver License, Truck Driver Credentialing Agency").should("exist");
     cy.contains(
-      "Prerequisites: Candidate must be 18 years of age and have a basic driver's license",
+      "Prerequisites: Must be 18 years of age and possess a driver's license.",
     ).should("exist");
     //cy.contains("20 hours").should("exist");
     cy.contains("49.0205").should("exist");
-    //cy.contains("Completion time: 6-12 months").should("exist");
+    cy.contains("Completion time: 4-11 weeks").should("exist");
 
     // associated occupations
-    cy.contains("Vocational Education Teachers, Postsecondary").should("exist");
+    cy.contains("Agricultural Engineers").should("exist");
     // cy.contains("Heavy and Tractor-Trailer Truck Drivers").should("exist");
 
     // share trainings
@@ -38,22 +38,22 @@ describe("Training Page", () => {
     cy.contains("You can also check out other tuition assistance opportunities.").should("exist");
 
     // cost
-    cy.contains("$800.00").should("exist");
-    /*    cy.contains("$13,500.00").should("exist");
-    cy.contains("$0.00").should("exist");
-    cy.contains("$1,810.00").should("exist");
-    cy.contains("$2,320.00").should("exist");
-    cy.contains("$225.00").should("exist");*/
+    cy.contains("$4,409.00").should("exist");
+    cy.contains("$3,600.00").should("exist");
+    cy.contains("$450.00").should("exist");
+    cy.contains("$150.00").should("exist");
+    cy.contains("$110.00").should("exist");
+    cy.contains("$99.00").should("exist");
 
-    // provider details
-    cy.contains("span", "E-Z Wheels Driving School, Inc. - Hopelawn").should("exist");
-    /*    cy.contains("2770 Red Lion Road").should("exist");
-    cy.contains("Philadelphia, PA 19114").should("exist");
-    cy.contains("Debbie Bello").should("exist");
-    cy.contains("Director of Admissions").should("exist");
-    cy.contains("(215) 728-4733").should("exist");*/
-    cy.contains("ezwheels@hotmail.com").should("exist");
-    cy.contains("http://ezwheelsdriving.com").should("exist");
+    // location details
+    cy.contains("span", "BH Test Organization").should("exist");
+    cy.contains("1339 Broad St").should("exist");
+    cy.contains("Bloomfield, New Jersey 07003").should("exist");
+    //cy.contains("Debbie Bello").should("exist");
+    //cy.contains("Director of Admissions").should("exist");
+    //cy.contains("(215) 728-4733").should("exist");
+    cy.contains("bhauss@agatesoftware.com").should("exist");
+    cy.contains("https://agatesoftware.com/").should("exist");
 
     cy.checkA11y();
   });
