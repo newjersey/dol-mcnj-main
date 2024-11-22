@@ -1,0 +1,38 @@
+.stat-block,
+.county-block {
+  padding: $size-12;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: $size-4;
+  font-size: $size-14;
+  min-height: $size-96;
+  gap: $size-16;
+  width: 100%;
+
+  .stat-block-number {
+    font-weight: 600;
+  }
+}
+
+.stat-block {
+  background-color: $accent-cool-light;
+
+  @media screen and (min-width: ($tablet-md)) {
+    max-width: $size-200;
+  }
+}
+
+.county-block {
+  background-color: $accent-warm-light;
+
+  @media screen and (min-width: ($tablet-md)) {
+    max-width: $size-300;
+  }
+
+  strong {
+    display: inline-flex;
+    align-items: center;
+    gap: $size-8;
+  }
+}

@@ -130,7 +130,7 @@ export const en = {
     careerOneStopLogo: "Official logo for Career One Stop organization",
   },
   InDemandBlock: {
-    inDemandTitle: "In-Demand in all of New Jersey.",
+    inDemandTitle: "In-Demand in New Jersey.",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",

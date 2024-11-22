@@ -18,6 +18,7 @@ import { CipDrawerContent } from "../components/CipDrawerContent";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
+import { navigate } from "@reach/router";
 import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 
 import { Icon } from "@material-ui/core";
@@ -32,7 +33,7 @@ import { cleanProviderName } from "../utils/cleanProviderName";
 import { formatCip } from "../utils/formatCip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
-import { LinkSimple, Printer } from "@phosphor-icons/react";
+import { LinkSimple, MagnifyingGlass, Printer } from "@phosphor-icons/react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "../components/Button";
 import { Flag } from "@phosphor-icons/react";
@@ -58,7 +59,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
   useEffect(() => {
-    setLoading(true);  // Start loading
+    setLoading(true); // Start loading
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: (result: Training) => {
@@ -211,7 +212,6 @@ export const TrainingPage = (props: Props): ReactElement => {
           </p>
           <LinkObject
             url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
-            className="usa-button primary usa-button--outline"
             iconSuffix={IconNames.ArrowSquareOut}
             iconSize={22}
           >
@@ -220,10 +220,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         </div>
         <div>
           <p>You can also check out other tuition assistance opportunities.</p>
-          <LinkObject
-            url="/support-resources/tuition-assistance"
-            className="usa-button secondary usa-button--outline"
-          >
+          <LinkObject url="/support-resources/tuition-assistance">
             View Tuition Assistance Resource
           </LinkObject>
         </div>
@@ -441,108 +438,105 @@ export const TrainingPage = (props: Props): ReactElement => {
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
         </Helmet>
-        <div className="container plus">
-          <div className="detail-page">
-            <div className="page-banner">
-              <div className="top-nav">
-                <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                  <Icon>keyboard_backspace</Icon>
-                  <ol className="usa-breadcrumb__list">
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/">
-                        Home
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training">
-                        Training Explorer
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training/search">
-                        Search
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                      <span>{training.name}</span>
-                    </li>
-                  </ol>
-                </nav>
-              </div>
-            </div>
+        <div className="crumb-container">
+          <div className="container">
+            <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+              <Icon>keyboard_backspace</Icon>
+              <ol className="usa-breadcrumb__list">
+                <li className="usa-breadcrumb__list-item">
+                  <a className="usa-breadcrumb__link" href="/">
+                    Home
+                  </a>
+                </li>
+                <li className="usa-breadcrumb__list-item">
+                  <a className="usa-breadcrumb__link" href="/training">
+                    Training Explorer
+                  </a>
+                </li>
+                <li className="usa-breadcrumb__list-item">
+                  <a className="usa-breadcrumb__link" href="/training/search">
+                    Search
+                  </a>
+                </li>
+                <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+                  <span>{training.name}</span>
+                </li>
+              </ol>
+            </nav>
+            <form
+              className="usa-search usa-search--small"
+              role="search"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                navigate(`/training/search?q=${form.search.value}`);
+              }}
+            >
+              <input className="usa-input" type="search" placeholder="search" name="search" />
+              <button className="usa-button" type="submit">
+                <MagnifyingGlass weight="bold" />
+              </button>
+            </form>
           </div>
-          <div className="title-box">
-            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-              {training.name}
-            </h2>
+        </div>
+
+        <div className="title-box">
+          <div className="container">
+            <div className="heading-box">
+              <h1 data-testid="title">{training.name}</h1>
+              {training.provider.name && <h2>{cleanProviderName(training.provider.name)}</h2>}
+            </div>
             <ul className="save-controls unstyled">
               <li>
                 <UnstyledButton className="link-format-blue" onClick={copyHandler}>
                   <LinkSimple size={26} className={copy ? "green" : undefined} />
-                  <span className={copy ? "green" : undefined}>
-                    {copy ? "Copied!" : "Copy link"}
-                  </span>
+                  {copy && <span className="green">Copied</span>}
                 </UnstyledButton>
               </li>
               <li>
                 <UnstyledButton className="link-format-blue" onClick={printHandler}>
                   <Printer size={26} />
-                  <span className="mlxs weight-500">Print and Save</span>
+                  <span className="sr-only">Print and Save</span>
                 </UnstyledButton>
               </li>
             </ul>
           </div>
-          <h3 className="text-l pbs weight-500">{cleanProviderName(training.provider.name)}</h3>
-          <div className="stat-block-stack mtm">
-            {training.inDemand ? <InDemandBlock /> : <></>}
+        </div>
+        <div className="info-blocks container">
+          {training.inDemand ? <InDemandBlock /> : <></>}
 
-            {!training.inDemand &&
-            training.localExceptionCounty &&
-            training.localExceptionCounty.length !== 0 ? (
-              <InDemandBlock counties={training.localExceptionCounty} />
-            ) : (
-              <></>
-            )}
+          {!training.inDemand &&
+          training.localExceptionCounty &&
+          training.localExceptionCounty.length !== 0 ? (
+            <InDemandBlock counties={training.localExceptionCounty} />
+          ) : (
+            <></>
+          )}
 
-            <div className="stat-block-container">
-              <StatBlock
-                title={t("TrainingPage.avgSalaryTitle")}
-                tooltipText={t("TrainingPage.avgSalaryTooltip")}
-                disclaimer={t("")}
-                data={
-                  training.averageSalary
-                    ? formatMoney(training.averageSalary, { precision: 0 })
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-lightest-purple"
-              />
-              <StatBlock
-                title={t("TrainingPage.employmentRateTitle")}
-                tooltipText={t("TrainingPage.employmentRateTooltip")}
-                disclaimer={t("")}
-                data={
-                  training.percentEmployed
-                    ? formatPercentEmployed(training.percentEmployed)
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-light-purple-50"
-              />
-            </div>
-          </div>
-          <ul className="save-controls mobile-only unstyled">
-            <li>
-              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                <LinkSimple size={26} className={copy ? "green" : undefined} />
-                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
-              </UnstyledButton>
-            </li>
-            <li>
-              <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                <Printer size={26} />
-                <span className="mlxs weight-500">Print and Save</span>
-              </UnstyledButton>
-            </li>
-          </ul>
+          <StatBlock
+            title={t("TrainingPage.avgSalaryTitle")}
+            tooltipText={t("TrainingPage.avgSalaryTooltip")}
+            disclaimer={t("")}
+            data={
+              training.averageSalary
+                ? formatMoney(training.averageSalary, { precision: 0 })
+                : STAT_MISSING_DATA_INDICATOR
+            }
+            backgroundColorClass="bg-lightest-purple"
+          />
+          <StatBlock
+            title={t("TrainingPage.employmentRateTitle")}
+            tooltipText={t("TrainingPage.employmentRateTooltip")}
+            disclaimer={t("")}
+            data={
+              training.percentEmployed
+                ? formatPercentEmployed(training.percentEmployed)
+                : STAT_MISSING_DATA_INDICATOR
+            }
+            backgroundColorClass="bg-light-purple-50"
+          />
+        </div>
+        <div className="container plus">
           <div className="row pbm group-wrapper">
             <div className="col-md-8">
               <div className="container-fluid">
@@ -627,12 +621,12 @@ export const TrainingPage = (props: Props): ReactElement => {
                           <>
                             <a
                               href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
                               {formatCip(training.cipDefinition.cipcode)}
                             </a>
-                            <br/>
+                            <br />
                             <b>{training.cipDefinition.ciptitle}</b>
                           </>
                         ) : (
@@ -707,9 +701,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </span>
                         </div>
                       </div>
-                      </>
-                    </Grouping>
-                    <Grouping title={t("TrainingPage.locationGroupHeader")}>
+                    </>
+                  </Grouping>
+                  <Grouping title={t("TrainingPage.locationGroupHeader")}>
                     <>
                       {training.provider && training.provider.ctid ? (
                         <>
@@ -737,20 +731,20 @@ export const TrainingPage = (props: Props): ReactElement => {
                       ) : (
                         <>Data unavailable</>
                       )}
-                      </>
-                    </Grouping>
+                    </>
+                  </Grouping>
 
-                    <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
-                      <>
-                        {training.hasEveningCourses && (
-                            <p>
+                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
+                    <>
+                      {training.hasEveningCourses && (
+                        <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">nightlight_round</InlineIcon>
                             {t("TrainingPage.eveningCoursesServiceLabel")}
                           </span>
                         </p>
                       )}
-                      {training.languages.some(lang => lang !== "en-US") && (
+                      {training.languages.some((lang) => lang !== "en-US") && (
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">language</InlineIcon>
