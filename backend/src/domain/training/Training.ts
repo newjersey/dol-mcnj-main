@@ -1,6 +1,7 @@
 import { Occupation } from "../occupations/Occupation";
 import {CalendarLength} from "../CalendarLength";
 import {CipDefinition} from "./Program";
+import {DeliveryType} from "../DeliveryType";
 
 export interface Training {
   ctid?: string;
@@ -21,7 +22,7 @@ export interface Training {
   suppliesToolsCost?: number | null;
   otherCost?: number | null;
   totalCost?: number | null;
-  online: boolean;
+  deliveryTypes: DeliveryType[] | undefined;
   percentEmployed: number | null;
   averageSalary?: number | null;
   hasEveningCourses: boolean;

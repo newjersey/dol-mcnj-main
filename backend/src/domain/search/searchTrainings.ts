@@ -382,7 +382,7 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
       calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
-      online: await credentialEngineUtils.hasOnlineOffering(certificate),
+      deliveryTypes: await credentialEngineUtils.hasLearningDeliveryTypes(certificate),
       providerId: provider.providerId,
       providerName: provider.name,
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
