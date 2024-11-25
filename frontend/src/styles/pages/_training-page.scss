@@ -119,4 +119,35 @@
       transform: translateX(-50%);
     }
   }
+
+  .fact-item {
+    margin-bottom: $size-12;
+    display: flex;
+    align-items: flex-start;
+    gap: $size-8;
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      gap: $size-4;
+
+      .label {
+        line-height: 1.2;
+
+        button {
+          padding: 0;
+        }
+
+        strong {
+          display: inline-flex;
+          align-items: center;
+          gap: $size-2;
+        }
+
+        + p {
+          margin: 0;
+        }
+      }
+    }
+  }
 }

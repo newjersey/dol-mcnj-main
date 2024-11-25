@@ -505,6 +505,23 @@ export const TrainingPage = (props: Props): ReactElement => {
             </ul>
           </div>
         </section>
+
+        {/* <code>
+          <pre
+            style={{
+              fontFamily: "monospace",
+              display: "block",
+              padding: "50px",
+              color: "#88ffbf",
+              backgroundColor: "black",
+              textAlign: "left",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {JSON.stringify(training, null, "    ")}
+          </pre>
+        </code> */}
+
         <section className="info-blocks container">
           {training.inDemand ? <InDemandBlock /> : <></>}
 
@@ -539,6 +556,7 @@ export const TrainingPage = (props: Props): ReactElement => {
             backgroundColorClass="bg-light-purple-50"
           />
         </section>
+
         <section className="container plus main-section">
           <div className="row pbm group-wrapper">
             <div className="col-md-8">
@@ -560,74 +578,95 @@ export const TrainingPage = (props: Props): ReactElement => {
                     subheading="Details about this learning opportunity"
                   >
                     <>
+                      {training.languages && training.languages.length > 0 && (
+                        <div className="fact-item">
+                          <InlineIcon className="mrxs">language</InlineIcon>
+                          <div className="copy">
+                            <p className="label">
+                              <strong>Languages:</strong>
+                            </p>
+                            <p>{training.languages.join(", ")}</p>
+                          </div>
+                        </div>
+                      )}
                       {training.certifications && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">school</InlineIcon>
-                            {t("TrainingPage.certificationsLabel")}&nbsp;
-                            <b>{training.certifications}</b>
-                          </span>
-                        </p>
+                        <div className="fact-item">
+                          <InlineIcon className="mrxs">school</InlineIcon>
+                          <div className="copy">
+                            <p className="label">
+                              <strong>{t("TrainingPage.certificationsLabel")}</strong>
+                            </p>
+                            <p>{training.certifications}</p>
+                          </div>
+                        </div>
                       )}
                       {training.prerequisites && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">list_alt</InlineIcon>
-                            {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
-                          </span>
-                        </p>
+                        <div className="fact-item">
+                          <InlineIcon className="mrxs">list_alt</InlineIcon>
+                          <div className="copy">
+                            <p className="label">
+                              <strong>{t("TrainingPage.prereqsLabel")}</strong>
+                            </p>
+                            <p>{training.prerequisites}</p>
+                          </div>
+                        </div>
                       )}
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">av_timer</InlineIcon>
-                          {t("TrainingPage.completionTimeLabel")}&nbsp;
-                          <b>
+                      <div className="fact-item">
+                        <InlineIcon className="mrxs">av_timer</InlineIcon>
+                        <div className="copy">
+                          <p className="label">
+                            <strong>{t("TrainingPage.completionTimeLabel")}</strong>
+                          </p>
+                          <p>
                             {training.calendarLength
                               ? t(`CalendarLengthLookup.${training.calendarLength}`)
                               : t("Global.noDataAvailableText")}
-                          </b>{" "}
-                        </span>
-                      </p>
+                          </p>
+                        </div>
+                      </div>
 
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">schedule</InlineIcon>
-                          {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                          <InlineIcon
-                            className="mrxs"
-                            data-tooltip-id="totalClockHours-tooltip"
-                            data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                          >
-                            info
-                          </InlineIcon>
-                          <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                          <b>
+                      <div className="fact-item">
+                        <InlineIcon className="mrxs">schedule</InlineIcon>
+                        <div className="copy">
+                          <p className="label">
+                            <strong>
+                              {t("TrainingPage.totalClockHoursLabel")}&nbsp;
+                              <InlineIcon
+                                className="mrxs"
+                                data-tooltip-id="totalClockHours-tooltip"
+                                data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
+                              >
+                                info
+                              </InlineIcon>
+                            </strong>
+                          </p>
+                          <p>
+                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
+
                             {training.totalClockHours
                               ? t("TrainingPage.totalClockHours", {
                                   hours: training.totalClockHours,
                                 })
                               : t("Global.noDataAvailableText")}
-                          </b>
-                        </span>
-                      </p>
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">book</InlineIcon>
-                          <button
-                            type="button"
-                            className="toggle"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setDrawerOpen(true);
-                            }}
-                          >
-                            {t("TrainingPage.cipCodeLabel")}
-                          </button>
-                          &nbsp;&nbsp;
-                        </span>
-
-                        {training.cipDefinition ? (
-                          <>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="fact-item">
+                        <InlineIcon>book</InlineIcon>
+                        <div className="copy">
+                          <p className="label">
+                            <strong>
+                              <button
+                                type="button"
+                                className="toggle"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setDrawerOpen(true);
+                                }}
+                              >
+                                {t("TrainingPage.cipCodeLabel")}&nbsp;
+                              </button>
+                            </strong>
                             <a
                               href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
                               target="_blank"
@@ -635,13 +674,16 @@ export const TrainingPage = (props: Props): ReactElement => {
                             >
                               {formatCip(training.cipDefinition.cipcode)}
                             </a>
-                            <br />
-                            <b>{training.cipDefinition.ciptitle}</b>
-                          </>
-                        ) : (
-                          <span>{t("Global.noDataAvailableText")}</span>
-                        )}
-                      </p>
+                          </p>
+                          <p>
+                            {training.cipDefinition ? (
+                              <>{training.cipDefinition.ciptitle}</>
+                            ) : (
+                              <span>{t("Global.noDataAvailableText")}</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
                     </>
                   </Grouping>
 
