@@ -201,7 +201,10 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const fundingContent = (
-    <Grouping title="How to get funding">
+    <Grouping
+      title="How to Get Funding"
+      subheading="You may be eligible for funding for certain training opportunities"
+    >
       <div className="funding-content">
         <div>
           <p className="mvd" data-testid="shareInDemandTraining">
@@ -438,7 +441,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
         </Helmet>
-        <div className="crumb-container">
+        <section className="crumb-container">
           <div className="container">
             <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
               <Icon>keyboard_backspace</Icon>
@@ -478,9 +481,9 @@ export const TrainingPage = (props: Props): ReactElement => {
               </button>
             </form>
           </div>
-        </div>
+        </section>
 
-        <div className="title-box">
+        <section className="title-box">
           <div className="container">
             <div className="heading-box">
               <h1 data-testid="title">{training.name}</h1>
@@ -501,8 +504,8 @@ export const TrainingPage = (props: Props): ReactElement => {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="info-blocks container">
+        </section>
+        <section className="info-blocks container">
           {training.inDemand ? <InDemandBlock /> : <></>}
 
           {!training.inDemand &&
@@ -535,13 +538,16 @@ export const TrainingPage = (props: Props): ReactElement => {
             }
             backgroundColorClass="bg-light-purple-50"
           />
-        </div>
-        <div className="container plus">
+        </section>
+        <section className="container plus main-section">
           <div className="row pbm group-wrapper">
             <div className="col-md-8">
               <div className="container-fluid">
                 <div className="row">
-                  <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.descriptionGroupHeader")}
+                    subheading="About this learning opportunity"
+                  >
                     <>
                       {training.description.split("\n").map((line, i) => (
                         <p key={i}>{line}</p>
@@ -549,7 +555,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.quickStatsGroupHeader")}
+                    subheading="Details about this learning opportunity"
+                  >
                     <>
                       {training.certifications && (
                         <p>
@@ -636,7 +645,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.associatedOccupationsGroupHeader")}
+                    subheading="Explore the occupations below to learn more."
+                  >
                     <>{getAssociatedOccupations()}</>
                   </Grouping>
 
@@ -648,7 +660,10 @@ export const TrainingPage = (props: Props): ReactElement => {
             <div className="col-md-4">
               <div className="container-fluid mbm">
                 <div className="row">
-                  <Grouping title={t("TrainingPage.costGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.costGroupHeader")}
+                    subheading="Detailed cost breakdown of the Learning Opportunity"
+                  >
                     <>
                       <p>
                         <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
@@ -703,7 +718,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                       </div>
                     </>
                   </Grouping>
-                  <Grouping title={t("TrainingPage.locationGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.locationGroupHeader")}
+                    subheading="Geographic information about this Learning Opportunity"
+                  >
                     <>
                       {training.provider && training.provider.ctid ? (
                         <>
@@ -734,7 +752,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.providerServicesGroupHeader")}
+                    subheading="Please confirm with provider on any support service needs"
+                  >
                     <>
                       {training.hasEveningCourses && (
                         <p>
@@ -796,7 +817,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </div>
-        </div>
+        </section>
         {/* Overlay and Drawer for CIP code information */}
         {drawerOpen && (
           <>

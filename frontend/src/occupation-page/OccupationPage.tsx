@@ -18,7 +18,7 @@ import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
 import { TrainingResult } from "../domain/Training";
 import { TrainingResultCard } from "../search-results/TrainingResultCard";
-import {Helmet} from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -115,7 +115,10 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getRelatedTrainings = (trainings: TrainingResult[], occupationSoc: string): ReactElement => {
+  const getRelatedTrainings = (
+    trainings: TrainingResult[],
+    occupationSoc: string,
+  ): ReactElement => {
     if (trainings.length === 0) {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
@@ -139,7 +142,6 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-
   usePageTitle(
     occupationDetail
       ? `${occupationDetail.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`
@@ -150,23 +152,23 @@ export const OccupationPage = (props: Props): ReactElement => {
     return {
       "@context": "https://schema.org/",
       "@type": "Occupation",
-      "name": detail.title,
-      "description": detail.description,
+      name: detail.title,
+      description: detail.description,
       // "qualifications": "Qualifications information",
       // "skills": ["Skills information"],
-      "responsibilities": detail.tasks,
-      "educationRequirements": detail.education,
+      responsibilities: detail.tasks,
+      educationRequirements: detail.education,
       // "experienceRequirements": "Experience requirements information",
-      "occupationalCategory": detail.soc,
-      "estimatedSalary": {
+      occupationalCategory: detail.soc,
+      estimatedSalary: {
         "@type": "MonetaryAmount",
-        "currency": "USD",
-        "value": {
+        currency: "USD",
+        value: {
           "@type": "QuantitativeValue",
-          "value": detail.medianSalary,
-          "unitText": "YEAR"
-        }
-      }
+          value: detail.medianSalary,
+          unitText: "YEAR",
+        },
+      },
     };
   };
 
@@ -230,7 +232,7 @@ export const OccupationPage = (props: Props): ReactElement => {
               <></>
             )}
 
-            <div className="stat-block-container">
+            <div className="stat-block-container info-blocks">
               <StatBlock
                 title={t("OccupationPage.jobsOpenTitle")}
                 tooltipText={t("OccupationPage.jobsOpenTooltip")}
@@ -255,7 +257,6 @@ export const OccupationPage = (props: Props): ReactElement => {
                 backgroundColorClass="bg-light-purple-50"
               />
             </div>
-
           </div>
           <div>
             <a
@@ -338,7 +339,6 @@ export const OccupationPage = (props: Props): ReactElement => {
                   </h2>
                   {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.soc)}
                 </div>
-
               </div>
             </div>
           </div>
