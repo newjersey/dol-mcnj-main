@@ -297,7 +297,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         {training?.occupations.map((occupation, i) => (
           <Link className="link-format-blue" to={`/occupation/${occupation.soc}`} key={i}>
             <p key={i} className="blue weight-500">
-              {occupation.title}
+              {occupation.title} ({occupation.soc})
             </p>
           </Link>
         ))}
