@@ -10,7 +10,7 @@ export interface TrainingResult {
   totalClockHours?: number;
   inDemand: boolean;
   localExceptionCounty: string[];
-  online: boolean;
+  deliveryTypes: DeliveryType[];
   providerId: string;
   providerName: string;
   availableAt: Address[];
@@ -73,7 +73,7 @@ export interface Training {
   localExceptionCounty: string[];
   name: string;
   occupations: Occupation[];
-  online: boolean;
+  deliveryTypes: DeliveryType[];
   otherCost: number;
   percentEmployed: number | null;
   prerequisites: string;
@@ -154,4 +154,12 @@ export enum CalendarLength {
   THIRTEEN_MONTHS_TO_TWO_YEARS = 8,
   THREE_TO_FOUR_YEARS = 9,
   MORE_THAN_FOUR_YEARS = 10,
+}
+
+// https://credreg.net/ctdl/terms#Delivery
+export enum DeliveryType {
+  InPerson = "deliveryType:InPerson",
+  OnlineOnly = "deliveryType:OnlineOnly",
+  BlendedDelivery = "deliveryType:BlendedDelivery",
+  VariableSite = "deliveryType:VariableSite"
 }

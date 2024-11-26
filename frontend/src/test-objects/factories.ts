@@ -3,7 +3,7 @@ import {
   CalendarLength,
   CipDefinition,
   ConditionProfile,
-  ConditionProfileItem,
+  ConditionProfileItem, DeliveryType,
   Provider,
   Training,
   TrainingResult,
@@ -34,7 +34,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     totalClockHours: randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
-    online: randomBool(),
+    deliveryTypes: randomDeliveryTypes(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
     availableAt: [
@@ -79,7 +79,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     suppliesToolsCost: randomInt(),
     otherCost: randomInt(),
     totalCost: randomInt(),
-    online: randomBool(),
+    deliveryTypes: randomDeliveryTypes(),
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
@@ -211,3 +211,10 @@ export const randomCalendarLength = (): CalendarLength => {
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex];
 };
+
+export const randomDeliveryTypes = (): DeliveryType[] => {
+  const values = Object.values(DeliveryType);
+  const randomLength = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+
+  return Array.from({ length: randomLength }, () => values[Math.floor(Math.random() * values.length)]);
+}

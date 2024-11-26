@@ -11,6 +11,7 @@ import { Occupation } from "../domain/occupations/Occupation";
 import { Address } from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
+import { DeliveryType } from "../domain/DeliveryType";
 
 const logError = (message: string, error: Error) => {
   console.error(`${message}: ${error.message}`);
@@ -395,15 +396,37 @@ const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> =
   }
 };
 
-const hasOnlineOffering = async (certificate: CTDLResource): Promise<boolean> => {
+const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryType[]> => {
   try {
-    const learningDeliveryTypes = certificate["ceterms:learningDeliveryType"] ?? [];
-    return learningDeliveryTypes.some(
-      (deliveryType: CetermsServiceType) =>
-        deliveryType["ceterms:targetNode"] === "deliveryType:OnlineOnly",
-    );
+    const deliveryTypes = certificate["ceterms:deliveryType"] ?? [];
+
+    // Map and filter the types to ensure only valid DeliveryType values are returned
+    const mappedTypes: DeliveryType[] = deliveryTypes
+      .map((deliveryType) => {
+        switch (deliveryType["ceterms:targetNode"]) {
+          case "deliveryType:InPerson":
+            return DeliveryType.InPerson;
+          case "deliveryType:OnlineOnly":
+            return DeliveryType.OnlineOnly;
+          case "deliveryType:BlendedDelivery":
+            return DeliveryType.BlendedDelivery;
+          case "deliveryType:VariableSite":
+            return DeliveryType.VariableSite;
+          default:
+            // Log unknown types and skip them
+            console.warn(`Unknown delivery type: ${JSON.stringify(deliveryType)}`);
+            return undefined; // Return undefined for unknown types
+        }
+      })
+      .filter((type): type is DeliveryType => !!type); // Type guard to filter out undefined values
+
+    if (mappedTypes.length === 0) {
+      console.log("No valid DeliveryTypes found.");
+    }
+    console.log("STATUS: " + mappedTypes);
+    return Promise.resolve(mappedTypes);
   } catch (error) {
-    logError(`Error checking for online offering`, error as Error);
+    logError("Error checking for learning delivery types", error as Error);
     throw error;
   }
 };
@@ -543,7 +566,7 @@ export const credentialEngineUtils = {
   constructCertificationsString,
   getTimeRequired,
   getCalendarLengthId,
-  hasOnlineOffering,
+  hasLearningDeliveryTypes,
   hasEveningSchedule,
   getLanguages,
   convertIso8601DurationToTotalHours,
