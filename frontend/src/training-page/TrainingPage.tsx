@@ -28,15 +28,14 @@ import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
-import { Tooltip } from "react-tooltip";
 import { cleanProviderName } from "../utils/cleanProviderName";
-import { formatCip } from "../utils/formatCip";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
 import { LinkSimple, MagnifyingGlass, Printer } from "@phosphor-icons/react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "../components/Button";
 import { Flag } from "@phosphor-icons/react";
+import { QuickFacts } from "./QuickFacts";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -466,6 +465,10 @@ export const TrainingPage = (props: Props): ReactElement => {
                 </li>
               </ol>
             </nav>
+            <div className="form-overlay mobile-only" />
+            <button>
+              <MagnifyingGlass weight="bold" />
+            </button>
             <form
               className="usa-search usa-search--small"
               role="search"
@@ -475,6 +478,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                 navigate(`/training/search?q=${form.search.value}`);
               }}
             >
+              <label className="mobile-only">Search for training</label>
               <input className="usa-input" type="search" placeholder="search" name="search" />
               <button className="usa-button" type="submit">
                 <MagnifyingGlass weight="bold" />
@@ -505,22 +509,6 @@ export const TrainingPage = (props: Props): ReactElement => {
             </ul>
           </div>
         </section>
-
-        {/* <code>
-          <pre
-            style={{
-              fontFamily: "monospace",
-              display: "block",
-              padding: "50px",
-              color: "#88ffbf",
-              backgroundColor: "black",
-              textAlign: "left",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {JSON.stringify(training, null, "    ")}
-          </pre>
-        </code> */}
 
         <section className="info-blocks container">
           {training.inDemand ? <InDemandBlock /> : <></>}
@@ -573,119 +561,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping
-                    title={t("TrainingPage.quickStatsGroupHeader")}
-                    subheading="Details about this learning opportunity"
-                  >
-                    <>
-                      {training.languages && training.languages.length > 0 && (
-                        <div className="fact-item">
-                          <InlineIcon className="mrxs">language</InlineIcon>
-                          <div className="copy">
-                            <p className="label">
-                              <strong>Languages:</strong>
-                            </p>
-                            <p>{training.languages.join(", ")}</p>
-                          </div>
-                        </div>
-                      )}
-                      {training.certifications && (
-                        <div className="fact-item">
-                          <InlineIcon className="mrxs">school</InlineIcon>
-                          <div className="copy">
-                            <p className="label">
-                              <strong>{t("TrainingPage.certificationsLabel")}</strong>
-                            </p>
-                            <p>{training.certifications}</p>
-                          </div>
-                        </div>
-                      )}
-                      {training.prerequisites && (
-                        <div className="fact-item">
-                          <InlineIcon className="mrxs">list_alt</InlineIcon>
-                          <div className="copy">
-                            <p className="label">
-                              <strong>{t("TrainingPage.prereqsLabel")}</strong>
-                            </p>
-                            <p>{training.prerequisites}</p>
-                          </div>
-                        </div>
-                      )}
-                      <div className="fact-item">
-                        <InlineIcon className="mrxs">av_timer</InlineIcon>
-                        <div className="copy">
-                          <p className="label">
-                            <strong>{t("TrainingPage.completionTimeLabel")}</strong>
-                          </p>
-                          <p>
-                            {training.calendarLength
-                              ? t(`CalendarLengthLookup.${training.calendarLength}`)
-                              : t("Global.noDataAvailableText")}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="fact-item">
-                        <InlineIcon className="mrxs">schedule</InlineIcon>
-                        <div className="copy">
-                          <p className="label">
-                            <strong>
-                              {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                              <InlineIcon
-                                className="mrxs"
-                                data-tooltip-id="totalClockHours-tooltip"
-                                data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                              >
-                                info
-                              </InlineIcon>
-                            </strong>
-                          </p>
-                          <p>
-                            <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-
-                            {training.totalClockHours
-                              ? t("TrainingPage.totalClockHours", {
-                                  hours: training.totalClockHours,
-                                })
-                              : t("Global.noDataAvailableText")}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="fact-item">
-                        <InlineIcon>book</InlineIcon>
-                        <div className="copy">
-                          <p className="label">
-                            <strong>
-                              <button
-                                type="button"
-                                className="toggle"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setDrawerOpen(true);
-                                }}
-                              >
-                                {t("TrainingPage.cipCodeLabel")}&nbsp;
-                              </button>
-                            </strong>
-                            <a
-                              href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {formatCip(training.cipDefinition.cipcode)}
-                            </a>
-                          </p>
-                          <p>
-                            {training.cipDefinition ? (
-                              <>{training.cipDefinition.ciptitle}</>
-                            ) : (
-                              <span>{t("Global.noDataAvailableText")}</span>
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    </>
-                  </Grouping>
+                  <QuickFacts training={training} setDrawerOpen={setDrawerOpen} />
 
                   <Grouping
                     title={t("TrainingPage.associatedOccupationsGroupHeader")}
