@@ -9,6 +9,7 @@ import {
 import { CalendarLength } from "../CalendarLength";
 import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
 import {DATA_VALUE_TO_LANGUAGE} from "../../credentialengine/CredentialEngineUtils";
+import {DeliveryType} from "../DeliveryType";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -18,6 +19,13 @@ export const randomLanguageTag = (): string => {
   const randomIndex = Math.floor(Math.random() * languageTags.length);
   return languageTags[randomIndex];
 };
+
+function randomDeliveryTypes(minLen = 0, maxLen = 3): DeliveryType[] {
+  const values = Object.values(DeliveryType);
+  const randomLength = Math.floor(Math.random() * (maxLen - minLen + 1)) + minLen;
+
+  return Array.from({ length: randomLength }, () => values[Math.floor(Math.random() * values.length)]);
+}
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
@@ -32,7 +40,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
     inDemand: randomBool(),
-    online: randomBool(),
+    deliveryTypes: randomDeliveryTypes(),
     localExceptionCounty: [],
     highlight: "some-hightlight-" + randomInt(),
     rank: randomInt(),
@@ -74,7 +82,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     suppliesToolsCost: randomInt(),
     otherCost: randomInt(),
     totalCost: randomInt(),
-    online: randomBool(),
+    deliveryTypes: randomDeliveryTypes(),
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),

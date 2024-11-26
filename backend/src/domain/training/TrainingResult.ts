@@ -1,5 +1,6 @@
 import { CalendarLength } from "../CalendarLength";
 import { CipDefinition } from "./Program";
+import {DeliveryType} from "../DeliveryType";
 
 export interface AllTrainingsResult {
   training_id: string;
@@ -44,7 +45,7 @@ export interface TrainingResult {
   totalClockHours?: number | null;
   inDemand?: boolean;
   localExceptionCounty?: string[];
-  online?: boolean;
+  deliveryTypes?: DeliveryType[];
   providerId?: string | null;
   providerName?: string;
   cities?: (string | undefined)[];

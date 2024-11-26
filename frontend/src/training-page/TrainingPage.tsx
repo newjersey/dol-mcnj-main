@@ -1,41 +1,40 @@
-import { ReactElement, useEffect, useState, useRef } from "react";
-import { Link, RouteComponentProps } from "@reach/router";
+import {ReactElement, useEffect, useRef, useState} from "react";
+import {Link, RouteComponentProps} from "@reach/router";
 
-import { Client } from "../domain/Client";
-import { Error } from "../domain/Error";
-import { Training } from "../domain/Training";
-import { InlineIcon } from "../components/InlineIcon";
+import {Client} from "../domain/Client";
+import {Error} from "../domain/Error";
+import {DeliveryType, Training} from "../domain/Training";
+import {InlineIcon} from "../components/InlineIcon";
 
-import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
-import { NotFoundPage } from "../error/NotFoundPage";
+import {SomethingWentWrongPage} from "../error/SomethingWentWrongPage";
+import {NotFoundPage} from "../error/NotFoundPage";
 
-import { Grouping } from "../components/Grouping";
-import { InDemandBlock } from "../components/InDemandBlock";
-import { Layout } from "../components/Layout";
-import { StatBlock } from "../components/StatBlock";
-import { UnstyledButton } from "../components/UnstyledButton";
-import { CipDrawerContent } from "../components/CipDrawerContent";
+import {Grouping} from "../components/Grouping";
+import {InDemandBlock} from "../components/InDemandBlock";
+import {Layout} from "../components/Layout";
+import {StatBlock} from "../components/StatBlock";
+import {UnstyledButton} from "../components/UnstyledButton";
+import {CipDrawerContent} from "../components/CipDrawerContent";
 
-import { usePageTitle } from "../utils/usePageTitle";
+import {usePageTitle} from "../utils/usePageTitle";
 
-import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
+import {formatPercentEmployed} from "../presenters/formatPercentEmployed";
 
-import { Icon } from "@material-ui/core";
-import { formatMoney } from "accounting";
+import {Icon} from "@material-ui/core";
+import {formatMoney} from "accounting";
 // import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { useReactToPrint } from "react-to-print";
-import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
-import { Trans, useTranslation } from "react-i18next";
-import { logEvent } from "../analytics";
-import { Tooltip } from "react-tooltip";
-import { cleanProviderName } from "../utils/cleanProviderName";
-import { formatCip } from "../utils/formatCip";
-import { LinkObject } from "../components/modules/LinkObject";
-import { IconNames } from "../types/icons";
-import { LinkSimple, Printer } from "@phosphor-icons/react";
-import { Helmet } from "react-helmet-async";
-import { Button } from "../components/Button";
-import { Flag } from "@phosphor-icons/react";
+import {useReactToPrint} from "react-to-print";
+import {PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR} from "../constants";
+import {Trans, useTranslation} from "react-i18next";
+import {logEvent} from "../analytics";
+import {Tooltip} from "react-tooltip";
+import {cleanProviderName} from "../utils/cleanProviderName";
+import {formatCip} from "../utils/formatCip";
+import {LinkObject} from "../components/modules/LinkObject";
+import {IconNames} from "../types/icons";
+import {Flag, LinkSimple, Printer} from "@phosphor-icons/react";
+import {Helmet} from "react-helmet-async";
+import {Button} from "../components/Button";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -247,31 +246,68 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const getAvailableAtAddress = (): ReactElement => {
-    if (training?.online) {
-      return <>{t("TrainingPage.onlineClass")}</>;
-    }
 
-    if (!training || !training.availableAt[0]) {
+    if (!training) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
 
-    const address = training.availableAt[0];
-    const nameAndAddressEncoded = encodeURIComponent(
-      `${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
-    );
-    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+    // Map deliveryTypes to localized labels
+    const deliveryTypes = training.deliveryTypes?.map((type) => {
+      switch (type) {
+        case "deliveryType:OnlineOnly":
+          return t("TrainingPage.onlineClass"); // Translation key for "Online Only"
+        case "deliveryType:InPerson":
+          return t("TrainingPage.inPersonClass"); // Translation key for "In-person"
+        case "deliveryType:BlendedDelivery":
+          return t("TrainingPage.blendedClass"); // Translation key for "Blended Delivery"
+        case "deliveryType:VariableSite":
+          return t("TrainingPage.variableSiteClass"); // Translation key for "Variable Site"
+        default:
+          return t("TrainingPage.unknownDeliveryType"); // Translation key for unknown types
+      }
+    });
 
-    return (
-      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
-        <div className="inline">
-          <span>{address.street_address}</span>
-          <div>
-            {address.city}, {address.state} {address.zipCode}
-          </div>
+    // Format the address if it's available
+    const address = training.availableAt?.[0];
+    if (address) {
+      const nameAndAddressEncoded = encodeURIComponent(
+        `${address.street_address} ${address.city} ${address.state} ${address.zipCode}`
+      );
+      const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+
+      return (
+        <div>
+          <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
+            <div className="inline">
+              <span>{address.street_address}</span>
+              <div>
+                {address.city}, {address.state} {address.zipCode}
+              </div>
+            </div>
+          </a>
+          {deliveryTypes && (
+            <div>
+              <strong>{t("TrainingPage.deliveryTypeLabel")}:</strong> {deliveryTypes.join(", ")}
+            </div>
+          )}
         </div>
-      </a>
+      );
+    }
+
+    // Default to showing delivery types if no address is available
+    return (
+      <div>
+        {deliveryTypes && (
+          <div>
+            <strong>{t("TrainingPage.deliveryTypeLabel")}:</strong> {deliveryTypes.join(", ")}
+          </div>
+        )}
+        {!deliveryTypes && <>{t("TrainingPage.noDeliveryTypeAvailable")}</>}
+      </div>
     );
   };
+
+
 
   const getAssociatedOccupations = (): ReactElement => {
     if (
@@ -355,9 +391,22 @@ export const TrainingPage = (props: Props): ReactElement => {
       }
     }
 
+    const courseMode = (() => {
+      if (training.deliveryTypes?.includes(DeliveryType.OnlineOnly)) {
+        return "online";
+      }
+      if (training.deliveryTypes?.includes(DeliveryType.OnlineOnly)) {
+        return "onsite";
+      }
+      if (training.deliveryTypes?.includes(DeliveryType.BlendedDelivery)) {
+        return "blended";
+      }
+      return "variable"; // Fallback for other or unknown delivery types
+    })();
+
     const courseInstance = {
       "@type": "CourseInstance",
-      courseMode: training.online ? "online" : "onsite",
+      courseMode,
       instructor: {
         "@type": "Person",
         name: contactName,
