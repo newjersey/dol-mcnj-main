@@ -1,18 +1,34 @@
 import { useTranslation } from "react-i18next";
-import { InlineIcon } from "../components/InlineIcon";
 import { Training } from "../domain/Training";
-import { formatCip } from "../utils/formatCip";
 import { Grouping } from "../components/Grouping";
 import { Tooltip } from "react-tooltip";
+import {
+  Globe,
+  ListBullets,
+  GraduationCap,
+  Timer,
+  Clock,
+  Info,
+  Package,
+} from "@phosphor-icons/react";
 
-export const QuickFacts = ({
-  training,
-  setDrawerOpen,
-}: {
-  setDrawerOpen: (open: boolean) => void;
-  training: Training;
-}) => {
+export const QuickFacts = ({ training }: { training: Training }) => {
   const { t } = useTranslation();
+
+  const deliveryTypes = training.deliveryTypes?.map((type) => {
+    switch (type) {
+      case "deliveryType:OnlineOnly":
+        return t("TrainingPage.onlineClass"); // Translation key for "Online Only"
+      case "deliveryType:InPerson":
+        return t("TrainingPage.inPersonClass"); // Translation key for "In-person"
+      case "deliveryType:BlendedDelivery":
+        return t("TrainingPage.blendedClass"); // Translation key for "Blended Delivery"
+      case "deliveryType:VariableSite":
+        return t("TrainingPage.variableSiteClass"); // Translation key for "Variable Site"
+      default:
+        return t("TrainingPage.unknownDeliveryType"); // Translation key for unknown types
+    }
+  });
 
   return (
     <Grouping
@@ -22,7 +38,7 @@ export const QuickFacts = ({
       <>
         {training.languages && training.languages.length > 0 && (
           <div className="fact-item">
-            <InlineIcon className="mrxs">language</InlineIcon>
+            <Globe size={18} />
             <div className="copy">
               <p className="label">
                 <strong>Languages:</strong>
@@ -33,7 +49,7 @@ export const QuickFacts = ({
         )}
         {training.certifications && (
           <div className="fact-item">
-            <InlineIcon className="mrxs">school</InlineIcon>
+            <GraduationCap size={18} />
             <div className="copy">
               <p className="label">
                 <strong>{t("TrainingPage.certificationsLabel")}</strong>
@@ -42,9 +58,22 @@ export const QuickFacts = ({
             </div>
           </div>
         )}
+
+        {deliveryTypes && (
+          <div className="fact-item">
+            <Package size={18} weight="bold" />
+            <div className="copy">
+              <p className="label">
+                <strong>Delivery type:</strong>
+              </p>
+              <p>{deliveryTypes.join(", ")}</p>
+            </div>
+          </div>
+        )}
+
         {training.prerequisites && (
           <div className="fact-item">
-            <InlineIcon className="mrxs">list_alt</InlineIcon>
+            <ListBullets size={18} weight="bold" />
             <div className="copy">
               <p className="label">
                 <strong>{t("TrainingPage.prereqsLabel")}</strong>
@@ -54,7 +83,7 @@ export const QuickFacts = ({
           </div>
         )}
         <div className="fact-item">
-          <InlineIcon className="mrxs">av_timer</InlineIcon>
+          <Timer size={18} weight="bold" />
           <div className="copy">
             <p className="label">
               <strong>{t("TrainingPage.completionTimeLabel")}</strong>
@@ -68,18 +97,17 @@ export const QuickFacts = ({
         </div>
 
         <div className="fact-item">
-          <InlineIcon className="mrxs">schedule</InlineIcon>
+          <Clock size={18} weight="bold" />
           <div className="copy">
             <p className="label">
               <strong>
                 {t("TrainingPage.totalClockHoursLabel")}
-                <InlineIcon
+                <Info
+                  weight="fill"
                   className="mrxs"
                   data-tooltip-id="totalClockHours-tooltip"
                   data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                >
-                  info
-                </InlineIcon>
+                />
               </strong>
             </p>
             <p>
@@ -90,39 +118,6 @@ export const QuickFacts = ({
                     hours: training.totalClockHours,
                   })
                 : t("Global.noDataAvailableText")}
-            </p>
-          </div>
-        </div>
-        <div className="fact-item">
-          <InlineIcon>book</InlineIcon>
-          <div className="copy">
-            <p className="label">
-              <strong>
-                <button
-                  type="button"
-                  className="toggle"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setDrawerOpen(true);
-                  }}
-                >
-                  {t("TrainingPage.cipCodeLabel")}&nbsp;
-                </button>
-              </strong>
-              <a
-                href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {formatCip(training.cipDefinition.cipcode)}
-              </a>
-            </p>
-            <p>
-              {training.cipDefinition ? (
-                <>{training.cipDefinition.ciptitle}</>
-              ) : (
-                <span>{t("Global.noDataAvailableText")}</span>
-              )}
             </p>
           </div>
         </div>

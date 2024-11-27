@@ -30,17 +30,35 @@
       }
 
       .form-overlay {
-        background-color: $black;
-        opacity: 0.5;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
+        @media screen and (min-width: ($tablet-md)) {
+          display: none;
+        }
+
+        &.open {
+          background-color: $black;
+          opacity: 0.5;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 99;
+        }
+      }
+
+      .search-toggle {
+        position: relative;
+      }
+
+      .close-button {
+        position: absolute;
+        z-index: 100;
+        bottom: 100%;
+        right: $size-16;
       }
 
       .usa-search {
+        position: relative;
         max-width: none;
         width: 100%;
 
@@ -49,13 +67,18 @@
         }
 
         @media screen and (max-width: ($tablet-md - 1)) {
-          z-index: 100;
-          background-color: $secondary-extra-light;
-          flex-wrap: wrap;
-          padding: $size-24 $size-16 $size-32;
-          position: fixed;
-          bottom: 0;
-          left: 0;
+          display: none;
+
+          &.open {
+            display: flex;
+            z-index: 100;
+            background-color: $secondary-extra-light;
+            flex-wrap: wrap;
+            padding: $size-24 $size-16 $size-32;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+          }
         }
 
         label {
@@ -69,15 +92,15 @@
           max-width: none;
           width: calc(100% - $size-48);
           border-radius: $size-4 0 0 $size-4;
-        }
 
-        button {
-          height: $size-40;
-          justify-content: center;
-          background-color: $secondary;
+          + button {
+            height: $size-40;
+            justify-content: center;
+            background-color: $secondary;
 
-          &:hover {
-            background-color: $secondary-dark;
+            &:hover {
+              background-color: $secondary-dark;
+            }
           }
         }
 
@@ -170,6 +193,77 @@
         + p {
           margin: 0;
         }
+      }
+    }
+  }
+
+  .save-controls {
+    li {
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $size-32;
+        width: $size-32;
+        border-radius: $size-4;
+
+        &.green {
+          background-color: $secondary;
+
+          svg {
+            color: $white;
+          }
+
+          .indicator {
+            display: inline-block;
+            background-color: $secondary;
+          }
+
+          &:hover {
+            background-color: $secondary;
+
+            svg {
+              color: $white;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: $black;
+          svg {
+            color: $white;
+          }
+
+          .indicator {
+            display: inline-block;
+          }
+        }
+
+        .indicator {
+          display: none;
+          background-color: $black;
+          white-space: nowrap;
+          color: $white;
+          font-size: $size-12;
+          padding: $size-2;
+          border-radius: $size-4;
+        }
+      }
+    }
+  }
+
+  .funding-content {
+    display: flex;
+    flex-direction: column;
+    gap: $size-16;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: $size-8;
+
+      svg {
+        margin-bottom: $size-4;
       }
     }
   }

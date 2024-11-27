@@ -346,7 +346,7 @@ export const en = {
     unknownDeliveryType: "Unknown Class Delivery Type",
     deliveryTypeLabel: "Delivery Type",
     noDeliveryTypeAvailable: "No delivery type available",
-    providerServicesGroupHeader: "Provider Services",
+    providerServicesGroupHeader: "Support Services",
     eveningCoursesServiceLabel: "This provider offers evening courses",
     otherLanguagesServiceLabel: "Programs may be available in other languages",
     wheelchairAccessibleServiceLabel: "The facility is wheelchair accessible",

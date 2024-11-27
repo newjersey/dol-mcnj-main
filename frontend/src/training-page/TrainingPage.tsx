@@ -4,7 +4,6 @@ import { Link, navigate, RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
 import { DeliveryType, Training } from "../domain/Training";
-import { InlineIcon } from "../components/InlineIcon";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -30,10 +29,20 @@ import { logEvent } from "../analytics";
 import { cleanProviderName } from "../utils/cleanProviderName";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
-import { Flag, LinkSimple, MagnifyingGlass, Printer } from "@phosphor-icons/react";
+import {
+  Envelope,
+  Flag,
+  LinkSimple,
+  MagnifyingGlass,
+  MapPin,
+  Printer,
+  X,
+} from "@phosphor-icons/react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "../components/Button";
 import { QuickFacts } from "./QuickFacts";
+import { formatCip } from "../utils/formatCip";
+import { ProviderServices } from "./ProviderServices";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -48,6 +57,7 @@ interface Copy {
 export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -105,14 +115,10 @@ export const TrainingPage = (props: Props): ReactElement => {
             </p>
             <ul className="unstyled">
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/training/search">
-                  Find Training Opportunities
-                </a>
+                <a href="/training/search">Find Training Opportunities</a>
               </li>
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
-                  Tuition Assistance Resources
-                </a>
+                <a href="/support-resources/tuition-assistance">Tuition Assistance Resources</a>
               </li>
             </ul>
           </>
@@ -128,14 +134,10 @@ export const TrainingPage = (props: Props): ReactElement => {
             </p>
             <ul className="unstyled">
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/training/search">
-                  Find Training Opportunities
-                </a>
+                <a href="/training/search">Find Training Opportunities</a>
               </li>
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
-                  Tuition Assistance Resources
-                </a>
+                <a href="/support-resources/tuition-assistance">Tuition Assistance Resources</a>
               </li>
             </ul>
           </>
@@ -188,7 +190,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        className="break-text link-format-blue"
+        className="break-text"
         href={getHttpUrl(training.provider.url)}
         onClick={() => logEvent("Training page", "Clicked provider link", training?.ctid)}
       >
@@ -203,27 +205,27 @@ export const TrainingPage = (props: Props): ReactElement => {
       subheading="You may be eligible for funding for certain training opportunities"
     >
       <div className="funding-content">
-        <div>
-          <p className="mvd" data-testid="shareInDemandTraining">
-            Trainings related to occupations on the{" "}
-            <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may
-            be eligible for funding. Contact your local One-Stop Career Center for more information
-            regarding program and training availability.
-          </p>
-          <LinkObject
-            url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
-            iconSuffix={IconNames.ArrowSquareOut}
-            iconSize={22}
-          >
-            New Jersey's One-Stop Career Centers
-          </LinkObject>
-        </div>
-        <div>
-          <p>You can also check out other tuition assistance opportunities.</p>
-          <LinkObject url="/support-resources/tuition-assistance">
-            View Tuition Assistance Resource
-          </LinkObject>
-        </div>
+        <p data-testid="shareInDemandTraining">
+          Trainings related to occupations on the{" "}
+          <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may be
+          eligible for funding. Contact your local One-Stop Career Center for more information
+          regarding program and training availability.
+        </p>
+        <LinkObject
+          url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
+          iconSuffix={IconNames.ArrowSquareOut}
+          iconSize={22}
+        >
+          New Jersey's One-Stop Career Centers
+        </LinkObject>
+
+        <p>
+          You can also check out other tuition assistance opportunities and resources by clicking
+          the link below.
+        </p>
+        <LinkObject url="/support-resources/tuition-assistance">
+          View Tuition Assistance Resource
+        </LinkObject>
       </div>
     </Grouping>
   );
@@ -234,12 +236,12 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     return (
-      <p>
-        <span className="fin fas">
-          <InlineIcon className="mrxs">email</InlineIcon>
-          <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
-        </span>
-      </p>
+      <div className="fact-item">
+        <div className="label">
+          <Envelope size={18} />
+        </div>
+        <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
+      </div>
     );
   };
 
@@ -247,22 +249,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     if (!training) {
       return <>{PROVIDER_MISSING_INFO}</>;
     }
-
-    // Map deliveryTypes to localized labels
-    const deliveryTypes = training.deliveryTypes?.map((type) => {
-      switch (type) {
-        case "deliveryType:OnlineOnly":
-          return t("TrainingPage.onlineClass"); // Translation key for "Online Only"
-        case "deliveryType:InPerson":
-          return t("TrainingPage.inPersonClass"); // Translation key for "In-person"
-        case "deliveryType:BlendedDelivery":
-          return t("TrainingPage.blendedClass"); // Translation key for "Blended Delivery"
-        case "deliveryType:VariableSite":
-          return t("TrainingPage.variableSiteClass"); // Translation key for "Variable Site"
-        default:
-          return t("TrainingPage.unknownDeliveryType"); // Translation key for unknown types
-      }
-    });
 
     // Format the address if it's available
     const address = training.availableAt?.[0];
@@ -274,12 +260,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
       return (
         <div>
-          <a
-            href={googleUrl}
-            target="_blank"
-            className="link-format-blue"
-            rel="noopener noreferrer"
-          >
+          <a href={googleUrl} target="_blank" rel="noopener noreferrer">
             <div className="inline">
               <span>{address.street_address}</span>
               <div>
@@ -287,26 +268,12 @@ export const TrainingPage = (props: Props): ReactElement => {
               </div>
             </div>
           </a>
-          {deliveryTypes && (
-            <div>
-              <strong>{t("TrainingPage.deliveryTypeLabel")}:</strong> {deliveryTypes.join(", ")}
-            </div>
-          )}
         </div>
       );
     }
 
     // Default to showing delivery types if no address is available
-    return (
-      <div>
-        {deliveryTypes && (
-          <div>
-            <strong>{t("TrainingPage.deliveryTypeLabel")}:</strong> {deliveryTypes.join(", ")}
-          </div>
-        )}
-        {!deliveryTypes && <>{t("TrainingPage.noDeliveryTypeAvailable")}</>}
-      </div>
-    );
+    return <></>;
   };
 
   const getAssociatedOccupations = (): ReactElement => {
@@ -319,9 +286,7 @@ export const TrainingPage = (props: Props): ReactElement => {
           <Trans i18nKey="TrainingPage.associatedOccupationsText">
             This is a general training that might prepare you for a wide variety of career paths
             Browse
-            <Link className="link-format-blue" to="/in-demand-occupations">
-              in-demand occupations
-            </Link>
+            <Link to="/in-demand-occupations">in-demand occupations</Link>
             to see how you might apply this training.
           </Trans>
         </p>
@@ -329,15 +294,15 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     return (
-      <>
+      <ul>
         {training?.occupations.map((occupation, i) => (
-          <Link className="link-format-blue" to={`/occupation/${occupation.soc}`} key={i}>
-            <p key={i} className="blue weight-500">
+          <li key={occupation.soc + i}>
+            <Link to={`/occupation/${occupation.soc}`}>
               {occupation.title} ({occupation.soc})
-            </p>
-          </Link>
+            </Link>
+          </li>
         ))}
-      </>
+      </ul>
     );
   };
   const seoObject = {
@@ -466,14 +431,10 @@ export const TrainingPage = (props: Props): ReactElement => {
             </p>
             <ul className="unstyled">
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/training/search">
-                  Find Training Opportunities
-                </a>
+                <a href="/training/search">Find Training Opportunities</a>
               </li>
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
-                  Tuition Assistance Resources
-                </a>
+                <a href="/support-resources/tuition-assistance">Tuition Assistance Resources</a>
               </li>
             </ul>
           </>
@@ -515,12 +476,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                 </li>
               </ol>
             </nav>
-            <div className="form-overlay mobile-only" />
-            <button>
+            <button
+              className="search-toggle mobile-only"
+              onClick={() => setSearchOpen(!searchOpen)}
+            >
               <MagnifyingGlass weight="bold" />
             </button>
+            <div className={`form-overlay mobile-only${searchOpen ? " open" : ""}`} />
             <form
-              className="usa-search usa-search--small"
+              className={`usa-search usa-search--small${searchOpen ? " open" : ""}`}
               role="search"
               onSubmit={(e) => {
                 e.preventDefault();
@@ -528,6 +492,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                 navigate(`/training/search?q=${form.search.value}`);
               }}
             >
+              <button className="close-button mobile-only" onClick={() => setSearchOpen(false)}>
+                <X color="#fff" weight="bold" size={40} />
+              </button>
               <label className="mobile-only">Search for training</label>
               <input className="usa-input" type="search" placeholder="search" name="search" />
               <button className="usa-button" type="submit">
@@ -545,15 +512,17 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
             <ul className="save-controls unstyled">
               <li>
-                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                  <LinkSimple size={26} className={copy ? "green" : undefined} />
-                  {copy && <span className="green">Copied</span>}
+                <UnstyledButton onClick={copyHandler} className={copy ? "green" : undefined}>
+                  <LinkSimple size={26} />
+                  <span
+                    className={`indicator${copy ? " green" : ""}`}
+                  >{`Cop${copy ? "ied" : "y"}`}</span>
                 </UnstyledButton>
               </li>
               <li>
-                <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                <UnstyledButton onClick={printHandler}>
                   <Printer size={26} />
-                  <span className="sr-only">Print and Save</span>
+                  <span className="indicator">Print and Save</span>
                 </UnstyledButton>
               </li>
             </ul>
@@ -580,7 +549,6 @@ export const TrainingPage = (props: Props): ReactElement => {
                 ? formatMoney(training.averageSalary, { precision: 0 })
                 : STAT_MISSING_DATA_INDICATOR
             }
-            backgroundColorClass="bg-lightest-purple"
           />
           <StatBlock
             title={t("TrainingPage.employmentRateTitle")}
@@ -591,7 +559,6 @@ export const TrainingPage = (props: Props): ReactElement => {
                 ? formatPercentEmployed(training.percentEmployed)
                 : STAT_MISSING_DATA_INDICATOR
             }
-            backgroundColorClass="bg-light-purple-50"
           />
         </section>
 
@@ -611,13 +578,38 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <QuickFacts training={training} setDrawerOpen={setDrawerOpen} />
+                  <QuickFacts training={training} />
+                  <Grouping
+                    title="Instructional Programs"
+                    subheading="Type of material covered by the Learning Opportunity"
+                  >
+                    <>
+                      <h3 className="sect-title">Classification of Instructional Programs</h3>
+                      <br />
+                      <ul>
+                        <li>
+                          <a
+                            href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {training.cipDefinition.ciptitle} (
+                            {formatCip(training.cipDefinition.cipcode)})
+                          </a>
+                        </li>
+                      </ul>
+                    </>
+                  </Grouping>
 
                   <Grouping
                     title={t("TrainingPage.associatedOccupationsGroupHeader")}
                     subheading="Explore the occupations below to learn more."
                   >
-                    <>{getAssociatedOccupations()}</>
+                    <>
+                      <h3 className="sect-title">Standard Occupational Classification</h3>
+                      <br />
+                      {getAssociatedOccupations()}
+                    </>
                   </Grouping>
 
                   <div className="desktop-only">{fundingContent}</div>
@@ -700,19 +692,19 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </p>
                           {getProviderEmail()}
                           {getAvailableAtAddress() && (
-                            <div className="mvd">
-                              <span className="fin">
-                                <InlineIcon className="mrxs">location_on</InlineIcon>
-                                {getAvailableAtAddress()}
+                            <div className="fact-item">
+                              <span className="label">
+                                <MapPin size={18} weight="fill" />
                               </span>
+                              {getAvailableAtAddress()}
                             </div>
                           )}
-                          <p>
-                            <span className="fin">
-                              <InlineIcon className="mrxs">link</InlineIcon>
-                              {getProviderUrl()}
+                          <div className="fact-item">
+                            <span className="label">
+                              <LinkSimple size={18} weight="bold" />
                             </span>
-                          </p>
+                            {getProviderUrl()}
+                          </div>
                         </>
                       ) : (
                         <>Data unavailable</>
@@ -720,54 +712,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping
-                    title={t("TrainingPage.providerServicesGroupHeader")}
-                    subheading="Please confirm with provider on any support service needs"
-                  >
-                    <>
-                      {training.hasEveningCourses && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">nightlight_round</InlineIcon>
-                            {t("TrainingPage.eveningCoursesServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.languages.some((lang) => lang !== "en-US") && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">language</InlineIcon>
-                            {t("TrainingPage.otherLanguagesServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.isWheelchairAccessible && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">accessible_forward</InlineIcon>
-                            {t("TrainingPage.wheelchairAccessibleServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.hasChildcareAssistance && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">family_restroom</InlineIcon>
-                            {t("TrainingPage.childcareAssistanceServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.hasJobPlacementAssistance && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">work_outline</InlineIcon>
-                            {t("TrainingPage.jobAssistanceServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
-                    </>
-                  </Grouping>
+                  <ProviderServices training={training} />
+                  <div className="mobile-only">{fundingContent}</div>
                   <Button
                     variant="custom"
                     className="usa-button margin-right-0 custom-button report"
@@ -780,7 +726,6 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <Flag size={32} />
                     <span>See something wrong? Report an Issue.</span>
                   </Button>
-                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>

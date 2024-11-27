@@ -9,7 +9,7 @@ interface Props {
   disclaimer?: string;
   data: string;
   dataSource?: string;
-  backgroundColorClass: string;
+  backgroundColorClass?: string;
 }
 
 export const StatBlock = (props: Props): ReactElement => {

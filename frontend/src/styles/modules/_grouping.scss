@@ -4,6 +4,26 @@
     overflow: hidden;
   }
 
+  a {
+    text-decoration: none;
+  }
+
+  .sect-title {
+    font-weight: 700;
+    display: inline-block;
+    border-bottom: $size-2 solid $text;
+    margin-bottom: $size-16;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+    margin: 0;
+    padding: 0 0 0 $size-24;
+  }
+
   .bar {
     padding: $size-8 $size-20;
     display: flex;
@@ -39,8 +59,8 @@
       border-color: $tertiary-lighter;
     }
 
-    &.border-green {
-      border-color: $secondary-lighter;
+    &.border-light-green {
+      border-color: $secondary-extra-light;
     }
   }
 }
