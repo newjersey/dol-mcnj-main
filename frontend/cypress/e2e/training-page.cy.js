@@ -18,25 +18,25 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick facts
-    cy.contains(
-      "Certifications: Drivers License, Truck Driver License, Truck Driver Credentialing Agency",
-    ).should("exist");
-    cy.contains("Prerequisites: Must be 18 years of age and possess a driver's license.").should(
+    cy.contains("Drivers License, Truck Driver License, Truck Driver Credentialing Agency").should(
       "exist",
     );
+    cy.contains("Must be 18 years of age and possess a driver's license.").should("exist");
     cy.contains("1000 hours").should("exist");
     cy.contains("49.0205").should("exist");
-    cy.contains("Completion time: 4-11 weeks").should("exist");
+    cy.contains("4-11 weeks").should("exist");
 
     // associated occupations
     cy.contains("Agricultural Engineers").should("exist");
 
     // share trainings
-    cy.contains("How to get funding").should("exist");
+    cy.contains("How to Get Funding").should("exist");
     cy.contains(
       "Trainings related to occupations on the In - Demand Occupations List may be eligible for funding. Contact your local One-Stop Career Center for more information regarding program and training availability.",
     ).should("exist");
-    cy.contains("You can also check out other tuition assistance opportunities.").should("exist");
+    cy.contains(
+      "You can also check out other tuition assistance opportunities and resources by clicking the link below.",
+    ).should("exist");
 
     // cost
     cy.contains("$4,409.00").should("exist");
