@@ -477,9 +477,11 @@ export const TrainingPage = (props: Props): ReactElement => {
               </ol>
             </nav>
             <button
+              aria-label="Open search"
               className="search-toggle mobile-only"
               onClick={() => setSearchOpen(!searchOpen)}
             >
+              <span className="sr-only">open search</span>
               <MagnifyingGlass weight="bold" />
             </button>
             <div className={`form-overlay mobile-only${searchOpen ? " open" : ""}`} />
@@ -503,7 +505,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               </button>
               <label className="mobile-only">Search for training</label>
               <input className="usa-input" type="search" placeholder="search" name="search" />
-              <button className="usa-button" type="submit">
+              <button className="usa-button" type="submit" aria-label="Search">
                 <MagnifyingGlass weight="bold" />
               </button>
             </form>
@@ -518,7 +520,11 @@ export const TrainingPage = (props: Props): ReactElement => {
             </div>
             <ul className="save-controls unstyled">
               <li>
-                <UnstyledButton onClick={copyHandler} className={copy ? "green" : undefined}>
+                <UnstyledButton
+                  onClick={copyHandler}
+                  className={copy ? "green" : undefined}
+                  aria-label="Copy link to clipboard"
+                >
                   <LinkSimple size={26} />
                   <span
                     className={`indicator${copy ? " green" : ""}`}
@@ -526,7 +532,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                 </UnstyledButton>
               </li>
               <li>
-                <UnstyledButton onClick={printHandler}>
+                <UnstyledButton onClick={printHandler} aria-label="Print and save">
                   <Printer size={26} />
                   <span className="indicator">Print and Save</span>
                 </UnstyledButton>
