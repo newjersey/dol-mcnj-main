@@ -492,8 +492,14 @@ export const TrainingPage = (props: Props): ReactElement => {
                 navigate(`/training/search?q=${form.search.value}`);
               }}
             >
-              <button className="close-button mobile-only" onClick={() => setSearchOpen(false)}>
-                <X color="#fff" weight="bold" size={40} />
+              <button
+                className="close-button mobile-only"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchOpen(false);
+                }}
+              >
+                <X weight="bold" size={24} />
               </button>
               <label className="mobile-only">Search for training</label>
               <input className="usa-input" type="search" placeholder="search" name="search" />
