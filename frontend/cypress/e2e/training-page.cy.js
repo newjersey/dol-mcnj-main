@@ -5,7 +5,7 @@ describe("Training Page", () => {
 
     // titles
     cy.contains("ELDT Training").should("exist");
-    cy.contains("h3", "BH Test Organization").should("exist");
+    cy.contains("h2", "BH Test Organization").should("exist");
 
     // stat boxes
     cy.contains("In-Demand").should("exist");
@@ -18,10 +18,12 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick facts
-    cy.contains("Certifications: Drivers License, Truck Driver License, Truck Driver Credentialing Agency").should("exist");
     cy.contains(
-      "Prerequisites: Must be 18 years of age and possess a driver's license.",
+      "Certifications: Drivers License, Truck Driver License, Truck Driver Credentialing Agency",
     ).should("exist");
+    cy.contains("Prerequisites: Must be 18 years of age and possess a driver's license.").should(
+      "exist",
+    );
     cy.contains("1000 hours").should("exist");
     cy.contains("49.0205").should("exist");
     cy.contains("Completion time: 4-11 weeks").should("exist");
