@@ -53,8 +53,8 @@
       .close-button {
         position: absolute;
         z-index: 100;
-        bottom: 100%;
-        right: $size-16;
+        top: $size-10;
+        right: $size-8;
       }
 
       .usa-search {
