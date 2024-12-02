@@ -205,27 +205,30 @@ export const TrainingPage = (props: Props): ReactElement => {
       subheading="You may be eligible for funding for certain training opportunities"
     >
       <div className="funding-content">
-        <p data-testid="shareInDemandTraining">
-          Trainings related to occupations on the{" "}
-          <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may be
-          eligible for funding. Contact your local One-Stop Career Center for more information
-          regarding program and training availability.
-        </p>
-        <LinkObject
-          url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
-          iconSuffix={IconNames.ArrowSquareOut}
-          iconSize={22}
-        >
-          New Jersey's One-Stop Career Centers
-        </LinkObject>
-
-        <p>
-          You can also check out other tuition assistance opportunities and resources by clicking
-          the link below.
-        </p>
-        <LinkObject url="/support-resources/tuition-assistance">
-          View Tuition Assistance Resource
-        </LinkObject>
+        <div>
+          <p data-testid="shareInDemandTraining">
+            Trainings related to occupations on the{" "}
+            <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may
+            be eligible for funding. Contact your local One-Stop Career Center for more information
+            regarding program and training availability.
+          </p>
+          <LinkObject
+            url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
+            iconSuffix={IconNames.ArrowSquareOut}
+            iconSize={22}
+          >
+            Contact One-Stop Career Centers
+          </LinkObject>
+        </div>
+        <div>
+          <p>
+            You can also check out other tuition assistance opportunities and resources by clicking
+            the link below.
+          </p>
+          <LinkObject newTab url="/support-resources/tuition-assistance">
+            View Tuition Assistance Resource
+          </LinkObject>
+        </div>
       </div>
     </Grouping>
   );

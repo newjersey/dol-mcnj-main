@@ -255,11 +255,22 @@
   .funding-content {
     display: flex;
     flex-direction: column;
-    gap: $size-16;
+    gap: $size-32;
 
-    a {
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: $size-16;
+    }
+
+    a:not(p a) {
+      margin-top: 0;
       display: inline-flex;
       align-items: center;
+      font-weight: bold;
+      text-decoration: underline;
+      text-underline-offset: $size-4;
+      text-decoration-thickness: $size-2;
       gap: $size-8;
 
       svg {
