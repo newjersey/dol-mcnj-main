@@ -647,7 +647,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                       </p>
                       <div className="grey-line" />
                       <div className="mvd">
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.tuitionCostLabel")}</span>
                           <span className="pull-right">
                             {training.tuitionCost
@@ -655,7 +655,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                               : t("Global.noDataAvailableText")}
                           </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.feesCostLabel")}</span>
                           <span className="pull-right">
                             {training.feesCost
@@ -663,7 +663,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                               : t("Global.noDataAvailableText")}
                           </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
                             {training.booksMaterialsCost
@@ -671,7 +671,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                               : t("Global.noDataAvailableText")}
                           </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
                             {training.suppliesToolsCost
@@ -679,7 +679,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                               : t("Global.noDataAvailableText")}
                           </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.otherCostLabel")}</span>
                           <span className="pull-right">
                             {training.otherCost

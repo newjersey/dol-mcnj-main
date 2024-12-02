@@ -267,4 +267,36 @@
       }
     }
   }
+
+  .grey-line {
+    background-color: $base-lighter;
+    height: $size-1;
+  }
+
+  .cost-item {
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: $size-1;
+      border-top: $size-1 dashed $base-lighter;
+    }
+
+    span {
+      position: relative;
+      z-index: 2;
+      background-color: $white;
+
+      &:first-child {
+        padding-right: $size-8;
+      }
+
+      &:last-child {
+        padding-left: $size-8;
+      }
+    }
+  }
 }
