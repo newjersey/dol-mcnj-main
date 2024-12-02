@@ -6,6 +6,8 @@
     }
 
     &.main-section {
+      overflow-x: hidden;
+
       @media screen and (max-width: ($tablet-md - 1)) {
         padding: 0;
       }
@@ -13,7 +15,9 @@
   }
 
   .crumb-container {
-    padding: $size-24 0;
+    @media screen and (min-width: ($mobile-lg)) {
+      padding: $size-24 0;
+    }
 
     .container {
       display: flex;
@@ -195,6 +199,11 @@
         }
       }
     }
+  }
+
+  .disclaimer {
+    font-size: $size-14;
+    line-height: 1.2;
   }
 
   .save-controls {
