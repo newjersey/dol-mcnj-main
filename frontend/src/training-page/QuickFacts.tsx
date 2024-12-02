@@ -33,7 +33,7 @@ export const QuickFacts = ({ training }: { training: Training }) => {
   return (
     <Grouping
       title={t("TrainingPage.quickStatsGroupHeader")}
-      subheading="Details about this learning opportunity"
+      subheading="Details about this Learning Opportunity"
     >
       <>
         {training.languages && training.languages.length > 0 && (
@@ -61,7 +61,7 @@ export const QuickFacts = ({ training }: { training: Training }) => {
 
         {deliveryTypes && (
           <div className="fact-item">
-            <Package size={18} weight="bold" />
+            <Package size={18} />
             <div className="copy">
               <p className="label">
                 <strong>Delivery type:</strong>

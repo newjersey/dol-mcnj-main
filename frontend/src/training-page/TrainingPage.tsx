@@ -518,9 +518,12 @@ export const TrainingPage = (props: Props): ReactElement => {
               onClick={() => setSearchOpen(!searchOpen)}
             >
               <span className="sr-only">open search</span>
-              <MagnifyingGlass weight="bold" />
+              <MagnifyingGlass weight="bold" size={32} />
             </button>
-            <div className={`form-overlay mobile-only${searchOpen ? " open" : ""}`} />
+            <div
+              id="searchOverlay"
+              className={`form-overlay mobile-only${searchOpen ? " open" : ""}`}
+            />
             <form
               className={`usa-search usa-search--small${searchOpen ? " open" : ""}`}
               role="search"
@@ -617,7 +620,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                 <div className="row">
                   <Grouping
                     title={t("TrainingPage.descriptionGroupHeader")}
-                    subheading="About this learning opportunity"
+                    subheading="About this Learning Opportunity"
                   >
                     <>
                       {training.description.split("\n").map((line, i) => (
@@ -659,7 +662,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                   <Grouping
                     title={t("TrainingPage.associatedOccupationsGroupHeader")}
-                    subheading="Explore the occupations below to learn more."
+                    subheading="Explore the occupations below to learn more"
                   >
                     <>
                       <button
@@ -744,7 +747,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                   </Grouping>
                   <Grouping
                     title={t("TrainingPage.locationGroupHeader")}
-                    subheading="Geographic information about this Learning Opportunity"
+                    subheading="Geographic and contact information for this Learning Opportunity"
                   >
                     <>
                       {training.provider && training.provider.ctid ? (

@@ -8,7 +8,7 @@ export const ProviderServices = ({ training }: { training: Training }) => {
   return (
     <Grouping
       title={t("TrainingPage.providerServicesGroupHeader")}
-      subheading="Support services provided for the learning opportunity"
+      subheading="Support services provided for the Learning Opportunity"
     >
       <>
         {training.hasEveningCourses && (
@@ -51,7 +51,7 @@ export const ProviderServices = ({ training }: { training: Training }) => {
             {t("TrainingPage.jobAssistanceServiceLabel")}
           </div>
         )}
-        <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
+        <p className="disclaimer">{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
       </>
     </Grouping>
   );
