@@ -8,7 +8,7 @@ export const ProviderServices = ({ training }: { training: Training }) => {
   return (
     <Grouping
       title={t("TrainingPage.providerServicesGroupHeader")}
-      subheading="Please confirm with provider on any support service needs"
+      subheading="Support services provided for the learning opportunity"
     >
       <>
         {training.hasEveningCourses && (
