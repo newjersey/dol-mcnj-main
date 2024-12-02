@@ -27,7 +27,7 @@
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.2",
     "graphql-request": "^7.1.2",
-    "i18next": "^23.16.8",
+    "i18next": "^24.0.2",
     "libphonenumber-js": "^1.11.15",
     "markdown-it": "^14.1.0",
     "react": "^16.14.0",
