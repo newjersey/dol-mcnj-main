@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
-import { Link, navigate, RouteComponentProps } from "@reach/router";
+import { navigate, RouteComponentProps } from "@reach/router";
 
 import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
@@ -43,6 +43,7 @@ import { Button } from "../components/Button";
 import { QuickFacts } from "./QuickFacts";
 import { formatCip } from "../utils/formatCip";
 import { ProviderServices } from "./ProviderServices";
+import { SocDrawerContent } from "../components/SocDrawerContent";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -61,6 +62,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [activeDrawer, setActiveDrawer] = useState<"cip" | "soc" | "">("");
   const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
@@ -91,6 +93,35 @@ export const TrainingPage = (props: Props): ReactElement => {
       }
     }
   }, [drawerOpen]);
+
+  useEffect(() => {
+    // when pressing the escape key, close the drawer
+    const closeOnEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEsc);
+
+    // when the drawer is open, prevent scrolling on the body
+    if (drawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // clicking in the overlay should close the drawer
+    const overlay = document.querySelector("#drawerOverlay");
+    if (overlay) {
+      overlay.addEventListener("click", () => {
+        setDrawerOpen(false);
+      });
+    }
+
+    // cleanup
+    return () => {
+      document.body.style.overflow = "auto";
+      document.removeEventListener("keydown", closeOnEsc);
+    };
+  }, []);
 
   const printReactContent = useReactToPrint({
     content: () => componentRef.current,
@@ -289,7 +320,9 @@ export const TrainingPage = (props: Props): ReactElement => {
           <Trans i18nKey="TrainingPage.associatedOccupationsText">
             This is a general training that might prepare you for a wide variety of career paths
             Browse
-            <Link to="/in-demand-occupations">in-demand occupations</Link>
+            <LinkObject newTab url="/in-demand-occupations">
+              in-demand occupations
+            </LinkObject>
             to see how you might apply this training.
           </Trans>
         </p>
@@ -300,9 +333,9 @@ export const TrainingPage = (props: Props): ReactElement => {
       <ul>
         {training?.occupations.map((occupation, i) => (
           <li key={occupation.soc + i}>
-            <Link to={`/occupation/${occupation.soc}`}>
+            <LinkObject newTab url={`/occupation/${occupation.soc}`}>
               {occupation.title} ({occupation.soc})
-            </Link>
+            </LinkObject>
           </li>
         ))}
       </ul>
@@ -599,7 +632,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                     subheading="Type of material covered by the Learning Opportunity"
                   >
                     <>
-                      <h3 className="sect-title">Classification of Instructional Programs</h3>
+                      <button
+                        className="sect-title"
+                        onClick={() => {
+                          setDrawerOpen(true);
+                          setActiveDrawer("cip");
+                        }}
+                      >
+                        Classification of Instructional Programs
+                      </button>
                       <br />
                       <ul>
                         <li>
@@ -621,7 +662,15 @@ export const TrainingPage = (props: Props): ReactElement => {
                     subheading="Explore the occupations below to learn more."
                   >
                     <>
-                      <h3 className="sect-title">Standard Occupational Classification</h3>
+                      <button
+                        className="sect-title"
+                        onClick={() => {
+                          setDrawerOpen(true);
+                          setActiveDrawer("soc");
+                        }}
+                      >
+                        Standard Occupational Classification
+                      </button>
                       <br />
                       {getAssociatedOccupations()}
                     </>
@@ -747,14 +796,19 @@ export const TrainingPage = (props: Props): ReactElement => {
           </div>
         </section>
         {/* Overlay and Drawer for CIP code information */}
-        {drawerOpen && (
-          <>
-            <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
-            <div className={`panel${drawerOpen ? " open" : ""}`}>
+
+        <>
+          <div id="drawerOverlay" className={`cip overlay${drawerOpen ? " open" : ""}`} />
+          <div className={`cip panel${drawerOpen ? " open" : ""}`}>
+            {activeDrawer === "cip" ? (
               <CipDrawerContent onClose={() => setDrawerOpen(false)} />
-            </div>
-          </>
-        )}
+            ) : activeDrawer === "soc" ? (
+              <SocDrawerContent onClose={() => setDrawerOpen(false)} />
+            ) : (
+              <></>
+            )}
+          </div>
+        </>
       </Layout>
     </div>
   );

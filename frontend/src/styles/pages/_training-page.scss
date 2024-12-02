@@ -310,4 +310,65 @@
       }
     }
   }
+
+  .cip.panel,
+  .cip.overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .cip.panel {
+    position: fixed;
+    border-left: $size-4 solid $secondary-darker;
+    top: 0;
+    right: -100%;
+    background: $secondary-extra-light;
+    padding: 3rem;
+    max-width: $size-480;
+    width: 100%;
+    height: 100%;
+    z-index: 12;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media screen and (max-width: ($tablet - 1)) {
+      padding: 3rem $size-16;
+    }
+
+    h3 {
+      font-size: $size-24;
+      font-weight: 600;
+      margin-bottom: $size-32;
+    }
+
+    &.open {
+      right: 0;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: $size-16;
+      cursor: pointer;
+      z-index: 11;
+    }
+  }
+
+  .cip.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: $ink;
+    opacity: 0;
+    z-index: 11;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
+  }
 }
