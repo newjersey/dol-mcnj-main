@@ -327,7 +327,7 @@ const checkAccommodation = async (certificate: CTDLResource, targetNode: string)
   }
 };
 
-const constructCertificationsString = async (isPreparationForObject: CetermsConditionProfile[]): Promise<string> => {
+const constructCredentialsString = async (isPreparationForObject: CetermsConditionProfile[]): Promise<string> => {
   try {
     if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
 
@@ -336,7 +336,7 @@ const constructCertificationsString = async (isPreparationForObject: CetermsCond
         .filter((name) => name) // Filter out empty strings
         .join(", "); // Join the names with a comma and space as separator
   } catch (error) {
-    logError(`Error constructing certifications string`, error as Error);
+    logError(`Error constructing credentials string`, error as Error);
     throw error;
   }
 };
@@ -526,7 +526,7 @@ export const credentialEngineUtils = {
   extractPrerequisites,
   checkSupportService,
   checkAccommodation,
-  constructCertificationsString,
+  constructCredentialsString,
   getTimeRequired,
   getCalendarLengthId,
   hasLearningDeliveryTypes,

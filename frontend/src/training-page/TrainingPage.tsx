@@ -606,12 +606,12 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                   <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
                     <>
-                      {training.certifications && (
+                      {training.credentials && (
                         <p>
                           <span className="fin">
                             <InlineIcon className="mrxs">school</InlineIcon>
-                            {t("TrainingPage.certificationsLabel")}&nbsp;
-                            <b>{training.certifications}</b>
+                            {t("TrainingPage.credentialsLabel")}&nbsp;
+                            <b>{training.credentials}</b>
                           </span>
                         </p>
                       )}

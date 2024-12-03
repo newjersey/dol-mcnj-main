@@ -309,7 +309,7 @@ export const en = {
       "Percentage of enrolled students employed within 6 months of this class or classes like it at this provider",
     descriptionGroupHeader: "Description",
     quickStatsGroupHeader: "Quick Facts",
-    certificationsLabel: "Certifications:",
+    credentialsLabel: "Credentials:",
     prereqsLabel: "Prerequisites:",
     completionTimeLabel: "Completion time:",
     cipCodeLabel: "CIP Code:",

@@ -18,7 +18,7 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick facts
-    cy.contains("Certifications: Drivers License, Truck Driver License, Truck Driver Credentialing Agency").should("exist");
+    cy.contains("Credentials: Drivers License, Truck Driver License, Truck Driver Credentialing Agency").should("exist");
     cy.contains(
       "Prerequisites: Must be 18 years of age and possess a driver's license.",
     ).should("exist");

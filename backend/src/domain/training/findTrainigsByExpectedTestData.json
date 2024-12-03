@@ -2,7 +2,7 @@
     {
       "averageSalary": 0,
       "booksMaterialsCost": 0,
-      "certifications": "Certification Name",
+      "credentials": "Certification Name",
       "cipCode": "123456",
       "description": "This is an example description for the training program.",
       "feesCost": 0,
@@ -49,7 +49,7 @@
     {
       "averageSalary": 0,
       "booksMaterialsCost": 0,
-      "certifications": "Certification Name",
+      "credentials": "Certification Name",
       "cipCode": "123456",
       "description": "This is an example description for the training program.",
       "feesCost": 0,
