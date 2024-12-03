@@ -1,4 +1,12 @@
 .training-detail {
+  main {
+    button {
+      &:not(.usa-button) {
+        color: $text;
+      }
+    }
+  }
+
   .container {
     &:after,
     &:before {
@@ -30,6 +38,10 @@
 
         @media screen and (min-width: ($tablet-md)) {
           width: calc(100% - ($size-300 + $size-8));
+        }
+
+        @media screen and (max-width: ($tablet-md - 1)) {
+          max-width: calc(100% - $size-48);
         }
       }
 
@@ -125,14 +137,18 @@
   .title-box {
     background-color: $secondary-lighter;
     padding: $size-16 0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+
+    @media screen and (min-width: ($tablet-md)) {
+      top: 0;
+      z-index: 10;
+      position: sticky;
+    }
 
     .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: $size-8;
     }
 
     h1 {
@@ -213,6 +229,9 @@
   }
 
   .save-controls {
+    @media screen and (max-width: ($tablet-md - 1)) {
+      flex-direction: column;
+    }
     li {
       button {
         display: flex;
@@ -343,6 +362,7 @@
     width: 100%;
     height: 100%;
     z-index: 12;
+    box-shadow: $shadow-5;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
@@ -386,4 +406,15 @@
       opacity: 0.5;
     }
   }
+}
+
+.MuiPaper-root.MuiDrawer-paper {
+  &:focus {
+    outline: none;
+  }
+}
+
+.contextual-info-panel {
+  max-width: $size-480;
+  border-left: $size-4 solid $secondary-darker;
 }

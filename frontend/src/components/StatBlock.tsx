@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useCallback } from "react";
+import { ReactElement, useContext, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
@@ -15,7 +15,7 @@ interface Props {
 export const StatBlock = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
-  const { setContextualInfo } = useContext(ContextualInfoContext);
+  const { setContextualInfo, contextualInfo } = useContext(ContextualInfoContext);
 
   const dataMissingOrSource =
     props.data === STAT_MISSING_DATA_INDICATOR
@@ -31,6 +31,14 @@ export const StatBlock = (props: Props): ReactElement => {
       disclaimer: `${props.disclaimer}`,
     }));
   }, [dataMissingOrSource, props.title, props.tooltipText, props.disclaimer, setContextualInfo]);
+
+  useEffect(() => {
+    if (contextualInfo.isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, []);
 
   return (
     <div className="stat-block">

@@ -98,6 +98,12 @@ export const TrainingPage = (props: Props): ReactElement => {
           setSearchOpen(false);
         });
       }
+
+      if (drawerOpen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
     }
   }, [drawerOpen, searchOpen]);
 
@@ -110,13 +116,6 @@ export const TrainingPage = (props: Props): ReactElement => {
       }
     };
     document.addEventListener("keydown", closeOnEsc);
-
-    // when the drawer is open, prevent scrolling on the body
-    if (drawerOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
   }, []);
 
   const printReactContent = useReactToPrint({
@@ -532,8 +531,8 @@ export const TrainingPage = (props: Props): ReactElement => {
             >
               <button
                 className="close-button mobile-only"
-                onClick={(e) => {
-                  e.preventDefault();
+                type="submit"
+                onClick={() => {
                   setSearchOpen(false);
                 }}
               >
@@ -720,35 +719,37 @@ export const TrainingPage = (props: Props): ReactElement => {
                       )}
                     </>
                   </Grouping>
-                  <Grouping
-                    title="Instructional Programs"
-                    subheading="Type of material covered by the Learning Opportunity"
-                  >
-                    <>
-                      <button
-                        className="sect-title"
-                        onClick={() => {
-                          setDrawerOpen(true);
-                          setActiveDrawer("cip");
-                        }}
-                      >
-                        Classification of Instructional Programs
-                      </button>
-                      <br />
-                      <ul>
-                        <li>
-                          <a
-                            href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {training.cipDefinition.ciptitle} (
-                            {formatCip(training.cipDefinition.cipcode)})
-                          </a>
-                        </li>
-                      </ul>
-                    </>
-                  </Grouping>
+                  {training.cipDefinition && (
+                    <Grouping
+                      title="Instructional Programs"
+                      subheading="Type of material covered by the Learning Opportunity"
+                    >
+                      <>
+                        <button
+                          className="sect-title"
+                          onClick={() => {
+                            setDrawerOpen(true);
+                            setActiveDrawer("cip");
+                          }}
+                        >
+                          Classification of Instructional Programs
+                        </button>
+                        <br />
+                        <ul>
+                          <li>
+                            <a
+                              href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {training.cipDefinition.ciptitle} (
+                              {formatCip(training.cipDefinition.cipcode)})
+                            </a>
+                          </li>
+                        </ul>
+                      </>
+                    </Grouping>
+                  )}
 
                   <Grouping
                     title={t("TrainingPage.associatedOccupationsGroupHeader")}

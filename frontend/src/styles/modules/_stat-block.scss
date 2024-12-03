@@ -5,13 +5,22 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius: $size-4;
-  font-size: $size-14;
+  font-size: $size-16;
   min-height: $size-96;
   gap: $size-16;
   width: 100%;
 
   .stat-block-number {
     font-weight: 600;
+  }
+
+  .contextual-link-text {
+    border: none;
+    background: linear-gradient(to right, $text 0%, $text 60%, transparent 60%, transparent 100%);
+    background-size: $size-16 $size-1;
+    background-repeat: repeat-x;
+    text-decoration: none;
+    background-position: bottom;
   }
 }
 

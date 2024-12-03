@@ -355,7 +355,7 @@ export const en = {
     jobAssistanceServiceLabel:
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
-      "Services are subject to provider details, contact this provider for more information on services",
+      "Services are subject to provider details, contact this provider for more information on services.",
     visitTrainingProviderBtnLabel: "Visit Training Provider Website to Sign Up",
     providerWebsiteDisclaimerLabel:
       "You will leave My Career NJ and be taken to the provider's website",
