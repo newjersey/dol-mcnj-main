@@ -86,18 +86,28 @@ export const TrainingPage = (props: Props): ReactElement => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const overlay = document.querySelector("#drawerOverlay");
+      const searchOverlay = document.querySelector("#searchOverlay");
       if (overlay) {
         overlay.addEventListener("click", () => {
           setDrawerOpen(false);
         });
       }
+
+      if (searchOverlay) {
+        searchOverlay.addEventListener("click", () => {
+          setSearchOpen(false);
+        });
+      }
     }
-  }, [drawerOpen]);
+  }, [drawerOpen, searchOpen]);
 
   useEffect(() => {
     // when pressing the escape key, close the drawer
     const closeOnEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
+      if (e.key === "Escape") {
+        setDrawerOpen(false);
+        setSearchOpen(false);
+      }
     };
     document.addEventListener("keydown", closeOnEsc);
 
@@ -107,20 +117,6 @@ export const TrainingPage = (props: Props): ReactElement => {
     } else {
       document.body.style.overflow = "auto";
     }
-
-    // clicking in the overlay should close the drawer
-    const overlay = document.querySelector("#drawerOverlay");
-    if (overlay) {
-      overlay.addEventListener("click", () => {
-        setDrawerOpen(false);
-      });
-    }
-
-    // cleanup
-    return () => {
-      document.body.style.overflow = "auto";
-      document.removeEventListener("keydown", closeOnEsc);
-    };
   }, []);
 
   const printReactContent = useReactToPrint({
@@ -525,6 +521,7 @@ export const TrainingPage = (props: Props): ReactElement => {
               className={`form-overlay mobile-only${searchOpen ? " open" : ""}`}
             />
             <form
+              id="searchForm"
               className={`usa-search usa-search--small${searchOpen ? " open" : ""}`}
               role="search"
               onSubmit={(e) => {
@@ -631,63 +628,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
                   <QuickFacts training={training} />
                   <Grouping
-                    title="Instructional Programs"
-                    subheading="Type of material covered by the Learning Opportunity"
-                  >
-                    <>
-                      <button
-                        className="sect-title"
-                        onClick={() => {
-                          setDrawerOpen(true);
-                          setActiveDrawer("cip");
-                        }}
-                      >
-                        Classification of Instructional Programs
-                      </button>
-                      <br />
-                      <ul>
-                        <li>
-                          <a
-                            href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {training.cipDefinition.ciptitle} (
-                            {formatCip(training.cipDefinition.cipcode)})
-                          </a>
-                        </li>
-                      </ul>
-                    </>
-                  </Grouping>
-
-                  <Grouping
-                    title={t("TrainingPage.associatedOccupationsGroupHeader")}
-                    subheading="Explore the occupations below to learn more"
-                  >
-                    <>
-                      <button
-                        className="sect-title"
-                        onClick={() => {
-                          setDrawerOpen(true);
-                          setActiveDrawer("soc");
-                        }}
-                      >
-                        Standard Occupational Classification
-                      </button>
-                      <br />
-                      {getAssociatedOccupations()}
-                    </>
-                  </Grouping>
-
-                  <div className="desktop-only">{fundingContent}</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              <div className="container-fluid mbm">
-                <div className="row">
-                  <Grouping
+                    className="mobile-only"
                     title={t("TrainingPage.costGroupHeader")}
                     subheading="Detailed cost breakdown of the Learning Opportunity"
                   >
@@ -746,6 +687,157 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
                   <Grouping
+                    className="mobile-only"
+                    title={t("TrainingPage.locationGroupHeader")}
+                    subheading="Geographic and contact information for this Learning Opportunity"
+                  >
+                    <>
+                      {training.provider && training.provider.ctid ? (
+                        <>
+                          <p>
+                            <span className="fin fas">
+                              {cleanProviderName(training.provider.name)}
+                            </span>
+                          </p>
+                          {getProviderEmail()}
+                          {getAvailableAtAddress() && (
+                            <div className="fact-item">
+                              <span className="label">
+                                <MapPin size={18} weight="fill" />
+                              </span>
+                              {getAvailableAtAddress()}
+                            </div>
+                          )}
+                          <div className="fact-item">
+                            <span className="label">
+                              <LinkSimple size={18} weight="bold" />
+                            </span>
+                            {getProviderUrl()}
+                          </div>
+                        </>
+                      ) : (
+                        <>Data unavailable</>
+                      )}
+                    </>
+                  </Grouping>
+                  <Grouping
+                    title="Instructional Programs"
+                    subheading="Type of material covered by the Learning Opportunity"
+                  >
+                    <>
+                      <button
+                        className="sect-title"
+                        onClick={() => {
+                          setDrawerOpen(true);
+                          setActiveDrawer("cip");
+                        }}
+                      >
+                        Classification of Instructional Programs
+                      </button>
+                      <br />
+                      <ul>
+                        <li>
+                          <a
+                            href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {training.cipDefinition.ciptitle} (
+                            {formatCip(training.cipDefinition.cipcode)})
+                          </a>
+                        </li>
+                      </ul>
+                    </>
+                  </Grouping>
+
+                  <Grouping
+                    title={t("TrainingPage.associatedOccupationsGroupHeader")}
+                    subheading="Explore the occupations below to learn more"
+                  >
+                    <>
+                      <button
+                        className="sect-title"
+                        onClick={() => {
+                          setDrawerOpen(true);
+                          setActiveDrawer("soc");
+                        }}
+                      >
+                        Standard Occupational Classification
+                      </button>
+                      <br />
+                      {getAssociatedOccupations()}
+                    </>
+                  </Grouping>
+
+                  <div className="desktop-only">{fundingContent}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div className="container-fluid mbm">
+                <div className="row">
+                  <Grouping
+                    className="desktop-only"
+                    title={t("TrainingPage.costGroupHeader")}
+                    subheading="Detailed cost breakdown of the Learning Opportunity"
+                  >
+                    <>
+                      <p>
+                        <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
+                        <span className="text-l pull-right weight-500">
+                          {training.totalCost
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
+                        </span>
+                      </p>
+                      <div className="grey-line" />
+                      <div className="mvd">
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.tuitionCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.tuitionCost
+                              ? formatMoney(training.tuitionCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.feesCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.feesCost
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.materialsCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.booksMaterialsCost
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.suppliesCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.suppliesToolsCost
+                              ? formatMoney(training.suppliesToolsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.otherCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.otherCost
+                              ? formatMoney(training.otherCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  </Grouping>
+                  <Grouping
+                    className="desktop-only"
                     title={t("TrainingPage.locationGroupHeader")}
                     subheading="Geographic and contact information for this Learning Opportunity"
                   >
