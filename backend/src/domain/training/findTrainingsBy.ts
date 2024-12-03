@@ -33,7 +33,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
         const outcomesDefinition = await dataClient.findOutcomeDefinition(cipCode, provider.providerId);
 
-        const certifications = await credentialEngineUtils.constructCertificationsString(certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[]);
+        const credentials = await credentialEngineUtils.constructCredentialsString(certificate["ceterms:isPreparationFor"] as CetermsConditionProfile[]);
 
         const training = {
           ctid: certificate["ceterms:ctid"],
@@ -42,7 +42,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           provider: provider,
           availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
           description: certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : "",
-          certifications,
+          credentials,
           prerequisites: await credentialEngineUtils.extractPrerequisites(certificate),
           totalClockHours: await credentialEngineUtils.getTimeRequired(certificate),
           calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),

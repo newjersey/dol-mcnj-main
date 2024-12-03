@@ -47,14 +47,14 @@ export const QuickFacts = ({ training }: { training: Training }) => {
             </div>
           </div>
         )}
-        {training.certifications && (
+        {training.credentials && (
           <div className="fact-item">
             <GraduationCap size={18} />
             <div className="copy">
               <p className="label">
-                <strong>{t("TrainingPage.certificationsLabel")}</strong>
+                <strong>{t("TrainingPage.credentialsLabel")}</strong>
               </p>
-              <p>{training.certifications}</p>
+              <p>{training.credentials}</p>
             </div>
           </div>
         )}

@@ -226,7 +226,6 @@ app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());
 

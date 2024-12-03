@@ -55,29 +55,29 @@ export interface TrainingData {
 }
 
 export interface Training {
+  ctid: string;
+  name: string;
+  provider: Provider;
   availableAt: Address[];
   averageSalary: number | null;
   booksMaterialsCost: number;
   calendarLength: CalendarLength;
-  certifications: ConditionProfile[];
+  credentials: ConditionProfile[];
   cipDefinition: CipDefinition;
   description: string;
   feesCost: number;
   hasChildcareAssistance: boolean;
   hasEveningCourses: boolean;
   hasJobPlacementAssistance: boolean;
-  ctid: string;
   inDemand: boolean;
   isWheelchairAccessible: boolean;
   languages: string[];
   localExceptionCounty: string[];
-  name: string;
   occupations: Occupation[];
   deliveryTypes: DeliveryType[];
   otherCost: number;
   percentEmployed: number | null;
   prerequisites: string;
-  provider: Provider;
   suppliesToolsCost: number;
   totalClockHours?: number;
   totalCost: number;
