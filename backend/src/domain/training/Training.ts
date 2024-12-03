@@ -9,7 +9,7 @@ export interface Training {
   cipDefinition?: CipDefinition | null;
   provider: Provider;
   description?: string;
-  certifications: string;
+  credentials: string;
   prerequisites?: (string | undefined)[] | null;
   calendarLength?: CalendarLength | null;
   totalClockHours?: number | null;

@@ -306,7 +306,7 @@ export const es = {
       "Porcentaje de estudiantes matriculados empleados dentro de los 6 meses de esta clase o clases similares en este proveedor",
     descriptionGroupHeader: "Descripción",
     quickStatsGroupHeader: "Estadísticas rápidas",
-    certificationsLabel: "Certifications:",
+    credentialsLabel: "Credenciales:",
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
     cipCodeLabel: "Código CIP:",

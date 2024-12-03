@@ -17,7 +17,7 @@
       "zipCode": "07470"
     },
     "description": "This package cover following three vendors CompTIA, Microsoft and Cisco Certifications: (A+ or Network+, Windows client or Server (MCP/MCTS) and CCENT a first course of CCNA): This first part of this course is A+ or Network+ certification classes. This hands-on training offers students installation, configuration, diagnosing, preventive maintenance and basic networking. It will also help students to prepare for A+ or N+ certification exams. The second part of this program is Microsoft Windows Client or Server . This course is focused on the Microsoft Windows platform and prepares students for MCP/MCTS exam. The third part of this course is Cisco networking. This course will help the student prepare for CCENT or ICND1 exams which is the first course required to become CCNA.",
-    "certifications": "Certification",
+    "credentials": "Certification",
     "prerequisites": [
       "Working experience with systems/networking"
     ],
