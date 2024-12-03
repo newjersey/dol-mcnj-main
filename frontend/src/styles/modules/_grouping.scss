@@ -11,9 +11,14 @@
   .sect-title {
     font-weight: 700;
     display: inline-block;
-    border-bottom: $size-2 solid $text;
     margin-bottom: $size-16;
     padding: 0;
+    border: none;
+    background: linear-gradient(to right, $text 0%, $text 60%, transparent 60%, transparent 100%);
+    background-size: $size-16 $size-1;
+    background-repeat: repeat-x;
+    text-decoration: none;
+    background-position: bottom;
   }
 
   ul {
