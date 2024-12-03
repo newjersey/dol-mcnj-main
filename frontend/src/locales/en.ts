@@ -340,7 +340,7 @@ export const en = {
     providerGroupHeader: "Provider Details",
     locationGroupHeader: "Location Details",
     onlineClass: "Online Class",
-    inpersonClass:"In-Person Class",
+    inPersonClass:"In-Person Class",
     blendedClass: "Blended Class (Online & In-Person)",
     variableSiteClass: "Variable Site Class",
     unknownDeliveryType: "Unknown Class Delivery Type",
