@@ -76,6 +76,7 @@
         z-index: 100;
         top: $size-10;
         right: $size-8;
+        color: $text;
       }
 
       .usa-search {
@@ -198,10 +199,16 @@
     align-items: flex-start;
     gap: $size-8;
 
+    svg {
+      width: $size-18;
+      height: auto;
+    }
+
     .copy {
       display: flex;
       flex-direction: column;
       gap: $size-4;
+      max-width: calc(100% - $size-24);
 
       .label {
         line-height: 1.2;

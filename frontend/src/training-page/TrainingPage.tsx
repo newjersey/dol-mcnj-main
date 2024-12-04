@@ -529,20 +529,21 @@ export const TrainingPage = (props: Props): ReactElement => {
                 navigate(`/training/search?q=${form.search.value}`);
               }}
             >
-              <button
-                className="close-button mobile-only"
-                type="submit"
-                onClick={() => {
-                  setSearchOpen(false);
-                }}
-              >
-                <X weight="bold" size={24} />
-              </button>
               <label className="mobile-only">Search for training</label>
               <input className="usa-input" type="search" placeholder="search" name="search" />
               <button className="usa-button" type="submit" aria-label="Search">
                 <MagnifyingGlass weight="bold" />
               </button>
+              <a
+                className="close-button mobile-only"
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchOpen(false);
+                }}
+              >
+                <X weight="bold" size={24} />
+              </a>
             </form>
           </div>
         </section>
