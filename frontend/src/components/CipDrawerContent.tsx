@@ -1,4 +1,3 @@
-import React from "react";
 import { X } from "@phosphor-icons/react";
 
 export const CipDrawerContent = ({ onClose }: { onClose: () => void }) => {

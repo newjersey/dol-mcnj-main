@@ -1,5 +1,4 @@
-import { useMediaQuery } from "@material-ui/core";
-import React, { ReactElement, useContext, useCallback } from "react";
+import { ReactElement, useContext, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { ContextualInfoContext } from "../contextual-info/ContextualInfoContext";
@@ -10,62 +9,52 @@ interface Props {
   disclaimer?: string;
   data: string;
   dataSource?: string;
-  backgroundColorClass: string;
+  backgroundColorClass?: string;
 }
 
 export const StatBlock = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
-  const isTabletAndUp = useMediaQuery("(min-width:768px)");
-  const { setContextualInfo } = useContext(ContextualInfoContext);
+  const { setContextualInfo, contextualInfo } = useContext(ContextualInfoContext);
 
   const dataMissingOrSource =
     props.data === STAT_MISSING_DATA_INDICATOR
       ? t("StatBlock.missingDataExplanation")
       : `${t("StatBlock.dataSourceLabel")} ${props.dataSource ?? t("StatBlock.defaultDataSource")}`;
 
-      
   const onClickInfo = useCallback(() => {
     setContextualInfo((prevValue) => ({
       ...prevValue,
       isOpen: true,
       title: props.title,
       body: `${props.tooltipText}. ${dataMissingOrSource ?? ""}`,
-      disclaimer: `${props.disclaimer}`
+      disclaimer: `${props.disclaimer}`,
     }));
   }, [dataMissingOrSource, props.title, props.tooltipText, props.disclaimer, setContextualInfo]);
 
-
-  const tooltipTargetIfMobile = (): Record<string, string> | undefined => {
-    if (!isTabletAndUp) {
-      return {
-        "data-for": `${props.title}-tooltip`,
-        "data-tip": "",
-      };
+  useEffect(() => {
+    if (contextualInfo.isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
-  };
+  }, []);
 
   return (
-    <div className={`${props.backgroundColorClass} stat-block`}>
-      <div
-        className={props.tooltipText ? "fdr fjb fac" : "fdr fje fac"}
-        {...tooltipTargetIfMobile()}
-      >
-        {props.tooltipText != null ? (
-          <button
-            onClick={onClickInfo}
-            className="contextual-link-button"
-            data-testid="accordion-button"
-          >
-            <span className="contextual-link-text">{props.title}</span>
-          </button>
-        ) : (
-          <div>{props.title}</div>
-        )}
-        {!isTabletAndUp && <div className="stat-block-number mla mrs">{props.data}</div>}
-      </div>
-      {isTabletAndUp && <div className="stat-block-number ptm pbs">{props.data}</div>}
-      <div></div>
+    <div className="stat-block">
+      {props.tooltipText != null ? (
+        <button
+          onClick={onClickInfo}
+          className="contextual-link-button"
+          data-testid="accordion-button"
+        >
+          <span className="contextual-link-text">{props.title}</span>
+        </button>
+      ) : (
+        <div>{props.title}</div>
+      )}
+
+      {props.data && <div className="stat-block-number">{props.data}</div>}
     </div>
   );
 };

@@ -1,0 +1,22 @@
+.info-blocks {
+  padding-top: $size-48;
+  padding-bottom: $size-8;
+  display: flex;
+  gap: $size-16;
+  width: 100%;
+
+  @media screen and (max-width: ($tablet-md - 1)) {
+    flex-direction: column;
+  }
+
+  button {
+    padding: 0;
+  }
+
+  .countyBlock,
+  .stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+  }
+}
