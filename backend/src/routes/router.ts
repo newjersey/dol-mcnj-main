@@ -89,7 +89,7 @@ export const routerFactory = ({
       miles: parseInt(req.query.miles as string),
       services: req.query.services ? (req.query.services as string).split(",") : undefined,
       soc_code: req.query.soc_code as string,
-      zip_code: req.query.zip_code as string,
+      zipcode: req.query.zipcode as string,
     })
       .then((trainings: TrainingData) => {
         res.status(200).json(trainings);

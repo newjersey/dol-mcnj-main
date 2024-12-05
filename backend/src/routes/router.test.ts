@@ -83,7 +83,7 @@ describe("router", () => {
             services: undefined,
             soc_code: undefined,
             sort: undefined,
-            zip_code: undefined
+            zipcode: undefined
           });
           done();
         });

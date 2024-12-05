@@ -1,16 +1,16 @@
 import NodeCache = require("node-cache");
 import * as Sentry from "@sentry/node";
-import { SearchTrainings } from "../types";
-import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
-import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import { CTDLResource } from "../credentialengine/CredentialEngine";
-import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
-import { DataClient } from "../DataClient";
-import { getHighlight } from "../utils/getHighlight";
-import { TrainingData, TrainingResult } from "../training/TrainingResult";
+import {SearchTrainings} from "../types";
+import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
+import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
+import {CTDLResource} from "../credentialengine/CredentialEngine";
+import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
+import {DataClient} from "../DataClient";
+import {getHighlight} from "../utils/getHighlight";
+import {TrainingData, TrainingResult} from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
-import zipcodes from "zipcodes";
-import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
+import zipcodes, {ZipCode} from "zipcodes";
+import {convertZipCodeToCounty} from "../utils/convertZipCodeToCounty";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -37,7 +37,9 @@ const filterCerts = async (
   complete_in?: number[],
   in_demand?: boolean,
   max_cost?: number,
-  county?: string
+  county?: string,
+  miles?: number,
+  zipcode?: string
 ) => {
   let filteredResults = results;
   if (cip_code) {
@@ -61,6 +63,28 @@ const filterCerts = async (
       const zipCodes = result.availableAt?.map(address => address.zipCode).filter(Boolean) || [];
       const counties = zipCodes.map(zip => convertZipCodeToCounty(zip)).filter(Boolean);
       return counties.some(trainingCounty => trainingCounty.toLowerCase() === county.toLowerCase());
+    });
+  }
+
+  if (miles !== undefined && miles >= 0 && zipcode) {
+    const validZip = zipcodes.lookup(zipcode);
+    if (!validZip) {
+      console.warn(`Invalid ZIP code: ${zipcode}`);
+      return [];
+    }
+
+    filteredResults = filteredResults.filter(result => {
+      const zipCodes = result.availableAt?.map(address => address.zipCode).filter(Boolean) || [];
+
+      if (miles === 0) {
+        return zipCodes.some(trainingZip => trainingZip?.trim() === zipcode.trim());
+      }
+
+      const zipCodesInRadius = zipcodes.radius(zipcode as string & ZipCode, miles);
+
+      return zipCodes
+        .filter((trainingZip): trainingZip is string => Boolean(trainingZip))
+        .some(trainingZip => zipCodesInRadius.includes(trainingZip as string & ZipCode));
     });
   }
 
@@ -106,7 +130,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     max_cost?: number,
     miles?: number,
     services?: string[],
-    zip_code?: string,
+    zipcode?: string,
   }): Promise<TrainingData> => {
     const cip_code = params.cip_code?.split(".").join("") || "";
     const soc_code = params.soc_code?.split("-").join("") || "";
@@ -146,7 +170,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.complete_in,
       params.in_demand,
       params.max_cost,
-      params.county
+      params.county,
+      params.miles,
+      params.zipcode
     );
 
     const sortedResults = await sortTrainings(filteredResults, sort);
@@ -182,7 +208,7 @@ interface SearchParams {
   max_cost?: number;
   miles?: number;
   services?: string[];
-  zip_code?: string;
+  zipcode?: string;
   totalResults: number;
 }
 
@@ -220,7 +246,9 @@ async function fetchNextSearchPages(query: object, currentPage: number, limit: n
           params.complete_in,
           params.in_demand,
           params.max_cost,
-          params.county
+          params.county,
+          params.miles,
+          params.zipcode
         );
         const sortedResults = await sortTrainings(filteredResults, sort);
         const paginatedResults = paginateCerts(sortedResults, 1, limit);
@@ -254,7 +282,7 @@ function prepareSearchParameters(
     max_cost?: number,
     miles?: number,
     services?: string[],
-    zip_code?: string,
+    zipcode?: string,
     cip_code?: string,
     soc_code?: string,
   }) {
@@ -270,10 +298,10 @@ function prepareSearchParameters(
   const miles = params.miles ? `-miles:${params.miles}` : "";
   const services = params.services ? `-services:${params.services.join(",")}` : "";
   const soc_code = params.soc_code ? `-soc:${soc_code_value}` : "";
-  const zip_code = params.zip_code ? `-zip:${params.zip_code}` : "";
+  const zipcode = params.zipcode ? `-zip:${params.zipcode}` : "";
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${cip_code}${class_format}${complete_in}${county}${in_demand}${languages}${max_cost}${miles}${services}${soc_code}${zip_code}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${cip_code}${class_format}${complete_in}${county}${in_demand}${languages}${max_cost}${miles}${services}${soc_code}${zipcode}`;
 
   return { page, limit, sort, cacheKey };
 }
@@ -308,7 +336,7 @@ function buildQuery(params: {
   searchQuery: string,
   county?: string,
   miles?: number,
-  zip_code?: string
+  zipcode?: string
 }) {
   const isSOC = /^\d{2}-?\d{4}(\.00)?$/.test(params.searchQuery);
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
@@ -316,7 +344,7 @@ function buildQuery(params: {
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
   /*  const miles = params.miles;
-  const zipcode = params.zip_code;*/
+  const zipcode = params.zipcode;*/
   /*
     let zipcodesList: string[] | zipcodes.ZipCode[] = []
 
