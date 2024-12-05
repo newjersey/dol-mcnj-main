@@ -4,6 +4,7 @@ import { Button } from "@components/modules/Button";
 import { CostTable } from "@components/modules/CostTable";
 import { Drawer } from "@components/modules/Drawer";
 import { Heading } from "@components/modules/Heading";
+import { IconSelector } from "@components/modules/IconSelector";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Flex } from "@components/utility/Flex";
@@ -31,7 +32,7 @@ import { formatPhoneNumber } from "@utils/formatPhoneNumber";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { TrainingProps } from "@utils/types";
 import Script from "next/script";
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 
 const Content = ({ training }: { training: TrainingProps }) => {
@@ -142,6 +143,24 @@ const Content = ({ training }: { training: TrainingProps }) => {
     training.provider.address.zipCode ? training.provider.address.zipCode : ""
   }`;
 
+  const FactItem = ({
+    label,
+    icon,
+    children,
+  }: {
+    label: string;
+    icon: any;
+    children: ReactNode;
+  }) => (
+    <Flex alignItems="flex-start" gap="xs" elementTag="span" columnBreak="none">
+      <IconSelector name={icon} size={18} weight="bold" />
+      <Flex elementTag="span" direction="column" gap="xxs">
+        <strong>{label}: </strong>
+        <span>{children}</span>
+      </Flex>
+    </Flex>
+  );
+
   return (
     <div ref={componentRef}>
       <Script
@@ -181,6 +200,8 @@ const Content = ({ training }: { training: TrainingProps }) => {
           <div className="inner">
             <div>
               <LabelBox
+                large
+                subheading="About this Learning Opportunity"
                 color="green"
                 title="Description"
                 className="description"
@@ -192,77 +213,49 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 />
               </LabelBox>
 
-              <LabelBox color="green" title="Quick Facts" className="stats">
-                {training.prerequisites && (
-                  <Flex alignItems="flex-start" gap="xxs" elementTag="p">
-                    <Flex alignItems="center" gap="xxs" elementTag="span">
-                      <ListBullets size={18} />
-                      <span>Prerequisites: </span>
-                    </Flex>
-                    <strong>{training.prerequisites}</strong>
-                  </Flex>
-                )}
-                {training.certifications && (
-                  <Flex alignItems="center" gap="xxs" elementTag="p">
-                    <GraduationCap size={18} />
-                    <span>{training.certifications}</span>
-                  </Flex>
-                )}
+              <LabelBox
+                large
+                subheading="Details about this Learning Opportunity"
+                color="green"
+                title="Quick Facts"
+                className="stats"
+              >
+                <Flex direction="column" gap="xs">
+                  {training.prerequisites && (
+                    <FactItem label="Prerequisites" icon="ListBullets">
+                      <>{training.prerequisites}</>
+                    </FactItem>
+                  )}
 
-                {training.calendarLength && (
-                  <Flex alignItems="center" gap="xxs" elementTag="p">
-                    <CalendarBlank size={18} />
-                    <span>Completion Time: </span>
-                    <strong>{calendarLength(training.calendarLength)}</strong>
-                  </Flex>
-                )}
+                  {training.certifications && (
+                    <FactItem label="Certifications" icon="GraduationCap">
+                      <>{training.certifications}</>
+                    </FactItem>
+                  )}
 
-                {!!training.totalClockHours && (
-                  <Flex alignItems="center" gap="xxs" elementTag="p">
-                    <Clock size={18} />
-                    <span>Total Hours: </span>
-                    <strong>
-                      <Tooltip copy="Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.">
-                        <Info weight="fill" size={18} />
-                      </Tooltip>
-                      {training.totalClockHours} hours
-                    </strong>
-                  </Flex>
-                )}
+                  {training.calendarLength && (
+                    <FactItem label="Completion Time" icon="CalendarBlank">
+                      <>{calendarLength(training.calendarLength)}</>
+                    </FactItem>
+                  )}
 
-                {training.cipDefinition && (
-                  <>
-                    <Flex alignItems="center" gap="xxs" elementTag="p">
-                      <BookBookmark weight="fill" size={18} />
-                      <Button
-                        type="button"
-                        unstyled
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setCipDrawerOpen(!cipDrawerOpen);
-                        }}
-                      >
-                        <span>CIP Code: </span>
-                      </Button>
-                      <a
-                        href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
-                          training.cipDefinition.cipcode
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {formatCip(training.cipDefinition.cipcode)}
-                      </a>
-                    </Flex>
-                    <p>
-                      <strong>{training.cipDefinition.ciptitle}</strong>
-                    </p>
-                  </>
-                )}
+                  {!!training.totalClockHours && (
+                    <FactItem label="Total Hours" icon="Clock">
+                      <strong>
+                        <Tooltip copy="Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.">
+                          <Info weight="fill" size={18} />
+                        </Tooltip>
+                        {training.totalClockHours} hours
+                      </strong>
+                    </FactItem>
+                  )}
+                </Flex>
               </LabelBox>
               <LabelBox
+                large
+                subheading="Explore the occupations below to learn more"
                 color="green"
-                title="Associated Occupations"
+                title="Associated Occupations and Industries"
                 className="occupations"
               >
                 {training.occupations?.map((occupation: any) => (
@@ -274,7 +267,12 @@ const Content = ({ training }: { training: TrainingProps }) => {
                   </LinkObject>
                 ))}
               </LabelBox>
-              <LabelBox color="green" title="How to get funding">
+              <LabelBox
+                large
+                color="green"
+                title="How to get funding"
+                subheading="You may be eligible for funding for certain training opportunities"
+              >
                 <p>
                   Trainings related to occupations on the{" "}
                   <LinkObject url="/in-demand-occupations">
@@ -306,7 +304,13 @@ const Content = ({ training }: { training: TrainingProps }) => {
               </LabelBox>
             </div>
             <div>
-              <LabelBox color="green" title="Cost" className="cost">
+              <LabelBox
+                large
+                color="green"
+                title="Cost"
+                className="cost"
+                subheading="Detailed cost breakdown of the Learning Opportunity"
+              >
                 <CostTable
                   items={[
                     {
@@ -333,8 +337,10 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 />
               </LabelBox>
               <LabelBox
+                large
+                subheading="Geographic and contact information for this Learning Opportunity"
                 color="green"
-                title="Provider Details"
+                title="Location and Contact Details"
                 className="provider"
               >
                 <p>
@@ -382,8 +388,10 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 </p>
               </LabelBox>
               <LabelBox
+                large
+                subheading="Support services provided for the Learning Opportunity"
                 color="green"
-                title="Provider Services"
+                title="Support Services"
                 className="services"
               >
                 {training.hasEveningCourses && (

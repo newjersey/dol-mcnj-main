@@ -9,9 +9,10 @@ import { useEffect, useState } from "react";
 interface CrumbSearchProps {
   name: string;
   items: LinkProps[];
+  className?: string;
 }
 
-export const CrumbSearch = ({ name, items }: CrumbSearchProps) => {
+export const CrumbSearch = ({ name, items, className }: CrumbSearchProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export const CrumbSearch = ({ name, items }: CrumbSearchProps) => {
     document.addEventListener("click", closeDropdownClick);
   }, []);
   return (
-    <div className="container">
+    <div className={`container${className ? ` ${className}` : ""}`}>
       <Flex
         alignItems="center"
         columnBreak="none"

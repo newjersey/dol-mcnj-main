@@ -14,6 +14,7 @@ interface LabelBoxProps {
   icon?: string;
   iconSuffix?: string;
   iconWeight?: IconWeight;
+  subheading?: string;
   title: string;
 }
 
@@ -28,6 +29,7 @@ export const LabelBox = ({
   icon,
   iconSuffix,
   iconWeight,
+  subheading,
   title,
 }: LabelBoxProps) => {
   return (
@@ -41,7 +43,12 @@ export const LabelBox = ({
     >
       <Heading className="title" level={headingLevel}>
         {icon && <IconSelector name={icon} size={20} weight={iconWeight} />}
-        {title}
+        <span>
+          {title}
+          {subheading && large && (
+            <span className="subheading">{subheading}</span>
+          )}
+        </span>
         {iconSuffix && (
           <IconSelector name={iconSuffix} size={20} weight={iconWeight} />
         )}

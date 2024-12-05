@@ -1,81 +1,83 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .labelBox {
-  border: settings.$size-1 solid settings.$base-lighter;
+  border: s.$size-1 solid s.$base-lighter;
 
   &.large {
-    svg {
-      width: settings.$size-32;
-      height: settings.$size-32;
-    }
-
     .heading-tag {
-      font-size: settings.$size-18;
-      font-weight: 500;
+      font-size: s.$size-24;
+      font-weight: 700;
+
+      .subheading {
+        font-size: s.$size-16;
+        font-weight: 400;
+        margin-top: s.$size-8;
+        display: block;
+      }
     }
   }
 
   .title {
-    background: settings.$primary;
-    color: settings.$ink;
-    padding: 0.625rem settings.$size-16;
+    background: s.$primary;
+    color: s.$ink;
+    padding: 0.625rem s.$size-16;
     margin: 0;
-    font-size: settings.$size-16;
+    font-size: s.$size-16;
     font-weight: bold;
     display: flex;
     align-items: center;
-    gap: settings.$size-8;
+    gap: s.$size-8;
   }
 
   .content {
-    padding: settings.$size-24 settings.$size-16;
+    padding: s.$size-24 s.$size-16;
   }
 
   &.centered {
     .title {
-      padding: settings.$size-16;
-      font-size: settings.$size-18;
+      padding: s.$size-16;
+      font-size: s.$size-18;
       justify-content: center;
     }
   }
 
   &.bg-fill {
-    background: settings.$base-cool;
+    background: s.$base-cool;
 
     > div {
-      background: settings.$base-cool;
+      background: s.$base-cool;
     }
   }
 
   &.color-blue {
     .title {
-      background: settings.$primary;
-      color: settings.$white;
+      background: s.$primary;
+      color: s.$white;
     }
   }
 
   &.color-green {
     .title {
-      background: settings.$secondary-lighter;
+      background: s.$secondary-lighter;
     }
   }
 
   &.color-purple {
     .title {
-      background: settings.$tertiary-lighter;
+      background: s.$tertiary-lighter;
     }
   }
 
   &.color-orange {
     .title {
-      background: settings.$accent-warm-light;
+      background: s.$accent-warm-light;
     }
   }
 
   &.color-navy {
     .title {
-      background: settings.$info-darker;
-      color: settings.$white;
+      background: s.$info-darker;
+      color: s.$white;
     }
   }
 }

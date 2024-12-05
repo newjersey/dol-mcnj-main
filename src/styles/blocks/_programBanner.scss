@@ -1,75 +1,102 @@
 @use "../settings" as s;
 
-.programBanner {
-  .titleBox {
-    background-color: s.$secondary-lighter;
-    padding: s.$size-16 0;
+.titleBox {
+  background-color: s.$secondary-lighter;
+  padding: s.$size-16 0;
 
-    .heading-tag {
-      font-weight: bold;
-      font-size: s.$size-32;
-      margin: 0;
-    }
+  @media screen and (min-width: (s.$tablet-lg)) {
+    z-index: 13;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
 
-    p {
-      margin: 0;
-    }
+  .heading-tag {
+    font-weight: bold;
+    font-size: s.$size-32;
+    margin: 0;
+  }
 
-    .save-controls {
-      a,
-      button {
-        text-decoration: none;
-        color: s.$black;
-        height: s.$size-32;
-        width: s.$size-32;
-        border-radius: s.$size-4;
-        position: relative;
+  p {
+    margin: 0;
+  }
 
-        &:hover {
-          color: s.$white;
-          background-color: s.$black;
+  .save-controls {
+    a,
+    button {
+      text-decoration: none;
+      color: s.$black;
+      height: s.$size-32;
+      width: s.$size-32;
+      border-radius: s.$size-4;
+      position: relative;
 
-          span {
-            display: inline;
-            background-color: s.$black;
-            color: s.$white;
-          }
-        }
+      svg {
+        fill: s.$black;
+      }
 
-        &.green {
-          color: s.$white;
-          background-color: s.$secondary;
+      &:hover {
+        color: s.$white;
+        background-color: s.$black;
 
-          &:hover {
-            background-color: s.$secondary;
-            color: s.$white;
-
-            span {
-              background-color: s.$secondary;
-              color: s.$white;
-            }
-          }
-
-          span {
-            display: inline;
-            background-color: s.$secondary;
-            color: s.$white;
-          }
+        svg {
+          fill: s.$white;
         }
 
         span {
-          position: absolute;
-          display: none;
-          border-radius: s.$size-4;
-          padding: s.$size-4;
-          white-space: nowrap;
-          bottom: -(s.$size-24);
-          font-size: s.$size-12;
+          display: inline;
+          background-color: s.$black;
+          color: s.$white;
         }
+      }
+
+      &.green {
+        color: s.$white;
+        background-color: s.$secondary;
+
+        svg {
+          fill: s.$white;
+        }
+
+        &:hover {
+          background-color: s.$secondary;
+          color: s.$white;
+
+          svg {
+            fill: s.$white;
+          }
+
+          span {
+            background-color: s.$secondary;
+            color: s.$white;
+          }
+        }
+
+        svg {
+          fill: s.$white;
+        }
+
+        span {
+          display: inline;
+          background-color: s.$secondary;
+          color: s.$white;
+        }
+      }
+
+      span {
+        position: absolute;
+        display: none;
+        border-radius: s.$size-4;
+        padding: s.$size-4;
+        white-space: nowrap;
+        bottom: -(s.$size-24);
+        font-size: s.$size-12;
       }
     }
   }
+}
 
+.programBanner {
   .crumbContainer {
     padding: s.$size-8 0;
     @media screen and (min-width: (s.$mobile-lg)) {
