@@ -130,7 +130,7 @@ export const en = {
     careerOneStopLogo: "Official logo for Career One Stop organization",
   },
   InDemandBlock: {
-    inDemandTitle: "In-Demand in all of New Jersey.",
+    inDemandTitle: "In-Demand in New Jersey.",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",
@@ -319,7 +319,7 @@ export const en = {
     totalClockHours: "{{hours}} hours",
     cipCodeTooltip:
       'The "Classification of Instructional Programs" system is used to categorize instructional programs by topic.',
-    associatedOccupationsGroupHeader: "Associated Occupations",
+    associatedOccupationsGroupHeader: "Associated Occupations and Industries",
     associatedOccupationsText:
       "This is a general training that might prepare you for a wide variety of career paths. Browse <1>in-demand occupations</1> to see how you might apply this training.",
     shareGroupHeader: "Sign up for this Training",
@@ -338,15 +338,15 @@ export const en = {
     suppliesCostLabel: "Supplies & Tools",
     otherCostLabel: "Other",
     providerGroupHeader: "Provider Details",
-    locationGroupHeader: "Location Details",
+    locationGroupHeader: "Location and Contact Details",
     onlineClass: "Online Class",
-    inPersonClass:"In-Person Class",
+    inPersonClass: "In-Person Class",
     blendedClass: "Blended Class (Online & In-Person)",
     variableSiteClass: "Variable Site Class",
     unknownDeliveryType: "Unknown Class Delivery Type",
     deliveryTypeLabel: "Delivery Type",
     noDeliveryTypeAvailable: "No delivery type available",
-    providerServicesGroupHeader: "Provider Services",
+    providerServicesGroupHeader: "Support Services",
     eveningCoursesServiceLabel: "This provider offers evening courses",
     otherLanguagesServiceLabel: "Programs may be available in other languages",
     wheelchairAccessibleServiceLabel: "The facility is wheelchair accessible",
@@ -355,7 +355,7 @@ export const en = {
     jobAssistanceServiceLabel:
       "Job placement and/or career assistance is available at this provider",
     providerServicesDisclaimerLabel:
-      "Services are subject to provider details, contact this provider for more information on services",
+      "Services are subject to provider details, contact this provider for more information on services.",
     visitTrainingProviderBtnLabel: "Visit Training Provider Website to Sign Up",
     providerWebsiteDisclaimerLabel:
       "You will leave My Career NJ and be taken to the provider's website",

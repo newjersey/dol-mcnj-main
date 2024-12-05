@@ -43,12 +43,15 @@
 @import "modules/error-message";
 @import "modules/financial-resource";
 @import "modules/footer-banner";
+@import "modules/grouping";
 @import "modules/how-to-button";
 @import "modules/iconCard";
+@import "modules/info-blocks";
 @import "modules/mixins";
 @import "modules/path-menu";
 @import "modules/section-heading";
 @import "modules/single-path";
+@import "modules/stat-block";
 @import "modules/tags";
 
 // COMPONENTS
@@ -170,15 +173,15 @@ a.link-format-black {
 
 a,
 a.usa-link {
-  color: $primary-vivid;
+  color: $primary;
 
   &:visited {
-    color: $primary-vivid;
+    color: $primary;
   }
 
   &:hover {
     @media screen and (min-width: ($desktop)) {
-      color: $primary;
+      color: $primary-vivid;
     }
   }
 }
