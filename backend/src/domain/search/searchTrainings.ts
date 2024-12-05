@@ -10,6 +10,7 @@ import { getHighlight } from "../utils/getHighlight";
 import { TrainingData, TrainingResult } from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
 import zipcodes from "zipcodes";
+import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -36,9 +37,9 @@ const filterCerts = async (
   complete_in?: number[],
   in_demand?: boolean,
   max_cost?: number,
+  county?: string
 ) => {
   let filteredResults = results;
-
   if (cip_code) {
     filteredResults = filteredResults.filter(result => result.cipDefinition?.cipcode === cip_code);
   }
@@ -53,6 +54,14 @@ const filterCerts = async (
 
   if (max_cost && max_cost > 0) {
     filteredResults = filteredResults.filter((result) => result.totalCost !== null && result.totalCost !== undefined && result.totalCost <= max_cost);
+  }
+
+  if (county) {
+    filteredResults = filteredResults.filter(result => {
+      const zipCodes = result.availableAt?.map(address => address.zipCode).filter(Boolean) || [];
+      const counties = zipCodes.map(zip => convertZipCodeToCounty(zip)).filter(Boolean);
+      return counties.some(trainingCounty => trainingCounty.toLowerCase() === county.toLowerCase());
+    });
   }
 
   return filteredResults;
@@ -136,7 +145,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       cip_code,
       params.complete_in,
       params.in_demand,
-      params.max_cost
+      params.max_cost,
+      params.county
     );
 
     const sortedResults = await sortTrainings(filteredResults, sort);
@@ -204,8 +214,14 @@ async function fetchNextSearchPages(query: object, currentPage: number, limit: n
         }
 
         const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
-
-        const filteredResults = await filterCerts(results, cip_code, params.complete_in, params.in_demand, params.max_cost);
+        const filteredResults = await filterCerts(
+          results,
+          cip_code,
+          params.complete_in,
+          params.in_demand,
+          params.max_cost,
+          params.county
+        );
         const sortedResults = await sortTrainings(filteredResults, sort);
         const paginatedResults = paginateCerts(sortedResults, 1, limit);
 
