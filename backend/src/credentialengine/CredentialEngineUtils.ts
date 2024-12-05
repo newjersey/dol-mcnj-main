@@ -410,8 +410,6 @@ const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryTy
             return DeliveryType.OnlineOnly;
           case "deliveryType:BlendedDelivery":
             return DeliveryType.BlendedDelivery;
-          case "deliveryType:VariableSite":
-            return DeliveryType.VariableSite;
           default:
             // Log unknown types and skip them
             console.warn(`Unknown delivery type: ${JSON.stringify(deliveryType)}`);

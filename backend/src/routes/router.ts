@@ -80,7 +80,7 @@ export const routerFactory = ({
       limit: limit,
       sort: req.query.sort as string,
       cip_code: req.query.cip_code as string,
-      class_format: req.query.class_format ? (req.query.class_format as string).split(",") : undefined,
+      format: req.query.format ? (req.query.format as string).split(",") : undefined,
       complete_in: req.query.complete_in ? (req.query.complete_in as string).split(",").map(Number) : undefined,
       county: req.query.county as string,
       in_demand: req.query.in_demand === "true",

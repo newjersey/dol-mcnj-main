@@ -70,7 +70,7 @@ describe("router", () => {
           expect(response.body).toEqual(trainings);
           expect(stubSearchTrainings).toHaveBeenCalledWith({
             cip_code: undefined,
-            class_format: undefined,
+            format: undefined,
             complete_in: undefined,
             county: undefined,
             in_demand: false,
