@@ -1,16 +1,17 @@
 import NodeCache = require("node-cache");
 import * as Sentry from "@sentry/node";
-import { SearchTrainings } from "../types";
-import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
-import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import { CTDLResource } from "../credentialengine/CredentialEngine";
-import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
-import { DataClient } from "../DataClient";
-import { getHighlight } from "../utils/getHighlight";
-import { TrainingData, TrainingResult } from "../training/TrainingResult";
+import {SearchTrainings} from "../types";
+import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
+import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
+import {CTDLResource} from "../credentialengine/CredentialEngine";
+import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
+import {DataClient} from "../DataClient";
+import {getHighlight} from "../utils/getHighlight";
+import {TrainingData, TrainingResult} from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
 import zipcodes from "zipcodes";
-import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
+import {convertZipCodeToCounty} from "../utils/convertZipCodeToCounty";
+import {DeliveryType} from "../DeliveryType";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -37,7 +38,8 @@ const filterCerts = async (
   complete_in?: number[],
   in_demand?: boolean,
   max_cost?: number,
-  county?: string
+  county?: string,
+  format?: string[],
 ) => {
   let filteredResults = results;
   if (cip_code) {
@@ -55,6 +57,30 @@ const filterCerts = async (
   if (max_cost && max_cost > 0) {
     filteredResults = filteredResults.filter((result) => result.totalCost !== null && result.totalCost !== undefined && result.totalCost <= max_cost);
   }
+
+  if (format && format.length > 0) {
+    // Define a mapping from `format` to `DeliveryType` terms
+    const deliveryTypeMapping: Record<string, DeliveryType> = {
+      "in-person": DeliveryType.InPerson,
+      "online": DeliveryType.OnlineOnly,
+      "blended": DeliveryType.BlendedDelivery,
+    };
+
+    // Convert format to the corresponding DeliveryType terms
+    const mappedClassFormats = format
+      .map(f => deliveryTypeMapping[f.toLowerCase()])
+      .filter(Boolean);
+
+    console.log("Mapped class formats:", mappedClassFormats); // Debugging
+
+    // Filter results based on the mapped delivery types
+    filteredResults = filteredResults.filter(result => {
+      const deliveryTypes = result.deliveryTypes || [];
+      console.log("Delivery Types:", deliveryTypes); // Debugging
+      return mappedClassFormats.some(mappedFormat => deliveryTypes.includes(mappedFormat));
+    });
+  }
+
 
   if (county) {
     filteredResults = filteredResults.filter(result => {
@@ -98,7 +124,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     sort?: string,
     cip_code?: string,
     soc_code?: string,
-    class_format?: string[],
+    format?: string[],
     complete_in?: number[],
     county?: string,
     in_demand?: boolean,
@@ -146,7 +172,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.complete_in,
       params.in_demand,
       params.max_cost,
-      params.county
+      params.county,
+      params.format
     );
 
     const sortedResults = await sortTrainings(filteredResults, sort);
@@ -174,7 +201,7 @@ interface SearchParams {
   sort?: string;
   cip_code?: string;
   soc_code?: string;
-  class_format?: string[];
+  format?: string[];
   complete_in?: number[];
   county?: string;
   in_demand?: boolean;
@@ -220,7 +247,8 @@ async function fetchNextSearchPages(query: object, currentPage: number, limit: n
           params.complete_in,
           params.in_demand,
           params.max_cost,
-          params.county
+          params.county,
+          params.format
         );
         const sortedResults = await sortTrainings(filteredResults, sort);
         const paginatedResults = paginateCerts(sortedResults, 1, limit);
@@ -246,7 +274,7 @@ function prepareSearchParameters(
     page?: number,
     limit?: number,
     sort?: string,
-    class_format?: string[],
+    format?: string[],
     complete_in?: number[],
     county?: string,
     in_demand?: boolean,
@@ -261,7 +289,7 @@ function prepareSearchParameters(
   const page = params.page || 1;
   const limit = params.limit || 10;
   const cip_code = params.cip_code ? `-cip:${cip_code_value}` : "";
-  const class_format = params.class_format ? `-format:${params.class_format.join(",")}` : "";
+  const format = params.format ? `-format:${params.format.join(",")}` : "";
   const complete_in = params.complete_in ? `-complete:${params.complete_in.join(",")}` : "";
   const county = params.county ? `-${params.county}` : "";
   const in_demand = params.in_demand ? "-in_demand" : "";
@@ -273,7 +301,7 @@ function prepareSearchParameters(
   const zip_code = params.zip_code ? `-zip:${params.zip_code}` : "";
 
   const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${cip_code}${class_format}${complete_in}${county}${in_demand}${languages}${max_cost}${miles}${services}${soc_code}${zip_code}`;
+  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${cip_code}${format}${complete_in}${county}${in_demand}${languages}${max_cost}${miles}${services}${soc_code}${zip_code}`;
 
   return { page, limit, sort, cacheKey };
 }

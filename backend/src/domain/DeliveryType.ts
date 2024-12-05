@@ -3,5 +3,4 @@ export enum DeliveryType {
   InPerson = "deliveryType:InPerson",
   OnlineOnly = "deliveryType:OnlineOnly",
   BlendedDelivery = "deliveryType:BlendedDelivery",
-  VariableSite = "deliveryType:VariableSite"
 }

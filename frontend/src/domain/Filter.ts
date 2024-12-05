@@ -10,7 +10,7 @@ export interface Filter {
 export enum FilterableElement {
   MAX_COST,
   TIME_TO_COMPLETE,
-  CLASS_FORMAT,
+  FORMAT,
   LOCATION,
   IN_DEMAND_ONLY,
   SOC_CODE,

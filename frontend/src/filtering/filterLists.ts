@@ -157,7 +157,11 @@ export const classFormatList = [
   {
     id: "inperson",
     label: "In Person"
-  }
+  },
+  {
+    id: "blended",
+    label: "Blended"
+  },
 ]
 
 export type ClassFormatProps = "online" | "inperson";
