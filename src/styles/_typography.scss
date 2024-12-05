@@ -119,7 +119,7 @@ main {
   }
 
   a {
-    color: settings.$primary-vivid;
+    color: settings.$primary;
     text-decoration: underline;
     display: inline;
     align-items: center;
@@ -131,7 +131,7 @@ main {
     }
 
     &:visited {
-      color: settings.$primary-vivid;
+      color: settings.$primary;
     }
 
     &:hover {

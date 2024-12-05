@@ -50,18 +50,20 @@ export const DrawerButton = ({
         </button>
         <span className="value">{number}</span>
       </Box>
-      <div ref={ref} className={`overlay${open ? " open" : ""}`} />
-      <div className={`drawer${open ? " open" : ""}`}>
-        <button
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          <div className="sr-only">Close</div>
-          <X size={22} />
-        </button>
-        <p className="text-xl">{copy}</p>
-        <p>{definition}</p>
+      <div className="drawer">
+        <div ref={ref} className={`overlay${open ? " open" : ""}`} />
+        <div className={`panel${open ? " open" : ""}`}>
+          <button
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            <div className="sr-only">Close</div>
+            <X size={22} />
+          </button>
+          <p className="text-xl">{copy}</p>
+          <p>{definition}</p>
+        </div>
       </div>
     </>
   );

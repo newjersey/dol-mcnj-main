@@ -43,7 +43,7 @@ const PageBanner = ({
         theme ? ` theme-${theme}` : ""
       }${highlightMode ? ` data` : ""}${infoMode ? ` info` : ""}${
         breadcrumbsCollection?.items ? "" : " noBreadcrumbs"
-      }`}
+      }${infoBlocks ? " multiInfo" : ""}`}
     >
       <div className="container">
         {breadcrumbsCollection?.items && (

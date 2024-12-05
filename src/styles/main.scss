@@ -36,6 +36,7 @@
 @forward "./modules/fullMap";
 @forward "./modules/iconCard";
 @forward "./modules/industryItem";
+@forward "./modules/infoBlocks";
 @forward "./modules/infoBox";
 @forward "./modules/labelBox";
 @forward "./modules/mediaCard";
@@ -47,6 +48,7 @@
 @forward "./modules/resourceLinkBox";
 @forward "./modules/responsiveImage";
 @forward "./modules/resultCard";
+@forward "./modules/searchForm";
 @forward "./modules/sectionHeading";
 @forward "./modules/seeMoreList";
 @forward "./modules/showMore";
@@ -62,17 +64,18 @@
 @forward "./blocks/dropNav";
 @forward "./blocks/fancyBanner";
 @forward "./blocks/faqs";
+@forward "./blocks/fieldSelect";
 @forward "./blocks/filterControl";
 @forward "./blocks/howToSteps";
 @forward "./blocks/industrySelector";
 @forward "./blocks/introBlocks";
-@forward "./blocks/fieldSelect";
 @forward "./blocks/mediaBanner";
 @forward "./blocks/minimalBanner";
 @forward "./blocks/occupationDetails";
 @forward "./blocks/occupationGroups";
 @forward "./blocks/occupationList";
 @forward "./blocks/pageBanner";
+@forward "./blocks/programBanner";
 @forward "./blocks/river";
 @forward "./blocks/searchFilter";
 @forward "./blocks/stepper";

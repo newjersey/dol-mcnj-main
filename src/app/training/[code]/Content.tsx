@@ -1,10 +1,9 @@
 "use client";
-import { PageBanner } from "@components/blocks/PageBanner";
+import { ProgramBanner } from "@components/blocks/ProgramBanner";
 import { Button } from "@components/modules/Button";
 import { CostTable } from "@components/modules/CostTable";
 import { Drawer } from "@components/modules/Drawer";
 import { Heading } from "@components/modules/Heading";
-import { IconSelector } from "@components/modules/IconSelector";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Flex } from "@components/utility/Flex";
@@ -28,19 +27,12 @@ import {
 import { logEvent } from "@utils/analytics";
 import { calendarLength } from "@utils/calendarLength";
 import { formatCip } from "@utils/formatCip";
-import { formatPercentEmployed } from "@utils/formatPercentEmployed";
 import { formatPhoneNumber } from "@utils/formatPhoneNumber";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
-import { toUsCurrency } from "@utils/toUsCurrency";
 import { TrainingProps } from "@utils/types";
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-
-interface Copy {
-  class: string;
-  text: string;
-}
 
 const Content = ({ training }: { training: TrainingProps }) => {
   const desc = parseMarkdownToHTML(training.description);
@@ -54,33 +46,9 @@ const Content = ({ training }: { training: TrainingProps }) => {
     documentTitle: "Training Content",
   });
 
-  const [copy, setCopy] = useState<Copy | null>(null);
-
   const printHandler = (): void => {
     printReactContent();
     logEvent("Training page", "Clicked print link", training.id);
-  };
-
-  const copyHandler = (): void => {
-    try {
-      navigator.clipboard.writeText(window.location.href);
-    } catch {
-      setCopy({
-        class: "red",
-        text: "Unsuccessful, try again later",
-      });
-    }
-
-    setCopy({
-      class: "green",
-      text: "Successfully copied",
-    });
-
-    setTimeout((): void => {
-      setCopy(null);
-    }, 5000);
-
-    logEvent("Training page", "Clicked copy link", training.id);
   };
 
   const generateJsonLd = (training: TrainingProps) => {
@@ -174,15 +142,6 @@ const Content = ({ training }: { training: TrainingProps }) => {
     training.provider.address.zipCode ? training.provider.address.zipCode : ""
   }`;
 
-  const counties =
-    training.localExceptionCounty && training.localExceptionCounty.length > 0
-      ? training.localExceptionCounty.length > 1
-        ? training.localExceptionCounty.slice(0, -1).join(", ") +
-          " and " +
-          training.localExceptionCounty.slice(-1)
-        : training.localExceptionCounty[0]
-      : [];
-
   return (
     <div ref={componentRef}>
       <Script
@@ -192,9 +151,11 @@ const Content = ({ training }: { training: TrainingProps }) => {
           __html: JSON.stringify(generateJsonLd(training)),
         }}
       />
-      <PageBanner
-        subHeading={training.provider.name}
-        theme="navy"
+      <ProgramBanner
+        name={training.name}
+        id={training.id}
+        provider={training.provider.name}
+        printHandler={printHandler}
         breadcrumbsCollection={{
           items: [
             {
@@ -211,81 +172,9 @@ const Content = ({ training }: { training: TrainingProps }) => {
             },
           ],
         }}
-        saveButtons={
-          <Flex
-            elementTag="ul"
-            columnBreak="none"
-            justifyContent="flex-end"
-            alignItems="center"
-            className="save-controls unstyled desktop-only"
-          >
-            <li>
-              <Button
-                type="button"
-                unstyled
-                className={`link-format-blue${copy ? " green" : ""}`}
-                onClick={copyHandler}
-              >
-                <Flex gap="xxs" direction="column" alignItems="center">
-                  <IconSelector name="LinkSimple" size={26} />
-                  <span>{copy ? "Copied!" : "Copy link"}</span>
-                </Flex>
-              </Button>
-            </li>
-            <li>
-              <Button
-                type="button"
-                unstyled
-                className="link-format-blue"
-                onClick={printHandler}
-              >
-                <Flex gap="xxs" direction="column" alignItems="center">
-                  <IconSelector
-                    name="Printer"
-                    size={26}
-                    className={copy ? "green" : undefined}
-                  />
-
-                  <span className="mlxs weight-500">Print and Save</span>
-                </Flex>
-              </Button>
-            </li>
-          </Flex>
-        }
-        title={training.name}
-        className={
-          counties.length === 0 && !training.inDemand
-            ? "counties-empty"
-            : undefined
-        }
-        infoBlocks={{
-          titleBlock: {
-            copy: `In-Demand in ${
-              training.inDemand ? "all of New Jersey" : counties
-            }.`,
-            message: "This training may be eligible for funding from your ",
-            link: {
-              copy: "One-Stop Career Center.",
-              url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
-            },
-          },
-          rateBlock: {
-            copy: "Program Employment Rate",
-            definition:
-              "Percentage of enrolled students employed within 6 months of this class or classes like it at this provider. * This information is missing because we haven't received enough data from this institute.",
-            number: training.percentEmployed
-              ? formatPercentEmployed(training.percentEmployed)
-              : "N/A",
-          },
-          costBlock: {
-            copy: "Avg Salary after Program",
-            definition:
-              "Average salary 6 months after completion of this class or classes like it at this provider. * This information is missing because we haven't received enough data from this institute.",
-            number: training.averageSalary
-              ? toUsCurrency(training.averageSalary)
-              : "N/A",
-          },
-        }}
+        inDemand={training.inDemand}
+        employmentRate={training.percentEmployed}
+        salary={training.averageSalary}
       />
       <section className="body-copy">
         <div className="container">

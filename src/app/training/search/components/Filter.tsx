@@ -21,7 +21,7 @@ interface FilterProps {
 
 const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
   const extractQuery = () => {
-    return searchParams.split("q=")[1].split("&")[0];
+    return searchParams.split("q=")[1]?.split("&")[0];
   };
 
   const extractParam = (param: string) => {
