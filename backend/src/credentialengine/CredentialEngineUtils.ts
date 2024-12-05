@@ -410,8 +410,6 @@ const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryTy
             return DeliveryType.OnlineOnly;
           case "deliveryType:BlendedDelivery":
             return DeliveryType.BlendedDelivery;
-          case "deliveryType:VariableSite":
-            return DeliveryType.VariableSite;
           default:
             // Log unknown types and skip them
             console.warn(`Unknown delivery type: ${JSON.stringify(deliveryType)}`);
@@ -423,7 +421,6 @@ const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryTy
     if (mappedTypes.length === 0) {
       console.log("No valid DeliveryTypes found.");
     }
-    console.log("STATUS: " + mappedTypes);
     return Promise.resolve(mappedTypes);
   } catch (error) {
     logError("Error checking for learning delivery types", error as Error);

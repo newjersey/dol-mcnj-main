@@ -33,7 +33,7 @@ export class ApiClient implements Client {
     zipCode?: string
   ): void {
     const cipCodeQuery = cipCode ? `&cip_code=${cipCode}` : "";
-    const classFormatQuery = classFormat && classFormat.length > 0 ? `&class_format=${classFormat.join(",")}` : "";
+    const classFormatQuery = classFormat && classFormat.length > 0 ? `&format=${classFormat.join(",")}` : "";
     const completeInQuery = completeIn && completeIn.length > 0 ? `&complete_in=${completeIn.join(",")}` : "";
     const countyQuery = county ? `&county=${county}` : "";
     const inDemandQuery = inDemand ? `&in_demand=${inDemand}` : "";
