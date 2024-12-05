@@ -4,14 +4,14 @@
   padding: settings.$size-32 0 settings.$size-12;
   background-color: settings.$base-cool;
 
+  @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    padding: settings.$size-16 0;
+  }
+
   &.noBreadcrumbs {
     @media screen and (min-width: (settings.$tablet-lg)) {
       padding: settings.$size-32 0;
     }
-  }
-
-  @media screen and (max-width: (settings.$tablet-lg - 1)) {
-    padding: settings.$size-16 0;
   }
 
   .usa-breadcrumb {
@@ -269,115 +269,6 @@
     &.open {
       pointer-events: all;
       opacity: 0.5;
-    }
-  }
-
-  .infoBlocks {
-    max-width: 375px;
-
-    .items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: settings.$size-16;
-
-      @media screen and (max-width: (settings.$tablet - 1)) {
-        flex-direction: column;
-        gap: settings.$size-16;
-      }
-
-      + a {
-        margin-top: settings.$size-12;
-      }
-    }
-
-    .box {
-      padding: settings.$size-12;
-
-      @media screen and (min-width: (settings.$tablet)) {
-        width: calc(50% - settings.$size-8);
-      }
-
-      @media screen and (max-width: (settings.$tablet - 1)) {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-      }
-
-      button {
-        cursor: pointer;
-
-        span {
-          border-bottom-width: 2px;
-          border-bottom-style: dashed;
-          border-color: #000000;
-        }
-
-        &:hover {
-          @media screen and (min-width: (settings.$tablet)) {
-            text-decoration: none;
-          }
-        }
-      }
-
-      p {
-        margin-bottom: settings.$size-8;
-
-        @media screen and (max-width: (settings.$tablet - 1)) {
-          margin-bottom: 0;
-        }
-      }
-
-      a {
-        margin: 0;
-      }
-
-      &:first-of-type {
-        background-color: settings.$accent-warm-lighter;
-
-        @media screen and (min-width: (settings.$tablet)) {
-          width: 100%;
-        }
-
-        @media screen and (max-width: (settings.$tablet - 1)) {
-          display: block;
-        }
-
-        p {
-          font-size: settings.$size-16;
-          margin: settings.$size-4 0;
-          line-height: 1.2;
-
-          &.title {
-            font-weight: bold;
-          }
-
-          @media screen and (max-width: (settings.$tablet - 1)) {
-            margin-bottom: settings.$size-8;
-          }
-        }
-      }
-
-      &.cost {
-        background-color: settings.$tertiary-lighter;
-
-        p {
-          border-bottom: dashed;
-        }
-      }
-
-      &.rate {
-        background-color: rgba(settings.$tertiary-lighter, 0.5);
-
-        p {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .value {
-      display: block;
-      margin-top: settings.$size-16;
-      font-weight: 600;
     }
   }
 }

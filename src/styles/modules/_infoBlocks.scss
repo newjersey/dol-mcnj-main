@@ -1,0 +1,58 @@
+@use "../settings" as s;
+
+.infoBlocks {
+  p {
+    line-height: 1.1;
+    margin: 0;
+
+    a {
+      display: inline;
+    }
+  }
+
+  > .box {
+    padding: s.$size-16;
+    background-color: s.$accent-cool-light;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: s.$size-96;
+    gap: s.$size-16;
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      max-width: s.$size-200;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+
+    &.title {
+      background-color: s.$accent-warm-light;
+
+      @media screen and (min-width: (s.$tablet-md)) {
+        max-width: s.$size-300;
+      }
+    }
+  }
+
+  .drawerButton {
+    button {
+      cursor: pointer;
+      span {
+        background: linear-gradient(
+          90deg,
+          s.$black 0,
+          s.$black 60%,
+          #0000 0,
+          #0000
+        );
+        background-position: bottom;
+        background-repeat: repeat-x;
+        background-size: s.$size-16 s.$size-1;
+        border: none;
+        text-decoration: none;
+      }
+    }
+  }
+}

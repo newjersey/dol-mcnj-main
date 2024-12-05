@@ -7,6 +7,10 @@
   background-color: transparent;
   gap: settings.$size-16;
   align-items: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @media screen and (max-width: (settings.$mobile-lg)) {
     gap: settings.$size-8;

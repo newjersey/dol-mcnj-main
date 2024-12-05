@@ -1,6 +1,8 @@
 @use "../settings" as settings;
 
 .drawer {
+  position: absolute;
+
   .text-xl {
     margin-top: 0;
   }
