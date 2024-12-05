@@ -115,7 +115,7 @@ export const TrainingResultCard = (props: Props): ReactElement => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-4 col-md-push-8 align-right-when-lg">
+        <div className="col-md-4 col-md-push-8 align-right">
           <p className="mts mbxs">
             <span className="fin fas">
               <InlineIcon className="mrs">card_travel</InlineIcon>
