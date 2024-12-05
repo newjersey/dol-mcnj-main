@@ -8,7 +8,7 @@ interface Props {
   options: string[]; // Add the 'options' property to the 'Props' interface
   clearSelected?: boolean;
   inputLabel?: string;
-  placeholder?: string
+  placeholder?: string;
 }
 
 export const FilterFormSingleDD = ({

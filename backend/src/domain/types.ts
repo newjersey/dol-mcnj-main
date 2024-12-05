@@ -24,7 +24,7 @@ export type SearchTrainings = (params: {
   services?: string[],
   soc_code?: string,
   miles?: number,
-  zip_code?: string
+  zipcode?: string
 }) => Promise<TrainingData>;
 export type AllTrainings = () => Promise<AllTrainingsResult[]>
 export type FindTrainingsBy = (selector: Selector, values: string[]) => Promise<Training[]>;

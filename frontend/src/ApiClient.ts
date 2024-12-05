@@ -44,7 +44,7 @@ export class ApiClient implements Client {
     const servicesQuery = services && services.length > 0 ? `&services=${services.join(",")}` : "";
     const socCodeQuery = socCode ? `&soc_code=${socCode}` : "";
     const sortQuery = `&sort=${sort || 'best_match'}`;
-    const milesZipCodeQuery = miles && zipCode ? `&miles=${miles}&zip_code=${zipCode}` : "";
+    const milesZipCodeQuery = miles && zipCode ? `&miles=${miles}&zipcode=${zipCode}` : "";
 
     const encodedQuery = encodeURIComponent(query);
     const url = `/api/trainings/search?query=${encodedQuery}${pageQuery}${limitQuery}${sortQuery}${cipCodeQuery}${classFormatQuery}${completeInQuery}${countyQuery}${inDemandQuery}${languagesQuery}${maxCostQuery}${servicesQuery}${socCodeQuery}${milesZipCodeQuery}`;

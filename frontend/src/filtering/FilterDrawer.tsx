@@ -305,9 +305,10 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
                     <label>{t("SearchAndFilter.locationFilterLabel")}</label>
                   </div>
                   <div className="zip-miles-group">
-                    <FilterFormInput
+                    <FilterFormSingleDD
+                      clearSelected={clearSelected}
                       inputName="miles"
-                      inputType="number"
+                      options={["5", "10", "25", "50"]}
                       placeholder={t("SearchAndFilter.locationFilterMilesInputLabel")}
                     />
                     <div className="conjunction-container">from</div>

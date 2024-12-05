@@ -421,6 +421,7 @@ const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryTy
     if (mappedTypes.length === 0) {
       console.log("No valid DeliveryTypes found.");
     }
+
     return Promise.resolve(mappedTypes);
   } catch (error) {
     logError("Error checking for learning delivery types", error as Error);
