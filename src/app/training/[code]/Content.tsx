@@ -12,15 +12,11 @@ import { Flex } from "@components/utility/Flex";
 import { Tooltip } from "@components/utility/Tooltip";
 import {
   Baby,
-  BookBookmark,
   Briefcase,
-  CalendarBlank,
-  Clock,
   Globe,
   GraduationCap,
   Info,
   LinkSimpleHorizontal,
-  ListBullets,
   MapPin,
   Moon,
   User,
