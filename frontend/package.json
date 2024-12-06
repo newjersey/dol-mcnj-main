@@ -23,7 +23,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "accounting": "^0.4.1",
     "axios": "^1.7.9",
-    "contentful": "^11.2.5",
+    "contentful": "^11.3.0",
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.2",
     "graphql-request": "^7.1.2",
