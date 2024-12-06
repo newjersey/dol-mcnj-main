@@ -258,6 +258,12 @@
       width: 100%;
     }
 
+    .grouping {
+      @media screen and (max-width: (settings.$tablet - 1)) {
+        margin: 0 auto;
+      }
+    }
+
     svg,
     .svg-container {
       height: auto;

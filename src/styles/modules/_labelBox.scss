@@ -17,22 +17,6 @@
     }
   }
 
-  .title {
-    background: s.$primary;
-    color: s.$ink;
-    padding: 0.625rem s.$size-16;
-    margin: 0;
-    font-size: s.$size-16;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: s.$size-8;
-  }
-
-  .content {
-    padding: s.$size-24 s.$size-16;
-  }
-
   &.centered {
     .title {
       padding: s.$size-16;
@@ -79,5 +63,26 @@
       background: s.$info-darker;
       color: s.$white;
     }
+  }
+
+  .title {
+    background: s.$primary;
+    color: s.$ink;
+    padding: 0.625rem s.$size-16;
+    margin: 0;
+    font-size: s.$size-16;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: s.$size-8;
+  }
+
+  .content {
+    padding: s.$size-24 s.$size-16;
+  }
+
+  .disclaimer {
+    font-size: s.$size-14;
+    line-height: 1.1;
   }
 }

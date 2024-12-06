@@ -34,7 +34,6 @@
       }
       a {
         font-size: settings.$size-16;
-        text-decoration: underline;
         @include mixins.linkColor;
 
         &.usa-breadcrumb__link:visited,

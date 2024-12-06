@@ -125,6 +125,7 @@ main {
     align-items: center;
     gap: settings.$size-2;
     position: relative;
+    text-decoration: none;
 
     &.linkObject {
       display: inline-flex;
@@ -135,6 +136,7 @@ main {
     }
 
     &:hover {
+      text-decoration: underline;
       color: settings.$tertiary;
     }
   }
