@@ -2,7 +2,6 @@
 
 .infoBlocks {
   p {
-    line-height: 1.1;
     margin: 0;
 
     a {
@@ -32,6 +31,10 @@
 
       @media screen and (min-width: (s.$tablet-md)) {
         max-width: s.$size-300;
+      }
+
+      > p {
+        line-height: 1.1;
       }
     }
   }
