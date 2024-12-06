@@ -5,6 +5,9 @@
   padding: 0;
   background-color: transparent;
   color: inherit;
+  text-underline-offset: settings.$size-4;
+  text-decoration-thickness: settings.$size-2;
+  font-weight: bold;
   @include mixins.linkColor;
 }
 
