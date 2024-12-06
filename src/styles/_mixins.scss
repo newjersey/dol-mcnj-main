@@ -1,15 +1,15 @@
 @use "./settings" as settings;
 
 @mixin linkColor {
-  color: settings.$primary-vivid;
+  color: settings.$primary;
 
   &:visited {
-    color: settings.$primary-vivid;
+    color: settings.$primary;
   }
 
   &:hover {
     @media screen and (min-width: (settings.$desktop)) {
-      color: settings.$primary-vivid;
+      color: settings.$primary;
     }
   }
 }
@@ -57,4 +57,21 @@
 @mixin radius20overflow {
   @include radius20;
   overflow: hidden;
+}
+
+@mixin underDash {
+  color: settings.$black;
+  padding-bottom: settings.$size-1;
+  background: linear-gradient(
+    90deg,
+    settings.$black 0,
+    settings.$black 60%,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0)
+  );
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: settings.$size-16 settings.$size-1;
+  border: none;
+  text-decoration: none;
 }

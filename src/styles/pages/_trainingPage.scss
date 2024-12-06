@@ -1,4 +1,5 @@
 @use "../settings" as settings;
+@use "../mixins" as mixins;
 
 .trainingPage {
   padding-bottom: settings.$size-48;
@@ -9,16 +10,11 @@
 
   .occupations {
     .content {
-      display: flex;
-      flex-direction: column;
-      gap: settings.$size-8;
-
-      a {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
+      .indent {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: settings.$size-8;
       }
     }
   }
@@ -43,6 +39,7 @@
 
   .body-copy {
     margin: 0 0 settings.$size-32;
+    overflow-x: hidden;
 
     @media screen and (min-width: (settings.$tablet-lg)) {
       margin: settings.$size-32 0;
@@ -73,9 +70,20 @@
         }
       }
     }
+
+    .container {
+      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        padding: 0;
+      }
+    }
   }
 
   .labelBox {
+    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      border-radius: 0;
+      border: none;
+    }
+
     strong {
       display: inline-flex;
       align-items: center;
@@ -91,20 +99,8 @@
 
     button {
       &.unstyled {
-        text-decoration: none;
-        color: settings.$black;
-        position: relative;
-
-        &:after {
-          content: "";
-          display: block;
-          position: absolute;
-          width: 100%;
-          height: 0;
-          border-bottom: settings.$size-2 dashed settings.$black;
-          top: calc(100% + settings.$size-2);
-          left: 0;
-        }
+        @include mixins.underDash;
+        font-weight: bold;
       }
     }
 
@@ -129,7 +125,17 @@
       &.highlight-orange {
         border: none;
         padding: settings.$size-16;
+
+        @media screen and (max-width: (settings.$tablet-lg - 1)) {
+          max-width: calc(100% - settings.$size-32);
+          width: 100%;
+          margin: 0 auto;
+        }
       }
     }
+  }
+
+  .indent {
+    margin: settings.$size-16 0 0 settings.$size-16;
   }
 }

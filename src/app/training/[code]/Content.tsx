@@ -7,6 +7,7 @@ import { Heading } from "@components/modules/Heading";
 import { IconSelector } from "@components/modules/IconSelector";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
+import { Box } from "@components/utility/Box";
 import { Flex } from "@components/utility/Flex";
 import { Tooltip } from "@components/utility/Tooltip";
 import {
@@ -39,6 +40,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
   const desc = parseMarkdownToHTML(training.description);
   const [copied, setCopied] = useState(false);
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
+  const [socDrawerOpen, setSocDrawerOpen] = useState(false);
 
   const componentRef = useRef<HTMLDivElement>(null);
 
@@ -195,6 +197,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
         employmentRate={training.percentEmployed}
         salary={training.averageSalary}
       />
+
       <section className="body-copy">
         <div className="container">
           <div className="inner">
@@ -221,6 +224,11 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 className="stats"
               >
                 <Flex direction="column" gap="xs">
+                  {training.languages && training.languages.length > 0 && (
+                    <FactItem label="Languages" icon="Globe">
+                      <>{training.languages.join(", ")}</>
+                    </FactItem>
+                  )}
                   {training.prerequisites && (
                     <FactItem label="Prerequisites" icon="ListBullets">
                       <>{training.prerequisites}</>
@@ -241,16 +249,55 @@ const Content = ({ training }: { training: TrainingProps }) => {
 
                   {!!training.totalClockHours && (
                     <FactItem label="Total Hours" icon="Clock">
-                      <strong>
-                        <Tooltip copy="Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.">
+                      <Flex alignItems="center" gap="micro" columnBreak="none">
+                        <Tooltip
+                          copy="Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program."
+                          style={{
+                            height: "20px",
+                          }}
+                        >
                           <Info weight="fill" size={18} />
                         </Tooltip>
                         {training.totalClockHours} hours
-                      </strong>
+                      </Flex>
                     </FactItem>
                   )}
                 </Flex>
               </LabelBox>
+              {training.cipDefinition && (
+                <LabelBox
+                  large
+                  title="Instructional Programs"
+                  color="green"
+                  className="cip"
+                  subheading="Type of material covered by the Learning Opportunity"
+                >
+                  <Button
+                    type="button"
+                    className="under-dash"
+                    unstyled
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCipDrawerOpen(!cipDrawerOpen);
+                    }}
+                  >
+                    Classification of Instructional Programs
+                  </Button>
+                  <Box className="indent">
+                    <p>
+                      <LinkObject
+                        url={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
+                          training.cipDefinition?.cipcode
+                        )}`}
+                      >
+                        {`${training.cipDefinition?.ciptitle} (${formatCip(
+                          training.cipDefinition?.cipcode
+                        )})`}
+                      </LinkObject>
+                    </p>
+                  </Box>
+                </LabelBox>
+              )}
               <LabelBox
                 large
                 subheading="Explore the occupations below to learn more"
@@ -258,14 +305,28 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 title="Associated Occupations and Industries"
                 className="occupations"
               >
-                {training.occupations?.map((occupation: any) => (
-                  <LinkObject
-                    key={occupation.soc}
-                    url={`/occupation/${occupation.soc}`}
-                  >
-                    {occupation.title}
-                  </LinkObject>
-                ))}
+                <Button
+                  type="button"
+                  className="under-dash"
+                  unstyled
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSocDrawerOpen(!cipDrawerOpen);
+                  }}
+                >
+                  Standard Occupational Classification
+                </Button>
+                <Box className="indent">
+                  {training.occupations?.map((occupation: any) => (
+                    <LinkObject
+                      key={occupation.soc}
+                      target="_blank"
+                      url={`/occupation/${occupation.soc}`}
+                    >
+                      {occupation.title}
+                    </LinkObject>
+                  ))}
+                </Box>
               </LabelBox>
               <LabelBox
                 large
@@ -284,7 +345,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 </p>
                 <Button
                   type="link"
-                  outlined
+                  unstyled
                   link="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
                   iconSuffix="ArrowSquareOut"
                 >
@@ -294,8 +355,8 @@ const Content = ({ training }: { training: TrainingProps }) => {
                   You can also check out other tuition assistance opportunities.
                 </p>
                 <Button
-                  defaultStyle="secondary"
-                  outlined
+                  unstyled
+                  newTab
                   type="link"
                   link="/support-resources/tuition-assistance"
                 >
@@ -394,46 +455,114 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 title="Support Services"
                 className="services"
               >
-                {training.hasEveningCourses && (
-                  <p>
-                    <Moon size={18} weight="bold" />
-                    <span>This provider offers evening courses</span>
+                <Flex direction="column" gap="xs">
+                  {training.hasEveningCourses && (
+                    <Flex
+                      alignItems="flex-start"
+                      gap="xs"
+                      columnBreak="none"
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <Moon size={18} weight="bold" />
+                      <span
+                        style={{
+                          display: "block",
+                          width: "calc(100% - 30px)",
+                        }}
+                      >
+                        This provider offers evening courses
+                      </span>
+                    </Flex>
+                  )}
+                  {training.languages.length !== 0 && (
+                    <Flex
+                      alignItems="flex-start"
+                      gap="xs"
+                      columnBreak="none"
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <Globe size={18} weight="bold" />
+                      <span
+                        style={{
+                          display: "block",
+                          width: "calc(100% - 30px)",
+                        }}
+                      >
+                        Programs may be available in other languages
+                      </span>
+                    </Flex>
+                  )}
+                  {training.isWheelchairAccessible && (
+                    <Flex
+                      alignItems="flex-start"
+                      gap="xs"
+                      columnBreak="none"
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <WheelchairMotion size={18} weight="bold" />
+                      <span
+                        style={{
+                          display: "block",
+                          width: "calc(100% - 30px)",
+                        }}
+                      >
+                        The facility is wheelchair accessible
+                      </span>
+                    </Flex>
+                  )}
+                  {training.hasJobPlacementAssistance && (
+                    <Flex
+                      alignItems="flex-start"
+                      gap="xs"
+                      columnBreak="none"
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <Briefcase size={18} weight="bold" />
+                      <span
+                        style={{
+                          display: "block",
+                          width: "calc(100% - 30px)",
+                        }}
+                      >
+                        Job placement and/or career assistance is available at
+                        this provider
+                      </span>
+                    </Flex>
+                  )}
+                  {training.hasChildcareAssistance && (
+                    <Flex
+                      alignItems="flex-start"
+                      gap="xs"
+                      columnBreak="none"
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <Baby size={18} />
+                      <span
+                        style={{
+                          display: "block",
+                          width: "calc(100% - 30px)",
+                        }}
+                      >
+                        This provider has childcare at the facility or provides
+                        assistance with finding childcare
+                      </span>
+                    </Flex>
+                  )}
+                  <p className="disclaimer">
+                    Services are subject to provider details, contact this
+                    provider for more information on services
                   </p>
-                )}
-                {training.languages.length !== 0 && (
-                  <p>
-                    <Globe size={18} weight="bold" />
-                    <span>Programs may be available in other languages</span>
-                  </p>
-                )}
-                {training.isWheelchairAccessible && (
-                  <p>
-                    <WheelchairMotion size={18} weight="bold" />
-                    <span>The facility is wheelchair accessible</span>
-                  </p>
-                )}
-                {training.hasJobPlacementAssistance && (
-                  <p>
-                    <Briefcase size={18} weight="bold" />
-                    <span>
-                      Job placement and/or career assistance is available at
-                      this provider
-                    </span>
-                  </p>
-                )}
-                {training.hasChildcareAssistance && (
-                  <p>
-                    <Baby size={18} />
-                    <span>
-                      This provider has childcare at the facility or provides
-                      assistance with finding childcare
-                    </span>
-                  </p>
-                )}
-                <p>
-                  Services are subject to provider details, contact this
-                  provider for more information on services
-                </p>
+                </Flex>
               </LabelBox>
               <Button
                 type="link"
@@ -507,6 +636,46 @@ const Content = ({ training }: { training: TrainingProps }) => {
               chatGPT(3.5)
             </a>
           </p>
+        </div>
+      </Drawer>
+      <Drawer open={socDrawerOpen} setOpen={setSocDrawerOpen}>
+        <Heading level={3}>
+          Standard Occupational Classification (SOC) codes
+        </Heading>
+        <p>
+          "The 2018 Standard Occupational Classification (SOC) system is a
+          federal statistical standard used by federal agencies to classify
+          workers into occupational categories for the purpose of collecting,
+          calculating, or disseminating data." <sup>1.</sup>
+        </p>
+        <p>
+          You can find a list of SOC codes{" "}
+          <a
+            href="https://www.bls.gov/oes/current/oes_stru.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here.
+          </a>
+        </p>
+        <br />
+        <div className="small sources">
+          <span>
+            <sup>1.</sup> Sources
+            <ul>
+              <li>
+                .S. Bureau of Labor Statistics (BLS)
+                <br />
+                <a
+                  href="https://www.bls.gov/soc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://www.bls.gov/soc/
+                </a>
+              </li>
+            </ul>
+          </span>
         </div>
       </Drawer>
     </div>
