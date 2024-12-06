@@ -1,4 +1,5 @@
 "use client";
+import { Heading } from "@components/modules/Heading";
 import { Box } from "@components/utility/Box";
 import { X } from "@phosphor-icons/react";
 import { useEffect, useState, useRef } from "react";
@@ -54,15 +55,18 @@ export const DrawerButton = ({
         <div ref={ref} className={`overlay${open ? " open" : ""}`} />
         <div className={`panel${open ? " open" : ""}`}>
           <button
+            className="close"
             onClick={() => {
               setOpen(!open);
             }}
           >
             <div className="sr-only">Close</div>
-            <X size={22} />
+            <X size={30} />
           </button>
-          <p className="text-xl">{copy}</p>
-          <p>{definition}</p>
+          <div className="content">
+            <Heading level={3}>{copy}</Heading>
+            <p>{definition}</p>
+          </div>
         </div>
       </div>
     </>
