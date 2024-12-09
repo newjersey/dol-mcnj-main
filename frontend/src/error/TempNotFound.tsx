@@ -24,12 +24,12 @@ export const TempNotFound = (props: Props): ReactElement => {
         <>
           <p>{t("ErrorPage.notFoundTextTemp")}</p>
           <p>
-            <a className="link-format-blue" href="/training/search/">
+            <a className="link-format-blue" href="/training">
               {t("ErrorPage.notFoundLink1Temp")}
             </a>
           </p>
           <p>
-            <a className="link-format-blue" href="Contact Us">
+            <a className="link-format-blue" href="/contact">
               {t("ErrorPage.notFoundLink2Temp")}
             </a>
           </p>

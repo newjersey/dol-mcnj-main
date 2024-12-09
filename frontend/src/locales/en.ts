@@ -26,7 +26,7 @@ export const en = {
     notFoundHeaderTemp: "Temporary URL Change",
     notFoundText: "Try one of these instead:",
     notFoundTextTemp:
-      "We are in the process of updating our data structure, which may result in temporary changes to the URL of the page you're trying to access. Please return to the Training Explorer search page to find the training you're looking for.",
+      "Apologies! We are currently updating our data structure, which has resulted in temporary changes to the URL of the page you're trying to access. While we resolve this, please use the link below to return to the Training Explorer search page and retry your search again.",
     notFoundLink1: "Search for a training opportunity",
     notFoundLink2: "Look up your local One-Stop Career Center",
     notFoundLink1Temp: "Training Explorer Search",

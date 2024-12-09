@@ -26,7 +26,7 @@ export const es = {
     notFoundHeaderTraining: "Training Not Found",
     notFoundText: "Pruebe uno de estos en su lugar:",
     notFoundTextTemp:
-      "Estamos en el proceso de actualizar nuestra estructura de datos, lo que puede resultar en cambios temporales en la URL de la página a la que intenta acceder. Regrese a la página de búsqueda de Training Explorer para encontrar la capacitación que está buscando.",
+      "¡Disculpas! Actualmente estamos actualizando nuestra estructura de datos, lo que ha resultado en cambios temporales en la URL de la página a la que intenta acceder. Mientras solucionamos este problema, utilice el siguiente enlace para regresar a la página de búsqueda de Training Explorer y vuelva a intentar su búsqueda.",
     notFoundLink1: "Buscar una oportunidad de formación",
     notFoundLink2: "Busque su One-Stop Career Center local",
     notFoundLink1Temp: "Búsqueda del Explorador de formación",
