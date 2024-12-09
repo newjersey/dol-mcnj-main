@@ -3,6 +3,7 @@ import { TrainingPage } from "./TrainingPage";
 import { TempNotFound } from "../error/TempNotFound";
 import { NotFoundPage } from "../error/NotFoundPage";
 import { Client } from "../domain/Client";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const TrainingPageRouter = ({ id, client }: Props) => {
+  const { t } = useTranslation();
   const isCTID =
     /^ce-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id);
   const isProgramID = /^\d{5}$/.test(id);
@@ -19,28 +21,8 @@ export const TrainingPageRouter = ({ id, client }: Props) => {
   if (isCTID) {
     return <TrainingPage id={id} path="/training/:id" client={client} />;
   } else if (isProgramID) {
-    return (
-      <TempNotFound client={client} heading="Temporary URL Change">
-        <>
-          <p>
-            We are in the process of updating our data structure, which may result in temporary
-            changes to the URL of the page you're trying to access. Please return to the Training
-            Explorer search page to find the training you're looking for.
-          </p>
-          <p>
-            <a className="link-format-blue" href="/training/search/">
-              Training Explorer Search
-            </a>
-          </p>
-          <p>
-            <a className="link-format-blue" href="/contact">
-              Contct Us
-            </a>
-          </p>
-        </>
-      </TempNotFound>
-    );
+    return <TempNotFound client={client} />;
   } else {
-    return <NotFoundPage client={client} heading="Training Not Found" />;
+    return <NotFoundPage client={client} heading={t("ErrorPage.notFoundHeaderTraining")} />;
   }
 };

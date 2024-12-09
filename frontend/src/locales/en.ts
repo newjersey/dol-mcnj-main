@@ -22,9 +22,15 @@ export const en = {
   },
   ErrorPage: {
     notFoundHeader: "Sorry, we can't seem to find that page",
+    notFoundHeaderTraining: "Training Not Found",
+    notFoundHeaderTemp: "Temporary URL Change",
     notFoundText: "Try one of these instead:",
+    notFoundTextTemp:
+      "We are in the process of updating our data structure, which may result in temporary changes to the URL of the page you're trying to access. Please return to the Training Explorer search page to find the training you're looking for.",
     notFoundLink1: "Search for a training opportunity",
     notFoundLink2: "Look up your local One-Stop Career Center",
+    notFoundLink1Temp: "Training Explorer Search",
+    notFoundLink2Temp: "Contact Us",
     somethingWentWrongHeader: "Sorry, something went wrong",
     somethingWentWrongText: "Please try again later",
   },

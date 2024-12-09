@@ -14,23 +14,23 @@ export const TempNotFound = (props: Props): ReactElement => {
   const { t } = useTranslation();
 
   return (
-    <ErrorPage headerText={props.heading || t("ErrorPage.notFoundHeader")} client={props.client}>
+    <ErrorPage
+      headerText={props.heading || t("ErrorPage.notFoundHeaderTemp")}
+      client={props.client}
+    >
       {props.children ? (
         <>{props.children}</>
       ) : (
         <>
-          <p>{t("ErrorPage.notFoundText")}</p>
+          <p>{t("ErrorPage.notFoundTextTemp")}</p>
           <p>
             <a className="link-format-blue" href="/training/search/">
-              {t("ErrorPage.notFoundLink1")}
+              {t("ErrorPage.notFoundLink1Temp")}
             </a>
           </p>
           <p>
-            <a
-              className="link-format-blue"
-              href="https://careerconnections.nj.gov/careerconnections/plan/support/njccsites/one_stop_career_centers.shtml"
-            >
-              {t("ErrorPage.notFoundLink2")}
+            <a className="link-format-blue" href="Contact Us">
+              {t("ErrorPage.notFoundLink2Temp")}
             </a>
           </p>
         </>
