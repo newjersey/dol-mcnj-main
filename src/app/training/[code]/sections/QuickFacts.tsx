@@ -1,7 +1,7 @@
 import { IconSelector } from "@components/modules/IconSelector";
 import { LabelBox } from "@components/modules/LabelBox";
 import { Flex } from "@components/utility/Flex";
-import { Tooltip } from "@components/utility/Tooltip";
+import { Tooltip, TooltipProps } from "@components/utility/Tooltip";
 import { Info } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
 import { TrainingProps } from "@utils/types";
@@ -12,15 +12,24 @@ export const QuickFacts = ({ training }: { training: TrainingProps }) => {
     label,
     icon,
     children,
+    toolTip,
   }: {
     label: string;
     icon: any;
     children: ReactNode;
+    toolTip?: TooltipProps;
   }) => (
     <Flex alignItems="flex-start" gap="xs" elementTag="span" columnBreak="none">
       <IconSelector name={icon} size={18} weight="bold" />
       <Flex elementTag="span" direction="column" gap="xxs">
-        <strong>{label}: </strong>
+        <strong>
+          {label}:
+          {toolTip && (
+            <Tooltip copy={toolTip.copy} style={toolTip.style}>
+              {toolTip.children}
+            </Tooltip>
+          )}
+        </strong>
         <span>{children}</span>
       </Flex>
     </Flex>
@@ -59,16 +68,19 @@ export const QuickFacts = ({ training }: { training: TrainingProps }) => {
         )}
 
         {!!training.totalClockHours && (
-          <FactItem label="Total Hours" icon="Clock">
+          <FactItem
+            label="Total Hours"
+            icon="Clock"
+            toolTip={{
+              copy: "Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.",
+              style: {
+                height: "20px",
+                fontWeight: "normal",
+              },
+              children: <Info weight="fill" size={18} />,
+            }}
+          >
             <Flex alignItems="center" gap="micro" columnBreak="none">
-              <Tooltip
-                copy="Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program."
-                style={{
-                  height: "20px",
-                }}
-              >
-                <Info weight="fill" size={18} />
-              </Tooltip>
               {training.totalClockHours} hours
             </Flex>
           </FactItem>

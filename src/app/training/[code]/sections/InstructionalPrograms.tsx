@@ -24,17 +24,17 @@ export const InstructionalPrograms = ({
           className="cip"
           subheading="Type of material covered by the Learning Opportunity"
         >
-          <Button
+          <button
             type="button"
             className="under-dash"
-            unstyled
             onClick={(e) => {
               e.preventDefault();
               setCipDrawerOpen(!cipDrawerOpen);
             }}
           >
-            Classification of Instructional Programs
-          </Button>
+            <span>Classification of Instructional Programs</span>
+          </button>
+
           <Box className="indent">
             <p>
               <LinkObject
@@ -42,9 +42,10 @@ export const InstructionalPrograms = ({
                   training.cipDefinition?.cipcode
                 )}`}
               >
-                {`${training.cipDefinition?.ciptitle} (${formatCip(
-                  training.cipDefinition?.cipcode
-                )})`}
+                {`${training.cipDefinition?.ciptitle.replace(
+                  /\.$/,
+                  ""
+                )} (${formatCip(training.cipDefinition?.cipcode)})`}
               </LinkObject>
             </p>
           </Box>

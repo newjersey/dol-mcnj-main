@@ -21,17 +21,16 @@ export const AssociatedOccupationsIndustries = ({
       title="Associated Occupations and Industries"
       className="occupations"
     >
-      <Button
+      <button
         type="button"
         className="under-dash"
-        unstyled
         onClick={(e) => {
           e.preventDefault();
           setSocDrawerOpen(!socDrawerOpen);
         }}
       >
-        Standard Occupational Classification
-      </Button>
+        <span>Standard Occupational Classification</span>
+      </button>
       <Box className="indent">
         {training.occupations?.map((occupation: any) => (
           <LinkObject
@@ -39,7 +38,7 @@ export const AssociatedOccupationsIndustries = ({
             target="_blank"
             url={`/occupation/${occupation.soc}`}
           >
-            {occupation.title}
+            {`${occupation.title} (${occupation.soc})`}
           </LinkObject>
         ))}
       </Box>
