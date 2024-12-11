@@ -444,9 +444,8 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const occupations = await credentialEngineUtils.extractOccupations(certificate);
     const socCodes = occupations.map((occupation: { soc: string }) => occupation.soc);
 
-    const outcomesDefinition = await dataClient.findOutcomeDefinition(cipCode, provider.providerId);
-
-    return {
+    const outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
+    const result = {
       ctid: certificate["ceterms:ctid"] || "",
       name: certificate["ceterms:name"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
@@ -468,6 +467,8 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
       totalClockHours: null,
     };
+    console.log(result);
+    return result;
   } catch (error) {
     console.error("Error transforming certificate to training:", error);
     throw error;
