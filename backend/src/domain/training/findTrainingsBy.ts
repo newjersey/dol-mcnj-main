@@ -64,7 +64,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(record, "support:JobPlacement"),
           hasChildcareAssistance: await credentialEngineUtils.checkSupportService(record, "support:Childcare")
         };
-        console.log(training.provider.address[0].targetContactPoints);
+
         return training;
       })
     );
