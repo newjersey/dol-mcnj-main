@@ -2,6 +2,7 @@ import { Button } from "@components/modules/Button";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Box } from "@components/utility/Box";
+import { ArrowSquareOut } from "@phosphor-icons/react";
 import { formatCip } from "@utils/formatCip";
 import { TrainingProps } from "@utils/types";
 
@@ -37,8 +38,8 @@ export const InstructionalPrograms = ({
 
           <Box className="indent">
             <p>
-              <LinkObject
-                url={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
+              <a
+                href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
                   training.cipDefinition?.cipcode
                 )}`}
               >
@@ -46,7 +47,14 @@ export const InstructionalPrograms = ({
                   /\.$/,
                   ""
                 )} (${formatCip(training.cipDefinition?.cipcode)})`}
-              </LinkObject>
+                <ArrowSquareOut
+                  size={20}
+                  style={{
+                    verticalAlign: "middle",
+                    margin: "0 0 0.4rem 0.5rem",
+                  }}
+                />
+              </a>
             </p>
           </Box>
         </LabelBox>
