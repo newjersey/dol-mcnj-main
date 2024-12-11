@@ -36,6 +36,7 @@ import {
   MagnifyingGlass,
   MapPin,
   Printer,
+  User,
   X,
 } from "@phosphor-icons/react";
 import { Helmet } from "react-helmet-async";
@@ -44,6 +45,7 @@ import { QuickFacts } from "./QuickFacts";
 import { formatCip } from "../utils/formatCip";
 import { ProviderServices } from "./ProviderServices";
 import { SocDrawerContent } from "../components/SocDrawerContent";
+import parsePhoneNumberFromString from "libphonenumber-js";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -274,6 +276,25 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
+  const getProviderContact = (): ReactElement => {
+    if (!training) {
+      return <></>;
+    }
+    let phoneNumber: string | undefined;
+    const contactPoint = training.provider.address?.[0]?.targetContactPoints?.[0];
+    if (contactPoint?.telephone && Array.isArray(contactPoint.telephone) && contactPoint.telephone.length > 0) {
+      phoneNumber = parsePhoneNumberFromString(contactPoint.telephone[0], "US")?.formatNational();
+    }
+
+    return (
+      <div className="inline">
+        <span>{contactPoint?.name}</span>
+        <div>{contactPoint?.contactType}</div>
+        <div>{phoneNumber}</div>
+      </div>
+    );
+  };
+
   const getAvailableAtAddress = (): ReactElement => {
     if (!training) {
       return <>{PROVIDER_MISSING_INFO}</>;
@@ -375,8 +396,8 @@ export const TrainingPage = (props: Props): ReactElement => {
     ];
 
     let contactName, contactTitle, phoneNumber;
-    if (training.provider.addresses && training.provider.addresses.length > 0) {
-      for (const address of training.provider.addresses) {
+    if (training.provider.address && training.provider.address.length > 0) {
+      for (const address of training.provider.address) {
         if (address.targetContactPoints && address.targetContactPoints.length > 0) {
           const mainContactPoint = address.targetContactPoints[0];
           contactName = mainContactPoint.name;
@@ -855,14 +876,20 @@ export const TrainingPage = (props: Props): ReactElement => {
                           {getAvailableAtAddress() && (
                             <div className="fact-item">
                               <span className="label">
-                                <MapPin size={18} weight="fill" />
+                                <MapPin size={18} weight="fill"/>
                               </span>
                               {getAvailableAtAddress()}
                             </div>
                           )}
                           <div className="fact-item">
                             <span className="label">
-                              <LinkSimple size={18} weight="bold" />
+                              <User size={18} weight="bold"/>
+                            </span>
+                            {getProviderContact()}
+                          </div>
+                          <div className="fact-item">
+                            <span className="label">
+                              <LinkSimple size={18} weight="bold"/>
                             </span>
                             {getProviderUrl()}
                           </div>
@@ -873,7 +900,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <ProviderServices training={training} />
+                  <ProviderServices training={training}/>
                   <div className="mobile-only">{fundingContent}</div>
                   <Button
                     variant="custom"

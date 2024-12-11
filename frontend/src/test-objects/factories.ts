@@ -98,7 +98,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     name: "some-provider-name-" + randomInt(),
     email: "some-provider-email-" + randomInt() + "@FAKE-PROVIDER-DOMAIN.com",
     url: "some-url-" + randomInt(),
-    addresses: [buildAddress({}), buildAddress({})],
+    address: [buildAddress({}), buildAddress({})],
     ...overrides,
   };
 };

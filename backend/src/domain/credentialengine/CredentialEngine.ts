@@ -70,7 +70,6 @@ export interface CTDLResource {
   "ceterms:availabilityListing"?:         string[];
   "ceterms:degreeConcentration"?:         CetermsCredentialAlignmentObject[];
   "ceterms:credentialStatusType"?:        CetermsCredentialAlignmentObject;
-  "ceterms:deliveryType"?:            CetermsCredentialAlignmentObject[];
   "ceterms:assessmentDeliveryType"?:      CetermsCredentialAlignmentObject[];
   "ceterms:instructionalProgramType"?:    CetermsInstructionalProgramType[];
   "ceterms:offerFrequencyType"?:          CetermsOfferFrequencyType[];
@@ -218,7 +217,7 @@ export interface CetermsContactPoint {
   "ceterms:email"?:               string[];
   "ceterms:telephone"?:           string[];
   "ceterms:faxNumber"?:           string[];
-  "ceterms:contactType?":         Ceterms;
+  "ceterms:contactType":         Ceterms;
   "ceterms:socialMedia?":         string[];
 }
 

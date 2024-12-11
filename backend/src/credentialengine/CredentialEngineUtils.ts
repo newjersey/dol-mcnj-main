@@ -123,6 +123,8 @@ const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
           ...baseAddress,
           targetContactPoints: contactPoints.map((contactPoint: CetermsContactPoint) => ({
             name: contactPoint["ceterms:name"]?.["en-US"] ?? "",
+            contactType: contactPoint["ceterms:contactType"]?.["en-US"] ?? "",
+            email: contactPoint["ceterms:email"] ?? [],
             telephone: contactPoint["ceterms:telephone"] ?? [],
           })),
         });
