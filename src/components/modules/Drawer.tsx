@@ -31,12 +31,18 @@ export const Drawer = ({
     } else {
       document.body.style.overflow = "auto";
     }
+
+    // put focus on the drawer when it opens
+    if (open) {
+      const panel = document.querySelector(".panel.open");
+      (panel as HTMLElement)?.focus();
+    }
   }, [open]);
 
   return (
     <div className="drawer">
       <div className={`overlay${open ? " open" : ""}`} />
-      <div className={`panel${open ? " open" : ""}`}>
+      <div className={`panel${open ? " open" : ""}`} tabIndex={-1}>
         <button
           onClick={() => {
             setOpen(false);

@@ -1,6 +1,8 @@
 import { Button } from "@components/modules/Button";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
+import { ArrowSquareOut } from "@phosphor-icons/react";
+import Link from "next/link";
 
 export const HowToGetFunding = ({
   mobileOnly,
@@ -27,14 +29,13 @@ export const HowToGetFunding = ({
         may be eligible for funding. Contact your local One-Stop Career Center
         for more information regarding program and training availability.
       </p>
-      <Button
-        type="link"
-        unstyled
-        link="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
-        iconSuffix="ArrowSquareOut"
+      <Link
+        className="boldLink"
+        href="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
       >
         New Jersey&apos;s One-Stop Career Centers
-      </Button>
+        <ArrowSquareOut size={24} />
+      </Link>
       <p>You can also check out other tuition assistance opportunities.</p>
       <Button
         unstyled

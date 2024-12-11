@@ -98,9 +98,14 @@
     }
 
     button {
-      &.unstyled {
-        @include mixins.underDash;
-        font-weight: bold;
+      &.under-dash {
+        span {
+          @include mixins.underDash;
+          font-weight: bold;
+          text-align: left;
+          justify-content: flex-start;
+          width: auto;
+        }
       }
     }
 

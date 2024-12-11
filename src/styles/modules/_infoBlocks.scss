@@ -1,4 +1,5 @@
 @use "../settings" as s;
+@use "../mixins" as m;
 
 .infoBlocks {
   p {
@@ -36,6 +37,11 @@
       > p {
         line-height: 1.1;
       }
+
+      a {
+        text-decoration: underline;
+        color: s.$primary-dark;
+      }
     }
   }
 
@@ -43,18 +49,7 @@
     button {
       cursor: pointer;
       span {
-        background: linear-gradient(
-          90deg,
-          s.$black 0,
-          s.$black 60%,
-          #0000 0,
-          #0000
-        );
-        background-position: bottom;
-        background-repeat: repeat-x;
-        background-size: s.$size-16 s.$size-1;
-        border: none;
-        text-decoration: none;
+        @include m.underDash;
       }
     }
   }

@@ -8,6 +8,9 @@
   text-underline-offset: settings.$size-4;
   text-decoration-thickness: settings.$size-2;
   font-weight: bold;
+  justify-content: flex-start;
+  text-align: left;
+  line-height: 1.5;
 
   & {
     @include mixins.linkColor;
@@ -285,10 +288,11 @@
   &.highlight-orange {
     background: settings.$accent-warm-lighter;
     border-color: settings.$accent-warm-light;
-    color: settings.$accent-warm-darker;
+    color: settings.$black;
 
     &:hover {
       @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$accent-warm-light;
         border-color: settings.$accent-warm;
       }
     }

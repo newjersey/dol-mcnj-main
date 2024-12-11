@@ -8,6 +8,10 @@
       font-size: s.$size-24;
       font-weight: 700;
 
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-20;
+      }
+
       .subheading {
         font-size: s.$size-16;
         font-weight: 400;

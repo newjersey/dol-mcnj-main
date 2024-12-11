@@ -12,9 +12,17 @@
   }
 
   .heading-tag {
-    font-weight: bold;
+    font-weight: 700;
     font-size: s.$size-32;
     margin: 0;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      font-size: s.$size-24;
+    }
+
+    + p {
+      line-height: 1.2;
+    }
   }
 
   p {
