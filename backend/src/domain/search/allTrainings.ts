@@ -22,13 +22,13 @@ export const allTrainings = (): AllTrainings => {
     }
 
     try {
-      ceRecordsResponse1 = await credentialEngineAPI.getResults(query, 0, 1, "^search:relevance");
+      ceRecordsResponse1 = await credentialEngineAPI.getResults(query, 0, 1);
       const totalResults = ceRecordsResponse1.data.extra.TotalResults;
       const batchSize = 100;
       let allRecords: CTDLResource[] = [];
 
       const fetchBatch = async (skip: number) => {
-        const response = await credentialEngineAPI.getResults(query, skip, batchSize, "^search:relevance");
+        const response = await credentialEngineAPI.getResults(query, skip, batchSize);
         return response.data.data as CTDLResource[];
       };
 

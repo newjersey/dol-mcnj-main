@@ -16,18 +16,34 @@ import {DeliveryType} from "../DeliveryType";
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-/*
-const hasAllCerts = (certNum: number, totalResults: number) => certNum === totalResults;
-*/
-
-const fetchAllCerts = async (query: object, sort: string, offset = 0, limit = 10) => {
+const fetchAllCerts = async (query: object, offset = 0, limit = 10) => {
   console.log(`FETCHING CERTS with offset ${offset} and limit ${limit}`);
 
   // Fetch only the requested page of results based on offset and limit
-  const response = await credentialEngineAPI.getResults(query, offset, limit, sort);
+  const response = await credentialEngineAPI.getResults(query, offset, limit);
   const totalResults = response.data.extra.TotalResults;
 
   const allCerts = response.data.data;
+
+  return { allCerts, totalResults };
+};
+
+const fetchAllCertsInBatches = async (query: object, batchSize = 20) => {
+  let allCerts: CTDLResource[] = [];
+  let offset = 0;
+  let totalResults = 0;
+  let fetchedCount = 0;
+
+  do {
+    const response = await fetchAllCerts(query, offset, batchSize);
+    const batchCerts = response.allCerts;
+    totalResults = response.totalResults;
+
+    allCerts = allCerts.concat(batchCerts);
+    fetchedCount += batchCerts.length;
+    offset += batchSize;
+
+  } while (fetchedCount < totalResults);
 
   return { allCerts, totalResults };
 };
@@ -73,12 +89,10 @@ const filterCerts = async (
       .map(f => deliveryTypeMapping[f.toLowerCase()])
       .filter(Boolean);
 
-    console.log("Mapped class formats:", mappedClassFormats); // Debugging
 
     // Filter results based on the mapped delivery types
     filteredResults = filteredResults.filter(result => {
       const deliveryTypes = result.deliveryTypes || [];
-      console.log("Delivery Types:", deliveryTypes); // Debugging
       return mappedClassFormats.some(mappedFormat => deliveryTypes.includes(mappedFormat));
     });
   }
@@ -126,15 +140,31 @@ const paginateCerts = (certs: TrainingResult[], page: number, limit: number) => 
 export const sortTrainings = (trainings: TrainingResult[], sort: string): TrainingResult[] => {
   switch (sort) {
     case "asc":
-      return trainings.sort((a, b) => (a.name && b.name) ? a.name.localeCompare(b.name) : 0);
+      console.log("Before sorting (asc):", trainings.map(t => t.name));
+      return trainings.sort((a, b) => {
+        const nameA = a.name || "";
+        const nameB = b.name || "";
+        return nameA.localeCompare(nameB);
+      });
     case "desc":
-      return trainings.sort((a, b) => (b.name && a.name) ? b.name.localeCompare(a.name) : 0);
+      console.log("Before sorting (desc):", trainings.map(t => t.name));
+      return trainings.sort((a, b) => {
+        const nameA = a.name || "";
+        const nameB = b.name || "";
+        return nameB.localeCompare(nameA);
+      });
     case "price_asc":
       return trainings.sort((a, b) => (a.totalCost || 0) - (b.totalCost || 0));
     case "price_desc":
       return trainings.sort((a, b) => (b.totalCost || 0) - (a.totalCost || 0));
     case "EMPLOYMENT_RATE":
-      return trainings.sort((a, b) => (b.percentEmployed || 0) - (a.percentEmployed || 0));
+      console.log("Before sorting by employment rate:", trainings.map(t => t.percentEmployed));
+      return trainings.sort((a, b) => {
+        const rateA = a.percentEmployed !== null && a.percentEmployed !== undefined ? a.percentEmployed : -Infinity;
+        const rateB = b.percentEmployed !== null && b.percentEmployed !== undefined ? b.percentEmployed : -Infinity;
+        return rateB - rateA;
+      });
+    case "best_match":
     default:
       return trainings;
   }
@@ -158,64 +188,48 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     services?: string[],
     zipcode?: string
   }): Promise<TrainingData> => {
-    const cip_code = params.cip_code?.split(".").join("") || "";
-    const soc_code = params.soc_code?.split("-").join("") || "";
-    const { page = 1, limit = 10, sort, cacheKey } = prepareSearchParameters(cip_code, soc_code, params);
-
-    const cachedResults = cache.get<TrainingData>(cacheKey);
-    if (cachedResults) {
-      console.log(`Returning cached results for key: ${cacheKey}`);
-
-      // Trigger the background fetch for the next pages
-      fetchNextSearchPages(buildQuery(params), page, limit, sort, dataClient, { ...params, totalResults: cachedResults.meta.totalItems });
-
-      return cachedResults;
-    }
-
-    // If not in cache, fetch the current page's data
+    const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
-    console.log(`Executing search with query: ${JSON.stringify(query)}`);
 
-    let ceRecordsResponse;
-    try {
-      const offset = (page - 1) * limit;  // Calculate the correct offset for pagination
-      console.log(`Fetching results with offset ${offset} and limit ${limit} for page ${page}`);
-      ceRecordsResponse = await fetchAllCerts(query, sort, offset, limit);  // Fetch only the current page
-    } catch (error) {
-      Sentry.captureException(error);
-      console.error("Error fetching results from Credential Engine API:", error);
-      throw new Error("Failed to fetch results from Credential Engine API.");
+    const cacheKey = `sortedResults-${params.searchQuery}-${sort}`;
+    let sortedResults = cache.get<TrainingResult[]>(cacheKey);
+
+    if (!sortedResults) {
+      console.log(`Fetching all batches for query: ${params.searchQuery}`);
+      const { allCerts, totalResults } = await fetchAllCertsInBatches(query);
+
+      const results = await Promise.all(
+        allCerts.map((certificate) =>
+          transformCertificateToTraining(dataClient, certificate, params.searchQuery)
+        )
+      );
+
+      // Apply filtering
+      const filteredResults = await filterCerts(
+        results,
+        params.cip_code,
+        params.complete_in,
+        params.in_demand,
+        params.max_cost,
+        params.county,
+        params.miles,
+        params.zipcode,
+        params.format
+      );
+
+      // Apply sorting
+      sortedResults = sortTrainings(filteredResults, sort);
+
+      // Cache the sorted results
+      cache.set(cacheKey, sortedResults, 300); // Cache for 5 minutes
+    } else {
+      console.log(`Cache hit for key: ${cacheKey}`);
     }
 
-    const certificates = ceRecordsResponse.allCerts as CTDLResource[];
-    const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
+    // Paginate the sorted results
+    const paginatedResults = paginateCerts(sortedResults, page, limit);
 
-    const filteredResults = await filterCerts(
-      results,
-      cip_code,
-      params.complete_in,
-      params.in_demand,
-      params.max_cost,
-      params.county,
-      params.miles,
-      params.zipcode,
-      params.format
-    );
-
-    const sortedResults = await sortTrainings(filteredResults, sort);
-
-    const paginatedResults = paginateCerts(sortedResults, 1, limit);
-
-    const totalResults = ceRecordsResponse.totalResults;
-
-    const data = packageResults(page, limit, paginatedResults, totalResults);
-
-    cache.set(cacheKey, data);
-    console.log(`Caching results for page ${page} with key ${cacheKey}`);
-
-    // Trigger the background fetch for the next pages
-    fetchNextSearchPages(query, page, limit, sort, dataClient, { ...params, totalResults });
-
+    const data = packageResults(page, limit, paginatedResults, sortedResults.length);
     return data;
   };
 };
@@ -258,7 +272,7 @@ async function fetchNextSearchPages(query: object, currentPage: number, limit: n
       console.log(`Asynchronously fetching data for page ${pageToFetch}, offset ${offset}, limit ${limit}`);
 
       try {
-        const ceRecordsResponse = await fetchAllCerts(query, sort, offset, limit);
+        const ceRecordsResponse = await fetchAllCerts(query, offset, limit);
         const certificates = ceRecordsResponse.allCerts as CTDLResource[];
 
         if (certificates.length === 0) {
@@ -467,7 +481,6 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
       totalClockHours: null,
     };
-    console.log(result);
     return result;
   } catch (error) {
     console.error("Error transforming certificate to training:", error);
