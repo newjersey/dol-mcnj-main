@@ -191,11 +191,12 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
 
-    const cacheKey = `sortedResults-${params.searchQuery}-${sort}`;
-    let sortedResults = cache.get<TrainingResult[]>(cacheKey);
+    const filteredCacheKey = `filteredResults-${params.searchQuery}`;
+    let filteredResults = cache.get<TrainingResult[]>(filteredCacheKey);
 
-    if (!sortedResults) {
-      console.log(`Fetching all batches for query: ${params.searchQuery}`);
+    // If filtered results are not in cache, fetch and filter them
+    if (!filteredResults) {
+      console.log(`Fetching and filtering results for query: ${params.searchQuery}`);
       const { allCerts, totalResults } = await fetchAllCertsInBatches(query);
 
       const results = await Promise.all(
@@ -205,7 +206,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       );
 
       // Apply filtering
-      const filteredResults = await filterCerts(
+      filteredResults = await filterCerts(
         results,
         params.cip_code,
         params.complete_in,
@@ -217,14 +218,14 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
         params.format
       );
 
-      // Apply sorting
-      sortedResults = sortTrainings(filteredResults, sort);
-
-      // Cache the sorted results
-      cache.set(cacheKey, sortedResults, 300); // Cache for 5 minutes
+      // Cache the filtered results
+      cache.set(filteredCacheKey, filteredResults, 300); // Cache for 5 minutes
     } else {
-      console.log(`Cache hit for key: ${cacheKey}`);
+      console.log(`Cache hit for filtered results with key: ${filteredCacheKey}`);
     }
+
+    // Apply sorting to the cached filtered results
+    const sortedResults = sortTrainings(filteredResults, sort);
 
     // Paginate the sorted results
     const paginatedResults = paginateCerts(sortedResults, page, limit);
