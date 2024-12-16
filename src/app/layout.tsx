@@ -10,14 +10,9 @@ import { Alert } from "@components/modules/Alert";
 import { Public_Sans } from "next/font/google";
 
 async function getData() {
-  const { globalNav, mainNav, footerNav1, footerNav2 } = await getNav();
+  const nav = await getNav();
 
-  return {
-    globalNav,
-    mainNav,
-    footerNav1,
-    footerNav2,
-  };
+  return nav;
 }
 
 export const metadata: Metadata = {
@@ -60,6 +55,7 @@ export default async function RootLayout({
           )}
           <SkipToMain />
           <Header globalNav={globalNav} mainNav={mainNav} />
+
           <div id="main-content">{children}</div>
           <Footer
             items={{

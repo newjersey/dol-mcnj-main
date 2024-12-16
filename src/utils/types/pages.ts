@@ -44,6 +44,7 @@ export interface PageMetaProps {
 //////////////////////////////////////////////////////
 
 export interface HomepageProps {
+  pageData: any;
   homePage: PageMetaProps & {
     pageDescription?: string;
     bannerButtonCopy: string;
@@ -124,6 +125,7 @@ export interface CareerNavigatorProps {
 //////////////////////////////////////////////////////
 
 export interface CareerPathwaysPageProps {
+  pageData: any;
   page: PageMetaProps & {
     pageBanner: PageBannerProps;
     stepsHeading?: string;
@@ -174,6 +176,7 @@ export interface FaqPageProps {
 //////////////////////////////////////////////////////
 
 export interface TrainingExplorerPageProps {
+  pageData: any;
   page: PageMetaProps & {
     demoVideoUrl: string;
     faqsCollection: { items: FaqItem[] };
@@ -199,6 +202,7 @@ export interface TrainingExplorerPageProps {
 //////////////////////////////////////////////////////
 
 export interface SupportResourcesPageProps {
+  pageData: any;
   page: PageMetaProps & {
     pageBanner: PageBannerProps;
     footerCtaHeading: string;

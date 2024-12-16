@@ -3,10 +3,11 @@ import { useState, ReactElement, useEffect } from "react";
 import { Document } from "@contentful/rich-text-types";
 import { ContentfulRichText } from "./ContentfulRichText";
 import { AssetBlock } from "@utils/types";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 export interface AccordionItemProps {
   title: string | ReactElement;
-  content: Document;
+  content: string | Document;
   assets?: {
     assets: {
       block: AssetBlock[];
@@ -28,6 +29,8 @@ export const AccordionItem = (data: AccordionItemProps): ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const contentId = `a${data.keyValue + 1}`;
+
+  const isString = typeof data.content === "string";
 
   useEffect(() => {
     if (data.open) {
@@ -59,12 +62,20 @@ export const AccordionItem = (data: AccordionItemProps): ReactElement => {
 
       <div id={contentId} className="content" data-testid="accordion-content">
         <div className="inner">
-          <ContentfulRichText
-            assets={data.assets}
-            document={data.content}
-            key={data.keyValue}
-            imageDescription
-          />
+          {isString ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(data.content as string),
+              }}
+            />
+          ) : (
+            <ContentfulRichText
+              assets={data.assets}
+              document={data.content as Document}
+              key={data.keyValue}
+              imageDescription
+            />
+          )}
         </div>
       </div>
     </div>

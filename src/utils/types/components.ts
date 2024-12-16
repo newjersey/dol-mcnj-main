@@ -83,9 +83,7 @@ export interface CardSliderProps {
 //////////////////////////////////////////////////////
 
 export interface NavMenuProps {
-  sys: {
-    id: string;
-  };
+  itemId: string;
   title: string;
   heading?: string;
   url?: string;
@@ -238,9 +236,7 @@ export interface OccupationListItemProps {
 //////////////////////////////////////////////////////
 
 export interface NavItemProps {
-  sys: {
-    id: string;
-  };
+  itemId: string;
   copy: string;
   screenReaderOnlyCopy?: string;
   classes?: string;
@@ -399,7 +395,7 @@ export interface FaqItem {
     id: string;
   };
   question: string;
-  answer: ContentfulRichTextProps;
+  answer: any;
   category: string;
   topic: string;
 }

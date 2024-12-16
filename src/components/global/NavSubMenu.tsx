@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { TopNavItemProps } from "@utils/types";
 import { LinkObject } from "@components/modules/LinkObject";
 import { CaretDown } from "@phosphor-icons/react";
@@ -31,7 +30,7 @@ export const NavSubMenu = (props: NavSubMenuProps) => {
           {props.subItemsCollection &&
             props.subItemsCollection.items.length > 0 &&
             props.subItemsCollection.items.map((subItem) => (
-              <li key={subItem.sys.id}>
+              <li key={subItem.itemId}>
                 <LinkObject
                   noIndicator={!props.icons}
                   className="sub-nav-item"

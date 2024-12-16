@@ -1,4 +1,4 @@
-import { BreakNames, FlexGridProps, FlexProps } from "@utils/types";
+import { FlexProps } from "@utils/types";
 import { Box } from "./Box";
 
 export const Flex = ({

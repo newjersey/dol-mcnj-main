@@ -14,8 +14,13 @@ async function getData() {
     query: HOMEPAGE_QUERY,
   });
 
+  const pageData = await fetch(
+    `${process.env.REACT_APP_SITE_URL}/api/pageData?slug=home`
+  );
+
   return {
     ...page,
+    pageData: await pageData.json(),
   };
 }
 
@@ -37,78 +42,44 @@ export async function generateMetadata({}) {
 }
 
 export default async function Home() {
-  const { homePage } = (await getData()) as HomepageProps;
-
-  const sliders = [
-    {
-      heading: "All Job Search Tools",
-      theme: "blue",
-      sectionId: "jobs",
-      cards: homePage.jobSearchToolLinksCollection.items,
-    },
-    {
-      heading: "All Training Tools",
-      theme: "green",
-      sectionId: "training",
-      cards: homePage.trainingToolLinksCollection.items,
-    },
-    {
-      heading: "All Career Exploration Resources",
-      theme: "purple",
-      sectionId: "explore",
-      cards: homePage.careerExplorationToolLinksCollection.items,
-    },
-    {
-      heading: "All Support and Assistance Resources",
-      theme: "navy",
-      sectionId: "support",
-      cards: homePage.supportAndAssistanceLinksCollection.items,
-    },
-  ];
+  const { pageData } = (await getData()) as HomepageProps;
 
   return (
     <>
       <div className="page home">
-        <FancyBanner
-          title={homePage.title}
-          theme="blue"
-          buttonCopy={homePage.bannerButtonCopy}
-          image={homePage.bannerImage}
-          subHeading="The tools you need to find a job that works for you."
-          message="The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you."
-        />
-        {homePage.introBlocks && <IntroBlocks {...homePage.introBlocks} />}
+        <FancyBanner {...pageData.banner} />
+
+        {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
 
         <section className="tools" id="tools">
           <div className="container">
-            {homePage.toolsCollection &&
-              homePage.toolsCollection.items.length > 0 && (
-                <SectionHeading heading="Explore Tools" strikeThrough />
-              )}
+            <SectionHeading heading="Explore Tools" strikeThrough />
+
             <div className="row">
-              {homePage.toolsCollection &&
-                homePage.toolsCollection.items.length > 0 &&
-                homePage.toolsCollection.items.map((card) => {
-                  return (
-                    <IconCard
-                      key={card.sys.id}
-                      centered
-                      systemIcon={card.sectionIcon as SectionIcons}
-                      {...card}
-                    />
-                  );
-                })}
+              {pageData.sections.map((card: any) => {
+                return (
+                  <IconCard
+                    key={card.copy}
+                    centered
+                    systemIcon={card.sectionId as SectionIcons}
+                    url={`#${card.sectionId}`}
+                    sys={{ id: card.sectionId }}
+                    copy={card.copy}
+                    theme={card.theme as ThemeColors}
+                  />
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {sliders.map((slider) => (
+        {pageData.sections.map((cardRow: any) => (
           <CardSlider
-            key={slider.heading}
-            heading={slider.heading}
-            theme={slider.theme as ThemeColors}
-            sectionId={slider.sectionId}
-            cards={slider.cards}
+            key={cardRow.heading}
+            heading={cardRow.heading}
+            theme={cardRow.theme as ThemeColors}
+            sectionId={cardRow.sectionId}
+            cards={cardRow.cards}
           />
         ))}
       </div>

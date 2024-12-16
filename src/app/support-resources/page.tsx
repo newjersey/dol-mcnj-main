@@ -7,25 +7,29 @@ import { ALL_SUPPORT_PAGE_QUERY } from "queries/allSupportPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
 
 async function getData() {
-  const { page, categories } = await client({
+  const { categories } = await client({
     query: ALL_SUPPORT_PAGE_QUERY,
   });
 
+  const pageData = await fetch(
+    `${process.env.REACT_APP_SITE_URL}/api/pageData?slug=support-resources`
+  );
+
   return {
-    page,
     categories,
+    pageData: await pageData.json(),
   };
 }
 
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
-  const { page } = (await getData()) as SupportResourcesPageProps;
+  const { pageData } = (await getData()) as SupportResourcesPageProps;
 
   return {
-    title: `${page.title} | ${process.env.REACT_APP_SITE_NAME}`,
-    description: page.pageDescription,
-    keywords: page.keywords,
+    title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
+    description: pageData.seo.pageDescription,
+    keywords: pageData.seo.keywords,
     icons: {
       icon: "/favicon.ico",
     },
@@ -36,11 +40,12 @@ export async function generateMetadata({}) {
 }
 
 export default async function SupportResourcesPage() {
-  const { page, categories } = (await getData()) as SupportResourcesPageProps;
+  const { categories, pageData } =
+    (await getData()) as SupportResourcesPageProps;
 
   return (
     <div className="page supportResources">
-      <PageBanner {...page.pageBanner} />
+      <PageBanner {...pageData.banner} />
       <section className="categories">
         <div className="container">
           <div className="inner">
@@ -58,12 +63,7 @@ export default async function SupportResourcesPage() {
           </div>
         </div>
       </section>
-      <CtaBanner
-        inlineButtons
-        headingLevel={2}
-        heading={page.footerCtaHeading}
-        items={[page.footerCtaLink]}
-      />
+      <CtaBanner {...pageData.cta} />
     </div>
   );
 }
