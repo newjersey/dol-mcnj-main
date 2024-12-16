@@ -1,5 +1,5 @@
 import NodeCache = require("node-cache");
-import * as Sentry from "@sentry/node";
+// import * as Sentry from "@sentry/node";
 import {SearchTrainings} from "../types";
 import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
 import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
@@ -197,8 +197,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     // If filtered results are not in cache, fetch and filter them
     if (!filteredResults) {
       console.log(`Fetching and filtering results for query: ${params.searchQuery}`);
-      const { allCerts, totalResults } = await fetchAllCertsInBatches(query);
-
+      //const { allCerts, totalResults } = await fetchAllCertsInBatches(query);
+      const { allCerts } = await fetchAllCertsInBatches(query);
       const results = await Promise.all(
         allCerts.map((certificate) =>
           transformCertificateToTraining(dataClient, certificate, params.searchQuery)
@@ -234,132 +234,6 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     return data;
   };
 };
-
-interface SearchParams {
-  searchQuery: string;
-  page?: number;
-  limit?: number;
-  sort?: string;
-  cip_code?: string;
-  soc_code?: string;
-  format?: string[];
-  complete_in?: number[];
-  county?: string;
-  in_demand?: boolean;
-  languages?: string[];
-  max_cost?: number;
-  miles?: number;
-  services?: string[];
-  zipcode?: string;
-  totalResults: number;
-}
-
-async function fetchNextSearchPages(query: object, currentPage: number, limit: number, sort: string, dataClient: DataClient, params: SearchParams) {  const totalPages = Math.ceil(params.totalResults / limit);
-
-  // Fetch the next two pages, if available
-  for (let i = 1; i <= 2; i++) {
-    const pageToFetch = currentPage + i;
-
-    if (pageToFetch > totalPages) {
-      console.log(`Reached the last page, no more pages to fetch.`);
-      break;
-    }
-
-    const { cip_code, soc_code } = params;
-    const { cacheKey } = prepareSearchParameters(cip_code, soc_code, { ...params, page: pageToFetch, limit, sort });
-
-    if (!cache.get(cacheKey)) {
-      const offset = (pageToFetch - 1) * limit;
-      console.log(`Asynchronously fetching data for page ${pageToFetch}, offset ${offset}, limit ${limit}`);
-
-      try {
-        const ceRecordsResponse = await fetchAllCerts(query, offset, limit);
-        const certificates = ceRecordsResponse.allCerts as CTDLResource[];
-
-        if (certificates.length === 0) {
-          console.log(`No records found for page ${pageToFetch}`);
-          return;
-        }
-
-        const results = await Promise.all(certificates.map(certificate => transformCertificateToTraining(dataClient, certificate, params.searchQuery)));
-        const filteredResults = await filterCerts(
-          results,
-          cip_code,
-          params.complete_in,
-          params.in_demand,
-          params.max_cost,
-          params.county,
-          params.miles,
-          params.zipcode,
-          params.format
-        );
-        const sortedResults = await sortTrainings(filteredResults, sort);
-        const paginatedResults = paginateCerts(sortedResults, 1, limit);
-
-        const data = packageResults(pageToFetch, limit, paginatedResults, ceRecordsResponse.totalResults);
-
-        cache.set(cacheKey, data);
-        console.log(`Caching results for page ${pageToFetch} with key ${cacheKey}`);
-      } catch (error) {
-        console.error(`Error asynchronously fetching page ${pageToFetch}:`, error);
-      }
-    } else {
-      console.log(`Cache hit for page ${pageToFetch} with key ${cacheKey}`);
-    }
-  }
-}
-
-function prepareSearchParameters(
-  cip_code_value= "",
-  soc_code_value = "",
-  params: {
-    searchQuery: string,
-    page?: number,
-    limit?: number,
-    sort?: string,
-    format?: string[],
-    complete_in?: number[],
-    county?: string,
-    in_demand?: boolean,
-    languages?: string[],
-    max_cost?: number,
-    miles?: number,
-    services?: string[],
-    zipcode?: string,
-    cip_code?: string,
-    soc_code?: string,
-  }) {
-  const page = params.page || 1;
-  const limit = params.limit || 10;
-  const cip_code = params.cip_code ? `-cip:${cip_code_value}` : "";
-  const format = params.format ? `-format:${params.format.join(",")}` : "";
-  const complete_in = params.complete_in ? `-complete:${params.complete_in.join(",")}` : "";
-  const county = params.county ? `-${params.county}` : "";
-  const in_demand = params.in_demand ? "-in_demand" : "";
-  const languages = params.languages ? `-${params.languages.join(",")}` : "";
-  const max_cost = params.max_cost ? `-max:${params.max_cost}` : "";
-  const miles = params.miles ? `-miles:${params.miles}` : "";
-  const services = params.services ? `-services:${params.services.join(",")}` : "";
-  const soc_code = params.soc_code ? `-soc:${soc_code_value}` : "";
-  const zipcode = params.zipcode ? `-zip:${params.zipcode}` : "";
-
-  const sort = determineSortOption(params.sort);
-  const cacheKey = `searchQuery-${params.searchQuery}-${page}-${limit}-${sort}${cip_code}${format}${complete_in}${county}${in_demand}${languages}${max_cost}${miles}${services}${soc_code}${zipcode}`;
-
-  return { page, limit, sort, cacheKey };
-}
-
-function determineSortOption(sortOption?: string) {
-  switch (sortOption) {
-    case "asc": return "ceterms:name";
-    case "desc": return "^ceterms:name";
-    case "price_asc":
-    case "price_desc":
-    case "EMPLOYMENT_RATE": return sortOption;
-    case "best_match":
-    default: return "^search:relevance";
-  }
-}
 
 type SearchTerm = {
   "search:value": string;
