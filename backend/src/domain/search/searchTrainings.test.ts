@@ -72,7 +72,7 @@ describe('searchTrainingsFactory', () => {
     await searchTrainings({ searchQuery: 'test', page: 1, limit: 10, sort: 'asc' });
     let asc = false;
     getResultsSpy.mock.calls.forEach(call => {
-      if (call.includes("ceterms:name")) {
+      if (String(call).includes("ceterms:name")) {
         asc = true;
       }
     });
@@ -85,7 +85,7 @@ describe('searchTrainingsFactory', () => {
     await searchTrainings({ searchQuery: 'test', page: 1, limit: 10, sort: 'desc' });
     let desc = false;
     getResultsSpy.mock.calls.forEach(call => {
-      if (call.includes("^ceterms:name")) {
+      if (String(call).includes("ceterms:name")) {
         desc = true;
       }
     });
@@ -98,7 +98,7 @@ describe('searchTrainingsFactory', () => {
     await searchTrainings({ searchQuery: 'test_default_sorting', page: 1, limit: 10 });
     let deafultSort = false;
     getResultsSpy.mock.calls.forEach(call => {
-      if (call.includes("^search:relevance")) {
+      if (String(call).includes("^search:relevance")) {
         deafultSort = true;
       }
     });
