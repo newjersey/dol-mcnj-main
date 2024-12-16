@@ -34,10 +34,8 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
-          name: Run Node.js tests and capture output
-          command: npm test > npm-test-output.log 2>&1
-      - store_artifacts:
-          path: npm-test-output.log
+          name: Run Node.js tests
+          command: npm test
       - run:
           name: Execute feature tests script
           command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
