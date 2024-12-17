@@ -3,15 +3,26 @@ import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI'
 import { TrainingData } from '../training/TrainingResult';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import {StubDataClient} from "../test-objects/StubDataClient";
+import {mockCredentialEngineApiData} from "../test-objects/mockCredentialEngineApiData";
 
 jest.mock("@sentry/node");
 jest.mock("../../credentialengine/CredentialEngineAPI");
 
 describe('searchTrainingsFactory', () => {
   const stubDataClient = StubDataClient();
-
   const searchTrainings = searchTrainingsFactory(stubDataClient);
-  const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults');
+  const mockTrainingResults = mockCredentialEngineApiData;
+  const mockTrainingResult = mockTrainingResults[0];
+
+  const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults').mockResolvedValueOnce({
+    data: { data: mockTrainingResult, extra: { TotalResults: 1 } },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config: {},
+  } as AxiosResponse);
+
+
   const ceData: AxiosResponse = {
     data: { data: [], extra: {TotalResults: 0} },
     status: 200,
@@ -34,8 +45,57 @@ describe('searchTrainingsFactory', () => {
     }
   }
 
+
   afterEach(() => {
     jest.clearAllMocks()
+  });
+
+  it('should fetch results from the Credential Engine API and match test data', async () => {
+    const query = 'data science';
+
+    // Step 1: Mock the API response with complete config
+    const mockedApiResponse: AxiosResponse = {
+      data: { data: mockTrainingResult, extra: { TotalResults: 1 } },
+      status: 200,
+      statusText: 'OK',
+      headers: {
+        'content-type': 'application/json',
+      },
+      config: {
+        url: `https://sandbox.credentialengine.org/assistant/search/ctdl?q=${query}`,
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${process.env.CE_AUTH_TOKEN}`,
+        },
+      } as InternalAxiosRequestConfig,
+    };
+
+    jest.spyOn(credentialEngineAPI, 'getResults').mockResolvedValueOnce(mockedApiResponse);
+
+    // Step 2: Call the searchTrainings function
+    const searchResults = await searchTrainings({ searchQuery: query, page: 1, limit: 10 });
+
+    // Step 3: Perform assertions
+    expect(searchResults.data).toEqual(mockTrainingResult);
+    expect(searchResults.meta.totalItems).toEqual(1);
+
+    // Ensure the API was called with the correct parameters
+    expect(credentialEngineAPI.getResults).toHaveBeenCalledWith(query, 1, 10);
+  });
+
+  it('should handle API errors gracefully', async () => {
+    const query = 'invalid query';
+
+    // Step 1: Mock the API to reject with an error
+    jest.spyOn(credentialEngineAPI, 'getResults').mockRejectedValueOnce(new Error('API request failed'));
+
+    // Step 2: Call the searchTrainings function and expect it to throw
+    await expect(searchTrainings({ searchQuery: query, page: 1, limit: 10 })).rejects.toThrow(
+      'API request failed'
+    );
+
+    // Ensure the API was called
+    expect(credentialEngineAPI.getResults).toHaveBeenCalledWith(query, 1, 10);
   });
 
   it('should return cached results when available', async () => {

@@ -2,10 +2,9 @@
   "tags": ["domain"],
   "imports": [
     "credentialengine",
-    "utils"
+    "../../test-data"
   ],
   "dependencies": [
-    "@faker-js/faker",
     "node-cache",
     "zipcodes",
     "axios",
