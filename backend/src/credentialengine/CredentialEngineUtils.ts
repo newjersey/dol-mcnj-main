@@ -114,7 +114,7 @@ const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
         state: address["ceterms:addressRegion"]?.["en-US"] ?? "",
         zipCode,
         county: convertZipCodeToCounty(zipCode) ?? "",
-      };
+      } as Address;
 
       const contactPoints = address["ceterms:targetContactPoint"] ?? [];
       if (contactPoints.length > 0) {

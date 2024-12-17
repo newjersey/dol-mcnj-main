@@ -1,4 +1,15 @@
 {
   "tags": ["domain"],
-  "imports": ["credentialengine"]
+  "imports": [
+    "credentialengine",
+    "utils"
+  ],
+  "dependencies": [
+    "@faker-js/faker",
+    "node-cache",
+    "zipcodes",
+    "axios",
+    "@sentry/node",
+    "jest-mock-axios"
+  ]
 }

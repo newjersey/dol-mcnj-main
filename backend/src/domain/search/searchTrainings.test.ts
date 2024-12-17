@@ -46,7 +46,7 @@ describe('searchTrainingsFactory', () => {
     expect(result2).toEqual(expectedData);
     expect(getResultsSpy).toHaveBeenCalledTimes(1); // API should only be called once
   });
-  
+
   it('should return results from the API when cache is not available', async () => {
     getResultsSpy.mockResolvedValueOnce(ceData);
     const result = await searchTrainings({ searchQuery: 'test_no_cache', page: 1, limit: 10 });
@@ -55,7 +55,7 @@ describe('searchTrainingsFactory', () => {
   });
 
   it('should throw an error when API request fails', async () => {
-    getResultsSpy.mockRejectedValueOnce(new Error('API error'));
+    getResultsSpy.mockRejectedValueOnce(new Error('Failed to fetch results from Credential Engine API.'));
     try {
       await searchTrainings({ searchQuery: 'test_error', page: 1, limit: 10 });
     } catch (error:unknown) {
@@ -96,13 +96,13 @@ describe('searchTrainingsFactory', () => {
     // Test default sort
     getResultsSpy.mockResolvedValueOnce(ceData);
     await searchTrainings({ searchQuery: 'test_default_sorting', page: 1, limit: 10 });
-    let deafultSort = false;
+    let defaultSort = false;
     getResultsSpy.mock.calls.forEach(call => {
       if (String(call).includes("^search:relevance")) {
-        deafultSort = true;
+        defaultSort = true;
       }
     });
-    expect(deafultSort).toBe(true);
+    expect(defaultSort).toBe(true);
   });
 
 });

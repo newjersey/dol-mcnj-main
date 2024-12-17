@@ -29,6 +29,7 @@
   "license": "ISC",
   "dependencies": {
     "@contentful/rich-text-types": "^17.0.0",
+    "@faker-js/faker": "^9.3.0",
     "@sentry/node": "^7.55.2",
     "@types/dotenv": "^8.2.0",
     "@types/winston": "^2.4.4",

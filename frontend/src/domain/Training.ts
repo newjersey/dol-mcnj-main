@@ -26,16 +26,18 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
-export interface Ceterms {
-  "en-US"?: string;
-}
-
-export interface Address {
+export class Address {
+  "@type" = "Place";
   street_address?: string;
   city?: string;
   state?: string;
   zipCode?: string;
   county?: string;
+  targetContactPoints?: ContactPoint[];
+
+  constructor(init?: Partial<Address>) {
+    Object.assign(this, init);
+  }
 }
 
 type MetaData = {
@@ -97,16 +99,6 @@ export interface Provider {
   email: string;
   url: string;
   address: Address[];
-}
-
-export interface Address {
-  name?: string;
-  street_address?: string;
-  city?: string;
-  state?: string;
-  zipCode?: string;
-  county?: string;
-  targetContactPoints?: ContactPoint[];
 }
 
 export interface ContactPoint {

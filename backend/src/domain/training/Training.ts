@@ -47,13 +47,17 @@ export interface Provider {
   name: string;
   targetContactPoints?: ContactPoint[];
 }
-export interface Address {
+export class Address {
   street_address?: string;
   city?:string;
   state?: string;
   zipCode?: string;
   county?: string;
   targetContactPoints?: ContactPoint[];
+
+  constructor(init?: Partial<Address>) {
+    Object.assign(this, init);
+  }
 }
 
 export interface ContactPoint {
