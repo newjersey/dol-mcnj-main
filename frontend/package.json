@@ -23,11 +23,11 @@
     "@typescript-eslint/parser": "^6.21.0",
     "accounting": "^0.4.1",
     "axios": "^1.7.9",
-    "contentful": "^11.3.2",
+    "contentful": "^11.3.3",
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.3",
     "graphql-request": "^7.1.2",
-    "i18next": "^24.1.0",
+    "i18next": "^24.1.2",
     "libphonenumber-js": "^1.11.16",
     "markdown-it": "^14.1.0",
     "react": "^16.14.0",
@@ -42,7 +42,7 @@
     "typescript": "^5.7.2",
     "winston": "^3.17.0",
     "winston-cloudwatch": "^6.3.0",
-    "yup": "^1.5.0"
+    "yup": "^1.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
