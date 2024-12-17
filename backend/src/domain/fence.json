@@ -1,8 +1,7 @@
 {
   "tags": ["domain"],
   "imports": [
-    "credentialengine",
-    "../../test-data"
+    "credentialengine"
   ],
   "dependencies": [
     "node-cache",
