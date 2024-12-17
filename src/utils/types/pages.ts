@@ -145,6 +145,7 @@ export interface CareerPathwaysPageProps {
 //////////////////////////////////////////////////////
 
 export interface FaqPageProps {
+  pageData: any;
   page: PageMetaProps & {
     sys: {
       publishedAt: Date;
@@ -224,6 +225,7 @@ export interface SupportResourcesPageProps {
 //////////////////////////////////////////////////////
 
 export interface TrainingProviderPageData {
+  pageData: any;
   page: PageMetaProps & {
     sys: {
       publishedAt: Date;

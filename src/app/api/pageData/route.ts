@@ -9,6 +9,8 @@ import {
 } from "@data/global/navigation/footer";
 import { CAREER_PATHWAYS_PAGE_DATA } from "@data/pages/career-pathways";
 import { SUPPORT_RESOURCES_PAGE_DATA } from "@data/pages/support-resources";
+import { FAQ_PAGE_DATA } from "@data/pages/faq";
+import { TRAINING_PROVIDER_PAGE_DATA } from "@data/pages/training-provider-resources";
 
 export async function GET(req: NextRequest) {
   const slug = new URL(req.url).searchParams.get("slug");
@@ -36,6 +38,14 @@ export async function GET(req: NextRequest) {
 
   if (slug === "support-resources") {
     return NextResponse.json(SUPPORT_RESOURCES_PAGE_DATA);
+  }
+
+  if (slug === "faq") {
+    return NextResponse.json(FAQ_PAGE_DATA);
+  }
+
+  if (slug === "training-provider-resources") {
+    return NextResponse.json(TRAINING_PROVIDER_PAGE_DATA);
   }
 
   return NextResponse.json({

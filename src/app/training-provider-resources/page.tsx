@@ -10,8 +10,13 @@ async function getData() {
     query: TRAINING_PROVIDER_PAGE_QUERY,
   });
 
+  const pageData = await fetch(
+    `${process.env.REACT_APP_SITE_URL}/api/pageData?slug=training-provider-resources`
+  );
+
   return {
     page,
+    pageData: await pageData.json(),
   };
 }
 
@@ -34,12 +39,12 @@ export async function generateMetadata({}) {
 }
 
 export default async function TrainingProviderResourcesPage() {
-  const { page } = (await getData()) as TrainingProviderPageData;
+  const { page, pageData } = (await getData()) as TrainingProviderPageData;
 
   return (
     <div className="page trainingProviderResources">
-      <PageBanner {...page.pageBanner} />
-      <Tabs items={page.tabs.items} />
+      <PageBanner {...pageData.banner} />
+      <Tabs items={pageData.tabs.items} />
     </div>
   );
 }

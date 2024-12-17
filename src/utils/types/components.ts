@@ -359,11 +359,9 @@ export interface ResourceTagProps {
 //////////////////////////////////////////////////////
 
 export interface TabItemProps {
-  sys: {
-    id: string;
-  };
+  itemId: string;
   heading: string;
-  copy: ContentfulRichTextProps;
+  copy: any;
 }
 
 //////////////////////////////////////////////////////
