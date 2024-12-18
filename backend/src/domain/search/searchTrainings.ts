@@ -436,15 +436,20 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
 
-    const provider = await credentialEngineUtils.getProviderData(certificate);
+    const [provider, cipCode, outcomesDefinition] = await Promise.all([
+      credentialEngineUtils.getProviderData(certificate),
+      credentialEngineUtils.extractCipCode(certificate),
+      dataClient.findOutcomeDefinition(
+        certificate["ceterms:ownedBy"]?.[0] || "", // Use the first ownedBy reference
+        await credentialEngineUtils.extractCipCode(certificate) // Ensure CIP code is fetched before passing it
+      ),
+    ]);
 
-    const cipCode = await credentialEngineUtils.extractCipCode(certificate);
-    const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
 
     const occupations = await credentialEngineUtils.extractOccupations(certificate);
+    const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
     const socCodes = occupations.map((occupation: { soc: string }) => occupation.soc);
 
-    const outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
     const result = {
       ctid: certificate["ceterms:ctid"] || "",
       name: certificate["ceterms:name"]?.["en-US"] || "",
