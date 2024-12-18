@@ -210,9 +210,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const data = packageResults(page, limit, paginatedResults, totalResults);
 
-    cache.set(cacheKey, data);
-    console.log(`Caching results for page ${page} with key ${cacheKey}`);
-
+    cache.set(cacheKey, data, 60 * 60); // Correct: TTL is just a number (3600 seconds)
     // Trigger the background fetch for the next pages
     fetchNextSearchPages(query, page, limit, sort, dataClient, { ...params, totalResults });
 
@@ -283,7 +281,7 @@ async function fetchNextSearchPages(query: object, currentPage: number, limit: n
 
         const data = packageResults(pageToFetch, limit, paginatedResults, ceRecordsResponse.totalResults);
 
-        cache.set(cacheKey, data);
+        cache.set(cacheKey, data, 60 * 60);
         console.log(`Caching results for page ${pageToFetch} with key ${cacheKey}`);
       } catch (error) {
         console.error(`Error asynchronously fetching page ${pageToFetch}:`, error);
