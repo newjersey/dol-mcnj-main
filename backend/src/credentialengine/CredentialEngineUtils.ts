@@ -8,10 +8,13 @@ import {
   CTDLResource,
 } from "../domain/credentialengine/CredentialEngine";
 import { Occupation } from "../domain/occupations/Occupation";
-import { Address } from "../domain/training/Training";
+import {Address, Provider} from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 import { DeliveryType } from "../domain/DeliveryType";
+import NodeCache from "node-cache";
+
+const cache = new NodeCache();
 
 const logError = (message: string, error: Error) => {
   console.error(`${message}: ${error.message}`);
@@ -72,12 +75,21 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   }
 };
 
-const getProviderData = async (certificate: CTDLResource) => {
+const getProviderData = async (certificate: CTDLResource): Promise<Provider> => {
   try {
     const ownedBy = certificate["ceterms:ownedBy"]?.[0];
     if (!ownedBy) throw new Error("OwnedBy field is missing");
 
     const ownedByCtid = await getCtidFromURL(ownedBy);
+    const cacheKey = `providerData-${ownedByCtid}`;
+
+    // Check if provider data is in cache
+    const cachedProvider = cache.get(cacheKey);
+    if (cachedProvider) {
+      console.log(`Cache hit for provider data: ${ownedByCtid}`);
+      return cachedProvider;
+    }
+
     const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
 
     const providerId =
@@ -88,14 +100,19 @@ const getProviderData = async (certificate: CTDLResource) => {
         }) => identifier["ceterms:identifierTypeName"]["en-US"] === "NJDOL Provider ID",
       )?.["ceterms:identifierValueCode"] ?? null;
 
-    return {
+    const providerData:Provider =  {
       ctid: ownedByRecord["ceterms:ctid"],
       providerId,
       name: ownedByRecord["ceterms:name"]["en-US"],
       url: ownedByRecord["ceterms:subjectWebpage"],
       email: ownedByRecord["ceterms:email"]?.[0] ?? null,
-      address: await getAddress(ownedByRecord),
+      address: getAddress(ownedByRecord)?.[0],
     };
+
+    // Store provider data in cache for 1 hour
+    cache.set(cacheKey, providerData, 60 * 60);
+    console.log(`Cache miss - fetched and stored provider data for: ${ownedByCtid}`);
+    return providerData;
   } catch (error) {
     logError(`Error getting provider data`, error as Error);
     throw error;
