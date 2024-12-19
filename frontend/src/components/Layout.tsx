@@ -72,6 +72,7 @@ export const Layout = (props: LayoutProps) => {
           heading="Scheduled Maintenance"
           type="warning"
           alertId="maintenance"
+          className="maintenance-alert"
           dismissible
         />
       )}
