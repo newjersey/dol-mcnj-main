@@ -40,7 +40,8 @@ export const ResultsHeader = ({
           const filteredParams = new URLSearchParams(
             Array.from(urlParams).filter(([key]) => key !== "q"),
           );
-          window.location.href = `${window.location.origin}${window.location.pathname}?q=${form.search.value}&${filteredParams.toString()}`;
+          const sanitizedSearchValue = encodeURIComponent(form.search.value);
+          window.location.href = `${window.location.origin}${window.location.pathname}?q=${sanitizedSearchValue}&${filteredParams.toString()}`;
         }}
       >
         <input
