@@ -262,6 +262,9 @@ export const es = {
     helperText3:
       'si conoce el nombre de la licencia para la que se está capacitando, use el acrónimo para ver más resultados. Por ejemplo, para la licencia de conducir comercial, intente buscar "CDL".',
     smallScreenSearchHeader: "Buscar Entrenamiento",
+    searchTipsHeading: "¿No estás viendo los resultados que buscabas?",
+    searchTTipsContent:
+      '- Revise la ortografía para asegurarse de que sea correcta.\n- Verifique y ajuste los filtros que haya aplicado a su búsqueda.\n- ¿Los resultados de su búsqueda son demasiado pequeños? Su búsqueda puede ser demasiado específica. Intente buscar con menos palabras.\n### Estos son algunos ejemplos que pueden mejorar sus resultados de búsqueda:\n- **Proveedores de capacitación**: si está buscando un proveedor de capacitación, intente usar solo el proveedor\' s nombre y excluye palabras como "universidad" o "colegio".\n- **Ocupaciones**: si estás buscando capacitación para un trabajo, puedes escribir el trabajo directamente en el cuadro de búsqueda.\n- * *Licencia**: Si conoce el nombre de la licencia para el que estás entrenando, utiliza el acrónimo para ver más resultados. Por ejemplo, para el permiso de conducir comercial, intente buscar "CDL".',
     searchTips1:
       "¿No estás viendo los resultados que buscabas? Le recomendamos que pruebe estos consejos de búsqueda para mejorar sus resultados:",
     searchTips2:
