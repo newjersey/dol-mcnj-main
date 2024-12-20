@@ -252,6 +252,9 @@ export const en = {
     helperText3:
       'If you know the name of the license you\'re training for, use the acronym to see more results. For example, for the commercial driving license, try searching for "CDL".',
     smallScreenSearchHeader: "Search for Training",
+    searchTipsHeading: "Not seeing the results you were looking for?",
+    searchTTipsContent:
+      '- Check your spelling to ensure it is correct.\n- Verify and adjust any filters that you might have applied to your search.\n- Are your search results too small? Your search may be too specific. Try searching with fewer words.\n### Here are some examples that may improve your search results:\n- **Training Providers**: If you\'re searching for a training provider, try using only the provider\'s name and exclude words like "university" or "college".\n- **Occupations**: If you\'re looking for training for a job, you can type the job directly into the search box.\n- **License**: If you know the name of the license you\'re training for, use the acronym to see more results. For example, for the commercial driving license, try searching for "CDL".',
     searchTips1:
       "Are you not seeing the results you were looking for? We recommend that you try these search tips to enhance your results:",
     searchTips2:
