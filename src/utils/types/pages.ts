@@ -145,14 +145,7 @@ export interface CareerPathwaysPageProps {
 //////////////////////////////////////////////////////
 
 export interface FaqPageProps {
-  pageData: any;
-  page: PageMetaProps & {
-    sys: {
-      publishedAt: Date;
-    };
-    pageBanner: PageBannerProps;
-    bannerHeading: string;
-    bannerImage?: ImageProps;
+  faqCategories: PageMetaProps & {
     categoriesCollection: {
       items: {
         sys: { id: string };

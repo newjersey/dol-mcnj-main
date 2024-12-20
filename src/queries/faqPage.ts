@@ -1,6 +1,6 @@
 export const FAQ_PAGE_QUERY = `
 query FaqPage {
-  page: faqPage(id: "22fMmVDetJRhCbRltoS68") {
+  faqCategories: faqPage(id: "22fMmVDetJRhCbRltoS68") {
     categoriesCollection(limit: 15) {
       items {
         sys {

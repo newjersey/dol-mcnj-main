@@ -1,6 +1,8 @@
+import { PageBannerProps } from "@utils/types";
+
 export const HOMEPAGE_DATA = {
   seo: {
-    title: "My Career NJ",
+    title: process.env.REACT_APP_SITE_NAME,
     pageDescription:
       "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
     keywords: [
@@ -78,7 +80,7 @@ export const HOMEPAGE_DATA = {
       height: 521,
       width: 750,
     },
-  },
+  } as PageBannerProps,
   introBlocks: {
     heading:
       "No matter where you are on your career journey, My Career NJ is here to help you.",
@@ -118,6 +120,10 @@ export const HOMEPAGE_DATA = {
       },
     ],
     sectionsHeading: "How My Career NJ can help you:",
+  },
+  sectionHeading: {
+    heading: "Explore Tools",
+    strikeThrough: true,
   },
   sections: [
     {

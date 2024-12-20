@@ -1,29 +1,13 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
-import { CareerPathwaysPageProps } from "@utils/types";
-import { notFound } from "next/navigation";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { MinimalBanner } from "@components/blocks/MinimalBanner";
 import { IndustrySelector } from "@components/blocks/IndustrySelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { CAREER_PATHWAYS_PAGE_DATA as pageData } from "@data/pages/career-pathways";
 
-async function getData() {
-  const pageData = await fetch(
-    `${process.env.REACT_APP_SITE_URL}/api/pageData?slug=career-pathways`
-  );
-
-  if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false") {
-    return notFound();
-  }
-
-  return {
-    pageData: await pageData.json(),
-  };
-}
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
-  const { pageData } = (await getData()) as CareerPathwaysPageProps;
-
   return {
     title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: pageData.seo.pageDescription,
@@ -38,8 +22,6 @@ export async function generateMetadata({}) {
 }
 
 export default async function CareerPathwaysPage() {
-  const { pageData } = (await getData()) as CareerPathwaysPageProps;
-
   return (
     <div className="careerPathwaysLanding">
       <MinimalBanner {...pageData.banner} />

@@ -1,6 +1,8 @@
+import { PageBannerProps } from "@utils/types";
+
 export const TRAINING_PROVIDER_PAGE_DATA = {
   seo: {
-    title: "Training Provider Resources",
+    title: `Training Provider Resources | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription:
       "Training Providers in New Jersey can find answers about the Eligible Training Provider List (ETPL) listing.",
     keywords: [
@@ -28,7 +30,7 @@ export const TRAINING_PROVIDER_PAGE_DATA = {
   banner: {
     title: "Training Provider Resources",
     section: "support",
-
+    theme: "blue",
     breadcrumbsCollection: {
       items: [
         {
@@ -40,7 +42,7 @@ export const TRAINING_PROVIDER_PAGE_DATA = {
         },
       ],
     },
-  },
+  } as PageBannerProps,
   tabs: {
     items: [
       {

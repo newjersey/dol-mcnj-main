@@ -5,26 +5,20 @@ import { client } from "@utils/client";
 import { FaqPageProps } from "@utils/types";
 import { FAQ_PAGE_QUERY } from "queries/faqPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
+import { FAQ_PAGE_DATA as pageData } from "@data/pages/faq";
 
 async function getData() {
-  const { page } = await client({
+  const { faqCategories } = await client({
     query: FAQ_PAGE_QUERY,
   });
 
-  const pageData = await fetch(
-    `${process.env.REACT_APP_SITE_URL}/api/pageData?slug=faq`
-  );
-
   return {
-    page,
-    pageData: await pageData.json(),
+    faqCategories,
   };
 }
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
-  const { pageData } = (await getData()) as FaqPageProps;
-
   return {
     title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: pageData.seo.pageDescription,
@@ -36,12 +30,12 @@ export async function generateMetadata({}) {
 }
 
 export default async function FaqPage() {
-  const { page, pageData } = (await getData()) as FaqPageProps;
+  const { faqCategories } = (await getData()) as FaqPageProps;
 
   return (
     <div className="page faq">
       <PageBanner {...pageData.banner} />
-      <FaqSection items={page.categoriesCollection.items} />
+      <FaqSection items={faqCategories.categoriesCollection.items} />
       <CtaBanner {...pageData.ctaBanner} />
       <CtaBanner {...pageData.cta} />
     </div>

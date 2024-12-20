@@ -4,7 +4,7 @@ import { Tag, TagItemProps } from "@components/modules/Tag";
 import { Flex } from "@components/utility/Flex";
 import { LinkProps } from "@utils/types";
 
-interface MinimalBannerProps {
+export interface MinimalBannerProps {
   crumbs?: {
     items: LinkProps[];
     pageTitle: string;

@@ -1,6 +1,11 @@
+import { CtaBannerProps } from "@components/blocks/CtaBanner";
+import { SectionHeadingProps } from "@components/modules/SectionHeading";
+import { FaqItem } from "@utils/types";
+import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
+
 export const TRAINING_EXPLORER_PAGE_DATA = {
   seo: {
-    title: "NJ Training Explorer",
+    title: `NJ Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription:
       "Explore training programs and find the best fit for you with NJ Training Explorer, supported by the NJ Department of Labor. Start your search now!",
     keywords: [
@@ -75,7 +80,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         },
       ],
     },
-  },
+  } as TrainingExplorerHeadingProps,
   demoVideoUrl: "https://www.youtube.com/embed/fSBbrIoQAFE?si=MmBcyHbiB5PjZrxR",
   iconCards: [
     {
@@ -117,7 +122,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         highlight: "navy",
       },
     ],
-  },
+  } as CtaBannerProps,
 
   footerCta: {
     inlineButtons: true,
@@ -133,7 +138,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
     heading: {
       headingLevel: 3,
       heading: "Frequently Asked Questions",
-    },
+    } as SectionHeadingProps,
     cta: {
       heading: "Don't see your question?",
       inlineButtons: true,
@@ -157,6 +162,6 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         question: "How does tuition assistance work?",
         answer: `Different tuition assistance opportunities have different requirements. Visit our [tuition assistance](https://training.njcareers.org/tuition-assistance) page to find out more about how funding works.`,
       },
-    ],
+    ] as FaqItem[],
   },
 };

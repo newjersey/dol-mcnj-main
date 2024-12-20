@@ -4,12 +4,14 @@ import { ContactForm } from "./ContactForm";
 import { Heading } from "@components/modules/Heading";
 import { Flex } from "@components/utility/Flex";
 import { Box } from "@components/utility/Box";
+import { CONTACT_PAGE_DATA as pageData } from "@data/pages/contact";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
   return {
-    title: `Contact Us | ${process.env.REACT_APP_SITE_NAME}`,
+    title: pageData.seo.title,
     icons: {
       icon: "/favicon.ico",
     },
@@ -22,30 +24,18 @@ export async function generateMetadata({}) {
 export default async function ContactPage() {
   return (
     <>
-      <PageBanner
-        title="Contact Us"
-        theme="blue"
-        breadcrumbsCollection={{
-          items: [
-            {
-              url: "/",
-              copy: "Home",
-            },
-          ],
-        }}
-      />
+      <PageBanner {...pageData.banner} />
       <Flex className="container contact-page" columnBreak="lg">
         <Box radius={5} className="bg-base-cool address">
-          <Heading level={2}>Contact Information</Heading>
-          <p>
-            <strong>NJ Department of Labor and Workforce Development</strong>
-            <br />
-            Center for Occupational Employment Information (COEI)
-            <br />
-            PO Box 057, 5th Floor, Trenton, New Jersey 08625-0057
-          </p>
+          <Heading level={pageData.copyBox.headingLevel}>
+            {pageData.copyBox.heading}
+          </Heading>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(pageData.copyBox.copy),
+            }}
+          />
         </Box>
-
         <ContactForm />
       </Flex>
     </>

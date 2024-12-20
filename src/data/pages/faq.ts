@@ -1,6 +1,9 @@
+import { CtaBannerProps } from "@components/blocks/CtaBanner";
+import { PageBannerProps } from "@utils/types";
+
 export const FAQ_PAGE_DATA = {
   seo: {
-    title: "Frequently Asked Questions",
+    title: `Frequently Asked Questions | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription: "Frequently Asked Questions for My Career NJ.",
     keywords: [
       "FAQ",
@@ -27,7 +30,7 @@ export const FAQ_PAGE_DATA = {
     message: "Get answers to all of your My Career NJ questions.",
     title: "Frequently Asked Questions",
     section: "support",
-    ctaHeading: null,
+    theme: "blue",
     breadcrumbsCollection: {
       items: [
         {
@@ -39,7 +42,7 @@ export const FAQ_PAGE_DATA = {
         },
       ],
     },
-  },
+  } as PageBannerProps,
   ctaBanner: {
     fullColor: true,
     heading: "Check out some other useful resources and tools",
@@ -74,7 +77,7 @@ export const FAQ_PAGE_DATA = {
         highlight: "blue",
       },
     ],
-  },
+  } as CtaBannerProps,
   cta: {
     headingLevel: 3,
     heading: "Still have questions?",
@@ -85,5 +88,5 @@ export const FAQ_PAGE_DATA = {
         url: "/contact",
       },
     ],
-  },
+  } as CtaBannerProps,
 };

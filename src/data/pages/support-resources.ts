@@ -1,6 +1,6 @@
 export const SUPPORT_RESOURCES_PAGE_DATA = {
   seo: {
-    title: "Support and Assistance Resources",
+    title: `Support and Assistance Resources | ${process.env.REACT_APP_SITE_NAME}`,
     pageDescription:
       "Browse My Career NJ support and assistance resources by category.",
     keywords: [

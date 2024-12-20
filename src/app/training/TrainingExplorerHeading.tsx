@@ -8,15 +8,7 @@ import { Flex } from "@components/utility/Flex";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { ButtonProps } from "@utils/types";
 
-export const TrainingExplorerHeading = ({
-  heading,
-  subheading,
-  message,
-  steps,
-  breadcrumbs,
-  notReady,
-  learnMore,
-}: {
+export interface TrainingExplorerHeadingProps {
   heading: string;
   subheading?: string;
   message?: string;
@@ -30,7 +22,17 @@ export const TrainingExplorerHeading = ({
     url: string;
     copy: string;
   };
-}) => {
+}
+
+export const TrainingExplorerHeading = ({
+  heading,
+  subheading,
+  message,
+  steps,
+  breadcrumbs,
+  notReady,
+  learnMore,
+}: TrainingExplorerHeadingProps) => {
   return (
     <section className="training-explorer-heading">
       <div className="container">
