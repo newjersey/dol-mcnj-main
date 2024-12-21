@@ -47,18 +47,16 @@ export interface Provider {
   name: string;
   targetContactPoints?: ContactPoint[];
 }
-export class Address {
+
+export type Address = {
+  "@type": "ceterms:Place";
   street_address?: string;
-  city?:string;
+  city?: string;
   state?: string;
   zipCode?: string;
   county?: string;
   targetContactPoints?: ContactPoint[];
-
-  constructor(init?: Partial<Address>) {
-    Object.assign(this, init);
-  }
-}
+};
 
 export interface ContactPoint {
   alternateName?: string;

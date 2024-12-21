@@ -104,8 +104,8 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 };
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
-  return {
-    name: "some-location-name-" + randomInt(),
+  const address:Address = {
+    "@type": "ceterms:Place",
     street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
@@ -114,6 +114,8 @@ export const buildAddress = (overrides: Partial<Address>): Address => {
     targetContactPoints: [],
     ...overrides,
   };
+
+  return address;
 };
 
 export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefinition => {

@@ -149,6 +149,7 @@ const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Addre
       const zipCode = location["ceterms:postalCode"] ?? "";
 
       return {
+        "@type": "ceterms:Place",
         street_address: location["ceterms:streetAddress"]?.["en-US"] ?? "",
         city: location["ceterms:addressLocality"]?.["en-US"] ?? "",
         state: location["ceterms:addressRegion"]?.["en-US"] ?? "",

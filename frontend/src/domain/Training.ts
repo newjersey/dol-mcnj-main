@@ -26,18 +26,14 @@ export interface TrainingResult {
   hasChildcareAssistance: boolean;
 }
 
-export class Address {
-  "@type" = "Place";
+export type Address = {
+  "@type": "ceterms:Place";
   street_address?: string;
   city?: string;
   state?: string;
   zipCode?: string;
   county?: string;
   targetContactPoints?: ContactPoint[];
-
-  constructor(init?: Partial<Address>) {
-    Object.assign(this, init);
-  }
 }
 
 type MetaData = {

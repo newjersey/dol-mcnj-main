@@ -70,7 +70,7 @@ type AddressBase = {
 };
 
 // Enforce @type as 'Place' while keeping AddressBase fields
-export type Address = AddressBase & { "@type": "Place" };
+export type Address = AddressBase & { "@type": "ceterms:Place" };
 
 
 type MetaData = {
