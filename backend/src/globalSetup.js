@@ -24,7 +24,11 @@ function executeCommand(command, args = [], silent = false) {
       let stdout = '';
       let stderr = '';
 
-      proc.stdout.on('data', (data) => (stdout += data.toString()));
+      proc.stdout.on('data', (data) => {
+        if (stdout.length < 10000) { // Limit stdout length to 10,000 characters
+          stdout += data.toString();
+        }
+      });
       proc.stderr.on('data', (data) => (stderr += data.toString()));
 
       proc.on('close', (code) => {
