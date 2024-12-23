@@ -68,7 +68,7 @@
       "host": { "ENV": "DB_HOST_READER_AWSTEST" },
       "user": "postgres",
       "password": { "ENV": "DB_PASS_AWSTEST" },
-      "database": "d4adplocal"
+      "database": "d4adlocal"
     }
   },
   "awsprod": {
