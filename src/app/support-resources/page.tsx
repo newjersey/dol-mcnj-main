@@ -5,27 +5,21 @@ import { client } from "@utils/client";
 import { SupportResourcesPageProps } from "@utils/types";
 import { ALL_SUPPORT_PAGE_QUERY } from "queries/allSupportPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
+import { SUPPORT_RESOURCES_PAGE_DATA as pageData } from "@data/pages/support-resources";
 
 async function getData() {
   const { categories } = await client({
     query: ALL_SUPPORT_PAGE_QUERY,
   });
 
-  const pageData = await fetch(
-    `${process.env.REACT_APP_SITE_URL}/api/pageData?slug=support-resources`
-  );
-
   return {
     categories,
-    pageData: await pageData.json(),
   };
 }
 
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
-  const { pageData } = (await getData()) as SupportResourcesPageProps;
-
   return {
     title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: pageData.seo.pageDescription,
@@ -40,8 +34,7 @@ export async function generateMetadata({}) {
 }
 
 export default async function SupportResourcesPage() {
-  const { categories, pageData } =
-    (await getData()) as SupportResourcesPageProps;
+  const { categories } = (await getData()) as SupportResourcesPageProps;
 
   return (
     <div className="page supportResources">

@@ -58,13 +58,7 @@ export default async function Home() {
           </div>
         </section>
         {pageData.sections.map((cardRow: any) => (
-          <CardSlider
-            key={cardRow.heading}
-            heading={cardRow.heading}
-            theme={cardRow.theme as ThemeColors}
-            sectionId={cardRow.sectionId}
-            cards={cardRow.cards}
-          />
+          <CardSlider key={cardRow.heading} {...cardRow} />
         ))}
       </div>
       {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}

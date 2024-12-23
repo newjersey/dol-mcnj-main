@@ -1,3 +1,6 @@
+import { CtaBannerProps } from "@components/blocks/CtaBanner";
+import { PageBannerProps } from "@utils/types";
+
 export const SUPPORT_RESOURCES_PAGE_DATA = {
   seo: {
     title: `Support and Assistance Resources | ${process.env.REACT_APP_SITE_NAME}`,
@@ -93,6 +96,7 @@ export const SUPPORT_RESOURCES_PAGE_DATA = {
     message: "Browse support and assistance resources by category.",
     title: "Support and Assistance Resources",
     section: "support",
+    theme: "blue",
     breadcrumbsCollection: {
       items: [
         {
@@ -104,7 +108,7 @@ export const SUPPORT_RESOURCES_PAGE_DATA = {
         },
       ],
     },
-  },
+  } as PageBannerProps,
   cta: {
     inlineButtons: true,
     headingLevel: 2,
@@ -115,5 +119,5 @@ export const SUPPORT_RESOURCES_PAGE_DATA = {
         url: "https://mycareer.nj.gov/contact",
       },
     ],
-  },
+  } as CtaBannerProps,
 };

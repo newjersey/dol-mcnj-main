@@ -23,7 +23,7 @@ export default async function TrainingProviderResourcesPage() {
   return (
     <div className="page trainingProviderResources">
       <PageBanner {...pageData.banner} />
-      <Tabs items={pageData.tabs.items} />
+      <Tabs {...pageData.tabs} />
     </div>
   );
 }
