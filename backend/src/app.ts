@@ -120,7 +120,7 @@ switch (process.env.NODE_ENV) {
     connection = {
       user: "postgres",
       host: process.env.DB_HOST_WRITER_AWSTEST || '',
-      database: "d4adtest",
+      database: "d4adlocal",
       password: process.env.DB_PASS_AWSTEST || '',
       port: 5432,
     };
