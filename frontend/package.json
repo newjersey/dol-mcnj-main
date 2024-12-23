@@ -97,7 +97,7 @@
     "eslint-plugin-cypress": "^3.6.0",
     "good-fences": "^1.2.0",
     "prettier": "3.4.2",
-    "react-to-print": "^2.14.15"
+    "react-to-print": "^3.0.3"
   },
   "overrides": {
     "nth-check": "https://registry.npmjs.org/nth-check/-/nth-check-2.1.1.tgz",
