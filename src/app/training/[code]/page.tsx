@@ -7,7 +7,7 @@ async function getData(soc: string) {
     `${process.env.REACT_APP_API_URL}/api/trainings/${soc}`
   );
 
-  if (pageData.status !== 200) {
+  if (pageData.status !== 200 || !pageData.headers.get("ETag")) {
     notFound();
   }
 
@@ -28,10 +28,6 @@ export const generateMetadata = async ({
     `${process.env.REACT_APP_API_URL}/api/trainings/${resolvedParams.code}`
   );
 
-  if (pageData.status !== 200) {
-    notFound();
-  }
-
   const training: TrainingProps = await pageData.json();
 
   return {
@@ -50,10 +46,6 @@ export default async function TrainingPage({
 }) {
   const resolvedParams = await params;
   const { pageData } = await getData(resolvedParams.code);
-
-  if (pageData.status !== 200) {
-    notFound();
-  }
 
   const training: TrainingProps = await pageData.json();
 

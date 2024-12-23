@@ -3,7 +3,7 @@ import { ThemeColors } from "@utils/types";
 import { Heading } from "./Heading";
 import { WarningCircle } from "@phosphor-icons/react";
 
-interface SystemErrorProps {
+export interface SystemErrorProps {
   className?: string;
   heading: string;
   copy?: string;
