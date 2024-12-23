@@ -7,7 +7,7 @@ module.exports = async () => {
     console.log("Database created successfully.");
 
     console.log("Running database migrations...");
-    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test']); // Added a third parameter to indicate silent execution
+    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test'], true); // Added a third parameter to indicate silent execution
     console.log("Database migrations applied successfully.");
   } catch (error) {
     console.error("Error during global setup:", error);
@@ -17,15 +17,33 @@ module.exports = async () => {
 
 function executeCommand(command, args = [], silent = false) {
   return new Promise((resolve, reject) => {
-    const stdioOption = silent ? 'ignore' : 'inherit';
+    const stdioOption = silent ? ['pipe', 'pipe', 'pipe'] : 'inherit';
     const proc = spawn(command, args, { stdio: stdioOption });
 
-    proc.on('close', (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`Command "${command}" exited with code ${code}`));
-      }
-    });
+    if (silent) {
+      let stdout = '';
+      let stderr = '';
+
+      proc.stdout.on('data', (data) => (stdout += data.toString()));
+      proc.stderr.on('data', (data) => (stderr += data.toString()));
+
+      proc.on('close', (code) => {
+        if (code === 0) {
+          console.log(stdout);
+          resolve();
+        } else {
+          console.error(stderr);
+          reject(new Error(`Command "${command}" exited with code ${code}`));
+        }
+      });
+    } else {
+      proc.on('close', (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`Command "${command}" exited with code ${code}`));
+        }
+      });
+    }
   });
 }
