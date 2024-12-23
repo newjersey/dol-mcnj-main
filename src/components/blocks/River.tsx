@@ -4,7 +4,7 @@ import { ResponsiveImage } from "@components/modules/ResponsiveImage";
 import { noOrphans } from "@utils/noOrphans";
 import { HeadingLevel, RiverItemProps } from "@utils/types";
 
-interface RiverProps {
+export interface RiverProps {
   className?: string;
   headingLevel?: HeadingLevel;
   items: RiverItemProps[];
@@ -14,8 +14,8 @@ const River = ({ className, items, headingLevel = 2 }: RiverProps) => {
   return (
     <section className={`river${className ? ` ${className}` : ""}`}>
       <div className="container">
-        {items.map((item) => (
-          <div className="item" key={item.sys.id}>
+        {items.map((item, index) => (
+          <div className="item" key={item.heading + index}>
             {item.image && (
               <div className="image">
                 <ResponsiveImage

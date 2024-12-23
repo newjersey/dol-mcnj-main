@@ -309,9 +309,6 @@ export interface AssetBlock {
 //////////////////////////////////////////////////////
 
 export interface RiverItemProps {
-  sys: {
-    id: string;
-  };
   heading: string;
   copy: string;
   image: ImageProps;
