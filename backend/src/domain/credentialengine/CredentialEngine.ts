@@ -195,8 +195,8 @@ export interface CetermsJurisdictionProfile {
 
 }
 
-export interface CetermsPlace {
-  "@type"?:                       string;
+export class CetermsPlace {
+  "@type" = "ceterms:Place";
   "ceterms:name"?:                Ceterms;
   "ceterms:geoURI"?:              string;
   "ceterms:latitude"?:            number;
@@ -208,6 +208,10 @@ export interface CetermsPlace {
   "ceterms:postalCode"?:          string;
   "ceterms:addressCountry"?:      Ceterms;
   "ceterms:targetContactPoint"?:  CetermsContactPoint[];
+
+  constructor(init?: Partial<CetermsPlace>) {
+    Object.assign(this, init);
+  }
 }
 
 export interface CetermsContactPoint {

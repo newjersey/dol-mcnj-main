@@ -47,14 +47,16 @@ export interface Provider {
   name: string;
   targetContactPoints?: ContactPoint[];
 }
-export interface Address {
+
+export type Address = {
+  "@type": "ceterms:Place";
   street_address?: string;
-  city?:string;
+  city?: string;
   state?: string;
   zipCode?: string;
   county?: string;
   targetContactPoints?: ContactPoint[];
-}
+};
 
 export interface ContactPoint {
   alternateName?: string;

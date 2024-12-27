@@ -61,12 +61,17 @@ export interface TrainingResult {
   availableAt: Address[];
 }
 
-type Address = {
+type AddressBase = {
   street_address?: string;
   city?: string;
   state?: string;
   zipCode?: string;
+  county?: string;
 };
+
+// Enforce @type as 'Place' while keeping AddressBase fields
+export type Address = AddressBase & { "@type": "ceterms:Place" };
+
 
 type MetaData = {
   currentPage: number;

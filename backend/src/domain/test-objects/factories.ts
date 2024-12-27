@@ -90,7 +90,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     isWheelchairAccessible: randomBool(),
     hasJobPlacementAssistance: randomBool(),
     hasChildcareAssistance: randomBool(),
-    availableAt: [{}],
+    availableAt: [buildAddress({})],
     ...overrides,
   };
 };
@@ -108,6 +108,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
   return {
+    "@type": "ceterms:Place",
     street_address: "some-name-" + randomInt(),
     city: "some-street1-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),

@@ -29,7 +29,6 @@ const validateCtId = async (id: string): Promise<boolean> => {
 
 const getCtidFromURL = async (url: string): Promise<string> => {
   try {
-    console.log(`Getting CTID from URL: ${url}`);
     const lastSlashIndex = url.lastIndexOf("/");
     return url.substring(lastSlashIndex + 1);
   } catch (error) {
@@ -45,7 +44,7 @@ const fetchCertificateData = async (url: string): Promise<CTDLResource | null> =
       "ceterms:ctid": ctid,
       "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
     };
-    const response = await credentialEngineAPI.getResults(query, 0, 10, "^search:relevance");
+    const response = await credentialEngineAPI.getResults(query, 0, 10);
     return response.data.data.length > 0 ? response.data.data[0] : null;
   } catch (error) {
     logError(`Error fetching data for CTID`, error as Error);
@@ -115,7 +114,7 @@ const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
         state: address["ceterms:addressRegion"]?.["en-US"] ?? "",
         zipCode,
         county: convertZipCodeToCounty(zipCode) ?? "",
-      };
+      } as Address;
 
       const contactPoints = address["ceterms:targetContactPoint"] ?? [];
       if (contactPoints.length > 0) {
@@ -150,6 +149,7 @@ const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Addre
       const zipCode = location["ceterms:postalCode"] ?? "";
 
       return {
+        "@type": "ceterms:Place",
         street_address: location["ceterms:streetAddress"]?.["en-US"] ?? "",
         city: location["ceterms:addressLocality"]?.["en-US"] ?? "",
         state: location["ceterms:addressRegion"]?.["en-US"] ?? "",
@@ -419,10 +419,6 @@ const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryTy
         }
       })
       .filter((type): type is DeliveryType => !!type); // Type guard to filter out undefined values
-
-    if (mappedTypes.length === 0) {
-      console.log("No valid DeliveryTypes found.");
-    }
 
     return Promise.resolve(mappedTypes);
   } catch (error) {
