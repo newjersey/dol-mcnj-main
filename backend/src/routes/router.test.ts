@@ -26,6 +26,8 @@ describe("router", () => {
     stubFindTrainingsBy = jest.fn();
     stubGetInDemandOccupations = jest.fn();
     stubGetOccupationDetail = jest.fn();
+    stubGetAllCertificates = jest.fn();
+    stubGetOccupationDetailByCIP = jest.fn();
 
     router = routerFactory({
       allTrainings: stubAllTrainings,
