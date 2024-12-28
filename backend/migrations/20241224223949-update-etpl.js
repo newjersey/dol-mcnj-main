@@ -42,7 +42,8 @@ exports.down = function(db) {
       process.env.NODE_ENV === "test"
           ? "20241224223949-update-etpl-down-TEST.sql"
           : "20241224223949-update-etpl-down.sql";
-  var filePath = path.join(__dirname, 'sqls', fileName);  return new Promise( function( resolve, reject ) {
+  var filePath = path.join(__dirname, 'sqls', fileName);
+  return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
       console.log('received data: ' + data);
