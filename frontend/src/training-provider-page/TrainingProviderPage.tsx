@@ -45,7 +45,13 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
     <>
       {data && (
         <Layout client={props.client} theme="training" seo={seoObject}>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
+          <PageBanner
+            {...data.page.pageBanner}
+            title="Advancing excellence among New Jersey's training providers."
+            description="Find the resources and tools you need to build high-quality training programs."
+            date={data.page.sys.publishedAt}
+          />
+
           <TabContent items={data?.page.tabs.items} />
         </Layout>
       )}

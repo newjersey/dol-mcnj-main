@@ -31,7 +31,7 @@ export const en = {
   ExplorerPage: {
     bannerSubheading: "Find classes to help you qualify for in-demand jobs.",
     bannerMessageCopy:
-      "Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you’ll be ready to take on new career opportunities.",
+      "Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you'll be ready to take on new career opportunities.",
     header: "Power up your search to find your next training opportunity",
     sectionOneHeader: "Get Started",
     sectionOneText:
@@ -138,9 +138,10 @@ export const en = {
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
-    header: "In-Demand Occupations",
+    header:
+      "Cut out the guesswork and make your next career move count with New Jersey's most in-demand jobs.",
     description:
-      "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
+      "What makes this list valuable? We've done the research to make it easier for you to discover New Jersey's most in-demand, fastest growing jobs in careers. Find the training you may need on the New Training Explorer to power up your career and open doors to your next opportunity.",
     descriptionTextLink: "Learn more about local and regional waivers",
     typeaheadPlaceholder: "Search for occupations",
   },
@@ -151,7 +152,7 @@ export const en = {
     headerText:
       "Find training to better prepare you for a promotion, better job, or even a career change",
     searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
-    swimLaneHeader: "Helpful how-to’s",
+    swimLaneHeader: "Helpful how-to's",
     columnOneHeader: "For Training Seekers",
     columnTwoHeader: "For Counselors and Coaches",
     columnThreeHeader: "For Training Providers",
@@ -336,6 +337,6 @@ export const en = {
       "To sign up for this training opportunity, please contact the provider at the details below.",
     trainingStepOneDescription: "Search by occupation, provider, and more",
     trainingStepTwoDescription: "Filter and compare results",
-    trainingStepThreeDescription: "Visit training provider’s website to enroll",
+    trainingStepThreeDescription: "Visit training provider's website to enroll",
   },
 };
