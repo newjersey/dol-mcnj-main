@@ -339,7 +339,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               ))}
             </div>
           )}
-          {!isLoading && !isError && trainings.length <= 5 && <SearchTips />}
+          {!isLoading && !isError && trainings.length <= 5 && pageNumber === 1 && <SearchTips />}
           {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">
               {trainings.map((training) => (
