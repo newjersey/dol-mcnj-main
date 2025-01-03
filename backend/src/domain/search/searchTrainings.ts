@@ -191,38 +191,36 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
 
-    const filteredCacheKey = `filteredResults-${params.searchQuery}`;
-    let filteredResults = cache.get<TrainingResult[]>(filteredCacheKey);
+    const unFilteredCacheKey = `filteredResults-${params.searchQuery}`;
+    let unFilteredResults = cache.get<TrainingResult[]>(unFilteredCacheKey);
 
-    // If filtered results are not in cache, fetch and filter them
-    if (!filteredResults) {
-      console.log(`Fetching and filtering results for query: ${params.searchQuery}`);
-      //const { allCerts, totalResults } = await fetchAllCertsInBatches(query);
+    // If unfiltered results are not in cache, fetch the results
+    if (!unFilteredResults) {
+      console.log(`Fetching results for query: ${params.searchQuery}`);
       const { allCerts } = await fetchAllCertsInBatches(query);
-      const results = await Promise.all(
+      unFilteredResults = await Promise.all(
         allCerts.map((certificate) =>
           transformCertificateToTraining(dataClient, certificate, params.searchQuery)
         )
       );
-
-      // Apply filtering
-      filteredResults = await filterCerts(
-        results,
-        params.cip_code,
-        params.complete_in,
-        params.in_demand,
-        params.max_cost,
-        params.county,
-        params.miles,
-        params.zipcode,
-        params.format
-      );
-
       // Cache the filtered results
-      cache.set(filteredCacheKey, filteredResults, 300); // Cache for 5 minutes
+      cache.set(unFilteredCacheKey, unFilteredResults, 300); // Cache for 5 minutes
     } else {
-      console.log(`Cache hit for filtered results with key: ${filteredCacheKey}`);
+      console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
     }
+
+    // Apply filtering
+    const filteredResults = await filterCerts(
+      unFilteredResults,
+      params.cip_code,
+      params.complete_in,
+      params.in_demand,
+      params.max_cost,
+      params.county,
+      params.miles,
+      params.zipcode,
+      params.format
+    );
 
     // Apply sorting to the cached filtered results
     const sortedResults = sortTrainings(filteredResults, sort);
