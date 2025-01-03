@@ -21,7 +21,7 @@ interface FilterProps {
 
 const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
   const extractQuery = () => {
-    return searchParams.split("q=")[1];
+    return searchParams.split("q=")[1]?.split("&")[0];
   };
 
   const extractParam = (param: string) => {
@@ -39,7 +39,7 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
   const [zipError, setZipError] = useState(!isInitialZipValid);
   const [zipCode, setZipCode] = useState(extractParam("zip") || "");
   const [attempted, setAttempted] = useState(
-    extractParam("zip") ? !isInitialZipValid || false : false,
+    extractParam("zip") ? !isInitialZipValid || false : false
   );
   const [showMore, setShowMore] = useState(false);
 
@@ -57,7 +57,7 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
   };
 
   const updateSearchParamsNavigate = async (
-    keyValueArray: { key: string; value: string }[],
+    keyValueArray: { key: string; value: string }[]
   ) => {
     const q = new URL(window.location.href);
     const searchParams = q.searchParams;
@@ -79,7 +79,7 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
     window.history.pushState(
       {},
       "",
-      `${window.location.pathname}?${searchParams}`,
+      `${window.location.pathname}?${searchParams}`
     );
 
     const searchParamObject = {
@@ -105,7 +105,7 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
     window.history.pushState(
       {},
       "",
-      `${window.location.pathname}?${searchParams}`,
+      `${window.location.pathname}?${searchParams}`
     );
   };
 

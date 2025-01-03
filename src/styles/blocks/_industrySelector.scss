@@ -26,4 +26,16 @@
       }
     }
   }
+
+  .labelBox {
+    svg {
+      width: settings.$size-32;
+      height: settings.$size-32;
+    }
+
+    .heading-tag {
+      font-size: settings.$size-18;
+      font-weight: 500;
+    }
+  }
 }

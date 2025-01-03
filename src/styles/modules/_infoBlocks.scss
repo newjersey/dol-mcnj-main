@@ -1,0 +1,56 @@
+@use "../settings" as s;
+@use "../mixins" as m;
+
+.infoBlocks {
+  p {
+    margin: 0;
+
+    a {
+      display: inline;
+    }
+  }
+
+  > .box {
+    padding: s.$size-16;
+    background-color: s.$accent-cool-light;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: s.$size-96;
+    gap: s.$size-16;
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      max-width: s.$size-200;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+
+    &.title {
+      background-color: s.$accent-warm-light;
+
+      @media screen and (min-width: (s.$tablet-md)) {
+        max-width: s.$size-300;
+      }
+
+      > p {
+        line-height: 1.1;
+      }
+
+      a {
+        text-decoration: underline;
+        color: s.$primary-dark;
+      }
+    }
+  }
+
+  .drawerButton {
+    button {
+      cursor: pointer;
+      span {
+        @include m.underDash;
+      }
+    }
+  }
+}

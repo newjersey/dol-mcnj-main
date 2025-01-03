@@ -5,6 +5,7 @@ import { ComponentProps } from "@utils/types";
 export interface TooltipProps extends ComponentProps {
   children: ReactNode;
   copy: string;
+  style?: React.CSSProperties;
 }
 
 export const Tooltip = ({
@@ -13,12 +14,14 @@ export const Tooltip = ({
   componentId,
   copy,
   testId,
+  style,
 }: TooltipProps) => {
   return (
     <span
       id={componentId}
       data-testid={testId}
       className={`popup-tooltip${className ? ` ${className}` : ""}`}
+      style={style}
     >
       {children}
       <Box elementTag="span" radius={5}>

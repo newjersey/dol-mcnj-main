@@ -35,6 +35,7 @@ const LinkObject = ({
       role={role}
       href={url}
       target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
       onClick={(e) => {
         if (url.startsWith("#")) {
           e.preventDefault();

@@ -140,7 +140,7 @@ const Results = ({
                 onCompare={(trainingId) => {
                   if (compare.find((item) => item.id === trainingId)) {
                     setCompare(
-                      compare.filter((item) => item.id !== trainingId),
+                      compare.filter((item) => item.id !== trainingId)
                     );
                   } else {
                     const item = items.find((item) => item.id === trainingId);

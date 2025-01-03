@@ -15,15 +15,23 @@ const CostTable = ({ items, className }: CostTableProps) => {
     <table className={`costTable${className ? ` ${className}` : ""}`}>
       <thead>
         <tr>
-          <th>Total Cost</th>
-          <th>{toUsCurrency(totalCost)}</th>
+          <th>
+            <span>Total Cost</span>
+          </th>
+          <th>
+            <span>{toUsCurrency(totalCost)}</span>
+          </th>
         </tr>
       </thead>
       <tbody>
         {items.map(({ title, cost }) => (
           <tr key={`${title}${cost}`}>
-            <td>{title}</td>
-            <td>{toUsCurrency(cost)}</td>
+            <td>
+              <span>{title}</span>
+            </td>
+            <td>
+              <span>{toUsCurrency(cost)}</span>
+            </td>
           </tr>
         ))}
       </tbody>
