@@ -210,7 +210,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     }
 
     // Apply filtering
-    let filteredResults = await filterCerts(
+    const filteredResults = await filterCerts(
       unFilteredResults,
       params.cip_code,
       params.complete_in,
