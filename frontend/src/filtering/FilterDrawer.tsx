@@ -119,9 +119,9 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
     } = data;
 
     const urlParams = new URLSearchParams(window.location.search);
+    urlParams.delete('p') // this will navigate users to starting page
 
     let completeInList, languagesList, servicesList;
-
     searchQuery ? urlParams.set("q", searchQuery) : urlParams.delete("q");
     inDemand ? urlParams.set("inDemand", inDemand.toString()) : urlParams.delete("inDemand");
     maxCost ? urlParams.set("maxCost", maxCost) : urlParams.delete("maxCost");
