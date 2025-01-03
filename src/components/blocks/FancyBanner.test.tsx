@@ -49,12 +49,14 @@ describe("FancyBanner Component", () => {
     const { getByText, getByTestId } = render(<FancyBanner {...props} />);
     expect(getByText("Test Title")).toBeInTheDocument();
     expect(getByTestId("rich-text")).toHaveTextContent(
-      JSON.stringify(props.message?.json),
+      typeof props.message === "string"
+        ? props.message
+        : JSON.stringify(props.message?.json)
     );
     expect(getByText("Test Button")).toBeInTheDocument();
     expect(getByTestId("responsive-image")).toHaveAttribute(
       "src",
-      "/test-image.jpg",
+      "/test-image.jpg"
     );
   });
 
@@ -63,7 +65,7 @@ describe("FancyBanner Component", () => {
     expect(container).toBeInTheDocument();
     expect(container.querySelector(".copy h1")).toHaveTextContent("Test Title");
     expect(container.querySelector(".copy")).not.toContainElement(
-      container.querySelector("button"),
+      container.querySelector("button")
     );
     expect(container.querySelector(".image")).not.toBeInTheDocument();
   });
@@ -90,15 +92,19 @@ describe("FancyBanner Component", () => {
     const richText = getByTestId("rich-text");
     const responsiveImage = getByTestId("responsive-image");
 
-    expect(richText).toHaveTextContent(JSON.stringify(props.message?.json));
+    expect(richText).toHaveTextContent(
+      typeof props.message !== "string"
+        ? JSON.stringify(props.message?.json)
+        : props.message
+    );
     expect(responsiveImage).toHaveAttribute("src", props.image?.url);
     expect(responsiveImage).toHaveAttribute(
       "width",
-      props.image?.width.toString(),
+      props.image?.width.toString()
     );
     expect(responsiveImage).toHaveAttribute(
       "height",
-      props.image?.height.toString(),
+      props.image?.height.toString()
     );
   });
 });

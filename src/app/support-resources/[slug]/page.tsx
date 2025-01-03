@@ -22,8 +22,6 @@ async function getData(slug: string) {
     notFound();
   }
 
-  console.log({ page });
-
   const allTags = [...tags.items].map((tag) => tag.title);
 
   const listingItems = (await client({
