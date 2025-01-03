@@ -3,76 +3,63 @@ import { client } from "@utils/client";
 import { SITEMAP_QUERY } from "queries/sitemap";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { pages, resourceCategories, industries } = await client({
+  const { resourceCategories, industries } = await client({
     query: SITEMAP_QUERY,
   });
 
-  const returnSlug = (item: { __typename: string }) => {
-    switch (item.__typename) {
-      case "CareerNavigatorPage":
-        return "career-navigator";
-      case "TrainingProviderResourcesPage":
-        return "training-provider-resources";
-      case "FaqPage":
-        return "faq";
-      case "TrainingExplorerPage":
-        return "training";
-      case "AllSupportPage":
-        return "support-resources";
-      case "CareerPathwaysPage":
-        return "career-pathways";
-      default:
-        return ""; // Default case
-    }
-  };
-
-  const getLatestDate = (
-    items: {
-      __typename: string;
-      sys: {
-        publishedAt: string;
-      };
-    }[],
-  ) => {
-    return items.reduce((latest: string, item) => {
-      if (item.sys.publishedAt > latest) {
-        return item.sys.publishedAt;
-      }
-      return latest;
-    }, "");
-  };
-
   return [
-    ...pages.items.map(
-      (item: {
-        __typename: string;
-        sys: {
-          publishedAt: string;
-        };
-      }) => ({
-        url: `${process.env.REACT_APP_SITE_URL}/${returnSlug(item)}`,
-        lastModified: item.sys.publishedAt,
-      }),
-    ),
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/`,
+      lastModified: "2024-10-08T11:36:39.205Z",
+    },
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/contact`,
+      lastModified: "2024-10-08T11:36:39.205Z",
+    },
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/career-pathways`,
+      lastModified: "2024-10-04T14:16:52.721Z",
+    },
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/privacy-policy`,
+      lastModified: "2024-10-08T11:36:39.205Z",
+    },
+
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/faq`,
+      lastModified: "2024-07-16T18:09:36.014Z",
+    },
+
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/training-provider-resources`,
+      lastModified: "2024-07-16T18:09:27.035Z",
+    },
+    {
+      url: `${process.env.REACT_APP_SITE_URL}/career-navigator`,
+      lastModified: "2024-07-16T18:08:59.069Z",
+    },
+
     {
       url: `${process.env.REACT_APP_SITE_URL}/search`,
-      lastModified: getLatestDate(pages.items),
+      lastModified: "2024-10-08T11:36:39.205Z",
     },
     {
       url: `${process.env.REACT_APP_SITE_URL}/terms-of-service`,
-      lastModified: getLatestDate(pages.items),
+      lastModified: "2024-10-08T11:36:39.205Z",
     },
-    ...resourceCategories.items.map(
-      (item: {
-        sys: {
-          publishedAt: string;
-        };
-        slug: string;
-      }) => ({
-        url: `${process.env.REACT_APP_SITE_URL}/support-resources/${item.slug}`,
-        lastModified: item.sys.publishedAt,
-      }),
-    ),
+    ...resourceCategories.items
+      .filter((item: { slug: string }) => item.slug !== "audience")
+      .map(
+        (item: {
+          sys: {
+            publishedAt: string;
+          };
+          slug: string;
+        }) => ({
+          url: `${process.env.REACT_APP_SITE_URL}/support-resources/${item.slug}`,
+          lastModified: item.sys.publishedAt,
+        })
+      ),
     ...industries.items.map(
       (item: {
         sys: {
@@ -82,7 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }) => ({
         url: `${process.env.REACT_APP_SITE_URL}/career-pathways/${item.slug}`,
         lastModified: item.sys.publishedAt,
-      }),
+      })
     ),
   ];
 }
