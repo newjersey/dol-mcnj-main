@@ -357,7 +357,6 @@ export const en = {
     noDeliveryTypeAvailable: "No delivery type available",
     providerServicesGroupHeader: "Support Services",
     eveningCoursesServiceLabel: "This provider offers evening courses",
-    otherLanguagesServiceLabel: "Programs may be available in other languages",
     wheelchairAccessibleServiceLabel: "The facility is wheelchair accessible",
     childcareAssistanceServiceLabel:
       "This provider has childcare at the facility or provides assistance with finding childcare",

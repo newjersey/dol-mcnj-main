@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Training } from "../domain/Training";
 import { Grouping } from "../components/Grouping";
-import { Baby, Briefcase, Globe, Moon, Wheelchair } from "@phosphor-icons/react";
+import { Baby, Briefcase, Moon, Wheelchair } from "@phosphor-icons/react";
 
 export const ProviderServices = ({ training }: { training: Training }) => {
   const { t } = useTranslation();
@@ -17,14 +17,6 @@ export const ProviderServices = ({ training }: { training: Training }) => {
               <Moon size={18} />
             </span>
             {t("TrainingPage.eveningCoursesServiceLabel")}
-          </div>
-        )}
-        {training.languages.some((lang) => lang !== "en-US") && (
-          <div className="fact-item">
-            <span className="label">
-              <Globe size={18} />
-            </span>
-            {t("TrainingPage.otherLanguagesServiceLabel")}
           </div>
         )}
         {training.isWheelchairAccessible && (

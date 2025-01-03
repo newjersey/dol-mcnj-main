@@ -353,7 +353,6 @@ export const es = {
     deliveryTypeLabel: "Tipo de entrega",
     providerServicesGroupHeader: "Servicios del proveedor",
     eveningCoursesServiceLabel: "Este proveedor ofrece cursos nocturnos.",
-    otherLanguagesServiceLabel: "Los programas pueden estar disponibles en otros idiomas.",
     wheelchairAccessibleServiceLabel: "La instalación es accesible para sillas de ruedas.",
     childcareAssistanceServiceLabel:
       "Este proveedor tiene cuidado de niños en la instalación o brinda asistencia para encontrar cuidado de niños",
