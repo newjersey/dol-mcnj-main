@@ -72,8 +72,8 @@ const Button = ({
                 : undefined,
             }
           : style
-            ? style
-            : undefined
+          ? style
+          : undefined
       }
     >
       {!noIndicator && svgName && !iconPrefix && (
@@ -122,8 +122,8 @@ const Button = ({
                 : undefined,
             }
           : style
-            ? style
-            : undefined
+          ? style
+          : undefined
       }
     >
       {!noIndicator && svgName && !iconPrefix && (
@@ -170,14 +170,15 @@ const Button = ({
               color: customTextColor,
             }
           : style
-            ? style
-            : undefined
+          ? style
+          : undefined
       }
     >
       <Flex
         className="grouping"
         gap="xxs"
         elementTag="span"
+        columnBreak="none"
         alignItems="center"
       >
         {!noIndicator && svgName && !iconPrefix && (

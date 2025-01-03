@@ -1,3 +1,4 @@
+"use client";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -15,7 +16,7 @@ export const Pagination = ({
 
   useEffect(() => {
     const breakElements = document.querySelectorAll(
-      ".usa-pagination .usa-pagination__overflow",
+      ".usa-pagination .usa-pagination__overflow"
     );
     breakElements.forEach((element, index) => {
       element.setAttribute("aria-label", `Break ${index + 1}`);
@@ -50,12 +51,17 @@ export const Pagination = ({
         if (
           i >
           Array.from(pageElements).indexOf(
-            breakElements[breakElements.length - 1],
+            breakElements[breakElements.length - 1]
           )
         ) {
           if (!pageElements[i].classList.contains("control")) {
             pageElements[i].classList.add(
-              `end_${i - Array.from(pageElements).indexOf(breakElements[breakElements.length - 1])}`,
+              `end_${
+                i -
+                Array.from(pageElements).indexOf(
+                  breakElements[breakElements.length - 1]
+                )
+              }`
             );
           }
         }
@@ -69,7 +75,7 @@ export const Pagination = ({
           pageElements[i].classList.remove("middle");
           pageElements[i].classList.remove(`start_${i}`);
           pageElements[i].classList.remove(
-            `end_${i - Array.from(pageElements).indexOf(breakElements[0])}`,
+            `end_${i - Array.from(pageElements).indexOf(breakElements[0])}`
           );
         }
       }
@@ -80,7 +86,13 @@ export const Pagination = ({
     <nav
       role="navigation"
       aria-label="Pagination"
-      className={`usa-pagination${breakCount === 1 ? " single-break" : breakCount === 2 ? " multi-break" : " no-break"}`}
+      className={`usa-pagination${
+        breakCount === 1
+          ? " single-break"
+          : breakCount === 2
+          ? " multi-break"
+          : " no-break"
+      }`}
     >
       <ReactPaginate
         ariaLabelBuilder={(page) => `Go to page ${page}`}
@@ -111,17 +123,11 @@ export const Pagination = ({
         renderOnZeroPageCount={null}
         pageRangeDisplayed={2}
         onPageChange={(page) => {
-          if (typeof window === "undefined") {
-            return "";
-          }
           const newUrl = new URL(window.location.href);
           newUrl.searchParams.set("p", `${page.selected + 1}`);
           window.location.href = newUrl.toString();
         }}
         hrefBuilder={(page) => {
-          if (typeof window === "undefined") {
-            return "";
-          }
           const newUrl = new URL(window.location.href);
           newUrl.searchParams.set("p", `${page}`);
           return newUrl.toString();

@@ -5,7 +5,16 @@
   padding: 0;
   background-color: transparent;
   color: inherit;
-  @include mixins.linkColor;
+  text-underline-offset: settings.$size-4;
+  text-decoration-thickness: settings.$size-2;
+  font-weight: bold;
+  justify-content: flex-start;
+  text-align: left;
+  line-height: 1.5;
+
+  & {
+    @include mixins.linkColor;
+  }
 }
 
 .usa-button {
@@ -13,6 +22,7 @@
   align-items: center;
   justify-content: space-between;
   gap: settings.$size-8;
+  text-align: left;
   padding: settings.$size-16 settings.$size-24;
 
   &.unstyled {
@@ -258,6 +268,12 @@
       width: 100%;
     }
 
+    .grouping {
+      @media screen and (max-width: (settings.$tablet - 1)) {
+        margin: 0 auto;
+      }
+    }
+
     svg,
     .svg-container {
       height: auto;
@@ -273,10 +289,11 @@
   &.highlight-orange {
     background: settings.$accent-warm-lighter;
     border-color: settings.$accent-warm-light;
-    color: settings.$accent-warm-darker;
+    color: settings.$black;
 
     &:hover {
       @media screen and (min-width: (settings.$tablet)) {
+        background-color: settings.$accent-warm-light;
         border-color: settings.$accent-warm;
       }
     }

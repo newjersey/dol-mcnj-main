@@ -1,6 +1,8 @@
 @use "../settings" as settings;
 
 .drawer {
+  position: absolute;
+
   .text-xl {
     margin-top: 0;
   }
@@ -10,12 +12,12 @@
     border-left: settings.$size-4 solid settings.$black;
     top: 0;
     right: -100%;
-    background: settings.$white;
+    background: settings.$secondary-lighter;
     padding: 3rem;
     max-width: settings.$tablet;
     width: 100%;
     height: 100%;
-    z-index: 11;
+    z-index: 15;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
@@ -33,7 +35,7 @@
       right: 0;
       padding: settings.$size-16;
       cursor: pointer;
-      z-index: 11;
+      z-index: 15;
     }
   }
 
@@ -52,7 +54,7 @@
     height: 100%;
     background: settings.$ink;
     opacity: 0;
-    z-index: 11;
+    z-index: 15;
 
     &.open {
       pointer-events: all;

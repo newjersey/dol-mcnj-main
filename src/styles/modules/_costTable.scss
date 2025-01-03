@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .costTable {
   width: 100%;
@@ -7,35 +7,61 @@
   td {
     vertical-align: middle;
     padding: 0;
-    font-size: settings.$size-16;
+    font-size: s.$size-16;
     font-weight: 500;
 
     + th,
     + td {
       text-align: right;
+      span {
+        padding-right: 0;
+        padding-left: s.$size-8;
+      }
+    }
+
+    span {
+      background-color: s.$white;
+      display: inline-block;
+      padding-right: s.$size-8;
     }
   }
 
   thead {
-    border-bottom: settings.$size-1 solid settings.$base-lightest;
+    position: relative;
+    &::after {
+      content: "";
+      border-top: s.$size-1 solid s.$base-lighter;
+      position: absolute;
+      bottom: s.$size-14;
+      left: 0;
+      width: 100%;
+      height: s.$size-1;
+    }
 
     th {
-      padding-bottom: settings.$size-14;
+      padding-bottom: s.$size-28;
 
       + th {
         text-align: right;
-        font-size: settings.$size-24;
+        font-size: s.$size-24;
       }
     }
   }
 
   tbody {
     tr {
-      &:first-of-type {
-        td {
-          padding-top: settings.$size-14;
-        }
-      }
+      background: linear-gradient(
+        90deg,
+        s.$base-lighter 0,
+        s.$base-lighter 60%,
+        #0000 0,
+        #0000
+      );
+      background-position: center;
+      background-repeat: repeat-x;
+      background-size: s.$size-6 s.$size-1;
+      border: none;
+      text-decoration: none;
     }
   }
 }

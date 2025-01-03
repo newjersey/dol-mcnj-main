@@ -1,0 +1,192 @@
+@use "../settings" as s;
+
+.titleBox {
+  background-color: s.$secondary-lighter;
+  padding: s.$size-16 0;
+
+  @media screen and (min-width: (s.$tablet-lg)) {
+    z-index: 13;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
+  .heading-tag {
+    font-weight: 700;
+    font-size: s.$size-32;
+    margin: 0;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      font-size: s.$size-24;
+    }
+
+    + p {
+      line-height: 1.2;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .save-controls {
+    a,
+    button {
+      text-decoration: none;
+      color: s.$black;
+      height: s.$size-32;
+      width: s.$size-32;
+      border-radius: s.$size-4;
+      position: relative;
+
+      svg {
+        fill: s.$black;
+      }
+
+      &:hover {
+        color: s.$white;
+        background-color: s.$black;
+
+        svg {
+          fill: s.$white;
+        }
+
+        span {
+          display: inline;
+          background-color: s.$black;
+          color: s.$white;
+        }
+      }
+
+      &.green {
+        color: s.$white;
+        background-color: s.$secondary;
+
+        svg {
+          fill: s.$white;
+        }
+
+        &:hover {
+          background-color: s.$secondary;
+          color: s.$white;
+
+          svg {
+            fill: s.$white;
+          }
+
+          span {
+            background-color: s.$secondary;
+            color: s.$white;
+          }
+        }
+
+        svg {
+          fill: s.$white;
+        }
+
+        span {
+          display: inline;
+          background-color: s.$secondary;
+          color: s.$white;
+        }
+      }
+
+      span {
+        position: absolute;
+        display: none;
+        border-radius: s.$size-4;
+        padding: s.$size-4;
+        white-space: nowrap;
+        bottom: -(s.$size-24);
+        font-size: s.$size-12;
+      }
+    }
+  }
+}
+
+.programBanner {
+  .crumbContainer {
+    padding: s.$size-8 0;
+    @media screen and (min-width: (s.$mobile-lg)) {
+      padding: s.$size-24 0;
+    }
+
+    .usa-breadcrumb {
+      max-width: calc(100% - s.$size-50);
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        max-width: calc(100% - s.$size-340);
+      }
+    }
+  }
+
+  .blocksContainer {
+    padding-top: s.$size-48;
+    padding-bottom: s.$size-8;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      padding-top: s.$size-24;
+      padding-bottom: s.$size-24;
+    }
+  }
+
+  .searchOverlay {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: s.$black;
+    opacity: 0;
+    pointer-events: none;
+    display: block;
+    transition-duration: 0.3s;
+
+    &.open {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        pointer-events: all;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .closeSearch {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      position: fixed;
+      z-index: 12;
+      bottom: -(s.$size-300);
+      right: s.$size-16;
+      transition-duration: 0.3s;
+
+      &.open {
+        bottom: s.$size-105;
+      }
+    }
+  }
+
+  .searchForm {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      position: fixed;
+      z-index: 11;
+      background-color: s.$secondary-lighter;
+      transition-duration: 0.3s;
+      width: 100%;
+      left: 0;
+      padding: s.$size-32 s.$size-16;
+      bottom: -(s.$size-300);
+    }
+
+    &.open {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        bottom: 0;
+      }
+    }
+
+    label {
+      @media screen and (min-width: (s.$tablet-lg)) {
+        display: none;
+      }
+    }
+  }
+}

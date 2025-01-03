@@ -43,8 +43,8 @@
     "react-paginate": "^8.2.0",
     "react-to-print": "^3.0.2",
     "run": "^1.5.0",
-    "sass": "^1.81.0",
-    "sass-loader": "^16.0.3"
+    "sass": "^1.82.0",
+    "sass-loader": "^16.0.4"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
