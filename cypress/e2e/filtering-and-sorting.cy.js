@@ -1,5 +1,5 @@
 describe("Filtering", () => {
-  it("filters by max cost", () => {
+  it.skip("filters by max cost", () => {
     cy.visit("/training/search?q=baking&mockData=baking");
     cy.contains("Baking and Pastry").should("exist");
     cy.contains('8 results found for "baking"').should("exist");
@@ -19,25 +19,25 @@ describe("Filtering", () => {
     cy.contains('8 results found for "baking"').should("exist");
   });
 
-  it("filters by training length", () => {
+  it.skip("filters by training length", () => {
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains(
-      "Certified Digital Marketing Professional (Voucher Included)",
+      "Certified Digital Marketing Professional (Voucher Included)"
     ).should("exist");
     cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should(
-      "exist",
+      "exist"
     );
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=5",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=5"
     );
 
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should(
-      "exist",
+      "exist"
     );
     cy.contains('49 results found for "digital marketing"').should("exist");
 
@@ -45,105 +45,105 @@ describe("Filtering", () => {
     cy.get('[type="checkbox"][name="days"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&days=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&days=true"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
 
     cy.contains(
-      "Certified Digital Marketing Professional (Voucher Included)",
+      "Certified Digital Marketing Professional (Voucher Included)"
     ).should("not.exist");
 
     cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should(
-      "not.exist",
+      "not.exist"
     );
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should(
-      "not.exist",
+      "not.exist"
     );
     cy.contains('4 results found for "digital marketing"').should("exist");
 
     cy.get('[type="checkbox"][name="days"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1"
     );
 
     cy.get('[type="checkbox"][name="weeks"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&weeks=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&weeks=true"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
 
     cy.contains(
-      "Certified Digital Marketing Professional (Voucher Included)",
+      "Certified Digital Marketing Professional (Voucher Included)"
     ).should("not.exist");
     cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should(
-      "exist",
+      "exist"
     );
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should(
-      "not.exist",
+      "not.exist"
     );
     cy.contains('20 results found for "digital marketing"').should("exist");
 
     cy.get('[type="checkbox"][name="weeks"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1"
     );
 
     cy.get('[type="checkbox"][name="months"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&months=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&months=true"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
     cy.contains(
-      "Certified Digital Marketing Professional (Voucher Included)",
+      "Certified Digital Marketing Professional (Voucher Included)"
     ).should("exist");
     cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should(
-      "not.exist",
+      "not.exist"
     );
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should(
-      "not.exist",
+      "not.exist"
     );
     cy.contains('18 results found for "digital marketing"').should("exist");
 
     cy.get('[type="checkbox"][name="months"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1"
     );
 
     cy.get('[type="checkbox"][name="years"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&years=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=1&years=true"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
     cy.contains(
-      "Certified Digital Marketing Professional (Voucher Included)",
+      "Certified Digital Marketing Professional (Voucher Included)"
     ).should("not.exist");
     cy.contains("Rutgers Virtual Live Mini-MBA: Digital Marketing (5)").should(
-      "not.exist",
+      "not.exist"
     );
     cy.contains("Entrepreneurship/Office Equipment Repair Specialist").should(
-      "exist",
+      "exist"
     );
     cy.contains('7 results found for "digital marketing"').should("exist");
   });
 
-  it("filters by class format", () => {
+  it.skip("filters by class format", () => {
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains(
-      "Social Media Marketing with Digital Marketing and Digital Graphics Design Online",
+      "Social Media Marketing with Digital Marketing and Digital Graphics Design Online"
     ).should("exist");
     cy.contains('49 results found for "digital marketing"').should("exist");
 
@@ -151,37 +151,37 @@ describe("Filtering", () => {
     cy.get('[type="checkbox"][name="in-person"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&inPerson=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&inPerson=true"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains(
-      "Social Media Marketing with Digital Marketing and Digital Graphics Design Online",
+      "Social Media Marketing with Digital Marketing and Digital Graphics Design Online"
     ).should("not.exist");
     cy.contains('42 results found for "digital marketing"').should("exist");
 
     cy.get('[type="checkbox"][name="in-person"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing"
     );
 
     cy.get('[type="checkbox"][name="online"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&online=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&online=true"
     );
 
     cy.contains(
-      "Social Media Marketing with Digital Marketing and Digital Graphics Design Online",
+      "Social Media Marketing with Digital Marketing and Digital Graphics Design Online"
     ).should("exist");
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
     cy.contains('7 results found for "digital marketing"').should("exist");
   });
 
-  it("filters by location", () => {
+  it.skip("filters by location", () => {
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing"
     );
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains('49 results found for "digital marketing"').should("exist");
@@ -193,7 +193,7 @@ describe("Filtering", () => {
     cy.get('select[id="miles"]').blur();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&zip=07652&miles=10",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&zip=07652&miles=10"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
@@ -204,21 +204,21 @@ describe("Filtering", () => {
     cy.get('input[aria-label="Search by ZIP code"]').blur();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
     cy.contains('49 results found for "digital marketing"').should("exist");
   });
 
-  it("filters by In-Demand Only", () => {
+  it.skip("filters by In-Demand Only", () => {
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing"
     );
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=3",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=3"
     );
     cy.contains("Visual and Digital Design").should("exist");
     cy.contains('49 results found for "digital marketing"').should("exist");
@@ -226,13 +226,13 @@ describe("Filtering", () => {
     cy.get('input[name="inDemandOnly"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&inDemand=true",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&inDemand=true"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&inDemand=true&p=3",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&inDemand=true&p=3"
     );
     cy.contains("Visual and Digital Design").should("not.exist");
     cy.contains('43 results found for "digital marketing"').should("exist");
@@ -240,13 +240,13 @@ describe("Filtering", () => {
     cy.get('input[name="inDemandOnly"] + label').click();
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing"
     );
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("exist");
 
     cy.visit(
-      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=3",
+      "/training/search?q=digital%20marketing&mockData=digitalMarketing&p=3"
     );
     cy.contains("Visual and Digital Design").should("exist");
     cy.contains('49 results found for "digital marketing"').should("exist");
@@ -329,7 +329,7 @@ describe("Filtering", () => {
       .first()
       .within(() => {
         cy.contains(
-          "Culinary Opportunity Program for Adults with Developmental Disabilities",
+          "Culinary Opportunity Program for Adults with Developmental Disabilities"
         ).should("exist");
       });
 

@@ -22,13 +22,13 @@ describe("DrawerButton", () => {
     render(<DrawerButton {...defaultProps} />);
     const button = screen.getAllByText("Test Copy")[0].parentElement;
     fireEvent.click(button!);
-    expect(screen.getAllByText("Test Copy")[1].parentElement).toHaveClass(
-      "open",
-    );
+    expect(
+      screen.getAllByText("Test Copy")[1].parentElement?.parentElement
+    ).toHaveClass("open");
     fireEvent.click(button!);
-    expect(screen.getAllByText("Test Copy")[1].parentElement).not.toHaveClass(
-      "open",
-    );
+    expect(
+      screen.getAllByText("Test Copy")[1].parentElement?.parentElement
+    ).not.toHaveClass("open");
   });
 
   it("closes drawer on Escape key press", () => {
@@ -37,7 +37,7 @@ describe("DrawerButton", () => {
     fireEvent.click(button!);
     fireEvent.keyDown(document, { key: "Escape", code: "Escape" });
     expect(screen.getAllByText("Test Copy")[1].parentElement).not.toHaveClass(
-      "open",
+      "open"
     );
   });
 
@@ -49,14 +49,14 @@ describe("DrawerButton", () => {
       screen.getAllByText("Test Copy")[1].parentElement?.previousSibling;
     fireEvent.mouseDown(overlay!);
     expect(screen.getAllByText("Test Copy")[1].parentElement).not.toHaveClass(
-      "open",
+      "open"
     );
   });
 
   it("applies the correct className", () => {
     render(<DrawerButton {...defaultProps} />);
     expect(
-      screen.getByRole("button", { name: /Test Copy/i }).parentElement,
+      screen.getByRole("button", { name: /Test Copy/i }).parentElement
     ).toHaveClass("test-class");
   });
 });

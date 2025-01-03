@@ -260,6 +260,7 @@ export interface ButtonProps {
   loading?: boolean;
   customBgColor?: string;
   customBorderColor?: string;
+  labelBy?: string;
   customTextColor?: string;
   style?: CSSProperties;
   defaultStyle?:

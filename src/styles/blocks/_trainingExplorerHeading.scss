@@ -1,12 +1,12 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .training-explorer-heading {
-  background-color: settings.$base-lightest;
+  background-color: s.$base-lightest;
 
   .subheading,
   .message {
-    margin: settings.$size-16 auto;
-    max-width: settings.$tablet-lg;
+    margin: s.$size-16 auto;
+    max-width: s.$tablet-lg;
     text-align: center;
 
     * {
@@ -15,7 +15,7 @@
   }
 
   .subheading {
-    font-size: settings.$size-24;
+    font-size: s.$size-24;
     font-weight: 600;
   }
 
@@ -24,19 +24,19 @@
   }
 
   .usa-breadcrumb {
-    padding: settings.$size-32 0;
+    padding: s.$size-32 0;
   }
 
   .heading-tag {
     &.main {
       text-align: center;
-      font-size: settings.$size-48;
+      font-size: s.$size-48;
       margin: 0;
       font-weight: 600;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        font-size: settings.$size-32;
-        margin-bottom: settings.$size-32;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-32;
+        margin-bottom: s.$size-32;
       }
     }
   }
@@ -48,27 +48,32 @@
   }
 
   .learn-more {
-    margin: settings.$size-32 0;
+    margin: s.$size-32 0;
 
-    @media screen and (min-width: (settings.$tablet-lg + 1)) {
+    @media screen and (min-width: (s.$tablet-lg + 1)) {
       text-align: center;
     }
 
     p {
       background-color: white;
-      border-radius: settings.$size-16;
-      padding: settings.$size-16;
+      border-radius: s.$size-16;
+      padding: s.$size-16;
       display: inline-block;
 
-      @media screen and (min-width: (settings.$tablet-lg + 1)) {
+      @media screen and (min-width: (s.$tablet-lg + 1)) {
         text-align: center;
-        font-size: settings.$size-18;
-        border-radius: settings.$size-80;
+        font-size: s.$size-18;
+        border-radius: s.$size-80;
       }
+    }
+
+    a {
+      color: s.$primary-dark;
+      text-decoration: underline;
     }
   }
 
   .cta {
-    padding: settings.$size-32 0;
+    padding: s.$size-32 0;
   }
 }

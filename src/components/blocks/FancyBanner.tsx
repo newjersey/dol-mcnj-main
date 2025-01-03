@@ -21,6 +21,7 @@ export const FancyBanner = ({
           {message && (
             <div
               className="message"
+              data-testid="rich-text"
               dangerouslySetInnerHTML={{
                 __html: parseMarkdownToHTML(message as string),
               }}

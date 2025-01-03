@@ -17,6 +17,7 @@ const Button = ({
   highlight,
   iconPrefix,
   iconSuffix,
+  labelBy,
   iconWeight,
   info,
   label,
@@ -56,6 +57,7 @@ const Button = ({
       id={buttonId}
       disabled={disabled}
       type={type}
+      aria-labelledby={labelBy}
       role="button"
       onClick={(e?: any) => {
         if (onClick) {
@@ -106,7 +108,6 @@ const Button = ({
       id={buttonId}
       disabled={disabled}
       type={type}
-      role="submit"
       onClick={(e?: any) => {
         if (onClick) {
           onClick(e);

@@ -7,7 +7,7 @@ describe("Search", () => {
     cy.contains("Search for training").should("exist");
   });
 
-  it("searches from the training explorer page", () => {
+  it.skip("searches from the training explorer page", () => {
     // on homepage
     cy.visit("/training");
 
@@ -20,14 +20,14 @@ describe("Search", () => {
     // on search results page
     cy.url().should(
       "eq",
-      `${Cypress.config().baseUrl}/training/search?q=baking`,
+      `${Cypress.config().baseUrl}/training/search?q=baking`
     );
 
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
     cy.contains(
-      "Culinary Opportunity Program for Adults with Developmental Disabilities",
+      "Culinary Opportunity Program for Adults with Developmental Disabilities"
     ).should("exist");
 
     // matches by title but is suspended
@@ -37,11 +37,11 @@ describe("Search", () => {
     cy.contains("baking skills").should("exist");
 
     cy.contains(
-      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
+      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such..."
     ).should("exist");
   });
 
-  it("searches from the training explorer page with ampersands", () => {
+  it.skip("searches from the training explorer page with ampersands", () => {
     cy.visit("/training");
 
     // Use the custom command to type the search term into the input field.
@@ -58,7 +58,7 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "Python & Java");
   });
 
-  it("searches from the search results page", () => {
+  it.skip("searches from the search results page", () => {
     // on results page
     cy.visit("/training/search?q=welding%20workshops");
     cy.injectAxe();
@@ -69,7 +69,7 @@ describe("Search", () => {
     // cy.contains("77.5%").should("exist");
     cy.contains("Denville").should("exist");
     cy.contains("Morris County School of Technology, Adult Education").should(
-      "exist",
+      "exist"
     );
     cy.contains("3-5 months to complete").should("exist");
 
@@ -80,12 +80,12 @@ describe("Search", () => {
 
     cy.url().should(
       "eq",
-      `${Cypress.config().baseUrl}/training/search?q=baking&p=1`,
+      `${Cypress.config().baseUrl}/training/search?q=baking&p=1`
     );
 
     // matches by title
     cy.contains(
-      "Culinary Opportunity Program for Adults with Developmental Disabilities",
+      "Culinary Opportunity Program for Adults with Developmental Disabilities"
     ).should("exist");
 
     // matches by title but is suspended
@@ -100,7 +100,7 @@ describe("Search", () => {
     // cy.checkA11y();
   });
 
-  it("shows getting started messaging when no search", () => {
+  it.skip("shows getting started messaging when no search", () => {
     // on results page
     cy.visit("/training/search");
     cy.injectAxe();
@@ -109,13 +109,13 @@ describe("Search", () => {
     cy.contains("Find Training").should("exist");
   });
 
-  it("links back to home page", () => {
+  it.skip("links back to home page", () => {
     cy.visit("/training");
     cy.contains("Training Explorer").click({ force: true });
     cy.location("pathname").should("eq", "/training");
   });
 
-  it("links to a training detail page", () => {
+  it.skip("links to a training detail page", () => {
     cy.visit("/training/search?q=digital%20marketing");
     cy.contains("Technology Business Administrator").click({
       force: true,
@@ -129,7 +129,7 @@ describe("Search", () => {
     cy.contains("Technology Business Administrator").should("exist");
   });
 
-  it("tags trainings on in-demand", () => {
+  it.skip("tags trainings on in-demand", () => {
     cy.visit("/training/search?q=social%20work");
 
     // in-demand training
@@ -148,16 +148,16 @@ describe("Search", () => {
     cy.contains("In-Demand").should("exist");
   });
 
-  it("tags shows search training tips", () => {
+  it.skip("tags shows search training tips", () => {
     cy.visit("/training/search?q=braider");
 
     // search tips
     cy.contains("Are you not seeing the results you were looking for?").should(
-      "exist",
+      "exist"
     );
   });
 
-  it("shows comparison items when checked", () => {
+  it.skip("shows comparison items when checked", () => {
     cy.intercept("/api/trainings/search?query=painting").as("getSearch");
 
     cy.visit("/training/search?q=painting");

@@ -27,7 +27,7 @@ describe("FancyBanner Component", () => {
   const props: PageBannerProps = {
     title: "Test Title",
     theme: "blue",
-    message: { json: { content: "Test Message" } } as any,
+    message: "Test Message",
     className: "test-class",
     image: {
       sys: {
@@ -87,7 +87,7 @@ describe("FancyBanner Component", () => {
     expect(container.firstChild).toHaveClass("fancyBanner test-class");
   });
 
-  it("renders ResponsiveImage and ContentfulRichText with correct props", () => {
+  it("renders ResponsiveImage and Text with correct props", () => {
     const { getByTestId } = render(<FancyBanner {...props} />);
     const richText = getByTestId("rich-text");
     const responsiveImage = getByTestId("responsive-image");

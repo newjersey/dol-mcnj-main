@@ -58,6 +58,7 @@ export const SaveControls = (props: SaveControlsProps) => {
           <Flex gap="xxs" direction="column" alignItems="center">
             <IconSelector name="LinkSimple" size={26} />
             <span className="label">{copy ? "Copied!" : "Copy link"}</span>
+            <span className="sr-only">Copy button</span>
           </Flex>
         </Button>
       </li>
@@ -76,6 +77,7 @@ export const SaveControls = (props: SaveControlsProps) => {
             />
 
             <span className="label">Print and Save</span>
+            <span className="sr-only">Print and Save</span>
           </Flex>
         </Button>
       </li>

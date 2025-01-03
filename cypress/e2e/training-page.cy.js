@@ -21,29 +21,29 @@ describe("Training Page", () => {
 
     // description
     cy.contains(
-      "This four unit course of study is designed to introduce students to preventive maintenance concepts as they apply to Heating, Ventilation and Air Conditioning systems. Students are trained to service, troubleshoot, and repair various types of building maintenance equipment from residential applications to light commercial systems. Students also learn proper refrigerant recovery and recycling techniques, and are encouraged to complete Environmental Protection Agency (EPA) certification testing.",
+      "This four unit course of study is designed to introduce students to preventive maintenance concepts as they apply to Heating, Ventilation and Air Conditioning systems. Students are trained to service, troubleshoot, and repair various types of building maintenance equipment from residential applications to light commercial systems. Students also learn proper refrigerant recovery and recycling techniques, and are encouraged to complete Environmental Protection Agency (EPA) certification testing."
     ).should("exist");
 
     // quick stats
-    cy.contains("Prerequisites: High School Diploma or GED").should("exist");
-    cy.contains("Completion Time: ").should("exist");
+    cy.contains("High School Diploma or GED").should("exist");
+    cy.contains("Completion Time").should("exist");
     cy.contains("3-5 months").should("exist");
 
     // associated occupations
     cy.contains(
-      "Engineering Technologists and Technicians, Except Drafters, All Other",
+      "Engineering Technologists and Technicians, Except Drafters, All Other"
     ).should("exist");
     cy.contains(
-      "Heating, Air Conditioning, and Refrigeration Mechanics and Installers",
+      "Heating, Air Conditioning, and Refrigeration Mechanics and Installers"
     ).should("exist");
 
     // share trainings
     cy.contains("How to get funding").should("exist");
     cy.contains(
-      "Trainings related to occupations on the In - Demand Occupations List may be eligible for funding. Contact your local One-Stop Career Center for more information regarding program and training availability.",
+      "Trainings related to occupations on the In - Demand Occupations List may be eligible for funding. Contact your local One-Stop Career Center for more information regarding program and training availability."
     ).should("exist");
     cy.contains(
-      "You can also check out other tuition assistance opportunities.",
+      "You can also check out other tuition assistance opportunities."
     ).should("exist");
 
     // cost

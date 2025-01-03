@@ -40,17 +40,17 @@ const FaqSection = ({ className, items }: FaqSectionProps) => {
       window.history.pushState(
         null,
         "",
-        `#${slugify(items[0].topics.items[0].topic)}`,
+        `#${slugify(items[0].topics.items[0].topic)}`
       );
     }
 
     const allAccordions = document.querySelectorAll(
-      ".accordion",
+      ".accordion"
     ) as NodeListOf<HTMLElement>;
 
     if (allAccordions[0]) {
       const firstButton = allAccordions[0].querySelector(
-        "button",
+        "button"
       ) as HTMLButtonElement;
 
       firstButton.click();
@@ -65,14 +65,16 @@ const FaqSection = ({ className, items }: FaqSectionProps) => {
     <section className={`faqSection${className ? ` ${className}` : ""}`}>
       <div className="container">
         <div className="inner">
-          <DropNav
-            elementId="faqNav"
-            items={items}
-            onChange={(topic) => {
-              setActiveTopic(topic);
-              window.history.pushState(null, "", `#${slugify(topic.topic)}`);
-            }}
-          />
+          {activeTopic && (
+            <DropNav
+              elementId="faqNav"
+              items={items}
+              onChange={(topic) => {
+                setActiveTopic(topic);
+                window.history.pushState(null, "", `#${slugify(topic.topic)}`);
+              }}
+            />
+          )}
           <hr className="mobile-only" />
           {activeTopic &&
           activeTopic.itemsCollection &&

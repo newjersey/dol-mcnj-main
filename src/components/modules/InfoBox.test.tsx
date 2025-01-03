@@ -23,13 +23,14 @@ jest.mock("./LinkObject", () => ({
 
 describe("InfoBox", () => {
   it("renders correctly with default props", () => {
-    const { container } = render(<InfoBox />);
+    const { container } = render(<InfoBox notAvailableText="" />);
     expect(container.firstChild).toBeInTheDocument();
   });
 
   it("renders correctly with all props provided", () => {
     const { getByText, getByTestId } = render(
       <InfoBox
+        notAvailableText=""
         className="test-class"
         copy="Test copy"
         currency={true}
@@ -38,7 +39,7 @@ describe("InfoBox", () => {
         number={1234.56}
         theme="blue"
         tooltip="Test tooltip"
-      />,
+      />
     );
 
     expect(getByText("Test eyebrow")).toBeInTheDocument();
@@ -49,45 +50,62 @@ describe("InfoBox", () => {
   });
 
   it("handles the className prop correctly", () => {
-    const { container } = render(<InfoBox className="test-class" />);
+    const { container } = render(
+      <InfoBox notAvailableText="" className="test-class" />
+    );
     expect(container.firstChild).toHaveClass("test-class");
   });
 
   it("displays the eyebrow text when provided", () => {
-    const { getByText } = render(<InfoBox eyebrow="Test eyebrow" />);
+    const { getByText } = render(
+      <InfoBox notAvailableText="" eyebrow="Test eyebrow" />
+    );
     expect(getByText("Test eyebrow")).toBeInTheDocument();
   });
 
   it("displays the tooltip icon when tooltip is provided", () => {
     const { getByTestId } = render(
-      <InfoBox eyebrow="Test eyebrow" tooltip="Test tooltip" />,
+      <InfoBox
+        notAvailableText=""
+        eyebrow="Test eyebrow"
+        tooltip="Test tooltip"
+      />
     );
     expect(getByTestId("info-icon")).toBeInTheDocument();
   });
 
   it("displays the copy text when provided", () => {
-    const { getByText } = render(<InfoBox copy="Test copy" />);
+    const { getByText } = render(
+      <InfoBox notAvailableText="" copy="Test copy" />
+    );
     expect(getByText("Test copy")).toBeInTheDocument();
   });
 
   it("displays the number in currency format when currency is true", () => {
-    const { getByText } = render(<InfoBox number={1234.56} currency={true} />);
+    const { getByText } = render(
+      <InfoBox notAvailableText="" number={1234.56} currency={true} />
+    );
     expect(getByText("$1234.56")).toBeInTheDocument();
   });
 
   it("displays the number as a plain number when currency is false", () => {
-    const { getByText } = render(<InfoBox number={1234.56} currency={false} />);
+    const { getByText } = render(
+      <InfoBox notAvailableText="" number={1234.56} currency={false} />
+    );
     expect(getByText("1234.56")).toBeInTheDocument();
   });
 
   it("displays a placeholder when number is not provided", () => {
-    const { getByText } = render(<InfoBox />);
+    const { getByText } = render(<InfoBox notAvailableText="--" />);
     expect(getByText("--")).toBeInTheDocument();
   });
 
   it("renders the link when link prop is provided", () => {
     const { getByTestId } = render(
-      <InfoBox link={{ url: "https://example.com", copy: "Example Link" }} />,
+      <InfoBox
+        notAvailableText="--"
+        link={{ url: "https://example.com", copy: "Example Link" }}
+      />
     );
     expect(getByTestId("link-object")).toBeInTheDocument();
   });
