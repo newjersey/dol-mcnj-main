@@ -59,6 +59,25 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (searchQuery) {
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("p", "1");
+      window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+      setPageNumber(1);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("p");
+    const pageNumberValue = page ? parseInt(page, 10) : 1;
+
+    if (pageNumberValue !== pageNumber) {
+      setPageNumber(pageNumberValue); // Sync state with URL
+    }
+  }, [pageNumber, window.location.search]);
+
+  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
     const limit = urlParams.get("limit");
@@ -214,7 +233,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       languages,
       maxCost,
       miles,
-      pageNumberValue,
+      pageNumber,
       services,
       socCode,
       sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
