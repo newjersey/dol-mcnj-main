@@ -343,7 +343,7 @@ export const FilterDrawer = (props: Props): ReactElement<Props> => {
                   placeholder={t("SearchResultsPage.servicesLabel")}
                 />
                 <FilterFormInput
-                  inputLabel={t("SearchResultsPage.cidCodeLabel")}
+                  inputLabel={t("SearchResultsPage.cipCodeLabel")}
                   inputName="cipCode"
                   defaultValue={cipCode}
                   placeholder="##.####"

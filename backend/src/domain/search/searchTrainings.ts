@@ -12,6 +12,7 @@ import zipcodeJson from "../utils/zip-county.json";
 import zipcodes, {ZipCode} from "zipcodes";
 import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 import {DeliveryType} from "../DeliveryType";
+import {normalizeCipCode} from "../utils/normalizeCipCode";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -61,7 +62,10 @@ const filterCerts = async (
 ) => {
   let filteredResults = results;
   if (cip_code) {
-    filteredResults = filteredResults.filter(result => result.cipDefinition?.cipcode === cip_code);
+    const normalizedCip = normalizeCipCode(cip_code);
+    filteredResults = filteredResults.filter(
+      (result) => normalizeCipCode(result.cipDefinition?.cipcode || '') === normalizedCip
+    );
   }
 
   if (in_demand) {

@@ -1,5 +1,5 @@
-export const formatCip = (cipCode: string): string => {
-  // Remove any non-numeric characters except the dot
+export const normalizeCipCode = (cipCode: string): string => {
+  // Remove non-numeric characters except the dot
   cipCode = cipCode.replace(/[^0-9.]/g, '');
 
   // If already in xx.xxxx format, return as is
@@ -14,8 +14,8 @@ export const formatCip = (cipCode: string): string => {
   cipCode = cipCode.padStart(6, '0');
 
   // Split into xx.xxxx format
-  const firstPart = cipCode.slice(0, 2); // First two characters
-  const secondPart = cipCode.slice(2, 6); // Next four characters
+  const firstPart = cipCode.slice(0, 2);
+  const secondPart = cipCode.slice(2, 6);
 
   return `${firstPart}.${secondPart}`;
 };

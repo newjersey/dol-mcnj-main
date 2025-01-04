@@ -295,7 +295,7 @@ export const en = {
     completeInLabel: "Time to complete",
     languagesLabel: "Languages",
     servicesLabel: "Provider services",
-    cidCodeLabel: "Filter by CIP code",
+    cipCodeLabel: "Filter by CIP code",
     cipCodeSubLabel: "CIP codes are 6 digits.",
     socCodeLabel: "Filter by SOC code",
     socCodeSubLabel: "SOC codes are 6 digits.",
