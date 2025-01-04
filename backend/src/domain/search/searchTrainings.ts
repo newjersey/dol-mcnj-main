@@ -13,6 +13,7 @@ import zipcodes, {ZipCode} from "zipcodes";
 import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 import {DeliveryType} from "../DeliveryType";
 import {normalizeCipCode} from "../utils/normalizeCipCode";
+import {normalizeSocCode} from "../utils/normalizeSocCode";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
@@ -52,6 +53,7 @@ const fetchAllCertsInBatches = async (query: object, batchSize = 20) => {
 const filterCerts = async (
   results: TrainingResult[],
   cip_code?: string,
+  soc_code?: string,
   complete_in?: number[],
   in_demand?: boolean,
   max_cost?: number,
@@ -65,6 +67,15 @@ const filterCerts = async (
     const normalizedCip = normalizeCipCode(cip_code);
     filteredResults = filteredResults.filter(
       (result) => normalizeCipCode(result.cipDefinition?.cipcode || '') === normalizedCip
+    );
+  }
+
+  if (soc_code) {
+    const normalizedSoc = normalizeSocCode(soc_code);
+    filteredResults = filteredResults.filter(
+      (result) => result.socCodes?.some(
+        (soc) => normalizeSocCode(soc) === normalizedSoc
+      )
     );
   }
 
@@ -217,6 +228,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const filteredResults = await filterCerts(
       unFilteredResults,
       params.cip_code,
+      params.soc_code,
       params.complete_in,
       params.in_demand,
       params.max_cost,
