@@ -260,7 +260,7 @@ export interface ButtonProps {
   loading?: boolean;
   customBgColor?: string;
   customBorderColor?: string;
-  labelBy?: string;
+  ariaLabel?: string;
   customTextColor?: string;
   style?: CSSProperties;
   defaultStyle?:

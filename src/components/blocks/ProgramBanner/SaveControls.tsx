@@ -52,6 +52,7 @@ export const SaveControls = (props: SaveControlsProps) => {
         <Button
           type="button"
           unstyled
+          ariaLabel="Copy link"
           className={`link-format-blue${copy ? " green" : ""}`}
           onClick={copyHandler}
         >
@@ -66,6 +67,7 @@ export const SaveControls = (props: SaveControlsProps) => {
         <Button
           type="button"
           unstyled
+          ariaLabel="Print and Save"
           className="link-format-blue"
           onClick={props.printHandler}
         >
@@ -75,9 +77,7 @@ export const SaveControls = (props: SaveControlsProps) => {
               size={26}
               className={copy ? "green" : undefined}
             />
-
             <span className="label">Print and Save</span>
-            <span className="sr-only">Print and Save</span>
           </Flex>
         </Button>
       </li>

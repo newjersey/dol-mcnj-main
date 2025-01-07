@@ -2,17 +2,20 @@
 import { Heading } from "@components/modules/Heading";
 import { Box } from "@components/utility/Box";
 import { X } from "@phosphor-icons/react";
+import { HeadingLevel } from "@utils/types";
 import { useEffect, useState, useRef } from "react";
 
 export const DrawerButton = ({
   copy,
   number,
   className,
+  drawerHeadingLevel = 3,
   definition,
 }: {
   copy: string;
   className?: string;
   number: string | number;
+  drawerHeadingLevel?: HeadingLevel;
   definition: string;
 }) => {
   const [open, setOpen] = useState(false);
@@ -64,7 +67,7 @@ export const DrawerButton = ({
             <X size={30} />
           </button>
           <div className="content">
-            <Heading level={3}>{copy}</Heading>
+            <Heading level={drawerHeadingLevel}>{copy}</Heading>
             <p>{definition}</p>
           </div>
         </div>
