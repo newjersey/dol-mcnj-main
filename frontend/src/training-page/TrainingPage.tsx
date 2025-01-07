@@ -573,7 +573,9 @@ export const TrainingPage = (props: Props): ReactElement => {
           <div className="container">
             <div className="heading-box">
               <h1 data-testid="title">{training.name}</h1>
-              {training.provider.name && <h2>{cleanProviderName(training.provider.name)}</h2>}
+              {training.provider?.name
+                ? cleanProviderName(training.provider.name)
+                : "Provider information not available"}
             </div>
             <ul className="save-controls unstyled">
               <li>
@@ -717,7 +719,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <>
                           <p>
                             <span className="fin fas">
-                              {cleanProviderName(training.provider.name)}
+                              {training.provider?.name
+                                ? cleanProviderName(training.provider.name)
+                                : "Provider information not available"}
                             </span>
                           </p>
                           {getProviderEmail()}
@@ -737,7 +741,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                           </div>
                         </>
                       ) : (
-                        <>Data unavailable</>
+                        <>Provider information is unavailable</>
                       )}
                     </>
                   </Grouping>
@@ -869,7 +873,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <>
                           <p>
                             <span className="fin fas">
-                              {cleanProviderName(training.provider.name)}
+                              {training.provider?.name
+                                ? cleanProviderName(training.provider.name)
+                                : "Provider information not available"}
                             </span>
                           </p>
                           {getProviderEmail()}

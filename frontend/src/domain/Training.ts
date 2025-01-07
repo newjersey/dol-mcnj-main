@@ -11,8 +11,8 @@ export interface TrainingResult {
   inDemand: boolean;
   localExceptionCounty: string[];
   deliveryTypes: DeliveryType[];
-  providerId: string;
-  providerName: string;
+  providerId: string | null;
+  providerName: string | "Provider not available";
   availableAt: Address[];
   cities: string[];
   zipCodes: string[];
@@ -89,12 +89,12 @@ export interface CipDefinition {
 }
 
 export interface Provider {
-  ctid: string;
-  providerId: string;
-  name: string;
-  email: string;
-  url: string;
-  address: Address[];
+  ctid: string | null;
+  providerId: string | null;
+  name: string | "Provider not available";
+  email?: string | null;
+  url?: string | null;
+  address?: Address[] | null;
 }
 
 export interface ContactPoint {

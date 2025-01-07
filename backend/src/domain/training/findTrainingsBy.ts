@@ -37,10 +37,18 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         ceRecords.map(async (record: CTDLResource) => {
           const provider = await credentialEngineUtils.getProviderData(record);
           const cipCode = await credentialEngineUtils.extractCipCode(record);
-          console.log(provider.providerId);
-
+          if (provider) {
+            console.log(provider.providerId);
+          } else {
+            console.warn("Provider is null");
+          }
           const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
-          const outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
+          let outcomesDefinition = null;
+          if (provider) {
+            outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
+          } else {
+            console.warn("Skipping outcomesDefinition lookup because provider is null");
+          }
           const credentials = await credentialEngineUtils.constructCredentialsString(
               record["ceterms:isPreparationFor"] as CetermsConditionProfile[]
           );
