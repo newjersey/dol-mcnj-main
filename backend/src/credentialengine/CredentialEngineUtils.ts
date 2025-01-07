@@ -76,7 +76,7 @@ const getProviderData = async (certificate: CTDLResource) => {
     // Check if "ownedBy" exists
     const ownedBy = certificate["ceterms:ownedBy"]?.[0];
     if (!ownedBy) {
-      console.warn("OwnedBy field is missing in the certificate");
+      console.warn("OwnedBy field is missing in the learning opportunity profile");
       return null; // Treat as missing provider
     }
 
@@ -88,7 +88,7 @@ const getProviderData = async (certificate: CTDLResource) => {
 
     // Check for incomplete or invalid provider records
     if (!ownedByRecord || ownedByRecord.errors?.includes("Couldn't find Resource")) {
-      console.warn(`Invalid provider record for CTID: ${ownedByCtid}`);
+      console.warn(`Invalid provider record for ownedBy CTID: ${ownedByCtid}`);
       return null;
     }
 

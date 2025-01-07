@@ -211,7 +211,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderUrl = (): ReactElement => {
     if (!training?.provider?.url) {
-      return <>{PROVIDER_MISSING_INFO}</>;
+      return <span>{PROVIDER_MISSING_INFO || "Provider URL not available"}</span>;
     }
 
     return (
@@ -277,23 +277,25 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const getProviderContact = (): ReactElement => {
-    if (!training) {
+    if (!training?.provider?.address?.length) {
       return <></>;
     }
     let phoneNumber: string | undefined;
-    const contactPoint = training.provider.address?.[0]?.targetContactPoints?.[0];
+    const contactPoint = training.provider.address[0]?.targetContactPoints?.[0];
     if (contactPoint?.telephone && Array.isArray(contactPoint.telephone) && contactPoint.telephone.length > 0) {
       phoneNumber = parsePhoneNumberFromString(contactPoint.telephone[0], "US")?.formatNational();
     }
 
     return (
       <div className="inline">
-        <span>{contactPoint?.name}</span>
-        <div>{contactPoint?.contactType}</div>
-        <div>{phoneNumber}</div>
+        <span>{contactPoint?.name || "Contact not available"}</span>
+        <div>{contactPoint?.contactType || "Type not specified"}</div>
+        <div>{phoneNumber || "Phone not available"}</div>
       </div>
     );
   };
+
+
 
   const getAvailableAtAddress = (): ReactElement => {
     if (!training) {
@@ -395,16 +397,20 @@ export const TrainingPage = (props: Props): ReactElement => {
       },
     ];
 
-    let contactName, contactTitle, phoneNumber;
-    if (training.provider.address && training.provider.address.length > 0) {
-      for (const address of training.provider.address) {
-        if (address.targetContactPoints && address.targetContactPoints.length > 0) {
-          const mainContactPoint = address.targetContactPoints[0];
-          contactName = mainContactPoint.name;
-          contactTitle = mainContactPoint.contactType;
-          phoneNumber = mainContactPoint.telephone?.[0];
-          break; // Assuming we only need the first contact point found
-        }
+    let contactName = "N/A";
+    let contactTitle = "N/A";
+    let phoneNumber = "N/A";
+
+    if (training.provider?.address?.length) {
+      const address = training.provider.address.find(
+        (addr) => addr?.targetContactPoints?.length && addr.targetContactPoints.length > 0
+      );
+
+      if (address && address.targetContactPoints) {
+        const mainContactPoint = address.targetContactPoints[0];
+        contactName = mainContactPoint?.name || "N/A";
+        contactTitle = mainContactPoint?.contactType || "N/A";
+        phoneNumber = mainContactPoint?.telephone?.[0] || "N/A";
       }
     }
 
@@ -412,7 +418,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       if (training.deliveryTypes?.includes(DeliveryType.OnlineOnly)) {
         return "online";
       }
-      if (training.deliveryTypes?.includes(DeliveryType.OnlineOnly)) {
+      if (training.deliveryTypes?.includes(DeliveryType.InPerson)) {
         return "onsite";
       }
       if (training.deliveryTypes?.includes(DeliveryType.BlendedDelivery)) {
@@ -435,9 +441,9 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     const offer = {
       "@type": "Offer",
-      url: training.provider.url,
+      url: training.provider?.url || "",
       priceCurrency: "USD",
-      price: training.totalCost,
+      price: training.totalCost || 0,
       eligibleRegion: {
         "@type": "Place",
         name: "New Jersey",
@@ -449,12 +455,17 @@ export const TrainingPage = (props: Props): ReactElement => {
       "@context": "http://schema.org",
       "@type": "Course",
       name: training.name,
-      description: training.description,
-      provider: {
-        "@type": "Organization",
-        name: training.provider.name,
-        sameAs: training.provider.url,
-      },
+      description: training.description || "",
+      provider: training.provider
+        ? {
+          "@type": "Organization",
+          name: training.provider.name || "Unknown Provider",
+          sameAs: training.provider.url || "",
+        }
+        : {
+          "@type": "Organization",
+          name: "Provider information not available",
+        },
       audience: audience,
       identifier: {
         "@type": "PropertyValue",
