@@ -60,7 +60,8 @@ const filterCerts = async (
   county?: string,
   miles?: number,
   zipcode?: string,
-  format?: string[]
+  format?: string[],
+  languages?: string[]
 ) => {
   let filteredResults = results;
   if (cip_code) {
@@ -142,6 +143,11 @@ const filterCerts = async (
         .some(trainingZip => zipCodesInRadius.includes(trainingZip as string & ZipCode));
     });
   }
+  if (languages && languages.length > 0) {
+      filteredResults = filteredResults.filter(result => {
+        return languages.every(language => result.languages?.includes(language))
+      })
+}
 
   return filteredResults;
 }
@@ -235,7 +241,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.county,
       params.miles,
       params.zipcode,
-      params.format
+      params.format,
+      params.languages
     );
 
     // Apply sorting to the cached filtered results

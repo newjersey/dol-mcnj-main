@@ -29,79 +29,80 @@ export const getCountyName = (county: string): string =>
 
 export const languageList = [
   {
-    id: "ar",
+    id: "Arabic",
     label: "Arabic"
   },
   {
-    id: "zh",
+    id: "Chinese",
     label: "Chinese"
   },
   {
-    id: "fr",
+    id: "French",
     label: "French"
-  },{
-    id: "cre",
+  },
+  {
+    id: "French Creole",
     label: "French Creole"
   },
   {
-    id: "de",
+    id: "German",
     label: "German"
   },
   {
-    id: "el",
+    id: "Greek",
     label: "Greek"
   },
   {
-    id: "he",
+    id: "Hebrew",
     label: "Hebrew"
   },
   {
-    id: "hi",
+    id: "Hindi",
     label: "Hindi"
   },
   {
-    id: "hu",
+    id: "Hungarian",
     label: "Hungarian"
   },
   {
-    id: "it",
+    id: "Italian",
     label: "Italian"
   },
   {
-    id: "ja",
+    id: "Japanese",
     label: "Japanese"
   },
   {
-    id: "ko",
+    id: "Korean",
     label: "Korean"
   },
   {
-    id: "pl",
+    id: "Polish",
     label: "Polish"
   },
   {
-    id: "pt",
+    id: "Portuguese",
     label: "Portuguese"
   },
   {
-    id: "ru",
+    id: "Russian",
     label: "Russian"
   },
   {
-    id: "es",
+    id: "Spanish",
     label: "Spanish"
   },
   {
-    id: "tl",
+    id: "Tagalog",
     label: "Tagalog"
   },
   {
-    id: "vi",
+    id: "Vietnamese",
     label: "Vietnamese"
   }
 ];
 
-export type LanguageProps = "ar" | "zh" | "fr" | "cre" | "de" | "el" | "he" | "hi" | "hu" | "it" | "ja" | "ko" | "pl" | "pt" | "ru" | "es" | "tl" | "vi";
+export type LanguageProps = "Arabic" | "Chinese" | "French" | "French Creole" | "German" | "Greek" | "Hebrew" | "Hindi" | "Hungarian" | "Italian" | "Japanese" | "Korean" | "Polish" | "Portuguese" | "Russian" | "Spanish" | "Tagalog" | "Vietnamese";
 
 export const serviceList = [
   {
