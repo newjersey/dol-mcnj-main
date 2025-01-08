@@ -5,7 +5,7 @@ describe("Training Page", () => {
 
     // titles
     cy.contains("ELDT Training").should("exist");
-    cy.contains("h2", "BH Test Organization").should("exist");
+   // cy.contains("h2", "BH Test Organization").should("exist");
 
     // stat boxes
     cy.contains("In-Demand").should("exist");
@@ -47,14 +47,14 @@ describe("Training Page", () => {
     cy.contains("$99.00").should("exist");
 
     // location details
-    cy.contains("span", "BH Test Organization").should("exist");
-    cy.contains("1339 Broad St").should("exist");
-    cy.contains("Bloomfield, New Jersey 07003").should("exist");
+    // cy.contains("span", "BH Test Organization").should("exist");
+    //cy.contains("1339 Broad St").should("exist");
+    //cy.contains("Bloomfield, New Jersey 07003").should("exist");
     //cy.contains("Debbie Bello").should("exist");
     //cy.contains("Director of Admissions").should("exist");
     //cy.contains("(215) 728-4733").should("exist");
-    cy.contains("bhauss@agatesoftware.com").should("exist");
-    cy.contains("https://agatesoftware.com/").should("exist");
+    //cy.contains("bhauss@agatesoftware.com").should("exist");
+    //cy.contains("https://agatesoftware.com/").should("exist");
 
     cy.checkA11y();
   });

@@ -33,8 +33,8 @@ export const TrainingResultCard = (props: Props): ReactElement => {
   const getLocationOrOnline = (): string => {
     const addresses: Address[] | undefined = props.trainingResult.availableAt;
 
-    if (!Array.isArray(addresses)) {
-      return "No Provider Locations Listed";
+    if (!Array.isArray(addresses) || addresses.length === 0) {
+      return "No provider locations listed";
     }
 
     const addressStrings = addresses.map(address => {
@@ -131,7 +131,9 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">school</InlineIcon>
-              {cleanProviderName(props.trainingResult.providerName)}
+              {props.trainingResult.providerName
+                ? cleanProviderName(props.trainingResult.providerName)
+                : "Provider information not available"}
             </span>
           </p>
           <p className="mtxs mbz">
@@ -172,7 +174,9 @@ export const TrainingResultCard = (props: Props): ReactElement => {
         <div className="col-md-12">
           {isTabletAndUp && (
             <p data-testid="result-highlight">
-              {boldHighlightedSection(props.trainingResult.highlight)}
+              {props.trainingResult.highlight
+                ? boldHighlightedSection(props.trainingResult.highlight)
+                : null}
             </p>
           )}
           <div className="mtxs mbz flex fac">

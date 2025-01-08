@@ -46,8 +46,8 @@ export interface TrainingResult {
   inDemand?: boolean;
   localExceptionCounty?: string[];
   deliveryTypes?: DeliveryType[];
-  providerId?: string | null;
-  providerName?: string;
+  providerId: string | null;
+  providerName: string | "Provider not available";
   cities?: (string | undefined)[];
   zipCodes?: (string | undefined)[];
   highlight?: string;

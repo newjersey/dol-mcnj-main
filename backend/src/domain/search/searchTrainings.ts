@@ -347,7 +347,14 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
     const occupations = await credentialEngineUtils.extractOccupations(certificate);
     const socCodes = occupations.map((occupation: { soc: string }) => occupation.soc);
 
-    const outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
+    let outcomesDefinition = null;
+
+    if (provider) {
+      outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
+    } else {
+      console.warn("Provider is null; skipping outcomesDefinition lookup.");
+    }
+
     const result = {
       ctid: certificate["ceterms:ctid"] || "",
       name: certificate["ceterms:name"]?.["en-US"] || "",
@@ -357,8 +364,8 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
       deliveryTypes: await credentialEngineUtils.hasLearningDeliveryTypes(certificate),
-      providerId: provider.providerId,
-      providerName: provider.name,
+      providerId: provider?.providerId || null,
+      providerName: provider?.name || "Provider not available",
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
       inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
       highlight: highlight,

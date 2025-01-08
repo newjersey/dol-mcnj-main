@@ -73,11 +73,24 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
 
 const getProviderData = async (certificate: CTDLResource) => {
   try {
+    // Check if "ownedBy" exists
     const ownedBy = certificate["ceterms:ownedBy"]?.[0];
-    if (!ownedBy) throw new Error("OwnedBy field is missing");
+    if (!ownedBy) {
+      console.warn("OwnedBy field is missing in the learning opportunity profile");
+      return null; // Treat as missing provider
+    }
 
+    // Extract CTID from the URL
     const ownedByCtid = await getCtidFromURL(ownedBy);
+
+    // Fetch the provider record
     const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+
+    // Check for incomplete or invalid provider records
+    if (!ownedByRecord || ownedByRecord.errors?.includes("Couldn't find Resource")) {
+      console.warn(`Invalid provider record for ownedBy CTID: ${ownedByCtid}`);
+      return null;
+    }
 
     const providerId =
       ownedByRecord["ceterms:identifier"]?.find(
@@ -88,16 +101,16 @@ const getProviderData = async (certificate: CTDLResource) => {
       )?.["ceterms:identifierValueCode"] ?? null;
 
     return {
-      ctid: ownedByRecord["ceterms:ctid"],
+      ctid: ownedByRecord["ceterms:ctid"] || null,
       providerId,
-      name: ownedByRecord["ceterms:name"]["en-US"],
-      url: ownedByRecord["ceterms:subjectWebpage"],
-      email: ownedByRecord["ceterms:email"]?.[0] ?? null,
+      name: ownedByRecord["ceterms:name"]?.["en-US"] || "Unknown Provider",
+      url: ownedByRecord["ceterms:subjectWebpage"] || null,
+      email: ownedByRecord["ceterms:email"]?.[0] || null,
       address: await getAddress(ownedByRecord),
     };
   } catch (error) {
-    logError(`Error getting provider data`, error as Error);
-    throw error;
+    logError(`Error fetching provider data`, error as Error);
+    return null;
   }
 };
 
