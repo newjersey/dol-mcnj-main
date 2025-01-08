@@ -94,7 +94,7 @@ export const getTrainingData = (
 export const getSearchQuery = (searchString: string | undefined): string | undefined => {
   const regex = /\?q=([^&]*)/;
   const matches = searchString?.match(regex);
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+  return matches ? decodeURIComponent(matches[1]).replace(/\+/g, ' ') : undefined;
 };
 
 type FilterFields = {
