@@ -30,22 +30,25 @@ const fetchAllCerts = async (query: object, offset = 0, limit = 10) => {
   return { allCerts, totalResults };
 };
 
-const fetchAllCertsInBatches = async (query: object, batchSize = 20) => {
-  let allCerts: CTDLResource[] = [];
-  let offset = 0;
-  let totalResults = 0;
-  let fetchedCount = 0;
+const fetchAllCertsInBatches = async (query: object, batchSize = 50) => {
+  const allCerts: CTDLResource[] = [];
+  const parallelRequests: Promise<{ allCerts: CTDLResource[]; totalResults: number }>[] = [];
 
-  do {
-    const response = await fetchAllCerts(query, offset, batchSize);
-    const batchCerts = response.allCerts;
-    totalResults = response.totalResults;
+  // Fetch the total number of results in the first call
+  const initialResponse = await fetchAllCerts(query, 0, batchSize);
+  const totalResults = initialResponse.totalResults;
+  allCerts.push(...initialResponse.allCerts);
 
-    allCerts = allCerts.concat(batchCerts);
-    fetchedCount += batchCerts.length;
-    offset += batchSize;
+  // Prepare parallel fetch requests for subsequent batches
+  for (let offset = batchSize; offset < totalResults; offset += batchSize) {
+    parallelRequests.push(fetchAllCerts(query, offset, batchSize));
+  }
 
-  } while (fetchedCount < totalResults);
+  // Execute all fetch requests in parallel
+  const results = await Promise.all(parallelRequests);
+
+  // Combine all batches
+  results.forEach((response) => allCerts.push(...response.allCerts));
 
   return { allCerts, totalResults };
 };
