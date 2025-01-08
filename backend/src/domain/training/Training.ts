@@ -7,7 +7,7 @@ export interface Training {
   ctid?: string;
   name?: string;
   cipDefinition?: CipDefinition | null;
-  provider: Provider;
+  provider: Provider | null;
   description?: string;
   credentials: string;
   prerequisites?: (string | undefined)[] | null;
