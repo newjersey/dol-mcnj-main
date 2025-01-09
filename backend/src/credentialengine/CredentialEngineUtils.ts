@@ -12,10 +12,54 @@ import { Address } from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 import { DeliveryType } from "../domain/DeliveryType";
+import { processInBatches } from "../utils/concurrencyUtils";
 
 const logError = (message: string, error: Error) => {
   console.error(`${message}: ${error.message}`);
 };
+
+import { AxiosError } from "axios";
+
+export const retryWithBackoff = async <T>(
+  fn: () => Promise<T>,
+  retries: number,
+  delay: number,
+  context?: string // Optional: Name of the calling function or additional context
+): Promise<T> => {
+  let attempt = 0;
+
+  while (attempt < retries) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (
+        error instanceof AxiosError &&
+        error.response?.status === 503 &&
+        attempt < retries - 1
+      ) {
+        console.error(
+          `503 Error on attempt ${attempt + 1} in ${
+            context || "retryWithBackoff"
+          }. Retrying in ${delay}ms.`
+        );
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        attempt++;
+        delay *= 2; // Exponential backoff
+      } else {
+        console.error(
+          `Error in ${context || "retryWithBackoff"}: ${error}`
+        );
+        throw error; // Propagate non-503 errors
+      }
+    }
+  }
+
+  throw new Error(
+    `503 Error after ${retries} attempts in ${context || "retryWithBackoff"}`
+  );
+};
+
+
 
 const validateCtId = async (id: string): Promise<boolean> => {
   const pattern = /^ce-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -54,22 +98,39 @@ const fetchCertificateData = async (url: string): Promise<CTDLResource | null> =
 
 const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   try {
-    const ceDataPromises = urls.map(async (url) => {
+    const processFn = async (url: string): Promise<CTDLResource | null> => {
+      // Validate CTID before processing
       if (!(await validateCtId(url))) {
         console.error(`Invalid CE ID: ${url}`);
         return null;
       }
-      return await fetchCertificateData(url);
-    });
 
-    return (await Promise.all(ceDataPromises)).filter(
-      (record): record is CTDLResource => record !== null,
+      // Fetch certificate data with retry and exponential backoff
+      return await retryWithBackoff(
+        () => fetchCertificateData(url),
+        3, // Max retries
+        1000, // Initial delay in ms
+        `fetchValidCEData for URL: ${url}`
+      );
+    };
+
+    // Use processInBatches for concurrency and retries
+    const results = await processInBatches<CTDLResource | null>(
+      urls,
+      processFn,
+      3, // Concurrency limit
+      3, // Max retries per batch task
+      1000 // Initial delay for backoff
     );
+
+    // Filter out null results
+    return results.filter((record): record is CTDLResource => record !== null);
   } catch (error) {
     logError(`Error fetching valid CE data`, error as Error);
     throw error;
   }
 };
+
 
 const getProviderData = async (certificate: CTDLResource) => {
   try {
@@ -304,70 +365,95 @@ const checkSupportService = async (
   targetNode: string,
 ): Promise<boolean> => {
   try {
-    // The `ceterms:hasSupportService` should be an array of strings (URLs to linked resources)
     const supportServices = certificate["ceterms:hasSupportService"] || [];
 
     for (const serviceUrl of supportServices) {
       if (!serviceUrl) continue;
 
-      // Extract the CTID from the service URL
       const ctid = serviceUrl.split("/").pop();
       if (!ctid) continue;
 
-      // Fetch the linked support service record using the CTID
-      const linkedServiceRecord = await credentialEngineAPI.getResourceByCTID(ctid);
-      if (!linkedServiceRecord) continue;
+      try {
+        const linkedServiceRecord = await credentialEngineAPI.getResourceByCTID(ctid);
 
-      // Check for the support service type in the linked record
-      const serviceTypes = linkedServiceRecord["ceterms:supportServiceType"] || [];
-      if (
-        serviceTypes.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
-      ) {
-        return true;
+        if (!linkedServiceRecord) continue;
+
+        const serviceTypes = linkedServiceRecord["ceterms:supportServiceType"] || [];
+        if (
+          serviceTypes.some((type: CetermsServiceType) => type["ceterms:targetNode"] === targetNode)
+        ) {
+          return true;
+        }
+      } catch (error) {
+        if (error instanceof Error && (error as any)?.response?.status === 503) {
+          console.error(`503 Error for support service check, skipping CTID: ${ctid}`);
+        } else {
+          throw error; // Let non-503 errors propagate
+        }
       }
     }
     return false;
   } catch (error) {
-    logError(`Error checking support service`, error as Error);
-    throw error;
+    if (error instanceof Error) {
+      logError(`Error checking support service`, error);
+    } else {
+      console.error(`Unknown error checking support service`);
+    }
+    return false; // Return false if errors occur
   }
 };
+
 
 const checkAccommodation = async (
   certificate: CTDLResource,
   targetNode: string,
 ): Promise<boolean> => {
   try {
-    // The `ceterms:hasSupportService` should be an array of strings (URLs to linked resources)
     const supportServices = certificate["ceterms:hasSupportService"] || [];
 
     for (const serviceUrl of supportServices) {
       if (!serviceUrl) continue;
 
-      // Extract the CTID from the service URL
       const ctid = serviceUrl.split("/").pop();
+      console.log("")
       if (!ctid) continue;
 
-      // Fetch the linked support service record using the CTID
-      const linkedServiceRecord = await credentialEngineAPI.getResourceByCTID(ctid);
-      if (!linkedServiceRecord) continue;
+      try {
+        const linkedServiceRecord = await retryWithBackoff(
+          () => credentialEngineAPI.getResourceByCTID(ctid),
+          3, // Retries
+          1000, // Initial delay in ms
+        );
 
-      // Check for the accommodation type in the linked record
-      const accommodationTypes = linkedServiceRecord["ceterms:accommodationType"] || [];
-      if (
-        accommodationTypes.some(
-          (type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode,
-        )
-      ) {
-        return true;
+        if (!linkedServiceRecord) continue;
+
+        const accommodationTypes = linkedServiceRecord["ceterms:accommodationType"] || [];
+        if (
+          accommodationTypes.some(
+            (type: CetermsAccommodationType) => type["ceterms:targetNode"] === targetNode,
+          )
+        ) {
+          return true;
+        }
+      } catch (error) {
+        if (error instanceof Error && (error as any)?.response?.status === 503) {
+          console.error(`503 Error for accommodation check, skipping CTID: ${ctid}`);
+        } else {
+          throw error; // Let non-503 errors propagate
+        }
       }
     }
     return false;
   } catch (error) {
-    logError(`Error checking accommodation`, error as Error);
-    throw error;
+    if (error instanceof Error) {
+      logError(`Error checking accommodation`, error);
+    } else {
+      console.error(`Unknown error checking accommodation`);
+    }
+    return false; // Return false if errors occur
   }
 };
+
 
 const constructCredentialsString = async (
   isPreparationForObject: CetermsConditionProfile[],

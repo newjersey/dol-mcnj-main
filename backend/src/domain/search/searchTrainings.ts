@@ -18,34 +18,50 @@ import {normalizeSocCode} from "../utils/normalizeSocCode";
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-const fetchAllCerts = async (query: object, offset = 0, limit = 10) => {
-  console.log(`FETCHING CERTS with offset ${offset} and limit ${limit}`);
-
-  // Fetch only the requested page of results based on offset and limit
-  const response = await credentialEngineAPI.getResults(query, offset, limit);
-  const totalResults = response.data.extra.TotalResults;
-
-  const allCerts = response.data.data;
-
-  return { allCerts, totalResults };
+const fetchAllCerts = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
+  try {
+    console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
+    const response = await credentialEngineAPI.getResults(query, offset, limit);
+    return {
+      allCerts: response.data.data || [],
+      totalResults: response.data.extra.TotalResults || 0,
+    };
+  } catch (error) {
+    console.error(`Error fetching records (offset: ${offset}, limit: ${limit}):`, error);
+    // Return an empty result set to allow processing to continue
+    return { allCerts: [], totalResults: 0 };
+  }
 };
 
-const fetchAllCertsInBatches = async (query: object, batchSize = 20) => {
-  let allCerts: CTDLResource[] = [];
-  let offset = 0;
-  let totalResults = 0;
-  let fetchedCount = 0;
 
-  do {
-    const response = await fetchAllCerts(query, offset, batchSize);
-    const batchCerts = response.allCerts;
-    totalResults = response.totalResults;
+const fetchAllCertsInBatches = async (query: object, batchSize = 100) => {
+  const allCerts: CTDLResource[] = [];
+  const initialResponse = await fetchAllCerts(query, 0, batchSize);
+  const totalResults = initialResponse.totalResults;
+  allCerts.push(...initialResponse.allCerts);
 
-    allCerts = allCerts.concat(batchCerts);
-    fetchedCount += batchCerts.length;
-    offset += batchSize;
+  const fetchBatch = async (offset: number) => {
+    try {
+      const response = await fetchAllCerts(query, offset, batchSize);
+      return response.allCerts;
+    } catch (error) {
+      console.error(`Error fetching batch at offset ${offset}:`, error);
+      return []; // Skip this batch
+    }
+  };
 
-  } while (fetchedCount < totalResults);
+  const offsets = [];
+  for (let offset = batchSize; offset < totalResults; offset += batchSize) {
+    offsets.push(offset);
+  }
+
+  // Process requests in batches of 5 to avoid overloading the API
+  const concurrencyLimit = 5;
+  for (let i = 0; i < offsets.length; i += concurrencyLimit) {
+    const batchOffsets = offsets.slice(i, i + concurrencyLimit);
+    const results = await Promise.all(batchOffsets.map(fetchBatch));
+    results.forEach((batch) => allCerts.push(...batch));
+  }
 
   return { allCerts, totalResults };
 };
@@ -341,28 +357,42 @@ function buildQuery(params: {
   };
 }
 
-async function transformCertificateToTraining(dataClient: DataClient, certificate: CTDLResource, searchQuery: string): Promise<TrainingResult> {
+async function transformCertificateToTraining(
+  dataClient: DataClient,
+  certificate: CTDLResource,
+  searchQuery: string
+): Promise<TrainingResult> {
   try {
     const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
 
     const provider = await credentialEngineUtils.getProviderData(certificate);
-
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
-    const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
+    const cipDefinition = cipCode ? await dataClient.findCipDefinitionByCip(cipCode) : null;
 
     const occupations = await credentialEngineUtils.extractOccupations(certificate);
-    const socCodes = occupations.map((occupation: { soc: string }) => occupation.soc);
+    const socCodes = occupations.map((occupation) => occupation.soc);
 
     let outcomesDefinition = null;
-
-    if (provider) {
+    if (provider?.providerId) {
       outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
     } else {
       console.warn("Provider is null; skipping outcomesDefinition lookup.");
     }
 
-    const result = {
+    const inDemandCIPs = await dataClient.getCIPsInDemand();
+    const isInDemand = inDemandCIPs.map((c) => c.cipcode).includes(cipCode ?? "");
+
+    const getWheelchairAccessibility = async () =>
+      await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility");
+
+    const getJobPlacementAssistance = async () =>
+      await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement");
+
+    const getChildcareAssistance = async () =>
+      await credentialEngineUtils.checkSupportService(certificate, "support:Childcare");
+
+    const result: TrainingResult = {
       ctid: certificate["ceterms:ctid"] || "",
       name: certificate["ceterms:name"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
@@ -374,22 +404,25 @@ async function transformCertificateToTraining(dataClient: DataClient, certificat
       providerId: provider?.providerId || null,
       providerName: provider?.name || "Provider not available",
       availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
-      inDemand: (await dataClient.getCIPsInDemand()).map((c) => c.cipcode).includes(cipCode ?? ""),
+      inDemand: isInDemand,
       highlight: highlight,
       socCodes: socCodes,
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
       languages: await credentialEngineUtils.getLanguages(certificate),
-      isWheelchairAccessible: await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility"),
-      hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement"),
-      hasChildcareAssistance: await credentialEngineUtils.checkSupportService(certificate, "support:Childcare"),
+      isWheelchairAccessible: getWheelchairAccessibility,
+      hasJobPlacementAssistance: getJobPlacementAssistance,
+      hasChildcareAssistance: getChildcareAssistance,
       totalClockHours: null,
     };
+
     return result;
   } catch (error) {
     console.error("Error transforming certificate to training:", error);
     throw error;
   }
 }
+
+
 
 function packageResults(page: number, limit: number, results: TrainingResult[], totalResults: number): TrainingData {
   const totalPages = Math.ceil(totalResults / limit);
