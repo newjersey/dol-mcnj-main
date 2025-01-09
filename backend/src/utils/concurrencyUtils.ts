@@ -1,5 +1,3 @@
-import pLimit from "p-limit";
-
 /**
  * Processes a list of items in batches with limited concurrency and exponential backoff for retries.
  *
@@ -11,40 +9,42 @@ import pLimit from "p-limit";
  * @returns A promise resolving to the results of all processed items.
  */
 export const processInBatches = async <T>(
-  items: string[],
-  processFn: (item: string) => Promise<T>,
-  concurrencyLimit = 3, // Default concurrency limit
-  retries = 3, // Default number of retries
-  initialDelay = 1000 // Default initial backoff delay in milliseconds
+    items: string[],
+    processFn: (item: string) => Promise<T>,
+    concurrencyLimit = 3,
+    retries = 3,
+    initialDelay = 1000
 ): Promise<T[]> => {
-  const limit = pLimit(concurrencyLimit);
+    // Dynamically import p-limit
+    const { default: pLimit } = await import("p-limit");
+    const limit = pLimit(concurrencyLimit);
 
-  const results = await Promise.allSettled(
-    items.map((item) =>
-      limit(async () => {
-        let attempt = 0;
-        let delay = initialDelay;
+    const results = await Promise.allSettled(
+        items.map((item) =>
+            limit(async () => {
+                let attempt = 0;
+                let delay = initialDelay;
 
-        while (attempt <= retries) {
-          try {
-            return await processFn(item); // Attempt processing the item
-          } catch (error) {
-            attempt++;
-            if (attempt > retries) {
-              throw error; // Throw error if retries are exhausted
-            }
-            console.warn(
-              `Error processing item "${item}" (Attempt ${attempt}/${retries}). Retrying in ${delay}ms...`
-            );
-            await new Promise((resolve) => setTimeout(resolve, delay));
-            delay *= 2; // Exponential backoff
-          }
-        }
-      })
-    )
-  );
+                while (attempt <= retries) {
+                    try {
+                        return await processFn(item);
+                    } catch (error) {
+                        attempt++;
+                        if (attempt > retries) {
+                            throw error;
+                        }
+                        console.warn(
+                            `Error processing item "${item}" (Attempt ${attempt}/${retries}). Retrying in ${delay}ms...`
+                        );
+                        await new Promise((resolve) => setTimeout(resolve, delay));
+                        delay *= 2;
+                    }
+                }
+            })
+        )
+    );
 
-  return results
-    .filter((result) => result.status === "fulfilled")
-    .map((result) => (result as PromiseFulfilledResult<T>).value);
+    return results
+        .filter((result) => result.status === "fulfilled")
+        .map((result) => (result as PromiseFulfilledResult<T>).value);
 };
