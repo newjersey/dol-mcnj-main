@@ -37,11 +37,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         ceRecords.map(async (record: CTDLResource) => {
           const provider = await credentialEngineUtils.getProviderData(record);
           const cipCode = await credentialEngineUtils.extractCipCode(record);
-          if (provider) {
-            console.log(provider.providerId);
-          } else {
-            console.warn("Provider is null");
-          }
+
           const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
           let outcomesDefinition = null;
           if (provider) {
