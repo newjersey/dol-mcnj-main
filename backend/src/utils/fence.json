@@ -1,9 +1,20 @@
 {
   "tags": ["utils"],
   "exports": [
+    "concurrencyUtils",
     "fakeDataGenerator",
     "secretManager",
     "emailService",
     "global"
+  ],
+  "dependencies": [
+    "p-limit",
+    "dotenv",
+    "aws-sdk",
+    "winston",
+    "nodemailer",
+    "express-rate-limit",
+    "express",
+    "supertest"
   ]
 }

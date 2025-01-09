@@ -15,6 +15,7 @@
     "knex",
     "supertest",
     "node-cache",
+    "p-limit",
     "winston",
     "zipcodes",
     "express-rate-limit",

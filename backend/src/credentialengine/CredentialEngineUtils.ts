@@ -401,11 +401,7 @@ const checkSupportService = async (
           return true;
         }
       } catch (error) {
-        if (error instanceof Error && (error as any)?.response?.status === 503) {
-          console.error(`503 Error for support service check, skipping CTID: ${ctid}`);
-        } else {
-          throw error; // Let non-503 errors propagate
-        }
+        console.error(`Error for support service check, skipping CTID: ${ctid}`);
       }
     }
     return false;
@@ -452,11 +448,7 @@ const checkAccommodation = async (
           return true;
         }
       } catch (error) {
-        if (error instanceof Error && (error as any)?.response?.status === 503) {
-          console.error(`503 Error for accommodation check, skipping CTID: ${ctid}`);
-        } else {
-          throw error; // Let non-503 errors propagate
-        }
+          console.error(`Error for accommodation check, skipping CTID: ${ctid}`);
       }
     }
     return false;

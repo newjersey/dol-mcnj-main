@@ -100,7 +100,7 @@ export const buildProvider = (overrides: Partial<Provider>): Provider => {
     ctid: "some-ctid-" + randomInt(),
     providerId: "some-id-" + randomInt(),
     url: "some-url-" + randomInt(),
-    addresses: buildAddress({}),
+    addresses: [buildAddress({})],
     name: "some-name-" + randomInt(),
     ...overrides,
   };

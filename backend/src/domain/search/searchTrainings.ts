@@ -1,4 +1,4 @@
-import NodeCache = require("node-cache");
+import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import {SearchTrainings} from "../types";
 import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
