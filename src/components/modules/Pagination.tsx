@@ -1,18 +1,13 @@
 "use client";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { ResultsContext } from "app/training/search/components/Results";
+import { useContext, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
-export const Pagination = ({
-  currentPage,
-  totalPages,
-}: {
-  currentPage: number;
-  totalPages: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-}) => {
+export const Pagination = () => {
   const [breakCount, setBreakCount] = useState(0);
+
+  let { results } = useContext(ResultsContext);
 
   useEffect(() => {
     const breakElements = document.querySelectorAll(
@@ -80,7 +75,7 @@ export const Pagination = ({
         }
       }
     }
-  }, [currentPage, totalPages]);
+  }, [results.pageNumber, results.totalPages]);
 
   return (
     <nav
@@ -97,7 +92,7 @@ export const Pagination = ({
       <ReactPaginate
         ariaLabelBuilder={(page) => `Go to page ${page}`}
         breakLabel="..."
-        forcePage={currentPage - 1}
+        forcePage={results.pageNumber - 1}
         className="usa-pagination__list"
         nextClassName="control usa-pagination__item usa-pagination__arrow"
         nextLinkClassName="usa-pagination__link usa-pagination__next-page"
@@ -119,7 +114,7 @@ export const Pagination = ({
             <CaretRight className="usa-icon" size={20} weight="bold" />
           </>
         }
-        pageCount={totalPages}
+        pageCount={results.totalPages}
         renderOnZeroPageCount={null}
         pageRangeDisplayed={2}
         onPageChange={(page) => {

@@ -7,162 +7,68 @@ import { CaretDown, CaretUp, WarningCircle } from "@phosphor-icons/react";
 import { counties } from "@utils/counties";
 import { allLanguages } from "@utils/languages";
 import { camelify } from "@utils/slugify";
-import { FetchResultsProps, ResultProps } from "@utils/types";
 import { zipCodes } from "@utils/zipCodeCoordinates";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { getSearchData } from "../utils/getSearchData";
+import { ResultsContext } from "./Results";
+import {
+  extractParam,
+  removeSearchParams,
+  updateSearchParams,
+  updateSearchParamsNavigate,
+} from "../utils/filterFunctions";
 
 interface FilterProps {
-  allItems?: ResultProps[];
   className?: string;
-  searchParams?: string;
-  setResults?: (results: FetchResultsProps) => void;
 }
 
-const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
-  const extractQuery = () => {
-    return searchParams.split("q=")[1]?.split("&")[0];
-  };
+const Filter = ({ className }: FilterProps) => {
+  let { results, setResults, toggle, searchTerm } = useContext(ResultsContext);
 
-  const extractParam = (param: string) => {
-    const q = new URLSearchParams(searchParams);
-    return q.get(param);
-  };
   const isInitialZipValid =
-    zipCodes.filter((zip) => zip === extractParam("zip")).length > 0
+    zipCodes.filter((zip) => zip === extractParam("zip", results)).length > 0
       ? true
       : false;
 
-  const [searchValue, setSearchValue] = useState<string>(extractQuery() || "");
-  const [searchQuery, setSearchQuery] = useState<string>(searchParams);
-  const [loading, setLoading] = useState(true);
   const [zipError, setZipError] = useState(!isInitialZipValid);
-  const [zipCode, setZipCode] = useState(extractParam("zip") || "");
+  const [zipCode, setZipCode] = useState(extractParam("zip", results) || "");
   const [attempted, setAttempted] = useState(
-    extractParam("zip") ? !isInitialZipValid || false : false
+    extractParam("zip", results) ? !isInitialZipValid || false : false
   );
   const [showMore, setShowMore] = useState(false);
-
-  const updateSearchParams = (key: string, value: string) => {
-    const q = new URL(window.location.href);
-    const searchParams = q.searchParams;
-
-    if (!value || value === "" || value === "false") {
-      searchParams.delete(key);
-    } else {
-      searchParams.set(key, value);
-    }
-
-    setSearchQuery(`${searchParams}`);
-  };
-
-  const updateSearchParamsNavigate = async (
-    keyValueArray: { key: string; value: string }[]
-  ) => {
-    const q = new URL(window.location.href);
-    const searchParams = q.searchParams;
-
-    keyValueArray.forEach((keyValue) => {
-      if (
-        !keyValue.value ||
-        keyValue.value === "" ||
-        keyValue.value === "false"
-      ) {
-        searchParams.delete(keyValue.key);
-      } else {
-        searchParams.set(keyValue.key, keyValue.value);
-      }
-    });
-
-    setSearchQuery(`${searchParams || ""}`);
-
-    window.history.pushState(
-      {},
-      "",
-      `${window.location.pathname}?${searchParams}`
-    );
-
-    const searchParamObject = {
-      searchParams: Object.fromEntries(searchParams.entries()),
-    };
-
-    const searchProps = await getSearchData(searchParamObject as any);
-
-    if (setResults) {
-      setResults(searchProps);
-    }
-  };
-
-  const removeSearchParams = (keyArray: { key: string }[]) => {
-    const q = new URL(window.location.href);
-    const searchParams = q.searchParams;
-
-    keyArray.forEach((key) => {
-      searchParams.delete(key.key);
-      setSearchQuery(`${searchParams || ""}`);
-    });
-
-    window.history.pushState(
-      {},
-      "",
-      `${window.location.pathname}?${searchParams}`
-    );
-  };
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   return (
     <aside
       id="searchFilter"
-      className={`searchFilter${className ? ` ${className}` : ""}`}
+      className={`searchFilter${className ? ` ${className}` : ""}${
+        toggle ? " open" : ""
+      }`}
     >
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          updateSearchParamsNavigate([
-            { key: "q", value: searchValue },
-            { key: "p", value: "1" },
-          ]);
+          updateSearchParamsNavigate(
+            [
+              { key: "q", value: searchTerm },
+              { key: "p", value: "1" },
+            ],
+            getSearchData,
+            setResults
+          );
         }}
       >
         {/* SEARCH */}
         <div className="section search">
-          <FormInput
-            inputId="search"
-            label="Searching for training courses"
-            hideLabel
-            ariaLabel="search"
-            type="search"
-            defaultValue={extractQuery() || ""}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-              updateSearchParams("q", e.target.value);
-            }}
-            placeholder="Searching for training courses"
-          />
-          <Button
-            type="submit"
-            buttonId="searchSubmit"
-            defaultStyle="secondary"
-            label={extractParam("q") ? "Update Results" : "Search"}
-            onClick={() => {
-              if (searchQuery) {
-                const q = new URL(window.location.href);
-                const searchParams = q.searchParams;
-                searchParams.set("q", searchQuery);
-              }
-            }}
-          />
-
           <Button
             type="button"
             defaultStyle="secondary"
             outlined
             label=" Clear Filters"
             onClick={() => {
-              window.location.href = `/training/search?q=${extractParam("q")}`;
+              window.location.href = `/training/search?q=${extractParam(
+                "q",
+                results
+              )}`;
             }}
           />
         </div>
@@ -175,8 +81,8 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
               inputId="miles"
               label="Miles from Zip Code"
               hideLabel
-              disabled={zipError || loading}
-              defaultValue={extractParam("miles") || undefined}
+              disabled={zipError}
+              defaultValue={extractParam("miles", results) || undefined}
               options={[
                 { key: "Miles", value: "" },
                 { key: "5", value: "5" },
@@ -190,11 +96,15 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
                 if (e.target.value === "") {
                   removeSearchParams([{ key: "miles" }, { key: "zip" }]);
                 }
-                updateSearchParamsNavigate([
-                  { key: "miles", value: e.target.value },
-                  { key: "zip", value: zipCode || "" },
-                  { key: "p", value: "1" },
-                ]);
+                updateSearchParamsNavigate(
+                  [
+                    { key: "miles", value: e.target.value },
+                    { key: "zip", value: zipCode || "" },
+                    { key: "p", value: "1" },
+                  ],
+                  getSearchData,
+                  setResults
+                );
               }}
             />
             <span>from</span>
@@ -202,10 +112,9 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
               inputId="zip"
               label="Zip Code"
               ariaLabel="Search by ZIP code"
-              disabled={loading}
               hideLabel
               type="number"
-              defaultValue={extractParam("zip") || undefined}
+              defaultValue={extractParam("zip", results) || undefined}
               placeholder="Zip Code"
               onChange={(e) => {
                 updateSearchParams("zip", e.target.value);
@@ -237,10 +146,9 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
         <div className="section county">
           <FormInput
             type="select"
-            disabled={loading}
             inputId="county"
             label="Filter by County"
-            defaultValue={extractParam("county") || undefined}
+            defaultValue={extractParam("county", results) || undefined}
             options={[
               { key: "", value: "" },
               ...counties.map((county) => ({
@@ -249,9 +157,11 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
               })),
             ]}
             onChangeSelect={(e) => {
-              updateSearchParamsNavigate([
-                { key: "county", value: e.target.value },
-              ]);
+              updateSearchParamsNavigate(
+                [{ key: "county", value: e.target.value }],
+                getSearchData,
+                setResults
+              );
             }}
           />
         </div>
@@ -260,13 +170,16 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
           <Switch
             inputId="inDemandOnly"
             label="Show In-Demand Trainings Only"
-            disabled={loading}
-            defaultChecked={extractParam("inDemand") === "true"}
+            defaultChecked={extractParam("inDemand", results) === "true"}
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "inDemand", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "inDemand", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
         </div>
@@ -276,13 +189,17 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
             type="number"
             inputId="maxCost"
             label="Max Cost"
-            disabled={loading}
-            defaultValue={extractParam("maxCost") || undefined}
+            defaultValue={extractParam("maxCost", results) || undefined}
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "maxCost", value: e.target.value },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "maxCost", value: e.target.value },
+                  { key: "p", value: "1" },
+                ],
+
+                getSearchData,
+                setResults
+              );
             }}
           />
         </div>
@@ -291,29 +208,37 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
           <p className="label">Class Format</p>
           <FormInput
             type="checkbox"
-            disabled={loading}
             inputId="in-person"
             label="In-Person"
-            defaultChecked={extractParam("inPerson") === "true"}
+            defaultChecked={extractParam("inPerson", results) === "true"}
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "inPerson", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "inPerson", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+
+                getSearchData,
+                setResults
+              );
             }}
           />
 
           <FormInput
             type="checkbox"
             inputId="online"
-            defaultChecked={extractParam("online") === "true"}
-            disabled={loading}
+            defaultChecked={extractParam("online", results) === "true"}
             label="Online"
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "online", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "online", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+
+                getSearchData,
+                setResults
+              );
             }}
           />
         </div>
@@ -323,53 +248,65 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
           <FormInput
             type="checkbox"
             inputId="days"
-            defaultChecked={extractParam("days") === "true"}
-            disabled={loading}
+            defaultChecked={extractParam("days", results) === "true"}
             label="Days"
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "days", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "days", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <FormInput
             type="checkbox"
             inputId="weeks"
-            defaultChecked={extractParam("weeks") === "true"}
-            disabled={loading}
+            defaultChecked={extractParam("weeks", results) === "true"}
             label="Weeks"
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "weeks", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "weeks", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <FormInput
             type="checkbox"
             inputId="months"
-            disabled={loading}
             label="Months"
-            defaultChecked={extractParam("months") === "true"}
+            defaultChecked={extractParam("months", results) === "true"}
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "months", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "months", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <FormInput
             type="checkbox"
-            disabled={loading}
             inputId="years"
-            defaultChecked={extractParam("years") === "true"}
+            defaultChecked={extractParam("years", results) === "true"}
             label="Years"
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "years", value: e.target.checked.toString() },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "years", value: e.target.checked.toString() },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
         </div>
@@ -379,63 +316,81 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
 
           <Switch
             inputId="wheelchair-accessible"
-            defaultChecked={extractParam("isWheelchairAccessible") === "true"}
+            defaultChecked={
+              extractParam("isWheelchairAccessible", results) === "true"
+            }
             label="Wheelchair Accessible"
-            disabled={loading}
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                {
-                  key: "isWheelchairAccessible",
-                  value: e.target.checked.toString(),
-                },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  {
+                    key: "isWheelchairAccessible",
+                    value: e.target.checked.toString(),
+                  },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <Switch
             inputId="childcare-assistance"
             label="Childcare Assistance"
-            defaultChecked={extractParam("hasChildcareAssistance") === "true"}
-            disabled={loading}
+            defaultChecked={
+              extractParam("hasChildcareAssistance", results) === "true"
+            }
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                {
-                  key: "hasChildcareAssistance",
-                  value: e.target.checked.toString(),
-                },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  {
+                    key: "hasChildcareAssistance",
+                    value: e.target.checked.toString(),
+                  },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <Switch
             inputId="offer-evening-courses"
             label="Offer Evening Courses"
-            defaultChecked={extractParam("hasEveningCourses") === "true"}
-            disabled={loading}
+            defaultChecked={
+              extractParam("hasEveningCourses", results) === "true"
+            }
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                {
-                  key: "hasEveningCourses",
-                  value: e.target.checked.toString(),
-                },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  {
+                    key: "hasEveningCourses",
+                    value: e.target.checked.toString(),
+                  },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <Switch
             inputId="job-placement-assistance"
             label="Job Placement Assistance"
-            disabled={loading}
             defaultChecked={
-              extractParam("hasJobPlacementAssistance") === "true"
+              extractParam("hasJobPlacementAssistance", results) === "true"
             }
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                {
-                  key: "hasJobPlacementAssistance",
-                  value: e.target.checked.toString(),
-                },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  {
+                    key: "hasJobPlacementAssistance",
+                    value: e.target.checked.toString(),
+                  },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
         </div>
@@ -450,18 +405,23 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
                 className={
                   showMore ? undefined : index > 3 ? "hide" : undefined
                 }
-                disabled={loading}
                 inputId={lang}
                 label={lang}
-                defaultChecked={extractParam(camelify(lang)) === "true"}
+                defaultChecked={
+                  extractParam(camelify(lang), results) === "true"
+                }
                 onChange={(e) => {
-                  updateSearchParamsNavigate([
-                    {
-                      key: camelify(lang),
-                      value: e.target.checked.toString(),
-                    },
-                    { key: "p", value: "1" },
-                  ]);
+                  updateSearchParamsNavigate(
+                    [
+                      {
+                        key: camelify(lang),
+                        value: e.target.checked.toString(),
+                      },
+                      { key: "p", value: "1" },
+                    ],
+                    getSearchData,
+                    setResults
+                  );
                 }}
               />
             ))}
@@ -481,29 +441,35 @@ const Filter = ({ className, searchParams = "", setResults }: FilterProps) => {
           <FormInput
             type="text"
             inputId="cip"
-            disabled={loading}
             label="Filter by CIP Code"
-            defaultValue={extractParam("cipCode") || undefined}
+            defaultValue={extractParam("cipCode", results) || undefined}
             placeholder="i.e. 011102"
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "cipCode", value: e.target.value },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "cipCode", value: e.target.value },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
           <FormInput
             type="text"
-            disabled={loading}
             inputId="soc"
             label="Filter by SOC Code"
-            defaultValue={extractParam("socCode") || undefined}
+            defaultValue={extractParam("socCode", results) || undefined}
             placeholder="i.e. 43-9041"
             onChange={(e) => {
-              updateSearchParamsNavigate([
-                { key: "socCode", value: e.target.value },
-                { key: "p", value: "1" },
-              ]);
+              updateSearchParamsNavigate(
+                [
+                  { key: "socCode", value: e.target.value },
+                  { key: "p", value: "1" },
+                ],
+                getSearchData,
+                setResults
+              );
             }}
           />
         </Flex>
