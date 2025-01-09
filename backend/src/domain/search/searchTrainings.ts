@@ -383,21 +383,14 @@ async function transformCertificateToTraining(
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const isInDemand = inDemandCIPs.map((c) => c.cipcode).includes(cipCode ?? "");
 
-    // Reverting to individual accommodation and support service checks
-    const isWheelchairAccessible = await credentialEngineUtils.checkAccommodation(
-      certificate,
-      "accommodation:PhysicalAccessibility"
-    );
+    const getWheelchairAccessibility = async () =>
+      await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility");
 
-    const hasJobPlacementAssistance = await credentialEngineUtils.checkSupportService(
-      certificate,
-      "support:JobPlacement"
-    );
+    const getJobPlacementAssistance = async () =>
+      await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement");
 
-    const hasChildcareAssistance = await credentialEngineUtils.checkSupportService(
-      certificate,
-      "support:Childcare"
-    );
+    const getChildcareAssistance = async () =>
+      await credentialEngineUtils.checkSupportService(certificate, "support:Childcare");
 
     const result: TrainingResult = {
       ctid: certificate["ceterms:ctid"] || "",
@@ -416,9 +409,9 @@ async function transformCertificateToTraining(
       socCodes: socCodes,
       hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
       languages: await credentialEngineUtils.getLanguages(certificate),
-      isWheelchairAccessible: isWheelchairAccessible,
-      hasJobPlacementAssistance: hasJobPlacementAssistance,
-      hasChildcareAssistance: hasChildcareAssistance,
+      isWheelchairAccessible: getWheelchairAccessibility,
+      hasJobPlacementAssistance: getJobPlacementAssistance,
+      hasChildcareAssistance: getChildcareAssistance,
       totalClockHours: null,
     };
 

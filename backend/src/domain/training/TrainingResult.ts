@@ -55,9 +55,9 @@ export interface TrainingResult {
   socCodes?: string[];
   hasEveningCourses?: boolean;
   languages?: string[] | null;
-  isWheelchairAccessible?: boolean;
-  hasJobPlacementAssistance?: boolean;
-  hasChildcareAssistance?: boolean;
+  isWheelchairAccessible?: boolean | (() => Promise<boolean>);
+  hasJobPlacementAssistance?: boolean | (() => Promise<boolean>);
+  hasChildcareAssistance?: boolean | (() => Promise<boolean>);
   availableAt: Address[];
 }
 
