@@ -43,7 +43,7 @@ export interface Provider {
   county?: string;
   phoneExtension?: string;
   email?: string;
-  addresses?: Address;
+  addresses?: Address[];
   name: string;
   targetContactPoints?: ContactPoint[];
 }

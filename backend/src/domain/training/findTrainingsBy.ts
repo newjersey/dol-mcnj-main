@@ -40,10 +40,10 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
           const cipDefinition = await dataClient.findCipDefinitionByCip(cipCode);
           let outcomesDefinition = null;
-          if (provider) {
+          if (provider?.providerId) {
             outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
           } else {
-            console.warn("Skipping outcomesDefinition lookup because provider is null");
+            console.warn("Skipping outcomesDefinition lookup because providerId is missing or invalid");
           }
           const credentials = await credentialEngineUtils.constructCredentialsString(
               record["ceterms:isPreparationFor"] as CetermsConditionProfile[]

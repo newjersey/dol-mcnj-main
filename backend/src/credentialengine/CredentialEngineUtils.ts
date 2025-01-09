@@ -8,7 +8,7 @@ import {
   CTDLResource,
 } from "../domain/credentialengine/CredentialEngine";
 import { Occupation } from "../domain/occupations/Occupation";
-import { Address } from "../domain/training/Training";
+import {Address, Provider} from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 import { DeliveryType } from "../domain/DeliveryType";
@@ -19,6 +19,9 @@ const logError = (message: string, error: Error) => {
 };
 
 import { AxiosError } from "axios";
+import NodeCache from "node-cache";
+
+const providerCache = new NodeCache({ stdTTL: 3600 });
 
 export const retryWithBackoff = async <T>(
   fn: () => Promise<T>,
@@ -131,90 +134,103 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   }
 };
 
-
-const getProviderData = async (certificate: CTDLResource) => {
+/**
+ * Fetch provider data for a given certificate.
+ * Utilizes a cache to avoid repeated HTTP requests for the same provider.
+ * @param {CTDLResource} certificate - The certificate object containing provider information.
+ * @returns {Promise<object | null>} - The provider data or null if unavailable.
+ */
+async function getProviderData(certificate: CTDLResource): Promise<Provider | null> {
   try {
-    // Check if "ownedBy" exists
-    const ownedBy = certificate["ceterms:ownedBy"]?.[0];
-    if (!ownedBy) {
-      console.warn("OwnedBy field is missing in the learning opportunity profile");
-      return null; // Treat as missing provider
-    }
-
-    // Extract CTID from the URL
-    const ownedByCtid = await getCtidFromURL(ownedBy);
-
-    // Fetch the provider record
-    const ownedByRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-
-    // Check for incomplete or invalid provider records
-    if (!ownedByRecord || ownedByRecord.errors?.includes("Couldn't find Resource")) {
-      console.warn(`Invalid provider record for ownedBy CTID: ${ownedByCtid}`);
+    // Check if "ownedBy" exists in the certificate
+    const ownedByUrl = certificate["ceterms:ownedBy"]?.[0];
+    if (!ownedByUrl) {
+      console.warn("OwnedBy field is missing in the certificate.");
       return null;
     }
 
-    const providerId =
-      ownedByRecord["ceterms:identifier"]?.find(
-        (identifier: {
-          "ceterms:identifierTypeName": { "en-US": string };
-          "ceterms:identifierValueCode": string;
-        }) => identifier["ceterms:identifierTypeName"]["en-US"] === "NJDOL Provider ID",
-      )?.["ceterms:identifierValueCode"] ?? null;
+    // Extract the CTID from the "ownedBy" URL
+    const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedByUrl);
 
-    return {
-      ctid: ownedByRecord["ceterms:ctid"] || null,
-      providerId,
-      name: ownedByRecord["ceterms:name"]?.["en-US"] || "Unknown Provider",
-      url: ownedByRecord["ceterms:subjectWebpage"] || null,
-      email: ownedByRecord["ceterms:email"]?.[0] || null,
-      address: await getAddress(ownedByRecord),
+    // Validate the CTID format
+    if (!(await credentialEngineUtils.validateCtId(ownedByCtid))) {
+      throw new Error(`Invalid CTID format: ${ownedByCtid}`);
+    }
+
+    // Check if the data is already in the cache
+    const cachedProvider = providerCache.get(ownedByCtid);
+    if (cachedProvider) {
+      console.log(`Cache hit for provider CTID: ${ownedByCtid}`);
+      return cachedProvider as Provider;
+    }
+
+    console.log(`Cache miss for provider CTID: ${ownedByCtid}. Fetching data...`);
+
+    // Fetch the provider record using the CTID
+    const providerRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+
+    if (!providerRecord) {
+      console.warn(`Provider record not found for CTID: ${ownedByCtid}`);
+      return null;
+    }
+
+    // Extract provider details using utility functions
+    const providerId = providerRecord["ceterms:identifier"]?.find(
+      (identifier: {
+        "ceterms:identifierTypeName": { "en-US": string };
+        "ceterms:identifierValueCode": string;
+      }) =>
+        identifier["ceterms:identifierTypeName"]?.["en-US"] === "NJDOL Provider ID"
+    )?.["ceterms:identifierValueCode"];
+
+    const providerData: Provider = {
+      ctid: providerRecord["ceterms:ctid"] || "",
+      providerId: providerId || "",
+      name: providerRecord["ceterms:name"]?.["en-US"] || "Unknown Provider",
+      url: providerRecord["ceterms:subjectWebpage"] || "",
+      email: providerRecord["ceterms:email"]?.[0] || "",
+      addresses: await credentialEngineUtils.getAddress(providerRecord), // No additional mapping required
     };
+
+    // Cache the provider data using the CTID as the key
+    providerCache.set(ownedByCtid, providerData);
+    console.log(`Cached provider data for CTID: ${ownedByCtid}`);
+
+    return providerData;
   } catch (error) {
-    logError(`Error fetching provider data`, error as Error);
+    console.error("Error fetching provider data:", error);
     return null;
   }
-};
-
+}
 const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
   try {
     const addresses = resource["ceterms:address"] ?? [];
-    const result: Address[] = [];
-
-    for (const address of addresses) {
+    return addresses.map((address) => {
       const zipCode = address["ceterms:postalCode"] ?? "";
-      const baseAddress = {
+      return {
+        "@type": "ceterms:Place", // Add required @type field
         street_address: address["ceterms:streetAddress"]?.["en-US"] ?? "",
         city: address["ceterms:addressLocality"]?.["en-US"] ?? "",
         state: address["ceterms:addressRegion"]?.["en-US"] ?? "",
         zipCode,
         county: convertZipCodeToCounty(zipCode) ?? "",
-      } as Address;
-
-      const contactPoints = address["ceterms:targetContactPoint"] ?? [];
-      if (contactPoints.length > 0) {
-        result.push({
-          ...baseAddress,
-          targetContactPoints: contactPoints.map((contactPoint: CetermsContactPoint) => ({
+        targetContactPoints: (address["ceterms:targetContactPoint"] || []).map(
+          (contactPoint: CetermsContactPoint) => ({
             name: contactPoint["ceterms:name"]?.["en-US"] ?? "",
             contactType: contactPoint["ceterms:contactType"]?.["en-US"] ?? "",
             email: contactPoint["ceterms:email"] ?? [],
             telephone: contactPoint["ceterms:telephone"] ?? [],
-          })),
-        });
-      } else {
-        result.push({
-          ...baseAddress,
-          targetContactPoints: [],
-        });
-      }
-    }
-
-    return result;
+          })
+        ),
+      } as Address;
+    });
   } catch (error) {
     logError(`Error getting ceterms:address`, error as Error);
     throw error;
   }
 };
+
+
 const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Address[]> => {
   try {
     const availableAt = certificate["ceterms:availableAt"] ?? [];
