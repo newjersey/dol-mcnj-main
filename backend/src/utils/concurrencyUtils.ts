@@ -1,3 +1,5 @@
+import pLimit from "p-limit";
+
 /**
  * Processes a list of items in batches with limited concurrency and exponential backoff for retries.
  *
@@ -16,7 +18,6 @@ export const processInBatches = async <T>(
     initialDelay = 1000
 ): Promise<T[]> => {
     // Dynamically import p-limit
-    const { default: pLimit } = await import("p-limit");
     const limit = pLimit(concurrencyLimit);
 
     const results = await Promise.allSettled(
