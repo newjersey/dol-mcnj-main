@@ -100,20 +100,6 @@ const Results = ({
     >
       {compare.length > 0 && <CompareTable />}
 
-      <Button
-        defaultStyle="secondary"
-        iconPrefix="FunnelSimple"
-        className="editSearch"
-        type="button"
-        outlined
-        iconSuffix={toggle ? "CaretUp" : "CaretDown"}
-        onClick={() => {
-          setToggle(!toggle);
-        }}
-      >
-        Edit Search or Filter
-      </Button>
-
       <ResultsHeader />
       <div className="inner">
         <Filter />

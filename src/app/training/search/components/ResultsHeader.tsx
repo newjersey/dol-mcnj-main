@@ -8,6 +8,8 @@ import { ResultsContext } from "./Results";
 import { handleSortChange } from "../utils/handleSortChange";
 import { handleItemsPerPageChange } from "../utils/handleItemsPerPageChange";
 import { SEARCH_RESULTS_PAGE_DATA as contentData } from "@data/pages/training/search";
+import { extractParam } from "../utils/filterFunctions";
+import { FunnelSimple, MagnifyingGlass } from "@phosphor-icons/react";
 
 export const ResultsHeader = () => {
   let {
@@ -15,6 +17,8 @@ export const ResultsHeader = () => {
     sortValue,
     setSortValue,
     searchTerm,
+    toggle,
+    setToggle,
     setSearchTerm,
     itemsPerPage,
     setItemsPerPage,
@@ -30,56 +34,84 @@ export const ResultsHeader = () => {
 
   return (
     <div className="resultsHeader">
-      <Heading level={2} className="resultsCount">
-        {results.itemCount === 0 &&
-        (searchTerm === "undefined" || searchTerm === "null") ? (
-          <>Find Training</>
-        ) : (
-          <>
-            {results.itemCount} {results.itemCount === 1 ? "result" : "results"}{" "}
-            found for &quot;
-            {decodeUrlEncodedString(searchTerm)}&quot;
-          </>
-        )}
-      </Heading>
-      <div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const q = new URL(window.location.href);
-            const searchParams = q.searchParams;
-            searchParams.set("q", searchTerm);
-            window.location.href = `/training/search?${searchParams.toString()}`;
-          }}
-        >
-          <FormInput
-            inputId="search"
-            label="Searching for training courses"
-            hideLabel
-            ariaLabel="search"
-            type="search"
-            defaultValue={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Searching for training courses"
-          />
-          <Button
-            type="submit"
-            buttonId="searchSubmit"
-            defaultStyle="secondary"
-            label={searchTerm ? "Update Results" : "Search"}
-            onClick={() => {
-              if (searchTerm) {
-                const q = new URL(window.location.href);
-                const searchParams = q.searchParams;
-                searchParams.set("q", searchTerm);
-              }
+      <div className="headingContainer">
+        <Heading level={2} className="resultsCount">
+          {results.itemCount === 0 &&
+          (searchTerm === "undefined" || searchTerm === "null") ? (
+            <>Find Training</>
+          ) : (
+            <>
+              {results.itemCount}{" "}
+              {results.itemCount === 1 ? "result" : "results"} found for &quot;
+              {decodeUrlEncodedString(`${extractParam("q", results)}`)}&quot;
+            </>
+          )}
+        </Heading>
+        <div className="searchFormContainer">
+          <form
+            className="searchForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const q = new URL(window.location.href);
+              const searchParams = q.searchParams;
+              searchParams.set("q", searchTerm);
+              window.location.href = `/training/search?${searchParams.toString()}`;
             }}
-          />
-        </form>
+          >
+            <FormInput
+              inputId="search"
+              label="Searching for training courses"
+              hideLabel
+              ariaLabel="search"
+              type="search"
+              defaultValue={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Searching for training courses"
+            />
+            <Button
+              type="submit"
+              buttonId="searchSubmit"
+              defaultStyle="secondary"
+              label={searchTerm ? "Update Results" : "Search"}
+              onClick={() => {
+                if (searchTerm) {
+                  const q = new URL(window.location.href);
+                  const searchParams = q.searchParams;
+                  searchParams.set("q", searchTerm);
+                }
+              }}
+            >
+              <MagnifyingGlass size={16} color="white" weight="bold" />
+            </Button>
+          </form>
+          <Button
+            className="editSearchToggle"
+            type="button"
+            outlined
+            onClick={() => {
+              setToggle(!toggle);
+            }}
+          >
+            <FunnelSimple size={16} color="currentColor" weight="bold" />
+            <span className="sr-only">Filter for Search</span>
+          </Button>
+        </div>
       </div>
 
       {results.itemCount > 0 && (
-        <>
+        <div className="resultsHeaderControls">
+          <Button
+            iconSuffix="FunnelSimple"
+            className="editSearch"
+            type="button"
+            outlined
+            onClick={() => {
+              setToggle(!toggle);
+            }}
+          >
+            Filters
+          </Button>
+
           <div className="sortBy">
             <FormInput
               label="Sort By"
@@ -89,8 +121,7 @@ export const ResultsHeader = () => {
               onChangeSelect={handleSortChange}
               options={contentData.sortOptions}
             />
-          </div>
-          <div className="itemsPerPage">
+
             <FormInput
               label="Items Per Page"
               type="select"
@@ -100,7 +131,7 @@ export const ResultsHeader = () => {
               options={contentData.perPageOptions}
             />
           </div>
-        </>
+        </div>
       )}
     </div>
   );

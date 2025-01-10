@@ -1,69 +1,112 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .search {
-  margin-top: settings.$size-24;
+  margin-top: s.$size-24;
 
   .inner {
     display: flex;
     align-items: flex-start;
-    gap: settings.$size-32;
-    padding: 0 0 settings.$size-48;
+    gap: s.$size-32;
+    padding: 0 0 s.$size-48;
 
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
       flex-direction: column;
     }
   }
 
   .resultsHeader {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: flex-end;
-    margin-bottom: settings.$size-16;
-    gap: settings.$size-16;
+    flex-direction: column;
+    gap: s.$size-16;
+    margin-bottom: s.$size-16;
 
-    @media screen and (max-width: (settings.$mobile-lg - 1)) {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 0;
-      margin-top: settings.$size-16;
-    }
-
-    .heading-tag {
-      @media screen and (max-width: (settings.$tablet-md - 1)) {
-        font-size: settings.$size-22;
+    .headingContainer {
+      display: flex;
+      justify-content: space-between;
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        flex-direction: column;
+        gap: s.$size-16;
       }
 
-      @media screen and (max-width: (settings.$mobile-lg - 1)) {
-        font-size: settings.$size-16;
-      }
-    }
-
-    .resultsCount {
-      margin: settings.$size-30 0 0 0;
-    }
-
-    .sortBy {
-      width: 100%;
-      @media screen and (min-width: (settings.$mobile-lg)) {
-        width: settings.$size-200;
+      .heading-tag,
+      .searchFormContainer {
+        width: 100%;
       }
 
-      label {
-        font-size: settings.$size-12;
-        margin-left: settings.$size-8;
-        margin-top: 0;
-        display: inline-block;
-        position: relative;
-        bottom: -(settings.$size-10);
-        user-select: none;
-        z-index: 1;
-        pointer-events: none;
-        padding: 0 settings.$size-4;
-        background-color: settings.$white;
-      }
-      select {
+      .heading-tag {
         margin: 0;
+
+        @media screen and (max-width: (s.$tablet-xl - 1)) {
+          font-size: s.$size-24;
+        }
+      }
+
+      .searchFormContainer {
+        @media screen and (min-width: (s.$tablet-md)) {
+          max-width: s.$size-411;
+        }
+        @media screen and (max-width: (s.$tablet-md - 1)) {
+          display: flex;
+          gap: s.$size-16;
+          align-items: center;
+        }
+
+        .searchForm {
+          flex-grow: 1;
+        }
+
+        button {
+          margin: 0;
+          padding: 0;
+        }
+      }
+
+      .editSearchToggle {
+        padding: 0;
+        width: calc(s.$size-40 - s.$size-2);
+        height: calc(s.$size-40 - s.$size-2);
+        justify-content: center;
+        outline-color: s.$disabled-dark;
+        color: s.$disabled-dark;
+
+        @media screen and (min-width: (s.$tablet-md)) {
+          display: none !important;
+        }
+      }
+    }
+
+    .formField {
+      margin: 0;
+      width: 100%;
+      input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+          [type="submit"]
+        ),
+      select {
+        max-width: none;
+        width: 100%;
+        padding: s.$size-8;
+        border-width: s.$size-2;
+        min-height: auto;
+      }
+    }
+
+    .resultsHeaderControls {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      .sortBy {
+        display: flex;
+        gap: s.$size-20;
+        width: 100%;
+
+        @media screen and (min-width: (s.$tablet-md)) {
+          max-width: s.$size-411;
+        }
+
+        .formField {
+          width: 100%;
+        }
       }
     }
   }
@@ -71,8 +114,8 @@
   aside {
     width: 100%;
 
-    @media screen and (min-width: (settings.$tablet-md)) {
-      width: settings.$size-400;
+    @media screen and (min-width: (s.$tablet-md)) {
+      width: s.$size-400;
     }
 
     input,
@@ -84,11 +127,11 @@
   .results {
     display: flex;
     flex-direction: column;
-    gap: settings.$size-16;
+    gap: s.$size-16;
     width: 100%;
 
-    @media screen and (min-width: (settings.$tablet-md)) {
-      width: calc(100% - settings.$size-400);
+    @media screen and (min-width: (s.$tablet-md)) {
+      width: calc(100% - s.$size-400);
     }
 
     .spinner {
@@ -96,11 +139,12 @@
     }
   }
 
-  .editSearch {
+  .usa-button.primary.usa-button--outline.editSearch {
     justify-content: center;
-    padding-left: settings.$size-8;
-    padding-right: settings.$size-8;
-    @media screen and (min-width: (settings.$tablet-md)) {
+    outline-color: s.$disabled-dark;
+    color: s.$disabled-dark;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
       display: none !important;
     }
   }
