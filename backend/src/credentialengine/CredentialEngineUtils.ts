@@ -309,7 +309,7 @@ const extractOccupations = async (certificate: CTDLResource): Promise<Occupation
   }
 };
 
-const extractCost = async (certificate: CTDLResource, costType: string): Promise<number | null> => {
+const extractCost = async (certificate:CTDLResource, costType:string) => {
   try {
     const estimatedCosts = certificate["ceterms:estimatedCost"];
     if (Array.isArray(estimatedCosts)) {
@@ -317,16 +317,18 @@ const extractCost = async (certificate: CTDLResource, costType: string): Promise
         const directCostType = costProfile["ceterms:directCostType"];
         if (directCostType?.["ceterms:targetNode"] === costType) {
           const price = costProfile["ceterms:price"];
-          return price ? Number(price) : null;
+          // Ensure `0` is treated as a valid value and returned
+          return price !== null && price !== undefined ? price : null;
         }
       }
     }
-    return null;
+    return null; // Return null if no matching cost type is found
   } catch (error) {
-    logError(`Error extracting cost for type ${costType}`, error as Error);
-    throw error;
+    console.error(`Error extracting cost for type ${costType}:`, error);
+    return null;
   }
 };
+
 
 const extractAverageSalary = async (certificate: CTDLResource): Promise<number | null> => {
   try {

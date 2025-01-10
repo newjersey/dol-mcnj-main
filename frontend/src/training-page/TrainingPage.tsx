@@ -690,31 +690,31 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.tuitionCostLabel")}</span>
                           <span className="pull-right">
-                            {training.tuitionCost
-                              ? formatMoney(training.tuitionCost)
-                              : t("Global.noDataAvailableText")}
+                           {training.tuitionCost !== null && training.tuitionCost !== undefined
+                             ? formatMoney(training.tuitionCost)
+                             : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div className="cost-item">
                           <span>{t("TrainingPage.feesCostLabel")}</span>
                           <span className="pull-right">
-                            {training.feesCost
-                              ? formatMoney(training.feesCost)
-                              : t("Global.noDataAvailableText")}
+                           {training.feesCost !== null && training.feesCost !== undefined
+                             ? formatMoney(training.feesCost)
+                             : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div className="cost-item">
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
-                            {training.booksMaterialsCost
-                              ? formatMoney(training.booksMaterialsCost)
-                              : t("Global.noDataAvailableText")}
+                           {training.booksMaterialsCost !== null && training.booksMaterialsCost !== undefined
+                             ? formatMoney(training.booksMaterialsCost)
+                             : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div className="cost-item">
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
-                            {training.suppliesToolsCost
+                            {training.suppliesToolsCost !== null && training.suppliesToolsCost !== undefined
                               ? formatMoney(training.suppliesToolsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -722,7 +722,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.otherCostLabel")}</span>
                           <span className="pull-right">
-                            {training.otherCost
+                            {training.otherCost !== null && training.otherCost !== undefined
                               ? formatMoney(training.otherCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -834,9 +834,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>
                         <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                         <span className="text-l pull-right weight-500">
-                          {training.totalCost
-                            ? formatMoney(training.totalCost)
-                            : t("Global.noDataAvailableText")}
+                            {training.totalCost !== null && training.totalCost !== undefined
+                              ? formatMoney(training.totalCost)
+                              : t("Global.noDataAvailableText")}
                         </span>
                       </p>
                       <div className="grey-line" />
@@ -844,7 +844,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.tuitionCostLabel")}</span>
                           <span className="pull-right">
-                            {training.tuitionCost
+                            {training.tuitionCost !== null && training.tuitionCost !== undefined
                               ? formatMoney(training.tuitionCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -852,7 +852,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.feesCostLabel")}</span>
                           <span className="pull-right">
-                            {training.feesCost
+                            {training.feesCost !== null && training.feesCost !== undefined
                               ? formatMoney(training.feesCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -860,7 +860,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
-                            {training.booksMaterialsCost
+                            {training.booksMaterialsCost !== null && training.booksMaterialsCost !== undefined
                               ? formatMoney(training.booksMaterialsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -868,7 +868,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
-                            {training.suppliesToolsCost
+                            {training.suppliesToolsCost !== null && training.suppliesToolsCost !== undefined
                               ? formatMoney(training.suppliesToolsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -876,7 +876,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.otherCostLabel")}</span>
                           <span className="pull-right">
-                            {training.otherCost
+                            {training.otherCost !== null && training.otherCost !== undefined
                               ? formatMoney(training.otherCost)
                               : t("Global.noDataAvailableText")}
                           </span>
