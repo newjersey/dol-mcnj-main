@@ -276,26 +276,36 @@ export const TrainingPage = (props: Props): ReactElement => {
     );
   };
 
-  const getProviderContact = (): ReactElement => {
-    if (!training?.provider?.address?.length) {
+  const getProgramContact = (): ReactElement => {
+    if (!training?.availableAt?.length) {
       return <></>;
     }
-    let phoneNumber: string | undefined;
-    const contactPoint = training.provider.address[0]?.targetContactPoints?.[0];
-    if (contactPoint?.telephone && Array.isArray(contactPoint.telephone) && contactPoint.telephone.length > 0) {
-      phoneNumber = parsePhoneNumberFromString(contactPoint.telephone[0], "US")?.formatNational();
+
+    const contactPoint = training.availableAt[0]?.targetContactPoints?.[0];
+
+    if (!contactPoint) {
+      return <span>Contact information not available</span>;
     }
+
+    const name = contactPoint.name || "Contact name not specified";
+    const contactType = contactPoint.contactType || "Type not specified";
+    const email = contactPoint.email || "Email not available";
+    const rawPhoneNumber = contactPoint.telephone?.[0];
+    const phoneNumber = rawPhoneNumber
+      ? parsePhoneNumberFromString(rawPhoneNumber, "US")?.formatNational() || rawPhoneNumber
+      : "Phone not available";
 
     return (
       <div className="inline">
-        <span>{contactPoint?.name || "Contact not available"}</span>
-        <div>{contactPoint?.contactType || "Type not specified"}</div>
-        <div>{phoneNumber || "Phone not available"}</div>
+        <div> {name}</div>
+        <div>{contactType}</div>
+        <div>
+          <a href={`mailto:${email}`}>{email}</a>
+        </div>
+        <div>{phoneNumber}</div>
       </div>
     );
   };
-
-
 
   const getAvailableAtAddress = (): ReactElement => {
     if (!training) {
@@ -902,7 +912,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                             <span className="label">
                               <User size={18} weight="bold"/>
                             </span>
-                            {getProviderContact()}
+                            {getProgramContact()}
                           </div>
                           <div className="fact-item">
                             <span className="label">

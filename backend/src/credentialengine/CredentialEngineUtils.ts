@@ -238,14 +238,25 @@ const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Addre
     return availableAt.map((location: CetermsPlace) => {
       const zipCode = location["ceterms:postalCode"] ?? "";
 
+      // Map contact points if they exist
+      const targetContactPoints = (location["ceterms:targetContactPoint"] || []).map(
+        (contactPoint: CetermsContactPoint) => ({
+          name: contactPoint["ceterms:name"]?.["en-US"] ?? "Name not specified",
+          contactType: contactPoint["ceterms:contactType"]?.["en-US"] ?? "Type not specified",
+          email: contactPoint["ceterms:email"] ?? [],
+          telephone: contactPoint["ceterms:telephone"] ?? [],
+        })
+      );
+
       return {
         "@type": "ceterms:Place",
         street_address: location["ceterms:streetAddress"]?.["en-US"] ?? "",
         city: location["ceterms:addressLocality"]?.["en-US"] ?? "",
         state: location["ceterms:addressRegion"]?.["en-US"] ?? "",
-        zipCode: zipCode,
+        zipCode,
         county: convertZipCodeToCounty(zipCode) ?? "",
-      };
+        targetContactPoints, // Add the contact points
+      } as Address;
     });
   } catch (error) {
     logError(`Error getting available addresses`, error as Error);
