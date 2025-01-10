@@ -1,5 +1,3 @@
-import pLimit from "p-limit";
-
 /**
  * Processes a list of items in batches with limited concurrency and exponential backoff for retries.
  *
@@ -17,35 +15,51 @@ export const processInBatches = async <T>(
     retries = 3,
     initialDelay = 1000
 ): Promise<T[]> => {
-    // Dynamically import p-limit
-    const limit = pLimit(concurrencyLimit);
+    const results: Array<T | Error> = []; // Explicitly type results to include Error
+    const activePromises: Promise<void>[] = [];
+    let currentIndex = 0;
 
-    const results = await Promise.allSettled(
-        items.map((item) =>
-            limit(async () => {
-                let attempt = 0;
-                let delay = initialDelay;
+    const executeWithRetries = async (item: string): Promise<T> => {
+        let attempt = 0;
+        let delay = initialDelay;
 
-                while (attempt <= retries) {
-                    try {
-                        return await processFn(item);
-                    } catch (error) {
-                        attempt++;
-                        if (attempt > retries) {
-                            throw error;
-                        }
-                        console.warn(
-                            `Error processing item "${item}" (Attempt ${attempt}/${retries}). Retrying in ${delay}ms...`
-                        );
-                        await new Promise((resolve) => setTimeout(resolve, delay));
-                        delay *= 2;
-                    }
+        while (attempt <= retries) {
+            try {
+                return await processFn(item);
+            } catch (error) {
+                attempt++;
+                if (attempt > retries) {
+                    throw error;
                 }
-            })
-        )
-    );
+                console.warn(
+                    `Error processing item "${item}" (Attempt ${attempt}/${retries}). Retrying in ${delay}ms...`
+                );
+                await new Promise((resolve) => setTimeout(resolve, delay));
+                delay *= 2; // Exponential backoff
+            }
+        }
+        throw new Error(`Failed to process item "${item}" after ${retries} retries.`);
+    };
 
-    return results
-        .filter((result) => result.status === "fulfilled")
-        .map((result) => (result as PromiseFulfilledResult<T>).value);
+    const worker = async (): Promise<void> => {
+        while (currentIndex < items.length) {
+            const index = currentIndex++;
+            try {
+                results[index] = await executeWithRetries(items[index]);
+            } catch (error) {
+                results[index] = error as Error; // Explicitly type error
+            }
+        }
+    };
+
+    // Initialize workers
+    for (let i = 0; i < concurrencyLimit; i++) {
+        activePromises.push(worker());
+    }
+
+    await Promise.all(activePromises);
+
+    // Filter out errors and return successful results
+    return results.filter((result): result is T => !(result instanceof Error));
 };
+

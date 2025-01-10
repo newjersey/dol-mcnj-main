@@ -1,24 +1,14 @@
-import fs from "fs-extra";
-import { exec } from "child_process";
+const fs = require("fs-extra");
+const childProcess = require("child_process");
 
 try {
   // Remove current build - commented out in Google Cloud Platform App Engine fix 2023-05-09
-  // await fs.remove("./dist");
+  //fs.removeSync("./dist");
   // Copy front-end files
-  // await fs.copy('./src/public', './dist/public');
-  // await fs.copy('./src/views', './dist/views');
-  // Transpile the TypeScript files
-  exec("tsc --build tsconfig.prod.json", (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  });
+  // fs.copySync('./src/public', './dist/public');
+  // fs.copySync('./src/views', './dist/views');
+  // Transpile the typescript files
+  childProcess.exec("tsc --build tsconfig.prod.json");
 } catch (err) {
-  console.error(err);
+  console.log(err);
 }
