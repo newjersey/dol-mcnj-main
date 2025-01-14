@@ -29,6 +29,12 @@ export const ResultsHeader = () => {
     toggle,
   } = useContext(ResultsContext);
 
+  const params = new URLSearchParams(results.searchParams);
+
+  const paramArray = Array.from(params.entries()).filter(
+    ([key]) => key !== "q" && key !== "toggle" && key !== "p"
+  );
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
@@ -99,6 +105,9 @@ export const ResultsHeader = () => {
           >
             <FunnelSimple size={16} color="currentColor" weight="bold" />
             <span className="sr-only">Filter for Search</span>
+            {paramArray.length > 0 && (
+              <span className="filterCount">{paramArray.length}</span>
+            )}
           </Button>
         </div>
       </div>

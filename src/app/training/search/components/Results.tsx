@@ -9,6 +9,7 @@ import { SEARCH_RESULTS_PAGE_DATA as pageContent } from "@data/pages/training/se
 import { HelpText } from "./HelpText";
 import { Pagination } from "@components/modules/Pagination";
 import { Alert } from "@components/modules/Alert";
+import { ParamTags } from "./ParamTags";
 
 export interface FilterProps {
   searchQuery?: string;
@@ -109,8 +110,10 @@ const Results = ({
       {compare.length > 0 && <CompareTable />}
 
       <ResultsHeader />
+      {results.searchParams && <ParamTags />}
       <div className="inner">
         <Filter />
+
         <div className={`results${toggle ? "" : " wide"}`} id="results">
           <>
             {results.pageData.length === 0 && !query && page === 1 ? (

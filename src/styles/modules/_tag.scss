@@ -11,8 +11,12 @@
 
   &.small {
     padding: settings.$size-2 settings.$size-8;
-    font-size: settings.$size-12;
+    font-size: settings.$size-14;
     line-height: 1;
+
+    * {
+      font-size: settings.$size-14;
+    }
 
     svg {
       width: settings.$size-14;

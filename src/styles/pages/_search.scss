@@ -77,9 +77,30 @@
         justify-content: center;
         outline-color: s.$disabled-dark;
         color: s.$disabled-dark;
+        position: relative;
 
         @media screen and (min-width: (s.$tablet-md)) {
           display: none !important;
+        }
+
+        .filterCount {
+          display: none;
+
+          @media screen and (max-width: (s.$tablet-md - 1)) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 1;
+            background-color: s.$primary;
+            color: s.$white;
+            font-size: s.$size-12;
+            width: s.$size-20;
+            height: s.$size-20;
+            border-radius: 100%;
+            top: -(s.$size-8);
+            right: -(s.$size-8);
+          }
         }
       }
     }
@@ -159,6 +180,20 @@
 
     @media screen and (max-width: (s.$tablet-md - 1)) {
       display: none !important;
+    }
+  }
+
+  .param-tags {
+    margin: s.$size-16 0;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      display: none;
+    }
+
+    a {
+      font-weight: bold;
+      color: s.$error;
+      text-decoration: none;
     }
   }
 }
