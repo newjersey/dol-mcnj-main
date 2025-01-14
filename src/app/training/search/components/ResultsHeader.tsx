@@ -32,7 +32,12 @@ export const ResultsHeader = () => {
   const params = new URLSearchParams(results.searchParams);
 
   const paramArray = Array.from(params.entries()).filter(
-    ([key]) => key !== "q" && key !== "toggle" && key !== "p"
+    ([key]) =>
+      key !== "q" &&
+      key !== "toggle" &&
+      key !== "p" &&
+      key !== "limit" &&
+      key !== "sort"
   );
 
   useEffect(() => {

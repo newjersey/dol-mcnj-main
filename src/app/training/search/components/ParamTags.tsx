@@ -20,7 +20,7 @@ const formatKey = (key: string) => {
     .replace(/^./, (str) => str.toUpperCase());
 };
 
-const categorizeTag = (key: string, value: string): string => {
+const categorizeTag = (key: string): string => {
   if (key === "online" || key === "inPerson") return "Format";
   if (["days", "weeks", "months", "years"].includes(key))
     return "Time to complete";
@@ -48,12 +48,24 @@ export const ParamTags = () => {
   const params = new URLSearchParams(results.searchParams);
 
   const paramArray = Array.from(params.entries()).filter(
-    ([key]) => key !== "q" && key !== "toggle" && key !== "p"
+    ([key]) =>
+      key !== "q" &&
+      key !== "toggle" &&
+      key !== "p" &&
+      key !== "limit" &&
+      key !== "sort"
   );
 
   const renderTags = () => {
     return Array.from(params.entries())
-      .filter(([key]) => key !== "q" && key !== "toggle" && key !== "p")
+      .filter(
+        ([key]) =>
+          key !== "q" &&
+          key !== "toggle" &&
+          key !== "p" &&
+          key !== "limit" &&
+          key !== "sort"
+      )
       .map(([key, value]) => (
         <button
           key={key}
@@ -74,10 +86,7 @@ export const ParamTags = () => {
             suffixIcon="X"
             color="blue"
             className="param-tag"
-            title={`${categorizeTag(key, value)}: **${formatValue(
-              key,
-              value
-            )}**`}
+            title={`${categorizeTag(key)}: **${formatValue(key, value)}**`}
             markdown
           />
         </button>

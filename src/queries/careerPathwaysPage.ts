@@ -1,5 +1,9 @@
+// import { richText } from './commonQueries'
+import { fragments, metadata } from "./commonQueries";
+
 export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
 	page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
+    ${metadata}
     sys {
       publishedAt
     }
@@ -29,4 +33,7 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
     }
   }
 }
+${fragments.pageBanner}
+${fragments.iconCard}
+${fragments.linkObject}
 `;
