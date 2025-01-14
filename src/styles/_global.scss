@@ -23,6 +23,7 @@ body {
   background-color: settings.$white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 .usa-alert {
@@ -33,10 +34,48 @@ body {
   .usa-alert__body {
     display: flex;
     align-items: flex-start;
+    max-width: none;
+
+    > div {
+      width: 100%;
+    }
+
+    &:before {
+      content: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .heading-tag {
+      font-weight: bold;
+      font-size: settings.$size-22;
+    }
   }
 
   button {
     cursor: pointer;
+
+    &.toggle {
+      width: settings.$size-60;
+      height: settings.$size-60;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &.collapsable {
+    .heading-tag {
+      width: calc(100% - settings.$size-60);
+    }
   }
 }
 

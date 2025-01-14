@@ -19,6 +19,7 @@ import { X } from "@phosphor-icons/react";
 
 const Filter = () => {
   const { setToggle, toggle } = useContext(ResultsContext);
+
   return (
     <FilterForm>
       <div className="overlay" />

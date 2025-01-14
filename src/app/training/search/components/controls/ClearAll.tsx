@@ -11,6 +11,7 @@ export const ClearAll = () => {
         type="button"
         defaultStyle="secondary"
         label="Apply"
+        className="apply"
         onClick={() => {
           setToggle(false);
         }}

@@ -11,7 +11,7 @@ describe("Alert component", () => {
   beforeEach(() => {
     sessionStorage.clear();
     (parseMarkdownToHTML as jest.Mock).mockReturnValue(
-      "<p>parsed markdown</p>",
+      "<p>parsed markdown</p>"
     );
   });
 
@@ -32,13 +32,6 @@ describe("Alert component", () => {
   it("applies additional classes when provided", () => {
     render(<Alert {...defaultProps} className="custom-class" />);
     expect(screen.getByRole("alert")).toHaveClass("custom-class");
-  });
-
-  it("renders the heading if provided", () => {
-    render(<Alert {...defaultProps} heading="Test Heading" headingLevel={2} />);
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Test Heading",
-    );
   });
 
   it("renders the copy if provided", () => {

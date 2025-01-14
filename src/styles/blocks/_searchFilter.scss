@@ -141,6 +141,12 @@
 
       button {
         width: s.$size-144;
+
+        &.apply {
+          @media screen and (min-width: (s.$tablet-md)) {
+            display: none !important;
+          }
+        }
       }
 
       @media screen and (max-width: (s.$tablet-md - 1)) {

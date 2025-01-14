@@ -5,9 +5,10 @@ import { FetchResultsProps, ResultProps } from "@utils/types";
 import { createContext, useEffect, useState } from "react";
 import { ResultsHeader } from "./ResultsHeader";
 import { CompareTable } from "./CompareTable";
-import { StarterText } from "./StarterText";
+import { SEARCH_RESULTS_PAGE_DATA as pageContent } from "@data/pages/training/search";
 import { HelpText } from "./HelpText";
 import { Pagination } from "@components/modules/Pagination";
+import { Alert } from "@components/modules/Alert";
 
 export interface FilterProps {
   searchQuery?: string;
@@ -80,7 +81,7 @@ const Results = ({
   });
 
   useEffect(() => {
-    if (toggle) {
+    if (toggle && window.innerWidth < 768) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -113,9 +114,9 @@ const Results = ({
         <div className={`results${toggle ? "" : " wide"}`} id="results">
           <>
             {results.pageData.length === 0 && !query && page === 1 ? (
-              <StarterText />
+              <Alert {...pageContent.searchHelp} />
             ) : results.pageData.length <= 3 && page === 1 ? (
-              <HelpText />
+              <Alert {...pageContent.searchHelp} />
             ) : (
               <></>
             )}

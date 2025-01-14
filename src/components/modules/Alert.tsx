@@ -4,12 +4,13 @@ import { Heading } from "./Heading";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { useEffect, useState } from "react";
 import { IconSelector } from "./IconSelector";
+import { CaretDown, CaretUp } from "@phosphor-icons/react";
 
-interface AlertProps {
+export interface AlertProps {
   className?: string;
   copy?: string;
   heading?: string;
-  headingLevel?: HeadingLevel;
+  collapsable?: boolean;
   noIcon?: boolean;
   slim?: boolean;
   alertId?: string;
@@ -21,15 +22,16 @@ export const Alert = ({
   className,
   copy,
   heading,
-  headingLevel = 3,
   noIcon,
   dismissible,
+  collapsable,
   alertId,
   slim,
   type,
 }: AlertProps) => {
   const [remove, setRemove] = useState(false);
   const [loading, setLoading] = useState(!!alertId);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (!alertId) {
@@ -56,18 +58,24 @@ export const Alert = ({
         slim ? " usa-alert--slim" : ""
       }${loading || remove ? " hide" : ""}${
         noIcon ? " usa-alert--no-icon" : ""
-      }${className ? ` ${className}` : ""}`}
+      }${collapsable ? " collapsable" : ""}${className ? ` ${className}` : ""}`}
     >
       <div className="usa-alert__body">
         <div>
           {heading && (
-            <Heading level={headingLevel} className="usa-alert__heading">
-              {heading}
-            </Heading>
+            <p className="heading-tag usa-alert__heading">{heading}</p>
+          )}
+          {collapsable && (
+            <button onClick={() => setShow(!show)} className="toggle">
+              {show ? <CaretUp size={30} /> : <CaretDown size={30} />}
+              <div className="sr-only">{show ? "show less" : "show more"}</div>
+            </button>
           )}
           {copy && (
             <div
-              className="usa-alert__text"
+              className={`usa-alert__text${
+                collapsable && !show ? " hide" : ""
+              }`}
               dangerouslySetInnerHTML={{
                 __html: parseMarkdownToHTML(copy),
               }}
