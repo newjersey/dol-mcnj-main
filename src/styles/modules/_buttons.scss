@@ -25,6 +25,12 @@
   text-align: left;
   padding: settings.$size-16 settings.$size-24;
 
+  &:focus {
+    outline-offset: 0 !important;
+    outline-width: settings.$size-4 !important;
+    outline-color: settings.$primary !important;
+  }
+
   &.unstyled {
     &:disabled {
       color: settings.$base !important;

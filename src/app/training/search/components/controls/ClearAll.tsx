@@ -4,14 +4,22 @@ import { useContext } from "react";
 import { ResultsContext } from "../Results";
 
 export const ClearAll = () => {
-  let { results } = useContext(ResultsContext);
+  let { results, setToggle } = useContext(ResultsContext);
   return (
     <div className="section search">
       <Button
         type="button"
         defaultStyle="secondary"
+        label="Apply"
+        onClick={() => {
+          setToggle(false);
+        }}
+      />
+      <Button
+        type="button"
+        defaultStyle="secondary"
         outlined
-        label=" Clear Filters"
+        label="Clear Filters"
         onClick={() => {
           window.location.href = `/training/search?q=${extractParam(
             "q",

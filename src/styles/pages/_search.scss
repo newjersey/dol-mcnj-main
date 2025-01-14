@@ -45,6 +45,7 @@
         @media screen and (min-width: (s.$tablet-md)) {
           max-width: s.$size-411;
         }
+
         @media screen and (max-width: (s.$tablet-md - 1)) {
           display: flex;
           gap: s.$size-16;
@@ -53,6 +54,14 @@
 
         .searchForm {
           flex-grow: 1;
+
+          @media screen and (max-width: (s.$tablet-md - 1)) {
+            width: calc(100% - s.$size-60);
+
+            input {
+              min-width: auto;
+            }
+          }
         }
 
         button {
@@ -132,6 +141,10 @@
 
     @media screen and (min-width: (s.$tablet-md)) {
       width: calc(100% - s.$size-400);
+
+      &.wide {
+        width: 100%;
+      }
     }
 
     .spinner {

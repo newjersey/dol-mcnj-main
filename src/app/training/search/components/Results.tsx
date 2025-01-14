@@ -2,8 +2,7 @@
 import { ResultCard } from "@components/modules/ResultCard";
 import { Filter } from "./Filter";
 import { FetchResultsProps, ResultProps } from "@utils/types";
-import { createContext, useState } from "react";
-import { Button } from "@components/modules/Button";
+import { createContext, useEffect, useState } from "react";
 import { ResultsHeader } from "./ResultsHeader";
 import { CompareTable } from "./CompareTable";
 import { StarterText } from "./StarterText";
@@ -80,6 +79,14 @@ const Results = ({
     totalPages: totalPages,
   });
 
+  useEffect(() => {
+    if (toggle) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [toggle]);
+
   return (
     <ResultsContext.Provider
       value={{
@@ -103,7 +110,7 @@ const Results = ({
       <ResultsHeader />
       <div className="inner">
         <Filter />
-        <div className="results" id="results">
+        <div className={`results${toggle ? "" : " wide"}`} id="results">
           <>
             {results.pageData.length === 0 && !query && page === 1 ? (
               <StarterText />

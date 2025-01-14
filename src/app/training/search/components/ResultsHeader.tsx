@@ -8,20 +8,25 @@ import { ResultsContext } from "./Results";
 import { handleSortChange } from "../utils/handleSortChange";
 import { handleItemsPerPageChange } from "../utils/handleItemsPerPageChange";
 import { SEARCH_RESULTS_PAGE_DATA as contentData } from "@data/pages/training/search";
-import { extractParam } from "../utils/filterFunctions";
+import {
+  extractParam,
+  updateSearchParamsNavigate,
+} from "../utils/filterFunctions";
 import { FunnelSimple, MagnifyingGlass } from "@phosphor-icons/react";
+import { getSearchData } from "../utils/getSearchData";
 
 export const ResultsHeader = () => {
   let {
-    results,
-    sortValue,
-    setSortValue,
-    searchTerm,
-    toggle,
-    setToggle,
-    setSearchTerm,
     itemsPerPage,
+    results,
+    searchTerm,
     setItemsPerPage,
+    setResults,
+    setSearchTerm,
+    setSortValue,
+    setToggle,
+    sortValue,
+    toggle,
   } = useContext(ResultsContext);
 
   useEffect(() => {
@@ -98,41 +103,44 @@ export const ResultsHeader = () => {
         </div>
       </div>
 
-      {results.itemCount > 0 && (
-        <div className="resultsHeaderControls">
-          <Button
-            iconSuffix="FunnelSimple"
-            className="editSearch"
-            type="button"
-            outlined
-            onClick={() => {
-              setToggle(!toggle);
-            }}
-          >
-            Filters
-          </Button>
+      <div className="resultsHeaderControls">
+        <Button
+          iconSuffix="FunnelSimple"
+          className="editSearch"
+          type="button"
+          outlined
+          onClick={() => {
+            setToggle(!toggle);
+            updateSearchParamsNavigate(
+              [{ key: "toggle", value: (!toggle).toString() }],
+              getSearchData,
+              setResults
+            );
+          }}
+        >
+          Filters
+        </Button>
 
-          <div className="sortBy">
-            <FormInput
-              label="Sort By"
-              type="select"
-              defaultValue={sortValue}
-              inputId="sortBy"
-              onChangeSelect={handleSortChange}
-              options={contentData.sortOptions}
-            />
+        <div className="sortBy">
+          <FormInput
+            label="Sort By"
+            type="select"
+            defaultValue={sortValue}
+            inputId="sortBy"
+            onChangeSelect={handleSortChange}
+            options={contentData.sortOptions}
+          />
 
-            <FormInput
-              label="Items Per Page"
-              type="select"
-              defaultValue={itemsPerPage || "10"}
-              inputId="sortBy"
-              onChangeSelect={handleItemsPerPageChange}
-              options={contentData.perPageOptions}
-            />
-          </div>
+          <FormInput
+            label="Items Per Page"
+            type="select"
+            defaultValue={itemsPerPage || "10"}
+            inputId="sortBy"
+            onChangeSelect={handleItemsPerPageChange}
+            options={contentData.perPageOptions}
+          />
         </div>
-      )}
+      </div>
     </div>
   );
 };
