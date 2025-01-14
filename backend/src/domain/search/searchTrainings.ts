@@ -77,7 +77,8 @@ const filterCerts = async (
   miles?: number,
   zipcode?: string,
   format?: string[],
-  languages?: string[]
+  languages?: string[],
+  services?: string[]
 ) => {
   let filteredResults = results;
   if (cip_code) {
@@ -163,7 +164,35 @@ const filterCerts = async (
       filteredResults = filteredResults.filter(result => {
         return languages.every(language => result.languages?.includes(language))
       })
-}
+  }
+
+  if (services && services.length > 0) {
+    filteredResults = (await Promise.all(filteredResults.map(async result => { 
+        const serviceChecks = await Promise.all(services.map(async service => {
+          switch (service) {
+            case 'wheelchair':
+                return typeof result.isWheelchairAccessible === 'function'
+                    ? await result.isWheelchairAccessible() 
+                    : result.isWheelchairAccessible;
+            case 'evening':
+                return result.hasEveningCourses;
+            case 'placement':
+                return typeof result.hasJobPlacementAssistance === 'function'
+                    ? await result.hasJobPlacementAssistance()
+                    : result.hasJobPlacementAssistance;
+            case 'childcare':
+                return typeof result.hasChildcareAssistance === 'function'
+                    ? await result.hasChildcareAssistance()
+                    : result.hasChildcareAssistance;
+            default:
+                return false; 
+        }
+        }))
+        return serviceChecks.every(Boolean) ? result : null
+      }))
+    ).filter(result => result !== null)
+  }
+
 
   return filteredResults;
 }
@@ -258,7 +287,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.miles,
       params.zipcode,
       params.format,
-      params.languages
+      params.languages,
+      params.services
     );
 
     // Apply sorting to the cached filtered results
