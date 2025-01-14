@@ -25,7 +25,7 @@ const categorizeTag = (key: string): string => {
   if (["days", "weeks", "months", "years"].includes(key))
     return "Time to complete";
   if (allLanguages.includes(formatKey(key))) return "Language";
-  if (key === "maxCost") return "Miles";
+  if (key === "maxCost") return "Cost";
   if (
     key === "isWheelchairAccessible" ||
     key === "hasChildcareAssistance" ||
