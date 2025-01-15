@@ -17,21 +17,30 @@ export const isValidEmail = async (email: string): Promise<boolean> => {
 };
 
 const validateDomainMX = (email: string): Promise<boolean> => {
-    let domain = email.split('@')[1];
-    const domainParts = domain.split('.')
-    if(domainParts.length > 2) {
-        domain = domainParts.slice(-2).join('.')
-    }
+    const domain = email.split('@')[1];
+    const domainParts = domain.split('.');
+    const rootDomain = domainParts.length > 2 ? domainParts.slice(-2).join('.') : domain; // If subdomain exists
+
     return new Promise((resolve) => {
+        // Trying full domain first
         dns.resolveMx(domain, (err, addresses) => {
-            if (err || addresses.length === 0) {
-                console.log(`Invalid domain or no MX records for: ${domain}`);
-                resolve(false);
-            } else {
+            if (!err && addresses.length > 0) {
                 console.log(`Valid MX records found for ${domain}:`, addresses);
-                resolve(true);
+                return resolve(true);
             }
+
+            // Fallback to root domain if the full domain fails
+            dns.resolveMx(rootDomain, (rootErr, rootAddresses) => {
+                if (!rootErr && rootAddresses.length > 0) {
+                    console.log(`Valid MX records found for ${rootDomain}:`, rootAddresses);
+                    resolve(true);
+                } else {
+                    console.log(`Invalid domain or no MX records for: ${domain}`);
+                    resolve(false);
+                }
+            });
         });
     });
 };
+
 

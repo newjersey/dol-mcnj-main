@@ -5,7 +5,7 @@ jest.mock('dns');
 
 const mockedDns = dns as jest.Mocked<typeof dns>;
 
-describe('isValidEmail Function', () => {
+describe('isValidEmail Function (Full and Root Domain Validation)', () => {
 
     afterEach(() => {
         jest.resetAllMocks();
@@ -16,7 +16,7 @@ describe('isValidEmail Function', () => {
         expect(result).toBe(false);
     });
 
-    test('should return true for a valid email with MX records (full domain)', async () => {
+    test('should return true for a valid email with MX records on the full domain', async () => {
         mockedDns.resolveMx.mockImplementation((domain, callback) => {
             if (domain === 'gmail.com') {
                 callback(null, [{ exchange: 'mail.google.com', priority: 10 }]);
@@ -29,14 +29,12 @@ describe('isValidEmail Function', () => {
         expect(result).toBe(true);
     });
 
-    test('should return true for a valid email with MX records (root domain fallback)', async () => {
+    test('should return true for a valid email where MX records exist on the root domain', async () => {
         mockedDns.resolveMx.mockImplementation((domain, callback) => {
             if (domain === 'subdomain.example.com') {
                 callback(null, []);
             } else if (domain === 'example.com') {
                 callback(null, [{ exchange: 'mail.example.com', priority: 20 }]);
-            } else {
-                callback(null, []);
             }
         });
 
@@ -44,7 +42,7 @@ describe('isValidEmail Function', () => {
         expect(result).toBe(true);
     });
 
-    test('should return false for a valid email but no MX records in either domain', async () => {
+    test('should return false when neither the full nor root domain has MX records', async () => {
         mockedDns.resolveMx.mockImplementation((domain, callback) => {
             callback(null, []);
         });
@@ -53,24 +51,9 @@ describe('isValidEmail Function', () => {
         expect(result).toBe(false);
     });
 
-    test('should return false for a domain with an error during MX lookup (full domain)', async () => {
-        mockedDns.resolveMx.mockImplementation((domain, callback) => {
-            if (domain === 'fakeexample.com') {
-                callback(new Error('Domain not found'), []);
-            } else {
-                callback(null, []);
-            }
-        });
-
-        const result = await isValidEmail('test@fakeexample.com');
-        expect(result).toBe(false);
-    });
-
-    test('should return false for a domain with an error during MX lookup (root domain fallback)', async () => {
+    test('should return false when an error occurs during full domain lookup and no MX records exist on root', async () => {
         mockedDns.resolveMx.mockImplementation((domain, callback) => {
             if (domain === 'subdomain.fakeexample.com') {
-                callback(new Error('Domain not found'), []);
-            } else if (domain === 'fakeexample.com') {
                 callback(new Error('Domain not found'), []);
             } else {
                 callback(null, []);
@@ -78,6 +61,15 @@ describe('isValidEmail Function', () => {
         });
 
         const result = await isValidEmail('test@subdomain.fakeexample.com');
+        expect(result).toBe(false);
+    });
+
+    test('should return false when an error occurs during both full and root domain lookups', async () => {
+        mockedDns.resolveMx.mockImplementation((domain, callback) => {
+            callback(new Error('Domain not found'), []);
+        });
+
+        const result = await isValidEmail('test@error.com');
         expect(result).toBe(false);
     });
 });
