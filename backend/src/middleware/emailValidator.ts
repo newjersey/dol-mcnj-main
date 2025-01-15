@@ -17,7 +17,11 @@ export const isValidEmail = async (email: string): Promise<boolean> => {
 };
 
 const validateDomainMX = (email: string): Promise<boolean> => {
-    const domain = email.split('@')[1];
+    let domain = email.split('@')[1];
+    const domainParts = domain.split('.')
+    if(domainParts.length > 2) {
+        domain = domainParts.slice(-2).join('.')
+    }
     return new Promise((resolve) => {
         dns.resolveMx(domain, (err, addresses) => {
             if (err || addresses.length === 0) {
