@@ -16,6 +16,7 @@
     "winston",
     "express-validator",
     "nodemailer",
-    "email-validator"
+    "email-validator",
+    "ibphonenumber-js"
   ]
 }
