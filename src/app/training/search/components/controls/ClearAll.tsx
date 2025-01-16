@@ -20,7 +20,7 @@ export const ClearAll = () => {
         type="button"
         defaultStyle="secondary"
         outlined
-        label="Clear Filters"
+        label="Clear filters"
         onClick={() => {
           window.location.href = `/training/search?q=${extractParam(
             "q",

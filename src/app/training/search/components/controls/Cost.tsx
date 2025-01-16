@@ -16,7 +16,7 @@ export const Cost = () => {
       <FormInput
         type="number"
         inputId="maxCost"
-        label="Max Cost"
+        label="Max cost"
         defaultValue={extractParam("maxCost", results) || undefined}
         onChange={(e) => {
           updateSearchParamsNavigate(

@@ -17,7 +17,7 @@ export const CipSoc = () => {
       <FormInput
         type="text"
         inputId="cip"
-        label="Filter by CIP Code"
+        label="Filter by CIP code"
         defaultValue={extractParam("cipCode", results) || undefined}
         placeholder="i.e. 011102"
         onChange={(e) => {
@@ -34,7 +34,7 @@ export const CipSoc = () => {
       <FormInput
         type="text"
         inputId="soc"
-        label="Filter by SOC Code"
+        label="Filter by SOC code"
         defaultValue={extractParam("socCode", results) || undefined}
         placeholder="i.e. 43-9041"
         onChange={(e) => {

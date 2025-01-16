@@ -132,7 +132,7 @@ export const ResultsHeader = () => {
             );
           }}
         >
-          Filters
+          {`${toggle ? "Hide" : "Show"} Filters`}
         </Button>
 
         <div className="sortBy">

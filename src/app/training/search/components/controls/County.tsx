@@ -17,7 +17,7 @@ export const County = () => {
       <FormInput
         type="select"
         inputId="county"
-        label="Filter by County"
+        label="Filter by county"
         defaultValue={extractParam("county", results) || undefined}
         options={[
           { key: "", value: "" },

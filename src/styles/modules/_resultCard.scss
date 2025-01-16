@@ -1,20 +1,21 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .resultCard {
-  border-radius: settings.$border-radius-5;
-  border: settings.$size-1 solid settings.$base-lighter;
-  padding: settings.$size-24;
+  border-radius: s.$border-radius-5;
+  border: s.$size-1 solid s.$base-lighter;
+  padding: s.$size-24;
   display: flex;
-  gap: settings.$size-14;
+  gap: s.$size-14;
   flex-direction: column;
-  color: settings.$ink;
-  transition-duration: settings.$transition-speed;
+  background-color: s.$white;
+  color: s.$ink;
+  transition-duration: s.$transition-speed;
   transition-timing-function: ease-in-out;
 
   &:hover {
-    @media screen and (min-width: (settings.$tablet)) {
-      box-shadow: settings.$shadow-3;
-      color: settings.$ink;
+    @media screen and (min-width: (s.$tablet)) {
+      box-shadow: s.$shadow-3;
+      color: s.$ink;
     }
   }
 
@@ -31,15 +32,15 @@
   .footing {
     display: flex;
 
-    @media screen and (min-width: (settings.$mobile-md)) {
+    @media screen and (min-width: (s.$mobile-md)) {
       align-items: center;
       justify-content: space-between;
     }
 
-    @media screen and (max-width: (settings.$mobile-md - 1)) {
+    @media screen and (max-width: (s.$mobile-md - 1)) {
       flex-direction: column;
       align-items: flex-start;
-      gap: settings.$size-16;
+      gap: s.$size-16;
     }
 
     .formField {
@@ -50,7 +51,7 @@
   }
 
   .footing {
-    margin-top: settings.$size-16;
+    margin-top: s.$size-16;
 
     &.noLabel {
       justify-content: flex-end;
@@ -60,17 +61,17 @@
   .heading {
     flex-direction: row;
     justify-content: space-between;
-    gap: settings.$size-14;
+    gap: s.$size-14;
 
     .heading-tag {
-      color: settings.$primary-vivid;
+      color: s.$primary-vivid;
       margin: 0;
     }
   }
 
   .footing {
     .usa-checkbox {
-      @media screen and (max-width: (settings.$tablet - 1)) {
+      @media screen and (max-width: (s.$tablet - 1)) {
         justify-content: flex-end;
         display: flex;
       }
@@ -79,11 +80,11 @@
 
   .heading {
     .heading-tag {
-      font-size: settings.$size-18;
+      font-size: s.$size-18;
     }
 
     > span {
-      font-size: settings.$size-20;
+      font-size: s.$size-20;
       font-weight: bold;
     }
   }
@@ -91,12 +92,12 @@
   .information {
     display: flex;
     flex-direction: column;
-    gap: settings.$size-8;
+    gap: s.$size-8;
 
     p {
       display: flex;
       align-items: center;
-      gap: settings.$size-8;
+      gap: s.$size-8;
 
       &.cipCode {
         display: block;
@@ -104,16 +105,16 @@
         b {
           display: block;
           width: 100%;
-          padding-left: settings.$size-24;
+          padding-left: s.$size-24;
         }
       }
 
       svg {
-        width: settings.$size-16;
+        width: s.$size-16;
       }
 
       span {
-        width: calc(100% - settings.$size-16);
+        width: calc(100% - s.$size-16);
       }
 
       &.description {

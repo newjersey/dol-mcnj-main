@@ -6,7 +6,6 @@
   .inner {
     display: flex;
     align-items: flex-start;
-    gap: s.$size-32;
     padding: 0 0 s.$size-48;
 
     @media screen and (max-width: (s.$tablet-md - 1)) {
@@ -127,7 +126,7 @@
 
       .sortBy {
         display: flex;
-        gap: s.$size-20;
+        gap: s.$size-16;
         width: 100%;
 
         @media screen and (min-width: (s.$tablet-md)) {
@@ -142,12 +141,6 @@
   }
 
   aside {
-    width: 100%;
-
-    @media screen and (min-width: (s.$tablet-md)) {
-      width: s.$size-400;
-    }
-
     input,
     select {
       max-width: none;
@@ -161,7 +154,8 @@
     width: 100%;
 
     @media screen and (min-width: (s.$tablet-md)) {
-      width: calc(100% - s.$size-400);
+      transition-duration: s.$transition-speed;
+      width: calc(100% - (s.$size-320));
 
       &.wide {
         width: 100%;
@@ -175,8 +169,6 @@
 
   .usa-button.primary.usa-button--outline.editSearch {
     justify-content: center;
-    outline-color: s.$disabled-dark;
-    color: s.$disabled-dark;
 
     @media screen and (max-width: (s.$tablet-md - 1)) {
       display: none !important;
