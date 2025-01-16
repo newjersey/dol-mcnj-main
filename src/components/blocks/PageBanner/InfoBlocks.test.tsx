@@ -40,7 +40,7 @@ describe("InfoBlocks Component", () => {
     const { getByText } = render(<InfoBlocks ctaLink={ctaLink} />);
     const ctaButton = getByText(ctaLink.copy as string);
     expect(ctaButton).toBeInTheDocument();
-    expect(ctaButton).toHaveAttribute("href", ctaLink.url);
+    expect(ctaButton.parentElement).toHaveAttribute("href", ctaLink.url);
   });
 
   it("renders with titleBlock prop", () => {
@@ -60,7 +60,7 @@ describe("InfoBlocks Component", () => {
         costBlock={costBlock}
         rateBlock={rateBlock}
         titleBlock={titleBlock}
-      />,
+      />
     );
     expect(getByText(ctaLink.copy as string)).toBeInTheDocument();
     expect(getAllByText(costBlock.copy)[0]).toBeInTheDocument();

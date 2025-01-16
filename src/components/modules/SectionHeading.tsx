@@ -1,7 +1,7 @@
 import { HeadingLevel, ThemeColors } from "@utils/types";
 import { Heading } from "./Heading";
 
-interface SectionHeadingProps {
+export interface SectionHeadingProps {
   className?: string;
   color?: ThemeColors;
   description?: string;

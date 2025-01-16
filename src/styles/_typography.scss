@@ -125,7 +125,6 @@ main {
     align-items: center;
     gap: settings.$size-2;
     position: relative;
-    text-decoration: none;
 
     &.boldLink {
       font-weight: 700;
@@ -179,4 +178,8 @@ main {
       font-size: settings.$size-18;
     }
   }
+}
+
+.mrkdwn {
+  line-height: 1.6;
 }

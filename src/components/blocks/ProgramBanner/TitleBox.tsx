@@ -20,7 +20,7 @@ export const TitleBox = (props: TitleBoxProps) => {
       >
         <div>
           <Heading level={1}>{props.name}</Heading>
-          <p>{props.provider}</p>
+          <p className="subHeading">{props.provider}</p>
         </div>
         <SaveControls id={props.id} printHandler={props.printHandler} />
       </Flex>

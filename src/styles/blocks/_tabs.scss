@@ -7,10 +7,6 @@
     margin-top: 2.5rem;
   }
 
-  li {
-    margin: 0;
-  }
-
   .container {
     display: flex;
     align-items: flex-start;
@@ -160,5 +156,9 @@
         }
       }
     }
+  }
+
+  .usa-sidenav__item {
+    margin: 0;
   }
 }

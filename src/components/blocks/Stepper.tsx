@@ -5,9 +5,6 @@ import { Flex } from "@components/utility/Flex";
 interface StepperProps {
   className?: string;
   steps: {
-    sys: {
-      id: string;
-    };
     heading?: string;
     icon?: string;
     description?: string;
@@ -31,9 +28,14 @@ export const Stepper = ({
       }`}
     >
       {steps?.map((props) => {
-        const { heading, icon, description, sys } = props;
+        const { heading, icon, description } = props;
         return (
-          <Flex direction="column" gap="micro" className="step" key={sys.id}>
+          <Flex
+            direction="column"
+            gap="micro"
+            className="step"
+            key={description}
+          >
             <IconSelector name={icon} size={32} />
             {heading && <span className="title">{heading}</span>}
             {description && <Markdown content={description} />}

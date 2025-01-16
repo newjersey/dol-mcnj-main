@@ -7,10 +7,14 @@ import { slugify } from "@utils/slugify";
 import { ContentfulRichText } from "@components/modules/ContentfulRichText";
 import { Spinner } from "@components/modules/Spinner";
 import { colors } from "@utils/settings";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import MarkdownIt from "markdown-it";
 
 interface TabContentProps {
   items?: TabItemProps[];
 }
+
+const mdParser = new MarkdownIt();
 
 const scrollToHeading = (heading: string) => {
   const element = document.getElementById(slugify(heading));
@@ -43,7 +47,7 @@ export const Tabs = ({ items }: TabContentProps) => {
 
       if (anchor) {
         const currentTab = items.find(
-          (item) => slugify(item.heading) === anchor,
+          (item) => slugify(item.heading) === anchor
         );
         setActiveTab(currentTab);
       } else {
@@ -53,12 +57,20 @@ export const Tabs = ({ items }: TabContentProps) => {
   }, [items, anchor]);
 
   useEffect(() => {
-    if (activeTab) {
-      setAllHeadings(
-        activeTab.copy.json.content
-          .filter((obj) => obj.nodeType.match(/^heading-/))
-          .map((node) => (node.content[0] as Text).value),
-      );
+    if (activeTab?.copy && typeof activeTab.copy === "string") {
+      const tokens = mdParser.parse(activeTab.copy, {}); // Parse the Markdown string
+
+      const headings = tokens
+        .filter((token) => token.type === "heading_open") // Find all heading tokens
+        .map((token) => {
+          const nextToken = tokens[tokens.indexOf(token) + 1]; // Get the next inline token
+          return nextToken?.content || ""; // Extract the text content
+        })
+        .filter((heading) => heading); // Filter out empty headings
+
+      setAllHeadings(headings); // Set the headings state
+    } else {
+      setAllHeadings([]); // Fallback for non-Markdown content
     }
   }, [activeTab]);
 
@@ -103,7 +115,7 @@ export const Tabs = ({ items }: TabContentProps) => {
             <ul className="usa-sidenav">
               {items?.map((item) => {
                 return (
-                  <li className="usa-sidenav__item" key={item.sys.id}>
+                  <li className="usa-sidenav__item" key={item.itemId}>
                     <a
                       href={`#${slugify(item.heading)}`}
                       onClick={(e) => {
@@ -114,14 +126,14 @@ export const Tabs = ({ items }: TabContentProps) => {
                         window.scrollTo(0, 0);
                       }}
                       className={
-                        activeTab?.sys.id === item.sys.id ? "usa-current" : ""
+                        activeTab?.itemId === item.itemId ? "usa-current" : ""
                       }
                     >
                       {item.heading}
                     </a>
 
                     {allHeadings.length > 0 &&
-                      activeTab?.sys.id === item.sys.id && (
+                      activeTab?.itemId === item.itemId && (
                         <ul className="usa-sidenav__sublist">
                           {allHeadings.map((heading) => (
                             <li className="usa-sidenav__item" key={heading}>
@@ -150,10 +162,18 @@ export const Tabs = ({ items }: TabContentProps) => {
           {activeTab ? (
             <>
               <h2>{activeTab.heading}</h2>
-              <ContentfulRichText
-                document={activeTab.copy.json}
-                assets={activeTab.copy.links}
-              />
+              {typeof activeTab.copy === "string" ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: parseMarkdownToHTML(activeTab.copy),
+                  }}
+                />
+              ) : (
+                <ContentfulRichText
+                  document={activeTab.copy.json}
+                  assets={activeTab.copy.links}
+                />
+              )}
             </>
           ) : (
             <div

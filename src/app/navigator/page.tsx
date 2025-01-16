@@ -4,37 +4,16 @@ import { River } from "@components/blocks/River";
 import { Stepper } from "@components/blocks/Stepper";
 import { IconCard } from "@components/modules/IconCard";
 import { SectionHeading } from "@components/modules/SectionHeading";
-import { client } from "@utils/client";
-import { createButtonObject } from "@utils/createButtonObject";
-
+import { NAVIGATOR_PAGE_DATA as pageData } from "@data/pages/navigator";
 import globalOgImage from "@images/globalOgImage.jpeg";
-import {
-  ButtonProps,
-  CareerNavigatorProps,
-  LinkProps,
-  ThemeColors,
-} from "@utils/types";
-import { CAREER_NAVIGATOR_QUERY } from "queries/careerNavigator";
-
-async function getData() {
-  const { page } = await client({
-    query: CAREER_NAVIGATOR_QUERY,
-  });
-
-  return {
-    page,
-  };
-}
 
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
-  const { page } = (await getData()) as CareerNavigatorProps;
-
   return {
-    title: `${page.title} | ${process.env.REACT_APP_SITE_NAME}`,
-    description: page.pageDescription,
-    keywords: page.keywords,
+    title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
+    description: pageData.seo.pageDescription,
+    keywords: pageData.seo.keywords,
     icons: {
       icon: "/favicon.ico",
     },
@@ -45,120 +24,43 @@ export async function generateMetadata({}) {
 }
 
 export default async function CareerNavigatorPage() {
-  const { page } = (await getData()) as CareerNavigatorProps;
-
-  const interrupterLinksConverter = (links: LinkProps[]): ButtonProps[] => {
-    return links.map((link, index: number): ButtonProps => {
-      const theme: ThemeColors =
-        index % 4 === 0
-          ? "blue"
-          : index % 4 === 1
-            ? "orange"
-            : index % 4 === 2
-              ? "navy"
-              : "green";
-      return createButtonObject(
-        {
-          ...link,
-        },
-        {
-          highlight: theme,
-        },
-      );
-    });
-  };
-
   return (
     <div className="page careerNavigator">
-      <PageBanner {...page.pageBanner} />
+      <PageBanner {...pageData.banner} />
       <section className="opportunities">
         <div className="container">
-          {page.opportunitiesHeading && (
-            <SectionHeading heading={page.opportunitiesHeading} />
-          )}
+          <SectionHeading {...pageData.opportunities.sectionHeading} />
           <div className="inner">
-            {page.opportunityCards.items.map((card, index: number) => {
-              const theme =
-                index % 3 === 0 ? "blue" : index % 3 === 1 ? "purple" : "green";
-              const isExternal = card.url?.includes("http");
-              return (
-                card.sys && (
-                  <IconCard
-                    key={card.sys.id}
-                    fill
-                    message={card.description}
-                    indicator={isExternal ? "ArrowRight" : undefined}
-                    theme={theme}
-                    {...card}
-                  />
-                )
-              );
+            {pageData.opportunities.cards.map((card) => {
+              return <IconCard key={card.sys.id} {...card} />;
             })}
           </div>
         </div>
       </section>
       <section className="howTo">
         <div className="container">
-          {page.stepsHeading && <SectionHeading heading={page.stepsHeading} />}
+          <SectionHeading {...pageData.howTo.sectionHeading} />
         </div>
-        {page.stepsCollection.items && (
-          <div className="container ">
-            <Stepper theme="purple" steps={page.stepsCollection.items} />
-          </div>
-        )}
+        <div className="container ">
+          <Stepper theme="purple" steps={pageData.howTo.cards} />
+        </div>
       </section>
-      {page.midPageCtaLinks?.items && (
-        <CtaBanner
-          headingLevel={2}
-          noIndicator
-          inlineButtons
-          heading={page.midPageCtaHeading}
-          items={page.midPageCtaLinks?.items}
-        />
-      )}
-      {page.interrupterLinks?.items && page.interrupterHeading && (
-        <CtaBanner
-          fullColor
-          theme="purple"
-          headingLevel={3}
-          heading={page.interrupterHeading}
-          customLinks={interrupterLinksConverter(page.interrupterLinks?.items)}
-        />
-      )}
+      <CtaBanner {...pageData.midPageCta} />
+      <CtaBanner {...pageData.ctaBanner} />
       <section className="info">
         <div className="container">
-          {page.infoHeading && (
-            <SectionHeading headingLevel={3} heading={page.infoHeading} />
-          )}
+          <SectionHeading {...pageData.info.sectionHeading} />
         </div>
         <div className="container narrow">
           <div className="inner">
-            {page.infoCards?.items.map((card, index: number) => {
-              const theme: ThemeColors =
-                index % 3 === 0 ? "blue" : index % 3 === 1 ? "green" : "purple";
-              return (
-                <IconCard
-                  {...card}
-                  key={card.sys?.id}
-                  theme={theme}
-                  icon={card.icon}
-                  systemIcon={card.sectionIcon}
-                  copy={card.heading}
-                  message={card.description}
-                />
-              );
+            {pageData.info.cards.map((card) => {
+              return <IconCard key={card.sys?.id} {...card} />;
             })}
           </div>
         </div>
       </section>
-      {page.river && page.river.items.length > 0 && (
-        <River headingLevel={4} items={page.river.items} />
-      )}
-      <CtaBanner
-        inlineButtons
-        heading={page.footerCtaHeading}
-        items={[page.footerCtaLink]}
-      />
+      <River {...pageData.river} />
+      <CtaBanner {...pageData.footerCta} />
     </div>
   );
 }
