@@ -46,6 +46,7 @@ import { formatCip } from "../utils/formatCip";
 import { ProviderServices } from "./ProviderServices";
 import { SocDrawerContent } from "../components/SocDrawerContent";
 import parsePhoneNumberFromString from "libphonenumber-js";
+import { Skeleton } from "@material-ui/lab";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -124,7 +125,132 @@ export const TrainingPage = (props: Props): ReactElement => {
     content: () => componentRef.current,
   });
 
-  if (loading) return <div>Loading...</div>;
+  const Crumbs = ({ name }: { name: string }) => (
+    <section className="crumb-container">
+      <div className="container">
+        <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+          <Icon>keyboard_backspace</Icon>
+          <ol className="usa-breadcrumb__list">
+            <li className="usa-breadcrumb__list-item">
+              <a className="usa-breadcrumb__link" href="/">
+                Home
+              </a>
+            </li>
+            <li className="usa-breadcrumb__list-item">
+              <a className="usa-breadcrumb__link" href="/training">
+                Training Explorer
+              </a>
+            </li>
+            <li className="usa-breadcrumb__list-item">
+              <a className="usa-breadcrumb__link" href="/training/search">
+                Search
+              </a>
+            </li>
+            <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+              <span>{name}</span>
+            </li>
+          </ol>
+        </nav>
+        <button
+          aria-label="Open search"
+          className="search-toggle mobile-only"
+          onClick={() => setSearchOpen(!searchOpen)}
+        >
+          <span className="sr-only">open search</span>
+          <MagnifyingGlass weight="bold" size={32} />
+        </button>
+        <div
+          id="searchOverlay"
+          className={`form-overlay mobile-only${searchOpen ? " open" : ""}`}
+        />
+        <form
+          id="searchForm"
+          className={`usa-search usa-search--small${searchOpen ? " open" : ""}`}
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            navigate(`/training/search?q=${form.search.value}`);
+          }}
+        >
+          <label className="mobile-only">Search for training</label>
+          <input className="usa-input" type="search" placeholder="search" name="search" />
+          <button className="usa-button" type="submit" aria-label="Search">
+            <MagnifyingGlass weight="bold" />
+          </button>
+          <a
+            className="close-button mobile-only"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              setSearchOpen(false);
+            }}
+          >
+            <X weight="bold" size={24} />
+          </a>
+        </form>
+      </div>
+    </section>
+  );
+
+  const SkelCard = () => (
+    <div className="mtm grouping">
+      <div className="bg-light-green pvs bar">
+        <Skeleton width="100%" height={35} />
+        <Skeleton width="50%" />
+      </div>
+      <div className="pts group-padding border-light-green">
+        <Skeleton width="100%" />
+        <Skeleton width="100%" />
+        <Skeleton width="50%" />
+      </div>
+    </div>
+  );
+
+  if (loading)
+    return (
+      <div ref={componentRef} className="training-detail">
+        <Layout client={props.client}>
+          <Crumbs name="...Loading" />
+          <section
+            className="title-box"
+            style={{
+              height: "93px",
+            }}
+          >
+            <div className="container">
+              <div className="heading-box" style={{ width: "100%" }}>
+                <Skeleton width="50%" height={35} />
+                <Skeleton width="30%" height={19} />
+              </div>
+            </div>
+          </section>
+          <section className="container plus main-section">
+            <div className="row pbm group-wrapper">
+              <div className="col-md-8">
+                <div className="container-fluid">
+                  <div className="row">
+                    <SkelCard />
+                    <SkelCard />
+                    <SkelCard />
+                    <SkelCard />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="container-fluid mbm">
+                  <div className="row">
+                    <SkelCard />
+                    <SkelCard />
+                    <SkelCard />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </Layout>
+      </div>
+    );
   // Render error pages only if loading is complete
   if (error === Error.NOT_FOUND) return <NotFoundPage client={props.client} />;
   if (error) return <SomethingWentWrongPage client={props.client} />;
@@ -413,7 +539,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     if (training.provider?.address?.length) {
       const address = training.provider.address.find(
-        (addr) => addr?.targetContactPoints?.length && addr.targetContactPoints.length > 0
+        (addr) => addr?.targetContactPoints?.length && addr.targetContactPoints.length > 0,
       );
 
       if (address && address.targetContactPoints) {
@@ -468,14 +594,14 @@ export const TrainingPage = (props: Props): ReactElement => {
       description: training.description || "",
       provider: training.provider
         ? {
-          "@type": "Organization",
-          name: training.provider.name || "Unknown Provider",
-          sameAs: training.provider.url || "",
-        }
+            "@type": "Organization",
+            name: training.provider.name || "Unknown Provider",
+            sameAs: training.provider.url || "",
+          }
         : {
-          "@type": "Organization",
-          name: "Provider information not available",
-        },
+            "@type": "Organization",
+            name: "Provider information not available",
+          },
       audience: audience,
       identifier: {
         "@type": "PropertyValue",
@@ -524,71 +650,7 @@ export const TrainingPage = (props: Props): ReactElement => {
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
         </Helmet>
-        <section className="crumb-container">
-          <div className="container">
-            <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-              <Icon>keyboard_backspace</Icon>
-              <ol className="usa-breadcrumb__list">
-                <li className="usa-breadcrumb__list-item">
-                  <a className="usa-breadcrumb__link" href="/">
-                    Home
-                  </a>
-                </li>
-                <li className="usa-breadcrumb__list-item">
-                  <a className="usa-breadcrumb__link" href="/training">
-                    Training Explorer
-                  </a>
-                </li>
-                <li className="usa-breadcrumb__list-item">
-                  <a className="usa-breadcrumb__link" href="/training/search">
-                    Search
-                  </a>
-                </li>
-                <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                  <span>{training.name}</span>
-                </li>
-              </ol>
-            </nav>
-            <button
-              aria-label="Open search"
-              className="search-toggle mobile-only"
-              onClick={() => setSearchOpen(!searchOpen)}
-            >
-              <span className="sr-only">open search</span>
-              <MagnifyingGlass weight="bold" size={32} />
-            </button>
-            <div
-              id="searchOverlay"
-              className={`form-overlay mobile-only${searchOpen ? " open" : ""}`}
-            />
-            <form
-              id="searchForm"
-              className={`usa-search usa-search--small${searchOpen ? " open" : ""}`}
-              role="search"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.target as HTMLFormElement;
-                navigate(`/training/search?q=${form.search.value}`);
-              }}
-            >
-              <label className="mobile-only">Search for training</label>
-              <input className="usa-input" type="search" placeholder="search" name="search" />
-              <button className="usa-button" type="submit" aria-label="Search">
-                <MagnifyingGlass weight="bold" />
-              </button>
-              <a
-                className="close-button mobile-only"
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSearchOpen(false);
-                }}
-              >
-                <X weight="bold" size={24} />
-              </a>
-            </form>
-          </div>
-        </section>
+        <Crumbs name={training.name} />
 
         <section className="title-box">
           <div className="container">
@@ -690,31 +752,33 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.tuitionCostLabel")}</span>
                           <span className="pull-right">
-                           {training.tuitionCost !== null && training.tuitionCost !== undefined
-                             ? formatMoney(training.tuitionCost)
-                             : t("Global.noDataAvailableText")}
+                            {training.tuitionCost !== null && training.tuitionCost !== undefined
+                              ? formatMoney(training.tuitionCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div className="cost-item">
                           <span>{t("TrainingPage.feesCostLabel")}</span>
                           <span className="pull-right">
-                           {training.feesCost !== null && training.feesCost !== undefined
-                             ? formatMoney(training.feesCost)
-                             : t("Global.noDataAvailableText")}
+                            {training.feesCost !== null && training.feesCost !== undefined
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div className="cost-item">
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
-                           {training.booksMaterialsCost !== null && training.booksMaterialsCost !== undefined
-                             ? formatMoney(training.booksMaterialsCost)
-                             : t("Global.noDataAvailableText")}
+                            {training.booksMaterialsCost !== null &&
+                            training.booksMaterialsCost !== undefined
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
                         <div className="cost-item">
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
-                            {training.suppliesToolsCost !== null && training.suppliesToolsCost !== undefined
+                            {training.suppliesToolsCost !== null &&
+                            training.suppliesToolsCost !== undefined
                               ? formatMoney(training.suppliesToolsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -834,9 +898,9 @@ export const TrainingPage = (props: Props): ReactElement => {
                       <p>
                         <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                         <span className="text-l pull-right weight-500">
-                            {training.totalCost !== null && training.totalCost !== undefined
-                              ? formatMoney(training.totalCost)
-                              : t("Global.noDataAvailableText")}
+                          {training.totalCost !== null && training.totalCost !== undefined
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
                         </span>
                       </p>
                       <div className="grey-line" />
@@ -860,7 +924,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
-                            {training.booksMaterialsCost !== null && training.booksMaterialsCost !== undefined
+                            {training.booksMaterialsCost !== null &&
+                            training.booksMaterialsCost !== undefined
                               ? formatMoney(training.booksMaterialsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -868,7 +933,8 @@ export const TrainingPage = (props: Props): ReactElement => {
                         <div className="cost-item">
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
-                            {training.suppliesToolsCost !== null && training.suppliesToolsCost !== undefined
+                            {training.suppliesToolsCost !== null &&
+                            training.suppliesToolsCost !== undefined
                               ? formatMoney(training.suppliesToolsCost)
                               : t("Global.noDataAvailableText")}
                           </span>
@@ -903,20 +969,20 @@ export const TrainingPage = (props: Props): ReactElement => {
                           {getAvailableAtAddress() && (
                             <div className="fact-item">
                               <span className="label">
-                                <MapPin size={18} weight="fill"/>
+                                <MapPin size={18} weight="fill" />
                               </span>
                               {getAvailableAtAddress()}
                             </div>
                           )}
                           <div className="fact-item">
                             <span className="label">
-                              <User size={18} weight="bold"/>
+                              <User size={18} weight="bold" />
                             </span>
                             {getProgramContact()}
                           </div>
                           <div className="fact-item">
                             <span className="label">
-                              <LinkSimple size={18} weight="bold"/>
+                              <LinkSimple size={18} weight="bold" />
                             </span>
                             {getProviderUrl()}
                           </div>
@@ -927,7 +993,7 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <ProviderServices training={training}/>
+                  <ProviderServices training={training} />
                   <div className="mobile-only">{fundingContent}</div>
                   <Button
                     variant="custom"
