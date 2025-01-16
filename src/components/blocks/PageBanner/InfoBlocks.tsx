@@ -65,6 +65,7 @@ const InfoBlocks = ({
       {costBlock && (
         <DrawerButton
           className="cost"
+          drawerHeadingLevel={2}
           copy={costBlock.copy}
           number={costBlock.number}
           definition={costBlock.definition}
@@ -73,6 +74,7 @@ const InfoBlocks = ({
       {rateBlock && (
         <DrawerButton
           className="rate"
+          drawerHeadingLevel={2}
           copy={rateBlock.copy}
           number={rateBlock.number}
           definition={rateBlock.definition}

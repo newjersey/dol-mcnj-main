@@ -104,7 +104,7 @@ describe("IntroBlocks Component", () => {
     // Check the button for the second section
     button = getByRole("link", { name: /Learn More/i });
     expect(button).toHaveAttribute("href", "/section2");
-    expect(button).toHaveClass("usa-button primary");
+    expect(button).toHaveClass("usa-button tertiary");
   });
 
   it("handles absence of sections correctly", () => {

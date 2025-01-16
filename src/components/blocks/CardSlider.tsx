@@ -25,7 +25,7 @@ const CardSlider = ({
 
               return (
                 <IconCard
-                  key={card.sys.id}
+                  key={card.copy + index}
                   {...card}
                   icon={sectionId ? undefined : card.icon}
                   theme={theme}

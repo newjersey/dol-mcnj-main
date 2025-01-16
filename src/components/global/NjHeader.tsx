@@ -54,7 +54,7 @@ const NjHeader = ({ menu }: NjHeaderProps) => {
           </a>
           <ul>
             {menu.topLevelItemsCollection.items?.map((item) => (
-              <li key={item.sys.id} className={item.classes || undefined}>
+              <li key={item.itemId} className={item.classes || undefined}>
                 <a href={item.url}>
                   <HasIcon string={item.copy} />
                 </a>

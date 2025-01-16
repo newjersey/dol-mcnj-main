@@ -18,6 +18,10 @@ async function getData(slug: string) {
     },
   });
 
+  if (slug === "audience" || page.items.length === 0) {
+    notFound();
+  }
+
   const allTags = [...tags.items].map((tag) => tag.title);
 
   const listingItems = (await client({
@@ -60,10 +64,6 @@ export const generateMetadata = async ({
   const { slug } = await params;
 
   const data = (await getData(slug)) as ResourceCategoryPageProps;
-
-  if (data.page.items.length === 0) {
-    notFound();
-  }
 
   return {
     title: `${data.page.items[0].title} | Support Resources | ${process.env.REACT_APP_SITE_NAME}`,

@@ -6,34 +6,37 @@ import { LinkObject } from "@components/modules/LinkObject";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { ButtonProps } from "@utils/types";
 
-const stepContent = [
-  "Search by occupation, provider, and more",
-  "Filter and compare results",
-  "Visit training provider’s website to enroll",
-];
+export interface TrainingExplorerHeadingProps {
+  heading: string;
+  subheading?: string;
+  message?: string;
+  steps: string[];
+  breadcrumbs: { url: string; copy: string }[];
+  notReady: {
+    copy: string;
+    buttons: ButtonProps[];
+  };
+  learnMore: {
+    url: string;
+    copy: string;
+  };
+}
 
 export const TrainingExplorerHeading = ({
   heading,
   subheading,
   message,
-}: {
-  heading: string;
-  subheading?: string;
-  message?: string;
-}) => {
+  steps,
+  breadcrumbs,
+  notReady,
+  learnMore,
+}: TrainingExplorerHeadingProps) => {
   return (
     <section className="training-explorer-heading">
       <div className="container">
-        <Breadcrumbs
-          crumbs={[
-            {
-              url: "/",
-              copy: "Home",
-            },
-          ]}
-          pageTitle={heading}
-        />
+        <Breadcrumbs crumbs={breadcrumbs} pageTitle={heading} />
         <Heading level={1} className="main">
           {heading}
         </Heading>
@@ -46,20 +49,19 @@ export const TrainingExplorerHeading = ({
             }}
           />
         )}
-        <Steps items={stepContent} className="desktop-only" />
+        <Steps items={steps} className="desktop-only" />
         <TrainingSearch />
-        <Steps items={stepContent} className="mobile-only" />
+        <Steps items={steps} className="mobile-only" />
+
         <div className="learn-more">
           <p>
-            Trainings and programs on the Training Explorer are accredited.{" "}
-            <LinkObject url="/faq#etpl-program-general-information">
-              Learn more
-            </LinkObject>
+            {learnMore.copy}{" "}
+            <LinkObject url={learnMore.url}>Learn more</LinkObject>
           </p>
         </div>
         <div className="cta">
           <p className="heading-tag text-lrg">
-            <strong>Not ready to search for training yet?</strong>
+            <strong>{notReady.copy}</strong>
           </p>
           <Flex
             columnBreak="sm"
@@ -67,23 +69,9 @@ export const TrainingExplorerHeading = ({
             justifyContent="center"
             gap="xs"
           >
-            <Button
-              outlined
-              type="link"
-              link="https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx"
-              iconSuffix="ArrowSquareOut"
-            >
-              Search for jobs
-            </Button>
-            <Button
-              outlined
-              defaultStyle="secondary"
-              type="link"
-              link="/support-resources/tuition-assistance"
-              iconSuffix="ArrowRight"
-            >
-              Find out about tuition resources
-            </Button>
+            {notReady.buttons.map((button) => (
+              <Button {...button} key={button.label} />
+            ))}
           </Flex>
         </div>
       </div>

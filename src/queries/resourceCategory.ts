@@ -1,5 +1,3 @@
-import { navItems } from "./commonQueries";
-
 export const RESOURCE_CATEGORY_QUERY = `query ResourceCategory($slug: String!) {
   page: resourceCategoryCollection(where: {slug: $slug}, limit: 1) {
     items {

@@ -10,7 +10,7 @@ import { Heading } from "@components/modules/Heading";
 import { Button } from "@components/modules/Button";
 import { createButtonObject } from "@utils/createButtonObject";
 
-interface CtaBannerProps {
+export interface CtaBannerProps {
   className?: string;
   contained?: boolean;
   fullColor?: boolean;

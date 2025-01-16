@@ -67,13 +67,13 @@ export const NavMenu = ({
         )}
 
         <ul className="unstyled">
-          {menu?.topLevelItemsCollection.items.map((item) => {
+          {menu?.topLevelItemsCollection.items.map((item, index) => {
             const hasSub =
               item.subItemsCollection &&
               item.subItemsCollection.items.length > 0;
             return (
               <li
-                key={item.sys.id}
+                key={item.copy + index}
                 className={`nav-item${item.classes ? ` ${item.classes}` : ""}${
                   hasSub ? " has-sub" : " no-sub"
                 }`}
@@ -82,9 +82,9 @@ export const NavMenu = ({
                   <NavSubMenu
                     icons={icons}
                     {...item}
-                    open={activeSubMenu?.sys.id === item.sys.id}
+                    open={activeSubMenu?.itemId === item.itemId}
                     onClick={() => {
-                      if (activeSubMenu?.sys.id === item.sys.id) {
+                      if (activeSubMenu?.itemId === item.itemId) {
                         setActiveSubMenu(undefined);
                       } else {
                         setActiveSubMenu(item);
@@ -105,7 +105,7 @@ export const NavMenu = ({
                       item.subItemsCollection.items.length > 0 && (
                         <ul className="unstyled">
                           {item.subItemsCollection.items.map((subItem) => (
-                            <li key={subItem.sys.id}>
+                            <li key={subItem.itemId}>
                               <LinkObject
                                 noIndicator={!icons}
                                 className={

@@ -83,9 +83,7 @@ export interface CardSliderProps {
 //////////////////////////////////////////////////////
 
 export interface NavMenuProps {
-  sys: {
-    id: string;
-  };
+  itemId: string;
   title: string;
   heading?: string;
   url?: string;
@@ -238,9 +236,7 @@ export interface OccupationListItemProps {
 //////////////////////////////////////////////////////
 
 export interface NavItemProps {
-  sys: {
-    id: string;
-  };
+  itemId: string;
   copy: string;
   screenReaderOnlyCopy?: string;
   classes?: string;
@@ -264,6 +260,7 @@ export interface ButtonProps {
   loading?: boolean;
   customBgColor?: string;
   customBorderColor?: string;
+  ariaLabel?: string;
   customTextColor?: string;
   style?: CSSProperties;
   defaultStyle?:
@@ -313,9 +310,6 @@ export interface AssetBlock {
 //////////////////////////////////////////////////////
 
 export interface RiverItemProps {
-  sys: {
-    id: string;
-  };
   heading: string;
   copy: string;
   image: ImageProps;
@@ -363,11 +357,9 @@ export interface ResourceTagProps {
 //////////////////////////////////////////////////////
 
 export interface TabItemProps {
-  sys: {
-    id: string;
-  };
+  itemId: string;
   heading: string;
-  copy: ContentfulRichTextProps;
+  copy: any;
 }
 
 //////////////////////////////////////////////////////
@@ -399,7 +391,7 @@ export interface FaqItem {
     id: string;
   };
   question: string;
-  answer: ContentfulRichTextProps;
+  answer: any;
   category: string;
   topic: string;
 }

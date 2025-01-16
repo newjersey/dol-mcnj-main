@@ -68,10 +68,7 @@ export default async function PathwayPage({
 
   const thisIndustry = industryCollection.items[0];
 
-  if (
-    process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" ||
-    !thisIndustry
-  ) {
+  if (!thisIndustry) {
     return notFound();
   }
 
