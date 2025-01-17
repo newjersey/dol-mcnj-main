@@ -1,18 +1,18 @@
 describe("Contact Us Page", () => {
   beforeEach(() => {
     cy.visit("/contact");
-  })
+  });
 
   it("is accessible", () => {
     cy.injectAxe();
     cy.checkA11y();
-  })
+  });
 
   it("should show the contact form", () => {
     cy.contains("Contact Form").should("exist");
     cy.contains("Success!").should("not.exist");
     cy.contains("Submission Error").should("not.exist");
-  })
+  });
 
   it("should not allow form submission with empty fields", () => {
     cy.get("button[type=submit]").click();
@@ -28,11 +28,11 @@ describe("Contact Us Page", () => {
     cy.contains("Please enter an email").should("not.exist");
     cy.contains("Please enter a valid email").should("exist");
 
-    cy.get("input[name=email]").clear()
+    cy.get("input[name=email]").clear();
     cy.get("input[name=email]").type("thisIsAnEmail@gmail.com");
     cy.contains("Please enter a valid email").should("not.exist");
 
-    const randomOption = Math.floor(Math.random() * 6)+1;
+    const randomOption = Math.floor(Math.random() * 6) + 1;
 
     cy.get(`[data-testid="topic-${randomOption}"]`).click();
     cy.contains("Please select an option").should("not.exist");
@@ -44,12 +44,12 @@ describe("Contact Us Page", () => {
   it("should show success message when form is submitted", () => {
     cy.intercept("POST", "/api/contact", {
       statusCode: 200,
-      body: { message: "Success!" }
+      body: { message: "Success!" },
     });
 
     cy.get("input[name=email]").type("email@gmail.com");
 
-    const randomOption = Math.floor(Math.random() * 6)+1;
+    const randomOption = Math.floor(Math.random() * 6) + 1;
 
     cy.get(`[data-testid="topic-${randomOption}"]`).click();
 
@@ -71,12 +71,12 @@ describe("Contact Us Page", () => {
   it("should show error message when form submission fails", () => {
     cy.intercept("POST", "/api/contact", {
       statusCode: 500,
-      body: { message: "Submission Error" }
+      body: { message: "Submission Error" },
     });
 
     cy.get("input[name=email]").type("email@gmail.com");
 
-    const randomOption = Math.floor(Math.random() * 6)+1;
+    const randomOption = Math.floor(Math.random() * 6) + 1;
 
     cy.get(`[data-testid="topic-${randomOption}"]`).click();
 
@@ -94,4 +94,4 @@ describe("Contact Us Page", () => {
     cy.contains("Success!").should("not.exist");
     cy.contains("Submission Error").should("not.exist");
   });
-})
+});

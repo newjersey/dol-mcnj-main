@@ -9,9 +9,7 @@ describe("UnstyledButton", () => {
   });
 
   it("should render with custom props", () => {
-    render(
-      <UnstyledButton className="test-class">UnstyledButton</UnstyledButton>,
-    );
+    render(<UnstyledButton className="test-class">UnstyledButton</UnstyledButton>);
 
     expect(screen.getByText("UnstyledButton")).toHaveClass("test-class");
   });

@@ -3,10 +3,11 @@ import { Icon } from "@material-ui/core";
 import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png";
 
 export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
-
   return (
     <>
-      <a className="skip-nav" href="#main">Skip to main content</a>
+      <a className="skip-nav" href="#main">
+        Skip to main content
+      </a>
       <div className="global-header">
         <div className="container">
           <div className="logo">
@@ -29,14 +30,13 @@ export const GlobalHeader = ({ items }: { items?: NavMenuData }) => {
                 const newString = item.copy.replace("[envelope]", "").replace("[search]", "");
                 const iconString = isEnvelope ? "mail" : isSearch ? "search" : null;
 
-
                 return (
                   <li key={item.sys.id} className={item.classes || undefined}>
                     <a href={item.url} className={iconString ? "has-icon" : undefined}>
                       {newString} {iconString && <Icon>{iconString}</Icon>}
                     </a>
                   </li>
-                )
+                );
               })}
             </ul>
           </nav>

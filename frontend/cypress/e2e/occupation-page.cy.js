@@ -1,8 +1,9 @@
 // fix leak
 describe("Occupation Page", () => {
-
   it("displays occupation details from ONET", () => {
-    cy.intercept("api/occupations/17-2051", { fixture: "civil-engineer-occupation.json" }).as("getOccupation");
+    cy.intercept("api/occupations/17-2051", { fixture: "civil-engineer-occupation.json" }).as(
+      "getOccupation",
+    );
 
     cy.visit("/occupation/17-2051");
 
@@ -26,7 +27,7 @@ describe("Occupation Page", () => {
       ).should("exist");
 
       // should display 5 tasks
-      cy.get("[data-testid=occupation-details] li:visible").should('have.length', 5)
+      cy.get("[data-testid=occupation-details] li:visible").should("have.length", 5);
 
       // tasks
       cy.contains(
@@ -48,7 +49,7 @@ describe("Occupation Page", () => {
       cy.contains("See More").click();
 
       // should display all tasks
-      cy.get("[data-testid=occupation-details] li:visible").should('have.length', 15)
+      cy.get("[data-testid=occupation-details] li:visible").should("have.length", 15);
 
       // more tasks
       cy.contains(
@@ -64,12 +65,11 @@ describe("Occupation Page", () => {
         "Estimate quantities and cost of materials, equipment, or labor to determine project feasibility.",
       ).should("exist");
       cy.contains(
-        "Prepare or present public reports on topics such as bid proposals, deeds, environmental impact statements, or property and right-of-way descriptions."
-      ).should(
+        "Prepare or present public reports on topics such as bid proposals, deeds, environmental impact statements, or property and right-of-way descriptions.",
+      ).should("exist");
+      cy.contains("Design energy-efficient or environmentally sound civil structures.").should(
         "exist",
       );
-      cy.contains("Design energy-efficient or environmentally sound civil structures.")
-        .should("exist");
       cy.contains(
         "Test soils or materials to determine the adequacy and strength of foundations, concrete, asphalt, or steel.",
       ).should("exist");
@@ -106,7 +106,9 @@ describe("Occupation Page", () => {
   });
 
   it("displays locally in-demand occupation details from ONET", () => {
-    cy.intercept("api/occupations/47-2031", { fixture: "carpenters-occupation.json" }).as("getOccupation");
+    cy.intercept("api/occupations/47-2031", { fixture: "carpenters-occupation.json" }).as(
+      "getOccupation",
+    );
     cy.visit("/occupation/47-2031");
 
     cy.wait("@getOccupation").then(() => {
@@ -117,7 +119,9 @@ describe("Occupation Page", () => {
   });
 
   it("displays occupation details from ONET for previous 2010 socs", () => {
-    cy.intercept("api/occupations/15-1254", { fixture: "web-developers-occupation.json" }).as("getOccupation");
+    cy.intercept("api/occupations/15-1254", { fixture: "web-developers-occupation.json" }).as(
+      "getOccupation",
+    );
 
     cy.visit("/occupation/15-1254");
 
@@ -139,7 +143,7 @@ describe("Occupation Page", () => {
       ).should("exist");
 
       // should display 5 tasks
-      cy.get("[data-testid=occupation-details] li:visible").should('have.length', 5)
+      cy.get("[data-testid=occupation-details] li:visible").should("have.length", 5);
 
       // tasks
       cy.contains("Write supporting code for Web applications or Web sites.").should("exist");
@@ -165,13 +169,13 @@ describe("Occupation Page", () => {
         .within(() => {
           cy.contains("Web Programming Certification").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(1)
         .within(() => {
           cy.contains("Oracle 9i PL/SQL").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(2)
         .within(() => {
@@ -181,7 +185,9 @@ describe("Occupation Page", () => {
   });
 
   it("displays occupation details for previous non-ONET socs", () => {
-    cy.intercept("api/occupations/15-1255", { fixture: "web-digital-interface-design-occupation.json" }).as("getOccupation");
+    cy.intercept("api/occupations/15-1255", {
+      fixture: "web-digital-interface-design-occupation.json",
+    }).as("getOccupation");
 
     cy.visit("/occupation/15-1255");
 
@@ -216,13 +222,13 @@ describe("Occupation Page", () => {
         .within(() => {
           cy.contains("CCNA (Cisco Certified Network Associate)").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(1)
         .within(() => {
           cy.contains("CCNA (CISCO Cert Network Administrator)").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(2)
         .within(() => {

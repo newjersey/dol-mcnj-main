@@ -36,8 +36,9 @@ export const ContextualInfoPanel = (): ReactElement => {
         </header>
 
         <section>
-          <div>{contextualInfo.body}</div><br></br>
-          <div style={{ fontSize: '10pt' }}>{contextualInfo.disclaimer}</div>
+          <div>{contextualInfo.body}</div>
+          <br></br>
+          <div style={{ fontSize: "10pt" }}>{contextualInfo.disclaimer}</div>
           {contextualInfo.linkUrl != null && contextualInfo.linkText != null && (
             <div className="mtd">
               <a

@@ -6,7 +6,7 @@ describe("Grouping", () => {
     render(
       <Grouping title="Grouping Title">
         <div>Grouping Content</div>
-      </Grouping>
+      </Grouping>,
     );
 
     expect(screen.getByText("Grouping Title")).toBeInTheDocument();
@@ -17,7 +17,7 @@ describe("Grouping", () => {
     render(
       <Grouping title="Different Group" backgroundColorClass="bg-light-purple">
         <div>Grouping Content</div>
-      </Grouping>
+      </Grouping>,
     );
 
     expect(screen.getByText("Different Group")).toBeInTheDocument();

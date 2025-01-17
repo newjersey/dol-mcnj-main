@@ -63,7 +63,7 @@ fs.readFile(path.join(__dirname, csvFilenameOld), function (err, fileContentsOld
         });
 
         output += `INSERT INTO ${tableName} (${columnsNew.join(",")}) values (${values.join(
-          ","
+          ",",
         )});\n`;
       }
     });

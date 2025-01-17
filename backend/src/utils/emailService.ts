@@ -1,8 +1,8 @@
-import Nodemailer from "nodemailer"
+import Nodemailer from "nodemailer";
 
 interface EmailParams {
-  subject: string,
-  body: string
+  subject: string;
+  body: string;
 }
 
 const transporter = Nodemailer.createTransport({
@@ -17,10 +17,10 @@ const transporter = Nodemailer.createTransport({
 
 export async function sendEmail(emailParams: EmailParams): Promise<void> {
   if (!process.env.EMAIL_SOURCE) {
-    throw 'Email Source not defined'
+    throw "Email Source not defined";
   }
   if (!process.env.CONTACT_RECEIVER_EMAIL) {
-    throw 'Email Receiver not defined'
+    throw "Email Receiver not defined";
   }
   try {
     await transporter.sendMail({
@@ -28,8 +28,8 @@ export async function sendEmail(emailParams: EmailParams): Promise<void> {
       to: process.env.CONTACT_RECEIVER_EMAIL,
       subject: emailParams.subject,
       text: emailParams.body,
-    })
+    });
   } catch (error) {
-    console.log("Error Sending Email Via SES", error)
+    console.log("Error Sending Email Via SES", error);
   }
 }

@@ -12,7 +12,7 @@ export const searchTrainingsFactory = (
 ): SearchTrainings => {
   return async (searchQuery: string): Promise<TrainingResult[]> => {
     // Check for a blank query
-    if (!searchQuery || searchQuery.trim() === '') {
+    if (!searchQuery || searchQuery.trim() === "") {
       return [];
     }
 

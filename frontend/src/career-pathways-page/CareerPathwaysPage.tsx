@@ -134,9 +134,12 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                 <div className="content">
                   <Heading level={1}>
                     {content.banner.title}
-                    <span className="tag-item color-navy" data-tooltip-id="beta-tooltip"
-                          data-tooltip-content={content.betaToolTip}>
-                      <Info/> Beta
+                    <span
+                      className="tag-item color-navy"
+                      data-tooltip-id="beta-tooltip"
+                      data-tooltip-content={content.betaToolTip}
+                    >
+                      <Info /> Beta
                     </span>
                     <Tooltip id="beta-tooltip" className="custom-tooltip" />
                   </Heading>

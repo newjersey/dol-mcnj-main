@@ -53,7 +53,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const matches = searchString?.match(regex);
   const searchQuery = matches ? decodeURIComponent(matches[1]) : null;
 
-
   usePageTitle(pageTitle);
 
   useEffect(() => {

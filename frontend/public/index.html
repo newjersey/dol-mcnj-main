@@ -1,87 +1,99 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="author" content="New Jersey Department of Labor & Workforce Development">
-  <meta http-equiv="Cache-Control" content="no-cache" />
-  <meta http-equiv="expires" content="0" />
-  <meta http-equiv="Pragma" content="no-cache" />
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="author" content="New Jersey Department of Labor & Workforce Development" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
 
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": "My Career NJ",
-      "url": "https://mycareer.nj.gov/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://mycareer.nj.gov/training/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "My Career NJ",
+        "url": "https://mycareer.nj.gov/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://mycareer.nj.gov/training/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
-    }
-  </script>
+    </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" media="print" onload="this.media='all'" crossorigin>
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap"
+      media="print"
+      onload="this.media='all'"
+      crossorigin
+    />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-  <script>
-    if (document.location.hostname === "mycareer.nj.gov") {
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+    <script>
+      if (document.location.hostname === "mycareer.nj.gov") {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-THV625FWWB");
+
+        // Google Tag Manager script for Google Analytics
+        var js = document.createElement("script");
+        js.type = "text/javascript";
+        js.async = true;
+        js.src = "https://www.googletagmanager.com/gtag/js?id=G-THV625FWWB";
+        document.head.appendChild(js);
+
+        // Google Tag Manager script for Google Ads
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-KBN58VK9");
+      } else if (document.location.hostname.indexOf("d4ad-research") !== -1) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-THV625FWWB");
+
+        var js = document.createElement("script");
+        js.type = "text/javascript";
+        js.async = true;
+        js.src = "https://www.googletagmanager.com/gtag/js?id=G-THV625FWWB";
+        document.head.appendChild(js);
       }
-      gtag("js", new Date());
-      gtag("config", "G-THV625FWWB");
-
-      // Google Tag Manager script for Google Analytics
-      var js = document.createElement("script");
-      js.type = "text/javascript";
-      js.async = true;
-      js.src = "https://www.googletagmanager.com/gtag/js?id=G-THV625FWWB";
-      document.head.appendChild(js);
-
-      // Google Tag Manager script for Google Ads
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-KBN58VK9');
-    } else if (document.location.hostname.indexOf("d4ad-research") !== -1) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) for Google Ads -->
+    <script>
+      if (document.location.hostname === "mycareer.nj.gov") {
+        document.body.insertAdjacentHTML(
+          "afterbegin",
+          '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBN58VK9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>',
+        );
       }
-      gtag("js", new Date());
-      gtag("config", "G-THV625FWWB");
+    </script>
+    <!-- End Google Tag Manager (noscript) -->
 
-      var js = document.createElement("script");
-      js.type = "text/javascript";
-      js.async = true;
-      js.src = "https://www.googletagmanager.com/gtag/js?id=G-THV625FWWB";
-      document.head.appendChild(js);
-    }
-  </script>
-
-</head>
-<body>
-<!-- Google Tag Manager (noscript) for Google Ads -->
-<script>
-  if (document.location.hostname === "mycareer.nj.gov") {
-    document.body.insertAdjacentHTML('afterbegin', '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBN58VK9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
-  }
-</script>
-<!-- End Google Tag Manager (noscript) -->
-
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="root"></div>
-</body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>

@@ -340,12 +340,7 @@
         "25-1021"
       ],
       "hasEveningCourses": true,
-      "languages": [
-        "Chinese",
-        "Portuguese",
-        "Spanish",
-        "OtherLanguages"
-      ],
+      "languages": ["Chinese", "Portuguese", "Spanish", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -382,12 +377,7 @@
         "25-1021"
       ],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Russian",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Russian", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -498,11 +488,7 @@
         "25-1021"
       ],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Arabic",
-        "French/FrenchCreole"
-      ],
+      "languages": ["French", "Arabic", "French/FrenchCreole"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -650,12 +636,7 @@
         "25-1021"
       ],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Portuguese",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Portuguese", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -729,12 +710,7 @@
         "25-1021"
       ],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Portuguese",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Portuguese", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -993,12 +969,7 @@
         "25-1021"
       ],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Russian",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Russian", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -1021,19 +992,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1056,15 +1017,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1089,15 +1042,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1122,15 +1067,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1155,19 +1092,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1190,19 +1117,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1225,15 +1142,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -1271,15 +1180,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1304,20 +1205,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1340,19 +1230,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1375,21 +1255,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1412,20 +1280,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1448,15 +1305,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1481,15 +1330,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1514,20 +1355,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1550,19 +1380,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1585,15 +1405,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1618,19 +1430,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1653,15 +1455,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1686,19 +1480,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1721,15 +1505,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1754,19 +1530,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Chinese"
-      ],
+      "languages": ["Chinese"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1789,15 +1555,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -1835,15 +1593,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -1881,15 +1631,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -1914,15 +1656,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -1960,19 +1694,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -1995,19 +1719,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2030,19 +1744,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2065,19 +1769,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2100,21 +1794,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2137,19 +1819,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2172,20 +1844,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2208,21 +1869,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2245,20 +1894,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2281,15 +1919,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -2327,15 +1957,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -2360,19 +1982,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Chinese"
-      ],
+      "languages": ["Chinese"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2395,15 +2007,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -2428,20 +2032,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2464,15 +2057,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -2510,15 +2095,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -2543,21 +2120,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2580,20 +2145,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2616,20 +2170,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2652,19 +2195,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2687,21 +2220,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2724,19 +2245,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2759,21 +2270,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2796,20 +2295,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2832,21 +2320,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2869,21 +2345,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2906,21 +2370,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -2943,15 +2395,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -2976,15 +2420,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -3009,22 +2445,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Russian",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Russian", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -3047,15 +2470,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -3080,15 +2495,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -3126,15 +2533,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -3159,19 +2558,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Chinese"
-      ],
+      "languages": ["Chinese"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3194,15 +2583,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -3240,19 +2621,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3275,19 +2646,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3310,21 +2671,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3347,19 +2696,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3382,19 +2721,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3417,19 +2746,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3452,20 +2771,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3488,21 +2796,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3525,19 +2821,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3560,21 +2846,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3597,15 +2871,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -3643,15 +2909,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -3676,15 +2934,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -3722,19 +2972,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3757,19 +2997,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Chinese"
-      ],
+      "languages": ["Chinese"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3792,20 +3022,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3828,15 +3047,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -3861,19 +3072,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3896,19 +3097,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -3931,15 +3122,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -3964,20 +3147,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4000,19 +3172,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4035,20 +3197,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4071,19 +3222,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4106,20 +3247,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4142,22 +3272,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Russian",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Russian", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -4180,19 +3297,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4215,15 +3322,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -4261,20 +3360,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4297,20 +3385,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4333,19 +3410,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4368,20 +3435,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4404,21 +3460,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4441,21 +3485,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4478,15 +3510,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -4511,19 +3535,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4546,15 +3560,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -4592,15 +3598,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -4625,15 +3623,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -4671,15 +3661,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -4704,20 +3686,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4740,19 +3711,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4775,19 +3736,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4810,19 +3761,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4845,19 +3786,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4880,15 +3811,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -4913,21 +3836,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -4950,15 +3861,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -4983,20 +3886,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5019,19 +3911,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5054,15 +3936,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -5100,15 +3974,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -5146,19 +4012,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Chinese"
-      ],
+      "languages": ["Chinese"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5181,15 +4037,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -5227,15 +4075,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
       "languages": [
         "French",
@@ -5273,19 +4113,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5308,19 +4138,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5343,19 +4163,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Russian"
-      ],
+      "languages": ["Russian"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5378,20 +4188,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1231",
-        "15-1251",
-        "15-1252",
-        "15-1253",
-        "15-1254",
-        "15-1255",
-        "25-1021"
-      ],
+      "socCodes": ["15-1231", "15-1251", "15-1252", "15-1253", "15-1254", "15-1255", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5414,19 +4213,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "11-3021",
-        "15-1221",
-        "15-1243",
-        "15-1252",
-        "15-1255",
-        "15-1299",
-        "25-1021"
-      ],
+      "socCodes": ["11-3021", "15-1221", "15-1243", "15-1252", "15-1255", "15-1299", "25-1021"],
       "hasEveningCourses": true,
-      "languages": [
-        "French"
-      ],
+      "languages": ["French"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": false,
       "hasChildcareAssistance": false
@@ -5478,9 +4267,7 @@
       "percentEmployed": null,
       "calendarLength": 8,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1263",
       "providerName": "Camden County College",
@@ -5490,13 +4277,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5511,9 +4292,7 @@
       "percentEmployed": 0.375,
       "calendarLength": 6,
       "totalClockHours": 230,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "8829",
       "providerName": "Ideal Institute of Technology",
@@ -5523,17 +4302,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5546,9 +4317,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 280,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": true,
       "providerId": "8779",
       "providerName": "LasComp Institute of Information Technology",
@@ -5558,19 +4327,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5583,9 +4342,7 @@
       "percentEmployed": 0.5,
       "calendarLength": 6,
       "totalClockHours": 280,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "7984",
       "providerName": "LasComp Institute of Information Technology",
@@ -5595,18 +4352,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5619,9 +4367,7 @@
       "percentEmployed": 0.375,
       "calendarLength": 7,
       "totalClockHours": 530,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "8829",
       "providerName": "Ideal Institute of Technology",
@@ -5631,17 +4377,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5654,9 +4392,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 255,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1150",
       "providerName": "Rowan College of South Jersey Cumberland Campus",
@@ -5666,20 +4402,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Russian",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Russian", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -5692,9 +4417,7 @@
       "percentEmployed": null,
       "calendarLength": 3,
       "totalClockHours": 15,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1304",
       "providerName": "Middlesex County College, Professional and Community Programs",
@@ -5704,13 +4427,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5725,9 +4442,7 @@
       "percentEmployed": 0.5,
       "calendarLength": 6,
       "totalClockHours": 280,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": true,
       "providerId": "7984",
       "providerName": "LasComp Institute of Information Technology",
@@ -5737,18 +4452,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5761,9 +4467,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 300,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1182",
       "providerName": "Bar Personal Computer Training, LLC",
@@ -5773,13 +4477,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5794,9 +4492,7 @@
       "percentEmployed": null,
       "calendarLength": 3,
       "totalClockHours": 15,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1304",
       "providerName": "Middlesex County College, Professional and Community Programs",
@@ -5806,13 +4502,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5827,9 +4517,7 @@
       "percentEmployed": 0.521739130434783,
       "calendarLength": 6,
       "totalClockHours": 384,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": true,
       "providerId": "1301",
       "providerName": "Rutgers Center for Continuing Professional Development",
@@ -5839,18 +4527,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": false,
-      "languages": [
-        "Korean",
-        "Spanish"
-      ],
+      "languages": ["Korean", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": false,
       "hasChildcareAssistance": false
@@ -5863,9 +4542,7 @@
       "percentEmployed": 0.166666666666667,
       "calendarLength": 6,
       "totalClockHours": 240,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "8153",
       "providerName": "Pro Data, Inc.",
@@ -5875,13 +4552,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5896,9 +4567,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 240,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "8601",
       "providerName": "Samuel Morris Career Institute of New Jersey",
@@ -5908,17 +4577,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -5931,9 +4592,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 300,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "68",
       "providerName": "Camden County College",
@@ -5943,13 +4602,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5964,9 +4617,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 280,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1250",
       "providerName": "LasComp Institute of Information Technology",
@@ -5976,13 +4627,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -5997,9 +4642,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 280,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "8779",
       "providerName": "LasComp Institute of Information Technology",
@@ -6009,19 +4652,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -6034,9 +4667,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 900,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "9404",
       "providerName": "F.I.R.S.T Institute",
@@ -6046,13 +4677,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6067,9 +4692,7 @@
       "percentEmployed": null,
       "calendarLength": 3,
       "totalClockHours": 15,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1304",
       "providerName": "Middlesex County College, Professional and Community Programs",
@@ -6079,13 +4702,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6100,9 +4717,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 270,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "710",
       "providerName": "Middlesex County College",
@@ -6112,13 +4727,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255",
-        "25-1194",
-        "27-1014",
-        "27-1024"
-      ],
+      "socCodes": ["15-1254", "15-1255", "25-1194", "27-1014", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6143,15 +4752,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255"
-      ],
+      "socCodes": ["15-1254", "15-1255"],
       "hasEveningCourses": false,
-      "languages": [
-        "Korean",
-        "Spanish"
-      ],
+      "languages": ["Korean", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": false,
       "hasChildcareAssistance": false
@@ -6174,15 +4777,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255"
-      ],
+      "socCodes": ["15-1254", "15-1255"],
       "hasEveningCourses": false,
-      "languages": [
-        "Korean",
-        "Spanish"
-      ],
+      "languages": ["Korean", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": false,
       "hasChildcareAssistance": false
@@ -6205,15 +4802,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255"
-      ],
+      "socCodes": ["15-1254", "15-1255"],
       "hasEveningCourses": false,
-      "languages": [
-        "Korean",
-        "Spanish"
-      ],
+      "languages": ["Korean", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": false,
       "hasChildcareAssistance": false
@@ -6236,10 +4827,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1254",
-        "15-1255"
-      ],
+      "socCodes": ["15-1254", "15-1255"],
       "hasEveningCourses": false,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6264,13 +4852,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "11-3021",
-        "15-1221",
-        "15-1255",
-        "15-1299",
-        "25-1021"
-      ],
+      "socCodes": ["11-3021", "15-1221", "15-1255", "15-1299", "25-1021"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6285,9 +4867,7 @@
       "percentEmployed": null,
       "calendarLength": 8,
       "totalClockHours": 900,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "437",
       "providerName": "Ocean County Vocational Technical Schools",
@@ -6297,14 +4877,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1021",
-        "27-1024",
-        "27-1027",
-        "27-1029"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1021", "27-1024", "27-1027", "27-1029"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6319,9 +4892,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 220,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "68",
       "providerName": "Camden County College",
@@ -6331,14 +4902,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1021",
-        "27-1024",
-        "27-1027",
-        "27-1029"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1021", "27-1024", "27-1027", "27-1029"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6353,9 +4917,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 264,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "7984",
       "providerName": "LasComp Institute of Information Technology",
@@ -6365,19 +4927,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1021",
-        "27-1024",
-        "27-1027",
-        "27-1029"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1021", "27-1024", "27-1027", "27-1029"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -6390,9 +4942,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 320,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1250",
       "providerName": "LasComp Institute of Information Technology",
@@ -6402,14 +4952,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1021",
-        "27-1024",
-        "27-1027",
-        "27-1029"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1021", "27-1024", "27-1027", "27-1029"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6424,9 +4967,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 264,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1250",
       "providerName": "LasComp Institute of Information Technology",
@@ -6436,14 +4977,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1021",
-        "27-1024",
-        "27-1027",
-        "27-1029"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1021", "27-1024", "27-1027", "27-1029"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6458,9 +4992,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 320,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": true,
       "providerId": "8779",
       "providerName": "LasComp Institute of Information Technology",
@@ -6470,20 +5002,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -6496,9 +5017,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "722",
       "providerName": "Sussex County Community College",
@@ -6508,14 +5027,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6530,9 +5042,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "722",
       "providerName": "Sussex County Community College",
@@ -6542,14 +5052,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6564,9 +5067,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "722",
       "providerName": "Sussex County Community College",
@@ -6576,14 +5077,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6598,9 +5092,7 @@
       "percentEmployed": 0.5,
       "calendarLength": 6,
       "totalClockHours": 320,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "7984",
       "providerName": "LasComp Institute of Information Technology",
@@ -6610,19 +5102,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -6635,9 +5117,7 @@
       "percentEmployed": null,
       "calendarLength": 8,
       "totalClockHours": 915,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "1150",
       "providerName": "Rowan College of South Jersey Cumberland Campus",
@@ -6647,21 +5127,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "French",
-        "Italian",
-        "Russian",
-        "Spanish"
-      ],
+      "languages": ["French", "Italian", "Russian", "Spanish"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -6674,9 +5142,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 320,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "8779",
       "providerName": "LasComp Institute of Information Technology",
@@ -6686,20 +5152,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "Korean",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "Korean", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false
@@ -6712,9 +5167,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "722",
       "providerName": "Sussex County Community College",
@@ -6724,14 +5177,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6746,9 +5192,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "722",
       "providerName": "Sussex County Community College",
@@ -6758,14 +5202,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6780,9 +5217,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 0,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": false,
       "providerId": "722",
       "providerName": "Sussex County Community College",
@@ -6792,14 +5227,7 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -6814,9 +5242,7 @@
       "percentEmployed": 0.5,
       "calendarLength": 6,
       "totalClockHours": 320,
-      "localExceptionCounty": [
-        "Atlantic"
-      ],
+      "localExceptionCounty": ["Atlantic"],
       "online": true,
       "providerId": "7984",
       "providerName": "LasComp Institute of Information Technology",
@@ -6826,19 +5252,9 @@
       "inDemand": true,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "15-1255",
-        "25-1121",
-        "27-1011",
-        "27-1014",
-        "27-1019",
-        "27-1024"
-      ],
+      "socCodes": ["15-1255", "25-1121", "27-1011", "27-1014", "27-1019", "27-1024"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false

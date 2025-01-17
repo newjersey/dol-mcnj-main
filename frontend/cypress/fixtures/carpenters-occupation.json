@@ -74,11 +74,7 @@
   ],
   "education": "Carpenters typically learn on the job and through apprenticeships.",
   "inDemand": false,
-  "counties": [
-    "Cape May",
-    "Cumberland",
-    "Salem"
-  ],
+  "counties": ["Cape May", "Cumberland", "Salem"],
   "medianSalary": 59730,
   "openJobsCount": null,
   "openJobsSoc": "47-2031",
@@ -91,11 +87,7 @@
       "percentEmployed": null,
       "calendarLength": 5,
       "totalClockHours": 48,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "718",
       "providerName": "Middlesex County College",
@@ -105,15 +97,9 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
-      "languages": [
-        "Indic/Hindu",
-        "OtherLanguages"
-      ],
+      "languages": ["Indic/Hindu", "OtherLanguages"],
       "isWheelchairAccessible": true,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": true
@@ -126,11 +112,7 @@
       "percentEmployed": null,
       "calendarLength": 5,
       "totalClockHours": 100,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "8894",
       "providerName": "HoHoKus School of Trade",
@@ -140,10 +122,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -158,11 +137,7 @@
       "percentEmployed": 0.714285714285714,
       "calendarLength": 6,
       "totalClockHours": 45,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "691",
       "providerName": "Gloucester County Institute of Technology",
@@ -172,10 +147,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -190,11 +162,7 @@
       "percentEmployed": 0.714285714285714,
       "calendarLength": 6,
       "totalClockHours": 45,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "691",
       "providerName": "Gloucester County Institute of Technology",
@@ -204,10 +172,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -222,11 +187,7 @@
       "percentEmployed": 0.714285714285714,
       "calendarLength": 6,
       "totalClockHours": 45,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "691",
       "providerName": "Gloucester County Institute of Technology",
@@ -236,10 +197,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -254,11 +212,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 360,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "410",
       "providerName": "Burlington County Institute of Technology",
@@ -268,10 +222,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -286,11 +237,7 @@
       "percentEmployed": 0.714285714285714,
       "calendarLength": 6,
       "totalClockHours": 45,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "691",
       "providerName": "Gloucester County Institute of Technology",
@@ -300,10 +247,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -318,11 +262,7 @@
       "percentEmployed": null,
       "calendarLength": 5,
       "totalClockHours": 100,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "8894",
       "providerName": "HoHoKus School of Trade",
@@ -332,10 +272,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -350,11 +287,7 @@
       "percentEmployed": null,
       "calendarLength": 10,
       "totalClockHours": 5720,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "9200",
       "providerName": "Montclair State University",
@@ -364,10 +297,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": false,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -382,11 +312,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 192,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "412",
       "providerName": "Cape May County Technical School",
@@ -396,10 +322,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -414,11 +337,7 @@
       "percentEmployed": 0.255813953488372,
       "calendarLength": 7,
       "totalClockHours": 720,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "7990",
       "providerName": "Orleans Technical College",
@@ -428,10 +347,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -446,11 +362,7 @@
       "percentEmployed": null,
       "calendarLength": 7,
       "totalClockHours": 382,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "68",
       "providerName": "Camden County College",
@@ -460,10 +372,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -478,11 +387,7 @@
       "percentEmployed": 0.714285714285714,
       "calendarLength": 6,
       "totalClockHours": 45,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "691",
       "providerName": "Gloucester County Institute of Technology",
@@ -492,10 +397,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -510,11 +412,7 @@
       "percentEmployed": 0.714285714285714,
       "calendarLength": 9,
       "totalClockHours": 144,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "691",
       "providerName": "Gloucester County Institute of Technology",
@@ -524,10 +422,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": true,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -542,11 +437,7 @@
       "percentEmployed": null,
       "calendarLength": 10,
       "totalClockHours": 5576,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "9200",
       "providerName": "Montclair State University",
@@ -556,10 +447,7 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": false,
       "languages": [],
       "isWheelchairAccessible": true,
@@ -574,11 +462,7 @@
       "percentEmployed": null,
       "calendarLength": 6,
       "totalClockHours": 240,
-      "localExceptionCounty": [
-        "Cape May",
-        "Cumberland",
-        "Salem"
-      ],
+      "localExceptionCounty": ["Cape May", "Cumberland", "Salem"],
       "online": false,
       "providerId": "8829",
       "providerName": "Ideal Institute of Technology",
@@ -588,14 +472,9 @@
       "inDemand": false,
       "highlight": "",
       "rank": 0,
-      "socCodes": [
-        "47-1011",
-        "47-2031"
-      ],
+      "socCodes": ["47-1011", "47-2031"],
       "hasEveningCourses": false,
-      "languages": [
-        "Indic/Hindu"
-      ],
+      "languages": ["Indic/Hindu"],
       "isWheelchairAccessible": false,
       "hasJobPlacementAssistance": true,
       "hasChildcareAssistance": false

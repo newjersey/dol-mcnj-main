@@ -1,5 +1,5 @@
 import { CalendarLength } from "../CalendarLength";
-import {CipDefinition} from "./Program";
+import { CipDefinition } from "./Program";
 
 export interface TrainingResult {
   id: string;

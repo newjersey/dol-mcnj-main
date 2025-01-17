@@ -29,35 +29,36 @@ export const routerFactory = ({
 }: RouterActions): Router => {
   const router = Router();
 
-  router.get("/trainings/search", (req: Request, res: Response<TrainingResult[] | { error: string }>) => {
-    searchTrainings(req.query.query as string)
+  router.get(
+    "/trainings/search",
+    (req: Request, res: Response<TrainingResult[] | { error: string }>) => {
+      searchTrainings(req.query.query as string)
         .then((trainings: TrainingResult[]) => {
           console.log(`Successfully retrieved training programs: `, trainings);
           res.status(200).json(trainings);
         })
         .catch((error: unknown) => {
           console.error(`Error caught in catch block:`, error);
-          return res.status(500).json({ error: 'Internal server error' });
-
+          return res.status(500).json({ error: "Internal server error" });
         });
-  });
+    },
+  );
 
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
     findTrainingsBy(Selector.ID, [req.params.id as string])
       .then((trainings: Training[]) => {
         if (trainings.length === 0) {
-          throw new Error('NOT_FOUND')
+          throw new Error("NOT_FOUND");
         }
         res.status(200).json(trainings[0]);
       })
-        .catch((e) => {
-          if (e?.message === "NOT_FOUND") {
-            res.status(404).send();
-          }
-          else {
-            res.status(500).send();
-          }
-        });
+      .catch((e) => {
+        if (e?.message === "NOT_FOUND") {
+          res.status(404).send();
+        } else {
+          res.status(500).send();
+        }
+      });
   });
 
   router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {

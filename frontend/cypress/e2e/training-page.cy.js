@@ -18,12 +18,16 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick stats
-    cy.contains("High School Diploma or GED",).should("exist");
+    cy.contains("High School Diploma or GED").should("exist");
     cy.contains("Completion time: 3-5 months").should("exist");
 
     // associated occupations
-    cy.contains("Engineering Technologists and Technicians, Except Drafters, All Other").should("exist");
-    cy.contains("Heating, Air Conditioning, and Refrigeration Mechanics and Installers").should("exist");
+    cy.contains("Engineering Technologists and Technicians, Except Drafters, All Other").should(
+      "exist",
+    );
+    cy.contains("Heating, Air Conditioning, and Refrigeration Mechanics and Installers").should(
+      "exist",
+    );
 
     // share trainings
     cy.contains("How to get funding").should("exist");

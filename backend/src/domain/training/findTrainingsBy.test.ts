@@ -4,7 +4,7 @@ import { FindTrainingsBy } from "../types";
 import { CalendarLength } from "../CalendarLength";
 import { findTrainingsByFactory, formatLanguages, mapStrNumToBool } from "./findTrainingsBy";
 import { StubDataClient } from "../test-objects/StubDataClient";
-import { buildLocalException, buildOccupation, buildProgram} from "../test-objects/factories";
+import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
 import { Selector } from "./Selector";
 
 describe("findTrainingsBy", () => {
@@ -40,7 +40,7 @@ describe("findTrainingsBy", () => {
       {
         cipCode: program.cipcode,
         cipTitle: program.ciptitle,
-      }
+      },
     ]);
 
     expect(await findTrainingsBy(Selector.ID, ["123"])).toEqual([
@@ -155,7 +155,7 @@ describe("findTrainingsBy", () => {
       {
         cipCode: program.cipcode,
         cipTitle: program.ciptitle,
-      }
+      },
     ]);
 
     expect(await findTrainingsBy(Selector.CIP_CODE, ["123456"])).toEqual([
