@@ -334,14 +334,14 @@ function buildQuery(params: {
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
-      "ceterms:name": {
-        "search:value": params.searchQuery,
-        "search:matchType": "search:contains"
-      },
-      "ceterms:description": {
-        "search:value": params.searchQuery,
-        "search:matchType": "search:contains"
-      },
+      "ceterms:name": [
+        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      ],
+      "ceterms:description": [
+        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      ],
       "ceterms:ownedBy": {
         "ceterms:name": {
           "search:value": params.searchQuery,
@@ -355,11 +355,11 @@ function buildQuery(params: {
         "search:matchType": "search:startsWith"
       }
     } : undefined,
-    "ceterms:instructionalProgramType": isCIP ? {
-      "ceterms:codedNotation": {
-        "search:value": params.searchQuery,
-        "search:matchType": "search:startsWith"
-      }
+        "ceterms:instructionalProgramType": isCIP ? {
+          "ceterms:codedNotation": {
+            "search:value": params.searchQuery,
+            "search:matchType": "search:startsWith"
+          }
     } : undefined
   };
 
