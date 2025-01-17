@@ -1,24 +1,24 @@
 import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
-import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
-import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
-import {CTDLResource} from "../credentialengine/CredentialEngine";
-import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
-import {DataClient} from "../DataClient";
-import {getHighlight} from "../utils/getHighlight";
-import {TrainingData, TrainingResult} from "../training/TrainingResult";
+import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import { CTDLResource } from "../credentialengine/CredentialEngine";
+import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
+import { DataClient } from "../DataClient";
+import { getHighlight } from "../utils/getHighlight";
+import { TrainingData, TrainingResult } from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
 import zipcodes, {ZipCode} from "zipcodes";
 import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
-import {DeliveryType} from "../DeliveryType";
-import {normalizeCipCode} from "../utils/normalizeCipCode";
-import {normalizeSocCode} from "../utils/normalizeSocCode";
+import { DeliveryType } from "../DeliveryType";
+import { normalizeCipCode } from "../utils/normalizeCipCode";
+import { normalizeSocCode } from "../utils/normalizeSocCode";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-const fetchAllCerts = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
+const searchTrainingPrograms = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
   try {
     console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
     const response = await credentialEngineAPI.getResults(query, offset, limit);
@@ -34,19 +34,19 @@ const fetchAllCerts = async (query: object, offset = 0, limit = 10): Promise<{ a
 };
 
 
-const fetchAllCertsInBatches = async (query: object, batchSize = 100) => {
+const searchTrainingProgramsInBatches = async (query: object, batchSize = 100) => {
   const allCerts: CTDLResource[] = [];
-  const initialResponse = await fetchAllCerts(query, 0, batchSize);
+  const initialResponse = await searchTrainingPrograms(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
   allCerts.push(...initialResponse.allCerts);
 
   const fetchBatch = async (offset: number) => {
     try {
-      const response = await fetchAllCerts(query, offset, batchSize);
+      const response = await searchTrainingPrograms(query, offset, batchSize);
       return response.allCerts;
     } catch (error) {
       console.error(`Error fetching batch at offset ${offset}:`, error);
-      return []; // Skip this batch
+      return [];
     }
   };
 
@@ -263,7 +263,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     // If unfiltered results are not in cache, fetch the results
     if (!unFilteredResults) {
       console.log(`Fetching results for query: ${params.searchQuery}`);
-      const { allCerts } = await fetchAllCertsInBatches(query);
+      const { allCerts } = await searchTrainingProgramsInBatches(query);
       unFilteredResults = await Promise.all(
         allCerts.map((certificate) =>
           transformCertificateToTraining(dataClient, certificate, params.searchQuery)
@@ -355,8 +355,8 @@ function buildQuery(params: {
         "search:matchType": "search:startsWith"
       }
     } : undefined,
-        "ceterms:instructionalProgramType": isCIP ? {
-          "ceterms:codedNotation": {
+        "ceterms:instructionalProgramType": isCIP ?
+          {"ceterms:codedNotation": {
             "search:value": params.searchQuery,
             "search:matchType": "search:startsWith"
           }
