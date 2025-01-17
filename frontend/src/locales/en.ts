@@ -206,7 +206,6 @@ export const en = {
     inDemandFilterLabel: "Show In-Demand Trainings Only",
     costFilterLabel: "Cost",
     maxCostLabel: "Max Cost",
-    classFormatFilterLabel: "Class Format",
     classFormatInPersonLabel: "In-Person",
     classFormatOnlineLabel: "Online",
     timeToCompleteFilterLabel: "Time to Complete",
@@ -243,8 +242,6 @@ export const en = {
     searchHelperHeader: "What Can I Search for?",
     searchHelperText: "Here are some examples that may improve your search results:",
     boldText1: "Training Providers:",
-    helperText1:
-      'If you\'re searching for a training provider, try using only the provider\'s name and exclude words like "university" or "college".',
     boldText2: "Occupations:",
     helperText2:
       "If you're looking for training for a job, you can type the job directly into the search box.",

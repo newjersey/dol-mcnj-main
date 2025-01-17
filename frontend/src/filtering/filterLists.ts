@@ -165,4 +165,4 @@ export const classFormatList = [
   },
 ]
 
-export type ClassFormatProps = "online" | "inperson";
+export type ClassFormatProps = "online" | "inperson" | "blended";
