@@ -1,6 +1,6 @@
 import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
-import {SearchTrainings} from "../types";
+import { SearchTrainings } from "../types";
 import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
 import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
 import {CTDLResource} from "../credentialengine/CredentialEngine";
@@ -327,26 +327,6 @@ function buildQuery(params: {
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  /*  const miles = params.miles;
-  const zipcode = params.zipcode;*/
-  /*
-    let zipcodesList: string[] | zipcodes.ZipCode[] = []
-
-    if (isZipCode) {
-      zipcodesList = [params.searchQuery]
-    } else if (isCounty) {
-      zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
-    }
-
-    if (params.county) {
-      zipcodesList = zipcodeJson.byCounty[params.county as keyof typeof zipcodeJson.byCounty]
-    }
-
-    if (miles && miles > 0 && zipcode) {
-      const zipcodesInRadius = zipcodes.radius(zipcode, miles);
-      zipcodesList = zipcodesInRadius;
-    }*/
-
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
   const [ownedByPart, trainingPart] = queryParts;
@@ -354,23 +334,48 @@ function buildQuery(params: {
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
-      "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      "ceterms:description": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
+      "ceterms:name": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:contains"
+      },
+      "ceterms:description": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:contains"
+      },
+      "ceterms:ownedBy": {
+        "ceterms:name": {
+          "search:value": params.searchQuery,
+          "search:matchType": "search:contains"
+        }
+      }
     }),
     "ceterms:occupationType": isSOC ? {
-      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      "ceterms:codedNotation": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:startsWith"
+      }
     } : undefined,
     "ceterms:instructionalProgramType": isCIP ? {
-      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      "ceterms:codedNotation": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:startsWith"
+      }
     } : undefined
   };
 
   if (hasMultipleParts) {
     termGroup = {
       "search:operator": "search:andTerms",
-      "ceterms:ownedBy": { "ceterms:name": { "search:value": ownedByPart, "search:matchType": "search:contains" } },
-      "ceterms:name": { "search:value": trainingPart, "search:matchType": "search:contains" }
+      "ceterms:ownedBy": {
+        "ceterms:name": {
+          "search:value": ownedByPart,
+          "search:matchType": "search:contains"
+        }
+      },
+      "ceterms:name": {
+        "search:value": trainingPart,
+        "search:matchType": "search:contains"
+      }
     };
   }
 
@@ -451,8 +456,6 @@ async function transformCertificateToTraining(
     throw error;
   }
 }
-
-
 
 function packageResults(page: number, limit: number, results: TrainingResult[], totalResults: number): TrainingData {
   const totalPages = Math.ceil(totalResults / limit);
