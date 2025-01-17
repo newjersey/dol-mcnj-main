@@ -1,53 +1,42 @@
-import { isValidPhone } from './phoneValidation';
-import { isValidPhoneNumber } from 'libphonenumber-js';
+import isValidPhoneNumber from './phoneValidation';
+import countryCodes from './countryCodes.json';
 
-jest.mock('libphonenumber-js', () => ({
-  isValidPhoneNumber: jest.fn(),
-}));
+type CountryCode = keyof typeof countryCodes;
 
-describe('isValidPhone', () => {
-  it('should return true for a valid phone number', () => {
-    // Mock the isValidPhoneNumber function
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(true);
+describe('isValidPhoneNumber', () => {
+    const testCases = [
+        { phoneNumber: '+14155552671', countryCode: 'US', expected: true },
+        { phoneNumber: '+447911123456', countryCode: 'GB', expected: true },
+        { phoneNumber: '+919876543210', countryCode: 'IN', expected: true },
+        { phoneNumber: '+33123456789', countryCode: 'FR', expected: true },
+        { phoneNumber: '+61234567890', countryCode: 'AU', expected: true },
+        { phoneNumber: '+1415555267', countryCode: 'US', expected: false }, // Too short
+        { phoneNumber: '+44791112345678', countryCode: 'GB', expected: false }, // Too long
+        { phoneNumber: '14155552671', countryCode: 'US', expected: false }, // Missing "+"
+        { phoneNumber: '+91987654321O', countryCode: 'IN', expected: false } // Contains non-numeric
+    ];
 
-    const result = isValidPhone('+1 981 123 1111');
-    expect(isValidPhoneNumber).toHaveBeenCalledWith('+1 981 123 1111');
-    expect(result).toBe(true);
-  });
+    testCases.forEach(({ phoneNumber, countryCode, expected }) => {
+        it(`should return ${expected} for phoneNumber="${phoneNumber}" with countryCode="${countryCode}"`, () => {
+            const result = isValidPhoneNumber(phoneNumber, countryCode as CountryCode);
+            expect(result).toBe(expected);
+        });
+    });
 
-  it('should return false for an invalid phone number', () => {
-    // Mock the isValidPhoneNumber function
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(false);
+    it('should detect country codes automatically when no countryCode is provided', () => {
+        const autoDetectCases = [
+            { phoneNumber: '+14155552671', expected: true },
+            { phoneNumber: '+447911123456', expected: true },
+            { phoneNumber: '+919876543210', expected: true },
+            { phoneNumber: '+33123456789', expected: true },
+            { phoneNumber: '+61234567890', expected: true },
+            { phoneNumber: '+1415555267', expected: false }, // Too short
+            { phoneNumber: '+44791112345678', expected: false } // Too long
+        ];
 
-    const result = isValidPhone('12345');
-    expect(isValidPhoneNumber).toHaveBeenCalledWith('12345');
-    expect(result).toBe(false);
-  });
-
-  it('should handle empty phone numbers gracefully', () => {
-    // Mock the isValidPhoneNumber function
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(false);
-
-    const result = isValidPhone('');
-    expect(isValidPhoneNumber).toHaveBeenCalledWith('');
-    expect(result).toBe(false);
-  });
-
-  it('should handle phone numbers with extra spaces', () => {
-    // Mock the isValidPhoneNumber function
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(true);
-
-    const result = isValidPhone('  +1 981 123 1111  ');
-    expect(isValidPhoneNumber).toHaveBeenCalledWith('  +1 981 123 1111  ');
-    expect(result).toBe(true);
-  });
-
-  it('should return false for undefined input', () => {
-    // Mock the isValidPhoneNumber function
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(false);
-
-    const result = isValidPhone(undefined as unknown as string);
-    expect(isValidPhoneNumber).toHaveBeenCalledWith(undefined as unknown as string);
-    expect(result).toBe(false);
-  });
+        autoDetectCases.forEach(({ phoneNumber, expected }) => {
+            const result = isValidPhoneNumber(phoneNumber);
+            expect(result).toBe(expected);
+        });
+    });
 });

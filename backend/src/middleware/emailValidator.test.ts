@@ -10,6 +10,23 @@ describe('isValidEmail Function (Full and Root Domain Validation)', () => {
     afterEach(() => {
         jest.resetAllMocks();
     });
+    
+    test('should return false for invalid email formats', async () => {
+        const invalidEmails = [
+            '',
+            'plainaddress',
+            '@missingusername.com',
+            'username@.nodomain',
+            'username@domain.c',
+            'username@domain_with_invalid_characters.com',
+            'toolongusername'.repeat(5) + '@example.com',
+        ];
+
+        for (const email of invalidEmails) {
+            const result = await isValidEmail(email);
+            expect(result).toBe(false);
+        }
+    });
 
     test('should return false for an invalid email format', async () => {
         const result = await isValidEmail('invalid-email');
@@ -72,4 +89,5 @@ describe('isValidEmail Function (Full and Root Domain Validation)', () => {
         const result = await isValidEmail('test@error.com');
         expect(result).toBe(false);
     });
+    
 });

@@ -15,8 +15,6 @@
     "express-rate-limit",
     "winston",
     "express-validator",
-    "nodemailer",
-    "email-validator",
-    "ibphonenumber-js"
+    "nodemailer"
   ]
 }
