@@ -6,12 +6,15 @@ import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
 import { ContentfulRichText as RichText } from "./ContentfulRichText";
 import { CipDrawerContent } from "./CipDrawerContent";
+import {useTranslation} from "react-i18next";
+import {DeliveryType} from "../domain/Training";
 
 export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
-  const [inPerson, setInPerson] = useState<boolean>(false);
+  const { t } = useTranslation();
+
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
-  const [online, setOnline] = useState<boolean>(false);
+  const [deliveryTypes, setDeliveryTypes] = useState<Set<DeliveryType>>(new Set());
   const [zipCode, setZipCode] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchUrl, setSearchUrl] = useState<string>("");
@@ -19,6 +22,18 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
   const [attempted, setAttempted] = useState<boolean>(false);
   const [socDrawerOpen, setSocDrawerOpen] = useState<boolean>(false);
   const [cipDrawerOpen, setCipDrawerOpen] = useState<boolean>(false);
+
+  const toggleDeliveryType = (deliveryType: DeliveryType) => {
+    setDeliveryTypes((prevTypes) => {
+      const updatedTypes = new Set(prevTypes);
+      if (updatedTypes.has(deliveryType)) {
+        updatedTypes.delete(deliveryType);
+      } else {
+        updatedTypes.add(deliveryType);
+      }
+      return updatedTypes;
+    });
+  };
 
   const sanitizedValue = (value: string) => DOMPurify.sanitize(value);
 
@@ -37,10 +52,9 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
       select.value = "Miles";
     });
     // clear state
-    setInPerson(false);
+    setDeliveryTypes(new Set());
     setMaxCost("");
     setMiles("");
-    setOnline(false);
     setZipCode("");
     setSearchTerm("");
   };
@@ -73,18 +87,27 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
 
   useEffect(() => {
     const params = [];
-    const formatArray = [];
+
+    const deliveryTypeMapping: Record<string, string> = {
+      [DeliveryType.InPerson]: "inperson",
+      [DeliveryType.OnlineOnly]: "online",
+      [DeliveryType.BlendedDelivery]: "blended",
+    };
+
+
+    const formatArray = Array.from(deliveryTypes)
+      .map((type) => deliveryTypeMapping[type as keyof typeof deliveryTypeMapping])
+      .filter(Boolean);
+
     if (maxCost) params.push(`maxCost=${encodeURIComponent(maxCost)}`);
     if (miles) params.push(`miles=${encodeURIComponent(miles)}`);
     if (zipCode) params.push(`zipcode=${encodeURIComponent(zipCode)}`);
-    if (inPerson) formatArray.push("inperson");
-    if (online) formatArray.push("online");
     if (formatArray.length > 0) params.push(`format=${formatArray.join(",")}`);
 
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const url = `/training/search?q=${encodedSearchTerm}${params.length > 0 ? "&" : ""}${params.join("&")}`;
     setSearchUrl(url);
-  }, [searchTerm, inPerson, maxCost, miles, online, zipCode]);
+  }, [searchTerm, deliveryTypes, maxCost, miles, zipCode]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -243,16 +266,15 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
               />
             </div>
             <div className="format">
-              <div className="label">Class format</div>
+              <div className="label">{t("SearchResultsPage.classFormatLabel")}</div>
               <div className="checks">
                 <div className="usa-checkbox">
                   <input
                     className="usa-checkbox__input"
                     id="in-person"
                     type="checkbox"
-                    onChange={() => {
-                      setInPerson(!inPerson);
-                    }}
+                    checked={deliveryTypes.has(DeliveryType.InPerson)}
+                    onChange={() => toggleDeliveryType(DeliveryType.InPerson)}
                   />
                   <label className="usa-checkbox__label" htmlFor="in-person">
                     In-person
@@ -263,12 +285,23 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
                     className="usa-checkbox__input"
                     id="online"
                     type="checkbox"
-                    onChange={() => {
-                      setOnline(!online);
-                    }}
+                    checked={deliveryTypes.has(DeliveryType.OnlineOnly)}
+                    onChange={() => toggleDeliveryType(DeliveryType.OnlineOnly)}
                   />
                   <label className="usa-checkbox__label" htmlFor="online">
                     Online
+                  </label>
+                </div>
+                <div className="usa-checkbox">
+                  <input
+                    className="usa-checkbox__input"
+                    id="blended"
+                    type="checkbox"
+                    checked={deliveryTypes.has(DeliveryType.BlendedDelivery)}
+                    onChange={() => toggleDeliveryType(DeliveryType.BlendedDelivery)}
+                  />
+                  <label className="usa-checkbox__label" htmlFor="blended">
+                    Blended
                   </label>
                 </div>
               </div>

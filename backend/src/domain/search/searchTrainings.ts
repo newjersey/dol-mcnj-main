@@ -20,7 +20,7 @@ const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
 const fetchAllCerts = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
   try {
-    console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
+    // console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
     const response = await credentialEngineAPI.getResults(query, offset, limit);
     return {
       allCerts: response.data.data || [],
@@ -81,6 +81,7 @@ const filterCerts = async (
   services?: string[]
 ) => {
   let filteredResults = results;
+
   if (cip_code) {
     const normalizedCip = normalizeCipCode(cip_code);
     filteredResults = filteredResults.filter(
@@ -110,18 +111,16 @@ const filterCerts = async (
   }
 
   if (format && format.length > 0) {
-    // Define a mapping from `format` to `DeliveryType` terms
     const deliveryTypeMapping: Record<string, DeliveryType> = {
-      "in-person": DeliveryType.InPerson,
+      "inperson": DeliveryType.InPerson,
       "online": DeliveryType.OnlineOnly,
       "blended": DeliveryType.BlendedDelivery,
     };
 
     // Convert format to the corresponding DeliveryType terms
     const mappedClassFormats = format
-      .map(f => deliveryTypeMapping[f.toLowerCase()])
+      .map((f) => deliveryTypeMapping[f.toLowerCase() as keyof typeof deliveryTypeMapping])
       .filter(Boolean);
-
 
     // Filter results based on the mapped delivery types
     filteredResults = filteredResults.filter(result => {
@@ -129,7 +128,6 @@ const filterCerts = async (
       return mappedClassFormats.some(mappedFormat => deliveryTypes.includes(mappedFormat));
     });
   }
-
 
   if (county) {
     filteredResults = filteredResults.filter(result => {
@@ -326,26 +324,6 @@ function buildQuery(params: {
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
-
-  /*  const miles = params.miles;
-  const zipcode = params.zipcode;*/
-  /*
-    let zipcodesList: string[] | zipcodes.ZipCode[] = []
-
-    if (isZipCode) {
-      zipcodesList = [params.searchQuery]
-    } else if (isCounty) {
-      zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
-    }
-
-    if (params.county) {
-      zipcodesList = zipcodeJson.byCounty[params.county as keyof typeof zipcodeJson.byCounty]
-    }
-
-    if (miles && miles > 0 && zipcode) {
-      const zipcodesInRadius = zipcodes.radius(zipcode, miles);
-      zipcodesList = zipcodesInRadius;
-    }*/
 
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
