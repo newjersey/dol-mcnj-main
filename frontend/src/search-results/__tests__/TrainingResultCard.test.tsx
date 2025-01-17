@@ -21,10 +21,8 @@ describe("<TrainingResultCard />", () => {
 
   it.skip("dispatches ADD comparison action when checkbox is checked", async () => {
     const trainingResult = buildTrainingResult({ name: "training1" });
-    render(
-      <TrainingResultCard trainingResult={trainingResult} comparisonItems={[]} />
-    );
-    
+    render(<TrainingResultCard trainingResult={trainingResult} comparisonItems={[]} />);
+
     await act(async () => {
       fireEvent.click(screen.getByLabelText("Compare"));
     });
@@ -39,7 +37,7 @@ describe("<TrainingResultCard />", () => {
   it.skip("dispatches REMOVE comparison action when checkbox is unchecked", () => {
     const trainingResult = buildTrainingResult({ name: "training1" });
     const { getByLabelText } = render(
-      <TrainingResultCard trainingResult={trainingResult} comparisonItems={[trainingResult]} />
+      <TrainingResultCard trainingResult={trainingResult} comparisonItems={[trainingResult]} />,
     );
 
     fireEvent.click(getByLabelText("Compare"));

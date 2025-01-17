@@ -108,7 +108,9 @@ describe("FaqCollection", () => {
     expect(screen.getByText("Question 2")).toBeInTheDocument();
   });
   it("renders the children", async () => {
-    const { history } = renderWithRouter(<FaqCollection items={mockFaqTopics}>Some children</FaqCollection>);
+    const { history } = renderWithRouter(
+      <FaqCollection items={mockFaqTopics}>Some children</FaqCollection>,
+    );
     await history.navigate("/faq");
     expect(screen.getByText("Some children")).toBeInTheDocument();
   });

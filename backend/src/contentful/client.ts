@@ -4,7 +4,7 @@ export const contentfulClient = ({
   variables,
   includeDrafts,
   excludeInvalid,
-  accessToken
+  accessToken,
 }: {
   query: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,7 +12,7 @@ export const contentfulClient = ({
   includeDrafts?: boolean;
   excludeInvalid?: boolean;
   accessToken: string;
-}) => { 
+}) => {
   const headers: {
     authorization: string;
     "X-Include-Drafts"?: string;
@@ -26,11 +26,8 @@ export const contentfulClient = ({
   if (excludeInvalid) {
     headers["X-Exclude-Invalid"] = "true";
   }
-  const client = new GraphQLClient(
-    `https://${process.env.BASE_URL}/${process.env.SPACE_ID}`,
-    {
-      headers,
-    },
-  );
+  const client = new GraphQLClient(`https://${process.env.BASE_URL}/${process.env.SPACE_ID}`, {
+    headers,
+  });
   return client.request(query, variables);
 };

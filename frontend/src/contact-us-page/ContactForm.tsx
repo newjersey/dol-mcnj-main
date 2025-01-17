@@ -2,71 +2,71 @@ import { Dispatch, SetStateAction } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  FormControlLabel,
-  InputAdornment,
-  Radio,
-  RadioGroup,
-  TextField
-} from "@material-ui/core";
+import { FormControlLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { EnvelopeSimple } from "@phosphor-icons/react";
 import { checkValidEmail } from "../utils/checkValidEmail";
 
-const schema = yup.object()
+const schema = yup
+  .object()
   .shape({
-    email: yup.string().required('Please enter an email').test('valid-email', 'Please enter a valid email', val => {
-      if (val?.length) return checkValidEmail(val);
-    }),
-    topic: yup.string().required('Please select an option'),
-    message: yup.string().required('Please enter a message').test('len', 'Cannot be more than 1000 characters', val => {
-      if (val?.length) return val.length <= 1000;
-    }),
+    email: yup
+      .string()
+      .required("Please enter an email")
+      .test("valid-email", "Please enter a valid email", (val) => {
+        if (val?.length) return checkValidEmail(val);
+      }),
+    topic: yup.string().required("Please select an option"),
+    message: yup
+      .string()
+      .required("Please enter a message")
+      .test("len", "Cannot be more than 1000 characters", (val) => {
+        if (val?.length) return val.length <= 1000;
+      }),
   })
   .required();
 
 const topics = [
   {
-    label: 'In-demand Occupations',
-    value: 'in-demand-occupations'
+    label: "In-demand Occupations",
+    value: "in-demand-occupations",
   },
   {
-    label: 'Occupation Details',
-    value: 'occupation-details'
+    label: "Occupation Details",
+    value: "occupation-details",
   },
   {
-    label: 'Support and Assistance',
-    value: 'support-and-assistance'
+    label: "Support and Assistance",
+    value: "support-and-assistance",
   },
   {
-    label: 'Training Details',
-    value: 'training-details'
+    label: "Training Details",
+    value: "training-details",
   },
   {
-    label: 'Training Provider Resources',
-    value: 'training-provider-resources'
+    label: "Training Provider Resources",
+    value: "training-provider-resources",
   },
   {
-    label: 'Tuition Assistance',
-    value: 'tuition-assistance'
+    label: "Tuition Assistance",
+    value: "tuition-assistance",
   },
   {
-    label: 'Other / Not Listed',
-    value: 'other'
-  }
-]
+    label: "Other / Not Listed",
+    value: "other",
+  },
+];
 
 const ContactForm = ({
   defaultValues,
-  setFormSuccess
+  setFormSuccess,
 }: {
   defaultValues: {
     email: string;
     topic: string;
     message: string;
-  },
-  setFormSuccess: Dispatch<SetStateAction<boolean | undefined>>
+  };
+  setFormSuccess: Dispatch<SetStateAction<boolean | undefined>>;
 }) => {
-
   const {
     control,
     formState: { errors },
@@ -74,7 +74,7 @@ const ContactForm = ({
     handleSubmit,
     register,
     reset,
-    watch
+    watch,
   } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
@@ -86,10 +86,10 @@ const ContactForm = ({
   const onSubmit = async (data) => {
     const formValues = JSON.stringify(data);
     console.log(formValues);
-    const response = await fetch('/api/contact', {
-      method: 'POST',
+    const response = await fetch("/api/contact", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: formValues,
     });
@@ -105,7 +105,8 @@ const ContactForm = ({
     <>
       <h2>Contact Form</h2>
       <p>
-        Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce office will get back with you in 3-5 business days.
+        Please reach out to us with your questions or comments. Our staff at the Department of Labor
+        and Workforce office will get back with you in 3-5 business days.
       </p>
       <div className="required-instructions">
         A red asterisk (<span className="required">*</span>) indicates a required field.
@@ -122,19 +123,19 @@ const ContactForm = ({
             variant="outlined"
             placeholder="Email"
             InputProps={{
-              startAdornment: <InputAdornment position="start"><EnvelopeSimple /></InputAdornment>,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EnvelopeSimple />
+                </InputAdornment>
+              ),
             }}
             error={!!errors.email}
             {...register("email")}
-            onBlur={() => {
-
-            }}
+            onBlur={() => {}}
           />
-          <div className="form-error-message">
-            {errors.email?.message}
-          </div>
+          <div className="form-error-message">{errors.email?.message}</div>
         </div>
-        <div className={`input-container${errors.topic ? ' radio-erros' : ''}`}>
+        <div className={`input-container${errors.topic ? " radio-erros" : ""}`}>
           <div className="label-container">
             <label htmlFor="topic">Please select a topic</label> <span className="required">*</span>
           </div>
@@ -154,17 +155,14 @@ const ContactForm = ({
                     key={index}
                     value={topic.value}
                     data-testid={`topic-${index}`}
-                    control={
-                      <Radio classes={{root: errors.topic ? 'radio-error' : undefined} } />
-                    }
-                    label={topic.label} />
+                    control={<Radio classes={{ root: errors.topic ? "radio-error" : undefined }} />}
+                    label={topic.label}
+                  />
                 ))}
               </RadioGroup>
             )}
           />
-          <div className="form-error-message">
-            {errors.topic?.message}
-          </div>
+          <div className="form-error-message">{errors.topic?.message}</div>
         </div>
         <div className="input-container">
           <div className="label-container">
@@ -172,26 +170,28 @@ const ContactForm = ({
           </div>
           <textarea
             id="message"
-            className={errors.message ? 'error-textarea' : ''}
+            className={errors.message ? "error-textarea" : ""}
             placeholder="Your message"
             {...register("message")}
           />
-          <div className={`message-count ${getValues("message")?.length > 1000 || !!errors.message ? 'required' : undefined}`}>
+          <div
+            className={`message-count ${getValues("message")?.length > 1000 || !!errors.message ? "required" : undefined}`}
+          >
             {watchMessage ? `${getValues("message").length}` : `0`} / 1000
           </div>
-          <div className="form-error-message">
-            {errors.message?.message}
-          </div>
+          <div className="form-error-message">{errors.message?.message}</div>
         </div>
         <div className="button-container">
-          <button type="submit" data-testid="submit-button" className="usa-button">Submit</button>
+          <button type="submit" data-testid="submit-button" className="usa-button">
+            Submit
+          </button>
           <button type="button" className="clear-button" onClick={() => reset()}>
             Clear Form
           </button>
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

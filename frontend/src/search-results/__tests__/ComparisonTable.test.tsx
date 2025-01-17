@@ -6,13 +6,30 @@ import { buildTrainingResult } from "../../test-objects/factories";
 describe("<ComparisonTable />", () => {
   it("renders the table correctly", () => {
     const data = [
-      buildTrainingResult({ id: "1", name: "training1", providerName: "provider1", inDemand: true }),
-      buildTrainingResult({ id: "2", name: "training2", providerName: "provider2", inDemand: false }),
-      buildTrainingResult({ id: "3", name: "training3", providerName: "provider3", inDemand: false }),
+      buildTrainingResult({
+        id: "1",
+        name: "training1",
+        providerName: "provider1",
+        inDemand: true,
+      }),
+      buildTrainingResult({
+        id: "2",
+        name: "training2",
+        providerName: "provider2",
+        inDemand: false,
+      }),
+      buildTrainingResult({
+        id: "3",
+        name: "training3",
+        providerName: "provider3",
+        inDemand: false,
+      }),
     ];
     const scrollEnd = true;
 
-    const { getByTestId, getByText } = render(<ComparisonTable data={data} scrollEnd={scrollEnd} />);
+    const { getByTestId, getByText } = render(
+      <ComparisonTable data={data} scrollEnd={scrollEnd} />,
+    );
 
     expect(getByText("training1", { exact: false })).toBeInTheDocument();
     expect(getByText("training2", { exact: false })).toBeInTheDocument();
@@ -26,13 +43,30 @@ describe("<ComparisonTable />", () => {
 
   it("renders the mobile table correctly", () => {
     const data = [
-      buildTrainingResult({ id: "1", name: "training1", providerName: "provider1", inDemand: true }),
-      buildTrainingResult({ id: "2", name: "training2", providerName: "provider2", inDemand: false }),
-      buildTrainingResult({ id: "3", name: "training3", providerName: "provider3", inDemand: false }),
+      buildTrainingResult({
+        id: "1",
+        name: "training1",
+        providerName: "provider1",
+        inDemand: true,
+      }),
+      buildTrainingResult({
+        id: "2",
+        name: "training2",
+        providerName: "provider2",
+        inDemand: false,
+      }),
+      buildTrainingResult({
+        id: "3",
+        name: "training3",
+        providerName: "provider3",
+        inDemand: false,
+      }),
     ];
     const scrollEnd = true;
 
-    const { getByText, getByTestId } = render(<ComparisonTable data={data} scrollEnd={scrollEnd} />);
+    const { getByText, getByTestId } = render(
+      <ComparisonTable data={data} scrollEnd={scrollEnd} />,
+    );
 
     expect(getByText("training1")).toBeInTheDocument();
     expect(getByText("training2")).toBeInTheDocument();

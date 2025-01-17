@@ -1,24 +1,15 @@
 const faq_data = {
-  "training-explorer": [
-    "training",
-    "tuition-assistance-for-training",
-    "data-sources"
-  ],
+  "training-explorer": ["training", "tuition-assistance-for-training", "data-sources"],
   "eligible-training-provider-list": [
     "etpl-program-general-information",
     "etpl-information-for-students",
     "etpl-information-for-providers",
   ],
-  "indemand-occupations": [
-    "indemand-occupation-list",
-  ],
-  "private-career-schools": [
-    "private-career-schools"
-  ]
-}
+  "indemand-occupations": ["indemand-occupation-list"],
+  "private-career-schools": ["private-career-schools"],
+};
 
 const faq_groups = Object.keys(faq_data);
-
 
 describe("FAQ Page", () => {
   it("is accessible", () => {
@@ -34,16 +25,16 @@ describe("FAQ Page", () => {
   describe("default page", () => {
     beforeEach(() => {
       cy.visit("/faq");
-    })
+    });
 
     it("should include default link in url", () => {
       cy.url().should("include", "#training");
-    })
+    });
 
     it("should have only default navigation group open", () => {
       faq_groups.forEach((group, index) => {
         if (index > 0) {
-          cy.shouldBeActive(`[data-testid="topic-${group}"]`,false);
+          cy.shouldBeActive(`[data-testid="topic-${group}"]`, false);
           faq_data[group].forEach((topic) => {
             cy.shouldBeVisible(`[data-testid="link-${topic}"]:visible`, false);
           });
@@ -79,22 +70,24 @@ describe("FAQ Page", () => {
             .should("have.class", "open")
             .within(() => {
               cy.get(`[data-testid="accordion-content-${index}"]`).should("exist");
-              cy.contains("The types of training you will find on this website range from private career schools, non-profit schools, community colleges, vocational schools, literacy programs, short-term occupational and skills training programs, and registered apprenticeships. There are also a select number of higher education programs on this list.").should("exist");
+              cy.contains(
+                "The types of training you will find on this website range from private career schools, non-profit schools, community colleges, vocational schools, literacy programs, short-term occupational and skills training programs, and registered apprenticeships. There are also a select number of higher education programs on this list.",
+              ).should("exist");
             });
         }
-      })
+      });
     });
-  })
+  });
 
   describe("visiting faq page with specific #link in url", () => {
     beforeEach(() => {
       cy.visit("/faq#etpl-information-for-students");
-    })
+    });
 
     it("should have correct navigation group visible", () => {
       faq_groups.forEach((group) => {
         cy.get(`[data-testid="topic-${group}"]`).should("exist");
-  
+
         if (group === "eligible-training-provider-list") {
           cy.shouldBeActive(`[data-testid="topic-${group}"]`, true);
         } else {
@@ -123,17 +116,18 @@ describe("FAQ Page", () => {
             .should("not.have.class", "open")
             .within(() => {
               cy.get(`[data-testid="accordion-content-${index}"]:visible`).should("not.exist");
-            });;
+            });
         } else {
           cy.get(`[data-testid="accordion-${index}"]`)
             .should("have.class", "open")
             .within(() => {
               cy.get(`[data-testid="accordion-content-${index}"]`)
                 .should("exist")
-                .invoke('text').should('have.length.gt', 0); // Due to the nature of the content, we can't predict the exact text
+                .invoke("text")
+                .should("have.length.gt", 0); // Due to the nature of the content, we can't predict the exact text
             });
         }
-      })
+      });
     });
   });
 
@@ -164,7 +158,7 @@ describe("FAQ Page", () => {
     it("should change the url when clicked", () => {
       cy.visit("/faq");
       cy.url().should("include", "#training");
-      
+
       faq_groups.forEach((group, index) => {
         if (index > 0) {
           cy.get(`[data-testid="topic-${group}"]`).click();
@@ -178,7 +172,7 @@ describe("FAQ Page", () => {
             cy.url().should("include", `#${topic}`);
           });
         }
-      })
+      });
     });
 
     it("changes active link when url is changed", () => {
@@ -189,7 +183,7 @@ describe("FAQ Page", () => {
             cy.shouldBeVisible(`[data-testid="link-${topic}"]:visible`, true);
             cy.shouldBeActive(`[data-testid="link-${topic}"]:visible`, true);
             cy.navHasOneActiveLink("#faqNav");
-          })
+          });
         } else {
           faq_data[group].forEach((topic) => {
             cy.visit(`/faq#${topic}`);
@@ -198,8 +192,7 @@ describe("FAQ Page", () => {
             cy.navHasOneActiveLink("#faqNav");
           });
         }
-      })
+      });
     });
-  })
-
+  });
 });

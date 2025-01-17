@@ -24,17 +24,25 @@ const toggleOpen = (isOpen: boolean, contentId: string): void => {
   }
 };
 
-const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, topics }: DropGroupProps) => {
+const DropGroup = ({
+  activeItem,
+  className,
+  defaultTopic,
+  onChange,
+  sys,
+  title,
+  topics,
+}: DropGroupProps) => {
   const location = useLocation();
   const [open, setOpen] = useState<boolean>(false);
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
-  const resetActiveTopic = async(topic: FaqTopic) => {
+  const resetActiveTopic = async (topic: FaqTopic) => {
     setActiveTopic(undefined);
     setTimeout(() => {
       setActiveTopic(topic);
     }, 10);
-  }
+  };
 
   useEffect(() => {
     const urlParams = window.location.hash;
@@ -45,7 +53,7 @@ const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, 
 
       if (searchedTopic) {
         resetActiveTopic(searchedTopic);
-        setOpen(true)
+        setOpen(true);
         const contentBlock = document.getElementById(`list-${sys?.id}`);
 
         if (contentBlock) {
@@ -55,13 +63,15 @@ const DropGroup = ({ activeItem, className, defaultTopic, onChange, sys, title, 
       }
     } else {
       if (!activeItem) {
-        const searchedTopic = topics.items.find((topic) => slugify(topic.topic) === slugify(defaultTopic || ""));
-  
+        const searchedTopic = topics.items.find(
+          (topic) => slugify(topic.topic) === slugify(defaultTopic || ""),
+        );
+
         if (searchedTopic) {
           setActiveTopic(searchedTopic);
-          setOpen(true)
+          setOpen(true);
           const contentBlock = document.getElementById(`list-${sys?.id}`);
-  
+
           if (contentBlock) {
             const height = contentBlock?.scrollHeight;
             contentBlock.style.height = `${height}px`;
