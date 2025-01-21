@@ -1,0 +1,11 @@
+delete from localexceptioncips where
+    (soc = '29-2072' and occupation = 'Medical Records Specialists' and county = 'PASSAIC' and cip = '51.0706' and cipdescription = 'Health Information/Medical Records Administration/Administrator.' and cipcode = '510706') or
+    (soc = '29-2072' and occupation = 'Medical Records Specialists' and county = 'PASSAIC' and cip = '51.0707' and cipdescription = 'Health Information/Medical Records Technology/Technician.' and cipcode = '510707') or
+    (soc = '29-2072' and occupation = 'Medical Records Specialists' and county = 'PASSAIC' and cip = '51.0713' and cipdescription = 'Medical Insurance Coding Specialist/Coder.' and cipcode = '510713') or
+    (soc = '29-2072' and occupation = 'Medical Records Specialists' and county = 'PASSAIC' and cip = '51.0721' and cipdescription = 'Disease Registry Data Management.' and cipcode = '510721') or
+    (soc = '29-9021' and occupation = 'Health Information Technologists and Medical Registrars' and county = 'PASSAIC' and cip = '51.0706' and cipdescription = 'Health Information/Medical Records Administration/Administrator.' and cipcode = '510706') or
+    (soc = '29-9021' and occupation = 'Health Information Technologists and Medical Registrars' and county = 'PASSAIC' and cip = '51.0707' and cipdescription = 'Health Information/Medical Records Technology/Technician.' and cipcode = '510707') or
+    (soc = '29-9021' and occupation = 'Health Information Technologists and Medical Registrars' and county = 'PASSAIC' and cip = '51.0713' and cipdescription = 'Medical Insurance Coding Specialist/Coder.' and cipcode = '510713') or
+    (soc = '29-9021' and occupation = 'Health Information Technologists and Medical Registrars' and county = 'PASSAIC' and cip = '51.0721' and cipdescription = 'Disease Registry Data Management.' and cipcode = '510721') or
+    (soc = '29-9021' and occupation = 'Health Information Technologists and Medical Registrars' and county = 'PASSAIC' and cip = '51.0723' and cipdescription = 'Healthcare Information Privacy Assurance and Security.' and cipcode = '510723') or
+    (soc = '29-9021' and occupation = 'Health Information Technologists and Medical Registrars' and county = 'PASSAIC' and cip = '51.2706' and cipdescription = 'Medical Informatics.' and cipcode = '512706');
