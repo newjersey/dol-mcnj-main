@@ -53,7 +53,9 @@ export const ResultsHeader = () => {
       <div className="headingContainer">
         <Heading level={2} className="resultsCount">
           {results.itemCount === 0 &&
-          (searchTerm === "undefined" || searchTerm === "null") ? (
+          (searchTerm === "undefined" ||
+            searchTerm === "null" ||
+            searchTerm === "") ? (
             <>Find Training</>
           ) : (
             <>

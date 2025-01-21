@@ -86,7 +86,9 @@ export const ParamTags = () => {
             suffixIcon="X"
             color="blue"
             className="param-tag"
-            title={`${categorizeTag(key)}: **${formatValue(key, value)}**`}
+            title={`${categorizeTag(key)}: ${
+              categorizeTag(key) === "Cost" ? "$" : ""
+            }**${formatValue(key, value)}**`}
             markdown
           />
         </button>

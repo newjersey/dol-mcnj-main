@@ -110,7 +110,7 @@ const Results = ({
       {compare.length > 0 && <CompareTable />}
 
       <ResultsHeader />
-      {results.searchParams && <ParamTags />}
+      {results.searchParams && searchTerm !== "" && <ParamTags />}
       <div className="inner">
         <Filter />
 
