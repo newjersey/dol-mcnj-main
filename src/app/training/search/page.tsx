@@ -1,7 +1,8 @@
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { getSearchData } from "./utils/getSearchData";
 import { Results } from "./components/Results";
-
+import { SEARCH_RESULTS_PAGE_DATA as contentData } from "@data/pages/training/search";
+import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 export const revalidate = 0;
 
 export const generateMetadata = async ({
@@ -47,6 +48,7 @@ export default async function SearchPage(props: {
   return (
     <div className="search default">
       <div className="container">
+        <Breadcrumbs {...contentData.breadcrumbs} />
         <Results
           items={pageData}
           searchParams={searchParams}

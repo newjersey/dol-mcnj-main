@@ -1,15 +1,15 @@
 "use client";
 import { ResultCard } from "@components/modules/ResultCard";
 import { Filter } from "./Filter";
-import { CipDefinition, FetchResultsProps, ResultProps } from "@utils/types";
-import { useState } from "react";
-import { Button } from "@components/modules/Button";
+import { FetchResultsProps, ResultProps } from "@utils/types";
+import { createContext, useEffect, useState } from "react";
 import { ResultsHeader } from "./ResultsHeader";
 import { CompareTable } from "./CompareTable";
-import { Breadcrumbs } from "@components/modules/Breadcrumbs";
-import { StarterText } from "./StarterText";
+import { SEARCH_RESULTS_PAGE_DATA as pageContent } from "@data/pages/training/search";
 import { HelpText } from "./HelpText";
 import { Pagination } from "@components/modules/Pagination";
+import { Alert } from "@components/modules/Alert";
+import { ParamTags } from "./ParamTags";
 
 export interface FilterProps {
   searchQuery?: string;
@@ -28,6 +28,24 @@ export interface FilterProps {
   languages?: string[];
   socCode?: string;
 }
+
+export interface ContextProps {
+  results: FetchResultsProps;
+  setResults: (results: FetchResultsProps) => void;
+  compare: ResultProps[];
+  setCompare: (compare: ResultProps[]) => void;
+  toggle: boolean;
+  setToggle: (toggle: boolean) => void;
+  searchTerm: string;
+  setSearchTerm: (searchTerm: string) => void;
+  extractParam: (param: string) => string | null;
+  sortValue: string;
+  setSortValue: (sortValue: string) => void;
+  itemsPerPage: string;
+  setItemsPerPage: (itemsPerPage: string) => void;
+}
+
+export const ResultsContext = createContext<ContextProps>({} as ContextProps);
 
 const Results = ({
   items,
@@ -51,6 +69,9 @@ const Results = ({
 
   const [compare, setCompare] = useState<ResultProps[]>([]);
   const [toggle, setToggle] = useState(extractParam("toggle") === "true");
+  const [searchTerm, setSearchTerm] = useState<string>(extractParam("q") || "");
+  const [sortValue, setSortValue] = useState(extractParam("sort") || "");
+  const [itemsPerPage, setItemsPerPage] = useState(extractParam("limit") || "");
   const [results, setResults] = useState<FetchResultsProps>({
     itemCount: count,
     pageData: items,
@@ -60,60 +81,45 @@ const Results = ({
     totalPages: totalPages,
   });
 
+  useEffect(() => {
+    if (toggle && window.innerWidth < 768) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [toggle]);
+
   return (
-    <>
-      <Breadcrumbs
-        style={{ marginBottom: "1rem" }}
-        crumbs={[
-          {
-            copy: "Home",
-            url: "/",
-          },
-          {
-            copy: "Training Explorer",
-            url: "/training",
-          },
-        ]}
-        pageTitle="Search"
-      />
-      {compare.length > 0 && (
-        <CompareTable items={compare} setCompare={setCompare} />
-      )}
+    <ResultsContext.Provider
+      value={{
+        results,
+        setResults,
+        compare,
+        setCompare,
+        toggle,
+        setToggle,
+        searchTerm,
+        setSearchTerm,
+        extractParam,
+        sortValue,
+        setSortValue,
+        itemsPerPage,
+        setItemsPerPage,
+      }}
+    >
+      {compare.length > 0 && <CompareTable />}
 
-      <Button
-        defaultStyle="secondary"
-        iconPrefix="FunnelSimple"
-        iconSuffix={toggle ? "CaretUp" : "CaretDown"}
-        className="editSearch"
-        type="button"
-        outlined
-        onClick={() => {
-          setToggle(!toggle);
-        }}
-      >
-        Edit Search or Filter
-      </Button>
-
-      <ResultsHeader
-        count={results.itemCount}
-        query={`${extractParam("q")}`}
-        defaultSort={`${extractParam("sort")}`}
-      />
-
+      <ResultsHeader />
+      {results.searchParams && searchTerm !== "" && <ParamTags />}
       <div className="inner">
-        <Filter
-          className={toggle ? "open" : undefined}
-          allItems={results.pageData}
-          searchParams={searchParams}
-          setResults={setResults}
-        />
+        <Filter />
 
-        <div className="results" id="results">
+        <div className={`results${toggle ? "" : " wide"}`} id="results">
           <>
             {results.pageData.length === 0 && !query && page === 1 ? (
-              <StarterText />
+              <Alert {...pageContent.searchHelp} />
             ) : results.pageData.length <= 3 && page === 1 ? (
-              <HelpText />
+              <Alert {...pageContent.searchHelp} />
             ) : (
               <></>
             )}
@@ -153,17 +159,10 @@ const Results = ({
             ))}
           </>
 
-          {results.totalPages > 1 && (
-            <Pagination
-              currentPage={results.pageNumber}
-              totalPages={results.totalPages}
-              hasPreviousPage={results.pageData.length > 10}
-              hasNextPage={results.pageData.length > 10}
-            />
-          )}
+          {results.totalPages > 1 && <Pagination />}
         </div>
       </div>
-    </>
+    </ResultsContext.Provider>
   );
 };
 

@@ -11,10 +11,6 @@ async function getData() {
     query: CAREER_PATHWAYS_PAGE_QUERY,
   });
 
-  if (process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "false" || !page) {
-    return notFound();
-  }
-
   return {
     page,
   };

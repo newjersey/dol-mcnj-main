@@ -12,7 +12,7 @@ export async function getSearchData(props: {
   const { searchParams } = props;
 
   const searchData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchParams.q}`,
+    `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchParams.q}`
   );
 
   if (!searchData.ok) {
@@ -48,8 +48,8 @@ export async function getSearchData(props: {
     searchParams.mockData === "baking"
       ? baking
       : searchParams.mockData === "digitalMarketing"
-        ? digitalMarketing
-        : undefined;
+      ? digitalMarketing
+      : undefined;
 
   const pageData = mockData || searchDataItems;
 
@@ -65,7 +65,7 @@ export async function getSearchData(props: {
   if (searchParams.miles && searchParams.zip) {
     const zipCodes = getZipCodesInRadius(
       searchParams.zip,
-      parseInt(searchParams.miles),
+      parseInt(searchParams.miles)
     );
 
     filterObject = {
@@ -332,7 +332,9 @@ export async function getSearchData(props: {
 
   if (searchParams.cipCode) {
     const removeDecimal = searchParams.cipCode.includes(".")
-      ? `${searchParams.cipCode.split(".")[0]}${searchParams.cipCode.split(".")[1]}`
+      ? `${searchParams.cipCode.split(".")[0]}${
+          searchParams.cipCode.split(".")[1]
+        }`
       : searchParams.cipCode;
 
     filterObject = {
@@ -343,7 +345,10 @@ export async function getSearchData(props: {
 
   if (searchParams.socCode) {
     if (searchParams.socCode.length === 6) {
-      const socCode = `${searchParams.socCode.slice(0, 2)}-${searchParams.socCode.slice(2)}`;
+      const socCode = `${searchParams.socCode.slice(
+        0,
+        2
+      )}-${searchParams.socCode.slice(2)}`;
       filterObject = {
         ...filterObject,
         socCode,
@@ -402,7 +407,7 @@ export async function getSearchData(props: {
   }
 
   const pageNumber = searchParams.p ? parseInt(searchParams.p) : 1;
-  const itemsPerPage = 10;
+  const itemsPerPage = searchParams.limit ? parseInt(searchParams.limit) : 10;
   const start = (pageNumber - 1) * itemsPerPage;
   const end = start + itemsPerPage;
 

@@ -1,86 +1,147 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .searchFilter {
-  background-color: settings.$secondary-lighter;
-  display: flex;
-  flex-direction: column;
-  gap: settings.$size-20;
-  padding: settings.$size-16 settings.$size-48;
+  background-color: s.$secondary-lighter;
+  border-radius: s.$size-8;
+  width: 0;
+  display: block;
+  transition-duration: s.$transition-speed;
 
-  @media screen and (max-width: (settings.$tablet-md - 1)) {
-    padding: settings.$size-16;
-    display: none;
+  @media screen and (min-width: (s.$tablet-md)) {
+    position: sticky;
+    top: 0;
+    max-height: 100svh;
+    opacity: 0;
+  }
+
+  @media screen and (max-width: (s.$tablet-md - 1)) {
+    width: 100%;
+    display: block;
+    position: fixed;
+    left: 0;
+    max-height: 90svh;
+    z-index: 10;
+    bottom: -110svh;
   }
 
   &.open {
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
-      display: flex;
+    bottom: 0;
+
+    @media screen and (min-width: (s.$tablet)) {
+      width: s.$size-320;
+      margin-right: s.$size-24;
+      opacity: 1;
     }
-  }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: settings.$size-8;
-  }
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      width: 100%;
+    }
 
-  .search {
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    gap: settings.$size-8;
+    .overlay {
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        pointer-events: all;
+        opacity: 1;
+        height: calc(100% - 89svh);
+      }
+    }
 
-    &.section {
-      margin-bottom: settings.$size-16;
+    .section {
+      &.search {
+        @media screen and (max-width: (s.$tablet-md - 1)) {
+          bottom: 0;
+        }
+      }
+    }
 
-      @media screen and (max-width: (settings.$tablet-md - 1)) {
-        margin-top: 0;
+    > form {
+      @media screen and (min-width: (s.$tablet-md)) {
+        opacity: 1;
+        transition-delay: s.$transition-speed / 2;
       }
     }
   }
 
-  input,
-  select {
-    border: settings.$size-1 solid settings.$base-light;
-  }
+  > form {
+    white-space: nowrap;
 
-  .usa-select {
-    &:disabled,
-    &[aria-disabled="true"] {
-      background-color: settings.$disabled-light;
-      color: settings.$disabled-dark;
-      border: none;
+    @media screen and (min-width: (s.$tablet-md)) {
+      transition-duration: s.$transition-speed;
+      min-width: s.$size-320;
+      opacity: 0;
     }
   }
 
-  .MuiSwitch-colorPrimary.Mui-checked {
-    color: settings.$secondary;
+  .overlay {
+    transition-duration: s.$transition-speed;
+    display: block;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
   }
 
-  .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
-    background-color: settings.$secondary;
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: s.$size-24;
+    padding: 0 s.$size-16 s.$size-16;
+    margin-top: 0;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      padding-bottom: s.$size-120;
+    }
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      height: calc(100svh - s.$size-64);
+      padding-bottom: s.$size-112;
+    }
   }
 
-  .MuiSwitch-root {
-    margin-left: -(settings.$size-10);
-  }
-
-  .usa-button {
-    margin: 0;
-  }
-
-  .label,
-  .usa-label {
+  .heading {
     font-weight: bold;
+    font-size: s.$size-20;
     margin: 0;
+    background-color: s.$secondary-lighter;
+    padding: s.$size-16;
+    position: relative;
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      border-radius: s.$size-8 s.$size-8 0 0;
+    }
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    button {
+      display: none;
+      cursor: pointer;
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        display: block;
+        position: absolute;
+        right: s.$size-16;
+        top: s.$size-16;
+      }
+    }
   }
 
-  .language {
+  .language,
+  .completion {
     a {
-      margin-top: settings.$size-16;
+      margin-top: s.$size-16;
       display: inline-flex;
       align-items: center;
-      gap: settings.$size-8;
+      gap: s.$size-8;
       justify-content: flex-start;
     }
     .items {
@@ -93,24 +154,6 @@
     }
   }
 
-  .usa-checkbox__input {
-    &:checked {
-      + [class*="__label"] {
-        &::before {
-          background-color: settings.$secondary;
-          box-shadow: inset 0 0 0 0.125rem settings.$secondary;
-        }
-      }
-    }
-    &:focus {
-      + [class*="__label"] {
-        &::before {
-          outline-color: settings.$secondary;
-        }
-      }
-    }
-  }
-
   .input-row {
     display: flex;
     align-items: center;
@@ -119,16 +162,49 @@
     span:not(.formField) {
       display: block;
       text-align: center;
-      width: settings.$size-52;
+      width: s.$size-52;
     }
 
     .formField {
-      width: calc(50% - settings.$size-26);
+      width: calc(50% - s.$size-26);
     }
   }
-
   .errorMessage {
-    color: settings.$error;
-    margin-top: settings.$size-8;
+    color: s.$error;
+    margin-top: s.$size-8;
+  }
+
+  .section {
+    &.search {
+      padding: s.$size-16;
+      background-color: s.$secondary-light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition-duration: s.$transition-speed;
+      left: 0;
+      width: 100%;
+
+      @media screen and (min-width: (s.$tablet-md)) {
+        bottom: 0;
+        border-radius: 0 0 s.$size-8 s.$size-8;
+        position: absolute;
+      }
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        bottom: -100px;
+        position: fixed;
+      }
+
+      button {
+        width: s.$size-144;
+
+        &.apply {
+          @media screen and (min-width: (s.$tablet-md)) {
+            display: none !important;
+          }
+        }
+      }
+    }
   }
 }
