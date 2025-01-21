@@ -4,15 +4,6 @@ import { LabelBox } from "@components/modules/LabelBox";
 import { SeeMoreList } from "@components/modules/SeeMoreList";
 import { Tag } from "@components/modules/Tag";
 import {
-  ArrowSquareOut,
-  Briefcase,
-  GraduationCap,
-  Hourglass,
-  MapPinLine,
-} from "@phosphor-icons/react";
-import { calendarLength } from "@utils/calendarLength";
-import { toUsCurrency } from "@utils/toUsCurrency";
-import {
   InDemandItemProps,
   OccupationDetail,
   TrainingResult,
@@ -38,7 +29,7 @@ export const InDemandDetails = (props: {
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/jobcount/${props.content.title}`,
+      `${process.env.REACT_APP_API_URL}/api/jobcount/${props.content.title}`
     );
 
     const jobNumbersArray = await jobNumbers.json();
@@ -70,7 +61,7 @@ export const InDemandDetails = (props: {
 
       const uniqueTrainings = sortedCourses?.filter(
         (training, index, self) =>
-          index === self.findIndex((t) => t.name === training.name),
+          index === self.findIndex((t) => t.name === training.name)
       );
 
       setSortedTraining(uniqueTrainings);

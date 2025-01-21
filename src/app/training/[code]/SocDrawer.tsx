@@ -14,10 +14,10 @@ export const SocDrawer = ({
         Standard Occupational Classification (SOC) codes
       </Heading>
       <p>
-        "The 2018 Standard Occupational Classification (SOC) system is a federal
-        statistical standard used by federal agencies to classify workers into
-        occupational categories for the purpose of collecting, calculating, or
-        disseminating data." <sup>1.</sup>
+        &quot;The 2018 Standard Occupational Classification (SOC) system is a
+        federal statistical standard used by federal agencies to classify
+        workers into occupational categories for the purpose of collecting,
+        calculating, or disseminating data.&quot; <sup>1.</sup>
       </p>
       <p>
         You can find a list of SOC codes{" "}

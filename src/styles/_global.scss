@@ -23,6 +23,7 @@ body {
   background-color: settings.$white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 .usa-alert {
@@ -33,10 +34,70 @@ body {
   .usa-alert__body {
     display: flex;
     align-items: flex-start;
+    max-width: none;
+
+    > div {
+      width: 100%;
+    }
+
+    &:before {
+      content: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .heading-tag {
+      font-weight: bold;
+      font-size: settings.$size-22;
+    }
   }
 
   button {
     cursor: pointer;
+
+    &.toggle {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin: 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:focus {
+        outline: none;
+
+        svg {
+          display: block;
+          outline: settings.$primary settings.$size-4 solid;
+        }
+      }
+
+      &.show {
+        margin-bottom: settings.$size-16;
+      }
+
+      p,
+      svg {
+        margin: 0;
+      }
+
+      svg {
+        position: relative;
+        top: 0;
+        right: -(settings.$size-45);
+      }
+    }
+  }
+
+  &.collapsable {
+    .heading-tag {
+      width: calc(100% - settings.$size-60);
+    }
   }
 }
 

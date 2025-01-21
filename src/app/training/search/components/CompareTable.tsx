@@ -5,17 +5,14 @@ import { X } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { ResultProps } from "@utils/types";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ResultsContext } from "./Results";
 
-export const CompareTable = ({
-  items,
-  setCompare,
-}: {
-  items: ResultProps[];
-  setCompare: (items: ResultProps[]) => void;
-}) => {
+export const CompareTable = () => {
+  let { compare, setCompare } = useContext(ResultsContext);
+
   const [expanded, setExpanded] = useState<boolean>(false);
-  const remainingBoxes = 3 - items.length;
+  const remainingBoxes = 3 - compare.length;
 
   const remainingBoxesArray = Array.from(Array(remainingBoxes).keys());
 
@@ -28,7 +25,7 @@ export const CompareTable = ({
               <thead>
                 <tr>
                   <td></td>
-                  {items.map((item) => (
+                  {compare.map((item) => (
                     <td key={item.id}>
                       <div>
                         <p>{item.name}</p>
@@ -53,7 +50,7 @@ export const CompareTable = ({
               <tbody>
                 <tr>
                   <td>Cost</td>
-                  {items.map((item) => (
+                  {compare.map((item) => (
                     <td key={item.id}>
                       {item.totalCost ? toUsCurrency(item.totalCost) : "--"}
                     </td>
@@ -64,7 +61,7 @@ export const CompareTable = ({
                 </tr>
                 <tr>
                   <td>Employment Rate %</td>
-                  {items.map((item) => (
+                  {compare.map((item) => (
                     <td key={item.id}>
                       {" "}
                       {item.percentEmployed
@@ -78,7 +75,7 @@ export const CompareTable = ({
                 </tr>
                 <tr>
                   <td>Time to Complete</td>
-                  {items.map((item) => (
+                  {compare.map((item) => (
                     <td key={item.id}>
                       {item.calendarLength
                         ? calendarLength(item.calendarLength)
@@ -91,7 +88,7 @@ export const CompareTable = ({
                 </tr>
                 <tr>
                   <td></td>
-                  {items.map((item) => (
+                  {compare.map((item) => (
                     <td key={item.id}>
                       <Button type="link" link={`/training/${item.id}`}>
                         See Details
@@ -107,7 +104,7 @@ export const CompareTable = ({
           </div>
         ) : (
           <div className="boxes">
-            {items.map((item) => (
+            {compare.map((item) => (
               <div className="box" key={item.id}>
                 <p>{item.name}</p>
                 <p>{item.providerName}</p>
@@ -116,12 +113,14 @@ export const CompareTable = ({
                   onClick={() => {
                     // find the div with id of item.id and uncheck the checkbox
                     const checkbox: HTMLInputElement = document.getElementById(
-                      `checkbox_${item.id}`,
+                      `checkbox_${item.id}`
                     ) as HTMLInputElement;
                     checkbox.checked = false;
 
                     setCompare(
-                      items.filter((compareItem) => compareItem.id !== item.id),
+                      compare.filter(
+                        (compareItem) => compareItem.id !== item.id
+                      )
                     );
                   }}
                 >

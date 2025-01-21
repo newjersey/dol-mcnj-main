@@ -1,18 +1,14 @@
 "use client";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { ResultsContext } from "app/training/search/components/Results";
+import { useContext, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
-export const Pagination = ({
-  currentPage,
-  totalPages,
-}: {
-  currentPage: number;
-  totalPages: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-}) => {
+export const Pagination = () => {
   const [breakCount, setBreakCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  let { results } = useContext(ResultsContext);
 
   useEffect(() => {
     const breakElements = document.querySelectorAll(
@@ -80,7 +76,13 @@ export const Pagination = ({
         }
       }
     }
-  }, [currentPage, totalPages]);
+  }, [results.pageNumber, results.totalPages]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <nav
@@ -94,45 +96,47 @@ export const Pagination = ({
           : " no-break"
       }`}
     >
-      <ReactPaginate
-        ariaLabelBuilder={(page) => `Go to page ${page}`}
-        breakLabel="..."
-        forcePage={currentPage - 1}
-        className="usa-pagination__list"
-        nextClassName="control usa-pagination__item usa-pagination__arrow"
-        nextLinkClassName="usa-pagination__link usa-pagination__next-page"
-        previousClassName="control usa-pagination__item usa-pagination__arrow"
-        previousLinkClassName="usa-pagination__link usa-pagination__previous-page"
-        pageClassName="usa-pagination__item usa-pagination__page-no"
-        pageLinkClassName="usa-pagination__button"
-        breakClassName="usa-pagination__item usa-pagination__overflow"
-        activeLinkClassName="usa-pagination__button usa-current"
-        previousLabel={
-          <>
-            <CaretLeft className="usa-icon" size={20} weight="bold" />
-            <span className="usa-pagination__link-text">Prev</span>
-          </>
-        }
-        nextLabel={
-          <>
-            <span className="usa-pagination__link-text">Next</span>
-            <CaretRight className="usa-icon" size={20} weight="bold" />
-          </>
-        }
-        pageCount={totalPages}
-        renderOnZeroPageCount={null}
-        pageRangeDisplayed={2}
-        onPageChange={(page) => {
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.set("p", `${page.selected + 1}`);
-          window.location.href = newUrl.toString();
-        }}
-        hrefBuilder={(page) => {
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.set("p", `${page}`);
-          return newUrl.toString();
-        }}
-      />
+      {!loading && (
+        <ReactPaginate
+          ariaLabelBuilder={(page) => `Go to page ${page}`}
+          breakLabel="..."
+          forcePage={results.pageNumber - 1}
+          className="usa-pagination__list"
+          nextClassName="control usa-pagination__item usa-pagination__arrow"
+          nextLinkClassName="usa-pagination__link usa-pagination__next-page"
+          previousClassName="control usa-pagination__item usa-pagination__arrow"
+          previousLinkClassName="usa-pagination__link usa-pagination__previous-page"
+          pageClassName="usa-pagination__item usa-pagination__page-no"
+          pageLinkClassName="usa-pagination__button"
+          breakClassName="usa-pagination__item usa-pagination__overflow"
+          activeLinkClassName="usa-pagination__button usa-current"
+          previousLabel={
+            <>
+              <CaretLeft className="usa-icon" size={20} weight="bold" />
+              <span className="usa-pagination__link-text">Prev</span>
+            </>
+          }
+          nextLabel={
+            <>
+              <span className="usa-pagination__link-text">Next</span>
+              <CaretRight className="usa-icon" size={20} weight="bold" />
+            </>
+          }
+          pageCount={results.totalPages}
+          renderOnZeroPageCount={null}
+          pageRangeDisplayed={2}
+          onPageChange={(page) => {
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.set("p", `${page.selected + 1}`);
+            window.location.href = newUrl.toString();
+          }}
+          hrefBuilder={(page) => {
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.set("p", `${page}`);
+            return newUrl.toString();
+          }}
+        />
+      )}
     </nav>
   );
 };

@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .formField {
   position: relative;
@@ -8,15 +8,15 @@
     ),
   textarea,
   select {
-    background-color: settings.$white;
-    border: settings.$size-1 solid settings.$base-light;
-    border-radius: settings.$size-4;
-    min-height: settings.$size-48;
-    padding: settings.$size-12 settings.$size-8;
+    background-color: s.$white;
+    border: s.$size-1 solid s.$base-light;
+    border-radius: s.$size-4;
+    min-height: s.$size-48;
+    padding: s.$size-12 s.$size-8;
     text-align: left;
 
     &::placeholder {
-      color: settings.$base-light;
+      color: s.$base-light;
     }
   }
   select {
@@ -29,7 +29,7 @@
       ),
     textarea,
     select {
-      border-color: settings.$error;
+      border-color: s.$error;
     }
 
     span {
@@ -50,33 +50,33 @@
 
   &.textarea {
     textarea {
-      margin-top: settings.$size-4;
-      min-height: settings.$size-96;
+      margin-top: s.$size-4;
+      min-height: s.$size-96;
     }
   }
 
   &.radio {
     &.error {
       label:before {
-        box-shadow: 0 0 0 settings.$size-2 settings.$error;
+        box-shadow: 0 0 0 s.$size-2 s.$error;
       }
 
       span {
         &.error {
-          margin-top: settings.$size-20;
+          margin-top: s.$size-20;
         }
       }
     }
   }
 
   .error {
-    color: settings.$error;
+    color: s.$error;
     display: flex;
     min-height: none;
     flex-direction: row;
     align-items: flex-start;
-    gap: settings.$size-4;
-    margin-top: settings.$size-4;
+    gap: s.$size-4;
+    margin-top: s.$size-4;
 
     svg {
       position: relative;
@@ -90,14 +90,14 @@
     input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
         [type="submit"]
       ) {
-      padding-left: settings.$size-52;
+      padding-left: s.$size-52;
     }
 
     svg {
       &.icon {
         position: absolute;
-        bottom: settings.$size-12;
-        left: settings.$size-16;
+        bottom: s.$size-12;
+        left: s.$size-16;
         width: auto;
       }
     }
@@ -105,7 +105,63 @@
     &.error {
       svg {
         &.icon {
-          bottom: settings.$size-32 + settings.$size-4;
+          bottom: s.$size-32 + s.$size-4;
+        }
+      }
+    }
+  }
+
+  .switch & {
+    &.checkbox {
+      label {
+        padding: 0;
+        font-weight: bold;
+
+        &:before {
+          content: none;
+        }
+      }
+
+      .toggle {
+        background-color: s.$disabled-dark;
+        width: s.$size-52;
+        height: s.$size-28;
+        cursor: pointer;
+        display: block;
+        border: s.$size-1 solid s.$base;
+        border-radius: s.$size-32;
+        position: relative;
+        transition-duration: s.$transition-speed;
+
+        .dot {
+          background-color: s.$base;
+          width: s.$size-20;
+          height: s.$size-20;
+          display: block;
+          border-radius: 100%;
+          position: absolute;
+          top: 50%;
+          left: s.$size-4;
+          transition-duration: s.$transition-speed;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+
+  .switch.checked & {
+    &.checkbox {
+      label {
+        &:before {
+          content: none;
+        }
+      }
+
+      .toggle {
+        background-color: s.$secondary;
+        .dot {
+          left: calc(100% - s.$size-24);
+          background-color: s.$white;
         }
       }
     }

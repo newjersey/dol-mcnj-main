@@ -14,7 +14,6 @@ export const River: Story = {
   args: {
     items: [
       {
-        sys: { id: "rsdi2rgyo" },
         heading: "High Potential Career Pathways",
         image: {
           sys: {
@@ -30,7 +29,6 @@ export const River: Story = {
         copy: "Our algorithm presents you new career pathways that are informed by the successful transitions other New Jersey workers are making.",
       },
       {
-        sys: { id: "4pqdkrsmy" },
         heading: "Take Action Quickly",
         image: {
           sys: {
