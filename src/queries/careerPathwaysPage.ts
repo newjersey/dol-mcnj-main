@@ -1,3 +1,5 @@
+import { fragments } from "./commonQueries";
+
 export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
 	page: careerPathwaysPage(id: "2bNH2ey6qkohbjnllmwSzg") {
     sys {
@@ -29,4 +31,7 @@ export const CAREER_PATHWAYS_PAGE_QUERY = `query Pathways {
     }
   }
 }
+  ${fragments.pageBanner}
+${fragments.iconCard}
+${fragments.linkObject}
 `;
