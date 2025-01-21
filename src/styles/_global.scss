@@ -60,15 +60,37 @@ body {
     cursor: pointer;
 
     &.toggle {
-      width: settings.$size-60;
-      height: settings.$size-60;
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 0;
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin: 0 0;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+
+      &:focus {
+        outline: none;
+
+        svg {
+          display: block;
+          outline: settings.$primary settings.$size-4 solid;
+        }
+      }
+
+      &.show {
+        margin-bottom: settings.$size-16;
+      }
+
+      p,
+      svg {
+        margin: 0;
+      }
+
+      svg {
+        position: relative;
+        top: 0;
+        right: -(settings.$size-45);
+      }
     }
   }
 

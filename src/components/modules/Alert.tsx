@@ -62,11 +62,17 @@ export const Alert = ({
     >
       <div className="usa-alert__body">
         <div>
-          {heading && (
+          {heading && !collapsable && (
             <p className="heading-tag usa-alert__heading">{heading}</p>
           )}
           {collapsable && (
-            <button onClick={() => setShow(!show)} className="toggle">
+            <button
+              onClick={() => setShow(!show)}
+              className={`toggle${show ? " show" : ""}`}
+            >
+              {heading && (
+                <p className="heading-tag usa-alert__heading">{heading}</p>
+              )}
               {show ? <CaretUp size={30} /> : <CaretDown size={30} />}
               <div className="sr-only">{show ? "show less" : "show more"}</div>
             </button>
