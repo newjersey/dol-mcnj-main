@@ -119,6 +119,10 @@ export const TrainingPage = (props: Props): ReactElement => {
       }
     };
     document.addEventListener("keydown", closeOnEsc);
+
+    if (loading) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   const printReactContent = useReactToPrint({
