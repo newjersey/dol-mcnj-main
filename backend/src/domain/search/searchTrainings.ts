@@ -1,26 +1,26 @@
 import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
-import {SearchTrainings} from "../types";
-import {credentialEngineAPI} from "../../credentialengine/CredentialEngineAPI";
-import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
-import {CTDLResource} from "../credentialengine/CredentialEngine";
-import {getLocalExceptionCounties} from "../utils/getLocalExceptionCounties";
-import {DataClient} from "../DataClient";
-import {getHighlight} from "../utils/getHighlight";
-import {TrainingData, TrainingResult} from "../training/TrainingResult";
+import { SearchTrainings } from "../types";
+import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import { CTDLResource } from "../credentialengine/CredentialEngine";
+import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
+import { DataClient } from "../DataClient";
+import { getHighlight } from "../utils/getHighlight";
+import { TrainingData, TrainingResult } from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
 import zipcodes, {ZipCode} from "zipcodes";
 import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
-import {DeliveryType} from "../DeliveryType";
-import {normalizeCipCode} from "../utils/normalizeCipCode";
-import {normalizeSocCode} from "../utils/normalizeSocCode";
+import { DeliveryType } from "../DeliveryType";
+import { normalizeCipCode } from "../utils/normalizeCipCode";
+import { normalizeSocCode } from "../utils/normalizeSocCode";
 
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-const fetchAllCerts = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
+const searchTrainingPrograms = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
   try {
-    console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
+    // console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
     const response = await credentialEngineAPI.getResults(query, offset, limit);
     return {
       allCerts: response.data.data || [],
@@ -34,19 +34,19 @@ const fetchAllCerts = async (query: object, offset = 0, limit = 10): Promise<{ a
 };
 
 
-const fetchAllCertsInBatches = async (query: object, batchSize = 100) => {
+const searchTrainingProgramsInBatches = async (query: object, batchSize = 100) => {
   const allCerts: CTDLResource[] = [];
-  const initialResponse = await fetchAllCerts(query, 0, batchSize);
+  const initialResponse = await searchTrainingPrograms(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
   allCerts.push(...initialResponse.allCerts);
 
   const fetchBatch = async (offset: number) => {
     try {
-      const response = await fetchAllCerts(query, offset, batchSize);
+      const response = await searchTrainingPrograms(query, offset, batchSize);
       return response.allCerts;
     } catch (error) {
       console.error(`Error fetching batch at offset ${offset}:`, error);
-      return []; // Skip this batch
+      return [];
     }
   };
 
@@ -81,6 +81,7 @@ const filterCerts = async (
   services?: string[]
 ) => {
   let filteredResults = results;
+
   if (cip_code) {
     const normalizedCip = normalizeCipCode(cip_code);
     filteredResults = filteredResults.filter(
@@ -110,18 +111,16 @@ const filterCerts = async (
   }
 
   if (format && format.length > 0) {
-    // Define a mapping from `format` to `DeliveryType` terms
     const deliveryTypeMapping: Record<string, DeliveryType> = {
-      "in-person": DeliveryType.InPerson,
+      "inperson": DeliveryType.InPerson,
       "online": DeliveryType.OnlineOnly,
       "blended": DeliveryType.BlendedDelivery,
     };
 
     // Convert format to the corresponding DeliveryType terms
     const mappedClassFormats = format
-      .map(f => deliveryTypeMapping[f.toLowerCase()])
+      .map((f) => deliveryTypeMapping[f.toLowerCase() as keyof typeof deliveryTypeMapping])
       .filter(Boolean);
-
 
     // Filter results based on the mapped delivery types
     filteredResults = filteredResults.filter(result => {
@@ -129,7 +128,6 @@ const filterCerts = async (
       return mappedClassFormats.some(mappedFormat => deliveryTypes.includes(mappedFormat));
     });
   }
-
 
   if (county) {
     filteredResults = filteredResults.filter(result => {
@@ -263,7 +261,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     // If unfiltered results are not in cache, fetch the results
     if (!unFilteredResults) {
       console.log(`Fetching results for query: ${params.searchQuery}`);
-      const { allCerts } = await fetchAllCertsInBatches(query);
+      const { allCerts } = await searchTrainingProgramsInBatches(query);
       unFilteredResults = await Promise.all(
         allCerts.map((certificate) =>
           transformCertificateToTraining(dataClient, certificate, params.searchQuery)
@@ -327,26 +325,6 @@ function buildQuery(params: {
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
 
-  /*  const miles = params.miles;
-  const zipcode = params.zipcode;*/
-  /*
-    let zipcodesList: string[] | zipcodes.ZipCode[] = []
-
-    if (isZipCode) {
-      zipcodesList = [params.searchQuery]
-    } else if (isCounty) {
-      zipcodesList = zipcodeJson.byCounty[params.searchQuery as keyof typeof zipcodeJson.byCounty]
-    }
-
-    if (params.county) {
-      zipcodesList = zipcodeJson.byCounty[params.county as keyof typeof zipcodeJson.byCounty]
-    }
-
-    if (miles && miles > 0 && zipcode) {
-      const zipcodesInRadius = zipcodes.radius(zipcode, miles);
-      zipcodesList = zipcodesInRadius;
-    }*/
-
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
   const [ownedByPart, trainingPart] = queryParts;
@@ -354,23 +332,48 @@ function buildQuery(params: {
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
-      "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      "ceterms:description": { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      "ceterms:ownedBy": { "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" } }
+      "ceterms:name": [
+        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      ],
+      "ceterms:description": [
+        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      ],
+      "ceterms:ownedBy": {
+        "ceterms:name": {
+          "search:value": params.searchQuery,
+          "search:matchType": "search:contains"
+        }
+      }
     }),
     "ceterms:occupationType": isSOC ? {
-      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+      "ceterms:codedNotation": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:startsWith"
+      }
     } : undefined,
-    "ceterms:instructionalProgramType": isCIP ? {
-      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
+        "ceterms:instructionalProgramType": isCIP ?
+          {"ceterms:codedNotation": {
+            "search:value": params.searchQuery,
+            "search:matchType": "search:startsWith"
+          }
     } : undefined
   };
 
   if (hasMultipleParts) {
     termGroup = {
       "search:operator": "search:andTerms",
-      "ceterms:ownedBy": { "ceterms:name": { "search:value": ownedByPart, "search:matchType": "search:contains" } },
-      "ceterms:name": { "search:value": trainingPart, "search:matchType": "search:contains" }
+      "ceterms:ownedBy": {
+        "ceterms:name": {
+          "search:value": ownedByPart,
+          "search:matchType": "search:contains"
+        }
+      },
+      "ceterms:name": {
+        "search:value": trainingPart,
+        "search:matchType": "search:contains"
+      }
     };
   }
 
@@ -451,8 +454,6 @@ async function transformCertificateToTraining(
     throw error;
   }
 }
-
-
 
 function packageResults(page: number, limit: number, results: TrainingResult[], totalResults: number): TrainingData {
   const totalPages = Math.ceil(totalResults / limit);

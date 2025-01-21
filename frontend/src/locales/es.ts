@@ -216,7 +216,6 @@ export const es = {
     inDemandFilterLabel: "Mostrar solo capacitaciones bajo demanda",
     costFilterLabel: "Costo",
     maxCostLabel: "Costo máximo",
-    classFormatFilterLabel: "Formato de clase",
     classFormatInPersonLabel: "En persona",
     classFormatOnlineLabel: "En línea",
     timeToCompleteFilterLabel: "Tiempo para completar",
@@ -253,8 +252,6 @@ export const es = {
     searchHelperHeader: "¿Qué puedo buscar?",
     searchHelperText: "Estos son algunos ejemplos que pueden mejorar sus resultados de búsqueda:",
     boldText1: "Proveedores de capacitación:",
-    helperText1:
-      'si está buscando un proveedor de capacitación, intente usar solo el nombre del proveedor y excluya palabras como "universidad" o "facultad".',
     boldText2: "Ocupaciones:",
     helperText2:
       "si está buscando capacitación para un trabajo, puede escribir el trabajo directamente en el cuadro de búsqueda.",
