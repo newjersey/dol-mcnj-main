@@ -193,10 +193,6 @@ header {
       width: 100%;
       max-width: $desktop-xl;
 
-      .contact-us {
-        margin-right: 2rem;
-      }
-
       @media screen and (max-width: ($tablet-md)) {
         flex-direction: column;
       }
@@ -249,6 +245,28 @@ header {
       }
     }
   }
+
+  .contact-links {
+    display: flex;
+    align-items: center;
+    gap: $size-16;
+    margin-right: $size-16;
+
+    .sign-up-toggle {
+      background-color: $white;
+      color: $primary;
+      padding: $size-8 $size-16;
+      max-height: $size-40;
+
+      &:hover {
+        background-color: $base-lighter;
+
+        &:after {
+          content: none;
+        }
+      }
+    }
+  }
 }
 
 .below-banners {
@@ -281,5 +299,195 @@ header {
   &:hover,
   &:active {
     top: 0;
+  }
+}
+
+.signUpModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+  &.open {
+    pointer-events: all;
+
+    .overlay {
+      opacity: 1;
+      transition-delay: 0;
+    }
+
+    .modal {
+      transition-delay: $transition-speed / 2;
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  .overlay {
+    opacity: 0;
+    transition-delay: $transition-speed / 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition-duration: $transition-speed;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal {
+    opacity: 0;
+    transition-delay: 0;
+    transition-duration: $transition-speed;
+    top: $size-40;
+    background-color: $white;
+    position: relative;
+    z-index: 2;
+    max-width: $size-520;
+    border-radius: $size-8;
+    padding: $size-32;
+
+    a {
+      color: $primary;
+      text-decoration: none;
+      display: inline;
+    }
+
+    button {
+      padding: $size-8 $size-16;
+
+      &.usa-button:not(.usa-button--unstyled):not(.close) {
+        background-color: $primary;
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+
+      &:hover {
+        &:after {
+          content: none;
+        }
+      }
+
+      &.close {
+        padding: 0;
+        position: absolute;
+        color: $base;
+        top: $size-16;
+        right: $size-16;
+      }
+    }
+
+    .heading {
+      font-weight: 700;
+      font-size: $size-20;
+    }
+
+    .instruction {
+      display: block;
+      font-size: $size-14;
+      margin: $size-16 0;
+    }
+
+    .row {
+      display: flex;
+      gap: $size-16;
+
+      > * {
+        flex: 1;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: $size-20;
+
+      .usa-alert--error,
+      .usa-alert--success {
+        .usa-alert__body {
+          &:before {
+            top: $size-13;
+          }
+        }
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: $size-8;
+      font-size: $size-16;
+
+      &.error {
+        input {
+          border-color: $error;
+        }
+      }
+
+      &.email {
+        > div {
+          position: relative;
+        }
+
+        input {
+          padding-left: $size-40;
+        }
+
+        svg {
+          position: absolute;
+          top: 50%;
+          left: $size-16;
+          transform: translateY(-50%);
+        }
+      }
+
+      > span {
+        font-weight: 700;
+      }
+
+      .errorMessage {
+        font-weight: 700;
+        color: $error;
+      }
+    }
+
+    input {
+      width: 100%;
+      min-height: $size-56;
+      border-radius: $size-4;
+      border: $size-2 $base-light solid;
+      padding: 0 $size-16;
+    }
+
+    .usa-alert__heading {
+      font-weight: 700;
+      font-size: $size-22;
+    }
+  }
+
+  .spinner {
+    position: relative;
+    transform-origin: center;
+    height: 20px;
+    width: 20px;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

@@ -8,6 +8,7 @@ import { GlobalHeader } from "./GlobalHeader";
 import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 import { LinkObject } from "./modules/LinkObject";
+import { SignUpFormModal } from "./SignUpFormModal";
 
 export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData }) => {
   const isDesktop = useMediaQuery("(min-width:769px)");
@@ -82,12 +83,15 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
               innerClassName="usa-nav-container"
               icons
             />
-            <LinkObject
-              className="nav-item contact-us"
-              copy="Contact Us"
-              icons={true}
-              url="/contact"
-            />
+            <div className="contact-links">
+              <LinkObject
+                className="nav-item contact-us"
+                copy="Contact Us"
+                icons={true}
+                url="/contact"
+              />
+              <SignUpFormModal />
+            </div>
           </div>
         </div>
       </>
