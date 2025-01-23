@@ -2,7 +2,6 @@ import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
-import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
@@ -418,7 +417,8 @@ async function transformCertificateToTraining(
   try {
     const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
-
+    // Lazy load Credential Engine utilities when needed
+    const { credentialEngineUtils } = await import("../../credentialengine/CredentialEngineUtils");
     const provider = await credentialEngineUtils.getProviderData(certificate);
     const cipCode = await credentialEngineUtils.extractCipCode(certificate);
     const cipDefinition = cipCode ? await dataClient.findCipDefinitionByCip(cipCode) : null;
