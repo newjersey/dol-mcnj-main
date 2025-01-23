@@ -14,9 +14,17 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 
-// Initializing a simple in-memory cache
+// Initialize a simple in-memory cache to store results temporarily.
+// TTL (Time-to-Live) is set to 300 seconds, and the cache is checked every 120 seconds.
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
+/**
+ * Fetch a single batch of learning opportunities from the Credential Engine API.
+ * @param {object} query - The search query object.
+ * @param {number} offset - The offset for pagination.
+ * @param {number} limit - The maximum number of results to fetch in this batch.
+ * @returns {Promise<{ learningOpportunities: CTDLResource[], totalResults: number }>}
+ */
 const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
   try {
     // console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
@@ -32,13 +40,19 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
   }
 };
 
-
+/**
+ * Fetch all learning opportunities in batches, using a concurrency limit to avoid API overload.
+ * @param {object} query - The search query object.
+ * @param {number} batchSize - The size of each batch to fetch.
+ * @returns {Promise<{ learningOpportunities: CTDLResource[], totalResults: number }>}
+ */
 const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 100) => {
   const learningOpportunities: CTDLResource[] = [];
   const initialResponse = await searchLearningOpportunities(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
   learningOpportunities.push(...initialResponse.learningOpportunities);
 
+  // Fetch subsequent batches.
   const fetchBatch = async (offset: number) => {
     try {
       const response = await searchLearningOpportunities(query, offset, batchSize);
@@ -54,7 +68,7 @@ const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 1
     offsets.push(offset);
   }
 
-  // Process requests in batches of 5 to avoid overloading the API
+  // Process batches concurrently, with a limit on the number of concurrent requests.
   const concurrencyLimit = 5;
   for (let i = 0; i < offsets.length; i += concurrencyLimit) {
     const batchOffsets = offsets.slice(i, i + concurrencyLimit);
@@ -65,6 +79,23 @@ const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 1
   return { learningOpportunities, totalResults };
 };
 
+
+/**
+ * Filters training results based on various parameters.
+ * @param {TrainingResult[]} results - The list of training results to filter.
+ * @param {string} [cip_code] - Filter by CIP code.
+ * @param {string} [soc_code] - Filter by SOC code.
+ * @param {number[]} [complete_in] - Filter by completion time.
+ * @param {boolean} [in_demand] - Filter by "in demand" status.
+ * @param {number} [max_cost] - Filter by maximum cost.
+ * @param {string} [county] - Filter by county.
+ * @param {number} [miles] - Filter by distance in miles.
+ * @param {string} [zipcode] - Filter by ZIP code.
+ * @param {string[]} [format] - Filter by delivery format.
+ * @param {string[]} [languages] - Filter by supported languages.
+ * @param {string[]} [services] - Filter by available services.
+ * @returns {Promise<TrainingResult[]>} - The filtered list of results.
+ */
 const filterRecords = async (
   results: TrainingResult[],
   cip_code?: string,
@@ -78,9 +109,10 @@ const filterRecords = async (
   format?: string[],
   languages?: string[],
   services?: string[]
-) => {
+): Promise<TrainingResult[]> => {
   let filteredResults = results;
 
+  // Filter by CIP code.
   if (cip_code) {
     const normalizedCip = normalizeCipCode(cip_code);
     filteredResults = filteredResults.filter(
@@ -88,6 +120,7 @@ const filterRecords = async (
     );
   }
 
+  // Filter by SOC code.
   if (soc_code) {
     const normalizedSoc = normalizeSocCode(soc_code);
     filteredResults = filteredResults.filter(
@@ -200,6 +233,12 @@ const paginateRecords = (trainingResults: TrainingResult[], page: number, limit:
   return trainingResults.slice(start, end);
 };
 
+/**
+ * Sorts training results based on the specified criteria.
+ * @param {TrainingResult[]} trainings - The list of training results.
+ * @param {string} sort - The sorting criteria (e.g., "asc", "desc", "price_asc").
+ * @returns {TrainingResult[]} - The sorted list of results.
+ */
 export const sortTrainings = (trainings: TrainingResult[], sort: string): TrainingResult[] => {
   switch (sort) {
     case "asc":
@@ -233,7 +272,11 @@ export const sortTrainings = (trainings: TrainingResult[], sort: string): Traini
   }
 };
 
-// Utility to normalize query parameters for consistent caching
+/**
+ * Normalizes query parameters for caching consistency.
+ * @param {object} params - The query parameters.
+ * @returns {object} - The normalized parameters.
+ */
 function normalizeQueryParams(params: {
   searchQuery?: string;
   cip_code?: string;
