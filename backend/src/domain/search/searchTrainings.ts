@@ -17,32 +17,32 @@ import { normalizeSocCode } from "../utils/normalizeSocCode";
 // Initializing a simple in-memory cache
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-const searchTrainingPrograms = async (query: object, offset = 0, limit = 10): Promise<{ allCerts: CTDLResource[]; totalResults: number }> => {
+const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
   try {
     // console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
     const response = await credentialEngineAPI.getResults(query, offset, limit);
     return {
-      allCerts: response.data.data || [],
+      learningOpportunities: response.data.data || [],
       totalResults: response.data.extra.TotalResults || 0,
     };
   } catch (error) {
     console.error(`Error fetching records (offset: ${offset}, limit: ${limit}):`, error);
     // Return an empty result set to allow processing to continue
-    return { allCerts: [], totalResults: 0 };
+    return { learningOpportunities: [], totalResults: 0 };
   }
 };
 
 
-const searchTrainingProgramsInBatches = async (query: object, batchSize = 100) => {
-  const allCerts: CTDLResource[] = [];
-  const initialResponse = await searchTrainingPrograms(query, 0, batchSize);
+const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 100) => {
+  const learningOpportunities: CTDLResource[] = [];
+  const initialResponse = await searchLearningOpportunities(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
-  allCerts.push(...initialResponse.allCerts);
+  learningOpportunities.push(...initialResponse.learningOpportunities);
 
   const fetchBatch = async (offset: number) => {
     try {
-      const response = await searchTrainingPrograms(query, offset, batchSize);
-      return response.allCerts;
+      const response = await searchLearningOpportunities(query, offset, batchSize);
+      return response.learningOpportunities;
     } catch (error) {
       console.error(`Error fetching batch at offset ${offset}:`, error);
       return [];
@@ -59,10 +59,10 @@ const searchTrainingProgramsInBatches = async (query: object, batchSize = 100) =
   for (let i = 0; i < offsets.length; i += concurrencyLimit) {
     const batchOffsets = offsets.slice(i, i + concurrencyLimit);
     const results = await Promise.all(batchOffsets.map(fetchBatch));
-    results.forEach((batch) => allCerts.push(...batch));
+    results.forEach((batch) => learningOpportunities.push(...batch));
   }
 
-  return { allCerts, totalResults };
+  return { learningOpportunities, totalResults };
 };
 
 const filterRecords = async (
@@ -194,10 +194,10 @@ const filterRecords = async (
   return filteredResults;
 }
 
-const paginateRecords = (certs: TrainingResult[], page: number, limit: number) => {
+const paginateRecords = (trainingResults: TrainingResult[], page: number, limit: number) => {
   const start = (page - 1) * limit;
   const end = start + limit;
-  return certs.slice(start, end);
+  return trainingResults.slice(start, end);
 };
 
 export const sortTrainings = (trainings: TrainingResult[], sort: string): TrainingResult[] => {
@@ -234,7 +234,18 @@ export const sortTrainings = (trainings: TrainingResult[], sort: string): Traini
 };
 
 // Utility to normalize query parameters for consistent caching
-function normalizeQueryParams(params: any) {
+function normalizeQueryParams(params: {
+  searchQuery?: string;
+  cip_code?: string;
+  soc_code?: string;
+  county?: string;
+  zipcode?: string;
+  in_demand?: boolean;
+  page?: number;
+  limit?: number;
+  sort?: string;
+  filters?: { key: string; value: string }[];
+}) {
   return {
     searchTerm: params.searchQuery?.trim().toLowerCase(),
     cip_code: params.cip_code?.trim(),
@@ -245,7 +256,9 @@ function normalizeQueryParams(params: any) {
     page: params.page || 1,
     limit: params.limit || 10,
     sort: params.sort || "best_match",
-    filters: params.filters ? [...params.filters].sort((a: any, b: any) => a.key.localeCompare(b.key)) : undefined,
+    filters: params.filters
+      ? [...params.filters].sort((a, b) => a.key.localeCompare(b.key))
+      : undefined,
   };
 }
 
@@ -278,11 +291,11 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     // If unfiltered results are not in cache, fetch the results
     if (!unFilteredResults) {
       console.log(`Cache miss: Fetching results for query: ${normalizedParams.searchTerm}`);
-      const { allCerts } = await searchTrainingProgramsInBatches(query);
+      const { learningOpportunities } = await searchLearningOpportunitiesInBatches(query);
 
       unFilteredResults = await Promise.all(
-        allCerts.map((certificate) =>
-          transformCertificateToTraining(dataClient, certificate, params.searchQuery)
+        learningOpportunities.map((learningOpportunity) =>
+          transformLearningOpportunityCTDLToTrainingResult(dataClient, learningOpportunity, params.searchQuery)
         )
       );
 
@@ -409,21 +422,21 @@ function buildQuery(params: {
   };
 }
 
-async function transformCertificateToTraining(
+async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,
-  certificate: CTDLResource,
+  learningOpportunity: CTDLResource,
   searchQuery: string
 ): Promise<TrainingResult> {
   try {
-    const desc = certificate["ceterms:description"] ? certificate["ceterms:description"]["en-US"] : null;
+    const desc = learningOpportunity["ceterms:description"] ? learningOpportunity["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
     // Lazy load Credential Engine utilities when needed
     const { credentialEngineUtils } = await import("../../credentialengine/CredentialEngineUtils");
-    const provider = await credentialEngineUtils.getProviderData(certificate);
-    const cipCode = await credentialEngineUtils.extractCipCode(certificate);
+    const provider = await credentialEngineUtils.getProviderData(learningOpportunity);
+    const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
     const cipDefinition = cipCode ? await dataClient.findCipDefinitionByCip(cipCode) : null;
 
-    const occupations = await credentialEngineUtils.extractOccupations(certificate);
+    const occupations = await credentialEngineUtils.extractOccupations(learningOpportunity);
     const socCodes = occupations.map((occupation) => occupation.soc);
 
     let outcomesDefinition = null;
@@ -437,31 +450,31 @@ async function transformCertificateToTraining(
     const isInDemand = inDemandCIPs.map((c) => c.cipcode).includes(cipCode ?? "");
 
     const getWheelchairAccessibility = async () =>
-      await credentialEngineUtils.checkAccommodation(certificate, "accommodation:PhysicalAccessibility");
+      await credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
 
     const getJobPlacementAssistance = async () =>
-      await credentialEngineUtils.checkSupportService(certificate, "support:JobPlacement");
+      await credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
 
     const getChildcareAssistance = async () =>
-      await credentialEngineUtils.checkSupportService(certificate, "support:Childcare");
+      await credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
 
     const result: TrainingResult = {
-      ctid: certificate["ceterms:ctid"] || "",
-      name: certificate["ceterms:name"]?.["en-US"] || "",
+      ctid: learningOpportunity["ceterms:ctid"] || "",
+      name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
-      totalCost: await credentialEngineUtils.extractCost(certificate, "costType:AggregateCost"),
+      totalCost: await credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost"),
       percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
-      calendarLength: await credentialEngineUtils.getCalendarLengthId(certificate),
+      calendarLength: await credentialEngineUtils.getCalendarLengthId(learningOpportunity),
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
-      deliveryTypes: await credentialEngineUtils.hasLearningDeliveryTypes(certificate),
+      deliveryTypes: await credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity),
       providerId: provider?.providerId || null,
       providerName: provider?.name || "Provider not available",
-      availableAt: await credentialEngineUtils.getAvailableAtAddresses(certificate),
+      availableAt: await credentialEngineUtils.getAvailableAtAddresses(learningOpportunity),
       inDemand: isInDemand,
       highlight: highlight,
       socCodes: socCodes,
-      hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(certificate),
-      languages: await credentialEngineUtils.getLanguages(certificate),
+      hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(learningOpportunity),
+      languages: await credentialEngineUtils.getLanguages(learningOpportunity),
       isWheelchairAccessible: getWheelchairAccessibility,
       hasJobPlacementAssistance: getJobPlacementAssistance,
       hasChildcareAssistance: getChildcareAssistance,
@@ -470,7 +483,7 @@ async function transformCertificateToTraining(
 
     return result;
   } catch (error) {
-    console.error("Error transforming certificate to training:", error);
+    console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);
     throw error;
   }
 }

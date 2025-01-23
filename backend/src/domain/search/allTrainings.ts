@@ -40,7 +40,7 @@ export const allTrainings = (): AllTrainings => {
       const batchResults = await Promise.all(batchPromises);
       allRecords = batchResults.flat();
 
-      const results = await Promise.all(allRecords.map(certificate => transformCertificateToTraining(certificate)));
+      const results = await Promise.all(allRecords.map(certificate => transformLearningOpportunityCTDLToTrainingResult(certificate)));
       cache.set(cacheKey, results);
       return results;
 
@@ -65,18 +65,18 @@ function buildQuery() {
   };
 }
 
-async function transformCertificateToTraining(certificate: CTDLResource): Promise<AllTrainingsResult> {
+async function transformLearningOpportunityCTDLToTrainingResult(learningOpportunity: CTDLResource): Promise<AllTrainingsResult> {
   try {
-    const address = await credentialEngineUtils.getAvailableAtAddresses(certificate);
-    const cipCode = await credentialEngineUtils.extractCipCode(certificate);
-    const socName = certificate["ceterms:occupationType"] && certificate["ceterms:occupationType"][0] && certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"] && certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"]
-      ? certificate["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
-    const socCode = certificate["ceterms:occupationType"] ? certificate["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999';
+    const address = await credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
+    const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
+    const socName = learningOpportunity["ceterms:occupationType"] && learningOpportunity["ceterms:occupationType"][0] && learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"] && learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"]
+      ? learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
+    const socCode = learningOpportunity["ceterms:occupationType"] ? learningOpportunity["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999';
     const socCodeReplaced = socCode.replace(/-/g, '').replace(/\.00$/, '');
 
     return {
-      training_id: certificate["ceterms:ctid"] || "",
-      title: certificate["ceterms:name"]?.["en-US"] || "",
+      training_id: learningOpportunity["ceterms:ctid"] || "",
+      title: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       area: address.length > 0 ? address[0].city as string : "",
       link: `https://mycareer.nj.gov/training/${cipCode}`,
       duration: 15.0, //TODO: replace with actual duration
@@ -87,15 +87,15 @@ async function transformCertificateToTraining(certificate: CTDLResource): Promis
       method: `classroom`,
       soc_name: socName,
       location: address.length > 0 ? address[0].county as string : "",
-      title_en: certificate["ceterms:name"]?.["en-US"] || "",
+      title_en: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       soc_name_en: socName,
-      title_es: certificate["ceterms:name"]?.["en-US"] || "",
+      title_es: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       soc_name_es: socName,
-      title_tl: certificate["ceterms:name"]?.["en-US"] || "",
+      title_tl: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       soc_name_tl: socName,
-      title_zh: certificate["ceterms:name"]?.["en-US"] || "",
+      title_zh: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       soc_name_zh: socName,
-      title_ja: certificate["ceterms:name"]?.["en-US"] || "",
+      title_ja: learningOpportunity["ceterms:name"]?.["en-US"] || "",
       soc_name_ja: socName,
       duration_units: `Weeks`,
       duration_slider_val_min: `15.0`,
@@ -107,7 +107,7 @@ async function transformCertificateToTraining(certificate: CTDLResource): Promis
       duration_units_ja: `週間`,
     };
   } catch (error) {
-    console.error("Error transforming certificate to training:", error);
+    console.error("Error transforming learning opportunity to trainingresult:", error);
     throw error;
   }
 }
