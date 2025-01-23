@@ -66,7 +66,7 @@ const searchTrainingProgramsInBatches = async (query: object, batchSize = 100) =
   return { allCerts, totalResults };
 };
 
-const filterCerts = async (
+const filterRecords = async (
   results: TrainingResult[],
   cip_code?: string,
   soc_code?: string,
@@ -195,7 +195,7 @@ const filterCerts = async (
   return filteredResults;
 }
 
-const paginateCerts = (certs: TrainingResult[], page: number, limit: number) => {
+const paginateRecords = (certs: TrainingResult[], page: number, limit: number) => {
   const start = (page - 1) * limit;
   const end = start + limit;
   return certs.slice(start, end);
@@ -234,6 +234,23 @@ export const sortTrainings = (trainings: TrainingResult[], sort: string): Traini
   }
 };
 
+// Utility to normalize query parameters for consistent caching
+function normalizeQueryParams(params: any) {
+  return {
+    searchTerm: params.searchQuery?.trim().toLowerCase(),
+    cip_code: params.cip_code?.trim(),
+    soc_code: params.soc_code?.trim(),
+    county: params.county?.trim(),
+    zipcode: params.zipcode?.trim(),
+    in_demand: params.in_demand || false,
+    page: params.page || 1,
+    limit: params.limit || 10,
+    sort: params.sort || "best_match",
+    filters: params.filters ? [...params.filters].sort((a: any, b: any) => a.key.localeCompare(b.key)) : undefined,
+  };
+}
+
+
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
     searchQuery: string,
@@ -254,19 +271,22 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   }): Promise<TrainingData> => {
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
+    const normalizedParams = normalizeQueryParams(params);
 
-    const unFilteredCacheKey = `filteredResults-${params.searchQuery}`;
+    const unFilteredCacheKey = `filteredResults-${JSON.stringify(normalizedParams)}`;
     let unFilteredResults = cache.get<TrainingResult[]>(unFilteredCacheKey);
 
     // If unfiltered results are not in cache, fetch the results
     if (!unFilteredResults) {
-      console.log(`Fetching results for query: ${params.searchQuery}`);
+      console.log(`Cache miss: Fetching results for query: ${normalizedParams.searchTerm}`);
       const { allCerts } = await searchTrainingProgramsInBatches(query);
+
       unFilteredResults = await Promise.all(
         allCerts.map((certificate) =>
           transformCertificateToTraining(dataClient, certificate, params.searchQuery)
         )
       );
+
       // Cache the filtered results
       cache.set(unFilteredCacheKey, unFilteredResults, 300); // Cache for 5 minutes
     } else {
@@ -274,7 +294,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     }
 
     // Apply filtering
-    const filteredResults = await filterCerts(
+    const filteredResults = await filterRecords(
       unFilteredResults,
       params.cip_code,
       params.soc_code,
@@ -293,7 +313,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const sortedResults = sortTrainings(filteredResults, sort);
 
     // Paginate the sorted results
-    const paginatedResults = paginateCerts(sortedResults, page, limit);
+    const paginatedResults = paginateRecords(sortedResults, page, limit);
 
     const data = packageResults(page, limit, paginatedResults, sortedResults.length);
     return data;
