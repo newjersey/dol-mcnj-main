@@ -412,6 +412,8 @@ header {
 
       .usa-alert--error,
       .usa-alert--success {
+        margin-top: 0;
+
         .usa-alert__body {
           &:before {
             top: $size-13;

@@ -12,11 +12,10 @@ export const SignUpFormModal = () => {
   const [emailError, setEmailError] = useState<string>("");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState<string>("");
-  const [hasErrors, setHasErrors] = useState<boolean>(false);
+  const [hasErrors, setHasErrors] = useState<string>("");
   const [resetForm, setResetForm] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  // const [submissionError, setSubmissionError] = useState<string>("");
 
   const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,19 +66,26 @@ export const SignUpFormModal = () => {
     }
 
     if (allErrorCheck()) {
-      console.error("ERROR:", "Please check the form and try again.");
+      console.error("ERROR:", "There are items that require your attention.");
       setSubmitting(false);
     } else {
       setSubmitting(true);
 
       setTimeout(() => {
-        setSuccess(true);
-        console.info("SUCCESS: Form submitted successfully.", {
-          firstName,
-          lastName,
-          email,
-          phone,
-        });
+        const reandomTrueFalse = Math.random() < 0.5;
+        if (reandomTrueFalse) {
+          setSuccess(false);
+          setHasErrors("There was an error submitting the form. Please try again later.");
+          console.error("ERROR: Form submission failed.");
+        } else {
+          setSuccess(true);
+          console.info("SUCCESS: Form submitted successfully.", {
+            firstName,
+            lastName,
+            email,
+            phone,
+          });
+        }
         setSubmitting(false);
       }, 2000);
     }
@@ -108,12 +114,12 @@ export const SignUpFormModal = () => {
   useEffect(() => {
     if (firstNameError || lastNameError || emailError || phoneError) {
       if (!resetForm) {
-        setHasErrors(true);
+        setHasErrors("There are items that require your attention.");
       } else {
-        setHasErrors(false);
+        setHasErrors("");
       }
     } else {
-      setHasErrors(false);
+      setHasErrors("");
     }
   }, [firstNameError, lastNameError, emailError, phoneError]);
 
@@ -259,9 +265,7 @@ export const SignUpFormModal = () => {
                 {hasErrors && (
                   <div className="usa-alert usa-alert--error" role="alert">
                     <div className="usa-alert__body">
-                      <p className="usa-alert__text">
-                        There are items that require your attention.
-                      </p>
+                      <p className="usa-alert__text">{hasErrors}</p>
                     </div>
                   </div>
                 )}
@@ -290,7 +294,7 @@ export const SignUpFormModal = () => {
                       setLastNameError("");
                       setPhoneError("");
                       setEmailError("");
-                      setHasErrors(false);
+                      setHasErrors("");
                       setResetForm(true);
                       setSubmitting(false);
                     }}
