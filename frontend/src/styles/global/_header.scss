@@ -255,13 +255,16 @@ header {
 
   .main-nav__container {
     .sign-up-toggle {
-      background-color: $white;
-      color: $primary;
+      background-color: transparent;
+      color: $white;
+      border: $size-2 solid $white;
       padding: $size-8 $size-16;
+      font-weight: normal;
       max-height: $size-40;
 
       &:hover {
-        background-color: $base-lighter;
+        background-color: $white;
+        color: $primary;
 
         &:after {
           content: none;
