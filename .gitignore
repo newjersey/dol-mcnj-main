@@ -101,3 +101,7 @@ OverlayTool.tsx
 overlayImages
 
 /node_modules
+
+# Nextjs Files
+.next
+next-env.d.ts

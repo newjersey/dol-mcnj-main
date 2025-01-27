@@ -40,7 +40,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     title: data
       ? `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`
       : `Frequently Asked Questions | ${process.env.REACT_APP_SITE_NAME}`,
-    pageDescription: data?.page?.pageDescription || "Get answers to all of your My Career NJ questions",
+    pageDescription:
+      data?.page?.pageDescription || "Get answers to all of your My Career NJ questions",
     image: data?.page?.ogImage?.url || pageImage,
     keywords: data?.page?.keywords || [
       "FAQ",
@@ -58,7 +59,13 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     <Layout client={props.client} theme="support" seo={seoObject}>
       {data && (
         <>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
+          <PageBanner
+            {...data.page.pageBanner}
+            date={data.page.sys.publishedAt}
+            title="Your success matters."
+            message={undefined}
+            description="Find quick answers to commonly asked questions about the New Jersey Training Explorer."
+          />
           <FaqCollection items={data?.page.categoriesCollection.items} />
 
           <CtaBanner
