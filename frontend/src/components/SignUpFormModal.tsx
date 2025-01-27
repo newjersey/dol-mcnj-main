@@ -167,9 +167,7 @@ export const SignUpFormModal = () => {
               <div className="usa-alert usa-alert--success" role="alert">
                 <div className="usa-alert__body">
                   <p className="usa-alert__heading">For submission successful.</p>
-                  <p className="usa-alert__text">
-                    Please check your email for confirmation. Lorem ipsum.
-                  </p>
+                  <p className="usa-alert__text">Please check your email for confirmation.</p>
                 </div>
               </div>
               <div className="buttons" style={{ marginTop: "1.5rem" }}>
