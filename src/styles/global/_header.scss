@@ -1,24 +1,24 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 header {
   &.header {
-    background-color: settings.$white;
+    background-color: s.$white;
     width: 100%;
     z-index: 12;
 
-    @media screen and (max-width: (settings.$desktop)) {
-      background-color: settings.$primary-dark;
-      color: settings.$white;
+    @media screen and (max-width: (s.$desktop)) {
+      background-color: s.$primary-dark;
+      color: s.$white;
     }
 
     .usa-nav-container {
       width: 100%;
       margin: 0 auto;
-      padding: 0 settings.$size-16;
-      max-width: settings.$desktop-xl;
+      padding: 0 s.$size-16;
+      max-width: s.$desktop-xl;
 
       &.flex {
-        @media screen and (min-width: (settings.$desktop)) {
+        @media screen and (min-width: (s.$desktop)) {
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -37,22 +37,26 @@ header {
     margin: 0;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   .basic-logo {
-    @media screen and (max-width: (settings.$desktop - 1)) {
+    @media screen and (max-width: (s.$desktop - 1)) {
       display: flex;
-      padding: settings.$size-8 0;
+      padding: s.$size-8 0;
       align-items: center;
     }
 
     a {
       display: flex;
       align-items: center;
-      color: settings.$ink;
+      color: s.$ink;
       text-decoration: none;
-      padding: settings.$size-16 0;
+      padding: s.$size-16 0;
       width: calc(100% - 55px);
 
-      @media screen and (min-width: (settings.$desktop + 1)) {
+      @media screen and (min-width: (s.$desktop + 1)) {
         width: 50%;
       }
     }
@@ -62,30 +66,30 @@ header {
       margin-top: 0;
       font-weight: bold;
 
-      @media screen and (min-width: (settings.$desktop + 1)) {
+      @media screen and (min-width: (s.$desktop + 1)) {
         width: calc(100% - 45px);
         margin-left: 10px;
       }
 
-      @media screen and (max-width: (settings.$desktop)) {
-        color: settings.$white;
-        font-size: settings.$size-14;
+      @media screen and (max-width: (s.$desktop)) {
+        color: s.$white;
+        font-size: s.$size-14;
       }
     }
 
     svg {
-      width: settings.$size-48;
+      width: s.$size-48;
       height: auto;
 
-      @media screen and (max-width: (settings.$desktop)) {
+      @media screen and (max-width: (s.$desktop)) {
         display: none;
       }
     }
 
     button {
       width: 55px;
-      border: settings.$size-2 solid settings.$white;
-      padding: settings.$size-2;
+      border: s.$size-2 solid s.$white;
+      padding: s.$size-2;
       border-radius: 5px;
 
       span {
@@ -96,16 +100,16 @@ header {
 
     button {
       &.toggle-button {
-        @media screen and (min-width: (settings.$desktop)) {
+        @media screen and (min-width: (s.$desktop)) {
           display: none !important;
         }
 
         &:hover {
-          border: settings.$size-2 solid settings.$white;
+          border: s.$size-2 solid s.$white;
         }
       }
       .toggle {
-        height: settings.$size-32;
+        height: s.$size-32;
         width: 51px;
         display: flex;
         flex-direction: column;
@@ -135,12 +139,12 @@ header {
         > span {
           display: block;
           width: 25px;
-          height: settings.$size-3;
+          height: s.$size-3;
           position: relative;
           border-radius: 5px;
           top: 0;
-          background-color: settings.$white;
-          margin: settings.$size-2 auto;
+          background-color: s.$white;
+          margin: s.$size-2 auto;
           transition-duration: 0.3s;
           transition-timing-function: ease-in-out;
         }
@@ -149,14 +153,14 @@ header {
   }
 
   .mobile-menu {
-    min-height: settings.$size-64;
+    min-height: s.$size-64;
   }
 
   .main-nav {
-    background-color: settings.$primary-dark;
+    background-color: s.$primary-dark;
     min-height: 54px;
 
-    @media screen and (max-width: (settings.$desktop - 1)) {
+    @media screen and (max-width: (s.$desktop - 1)) {
       display: none;
     }
 
@@ -170,69 +174,117 @@ header {
       margin: 0;
       list-style-type: none;
 
-      @media screen and (min-width: (settings.$desktop + 1)) {
+      @media screen and (min-width: (s.$desktop + 1)) {
         gap: 2.5rem;
       }
 
-      @media screen and (max-width: (settings.$desktop)) {
+      @media screen and (max-width: (s.$desktop)) {
         flex-direction: column;
       }
     }
 
-    a,
-    button {
-      color: settings.$white;
-      cursor: pointer;
+    .contact-links {
       display: flex;
       align-items: center;
-      text-decoration: none;
-      padding: 1.18rem 0;
-      font-size: 0.9rem;
-      position: relative;
-      font-weight: 600;
+      gap: s.$size-16;
 
-      @media screen and (max-width: (settings.$desktop)) {
-        padding: 0.95rem 0;
+      @media screen and (max-width: (s.$desktop - 1)) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: s.$size-8;
+        padding-bottom: s.$size-16;
       }
 
-      svg {
-        height: auto;
-        margin: 0 0 settings.$size-2 settings.$size-4;
-      }
+      > a {
+        color: s.$white;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 1.18rem 0;
+        font-size: 0.9rem;
+        position: relative;
+        font-weight: 600;
 
-      > span {
-        display: flex;
-        align-items: center;
-
-        span {
-          font-size: settings.$size-16;
-          margin-top: -(settings.$size-2);
-          margin-left: settings.$size-2;
-        }
-
-        + .indicator {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          font-size: settings.$size-20;
-          right: 0;
-
-          @media screen and (min-width: (settings.$desktop + 1)) {
-            right: -(settings.$size-20);
+        &:hover {
+          @media screen and (min-width: (s.$desktop + 1)) {
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 10px;
+              width: 100%;
+              left: 0;
+              height: s.$size-2;
+              background-color: s.$white;
+            }
           }
         }
       }
 
-      &:hover {
-        @media screen and (min-width: (settings.$desktop + 1)) {
-          &::after {
-            content: "";
+      button {
+        &.sign-up-toggle {
+          margin: s.$size-4 0;
+          background-color: transparent;
+          border: s.$white s.$size-2 solid;
+          color: s.$white;
+        }
+      }
+    }
+
+    .nav-item {
+      a,
+      button {
+        color: s.$white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 1.18rem 0;
+        font-size: 0.9rem;
+        position: relative;
+        font-weight: 600;
+
+        @media screen and (max-width: (s.$desktop)) {
+          padding: 0.95rem 0;
+        }
+
+        svg {
+          height: auto;
+          margin: 0 0 s.$size-2 s.$size-4;
+        }
+
+        > span {
+          display: flex;
+          align-items: center;
+
+          span {
+            font-size: s.$size-16;
+            margin-top: -(s.$size-2);
+            margin-left: s.$size-2;
+          }
+
+          + .indicator {
             position: absolute;
-            bottom: 10px;
-            width: 100%;
-            left: 0;
-            height: settings.$size-2;
-            background-color: settings.$white;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: s.$size-20;
+            right: 0;
+
+            @media screen and (min-width: (s.$desktop + 1)) {
+              right: -(s.$size-20);
+            }
+          }
+        }
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop + 1)) {
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 10px;
+              width: 100%;
+              left: 0;
+              height: s.$size-2;
+              background-color: s.$white;
+            }
           }
         }
       }
@@ -245,32 +297,32 @@ header {
       z-index: 1;
 
       .sub-menu {
-        background: settings.$white;
+        background: s.$white;
         flex-direction: column;
-        box-shadow: settings.$shadow-1;
+        box-shadow: s.$shadow-1;
         gap: 0;
 
-        @media screen and (min-width: (settings.$desktop + 1)) {
+        @media screen and (min-width: (s.$desktop + 1)) {
           width: 300px;
           position: absolute;
         }
 
-        @media screen and (max-width: (settings.$desktop)) {
-          margin-bottom: settings.$size-16;
+        @media screen and (max-width: (s.$desktop)) {
+          margin-bottom: s.$size-16;
         }
 
         a {
-          color: settings.$ink;
-          padding: 0.5rem settings.$size-16;
+          color: s.$ink;
+          padding: 0.5rem s.$size-16;
 
           &:hover {
-            @media screen and (min-width: (settings.$desktop + 1)) {
-              background-color: settings.$njBlack;
-              color: settings.$white;
+            @media screen and (min-width: (s.$desktop + 1)) {
+              background-color: s.$njBlack;
+              color: s.$white;
             }
 
             &:after {
-              @media screen and (min-width: (settings.$desktop + 1)) {
+              @media screen and (min-width: (s.$desktop + 1)) {
                 content: none;
               }
             }
@@ -279,7 +331,7 @@ header {
       }
 
       button {
-        @media screen and (max-width: (settings.$desktop)) {
+        @media screen and (max-width: (s.$desktop)) {
           width: 100%;
         }
       }

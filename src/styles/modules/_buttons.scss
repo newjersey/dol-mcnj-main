@@ -93,7 +93,7 @@
     &.usa-button--outline {
       background: settings.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$primary;
+      border: settings.$size-2 solid settings.$primary;
       color: settings.$primary;
 
       &:hover {
@@ -128,7 +128,7 @@
     &.usa-button--outline {
       background: settings.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$secondary;
+      border: settings.$size-2 solid settings.$secondary;
       color: settings.$secondary;
 
       &:hover {
@@ -163,7 +163,7 @@
     &.usa-button--outline {
       background: settings.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$tertiary;
+      border: settings.$size-2 solid settings.$tertiary;
       color: settings.$tertiary;
 
       &:hover {
@@ -198,7 +198,7 @@
     &.usa-button--outline {
       background: settings.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$info-darker;
+      border: settings.$size-2 solid settings.$info-darker;
       color: settings.$info-darker;
 
       &:hover {
@@ -236,7 +236,7 @@
     &.usa-button--outline {
       background: settings.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$accent-warm;
+      border: settings.$size-2 solid settings.$accent-warm;
       color: settings.$accent-warm;
 
       &:hover {
