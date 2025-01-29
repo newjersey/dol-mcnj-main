@@ -134,9 +134,12 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                 <div className="content">
                   <Heading level={1}>
                     {content.banner.title}
-                    <span className="tag-item color-navy" data-tooltip-id="beta-tooltip"
-                          data-tooltip-content={content.betaToolTip}>
-                      <Info/> Beta
+                    <span
+                      className="tag-item color-navy"
+                      data-tooltip-id="beta-tooltip"
+                      data-tooltip-content={content.betaToolTip}
+                    >
+                      <Info /> Beta
                     </span>
                     <Tooltip id="beta-tooltip" className="custom-tooltip" />
                   </Heading>
@@ -149,12 +152,15 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           <IndustrySelector />
           <section className="body-copy">
             <div className="container">
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{
-                  __html: parseMarkdownToHTML(`${content.markdownSection}`),
-                }}
-              />
+              {content.copySections.map((section, index) => (
+                <div
+                  key={section}
+                  className={`content content-block section-${index + 1}`}
+                  dangerouslySetInnerHTML={{
+                    __html: parseMarkdownToHTML(`${section}`),
+                  }}
+                />
+              ))}
             </div>
           </section>
           <section className="contact-cta">
