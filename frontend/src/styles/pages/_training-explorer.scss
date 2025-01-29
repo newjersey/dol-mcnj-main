@@ -87,7 +87,7 @@
     font-size: $size-48;
 
     @media screen and (max-width: ($tablet-md)) {
-      font-size: $size-32;
+      font-size: $size-40;
       margin-bottom: $size-32;
     }
   }
@@ -99,11 +99,19 @@
     line-height: 1.5;
 
     .heading {
-      font-size: $size-24;
+      font-size: $size-32;
+
+      @media screen and (max-width: ($tablet-md)) {
+        font-size: $size-24;
+      }
     }
 
     p {
       line-height: 1.2;
+
+      @media screen and (min-width: ($tablet-md + 1)) {
+        font-size: $size-18;
+      }
     }
   }
 
