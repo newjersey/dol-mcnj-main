@@ -67,35 +67,37 @@ function buildQuery() {
 
 async function transformLearningOpportunityCTDLToTrainingResult(learningOpportunity: CTDLResource): Promise<AllTrainingsResult> {
   try {
+    const training_id = learningOpportunity["ceterms:ctid"] || "";
+    const title = learningOpportunity["ceterms:name"]?.["en-US"] || "";
     const address = await credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
-    const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
+    //const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
     const socName = learningOpportunity["ceterms:occupationType"] && learningOpportunity["ceterms:occupationType"][0] && learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"] && learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"]
       ? learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
     const socCode = learningOpportunity["ceterms:occupationType"] ? learningOpportunity["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999';
     const socCodeReplaced = socCode.replace(/-/g, '').replace(/\.00$/, '');
 
     return {
-      training_id: learningOpportunity["ceterms:ctid"] || "",
-      title: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      training_id: training_id,
+      title: title,
       area: address.length > 0 ? address[0].city as string : "",
-      link: `https://mycareer.nj.gov/training/${cipCode}`,
+      link: `https://mycareer.nj.gov/training/${training_id}`,
       duration: 15.0, //TODO: replace with actual duration
       soc: socCodeReplaced,
       roi: 0,
       soc3:socCodeReplaced.substring(0, 3),
-      id: `training#${cipCode}`,
+      id: `training#${training_id}`,
       method: `classroom`,
       soc_name: socName,
       location: address.length > 0 ? address[0].county as string : "",
-      title_en: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      title_en: title,
       soc_name_en: socName,
-      title_es: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      title_es: title,
       soc_name_es: socName,
-      title_tl: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      title_tl: title,
       soc_name_tl: socName,
-      title_zh: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      title_zh: title,
       soc_name_zh: socName,
-      title_ja: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      title_ja: title,
       soc_name_ja: socName,
       duration_units: `Weeks`,
       duration_slider_val_min: `15.0`,
