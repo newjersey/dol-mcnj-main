@@ -60,18 +60,48 @@
 
   .body-copy {
     padding: $size-96 0;
-    max-width: $tablet-lg;
     margin: 0 auto;
 
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: $size-48;
+
+      @media screen and (max-width: ($tablet-md - 1)) {
+        gap: $size-32;
+      }
+
+      @media screen and (max-width: ($mobile-lg - 1)) {
+        gap: $size-16;
+      }
+    }
+
     .content {
+      display: flex;
+      flex-direction: column;
+      gap: $size-24;
+
+      &.content-block {
+        border-radius: $size-16;
+        padding: $size-32;
+      }
+
+      &.section-1 {
+        background-color: $primary-extra-light;
+      }
+
+      &.section-2 {
+        background-color: $tertiary-extra-light;
+      }
+
+      &.section-3 {
+        background-color: $secondary-extra-light;
+      }
+
       * {
         margin: 0;
         line-height: 1.3;
       }
-
-      display: flex;
-      flex-direction: column;
-      gap: $size-24;
     }
 
     h2 {
@@ -85,6 +115,7 @@
 
     h3 {
       font-size: $size-22;
+      font-weight: bold;
 
       @media screen and (max-width: ($tablet-md - 1)) {
         font-size: $size-18;
