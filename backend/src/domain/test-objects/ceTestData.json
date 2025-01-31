@@ -1,212 +1,331 @@
 [
-    {
-      "ceterms:ownedBy": "someCtid1",
-      "ceterms:subjectWebpage": "someurl",
-      "ceterms:address": [
-        {
-          "@type": "ceterms:Place",
-          "ceterms:streetAddress": {
-            "en-US": "1234 Test St"
-          },
-          "ceterms:addressLocality": {
-            "en-US": "Test City"
-          },
-          "ceterms:addressRegion": {
-            "en-US": "Test State"
-          },
-          "ceterms:postalCode": "07004",
-          "ceterms:targetContactPoint": null
-        }
-      ],
-      "ceterms:availableAt": [
-        {"@type": "ceterms:Place",
-        "ceterms:postalCode": "08816",
-        "ceterms:addressRegion": { "en-US": "New Jersey" },
-        "ceterms:streetAddress": { "en-US": "112 Rues Lane" },
-        "ceterms:addressLocality": { "en-US": "East Brunswick" }}
-      ],
-      "ceterms:availableOnlineAt": "http://example.com",
-      "ceterms:commonConditions": ["condition1"],
-      "ceterms:estimatedCost": [
-        {
-          "ceterms:currency": "US Dollar",
-          "ceterms:price": 1000
-        }
-      ],
-      "ceterms:estimatedDuration": [
-        {
-          "ceterms:exactDuration": "P1Y"
-        }
-      ],
-      "ceterms:instructionalProgramType": [
-        {
-          "ceterms:frameworkName": {
-            "en-US": "Classification of Instructional Programs"
-          },
-          "ceterms:codedNotation": "12.3456"
-        }
-      ],
-      "ceterms:isPreparationFor": [
-        {
-          "ceterms:name": {
-            "en-US": "Certification Name"
-          },
-          "ceterms:experience": "2 years",
-          "ceterms:description": {
-            "en-US": "Description of the certification"
-          },
-          "ceterms:targetAssessment": ["assessment1"],
-          "ceterms:targetCompetency": ["competency1"],
-          "ceterms:targetCredential": ["credential1"],
-          "ceterms:targetLearningOpportunity": ["learningOpportunity1"]
-        }
-      ],
-      "ceterms:occupationType": [
-        {
-          "ceterms:codedNotation": "15-1121",
-          "ceterms:targetNodeName" : {
-            "en-US": "Software Engineer"
-          }
-        }
-      ],
-      "ceterms:scheduleTimingType": [
-        {
-          "ceterms:name": "Evening"
-        }
-      ],
-      "ceterms:ctid": "ctid123",
-      "ceterms:name": {
-        "en-US": "Example Training Program"
-      },
-      "ceterms:description": {
-        "en-US": "This is an example description for the training program."
-      },
-      "ceterms:requires": [
-        {
-          "ceterms:name": {
-            "en-US": "Requirements"
-          },
-          "ceterms:description": {
-            "en-US": "Example requirement description"
-          }
-        }
-      ],
-      "ceterms:inLanguage": ["English"]
+  {
+    "@id": "https://sandbox.credentialengineregistry.org/resources/ce-73263b7f-07fd-4c4a-8caa-f31bab4b3de5",
+    "@type": "ceterms:LearningOpportunityProfile",
+    "ceterms:ctid": "ce-73263b7f-07fd-4c4a-8caa-f31bab4b3de5",
+    "ceterms:name": {
+      "en-US": "Computer Security Specialist"
     },
-    {
-      "ceterms:ownedBy": "someCtid2",
-      "ceterms:subjectWebpage": "someurl",
-      "ceterms:address": [
-        {
-          "@type": "ceterms:Place",
-          "ceterms:streetAddress": {
-            "en-US": "1234 Test St"
-          },
-          "ceterms:addressLocality": {
-            "en-US": "Test City"
-          },
-          "ceterms:addressRegion": {
-            "en-US": "Test State"
-          },
-          "ceterms:postalCode": "07735",
-          "ceterms:targetContactPoint": null
-        }
-      ],
-      "ceterms:availableOnlineAt": "http://example.com",
-      "ceterms:commonConditions": ["condition2"],
-      "ceterms:estimatedCost": [
-        {
-          "ceterms:currency": "US Dollar",
-          "ceterms:price": 1000
-        }
-      ],
-      "ceterms:estimatedDuration": [
-        {
-          "ceterms:exactDuration": "P1Y"
-        }
-      ],
-      "ceterms:instructionalProgramType": [
+    "ceterms:ownedBy": [
+      "https://sandbox.credentialengineregistry.org/resources/ce-c4c6622b-917d-4c07-b2c9-23f227631312"
+    ],
+    "ceterms:isPartOf": [
+      "https://sandbox.credentialengineregistry.org/resources/ce-e701794f-3485-4f78-996f-4e8105761891"
+    ],
+    "ceterms:requires": [
       {
-        "ceterms:frameworkName": {
-          "en-US": "Cost Type"
+        "@type": "ceterms:ConditionProfile",
+        "ceterms:name": {
+          "en-US": "Prerequisites"
         },
-        "ceterms:targetNodeName": {
-          "en-US": "Aggregate Cost"
-        },
-        "ceterms:targetNodeDescription": {
-          "en-US": "Sum of direct costs."
+        "ceterms:description": {
+          "en-US": "18 years of age, or HS Diploma, or GED"
         }
       }
-      ],
-      "ceterms:occupationType": [
+    ],
+    "ceterms:inLanguage": [
+      "en-US"
+    ],
+    "ceterms:availableAt": [
+      {
+        "@type": "ceterms:Place",
+        "ceterms:postalCode": "08330",
+        "ceterms:addressRegion": {
+          "en-US": "New Jersey"
+        },
+        "ceterms:streetAddress": {
+          "en-US": "5100 Black Horse PIke"
+        },
+        "ceterms:addressLocality": {
+          "en-US": "Mays Landing"
+        },
+        "ceterms:targetContactPoint": [
+          {
+            "@type": "ceterms:ContactPoint",
+            "ceterms:email": [
+              "cfraone@atlantic.edu"
+            ],
+            "ceterms:telephone": [
+              "6093435009"
+            ],
+            "ceterms:contactType": {
+              "en-US": "College Recruiter"
+            }
+          }
+        ]
+      }
+    ],
+    "ceterms:description": {
+      "en-US": "A two-semester series designed for students to gain computer skills with a focus on computer security. Included are a selection of hardware and software, computer applications and introductory programming. Credits earned may be applied to the Computer Security Certificate and the Computer Systems Support, A.A.S. degree."
+    },
+    "ceterms:deliveryType": [
+      {
+        "@type": "ceterms:CredentialAlignmentObject",
+        "ceterms:framework": "https://credreg.net/ctdl/terms/Delivery",
+        "ceterms:targetNode": "deliveryType:BlendedDelivery",
+        "ceterms:frameworkName": {
+          "en-US": "Delivery Type"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Blended Delivery"
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "Delivery includes significant levels of both in person and online."
+        }
+      }
+    ],
+    "ceterms:estimatedCost": [
+      {
+        "@type": "ceterms:CostProfile",
+        "ceterms:name": {
+          "en-US": "Total Cost"
+        },
+        "ceterms:price": 4899,
+        "ceterms:currency": "USD",
+        "ceterms:costDetails": "https://www.atlanticcape.edu",
+        "ceterms:description": {
+          "en-US": "Estimated cost of credential learning opportunity or assessment"
+        },
+        "ceterms:directCostType": {
+          "@type": "ceterms:CredentialAlignmentObject",
+          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
+          "ceterms:targetNode": "costType:AggregateCost",
+          "ceterms:frameworkName": {
+            "en-US": "Cost Type"
+          },
+          "ceterms:targetNodeName": {
+            "en-US": "Aggregate Cost"
+          },
+          "ceterms:targetNodeDescription": {
+            "en-US": "Sum of direct costs."
+          }
+        }
+      },
+      {
+        "@type": "ceterms:CostProfile",
+        "ceterms:name": {
+          "en-US": "Tuition"
+        },
+        "ceterms:price": 2988,
+        "ceterms:currency": "USD",
+        "ceterms:costDetails": "https://www.atlanticcape.edu",
+        "ceterms:description": {
+          "en-US": "Tuition cost for the credential"
+        },
+        "ceterms:directCostType": {
+          "@type": "ceterms:CredentialAlignmentObject",
+          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
+          "ceterms:targetNode": "costType:Tuition",
+          "ceterms:frameworkName": {
+            "en-US": "Cost Type"
+          },
+          "ceterms:targetNodeName": {
+            "en-US": "Tuition"
+          },
+          "ceterms:targetNodeDescription": {
+            "en-US": "Cost for teaching and instruction."
+          }
+        }
+      },
+      {
+        "@type": "ceterms:CostProfile",
+        "ceterms:name": {
+          "en-US": "Fees"
+        },
+        "ceterms:price": 1311,
+        "ceterms:currency": "USD",
+        "ceterms:costDetails": "https://www.atlanticcape.edu",
+        "ceterms:description": {
+          "en-US": "Fees associated with the credential"
+        },
+        "ceterms:directCostType": {
+          "@type": "ceterms:CredentialAlignmentObject",
+          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
+          "ceterms:targetNode": "costType:MixedFees",
+          "ceterms:frameworkName": {
+            "en-US": "Cost Type"
+          },
+          "ceterms:targetNodeName": {
+            "en-US": "Mixed Fees"
+          },
+          "ceterms:targetNodeDescription": {
+            "en-US": "The sum of fees that are not identified individually."
+          }
+        }
+      },
+      {
+        "@type": "ceterms:CostProfile",
+        "ceterms:name": {
+          "en-US": "Books and Materials"
+        },
+        "ceterms:price": 600,
+        "ceterms:currency": "USD",
+        "ceterms:costDetails": "https://www.atlanticcape.edu",
+        "ceterms:description": {
+          "en-US": "Cost of books and materials for the credential"
+        },
+        "ceterms:directCostType": {
+          "@type": "ceterms:CredentialAlignmentObject",
+          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
+          "ceterms:targetNode": "costType:LearningResource",
+          "ceterms:frameworkName": {
+            "en-US": "Cost Type"
+          },
+          "ceterms:targetNodeName": {
+            "en-US": "Learning Resource"
+          },
+          "ceterms:targetNodeDescription": {
+            "en-US": "Cost for one or more learning resources."
+          }
+        }
+      },
+      {
+        "@type": "ceterms:CostProfile",
+        "ceterms:name": {
+          "en-US": "Supplies"
+        },
+        "ceterms:price": 0,
+        "ceterms:currency": "USD",
+        "ceterms:costDetails": "https://www.atlanticcape.edu",
+        "ceterms:description": {
+          "en-US": "Cost of supplies for the credential"
+        },
+        "ceterms:directCostType": {
+          "@type": "ceterms:CredentialAlignmentObject",
+          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
+          "ceterms:targetNode": "costType:TechnologyFee",
+          "ceterms:frameworkName": {
+            "en-US": "Cost Type"
+          },
+          "ceterms:targetNodeName": {
+            "en-US": "Technology Fee"
+          },
+          "ceterms:targetNodeDescription": {
+            "en-US": "Cost for accessing technologies related to the learning opportunity or activity."
+          }
+        }
+      },
+      {
+        "@type": "ceterms:CostProfile",
+        "ceterms:name": {
+          "en-US": "Miscellaneous"
+        },
+        "ceterms:price": 0,
+        "ceterms:currency": "USD",
+        "ceterms:costDetails": "https://www.atlanticcape.edu",
+        "ceterms:description": {
+          "en-US": "Miscellaneous costs for the credential"
+        },
+        "ceterms:directCostType": {
+          "@type": "ceterms:CredentialAlignmentObject",
+          "ceterms:framework": "https://credreg.net/ctdl/terms/CostType",
+          "ceterms:targetNode": "costType:ProgramSpecificFee",
+          "ceterms:frameworkName": {
+            "en-US": "Cost Type"
+          },
+          "ceterms:targetNodeName": {
+            "en-US": "Program Specific Fee"
+          },
+          "ceterms:targetNodeDescription": {
+            "en-US": "Additional cost for participation with a specific program or course of study such as engineering, business, and nursing."
+          }
+        }
+      }
+    ],
+    "ceterms:isRequiredFor": [
+      {
+        "@type": "ceterms:ConditionProfile"
+      }
+    ],
+    "ceterms:occupationType": [
       {
         "@type": "ceterms:CredentialAlignmentObject",
         "ceterms:framework": "https://www.onetcenter.org/taxonomy.html",
-        "ceterms:targetNode": "https://www.onetonline.org/link/summary/11-3021.00",
-        "ceterms:codedNotation": "11-3021.00",
+        "ceterms:targetNode": "https://www.onetonline.org/link/summary/15-1212.00",
+        "ceterms:codedNotation": "15-1212.00",
         "ceterms:frameworkName": {
           "en-US": "Standard Occupational Classification"
         },
         "ceterms:targetNodeName": {
-          "en-US": "Computer and Information Systems Managers"
+          "en-US": "Information Security Analysts"
         },
         "ceterms:targetNodeDescription": {
-          "en-US": "Plan, direct, or coordinate activities in such fields as electronic data processing, information systems, systems analysis, and computer programming."
+          "en-US": "Plan, implement, upgrade, or monitor security measures for the protection of computer networks and information. Assess system vulnerabilities for security risks and propose and implement risk mitigation strategies. May ensure appropriate security controls are in place that will safeguard digital files and vital electronic infrastructure. May respond to computer security breaches and viruses."
         }
       }
-      ],
-      "ceterms:subjectWebpage": "https://www.liit.com",
-      "ceterms:isPreparationFor": [
+    ],
+    "ceterms:subjectWebpage": "https://www.atlanticcape.edu",
+    "ceterms:isPreparationFor": [
       {
         "@type": "ceterms:ConditionProfile",
         "ceterms:name": {
-          "en-US": "Certification"
-        },
-        "ceterms:description": {
-          "en-US": "This certification will prepare a student for the target credential"
+          "en-US": "Data not collected"
+        }
+      },
+      {
+        "@type": "ceterms:ConditionProfile",
+        "ceterms:name": {
+          "en-US": "Data not collected"
         }
       }
-      ],
-      "ceterms:availableOnlineAt": [
-        "https://www.liit.com"
-      ],
-      "ceterms:estimatedDuration": [
+    ],
+    "ceterms:estimatedDuration": [
       {
         "@type": "ceterms:DurationProfile",
         "ceterms:description": {
           "en-US": "This is about how long it takes to earn this credential"
         },
-        "ceterms:exactDuration": "PT272H"
+        "ceterms:timeRequired": "PT54H",
+        "ceterms:exactDuration": "PT54H"
       }
-      ],
-      "ceterms:credentialStatusType": {
+    ],
+    "ceterms:hasSupportService": [
+      "https://sandbox.credentialengineregistry.org/resources/ce-ba272e77-91b6-414e-b30e-e0bd09b5797c"
+    ],
+    "ceterms:scheduleTimingType": [
+      {
+        "@type": "ceterms:CredentialAlignmentObject",
+        "ceterms:framework": "https://credreg.net/ctdl/terms/ScheduleTiming",
+        "ceterms:targetNode": "scheduleTiming:Evening",
+        "ceterms:frameworkName": {
+          "en-US": "Schedule Timing"
+        },
+        "ceterms:targetNodeName": {
+          "en-US": "Evening"
+        },
+        "ceterms:targetNodeDescription": {
+          "en-US": "Schedule is typically during evening hours."
+        }
+      }
+    ],
+    "ceterms:lifeCycleStatusType": {
       "@type": "ceterms:CredentialAlignmentObject",
-      "ceterms:framework": "https://credreg.net/ctdl/terms/CredentialStatus",
-      "ceterms:targetNode": "credentialStat:Active",
+      "ceterms:framework": "https://credreg.net/ctdl/terms/LifeCycleStatus",
+      "ceterms:targetNode": "lifeCycle:Active",
       "ceterms:frameworkName": {
-        "en-US": "Credential Status"
+        "en-US": "Life Cycle Status"
       },
       "ceterms:targetNodeName": {
         "en-US": "Active"
       },
       "ceterms:targetNodeDescription": {
-        "en-US": "Awards of the credential are ongoing."
+        "en-US": "Resource is active, current, ongoing, offered, operational, or available."
       }
-      },
-      "ceterms:instructionalProgramType": [
+    },
+    "ceterms:instructionalProgramType": [
       {
         "@type": "ceterms:CredentialAlignmentObject",
         "ceterms:framework": "https://nces.ed.gov/ipeds/cipcode/Default.aspx?y=56",
-        "ceterms:targetNode": "https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56\u0026cip=11.0901",
-        "ceterms:codedNotation": "11.0901",
+        "ceterms:targetNode": "https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=11.1003",
+        "ceterms:codedNotation": "11.1003",
         "ceterms:frameworkName": {
           "en-US": "Classification of Instructional Programs"
         },
         "ceterms:targetNodeName": {
-          "en-US": "Computer Systems Networking and Telecommunications."
+          "en-US": "Computer and Information Systems Security/Auditing/Information Assurance."
         },
         "ceterms:targetNodeDescription": {
-          "en-US": "A program that focuses on the design, implementation, and management of linked systems of computers, peripherals, and associated software to maximize efficiency and productivity, and that prepares individuals to function as network specialists and managers at various levels.  Includes instruction in operating systems and applications; systems design and analysis; networking theory and solutions; types of networks; network management and control; network and flow optimization; security; configuring; and troubleshooting."
+          "en-US": "A program that prepares individuals to assess the security needs of computer and network systems, recommend safeguard solutions, and manage the implementation, auditing, and maintenance of security devices, systems, and procedures.  Includes instruction in computer architecture, programming, and systems analysis; networking; telecommunications; cryptography; security system auditing and design; applicable law and regulations; risk assessment and policy analysis; contingency planning; user access issues; investigation techniques; and troubleshooting."
         }
       }
     ]

@@ -49,7 +49,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
               record["ceterms:isPreparationFor"] as CetermsConditionProfile[]
           );
 
-          return {
+          const training =  {
             ctid: record["ceterms:ctid"],
             name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : "",
             cipDefinition: cipDefinition ? cipDefinition[0] : null,
@@ -78,6 +78,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(record, "support:JobPlacement"),
             hasChildcareAssistance: await credentialEngineUtils.checkSupportService(record, "support:Childcare"),
           };
+          console.log(training);
+          return training;
         })
     );
 

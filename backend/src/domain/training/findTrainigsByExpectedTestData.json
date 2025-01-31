@@ -1,96 +1,53 @@
 [
-    {
-      "averageSalary": 0,
-      "booksMaterialsCost": 0,
-      "credentials": "Certification Name",
-      "cipCode": "123456",
-      "description": "This is an example description for the training program.",
-      "feesCost": 0,
-      "hasChildcareAssistance": false,
-      "hasEveningCourses": false,
-      "hasJobPlacementAssistance": false,
-      "id": "ctid123",
-      "inDemand": false,
-      "isWheelchairAccessible": false,
-      "languages": "English",
-      "localExceptionCounty": [],
-      "name": "Example Training Program",
-      "occupations": [
-        {
-          "soc": "123",
-          "title": "test"
-        }
-      ],
-      "online": true,
-      "otherCost": 0,
-      "percentEmployed": 0,
-      "prerequisites": [
-        "Example requirement description"
-      ],
-      "provider": {
-        "county": "Middlesex",
-        "email": null,
-        "id": "ctid123",
-        "name": "Example Training Program",
-        "url": "someurl"
-      },
-      "availableAt": {
-        "street_address": "112 Rues Lane",
-        "city": "East Brunswick",
+  {
+    "ctid": "ce-73263b7f-07fd-4c4a-8caa-f31bab4b3de5",
+    "name": "Computer Security Specialist",
+    "cipDefinition": null,
+    "provider": null,
+    "availableAt": [
+      {
+        "@type": "ceterms:Place",
+        "street_address": "5100 Black Horse PIke",
+        "city": "Mays Landing",
         "state": "New Jersey",
-        "zipCode": "08816"
-      },
-      "suppliesToolsCost": 0,
-      "totalClockHours": null,
-      "calendarLength": null,
-      "totalCost": 1000,
-      "tuitionCost": 0
-    },
-    {
-      "averageSalary": 0,
-      "booksMaterialsCost": 0,
-      "credentials": "Certification Name",
-      "cipCode": "123456",
-      "description": "This is an example description for the training program.",
-      "feesCost": 0,
-      "hasChildcareAssistance": false,
-      "hasEveningCourses": false,
-      "hasJobPlacementAssistance": false,
-      "id": "ctid123",
-      "inDemand": false,
-      "isWheelchairAccessible": false,
-      "languages": "English",
-      "localExceptionCounty": [],
-      "name": "Example Training Program",
-      "occupations": [
-        {
-          "soc": "123",
-          "title": "test"
-        }
-      ],
-      "online": true,
-      "otherCost": 0,
-      "percentEmployed": 0,
-      "prerequisites": [
-        "Example requirement description"
-      ],
-      "provider": {
-        "county": "Middlesex",
-        "email": null,
-        "id": "ctid123",
-        "name": "Example Training Program",
-        "url": "someurl"
-      },
-      "availableAt": {
-        "street_address": "112 Rues Lane",
-        "city": "East Brunswick",
-        "state": "New Jersey",
-        "zipCode": "08816"
-      },
-      "suppliesToolsCost": 0,
-      "totalClockHours": null,
-      "calendarLength": null,
-      "totalCost": 1000,
-      "tuitionCost": 0
-    }
-  ]
+        "zipCode": "08330",
+        "county": "Atlantic",
+        "targetContactPoints": [
+          {
+            "name": "Name not specified",
+            "email": ["cfraone@atlantic.edu"],
+            "telephone": ["6093435009"],
+            "contactType": "College Recruiter"
+          }
+        ]
+      }
+    ],
+    "description": "A two-semester series designed for students to gain computer skills with a focus on computer security. Included are a selection of hardware and software, computer applications and introductory programming. Credits earned may be applied to the Computer Security Certificate and the Computer Systems Support, A.A.S. degree.",
+    "credentials": "Data not collected, Data not collected",
+    "prerequisites": ["18 years of age, or HS Diploma, or GED"],
+    "totalClockHours": 54,
+    "calendarLength": 3,
+    "occupations": [
+      {
+        "soc": "15-1212",
+        "title": "Information Security Analysts"
+      }
+    ],
+    "inDemand": true,
+    "localExceptionCounty": [],
+    "tuitionCost": 2988,
+    "feesCost": 1311,
+    "booksMaterialsCost": 600,
+    "suppliesToolsCost": 0,
+    "otherCost": 0,
+    "totalCost": 4899,
+    "deliveryTypes": ["deliveryType:BlendedDelivery"],
+    "percentEmployed": null,
+    "averageSalary": null,
+    "hasEveningCourses": true,
+    "languages": ["English"],
+    "isWheelchairAccessible": false,
+    "hasJobPlacementAssistance": false,
+    "hasChildcareAssistance": false
+  }
+]
