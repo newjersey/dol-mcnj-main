@@ -1,3 +1,5 @@
+import {Ceterms} from "../credentialengine/CredentialEngine";
+
 export interface Program {
   programid: string;
   cipcode: string;
@@ -17,10 +19,9 @@ export interface Program {
   calendarlengthid: string | null;
   totalclockhours: string;
   website: string | null;
-  street1: string | null;
-  street2: string | null;
-  city: string | null;
-  state: string | null;
+  street_address: Ceterms | null;
+  city: Ceterms | null;
+  state: Ceterms | null;
   zip: string | null;
   county: string;
   contactfirstname: string | null;
@@ -54,8 +55,14 @@ export interface SocDefinition {
 }
 
 export interface CipDefinition {
+  cip?: string;
   cipcode: string;
   ciptitle: string;
+}
+
+export interface OutcomeDefinition {
+  peremployed2: string | null;
+  avgquarterlywage2: string | null;
 }
 
 export interface NullableOccupation {

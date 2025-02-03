@@ -1,10 +1,9 @@
-import { ReactElement, useEffect, useState, useRef } from "react";
-import { Link, RouteComponentProps } from "@reach/router";
+import { ReactElement, useEffect, useRef, useState } from "react";
+import { navigate, RouteComponentProps } from "@reach/router";
 
 import { Client } from "../domain/Client";
 import { Error } from "../domain/Error";
-import { Training } from "../domain/Training";
-import { InlineIcon } from "../components/InlineIcon";
+import { DeliveryType, Training } from "../domain/Training";
 
 import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
 import { NotFoundPage } from "../error/NotFoundPage";
@@ -22,20 +21,32 @@ import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
 
 import { Icon } from "@material-ui/core";
 import { formatMoney } from "accounting";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
-
+// import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { useReactToPrint } from "react-to-print";
 import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
-import { useReactToPrint } from "react-to-print";
-import { Tooltip } from "react-tooltip";
+import { cleanProviderName } from "../utils/cleanProviderName";
 import { LinkObject } from "../components/modules/LinkObject";
 import { IconNames } from "../types/icons";
-import { LinkSimple, Printer } from "@phosphor-icons/react";
+import {
+  Envelope,
+  Flag,
+  LinkSimple,
+  MagnifyingGlass,
+  MapPin,
+  Printer,
+  User,
+  X,
+} from "@phosphor-icons/react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "../components/Button";
-import { Flag } from "@phosphor-icons/react";
+import { QuickFacts } from "./QuickFacts";
 import { formatCip } from "../utils/formatCip";
+import { ProviderServices } from "./ProviderServices";
+import { SocDrawerContent } from "../components/SocDrawerContent";
+import parsePhoneNumberFromString from "libphonenumber-js";
+import { Skeleton } from "@material-ui/lab";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -50,15 +61,17 @@ interface Copy {
 export const TrainingPage = (props: Props): ReactElement => {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [training, setTraining] = useState<Training | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [activeDrawer, setActiveDrawer] = useState<"cip" | "soc" | "">("");
   const [copy, setCopy] = useState<Copy | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
   useEffect(() => {
-    setLoading(true);  // Start loading
+    setLoading(true); // Start loading
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: (result: Training) => {
@@ -76,19 +89,172 @@ export const TrainingPage = (props: Props): ReactElement => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const overlay = document.querySelector("#drawerOverlay");
+      const searchOverlay = document.querySelector("#searchOverlay");
       if (overlay) {
         overlay.addEventListener("click", () => {
           setDrawerOpen(false);
         });
       }
+
+      if (searchOverlay) {
+        searchOverlay.addEventListener("click", () => {
+          setSearchOpen(false);
+        });
+      }
+
+      if (drawerOpen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
     }
-  }, [drawerOpen]);
+  }, [drawerOpen, searchOpen]);
+
+  useEffect(() => {
+    // when pressing the escape key, close the drawer
+    const closeOnEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setDrawerOpen(false);
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener("keydown", closeOnEsc);
+
+    if (loading) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   const printReactContent = useReactToPrint({
     content: () => componentRef.current,
   });
 
-  if (loading) return <div>Loading...</div>;
+  const Crumbs = ({ name }: { name: string }) => (
+    <section className="crumb-container">
+      <div className="container">
+        <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
+          <Icon>keyboard_backspace</Icon>
+          <ol className="usa-breadcrumb__list">
+            <li className="usa-breadcrumb__list-item">
+              <a className="usa-breadcrumb__link" href="/">
+                Home
+              </a>
+            </li>
+            <li className="usa-breadcrumb__list-item">
+              <a className="usa-breadcrumb__link" href="/training">
+                Training Explorer
+              </a>
+            </li>
+            <li className="usa-breadcrumb__list-item">
+              <a className="usa-breadcrumb__link" href="/training/search">
+                Search
+              </a>
+            </li>
+            <li className="usa-breadcrumb__list-item use-current" aria-current="page">
+              <span>{name}</span>
+            </li>
+          </ol>
+        </nav>
+        <button
+          aria-label="Open search"
+          className="search-toggle mobile-only"
+          onClick={() => setSearchOpen(!searchOpen)}
+        >
+          <span className="sr-only">open search</span>
+          <MagnifyingGlass weight="bold" size={32} />
+        </button>
+        <div
+          id="searchOverlay"
+          className={`form-overlay mobile-only${searchOpen ? " open" : ""}`}
+        />
+        <form
+          id="searchForm"
+          className={`usa-search usa-search--small${searchOpen ? " open" : ""}`}
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            navigate(`/training/search?q=${form.search.value}`);
+          }}
+        >
+          <label className="mobile-only">Search for training</label>
+          <input className="usa-input" type="search" placeholder="search" name="search" />
+          <button className="usa-button" type="submit" aria-label="Search">
+            <MagnifyingGlass weight="bold" />
+          </button>
+          <a
+            className="close-button mobile-only"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              setSearchOpen(false);
+            }}
+          >
+            <X weight="bold" size={24} />
+          </a>
+        </form>
+      </div>
+    </section>
+  );
+
+  const SkelCard = () => (
+    <div className="mtm grouping">
+      <div className="bg-light-green pvs bar">
+        <Skeleton width="100%" height={35} />
+        <Skeleton width="50%" />
+      </div>
+      <div className="pts group-padding border-light-green">
+        <Skeleton width="100%" />
+        <Skeleton width="100%" />
+        <Skeleton width="50%" />
+      </div>
+    </div>
+  );
+
+  if (loading)
+    return (
+      <div ref={componentRef} className="training-detail">
+        <Layout client={props.client}>
+          <Crumbs name="...Loading" />
+          <section
+            className="title-box"
+            style={{
+              height: "93px",
+            }}
+          >
+            <div className="container">
+              <div className="heading-box" style={{ width: "100%" }}>
+                <Skeleton width="50%" height={35} />
+                <Skeleton width="30%" height={19} />
+              </div>
+            </div>
+          </section>
+          <section className="container plus main-section">
+            <div className="row pbm group-wrapper">
+              <div className="col-md-8">
+                <div className="container-fluid">
+                  <div className="row">
+                    <SkelCard />
+                    <SkelCard />
+                    <SkelCard />
+                    <SkelCard />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="container-fluid mbm">
+                  <div className="row">
+                    <SkelCard />
+                    <SkelCard />
+                    <SkelCard />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </Layout>
+      </div>
+    );
   // Render error pages only if loading is complete
   if (error === Error.NOT_FOUND) return <NotFoundPage client={props.client} />;
   if (error) return <SomethingWentWrongPage client={props.client} />;
@@ -107,14 +273,10 @@ export const TrainingPage = (props: Props): ReactElement => {
             </p>
             <ul className="unstyled">
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/training/search">
-                  Find Training Opportunities
-                </a>
+                <a href="/training/search">Find Training Opportunities</a>
               </li>
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
-                  Tuition Assistance Resources
-                </a>
+                <a href="/support-resources/tuition-assistance">Tuition Assistance Resources</a>
               </li>
             </ul>
           </>
@@ -130,14 +292,10 @@ export const TrainingPage = (props: Props): ReactElement => {
             </p>
             <ul className="unstyled">
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/training/search">
-                  Find Training Opportunities
-                </a>
+                <a href="/training/search">Find Training Opportunities</a>
               </li>
               <li style={{ marginTop: "22px" }}>
-                <a style={{ color: "#005EA2" }} href="/support-resources/tuition-assistance">
-                  Tuition Assistance Resources
-                </a>
+                <a href="/support-resources/tuition-assistance">Tuition Assistance Resources</a>
               </li>
             </ul>
           </>
@@ -148,7 +306,7 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const printHandler = (): void => {
     printReactContent();
-    logEvent("Training page", "Clicked print link", training?.id);
+    logEvent("Training page", "Clicked print link", training?.ctid);
   };
 
   const copyHandler = (): void => {
@@ -170,7 +328,7 @@ export const TrainingPage = (props: Props): ReactElement => {
       setCopy(null);
     }, 5000);
 
-    logEvent("Training page", "Clicked copy link", training?.id);
+    logEvent("Training page", "Clicked copy link", training?.ctid);
   };
 
   const getHttpUrl = (url: string): string => {
@@ -183,16 +341,16 @@ export const TrainingPage = (props: Props): ReactElement => {
 
   const getProviderUrl = (): ReactElement => {
     if (!training?.provider?.url) {
-      return <>{PROVIDER_MISSING_INFO}</>;
+      return <span>{PROVIDER_MISSING_INFO || "Provider URL not available"}</span>;
     }
 
     return (
       <a
         target="_blank"
         rel="noopener noreferrer"
-        className="break-text link-format-blue"
+        className="break-text"
         href={getHttpUrl(training.provider.url)}
-        onClick={() => logEvent("Training page", "Clicked provider link", training?.id)}
+        onClick={() => logEvent("Training page", "Clicked provider link", training?.ctid)}
       >
         {training.provider.url}
       </a>
@@ -200,10 +358,13 @@ export const TrainingPage = (props: Props): ReactElement => {
   };
 
   const fundingContent = (
-    <Grouping title="How to get funding">
+    <Grouping
+      title="How to Get Funding"
+      subheading="You may be eligible for funding for certain training opportunities"
+    >
       <div className="funding-content">
         <div>
-          <p className="mvd" data-testid="shareInDemandTraining">
+          <p data-testid="shareInDemandTraining">
             Trainings related to occupations on the{" "}
             <LinkObject url="/in-demand-occupations">In - Demand Occupations List</LinkObject> may
             be eligible for funding. Contact your local One-Stop Career Center for more information
@@ -211,19 +372,18 @@ export const TrainingPage = (props: Props): ReactElement => {
           </p>
           <LinkObject
             url="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
-            className="usa-button primary usa-button--outline"
             iconSuffix={IconNames.ArrowSquareOut}
             iconSize={22}
           >
-            New Jersey's One-Stop Career Centers
+            Contact One-Stop Career Centers
           </LinkObject>
         </div>
         <div>
-          <p>You can also check out other tuition assistance opportunities.</p>
-          <LinkObject
-            url="/support-resources/tuition-assistance"
-            className="usa-button secondary usa-button--outline"
-          >
+          <p>
+            You can also check out other tuition assistance opportunities and resources by clicking
+            the link below.
+          </p>
+          <LinkObject newTab url="/support-resources/tuition-assistance">
             View Tuition Assistance Resource
           </LinkObject>
         </div>
@@ -231,54 +391,81 @@ export const TrainingPage = (props: Props): ReactElement => {
     </Grouping>
   );
 
-  const getProviderAddress = (): ReactElement => {
-    if (training?.online) {
-      return <>{t("TrainingPage.onlineClass")}</>;
-    }
-
-    if (!training || !training.provider.address.city) {
-      return <>{PROVIDER_MISSING_INFO}</>;
-    }
-
-    const address = training.provider.address;
-    const nameAndAddressEncoded = encodeURIComponent(
-      `${training.provider.name} ${address.street1} ${address.street2} ${address.city} ${address.state} ${address.zipCode}`,
-    );
-    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
-
-    return (
-      <a href={googleUrl} target="_blank" className="link-format-blue" rel="noopener noreferrer">
-        <div className="inline">
-          <span>{address.street1}</span>
-          <div>{address.street2}</div>
-          <div>
-            {address.city}, {address.state} {address.zipCode}
-          </div>
-        </div>
-      </a>
-    );
-  };
-
-  const getProviderContact = (): ReactElement => {
-    if (!training) {
+  const getProviderEmail = (): ReactElement => {
+    if (!training?.provider?.email) {
       return <></>;
     }
 
-    let phoneNumber = parsePhoneNumberFromString(
-      training.provider.phoneNumber,
-      "US",
-    )?.formatNational();
-    if (training.provider.phoneExtension) {
-      phoneNumber = `${phoneNumber} Ext: ${training.provider.phoneExtension}`;
+    return (
+      <div className="fact-item">
+        <div className="label">
+          <Envelope size={18} />
+        </div>
+        <a href={`mailto:${training.provider.email}`}>{training.provider.email}</a>
+      </div>
+    );
+  };
+
+  const getProgramContact = (): ReactElement => {
+    if (!training?.availableAt?.length) {
+      return <></>;
     }
+
+    const contactPoint = training.availableAt[0]?.targetContactPoints?.[0];
+
+    if (!contactPoint) {
+      return <span>Contact information not available</span>;
+    }
+
+    const name = contactPoint?.name ?? "Contact name not specified";
+    const contactType = contactPoint?.contactType ?? "Type not specified";
+    const email = contactPoint?.contactType ?? "Email not available";
+    const rawPhoneNumber = contactPoint.telephone?.[0];
+    const phoneNumber = rawPhoneNumber
+      ? parsePhoneNumberFromString(rawPhoneNumber, "US")?.formatNational() || rawPhoneNumber
+      : "Phone not available";
 
     return (
       <div className="inline">
-        <span>{training.provider.contactName}</span>
-        <div>{training.provider.contactTitle}</div>
+        <div> {name}</div>
+        <div>{contactType}</div>
+        <div>
+          <a href={`mailto:${email}`}>{email}</a>
+        </div>
         <div>{phoneNumber}</div>
       </div>
     );
+  };
+
+  const getAvailableAtAddress = (): ReactElement => {
+    if (!training) {
+      return <>{PROVIDER_MISSING_INFO}</>;
+    }
+
+    // Format the address if it's available
+    const address = training.availableAt?.[0];
+    if (address) {
+      const nameAndAddressEncoded = encodeURIComponent(
+        `${address.street_address} ${address.city} ${address.state} ${address.zipCode}`,
+      );
+      const googleUrl = `https://www.google.com/maps/search/?api=1&query=${nameAndAddressEncoded}`;
+
+      return (
+        <div>
+          <a href={googleUrl} target="_blank" rel="noopener noreferrer">
+            <div className="inline">
+              <span>{address.street_address}</span>
+              <div>
+                {address.city}, {address.state} {address.zipCode}
+              </div>
+            </div>
+          </a>
+        </div>
+      );
+    }
+
+    // Default to showing delivery types if no address is available
+    return <></>;
   };
 
   const getAssociatedOccupations = (): ReactElement => {
@@ -291,9 +478,9 @@ export const TrainingPage = (props: Props): ReactElement => {
           <Trans i18nKey="TrainingPage.associatedOccupationsText">
             This is a general training that might prepare you for a wide variety of career paths
             Browse
-            <Link className="link-format-blue" to="/in-demand-occupations">
+            <LinkObject newTab url="/in-demand-occupations">
               in-demand occupations
-            </Link>
+            </LinkObject>
             to see how you might apply this training.
           </Trans>
         </p>
@@ -301,15 +488,15 @@ export const TrainingPage = (props: Props): ReactElement => {
     }
 
     return (
-      <>
+      <ul>
         {training?.occupations.map((occupation, i) => (
-          <Link className="link-format-blue" to={`/occupation/${occupation.soc}`} key={i}>
-            <p key={i} className="blue weight-500">
-              {occupation.title}
-            </p>
-          </Link>
+          <li key={occupation.soc + i}>
+            <LinkObject newTab url={`/occupation/${occupation.soc}`}>
+              {occupation.title} ({occupation.soc})
+            </LinkObject>
+          </li>
         ))}
-      </>
+      </ul>
     );
   };
   const seoObject = {
@@ -350,23 +537,53 @@ export const TrainingPage = (props: Props): ReactElement => {
       },
     ];
 
+    let contactName = "N/A";
+    let contactTitle = "N/A";
+    let phoneNumber = "N/A";
+
+    if (training.provider?.address?.length) {
+      const address = training.provider.address.find(
+        (addr) => addr?.targetContactPoints?.length && addr.targetContactPoints.length > 0,
+      );
+
+      if (address && address.targetContactPoints) {
+        const mainContactPoint = address.targetContactPoints[0];
+        contactName = mainContactPoint?.name || "N/A";
+        contactTitle = mainContactPoint?.contactType || "N/A";
+        phoneNumber = mainContactPoint?.telephone?.[0] || "N/A";
+      }
+    }
+
+    const courseMode = (() => {
+      if (training.deliveryTypes?.includes(DeliveryType.OnlineOnly)) {
+        return "online";
+      }
+      if (training.deliveryTypes?.includes(DeliveryType.InPerson)) {
+        return "onsite";
+      }
+      if (training.deliveryTypes?.includes(DeliveryType.BlendedDelivery)) {
+        return "blended";
+      }
+      return "variable"; // Fallback for other or unknown delivery types
+    })();
+
     const courseInstance = {
       "@type": "CourseInstance",
-      courseMode: training.online ? "online" : "onsite",
+      courseMode,
       instructor: {
         "@type": "Person",
-        name: training.provider.contactName,
-        jobTitle: training.provider.contactTitle,
-        telephone: training.provider.phoneNumber,
+        name: contactName,
+        jobTitle: contactTitle,
+        telephone: phoneNumber,
       },
       courseWorkload: training.totalClockHours ? `PT${training.totalClockHours}H` : "PT0H",
     };
 
     const offer = {
       "@type": "Offer",
-      url: training.provider.url,
+      url: training.provider?.url || "",
       priceCurrency: "USD",
-      price: training.totalCost,
+      price: training.totalCost || 0,
       eligibleRegion: {
         "@type": "Place",
         name: "New Jersey",
@@ -378,22 +595,58 @@ export const TrainingPage = (props: Props): ReactElement => {
       "@context": "http://schema.org",
       "@type": "Course",
       name: training.name,
-      description: training.description,
-      provider: {
-        "@type": "Organization",
-        name: training.provider.name,
-        sameAs: training.provider.url,
-      },
+      description: training.description || "",
+      provider: training.provider
+        ? {
+            "@type": "Organization",
+            name: training.provider.name || "Unknown Provider",
+            sameAs: training.provider.url || "",
+          }
+        : {
+            "@type": "Organization",
+            name: "Provider information not available",
+          },
       audience: audience,
       identifier: {
         "@type": "PropertyValue",
         name: "Program ID",
-        value: training.id,
+        value: training.ctid,
       },
       hasCourseInstance: courseInstance,
       offers: offer,
     };
   };
+
+  if (!training) {
+    if (error === Error.SYSTEM_ERROR) {
+      return (
+        <>
+          <SomethingWentWrongPage client={props.client} />
+        </>
+      );
+    } else if (error === Error.NOT_FOUND) {
+      return (
+        <NotFoundPage client={props.client} heading="Training not found">
+          <>
+            <p>
+              This training is no longer listed or we may be experiencing technical difficulties.
+              However, you can try out these other helpful links:
+            </p>
+            <ul className="unstyled">
+              <li style={{ marginTop: "22px" }}>
+                <a href="/training/search">Find Training Opportunities</a>
+              </li>
+              <li style={{ marginTop: "22px" }}>
+                <a href="/support-resources/tuition-assistance">Tuition Assistance Resources</a>
+              </li>
+            </ul>
+          </>
+        </NotFoundPage>
+      );
+    } else {
+      return <></>;
+    }
+  }
 
   return (
     <div ref={componentRef} className="training-detail">
@@ -401,113 +654,81 @@ export const TrainingPage = (props: Props): ReactElement => {
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(generateJsonLd(training))}</script>
         </Helmet>
-        <div className="container plus">
-          <div className="detail-page">
-            <div className="page-banner">
-              <div className="top-nav">
-                <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                  <Icon>keyboard_backspace</Icon>
-                  <ol className="usa-breadcrumb__list">
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/">
-                        Home
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training">
-                        Training Explorer
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item">
-                      <a className="usa-breadcrumb__link" href="/training/search">
-                        Search
-                      </a>
-                    </li>
-                    <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                      <span>{training.name}</span>
-                    </li>
-                  </ol>
-                </nav>
-              </div>
+        <Crumbs name={training.name} />
+
+        <section className="title-box">
+          <div className="container">
+            <div className="heading-box">
+              <h1 data-testid="title">{training.name}</h1>
+              {training.provider?.name
+                ? cleanProviderName(training.provider.name)
+                : "Provider information not available"}
             </div>
-          </div>
-          <div className="title-box">
-            <h2 data-testid="title" className="text-xl ptd pbs weight-500">
-              {training.name}
-            </h2>
             <ul className="save-controls unstyled">
               <li>
-                <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                  <LinkSimple size={26} className={copy ? "green" : undefined} />
-                  <span className={copy ? "green" : undefined}>
-                    {copy ? "Copied!" : "Copy link"}
-                  </span>
+                <UnstyledButton
+                  onClick={copyHandler}
+                  className={copy ? "green" : undefined}
+                  aria-label="Copy link to clipboard"
+                >
+                  <LinkSimple size={26} />
+                  <span
+                    className={`indicator${copy ? " green" : ""}`}
+                  >{`Cop${copy ? "ied" : "y"}`}</span>
                 </UnstyledButton>
               </li>
               <li>
-                <UnstyledButton className="link-format-blue" onClick={printHandler}>
+                <UnstyledButton onClick={printHandler} aria-label="Print and save">
                   <Printer size={26} />
-                  <span className="mlxs weight-500">Print and Save</span>
+                  <span className="indicator">Print and Save</span>
                 </UnstyledButton>
               </li>
             </ul>
           </div>
-          <h3 className="text-l pbs weight-500">{training.provider.name}</h3>
-          <div className="stat-block-stack mtm">
-            {training.inDemand ? <InDemandBlock /> : <></>}
+        </section>
 
-            {!training.inDemand &&
-            training.localExceptionCounty &&
-            training.localExceptionCounty.length !== 0 ? (
-              <InDemandBlock counties={training.localExceptionCounty} />
-            ) : (
-              <></>
-            )}
+        <section className="info-blocks container">
+          {training.inDemand ? <InDemandBlock /> : <></>}
 
-            <div className="stat-block-container">
-              <StatBlock
-                title={t("TrainingPage.avgSalaryTitle")}
-                tooltipText={t("TrainingPage.avgSalaryTooltip")}
-                disclaimer={t("")}
-                data={
-                  training.averageSalary
-                    ? formatMoney(training.averageSalary, { precision: 0 })
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-lightest-purple"
-              />
-              <StatBlock
-                title={t("TrainingPage.employmentRateTitle")}
-                tooltipText={t("TrainingPage.employmentRateTooltip")}
-                disclaimer={t("")}
-                data={
-                  training.percentEmployed
-                    ? formatPercentEmployed(training.percentEmployed)
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-light-purple-50"
-              />
-            </div>
-          </div>
-          <ul className="save-controls mobile-only unstyled">
-            <li>
-              <UnstyledButton className="link-format-blue" onClick={copyHandler}>
-                <LinkSimple size={26} className={copy ? "green" : undefined} />
-                <span className={copy ? "green" : undefined}>{copy ? "Copied!" : "Copy link"}</span>
-              </UnstyledButton>
-            </li>
-            <li>
-              <UnstyledButton className="link-format-blue" onClick={printHandler}>
-                <Printer size={26} />
-                <span className="mlxs weight-500">Print and Save</span>
-              </UnstyledButton>
-            </li>
-          </ul>
+          {!training.inDemand &&
+          training.localExceptionCounty &&
+          training.localExceptionCounty.length !== 0 ? (
+            <InDemandBlock counties={training.localExceptionCounty} />
+          ) : (
+            <></>
+          )}
+
+          <StatBlock
+            title={t("TrainingPage.avgSalaryTitle")}
+            tooltipText={t("TrainingPage.avgSalaryTooltip")}
+            disclaimer={t("")}
+            data={
+              training.averageSalary
+                ? formatMoney(training.averageSalary, { precision: 0 })
+                : STAT_MISSING_DATA_INDICATOR
+            }
+          />
+          <StatBlock
+            title={t("TrainingPage.employmentRateTitle")}
+            tooltipText={t("TrainingPage.employmentRateTooltip")}
+            disclaimer={t("")}
+            data={
+              training.percentEmployed
+                ? formatPercentEmployed(training.percentEmployed)
+                : STAT_MISSING_DATA_INDICATOR
+            }
+          />
+        </section>
+
+        <section className="container plus main-section">
           <div className="row pbm group-wrapper">
             <div className="col-md-8">
               <div className="container-fluid">
                 <div className="row">
-                  <Grouping title={t("TrainingPage.descriptionGroupHeader")}>
+                  <Grouping
+                    title={t("TrainingPage.descriptionGroupHeader")}
+                    subheading="About this Learning Opportunity"
+                  >
                     <>
                       {training.description.split("\n").map((line, i) => (
                         <p key={i}>{line}</p>
@@ -515,91 +736,153 @@ export const TrainingPage = (props: Props): ReactElement => {
                     </>
                   </Grouping>
 
-                  <Grouping title={t("TrainingPage.quickStatsGroupHeader")}>
+                  <QuickFacts training={training} />
+                  <Grouping
+                    className="mobile-only"
+                    title={t("TrainingPage.costGroupHeader")}
+                    subheading="Detailed cost breakdown of the Learning Opportunity"
+                  >
                     <>
-                      {training.certifications && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">school</InlineIcon>
-                            {t("TrainingPage.certificationsLabel")}&nbsp;
-                            <b>{training.certifications}</b>
-                          </span>
-                        </p>
-                      )}
-                      {training.prerequisites && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">list_alt</InlineIcon>
-                            {t("TrainingPage.prereqsLabel")}&nbsp;<b>{training.prerequisites}</b>
-                          </span>
-                        </p>
-                      )}
                       <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">av_timer</InlineIcon>
-                          {t("TrainingPage.completionTimeLabel")}&nbsp;
-                          <b>{t(`CalendarLengthLookup.${training.calendarLength}`)}</b>
+                        <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
+                        <span className="text-l pull-right weight-500">
+                          {training.totalCost
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
                         </span>
                       </p>
-
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">schedule</InlineIcon>
-                          {t("TrainingPage.totalClockHoursLabel")}&nbsp;
-                          <InlineIcon
-                            className="mrxs"
-                            data-tooltip-id="totalClockHours-tooltip"
-                            data-tooltip-content={t("TrainingPage.totalClockHoursTooltip")}
-                          >
-                            info
-                          </InlineIcon>
-                          <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
-                          <b>
-                            {training.totalClockHours
-                              ? t("TrainingPage.totalClockHours", {
-                                  hours: training.totalClockHours,
-                                })
+                      <div className="grey-line" />
+                      <div className="mvd">
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.tuitionCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.tuitionCost !== null && training.tuitionCost !== undefined
+                              ? formatMoney(training.tuitionCost)
                               : t("Global.noDataAvailableText")}
-                          </b>
-                        </span>
-                      </p>
-
-                      {training.cipDefinition ? (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">book</InlineIcon>
-                            <button
-                              type="button"
-                              className="toggle"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                setDrawerOpen(true);
-                              }}
-                            >
-                              {t("TrainingPage.cipCodeLabel")}
-                            </button>
-                            &nbsp;&nbsp;
                           </span>
-                          <>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.feesCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.feesCost !== null && training.feesCost !== undefined
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.materialsCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.booksMaterialsCost !== null &&
+                            training.booksMaterialsCost !== undefined
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.suppliesCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.suppliesToolsCost !== null &&
+                            training.suppliesToolsCost !== undefined
+                              ? formatMoney(training.suppliesToolsCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                        <div className="cost-item">
+                          <span>{t("TrainingPage.otherCostLabel")}</span>
+                          <span className="pull-right">
+                            {training.otherCost !== null && training.otherCost !== undefined
+                              ? formatMoney(training.otherCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  </Grouping>
+                  <Grouping
+                    className="mobile-only"
+                    title={t("TrainingPage.locationGroupHeader")}
+                    subheading="Geographic and contact information for this Learning Opportunity"
+                  >
+                    <>
+                      {training.provider && training.provider.ctid ? (
+                        <>
+                          <p>
+                            <span className="fin fas">
+                              {training.provider?.name
+                                ? cleanProviderName(training.provider.name)
+                                : "Provider information not available"}
+                            </span>
+                          </p>
+                          {getProviderEmail()}
+                          {getAvailableAtAddress() && (
+                            <div className="fact-item">
+                              <span className="label">
+                                <MapPin size={18} weight="fill" />
+                              </span>
+                              {getAvailableAtAddress()}
+                            </div>
+                          )}
+                          <div className="fact-item">
+                            <span className="label">
+                              <LinkSimple size={18} weight="bold" />
+                            </span>
+                            {getProviderUrl()}
+                          </div>
+                        </>
+                      ) : (
+                        <>Provider information is unavailable</>
+                      )}
+                    </>
+                  </Grouping>
+                  {training.cipDefinition && (
+                    <Grouping
+                      title="Instructional Programs"
+                      subheading="Type of material covered by the Learning Opportunity"
+                    >
+                      <>
+                        <button
+                          className="sect-title"
+                          onClick={() => {
+                            setDrawerOpen(true);
+                            setActiveDrawer("cip");
+                          }}
+                        >
+                          Classification of Instructional Programs
+                        </button>
+                        <br />
+                        <ul>
+                          <li>
                             <a
                               href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(training.cipDefinition.cipcode)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              {formatCip(training.cipDefinition.cipcode)}
+                              {training.cipDefinition.ciptitle} (
+                              {formatCip(training.cipDefinition.cipcode)})
                             </a>
-                            <br />
-                            <b>{training.cipDefinition.ciptitle}</b>
-                          </>
-                        </p>
-                      ) : (
-                        <span>{t("Global.noDataAvailableText")}</span>
-                      )}
-                    </>
-                  </Grouping>
+                          </li>
+                        </ul>
+                      </>
+                    </Grouping>
+                  )}
 
-                  <Grouping title={t("TrainingPage.associatedOccupationsGroupHeader")}>
-                    <>{getAssociatedOccupations()}</>
+                  <Grouping
+                    title={t("TrainingPage.associatedOccupationsGroupHeader")}
+                    subheading="Explore the occupations below to learn more"
+                  >
+                    <>
+                      <button
+                        className="sect-title"
+                        onClick={() => {
+                          setDrawerOpen(true);
+                          setActiveDrawer("soc");
+                        }}
+                      >
+                        Standard Occupational Classification
+                      </button>
+                      <br />
+                      {getAssociatedOccupations()}
+                    </>
                   </Grouping>
 
                   <div className="desktop-only">{fundingContent}</div>
@@ -610,121 +893,117 @@ export const TrainingPage = (props: Props): ReactElement => {
             <div className="col-md-4">
               <div className="container-fluid mbm">
                 <div className="row">
-                  <Grouping title={t("TrainingPage.costGroupHeader")}>
+                  <Grouping
+                    className="desktop-only"
+                    title={t("TrainingPage.costGroupHeader")}
+                    subheading="Detailed cost breakdown of the Learning Opportunity"
+                  >
                     <>
                       <p>
                         <span className="weight-500">{t("TrainingPage.totalCostLabel")}</span>
                         <span className="text-l pull-right weight-500">
-                          {formatMoney(training.totalCost)}
+                          {training.totalCost !== null && training.totalCost !== undefined
+                            ? formatMoney(training.totalCost)
+                            : t("Global.noDataAvailableText")}
                         </span>
                       </p>
                       <div className="grey-line" />
                       <div className="mvd">
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.tuitionCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.tuitionCost)}</span>
+                          <span className="pull-right">
+                            {training.tuitionCost !== null && training.tuitionCost !== undefined
+                              ? formatMoney(training.tuitionCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.feesCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.feesCost)}</span>
+                          <span className="pull-right">
+                            {training.feesCost !== null && training.feesCost !== undefined
+                              ? formatMoney(training.feesCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.materialsCostLabel")}</span>
                           <span className="pull-right">
-                            {formatMoney(training.booksMaterialsCost)}
+                            {training.booksMaterialsCost !== null &&
+                            training.booksMaterialsCost !== undefined
+                              ? formatMoney(training.booksMaterialsCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.suppliesCostLabel")}</span>
                           <span className="pull-right">
-                            {formatMoney(training.suppliesToolsCost)}
+                            {training.suppliesToolsCost !== null &&
+                            training.suppliesToolsCost !== undefined
+                              ? formatMoney(training.suppliesToolsCost)
+                              : t("Global.noDataAvailableText")}
                           </span>
                         </div>
-                        <div>
+                        <div className="cost-item">
                           <span>{t("TrainingPage.otherCostLabel")}</span>
-                          <span className="pull-right">{formatMoney(training.otherCost)}</span>
+                          <span className="pull-right">
+                            {training.otherCost !== null && training.otherCost !== undefined
+                              ? formatMoney(training.otherCost)
+                              : t("Global.noDataAvailableText")}
+                          </span>
                         </div>
                       </div>
                     </>
                   </Grouping>
-                  <Grouping title={t("TrainingPage.providerGroupHeader")}>
+                  <Grouping
+                    className="desktop-only"
+                    title={t("TrainingPage.locationGroupHeader")}
+                    subheading="Geographic and contact information for this Learning Opportunity"
+                  >
                     <>
-                      <p>
-                        <span className="fin fas">
-                          <InlineIcon className="mrxs">school</InlineIcon>
-                          {training.provider.name}
-                        </span>
-                      </p>
-                      <div className="mvd">
-                        <span className="fin">
-                          <InlineIcon className="mrxs">location_on</InlineIcon>
-                          {getProviderAddress()}
-                        </span>
-                      </div>
-                      <div className="mvd">
-                        <span className="fin">
-                          <InlineIcon className="mrxs">person</InlineIcon>
-                          {getProviderContact()}
-                        </span>
-                      </div>
-                      <p>
-                        <span className="fin">
-                          <InlineIcon className="mrxs">link</InlineIcon>
-                          {getProviderUrl()}
-                        </span>
-                      </p>
+                      {training.provider && training.provider.ctid ? (
+                        <>
+                          <p>
+                            <span className="fin fas">
+                              {training.provider?.name
+                                ? cleanProviderName(training.provider.name)
+                                : "Provider information not available"}
+                            </span>
+                          </p>
+                          {getProviderEmail()}
+                          {getAvailableAtAddress() && (
+                            <div className="fact-item">
+                              <span className="label">
+                                <MapPin size={18} weight="fill" />
+                              </span>
+                              {getAvailableAtAddress()}
+                            </div>
+                          )}
+                          <div className="fact-item">
+                            <span className="label">
+                              <User size={18} weight="bold" />
+                            </span>
+                            {getProgramContact()}
+                          </div>
+                          <div className="fact-item">
+                            <span className="label">
+                              <LinkSimple size={18} weight="bold" />
+                            </span>
+                            {getProviderUrl()}
+                          </div>
+                        </>
+                      ) : (
+                        <>Data unavailable</>
+                      )}
                     </>
                   </Grouping>
-                  <Grouping title={t("TrainingPage.providerServicesGroupHeader")}>
-                    <>
-                      {training.hasEveningCourses && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">nightlight_round</InlineIcon>
-                            {t("TrainingPage.eveningCoursesServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.languages.length > 0 && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">language</InlineIcon>
-                            {t("TrainingPage.otherLanguagesServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.isWheelchairAccessible && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">accessible_forward</InlineIcon>
-                            {t("TrainingPage.wheelchairAccessibleServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.hasChildcareAssistance && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">family_restroom</InlineIcon>
-                            {t("TrainingPage.childcareAssistanceServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      {training.hasJobPlacementAssistance && (
-                        <p>
-                          <span className="fin">
-                            <InlineIcon className="mrxs">work_outline</InlineIcon>
-                            {t("TrainingPage.jobAssistanceServiceLabel")}
-                          </span>
-                        </p>
-                      )}
-                      <p>{t("TrainingPage.providerServicesDisclaimerLabel")}</p>
-                    </>
-                  </Grouping>
+
+                  <ProviderServices training={training} />
+                  <div className="mobile-only">{fundingContent}</div>
                   <Button
                     variant="custom"
                     className="usa-button margin-right-0 custom-button report"
                     onClick={() => {
-                      const pageSlug = `/training/${training.id}`;
+                      const pageSlug = `/training/${training.ctid}`;
                       const url = `/contact?path=${encodeURIComponent(pageSlug)}&title=${encodeURIComponent(training.name)}`;
                       window.open(url, "_blank");
                     }}
@@ -732,21 +1011,25 @@ export const TrainingPage = (props: Props): ReactElement => {
                     <Flag size={32} />
                     <span>See something wrong? Report an Issue.</span>
                   </Button>
-                  <div className="mobile-only">{fundingContent}</div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
         {/* Overlay and Drawer for CIP code information */}
-        {drawerOpen && (
-          <>
-            <div id="drawerOverlay" className={`overlay${drawerOpen ? " open" : ""}`} />
-            <div className={`panel${drawerOpen ? " open" : ""}`}>
+
+        <>
+          <div id="drawerOverlay" className={`cip overlay${drawerOpen ? " open" : ""}`} />
+          <div className={`cip panel${drawerOpen ? " open" : ""}`}>
+            {activeDrawer === "cip" ? (
               <CipDrawerContent onClose={() => setDrawerOpen(false)} />
-            </div>
-          </>
-        )}
+            ) : activeDrawer === "soc" ? (
+              <SocDrawerContent onClose={() => setDrawerOpen(false)} />
+            ) : (
+              <></>
+            )}
+          </div>
+        </>
       </Layout>
     </div>
   );
