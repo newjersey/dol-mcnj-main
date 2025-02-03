@@ -10,7 +10,7 @@ const navigation_paths = [
 */
 
   { path: path + "/privacy-policy", label: "Privacy Policy Page" },
-  { path: path + "/terms-of-service", label: "Terms of Service Page" },
+  { path: path + "/sms-use-policy", label: "SMS Use Policy Page" },
   {
     path: path + "/in-demand-occupations",
     label: "Indemand Occupations Page",
