@@ -1,9 +1,9 @@
 [
     {
-      "area": "Newark",
-      "duration": 15,
-      "duration_slider_val_max": "15.0",
-      "duration_slider_val_min": "15.0",
+      "area": "Mays Landing",
+      "duration": 3,
+      "duration_slider_val_max": "3",
+      "duration_slider_val_min": "3",
       "duration_units": "Weeks",
       "duration_units_en": "Weeks",
       "duration_units_es": "Semanas",
@@ -12,7 +12,7 @@
       "duration_units_zh": "周",
       "id": "training#ce-73263b7f-07fd-4c4a-8caa-f31bab4b3de5",
       "link": "https://mycareer.nj.gov/training/ce-73263b7f-07fd-4c4a-8caa-f31bab4b3de5",
-      "location": "Middlesex",
+      "location": "Mays Landing",
       "method": "classroom",
       "roi": 0,
       "soc": "151212",

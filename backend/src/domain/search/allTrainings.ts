@@ -75,13 +75,14 @@ async function transformLearningOpportunityCTDLToTrainingResult(learningOpportun
       ? learningOpportunity["ceterms:occupationType"][0]["ceterms:targetNodeName"]["en-US"] as string : 'Not Available';
     const socCode = learningOpportunity["ceterms:occupationType"] ? learningOpportunity["ceterms:occupationType"][0]["ceterms:codedNotation"] as string : '999999';
     const socCodeReplaced = socCode.replace(/-/g, '').replace(/\.00$/, '');
+    const duration = await credentialEngineUtils.getCalendarLengthId(learningOpportunity);
 
     return {
       training_id: training_id,
       title: title,
       area: address.length > 0 ? address[0].city as string : "",
       link: `https://mycareer.nj.gov/training/${training_id}`,
-      duration: 15.0, //TODO: replace with actual duration
+      duration: duration,
       soc: socCodeReplaced,
       roi: 0,
       soc3:socCodeReplaced.substring(0, 3),
@@ -100,8 +101,8 @@ async function transformLearningOpportunityCTDLToTrainingResult(learningOpportun
       title_ja: title,
       soc_name_ja: socName,
       duration_units: `Weeks`,
-      duration_slider_val_min: `15.0`,
-      duration_slider_val_max: `15.0`,
+      duration_slider_val_min: duration.toString(),
+      duration_slider_val_max: duration.toString(),
       duration_units_en: `Weeks`,
       duration_units_es: `Semanas`,
       duration_units_tl: `tuần`,
