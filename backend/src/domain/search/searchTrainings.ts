@@ -364,14 +364,51 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.services
     );
 
-    // Apply sorting to the cached filtered results
-    const sortedResults = sortTrainings(filteredResults, sort);
 
-    // Paginate the sorted results
+
+
+    const promoteExactMatches = (trainings: TrainingResult[], searchTerm: string) => {
+      const normalizeString = (str: string) => str.trim().toLowerCase().replace(/\s+/g, ' ');
+
+      const isExactMatch = (result: TrainingResult, searchTerm: string): boolean => {
+        const normalizedSearch = normalizeString(searchTerm);
+        return (
+          normalizeString(result.name || '') === normalizedSearch ||
+          normalizeString(result.providerName || '') === normalizedSearch
+        );
+      };
+
+      return trainings.reduce<{ exact: TrainingResult[]; others: TrainingResult[] }>(
+        (acc, result) => {
+          if (isExactMatch(result, searchTerm)) {  // ✅ Corrected: Now calling the function
+            acc.exact.push(result);
+          } else {
+            acc.others.push(result);
+          }
+          return acc;
+        },
+        { exact: [], others: [] }
+      );
+    };
+
+
+    const shouldPromoteExactMatches = sort === "best_match";
+    let rankedResults = filteredResults;
+
+    console.log(`Checking exact match for: ${params.searchQuery}`);
+    console.log(`First 5 Results`, unFilteredResults);
+
+    if (shouldPromoteExactMatches) {
+      const { exact, others } = promoteExactMatches(filteredResults, params.searchQuery);
+      rankedResults = [...exact, ...others]; // Exact matches at the top
+    }
+
+    // Now apply user-defined sorting once
+    const sortedResults = sortTrainings(rankedResults, sort);
+
+
     const paginatedResults = paginateRecords(sortedResults, page, limit);
-
-    const data = packageResults(page, limit, paginatedResults, sortedResults.length);
-    return data;
+    return packageResults(page, limit, paginatedResults, sortedResults.length);
   };
 };
 
@@ -416,17 +453,11 @@ function buildQuery(params: {
         { "search:value": params.searchQuery, "search:matchType": "search:contains" },
       ],
       "ceterms:ownedBy": {
-        "ceterms:name": {
-          "search:value": params.searchQuery,
-          "search:matchType": "search:contains"
-        }
+        "ceterms:name": { "search:value": params.searchQuery, "search:matchType": "search:contains" }
       }
     }),
     "ceterms:occupationType": isSOC ? {
-      "ceterms:codedNotation": {
-        "search:value": params.searchQuery,
-        "search:matchType": "search:startsWith"
-      }
+      "ceterms:codedNotation": { "search:value": params.searchQuery, "search:matchType": "search:startsWith" }
     } : undefined,
         "ceterms:instructionalProgramType": isCIP ?
           {"ceterms:codedNotation": {
