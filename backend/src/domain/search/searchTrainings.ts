@@ -18,6 +18,71 @@ import { normalizeSocCode } from "../utils/normalizeSocCode";
 // TTL (Time-to-Live) is set to 300 seconds, and the cache is checked every 120 seconds.
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
+const tokenize = (text: string): string[] => {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, "") // Remove punctuation
+    .split(/\s+/) // Split into words
+    .filter((word) => word.length > 2); // Remove short words
+};
+
+const levenshteinDistance = (a: string, b: string): number => {
+  const dp = Array.from({ length: a.length + 1 }, () =>
+    new Array(b.length + 1).fill(0)
+  );
+
+  for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+  for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      }
+    }
+  }
+
+  return dp[a.length][b.length];
+};
+
+const rankResults = (query: string, results: TrainingResult[]): TrainingResult[] => {
+  const queryTokens = tokenize(query);
+
+  const rankedResults = results.map((training) => {
+    const textTokens = tokenize(training.name + " " + training.providerName);
+    let score = 0;
+
+    // Exact Match Boost
+    if (textTokens.join(" ") === queryTokens.join(" ")) {
+      score += 10;
+    }
+
+    // Count term matches
+    queryTokens.forEach((queryToken) => {
+      const termFrequency = textTokens.filter((t) => t === queryToken).length;
+      if (termFrequency > 0) {
+        score += termFrequency * 2; // Boost exact term matches
+      }
+
+      // Fuzzy Match
+      textTokens.forEach((token) => {
+        if (levenshteinDistance(queryToken, token) <= 2) {
+          score += 1; // Small boost for similar words
+        }
+      });
+    });
+
+    return { ...training, rank: score };
+  });
+
+  return rankedResults
+    .filter((result) => result.rank > 0) // Remove non-matching results
+    .sort((a, b) => b.rank - a.rank); // Sort by relevance
+};
+
+
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
  * @param {object} query - The search query object.
@@ -343,7 +408,6 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       );
 
       // Cache the filtered results
-      cache.set(unFilteredCacheKey, unFilteredResults, 300); // Cache for 5 minutes
     } else {
       console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
     }
@@ -365,7 +429,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     );
 
     // Apply sorting to the cached filtered results
-    const sortedResults = sortTrainings(filteredResults, sort);
+    const rankedResults = rankResults(params.searchQuery, filteredResults);
+    const sortedResults = sortTrainings(rankedResults, sort);
+    cache.set(unFilteredCacheKey, rankedResults, 300); // Cache for 5 minutes
 
     // Paginate the sorted results
     const paginatedResults = paginateRecords(sortedResults, page, limit);
@@ -504,6 +570,7 @@ async function transformLearningOpportunityCTDLToTrainingResult(
     const result: TrainingResult = {
       ctid: learningOpportunity["ceterms:ctid"] || "",
       name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      description: learningOpportunity["ceterms:description"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost"),
       percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
@@ -523,7 +590,7 @@ async function transformLearningOpportunityCTDLToTrainingResult(
       hasChildcareAssistance: getChildcareAssistance,
       totalClockHours: null,
     };
-
+  console.log(result);
     return result;
   } catch (error) {
     console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);

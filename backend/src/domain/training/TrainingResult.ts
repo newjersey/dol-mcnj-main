@@ -38,6 +38,7 @@ export interface AllTrainingsResult {
 export interface TrainingResult {
   ctid?: string;
   name?: string;
+  description?: string;
   cipDefinition?: CipDefinition | null;
   totalCost?: number | null;
   percentEmployed?: number | null;
