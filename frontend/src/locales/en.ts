@@ -338,4 +338,74 @@ export const en = {
     trainingStepTwoDescription: "Filter and compare results",
     trainingStepThreeDescription: "Visit training provider’s website to enroll",
   },
+  SmsUsePolicy: {
+    copy: `## The State of New Jersey - Department of Labor and Workforce Development SMS Use Policy
+
+### Consent
+
+We will only send you SMS (text message) communications related to My Career NJ updates, programs, financial aid information, important deadlines, and other relevant notifications if you have explicitly opted in to receive them.
+
+You can provide consent by:
+
+- Checking a box on a designated form or website indicating your agreement to receive SMS messages.
+- Texting a specific keyword (provided on official materials) to a designated short code.
+
+We will clearly explain what types of messages you can expect to receive and the approximate frequency.
+
+We will never sell your phone number to any third parties or share it without your explicit consent, except as required by law.
+
+### Opt-Out
+
+You can opt out of receiving SMS messages at any time by:
+
+- Texting "STOP" to any message you receive from us.
+- Replying with any of the opt-out keywords provided in our messages (e.g., "UNSUBSCRIBE," "QUIT").
+- Contacting the New Jersey Department of Labor and Workforce Development directly through the provided contact information.
+
+Once you opt out, you will no longer receive SMS messages from us unless you opt back in at a later time.
+
+### Message Frequency
+
+We respect your time and will not send an excessive number of SMS messages. We will strive to provide clear expectations about message frequency at the time of opt-in.
+
+If you feel you are receiving too many messages, you can contact us to adjust your preferences or opt out completely.
+
+### Message Content
+
+SMS messages will primarily contain information related to:
+
+- My Career NJ news and updates in New Jersey.
+- Career tips including resume writing, job interview skills, creating a community network, benefits, and changing careers.
+- Finding a job with Career Navigator, getting new skills with Training Explorer, qualifying for additional support, and more.
+
+We will never send you any inappropriate, offensive, or unsolicited commercial content.
+
+### Message and Data Rates
+
+Standard message and data rates may apply to any SMS messages you receive from us. These rates are determined by your mobile carrier and are beyond our control.
+
+Please consult your mobile carrier's plan for specific information on messaging costs.
+
+### Privacy
+
+We are committed to protecting your privacy. Your personal information will be handled in accordance with all applicable state and federal privacy laws, including the New Jersey Privacy Act.
+
+We will not use your phone number for any purpose other than sending you the SMS communications you have opted in to receive.
+
+### Changes to this Policy
+
+This SMS Use Policy may be updated periodically to reflect changes in our practices or applicable laws.
+
+Any significant changes to the policy will be communicated to you via SMS or through other official channels.
+
+### Contact Us
+
+If you have any questions, concerns, or would like to update your SMS communication preferences, please contact the New Jersey Department of Labor and Workforce Development using the [Contact Us](/contact) link.
+
+### Disclaimer
+
+This SMS Use Policy is subject to the laws and regulations of the State of New Jersey.
+
+The New Jersey Department of Labor and Workforce Development reserves the right to modify or terminate this service at any time.`,
+  },
 };
