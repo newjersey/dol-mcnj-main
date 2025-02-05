@@ -49,6 +49,9 @@ const levenshteinDistance = (a: string, b: string): number => {
   return dp[a.length][b.length];
 };
 
+const fuzzyMatch = (word1: string, word2: string): boolean => {
+  return word1.length > 4 && word2.length > 4 && levenshteinDistance(word1, word2) <= 1;
+};
 
 const boostProperNouns = (queryTokens: string[], textTokens: string[]): number => {
   let score = 0;
@@ -102,6 +105,16 @@ const rankResults = (query: string, results: TrainingResult[]): TrainingResult[]
         score += boost;
         console.log(`✅ Proper Noun Match: "${token}" +${boost}`);
       }
+    });
+
+    // 🔍 **Fuzzy Matching Boost** (Checks similarity between words)
+    queryTokens.forEach((queryToken) => {
+      textTokens.forEach((textToken) => {
+        if (fuzzyMatch(queryToken, textToken)) {
+          score += 20; // Moderate boost for close matches
+          console.log(`🔍 Fuzzy Match: "${queryToken}" ≈ "${textToken}" +20`);
+        }
+      });
     });
 
     console.log("🔹 Final Score:", score);
