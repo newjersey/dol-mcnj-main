@@ -45,9 +45,12 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           } else {
             console.warn("Skipping outcomesDefinition lookup because providerId is missing or invalid");
           }
-          const credentials = await credentialEngineUtils.constructCredentialsString(
-              record["ceterms:isPreparationFor"] as CetermsConditionProfile[]
+
+          const filteredPreparationFor = (record["ceterms:isPreparationFor"] as CetermsConditionProfile[] || []).filter(
+              (entry) => entry["ceterms:name"]?.["en-US"] !== "Data not collected"
           );
+
+          const credentials = await credentialEngineUtils.constructCredentialsString(filteredPreparationFor);
 
           return {
             ctid: record["ceterms:ctid"],
