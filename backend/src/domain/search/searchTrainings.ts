@@ -75,47 +75,73 @@ const rankResults = (query: string, results: TrainingResult[]): TrainingResult[]
 
     const trainingName = training.name.trim();
     const trainingDesc = training.description?.trim() || "";
-    const providerName = training.providerName?.trim() || "";  // ✅ Add this
-    const textLower = (trainingName + " " + trainingDesc + " " + providerName).toLowerCase();  // ✅ Include provider
+    const providerName = training.providerName?.trim() || "";
+    const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
+
+    const textLower = (trainingName + " " + trainingDesc + " " + providerName).toLowerCase();
     const textTokens = tokenize(trainingName + " " + trainingDesc + " " + providerName);
 
     let score = 0;
 
     console.log("\n📌 Training Name:", trainingName);
     console.log("📌 Provider Name:", providerName);
+    console.log("📌 Location(s):", trainingLocation);
     console.log("📝 Tokenized Training Text:", textTokens);
 
-    // 🎯 **Exact Full-Name Boost (+10000)**
-    if (trainingName.toLowerCase() === queryLower || providerName.toLowerCase() === queryLower) {
-      score += 10000;
-      console.log(`🎯 Exact Name or Provider Match! +10000`);
+    // 🎯 **Exact Full-Name Boost (+15,000)**
+    if (queryLower === providerName.toLowerCase()) {
+      score += 15000;
+      console.log(`🎯 Exact Provider Match! +15000`);
     }
 
-    // 🔥 **Multi-Word Match Boost (+500)**
+    // 🎯 **Exact Training Name Match (+2,000)**
+    if (queryLower === trainingName.toLowerCase()) {
+      score += 2000;
+      console.log(`🎯 Exact Training Name Match! +2000`);
+    }
+
+    // 🔍 **Multi-Word Phrase Match (+500)**
     if (textLower.includes(queryLower)) {
       score += 500;
       console.log(`✅ Phrase Match! +500`);
     }
 
-    // 🔥 **Proper Noun Boost**
-    queryTokens.forEach((token) => {
-      if (textTokens.includes(token)) {
-        let boost = 50;  // Give proper nouns high weight
-        if (token.length > 5) boost += 25;  // Longer words = more important
-        score += boost;
-        console.log(`✅ Proper Noun Match: "${token}" +${boost}`);
+    // 🌍 **Location-Based Boosting (+1,500 per match)**
+    trainingLocation.forEach((city) => {
+      if (queryLower.includes(city)) {
+        score += 1500;
+        console.log(`📍 City Match: "${city}" +1500`);
       }
     });
 
-    // 🔍 **Fuzzy Matching Boost** (Checks similarity between words)
+    // 🔥 **Token-Based Boosting for Training Name, Provider, and Description**
+    queryTokens.forEach((token) => {
+      if (textTokens.includes(token)) {
+        let boost = 50;  // Base weight for keyword matches
+        if (token.length > 5) boost += 25;  // Longer words = more weight
+        score += boost;
+        console.log(`✅ Token Match: "${token}" +${boost}`);
+      }
+    });
+
+    // 🔍 **Fuzzy Matching Boost (Handles typos & close matches)**
     queryTokens.forEach((queryToken) => {
       textTokens.forEach((textToken) => {
         if (fuzzyMatch(queryToken, textToken)) {
-          score += 20; // Moderate boost for close matches
+          score += 20;
           console.log(`🔍 Fuzzy Match: "${queryToken}" ≈ "${textToken}" +20`);
         }
       });
     });
+
+    // ❌ **Penalty for Unrelated Results (-2,000)**
+    const matchesProviderOrTrainingName =
+      queryTokens.some(token => providerName.toLowerCase().includes(token) || trainingName.toLowerCase().includes(token));
+
+    if (!matchesProviderOrTrainingName) {
+      score -= 2000;
+      console.log(`❌ Unrelated Result Penalty: -2000`);
+    }
 
     console.log("🔹 Final Score:", score);
     return { ...training, rank: score };
