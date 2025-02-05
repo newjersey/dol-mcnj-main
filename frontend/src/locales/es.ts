@@ -354,4 +354,74 @@ export const es = {
     trainingStepThreeDescription:
       "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
   },
+  SmsUsePolicy: {
+    copy: `## El Estado de Nueva Jersey - Política de Uso de SMS del Departamento de Trabajo y Desarrollo Laboral
+
+### Consentimiento
+
+Solo le enviaremos comunicaciones por SMS (mensaje de texto) relacionadas con actualizaciones de My Career NJ, programas, información sobre ayuda financiera, fechas límite importantes y otras notificaciones relevantes si ha optado explícitamente por recibirlas.
+
+Puede dar su consentimiento de las siguientes maneras:
+
+- Marcando una casilla en un formulario o sitio web designado que indique su acuerdo para recibir mensajes SMS.
+- Enviando un mensaje de texto con una palabra clave específica (proporcionada en materiales oficiales) a un código corto designado.
+
+Le explicaremos claramente qué tipo de mensajes puede esperar recibir y la frecuencia aproximada.
+
+Nunca venderemos su número de teléfono a terceros ni lo compartiremos sin su consentimiento explícito, excepto cuando sea requerido por la ley.
+
+### Cancelación de Suscripción
+
+Puede cancelar la suscripción para dejar de recibir mensajes SMS en cualquier momento de las siguientes maneras:
+
+- Enviando un mensaje de texto con la palabra "STOP" a cualquier mensaje que reciba de nosotros.
+- Respondiendo con cualquiera de las palabras clave de cancelación proporcionadas en nuestros mensajes (por ejemplo, "UNSUBSCRIBE," "QUIT").
+- Contactando directamente con el Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey a través de la información de contacto proporcionada.
+
+Una vez que se dé de baja, ya no recibirá mensajes SMS de nuestra parte a menos que vuelva a suscribirse en el futuro.
+
+### Frecuencia de Mensajes
+
+Respetamos su tiempo y no enviaremos un número excesivo de mensajes SMS. Nos esforzaremos por proporcionar expectativas claras sobre la frecuencia de los mensajes al momento de la suscripción.
+
+Si siente que está recibiendo demasiados mensajes, puede ponerse en contacto con nosotros para ajustar sus preferencias o cancelar su suscripción por completo.
+
+### Contenido de los Mensajes
+
+Los mensajes SMS contendrán principalmente información relacionada con:
+
+- Noticias y actualizaciones de My Career NJ en Nueva Jersey.
+- Consejos profesionales, incluyendo redacción de currículums, habilidades para entrevistas de trabajo, creación de redes comunitarias, beneficios y cambio de carrera.
+- Búsqueda de empleo con Career Navigator, adquisición de nuevas habilidades con Training Explorer, calificación para apoyo adicional y más.
+
+Nunca le enviaremos contenido inapropiado, ofensivo o comercial no solicitado.
+
+### Tarifas de Mensajes y Datos
+
+Pueden aplicarse tarifas estándar de mensajes y datos a cualquier SMS que reciba de nuestra parte. Estas tarifas son determinadas por su operador móvil y están fuera de nuestro control.
+
+Consulte el plan de su operador móvil para obtener información específica sobre los costos de mensajería.
+
+### Privacidad
+
+Estamos comprometidos a proteger su privacidad. Su información personal será manejada de acuerdo con todas las leyes estatales y federales de privacidad aplicables, incluyendo la Ley de Privacidad de Nueva Jersey.
+
+No utilizaremos su número de teléfono para ningún propósito distinto al envío de las comunicaciones por SMS a las que se haya suscrito.
+
+### Cambios en esta Política
+
+Esta Política de Uso de SMS puede actualizarse periódicamente para reflejar cambios en nuestras prácticas o en las leyes aplicables.
+
+Cualquier cambio significativo en la política se le comunicará por SMS o a través de otros canales oficiales.
+
+### Contáctenos
+
+Si tiene preguntas, inquietudes o desea actualizar sus preferencias de comunicación por SMS, comuníquese con el Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey mediante el siguiente enlace: [Contáctenos](/contact).
+
+### Descargo de Responsabilidad
+
+Esta Política de Uso de SMS está sujeta a las leyes y regulaciones del Estado de Nueva Jersey.
+
+El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el derecho de modificar o cancelar este servicio en cualquier momento.`,
+  },
 };
