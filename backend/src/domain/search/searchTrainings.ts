@@ -17,14 +17,16 @@ import { normalizeSocCode } from "../utils/normalizeSocCode";
 // Initialize a simple in-memory cache to store results temporarily.
 // TTL (Time-to-Live) is set to 300 seconds, and the cache is checked every 120 seconds.
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
+const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
 const tokenize = (text: string): string[] => {
   return text
-    .toLowerCase()
-    .replace(/[^\w\s]/g, "") // Remove punctuation
-    .split(/\s+/) // Split into words
-    .filter((word) => word.length > 2); // Remove short words
+    .replace(/[^a-zA-Z0-9- ]/g, "")  // Keep letters, numbers, hyphens, and spaces
+    .split(/\s+/)  // Split by spaces
+    .filter((word) => word.length > 1 && !STOP_WORDS.has(word.toLowerCase()));  // Remove short words & stop words
 };
+
+
 
 const levenshteinDistance = (a: string, b: string): number => {
   const dp = Array.from({ length: a.length + 1 }, () =>
@@ -47,41 +49,66 @@ const levenshteinDistance = (a: string, b: string): number => {
   return dp[a.length][b.length];
 };
 
-const rankResults = (query: string, results: TrainingResult[]): TrainingResult[] => {
-  const queryTokens = tokenize(query);
 
-  const rankedResults = results.map((training) => {
-    const textTokens = tokenize(training.name + " " + training.providerName);
-    let score = 0;
+const boostProperNouns = (queryTokens: string[], textTokens: string[]): number => {
+  let score = 0;
 
-    // Exact Match Boost
-    if (textTokens.join(" ") === queryTokens.join(" ")) {
-      score += 10;
+  queryTokens.forEach((token) => {
+    if (textTokens.includes(token)) {
+      score += 15; // 🔥 Higher weight for proper nouns
+      console.log(`✅ Proper Noun Match: "${token}" +15`);
     }
-
-    // Count term matches
-    queryTokens.forEach((queryToken) => {
-      const termFrequency = textTokens.filter((t) => t === queryToken).length;
-      if (termFrequency > 0) {
-        score += termFrequency * 2; // Boost exact term matches
-      }
-
-      // Fuzzy Match
-      textTokens.forEach((token) => {
-        if (levenshteinDistance(queryToken, token) <= 2) {
-          score += 1; // Small boost for similar words
-        }
-      });
-    });
-
-    return { ...training, rank: score };
   });
 
-  return rankedResults
-    .filter((result) => result.rank > 0) // Remove non-matching results
-    .sort((a, b) => b.rank - a.rank); // Sort by relevance
+  return score;
 };
 
+const rankResults = (query: string, results: TrainingResult[]): TrainingResult[] => {
+  const queryTokens = tokenize(query);
+  const queryLower = query.toLowerCase();
+
+  return results.map((training) => {
+    if (!training.name) return { ...training, rank: 0 };
+
+    const trainingName = training.name.trim();
+    const trainingDesc = training.description?.trim() || "";
+    const providerName = training.providerName?.trim() || "";  // ✅ Add this
+    const textLower = (trainingName + " " + trainingDesc + " " + providerName).toLowerCase();  // ✅ Include provider
+    const textTokens = tokenize(trainingName + " " + trainingDesc + " " + providerName);
+
+    let score = 0;
+
+    console.log("\n📌 Training Name:", trainingName);
+    console.log("📌 Provider Name:", providerName);
+    console.log("📝 Tokenized Training Text:", textTokens);
+
+    // 🎯 **Exact Full-Name Boost (+10000)**
+    if (trainingName.toLowerCase() === queryLower || providerName.toLowerCase() === queryLower) {
+      score += 10000;
+      console.log(`🎯 Exact Name or Provider Match! +10000`);
+    }
+
+    // 🔥 **Multi-Word Match Boost (+500)**
+    if (textLower.includes(queryLower)) {
+      score += 500;
+      console.log(`✅ Phrase Match! +500`);
+    }
+
+    // 🔥 **Proper Noun Boost**
+    queryTokens.forEach((token) => {
+      if (textTokens.includes(token)) {
+        let boost = 50;  // Give proper nouns high weight
+        if (token.length > 5) boost += 25;  // Longer words = more important
+        score += boost;
+        console.log(`✅ Proper Noun Match: "${token}" +${boost}`);
+      }
+    });
+
+    console.log("🔹 Final Score:", score);
+    return { ...training, rank: score };
+  }).filter((r) => r.rank > 0)
+    .sort((a, b) => b.rank - a.rank);
+};
 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
@@ -590,7 +617,7 @@ async function transformLearningOpportunityCTDLToTrainingResult(
       hasChildcareAssistance: getChildcareAssistance,
       totalClockHours: null,
     };
-  console.log(result);
+    // console.log(result);
     return result;
   } catch (error) {
     console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);
