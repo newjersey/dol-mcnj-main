@@ -69,8 +69,8 @@ const boostProperNouns = (queryTokens: string[], textTokens: string[]): number =
 const rankResults = (query: string, results: TrainingResult[]): TrainingResult[] => {
   const queryTokens = tokenize(query);
   const queryLower = query.toLowerCase();
-
-  return results.map((training) => {
+  const uniqueResults = Array.from(new Map(results.map(item => [item.ctid, item])).values());
+  return uniqueResults.map((training) => {
     if (!training.name) return { ...training, rank: 0 };
 
     const trainingName = training.name.trim();
