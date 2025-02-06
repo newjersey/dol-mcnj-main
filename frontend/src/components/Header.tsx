@@ -8,9 +8,10 @@ import { GlobalHeader } from "./GlobalHeader";
 import { NavMenuData } from "../types/contentful";
 import { NavMenu } from "./modules/NavMenu";
 import { LinkObject } from "./modules/LinkObject";
+import { SignUpFormModal } from "./SignUpFormModal";
 
 export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData }) => {
-  const isDesktop = useMediaQuery("(min-width:769px)");
+  const isDesktop = useMediaQuery("(min-width:1025px)");
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -54,6 +55,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
               icons={true}
               url="/contact"
             />
+            {process.env.REACT_APP_SIGNUP_FOR_UPDATES === "true" ? <SignUpFormModal /> : <></>}
           </div>
         )}
       </div>
@@ -82,12 +84,15 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
               innerClassName="usa-nav-container"
               icons
             />
-            <LinkObject
-              className="nav-item contact-us"
-              copy="Contact Us"
-              icons={true}
-              url="/contact"
-            />
+            <div className="contact-links">
+              <LinkObject
+                className="nav-item contact-us"
+                copy="Contact Us"
+                icons={true}
+                url="/contact"
+              />
+              {process.env.REACT_APP_SIGNUP_FOR_UPDATES === "true" ? <SignUpFormModal /> : <></>}
+            </div>
           </div>
         </div>
       </>
