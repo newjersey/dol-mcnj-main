@@ -53,101 +53,116 @@ const fuzzyMatch = (word1: string, word2: string): boolean => {
   return word1.length > 4 && word2.length > 4 && levenshteinDistance(word1, word2) <= 1;
 };
 
-const boostProperNouns = (queryTokens: string[], textTokens: string[]): number => {
-  let score = 0;
+const COMMON_WORDS = new Set([
+  "systems", "technology", "training", "certificate", "certification",
+  "degree", "education", "course", "program", "school", "college", "academy"
+]);
 
-  queryTokens.forEach((token) => {
-    if (textTokens.includes(token)) {
-      score += 15; // 🔥 Higher weight for proper nouns
-      console.log(`✅ Proper Noun Match: "${token}" +15`);
-    }
-  });
+const rankResults = (query: string, results: TrainingResult[], minScore = 500): TrainingResult[] => {
+  if (!query || results.length === 0) return [];
 
-  return score;
-};
+  console.log(`🔍 Ranking ${results.length} results for query: "${query}"`);
 
-const rankResults = (query: string, results: TrainingResult[]): TrainingResult[] => {
-  const queryTokens = tokenize(query);
-  const queryLower = query.toLowerCase();
+  const queryTokens = new Set(tokenize(query.toLowerCase()));
+  const queryPhrase = queryTokens.size > 1 ? [...queryTokens].join(" ") : null;
+
+  // ✅ Deduplicate results by `ctid`
   const uniqueResults = Array.from(new Map(results.map(item => [item.ctid, item])).values());
-  return uniqueResults.map((training) => {
-    if (!training.name) return { ...training, rank: 0 };
 
-    const trainingName = training.name.trim();
-    const trainingDesc = training.description?.trim() || "";
-    const providerName = training.providerName?.trim() || "";
-    const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
+  return uniqueResults
+    .map((training) => {
+      if (!training.name) return { ...training, rank: 0 };
 
-    const textLower = (trainingName + " " + trainingDesc + " " + providerName).toLowerCase();
-    const textTokens = tokenize(trainingName + " " + trainingDesc + " " + providerName);
+      // ✅ Normalize text fields
+      const trainingName = training.name.trim().toLowerCase();
+      const trainingDesc = (training.description || "").trim().toLowerCase();
+      const providerName = (training.providerName || "").trim().toLowerCase();
+      const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
+      const cipTitle = (training.cipDefinition?.ciptitle || "").trim().toLowerCase();
 
-    let score = 0;
+      // ✅ Precompute token sets for efficiency
+      const nameTokens = new Set(tokenize(trainingName));
+      const descTokens = new Set(tokenize(trainingDesc));
+      const providerTokens = new Set(tokenize(providerName));
+      const cipTokens = new Set(tokenize(cipTitle));
+      const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens]; // Convert set to array
 
-    console.log("\n📌 Training Name:", trainingName);
-    console.log("📌 Provider Name:", providerName);
-    console.log("📌 Location(s):", trainingLocation);
-    console.log("📝 Tokenized Training Text:", textTokens);
+      let score = 0;
+      let strongMatch = false; // 🚨 Track whether this result is strongly relevant
 
-    // 🎯 **Exact Full-Name Boost (+15,000)**
-    if (queryLower === providerName.toLowerCase()) {
-      score += 15000;
-      console.log(`🎯 Exact Provider Match! +15000`);
-    }
+      console.log(`\n🔹 Evaluating: ${training.name} (${training.ctid})`);
 
-    // 🎯 **Exact Training Name Match (+2,000)**
-    if (queryLower === trainingName.toLowerCase()) {
-      score += 2000;
-      console.log(`🎯 Exact Training Name Match! +2000`);
-    }
-
-    // 🔍 **Multi-Word Phrase Match (+500)**
-    if (textLower.includes(queryLower)) {
-      score += 500;
-      console.log(`✅ Phrase Match! +500`);
-    }
-
-    // 🌍 **Location-Based Boosting (+1,500 per match)**
-    trainingLocation.forEach((city) => {
-      if (queryLower.includes(city)) {
-        score += 1500;
-        console.log(`📍 City Match: "${city}" +1500`);
+      // 🎯 **Exact Matches (High Weight)**
+      if (query === providerName) {
+        score += 15000;
+        strongMatch = true;
+        console.log(`🎯 Exact Provider Match: ${providerName} +15000`);
       }
-    });
-
-    // 🔥 **Token-Based Boosting for Training Name, Provider, and Description**
-    queryTokens.forEach((token) => {
-      if (textTokens.includes(token)) {
-        let boost = 50;  // Base weight for keyword matches
-        if (token.length > 5) boost += 25;  // Longer words = more weight
-        score += boost;
-        console.log(`✅ Token Match: "${token}" +${boost}`);
+      if (query === trainingName || cipTitle) {
+        score += 2000;
+        strongMatch = true;
+        console.log(`🎯 Exact Training Name or CIP Match: ${trainingName} / ${cipTitle} +2000`);
       }
-    });
+      if (queryPhrase && allTokensArray.join(" ").includes(queryPhrase)) {
+        score += 1000;
+        strongMatch = true;
+        console.log(`✅ Exact Phrase Match: "${queryPhrase}" +1000`);
+      }
 
-    // 🔍 **Fuzzy Matching Boost (Handles typos & close matches)**
-    queryTokens.forEach((queryToken) => {
-      textTokens.forEach((textToken) => {
-        if (fuzzyMatch(queryToken, textToken)) {
-          score += 20;
-          console.log(`🔍 Fuzzy Match: "${queryToken}" ≈ "${textToken}" +20`);
+      // 🔥 **Token-Based Matching (Weighted)**
+      queryTokens.forEach((token) => {
+        if (COMMON_WORDS.has(token)) {
+          console.log(`⚠️ Skipping common word: "${token}"`);
+          return; // 🚨 Ignore common words
+        }
+
+        if (nameTokens.has(token)) {
+          score += 150;
+          strongMatch = true;
+          console.log(`✅ Name Match: "${token}" +150`);
+        } else if (providerTokens.has(token)) {
+          score += 100;
+          strongMatch = true;
+          console.log(`✅ Provider Match: "${token}" +100`);
+        } else if (descTokens.has(token)) {
+          score += 50;
+          console.log(`✅ Description Match: "${token}" +50`);
         }
       });
-    });
 
-    // ❌ **Penalty for Unrelated Results (-2,000)**
-    const matchesProviderOrTrainingName =
-      queryTokens.some(token => providerName.toLowerCase().includes(token) || trainingName.toLowerCase().includes(token));
+      // 📍 **Boost if location is mentioned**
+      trainingLocation.forEach((city) => {
+        if (queryTokens.has(city)) {
+          score += 1500;
+          strongMatch = true;
+          console.log(`📍 City Match: "${city}" +1500`);
+        }
+      });
 
-    if (!matchesProviderOrTrainingName) {
-      score -= 2000;
-      console.log(`❌ Unrelated Result Penalty: -2000`);
-    }
+      // 🔍 **Optimized Fuzzy Matching**
+      queryTokens.forEach((queryToken) => {
+        allTokensArray.forEach((textToken) => {
+          if (!textToken.includes(queryToken) && fuzzyMatch(queryToken, textToken)) {
+            score += 50;
+            console.log(`🔍 Fuzzy Match: "${queryToken}" ~ "${textToken}" +50`);
+          }
+        });
+      });
 
-    console.log("🔹 Final Score:", score);
-    return { ...training, rank: score };
-  }).filter((r) => r.rank > 0)
-    .sort((a, b) => b.rank - a.rank);
+      console.log(`🔹 Final Score for "${training.name}": ${score}`);
+
+      // ❌ **Reject weak matches**
+      if (!strongMatch || score < minScore) {
+        console.log(`❌ Discarding "${training.name}" (score: ${score})`);
+        return { ...training, rank: 0 }; // Mark as irrelevant
+      }
+
+      return { ...training, rank: score };
+    })
+    .filter((r) => r.rank > 0) // ✅ NEW: Discard weak results
+    .sort((a, b) => b.rank - a.rank); // ✅ Sort by highest rank
 };
+
 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
@@ -496,6 +511,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     // Apply sorting to the cached filtered results
     const rankedResults = rankResults(params.searchQuery, filteredResults);
+    console.log(rankedResults);
     const sortedResults = sortTrainings(rankedResults, sort);
     cache.set(unFilteredCacheKey, rankedResults, 300); // Cache for 5 minutes
 
