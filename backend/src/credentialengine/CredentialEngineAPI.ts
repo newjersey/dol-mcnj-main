@@ -5,6 +5,8 @@ const searchGateway = `/assistant/search/ctdl`;
 const graphGateway = `/graph`;
 const resourcesGateway = `/resources`;
 
+const DEFAULT_TAKE = 10; // Fetch only 10 results per request
+
 export const credentialEngineAPI = {
   /**
    *
@@ -15,8 +17,8 @@ export const credentialEngineAPI = {
    * @return a collection of results from Credential Engine.
    *
    */
-   
-  getResults: async function (query: object, skip: number, take: number) {
+
+  getResults: async function (query: object, skip: number, take: number = DEFAULT_TAKE) {
     const response = await searchAPI.request({
       url: `${searchGateway}`,
       method: "post",
