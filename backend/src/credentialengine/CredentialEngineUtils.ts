@@ -241,8 +241,8 @@ const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Addre
       // Map contact points if they exist
       const targetContactPoints = (location["ceterms:targetContactPoint"] || []).map(
         (contactPoint: CetermsContactPoint) => ({
-          name: contactPoint["ceterms:name"]?.["en-US"] ?? "Name not specified",
-          contactType: contactPoint["ceterms:contactType"]?.["en-US"] ?? "Type not specified",
+          name: contactPoint["ceterms:name"]?.["en-US"] ?? null,
+          contactType: contactPoint["ceterms:contactType"]?.["en-US"] ?? null,
           email: contactPoint["ceterms:email"] ?? [],
           telephone: contactPoint["ceterms:telephone"] ?? [],
         })
