@@ -15,8 +15,8 @@ import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 
 // Initialize a simple in-memory cache to store results temporarily.
-// TTL (Time-to-Live) is set to 300 seconds, and the cache is checked every 120 seconds.
-const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
+// TTL (Time-to-Live) is set to 900 seconds, and the cache is checked every 120 seconds.
+const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
 const tokenize = (text: string): string[] => {
@@ -58,6 +58,25 @@ const COMMON_WORDS = new Set([
   "degree", "education", "course", "program", "school", "college", "academy"
 ]);
 
+/**
+ * Ranks search results based on query relevance using multiple criteria.
+ *
+ * **Scoring Breakdown:**
+ * - **Exact Match Boosts**
+ *   - Full match with provider name: `+15000`
+ *   - Full match with training name or CIP title: `+2000`
+ *   - Exact multi-word phrase match: `+1000`
+ *
+ * - **Token-Based Boosts**
+ *   - Individual query tokens found in the training name: `+150`
+ *   - Individual query tokens found in the provider name: `+100`
+ *   - Individual query tokens found in the description: `+50`
+ *
+ * @param {string} query - The user's search query.
+ * @param {TrainingResult[]} results - The list of training results to rank.
+ * @param {number} [minScore=500] - The minimum score threshold for inclusion.
+ * @returns {TrainingResult[]} - Ranked and filtered results.
+ */
 const rankResults = (query: string, results: TrainingResult[], minScore = 500): TrainingResult[] => {
   if (!query || results.length === 0) return [];
 
