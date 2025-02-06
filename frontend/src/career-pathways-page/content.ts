@@ -22,7 +22,7 @@ export const content = {
         description:
           "Explore career pathways in the field of Manufacturing in the state of New Jersey.",
         drawerDescription:
-          "Everything that doesn’t exist in nature has to be manufactured, such as candy bars, apparel and shoes, airplanes, and wind turbines. Simply put, manufacturing means “making things.”",
+          "Everything that doesn't exist in nature has to be manufactured, such as candy bars, apparel and shoes, airplanes, and wind turbines. Simply put, manufacturing means “making things.”",
         drawerCards: [
           {
             icon: "manufacturing" as SelectorProps["name"],
@@ -43,11 +43,11 @@ You can actually see the outcome of your work in a tangible object. People who w
             title: "Top Manufacturing Sectors",
             copy: `### Food
 
-Food manufacturers pick New Jersey because the state is at the center of one of the nation’s largest metropolitan areas. And so, food produced in New Jersey easily reaches millions of people. Our state is home to some of the world’s leading food brands like Campbells Soup, Mars Bars, M&Ms, and Nabisco – all made right here in the state. New and upcoming brands like Oatly and Bai started here too.
+Food manufacturers pick New Jersey because the state is at the center of one of the nation's largest metropolitan areas. And so, food produced in New Jersey easily reaches millions of people. Our state is home to some of the world's leading food brands like Campbells Soup, Mars Bars, M&Ms, and Nabisco - all made right here in the state. New and upcoming brands like Oatly and Bai started here too.
 
 ### Pharmaceuticals
 
-New Jersey is known as “The Medicine Chest of the World” because of its importance to the global pharmaceutical industry. Novartis, Merck & Co., Johnson & Johnson, Bristol-Myers Squibb, Novo Nordisk, and Bayer Healthcare are among the state’s leading firms in the industry. Pharmaceutical companies are in New Jersey because the state has a highly educated workforce, including scientists.
+New Jersey is known as “The Medicine Chest of the World” because of its importance to the global pharmaceutical industry. Novartis, Merck & Co., Johnson & Johnson, Bristol-Myers Squibb, Novo Nordisk, and Bayer Healthcare are among the state's leading firms in the industry. Pharmaceutical companies are in New Jersey because the state has a highly educated workforce, including scientists.
 
 ### Fabricated Metals
 
@@ -78,7 +78,7 @@ There are jobs for people at all education levels.
 
 ### Well Paid Meaningful Work
 
-You can make a meaningful difference in people’s lives while earning a living.`,
+You can make a meaningful difference in people's lives while earning a living.`,
           },
           {
             title: "Top Healthcare Sectors",
@@ -86,13 +86,13 @@ You can make a meaningful difference in people’s lives while earning a living.
 
 Hospitals provide people with inpatient care. The most common type of hospital is a general hospital, which typically has an emergency department, operating rooms, diagnostic rooms, and rooms where patients receive treatment and recuperate. Doctors, nurses and other healthcare professionals often receive education in hospitals. Hospitals are also important places for clinical research.
 
-### Doctors’ and Dentists’ Offices
+### Doctors' and Dentists' Offices
 
-Doctors’ and dentists’ offices are just two of many types of outpatient or ambulatory care settings. Other types include diagnostic laboratories, urgent care centers, same-day surgery centers, and rehabilitation centers.
+Doctors' and dentists' offices are just two of many types of outpatient or ambulatory care settings. Other types include diagnostic laboratories, urgent care centers, same-day surgery centers, and rehabilitation centers.
 
 ### Nursing and Residential Care
 
-People who need 24-hour supervision, but don’t need to be hospitalized stay in nursing and residential care settings. The care they receive can be a mix of health and social services. Health services provided in nursing and residential care settings are often provided by skilled nurses.`,
+People who need 24-hour supervision, but don't need to be hospitalized stay in nursing and residential care settings. The care they receive can be a mix of health and social services. Health services provided in nursing and residential care settings are often provided by skilled nurses.`,
           },
         ],
       },
@@ -105,7 +105,7 @@ People who need 24-hour supervision, but don’t need to be hospitalized stay in
         description:
           "Pathways for this sector are in development but you can still explore the most in-demand TDL occupations.",
         drawerDescription:
-          "Be an important part of our nation’s supply chain with a career in transportation, distribution, and logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
+          "Be an important part of our nation's supply chain with a career in transportation, distribution, and logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
         drawerCards: [
           {
             icon: "tdl" as SelectorProps["name"],
@@ -116,7 +116,7 @@ Many jobs in transportation distribution and logistics offer long-term employmen
 
 ### For a variety of interests
 
-The industry offers opportunities for people who like working with customers – flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.
+The industry offers opportunities for people who like working with customers - flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.
 
 ### Important Contribution
 
@@ -126,7 +126,7 @@ Transportation disctribulation and logistics are all critical to the economy and
             title: "Top Manufacturing Sectors",
             copy: `### Air Transportation
 
-Aircraft are used to move passengers or cargo. They can be scheduled or on-demand and the companies that run them range in size from major airlines to regional carriers. New Jersey is home to three commercial airports – Newark Liberty, Trenton Mercer, and Atlantic City - eight airports that support corporate and private-use general aviation activities, 30 other public-use airports, one seaplane base, as well as several heliports and balloon ports.
+Aircraft are used to move passengers or cargo. They can be scheduled or on-demand and the companies that run them range in size from major airlines to regional carriers. New Jersey is home to three commercial airports - Newark Liberty, Trenton Mercer, and Atlantic City - eight airports that support corporate and private-use general aviation activities, 30 other public-use airports, one seaplane base, as well as several heliports and balloon ports.
 
 ### Road Trucking
 
@@ -140,7 +140,8 @@ Warehousing is the process of storing physical inventory for sale or distributio
       },
     ],
   },
-  markdownSection: `## Career Pathways and Industry Sectors—what’s the difference, exactly?
+  copySections: [
+    `## Career Pathways and Industry Sectors—what's the difference, exactly?
 
   ### Think of Career Pathways as a GPS.
 
@@ -148,23 +149,21 @@ Warehousing is the process of storing physical inventory for sale or distributio
 
   ### Think of Industry Sector Information as a guidebook.
 
-  Industry Sector Information provides an overview of various industries, including a snapshot of the job market. Here’s some of the helpful information you’ll find:
+  Industry Sector Information provides an overview of various industries, including a snapshot of the job market. Here's some of the helpful information you'll find:
 
   - Types of jobs
   - Salary expectations
   - Specific skills in high demand
   - Companies that are the major players
-  - Potential for Industry growth
+  - Potential for Industry growth`,
+    `## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.
 
-  ## It’s important to make informed choices. See how Career Pathways and Industry Sector Information can help.
-
-  Through Career Pathways and Industry Sector Information, you’ll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you’ll discover:
+  Through Career Pathways and Industry Sector Information, you'll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you'll discover:
   - Information about the most in-demand manufacturing jobs in New Jersey
   - Insights from over 40 manufacturing companies throughout New Jersey
   - Valuable data about available jobs
-  - The skills, education, and experience you need to get started.
-
-  ## Our legwork can help you get a leg up in your career.
+  - The skills, education, and experience you need to get started.`,
+    `  ## Our legwork can help you get a leg up in your career.
 
   Our data comes from trusted sources with the most up-to-date information:
 
@@ -172,7 +171,8 @@ Warehousing is the process of storing physical inventory for sale or distributio
   - Actual New Jersey employers
   - Recent employment and wage surveys
 
-  Everyone’s career path is different. With Career Pathways and Industry Sector Information, you’ll have what you need to help you move forward successfully.`,
+  Everyone's career path is different. With Career Pathways and Industry Sector Information, you'll have what you need to help you move forward successfully.`,
+  ],
   cta: {
     heading: "Still have a question about My Career NJ?",
     button: {
