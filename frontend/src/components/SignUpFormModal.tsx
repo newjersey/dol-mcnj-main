@@ -17,10 +17,13 @@ export const SignUpFormModal = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (resetForm) return;
-
+  
+    setSubmitting(true);
+    setHasErrors("");
+  
     const allErrorCheck = () => {
       if (
         (firstName.length !== 0 && firstName.length < 2) ||
@@ -30,26 +33,23 @@ export const SignUpFormModal = () => {
         (phone && phone.length < 12)
       ) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     };
-
-    // check if first name has 2 or more characters
+  
+    // Perform validations
     if (firstName.length !== 0 && firstName.length < 2) {
       setFirstNameError("First name must be 2 or more characters.");
     } else {
       setFirstNameError("");
     }
-
-    // check if last name has 2 or more characters
+  
     if (lastName.length !== 0 && lastName.length < 2) {
       setLastNameError("Last name must be 2 or more characters.");
     } else {
       setLastNameError("");
     }
-
-    // check if there is entered email and is valid
+  
     if (!email) {
       setEmailError("Email is required.");
     } else if (email && !email.includes("@")) {
@@ -57,39 +57,54 @@ export const SignUpFormModal = () => {
     } else {
       setEmailError("");
     }
-
-    // check if phone number is valid
+  
     if (phone && phone.length < 12) {
       setPhoneError("Phone number invalid.");
     } else {
       setPhoneError("");
     }
-
+  
     if (allErrorCheck()) {
-      console.error("ERROR:", "There are items that require your attention.");
       setSubmitting(false);
-    } else {
-      setSubmitting(true);
-
-      setTimeout(() => {
-        const reandomTrueFalse = Math.random() < 0.5;
-        if (reandomTrueFalse) {
-          setSuccess(false);
-          setHasErrors("There was an error submitting the form. Please try again later.");
-          console.error("ERROR: Form submission failed.");
-        } else {
-          setSuccess(true);
-          console.info("SUCCESS: Form submitted successfully.", {
-            firstName,
-            lastName,
-            email,
-            phone,
-          });
-        }
-        setSubmitting(false);
-      }, 2000);
+      setHasErrors("There are items that require your attention.");
+      return;
     }
+  
+    // Construct payload
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      phone,
+    };
+  
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        setSuccess(true);
+        setHasErrors("");
+      } else {
+        setSuccess(false);
+        setHasErrors(result.error || "There was an error submitting the form. Please try again.");
+      }
+    } catch (error) {
+      console.error("ERROR:", error);
+      setSuccess(false);
+      setHasErrors("There was an error connecting to the server. Please try again later.");
+    }
+  
+    setSubmitting(false);
   };
+  
 
   function formatPhoneNumber(input: string): string {
     const cleaned = input.replace(/\D/g, "");
