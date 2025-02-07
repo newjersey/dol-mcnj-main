@@ -354,6 +354,84 @@ export const es = {
     trainingStepThreeDescription:
       "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
   },
+  PrivacyPolicy: {
+    copy: `## Política de Privacidad y Declaración de Recopilación de Información
+
+Respetamos su privacidad personal y queremos que esté familiarizado con cómo recopilamos, divulgamos y utilizamos ("Procesamos") su información. Esta Declaración de Recopilación de Información describe nuestras prácticas en relación con la información que recopilamos a través de este sitio web. Por favor, lea lo siguiente para conocer más sobre nuestras prácticas de privacidad.
+
+### Definición de Información Personal
+
+A los efectos de esta Declaración de Recopilación de Información, "Información Personal" significa cualquier información que pueda utilizarse para distinguir o rastrear la identidad de una persona, ya sea sola o combinada con otra información personal o identificativa que esté vinculada o pueda vincularse a un individuo específico.
+
+### Qué Recopilamos
+
+El Contenido Creado por el Usuario que nos proporcione voluntariamente o publique en el sitio web o utilice para acceder al mismo, que puede incluir información personal o relacionada con la búsqueda de capacitación y documentación, incluyendo:
+
+- Consultas de soporte (por ejemplo, técnicas, relacionadas con la capacitación), comentarios y otras comunicaciones
+- Datos generados por el sitio, incluyendo recomendaciones proporcionadas a usted
+- Interacciones con el sitio web y metadatos relacionados
+- Información sobre los dispositivos que utiliza para acceder al sitio
+- Datos de análisis del sitio web
+
+Este Contenido Creado por el Usuario se utilizará únicamente con el propósito de brindarle el servicio especificado en el sitio web, permitirnos monitorear y mejorar el sitio, y reportar datos agregados sobre el uso del sitio.
+
+Tomamos medidas razonables para proteger la información que nos proporciona contra pérdida, mal uso y acceso, divulgación, alteración o destrucción no autorizados. Hemos implementado procedimientos físicos, electrónicos y administrativos apropiados para ayudar a proteger y asegurar su información. Desafortunadamente, ningún sistema de seguridad es 100% seguro; por lo tanto, no podemos garantizar la seguridad de toda la información que nos proporcione a través de nuestros servicios.
+
+Bajo ninguna circunstancia, cualquier Información Creada por el Usuario, excepto aquella que se publique públicamente y sea visible para todos, será vendida, alquilada, entregada o proporcionada a terceros.
+
+Otra información que podemos recopilar sobre usted:
+
+- **Cookies:** Nuestros servicios pueden utilizar "cookies" y tecnologías similares (colectivamente, "Cookies"). Las cookies son pequeños archivos de texto que este sitio web envía a su computadora con fines de registro y se almacenan en el disco duro de su computadora. Las cookies facilitan la navegación web al guardar sus preferencias para mejorar su próxima visita a nuestro sitio web.
+  - Uno de los propósitos de las cookies es simplificar el uso del sitio web. Por ejemplo, una cookie puede guardar los detalles de inicio de sesión de un usuario para que no tenga que iniciar sesión cada vez.
+  - Las cookies también se utilizan con fines estadísticos, para determinar cómo se utiliza el sitio web.
+
+- **Google Analytics:** Podemos usar Google Analytics para ayudarnos a comprender mejor cómo los visitantes usan este sitio web.
+  - La información generada por la cookie de Google Analytics sobre su uso de este sitio web se transmite y almacena en Google. Si no desea que su actividad en este sitio web sea rastreada por Google Analytics, puede optar por no participar usando este enlace: [http://tools.google.com/dlpage/gaoptout?hl=es](http://tools.google.com/dlpage/gaoptout?hl=es).
+
+- **De Otras Fuentes:** Podemos recibir su información personal de otras fuentes, como bases de datos públicas, plataformas de redes sociales, personas con las que está conectado en redes sociales, así como de otros terceros. Por ejemplo, si conecta su cuenta de redes sociales a su cuenta del sitio web, cierta información personal de su cuenta de redes sociales se compartirá con nosotros, lo que puede incluir información personal que forma parte de su perfil público o de los perfiles públicos de sus amigos.
+
+- **Otra Información No Personal:** Además de cualquier información personal u otra información que elija proporcionarnos en nuestros servicios, nosotros y nuestros proveedores de servicios externos podemos usar diversas tecnologías que recopilan automáticamente cierta información de uso del sitio web cada vez que visita o interactúa con nuestros servicios. Esta información puede incluir el tipo de navegador, el sistema operativo, las páginas visitadas, la hora, la fuente de la solicitud y otra información similar. Podemos utilizar esta información para diversos fines, incluyendo mejorar nuestros servicios. También podemos recopilar su dirección IP u otro identificador único para el dispositivo que utiliza para acceder a Internet ("Identificador de Dispositivo"). Un Identificador de Dispositivo es un número que se asigna automáticamente a su dispositivo, y podemos identificar su dispositivo por su Identificador de Dispositivo. Podemos asociar su Identificador de Dispositivo o la información de uso del sitio web con la información personal que proporciona, pero trataremos la información combinada como información personal.
+
+Usamos información no personal de diversas maneras, incluyendo el análisis del tráfico del sitio, la comprensión de las necesidades y tendencias de los usuarios y la mejora de nuestros servicios. Podemos usar su información no personal de forma individual o agregarla con información de otros. Podemos compartir su información no personal con terceros para lograr estos objetivos, pero la información agregada es anónima y no lo identifica personalmente. Podemos proporcionar nuestro análisis y cierta información no personal a terceros para que brinden servicios adicionales adaptados a sus necesidades, pero esto no implicará la divulgación de su información personal identificable.
+
+Dado que la información agregada o anonimizada no constituye información personal, podemos usarla para cualquier propósito. Si combinamos datos anonimizados o agregados con información personal, trataremos la información combinada como información personal de acuerdo con este Aviso de Privacidad.
+
+Podemos procesar información personal en relación con cualquiera de los siguientes:
+
+1. **Nuestras transacciones comerciales con usted**, incluyendo, pero no limitado a:
+   - Responder a sus consultas y cumplir con sus solicitudes
+   - Enviarle información administrativa, como información sobre los servicios
+   - Completar y cumplir cualquier solicitud de servicios
+
+2. **Para nuestros intereses legítimos**, incluyendo, pero no limitado a:
+   - Personalizar su experiencia con nuestros servicios
+   - Realizar análisis de datos, auditorías, monitoreo y prevención de fraudes, control de calidad interno, desarrollo de nuevos servicios, mejora o modificación de nuestros servicios, identificación de tendencias de uso y asegurar el cumplimiento de nuestra Declaración Legal y Exenciones de Responsabilidad
+
+3. **Con su consentimiento**, cuando sea proporcionado. En algunos casos, tiene derecho a negarse a proporcionar su consentimiento y, si se proporciona, a retirarlo en cualquier momento.
+
+4. **Por razones legales**, incluyendo, pero no limitado a:
+   - Cumplimiento de la legislación aplicable
+   - Responder a procesos legales
+   - Responder a solicitudes de autoridades públicas y gubernamentales, incluyendo aquellas fuera de su estado o país de residencia
+
+### Cuándo Divulgamos Su Información
+
+Podemos divulgar su información de la siguiente manera:
+
+- **Entre Agencias y Departamentos de Nueva Jersey, y la Universidad de Rutgers:** Para brindarle mejor los servicios y garantizar una experiencia de usuario coherente, podemos, de acuerdo con las leyes aplicables, compartir su información entre las agencias y departamentos de Nueva Jersey y la Universidad de Rutgers.
+
+- **Proveedores y Prestadores de Servicios:** Podemos divulgar su información a proveedores y prestadores de servicios contratados en relación con nuestros servicios, como compañías de servicios financieros, alojamiento de sitios web, análisis de datos, procesamiento de pagos, proveedores de TI e infraestructura, entrega de correos electrónicos, procesamiento de tarjetas de crédito, asesores legales, contadores o auditores.
+
+- **Foros de Discusión:** Podemos habilitar reseñas, foros de discusión, blogs y otros contenidos generados por el usuario. Cualquier información divulgada en estas áreas se convierte en información pública, y debe tener cuidado al decidir divulgar su información personal. No somos responsables de las prácticas de privacidad de otros usuarios o sitios web.
+
+- **Divulgación Permitida por la Ley:** Podemos divulgar su información personal a las autoridades policiales, otras agencias gubernamentales o públicas, reguladores u otras entidades con autoridad legal apropiada si así lo requiere o permite la ley para proteger nuestros derechos, intereses, privacidad, propiedad o seguridad, y/o los de nuestros afiliados, usted u otros terceros.
+
+### Otra Información Importante
+
+- **Aplicaciones y Sitios de Redes Sociales:** No somos responsables de la recopilación, uso y divulgación de políticas y prácticas de otras organizaciones, como Facebook, Apple, Google, Microsoft o cualquier desarrollador de aplicaciones, proveedor o plataforma de redes sociales.
+
+- **Transferencias Internacionales:** Los usuarios de nuestros servicios pueden provenir de todo el mundo. Por lo tanto, podemos, sujeto a la legislación aplicable, transferir su información fuera del país donde se encuentra. Utilizaremos las salvaguardas apropiadas para la transferencia y el uso de su información personal. Si desea más detalles sobre estas salvaguardas, puede contactarnos en [TrainingEvaluationUnit@dol.nj.gov](mailto:TrainingEvaluationUnit@dol.nj.gov).`,
+  },
   SmsUsePolicy: {
     copy: `## El Estado de Nueva Jersey - Política de Uso de SMS del Departamento de Trabajo y Desarrollo Laboral
 
