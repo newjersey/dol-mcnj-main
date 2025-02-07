@@ -10,17 +10,17 @@ interface Props extends RouteComponentProps {
   client: Client;
 }
 
-export const PrivacyPolicyPage = (props: Props): ReactElement => {
-  usePageTitle(`Privacy Policy | ${process.env.REACT_APP_SITE_NAME}`);
+export const SmsUsePolicyPage = (props: Props): ReactElement => {
+  usePageTitle(`SMS Use Policy | ${process.env.REACT_APP_SITE_NAME}`);
   const { t } = useTranslation();
 
   return (
     <Layout
       client={props.client}
       seo={{
-        title: `Privacy Policy | ${process.env.REACT_APP_SITE_NAME}`,
-        pageDescription: "Privacy Policy and Information Collection Statement",
-        url: props.location?.pathname || "/privacy-policy",
+        title: `SMS Use Policy | ${process.env.REACT_APP_SITE_NAME}`,
+        pageDescription: `SMS Use Policy for ${process.env.REACT_APP_SITE_NAME}`,
+        url: props.location?.pathname || "/sms-use-policy",
       }}
     >
       <div className="container">
@@ -28,7 +28,7 @@ export const PrivacyPolicyPage = (props: Props): ReactElement => {
           <div
             className="col-sm-12 copy-block"
             dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(t("PrivacyPolicy.copy")),
+              __html: parseMarkdownToHTML(t("SmsUsePolicy.copy")),
             }}
           />
         </div>
