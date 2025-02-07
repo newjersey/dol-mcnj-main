@@ -347,3 +347,57 @@ ol {
 .beta-alert {
   margin-top: 0;
 }
+
+.copy-block {
+  display: flex;
+  flex-direction: column;
+  gap: $size-16;
+  margin-top: $size-32;
+
+  > * {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: $size-4;
+    margin: 0;
+
+    ul,
+    ol {
+      margin-top: $size-16;
+      margin-bottom: $size-16;
+    }
+  }
+
+  h1,
+  h2 {
+    margin-bottom: $size-16;
+  }
+
+  h1 {
+    font-size: $size-40;
+  }
+
+  h2 {
+    font-size: $size-32;
+  }
+
+  h3 {
+    font-size: $size-24;
+  }
+
+  h4 {
+    font-size: $size-22;
+  }
+
+  h5 {
+    font-size: $size-20;
+  }
+
+  h6 {
+    font-size: $size-18;
+  }
+}
