@@ -1,4 +1,4 @@
-import { isValidEmail } from './emailValidator'; 
+import { isValidEmail } from '../helpers/emailValidator'; 
 import dns from 'dns';
 
 jest.mock('dns');
