@@ -19,7 +19,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const cachedTrainings = cache.get<Training[]>(cacheKey);
 
     if (cachedTrainings) {
-      console.log(`Cache hit for key: ${cacheKey}`);
+      console.info(`Cache hit for key: ${cacheKey}`);
       return cachedTrainings;
     }
 
