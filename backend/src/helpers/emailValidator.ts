@@ -49,23 +49,23 @@ const validateDomainMX = (email: string): Promise<boolean> => {
         // Trying full domain first
         dns.resolveMx(domain, (err, addresses) => {
             if (err) {
-                console.error(`DNS error while resolving MX for domain '${domain}':`, err.message);
+                console.error("DNS error while resolving MX for domain", domain, ":", err.message);
             }
             if (!err && addresses.length > 0) {
-                console.log(`Valid MX records found for ${domain}:`, addresses);
+                console.log("Valid MX records found for", domain, ":", addresses);
                 return resolve(true);
             }
 
             // Fallback to root domain if the full domain fails
             dns.resolveMx(rootDomain, (rootErr, rootAddresses) => {
                 if (rootErr) {
-                    console.error(`DNS error while resolving MX for root domain '${rootDomain}':`, rootErr.message);
+                    console.error("DNS error while resolving MX for root domain", rootDomain, ":", rootErr.message);
                 }
                 if (!rootErr && rootAddresses.length > 0) {
-                    console.log(`Valid MX records found for ${rootDomain}:`, rootAddresses);
+                    console.log("Valid MX records found for", rootDomain, ":", rootAddresses);
                     resolve(true);
                 } else {
-                    console.log(`Invalid domain or no MX records for: ${domain}`);
+                    console.log("Invalid domain or no MX records for:", domain);
                     resolve(false);
                 }
             });
