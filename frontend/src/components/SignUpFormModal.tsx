@@ -318,7 +318,7 @@ export const SignUpFormModal = () => {
               </form>
               <p>
                 Read about our <a href="/privacy-policy">privacy policy</a> and our{" "}
-                <a href="/terms-of-use">terms of use</a>.
+                <a href="/sms-use-policy">sms use policy</a>.
               </p>
             </>
           )}
