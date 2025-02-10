@@ -31,8 +31,8 @@ describe("validateSignupForm Middleware", () => {
     next = jest.fn();
   });
 
-  test("should call next() if all fields are valid", () => {
-    (isValidEmail as jest.Mock).mockReturnValue(true);
+  test("should call next() if all fields are valid", async () => {
+    (isValidEmail as jest.Mock).mockResolvedValue(true);
     (isValidName as jest.Mock).mockReturnValue(true);
     (isValidPhoneNumber as jest.Mock).mockReturnValue(true);
 
@@ -43,24 +43,24 @@ describe("validateSignupForm Middleware", () => {
       lname: "Doe",
     };
 
-    validateSignupForm(mockReq as Request, mockRes as Response, next);
+    await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(next).toHaveBeenCalled();
   });
 
-  test("should return 400 if email is missing or invalid", () => {
-    (isValidEmail as jest.Mock).mockReturnValue(false);
+  test("should return 400 if email is missing or invalid", async () => {
+    (isValidEmail as jest.Mock).mockResolvedValue(false);
 
     mockReq.body = { email: "invalid-email" };
 
-    validateSignupForm(mockReq as Request, mockRes as Response, next);
+    await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
-    expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid email format" });
+    expect(mockRes.json).toHaveBeenCalledWith({ error: "This email address seems invalid. Please check for typos or try a different one." });
   });
 
-  test("should return 400 if first name is invalid", () => {
-    (isValidEmail as jest.Mock).mockReturnValue(true);
+  test("should return 400 if first name is invalid", async () => {
+    (isValidEmail as jest.Mock).mockResolvedValue(true);
     (isValidName as jest.Mock).mockReturnValue(false);
 
     mockReq.body = {
@@ -68,14 +68,14 @@ describe("validateSignupForm Middleware", () => {
       fname: "J0hn!", // Invalid name
     };
 
-    validateSignupForm(mockReq as Request, mockRes as Response, next);
+    await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid first name" });
   });
 
-  test("should return 400 if last name is invalid", () => {
-    (isValidEmail as jest.Mock).mockReturnValue(true);
+  test("should return 400 if last name is invalid", async () => {
+    (isValidEmail as jest.Mock).mockResolvedValue(true);
     (isValidName as jest.Mock).mockReturnValue(false);
 
     mockReq.body = {
@@ -83,14 +83,14 @@ describe("validateSignupForm Middleware", () => {
       lname: "D0e!", // Invalid last name
     };
 
-    validateSignupForm(mockReq as Request, mockRes as Response, next);
+    await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid last name" });
   });
 
-  test("should return 400 if phone number is invalid", () => {
-    (isValidEmail as jest.Mock).mockReturnValue(true);
+  test("should return 400 if phone number is invalid", async () => {
+    (isValidEmail as jest.Mock).mockResolvedValue(true);
     (isValidName as jest.Mock).mockReturnValue(true);
     (isValidPhoneNumber as jest.Mock).mockReturnValue(false);
 
@@ -99,20 +99,20 @@ describe("validateSignupForm Middleware", () => {
       phone: "123", // Invalid phone number
     };
 
-    validateSignupForm(mockReq as Request, mockRes as Response, next);
+    await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid phone number format" });
   });
 
-  test("should allow missing optional fields (fname, lname, phone)", () => {
-    (isValidEmail as jest.Mock).mockReturnValue(true);
+  test("should allow missing optional fields (fname, lname, phone)", async () => {
+    (isValidEmail as jest.Mock).mockResolvedValue(true);
 
     mockReq.body = {
       email: "test@example.com",
     };
 
-    validateSignupForm(mockReq as Request, mockRes as Response, next);
+    await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(next).toHaveBeenCalled();
   });

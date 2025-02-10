@@ -16,7 +16,7 @@ export const SignUpFormModal = () => {
   const [resetForm, setResetForm] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (resetForm) return;
@@ -29,7 +29,7 @@ export const SignUpFormModal = () => {
         (firstName.length !== 0 && firstName.length < 2) ||
         (lastName.length !== 0 && lastName.length < 2) ||
         !email ||
-        (email && !email.includes("@")) ||
+        (email && !emailRegex.test(email)) ||
         (phone && phone.length < 12)
       ) {
         return true;
@@ -52,14 +52,14 @@ export const SignUpFormModal = () => {
   
     if (!email) {
       setEmailError("Email is required.");
-    } else if (email && !email.includes("@")) {
-      setEmailError("Email invalid.");
+    } else if (!emailRegex.test(email)) {  
+      setEmailError("Please enter a valid email address.");
     } else {
       setEmailError("");
     }
   
     if (phone && phone.length < 12) {
-      setPhoneError("Phone number invalid.");
+      setPhoneError("Please enter a valid phone number");
     } else {
       setPhoneError("");
     }
@@ -162,7 +162,7 @@ export const SignUpFormModal = () => {
           setIsOpen(!isOpen);
         }}
       >
-        Sign up for updates
+        Sign Up for Updates
       </Button>
 
       <div className={`signUpModal${isOpen ? " open" : ""}`}>
@@ -172,17 +172,21 @@ export const SignUpFormModal = () => {
             <X size={20} weight="bold" />
             <div className="sr-only">Close</div>
           </button>
-          <p className="heading">My Career NJ User Sign Up Form</p>
-          <p>
-            Sign-up to stay up to date on the latest new features, news, and resources from My
-            Career NJ.
-          </p>
+          {!success && (
+            <>
+              <p className="heading">My Career NJ User Sign Up Form</p>
+              <p>
+                Sign-up to stay up to date on the latest new features, news, and resources from My
+                Career NJ.
+              </p>
+            </>
+          )}
           {success ? (
             <>
               <div className="usa-alert usa-alert--success" role="alert">
                 <div className="usa-alert__body">
-                  <p className="usa-alert__heading">For submission successful.</p>
-                  <p className="usa-alert__text">Please check your email for confirmation.</p>
+                  <p className="usa-alert__heading">You've successfully subscribed to updates from My Career NJ.</p>
+                  <p className="usa-alert__text">A confirmation email should be in your inbox. If it's not there, please check your spam or junk folder.</p>
                 </div>
               </div>
               <div className="buttons" style={{ marginTop: "1.5rem" }}>
