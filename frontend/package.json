@@ -6,7 +6,7 @@
     "@contentful/rich-text-html-renderer": "^17.0.0",
     "@contentful/rich-text-react-renderer": "^16.0.1",
     "@contentful/rich-text-types": "^17.0.0",
-    "@hookform/resolvers": "^3.10.0",
+    "@hookform/resolvers": "^4.0.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@newjersey/njwds": "^2.1.0",
