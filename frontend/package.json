@@ -23,7 +23,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "accounting": "^0.4.1",
     "axios": "^1.7.9",
-    "contentful": "^11.4.5",
+    "contentful": "^11.4.6",
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.4",
     "graphql-request": "^7.1.2",
@@ -96,7 +96,7 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-cypress": "^3.6.0",
     "good-fences": "^1.2.0",
-    "prettier": "3.4.2",
+    "prettier": "3.5.0",
     "react-to-print": "^2.14.15"
   },
   "overrides": {
