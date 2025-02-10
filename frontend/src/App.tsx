@@ -42,8 +42,8 @@ const PrivacyPolicyPage = React.lazy(() =>
   })),
 );
 const TermsOfServicePage = React.lazy(() =>
-  import("./terms-of-service-page/TermsOfServicePage").then((module) => ({
-    default: module.TermsOfServicePage,
+  import("./sms-use-policy/SmsUsePolicy").then((module) => ({
+    default: module.SmsUsePolicyPage,
   })),
 );
 const FaqPage = React.lazy(() =>
@@ -159,7 +159,7 @@ export const App = (props: Props): ReactElement => {
                 <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
                 <OccupationPage path="/occupation/:soc" client={props.client} />
                 <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
-                <TermsOfServicePage path="/terms-of-service" client={props.client} />
+                <TermsOfServicePage path="/sms-use-policy" client={props.client} />
                 <FaqPage path="/faq" client={props.client} />
                 <ContactUsPage path="/contact" client={props.client} />
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
