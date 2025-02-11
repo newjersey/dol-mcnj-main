@@ -102,8 +102,7 @@ This will likely change as features are rolled out.
 * `REACT_APP_FEATURE_MULTILANG` - Enable/disable multi-language support in the React app.
 * `REACT_APP_FEATURE_CAREER_PATHWAYS` - Toggle the display of career pathways feature as well as any reference to it.
 * `REACT_APP_FEATURE_CAREER_NAVIGATOR` - Toggle the display of the Career Navigator landing page as well as any references to it.
-* `REACT_APP_FEATURE_PINPOINT` - Show or hide any instance of the Pinpoint email collection tool.
-
+* `REACT_APP_SIGNUP_FOR_UPDATES` - Toggle the display of the user signup modal, which uses MailChimp on the backend
 ##### Database
 
 Dev, QA, and production databases are hosted in AWS as SQL instances running PostgreSQL.
