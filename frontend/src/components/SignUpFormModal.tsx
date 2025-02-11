@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { CircleNotch, EnvelopeSimple, X } from "@phosphor-icons/react";
+import { useTranslation } from "react-i18next";
 
 export const SignUpFormModal = () => {
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
   const [firstNameError, setFirstNameError] = useState<string>("");
@@ -16,7 +19,9 @@ export const SignUpFormModal = () => {
   const [resetForm, setResetForm] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (resetForm) return;
@@ -162,7 +167,7 @@ export const SignUpFormModal = () => {
           setIsOpen(!isOpen);
         }}
       >
-        Sign Up for Updates
+        {t("SignUpFormModal.buttonText")}
       </Button>
 
       <div className={`signUpModal${isOpen ? " open" : ""}`}>
@@ -174,10 +179,9 @@ export const SignUpFormModal = () => {
           </button>
           {!success && (
             <>
-              <p className="heading">My Career NJ User Sign Up Form</p>
+              <p className="heading">{t("SignUpFormModal.formTitle")}</p>
               <p>
-                Sign-up to stay up to date on the latest new features, news, and resources from My
-                Career NJ.
+                {t("SignUpFormModal.formDescription")}
               </p>
             </>
           )}
@@ -185,8 +189,8 @@ export const SignUpFormModal = () => {
             <>
               <div className="usa-alert usa-alert--success" role="alert">
                 <div className="usa-alert__body">
-                  <p className="usa-alert__heading">You've successfully subscribed to updates from My Career NJ.</p>
-                  <p className="usa-alert__text">A confirmation email should be in your inbox. If it's not there, please check your spam or junk folder.</p>
+                  <p className="usa-alert__heading">{t("SignUpFormModal.successMessage")}</p>
+                  <p className="usa-alert__text">{t("SignUpFormModal.confirmationMessage")}</p>
                 </div>
               </div>
               <div className="buttons" style={{ marginTop: "1.5rem" }}>
@@ -196,19 +200,23 @@ export const SignUpFormModal = () => {
                     setIsOpen(false);
                   }}
                 >
-                  Back to My Career NJ
+                  {t("SignUpFormModal.backToHomepage")}
                 </Button>
               </div>
             </>
           ) : (
             <>
               <span className="instruction">
-                A red asterick (<span className="red">*</span>) indicates a required field.
+                <p>
+                  {t("SignUpFormModal.requiredFieldIndicator.part1")}
+                  (<span className="red">*</span>)
+                  {t("SignUpFormModal.requiredFieldIndicator.part2")}
+                </p>
               </span>
               <form onSubmit={handleSubmission} onChange={() => setResetForm(false)}>
                 <div className="row">
-                  <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
-                    <span>First Name</span>
+                <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
+                    <span>{t("SignUpFormModal.firstNameLabel")}</span>
                     <input
                       type="text"
                       id="firstName"
@@ -224,7 +232,7 @@ export const SignUpFormModal = () => {
                     {firstNameError && <div className="errorMessage">{firstNameError}</div>}
                   </label>
                   <label htmlFor="lastName" className={lastNameError ? "error" : ""}>
-                    <span>Last Name</span>
+                    <span>{t("SignUpFormModal.lastNameLabel")}</span>
                     <input
                       type="text"
                       id="lastName"
@@ -242,7 +250,7 @@ export const SignUpFormModal = () => {
                 </div>
                 <label htmlFor="email" className={`email${emailError ? " error" : ""}`}>
                   <span>
-                    Email <span className="red">*</span>
+                    {t("SignUpFormModal.emailLabel")} <span className="red">*</span>
                   </span>
                   <div>
                     <EnvelopeSimple size={20} weight="bold" />
@@ -263,8 +271,8 @@ export const SignUpFormModal = () => {
                   {emailError && <div className="errorMessage">{emailError}</div>}
                 </label>
                 <label htmlFor="phone" className={phoneError ? "error" : ""}>
-                  <span>Mobile phone number</span>
-                  US phone numbers only
+                  <span>{t("SignUpFormModal.phoneLabel")}</span>
+                  {t("SignUpFormModal.usPhoneOnlyLabel")}
                   <input
                     type="text"
                     value={formatPhoneNumber(phone)}
@@ -298,7 +306,7 @@ export const SignUpFormModal = () => {
                         <CircleNotch size={20} weight="bold" />
                       </div>
                     )}
-                    {submitting ? "Submitting" : "Submit form"}
+                    {submitting ? t("SignUpFormModal.loadingMessage") : t("SignUpFormModal.submitButton")}
                   </Button>
                   <button
                     className="usa-button usa-button--unstyled"
