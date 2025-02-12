@@ -44,34 +44,34 @@ export const SignUpFormModal = () => {
   
     // Perform validations
     if (firstName.length !== 0 && firstName.length < 2) {
-      setFirstNameError("First name must be 2 or more characters.");
+      setFirstNameError(t("SignUpFormModal.firstNameError"));
     } else {
       setFirstNameError("");
     }
   
     if (lastName.length !== 0 && lastName.length < 2) {
-      setLastNameError("Last name must be 2 or more characters.");
+      setLastNameError(t("SignUpFormModal.lastNameError"));
     } else {
       setLastNameError("");
     }
   
     if (!email) {
-      setEmailError("Email is required.");
+      setEmailError(t("SignUpFormModal.emailRequired"));
     } else if (!emailRegex.test(email)) {  
-      setEmailError("Please enter a valid email address.");
+      setEmailError(t("SignUpFormModal.emailError"));
     } else {
       setEmailError("");
     }
   
     if (phone && phone.length < 12) {
-      setPhoneError("Please enter a valid phone number");
+      setPhoneError(t("SignUpFormModal.phoneError"));
     } else {
       setPhoneError("");
     }
   
     if (allErrorCheck()) {
       setSubmitting(false);
-      setHasErrors("There are items that require your attention.");
+      setHasErrors(t("SignUpFormModal.attentionRequired"));
       return;
     }
   
@@ -99,12 +99,12 @@ export const SignUpFormModal = () => {
         setHasErrors("");
       } else {
         setSuccess(false);
-        setHasErrors(result.error || "There was an error submitting the form. Please try again.");
+        setHasErrors(result.error || t("SignUpFormModal.errorMessage"));
       }
     } catch (error) {
       console.error("ERROR:", error);
       setSuccess(false);
-      setHasErrors("There was an error connecting to the server. Please try again later.");
+      setHasErrors(t("SignUpFormModal.serverErrorMessage"));
     }
   
     setSubmitting(false);
@@ -134,7 +134,7 @@ export const SignUpFormModal = () => {
   useEffect(() => {
     if (firstNameError || lastNameError || emailError || phoneError) {
       if (!resetForm) {
-        setHasErrors("There are items that require your attention.");
+        setHasErrors(t(""));
       } else {
         setHasErrors("");
       }
@@ -175,7 +175,7 @@ export const SignUpFormModal = () => {
         <div className="modal">
           <button onClick={() => setIsOpen(false)} className="close">
             <X size={20} weight="bold" />
-            <div className="sr-only">Close</div>
+            <div className="sr-only">{t("SignUpFormModal.close")}</div>
           </button>
           {!success && (
             <>
@@ -205,7 +205,7 @@ export const SignUpFormModal = () => {
               </div>
             </>
           ) : (
-            <>
+              <>
               <span className="instruction">
                 <p>
                   {t("SignUpFormModal.requiredFieldIndicator.part1")}
@@ -213,126 +213,130 @@ export const SignUpFormModal = () => {
                   {t("SignUpFormModal.requiredFieldIndicator.part2")}
                 </p>
               </span>
-              <form onSubmit={handleSubmission} onChange={() => setResetForm(false)}>
-                <div className="row">
-                <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
-                    <span>{t("SignUpFormModal.firstNameLabel")}</span>
-                    <input
-                      type="text"
-                      id="firstName"
-                      placeholder="Jane"
-                      value={firstName}
-                      onChange={(e) => {
-                        if (firstName.length > 2) {
-                          setFirstNameError("");
-                        }
-                        setFirstName(e.target.value);
-                      }}
-                    />
-                    {firstNameError && <div className="errorMessage">{firstNameError}</div>}
-                  </label>
-                  <label htmlFor="lastName" className={lastNameError ? "error" : ""}>
-                    <span>{t("SignUpFormModal.lastNameLabel")}</span>
-                    <input
-                      type="text"
-                      id="lastName"
-                      value={lastName}
-                      placeholder="Smith"
-                      onChange={(e) => {
-                        if (lastName.length > 2) {
-                          setLastNameError("");
-                        }
-                        setLastName(e.target.value);
-                      }}
-                    />
-                    {lastNameError && <div className="errorMessage">{lastNameError}</div>}
-                  </label>
-                </div>
-                <label htmlFor="email" className={`email${emailError ? " error" : ""}`}>
+                <form onSubmit={handleSubmission} onChange={() => setResetForm(false)}>
+                  <div className="row">
+                    <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
+                      <span>{t("SignUpFormModal.firstNameLabel")}</span>
+                      <input
+                          type="text"
+                          id="firstName"
+                          placeholder="Jane"
+                          value={firstName}
+                          onChange={(e) => {
+                            if (firstName.length > 2) {
+                              setFirstNameError("");
+                            }
+                            setFirstName(e.target.value);
+                          }}
+                      />
+                      {firstNameError && <div className="errorMessage">{firstNameError}</div>}
+                    </label>
+                    <label htmlFor="lastName" className={lastNameError ? "error" : ""}>
+                      <span>{t("SignUpFormModal.lastNameLabel")}</span>
+                      <input
+                          type="text"
+                          id="lastName"
+                          value={lastName}
+                          placeholder="Smith"
+                          onChange={(e) => {
+                            if (lastName.length > 2) {
+                              setLastNameError("");
+                            }
+                            setLastName(e.target.value);
+                          }}
+                      />
+                      {lastNameError && <div className="errorMessage">{lastNameError}</div>}
+                    </label>
+                  </div>
+                  <label htmlFor="email" className={`email${emailError ? " error" : ""}`}>
                   <span>
                     {t("SignUpFormModal.emailLabel")} <span className="red">*</span>
                   </span>
-                  <div>
-                    <EnvelopeSimple size={20} weight="bold" />
-                    <input
-                      type="text"
-                      value={email}
-                      id="email"
-                      placeholder="example@email.com"
-                      onChange={(e) => {
-                        if (email && email.includes("@")) {
-                          setEmailError("");
-                        }
+                    <div>
+                      <EnvelopeSimple size={20} weight="bold"/>
+                      <input
+                          type="text"
+                          value={email}
+                          id="email"
+                          placeholder="example@email.com"
+                          onChange={(e) => {
+                            if (email && email.includes("@")) {
+                              setEmailError("");
+                            }
 
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </div>
-                  {emailError && <div className="errorMessage">{emailError}</div>}
-                </label>
-                <label htmlFor="phone" className={phoneError ? "error" : ""}>
-                  <span>{t("SignUpFormModal.phoneLabel")}</span>
-                  {t("SignUpFormModal.usPhoneOnlyLabel")}
-                  <input
-                    type="text"
-                    value={formatPhoneNumber(phone)}
-                    id="phone"
-                    placeholder="___-___-____"
-                    onChange={(e) => {
-                      if (e.target.value.length > 11) {
-                        setPhoneError("");
-                      }
-                      setPhone(formatPhoneNumber(e.target.value));
-                    }}
-                  />
-                  {phoneError && <div className="errorMessage">{phoneError}</div>}
-                </label>
-                {hasErrors && (
-                  <div className="usa-alert usa-alert--error" role="alert">
-                    <div className="usa-alert__body">
-                      <p className="usa-alert__text">{hasErrors}</p>
+                            setEmail(e.target.value);
+                          }}
+                      />
                     </div>
-                  </div>
-                )}
-                <div className="buttons">
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      setResetForm(false);
-                    }}
-                  >
-                    {submitting && (
-                      <div className="spinner">
-                        <CircleNotch size={20} weight="bold" />
+                    {emailError && <div className="errorMessage">{emailError}</div>}
+                  </label>
+                  <label htmlFor="phone" className={phoneError ? "error" : ""}>
+                    <span>{t("SignUpFormModal.phoneLabel")}</span>
+                    {t("SignUpFormModal.usPhoneOnlyLabel")}
+                    <input
+                        type="text"
+                        value={formatPhoneNumber(phone)}
+                        id="phone"
+                        placeholder="___-___-____"
+                        onChange={(e) => {
+                          if (e.target.value.length > 11) {
+                            setPhoneError("");
+                          }
+                          setPhone(formatPhoneNumber(e.target.value));
+                        }}
+                    />
+                    {phoneError && <div className="errorMessage">{phoneError}</div>}
+                  </label>
+                  {hasErrors && (
+                      <div className="usa-alert usa-alert--error" role="alert">
+                        <div className="usa-alert__body">
+                          <p className="usa-alert__text">{hasErrors}</p>
+                        </div>
                       </div>
-                    )}
-                    {submitting ? t("SignUpFormModal.loadingMessage") : t("SignUpFormModal.submitButton")}
-                  </Button>
-                  <button
-                    className="usa-button usa-button--unstyled"
-                    onClick={() => {
-                      setFirstName("");
-                      setLastName("");
-                      setEmail("");
-                      setPhone("");
-                      setFirstNameError("");
-                      setLastNameError("");
-                      setPhoneError("");
-                      setEmailError("");
-                      setHasErrors("");
-                      setResetForm(true);
-                      setSubmitting(false);
-                    }}
-                  >
-                    Reset form
-                  </button>
-                </div>
-              </form>
-              <p>
-                Read about our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a> and our{" "}
-                <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">sms use policy</a>.
-              </p>
-            </>
+                  )}
+                  <div className="buttons">
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                          setResetForm(false);
+                        }}
+                    >
+                      {submitting && (
+                          <div className="spinner">
+                            <CircleNotch size={20} weight="bold"/>
+                          </div>
+                      )}
+                      {submitting ? t("SignUpFormModal.loadingMessage") : t("SignUpFormModal.submitButton")}
+                    </Button>
+                    <button
+                        className="usa-button usa-button--unstyled"
+                        onClick={() => {
+                          setFirstName("");
+                          setLastName("");
+                          setEmail("");
+                          setPhone("");
+                          setFirstNameError("");
+                          setLastNameError("");
+                          setPhoneError("");
+                          setEmailError("");
+                          setHasErrors("");
+                          setResetForm(true);
+                          setSubmitting(false);
+                        }}
+                    >
+                      {t("SignUpFormModal.resetForm")}
+                    </button>
+                  </div>
+                </form>
+                <p>
+                  {t("SignUpFormModal.readAboutOur")}{" "}
+                  <a href="/privacy-policy" target="_blank"
+                     rel="noopener noreferrer">{t("SignUpFormModal.privacyPolicy")}</a>{" "}
+                  {t("SignUpFormModal.andOur")}{" "}
+                  <a href="/sms-use-policy" target="_blank"
+                     rel="noopener noreferrer">{t("SignUpFormModal.smsUsePolicy")}</a>.
+                </p>
+              </>
           )}
         </div>
       </div>
