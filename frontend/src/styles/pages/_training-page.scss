@@ -232,7 +232,7 @@
     a {
       word-wrap: break-word;
       overflow-wrap: break-word;
-      max-width: 100%;
+      width: calc(100% - $size-24);
     }
   }
 
