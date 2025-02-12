@@ -44,34 +44,34 @@ export const SignUpFormModal = () => {
 
     // Perform validations
     if (firstName.length !== 0 && firstName.length < 2) {
-      setFirstNameError("First name must be 2 or more characters.");
+      setFirstNameError(t("SignUpFormModal.firstNameError"));
     } else {
       setFirstNameError("");
     }
 
     if (lastName.length !== 0 && lastName.length < 2) {
-      setLastNameError("Last name must be 2 or more characters.");
+      setLastNameError(t("SignUpFormModal.lastNameError"));
     } else {
       setLastNameError("");
     }
 
     if (!email) {
-      setEmailError("Email is required.");
+      setEmailError(t("SignUpFormModal.emailRequired"));
     } else if (!emailRegex.test(email)) {
-      setEmailError("Please enter a valid email address.");
+      setEmailError(t("SignUpFormModal.emailError"));
     } else {
       setEmailError("");
     }
 
     if (phone && phone.length < 12) {
-      setPhoneError("Please enter a valid phone number");
+      setPhoneError(t("SignUpFormModal.phoneError"));
     } else {
       setPhoneError("");
     }
 
     if (allErrorCheck()) {
       setSubmitting(false);
-      setHasErrors("There are items that require your attention.");
+      setHasErrors(t("SignUpFormModal.attentionRequired"));
       return;
     }
 
@@ -99,12 +99,12 @@ export const SignUpFormModal = () => {
         setHasErrors("");
       } else {
         setSuccess(false);
-        setHasErrors(result.error || "There was an error submitting the form. Please try again.");
+        setHasErrors(result.error || t("SignUpFormModal.errorMessage"));
       }
     } catch (error) {
       console.error("ERROR:", error);
       setSuccess(false);
-      setHasErrors("There was an error connecting to the server. Please try again later.");
+      setHasErrors(t("SignUpFormModal.serverErrorMessage"));
     }
 
     setSubmitting(false);
@@ -133,7 +133,7 @@ export const SignUpFormModal = () => {
   useEffect(() => {
     if (firstNameError || lastNameError || emailError || phoneError) {
       if (!resetForm) {
-        setHasErrors("There are items that require your attention.");
+        setHasErrors(t(""));
       } else {
         setHasErrors("");
       }
@@ -174,7 +174,7 @@ export const SignUpFormModal = () => {
         <div className="modal">
           <button onClick={() => setIsOpen(false)} className="close">
             <X size={20} weight="bold" />
-            <div className="sr-only">Close</div>
+            <div className="sr-only">{t("SignUpFormModal.close")}</div>
           </button>
           {!success && (
             <>
@@ -322,18 +322,18 @@ export const SignUpFormModal = () => {
                       setSubmitting(false);
                     }}
                   >
-                    Reset form
+                    {t("SignUpFormModal.resetForm")}
                   </button>
                 </div>
               </form>
               <p>
-                Read about our{" "}
+                {t("SignUpFormModal.readAboutOur")}{" "}
                 <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-                  privacy policy
+                  {t("SignUpFormModal.privacyPolicy")}
                 </a>{" "}
-                and our{" "}
+                {t("SignUpFormModal.andOur")}{" "}
                 <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">
-                  sms use policy
+                  {t("SignUpFormModal.smsUsePolicy")}
                 </a>
                 .
               </p>
