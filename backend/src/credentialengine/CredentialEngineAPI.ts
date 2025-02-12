@@ -1,23 +1,22 @@
 import { searchAPI } from "./CredentialEngineConfig";
 import { getRecordAPI } from "./CredentialEngineConfig";
 
+// API endpoint paths for various Credential Engine data types
 const searchGateway = `/assistant/search/ctdl`;
 const graphGateway = `/graph`;
 const resourcesGateway = `/resources`;
 
-const DEFAULT_TAKE = 10; // Fetch only 10 results per request
+const DEFAULT_TAKE = 10; // Default number of results per request for pagination
 
 export const credentialEngineAPI = {
   /**
+   * Retrieves a list of results from the Credential Engine API based on a search query.
    *
-   * @param query this should be a JSON-LD blob representing specific CE term collections.
-   * @param skip part of pagination, number of results to skip
-   * @param take part of pagination, number of results to return
-   *
-   * @return a collection of results from Credential Engine.
-   *
+   * @param query - A JSON-LD blob representing specific Credential Engine term collections.
+   * @param skip - Number of results to skip for pagination.
+   * @param take - Number of results to return (default: 10).
+   * @returns A collection of search results from Credential Engine.
    */
-
   getResults: async function (query: object, skip: number, take: number = DEFAULT_TAKE) {
     const response = await searchAPI.request({
       url: `${searchGateway}`,
@@ -26,14 +25,20 @@ export const credentialEngineAPI = {
         Query: query,
         Skip: skip,
         Take: take,
-        Sort: "^search:relevance",
-        IncludeResultsMetadata: true
+        Sort: "^search:relevance"
+        // IncludeResultsMetadata: true // Uncomment if metadata is needed
       },
     });
 
     return response;
   },
 
+  /**
+   * Fetches a graphical representation of a Credential Engine record by CTID.
+   *
+   * @param ctid - The Credential Transparency Identifier (CTID) of the resource.
+   * @returns The graphical representation of the requested resource.
+   */
   getGraphByCTID: async function (ctid: string) {
     const response = await getRecordAPI({
       url: `${graphGateway}/${ctid}`,
@@ -43,6 +48,12 @@ export const credentialEngineAPI = {
     return response.data;
   },
 
+  /**
+   * Fetches a Credential Engine resource by its CTID.
+   *
+   * @param ctid - The Credential Transparency Identifier (CTID) of the resource.
+   * @returns The detailed resource data.
+   */
   getResourceByCTID: async function (ctid: string) {
     const response = await getRecordAPI({
       url: `${resourcesGateway}/${ctid}`,
@@ -79,5 +90,4 @@ export const credentialEngineAPI = {
   //   const result = await this.getResults(JSON.parse(query), 0, 4, "")
   //   return result.data.data
   // }
-
 }

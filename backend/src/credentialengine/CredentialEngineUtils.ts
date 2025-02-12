@@ -128,7 +128,14 @@ const fetchNJDOLResource = async (url: string): Promise<CTDLResource | null> => 
   }
 };
 
-const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
+/**
+ * Processes a list of URLs to fetch valid Credential Engine data concurrently.
+ * Uses CTID validation, retries with exponential backoff, and batch processing.
+ *
+ * @param urls - List of Credential Engine URLs.
+ * @returns An array of valid CTDLResource objects.
+ */
+const   fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   try {
     const processFn = async (url: string): Promise<CTDLResource | null> => {
       // Validate CTID before processing
@@ -164,15 +171,16 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
 };
 
 /**
- * Fetch provider data for a given certificate.
+ * Fetches provider data associated with a given resource.
  * Utilizes a cache to avoid repeated HTTP requests for the same provider.
- * @param {CTDLResource} certificate - The certificate object containing provider information.
- * @returns {Promise<object | null>} - The provider data or null if unavailable.
+ *
+ * @param resource - The resource object containing provider information.
+ * @returns The provider data or null if unavailable.
  */
-async function getProviderData(certificate: CTDLResource): Promise<Provider | null> {
+async function getProviderData(resource: CTDLResource): Promise<Provider | null> {
   try {
     // Check if "ownedBy" exists in the certificate
-    const ownedByUrl = certificate["ceterms:ownedBy"]?.[0];
+    const ownedByUrl = resource["ceterms:ownedBy"]?.[0];
     if (!ownedByUrl) {
       console.warn("OwnedBy field is missing in the certificate.");
       return null;
@@ -231,13 +239,19 @@ async function getProviderData(certificate: CTDLResource): Promise<Provider | nu
     return null;
   }
 }
+
+/**
+ * Retrieves address information from a given CTDL resource.
+ * @param resource - The CTDL resource containing address data.
+ * @returns A list of structured Address objects.
+ */
 const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
   try {
     const addresses = resource["ceterms:address"] ?? [];
     return addresses.map((address) => {
       const zipCode = address["ceterms:postalCode"] ?? "";
       return {
-        "@type": "ceterms:Place", // Add required @type field
+        "@type": "ceterms:Place", // Specifies the type of entity
         street_address: address["ceterms:streetAddress"]?.["en-US"] ?? "",
         city: address["ceterms:addressLocality"]?.["en-US"] ?? "",
         state: address["ceterms:addressRegion"]?.["en-US"] ?? "",
@@ -260,9 +274,9 @@ const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
 };
 
 
-const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Address[]> => {
+const getAvailableAtAddresses = async (resource: CTDLResource): Promise<Address[]> => {
   try {
-    const availableAt = certificate["ceterms:availableAt"] ?? [];
+    const availableAt = resource["ceterms:availableAt"] ?? [];
 
     return availableAt.map((location: CetermsPlace) => {
       const zipCode = location["ceterms:postalCode"] ?? "";
@@ -293,9 +307,9 @@ const getAvailableAtAddresses = async (certificate: CTDLResource): Promise<Addre
   }
 };
 
-const extractCipCode = async (certificate: CTDLResource): Promise<string> => {
+const extractCipCode = async (resource: CTDLResource): Promise<string> => {
   try {
-    const instructionalProgramTypes = certificate["ceterms:instructionalProgramType"];
+    const instructionalProgramTypes = resource["ceterms:instructionalProgramType"];
     if (Array.isArray(instructionalProgramTypes)) {
       for (const programType of instructionalProgramTypes) {
         if (
@@ -313,9 +327,9 @@ const extractCipCode = async (certificate: CTDLResource): Promise<string> => {
   }
 };
 
-const extractOccupations = async (certificate: CTDLResource): Promise<Occupation[]> => {
+const extractOccupations = async (resource: CTDLResource): Promise<Occupation[]> => {
   try {
-    const occupationTypes = certificate["ceterms:occupationType"];
+    const occupationTypes = resource["ceterms:occupationType"];
     if (!occupationTypes || occupationTypes.length === 0) return [];
 
     return occupationTypes
@@ -338,9 +352,9 @@ const extractOccupations = async (certificate: CTDLResource): Promise<Occupation
   }
 };
 
-const extractCost = async (certificate:CTDLResource, costType:string) => {
+const extractCost = async (resource:CTDLResource, costType:string) => {
   try {
-    const estimatedCosts = certificate["ceterms:estimatedCost"];
+    const estimatedCosts = resource["ceterms:estimatedCost"];
     if (Array.isArray(estimatedCosts)) {
       for (const costProfile of estimatedCosts) {
         const directCostType = costProfile["ceterms:directCostType"];
@@ -358,10 +372,9 @@ const extractCost = async (certificate:CTDLResource, costType:string) => {
   }
 };
 
-
-const extractAverageSalary = async (certificate: CTDLResource): Promise<number | null> => {
+const extractAverageSalary = async (resource: CTDLResource): Promise<number | null> => {
   try {
-    const averageSalaryData = certificate["ceterms:aggregateData"];
+    const averageSalaryData = resource["ceterms:aggregateData"];
     if (!averageSalaryData) return null;
 
     const averageSalaryProfile = averageSalaryData.find(
@@ -384,9 +397,9 @@ const extractAverageSalary = async (certificate: CTDLResource): Promise<number |
   }
 };
 
-const extractEmploymentData = async (certificate: CTDLResource): Promise<number | null> => {
+const extractEmploymentData = async (resource: CTDLResource): Promise<number | null> => {
   try {
-    const aggData = certificate["ceterms:aggregateData"];
+    const aggData = resource["ceterms:aggregateData"];
     if (!aggData) return null;
 
     for (const data of aggData) {
@@ -418,12 +431,9 @@ const extractPrerequisites = async (certificate: CTDLResource): Promise<string[]
   }
 };
 
-const checkSupportService = async (
-  certificate: CTDLResource,
-  targetNode: string,
-): Promise<boolean> => {
+const checkSupportService = async (resource: CTDLResource, targetNode: string): Promise<boolean> => {
   try {
-    const supportServices = certificate["ceterms:hasSupportService"] || [];
+    const supportServices = resource["ceterms:hasSupportService"] || [];
 
     for (const serviceUrl of supportServices) {
       if (!serviceUrl) continue;
@@ -458,12 +468,9 @@ const checkSupportService = async (
 };
 
 
-const checkAccommodation = async (
-  certificate: CTDLResource,
-  targetNode: string,
-): Promise<boolean> => {
+const checkAccommodation = async (resource: CTDLResource, targetNode: string,): Promise<boolean> => {
   try {
-    const supportServices = certificate["ceterms:hasSupportService"] || [];
+    const supportServices = resource["ceterms:hasSupportService"] || [];
 
     for (const serviceUrl of supportServices) {
       if (!serviceUrl) continue;
@@ -505,9 +512,7 @@ const checkAccommodation = async (
 };
 
 
-const constructCredentialsString = async (
-  isPreparationForObject: CetermsConditionProfile[],
-): Promise<string> => {
+const constructCredentialsString = async (isPreparationForObject: CetermsConditionProfile[]): Promise<string> => {
   try {
     if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
 
@@ -521,9 +526,9 @@ const constructCredentialsString = async (
   }
 };
 
-const getTimeRequired = async (certificate: CTDLResource): Promise<number> => {
+const getTimeRequired = async (resource: CTDLResource): Promise<number> => {
   try {
-    const estimatedDuration = certificate["ceterms:estimatedDuration"];
+    const estimatedDuration = resource["ceterms:estimatedDuration"];
     if (!estimatedDuration || estimatedDuration.length === 0) return 0;
     const exactDuration = estimatedDuration[0]["ceterms:timeRequired"];
     if (!exactDuration) return 0;
@@ -534,9 +539,9 @@ const getTimeRequired = async (certificate: CTDLResource): Promise<number> => {
   }
 };
 
-const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> => {
+const getCalendarLengthId = async (resource: CTDLResource): Promise<number> => {
   try {
-    const estimatedDuration = certificate["ceterms:estimatedDuration"];
+    const estimatedDuration = resource["ceterms:estimatedDuration"];
     if (!estimatedDuration || estimatedDuration.length === 0) return 0;
     const exactDuration = estimatedDuration[0]["ceterms:exactDuration"];
     if (!exactDuration) return 0;
@@ -547,9 +552,9 @@ const getCalendarLengthId = async (certificate: CTDLResource): Promise<number> =
   }
 };
 
-const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryType[]> => {
+const hasLearningDeliveryTypes = (resource: CTDLResource): Promise<DeliveryType[]> => {
   try {
-    const deliveryTypes = certificate["ceterms:deliveryType"] ?? [];
+    const deliveryTypes = resource["ceterms:deliveryType"] ?? [];
 
     // Map and filter the types to ensure only valid DeliveryType values are returned
     const mappedTypes: DeliveryType[] = deliveryTypes
@@ -576,9 +581,9 @@ const hasLearningDeliveryTypes = (certificate: CTDLResource): Promise<DeliveryTy
   }
 };
 
-const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> => {
+const hasEveningSchedule = async (resource: CTDLResource): Promise<boolean> => {
   try {
-    const scheduleTimingTypes = certificate["ceterms:scheduleTimingType"];
+    const scheduleTimingTypes = resource["ceterms:scheduleTimingType"];
     if (!scheduleTimingTypes) return false;
 
     const hasEvening = scheduleTimingTypes.some(
@@ -592,9 +597,9 @@ const hasEveningSchedule = async (certificate: CTDLResource): Promise<boolean> =
   }
 };
 
-const getLanguages = async (certificate: CTDLResource): Promise<string[]> => {
+const getLanguages = async (resource: CTDLResource): Promise<string[]> => {
   try {
-    const languages = certificate["ceterms:inLanguage"];
+    const languages = resource["ceterms:inLanguage"];
     if (!languages || languages.length === 0) return [];
 
     return languages.map(
