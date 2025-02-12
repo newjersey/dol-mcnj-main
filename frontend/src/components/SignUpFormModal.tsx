@@ -25,10 +25,10 @@ export const SignUpFormModal = () => {
   const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (resetForm) return;
-  
+
     setSubmitting(true);
     setHasErrors("");
-  
+
     const allErrorCheck = () => {
       if (
         (firstName.length !== 0 && firstName.length < 2) ||
@@ -41,40 +41,40 @@ export const SignUpFormModal = () => {
       }
       return false;
     };
-  
+
     // Perform validations
     if (firstName.length !== 0 && firstName.length < 2) {
       setFirstNameError("First name must be 2 or more characters.");
     } else {
       setFirstNameError("");
     }
-  
+
     if (lastName.length !== 0 && lastName.length < 2) {
       setLastNameError("Last name must be 2 or more characters.");
     } else {
       setLastNameError("");
     }
-  
+
     if (!email) {
       setEmailError("Email is required.");
-    } else if (!emailRegex.test(email)) {  
+    } else if (!emailRegex.test(email)) {
       setEmailError("Please enter a valid email address.");
     } else {
       setEmailError("");
     }
-  
+
     if (phone && phone.length < 12) {
       setPhoneError("Please enter a valid phone number");
     } else {
       setPhoneError("");
     }
-  
+
     if (allErrorCheck()) {
       setSubmitting(false);
       setHasErrors("There are items that require your attention.");
       return;
     }
-  
+
     // Construct payload
     const formData = {
       firstName,
@@ -82,7 +82,7 @@ export const SignUpFormModal = () => {
       email,
       phone,
     };
-  
+
     try {
       const response = await fetch("/api/signup", {
         method: "POST",
@@ -91,9 +91,9 @@ export const SignUpFormModal = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         setSuccess(true);
         setHasErrors("");
@@ -106,10 +106,9 @@ export const SignUpFormModal = () => {
       setSuccess(false);
       setHasErrors("There was an error connecting to the server. Please try again later.");
     }
-  
+
     setSubmitting(false);
   };
-  
 
   function formatPhoneNumber(input: string): string {
     const cleaned = input.replace(/\D/g, "");
@@ -180,9 +179,7 @@ export const SignUpFormModal = () => {
           {!success && (
             <>
               <p className="heading">{t("SignUpFormModal.formTitle")}</p>
-              <p>
-                {t("SignUpFormModal.formDescription")}
-              </p>
+              <p>{t("SignUpFormModal.formDescription")}</p>
             </>
           )}
           {success ? (
@@ -208,14 +205,13 @@ export const SignUpFormModal = () => {
             <>
               <span className="instruction">
                 <p>
-                  {t("SignUpFormModal.requiredFieldIndicator.part1")}
-                  (<span className="red">*</span>)
-                  {t("SignUpFormModal.requiredFieldIndicator.part2")}
+                  {t("SignUpFormModal.requiredFieldIndicator.part1")}(<span className="red">*</span>
+                  ){t("SignUpFormModal.requiredFieldIndicator.part2")}
                 </p>
               </span>
               <form onSubmit={handleSubmission} onChange={() => setResetForm(false)}>
                 <div className="row">
-                <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
+                  <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
                     <span>{t("SignUpFormModal.firstNameLabel")}</span>
                     <input
                       type="text"
@@ -306,7 +302,9 @@ export const SignUpFormModal = () => {
                         <CircleNotch size={20} weight="bold" />
                       </div>
                     )}
-                    {submitting ? t("SignUpFormModal.loadingMessage") : t("SignUpFormModal.submitButton")}
+                    {submitting
+                      ? t("SignUpFormModal.loadingMessage")
+                      : t("SignUpFormModal.submitButton")}
                   </Button>
                   <button
                     className="usa-button usa-button--unstyled"
@@ -329,8 +327,15 @@ export const SignUpFormModal = () => {
                 </div>
               </form>
               <p>
-                Read about our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a> and our{" "}
-                <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">sms use policy</a>.
+                Read about our{" "}
+                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                  privacy policy
+                </a>{" "}
+                and our{" "}
+                <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">
+                  sms use policy
+                </a>
+                .
               </p>
             </>
           )}
