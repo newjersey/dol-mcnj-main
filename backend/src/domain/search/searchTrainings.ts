@@ -530,7 +530,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     // Apply sorting to the cached filtered results
     const rankedResults = rankResults(params.searchQuery, filteredResults);
-    console.log(rankedResults);
+    // console.log(rankedResults);
     const sortedResults = sortTrainings(rankedResults, sort);
     cache.set(unFilteredCacheKey, rankedResults, 300); // Cache for 5 minutes
 

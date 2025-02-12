@@ -27,6 +27,7 @@ export const credentialEngineAPI = {
         Skip: skip,
         Take: take,
         Sort: "^search:relevance",
+        IncludeResultsMetadata: true
       },
     });
 

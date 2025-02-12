@@ -13,16 +13,29 @@ import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 import { DeliveryType } from "../domain/DeliveryType";
 import { processInBatches } from "../utils/concurrencyUtils";
+import { AxiosError } from "axios";
+import NodeCache from "node-cache";
 
+// Cache provider data to avoid redundant API calls
+const providerCache = new NodeCache({ stdTTL: 3600 });
+
+/**
+ * Logs errors in a consistent format.
+ * @param message - Description of the error context.
+ * @param error - The caught error object.
+ */
 const logError = (message: string, error: Error) => {
   console.error(`${message}: ${error.message}`);
 };
 
-import { AxiosError } from "axios";
-import NodeCache from "node-cache";
-
-const providerCache = new NodeCache({ stdTTL: 3600 });
-
+/**
+ * Retries a function with exponential backoff for handling transient API failures.
+ * @param fn - Function returning a promise to retry.
+ * @param retries - Maximum number of retries.
+ * @param delay - Initial delay in milliseconds.
+ * @param context - Optional description for logging.
+ * @returns The resolved value of `fn`, or throws an error after exhausting retries.
+ */
 export const retryWithBackoff = async <T>(
   fn: () => Promise<T>,
   retries: number,
@@ -63,7 +76,11 @@ export const retryWithBackoff = async <T>(
 };
 
 
-
+/**
+ * Validates a Credential Transparency Identifier (CTID) format.
+ * @param id - CTID to validate.
+ * @returns `true` if valid, `false` otherwise.
+ */
 const validateCtId = async (id: string): Promise<boolean> => {
   const pattern = /^ce-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   try {
@@ -74,8 +91,14 @@ const validateCtId = async (id: string): Promise<boolean> => {
   }
 };
 
+/**
+ * Extracts the CTID from a Credential Engine URL.
+ * @param url - The Credential Engine resource URL.
+ * @returns The extracted CTID as a string.
+ */
 const getCtidFromURL = async (url: string): Promise<string> => {
   try {
+    // Find the last slash and extract everything after it as the CTID
     const lastSlashIndex = url.lastIndexOf("/");
     return url.substring(lastSlashIndex + 1);
   } catch (error) {
@@ -84,7 +107,12 @@ const getCtidFromURL = async (url: string): Promise<string> => {
   }
 };
 
-const fetchCertificateData = async (url: string): Promise<CTDLResource | null> => {
+/**
+ * Fetches resource data from Credential Engine based on a given URL.
+ * @param url - The Credential Engine resource URL.
+ * @returns The fetched CTDLResource or null if not found.
+ */
+const fetchNJDOLResource = async (url: string): Promise<CTDLResource | null> => {
   try {
     const ctid = await getCtidFromURL(url);
     const query = {
@@ -92,6 +120,7 @@ const fetchCertificateData = async (url: string): Promise<CTDLResource | null> =
       "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
     };
     const response = await credentialEngineAPI.getResults(query, 0, 10);
+    // console.log(response.data);
     return response.data.data.length > 0 ? response.data.data[0] : null;
   } catch (error) {
     logError(`Error fetching data for CTID`, error as Error);
@@ -110,7 +139,7 @@ const fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
 
       // Fetch certificate data with retry and exponential backoff
       return await retryWithBackoff(
-        () => fetchCertificateData(url),
+        () => fetchNJDOLResource(url),
         3, // Max retries
         1000, // Initial delay in ms
         `fetchValidCEData for URL: ${url}`
@@ -160,11 +189,11 @@ async function getProviderData(certificate: CTDLResource): Promise<Provider | nu
     // Check if the data is already in the cache
     const cachedProvider = providerCache.get(ownedByCtid);
     if (cachedProvider) {
-      console.log(`Cache hit for provider CTID: ${ownedByCtid}`);
+      // console.debug(`Cache hit for provider CTID: ${ownedByCtid}`);
       return cachedProvider as Provider;
     }
 
-    console.log(`Cache miss for provider CTID: ${ownedByCtid}. Fetching data...`);
+    // console.debug(`Cache miss for provider CTID: ${ownedByCtid}. Fetching data...`);
 
     // Fetch the provider record using the CTID
     const providerRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
@@ -666,7 +695,7 @@ export const DATA_VALUE_TO_LANGUAGE: { [key: string]: string } = {
 export const credentialEngineUtils = {
   validateCtId,
   getCtidFromURL,
-  fetchCertificateData,
+  fetchNJDOLResource: fetchNJDOLResource,
   fetchValidCEData,
   getProviderData,
   getAddress,
