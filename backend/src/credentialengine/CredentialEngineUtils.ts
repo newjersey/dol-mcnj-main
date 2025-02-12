@@ -273,7 +273,11 @@ const getAddress = async (resource: CTDLResource): Promise<Address[]> => {
   }
 };
 
-
+/**
+ * Retrieves the available addresses where the resource is offered.
+ * @param resource - The CTDL resource containing availableAt location data.
+ * @returns A list of structured Address objects.
+ */
 const getAvailableAtAddresses = async (resource: CTDLResource): Promise<Address[]> => {
   try {
     const availableAt = resource["ceterms:availableAt"] ?? [];
@@ -298,7 +302,7 @@ const getAvailableAtAddresses = async (resource: CTDLResource): Promise<Address[
         state: location["ceterms:addressRegion"]?.["en-US"] ?? "",
         zipCode,
         county: convertZipCodeToCounty(zipCode) ?? "",
-        targetContactPoints, // Add the contact points
+        targetContactPoints,
       } as Address;
     });
   } catch (error) {
@@ -307,6 +311,11 @@ const getAvailableAtAddresses = async (resource: CTDLResource): Promise<Address[
   }
 };
 
+/**
+ * Extracts the CIP (Classification of Instructional Programs) code from a CTDL resource.
+ * @param resource - The CTDL resource containing instructional program data.
+ * @returns The CIP code as a string, or an empty string if not found.
+ */
 const extractCipCode = async (resource: CTDLResource): Promise<string> => {
   try {
     const instructionalProgramTypes = resource["ceterms:instructionalProgramType"];
@@ -352,6 +361,12 @@ const extractOccupations = async (resource: CTDLResource): Promise<Occupation[]>
   }
 };
 
+/**
+ * Extracts the cost of a specific type from a CTDL resource.
+ * @param resource - The CTDL resource containing cost data.
+ * @param costType - The type of cost to extract.
+ * @returns The cost value or null if not found.
+ */
 const extractCost = async (resource:CTDLResource, costType:string) => {
   try {
     const estimatedCosts = resource["ceterms:estimatedCost"];
@@ -372,6 +387,13 @@ const extractCost = async (resource:CTDLResource, costType:string) => {
   }
 };
 
+/**
+ * Retrieves the average salary from a CTDL resource.
+ * Note that Credential Engine does not have a meanEarnings or averageEarnings term, so we use medianEarnings
+ * But the data collected from the provider is actually MEAN salary, not median
+ * @param resource - The CTDL resource containing salary data.
+ * @returns The median earnings value or null if not found.
+ */
 const extractAverageSalary = async (resource: CTDLResource): Promise<number | null> => {
   try {
     const averageSalaryData = resource["ceterms:aggregateData"];
@@ -397,6 +419,11 @@ const extractAverageSalary = async (resource: CTDLResource): Promise<number | nu
   }
 };
 
+/**
+ * Extracts employment data from a CTDL resource.
+ * @param resource - The CTDL resource containing employment data.
+ * @returns The percentage of jobs obtained, or null if not found.
+ */
 const extractEmploymentData = async (resource: CTDLResource): Promise<number | null> => {
   try {
     const aggData = resource["ceterms:aggregateData"];
@@ -417,6 +444,11 @@ const extractEmploymentData = async (resource: CTDLResource): Promise<number | n
   }
 };
 
+/**
+ * Extracts prerequisite requirements from a CTDL resource.
+ * @param certificate - The CTDL resource containing prerequisite data.
+ * @returns An array of prerequisite descriptions or null if none are found.
+ */
 const extractPrerequisites = async (certificate: CTDLResource): Promise<string[] | null> => {
   try {
     const prerequisites = certificate["ceterms:requires"]
@@ -431,6 +463,17 @@ const extractPrerequisites = async (certificate: CTDLResource): Promise<string[]
   }
 };
 
+/**
+ * Checks if a resource has a specific support service.
+ * Iterates through the list of support services linked to the resource
+ * and verifies if any of them match the given target node.
+ *
+ * @param resource - The CTDL resource containing support service references.
+ * @param targetNode - The target support service type to check for.
+ * @returns A boolean indicating whether the support service is present.
+ */
+/*TODO: Modify this so that it returns a list of support services to be filtered elsewhere so that this only has to be
+called once per reacord - same with accommodations, which can be merged into here*/
 const checkSupportService = async (resource: CTDLResource, targetNode: string): Promise<boolean> => {
   try {
     const supportServices = resource["ceterms:hasSupportService"] || [];
@@ -467,7 +510,14 @@ const checkSupportService = async (resource: CTDLResource, targetNode: string): 
   }
 };
 
-
+/**
+ * Checks if a resource provides a specific type of accommodation.
+ * Uses retry logic with exponential backoff to handle temporary failures.
+ *
+ * @param resource - The CTDL resource containing accommodation references.
+ * @param targetNode - The specific accommodation type to check for.
+ * @returns A boolean indicating whether the accommodation type is available.
+ */
 const checkAccommodation = async (resource: CTDLResource, targetNode: string,): Promise<boolean> => {
   try {
     const supportServices = resource["ceterms:hasSupportService"] || [];
@@ -507,11 +557,16 @@ const checkAccommodation = async (resource: CTDLResource, targetNode: string,): 
     } else {
       console.error(`Unknown error checking accommodation`);
     }
-    return false; // Return false if errors occur
+    return false;
   }
 };
 
-
+/**
+ * Constructs a comma-separated string of credentials that a program prepares for.
+ *
+ * @param isPreparationForObject - An array of condition profiles representing credentials.
+ * @returns A formatted string containing credential names.
+ */
 const constructCredentialsString = async (isPreparationForObject: CetermsConditionProfile[]): Promise<string> => {
   try {
     if (!isPreparationForObject || isPreparationForObject.length === 0) return "";
@@ -519,13 +574,20 @@ const constructCredentialsString = async (isPreparationForObject: CetermsConditi
     return isPreparationForObject
       .map((obj) => obj["ceterms:name"]?.["en-US"] ?? "")
       .filter((name) => name) // Filter out empty strings
-      .join(", "); // Join the names with a comma and space as separator
+      .join(", ");
   } catch (error) {
     logError(`Error constructing credentials string`, error as Error);
     throw error;
   }
 };
 
+/**
+ * Retrieves the estimated time required for a resource in total hours.
+ * Converts the ISO 8601 duration format into a numerical value.
+ *
+ * @param resource - The CTDL resource containing estimated duration data.
+ * @returns The total number of hours required.
+ */
 const getTimeRequired = async (resource: CTDLResource): Promise<number> => {
   try {
     const estimatedDuration = resource["ceterms:estimatedDuration"];
@@ -539,6 +601,13 @@ const getTimeRequired = async (resource: CTDLResource): Promise<number> => {
   }
 };
 
+/**
+ * Determines the calendar length ID based on the estimated duration of the resource.
+ * Converts the ISO 8601 duration into an equivalent calendar length ID.
+ *
+ * @param resource - The CTDL resource containing duration data.
+ * @returns A calendar length ID representing the duration.
+ */
 const getCalendarLengthId = async (resource: CTDLResource): Promise<number> => {
   try {
     const estimatedDuration = resource["ceterms:estimatedDuration"];
@@ -552,6 +621,12 @@ const getCalendarLengthId = async (resource: CTDLResource): Promise<number> => {
   }
 };
 
+/**
+ * Retrieves the delivery types of a resource, filtering for valid options.
+ *
+ * @param resource - The CTDL resource containing delivery type data.
+ * @returns An array of valid delivery types.
+ */
 const hasLearningDeliveryTypes = (resource: CTDLResource): Promise<DeliveryType[]> => {
   try {
     const deliveryTypes = resource["ceterms:deliveryType"] ?? [];
@@ -581,6 +656,12 @@ const hasLearningDeliveryTypes = (resource: CTDLResource): Promise<DeliveryType[
   }
 };
 
+/**
+ * Checks if a resource offers evening scheduling.
+ *
+ * @param resource - The CTDL resource containing schedule information.
+ * @returns A boolean indicating whether evening schedules are available.
+ */
 const hasEveningSchedule = async (resource: CTDLResource): Promise<boolean> => {
   try {
     const scheduleTimingTypes = resource["ceterms:scheduleTimingType"];
@@ -597,6 +678,13 @@ const hasEveningSchedule = async (resource: CTDLResource): Promise<boolean> => {
   }
 };
 
+/**
+ * Retrieves the languages in which a resource is offered.
+ * Maps language codes to human-readable names where available.
+ *
+ * @param resource - The CTDL resource containing language information.
+ * @returns An array of language names.
+ */
 const getLanguages = async (resource: CTDLResource): Promise<string[]> => {
   try {
     const languages = resource["ceterms:inLanguage"];
@@ -635,8 +723,16 @@ const convertIso8601DurationToTotalHours = async (isoString: string): Promise<nu
   }
 };
 
+/**
+ * Converts an ISO 8601 duration string into a predefined calendar length ID.
+ * This function maps total duration in days to a discrete length category.
+ *
+ * @param isoString - The ISO 8601 duration string (e.g., "P2Y3M5D").
+ * @returns A numeric ID corresponding to the calendar length category.
+ */
 const convertIso8601DurationToCalendarLengthId = async (isoString: string): Promise<number> => {
   try {
+    // Regular expression to match ISO 8601 duration components.
     const match = isoString.match(
       /P(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?/,
     );
@@ -644,6 +740,7 @@ const convertIso8601DurationToCalendarLengthId = async (isoString: string): Prom
       throw new Error("Invalid ISO 8601 duration string");
     }
 
+    // Extract values and convert to total days
     const years = parseInt(match[1]) || 0;
     const months = parseInt(match[2]) || 0;
     const weeks = parseInt(match[3]) || 0;
@@ -656,6 +753,7 @@ const convertIso8601DurationToCalendarLengthId = async (isoString: string): Prom
     const totalDays =
       years * 365 + months * 30 + weeks * 7 + days + hours / 24 + minutes / 1440 + seconds / 86400;
 
+    // Map total days to predefined calendar length ID categories.
     if (totalDays < 1) return 1;
     if (totalDays <= 2) return 2;
     if (totalDays <= 7) return 3;
@@ -672,6 +770,9 @@ const convertIso8601DurationToCalendarLengthId = async (isoString: string): Prom
   }
 };
 
+/**
+ * Mapping of ISO 639-1 language codes to their human-readable language names.
+ */
 export const DATA_VALUE_TO_LANGUAGE: { [key: string]: string } = {
   ar: "Arabic",
   zh: "Chinese",
