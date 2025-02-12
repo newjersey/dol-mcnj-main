@@ -7,7 +7,17 @@ module.exports = async () => {
     console.log("Database created successfully.");
 
     console.log("Running database migrations...");
-    await executeCommand('npm', ['run', 'db-migrate', 'up', '--', '-e', 'test'], true); // Added a third parameter to indicate silent execution
+
+    const migrationTimeout = 15 * 60 * 1000; // 15 minutes
+    const migrationPromise = executeCommand("npm", ["run", "db-migrate", "up", "--", "-e", "test"], true);
+
+    await Promise.race([
+      migrationPromise,
+      new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Database migration timeout exceeded")), migrationTimeout)
+      ),
+    ]);
+
     console.log("Database migrations applied successfully.");
   } catch (error) {
     console.error("Error during global setup:", error);
