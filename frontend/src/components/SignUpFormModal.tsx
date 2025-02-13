@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { CircleNotch, EnvelopeSimple, X } from "@phosphor-icons/react";
+import { useTranslation } from "react-i18next";
 
 export const SignUpFormModal = () => {
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
   const [firstNameError, setFirstNameError] = useState<string>("");
@@ -17,79 +20,96 @@ export const SignUpFormModal = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (resetForm) return;
-
+  
+    setSubmitting(true);
+    setHasErrors("");
+  
     const allErrorCheck = () => {
       if (
         (firstName.length !== 0 && firstName.length < 2) ||
         (lastName.length !== 0 && lastName.length < 2) ||
         !email ||
-        (email && !email.includes("@")) ||
+        (email && !emailRegex.test(email)) ||
         (phone && phone.length < 12)
       ) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     };
-
-    // check if first name has 2 or more characters
+  
+    // Perform validations
     if (firstName.length !== 0 && firstName.length < 2) {
       setFirstNameError("First name must be 2 or more characters.");
     } else {
       setFirstNameError("");
     }
-
-    // check if last name has 2 or more characters
+  
     if (lastName.length !== 0 && lastName.length < 2) {
       setLastNameError("Last name must be 2 or more characters.");
     } else {
       setLastNameError("");
     }
-
-    // check if there is entered email and is valid
+  
     if (!email) {
       setEmailError("Email is required.");
-    } else if (email && !email.includes("@")) {
-      setEmailError("Email invalid.");
+    } else if (!emailRegex.test(email)) {  
+      setEmailError("Please enter a valid email address.");
     } else {
       setEmailError("");
     }
-
-    // check if phone number is valid
+  
     if (phone && phone.length < 12) {
-      setPhoneError("Phone number invalid.");
+      setPhoneError("Please enter a valid phone number");
     } else {
       setPhoneError("");
     }
-
+  
     if (allErrorCheck()) {
-      console.error("ERROR:", "There are items that require your attention.");
       setSubmitting(false);
-    } else {
-      setSubmitting(true);
-
-      setTimeout(() => {
-        const reandomTrueFalse = Math.random() < 0.5;
-        if (reandomTrueFalse) {
-          setSuccess(false);
-          setHasErrors("There was an error submitting the form. Please try again later.");
-          console.error("ERROR: Form submission failed.");
-        } else {
-          setSuccess(true);
-          console.info("SUCCESS: Form submitted successfully.", {
-            firstName,
-            lastName,
-            email,
-            phone,
-          });
-        }
-        setSubmitting(false);
-      }, 2000);
+      setHasErrors("There are items that require your attention.");
+      return;
     }
+  
+    // Construct payload
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      phone,
+    };
+  
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        setSuccess(true);
+        setHasErrors("");
+      } else {
+        setSuccess(false);
+        setHasErrors(result.error || "There was an error submitting the form. Please try again.");
+      }
+    } catch (error) {
+      console.error("ERROR:", error);
+      setSuccess(false);
+      setHasErrors("There was an error connecting to the server. Please try again later.");
+    }
+  
+    setSubmitting(false);
   };
+  
 
   function formatPhoneNumber(input: string): string {
     const cleaned = input.replace(/\D/g, "");
@@ -147,7 +167,7 @@ export const SignUpFormModal = () => {
           setIsOpen(!isOpen);
         }}
       >
-        Sign up for updates
+        {t("SignUpFormModal.buttonText")}
       </Button>
 
       <div className={`signUpModal${isOpen ? " open" : ""}`}>
@@ -157,17 +177,20 @@ export const SignUpFormModal = () => {
             <X size={20} weight="bold" />
             <div className="sr-only">Close</div>
           </button>
-          <p className="heading">My Career NJ User Sign Up Form</p>
-          <p>
-            Sign-up to stay up to date on the latest new features, news, and resources from My
-            Career NJ.
-          </p>
+          {!success && (
+            <>
+              <p className="heading">{t("SignUpFormModal.formTitle")}</p>
+              <p>
+                {t("SignUpFormModal.formDescription")}
+              </p>
+            </>
+          )}
           {success ? (
             <>
               <div className="usa-alert usa-alert--success" role="alert">
                 <div className="usa-alert__body">
-                  <p className="usa-alert__heading">For submission successful.</p>
-                  <p className="usa-alert__text">Please check your email for confirmation.</p>
+                  <p className="usa-alert__heading">{t("SignUpFormModal.successMessage")}</p>
+                  <p className="usa-alert__text">{t("SignUpFormModal.confirmationMessage")}</p>
                 </div>
               </div>
               <div className="buttons" style={{ marginTop: "1.5rem" }}>
@@ -177,19 +200,23 @@ export const SignUpFormModal = () => {
                     setIsOpen(false);
                   }}
                 >
-                  Back to My Career NJ
+                  {t("SignUpFormModal.backToHomepage")}
                 </Button>
               </div>
             </>
           ) : (
             <>
               <span className="instruction">
-                A red asterick (<span className="red">*</span>) indicates a required field.
+                <p>
+                  {t("SignUpFormModal.requiredFieldIndicator.part1")}
+                  (<span className="red">*</span>)
+                  {t("SignUpFormModal.requiredFieldIndicator.part2")}
+                </p>
               </span>
               <form onSubmit={handleSubmission} onChange={() => setResetForm(false)}>
                 <div className="row">
-                  <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
-                    <span>First Name</span>
+                <label htmlFor="firstName" className={firstNameError ? "error" : ""}>
+                    <span>{t("SignUpFormModal.firstNameLabel")}</span>
                     <input
                       type="text"
                       id="firstName"
@@ -205,7 +232,7 @@ export const SignUpFormModal = () => {
                     {firstNameError && <div className="errorMessage">{firstNameError}</div>}
                   </label>
                   <label htmlFor="lastName" className={lastNameError ? "error" : ""}>
-                    <span>Last Name</span>
+                    <span>{t("SignUpFormModal.lastNameLabel")}</span>
                     <input
                       type="text"
                       id="lastName"
@@ -223,7 +250,7 @@ export const SignUpFormModal = () => {
                 </div>
                 <label htmlFor="email" className={`email${emailError ? " error" : ""}`}>
                   <span>
-                    Email <span className="red">*</span>
+                    {t("SignUpFormModal.emailLabel")} <span className="red">*</span>
                   </span>
                   <div>
                     <EnvelopeSimple size={20} weight="bold" />
@@ -244,8 +271,8 @@ export const SignUpFormModal = () => {
                   {emailError && <div className="errorMessage">{emailError}</div>}
                 </label>
                 <label htmlFor="phone" className={phoneError ? "error" : ""}>
-                  <span>Mobile phone number</span>
-                  US phone numbers only
+                  <span>{t("SignUpFormModal.phoneLabel")}</span>
+                  {t("SignUpFormModal.usPhoneOnlyLabel")}
                   <input
                     type="text"
                     value={formatPhoneNumber(phone)}
@@ -279,7 +306,7 @@ export const SignUpFormModal = () => {
                         <CircleNotch size={20} weight="bold" />
                       </div>
                     )}
-                    {submitting ? "Submitting" : "Submit form"}
+                    {submitting ? t("SignUpFormModal.loadingMessage") : t("SignUpFormModal.submitButton")}
                   </Button>
                   <button
                     className="usa-button usa-button--unstyled"
@@ -302,8 +329,8 @@ export const SignUpFormModal = () => {
                 </div>
               </form>
               <p>
-                Read about our <a href="/privacy-policy">privacy policy</a> and our{" "}
-                <a href="/sms-use-policy">sms use policy</a>.
+                Read about our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a> and our{" "}
+                <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">sms use policy</a>.
               </p>
             </>
           )}
