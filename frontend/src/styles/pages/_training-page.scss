@@ -228,6 +228,12 @@
         }
       }
     }
+
+    a {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      width: calc(100% - $size-24);
+    }
   }
 
   .disclaimer {
