@@ -12,27 +12,35 @@ import NodeCache from "node-cache";
 
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 
-// Main factory function to find trainings by given criteria
+/**
+ * Factory function to create a training finder function using a data client.
+ * Fetches training data based on a given selector and values, utilizing caching for efficiency.
+ *
+ * @param {DataClient} dataClient - The data client used for fetching training data.
+ * @returns {FindTrainingsBy} - A function to find trainings by given criteria.
+ */
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const cacheKey = `findTrainingsBy-${selector}-${values.join(",")}`;
     const cachedTrainings = cache.get<Training[]>(cacheKey);
 
     if (cachedTrainings) {
-      console.log(`Cache hit for key: ${cacheKey}`);
+      console.info(`Cache hit for key: ${cacheKey}`);
       return cachedTrainings;
     }
 
+    // Fetch in-demand CIP codes for tuition waiver statuses
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
 
+    // Fetch Credential Engine records based on provided values
     const ceRecords = await credentialEngineUtils.fetchValidCEData(values);
 
     if (ceRecords.length === 0) {
-      console.error("404 Not found: No CE Records Found");
-      throw new Error("Not Found");
+      return [];
     }
 
+    // Process each CTDL resource record asynchronously
     const trainings = await Promise.all(
         ceRecords.map(async (record: CTDLResource) => {
           const provider = await credentialEngineUtils.getProviderData(record);
@@ -45,9 +53,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           } else {
             console.warn("Skipping outcomesDefinition lookup because providerId is missing or invalid");
           }
-          const credentials = await credentialEngineUtils.constructCredentialsString(
-              record["ceterms:isPreparationFor"] as CetermsConditionProfile[]
+
+          // Filter out preparation conditions where data is not collected
+          const filteredPreparationFor = (record["ceterms:isPreparationFor"] as CetermsConditionProfile[] || []).filter(
+              (entry) => entry["ceterms:name"]?.["en-US"] !== "Data not collected"
           );
+
+          // Construct credentials string from preparation data
+          const credentials = await credentialEngineUtils.constructCredentialsString(filteredPreparationFor);
 
           const training =  {
             ctid: record["ceterms:ctid"],
@@ -91,8 +104,14 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
   };
 };
 
+// Indicator for missing or invalid numerical data
 const NAN_INDICATOR = "-99999";
 
+/**
+ * Formats employment percentage, converting it to a number or returning null if invalid.
+ * @param {string | null} perEmployed - The employment percentage as a string.
+ * @returns {number | null} - Parsed percentage or null if invalid.
+ */
 const formatPercentEmployed = (perEmployed: string | null): number | null => {
   if (perEmployed === null || perEmployed === NAN_INDICATOR) {
     return null;
@@ -101,6 +120,11 @@ const formatPercentEmployed = (perEmployed: string | null): number | null => {
   return parseFloat(perEmployed);
 };
 
+/**
+ * Converts average quarterly wage into an annual salary.
+ * @param {string | null} averageQuarterlyWage - The quarterly wage as a string.
+ * @returns {number | null} - Annual salary estimate or null if invalid.
+ */
 const formatAverageSalary = (averageQuarterlyWage: string | null): number | null => {
   if (averageQuarterlyWage === null || averageQuarterlyWage === NAN_INDICATOR) {
     return null;
@@ -109,10 +133,3 @@ const formatAverageSalary = (averageQuarterlyWage: string | null): number | null
   const QUARTERS_IN_A_YEAR = 4;
   return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };
-
-export const formatLanguages = (languages: string | null): string[] => {
-  if (languages == null || languages.length === 0) return [];
-  const languagesWithoutQuotes = languages.replace(/["\s]+/g, "");
-  return languagesWithoutQuotes.split(",");
-};
-

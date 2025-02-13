@@ -417,9 +417,9 @@ export const TrainingPage = (props: Props): ReactElement => {
       return <span>Contact information not available</span>;
     }
 
-    const name = contactPoint?.name ?? "Contact name not specified";
-    const contactType = contactPoint?.contactType ?? "Type not specified";
-    const email = contactPoint?.contactType ?? "Email not available";
+    const name = contactPoint?.name ?? null;
+    const contactType = contactPoint?.contactType ?? null;
+    const email = contactPoint?.email ?? "Email not available";
     const rawPhoneNumber = contactPoint.telephone?.[0];
     const phoneNumber = rawPhoneNumber
       ? parsePhoneNumberFromString(rawPhoneNumber, "US")?.formatNational() || rawPhoneNumber
@@ -427,8 +427,8 @@ export const TrainingPage = (props: Props): ReactElement => {
 
     return (
       <div className="inline">
-        <div> {name}</div>
-        <div>{contactType}</div>
+        {name && <div>{name}</div>}
+        {contactType && <div>{contactType}</div>}
         <div>
           <a href={`mailto:${email}`}>{email}</a>
         </div>

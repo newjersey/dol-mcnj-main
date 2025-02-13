@@ -15,8 +15,173 @@ import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 
 // Initialize a simple in-memory cache to store results temporarily.
-// TTL (Time-to-Live) is set to 300 seconds, and the cache is checked every 120 seconds.
-const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
+// TTL (Time-to-Live) is set to 900 seconds, and the cache is checked every 120 seconds.
+const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
+const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
+
+const tokenize = (text: string): string[] => {
+  return text
+    .replace(/[^a-zA-Z0-9- ]/g, "")  // Keep letters, numbers, hyphens, and spaces
+    .split(/\s+/)  // Split by spaces
+    .filter((word) => word.length > 1 && !STOP_WORDS.has(word.toLowerCase()));  // Remove short words & stop words
+};
+
+
+
+const levenshteinDistance = (a: string, b: string): number => {
+  const dp = Array.from({ length: a.length + 1 }, () =>
+    new Array(b.length + 1).fill(0)
+  );
+
+  for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+  for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      }
+    }
+  }
+
+  return dp[a.length][b.length];
+};
+
+const fuzzyMatch = (word1: string, word2: string): boolean => {
+  return word1.length > 4 && word2.length > 4 && levenshteinDistance(word1, word2) <= 1;
+};
+
+const COMMON_WORDS = new Set([
+  "systems", "technology", "training", "certificate", "certification",
+  "degree", "education", "course", "program", "school", "college", "academy"
+]);
+
+/**
+ * Ranks search results based on query relevance using multiple criteria.
+ *
+ * **Scoring Breakdown:**
+ * - **Exact Match Boosts**
+ *   - Full match with provider name: `+15000`
+ *   - Full match with training name or CIP title: `+2000`
+ *   - Exact multi-word phrase match: `+1000`
+ *
+ * - **Token-Based Boosts**
+ *   - Individual query tokens found in the training name: `+150`
+ *   - Individual query tokens found in the provider name: `+100`
+ *   - Individual query tokens found in the description: `+50`
+ *
+ * @param {string} query - The user's search query.
+ * @param {TrainingResult[]} results - The list of training results to rank.
+ * @param {number} [minScore=500] - The minimum score threshold for inclusion.
+ * @returns {TrainingResult[]} - Ranked and filtered results.
+ */
+const rankResults = (query: string, results: TrainingResult[], minScore = 500): TrainingResult[] => {
+  if (!query || results.length === 0) return [];
+
+  console.log(`🔍 Ranking ${results.length} results for query: "${query}"`);
+
+  const queryTokens = new Set(tokenize(query.toLowerCase()));
+  const queryPhrase = queryTokens.size > 1 ? [...queryTokens].join(" ") : null;
+
+  // ✅ Deduplicate results by `ctid`
+  const uniqueResults = Array.from(new Map(results.map(item => [item.ctid, item])).values());
+
+  return uniqueResults
+    .map((training) => {
+      if (!training.name) return { ...training, rank: 0 };
+
+      // ✅ Normalize text fields
+      const trainingName = training.name.trim().toLowerCase();
+      const trainingDesc = (training.description || "").trim().toLowerCase();
+      const providerName = (training.providerName || "").trim().toLowerCase();
+      const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
+      const cipTitle = (training.cipDefinition?.ciptitle || "").trim().toLowerCase();
+
+      // ✅ Precompute token sets for efficiency
+      const nameTokens = new Set(tokenize(trainingName));
+      const descTokens = new Set(tokenize(trainingDesc));
+      const providerTokens = new Set(tokenize(providerName));
+      const cipTokens = new Set(tokenize(cipTitle));
+      const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens]; // Convert set to array
+
+      let score = 0;
+      let strongMatch = false; // 🚨 Track whether this result is strongly relevant
+
+      console.log(`\n🔹 Evaluating: ${training.name} (${training.ctid})`);
+
+      // 🎯 **Exact Matches (High Weight)**
+      if (query === providerName) {
+        score += 15000;
+        strongMatch = true;
+        console.log(`🎯 Exact Provider Match: ${providerName} +15000`);
+      }
+      if (query === trainingName || cipTitle) {
+        score += 2000;
+        strongMatch = true;
+        console.log(`🎯 Exact Training Name or CIP Match: ${trainingName} / ${cipTitle} +2000`);
+      }
+      if (queryPhrase && allTokensArray.join(" ").includes(queryPhrase)) {
+        score += 1000;
+        strongMatch = true;
+        console.log(`✅ Exact Phrase Match: "${queryPhrase}" +1000`);
+      }
+
+      // 🔥 **Token-Based Matching (Weighted)**
+      queryTokens.forEach((token) => {
+        if (COMMON_WORDS.has(token)) {
+          console.log(`⚠️ Skipping common word: "${token}"`);
+          return; // 🚨 Ignore common words
+        }
+
+        if (nameTokens.has(token)) {
+          score += 150;
+          strongMatch = true;
+          console.log(`✅ Name Match: "${token}" +150`);
+        } else if (providerTokens.has(token)) {
+          score += 100;
+          strongMatch = true;
+          console.log(`✅ Provider Match: "${token}" +100`);
+        } else if (descTokens.has(token)) {
+          score += 50;
+          console.log(`✅ Description Match: "${token}" +50`);
+        }
+      });
+
+      // 📍 **Boost if location is mentioned**
+      trainingLocation.forEach((city) => {
+        if (queryTokens.has(city)) {
+          score += 1500;
+          strongMatch = true;
+          console.log(`📍 City Match: "${city}" +1500`);
+        }
+      });
+
+      // 🔍 **Optimized Fuzzy Matching**
+      queryTokens.forEach((queryToken) => {
+        allTokensArray.forEach((textToken) => {
+          if (!textToken.includes(queryToken) && fuzzyMatch(queryToken, textToken)) {
+            score += 50;
+            console.log(`🔍 Fuzzy Match: "${queryToken}" ~ "${textToken}" +50`);
+          }
+        });
+      });
+
+      console.log(`🔹 Final Score for "${training.name}": ${score}`);
+
+      // ❌ **Reject weak matches**
+      if (!strongMatch || score < minScore) {
+        console.log(`❌ Discarding "${training.name}" (score: ${score})`);
+        return { ...training, rank: 0 }; // Mark as irrelevant
+      }
+
+      return { ...training, rank: score };
+    })
+    .filter((r) => r.rank > 0) // ✅ NEW: Discard weak results
+    .sort((a, b) => b.rank - a.rank); // ✅ Sort by highest rank
+};
+
 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
@@ -343,7 +508,6 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       );
 
       // Cache the filtered results
-      cache.set(unFilteredCacheKey, unFilteredResults, 300); // Cache for 5 minutes
     } else {
       console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
     }
@@ -365,7 +529,10 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     );
 
     // Apply sorting to the cached filtered results
-    const sortedResults = sortTrainings(filteredResults, sort);
+    const rankedResults = rankResults(params.searchQuery, filteredResults);
+    // console.log(rankedResults);
+    const sortedResults = sortTrainings(rankedResults, sort);
+    cache.set(unFilteredCacheKey, rankedResults, 300); // Cache for 5 minutes
 
     // Paginate the sorted results
     const paginatedResults = paginateRecords(sortedResults, page, limit);
@@ -504,6 +671,7 @@ async function transformLearningOpportunityCTDLToTrainingResult(
     const result: TrainingResult = {
       ctid: learningOpportunity["ceterms:ctid"] || "",
       name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+      description: learningOpportunity["ceterms:description"]?.["en-US"] || "",
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
       totalCost: await credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost"),
       percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
@@ -523,7 +691,7 @@ async function transformLearningOpportunityCTDLToTrainingResult(
       hasChildcareAssistance: getChildcareAssistance,
       totalClockHours: null,
     };
-
+    // console.log(result);
     return result;
   } catch (error) {
     console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);

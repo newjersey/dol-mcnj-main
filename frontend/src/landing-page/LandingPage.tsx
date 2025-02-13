@@ -11,7 +11,6 @@ import CardRow from "../components/CardRow";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
-import { UpdateNotifier } from "../components/UpdateNotifier";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/homePage.jpg";
 import { useTranslation } from "react-i18next";
@@ -128,7 +127,6 @@ export const LandingPage = (props: Props): ReactElement => {
             />
           </>
         )}
-        {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
       </div>
     </Layout>
   );

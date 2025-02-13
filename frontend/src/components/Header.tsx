@@ -55,7 +55,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
               icons={true}
               url="/contact"
             />
-            <SignUpFormModal />
+            {process.env.REACT_APP_SIGNUP_FOR_UPDATES === "true" ? <SignUpFormModal /> : <></>}
           </div>
         )}
       </div>
@@ -91,7 +91,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
                 icons={true}
                 url="/contact"
               />
-              <SignUpFormModal />
+              {process.env.REACT_APP_SIGNUP_FOR_UPDATES === "true" ? <SignUpFormModal /> : <></>}
             </div>
           </div>
         </div>

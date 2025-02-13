@@ -9,6 +9,7 @@ import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from './routes/emailRoutes';
 import contentfulRouter from './contentful/index';
 import contactRouter from './routes/contactRoutes'
+import signUpRouter from './routes/signupRoutes'
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
@@ -212,6 +213,7 @@ app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModifie
 app.use(express.json());
 app.use("/api", router);
 app.use('/api/contact', contactRouter)
+app.use('/api/signup', signUpRouter)
 app.use('/api/emails', emailSubmissionRouter);
 app.use('/api/contentful', contentfulRouter);
 
