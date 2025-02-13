@@ -37,8 +37,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const ceRecords = await credentialEngineUtils.fetchValidCEData(values);
 
     if (ceRecords.length === 0) {
-      console.error("404 Not found: No CE Records Found");
-      throw new Error("Not Found");
+      return [];
     }
 
     // Process each CTDL resource record asynchronously
