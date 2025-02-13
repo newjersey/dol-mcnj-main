@@ -119,14 +119,17 @@ const fetchNJDOLResource = async (url: string): Promise<CTDLResource | null> => 
       "ceterms:ctid": ctid,
       "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
     };
+
     const response = await credentialEngineAPI.getResults(query, 0, 10);
     // console.log(response.data);
     return response.data.data.length > 0 ? response.data.data[0] : null;
+
   } catch (error) {
     logError(`Error fetching data for CTID`, error as Error);
     return null;
   }
 };
+
 
 /**
  * Processes a list of URLs to fetch valid Credential Engine data concurrently.
@@ -139,18 +142,21 @@ const   fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
   try {
     const processFn = async (url: string): Promise<CTDLResource | null> => {
       // Validate CTID before processing
-      if (!(await validateCtId(url))) {
+      const ctid = await getCtidFromURL(url);
+      if (!(await validateCtId(ctid))) {
         console.error(`Invalid CE ID: ${url}`);
         return null;
       }
 
       // Fetch certificate data with retry and exponential backoff
-      return await retryWithBackoff(
+      const result = await retryWithBackoff(
         () => fetchNJDOLResource(url),
         3, // Max retries
         1000, // Initial delay in ms
         `fetchValidCEData for URL: ${url}`
       );
+      console.log(result);
+      return result;
     };
 
     // Use processInBatches for concurrency and retries

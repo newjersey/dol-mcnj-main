@@ -62,7 +62,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
           // Construct credentials string from preparation data
           const credentials = await credentialEngineUtils.constructCredentialsString(filteredPreparationFor);
 
-          return {
+          const training =  {
             ctid: record["ceterms:ctid"],
             name: record["ceterms:name"] ? record["ceterms:name"]["en-US"] : "",
             cipDefinition: cipDefinition ? cipDefinition[0] : null,
@@ -91,6 +91,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
             hasJobPlacementAssistance: await credentialEngineUtils.checkSupportService(record, "support:JobPlacement"),
             hasChildcareAssistance: await credentialEngineUtils.checkSupportService(record, "support:Childcare"),
           };
+          console.log(training);
+          return training;
         })
     );
 
