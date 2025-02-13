@@ -39,4 +39,14 @@ describe.skip('findTrainingsByFactory', () => {
     const trainings = await findTrainingsBy(1, ['a', 'b']);
     expect(trainings).toEqual(expectedResult);
   });
+
+  it("should return an empty array when no CE records are found", async () => {
+    const stubDataClient = StubDataClient();
+    const findTrainingsBy = findTrainingsByFactory(stubDataClient);
+
+    const trainings = await findTrainingsBy(1, ["nonexistentValue"]);
+
+    expect(trainings).toEqual([]);
+  });
+
 });
