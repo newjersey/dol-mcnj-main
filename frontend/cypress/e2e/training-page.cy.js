@@ -18,8 +18,9 @@ describe("Training Page", () => {
     ).should("exist");
 
     // quick stats
-    cy.contains("High School Diploma or GED",).should("exist");
-    cy.contains("Completion time: 3-5 months").should("exist");
+    cy.contains("High School Diploma or GED").should("exist");
+    cy.contains("480 hours").should("exist");
+    cy.contains("More than 4 years").should("exist");
 
     // associated occupations
     cy.contains("Engineering Technologists and Technicians, Except Drafters, All Other").should("exist");
