@@ -489,30 +489,38 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     services?: string[],
     zipcode?: string
   }): Promise<TrainingData> => {
+    const overallStart = performance.now();
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
     const normalizedParams = normalizeQueryParams(params);
 
     const unFilteredCacheKey = `filteredResults-${JSON.stringify(normalizedParams)}`;
-    let unFilteredResults = cache.get<TrainingResult[]>(unFilteredCacheKey);
+
+    console.time("TotalSearchTime");
 
     // If unfiltered results are not in cache, fetch the results
+    let unFilteredResults = cache.get<TrainingResult[]>(unFilteredCacheKey);
     if (!unFilteredResults) {
       console.log(`Cache miss: Fetching results for query: ${normalizedParams.searchTerm}`);
+      const fetchStart = performance.now();
       const { learningOpportunities } = await searchLearningOpportunitiesInBatches(query);
+      console.log(`Batched API fetch took ${performance.now() - fetchStart} ms`);
 
+      const transformStart = performance.now();
       unFilteredResults = await Promise.all(
         learningOpportunities.map((learningOpportunity) =>
           transformLearningOpportunityCTDLToTrainingResult(dataClient, learningOpportunity, params.searchQuery)
         )
       );
+      console.log(`Transformation took ${performance.now() - transformStart} ms`)
 
-      // Cache the filtered results
+      // Optionally, cache here before filtering
     } else {
       console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
     }
 
     // Apply filtering
+    const filterStart = performance.now();
     const filteredResults = await filterRecords(
       unFilteredResults,
       params.cip_code,
@@ -527,15 +535,27 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.languages,
       params.services
     );
+    console.log(`Filtering took ${performance.now() - filterStart} ms`);
 
     // Apply sorting to the cached filtered results
+    const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
+    console.log(`Ranking took ${performance.now() - rankStart} ms`);
     // console.log(rankedResults);
+
+    const sortStart = performance.now();
     const sortedResults = sortTrainings(rankedResults, sort);
+    console.log(`Sorting took ${performance.now() - sortStart} ms`);
+
     cache.set(unFilteredCacheKey, rankedResults, 300); // Cache for 5 minutes
 
     // Paginate the sorted results
+    const paginateStart = performance.now();
     const paginatedResults = paginateRecords(sortedResults, page, limit);
+    console.log(`Pagination took ${performance.now() - paginateStart} ms`);
+
+    console.timeEnd("TotalSearchTime");
+    console.log(`Overall search (first page) took ${performance.now() - overallStart} ms`);
 
     const data = packageResults(page, limit, paginatedResults, sortedResults.length);
     return data;
