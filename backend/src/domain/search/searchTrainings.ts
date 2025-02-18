@@ -13,10 +13,12 @@ import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
+import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
 
 // Initialize a simple in-memory cache to store results temporarily.
 // TTL (Time-to-Live) is set to 900 seconds, and the cache is checked every 120 seconds.
 const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
+cache.flushAll();
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
 const tokenize = (text: string): string[] => {
@@ -498,26 +500,58 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     console.time("TotalSearchTime");
 
-    // If unfiltered results are not in cache, fetch the results
     let unFilteredResults = cache.get<TrainingResult[]>(unFilteredCacheKey);
+
     if (!unFilteredResults) {
       console.log(`Cache miss: Fetching results for query: ${normalizedParams.searchTerm}`);
-      const fetchStart = performance.now();
-      const { learningOpportunities } = await searchLearningOpportunitiesInBatches(query);
-      console.log(`Batched API fetch took ${performance.now() - fetchStart} ms`);
 
-      const transformStart = performance.now();
-      unFilteredResults = await Promise.all(
-        learningOpportunities.map((learningOpportunity) =>
-          transformLearningOpportunityCTDLToTrainingResult(dataClient, learningOpportunity, params.searchQuery)
-        )
-      );
-      console.log(`Transformation took ${performance.now() - transformStart} ms`)
+      if (page === 1) {
+        // For page 1: Fetch only an initial batch (e.g., 100 records) for a fast response.
+        console.log("Page 1 detected – fetching initial batch only for quick response.");
 
-      // Optionally, cache here before filtering
+        const fetchStart = performance.now();
+        const initialBatchResponse = await searchLearningOpportunities(query, 0, 100);
+        console.log(`Initial batch API fetch took ${performance.now() - fetchStart} ms`);
+
+        const transformStart = performance.now();
+        unFilteredResults = await Promise.all(
+          initialBatchResponse.learningOpportunities.map(lo =>
+            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+          )
+        );
+        console.log(`Initial batch transformation took ${performance.now() - transformStart} ms`);
+
+        // Trigger a background full fetch to update the cache for subsequent pages.
+        searchLearningOpportunitiesInBatches(query).then(async (fullResponse) => {
+          const fullTransformStart = performance.now();
+          const fullResults = await Promise.all(
+            fullResponse.learningOpportunities.map(lo =>
+              transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+            )
+          );
+          console.log(`Full dataset transformation took ${performance.now() - fullTransformStart} ms`);
+          cache.set(unFilteredCacheKey, fullResults, 300); // Cache full results for 5 minutes
+          console.log("Background full fetch complete; cache updated with full dataset.");
+        });
+
+      } else {
+        // For pages other than 1: Wait for the full dataset.
+        const fetchStart = performance.now();
+        const fullResponse = await searchLearningOpportunitiesInBatches(query);
+        console.log(`Batched API fetch took ${performance.now() - fetchStart} ms`);
+
+        const transformStart = performance.now();
+        unFilteredResults = await Promise.all(
+          fullResponse.learningOpportunities.map(lo =>
+            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+          )
+        );
+        console.log(`Full dataset transformation took ${performance.now() - transformStart} ms`);
+      }
     } else {
       console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
     }
+
 
     // Apply filtering
     const filterStart = performance.now();
@@ -660,8 +694,7 @@ async function transformLearningOpportunityCTDLToTrainingResult(
   try {
     const desc = learningOpportunity["ceterms:description"] ? learningOpportunity["ceterms:description"]["en-US"] : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
-    // Lazy load Credential Engine utilities when needed
-    const { credentialEngineUtils } = await import("../../credentialengine/CredentialEngineUtils");
+
     const provider = await credentialEngineUtils.getProviderData(learningOpportunity);
     const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
     const cipDefinition = cipCode ? await dataClient.findCipDefinitionByCip(cipCode) : null;
