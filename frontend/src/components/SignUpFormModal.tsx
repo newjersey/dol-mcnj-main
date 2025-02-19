@@ -328,7 +328,11 @@ export const SignUpFormModal = () => {
               </form>
               <p>
                 {t("SignUpFormModal.readAboutOur")}{" "}
-                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.nj.gov/nj/privacy.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {t("SignUpFormModal.privacyPolicy")}
                 </a>{" "}
                 {t("SignUpFormModal.andOur")}{" "}
