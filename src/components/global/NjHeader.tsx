@@ -1,4 +1,3 @@
-import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png";
 import { Envelope, MagnifyingGlass } from "@phosphor-icons/react";
 import { NavMenuProps } from "@utils/types";
 import Image from "next/image";
@@ -38,7 +37,7 @@ const NjHeader = ({ menu }: NjHeaderProps) => {
           <Image
             width={30}
             height={30}
-            src={stateSeal.src}
+            src="./stateSeal.png"
             alt="New Jersey State Seal"
           />
           <span>Official Site Of The State Of New Jersey</span>

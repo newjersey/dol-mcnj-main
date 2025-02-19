@@ -13,7 +13,9 @@ export const FancyBanner = ({
   subHeading,
 }: PageBannerProps) => {
   return (
-    <section className={`fancyBanner${className ? ` ${className}` : ""}`}>
+    <section
+      className={`fancyBanner opacity-5${className ? ` ${className}` : ""}`}
+    >
       <div className="container">
         <div className="copy">
           <h1>{title}</h1>
