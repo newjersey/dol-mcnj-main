@@ -8,36 +8,37 @@ import { DataClient } from "../DataClient";
 import { getHighlight } from "../utils/getHighlight";
 import { TrainingData, TrainingResult } from "../training/TrainingResult";
 import zipcodeJson from "../utils/zip-county.json";
-import zipcodes, {ZipCode} from "zipcodes";
+import zipcodes, { ZipCode } from "zipcodes";
 import { convertZipCodeToCounty } from "../utils/convertZipCodeToCounty";
 import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
-import {credentialEngineUtils} from "../../credentialengine/CredentialEngineUtils";
+import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 
-// Initialize a simple in-memory cache to store results temporarily.
-// TTL (Time-to-Live) is set to 900 seconds, and the cache is checked every 120 seconds.
+// ─── Initialize cache ─────────────────────────────────────────────────────────
+interface CachedResults {
+  results: TrainingResult[];
+  totalResults: number;
+}
+
 const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
 cache.flushAll();
+
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
 const tokenize = (text: string): string[] => {
   return text
-    .replace(/[^a-zA-Z0-9- ]/g, "")  // Keep letters, numbers, hyphens, and spaces
-    .split(/\s+/)  // Split by spaces
-    .filter((word) => word.length > 1 && !STOP_WORDS.has(word.toLowerCase()));  // Remove short words & stop words
+    .replace(/[^a-zA-Z0-9- ]/g, "") // Keep letters, numbers, hyphens, and spaces
+    .split(/\s+/)
+    .filter((word) => word.length > 1 && !STOP_WORDS.has(word.toLowerCase()));
 };
-
-
 
 const levenshteinDistance = (a: string, b: string): number => {
   const dp = Array.from({ length: a.length + 1 }, () =>
     new Array(b.length + 1).fill(0)
   );
-
   for (let i = 0; i <= a.length; i++) dp[i][0] = i;
   for (let j = 0; j <= b.length; j++) dp[0][j] = j;
-
   for (let i = 1; i <= a.length; i++) {
     for (let j = 1; j <= b.length; j++) {
       if (a[i - 1] === b[j - 1]) {
@@ -47,7 +48,6 @@ const levenshteinDistance = (a: string, b: string): number => {
       }
     }
   }
-
   return dp[a.length][b.length];
 };
 
@@ -56,64 +56,45 @@ const fuzzyMatch = (word1: string, word2: string): boolean => {
 };
 
 const COMMON_WORDS = new Set([
-  "systems", "technology", "training", "certificate", "certification",
-  "degree", "education", "course", "program", "school", "college", "academy"
+  "systems",
+  "technology",
+  "training",
+  "certificate",
+  "certification",
+  "degree",
+  "education",
+  "course",
+  "program",
+  "school",
+  "college",
+  "academy"
 ]);
 
 /**
  * Ranks search results based on query relevance using multiple criteria.
- *
- * **Scoring Breakdown:**
- * - **Exact Match Boosts**
- *   - Full match with provider name: `+15000`
- *   - Full match with training name or CIP title: `+2000`
- *   - Exact multi-word phrase match: `+1000`
- *
- * - **Token-Based Boosts**
- *   - Individual query tokens found in the training name: `+150`
- *   - Individual query tokens found in the provider name: `+100`
- *   - Individual query tokens found in the description: `+50`
- *
- * @param {string} query - The user's search query.
- * @param {TrainingResult[]} results - The list of training results to rank.
- * @param {number} [minScore=500] - The minimum score threshold for inclusion.
- * @returns {TrainingResult[]} - Ranked and filtered results.
  */
 const rankResults = (query: string, results: TrainingResult[], minScore = 500): TrainingResult[] => {
   if (!query || results.length === 0) return [];
-
   console.log(`🔍 Ranking ${results.length} results for query: "${query}"`);
-
   const queryTokens = new Set(tokenize(query.toLowerCase()));
   const queryPhrase = queryTokens.size > 1 ? [...queryTokens].join(" ") : null;
-
-  // ✅ Deduplicate results by `ctid`
   const uniqueResults = Array.from(new Map(results.map(item => [item.ctid, item])).values());
-
   return uniqueResults
     .map((training) => {
       if (!training.name) return { ...training, rank: 0 };
-
-      // ✅ Normalize text fields
       const trainingName = training.name.trim().toLowerCase();
       const trainingDesc = (training.description || "").trim().toLowerCase();
       const providerName = (training.providerName || "").trim().toLowerCase();
       const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
       const cipTitle = (training.cipDefinition?.ciptitle || "").trim().toLowerCase();
-
-      // ✅ Precompute token sets for efficiency
       const nameTokens = new Set(tokenize(trainingName));
       const descTokens = new Set(tokenize(trainingDesc));
       const providerTokens = new Set(tokenize(providerName));
       const cipTokens = new Set(tokenize(cipTitle));
-      const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens]; // Convert set to array
-
+      const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens];
       let score = 0;
-      let strongMatch = false; // 🚨 Track whether this result is strongly relevant
-
+      let strongMatch = false;
       console.log(`\n🔹 Evaluating: ${training.name} (${training.ctid})`);
-
-      // 🎯 **Exact Matches (High Weight)**
       if (query === providerName) {
         score += 15000;
         strongMatch = true;
@@ -129,14 +110,11 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
         strongMatch = true;
         console.log(`✅ Exact Phrase Match: "${queryPhrase}" +1000`);
       }
-
-      // 🔥 **Token-Based Matching (Weighted)**
       queryTokens.forEach((token) => {
         if (COMMON_WORDS.has(token)) {
           console.log(`⚠️ Skipping common word: "${token}"`);
-          return; // 🚨 Ignore common words
+          return;
         }
-
         if (nameTokens.has(token)) {
           score += 150;
           strongMatch = true;
@@ -150,8 +128,6 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
           console.log(`✅ Description Match: "${token}" +50`);
         }
       });
-
-      // 📍 **Boost if location is mentioned**
       trainingLocation.forEach((city) => {
         if (queryTokens.has(city)) {
           score += 1500;
@@ -159,8 +135,6 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
           console.log(`📍 City Match: "${city}" +1500`);
         }
       });
-
-      // 🔍 **Optimized Fuzzy Matching**
       queryTokens.forEach((queryToken) => {
         allTokensArray.forEach((textToken) => {
           if (!textToken.includes(queryToken) && fuzzyMatch(queryToken, textToken)) {
@@ -169,32 +143,22 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
           }
         });
       });
-
       console.log(`🔹 Final Score for "${training.name}": ${score}`);
-
-      // ❌ **Reject weak matches**
       if (!strongMatch || score < minScore) {
         console.log(`❌ Discarding "${training.name}" (score: ${score})`);
-        return { ...training, rank: 0 }; // Mark as irrelevant
+        return { ...training, rank: 0 };
       }
-
       return { ...training, rank: score };
     })
-    .filter((r) => r.rank > 0) // ✅ NEW: Discard weak results
-    .sort((a, b) => b.rank - a.rank); // ✅ Sort by highest rank
+    .filter((r) => r.rank > 0)
+    .sort((a, b) => b.rank - a.rank);
 };
-
 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
- * @param {object} query - The search query object.
- * @param {number} offset - The offset for pagination.
- * @param {number} limit - The maximum number of results to fetch in this batch.
- * @returns {Promise<{ learningOpportunities: CTDLResource[], totalResults: number }>}
  */
 const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
   try {
-    // console.log(`FETCHING RECORD with offset ${offset} and limit ${limit}`);
     const response = await credentialEngineAPI.getResults(query, offset, limit);
     return {
       learningOpportunities: response.data.data || [],
@@ -202,24 +166,18 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
     };
   } catch (error) {
     console.error(`Error fetching records (offset: ${offset}, limit: ${limit}):`, error);
-    // Return an empty result set to allow processing to continue
     return { learningOpportunities: [], totalResults: 0 };
   }
 };
 
 /**
- * Fetch all learning opportunities in batches, using a concurrency limit to avoid API overload.
- * @param {object} query - The search query object.
- * @param {number} batchSize - The size of each batch to fetch.
- * @returns {Promise<{ learningOpportunities: CTDLResource[], totalResults: number }>}
+ * Fetch all learning opportunities in batches.
  */
 const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 100) => {
   const learningOpportunities: CTDLResource[] = [];
   const initialResponse = await searchLearningOpportunities(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
   learningOpportunities.push(...initialResponse.learningOpportunities);
-
-  // Fetch subsequent batches.
   const fetchBatch = async (offset: number) => {
     try {
       const response = await searchLearningOpportunities(query, offset, batchSize);
@@ -229,39 +187,21 @@ const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 1
       return [];
     }
   };
-
   const offsets = [];
   for (let offset = batchSize; offset < totalResults; offset += batchSize) {
     offsets.push(offset);
   }
-
-  // Process batches concurrently, with a limit on the number of concurrent requests.
   const concurrencyLimit = 5;
   for (let i = 0; i < offsets.length; i += concurrencyLimit) {
     const batchOffsets = offsets.slice(i, i + concurrencyLimit);
     const results = await Promise.all(batchOffsets.map(fetchBatch));
     results.forEach((batch) => learningOpportunities.push(...batch));
   }
-
   return { learningOpportunities, totalResults };
 };
 
-
 /**
  * Filters training results based on various parameters.
- * @param {TrainingResult[]} results - The list of training results to filter.
- * @param {string} [cip_code] - Filter by CIP code.
- * @param {string} [soc_code] - Filter by SOC code.
- * @param {number[]} [complete_in] - Filter by completion time.
- * @param {boolean} [in_demand] - Filter by "in demand" status.
- * @param {number} [max_cost] - Filter by maximum cost.
- * @param {string} [county] - Filter by county.
- * @param {number} [miles] - Filter by distance in miles.
- * @param {string} [zipcode] - Filter by ZIP code.
- * @param {string[]} [format] - Filter by delivery format.
- * @param {string[]} [languages] - Filter by supported languages.
- * @param {string[]} [services] - Filter by available services.
- * @returns {Promise<TrainingResult[]>} - The filtered list of results.
  */
 const filterRecords = async (
   results: TrainingResult[],
@@ -278,56 +218,49 @@ const filterRecords = async (
   services?: string[]
 ): Promise<TrainingResult[]> => {
   let filteredResults = results;
-
-  // Filter by CIP code.
   if (cip_code) {
     const normalizedCip = normalizeCipCode(cip_code);
     filteredResults = filteredResults.filter(
-      (result) => normalizeCipCode(result.cipDefinition?.cipcode || '') === normalizedCip
+      (result) => normalizeCipCode(result.cipDefinition?.cipcode || "") === normalizedCip
     );
   }
-
-  // Filter by SOC code.
   if (soc_code) {
     const normalizedSoc = normalizeSocCode(soc_code);
     filteredResults = filteredResults.filter(
-      (result) => result.socCodes?.some(
-        (soc) => normalizeSocCode(soc) === normalizedSoc
-      )
+      (result) =>
+        result.socCodes?.some((soc) => normalizeSocCode(soc) === normalizedSoc)
     );
   }
-
   if (in_demand) {
     filteredResults = filteredResults.filter(result => !!result.inDemand);
   }
-
   if (complete_in && complete_in.length > 0) {
-    filteredResults = filteredResults.filter((result) => complete_in.includes(result.calendarLength as number));
+    filteredResults = filteredResults.filter((result) =>
+      complete_in.includes(result.calendarLength as number)
+    );
   }
-
   if (max_cost && max_cost > 0) {
-    filteredResults = filteredResults.filter((result) => result.totalCost !== null && result.totalCost !== undefined && result.totalCost <= max_cost);
+    filteredResults = filteredResults.filter(
+      (result) =>
+        result.totalCost !== null &&
+        result.totalCost !== undefined &&
+        result.totalCost <= max_cost
+    );
   }
-
   if (format && format.length > 0) {
     const deliveryTypeMapping: Record<string, DeliveryType> = {
       "inperson": DeliveryType.InPerson,
       "online": DeliveryType.OnlineOnly,
       "blended": DeliveryType.BlendedDelivery,
     };
-
-    // Convert format to the corresponding DeliveryType terms
     const mappedClassFormats = format
       .map((f) => deliveryTypeMapping[f.toLowerCase() as keyof typeof deliveryTypeMapping])
       .filter(Boolean);
-
-    // Filter results based on the mapped delivery types
     filteredResults = filteredResults.filter(result => {
       const deliveryTypes = result.deliveryTypes || [];
       return mappedClassFormats.some(mappedFormat => deliveryTypes.includes(mappedFormat));
     });
   }
-
   if (county) {
     filteredResults = filteredResults.filter(result => {
       const zipCodes = result.availableAt?.map(address => address.zipCode).filter(Boolean) || [];
@@ -335,64 +268,55 @@ const filterRecords = async (
       return counties.some(trainingCounty => trainingCounty.toLowerCase() === county.toLowerCase());
     });
   }
-
   if (miles !== undefined && miles >= 0 && zipcode) {
     const validZip = zipcodes.lookup(zipcode);
     if (!validZip) {
       console.warn(`Invalid ZIP code: ${zipcode}`);
       return [];
     }
-
     filteredResults = filteredResults.filter(result => {
       const zipCodes = result.availableAt?.map(address => address.zipCode).filter(Boolean) || [];
-
       if (miles === 0) {
         return zipCodes.some(trainingZip => trainingZip?.trim() === zipcode.trim());
       }
-
       const zipCodesInRadius = zipcodes.radius(zipcode as string & ZipCode, miles);
-
       return zipCodes
         .filter((trainingZip): trainingZip is string => Boolean(trainingZip))
         .some(trainingZip => zipCodesInRadius.includes(trainingZip as string & ZipCode));
     });
   }
   if (languages && languages.length > 0) {
-      filteredResults = filteredResults.filter(result => {
-        return languages.every(language => result.languages?.includes(language))
-      })
+    filteredResults = filteredResults.filter(result => {
+      return languages.every(language => result.languages?.includes(language));
+    });
   }
-
   if (services && services.length > 0) {
-    filteredResults = (await Promise.all(filteredResults.map(async result => { 
-        const serviceChecks = await Promise.all(services.map(async service => {
-          switch (service) {
-            case 'wheelchair':
-                return typeof result.isWheelchairAccessible === 'function'
-                    ? await result.isWheelchairAccessible() 
-                    : result.isWheelchairAccessible;
-            case 'evening':
-                return result.hasEveningCourses;
-            case 'placement':
-                return typeof result.hasJobPlacementAssistance === 'function'
-                    ? await result.hasJobPlacementAssistance()
-                    : result.hasJobPlacementAssistance;
-            case 'childcare':
-                return typeof result.hasChildcareAssistance === 'function'
-                    ? await result.hasChildcareAssistance()
-                    : result.hasChildcareAssistance;
-            default:
-                return false; 
+    filteredResults = (await Promise.all(filteredResults.map(async result => {
+      const serviceChecks = await Promise.all(services.map(async service => {
+        switch (service) {
+          case 'wheelchair':
+            return typeof result.isWheelchairAccessible === 'function'
+              ? await result.isWheelchairAccessible()
+              : result.isWheelchairAccessible;
+          case 'evening':
+            return result.hasEveningCourses;
+          case 'placement':
+            return typeof result.hasJobPlacementAssistance === 'function'
+              ? await result.hasJobPlacementAssistance()
+              : result.hasJobPlacementAssistance;
+          case 'childcare':
+            return typeof result.hasChildcareAssistance === 'function'
+              ? await result.hasChildcareAssistance()
+              : result.hasChildcareAssistance;
+          default:
+            return false;
         }
-        }))
-        return serviceChecks.every(Boolean) ? result : null
-      }))
-    ).filter(result => result !== null)
+      }));
+      return serviceChecks.every(Boolean) ? result : null;
+    }))).filter(result => result !== null);
   }
-
-
   return filteredResults;
-}
+};
 
 const paginateRecords = (trainingResults: TrainingResult[], page: number, limit: number) => {
   const start = (page - 1) * limit;
@@ -402,9 +326,6 @@ const paginateRecords = (trainingResults: TrainingResult[], page: number, limit:
 
 /**
  * Sorts training results based on the specified criteria.
- * @param {TrainingResult[]} trainings - The list of training results.
- * @param {string} sort - The sorting criteria (e.g., "asc", "desc", "price_asc").
- * @returns {TrainingResult[]} - The sorted list of results.
  */
 export const sortTrainings = (trainings: TrainingResult[], sort: string): TrainingResult[] => {
   switch (sort) {
@@ -441,8 +362,6 @@ export const sortTrainings = (trainings: TrainingResult[], sort: string): Traini
 
 /**
  * Normalizes query parameters for caching consistency.
- * @param {object} params - The query parameters.
- * @returns {object} - The normalized parameters.
  */
 function normalizeQueryParams(params: {
   searchQuery?: string;
@@ -472,7 +391,6 @@ function normalizeQueryParams(params: {
   };
 }
 
-
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
     searchQuery: string,
@@ -495,33 +413,28 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
     const normalizedParams = normalizeQueryParams(params);
-
     const unFilteredCacheKey = `filteredResults-${JSON.stringify(normalizedParams)}`;
-
     console.time("TotalSearchTime");
 
-    let unFilteredResults = cache.get<TrainingResult[]>(unFilteredCacheKey);
+    // Use CachedResults type here.
+    let cachedData = cache.get<CachedResults>(unFilteredCacheKey);
 
-    if (!unFilteredResults) {
+    if (!cachedData) {
       console.log(`Cache miss: Fetching results for query: ${normalizedParams.searchTerm}`);
-
       if (page === 1) {
-        // For page 1: Fetch only an initial batch (e.g., 100 records) for a fast response.
         console.log("Page 1 detected – fetching initial batch only for quick response.");
-
         const fetchStart = performance.now();
         const initialBatchResponse = await searchLearningOpportunities(query, 0, 100);
         console.log(`Initial batch API fetch took ${performance.now() - fetchStart} ms`);
-
         const transformStart = performance.now();
-        unFilteredResults = await Promise.all(
+        const unFilteredResults: TrainingResult[] = await Promise.all(
           initialBatchResponse.learningOpportunities.map(lo =>
             transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
           )
         );
         console.log(`Initial batch transformation took ${performance.now() - transformStart} ms`);
-
-        // Trigger a background full fetch to update the cache for subsequent pages.
+        cachedData = { results: unFilteredResults, totalResults: initialBatchResponse.totalResults };
+        // Trigger background full fetch to update the cache.
         searchLearningOpportunitiesInBatches(query).then(async (fullResponse) => {
           const fullTransformStart = performance.now();
           const fullResults = await Promise.all(
@@ -530,33 +443,30 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
             )
           );
           console.log(`Full dataset transformation took ${performance.now() - fullTransformStart} ms`);
-          cache.set(unFilteredCacheKey, fullResults, 300); // Cache full results for 5 minutes
+          cache.set(unFilteredCacheKey, { results: fullResults, totalResults: fullResponse.totalResults }, 300);
           console.log("Background full fetch complete; cache updated with full dataset.");
         });
-
       } else {
-        // For pages other than 1: Wait for the full dataset.
         const fetchStart = performance.now();
-        const fullResponse = await searchLearningOpportunitiesInBatches(query);
+        const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
         console.log(`Batched API fetch took ${performance.now() - fetchStart} ms`);
-
         const transformStart = performance.now();
-        unFilteredResults = await Promise.all(
-          fullResponse.learningOpportunities.map(lo =>
+        const unFilteredResults: TrainingResult[] = await Promise.all(
+          learningOpportunities.map(lo =>
             transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
           )
         );
         console.log(`Full dataset transformation took ${performance.now() - transformStart} ms`);
+        cachedData = { results: unFilteredResults, totalResults };
+        cache.set(unFilteredCacheKey, cachedData, 300);
       }
     } else {
       console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
     }
 
-
-    // Apply filtering
     const filterStart = performance.now();
     const filteredResults = await filterRecords(
-      unFilteredResults,
+      cachedData.results,
       params.cip_code,
       params.soc_code,
       params.complete_in,
@@ -571,19 +481,17 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     );
     console.log(`Filtering took ${performance.now() - filterStart} ms`);
 
-    // Apply sorting to the cached filtered results
     const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
     console.log(`Ranking took ${performance.now() - rankStart} ms`);
-    // console.log(rankedResults);
 
     const sortStart = performance.now();
     const sortedResults = sortTrainings(rankedResults, sort);
     console.log(`Sorting took ${performance.now() - sortStart} ms`);
 
-    cache.set(unFilteredCacheKey, rankedResults, 300); // Cache for 5 minutes
+    // Update cache with ranked results if needed.
+    cache.set(unFilteredCacheKey, cachedData, 300);
 
-    // Paginate the sorted results
     const paginateStart = performance.now();
     const paginatedResults = paginateRecords(sortedResults, page, limit);
     console.log(`Pagination took ${performance.now() - paginateStart} ms`);
@@ -591,7 +499,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     console.timeEnd("TotalSearchTime");
     console.log(`Overall search (first page) took ${performance.now() - overallStart} ms`);
 
-    const data = packageResults(page, limit, paginatedResults, sortedResults.length);
+    const data = packageResults(page, limit, paginatedResults, cachedData.totalResults);
     return data;
   };
 };
@@ -620,11 +528,9 @@ function buildQuery(params: {
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
-
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
   const [ownedByPart, trainingPart] = queryParts;
-
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
@@ -649,14 +555,13 @@ function buildQuery(params: {
         "search:matchType": "search:startsWith"
       }
     } : undefined,
-        "ceterms:instructionalProgramType": isCIP ?
-          {"ceterms:codedNotation": {
-            "search:value": params.searchQuery,
-            "search:matchType": "search:startsWith"
-          }
-    } : undefined
+    "ceterms:instructionalProgramType": isCIP ?
+      { "ceterms:codedNotation": {
+          "search:value": params.searchQuery,
+          "search:matchType": "search:startsWith"
+        }
+      } : undefined
   };
-
   if (hasMultipleParts) {
     termGroup = {
       "search:operator": "search:andTerms",
@@ -672,7 +577,6 @@ function buildQuery(params: {
       }
     };
   }
-
   return {
     "@type": {
       "search:value": "ceterms:LearningOpportunityProfile",
@@ -692,35 +596,29 @@ async function transformLearningOpportunityCTDLToTrainingResult(
   searchQuery: string
 ): Promise<TrainingResult> {
   try {
-    const desc = learningOpportunity["ceterms:description"] ? learningOpportunity["ceterms:description"]["en-US"] : null;
+    const desc = learningOpportunity["ceterms:description"]
+      ? learningOpportunity["ceterms:description"]["en-US"]
+      : null;
     const highlight = desc ? await getHighlight(desc, searchQuery) : "";
-
     const provider = await credentialEngineUtils.getProviderData(learningOpportunity);
     const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
     const cipDefinition = cipCode ? await dataClient.findCipDefinitionByCip(cipCode) : null;
-
     const occupations = await credentialEngineUtils.extractOccupations(learningOpportunity);
     const socCodes = occupations.map((occupation) => occupation.soc);
-
     let outcomesDefinition = null;
     if (provider?.providerId) {
       outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
     } else {
       console.warn("Provider is null; skipping outcomesDefinition lookup.");
     }
-
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const isInDemand = inDemandCIPs.map((c) => c.cipcode).includes(cipCode ?? "");
-
     const getWheelchairAccessibility = async () =>
       await credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
-
     const getJobPlacementAssistance = async () =>
       await credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
-
     const getChildcareAssistance = async () =>
       await credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
-
     const result: TrainingResult = {
       ctid: learningOpportunity["ceterms:ctid"] || "",
       name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
@@ -744,7 +642,6 @@ async function transformLearningOpportunityCTDLToTrainingResult(
       hasChildcareAssistance: getChildcareAssistance,
       totalClockHours: null,
     };
-    // console.log(result);
     return result;
   } catch (error) {
     console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);
@@ -756,7 +653,6 @@ function packageResults(page: number, limit: number, results: TrainingResult[], 
   const totalPages = Math.ceil(totalResults / limit);
   const hasPreviousPage = page > 1;
   const hasNextPage = page < totalPages;
-
   return {
     data: results,
     meta: {
@@ -778,6 +674,5 @@ const formatPercentEmployed = (perEmployed: string | null): number | null => {
   if (perEmployed === null || perEmployed === NAN_INDICATOR) {
     return null;
   }
-
   return parseFloat(perEmployed);
 };
