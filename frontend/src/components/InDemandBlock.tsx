@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
+import { Fire } from "@phosphor-icons/react";
 
 interface Props {
   counties?: string[];
@@ -12,12 +13,7 @@ export const InDemandBlock = (props: Props): ReactElement => {
   const countiesStr = props.counties ? formatCountiesArrayToString(props.counties) : null;
 
   return (
-    <div className="bg-light-orange countyBlock">
-      <h2>
-        {!countiesStr
-          ? t("InDemandBlock.inDemandTitle")
-          : t("InDemandBlock.localInDemandTitle", { countiesList: countiesStr })}
-      </h2>
+    <div className="county-block">
       <div>
         {t("InDemandBlock.inDemandText")}{" "}
         <a
@@ -29,6 +25,14 @@ export const InDemandBlock = (props: Props): ReactElement => {
         </a>
         .
       </div>
+      <strong>
+        <Fire size={24} weight="bold" />
+        <span>
+          {!countiesStr
+            ? t("InDemandBlock.inDemandTitle")
+            : t("InDemandBlock.localInDemandTitle", { countiesList: countiesStr })}
+        </span>
+      </strong>
     </div>
   );
 };

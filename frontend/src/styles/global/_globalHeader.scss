@@ -159,13 +159,15 @@
 }
 
 .alert-bar {
-  .usa-alert__body {
-    max-width: $desktop-xl + 30px;
-    padding-right: $size-80;
-  }
-  button {
-    position: absolute;
-    right: $size-32;
-    top: $size-16;
+  &.maintenance-alert {
+    .usa-alert__body {
+      max-width: $desktop-xl + 30px;
+      padding-right: $size-80;
+    }
+    button {
+      position: absolute;
+      right: $size-32;
+      top: $size-16;
+    }
   }
 }
