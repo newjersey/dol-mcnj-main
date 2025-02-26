@@ -498,7 +498,7 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
     emailLabel: "Email",
     emailRequired: "Email is required.",
     emailError: "Please enter a valid email address.",
-    phoneLabel: "Mobile phone number",
+    phoneLabel: "Mobile Phone Number",
     usPhoneOnlyLabel: "US phone numbers only",
     phoneError: "Please enter a valid phone number",
     submitButton: "Submit form",
