@@ -33,7 +33,7 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
   <script>
-    if (document.location.hostname.endsWith("mycareer.nj.gov")) {
+    if (document.location.hostname === "mycareer.nj.gov" || document.location.hostname === "test.mycareer.nj.gov" || document.location.hostname === "dev.mycareer.nj.gov") {
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -44,7 +44,7 @@
 </head>
 <body>
   <script>
-    if (document.location.hostname.endsWith("mycareer.nj.gov")) {
+    if (document.location.hostname === "mycareer.nj.gov" || document.location.hostname === "test.mycareer.nj.gov" || document.location.hostname === "dev.mycareer.nj.gov") {
       document.body.insertAdjacentHTML('afterbegin', '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBN58VK9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
     }
   </script>
