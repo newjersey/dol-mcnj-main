@@ -11,7 +11,6 @@ import contentfulRouter from './contentful/index';
 import contactRouter from './routes/contactRoutes'
 import signUpRouter from './routes/signupRoutes'
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
-import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
 import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandOccupations";
@@ -20,7 +19,9 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
+import { credentialEngineFactory } from "./domain/credentialengine/CredentialEngineFactory";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
+import { allTrainings } from "./domain/search/allTrainings";
 // import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
@@ -120,7 +121,7 @@ switch (process.env.NODE_ENV) {
     connection = {
       user: "postgres",
       host: process.env.DB_HOST_WRITER_AWSTEST || '',
-      database: "d4adtest",
+      database: "d4adlocal",
       password: process.env.DB_PASS_AWSTEST || '',
       port: 5432,
     };
@@ -167,11 +168,11 @@ if (!isCI) {
 }
 
 const postgresDataClient = new PostgresDataClient(connection);
-const postgresSearchClient = new PostgresSearchClient(connection);
 const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
 
 const router = routerFactory({
-  searchTrainings: searchTrainingsFactory(findTrainingsBy, postgresSearchClient),
+  allTrainings: allTrainings(),
+  searchTrainings: searchTrainingsFactory(postgresDataClient),
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getOccupationDetail: getOccupationDetailFactory(
@@ -187,9 +188,9 @@ const router = routerFactory({
           apiValues.careerOneStopUserId,
           apiValues.careerOneStopAuthToken
       ),
-      findTrainingsBy,
       postgresDataClient
   ),
+  getAllCertificates: credentialEngineFactory(),
   getOccupationDetailByCIP: getOccupationDetailByCIPFactory(
       OnetClient(
           apiValues.onetBaseUrl,
@@ -226,7 +227,6 @@ app.get("*", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());

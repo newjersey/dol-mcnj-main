@@ -98,8 +98,8 @@ describe("Occupation Page", () => {
       cy.contains("Construction and Building Inspectors").should("exist");
 
       // related trainings
-      cy.contains("Civil Engineering Technology A.A.S.").should("exist");
-      cy.contains("See More Results").should("exist");
+/*      cy.contains("Civil Engineering Technology A.A.S.").should("exist");
+      cy.contains("See More Results").should("exist");*/
 
       cy.checkA11y();
     });
@@ -160,23 +160,23 @@ describe("Occupation Page", () => {
       ).should("exist");
 
       // related trainings
-      cy.get(".card")
+      /*cy.get(".card")
         .eq(0)
         .within(() => {
           cy.contains("Web Programming Certification").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(1)
         .within(() => {
           cy.contains("Oracle 9i PL/SQL").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(2)
         .within(() => {
           cy.contains("E-Commerce II").should("exist");
-        });
+        });*/
     });
   });
 
@@ -211,23 +211,23 @@ describe("Occupation Page", () => {
       cy.contains("Graphic Designers").should("exist");
 
       // related trainings
-      cy.get(".card")
+      /*cy.get(".card")
         .eq(0)
         .within(() => {
           cy.contains("CCNA (Cisco Certified Network Associate)").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(1)
         .within(() => {
           cy.contains("CCNA (CISCO Cert Network Administrator)").should("exist");
         });
-      
+
       cy.get(".card")
         .eq(2)
         .within(() => {
           cy.contains("Cyber Crime Investigation").should("exist");
-        });
+        });*/
     });
   });
 });

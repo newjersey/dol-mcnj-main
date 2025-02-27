@@ -38,7 +38,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item1 && (
               <td
                 className="weight-500 align-top align-center pas phs bhdcg"
-                key={`${item1.id}-nam`}
+                key={`${item1.ctid}-nam`}
               >
                 {item1.name}
               </td>
@@ -46,7 +46,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item2 && (
               <td
                 className="weight-500 align-top align-center pas phs bhdcg"
-                key={`${item2.id}-nam`}
+                key={`${item2.ctid}-nam`}
               >
                 {item2.name}
               </td>
@@ -54,7 +54,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item3 && (
               <td
                 className="weight-500 align-top align-center pas phs bhdcg"
-                key={`${item3.id}-nam`}
+                key={`${item3.ctid}-nam`}
               >
                 {item3.name}
               </td>
@@ -64,7 +64,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item1 && (
               <td
                 className={`align-top align-center bhdcg ${showInDemand ? "pas" : "pts pbd phs"}`}
-                key={`${item1.id}-pro`}
+                key={`${item1.ctid}-pro`}
               >
                 {item1.providerName}
               </td>
@@ -72,7 +72,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item2 && (
               <td
                 className={`align-top align-center bhdcg ${showInDemand ? "pas" : "pts pbd phs"}`}
-                key={`${item2.id}-pro`}
+                key={`${item2.ctid}-pro`}
               >
                 {item2.providerName}
               </td>
@@ -80,7 +80,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item3 && (
               <td
                 className={`align-top align-center bhdcg ${showInDemand ? "pas" : "pts pbd phs"}`}
-                key={`${item3.id}-pro`}
+                key={`${item3.ctid}-pro`}
               >
                 {item3.providerName}
               </td>
@@ -88,16 +88,16 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           {showInDemand && (
             <tr>
-              <td className={`align-center pas brdcg`} key={`${item1.id}-dem`}>
+              <td className={`align-center pas brdcg`} key={`${item1.ctid}-dem`}>
                 {item1?.inDemand && <InDemandTag />}
               </td>
               {(item2 || item3) && (
-                <td className="align-center pas" key={`${item2.id}-dem`}>
+                <td className="align-center pas" key={`${item2.ctid}-dem`}>
                   {item2?.inDemand && <InDemandTag />}
                 </td>
               )}
               {item3 && (
-                <td className={`align-center pas bldcg`} key={`${item3.id}-dem`}>
+                <td className={`align-center pas bldcg`} key={`${item3.ctid}-dem`}>
                   {item3?.inDemand && <InDemandTag />}
                 </td>
               )}
@@ -118,17 +118,17 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             {item1 && (
-              <td className="align-center pas bhdcg" key={`${item1.id}-cos`}>
+              <td className="align-center pas bhdcg" key={`${item1.ctid}-cos`}>
                 {formatMoney(item1.totalCost)}
               </td>
             )}
             {item2 && (
-              <td className="align-center pas bhdcg" key={`${item2.id}-cos`}>
+              <td className="align-center pas bhdcg" key={`${item2.ctid}-cos`}>
                 {formatMoney(item2.totalCost)}
               </td>
             )}
             {item3 && (
-              <td className="align-center pas bhdcg" key={`${item3.id}-cos`}>
+              <td className="align-center pas bhdcg" key={`${item3.ctid}-cos`}>
                 {formatMoney(item3.totalCost)}
               </td>
             )}
@@ -149,7 +149,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item3 && <td className="weight-500 pas bhdcg bg-light-purple"></td>}
           </tr>
           <tr>
-            <td className="align-center pas bhdcg" key={`${item1.id}-emp`}>
+            <td className="align-center pas bhdcg" key={`${item1.ctid}-emp`}>
               {item1.percentEmployed
                 ? t("SearchResultsPage.percentEmployed", {
                     percent: formatPercentEmployed(item1.percentEmployed),
@@ -157,7 +157,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                 : t("SearchResultsPage.percentEmployedUnavailable")}
             </td>
             {item2 && (
-              <td className="align-center pas bhdcg" key={`${item2.id}-emp`}>
+              <td className="align-center pas bhdcg" key={`${item2.ctid}-emp`}>
                 {item2.percentEmployed
                   ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item2.percentEmployed),
@@ -166,7 +166,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
               </td>
             )}
             {item3 && (
-              <td className="align-center pas bhdcg" key={`${item3.id}-emp`}>
+              <td className="align-center pas bhdcg" key={`${item3.ctid}-emp`}>
                 {item3.percentEmployed
                   ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item3.percentEmployed),
@@ -192,50 +192,50 @@ export const ComparisonTable = (props: Props): ReactElement => {
           </tr>
           <tr>
             {item1 && (
-              <td className="align-center ptd pbxl bhdcg" key={`${item1.id}-cal`}>
+              <td className="align-center ptd pbxl bhdcg" key={`${item1.ctid}-cal`}>
                 {t(`CalendarLengthLookup.${item1.calendarLength}`)}
               </td>
             )}
             {item2 && (
-              <td className="align-center ptd pbxl bhdcg" key={`${item2.id}-cal`}>
+              <td className="align-center ptd pbxl bhdcg" key={`${item2.ctid}-cal`}>
                 {t(`CalendarLengthLookup.${item2.calendarLength}`)}
               </td>
             )}
             {item3 && (
-              <td className="align-center ptd pbxl bhdcg" key={`${item3.id}-cal`}>
+              <td className="align-center ptd pbxl bhdcg" key={`${item3.ctid}-cal`}>
                 {t(`CalendarLengthLookup.${item3.calendarLength}`)}
               </td>
             )}
           </tr>
           <tr>
             {item1 && (
-              <td className="align-center ptd pbs bhdcg" key={`${item1.id}-det`}>
+              <td className="align-center ptd pbs bhdcg" key={`${item1.ctid}-det`}>
                 <Button
                   className="btn-details"
                   variant="secondary"
-                  onClick={() => navigate(`/training/${item1.id}`)}
+                  onClick={() => navigate(`/training/${item1.ctid}`)}
                 >
                   {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
             {item2 && (
-              <td className="align-center ptd pbs bhdcg" key={`${item2.id}-det`}>
+              <td className="align-center ptd pbs bhdcg" key={`${item2.ctid}-det`}>
                 <Button
                   className="btn-details"
                   variant="secondary"
-                  onClick={() => navigate(`/training/${item2.id}`)}
+                  onClick={() => navigate(`/training/${item2.ctid}`)}
                 >
                   {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
             {item3 && (
-              <td className="align-center ptd pbs bhdcg" key={`${item3.id}-det`}>
+              <td className="align-center ptd pbs bhdcg" key={`${item3.ctid}-det`}>
                 <Button
                   className="btn-details"
                   variant="secondary"
-                  onClick={() => navigate(`/training/${item3.id}`)}
+                  onClick={() => navigate(`/training/${item3.ctid}`)}
                 >
                   {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
@@ -254,17 +254,17 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="tbl-header pas" />
             {item1 && (
-              <td className="weight-500 align-top align-center pvs" key={`${item1.id}-nam`}>
+              <td className="weight-500 align-top align-center pvs" key={`${item1.ctid}-nam`}>
                 {item1.name}
               </td>
             )}
             {item2 && (
-              <td className="weight-500 align-top align-center pvs bldcg" key={`${item2.id}-nam`}>
+              <td className="weight-500 align-top align-center pvs bldcg" key={`${item2.ctid}-nam`}>
                 {item2.name}
               </td>
             )}
             {item3 && (
-              <td className="weight-500 align-top align-center pvs bldcg" key={`${item3.id}-nam`}>
+              <td className="weight-500 align-top align-center pvs bldcg" key={`${item3.ctid}-nam`}>
                 {item3.name}
               </td>
             )}
@@ -274,7 +274,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item1 && (
               <td
                 className={`align-top align-center ${!showInDemand ? "pbd" : ""}`}
-                key={`${item1.id}-pro`}
+                key={`${item1.ctid}-pro`}
               >
                 {item1.providerName}
               </td>
@@ -282,7 +282,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item2 && (
               <td
                 className={`align-top align-center bldcg ${!showInDemand ? "pbd" : ""}`}
-                key={`${item2.id}-pro`}
+                key={`${item2.ctid}-pro`}
               >
                 {item2.providerName}
               </td>
@@ -290,7 +290,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             {item3 && (
               <td
                 className={`align-top align-center bldcg ${!showInDemand ? "pbd" : ""}`}
-                key={`${item3.id}-pro`}
+                key={`${item3.ctid}-pro`}
               >
                 {item3.providerName}
               </td>
@@ -299,7 +299,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
           {showInDemand && (
             <tr>
               <td className="tbl-header" />
-              <td className={`align-center pvd brdcg`} key={`${item1.id}-dem`}>
+              <td className={`align-center pvd brdcg`} key={`${item1.ctid}-dem`}>
                 {item1?.inDemand && (
                   <>
                     <InDemandTag />
@@ -307,7 +307,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                 )}
               </td>
               {(item2 || item3) && (
-                <td className="align-center pvd" key={`${item2.id}-dem`}>
+                <td className="align-center pvd" key={`${item2.ctid}-dem`}>
                   {item2?.inDemand && (
                     <>
                       <InDemandTag />
@@ -316,7 +316,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                 </td>
               )}
               {item3 && (
-                <td className={`align-center pvd bldcg`} key={`${item3.id}-dem`}>
+                <td className={`align-center pvd bldcg`} key={`${item3.ctid}-dem`}>
                   {item3?.inDemand && (
                     <>
                       <InDemandTag />
@@ -331,17 +331,17 @@ export const ComparisonTable = (props: Props): ReactElement => {
               <span>{t("SearchResultsPage.comparisonCostLabel")}</span>
             </td>
             {item1 && (
-              <td className="align-center pvd btdcg" key={`${item1.id}-cos`}>
+              <td className="align-center pvd btdcg" key={`${item1.ctid}-cos`}>
                 {formatMoney(item1.totalCost)}
               </td>
             )}
             {item2 && (
-              <td className="align-center pvd btdcg bldcg" key={`${item2.id}-cos`}>
+              <td className="align-center pvd btdcg bldcg" key={`${item2.ctid}-cos`}>
                 {formatMoney(item2.totalCost)}
               </td>
             )}
             {item3 && (
-              <td className="align-center pvd btdcg bldcg" key={`${item3.id}-cos`}>
+              <td className="align-center pvd btdcg bldcg" key={`${item3.ctid}-cos`}>
                 {formatMoney(item3.totalCost)}
               </td>
             )}
@@ -350,7 +350,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
             <td className="weight-500 tbl-header btdcg">
               <span>{t("SearchResultsPage.comparisonEmploymentRateLabel")}</span>
             </td>
-            <td className="align-center pvd btdcg" key={`${item1.id}-emp`}>
+            <td className="align-center pvd btdcg" key={`${item1.ctid}-emp`}>
               {item1.percentEmployed
                 ? t("SearchResultsPage.percentEmployed", {
                     percent: formatPercentEmployed(item1.percentEmployed),
@@ -358,7 +358,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
                 : t("SearchResultsPage.percentEmployedUnavailable")}
             </td>
             {item2 && (
-              <td className="align-center pvd btdcg bldcg" key={`${item2.id}-emp`}>
+              <td className="align-center pvd btdcg bldcg" key={`${item2.ctid}-emp`}>
                 {item2.percentEmployed
                   ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item2.percentEmployed),
@@ -367,7 +367,7 @@ export const ComparisonTable = (props: Props): ReactElement => {
               </td>
             )}
             {item3 && (
-              <td className="align-center pvd btdcg bldcg" key={`${item3.id}-emp`}>
+              <td className="align-center pvd btdcg bldcg" key={`${item3.ctid}-emp`}>
                 {item3.percentEmployed
                   ? t("SearchResultsPage.percentEmployed", {
                       percent: formatPercentEmployed(item3.percentEmployed),
@@ -381,17 +381,17 @@ export const ComparisonTable = (props: Props): ReactElement => {
               <span>{t("SearchResultsPage.comparisonTimeToCompleteLabel")}</span>
             </td>
             {item1 && (
-              <td className="align-center ptd pbl btdcg" key={`${item1.id}-cal`}>
+              <td className="align-center ptd pbl btdcg" key={`${item1.ctid}-cal`}>
                 {t(`CalendarLengthLookup.${item1.calendarLength}`)}
               </td>
             )}
             {item2 && (
-              <td className="align-center ptd pbl btdcg bldcg" key={`${item2.id}-cal`}>
+              <td className="align-center ptd pbl btdcg bldcg" key={`${item2.ctid}-cal`}>
                 {t(`CalendarLengthLookup.${item2.calendarLength}`)}
               </td>
             )}
             {item3 && (
-              <td className="align-center ptd pbl btdcg bldcg" key={`${item3.id}-cal`}>
+              <td className="align-center ptd pbl btdcg bldcg" key={`${item3.ctid}-cal`}>
                 {t(`CalendarLengthLookup.${item3.calendarLength}`)}
               </td>
             )}
@@ -399,33 +399,33 @@ export const ComparisonTable = (props: Props): ReactElement => {
           <tr>
             <td className="tbl-header"></td>
             {item1 && (
-              <td className="align-center align-bottom ptd pbz bldcg" key={`${item1.id}-det`}>
+              <td className="align-center align-bottom ptd pbz bldcg" key={`${item1.ctid}-det`}>
                 <Button
                   className="btn-details"
                   variant="secondary"
-                  onClick={() => navigate(`/training/${item1.id}`)}
+                  onClick={() => navigate(`/training/${item1.ctid}`)}
                 >
                   {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
             {item2 && (
-              <td className="align-center align-bottom ptd pbz bldcg" key={`${item2.id}-det`}>
+              <td className="align-center align-bottom ptd pbz bldcg" key={`${item2.ctid}-det`}>
                 <Button
                   className="btn-details"
                   variant="secondary"
-                  onClick={() => navigate(`/training/${item2.id}`)}
+                  onClick={() => navigate(`/training/${item2.ctid}`)}
                 >
                   {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>
               </td>
             )}
             {item3 && (
-              <td className="align-center align-bottom ptd pbz bldcg" key={`${item3.id}-det`}>
+              <td className="align-center align-bottom ptd pbz bldcg" key={`${item3.ctid}-det`}>
                 <Button
                   className="btn-details"
                   variant="secondary"
-                  onClick={() => navigate(`/training/${item3.id}`)}
+                  onClick={() => navigate(`/training/${item3.ctid}`)}
                 >
                   {t("SearchResultsPage.comparisonSeeDetails")}
                 </Button>

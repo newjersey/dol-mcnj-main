@@ -1,27 +1,26 @@
 import {
   LocalException,
-  Program,
   SocDefinition,
   CipDefinition,
   EducationText,
   SalaryEstimate,
-  NullableOccupation,
+  NullableOccupation, OutcomeDefinition,
 } from "./training/Program";
 import { Occupation } from "./occupations/Occupation";
-import { Selector } from "./training/Selector";
 
 export interface DataClient {
-  findProgramsBy: (selector: Selector, values: string[]) => Promise<Program[]>;
   findOccupationsByCip: (cip: string) => Promise<Occupation[]>;
   findSocDefinitionBySoc: (soc: string) => Promise<SocDefinition>;
   findCipDefinitionBySoc2018: (soc: string) => Promise<CipDefinition[]>;
   findCipDefinitionByCip: (cip: string) => Promise<CipDefinition[]>;
+  findOutcomeDefinition: (cip: string, providerId: string) => Promise<OutcomeDefinition>;
   find2018OccupationsBySoc2010: (soc2010: string) => Promise<Occupation[]>;
   find2010OccupationsBySoc2018: (soc2018: string) => Promise<Occupation[]>;
   findLocalExceptionsBySoc: (soc: string) => Promise<LocalException[]>;
   getLocalExceptionsByCip: () => Promise<LocalException[]>;
   getLocalExceptionsBySoc: () => Promise<LocalException[]>;
   getOccupationsInDemand: () => Promise<NullableOccupation[]>;
+  getCIPsInDemand: () => Promise<CipDefinition[]>;
   getEducationTextBySoc: (soc: string) => Promise<EducationText>;
   getSalaryEstimateBySoc: (soc: string) => Promise<SalaryEstimate>;
   getOESOccupationBySoc: (soc: string) => Promise<Occupation>;
