@@ -246,6 +246,7 @@ async function getProviderData(resource: CTDLResource): Promise<Provider | null>
   }
 }
 
+
 /**
  * Retrieves address information from a given CTDL resource.
  * @param resource - The CTDL resource containing address data.
@@ -351,7 +352,7 @@ const extractOccupations = async (resource: CTDLResource): Promise<Occupation[]>
       .filter(
         (occupation) =>
           occupation["ceterms:frameworkName"]?.["en-US"] ===
-            "Standard Occupational Classification" &&
+          "Standard Occupational Classification" &&
           occupation["ceterms:codedNotation"] &&
           occupation["ceterms:targetNodeName"]?.["en-US"],
       )
@@ -553,7 +554,7 @@ const checkAccommodation = async (resource: CTDLResource, targetNode: string,): 
           return true;
         }
       } catch (error) {
-          console.error(`Error for accommodation check, skipping CTID: ${ctid}`);
+        console.error(`Error for accommodation check, skipping CTID: ${ctid}`);
       }
     }
     return false;

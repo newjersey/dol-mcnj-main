@@ -21,7 +21,7 @@ import { ComparisonContext } from "../comparison/ComparisonContext";
 import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
 import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
-import { getTrainingData, getSearchQuery, filterChips } from "./searchFunctions";
+import {getSearchQuery, filterChips, getTrainingData} from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
@@ -34,48 +34,59 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
-
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [sortBy, setSortBy] = useState<
-    "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match"
-  >("best_match");
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+  const searchQuery = getSearchQuery(location?.search);
+  const [filters, setFilters] = useState({
+    itemsPerPage: 10,
+    pageNumber: 1,
+    sortBy: "best_match" as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    searchQuery: searchQuery || "",
+    cipCode: undefined as string | undefined,
+    classFormat: [] as string[],
+    completeIn: [] as string[],
+    county: undefined as CountyProps | undefined,
+    inDemand: false,
+    languages: [] as LanguageProps[],
+    maxCost: undefined as number | undefined,
+    miles: undefined as number | undefined,
+    services: [] as string[],
+    socCode: undefined as string | undefined,
+    zipcode: undefined as string | undefined,
+  });
 
-  const [cipCode, setCipCode] = useState<string | undefined>(undefined);
-  const [classFormat, setClassFormat] = useState<string[]>([]);
-  const [completeIn, setCompleteIn] = useState<string[]>([]);
-  const [county, setCounty] = useState<CountyProps | undefined>(undefined);
-  const [inDemand, setInDemand] = useState<boolean>(false);
-  const [languages, setLanguages] = useState<LanguageProps[]>([]);
-  const [maxCost, setMaxCost] = useState<string | undefined>(undefined);
-  const [miles, setMiles] = useState<string | undefined>(undefined);
-  const [services, setServices] = useState<string[]>([]);
-  const [socCode, setSocCode] = useState<string | undefined>(undefined);
-  const [zipcode, setZipcode] = useState<string | undefined>(undefined);
 
   const comparisonState = useContext(ComparisonContext).state;
-  const searchQuery = getSearchQuery(location?.search);
+
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (searchQuery) {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("p", "1");
-      window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
-      setPageNumber(1);
-    }
-  }, [searchQuery]);
-
-  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const page = urlParams.get("p");
-    const pageNumberValue = page ? parseInt(page, 10) : 1;
 
-    if (pageNumberValue !== pageNumber) {
-      setPageNumber(pageNumberValue); // Sync state with URL
-    }
-  }, [pageNumber, window.location.search]);
+    const updatedFilters = {
+      pageNumber: parseInt(urlParams.get("p") || "1", 10),
+      itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
+      sortBy: (urlParams.get("sort") as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") || "best_match",
+      cipCode: urlParams.get("cip") || undefined,
+      classFormat: urlParams.get("format") ? urlParams.get("format")!.split(",") : [],
+      completeIn: urlParams.get("completeIn") ? urlParams.get("completeIn")!.split(",") : [],
+      county: urlParams.get("county") ? ({ name: urlParams.get("county")! } as unknown as CountyProps) : undefined,
+      inDemand: urlParams.get("inDemand") === "true",
+      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as LanguageProps[]) : [],
+      maxCost: urlParams.get("maxCost") ? parseInt(urlParams.get("maxCost")!) : undefined,
+      miles: urlParams.get("miles") ? parseInt(urlParams.get("miles")!) : undefined,
+      services: urlParams.get("services") ? urlParams.get("services")!.split(",") : [],
+      socCode: urlParams.get("soc") || undefined,
+      zipcode: urlParams.get("zipcode") || undefined,
+      searchQuery: getSearchQuery(window.location.search) || ""
+    };
+
+    setFilters((prev) => ({
+      ...prev,
+      ...updatedFilters,
+    }));
+  }, [window.location.search]);
+
+
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -94,60 +105,24 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     const socCodeValue = urlParams.get("soc");
     const zipcodeValue = urlParams.get("zipcode");
 
-    const completeInArray: number[] = [];
     const limitValue = limit ? parseInt(limit) : 10;
     const pageNumberValue = page ? parseInt(page) : 1;
 
-    let cipCode,
-      classFormat,
-      county,
-      inDemand,
-      languages,
-      maxCost,
-      miles,
-      services,
-      socCode,
-      zipCode;
-
     setIsLoading(true);
-    if (pageNumberValue !== pageNumber) setPageNumber(pageNumberValue);
-    if (itemsPerPage !== limitValue) setItemsPerPage(limitValue);
 
-    if (sortBy) {
-      setSortBy(
-        sortByValue as
-          | "asc"
-          | "desc"
-          | "price_asc"
-          | "price_desc"
-          | "EMPLOYMENT_RATE"
-          | "best_match",
-      );
-    } else {
-      setSortBy("best_match");
-    }
-
-    if (cipCodeValue) {
-      setCipCode(cipCodeValue);
-      cipCode = cipCodeValue;
-    }
-
-    if (classFormatValue) {
-      const classFormatArray =
-        classFormatValue.includes(",") || classFormatValue.includes("%2C")
-          ? classFormatValue.split(",")
-          : [classFormatValue];
-      setClassFormat(classFormatArray);
-      classFormat = classFormatArray;
-    }
+    /** ✅ **Process `completeIn` correctly** */
+    const completeInArray: number[] = [];
+    let completeInStringArray: string[] = [];
 
     if (completeInValue) {
       const completeValues =
         completeInValue.includes(",") || completeInValue.includes("%2C")
           ? completeInValue.split(",")
           : [completeInValue];
-      setCompleteIn(completeValues);
-      completeValues.map((value) => {
+
+      completeInStringArray = completeValues; // Store string version in filters
+
+      completeValues.forEach((value) => {
         switch (value) {
           case "days":
             completeInArray.push(1, 2, 3);
@@ -162,108 +137,70 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             completeInArray.push(8, 9, 10);
             break;
         }
-        return completeInArray;
       });
     }
 
-    if (countyValue) {
-      setCounty(countyValue as CountyProps);
-      county = countyValue;
-    }
 
-    if (inDemandValue) {
-      const inDemandText = inDemandValue.toLowerCase();
-      const inDemandBool = inDemandText === "true";
-      setInDemand(inDemandBool);
-      inDemand = inDemandBool;
-    }
+    /** ✅ **Update filters state** */
+    setFilters((prev) => ({
+      ...prev,
+      pageNumber: pageNumberValue,
+      itemsPerPage: limitValue,
+      sortBy: sortByValue
+        ? (sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match")
+        : "best_match",
+      cipCode: cipCodeValue || undefined,
+      classFormat: classFormatValue ? classFormatValue.split(",") : [],
+      completeIn: completeInStringArray, // ✅ Keep as string[]
+      county: countyValue ? (countyValue as CountyProps) : undefined,
+      inDemand: inDemandValue === "true",
+      languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
+      maxCost: maxCostValue ? parseInt(maxCostValue) : undefined,
+      miles: milesValue ? parseInt(milesValue) : undefined,
+      services: servicesValue ? servicesValue.split(",") : [],
+      socCode: socCodeValue || undefined,
+      zipcode: zipcodeValue || undefined,
+    }));
 
-    if (languagesValue) {
-      const languagesArray =
-        languagesValue.includes(",") || languagesValue.includes("%2C")
-          ? languagesValue.split(",")
-          : [languagesValue];
-      setLanguages(languagesArray as LanguageProps[]);
-      languages = languagesArray;
-    }
-
-    if (maxCostValue) {
-      setMaxCost(maxCostValue);
-      maxCost = parseInt(maxCostValue);
-    }
-
-    if (milesValue) {
-      setMiles(milesValue);
-      miles = parseInt(milesValue);
-    }
-
-    if (servicesValue) {
-      const servicesArray =
-        servicesValue.includes(",") || servicesValue.includes("%2C")
-          ? servicesValue.split(",")
-          : [servicesValue];
-      setServices(servicesArray);
-      services = servicesArray;
-    }
-
-    if (socCodeValue) {
-      setSocCode(socCodeValue);
-      socCode = socCodeValue;
-    }
-
-    if (zipcodeValue) {
-      setZipcode(zipcodeValue);
-      zipCode = zipcodeValue;
-    }
-
-    const queryToSearch = searchQuery ? searchQuery : "";
+    /** ✅ **Fetch training data using correct filters** */
     getTrainingData(
       client,
-      queryToSearch,
+      searchQuery || "",
       setIsError,
       setIsLoading,
       setMetaData,
       setTrainings,
-      cipCode,
-      classFormat,
-      completeInArray,
-      county,
-      inDemand,
-      limitValue,
-      languages,
-      maxCost,
-      miles,
-      pageNumber,
-      services,
-      socCode,
-      sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
-      zipCode,
+      filters.cipCode,
+      filters.classFormat,
+      completeInArray, // ✅ Pass the correctly mapped numeric values
+      filters.county,
+      filters.inDemand,
+      filters.itemsPerPage,
+      filters.languages,
+      filters.maxCost,
+      filters.miles,
+      filters.pageNumber,
+      filters.services,
+      filters.socCode,
+      filters.sortBy,
+      filters.zipcode
     );
-  }, [client, searchQuery, pageNumber]);
+
+  }, [client, searchQuery, JSON.stringify(filters)]);
+
 
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     const newNumber = parseInt(event.target.value);
-    setItemsPerPage(newNumber);
 
-    const urlParams = window.location.search;
+    // ✅ Update state properly
+    setFilters((prev) => ({ ...prev, itemsPerPage: newNumber }));
 
-    let newUrl;
-    if (urlParams.includes("limit")) {
-      newUrl =
-        newNumber !== 10
-          ? urlParams.replace(/limit=[^&]*/, `limit=${newNumber}`)
-          : urlParams.replace(/&?limit=[^&]*/, "");
-      window.history.replaceState({}, "", newUrl);
-    } else if (newNumber !== 10) {
-      newUrl = `${urlParams}&limit=${newNumber}`;
-      window.history.replaceState({}, "", newUrl);
-    }
-
-    if (newUrl) {
-      navigate(newUrl);
-      window.location.reload();
-    }
+    // ✅ Update URL properly
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("limit", newNumber.toString());
+    navigate(`?${urlParams.toString()}`, { replace: true });
   };
+
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as
@@ -273,42 +210,28 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       | "price_desc"
       | "EMPLOYMENT_RATE"
       | "best_match";
+
     logEvent("Search", "Updated sort", newSortOrder);
 
-    const urlParams = window.location.search;
+    // ✅ Update state first
+    setFilters((prev) => ({ ...prev, sortBy: newSortOrder }));
 
-    let newUrl;
-    if (urlParams.includes("sort")) {
-      newUrl =
-        newSortOrder !== "best_match"
-          ? urlParams.replace(/sort=[^&]*/, `sort=${newSortOrder}`)
-          : urlParams.replace(/&?sort=[^&]*/, "");
-      window.history.replaceState({}, "", newUrl);
-    } else if (newSortOrder !== "best_match") {
-      newUrl = `${urlParams}&sort=${newSortOrder}`;
-      window.history.replaceState({}, "", newUrl);
-    }
-
-    if (newUrl) {
-      navigate(newUrl);
-      window.location.reload();
-    }
+    // ✅ Update URL without reloading
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("sort", newSortOrder);
+    navigate(`?${urlParams.toString()}`, { replace: true });
   };
 
-  const allFilterFields = {
-    searchQuery,
-    cipCode,
-    classFormat,
-    completeIn,
-    county,
-    inDemand,
-    languages,
-    maxCost,
-    miles,
-    services,
-    socCode,
-    zipcode,
-  };
+  const appliedFilters = Object.fromEntries(
+    Object.entries(filters).filter(
+      ([key, value]) =>
+        value !== undefined &&
+        value !== false &&
+        (!(Array.isArray(value) && value.length === 0)) &&
+        !["itemsPerPage", "pageNumber", "sortBy"].includes(key) // ✅ Now sortBy will NOT appear as a chip
+    )
+  );
+
 
   type FilterFields = {
     [key: string]: string | number | boolean | string[] | number[] | boolean[];
@@ -338,14 +261,19 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           {!isLoading && (
             <div id="search-filters-container">
               <FilterDrawer
-                chips={filterChips(allFilterFields as FilterFields) as ChipProps[]}
-                {...allFilterFields}
+                chips={filterChips(appliedFilters as FilterFields) as ChipProps[]}
+                {...appliedFilters}
+                maxCost={filters.maxCost ? String(filters.maxCost) : undefined} // ✅ Ensure maxCost is displayed correctly
+                miles={filters.miles ? String(filters.miles) : undefined} // ✅ Ensure miles is displayed correctly
               />
+
+
+
               <SearchFilters
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
-                itemsPerPage={itemsPerPage}
-                sortBy={sortBy}
+                itemsPerPage={filters.itemsPerPage}
+                sortBy={filters.sortBy}
               />
             </div>
           )}
@@ -353,12 +281,12 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         <div id="results-container">
           {isLoading && (
             <div>
-              {Array.from({ length: itemsPerPage }, (_, index) => (
+              {Array.from({ length: filters.itemsPerPage }, (_, index) => (
                 <SkeletonCard key={`skel-${index}`} />
               ))}
             </div>
           )}
-          {!isLoading && !isError && trainings.length <= 5 && pageNumber === 1 && <SearchTips />}
+          {!isLoading && !isError && trainings.length <= 5 && filters.pageNumber === 1 && <SearchTips />}
           {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">
               {trainings.map((training) => (
@@ -368,14 +296,14 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
                   comparisonItems={comparisonState.comparison}
                 />
               ))}
-              {pageNumber && (
+              {filters.pageNumber && (
                 <Pagination
                   isLoading={isLoading}
-                  currentPage={pageNumber || 1}
+                  currentPage={filters.pageNumber || 1}
                   totalPages={metaData?.totalPages || 0}
                   hasPreviousPage={metaData?.hasPreviousPage || false}
                   hasNextPage={metaData?.hasNextPage || false}
-                  setPageNumber={setPageNumber}
+                  setPageNumber={(newPage) => setFilters((prev) => ({ ...prev, pageNumber: newPage }))}
                 />
               )}
             </div>

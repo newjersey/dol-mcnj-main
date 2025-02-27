@@ -1,3 +1,6 @@
+
+
+
 import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
@@ -14,6 +17,7 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import {Provider} from "../training/Training";
 
 // ─── Initialize cache ─────────────────────────────────────────────────────────
 interface CachedResults {
@@ -22,7 +26,6 @@ interface CachedResults {
 }
 
 const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
-cache.flushAll();
 
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
@@ -173,7 +176,7 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
 /**
  * Fetch all learning opportunities in batches.
  */
-const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 100) => {
+const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 25) => {
   const learningOpportunities: CTDLResource[] = [];
   const initialResponse = await searchLearningOpportunities(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
@@ -319,10 +322,25 @@ const filterRecords = async (
 };
 
 const paginateRecords = (trainingResults: TrainingResult[], page: number, limit: number) => {
-  const start = (page - 1) * limit;
+  const totalResults = trainingResults.length;
+  const totalPages = Math.max(1, Math.ceil(totalResults / limit));
+
+  // Ensure current page is within valid range
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * limit;
   const end = start + limit;
-  return trainingResults.slice(start, end);
+
+  console.log(`📌 Paginating ${totalResults} results (Page: ${currentPage} / ${totalPages}, Limit: ${limit})`);
+
+  return {
+    results: trainingResults.slice(start, end), // ✅ Return correctly paginated results
+    totalPages,
+    totalResults,
+    currentPage
+  };
 };
+
+
 
 /**
  * Sorts training results based on the specified criteria.
@@ -393,75 +411,50 @@ function normalizeQueryParams(params: {
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
-    searchQuery: string,
-    page?: number,
-    limit?: number,
-    sort?: string,
-    cip_code?: string,
-    soc_code?: string,
-    format?: string[],
-    complete_in?: number[],
-    county?: string,
-    in_demand?: boolean,
-    languages?: string[],
-    max_cost?: number,
-    miles?: number,
-    services?: string[],
-    zipcode?: string
+    searchQuery: string;
+    page?: number;
+    limit?: number;
+    sort?: string;
+    cip_code?: string;
+    soc_code?: string;
+    format?: string[];
+    complete_in?: number[];
+    county?: string;
+    in_demand?: boolean;
+    languages?: string[];
+    max_cost?: number;
+    miles?: number;
+    services?: string[];
+    zipcode?: string;
   }): Promise<TrainingData> => {
     const overallStart = performance.now();
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
     const normalizedParams = normalizeQueryParams(params);
-    const unFilteredCacheKey = `filteredResults-${JSON.stringify(normalizedParams)}`;
+    const cacheKey = `searchResults-${JSON.stringify(normalizedParams)}`;
     console.time("TotalSearchTime");
 
-    // Use CachedResults type here.
-    let cachedData = cache.get<CachedResults>(unFilteredCacheKey);
+    let cachedData = cache.get<CachedResults>(cacheKey);
 
     if (!cachedData) {
-      console.log(`Cache miss: Fetching results for query: ${normalizedParams.searchTerm}`);
-      if (page === 1) {
-        console.log("Page 1 detected – fetching initial batch only for quick response.");
-        const fetchStart = performance.now();
-        const initialBatchResponse = await searchLearningOpportunities(query, 0, 100);
-        console.log(`Initial batch API fetch took ${performance.now() - fetchStart} ms`);
-        const transformStart = performance.now();
-        const unFilteredResults: TrainingResult[] = await Promise.all(
-          initialBatchResponse.learningOpportunities.map(lo =>
-            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-          )
-        );
-        console.log(`Initial batch transformation took ${performance.now() - transformStart} ms`);
-        cachedData = { results: unFilteredResults, totalResults: initialBatchResponse.totalResults };
-        // Trigger background full fetch to update the cache.
-        searchLearningOpportunitiesInBatches(query).then(async (fullResponse) => {
-          const fullTransformStart = performance.now();
-          const fullResults = await Promise.all(
-            fullResponse.learningOpportunities.map(lo =>
-              transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-            )
-          );
-          console.log(`Full dataset transformation took ${performance.now() - fullTransformStart} ms`);
-          cache.set(unFilteredCacheKey, { results: fullResults, totalResults: fullResponse.totalResults }, 300);
-          console.log("Background full fetch complete; cache updated with full dataset.");
-        });
-      } else {
-        const fetchStart = performance.now();
-        const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
-        console.log(`Batched API fetch took ${performance.now() - fetchStart} ms`);
-        const transformStart = performance.now();
-        const unFilteredResults: TrainingResult[] = await Promise.all(
-          learningOpportunities.map(lo =>
-            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-          )
-        );
-        console.log(`Full dataset transformation took ${performance.now() - transformStart} ms`);
-        cachedData = { results: unFilteredResults, totalResults };
-        cache.set(unFilteredCacheKey, cachedData, 300);
-      }
+      console.log(`🚀 Cache miss: Fetching new results for query: "${normalizedParams.searchTerm}"`);
+      const fetchStart = performance.now();
+      const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
+      console.log(`📊 API fetch took ${performance.now() - fetchStart} ms`);
+
+      // Transform results with provider caching
+      const transformStart = performance.now();
+      const results = await Promise.all(
+        learningOpportunities.map((lo) =>
+          transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+        )
+      );
+      console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
+
+      cachedData = { results, totalResults };
+      cache.set(cacheKey, cachedData, 300);
     } else {
-      console.log(`Cache hit for filtered results with key: ${unFilteredCacheKey}`);
+      console.log(`✅ Cache hit for query: "${normalizedParams.searchTerm}"`);
     }
 
     const filterStart = performance.now();
@@ -479,30 +472,27 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.languages,
       params.services
     );
-    console.log(`Filtering took ${performance.now() - filterStart} ms`);
+    console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
 
     const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
-    console.log(`Ranking took ${performance.now() - rankStart} ms`);
+    console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
 
-    const sortStart = performance.now();
+    // Sorting results
     const sortedResults = sortTrainings(rankedResults, sort);
-    console.log(`Sorting took ${performance.now() - sortStart} ms`);
 
-    // Update cache with ranked results if needed.
-    cache.set(unFilteredCacheKey, cachedData, 300);
+    // Pagination handling
+    const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
 
-    const paginateStart = performance.now();
-    const paginatedResults = paginateRecords(sortedResults, page, limit);
-    console.log(`Pagination took ${performance.now() - paginateStart} ms`);
+    console.log(`📌 Paginating ${totalResults} results (Page: ${currentPage} / ${totalPages}, Limit: ${limit})`);
 
     console.timeEnd("TotalSearchTime");
-    console.log(`Overall search (first page) took ${performance.now() - overallStart} ms`);
+    console.log(`🚀 Overall search execution took ${performance.now() - overallStart} ms`);
 
-    const data = packageResults(page, limit, paginatedResults, cachedData.totalResults);
-    return data;
+    return packageResults(currentPage, limit, paginatedResults, totalResults, totalPages);
   };
 };
+
 
 type SearchTerm = {
   "search:value": string;
@@ -590,83 +580,132 @@ function buildQuery(params: {
   };
 }
 
+const transformResults = async (
+  learningOpportunities: CTDLResource[],
+  dataClient: DataClient,
+  searchQuery: string
+): Promise<TrainingResult[]> => {
+  return Promise.all(
+    learningOpportunities.map(async (lo) => {
+      return transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery);
+    })
+  );
+};
+
 async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,
   learningOpportunity: CTDLResource,
   searchQuery: string
 ): Promise<TrainingResult> {
   try {
-    const desc = learningOpportunity["ceterms:description"]
-      ? learningOpportunity["ceterms:description"]["en-US"]
-      : null;
-    const highlight = desc ? await getHighlight(desc, searchQuery) : "";
-    const provider = await credentialEngineUtils.getProviderData(learningOpportunity);
-    const cipCode = await credentialEngineUtils.extractCipCode(learningOpportunity);
-    const cipDefinition = cipCode ? await dataClient.findCipDefinitionByCip(cipCode) : null;
-    const occupations = await credentialEngineUtils.extractOccupations(learningOpportunity);
+    const desc = learningOpportunity["ceterms:description"]?.["en-US"] || "";
+    const highlightPromise = getHighlight(desc, searchQuery);
+    const providerPromise = credentialEngineUtils.getProviderData(learningOpportunity);
+    const cipCodePromise = credentialEngineUtils.extractCipCode(learningOpportunity);
+    const occupationsPromise = credentialEngineUtils.extractOccupations(learningOpportunity);
+    const costPromise = credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost");
+    const calendarLengthPromise = credentialEngineUtils.getCalendarLengthId(learningOpportunity);
+    const deliveryTypesPromise = credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity);
+    const availableAtPromise = credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
+    const eveningCoursesPromise = credentialEngineUtils.hasEveningSchedule(learningOpportunity);
+    const languagesPromise = credentialEngineUtils.getLanguages(learningOpportunity);
+
+    // Fetch independent promises in parallel
+    const [
+      highlight,
+      provider,
+      cipCode,
+      occupations,
+      totalCost,
+      calendarLength,
+      deliveryTypes,
+      availableAt,
+      hasEveningCourses,
+      languages
+    ] = await Promise.all([
+      highlightPromise,
+      providerPromise,
+      cipCodePromise,
+      occupationsPromise,
+      costPromise,
+      calendarLengthPromise,
+      deliveryTypesPromise,
+      availableAtPromise,
+      eveningCoursesPromise,
+      languagesPromise
+    ]);
+
+    const cipDefinitionPromise = cipCode ? dataClient.findCipDefinitionByCip(cipCode) : Promise.resolve(null);
+    const outcomeDefinitionPromise = provider?.providerId ? dataClient.findOutcomeDefinition(provider.providerId, cipCode) : Promise.resolve(null);
+    const inDemandCIPsPromise = dataClient.getCIPsInDemand();
+
+    // Fetch dependent values in parallel
+    const [cipDefinition, outcomeDefinition, inDemandCIPs] = await Promise.all([
+      cipDefinitionPromise,
+      outcomeDefinitionPromise,
+      inDemandCIPsPromise
+    ]);
+
     const socCodes = occupations.map((occupation) => occupation.soc);
-    let outcomesDefinition = null;
-    if (provider?.providerId) {
-      outcomesDefinition = await dataClient.findOutcomeDefinition(provider.providerId, cipCode);
-    } else {
-      console.warn("Provider is null; skipping outcomesDefinition lookup.");
-    }
-    const inDemandCIPs = await dataClient.getCIPsInDemand();
-    const isInDemand = inDemandCIPs.map((c) => c.cipcode).includes(cipCode ?? "");
-    const getWheelchairAccessibility = async () =>
-      await credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
-    const getJobPlacementAssistance = async () =>
-      await credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
-    const getChildcareAssistance = async () =>
-      await credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
-    const result: TrainingResult = {
+    const isInDemand = inDemandCIPs.some((c) => c.cipcode === cipCode);
+
+    // Define async functions but don't await them yet
+    const isWheelchairAccessible = () => credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
+    const hasJobPlacementAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
+    const hasChildcareAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
+
+    return {
       ctid: learningOpportunity["ceterms:ctid"] || "",
       name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
-      description: learningOpportunity["ceterms:description"]?.["en-US"] || "",
+      description: desc,
       cipDefinition: cipDefinition ? cipDefinition[0] : null,
-      totalCost: await credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost"),
-      percentEmployed: outcomesDefinition ? formatPercentEmployed(outcomesDefinition.peremployed2) : null,
-      calendarLength: await credentialEngineUtils.getCalendarLengthId(learningOpportunity),
+      totalCost,
+      percentEmployed: outcomeDefinition ? formatPercentEmployed(outcomeDefinition.peremployed2) : null,
+      calendarLength,
       localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
-      deliveryTypes: await credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity),
+      deliveryTypes,
       providerId: provider?.providerId || null,
       providerName: provider?.name || "Provider not available",
-      availableAt: await credentialEngineUtils.getAvailableAtAddresses(learningOpportunity),
+      availableAt,
       inDemand: isInDemand,
-      highlight: highlight,
-      socCodes: socCodes,
-      hasEveningCourses: await credentialEngineUtils.hasEveningSchedule(learningOpportunity),
-      languages: await credentialEngineUtils.getLanguages(learningOpportunity),
-      isWheelchairAccessible: getWheelchairAccessibility,
-      hasJobPlacementAssistance: getJobPlacementAssistance,
-      hasChildcareAssistance: getChildcareAssistance,
+      highlight,
+      socCodes,
+      hasEveningCourses,
+      languages,
+      isWheelchairAccessible, // Do not await, return as function
+      hasJobPlacementAssistance, // Do not await, return as function
+      hasChildcareAssistance, // Do not await, return as function
       totalClockHours: null,
     };
-    return result;
   } catch (error) {
     console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);
     throw error;
   }
 }
 
-function packageResults(page: number, limit: number, results: TrainingResult[], totalResults: number): TrainingData {
-  const totalPages = Math.ceil(totalResults / limit);
-  const hasPreviousPage = page > 1;
-  const hasNextPage = page < totalPages;
+
+function packageResults(
+  currentPage: number,
+  limit: number,
+  results: TrainingResult[],
+  totalResults: number,
+  totalPages: number
+): TrainingData {
   return {
     data: results,
     meta: {
-      currentPage: page,
+      currentPage,
       totalPages,
       totalItems: totalResults,
       itemsPerPage: limit,
-      hasNextPage,
-      hasPreviousPage,
-      nextPage: hasNextPage ? page + 1 : null,
-      previousPage: hasPreviousPage ? page - 1 : null,
+      hasNextPage: currentPage < totalPages,
+      hasPreviousPage: currentPage > 1,
+      nextPage: currentPage < totalPages ? currentPage + 1 : null,
+      previousPage: currentPage > 1 ? currentPage - 1 : null,
     },
   };
 }
+
 
 const NAN_INDICATOR = "-99999";
 
