@@ -1,26 +1,26 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 @use "../mixins" as mixins;
 
 .usa-breadcrumb {
   padding: 0;
   display: flex;
   background-color: transparent;
-  gap: settings.$size-16;
+  gap: s.$size-16;
   align-items: center;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @media screen and (max-width: (settings.$mobile-lg)) {
-    gap: settings.$size-8;
+  @media screen and (max-width: (s.$mobile-lg)) {
+    gap: s.$size-8;
   }
 
   .backIcon {
     height: auto;
-    width: settings.$size-20;
+    width: s.$size-20;
 
-    @media screen and (min-width: (settings.$mobile-lg + 1)) {
+    @media screen and (min-width: (s.$mobile-lg + 1)) {
       display: none;
     }
   }
@@ -29,18 +29,18 @@
     .usa-breadcrumb__list-item {
       &:not(:last-child) {
         &::after {
-          margin: 0 settings.$size-8;
+          margin: 0 s.$size-8;
         }
       }
       a {
-        font-size: settings.$size-16;
+        font-size: s.$size-16;
         @include mixins.linkColor;
 
         &.usa-breadcrumb__link:visited,
         &.usa-breadcrumb__link {
-          @media screen and (max-width: (settings.$mobile-lg)) {
-            padding-top: settings.$size-12;
-            padding-bottom: settings.$size-12;
+          @media screen and (max-width: (s.$mobile-lg)) {
+            padding-top: s.$size-12;
+            padding-bottom: s.$size-12;
           }
 
           &:before {

@@ -1,22 +1,22 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .trainingSearch {
-  background-color: settings.$secondary-lighter;
-  padding: settings.$size-32 settings.$size-16;
-  border: 1px solid settings.$black;
-  border-radius: settings.$size-16;
+  background-color: s.$secondary-lighter;
+  padding: s.$size-32 s.$size-16;
+  border: 1px solid s.$black;
+  border-radius: s.$size-16;
 
   label {
     margin: 0;
   }
 
   .inner {
-    max-width: settings.$tablet-xl;
+    max-width: s.$tablet-xl;
     margin: 0 auto;
   }
 
   .heading-tag {
-    font-size: settings.$size-24;
+    font-size: s.$size-24;
     margin: 0;
     font-weight: 600;
   }
@@ -28,15 +28,15 @@
 
   .input-heading {
     .clear-all {
-      @media screen and (max-width: (settings.$tablet-md - 1)) {
+      @media screen and (max-width: (s.$tablet-md - 1)) {
         display: none !important;
       }
     }
   }
 
   .items {
-    margin-top: settings.$size-8;
-    min-height: settings.$size-48;
+    margin-top: s.$size-8;
+    min-height: s.$size-48;
 
     input {
       &.usa-checkbox__input {
@@ -44,7 +44,7 @@
           + .usa-checkbox__label {
             margin: 0;
             &:before {
-              background-color: settings.$secondary;
+              background-color: s.$secondary;
             }
           }
         }
@@ -54,7 +54,7 @@
     .usa-checkbox__label {
       margin: 0;
       &:before {
-        background-color: settings.$white;
+        background-color: s.$white;
       }
     }
   }
@@ -63,14 +63,14 @@
     .select,
     .text {
       width: 100%;
-      max-width: settings.$size-200;
+      max-width: s.$size-200;
     }
 
     .from {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: settings.$size-48;
+      min-height: s.$size-48;
     }
   }
 
@@ -79,9 +79,9 @@
 
     svg {
       position: absolute;
-      bottom: settings.$size-16;
+      bottom: s.$size-16;
       opacity: 0.8;
-      left: settings.$size-12;
+      left: s.$size-12;
       z-index: 1;
     }
 
@@ -89,14 +89,14 @@
       input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
           [type="submit"]
         ) {
-        padding-left: settings.$size-32;
+        padding-left: s.$size-32;
       }
     }
   }
 
   span:not(.formField) {
     &.error {
-      @media screen and (min-width: (settings.$tablet)) {
+      @media screen and (min-width: (s.$tablet)) {
         position: absolute;
         top: 100%;
         left: 0;
@@ -109,17 +109,17 @@
     display: flex;
     align-items: center;
     margin: 0;
-    gap: settings.$size-16;
+    gap: s.$size-16;
     width: 100%;
 
-    @media screen and (max-width: (settings.$tablet - 1)) {
+    @media screen and (max-width: (s.$tablet - 1)) {
       flex-direction: column;
     }
 
     .formField {
       width: 100%;
 
-      @media screen and (min-width: (settings.$tablet)) {
+      @media screen and (min-width: (s.$tablet)) {
         width: calc(100% - 200px);
       }
     }
@@ -135,7 +135,7 @@
       margin: 0;
       min-width: 100%;
 
-      @media screen and (min-width: (settings.$tablet)) {
+      @media screen and (min-width: (s.$tablet)) {
         min-width: 200px;
       }
     }
@@ -144,19 +144,19 @@
   .usa-select {
     &:disabled,
     &[aria-disabled="true"] {
-      background-color: settings.$base-lightest;
-      color: settings.$base;
+      background-color: s.$base-lightest;
+      color: s.$base;
     }
   }
 
   .filter-row {
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
       display: none;
     }
   }
 
   .filters {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       align-items: flex-start;
     }
   }

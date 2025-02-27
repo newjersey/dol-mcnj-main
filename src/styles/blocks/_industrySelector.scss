@@ -1,27 +1,27 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .industrySelector {
   .container {
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
       padding: 0;
     }
 
     > .inner {
-      background-color: settings.$base-extra-light;
-      padding: settings.$size-32;
-      border-radius: settings.$size-16;
+      background-color: s.$base-extra-light;
+      padding: s.$size-32;
+      border-radius: s.$size-16;
       overflow: hidden;
 
-      @media screen and (max-width: (settings.$tablet-md - 1)) {
-        padding: settings.$size-32 settings.$size-16;
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        padding: s.$size-32 s.$size-16;
       }
     }
 
     h2 {
       margin: 0;
 
-      @media screen and (max-width: (settings.$tablet-md - 1)) {
-        font-size: settings.$size-24;
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        font-size: s.$size-24;
         font-weight: bold;
       }
     }
@@ -29,12 +29,12 @@
 
   .labelBox {
     svg {
-      width: settings.$size-32;
-      height: settings.$size-32;
+      width: s.$size-32;
+      height: s.$size-32;
     }
 
     .heading-tag {
-      font-size: settings.$size-18;
+      font-size: s.$size-18;
       font-weight: 500;
     }
   }

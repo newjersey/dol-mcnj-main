@@ -1,19 +1,19 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .resourceLinkBox {
-  border-radius: settings.$border-radius-10;
+  border-radius: s.$border-radius-10;
   overflow: hidden;
-  padding: settings.$size-48 settings.$size-16;
+  padding: s.$size-48 s.$size-16;
 
   .heading-tag {
-    color: settings.$white;
+    color: s.$white;
     text-align: center;
   }
 
   .links {
     display: flex;
     flex-direction: column;
-    gap: settings.$size-24;
+    gap: s.$size-24;
   }
 
   .usa-button {
@@ -21,18 +21,18 @@
   }
 
   &.color-navy {
-    background: settings.$info-darker;
+    background: s.$info-darker;
   }
   &.color-blue {
-    background: settings.$primary;
+    background: s.$primary;
   }
   &.color-green {
-    background: settings.$secondary-dark;
+    background: s.$secondary-dark;
   }
   &.color-purple {
-    background: settings.$tertiary;
+    background: s.$tertiary;
   }
   &.color-orange {
-    background: settings.$accent-warm-dark;
+    background: s.$accent-warm-dark;
   }
 }

@@ -1,11 +1,11 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 @use "../mixins" as mixins;
 
 .trainingPage {
-  padding-bottom: settings.$size-48;
+  padding-bottom: s.$size-48;
 
   .pageBanner {
-    background: settings.$white;
+    background: s.$white;
   }
 
   .occupations {
@@ -14,7 +14,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: settings.$size-8;
+        gap: s.$size-8;
       }
     }
   }
@@ -23,63 +23,63 @@
   .services {
     p {
       display: flex;
-      gap: settings.$size-8;
+      gap: s.$size-8;
       align-items: flex-start;
 
       span {
-        width: calc(100% - settings.$size-24);
+        width: calc(100% - s.$size-24);
       }
 
       svg {
-        width: settings.$size-20;
-        margin-top: settings.$size-4;
+        width: s.$size-20;
+        margin-top: s.$size-4;
       }
     }
   }
 
   .body-copy {
-    margin: 0 0 settings.$size-32;
+    margin: 0 0 s.$size-32;
     overflow-x: hidden;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      margin: settings.$size-32 0;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      margin: s.$size-32 0;
     }
 
     .inner {
       display: flex;
-      gap: settings.$size-32;
+      gap: s.$size-32;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         flex-direction: column;
       }
 
       > div {
         display: flex;
         flex-direction: column;
-        gap: settings.$size-32;
+        gap: s.$size-32;
 
         &:first-of-type {
-          @media screen and (min-width: (settings.$tablet-lg)) {
-            width: calc(100% - settings.$size-411);
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: calc(100% - s.$size-411);
           }
         }
         &:last-of-type {
-          @media screen and (min-width: (settings.$tablet-lg)) {
-            width: settings.$size-411;
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: s.$size-411;
           }
         }
       }
     }
 
     .container {
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         padding: 0;
       }
     }
   }
 
   .labelBox {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       border-radius: 0;
       border: none;
     }
@@ -88,7 +88,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: settings.$size-5;
+      gap: s.$size-5;
 
       .popup-tooltip {
         display: inline-flex;
@@ -111,17 +111,17 @@
 
     &.cost {
       .link {
-        margin-top: settings.$size-32;
+        margin-top: s.$size-32;
         text-align: center;
       }
 
       .usa-button {
-        font-size: settings.$size-14;
+        font-size: s.$size-14;
       }
 
       p {
-        margin-top: settings.$size-8;
-        font-size: settings.$size-14;
+        margin-top: s.$size-8;
+        font-size: s.$size-14;
         line-height: 1.2;
       }
     }
@@ -129,10 +129,10 @@
     + .usa-button {
       &.highlight-orange {
         border: none;
-        padding: settings.$size-16;
+        padding: s.$size-16;
 
-        @media screen and (max-width: (settings.$tablet-lg - 1)) {
-          max-width: calc(100% - settings.$size-32);
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          max-width: calc(100% - s.$size-32);
           width: 100%;
           margin: 0 auto;
         }
@@ -141,6 +141,6 @@
   }
 
   .indent {
-    margin: settings.$size-16 0 0 settings.$size-16;
+    margin: s.$size-16 0 0 s.$size-16;
   }
 }

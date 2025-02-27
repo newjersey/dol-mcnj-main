@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .drawer {
   position: absolute;
@@ -9,20 +9,20 @@
 
   .panel {
     position: fixed;
-    border-left: settings.$size-4 solid settings.$black;
+    border-left: s.$size-4 solid s.$black;
     top: 0;
     right: -100%;
-    background: settings.$secondary-lighter;
+    background: s.$secondary-lighter;
     padding: 3rem;
-    max-width: settings.$tablet;
+    max-width: s.$tablet;
     width: 100%;
     height: 100%;
     z-index: 15;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
-    @media screen and (max-width: (settings.$tablet - 1)) {
-      padding: 3rem settings.$size-16;
+    @media screen and (max-width: (s.$tablet - 1)) {
+      padding: 3rem s.$size-16;
     }
 
     &.open {
@@ -33,7 +33,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      padding: settings.$size-16;
+      padding: s.$size-16;
       cursor: pointer;
       z-index: 15;
     }
@@ -52,7 +52,7 @@
     pointer-events: none;
     width: 100%;
     height: 100%;
-    background: settings.$ink;
+    background: s.$ink;
     opacity: 0;
     z-index: 15;
 
@@ -67,25 +67,25 @@
     height: 0;
     padding-bottom: 56.25%;
     overflow: hidden;
-    margin: settings.$size-16 0 settings.$size-32;
+    margin: s.$size-16 0 s.$size-32;
   }
 
   .dropContent {
     + .dropContent {
-      margin-top: settings.$size-32;
+      margin-top: s.$size-32;
     }
   }
 
   .learn-more-content {
-    @media screen and (min-width: (settings.$tablet-lg)) {
+    @media screen and (min-width: (s.$tablet-lg)) {
       display: flex;
-      gap: settings.$size-32;
+      gap: s.$size-32;
     }
 
     .mobile-only {
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         display: flex;
-        gap: settings.$size-16;
+        gap: s.$size-16;
         flex-direction: column;
       }
     }
@@ -93,61 +93,61 @@
 
   .column {
     flex-direction: column;
-    gap: settings.$size-32;
+    gap: s.$size-32;
     width: 100%;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
+    @media screen and (min-width: (s.$tablet-lg)) {
       display: flex;
     }
 
     .box {
       &:nth-of-type(3n - 2) {
-        background-color: settings.$tertiary-lighter;
+        background-color: s.$tertiary-lighter;
       }
       &:nth-of-type(3n - 1) {
-        background-color: settings.$secondary-lighter;
+        background-color: s.$secondary-lighter;
       }
       &:nth-of-type(3n) {
-        background-color: settings.$primary-lighter;
+        background-color: s.$primary-lighter;
       }
     }
 
     &:last-of-type {
       .box {
         &:nth-of-type(2n - 1) {
-          background-color: settings.$accent-cool-lighter;
+          background-color: s.$accent-cool-lighter;
         }
         &:nth-of-type(2n) {
-          background-color: settings.$accent-warm-lighter;
+          background-color: s.$accent-warm-lighter;
         }
       }
     }
   }
 
   .box {
-    padding: settings.$size-24;
-    border-radius: settings.$size-16;
+    padding: s.$size-24;
+    border-radius: s.$size-16;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       &:nth-of-type(5n - 4) {
-        background-color: settings.$tertiary-lighter;
+        background-color: s.$tertiary-lighter;
       }
       &:nth-of-type(5n - 3) {
-        background-color: settings.$accent-cool-lighter;
+        background-color: s.$accent-cool-lighter;
       }
       &:nth-of-type(5n - 2) {
-        background-color: settings.$secondary-lighter;
+        background-color: s.$secondary-lighter;
       }
       &:nth-of-type(5n - 1) {
-        background-color: settings.$accent-warm-lighter;
+        background-color: s.$accent-warm-lighter;
       }
       &:nth-of-type(5n) {
-        background-color: settings.$primary-lighter;
+        background-color: s.$primary-lighter;
       }
     }
 
     .title {
-      font-size: settings.$size-18;
+      font-size: s.$size-18;
       font-weight: bold;
       line-height: 1.3;
     }
@@ -155,8 +155,8 @@
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: settings.$size-8;
-      font-size: settings.$size-12;
+      gap: s.$size-8;
+      font-size: s.$size-12;
     }
   }
 
@@ -164,7 +164,7 @@
     p,
     li,
     ul li {
-      font-size: settings.$size-12;
+      font-size: s.$size-12;
     }
   }
 }

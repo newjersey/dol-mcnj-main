@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .iconCard {
   p {
@@ -7,11 +7,11 @@
   }
 
   a {
-    border: settings.$size-2 solid settings.$base-lighter;
-    border-radius: settings.$size-16;
-    padding: settings.$size-16;
-    color: settings.$ink;
-    background: settings.$white;
+    border: s.$size-2 solid s.$base-lighter;
+    border-radius: s.$size-16;
+    padding: s.$size-16;
+    color: s.$ink;
+    background: s.$white;
     text-decoration: none;
     display: block;
 
@@ -19,15 +19,15 @@
       display: block;
     }
 
-    @media screen and (min-width: (settings.$desktop)) {
-      transition-duration: settings.$transition-speed;
+    @media screen and (min-width: (s.$desktop)) {
+      transition-duration: s.$transition-speed;
       transition-timing-function: ease-in-out;
       transition-property: transform, box-shadow, background-color, border-color;
     }
 
     &:hover {
-      color: settings.$ink;
-      box-shadow: settings.$shadow-3;
+      color: s.$ink;
+      box-shadow: s.$shadow-3;
     }
   }
 
@@ -39,13 +39,13 @@
 
   .title {
     font-weight: bold;
-    margin: settings.$size-12 0;
-    font-size: settings.$size-18;
+    margin: s.$size-12 0;
+    font-size: s.$size-18;
   }
 
   .description {
-    font-size: settings.$size-14;
-    line-height: settings.$size-20;
+    font-size: s.$size-14;
+    line-height: s.$size-20;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -55,20 +55,20 @@
 
   &.blue {
     a {
-      border: settings.$size-2 solid settings.$primary;
+      border: s.$size-2 solid s.$primary;
     }
 
     &.fill {
       a {
-        background-color: settings.$primary-lighter;
+        background-color: s.$primary-lighter;
 
         &:hover {
-          @media screen and (min-width: (settings.$desktop)) {
-            color: settings.$white;
-            background-color: settings.$primary;
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$primary;
 
             svg {
-              color: settings.$black;
+              color: s.$black;
               filter: invert(1) brightness(10);
             }
           }
@@ -79,20 +79,20 @@
 
   &.green {
     a {
-      border: settings.$size-2 solid settings.$secondary-light;
+      border: s.$size-2 solid s.$secondary-light;
     }
 
     &.fill {
       a {
-        background-color: settings.$secondary-lighter;
+        background-color: s.$secondary-lighter;
 
         &:hover {
-          @media screen and (min-width: (settings.$desktop)) {
-            color: settings.$white;
-            background-color: settings.$secondary-light;
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$secondary-light;
 
             svg {
-              color: settings.$black;
+              color: s.$black;
               filter: invert(1) brightness(10);
             }
           }
@@ -103,20 +103,20 @@
 
   &.purple {
     a {
-      border: settings.$size-2 solid settings.$tertiary-vivid;
+      border: s.$size-2 solid s.$tertiary-vivid;
     }
 
     &.fill {
       a {
-        background-color: settings.$tertiary-lighter;
+        background-color: s.$tertiary-lighter;
 
         &:hover {
-          @media screen and (min-width: (settings.$desktop)) {
-            color: settings.$white;
-            background-color: settings.$tertiary-vivid;
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$tertiary-vivid;
 
             svg {
-              color: settings.$black;
+              color: s.$black;
               filter: invert(1) brightness(10);
             }
           }
@@ -127,20 +127,20 @@
 
   &.navy {
     a {
-      border: settings.$size-2 solid settings.$info-dark;
+      border: s.$size-2 solid s.$info-dark;
     }
 
     &.fill {
       a {
-        background-color: settings.$info-lighter;
+        background-color: s.$info-lighter;
 
         &:hover {
-          @media screen and (min-width: (settings.$desktop)) {
-            color: settings.$white;
-            background-color: settings.$info-dark;
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$info-dark;
 
             svg {
-              color: settings.$black;
+              color: s.$black;
               filter: invert(1) brightness(10);
             }
           }
@@ -151,20 +151,20 @@
 
   &.orange {
     a {
-      border: settings.$size-2 solid settings.$accent-warm;
+      border: s.$size-2 solid s.$accent-warm;
     }
 
     &.fill {
       a {
-        background-color: settings.$accent-warm-lighter;
+        background-color: s.$accent-warm-lighter;
 
         &:hover {
-          @media screen and (min-width: (settings.$desktop)) {
-            color: settings.$white;
-            background-color: settings.$accent-warm;
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$accent-warm;
 
             svg {
-              color: settings.$black;
+              color: s.$black;
               filter: invert(1) brightness(10);
             }
           }
@@ -177,27 +177,27 @@
     text-align: center;
 
     a {
-      padding: settings.$size-20;
+      padding: s.$size-20;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        padding: settings.$size-8 settings.$size-16;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        padding: s.$size-8 s.$size-16;
         display: flex;
-        gap: settings.$size-16;
+        gap: s.$size-16;
         align-items: center;
       }
 
       &:hover {
-        @media screen and (min-width: (settings.$desktop)) {
-          box-shadow: settings.$shadow-3;
+        @media screen and (min-width: (s.$desktop)) {
+          box-shadow: s.$shadow-3;
         }
       }
     }
 
     p {
-      margin: settings.$size-16 0 0;
-      font-size: settings.$size-20;
+      margin: s.$size-16 0 0;
+      font-size: s.$size-20;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         margin-top: 0;
       }
     }
@@ -205,7 +205,7 @@
     .icons {
       justify-content: center;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         height: 32px;
       }
 
@@ -213,7 +213,7 @@
         height: 46px;
         width: auto;
 
-        @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
           height: 32px;
         }
       }
@@ -222,14 +222,14 @@
     &.hoverFill {
       svg {
         width: auto;
-        height: settings.$size-32;
+        height: s.$size-32;
       }
 
       a {
         &:hover {
-          @media screen and (min-width: (settings.$tablet-lg)) {
-            background: settings.$tertiary-lighter;
-            border-color: settings.$tertiary-vivid;
+          @media screen and (min-width: (s.$tablet-lg)) {
+            background: s.$tertiary-lighter;
+            border-color: s.$tertiary-vivid;
           }
         }
       }
@@ -238,62 +238,62 @@
 
   &.fill {
     .title {
-      font-size: settings.$size-28;
+      font-size: s.$size-28;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        font-size: settings.$size-22;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-22;
       }
     }
   }
 
   &.noLink {
-    background: settings.$primary-lighter;
-    border-radius: settings.$size-8;
-    padding: settings.$size-24;
+    background: s.$primary-lighter;
+    border-radius: s.$size-8;
+    padding: s.$size-24;
 
     &.blue {
-      background-color: settings.$primary-lighter;
+      background-color: s.$primary-lighter;
 
       svg {
-        color: settings.$primary-dark;
+        color: s.$primary-dark;
       }
     }
 
     &.green {
-      background-color: settings.$secondary-lighter;
+      background-color: s.$secondary-lighter;
 
       svg {
-        color: settings.$secondary-dark;
+        color: s.$secondary-dark;
       }
     }
 
     &.purple {
-      background-color: settings.$tertiary-lighter;
+      background-color: s.$tertiary-lighter;
 
       svg {
-        color: settings.$tertiary-dark;
+        color: s.$tertiary-dark;
       }
     }
 
     &.navy {
-      background-color: settings.$info-lighter;
+      background-color: s.$info-lighter;
 
       svg {
-        color: settings.$info-dark;
+        color: s.$info-dark;
       }
     }
 
     &.orange {
-      background-color: settings.$accent-warm-lighter;
+      background-color: s.$accent-warm-lighter;
 
       svg {
-        color: settings.$accent-warm-dark;
+        color: s.$accent-warm-dark;
       }
     }
 
     .title {
-      margin: settings.$size-8 0;
-      font-size: settings.$size-22;
+      margin: s.$size-8 0;
+      font-size: s.$size-22;
     }
 
     svg {

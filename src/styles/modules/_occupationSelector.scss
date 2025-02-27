@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .occupationSelector {
   max-width: 36rem;
@@ -9,20 +9,20 @@
 
   &.inactive {
     > button {
-      color: settings.$base-light;
+      color: s.$base-light;
     }
   }
 
   &:after {
     content: "";
     position: absolute;
-    right: settings.$size-16;
-    bottom: settings.$size-16;
+    right: s.$size-16;
+    bottom: s.$size-16;
     width: 0;
     height: 0;
     border-left: 0.35rem solid transparent;
     border-right: 0.35rem solid transparent;
-    border-top: 0.35rem solid settings.$ink;
+    border-top: 0.35rem solid s.$ink;
   }
 
   select {
@@ -34,39 +34,39 @@
   .select-button {
     margin-top: 0.7rem;
     width: 100%;
-    color: settings.$ink;
+    color: s.$ink;
     appearance: none;
-    padding: 0.7rem settings.$size-32 0.7rem 0.7rem;
+    padding: 0.7rem s.$size-32 0.7rem 0.7rem;
     position: relative;
-    border: settings.$size-1 solid settings.$base-lighter;
+    border: s.$size-1 solid s.$base-lighter;
     border-radius: 5px;
     cursor: pointer;
 
     &:after {
       content: "";
       position: absolute;
-      right: settings.$size-16;
-      bottom: settings.$size-16;
+      right: s.$size-16;
+      bottom: s.$size-16;
       width: 0;
       height: 0;
       border-left: 0.35rem solid transparent;
       border-right: 0.35rem solid transparent;
-      border-top: 0.35rem solid settings.$ink;
+      border-top: 0.35rem solid s.$ink;
     }
   }
 
   .dropdown-select {
     font-weight: normal;
-    margin-top: settings.$size-16;
-    box-shadow: 0 10px 20px -15px settings.$ink;
+    margin-top: s.$size-16;
+    box-shadow: 0 10px 20px -15px s.$ink;
     position: absolute;
-    background-color: settings.$white;
+    background-color: s.$white;
     z-index: 1;
-    max-height: settings.$size-330;
+    max-height: s.$size-330;
     overflow: auto;
-    outline: 1px solid settings.$base-lighter;
+    outline: 1px solid s.$base-lighter;
 
-    border-radius: settings.$size-8;
+    border-radius: s.$size-8;
     width: 100%;
 
     &[aria-expanded="true"] {
@@ -83,25 +83,25 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      background: settings.$base-lighter;
-      padding: 0.5rem settings.$size-16;
+      background: s.$base-lighter;
+      padding: 0.5rem s.$size-16;
     }
 
     button {
       cursor: pointer;
-      padding: settings.$size-16;
+      padding: s.$size-16;
 
-      @media screen and (min-width: (settings.$tablet)) {
-        padding: settings.$size-16;
+      @media screen and (min-width: (s.$tablet)) {
+        padding: s.$size-16;
       }
 
       &:nth-of-type(2n - 1) {
-        background: settings.$base-cool;
+        background: s.$base-cool;
       }
 
       &:hover {
-        @media screen and (min-width: (settings.$tablet)) {
-          background: settings.$tertiary-lighter;
+        @media screen and (min-width: (s.$tablet)) {
+          background: s.$tertiary-lighter;
         }
       }
     }
