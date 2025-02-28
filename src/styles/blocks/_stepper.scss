@@ -1,44 +1,44 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .stepper {
   .step {
-    background-color: settings.$base-cool;
-    padding: settings.$size-32;
+    background-color: s.$base-cool;
+    padding: s.$size-32;
     border-radius: 5px;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      padding: settings.$size-16;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      padding: s.$size-16;
     }
 
     .title {
       display: block;
-      font-size: settings.$size-22;
+      font-size: s.$size-22;
       font-weight: bold;
-      margin: settings.$size-8 0;
+      margin: s.$size-8 0;
     }
   }
 
   &.theme-green {
     strong {
-      color: settings.$secondary-dark;
+      color: s.$secondary-dark;
     }
   }
 
   &.theme-blue {
     strong {
-      color: settings.$primary;
+      color: s.$primary;
     }
   }
 
   &.theme-purple {
     strong {
-      color: settings.$tertiary-dark;
+      color: s.$tertiary-dark;
     }
   }
 
   &.theme-navy {
     strong {
-      color: settings.$info;
+      color: s.$info;
     }
   }
 }

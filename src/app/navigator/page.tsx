@@ -27,16 +27,6 @@ export default async function CareerNavigatorPage() {
   return (
     <div className="page careerNavigator">
       <PageBanner {...pageData.banner} />
-      <section className="opportunities">
-        <div className="container">
-          <SectionHeading {...pageData.opportunities.sectionHeading} />
-          <div className="inner">
-            {pageData.opportunities.cards.map((card) => {
-              return <IconCard key={card.sys.id} {...card} />;
-            })}
-          </div>
-        </div>
-      </section>
       <section className="howTo">
         <div className="container">
           <SectionHeading {...pageData.howTo.sectionHeading} />

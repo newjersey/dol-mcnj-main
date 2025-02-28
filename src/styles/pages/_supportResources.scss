@@ -1,20 +1,20 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .supportResources {
   .categories {
-    padding: settings.$size-48 0;
+    padding: s.$size-48 0;
 
     .inner {
       display: flex;
       flex-wrap: wrap;
-      gap: settings.$size-32;
+      gap: s.$size-32;
       justify-content: center;
     }
   }
 
   .iconCard {
     width: 100%;
-    max-width: settings.$size-240;
+    max-width: s.$size-240;
 
     a {
       display: block;

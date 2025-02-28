@@ -28,10 +28,29 @@ export const NAVIGATOR_PAGE_DATA = {
     },
   },
   banner: {
-    message: "Learn how to enter and advance a career in key NJ industries.",
+    message:
+      "Your next job opportunity awaits with the New Jersey Career Navigator. We offer personalized jobs that fit your skills and experience level—plus valuable skills training courses to boost your career opportunities.",
     title: "NJ Career Navigator",
+    subHeading:
+      "Find your first job, a new job or transition to a new career faster.",
     section: "explore",
     theme: "blue",
+    ctaLinks: [
+      {
+        sys: {
+          id: "5v8zZzVfQw1JwZQ7kPzX4B",
+        },
+        copy: "Log In",
+        url: "/navigator/#/login",
+      },
+      {
+        sys: {
+          id: "3c1qJ5K8s6LZ8y4KpVv0wL",
+        },
+        copy: "Sign Up",
+        url: "/navigator/#/login",
+      },
+    ],
     breadcrumbsCollection: {
       items: [
         {
@@ -142,6 +161,7 @@ export const NAVIGATOR_PAGE_DATA = {
         label: "One Stop Job Board",
         type: "link",
         highlight: "navy",
+        iconSuffix: "ArrowSquareOut",
       },
       {
         iconPrefix: "MapTrifold",

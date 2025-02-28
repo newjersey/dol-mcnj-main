@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .usa-pagination {
   &.disabled {
@@ -22,7 +22,7 @@
     .start_3,
     .end_1,
     .end_2 {
-      @media screen and (max-width: (settings.$desktop-md - 1)) {
+      @media screen and (max-width: (s.$desktop-md - 1)) {
         display: none;
       }
     }
@@ -33,15 +33,15 @@
       display: none;
     }
 
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
       display: none;
     }
 
     a {
-      width: settings.$size-60;
+      width: s.$size-60;
       display: flex;
       align-items: center;
-      gap: settings.$size-4;
+      gap: s.$size-4;
     }
   }
 

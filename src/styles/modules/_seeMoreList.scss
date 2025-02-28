@@ -1,21 +1,21 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 @use "../mixins" as mixins;
 
 .seeMoreList {
   line-height: 1.6;
 
   > p {
-    font-size: settings.$size-16;
+    font-size: s.$size-16;
     font-weight: bold;
     margin: 0;
   }
 
   > ul {
-    margin: settings.$size-8 0;
+    margin: s.$size-8 0;
   }
 
   .hasLink {
-    color: settings.$primary-vivid;
+    color: s.$primary-vivid;
   }
 
   a {

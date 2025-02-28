@@ -1,10 +1,10 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .sectionHeading {
-  margin-bottom: settings.$size-32;
+  margin-bottom: s.$size-32;
 
   &.noDivider {
-    margin-bottom: settings.$size-16;
+    margin-bottom: s.$size-16;
 
     .heading-tag {
       border-bottom: 0;
@@ -14,14 +14,14 @@
   }
 
   .heading-tag {
-    color: settings.$ink;
-    font-size: settings.$size-32;
+    color: s.$ink;
+    font-size: s.$size-32;
     display: inline-block;
     font-weight: 500;
     width: 100%;
-    margin-bottom: settings.$size-8;
-    border-bottom: settings.$size-1 solid settings.$base-lighter;
-    padding-bottom: settings.$size-16;
+    margin-bottom: s.$size-8;
+    border-bottom: s.$size-2 solid s.$base-lighter;
+    padding-bottom: s.$size-16;
   }
 
   &.strikeThrough {
@@ -31,9 +31,9 @@
 
     &:before {
       content: "";
-      height: settings.$size-1;
+      height: s.$size-1;
       width: 100%;
-      background: settings.$base-lighter;
+      background: s.$base-lighter;
       position: absolute;
       left: 0;
       top: 50%;
@@ -48,45 +48,47 @@
     h6,
     p {
       border: 0;
-      background: settings.$white;
+      background: s.$white;
       width: initial;
       position: relative;
-      padding: 0 settings.$size-16;
+      padding: 0 s.$size-16;
     }
 
     &.color-blue {
       &:before {
-        background: settings.$primary;
+        background: s.$primary;
       }
     }
 
     &.color-green {
       &:before {
-        background: settings.$secondary;
+        background: s.$secondary;
       }
     }
 
     &.color-purple {
       &:before {
-        background: settings.$tertiary;
+        background: s.$tertiary;
       }
     }
 
     &.color-navy {
       &:before {
-        background: settings.$info-darker;
+        background: s.$info-darker;
       }
     }
 
     &.color-orange {
       &:before {
-        background: settings.$accent-warm-dark;
+        background: s.$accent-warm-dark;
       }
     }
   }
 
   &.color-blue {
-    border-color: settings.$primary;
+    .heading-tag {
+      border-color: s.$primary;
+    }
 
     h1,
     h2,
@@ -95,12 +97,14 @@
     h5,
     h6,
     p {
-      color: settings.$primary;
+      color: s.$primary;
     }
   }
 
   &.color-green {
-    border-color: settings.$secondary;
+    .heading-tag {
+      border-color: s.$secondary;
+    }
 
     h1,
     h2,
@@ -109,12 +113,14 @@
     h5,
     h6,
     p {
-      color: settings.$secondary;
+      color: s.$secondary;
     }
   }
 
   &.color-purple {
-    border-color: settings.$tertiary;
+    .heading-tag {
+      border-color: s.$tertiary;
+    }
 
     h1,
     h2,
@@ -123,12 +129,14 @@
     h5,
     h6,
     p {
-      color: settings.$tertiary;
+      color: s.$tertiary;
     }
   }
 
   &.color-navy {
-    border-color: settings.$info-darker;
+    .heading-tag {
+      border-color: s.$info-darker;
+    }
 
     h1,
     h2,
@@ -137,12 +145,14 @@
     h5,
     h6,
     p {
-      color: settings.$info-darker;
+      color: s.$info-darker;
     }
   }
 
   &.color-orange {
-    border-color: settings.$accent-warm-dark;
+    .heading-tag {
+      border-color: s.$accent-warm-dark;
+    }
 
     h1,
     h2,
@@ -151,12 +161,12 @@
     h5,
     h6,
     p {
-      color: settings.$accent-warm-dark;
+      color: s.$accent-warm-dark;
     }
   }
 
   .description {
-    margin: settings.$size-1 0 0;
-    font-size: settings.$size-16;
+    margin: s.$size-1 0 0;
+    font-size: s.$size-16;
   }
 }

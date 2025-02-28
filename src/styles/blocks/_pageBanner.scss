@@ -1,32 +1,32 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .pageBanner {
-  padding: settings.$size-32 0 settings.$size-12;
-  background-color: settings.$base-cool;
+  padding: s.$size-32 0 s.$size-12;
+  background-color: s.$base-cool;
 
-  @media screen and (max-width: (settings.$tablet-lg - 1)) {
-    padding: settings.$size-16 0;
+  @media screen and (max-width: (s.$tablet-lg - 1)) {
+    padding: s.$size-16 0;
   }
 
   &.noBreadcrumbs {
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      padding: settings.$size-32 0;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      padding: s.$size-32 0;
     }
   }
 
   .usa-breadcrumb {
-    border-bottom: settings.$size-1 solid settings.$base-lighter;
-    padding-bottom: settings.$size-8;
+    border-bottom: s.$size-1 solid s.$base-lighter;
+    padding-bottom: s.$size-8;
     width: 100%;
   }
 
   .save-buttons {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      margin-top: settings.$size-16;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      margin-top: s.$size-16;
     }
 
     ul {
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         justify-content: center;
       }
     }
@@ -40,59 +40,77 @@
 
       &.usa-button {
         &.green {
-          color: settings.$secondary;
+          color: s.$secondary;
         }
 
         &:hover {
-          color: settings.$black;
+          color: s.$black;
         }
       }
     }
   }
 
   h1 {
-    font-size: settings.$size-56;
-    font-weight: 500;
-    margin: 0 0 settings.$size-16;
+    font-size: s.$size-56;
+    font-weight: 700;
+    margin: 0 0 s.$size-16;
     padding: 0;
     line-height: 1;
 
-    @media screen and (max-width: (settings.$tablet-lg)) {
-      font-size: settings.$size-40;
-      margin-bottom: settings.$size-16;
+    @media screen and (max-width: (s.$tablet-lg)) {
+      font-size: s.$size-40;
+      margin-bottom: s.$size-16;
     }
   }
 
   .copy {
-    padding: settings.$size-45 0;
+    padding: s.$size-45 0;
     display: flex;
     justify-content: space-between;
-    font-size: settings.$size-20;
-    gap: settings.$size-48;
+    align-items: center;
+    font-size: s.$size-20;
+    gap: s.$size-48;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       display: block;
     }
 
-    @media screen and (max-width: (settings.$tablet-lg)) {
-      padding: settings.$size-28 0;
-      font-size: settings.$size-16;
+    @media screen and (max-width: (s.$tablet-lg)) {
+      padding: s.$size-28 0;
+      font-size: s.$size-16;
     }
   }
 
   .heading {
     width: calc(100% - 335px);
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       width: 100%;
     }
 
     .eyebrow {
       margin: 0;
       text-transform: uppercase;
-      margin-bottom: settings.$size-16;
-      border-bottom: 1px solid settings.$ink;
+      margin-bottom: s.$size-16;
+      border-bottom: 1px solid s.$ink;
       display: inline-block;
+    }
+
+    p {
+      @media screen and (min-width: (s.$tablet-lg)) {
+        font-size: s.$size-20;
+      }
+
+      &.subHeading {
+        font-size: s.$size-24;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.3;
+
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          font-size: s.$size-20;
+        }
+      }
     }
   }
 
@@ -100,21 +118,21 @@
     width: 335px;
     padding: 0;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       width: 100%;
-      max-width: settings.$size-320;
-      margin: settings.$size-32 0 0;
+      max-width: s.$size-320;
+      margin: s.$size-32 0 0;
     }
 
     .heading-text {
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         text-align: left;
       }
     }
 
     .links {
       a {
-        @media screen and (max-width: (settings.$tablet-lg - 1)) {
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
           max-width: none;
         }
       }
@@ -128,7 +146,7 @@
 
     .copy {
       > * {
-        @media screen and (min-width: (settings.$tablet-lg)) {
+        @media screen and (min-width: (s.$tablet-lg)) {
           width: 50%;
         }
       }
@@ -137,23 +155,23 @@
 
   &.info {
     h1 {
-      font-size: settings.$size-30;
+      font-size: s.$size-30;
       margin: 0;
 
-      @media screen and (min-width: (settings.$tablet-lg)) {
-        font-size: settings.$size-48;
+      @media screen and (min-width: (s.$tablet-lg)) {
+        font-size: s.$size-48;
       }
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         font-weight: 600;
       }
     }
     .subHeading {
-      font-size: settings.$size-20;
-      margin-top: settings.$size-8;
+      font-size: s.$size-20;
+      margin-top: s.$size-8;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        font-size: settings.$size-18;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-18;
         font-weight: 600;
       }
     }
@@ -161,23 +179,23 @@
 
   .tag-item {
     font-size: initial;
-    margin-top: settings.$size-16;
+    margin-top: s.$size-16;
   }
 
   .highlights {
     border-radius: 10px;
-    padding: settings.$size-16;
-    background-color: settings.$base-lightest;
+    padding: s.$size-16;
+    background-color: s.$base-lightest;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      margin-top: settings.$size-32;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      margin-top: s.$size-32;
     }
 
     button {
-      margin: settings.$size-16 auto 0;
-      color: settings.$primary;
+      margin: s.$size-16 auto 0;
+      color: s.$primary;
       text-decoration: underline;
-      width: settings.$size-120;
+      width: s.$size-120;
       display: block;
       text-align: center;
       cursor: pointer;
@@ -187,16 +205,16 @@
   .highlight-item {
     display: flex;
     align-items: center;
-    gap: settings.$size-16;
-    margin-top: settings.$size-16;
+    gap: s.$size-16;
+    margin-top: s.$size-16;
 
     .value {
-      font-size: settings.$size-24;
+      font-size: s.$size-24;
       font-weight: bold;
     }
 
     a {
-      color: settings.$ink;
+      color: s.$ink;
       line-height: 1.2;
     }
   }
@@ -214,37 +232,37 @@
   .drawer {
     position: fixed;
     top: 0;
-    right: -(settings.$size-480);
-    background-color: settings.$secondary-lighter;
+    right: -(s.$size-480);
+    background-color: s.$secondary-lighter;
     height: 100%;
     z-index: 2;
-    max-width: settings.$size-480;
-    padding: settings.$size-48 settings.$size-32;
-    transition-duration: settings.$transition-speed;
+    max-width: s.$size-480;
+    padding: s.$size-48 s.$size-32;
+    transition-duration: s.$transition-speed;
     transition-timing-function: ease-in-out;
 
     &.open {
-      box-shadow: settings.$shadow-5;
+      box-shadow: s.$shadow-5;
       right: 0;
     }
 
     > button {
       position: absolute;
-      transition-duration: settings.$transition-speed;
+      transition-duration: s.$transition-speed;
       transition-timing-function: ease-in-out;
       cursor: pointer;
-      top: settings.$size-22;
-      right: settings.$size-32;
-      height: settings.$size-32;
+      top: s.$size-22;
+      right: s.$size-32;
+      height: s.$size-32;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: settings.$size-32;
+      width: s.$size-32;
       border-radius: 100%;
 
       &:hover {
-        @media screen and (min-width: (settings.$tablet)) {
-          background-color: rgba(settings.$ink, 0.1);
+        @media screen and (min-width: (s.$tablet)) {
+          background-color: rgba(s.$ink, 0.1);
         }
       }
     }
@@ -262,7 +280,7 @@
     pointer-events: none;
     width: 100%;
     height: 100%;
-    background: settings.$ink;
+    background: s.$ink;
     opacity: 0;
     z-index: 1;
 

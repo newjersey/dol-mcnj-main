@@ -1,30 +1,30 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .occupationPage {
   .pageBanner {
-    background: settings.$white;
+    background: s.$white;
   }
 
   .related {
-    margin: 0 0 settings.$size-48;
+    margin: 0 0 s.$size-48;
 
     .inner {
-      max-width: settings.$size-880;
+      max-width: s.$size-880;
       display: flex;
       flex-direction: column;
-      gap: settings.$size-16;
+      gap: s.$size-16;
     }
 
     .container-full {
-      margin-top: settings.$size-72;
+      margin-top: s.$size-72;
     }
   }
 
   .body-copy {
-    margin: settings.$size-32 0;
+    margin: s.$size-32 0;
 
     .openingsLink {
-      margin: 0 0 settings.$size-32 0;
+      margin: 0 0 s.$size-32 0;
     }
 
     .relatedBox {
@@ -40,31 +40,31 @@
       .content {
         display: flex;
         flex-direction: column;
-        gap: settings.$size-8;
+        gap: s.$size-8;
       }
     }
 
     .inner {
       display: flex;
-      gap: settings.$size-16;
+      gap: s.$size-16;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         flex-direction: column;
       }
 
       > div {
         display: flex;
         flex-direction: column;
-        gap: settings.$size-16;
+        gap: s.$size-16;
 
         &:first-of-type {
-          @media screen and (min-width: (settings.$tablet-lg)) {
-            width: calc(100% - settings.$size-360);
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: calc(100% - s.$size-360);
           }
         }
         &:last-of-type {
-          @media screen and (min-width: (settings.$tablet-lg)) {
-            width: settings.$size-360;
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: s.$size-360;
           }
         }
       }

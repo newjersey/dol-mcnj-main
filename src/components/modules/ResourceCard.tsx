@@ -20,7 +20,7 @@ export const ResourceCard = ({
         className ? ` ${className}` : ""
       }`}
     >
-      <Flex gap="sm" direction="column">
+      <Flex gap="xs" direction="column">
         <a
           className="title"
           href={link}
