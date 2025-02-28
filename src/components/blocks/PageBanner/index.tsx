@@ -56,6 +56,7 @@ const PageBanner = ({
           <div className="heading">
             {eyebrow && <p className="eyebrow">{eyebrow}</p>}
             <Heading level={1}>{title}</Heading>
+            {subHeading && <p className="subHeading">{subHeading}</p>}
             {inDemand && (
               <Tag
                 chip
@@ -70,15 +71,15 @@ const PageBanner = ({
             ) : (
               <p>{message}</p>
             )}
-            {subHeading && (
-              <Heading level={2} className="subHeading">
-                {subHeading}
-              </Heading>
-            )}
           </div>
 
           {ctaMode && ctaLinks && ctaLinks.length > 0 && (
-            <Cta heading={ctaHeading} links={ctaLinkButtons} theme={theme} />
+            <Cta
+              heading={ctaHeading}
+              links={ctaLinkButtons}
+              theme={theme}
+              linkDirection="row"
+            />
           )}
           {saveButtons && (
             <div className="save-buttons desktop-only">{saveButtons}</div>
