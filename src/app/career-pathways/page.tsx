@@ -26,12 +26,15 @@ export default async function CareerPathwaysPage() {
     <div className="careerPathwaysLanding">
       <MinimalBanner {...pageData.banner} />
       <IndustrySelector {...pageData.industrySelector} />
-      <section
-        className="body-copy container"
-        dangerouslySetInnerHTML={{
-          __html: parseMarkdownToHTML(pageData.markdownSection),
-        }}
-      />
+      <section className="body-copy container">
+        {pageData.bodyContent.map((copy) => (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(copy),
+            }}
+          />
+        ))}
+      </section>
       <CtaBanner {...pageData.cta} />
       <CtaBanner {...pageData.ctaBanner} />
     </div>

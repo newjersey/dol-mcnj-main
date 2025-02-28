@@ -97,18 +97,13 @@
   }
 
   &.contained {
-    max-width: s.$desktop-lg;
+    max-width: s.$desktop-xl;
     margin: 0 auto;
+    padding-left: s.$size-16;
+    padding-right: s.$size-16;
 
     @media screen and (min-width: (s.$desktop)) {
       border-radius: s.$size-20;
-      padding-left: s.$size-80;
-      padding-right: s.$size-80;
-    }
-
-    @media screen and (min-width: (s.$desktop-lg)) {
-      padding-left: s.$size-160;
-      padding-right: s.$size-160;
     }
 
     .heading {

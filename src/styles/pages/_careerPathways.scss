@@ -80,10 +80,29 @@
 .careerPathwaysLanding {
   .body-copy {
     &.container {
-      max-width: s.$size-880;
       margin: 0 auto;
       padding-top: s.$size-96;
       padding-bottom: s.$size-96;
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-48;
+
+      > div {
+        padding: s.$size-32;
+        border-radius: s.$size-16;
+
+        &:nth-child(3n - 2) {
+          background-color: s.$info-lighter;
+        }
+
+        &:nth-child(3n - 1) {
+          background-color: s.$tertiary-lighter;
+        }
+
+        &:nth-child(3n) {
+          background-color: s.$secondary-lighter;
+        }
+      }
 
       h2,
       h3,

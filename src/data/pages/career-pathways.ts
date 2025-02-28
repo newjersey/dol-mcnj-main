@@ -122,7 +122,8 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       },
     ],
   } as IndustrySelectorProps,
-  markdownSection: `## Career Pathways and Industry Sectors—what's the difference, exactly?
+  bodyContent: [
+    `## Career Pathways and Industry Sectors—what's the difference, exactly?
 
   ### Think of Career Pathways as a GPS.
 
@@ -136,17 +137,15 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
   - Salary expectations
   - Specific skills in high demand
   - Companies that are the major players
-  - Potential for Industry growth
-
-  ## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.
+  - Potential for Industry growth`,
+    `## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.
 
   Through Career Pathways and Industry Sector Information, you'll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you'll discover:
   - Information about the most in-demand manufacturing jobs in New Jersey
   - Insights from over 40 manufacturing companies throughout New Jersey
   - Valuable data about available jobs
-  - The skills, education, and experience you need to get started.
-
-  ## Our legwork can help you get a leg up in your career.
+  - The skills, education, and experience you need to get started.`,
+    `## Our legwork can help you get a leg up in your career.
 
   Our data comes from trusted sources with the most up-to-date information:
 
@@ -155,6 +154,8 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
   - Recent employment and wage surveys
 
   Everyone's career path is different. With Career Pathways and Industry Sector Information, you'll have what you need to help you move forward successfully.`,
+  ],
+  markdownSection: ``,
   ctaBanner: {
     heading: "Explore these other great tools.",
     fullColor: true,
@@ -194,6 +195,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
   cta: {
     heading: "Still have a question about My Career NJ?",
     className: "light",
+    contained: true,
     items: [
       {
         copy: "Contact Us",
