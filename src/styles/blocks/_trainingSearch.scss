@@ -2,7 +2,7 @@
 
 .trainingSearch {
   background-color: s.$secondary-lighter;
-  padding: s.$size-32 s.$size-16;
+  padding: s.$size-32 s.$size-16 s.$size-48;
   border: 1px solid s.$black;
   border-radius: s.$size-16;
 
@@ -18,7 +18,7 @@
   .heading-tag {
     font-size: s.$size-24;
     margin: 0;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   input,
