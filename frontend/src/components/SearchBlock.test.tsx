@@ -30,7 +30,7 @@ const testDrawerContent: ContentfulRichText = {
             data: {},
             marks: [],
             value:
-              'The "Standard Occupational Classification" system is used to categorize occupations.',
+                'The "Standard Occupational Classification" system is used to categorize occupations.',
             nodeType: "text",
           },
         ],
@@ -96,14 +96,14 @@ describe("SearchBlock", () => {
     // Save the original location
     originalLocation = window.location;
 
-    // Mock the window.location with a jest.fn() for each function you need, for example, assign
-    // Use Object.defineProperty to bypass the type error without using 'as any'
+    // Mock window.location using Object.defineProperty so we can override assign without type issues
     Object.defineProperty(window, "location", {
+      configurable: true,
+      writable: true,
       value: {
         ...originalLocation,
         assign: jest.fn(),
       },
-      writable: true,
     });
 
     assignMock = window.location.assign as jest.Mock;
@@ -121,8 +121,12 @@ describe("SearchBlock", () => {
   });
 
   afterAll(() => {
-    // Restore window.location to its original state
-    window.location = originalLocation;
+    // Restore window.location using Object.defineProperty to avoid TS2322 error
+    Object.defineProperty(window, "location", {
+      configurable: true,
+      writable: true,
+      value: originalLocation,
+    });
   });
 
   test("renders search input correctly", () => {
