@@ -332,11 +332,17 @@ export const SignUpFormModal = () => {
                   href="https://www.nj.gov/nj/privacy.html"
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ fontSize: "16px" }}
                 >
                   {t("SignUpFormModal.privacyPolicy")}
                 </a>{" "}
                 {t("SignUpFormModal.andOur")}{" "}
-                <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="/sms-use-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: "16px" }}
+                >
                   {t("SignUpFormModal.smsUsePolicy")}
                 </a>
                 .
