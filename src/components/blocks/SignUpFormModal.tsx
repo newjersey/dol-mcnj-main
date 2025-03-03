@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { CircleNotch, EnvelopeSimple, X } from "@phosphor-icons/react";
+import { CircleNotch, X } from "@phosphor-icons/react";
 import { Button } from "@components/modules/Button";
 import { FormInput } from "@components/modules/FormInput";
 import { Alert } from "@components/modules/Alert";
@@ -20,6 +20,8 @@ export const SignUpFormModal = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const updateTabIndex = (enable: boolean) => {
@@ -33,7 +35,7 @@ export const SignUpFormModal = () => {
     }
   };
 
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (resetForm) return;
 
@@ -42,7 +44,7 @@ export const SignUpFormModal = () => {
         (firstName.length !== 0 && firstName.length < 2) ||
         (lastName.length !== 0 && lastName.length < 2) ||
         !email ||
-        (email && !email.includes("@")) ||
+        (email && !emailRegex.test(email)) ||
         (phone && phone.length < 12)
       ) {
         return true;
@@ -82,31 +84,51 @@ export const SignUpFormModal = () => {
     }
 
     if (allErrorCheck()) {
-      console.log("ERROR:", "There are items that require your attention.");
       setSubmitting(false);
-    } else {
-      setSubmitting(true);
-
-      setTimeout(() => {
-        const reandomTrueFalse = Math.random() < 0.5;
-        if (reandomTrueFalse) {
-          setSuccess(false);
-          setHasErrors(
-            "There was an error submitting the form. Please try again later."
-          );
-          console.log("ERROR: Form submission failed.");
-        } else {
-          setSuccess(true);
-          console.info("SUCCESS: Form submitted successfully.", {
-            firstName,
-            lastName,
-            email,
-            phone,
-          });
-        }
-        setSubmitting(false);
-      }, 2000);
+      setHasErrors("There are items that require your attention.");
+      return;
     }
+
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      phone,
+    };
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccess(true);
+        setHasErrors("");
+      } else {
+        setSuccess(false);
+        setHasErrors(
+          result.error ||
+            "There was an error submitting the form. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("ERROR:", error);
+      setSuccess(false);
+      setHasErrors(
+        "There was an error connecting to the server. Please try again later."
+      );
+    }
+
+    setSubmitting(false);
   };
 
   function formatPhoneNumber(input: string): string {
