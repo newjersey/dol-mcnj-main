@@ -1,4 +1,8 @@
 import { GraphQLClient } from "graphql-request";
+import dotenv from "dotenv"
+
+dotenv.config()
+
 export const contentfulClient = ({
   query,
   variables,
@@ -26,8 +30,9 @@ export const contentfulClient = ({
   if (excludeInvalid) {
     headers["X-Exclude-Invalid"] = "true";
   }
+  const environment = process.env.ENVIRONMENT || "master";
   const client = new GraphQLClient(
-    `https://${process.env.BASE_URL}/${process.env.SPACE_ID}`,
+    `https://${process.env.BASE_URL}/${process.env.SPACE_ID}/environments/${environment}`,
     {
       headers,
     },

@@ -1,17 +1,21 @@
 import AWS from 'aws-sdk';
+import dotenv from 'dotenv';
 
-// Configure AWS SDK and create SecretsManager instance
+dotenv.config();
+
 AWS.config.update({ region: 'us-east-1' });
 const secretsManager = new AWS.SecretsManager();
 
 export async function getContentfulAccessToken(): Promise<string> {
     console.log('Retrieving secret for Contentful access token...');
 
+    const environment = process.env.ENVIRONMENT || 'master'; // Default to 'master'
+    const secretEnvironment = environment === 'master' ? 'prod' : environment;
+    const secretId = `mycareernj-contentful-token-${secretEnvironment}`;
     try {
-        // Log the request details for debugging
-        console.log(`Requesting secret value for ID: 'mycareernj-contentful-token-prod'`);
+        console.log(`Requesting secret value for ID: '${secretId}'`);
 
-        const data = await secretsManager.getSecretValue({ SecretId: 'mycareernj-contentful-token-prod' }).promise();
+        const data = await secretsManager.getSecretValue({ SecretId: secretId }).promise();
 
         if (data.SecretString) {
             console.log('Secret string found, returning the secret value.');
