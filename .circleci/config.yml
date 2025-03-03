@@ -4,7 +4,7 @@ jobs:
     circleci_ip_ranges: true
     docker:
       - image: cimg/node:20.11.0-browsers
-      - image: cimg/postgres:12
+      - image: cimg/postgres:16.4.0
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD:
