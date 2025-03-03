@@ -488,8 +488,9 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
   },
   SignUpFormModal: {
     buttonText: "Sign Up for Updates",
-    formTitle: "My Career NJ User Sign Up Form",
-    formDescription: "Sign-up to stay up to date on the latest new features, news, and resources from My Career NJ.",
+    formTitle: "My Career NJ User Sign-Up Form",
+    formDescription:
+      "Sign up to stay up to date on the latest new features, news, and resources from My Career NJ.",
     firstNameLabel: "First Name",
     firstNameError: "First name must be 2 or more characters.",
     lastNameLabel: "Last Name",
@@ -497,12 +498,13 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
     emailLabel: "Email",
     emailRequired: "Email is required.",
     emailError: "Please enter a valid email address.",
-    phoneLabel: "Mobile phone number",
+    phoneLabel: "Mobile Phone Number",
     usPhoneOnlyLabel: "US phone numbers only",
     phoneError: "Please enter a valid phone number",
     submitButton: "Submit form",
-    successMessage: "You've successfully subscribed to updates from My Career NJ.",
-    confirmationMessage: "A confirmation email should be in your inbox. If it's not there, please check your spam or junk folder.",
+    successMessage: "Success!  You're all set to receive My Career NJ updates.",
+    confirmationMessage:
+      "A confirmation email should be in your inbox. If it's not there, please check your spam or junk folder.",
     errorMessage: "There was an error submitting the form. Please try again.",
     serverErrorMessage: "There was an error connecting to the server. Please try again later.",
     loadingMessage: "Submitting",
@@ -513,7 +515,7 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
     resetForm: "Reset form",
     requiredFieldIndicator: {
       part1: "A red asterisk ",
-      part2: " indicates a required field."
+      part2: " indicates a required field.",
     },
     readAboutOur: "Read about our",
     privacyPolicy: "privacy policy",
