@@ -7,6 +7,7 @@ import { Button } from "@components/modules/Button";
 import { useState } from "react";
 import { LinkObject } from "@components/modules/LinkObject";
 import Link from "next/link";
+import { SignUpFormModal } from "@components/blocks/SignUpFormModal";
 
 interface HeaderProps {
   mainNav?: NavMenuProps;
@@ -55,9 +56,12 @@ const Header = ({ mainNav, globalNav }: HeaderProps) => {
         innerClassName="usa-nav-container flex"
         icons
         extraItems={
-          <LinkObject className="nav-item contact-us" url="/contact">
-            Contact Us
-          </LinkObject>
+          <div className="contact-links">
+            <LinkObject className="nav-item contact-us" url="/contact">
+              Contact Us
+            </LinkObject>
+            <SignUpFormModal />
+          </div>
         }
       />
     </header>

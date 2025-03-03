@@ -1,4 +1,4 @@
-import { Envelope, WarningCircle } from "@phosphor-icons/react";
+import { Envelope } from "@phosphor-icons/react";
 import { FormInputProps } from "@utils/types";
 
 export const FormInput = (props: FormInputProps) => {
@@ -183,12 +183,7 @@ export const FormInput = (props: FormInputProps) => {
           />
         </>
       )}
-      {error && (
-        <span className="error">
-          <WarningCircle weight="fill" />
-          {error}
-        </span>
-      )}
+      {error && <span className="error">{error}</span>}
     </span>
   );
 };

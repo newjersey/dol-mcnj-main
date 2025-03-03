@@ -237,6 +237,57 @@ header {
         }
       }
     }
+
+    .contact-links {
+      display: flex;
+      align-items: center;
+      gap: s.$size-16;
+
+      @media screen and (max-width: (s.$desktop - 1)) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: s.$size-8;
+        padding-bottom: s.$size-16;
+      }
+
+      > a {
+        color: s.$white;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 1.18rem 0;
+        font-size: 0.9rem;
+        position: relative;
+        font-weight: 600;
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop + 1)) {
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 10px;
+              width: 100%;
+              left: 0;
+              height: s.$size-2;
+              background-color: s.$white;
+            }
+          }
+        }
+      }
+
+      button {
+        &.sign-up-toggle {
+          margin: s.$size-4 0;
+          background-color: transparent;
+          border: s.$white s.$size-2 solid;
+          color: s.$white;
+          padding: s.$size-8 s.$size-16;
+
+          &:after {
+            content: none;
+          }
+        }
+      }
+    }
   }
 
   li {
