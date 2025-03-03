@@ -97,6 +97,7 @@ export const SignUpFormModal = () => {
     };
 
     try {
+      setSubmitting(true);
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/signup`,
         {
@@ -195,7 +196,7 @@ export const SignUpFormModal = () => {
           setIsOpen(!isOpen);
         }}
       >
-        Sign up for updates
+        Sign Up for Updates
       </Button>
 
       <div
