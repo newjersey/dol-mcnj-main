@@ -1,17 +1,17 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .occupation-box {
   border: 0;
   border-radius: 0;
   background: white;
-  padding: settings.$size-32 0;
+  padding: s.$size-32 0;
 
-  @media screen and (min-width: (settings.$tablet + 1)) {
-    padding: settings.$size-32 0;
+  @media screen and (min-width: (s.$tablet + 1)) {
+    padding: s.$size-32 0;
   }
 
   .usa-breadcrumb {
-    margin-bottom: settings.$size-16;
+    margin-bottom: s.$size-16;
 
     .usa-breadcrumb__list-item {
       &:not(:last-child) {
@@ -21,7 +21,7 @@
           margin: 0;
           mask: none;
           bottom: 0;
-          left: settings.$size-5;
+          left: s.$size-5;
         }
       }
     }
@@ -35,14 +35,14 @@
     border-bottom: none;
     margin-bottom: 1.5rem;
     max-width: 100%;
-    gap: settings.$size-32;
+    gap: s.$size-32;
     flex-wrap: nowrap;
 
-    @media screen and (max-width: (settings.$desktop - 1)) {
+    @media screen and (max-width: (s.$desktop - 1)) {
       display: block;
     }
 
-    @media screen and (max-width: (settings.$mobile-lg - 1)) {
+    @media screen and (max-width: (s.$mobile-lg - 1)) {
       flex-direction: column;
     }
 
@@ -58,7 +58,7 @@
       margin: 0;
       width: 100%;
 
-      @media screen and (min-width: (settings.$desktop)) {
+      @media screen and (min-width: (s.$desktop)) {
         margin-right: 1.5rem;
       }
     }
@@ -67,35 +67,35 @@
       align-items: center;
       display: flex;
       flex-wrap: wrap;
-      gap: settings.$size-16;
-      max-width: settings.$size-720;
+      gap: s.$size-16;
+      max-width: s.$size-720;
 
-      @media screen and (min-width: (settings.$desktop)) {
-        width: calc(100% - settings.$size-520);
+      @media screen and (min-width: (s.$desktop)) {
+        width: calc(100% - s.$size-520);
       }
     }
 
     .meta {
-      padding: settings.$size-16 0;
-      gap: settings.$size-16;
+      padding: s.$size-16 0;
+      gap: s.$size-16;
       width: 100%;
-      max-width: settings.$size-520;
+      max-width: s.$size-520;
     }
 
     .tag {
-      @media screen and (min-width: (settings.$mobile-lg)) {
-        margin-left: settings.$size-16;
+      @media screen and (min-width: (s.$mobile-lg)) {
+        margin-left: s.$size-16;
       }
-      @media screen and (max-width: (settings.$mobile-lg - 1)) {
+      @media screen and (max-width: (s.$mobile-lg - 1)) {
         margin: 0 0 0.5rem;
       }
     }
 
     + .single-path {
-      padding: 0.5rem settings.$size-16 0.5rem 0.2rem;
+      padding: 0.5rem s.$size-16 0.5rem 0.2rem;
 
-      @media screen and (max-width: (settings.$tablet - 1)) {
-        padding: 0.5rem settings.$size-16;
+      @media screen and (max-width: (s.$tablet - 1)) {
+        padding: 0.5rem s.$size-16;
       }
     }
   }
@@ -103,50 +103,50 @@
   .occu-row {
     display: flex;
     width: 100%;
-    gap: settings.$size-32;
+    gap: s.$size-32;
     align-items: flex-start;
 
-    @media screen and (max-width: (settings.$tablet - 1)) {
+    @media screen and (max-width: (s.$tablet - 1)) {
       flex-direction: column;
     }
 
-    @media screen and (min-width: (settings.$tablet)) {
-      max-width: settings.$desktop-xl;
+    @media screen and (min-width: (s.$tablet)) {
+      max-width: s.$desktop-xl;
       margin: 0 auto;
     }
 
     > div {
       width: 100%;
 
-      @media screen and (min-width: (settings.$tablet)) {
-        max-width: settings.$size-520;
+      @media screen and (min-width: (s.$tablet)) {
+        max-width: s.$size-520;
       }
 
       &:first-of-type {
-        @media screen and (min-width: (settings.$tablet-xl)) {
-          max-width: calc(100% - settings.$size-520);
+        @media screen and (min-width: (s.$tablet-xl)) {
+          max-width: calc(100% - s.$size-520);
         }
       }
 
-      @media screen and (min-width: (settings.$tablet)) {
+      @media screen and (min-width: (s.$tablet)) {
         width: 100%;
       }
     }
 
     &.info {
-      @media screen and (max-width: (settings.$tablet-xl - 1)) {
+      @media screen and (max-width: (s.$tablet-xl - 1)) {
         flex-direction: column-reverse;
       }
 
       > div {
-        @media screen and (max-width: (settings.$tablet-xl - 1)) {
+        @media screen and (max-width: (s.$tablet-xl - 1)) {
           width: 100%;
         }
       }
 
       .box {
-        @media screen and (min-width: (settings.$tablet-xl)) {
-          width: calc(100% - settings.$size-520);
+        @media screen and (min-width: (s.$tablet-xl)) {
+          width: calc(100% - s.$size-520);
         }
       }
     }
@@ -154,19 +154,19 @@
 
   .meta {
     display: flex;
-    gap: settings.$size-32;
+    gap: s.$size-32;
 
-    @media screen and (max-width: (settings.$mobile-lg - 1)) {
-      gap: settings.$size-16;
+    @media screen and (max-width: (s.$mobile-lg - 1)) {
+      gap: s.$size-16;
       flex-direction: column;
     }
 
-    @media screen and (min-width: (settings.$tablet-xl)) {
+    @media screen and (min-width: (s.$tablet-xl)) {
       width: 25rem;
     }
 
-    @media screen and (max-width: (settings.$tablet - 1)) {
-      padding: 0 settings.$size-16;
+    @media screen and (max-width: (s.$tablet - 1)) {
+      padding: 0 s.$size-16;
     }
 
     .infoBox {
@@ -176,14 +176,14 @@
 
   .labelBox {
     width: 100%;
-    margin-bottom: settings.$size-32;
+    margin-bottom: s.$size-32;
 
-    @media screen and (min-width: (settings.$tablet)) {
+    @media screen and (min-width: (s.$tablet)) {
       overflow: hidden;
-      border-radius: settings.$size-10;
+      border-radius: s.$size-10;
     }
 
-    @media screen and (max-width: (settings.$tablet - 1)) {
+    @media screen and (max-width: (s.$tablet - 1)) {
       display: flex;
       flex-direction: column;
     }
@@ -193,14 +193,14 @@
     }
 
     .content {
-      padding: settings.$size-16;
+      padding: s.$size-16;
 
-      @media screen and (min-width: (settings.$tablet)) {
-        border-left: settings.$size-1 solid settings.$base-lightest;
-        border-right: settings.$size-1 solid settings.$base-lightest;
-        border-bottom: settings.$size-1 solid settings.$base-lightest;
-        border-bottom-left-radius: settings.$size-10;
-        border-bottom-right-radius: settings.$size-10;
+      @media screen and (min-width: (s.$tablet)) {
+        border-left: s.$size-1 solid s.$base-lightest;
+        border-right: s.$size-1 solid s.$base-lightest;
+        border-bottom: s.$size-1 solid s.$base-lightest;
+        border-bottom-left-radius: s.$size-10;
+        border-bottom-right-radius: s.$size-10;
       }
     }
   }
@@ -209,8 +209,8 @@
     .content {
       a {
         &.usa-button {
-          background-color: settings.$primary-lighter;
-          border: settings.$size-2 solid settings.$primary-light;
+          background-color: s.$primary-lighter;
+          border: s.$size-2 solid s.$primary-light;
         }
       }
     }
@@ -219,7 +219,7 @@
   .related-training,
   .related-occupations {
     a:not(.usa-button) {
-      color: settings.$primary;
+      color: s.$primary;
       text-decoration: none;
       display: block;
     }
@@ -229,8 +229,8 @@
     ul {
       display: flex;
       flex-direction: column;
-      gap: settings.$size-24;
-      margin: settings.$size-16 0 settings.$size-32;
+      gap: s.$size-24;
+      margin: s.$size-16 0 s.$size-32;
     }
 
     li {
@@ -238,28 +238,28 @@
     }
 
     a:not(.usa-button) {
-      border: 2px solid settings.$base-lighter;
-      border-radius: settings.$size-8;
-      padding: settings.$size-16;
-      transition-duration: settings.$transition-speed;
+      border: 2px solid s.$base-lighter;
+      border-radius: s.$size-8;
+      padding: s.$size-16;
+      transition-duration: s.$transition-speed;
 
       &:hover {
-        @media screen and (min-width: (settings.$tablet-md)) {
-          box-shadow: settings.$shadow-2;
+        @media screen and (min-width: (s.$tablet-md)) {
+          box-shadow: s.$shadow-2;
         }
       }
 
       .title-bar {
         line-height: 1.2;
-        font-size: settings.$size-16;
-        margin-bottom: settings.$size-16;
+        font-size: s.$size-16;
+        margin-bottom: s.$size-16;
         font-weight: bold;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
 
         svg {
-          color: settings.$ink;
+          color: s.$ink;
         }
       }
 
@@ -267,10 +267,10 @@
         display: flex;
         flex-direction: column;
         margin: 0;
-        gap: settings.$size-16;
+        gap: s.$size-16;
 
         span {
-          color: settings.$ink;
+          color: s.$ink;
           display: flex;
           align-items: center;
           gap: 0.5rem;
@@ -280,9 +280,9 @@
           }
 
           &.salary {
-            color: settings.$white;
-            background-color: settings.$base;
-            padding: settings.$size-4 settings.$size-8 settings.$size-2;
+            color: s.$white;
+            background-color: s.$base;
+            padding: s.$size-4 s.$size-8 s.$size-2;
           }
         }
       }

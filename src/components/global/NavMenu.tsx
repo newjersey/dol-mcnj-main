@@ -2,7 +2,7 @@
 import { LinkObject } from "@components/modules/LinkObject";
 import { NavSubMenu } from "./NavSubMenu";
 import { HeadingLevel, NavMenuProps, TopNavItemProps } from "@utils/types";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, JSX } from "react";
 
 export const NavMenu = ({
   menu,

@@ -1,7 +1,6 @@
 import request from "supertest";
 import express, { Express, Router } from "express";
 import { routerFactory } from "./router";
-import { Error } from "../domain/Error";
 import {
   buildInDemandOccupation,
   buildOccupationDetail,
@@ -24,6 +23,7 @@ describe("router", () => {
     stubFindTrainingsBy = jest.fn();
     stubGetInDemandOccupations = jest.fn();
     stubGetOccupationDetail = jest.fn();
+    stubGetOccupationDetailByCIP = jest.fn();
 
     router = routerFactory({
       searchTrainings: stubSearchTrainings,
@@ -76,7 +76,7 @@ describe("router", () => {
     });
 
     it("sends a 404 when the fetch fails with a Not Found error", (done) => {
-      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(Error.NOT_FOUND));
+      stubFindTrainingsBy.mockImplementationOnce(() => Promise.reject(new Error("NOT_FOUND")));
       request(app).get("/trainings/notfounderror").expect(404).end(done);
     });
 

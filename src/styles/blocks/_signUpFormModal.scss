@@ -1,0 +1,196 @@
+@use "../settings" as s;
+
+.signUpModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+  &.open {
+    pointer-events: all;
+
+    .overlay {
+      opacity: 1;
+      transition-delay: 0;
+    }
+
+    .modal {
+      transition-delay: s.$transition-speed / 2;
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  .overlay {
+    opacity: 0;
+    transition-delay: s.$transition-speed / 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition-duration: s.$transition-speed;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal {
+    opacity: 0;
+    transition-delay: 0;
+    transition-duration: s.$transition-speed;
+    top: s.$size-40;
+    background-color: s.$white;
+    overflow: auto;
+    max-height: 100svh;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    z-index: 2;
+    max-width: s.$size-520;
+    color: s.$black;
+    border-radius: s.$size-8;
+    padding: s.$size-32;
+
+    a {
+      color: s.$primary;
+      text-decoration: none;
+      display: inline;
+    }
+
+    button {
+      &.usa-button:not(.usa-button--unstyled):not(.close) {
+        background-color: s.$primary;
+
+        &:hover {
+          background-color: s.$primary-dark;
+        }
+      }
+
+      &:hover {
+        &:after {
+          content: none;
+        }
+      }
+
+      &.close {
+        padding: 0;
+        position: absolute;
+        color: s.$base;
+        top: s.$size-16;
+        right: s.$size-16;
+      }
+    }
+
+    .heading {
+      font-weight: 700;
+      font-size: s.$size-20;
+    }
+
+    .instruction {
+      display: block;
+      font-size: s.$size-14;
+      margin: s.$size-16 0;
+    }
+
+    .row {
+      display: flex;
+      gap: s.$size-16;
+
+      > * {
+        flex: 1;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-20;
+
+      .usa-alert--error,
+      .usa-alert--success {
+        margin-top: 0;
+
+        .usa-alert__body {
+          &:before {
+            top: s.$size-13;
+          }
+        }
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-8;
+      font-size: s.$size-16;
+
+      &.error {
+        input {
+          border-color: s.$error;
+        }
+      }
+
+      &.email {
+        > div {
+          position: relative;
+        }
+
+        input {
+          padding-left: s.$size-40;
+        }
+
+        svg {
+          position: absolute;
+          top: 50%;
+          left: s.$size-16;
+          transform: translateY(-50%);
+        }
+      }
+
+      > span {
+        font-weight: 700;
+      }
+
+      .errorMessage {
+        font-weight: 700;
+        color: s.$error;
+      }
+    }
+
+    input {
+      width: 100%;
+      min-height: s.$size-56;
+      border-radius: s.$size-4;
+      border: s.$size-2 s.$base-light solid;
+      padding: 0 s.$size-16;
+    }
+
+    .usa-alert__heading {
+      font-weight: 700;
+      font-size: s.$size-22;
+    }
+  }
+
+  .spinner {
+    position: relative;
+    transform-origin: center;
+    height: 20px;
+    width: 20px;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

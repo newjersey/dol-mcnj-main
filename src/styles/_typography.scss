@@ -1,4 +1,4 @@
-@use "./settings" as settings;
+@use "./settings" as s;
 
 main {
   h1,
@@ -11,7 +11,7 @@ main {
   ul,
   ol {
     max-width: none;
-    margin: settings.$size-20 0;
+    margin: s.$size-20 0;
 
     &:first-child {
       margin-top: 0;
@@ -22,7 +22,7 @@ main {
     }
 
     li {
-      margin: settings.$size-8 0;
+      margin: s.$size-8 0;
 
       &:first-child {
         margin-top: 0;
@@ -44,55 +44,55 @@ main {
   }
 
   .text-4xl {
-    font-size: settings.$size-64;
+    font-size: s.$size-64;
   }
 
   .text-3xl {
-    font-size: settings.$size-48;
+    font-size: s.$size-48;
   }
 
   h1,
   .text-2xl {
-    font-size: settings.$size-40;
+    font-size: s.$size-40;
   }
 
   h2,
   .text-xl {
-    font-size: settings.$size-32;
+    font-size: s.$size-32;
   }
 
   h3,
   .text-lrg {
-    font-size: settings.$size-24;
+    font-size: s.$size-24;
   }
 
   h4,
   .text-md {
-    font-size: settings.$size-20;
+    font-size: s.$size-20;
   }
 
   h5,
   .text-base {
-    font-size: settings.$size-16;
+    font-size: s.$size-16;
   }
 
   h6,
   .text-sm {
-    font-size: settings.$size-12;
+    font-size: s.$size-12;
   }
 
   .text-xs {
-    font-size: settings.$size-8;
+    font-size: s.$size-8;
   }
 
   p,
   li {
-    font-size: settings.$size-16;
+    font-size: s.$size-16;
   }
 
   ul,
   ol {
-    padding-left: settings.$size-20;
+    padding-left: s.$size-20;
   }
 
   ul {
@@ -119,23 +119,23 @@ main {
   }
 
   a {
-    color: settings.$primary;
+    color: s.$primary;
     text-decoration: underline;
     display: inline;
     align-items: center;
-    gap: settings.$size-2;
+    gap: s.$size-2;
     position: relative;
 
     &.boldLink {
       font-weight: 700;
       text-decoration: underline;
-      text-decoration-thickness: settings.$size-2;
-      text-underline-offset: settings.$size-4;
+      text-decoration-thickness: s.$size-2;
+      text-underline-offset: s.$size-4;
 
       svg {
         position: relative;
-        top: settings.$size-6;
-        margin-left: settings.$size-6;
+        top: s.$size-6;
+        margin-left: s.$size-6;
       }
     }
 
@@ -144,21 +144,21 @@ main {
     }
 
     &:visited {
-      color: settings.$primary;
+      color: s.$primary;
     }
 
     &:hover {
       text-decoration: underline;
-      color: settings.$tertiary;
+      color: s.$tertiary;
     }
   }
 
   .sr-only {
     position: absolute;
-    width: settings.$size-1;
-    height: settings.$size-1;
+    width: s.$size-1;
+    height: s.$size-1;
     padding: 0;
-    margin: -(settings.$size-1);
+    margin: -(s.$size-1);
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
@@ -172,10 +172,10 @@ main {
 
   .lrg-txt {
     font-weight: 600;
-    font-size: settings.$size-22;
+    font-size: s.$size-22;
 
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
-      font-size: settings.$size-18;
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      font-size: s.$size-18;
     }
   }
 }

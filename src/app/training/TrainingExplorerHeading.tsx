@@ -37,18 +37,20 @@ export const TrainingExplorerHeading = ({
     <section className="training-explorer-heading">
       <div className="container">
         <Breadcrumbs crumbs={breadcrumbs} pageTitle={heading} />
-        <Heading level={1} className="main">
-          {heading}
-        </Heading>
-        {subheading && <p className="subheading">{subheading}</p>}
-        {message && (
-          <div
-            className="message"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(message),
-            }}
-          />
-        )}
+        <div className="heading-container">
+          <Heading level={1} className="main">
+            {heading}
+          </Heading>
+          {subheading && <p className="subheading">{subheading}</p>}
+          {message && (
+            <div
+              className="message"
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(message),
+              }}
+            />
+          )}
+        </div>
         <Steps items={steps} className="desktop-only" />
         <TrainingSearch />
         <Steps items={steps} className="mobile-only" />
