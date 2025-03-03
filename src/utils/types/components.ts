@@ -807,6 +807,7 @@ export interface FormInputProps {
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
+  requiredIndicator?: boolean;
   type:
     | "text"
     | "email"

@@ -237,7 +237,8 @@ export const SignUpFormModal = () => {
           ) : (
             <>
               <span className="instruction">
-                A red asterick (<span className="red">*</span>) indicates a
+                A red asterick (
+                <span className="require-mark text-error">*</span>) indicates a
                 required field.
               </span>
               <form
@@ -280,6 +281,7 @@ export const SignUpFormModal = () => {
                   label="Email"
                   inputId="email"
                   value={email}
+                  requiredIndicator
                   placeholder="email@example.com"
                   error={emailError}
                   onChange={(e) => {

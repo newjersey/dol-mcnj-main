@@ -28,6 +28,7 @@ export const FormInput = (props: FormInputProps) => {
     placeholder,
     readOnly,
     required,
+    requiredIndicator,
     type,
     value,
     variant,
@@ -46,8 +47,12 @@ export const FormInput = (props: FormInputProps) => {
         // Render textarea for type "textarea"
         <>
           <label className={`usa-label${labelClasses}`} htmlFor={inputId}>
-            {label}
-            {required && <span className="require-mark text-error">*</span>}
+            <span>
+              {label}
+              {(required || requiredIndicator) && (
+                <span className="require-mark text-error">*</span>
+              )}
+            </span>
           </label>
           {helperText && <p>{helperText}</p>}
           <textarea
@@ -98,8 +103,12 @@ export const FormInput = (props: FormInputProps) => {
               className={`usa-${type}__label${labelClasses}`}
               htmlFor={inputId}
             >
-              {label}
-              {required && <span className="require-mark text-error">*</span>}
+              <span>
+                {label}
+                {(required || requiredIndicator) && (
+                  <span className="require-mark text-error">*</span>
+                )}
+              </span>
             </label>
             {variant === "switch" && (
               <span className="toggle">
@@ -112,8 +121,12 @@ export const FormInput = (props: FormInputProps) => {
         // Render select dropdown
         <>
           <label className={`usa-label${labelClasses}`} htmlFor={inputId}>
-            {label}
-            {required && <span className="require-mark text-error">*</span>}
+            <span>
+              {label}
+              {(required || requiredIndicator) && (
+                <span className="require-mark text-error">*</span>
+              )}
+            </span>
           </label>
           {helperText && <p>{helperText}</p>}
           <select
@@ -137,8 +150,12 @@ export const FormInput = (props: FormInputProps) => {
       ) : type === "email" ? (
         <>
           <label className={`usa-label${labelClasses}`} htmlFor={inputId}>
-            {label}
-            {required && <span className="require-mark text-error">*</span>}
+            <span>
+              {label}
+              {(required || requiredIndicator) && (
+                <span className="require-mark text-error">*</span>
+              )}
+            </span>
           </label>
           {helperText && <p>{helperText}</p>}
           <Envelope size={25} weight="regular" className="icon" />
@@ -162,8 +179,12 @@ export const FormInput = (props: FormInputProps) => {
         // Render all other input
         <>
           <label className={`usa-label${labelClasses}`} htmlFor={inputId}>
-            {label}
-            {required && <span className="require-mark text-error">*</span>}
+            <span>
+              {label}
+              {(required || requiredIndicator) && (
+                <span className="require-mark text-error">*</span>
+              )}
+            </span>
           </label>
           {helperText && <p>{helperText}</p>}
           <input
