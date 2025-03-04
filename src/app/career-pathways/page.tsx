@@ -27,8 +27,9 @@ export default async function CareerPathwaysPage() {
       <MinimalBanner {...pageData.banner} />
       <IndustrySelector {...pageData.industrySelector} />
       <section className="body-copy container">
-        {pageData.bodyContent.map((copy) => (
+        {pageData.bodyContent.map((copy, index) => (
           <div
+            key={`body-copy-${index}`}
             dangerouslySetInnerHTML={{
               __html: parseMarkdownToHTML(copy),
             }}
