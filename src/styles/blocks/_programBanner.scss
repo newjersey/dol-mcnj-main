@@ -39,6 +39,11 @@
       border-radius: s.$size-4;
       position: relative;
 
+      &.unstyled {
+        justify-content: center;
+        align-items: center;
+      }
+
       svg {
         fill: s.$black;
       }
@@ -97,7 +102,7 @@
         border-radius: s.$size-4;
         padding: s.$size-4;
         white-space: nowrap;
-        bottom: -(s.$size-24);
+        bottom: -(s.$size-32);
         font-size: s.$size-12;
       }
     }
