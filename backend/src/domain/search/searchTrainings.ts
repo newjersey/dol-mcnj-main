@@ -1,6 +1,3 @@
-
-
-
 import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
@@ -17,24 +14,24 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import {Provider} from "../training/Training";
+import { Provider } from "../training/Training";
 
-// ─── Initialize cache ─────────────────────────────────────────────────────────
+// ─── Initialize cache ───────────────────────────────────────────────
 interface CachedResults {
   results: TrainingResult[];
   totalResults: number;
+  isFull: boolean;
 }
 
 const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
 
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
-const tokenize = (text: string): string[] => {
-  return text
-    .replace(/[^a-zA-Z0-9- ]/g, "") // Keep letters, numbers, hyphens, and spaces
+const tokenize = (text: string): string[] =>
+  text
+    .replace(/[^a-zA-Z0-9- ]/g, "")
     .split(/\s+/)
     .filter((word) => word.length > 1 && !STOP_WORDS.has(word.toLowerCase()));
-};
 
 const levenshteinDistance = (a: string, b: string): number => {
   const dp = Array.from({ length: a.length + 1 }, () =>
@@ -44,19 +41,17 @@ const levenshteinDistance = (a: string, b: string): number => {
   for (let j = 0; j <= b.length; j++) dp[0][j] = j;
   for (let i = 1; i <= a.length; i++) {
     for (let j = 1; j <= b.length; j++) {
-      if (a[i - 1] === b[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1];
-      } else {
-        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-      }
+      dp[i][j] =
+        a[i - 1] === b[j - 1]
+          ? dp[i - 1][j - 1]
+          : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
     }
   }
   return dp[a.length][b.length];
 };
 
-const fuzzyMatch = (word1: string, word2: string): boolean => {
-  return word1.length > 4 && word2.length > 4 && levenshteinDistance(word1, word2) <= 1;
-};
+const fuzzyMatch = (word1: string, word2: string): boolean =>
+  word1.length > 4 && word2.length > 4 && levenshteinDistance(word1, word2) <= 1;
 
 const COMMON_WORDS = new Set([
   "systems",
@@ -74,21 +69,22 @@ const COMMON_WORDS = new Set([
 ]);
 
 /**
- * Ranks search results based on query relevance using multiple criteria.
+ * Ranks search results based on query relevance.
  */
 const rankResults = (query: string, results: TrainingResult[], minScore = 500): TrainingResult[] => {
   if (!query || results.length === 0) return [];
   console.log(`🔍 Ranking ${results.length} results for query: "${query}"`);
   const queryTokens = new Set(tokenize(query.toLowerCase()));
   const queryPhrase = queryTokens.size > 1 ? [...queryTokens].join(" ") : null;
-  const uniqueResults = Array.from(new Map(results.map(item => [item.ctid, item])).values());
-  return uniqueResults
+  return results
     .map((training) => {
       if (!training.name) return { ...training, rank: 0 };
       const trainingName = training.name.trim().toLowerCase();
       const trainingDesc = (training.description || "").trim().toLowerCase();
       const providerName = (training.providerName || "").trim().toLowerCase();
-      const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
+      const trainingLocation = training.availableAt
+        ?.map(a => a.city?.trim()?.toLowerCase() || "")
+        .filter(Boolean) || [];
       const cipTitle = (training.cipDefinition?.ciptitle || "").trim().toLowerCase();
       const nameTokens = new Set(tokenize(trainingName));
       const descTokens = new Set(tokenize(trainingDesc));
@@ -97,52 +93,40 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
       const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens];
       let score = 0;
       let strongMatch = false;
-      console.log(`\n🔹 Evaluating: ${training.name} (${training.ctid})`);
       if (query === providerName) {
         score += 15000;
         strongMatch = true;
-        console.log(`🎯 Exact Provider Match: ${providerName} +15000`);
       }
       if (query === trainingName || cipTitle) {
         score += 2000;
         strongMatch = true;
-        console.log(`🎯 Exact Training Name or CIP Match: ${trainingName} / ${cipTitle} +2000`);
       }
       if (queryPhrase && allTokensArray.join(" ").includes(queryPhrase)) {
         score += 1000;
         strongMatch = true;
-        console.log(`✅ Exact Phrase Match: "${queryPhrase}" +1000`);
       }
       queryTokens.forEach((token) => {
-        if (COMMON_WORDS.has(token)) {
-          console.log(`⚠️ Skipping common word: "${token}"`);
-          return;
-        }
+        if (COMMON_WORDS.has(token)) return;
         if (nameTokens.has(token)) {
           score += 150;
           strongMatch = true;
-          console.log(`✅ Name Match: "${token}" +150`);
         } else if (providerTokens.has(token)) {
           score += 100;
           strongMatch = true;
-          console.log(`✅ Provider Match: "${token}" +100`);
         } else if (descTokens.has(token)) {
           score += 50;
-          console.log(`✅ Description Match: "${token}" +50`);
         }
       });
       trainingLocation.forEach((city) => {
         if (queryTokens.has(city)) {
           score += 1500;
           strongMatch = true;
-          console.log(`📍 City Match: "${city}" +1500`);
         }
       });
       queryTokens.forEach((queryToken) => {
         allTokensArray.forEach((textToken) => {
           if (!textToken.includes(queryToken) && fuzzyMatch(queryToken, textToken)) {
             score += 50;
-            console.log(`🔍 Fuzzy Match: "${queryToken}" ~ "${textToken}" +50`);
           }
         });
       });
@@ -158,7 +142,7 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
 };
 
 /**
- * Fetch a single batch of learning opportunities from the Credential Engine API.
+ * Fetch a single page from the Credential Engine API.
  */
 const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
   try {
@@ -181,15 +165,6 @@ const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 2
   const initialResponse = await searchLearningOpportunities(query, 0, batchSize);
   const totalResults = initialResponse.totalResults;
   learningOpportunities.push(...initialResponse.learningOpportunities);
-  const fetchBatch = async (offset: number) => {
-    try {
-      const response = await searchLearningOpportunities(query, offset, batchSize);
-      return response.learningOpportunities;
-    } catch (error) {
-      console.error(`Error fetching batch at offset ${offset}:`, error);
-      return [];
-    }
-  };
   const offsets = [];
   for (let offset = batchSize; offset < totalResults; offset += batchSize) {
     offsets.push(offset);
@@ -197,14 +172,16 @@ const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 2
   const concurrencyLimit = 5;
   for (let i = 0; i < offsets.length; i += concurrencyLimit) {
     const batchOffsets = offsets.slice(i, i + concurrencyLimit);
-    const results = await Promise.all(batchOffsets.map(fetchBatch));
-    results.forEach((batch) => learningOpportunities.push(...batch));
+    const results = await Promise.all(
+      batchOffsets.map(offset => searchLearningOpportunities(query, offset, batchSize))
+    );
+    results.forEach(res => learningOpportunities.push(...res.learningOpportunities));
   }
   return { learningOpportunities, totalResults };
 };
 
 /**
- * Filters training results based on various parameters.
+ * Filters training results based on parameters.
  */
 const filterRecords = async (
   results: TrainingResult[],
@@ -245,8 +222,7 @@ const filterRecords = async (
   if (max_cost && max_cost > 0) {
     filteredResults = filteredResults.filter(
       (result) =>
-        result.totalCost !== null &&
-        result.totalCost !== undefined &&
+        result.totalCost != null &&
         result.totalCost <= max_cost
     );
   }
@@ -324,54 +300,36 @@ const filterRecords = async (
 const paginateRecords = (trainingResults: TrainingResult[], page: number, limit: number) => {
   const totalResults = trainingResults.length;
   const totalPages = Math.max(1, Math.ceil(totalResults / limit));
-
-  // Ensure current page is within valid range
   const currentPage = Math.min(page, totalPages);
   const start = (currentPage - 1) * limit;
   const end = start + limit;
-
   console.log(`📌 Paginating ${totalResults} results (Page: ${currentPage} / ${totalPages}, Limit: ${limit})`);
-
   return {
-    results: trainingResults.slice(start, end), // ✅ Return correctly paginated results
+    results: trainingResults.slice(start, end),
     totalPages,
     totalResults,
     currentPage
   };
 };
 
-
-
 /**
- * Sorts training results based on the specified criteria.
+ * Sorts training results.
  */
 export const sortTrainings = (trainings: TrainingResult[], sort: string): TrainingResult[] => {
   switch (sort) {
     case "asc":
       console.log("Before sorting (asc):", trainings.map(t => t.name));
-      return trainings.sort((a, b) => {
-        const nameA = a.name || "";
-        const nameB = b.name || "";
-        return nameA.localeCompare(nameB);
-      });
+      return trainings.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
     case "desc":
       console.log("Before sorting (desc):", trainings.map(t => t.name));
-      return trainings.sort((a, b) => {
-        const nameA = a.name || "";
-        const nameB = b.name || "";
-        return nameB.localeCompare(nameA);
-      });
+      return trainings.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
     case "price_asc":
       return trainings.sort((a, b) => (a.totalCost || 0) - (b.totalCost || 0));
     case "price_desc":
       return trainings.sort((a, b) => (b.totalCost || 0) - (a.totalCost || 0));
     case "EMPLOYMENT_RATE":
       console.log("Before sorting by employment rate:", trainings.map(t => t.percentEmployed));
-      return trainings.sort((a, b) => {
-        const rateA = a.percentEmployed !== null && a.percentEmployed !== undefined ? a.percentEmployed : -Infinity;
-        const rateB = b.percentEmployed !== null && b.percentEmployed !== undefined ? b.percentEmployed : -Infinity;
-        return rateB - rateA;
-      });
+      return trainings.sort((a, b) => (b.percentEmployed ?? -Infinity) - (a.percentEmployed ?? -Infinity));
     case "best_match":
     default:
       return trainings;
@@ -379,7 +337,7 @@ export const sortTrainings = (trainings: TrainingResult[], sort: string): Traini
 };
 
 /**
- * Normalizes query parameters for caching consistency.
+ * Normalizes query parameters for caching.
  */
 function normalizeQueryParams(params: {
   searchQuery?: string;
@@ -409,6 +367,14 @@ function normalizeQueryParams(params: {
   };
 }
 
+/**
+ * Factory: Returns the search function.
+ *
+ * - For page 1: If no full dataset is cached, do a fast partial fetch (first page only)
+ *   and trigger a background full fetch.
+ * - For pages > 1: Wait for the full dataset.
+ * Then, build a final cache key (excluding pagination) for filtering & sorting.
+ */
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
     searchQuery: string;
@@ -426,73 +392,153 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     miles?: number;
     services?: string[];
     zipcode?: string;
-  }): Promise<TrainingData> => {
+  }): Promise<TrainingData & { isFull: boolean }> => {
     const overallStart = performance.now();
+    console.time("TotalSearchTime");
     const { page = 1, limit = 10, sort = "best_match" } = params;
+    console.log(`Received search request for query: "${params.searchQuery}" on page: ${page}`);
     const query = buildQuery(params);
     const normalizedParams = normalizeQueryParams(params);
-    const cacheKey = `searchResults-${JSON.stringify(normalizedParams)}`;
-    console.time("TotalSearchTime");
-
-    let cachedData = cache.get<CachedResults>(cacheKey);
+    // Exclude pagination from the full dataset cache key.
+    const { page: _, limit: __, ...cacheParams } = normalizedParams;
+    const fullCacheKey = `fullSearchResults-${JSON.stringify(cacheParams)}`;
+    let cachedData = cache.get<CachedResults>(fullCacheKey);
 
     if (!cachedData) {
-      console.log(`🚀 Cache miss: Fetching new results for query: "${normalizedParams.searchTerm}"`);
-      const fetchStart = performance.now();
-      const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
-      console.log(`📊 API fetch took ${performance.now() - fetchStart} ms`);
-
-      // Transform results with provider caching
-      const transformStart = performance.now();
-      const results = await Promise.all(
-        learningOpportunities.map((lo) =>
-          transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-        )
-      );
-      console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
-
-      cachedData = { results, totalResults };
-      cache.set(cacheKey, cachedData, 300);
+      if (page === 1) {
+        // Fast partial fetch for page 1
+        console.log(`🚀 Fast fetch triggered for query: "${normalizedParams.searchTerm}" on page 1`);
+        const partialResponse = await searchLearningOpportunities(query, 0, limit);
+        const partialTransformed = await Promise.all(
+          partialResponse.learningOpportunities.map(lo =>
+            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+          )
+        );
+        cachedData = {
+          results: partialTransformed,
+          totalResults: partialResponse.totalResults,
+          isFull: false
+        };
+        cache.set(fullCacheKey, cachedData, 300);
+        // Trigger background full fetch.
+        (async () => {
+          try {
+            const fullResponse = await searchLearningOpportunitiesInBatches(query);
+            const fullTransformed = await Promise.all(
+              fullResponse.learningOpportunities.map(lo =>
+                transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+              )
+            );
+            const fullData: CachedResults = {
+              results: fullTransformed,
+              totalResults: fullResponse.totalResults,
+              isFull: true
+            };
+            cache.set(fullCacheKey, fullData, 300);
+            console.log("Background full fetch completed and cache updated with full data.");
+            // Invalidate the final results cache so that new full data is used.
+            const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
+              sort,
+              cip_code: params.cip_code,
+              soc_code: params.soc_code,
+              county: params.county,
+              zipcode: params.zipcode,
+              in_demand: params.in_demand,
+              format: params.format,
+              complete_in: params.complete_in,
+              miles: params.miles,
+              languages: params.languages,
+              services: params.services,
+            })}`;
+            cache.del(finalCacheKey);
+          } catch (error) {
+            console.error("Background full fetch failed:", error);
+          }
+        })();
+      } else {
+        // For pages > 1, perform a full fetch.
+        console.log(`🚀 Full fetch triggered for query: "${normalizedParams.searchTerm}" on page ${page}`);
+        const fullResponse = await searchLearningOpportunitiesInBatches(query);
+        const fullTransformed = await Promise.all(
+          fullResponse.learningOpportunities.map(lo =>
+            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+          )
+        );
+        cachedData = {
+          results: fullTransformed,
+          totalResults: fullResponse.totalResults,
+          isFull: true
+        };
+        cache.set(fullCacheKey, cachedData, 300);
+      }
     } else {
-      console.log(`✅ Cache hit for query: "${normalizedParams.searchTerm}"`);
+      console.log(`✅ Cache hit for full results for query: "${normalizedParams.searchTerm}"`);
     }
 
-    const filterStart = performance.now();
-    const filteredResults = await filterRecords(
-      cachedData.results,
-      params.cip_code,
-      params.soc_code,
-      params.complete_in,
-      params.in_demand,
-      params.max_cost,
-      params.county,
-      params.miles,
-      params.zipcode,
-      params.format,
-      params.languages,
-      params.services
-    );
-    console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
+    // Build a final cache key that incorporates filtering & sorting (excluding pagination).
+    const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
+      sort,
+      cip_code: params.cip_code,
+      soc_code: params.soc_code,
+      county: params.county,
+      zipcode: params.zipcode,
+      in_demand: params.in_demand,
+      format: params.format,
+      complete_in: params.complete_in,
+      miles: params.miles,
+      languages: params.languages,
+      services: params.services,
+    })}`;
+    let finalResults = cache.get<TrainingResult[]>(finalCacheKey);
+    if (!finalResults) {
+      console.log("Computing final results with filtering, ranking and sorting...");
+      const filterStart = performance.now();
+      const filteredResults = await filterRecords(
+        cachedData.results,
+        params.cip_code,
+        params.soc_code,
+        params.complete_in,
+        params.in_demand,
+        params.max_cost,
+        params.county,
+        params.miles,
+        params.zipcode,
+        params.format,
+        params.languages,
+        params.services
+      );
+      console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
 
-    const rankStart = performance.now();
-    const rankedResults = rankResults(params.searchQuery, filteredResults);
-    console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
+      const rankStart = performance.now();
+      const rankedResults = rankResults(params.searchQuery, filteredResults);
+      console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
 
-    // Sorting results
-    const sortedResults = sortTrainings(rankedResults, sort);
+      finalResults = sortTrainings(rankedResults, sort);
+      cache.set(finalCacheKey, finalResults, 300);
+    } else {
+      console.log("Final sorted results found in cache.");
+    }
 
-    // Pagination handling
-    const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
-
-    console.log(`📌 Paginating ${totalResults} results (Page: ${currentPage} / ${totalPages}, Limit: ${limit})`);
+    const { results: paginatedResults, totalPages } = paginateRecords(finalResults, page, limit);
 
     console.timeEnd("TotalSearchTime");
+    if (page === 1) {
+      console.log(`⏱ Time to first page of results: ${performance.now() - overallStart} ms`);
+    }
     console.log(`🚀 Overall search execution took ${performance.now() - overallStart} ms`);
 
-    return packageResults(currentPage, limit, paginatedResults, totalResults, totalPages);
+    const totalItems = cachedData.isFull ? finalResults.length : cachedData.totalResults;
+    return {
+      ...packageResults(page, limit, paginatedResults, totalItems, totalPages),
+      isFull: cachedData.isFull,
+    };
+
   };
 };
 
+//
+// --- Helper types and functions for building the query and transforming results ---
+//
 
 type SearchTerm = {
   "search:value": string;
@@ -523,34 +569,40 @@ function buildQuery(params: {
   const [ownedByPart, trainingPart] = queryParts;
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
-    ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
-      "ceterms:name": [
-        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
-        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      ],
-      "ceterms:description": [
-        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
-        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      ],
-      "ceterms:ownedBy": {
-        "ceterms:name": {
-          "search:value": params.searchQuery,
-          "search:matchType": "search:contains"
+    ...(isSOC || isCIP || !!isZipCode || isCounty
+      ? undefined
+      : {
+        "ceterms:name": [
+          { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+          { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+        ],
+        "ceterms:description": [
+          { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+          { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+        ],
+        "ceterms:ownedBy": {
+          "ceterms:name": {
+            "search:value": params.searchQuery,
+            "search:matchType": "search:contains"
+          }
         }
-      }
-    }),
-    "ceterms:occupationType": isSOC ? {
-      "ceterms:codedNotation": {
-        "search:value": params.searchQuery,
-        "search:matchType": "search:startsWith"
-      }
-    } : undefined,
-    "ceterms:instructionalProgramType": isCIP ?
-      { "ceterms:codedNotation": {
+      }),
+    "ceterms:occupationType": isSOC
+      ? {
+        "ceterms:codedNotation": {
           "search:value": params.searchQuery,
           "search:matchType": "search:startsWith"
         }
-      } : undefined
+      }
+      : undefined,
+    "ceterms:instructionalProgramType": isCIP
+      ? {
+        "ceterms:codedNotation": {
+          "search:value": params.searchQuery,
+          "search:matchType": "search:startsWith"
+        }
+      }
+      : undefined
   };
   if (hasMultipleParts) {
     termGroup = {
@@ -586,9 +638,9 @@ const transformResults = async (
   searchQuery: string
 ): Promise<TrainingResult[]> => {
   return Promise.all(
-    learningOpportunities.map(async (lo) => {
-      return transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery);
-    })
+    learningOpportunities.map(async (lo) =>
+      transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery)
+    )
   );
 };
 
@@ -610,7 +662,6 @@ async function transformLearningOpportunityCTDLToTrainingResult(
     const eveningCoursesPromise = credentialEngineUtils.hasEveningSchedule(learningOpportunity);
     const languagesPromise = credentialEngineUtils.getLanguages(learningOpportunity);
 
-    // Fetch independent promises in parallel
     const [
       highlight,
       provider,
@@ -636,10 +687,11 @@ async function transformLearningOpportunityCTDLToTrainingResult(
     ]);
 
     const cipDefinitionPromise = cipCode ? dataClient.findCipDefinitionByCip(cipCode) : Promise.resolve(null);
-    const outcomeDefinitionPromise = provider?.providerId ? dataClient.findOutcomeDefinition(provider.providerId, cipCode) : Promise.resolve(null);
+    const outcomeDefinitionPromise = provider?.providerId
+      ? dataClient.findOutcomeDefinition(provider.providerId, cipCode)
+      : Promise.resolve(null);
     const inDemandCIPsPromise = dataClient.getCIPsInDemand();
 
-    // Fetch dependent values in parallel
     const [cipDefinition, outcomeDefinition, inDemandCIPs] = await Promise.all([
       cipDefinitionPromise,
       outcomeDefinitionPromise,
@@ -649,7 +701,6 @@ async function transformLearningOpportunityCTDLToTrainingResult(
     const socCodes = occupations.map((occupation) => occupation.soc);
     const isInDemand = inDemandCIPs.some((c) => c.cipcode === cipCode);
 
-    // Define async functions but don't await them yet
     const isWheelchairAccessible = () => credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
     const hasJobPlacementAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
     const hasChildcareAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
@@ -672,9 +723,9 @@ async function transformLearningOpportunityCTDLToTrainingResult(
       socCodes,
       hasEveningCourses,
       languages,
-      isWheelchairAccessible, // Do not await, return as function
-      hasJobPlacementAssistance, // Do not await, return as function
-      hasChildcareAssistance, // Do not await, return as function
+      isWheelchairAccessible,
+      hasJobPlacementAssistance,
+      hasChildcareAssistance,
       totalClockHours: null,
     };
   } catch (error) {
@@ -683,6 +734,14 @@ async function transformLearningOpportunityCTDLToTrainingResult(
   }
 }
 
+const NAN_INDICATOR = "-99999";
+
+const formatPercentEmployed = (perEmployed: string | null): number | null => {
+  if (perEmployed === null || perEmployed === NAN_INDICATOR) {
+    return null;
+  }
+  return parseFloat(perEmployed);
+};
 
 function packageResults(
   currentPage: number,
@@ -705,13 +764,3 @@ function packageResults(
     },
   };
 }
-
-
-const NAN_INDICATOR = "-99999";
-
-const formatPercentEmployed = (perEmployed: string | null): number | null => {
-  if (perEmployed === null || perEmployed === NAN_INDICATOR) {
-    return null;
-  }
-  return parseFloat(perEmployed);
-};

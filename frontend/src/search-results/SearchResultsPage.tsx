@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { navigate } from "@reach/router";
 import { RouteComponentProps, WindowLocation } from "@reach/router";
 
@@ -21,7 +21,7 @@ import { ComparisonContext } from "../comparison/ComparisonContext";
 import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
 import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
-import {getSearchQuery, filterChips, getTrainingData} from "./searchFunctions";
+import { getSearchQuery, filterChips, getTrainingData } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
@@ -29,10 +29,33 @@ interface Props extends RouteComponentProps {
   location?: WindowLocation<unknown> | undefined;
 }
 
+// Helper to convert completeIn filter strings to numbers
+const computeCompleteInArray = (completeInStrings: string[]): number[] => {
+  const result: number[] = [];
+  for (const value of completeInStrings) {
+    switch (value) {
+      case "days":
+        result.push(1, 2, 3);
+        break;
+      case "weeks":
+        result.push(4, 5);
+        break;
+      case "months":
+        result.push(6, 7);
+        break;
+      case "years":
+        result.push(8, 9, 10);
+        break;
+      default:
+        break;
+    }
+  }
+  return result;
+};
+
 export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const searchQuery = getSearchQuery(location?.search);
@@ -54,14 +77,12 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     zipcode: undefined as string | undefined,
   });
 
-
   const comparisonState = useContext(ComparisonContext).state;
-
   const { t } = useTranslation();
 
+  // --- Update filters from URL ---
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-
     const updatedFilters = {
       pageNumber: parseInt(urlParams.get("p") || "1", 10),
       itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
@@ -79,15 +100,10 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       zipcode: urlParams.get("zipcode") || undefined,
       searchQuery: getSearchQuery(window.location.search) || ""
     };
-
-    setFilters((prev) => ({
-      ...prev,
-      ...updatedFilters,
-    }));
+    setFilters((prev) => ({ ...prev, ...updatedFilters }));
   }, [window.location.search]);
 
-
-
+  // --- Initial fetch ---
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
@@ -110,38 +126,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     setIsLoading(true);
 
-    /** ✅ **Process `completeIn` correctly** */
-    const completeInArray: number[] = [];
-    let completeInStringArray: string[] = [];
+    const completeInStringArray =
+      completeInValue && (completeInValue.includes(",") || completeInValue.includes("%2C"))
+        ? completeInValue.split(",")
+        : (completeInValue ? [completeInValue] : []);
 
-    if (completeInValue) {
-      const completeValues =
-        completeInValue.includes(",") || completeInValue.includes("%2C")
-          ? completeInValue.split(",")
-          : [completeInValue];
-
-      completeInStringArray = completeValues; // Store string version in filters
-
-      completeValues.forEach((value) => {
-        switch (value) {
-          case "days":
-            completeInArray.push(1, 2, 3);
-            break;
-          case "weeks":
-            completeInArray.push(4, 5);
-            break;
-          case "months":
-            completeInArray.push(6, 7);
-            break;
-          case "years":
-            completeInArray.push(8, 9, 10);
-            break;
-        }
-      });
-    }
-
-
-    /** ✅ **Update filters state** */
     setFilters((prev) => ({
       ...prev,
       pageNumber: pageNumberValue,
@@ -151,7 +140,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         : "best_match",
       cipCode: cipCodeValue || undefined,
       classFormat: classFormatValue ? classFormatValue.split(",") : [],
-      completeIn: completeInStringArray, // ✅ Keep as string[]
+      completeIn: completeInStringArray,
       county: countyValue ? (countyValue as CountyProps) : undefined,
       inDemand: inDemandValue === "true",
       languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
@@ -162,7 +151,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       zipcode: zipcodeValue || undefined,
     }));
 
-    /** ✅ **Fetch training data using correct filters** */
     getTrainingData(
       client,
       searchQuery || "",
@@ -172,7 +160,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       setTrainings,
       filters.cipCode,
       filters.classFormat,
-      completeInArray, // ✅ Pass the correctly mapped numeric values
+      computeCompleteInArray(filters.completeIn),
       filters.county,
       filters.inDemand,
       filters.itemsPerPage,
@@ -185,22 +173,87 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       filters.sortBy,
       filters.zipcode
     );
-
   }, [client, searchQuery, JSON.stringify(filters)]);
 
+  // --- Polling for Updates (for the current page only) ---
+  // We'll poll every 5 seconds until we detect 3 consecutive polls with no change.
+  const stableCountRef = useRef(0);
+  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Helper that wraps the getTrainingData call into a Promise
+  const fetchTrainingData = (): Promise<TrainingData> => {
+    return new Promise((resolve, reject) => {
+      client.getTrainingsByQuery(
+        searchQuery || "",
+        {
+          onSuccess: (data: TrainingData) => resolve(data),
+          onError: () => reject(new Error("Error fetching training data")),
+        },
+        filters.cipCode,
+        filters.classFormat,
+        computeCompleteInArray(filters.completeIn),
+        filters.county,
+        filters.inDemand,
+        filters.itemsPerPage,
+        filters.languages,
+        filters.maxCost,
+        filters.miles,
+        filters.pageNumber,
+        filters.services,
+        filters.socCode,
+        filters.sortBy,
+        filters.zipcode
+      );
+    });
+  };
+
+  useEffect(() => {
+    if (!isLoading && searchQuery) {
+      const intervalMs = 5000;
+      pollIntervalRef.current = setInterval(async () => {
+        try {
+          const newData = await fetchTrainingData();
+          if (newData.data && newData.data.length > 0) {
+            const start = (filters.pageNumber - 1) * filters.itemsPerPage;
+            const newPageResults = newData.data.slice(start, start + filters.itemsPerPage);
+            const newCTIDs = newPageResults.map((t) => t.ctid).join(",");
+            const currentCTIDs = trainings.map((t) => t.ctid).join(",");
+            if (newCTIDs !== currentCTIDs) {
+              console.log("Polled updated data for page", filters.pageNumber);
+              setMetaData(newData.meta);
+              setTrainings(newPageResults);
+              stableCountRef.current = 0;
+            } else {
+              stableCountRef.current += 1;
+              if (stableCountRef.current >= 3) {
+                if (pollIntervalRef.current) {
+                  clearInterval(pollIntervalRef.current);
+                  pollIntervalRef.current = null;
+                  console.log("Polling stopped – data is stable for page", filters.pageNumber);
+                }
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Error during polling:", error);
+        }
+      }, intervalMs);
+      return () => {
+        if (pollIntervalRef.current) {
+          clearInterval(pollIntervalRef.current);
+        }
+      };
+    }
+  }, [isLoading, searchQuery, filters.pageNumber, filters.itemsPerPage, trainings, client, filters]);
+
+  // --- Handlers ---
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     const newNumber = parseInt(event.target.value);
-
-    // ✅ Update state properly
     setFilters((prev) => ({ ...prev, itemsPerPage: newNumber }));
-
-    // ✅ Update URL properly
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("limit", newNumber.toString());
     navigate(`?${urlParams.toString()}`, { replace: true });
   };
-
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as
@@ -210,13 +263,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       | "price_desc"
       | "EMPLOYMENT_RATE"
       | "best_match";
-
     logEvent("Search", "Updated sort", newSortOrder);
-
-    // ✅ Update state first
     setFilters((prev) => ({ ...prev, sortBy: newSortOrder }));
-
-    // ✅ Update URL without reloading
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("sort", newSortOrder);
     navigate(`?${urlParams.toString()}`, { replace: true });
@@ -228,10 +276,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         value !== undefined &&
         value !== false &&
         (!(Array.isArray(value) && value.length === 0)) &&
-        !["itemsPerPage", "pageNumber", "sortBy"].includes(key) // ✅ Now sortBy will NOT appear as a chip
+        !["itemsPerPage", "pageNumber", "sortBy"].includes(key)
     )
   );
-
 
   type FilterFields = {
     [key: string]: string | number | boolean | string[] | number[] | boolean[];
@@ -263,12 +310,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               <FilterDrawer
                 chips={filterChips(appliedFilters as FilterFields) as ChipProps[]}
                 {...appliedFilters}
-                maxCost={filters.maxCost ? String(filters.maxCost) : undefined} // ✅ Ensure maxCost is displayed correctly
-                miles={filters.miles ? String(filters.miles) : undefined} // ✅ Ensure miles is displayed correctly
+                maxCost={filters.maxCost ? String(filters.maxCost) : undefined}
+                miles={filters.miles ? String(filters.miles) : undefined}
               />
-
-
-
               <SearchFilters
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
