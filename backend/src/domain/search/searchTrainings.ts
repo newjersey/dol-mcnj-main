@@ -25,6 +25,9 @@ interface CachedResults {
 
 const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
 
+// We'll use a separate cache key for a "fast" (partial) fetch for page 1.
+const fastCacheKeyPrefix = "fastSearchResults-";
+
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
 const tokenize = (text: string): string[] =>
@@ -371,9 +374,9 @@ function normalizeQueryParams(params: {
  * Factory: Returns the search function.
  *
  * - For page 1: If no full dataset is cached, do a fast partial fetch (first page only)
- *   and trigger a background full fetch.
- * - For pages > 1: Wait for the full dataset.
- * Then, build a final cache key (excluding pagination) for filtering & sorting.
+ *   and trigger a background full fetch (which will invalidate the final-sorted cache).
+ * - For pages > 1: Wait for (or fetch) the full dataset.
+ * Then build a final cache key (excluding pagination) for filtering & sorting.
  */
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
@@ -399,10 +402,13 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     console.log(`Received search request for query: "${params.searchQuery}" on page: ${page}`);
     const query = buildQuery(params);
     const normalizedParams = normalizeQueryParams(params);
-    // Exclude pagination from the full dataset cache key.
+    // Exclude pagination from our full-data cache key.
     const { page: _, limit: __, ...cacheParams } = normalizedParams;
     const fullCacheKey = `fullSearchResults-${JSON.stringify(cacheParams)}`;
-    let cachedData = cache.get<CachedResults>(fullCacheKey);
+    // Also build a separate cache key for a fast (partial) fetch of page 1.
+    const fastCacheKey = fastCacheKeyPrefix + JSON.stringify(cacheParams);
+
+    let cachedData: CachedResults | undefined = cache.get(fullCacheKey);
 
     if (!cachedData) {
       if (page === 1) {
@@ -414,12 +420,17 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
             transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
           )
         );
+        // Cache fast (partial) data separately.
+        cache.set(fastCacheKey, {
+          results: partialTransformed,
+          totalResults: partialResponse.totalResults,
+          isFull: false
+        }, 300);
         cachedData = {
           results: partialTransformed,
           totalResults: partialResponse.totalResults,
           isFull: false
         };
-        cache.set(fullCacheKey, cachedData, 300);
         // Trigger background full fetch.
         (async () => {
           try {
@@ -436,7 +447,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
             };
             cache.set(fullCacheKey, fullData, 300);
             console.log("Background full fetch completed and cache updated with full data.");
-            // Invalidate the final results cache so that new full data is used.
+            // Invalidate the final sorted cache so that subsequent requests use full data.
             const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
               sort,
               cip_code: params.cip_code,
@@ -451,6 +462,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
               services: params.services,
             })}`;
             cache.del(finalCacheKey);
+            // Also update the fast cache so future page 1 requests use full data.
+            cache.set(fastCacheKey, fullData, 300);
           } catch (error) {
             console.error("Background full fetch failed:", error);
           }
@@ -475,7 +488,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       console.log(`✅ Cache hit for full results for query: "${normalizedParams.searchTerm}"`);
     }
 
-    // Build a final cache key that incorporates filtering & sorting (excluding pagination).
+    // Build final sorted results cache key (excluding pagination).
     const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
       sort,
       cip_code: params.cip_code,
@@ -519,6 +532,9 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       console.log("Final sorted results found in cache.");
     }
 
+    // When using partial (fast) data, use totalResults from that API call;
+    // otherwise, use the length of the full finalResults.
+    const totalItems = cachedData.isFull ? finalResults.length : cachedData.totalResults;
     const { results: paginatedResults, totalPages } = paginateRecords(finalResults, page, limit);
 
     console.timeEnd("TotalSearchTime");
@@ -527,12 +543,10 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     }
     console.log(`🚀 Overall search execution took ${performance.now() - overallStart} ms`);
 
-    const totalItems = cachedData.isFull ? finalResults.length : cachedData.totalResults;
     return {
       ...packageResults(page, limit, paginatedResults, totalItems, totalPages),
       isFull: cachedData.isFull,
     };
-
   };
 };
 
@@ -569,24 +583,22 @@ function buildQuery(params: {
   const [ownedByPart, trainingPart] = queryParts;
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
-    ...(isSOC || isCIP || !!isZipCode || isCounty
-      ? undefined
-      : {
-        "ceterms:name": [
-          { "search:value": params.searchQuery, "search:matchType": "search:exact" },
-          { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-        ],
-        "ceterms:description": [
-          { "search:value": params.searchQuery, "search:matchType": "search:exact" },
-          { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-        ],
-        "ceterms:ownedBy": {
-          "ceterms:name": {
-            "search:value": params.searchQuery,
-            "search:matchType": "search:contains"
-          }
+    ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
+      "ceterms:name": [
+        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      ],
+      "ceterms:description": [
+        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
+        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
+      ],
+      "ceterms:ownedBy": {
+        "ceterms:name": {
+          "search:value": params.searchQuery,
+          "search:matchType": "search:contains"
         }
-      }),
+      }
+    }),
     "ceterms:occupationType": isSOC
       ? {
         "ceterms:codedNotation": {
