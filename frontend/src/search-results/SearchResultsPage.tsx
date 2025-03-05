@@ -29,7 +29,8 @@ interface Props extends RouteComponentProps {
   location?: WindowLocation<unknown> | undefined;
 }
 
-const computeCompleteInArrayFrontend = (completeInStrings: string[]): number[] => {
+// Helper to convert completeIn filter strings to numbers
+const computeCompleteInArray = (completeInStrings: string[]): number[] => {
   const result: number[] = [];
   for (const value of completeInStrings) {
     switch (value) {
@@ -57,8 +58,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
-  // Track whether the full dataset has been fetched (used to stop polling)
-  const [isFull, setIsFull] = useState<boolean>(false);
   const searchQuery = getSearchQuery(location?.search);
   const [filters, setFilters] = useState({
     itemsPerPage: 10,
@@ -81,7 +80,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   const comparisonState = useContext(ComparisonContext).state;
   const { t } = useTranslation();
 
-  // --- Update filters from URL (only the ones used) ---
+  // --- Update filters from URL ---
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const updatedFilters = {
@@ -106,8 +105,52 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
   // --- Initial fetch ---
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("p");
+    const limit = urlParams.get("limit");
+    const sortByValue = urlParams.get("sort");
+    const cipCodeValue = urlParams.get("cip");
+    const classFormatValue = urlParams.get("format");
+    const completeInValue = urlParams.get("completeIn");
+    const countyValue = urlParams.get("county");
+    const inDemandValue = urlParams.get("inDemand");
+    const languagesValue = urlParams.get("languages");
+    const maxCostValue = urlParams.get("maxCost");
+    const milesValue = urlParams.get("miles");
+    const servicesValue = urlParams.get("services");
+    const socCodeValue = urlParams.get("soc");
+    const zipcodeValue = urlParams.get("zipcode");
+
+    const limitValue = limit ? parseInt(limit) : 10;
+    const pageNumberValue = page ? parseInt(page) : 1;
+
     setIsLoading(true);
-    // NOTE: getTrainingData now expects 20 arguments; the extra callback for isFull has been removed.
+
+    const completeInStringArray =
+      completeInValue && (completeInValue.includes(",") || completeInValue.includes("%2C"))
+        ? completeInValue.split(",")
+        : (completeInValue ? [completeInValue] : []);
+
+    setFilters((prev) => ({
+      ...prev,
+      pageNumber: pageNumberValue,
+      itemsPerPage: limitValue,
+      sortBy: sortByValue
+        ? (sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match")
+        : "best_match",
+      cipCode: cipCodeValue || undefined,
+      classFormat: classFormatValue ? classFormatValue.split(",") : [],
+      completeIn: completeInStringArray,
+      county: countyValue ? (countyValue as CountyProps) : undefined,
+      inDemand: inDemandValue === "true",
+      languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
+      maxCost: maxCostValue ? parseInt(maxCostValue) : undefined,
+      miles: milesValue ? parseInt(milesValue) : undefined,
+      services: servicesValue ? servicesValue.split(",") : [],
+      socCode: socCodeValue || undefined,
+      zipcode: zipcodeValue || undefined,
+    }));
+
     getTrainingData(
       client,
       searchQuery || "",
@@ -117,7 +160,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       setTrainings,
       filters.cipCode,
       filters.classFormat,
-      computeCompleteInArrayFrontend(filters.completeIn),
+      computeCompleteInArray(filters.completeIn),
       filters.county,
       filters.inDemand,
       filters.itemsPerPage,
@@ -132,18 +175,12 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     );
   }, [client, searchQuery, JSON.stringify(filters)]);
 
-  // --- Set "isFull" when full data is available ---
-  useEffect(() => {
-    if (metaData && trainings && metaData.totalItems === trainings.length) {
-      setIsFull(true);
-    }
-  }, [metaData, trainings]);
-
   // --- Polling for Updates (for the current page only) ---
-  // Only poll if not loading, a query exists, and full data has NOT yet been fetched.
+  // We'll poll every 5 seconds until we detect 3 consecutive polls with no change.
   const stableCountRef = useRef(0);
   const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Helper that wraps the getTrainingData call into a Promise
   const fetchTrainingData = (): Promise<TrainingData> => {
     return new Promise((resolve, reject) => {
       client.getTrainingsByQuery(
@@ -154,7 +191,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         },
         filters.cipCode,
         filters.classFormat,
-        computeCompleteInArrayFrontend(filters.completeIn),
+        computeCompleteInArray(filters.completeIn),
         filters.county,
         filters.inDemand,
         filters.itemsPerPage,
@@ -171,7 +208,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   };
 
   useEffect(() => {
-    if (!isLoading && searchQuery && !isFull) {
+    if (!isLoading && searchQuery) {
       const intervalMs = 5000;
       pollIntervalRef.current = setInterval(async () => {
         try {
@@ -188,10 +225,12 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               stableCountRef.current = 0;
             } else {
               stableCountRef.current += 1;
-              if (stableCountRef.current >= 3 && pollIntervalRef.current) {
-                clearInterval(pollIntervalRef.current);
-                pollIntervalRef.current = null;
-                console.log("Polling stopped – data is stable for page", filters.pageNumber);
+              if (stableCountRef.current >= 3) {
+                if (pollIntervalRef.current) {
+                  clearInterval(pollIntervalRef.current);
+                  pollIntervalRef.current = null;
+                  console.log("Polling stopped – data is stable for page", filters.pageNumber);
+                }
               }
             }
           }
@@ -205,7 +244,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         }
       };
     }
-  }, [isLoading, searchQuery, filters.pageNumber, filters.itemsPerPage, trainings, client, filters, isFull]);
+  }, [isLoading, searchQuery, filters.pageNumber, filters.itemsPerPage, trainings, client, filters]);
 
   // --- Handlers ---
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {

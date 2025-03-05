@@ -402,93 +402,93 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     console.log(`Received search request for query: "${params.searchQuery}" on page: ${page}`);
     const query = buildQuery(params);
     const normalizedParams = normalizeQueryParams(params);
-    // Exclude pagination from our full-data cache key.
+    // Exclude pagination from our full-data cache key
     const { page: _, limit: __, ...cacheParams } = normalizedParams;
     const fullCacheKey = `fullSearchResults-${JSON.stringify(cacheParams)}`;
-    // Also build a separate cache key for a fast (partial) fetch of page 1.
+    // Also build a separate cache key for a fast (partial) fetch of page 1
     const fastCacheKey = fastCacheKeyPrefix + JSON.stringify(cacheParams);
 
     let cachedData: CachedResults | undefined = cache.get(fullCacheKey);
 
-    if (!cachedData) {
-      if (page === 1) {
-        // Fast partial fetch for page 1
-        console.log(`🚀 Fast fetch triggered for query: "${normalizedParams.searchTerm}" on page 1`);
-        const partialResponse = await searchLearningOpportunities(query, 0, limit);
-        const partialTransformed = await Promise.all(
-          partialResponse.learningOpportunities.map(lo =>
-            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-          )
-        );
-        // Cache fast (partial) data separately.
-        cache.set(fastCacheKey, {
-          results: partialTransformed,
-          totalResults: partialResponse.totalResults,
-          isFull: false
-        }, 300);
-        cachedData = {
-          results: partialTransformed,
-          totalResults: partialResponse.totalResults,
-          isFull: false
-        };
-        // Trigger background full fetch.
-        (async () => {
-          try {
-            const fullResponse = await searchLearningOpportunitiesInBatches(query);
-            const fullTransformed = await Promise.all(
-              fullResponse.learningOpportunities.map(lo =>
-                transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-              )
-            );
-            const fullData: CachedResults = {
-              results: fullTransformed,
-              totalResults: fullResponse.totalResults,
-              isFull: true
-            };
-            cache.set(fullCacheKey, fullData, 300);
-            console.log("Background full fetch completed and cache updated with full data.");
-            // Invalidate the final sorted cache so that subsequent requests use full data.
-            const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
-              sort,
-              cip_code: params.cip_code,
-              soc_code: params.soc_code,
-              county: params.county,
-              zipcode: params.zipcode,
-              in_demand: params.in_demand,
-              format: params.format,
-              complete_in: params.complete_in,
-              miles: params.miles,
-              languages: params.languages,
-              services: params.services,
-            })}`;
-            cache.del(finalCacheKey);
-            // Also update the fast cache so future page 1 requests use full data.
-            cache.set(fastCacheKey, fullData, 300);
-          } catch (error) {
-            console.error("Background full fetch failed:", error);
-          }
-        })();
-      } else {
-        // For pages > 1, perform a full fetch.
-        console.log(`🚀 Full fetch triggered for query: "${normalizedParams.searchTerm}" on page ${page}`);
-        const fullResponse = await searchLearningOpportunitiesInBatches(query);
-        const fullTransformed = await Promise.all(
-          fullResponse.learningOpportunities.map(lo =>
-            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-          )
-        );
-        cachedData = {
-          results: fullTransformed,
-          totalResults: fullResponse.totalResults,
-          isFull: true
-        };
-        cache.set(fullCacheKey, cachedData, 300);
-      }
+    // For page 1, if we don't already have fast data, do a fast partial fetch
+    if (page === 1 && !cache.has(fastCacheKey)) {
+      console.log(`🚀 Fast fetch triggered for query: "${normalizedParams.searchTerm}" on page 1`);
+      const partialResponse = await searchLearningOpportunities(query, 0, limit);
+      const partialTransformed = await Promise.all(
+        partialResponse.learningOpportunities.map(lo =>
+          transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+        )
+      );
+      // Cache fast (partial) data separately.
+      cache.set(fastCacheKey, {
+        results: partialTransformed,
+        totalResults: partialResponse.totalResults,
+        isFull: false
+      }, 300);
+      // Also set it as the current cachedData for computing final results.
+      cachedData = {
+        results: partialTransformed,
+        totalResults: partialResponse.totalResults,
+        isFull: false
+      };
+      // Trigger the background full fetch.
+      (async () => {
+        try {
+          const fullResponse = await searchLearningOpportunitiesInBatches(query);
+          const fullTransformed = await Promise.all(
+            fullResponse.learningOpportunities.map(lo =>
+              transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+            )
+          );
+          const fullData: CachedResults = {
+            results: fullTransformed,
+            totalResults: fullResponse.totalResults,
+            isFull: true
+          };
+          // Update the full-data cache.
+          cache.set(fullCacheKey, fullData, 300);
+          console.log("Background full fetch completed and cache updated with full data.");
+          // Invalidate the final sorted cache so that subsequent requests use full data.
+          const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
+            sort,
+            cip_code: params.cip_code,
+            soc_code: params.soc_code,
+            county: params.county,
+            zipcode: params.zipcode,
+            in_demand: params.in_demand,
+            format: params.format,
+            complete_in: params.complete_in,
+            miles: params.miles,
+            languages: params.languages,
+            services: params.services,
+          })}`;
+          cache.del(finalCacheKey);
+          // Also update the fast cache so future page 1 requests use full data.
+          cache.set(fastCacheKey, fullData, 300);
+        } catch (error) {
+          console.error("Background full fetch failed:", error);
+        }
+      })();
+    } else if (!cachedData) {
+      // For pages > 1 (or if fast fetch already exists and page > 1), do a full fetch
+      console.log(`🚀 Full fetch triggered for query: "${normalizedParams.searchTerm}" on page ${page}`);
+      const fullResponse = await searchLearningOpportunitiesInBatches(query);
+      const fullTransformed = await Promise.all(
+        fullResponse.learningOpportunities.map(lo =>
+          transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+        )
+      );
+      cachedData = {
+        results: fullTransformed,
+        totalResults: fullResponse.totalResults,
+        isFull: true
+      };
+      cache.set(fullCacheKey, cachedData, 300);
     } else {
       console.log(`✅ Cache hit for full results for query: "${normalizedParams.searchTerm}"`);
     }
 
-    // Build final sorted results cache key (excluding pagination).
+    // Build a final cache key that incorporates filtering & sorting (excluding pagination).
     const finalCacheKey = `${fullCacheKey}-final-${JSON.stringify({
       sort,
       cip_code: params.cip_code,
@@ -532,8 +532,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       console.log("Final sorted results found in cache.");
     }
 
-    // When using partial (fast) data, use totalResults from that API call;
-    // otherwise, use the length of the full finalResults.
+    // When using partial (fast) data, use the totalResults from that API call.
+    // Otherwise, use the length of the full finalResults.
     const totalItems = cachedData.isFull ? finalResults.length : cachedData.totalResults;
     const { results: paginatedResults, totalPages } = paginateRecords(finalResults, page, limit);
 
