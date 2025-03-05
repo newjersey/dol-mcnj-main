@@ -60,9 +60,9 @@ export default async function IndemandOccupationsPage() {
     <div className="page inDemandList">
       <section className="hero">
         <div className="container">
-          <Breadcrumbs {...pageData.hero.breadcrumbs} />
-          <Heading {...pageData.hero.heading} />
-          <p>{pageData.hero.message}</p>
+          <Breadcrumbs {...pageData.en.hero.breadcrumbs} />
+          <Heading {...pageData.en.hero.heading} />
+          <p>{pageData.en.hero.message}</p>
         </div>
       </section>
       <section className="listBlock">

@@ -38,7 +38,7 @@ export default async function SupportResourcesPage() {
 
   return (
     <div className="page supportResources">
-      <PageBanner {...pageData.banner} />
+      <PageBanner {...pageData.en.banner} />
       <section className="categories">
         <div className="container">
           <div className="inner">
@@ -56,7 +56,7 @@ export default async function SupportResourcesPage() {
           </div>
         </div>
       </section>
-      <CtaBanner {...pageData.cta} />
+      <CtaBanner {...pageData.en.cta} />
     </div>
   );
 }

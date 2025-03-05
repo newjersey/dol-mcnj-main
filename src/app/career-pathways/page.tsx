@@ -24,10 +24,10 @@ export async function generateMetadata({}) {
 export default async function CareerPathwaysPage() {
   return (
     <div className="careerPathwaysLanding">
-      <MinimalBanner {...pageData.banner} />
-      <IndustrySelector {...pageData.industrySelector} />
+      <MinimalBanner {...pageData.en.banner} />
+      <IndustrySelector {...pageData.en.industrySelector} />
       <section className="body-copy container">
-        {pageData.bodyContent.map((copy, index) => (
+        {pageData.en.bodyContent.map((copy, index) => (
           <div
             key={`body-copy-${index}`}
             dangerouslySetInnerHTML={{
@@ -36,8 +36,8 @@ export default async function CareerPathwaysPage() {
           />
         ))}
       </section>
-      <CtaBanner {...pageData.cta} />
-      <CtaBanner {...pageData.ctaBanner} />
+      <CtaBanner {...pageData.en.cta} />
+      <CtaBanner {...pageData.en.ctaBanner} />
     </div>
   );
 }

@@ -24,15 +24,15 @@ export async function generateMetadata({}) {
 export default async function ContactPage() {
   return (
     <>
-      <PageBanner {...pageData.banner} />
+      <PageBanner {...pageData.en.banner} />
       <Flex className="container contact-page" columnBreak="lg">
         <Box radius={5} className="bg-base-cool address">
-          <Heading level={pageData.copyBox.headingLevel}>
-            {pageData.copyBox.heading}
+          <Heading level={pageData.en.copyBox.headingLevel}>
+            {pageData.en.copyBox.heading}
           </Heading>
           <div
             dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(pageData.copyBox.copy),
+              __html: parseMarkdownToHTML(pageData.en.copyBox.copy),
             }}
           />
         </Box>

@@ -34,10 +34,10 @@ export default async function FaqPage() {
 
   return (
     <div className="page faq">
-      <PageBanner {...pageData.banner} />
+      <PageBanner {...pageData.en.banner} />
       <FaqSection items={faqCategories.categoriesCollection.items} />
-      <CtaBanner {...pageData.ctaBanner} />
-      <CtaBanner {...pageData.cta} />
+      <CtaBanner {...pageData.en.ctaBanner} />
+      <CtaBanner {...pageData.en.cta} />
     </div>
   );
 }

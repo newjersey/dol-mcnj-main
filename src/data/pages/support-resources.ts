@@ -91,33 +91,64 @@ export const SUPPORT_RESOURCES_PAGE_DATA = {
       contentType: "image/png",
     },
   },
-
-  banner: {
-    message: "Browse support and assistance resources by category.",
-    title: "Support and Assistance Resources",
-    section: "support",
-    theme: "blue",
-    breadcrumbsCollection: {
+  en: {
+    banner: {
+      message: "Browse support and assistance resources by category.",
+      title: "Support and Assistance Resources",
+      section: "support",
+      theme: "blue",
+      breadcrumbsCollection: {
+        items: [
+          {
+            sys: {
+              id: "50o1RGfZ173Cis7VEFlBDR",
+            },
+            copy: "Home",
+            url: "/",
+          },
+        ],
+      },
+    } as PageBannerProps,
+    cta: {
+      inlineButtons: true,
+      headingLevel: 2,
+      heading: "Still have questions?",
       items: [
         {
-          sys: {
-            id: "50o1RGfZ173Cis7VEFlBDR",
-          },
-          copy: "Home",
-          url: "/",
+          copy: "Contact Us",
+          url: "https://mycareer.nj.gov/contact",
         },
       ],
-    },
-  } as PageBannerProps,
-  cta: {
-    inlineButtons: true,
-    headingLevel: 2,
-    heading: "Still have questions?",
-    items: [
-      {
-        copy: "Contact Us",
-        url: "https://mycareer.nj.gov/contact",
+    } as CtaBannerProps,
+  },
+  es: {
+    banner: {
+      message: "Explora recursos de apoyo y asistencia por categoría.",
+      title: "Recursos de Apoyo y Asistencia",
+      section: "support",
+      theme: "blue",
+      breadcrumbsCollection: {
+        items: [
+          {
+            sys: {
+              id: "50o1RGfZ173Cis7VEFlBDR",
+            },
+            copy: "Inicio",
+            url: "/",
+          },
+        ],
       },
-    ],
-  } as CtaBannerProps,
+    } as PageBannerProps,
+    cta: {
+      inlineButtons: true,
+      headingLevel: 2,
+      heading: "¿Aún tienes preguntas?",
+      items: [
+        {
+          copy: "Contáctanos",
+          url: "https://mycareer.nj.gov/contact",
+        },
+      ],
+    } as CtaBannerProps,
+  },
 };

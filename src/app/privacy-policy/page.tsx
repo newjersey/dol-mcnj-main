@@ -25,12 +25,12 @@ export default async function TermsOfServicePage() {
         paddingBottom: "4rem",
       }}
     >
-      <Heading {...pageData.heading} />
+      <Heading {...pageData.en.heading} />
       <div className="row mbm mrkdwn">
         <div
           className="col-sm-12"
           dangerouslySetInnerHTML={{
-            __html: parseMarkdownToHTML(pageData.copy),
+            __html: parseMarkdownToHTML(pageData.en.copy),
           }}
         />
       </div>

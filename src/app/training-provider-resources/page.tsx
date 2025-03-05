@@ -22,8 +22,8 @@ export async function generateMetadata({}) {
 export default async function TrainingProviderResourcesPage() {
   return (
     <div className="page trainingProviderResources">
-      <PageBanner {...pageData.banner} />
-      <Tabs {...pageData.tabs} />
+      <PageBanner {...pageData.en.banner} />
+      <Tabs {...pageData.en.tabs} />
     </div>
   );
 }

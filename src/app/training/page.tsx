@@ -26,23 +26,23 @@ export async function generateMetadata({}) {
 export default async function TrainingExplorerPage() {
   return (
     <div className="page trainingExplorer">
-      <TrainingExplorerHeading {...pageData.banner} />
+      <TrainingExplorerHeading {...pageData.en.banner} />
       <section className="howTo">
         <div className="container">
-          <SectionHeading heading={pageData.resourceHeading} />
-          <VideoBlock video={pageData.demoVideoUrl} />
-          <Stepper steps={pageData.iconCards} />
+          <SectionHeading heading={pageData.en.resourceHeading} />
+          <VideoBlock video={pageData.en.demoVideoUrl} />
+          <Stepper steps={pageData.en.iconCards} />
         </div>
       </section>
-      <CtaBanner {...pageData.interruptor} />
+      <CtaBanner {...pageData.en.interruptor} />
       <section className="faq">
         <div className="container">
-          <SectionHeading {...pageData.faqs.heading} />
-          <Accordion items={pageData.faqs.items} />
+          <SectionHeading {...pageData.en.faqs.heading} />
+          <Accordion items={pageData.en.faqs.items} />
         </div>
-        <CtaBanner {...pageData.faqs.cta} />
+        <CtaBanner {...pageData.en.faqs.cta} />
       </section>
-      <CtaBanner {...pageData.footerCta} />
+      <CtaBanner {...pageData.en.footerCta} />
     </div>
   );
 }

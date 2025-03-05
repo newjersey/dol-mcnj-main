@@ -35,13 +35,13 @@ export default async function Home() {
   return (
     <>
       <div className="page home">
-        <FancyBanner {...pageData.banner} />
-        <IntroBlocks {...pageData.introBlocks} />
+        <FancyBanner {...pageData.en.banner} />
+        <IntroBlocks {...pageData.en.introBlocks} />
         <section className="tools" id="tools">
           <div className="container">
-            <SectionHeading {...pageData.sectionHeading} />
+            <SectionHeading {...pageData.en.sectionHeading} />
             <div className="row">
-              {pageData.sections.map((card: any) => {
+              {pageData.en.sections.map((card: any) => {
                 return (
                   <IconCard
                     key={card.copy}
@@ -57,7 +57,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
-        {pageData.sections.map((cardRow: any) => (
+        {pageData.en.sections.map((cardRow: any) => (
           <CardSlider key={cardRow.heading} {...cardRow} />
         ))}
       </div>

@@ -6,7 +6,6 @@ import { createContext, useEffect, useState } from "react";
 import { ResultsHeader } from "./ResultsHeader";
 import { CompareTable } from "./CompareTable";
 import { SEARCH_RESULTS_PAGE_DATA as pageContent } from "@data/pages/training/search";
-import { HelpText } from "./HelpText";
 import { Pagination } from "@components/modules/Pagination";
 import { Alert } from "@components/modules/Alert";
 import { ParamTags } from "./ParamTags";
@@ -117,9 +116,9 @@ const Results = ({
         <div className={`results${toggle ? "" : " wide"}`} id="results">
           <>
             {results.pageData.length === 0 && !query && page === 1 ? (
-              <Alert {...pageContent.searchHelp} />
+              <Alert {...pageContent.en.searchHelp} />
             ) : results.pageData.length <= 3 && page === 1 ? (
-              <Alert {...pageContent.searchHelp} />
+              <Alert {...pageContent.en.searchHelp} />
             ) : (
               <></>
             )}

@@ -26,31 +26,31 @@ export async function generateMetadata({}) {
 export default async function CareerNavigatorPage() {
   return (
     <div className="page careerNavigator">
-      <PageBanner {...pageData.banner} />
+      <PageBanner {...pageData.en.banner} />
       <section className="howTo">
         <div className="container">
-          <SectionHeading {...pageData.howTo.sectionHeading} />
+          <SectionHeading {...pageData.en.howTo.sectionHeading} />
         </div>
         <div className="container ">
-          <Stepper theme="purple" steps={pageData.howTo.cards} />
+          <Stepper theme="purple" steps={pageData.en.howTo.cards} />
         </div>
       </section>
-      <CtaBanner {...pageData.midPageCta} />
-      <CtaBanner {...pageData.ctaBanner} />
+      <CtaBanner {...pageData.en.midPageCta} />
+      <CtaBanner {...pageData.en.ctaBanner} />
       <section className="info">
         <div className="container">
-          <SectionHeading {...pageData.info.sectionHeading} />
+          <SectionHeading {...pageData.en.info.sectionHeading} />
         </div>
         <div className="container narrow">
           <div className="inner">
-            {pageData.info.cards.map((card) => {
+            {pageData.en.info.cards.map((card) => {
               return <IconCard key={card.sys?.id} {...card} />;
             })}
           </div>
         </div>
       </section>
-      <River {...pageData.river} />
-      <CtaBanner {...pageData.footerCta} />
+      <River {...pageData.en.river} />
+      <CtaBanner {...pageData.en.footerCta} />
     </div>
   );
 }
