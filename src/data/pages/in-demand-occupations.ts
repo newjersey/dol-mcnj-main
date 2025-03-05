@@ -32,7 +32,7 @@ export const IN_DEMAND_OCCUPATIONS_PAGE_DATA = {
         crumbs: [
           {
             copy: "Inicio",
-            url: "/",
+            url: "/es",
           },
         ],
       },

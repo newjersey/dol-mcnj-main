@@ -1,7 +1,7 @@
 import { CtaBannerProps } from "@components/blocks/CtaBanner";
 import { SectionHeadingProps } from "@components/modules/SectionHeading";
 import { FaqItem } from "@utils/types";
-import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
+import { TrainingExplorerHeadingProps } from "app/(main)/training/TrainingExplorerHeading";
 
 export const TRAINING_EXPLORER_PAGE_DATA = {
   seo: {
@@ -183,12 +183,12 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
       breadcrumbs: [
         {
           copy: "Inicio",
-          url: "/",
+          url: "/es/",
         },
       ],
       learnMore: {
         copy: "Las capacitaciones y programas en el Explorador de Capacitación están acreditados.",
-        url: "/faq#etpl-program-general-information",
+        url: "/es/faq#etpl-program-general-information",
       },
       notReady: {
         copy: "¿Aún no estás listo para buscar capacitación?",
@@ -205,7 +205,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
             defaultStyle: "secondary",
             type: "link",
             outlined: true,
-            link: "/support-resources/tuition-assistance",
+            link: "/es/support-resources/tuition-assistance",
             iconSuffix: "ArrowRight",
           },
         ],
@@ -240,14 +240,14 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
       heading: "Consulta estos otros recursos útiles",
       customLinks: [
         {
-          link: "/training-provider-resources",
+          link: "/es/training-provider-resources",
           label: "Recursos para proveedores de capacitación",
           svgName: "SupportBold",
           type: "link",
           highlight: "navy",
         },
         {
-          link: "/support-resources/tuition-assistance",
+          link: "/es/support-resources/tuition-assistance",
           label: "Información sobre asistencia de matrícula",
           svgName: "SupportBold",
           type: "link",
@@ -277,7 +277,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         items: [
           {
             copy: "Ver todas las preguntas frecuentes",
-            url: "/faq",
+            url: "/es/faq",
           },
         ],
       },

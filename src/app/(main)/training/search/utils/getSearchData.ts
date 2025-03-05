@@ -1,4 +1,4 @@
-import { baking, digitalMarketing } from "../../../../mockData/index";
+import { baking, digitalMarketing } from "../../../../../mockData/index";
 import { ResultProps } from "@utils/types";
 import { FilterProps } from "../components/Results";
 import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";

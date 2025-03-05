@@ -2,6 +2,7 @@ import { Heading } from "@components/modules/Heading";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { PRIVACY_POLICY_PAGE_DATA as pageData } from "@data/pages/privacy-policy";
+import { SupportedLanguages } from "@utils/types/types";
 
 export function metadata() {
   return {
@@ -16,7 +17,11 @@ export function metadata() {
   };
 }
 
-export default async function TermsOfServicePage() {
+export async function PrivacyPolicyPage({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
   return (
     <div
       className="container"
@@ -25,15 +30,17 @@ export default async function TermsOfServicePage() {
         paddingBottom: "4rem",
       }}
     >
-      <Heading {...pageData.en.heading} />
+      <Heading {...pageData[lang].heading} />
       <div className="row mbm mrkdwn">
         <div
           className="col-sm-12"
           dangerouslySetInnerHTML={{
-            __html: parseMarkdownToHTML(pageData.en.copy),
+            __html: parseMarkdownToHTML(pageData[lang].copy),
           }}
         />
       </div>
     </div>
   );
 }
+
+export default PrivacyPolicyPage;

@@ -32,7 +32,7 @@ export const CONTACT_PAGE_DATA = {
       breadcrumbsCollection: {
         items: [
           {
-            url: "/",
+            url: "/es",
             copy: "Inicio",
           },
         ],

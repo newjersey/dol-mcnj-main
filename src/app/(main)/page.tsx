@@ -7,6 +7,7 @@ import { IntroBlocks } from "@components/blocks/IntroBlocks";
 import { UpdateNotifier } from "@components/blocks/UpdateNotifier";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
+import { SupportedLanguages } from "@utils/types/types";
 
 export const revalidate = 86400;
 
@@ -31,17 +32,17 @@ declare global {
   }
 }
 
-export default async function Home() {
+export async function Home({ lang = "en" }: { lang?: SupportedLanguages }) {
   return (
     <>
       <div className="page home">
-        <FancyBanner {...pageData.en.banner} />
-        <IntroBlocks {...pageData.en.introBlocks} />
+        <FancyBanner {...pageData[lang].banner} />
+        <IntroBlocks {...pageData[lang].introBlocks} />
         <section className="tools" id="tools">
           <div className="container">
-            <SectionHeading {...pageData.en.sectionHeading} />
+            <SectionHeading {...pageData[lang].sectionHeading} />
             <div className="row">
-              {pageData.en.sections.map((card: any) => {
+              {pageData[lang].sections.map((card: any) => {
                 return (
                   <IconCard
                     key={card.copy}
@@ -57,7 +58,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
-        {pageData.en.sections.map((cardRow: any) => (
+        {pageData[lang].sections.map((cardRow: any) => (
           <CardSlider key={cardRow.heading} {...cardRow} />
         ))}
       </div>
@@ -65,3 +66,5 @@ export default async function Home() {
     </>
   );
 }
+
+export default Home;

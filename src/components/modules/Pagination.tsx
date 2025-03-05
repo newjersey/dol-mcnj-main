@@ -1,6 +1,6 @@
 "use client";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { ResultsContext } from "app/training/search/components/Results";
+import { ResultsContext } from "app/(main)/training/search/components/Results";
 import { useContext, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 

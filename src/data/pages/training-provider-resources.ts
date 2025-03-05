@@ -86,7 +86,7 @@ export const TRAINING_PROVIDER_PAGE_DATA = {
               id: "50o1RGfZ173Cis7VEFlBDR",
             },
             copy: "Inicio",
-            url: "/",
+            url: "/es",
           },
         ],
       },

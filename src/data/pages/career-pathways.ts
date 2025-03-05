@@ -195,7 +195,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
         items: [
           {
             copy: "Inicio",
-            url: "/",
+            url: "/es/",
           },
         ],
       },
@@ -270,7 +270,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
         },
         {
           iconPrefix: "Fire",
-          link: "/in-demand-occupations",
+          link: "/es/in-demand-occupations",
           label: "Ocupaciones en demanda",
           type: "link",
           highlight: "orange",
@@ -284,7 +284,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
         },
         {
           iconPrefix: "GraduationCap",
-          link: "/training",
+          link: "/es/training",
           label: "Explorador de Capacitación NJ",
           type: "link",
           highlight: "green",
@@ -298,7 +298,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       items: [
         {
           copy: "Contáctanos",
-          url: "/contact",
+          url: "/es/contact",
         },
       ],
     } as CtaBannerProps,

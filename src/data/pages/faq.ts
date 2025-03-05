@@ -104,7 +104,7 @@ export const FAQ_PAGE_DATA = {
               id: "50o1RGfZ173Cis7VEFlBDR",
             },
             copy: "Inicio",
-            url: "/",
+            url: "/es/",
           },
         ],
       },
@@ -123,21 +123,21 @@ export const FAQ_PAGE_DATA = {
         },
         {
           iconPrefix: "GraduationCap",
-          link: "/training",
+          link: "/es/training",
           label: "Explorador de Capacitación de NJ",
           type: "link",
           highlight: "green",
         },
         {
           iconPrefix: "Lifebuoy",
-          link: "/support-resources/tuition-assistance",
+          link: "/es/support-resources/tuition-assistance",
           label: "Recursos de Asistencia para Matrícula",
           type: "link",
           highlight: "purple",
         },
         {
           iconPrefix: "ChalkboardTeacher",
-          link: "/training-provider-resources",
+          link: "/es/training-provider-resources",
           label: "Recursos para Proveedores de Capacitación",
           type: "link",
           highlight: "blue",
@@ -151,7 +151,7 @@ export const FAQ_PAGE_DATA = {
       items: [
         {
           copy: "Contáctanos",
-          url: "/contact",
+          url: "/es/contact",
         },
       ],
     } as CtaBannerProps,

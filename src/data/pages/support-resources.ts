@@ -134,7 +134,7 @@ export const SUPPORT_RESOURCES_PAGE_DATA = {
               id: "50o1RGfZ173Cis7VEFlBDR",
             },
             copy: "Inicio",
-            url: "/",
+            url: "/es",
           },
         ],
       },
