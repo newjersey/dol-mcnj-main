@@ -430,6 +430,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const overallStart = performance.now();
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
+    console.log(JSON.stringify(query));
     const normalizedParams = normalizeQueryParams(params);
     const cacheKey = `searchResults-${JSON.stringify(normalizedParams)}`;
     console.time("TotalSearchTime");
@@ -474,12 +475,12 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     );
     console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
 
-    const rankStart = performance.now();
+/*    const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
-    console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
+    console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);*/
 
     // Sorting results
-    const sortedResults = sortTrainings(rankedResults, sort);
+    const sortedResults = sortTrainings(filteredResults, sort);
 
     // Pagination handling
     const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
@@ -525,11 +526,9 @@ function buildQuery(params: {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
       "ceterms:name": [
-        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
         { "search:value": params.searchQuery, "search:matchType": "search:contains" },
       ],
       "ceterms:description": [
-        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
         { "search:value": params.searchQuery, "search:matchType": "search:contains" },
       ],
       "ceterms:ownedBy": {
@@ -542,13 +541,13 @@ function buildQuery(params: {
     "ceterms:occupationType": isSOC ? {
       "ceterms:codedNotation": {
         "search:value": params.searchQuery,
-        "search:matchType": "search:startsWith"
+        "search:matchType": "search:contains"
       }
     } : undefined,
     "ceterms:instructionalProgramType": isCIP ?
       { "ceterms:codedNotation": {
           "search:value": params.searchQuery,
-          "search:matchType": "search:startsWith"
+          "search:matchType": "search:contains"
         }
       } : undefined
   };
