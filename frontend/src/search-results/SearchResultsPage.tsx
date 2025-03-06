@@ -29,6 +29,7 @@ interface Props extends RouteComponentProps {
   location?: WindowLocation<unknown> | undefined;
 }
 
+
 // Helper to convert completeIn filter strings to numbers
 const computeCompleteInArray = (completeInStrings: string[]): number[] => {
   const result: number[] = [];
@@ -176,40 +177,40 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
   }, [client, searchQuery, JSON.stringify(filters)]);
 
   // --- Polling for Updates (for the current page only) ---
-  // We'll poll every 5 seconds until we detect 3 consecutive polls with no change.
   const stableCountRef = useRef(0);
   const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Helper that wraps the getTrainingData call into a Promise
-  const fetchTrainingData = (): Promise<TrainingData> => {
-    return new Promise((resolve, reject) => {
-      client.getTrainingsByQuery(
-        searchQuery || "",
-        {
-          onSuccess: (data: TrainingData) => resolve(data),
-          onError: () => reject(new Error("Error fetching training data")),
-        },
-        filters.cipCode,
-        filters.classFormat,
-        computeCompleteInArray(filters.completeIn),
-        filters.county,
-        filters.inDemand,
-        filters.itemsPerPage,
-        filters.languages,
-        filters.maxCost,
-        filters.miles,
-        filters.pageNumber,
-        filters.services,
-        filters.socCode,
-        filters.sortBy,
-        filters.zipcode
-      );
-    });
-  };
-
   useEffect(() => {
-    if (!isLoading && searchQuery) {
+    if (filters.pageNumber === 1 && metaData?.totalPages === 1) {
       const intervalMs = 5000;
+
+      // Helper that wraps the getTrainingData call into a Promise
+      const fetchTrainingData = (): Promise<TrainingData> => {
+        return new Promise((resolve, reject) => {
+          client.getTrainingsByQuery(
+            searchQuery || "",
+            {
+              onSuccess: (data: TrainingData) => resolve(data),
+              onError: () => reject(new Error("Error fetching training data")),
+            },
+            filters.cipCode,
+            filters.classFormat,
+            computeCompleteInArray(filters.completeIn),
+            filters.county,
+            filters.inDemand,
+            filters.itemsPerPage,
+            filters.languages,
+            filters.maxCost,
+            filters.miles,
+            filters.pageNumber,
+            filters.services,
+            filters.socCode,
+            filters.sortBy,
+            filters.zipcode
+          );
+        });
+      };
+
       pollIntervalRef.current = setInterval(async () => {
         try {
           const newData = await fetchTrainingData();
@@ -238,15 +239,15 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           console.error("Error during polling:", error);
         }
       }, intervalMs);
+
       return () => {
         if (pollIntervalRef.current) {
           clearInterval(pollIntervalRef.current);
         }
       };
     }
-  }, [isLoading, searchQuery, filters.pageNumber, filters.itemsPerPage, trainings, client, filters]);
+  }, [filters.pageNumber, metaData?.totalPages, trainings, searchQuery, filters]);
 
-  // --- Handlers ---
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     const newNumber = parseInt(event.target.value);
     setFilters((prev) => ({ ...prev, itemsPerPage: newNumber }));
