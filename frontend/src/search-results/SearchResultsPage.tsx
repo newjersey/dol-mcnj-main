@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
-import { CountyProps, LanguageProps } from "../filtering/filterLists";
+
 
 import { getSearchQuery, filterChips, getTrainingData } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
@@ -28,7 +28,6 @@ interface Props extends RouteComponentProps {
   client: Client;
   location?: WindowLocation<unknown> | undefined;
 }
-
 
 // Helper to convert completeIn filter strings to numbers
 const computeCompleteInArray = (completeInStrings: string[]): number[] => {
@@ -65,17 +64,17 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: 1,
     sortBy: "best_match" as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
     searchQuery: searchQuery || "",
-    cipCode: undefined as string | undefined,
-    classFormat: [] as string[],
-    completeIn: [] as string[],
-    county: undefined as CountyProps | undefined,
-    inDemand: false,
-    languages: [] as LanguageProps[],
-    maxCost: undefined as number | undefined,
-    miles: undefined as number | undefined,
-    services: [] as string[],
-    socCode: undefined as string | undefined,
-    zipcode: undefined as string | undefined,
+    cipCode: "" as string, // Provide a default value
+    classFormat: [] as string[], // Default as an empty array
+    completeIn: [] as string[], // Default as an empty array
+    county: "" as string, // Provide a default value
+    inDemand: false, // Default as false
+    languages: [] as string[], // Default as an empty array
+    maxCost: "" as string, // Default as an empty string, will be converted to number
+    miles: "" as string, // Default as an empty string
+    services: [] as string[], // Default as an empty array
+    socCode: "" as string, // Provide a default value
+    zipcode: "" as string, // Provide a default value
   });
 
   const comparisonState = useContext(ComparisonContext).state;
@@ -88,17 +87,17 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       pageNumber: parseInt(urlParams.get("p") || "1", 10),
       itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
       sortBy: (urlParams.get("sort") as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") || "best_match",
-      cipCode: urlParams.get("cip") || undefined,
+      cipCode: urlParams.get("cip") || "", // Default to empty string
       classFormat: urlParams.get("format") ? urlParams.get("format")!.split(",") : [],
       completeIn: urlParams.get("completeIn") ? urlParams.get("completeIn")!.split(",") : [],
-      county: urlParams.get("county") ? ({ name: urlParams.get("county")! } as unknown as CountyProps) : undefined,
+      county: urlParams.get("county") || "", // Default to empty string
       inDemand: urlParams.get("inDemand") === "true",
-      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as LanguageProps[]) : [],
-      maxCost: urlParams.get("maxCost") ? parseInt(urlParams.get("maxCost")!) : undefined,
-      miles: urlParams.get("miles") ? parseInt(urlParams.get("miles")!) : undefined,
+      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as string[]) : [],
+      maxCost: urlParams.get("maxCost") || "", // Default to empty string
+      miles: urlParams.get("miles") || "", // Default to empty string
       services: urlParams.get("services") ? urlParams.get("services")!.split(",") : [],
-      socCode: urlParams.get("soc") || undefined,
-      zipcode: urlParams.get("zipcode") || undefined,
+      socCode: urlParams.get("soc") || "", // Default to empty string
+      zipcode: urlParams.get("zipcode") || "", // Default to empty string
       searchQuery: getSearchQuery(window.location.search) || ""
     };
     setFilters((prev) => ({ ...prev, ...updatedFilters }));
@@ -139,17 +138,17 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       sortBy: sortByValue
         ? (sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match")
         : "best_match",
-      cipCode: cipCodeValue || undefined,
+      cipCode: cipCodeValue || "",
       classFormat: classFormatValue ? classFormatValue.split(",") : [],
       completeIn: completeInStringArray,
-      county: countyValue ? (countyValue as CountyProps) : undefined,
+      county: countyValue || "",
       inDemand: inDemandValue === "true",
-      languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
-      maxCost: maxCostValue ? parseInt(maxCostValue) : undefined,
-      miles: milesValue ? parseInt(milesValue) : undefined,
+      languages: languagesValue ? (languagesValue.split(",") as string[]) : [],
+      maxCost: maxCostValue || "", // Default to empty string, will be converted to number
+      miles: milesValue || "",
       services: servicesValue ? servicesValue.split(",") : [],
-      socCode: socCodeValue || undefined,
-      zipcode: zipcodeValue || undefined,
+      socCode: socCodeValue || "",
+      zipcode: zipcodeValue || "",
     }));
 
     getTrainingData(
@@ -166,8 +165,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       filters.inDemand,
       filters.itemsPerPage,
       filters.languages,
-      filters.maxCost,
-      filters.miles,
+
+      Number(filters.maxCost) || undefined,
+      Number(filters.miles) || undefined,
       filters.pageNumber,
       filters.services,
       filters.socCode,
@@ -200,8 +200,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             filters.inDemand,
             filters.itemsPerPage,
             filters.languages,
-            filters.maxCost,
-            filters.miles,
+            Number(filters.maxCost),
+            Number(filters.miles),
             filters.pageNumber,
             filters.services,
             filters.socCode,
@@ -271,20 +271,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     navigate(`?${urlParams.toString()}`, { replace: true });
   };
 
-  const appliedFilters = Object.fromEntries(
-    Object.entries(filters).filter(
-      ([key, value]) =>
-        value !== undefined &&
-        value !== false &&
-        (!(Array.isArray(value) && value.length === 0)) &&
-        !["itemsPerPage", "pageNumber", "sortBy"].includes(key)
-    )
-  );
-
-  type FilterFields = {
-    [key: string]: string | number | boolean | string[] | number[] | boolean[];
-  };
-
   return (
     <Layout
       noFooter
@@ -309,8 +295,8 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           {!isLoading && (
             <div id="search-filters-container">
               <FilterDrawer
-                chips={filterChips(appliedFilters as FilterFields) as ChipProps[]}
-                {...appliedFilters}
+                chips={filterChips(filters) as ChipProps[]}
+                {...filters}
                 maxCost={filters.maxCost ? String(filters.maxCost) : undefined}
                 miles={filters.miles ? String(filters.miles) : undefined}
               />
