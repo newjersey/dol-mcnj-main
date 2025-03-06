@@ -2,6 +2,7 @@ import { PageBanner } from "@components/blocks/PageBanner";
 import { Tabs } from "@components/blocks/Tabs";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { TRAINING_PROVIDER_PAGE_DATA as pageData } from "@data/pages/training-provider-resources";
+import { SupportedLanguages } from "@utils/types/types";
 
 export const revalidate = 86400;
 
@@ -19,11 +20,15 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function TrainingProviderResourcesPage() {
+export default async function TrainingProviderResourcesPage({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
   return (
     <div className="page trainingProviderResources">
-      <PageBanner {...pageData.en.banner} />
-      <Tabs {...pageData.en.tabs} />
+      <PageBanner {...pageData[lang].banner} />
+      <Tabs {...pageData[lang].tabs} />
     </div>
   );
 }

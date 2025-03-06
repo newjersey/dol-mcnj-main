@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Content } from "./Content";
 import { TrainingProps } from "@utils/types";
+import { SupportedLanguages } from "@utils/types/types";
 
 async function getData(soc: string) {
   const pageData = await fetch(
@@ -21,7 +22,7 @@ export const revalidate = 1800;
 export const generateMetadata = async ({
   params,
 }: {
-  params: Promise<{ code: string }>;
+  params: { code: string };
 }) => {
   const resolvedParams = await params;
   const pageData = await fetch(
@@ -42,7 +43,8 @@ export const generateMetadata = async ({
 export default async function TrainingPage({
   params,
 }: {
-  params: Promise<{ code: string }>;
+  params: { code: string };
+  lang?: SupportedLanguages;
 }) {
   const resolvedParams = await params;
   const { pageData } = await getData(resolvedParams.code);

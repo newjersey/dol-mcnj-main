@@ -4,7 +4,8 @@ header {
   &.header {
     background-color: s.$white;
     width: 100%;
-    z-index: 12;
+    z-index: 15;
+    position: relative;
 
     @media screen and (max-width: (s.$desktop)) {
       background-color: s.$primary-dark;

@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 import { Heading } from "@components/modules/Heading";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { IN_DEMAND_OCCUPATIONS_PAGE_DATA as pageData } from "@data/pages/in-demand-occupations";
+import { SupportedLanguages } from "@utils/types/types";
 
 async function getData() {
   const occupationItems = await fetch(
@@ -33,7 +34,11 @@ interface OccupationProps {
   counties: string[];
 }
 
-export default async function IndemandOccupationsPage() {
+export default async function IndemandOccupationsPage({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
   const { occupationItems } = await getData();
   const occupations: OccupationProps[] = await occupationItems.json();
 
@@ -60,9 +65,9 @@ export default async function IndemandOccupationsPage() {
     <div className="page inDemandList">
       <section className="hero">
         <div className="container">
-          <Breadcrumbs {...pageData.en.hero.breadcrumbs} />
-          <Heading {...pageData.en.hero.heading} />
-          <p>{pageData.en.hero.message}</p>
+          <Breadcrumbs {...pageData[lang].hero.breadcrumbs} />
+          <Heading {...pageData[lang].hero.heading} />
+          <p>{pageData[lang].hero.message}</p>
         </div>
       </section>
       <section className="listBlock">

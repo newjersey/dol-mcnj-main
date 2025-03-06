@@ -1,57 +1,57 @@
 import { AlertProps } from "@components/modules/Alert";
 
 export const SEARCH_RESULTS_PAGE_DATA = {
-  breadcrumbs: {
-    style: { marginBottom: "1rem" },
-    pageTitle: "Search",
-    crumbs: [
+  en: {
+    breadcrumbs: {
+      style: { marginBottom: "1rem" },
+      pageTitle: "Search",
+      crumbs: [
+        {
+          copy: "Home",
+          url: "/",
+        },
+        {
+          copy: "Training Explorer",
+          url: "/training",
+        },
+      ],
+    },
+    sortOptions: [
       {
-        copy: "Home",
-        url: "/",
+        key: "Best Match",
+        value: "",
       },
       {
-        copy: "Training Explorer",
-        url: "/training",
+        key: "Cost: Low to High",
+        value: "low",
+      },
+      {
+        key: "Cost: High to Low",
+        value: "high",
+      },
+      {
+        key: "Employment Rate",
+        value: "rate",
       },
     ],
-  },
-  sortOptions: [
-    {
-      key: "Best Match",
-      value: "",
-    },
-    {
-      key: "Cost: Low to High",
-      value: "low",
-    },
-    {
-      key: "Cost: High to Low",
-      value: "high",
-    },
-    {
-      key: "Employment Rate",
-      value: "rate",
-    },
-  ],
-  perPageOptions: [
-    {
-      key: "10",
-      value: "",
-    },
-    {
-      key: "20",
-      value: "20",
-    },
-    {
-      key: "50",
-      value: "50",
-    },
-    {
-      key: "100",
-      value: "100",
-    },
-  ],
-  en: {
+    perPageOptions: [
+      {
+        key: "10",
+        value: "",
+      },
+      {
+        key: "20",
+        value: "20",
+      },
+      {
+        key: "50",
+        value: "50",
+      },
+      {
+        key: "100",
+        value: "100",
+      },
+    ],
     searchHelp: {
       collapsable: true,
       type: "info",
@@ -60,6 +60,56 @@ export const SEARCH_RESULTS_PAGE_DATA = {
     } as AlertProps,
   },
   es: {
+    breadcrumbs: {
+      style: { marginBottom: "1rem" },
+      pageTitle: "Búsqueda",
+      crumbs: [
+        {
+          copy: "Inicio",
+          url: "/",
+        },
+        {
+          copy: "Explorador de Capacitación",
+          url: "/training",
+        },
+      ],
+    },
+    sortOptions: [
+      {
+        key: "Mejor coincidencia",
+        value: "",
+      },
+      {
+        key: "Costo: Menor a Mayor",
+        value: "low",
+      },
+      {
+        key: "Costo: Mayor a Menor",
+        value: "high",
+      },
+      {
+        key: "Tasa de Empleo",
+        value: "rate",
+      },
+    ],
+    perPageOptions: [
+      {
+        key: "10",
+        value: "",
+      },
+      {
+        key: "20",
+        value: "20",
+      },
+      {
+        key: "50",
+        value: "50",
+      },
+      {
+        key: "100",
+        value: "100",
+      },
+    ],
     searchHelp: {
       collapsable: true,
       type: "info",

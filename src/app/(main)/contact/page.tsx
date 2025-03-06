@@ -6,6 +6,7 @@ import { Flex } from "@components/utility/Flex";
 import { Box } from "@components/utility/Box";
 import { CONTACT_PAGE_DATA as pageData } from "@data/pages/contact";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { SupportedLanguages } from "@utils/types/types";
 
 export const revalidate = 86400;
 
@@ -21,18 +22,22 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function ContactPage() {
+export default async function ContactPage({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
   return (
     <>
-      <PageBanner {...pageData.en.banner} />
+      <PageBanner {...pageData[lang].banner} />
       <Flex className="container contact-page" columnBreak="lg">
         <Box radius={5} className="bg-base-cool address">
-          <Heading level={pageData.en.copyBox.headingLevel}>
-            {pageData.en.copyBox.heading}
+          <Heading level={pageData[lang].copyBox.headingLevel}>
+            {pageData[lang].copyBox.heading}
           </Heading>
           <div
             dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(pageData.en.copyBox.copy),
+              __html: parseMarkdownToHTML(pageData[lang].copyBox.copy),
             }}
           />
         </Box>

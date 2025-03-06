@@ -9,8 +9,9 @@ import { Filter } from "./Filter";
 import { notFound } from "next/navigation";
 import { RESOURCE_LISTING_QUERY } from "queries/resourceListing";
 import globalOgImage from "@images/globalOgImage.jpeg";
+import { SupportedLanguages } from "@utils/types/types";
 
-async function getData(slug: string) {
+export async function getData(slug: string) {
   const { page, tags, audience, cta } = await client({
     query: RESOURCE_CATEGORY_QUERY,
     variables: {
@@ -82,7 +83,7 @@ export const revalidate = 1800;
 export default async function ResourcesPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string; lang?: SupportedLanguages };
 }) {
   const { slug } = await params;
   const data = (await getData(slug)) as ResourceCategoryPageProps;

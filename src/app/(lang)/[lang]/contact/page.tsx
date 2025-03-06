@@ -1,13 +1,11 @@
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
-import Home from "app/(main)/page";
+import { CONTACT_PAGE_DATA as pageData } from "@data/pages/contact";
+import ContactPage from "app/(main)/contact/page";
 import { SupportedLanguages } from "@utils/types/types";
 
 export async function generateMetadata({}) {
   return {
-    title: process.env.REACT_APP_SITE_NAME,
-    description: pageData.seo.pageDescription,
-    keywords: pageData.seo.keywords,
+    title: pageData.seo.title,
     icons: {
       icon: "/favicon.ico",
     },
@@ -17,7 +15,7 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function EsHome({
+export default async function EsContactPage({
   params,
 }: {
   params?: {
@@ -27,5 +25,5 @@ export default async function EsHome({
   const resolvedParams = await params;
   const lang = resolvedParams?.lang || "en";
 
-  return Home({ lang });
+  return ContactPage({ lang });
 }

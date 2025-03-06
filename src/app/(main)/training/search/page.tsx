@@ -3,6 +3,7 @@ import { getSearchData } from "./utils/getSearchData";
 import { Results } from "./components/Results";
 import { SEARCH_RESULTS_PAGE_DATA as contentData } from "@data/pages/training/search";
 import { Breadcrumbs } from "@components/modules/Breadcrumbs";
+import { SupportedLanguages } from "@utils/types/types";
 export const revalidate = 0;
 
 export const generateMetadata = async ({
@@ -31,6 +32,7 @@ export default async function SearchPage(props: {
   searchParams: Promise<{
     [key: string]: string;
   }>;
+  lang?: SupportedLanguages;
 }) {
   const resolvedSearchParams = await props.searchParams;
   const searchProps = await getSearchData({
@@ -45,10 +47,12 @@ export default async function SearchPage(props: {
     totalPages,
   } = searchProps;
 
+  const lang = props.lang || "en";
+
   return (
     <div className="search default">
       <div className="container">
-        <Breadcrumbs {...contentData.breadcrumbs} />
+        <Breadcrumbs {...contentData[lang].breadcrumbs} />
         <Results
           items={pageData}
           searchParams={searchParams}

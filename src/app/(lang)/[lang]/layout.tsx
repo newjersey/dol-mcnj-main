@@ -15,6 +15,8 @@ export default async function RootLayout({
     lang?: SupportedLanguages;
   };
 }) {
-  const lang = params?.lang || "en";
+  const resolvedParams = await params;
+  const lang = resolvedParams?.lang || "en";
+
   return <SiteWrapper lang={lang}>{children}</SiteWrapper>;
 }

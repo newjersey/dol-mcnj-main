@@ -18,8 +18,9 @@ import {
   webDesign,
 } from "mockData";
 import Script from "next/script";
+import { SupportedLanguages } from "@utils/types/types";
 
-async function getData(soc: string) {
+export async function getData(soc: string) {
   const pageData = await fetch(
     `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`
   );
@@ -36,7 +37,7 @@ export const generateMetadata = async ({
   searchParams: Promise<{
     mockData: string;
   }>;
-  params: Promise<{ code: string }>;
+  params: { code: string };
 }) => {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
@@ -69,10 +70,10 @@ export default async function OccupationPage({
   searchParams,
   params,
 }: {
-  searchParams: Promise<{
+  searchParams: {
     mockData: string;
-  }>;
-  params: Promise<{ code: string }>;
+  };
+  params: { code: string; lang?: SupportedLanguages };
 }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;

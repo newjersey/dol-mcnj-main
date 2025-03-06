@@ -1,22 +1,19 @@
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { PRIVACY_POLICY_PAGE_DATA as pageData } from "@data/pages/privacy-policy";
-import PrivacyPolicyPage from "app/(main)/privacy-policy/page";
+import CareerNavigatorPage from "app/(main)/navigator/page";
 import { SupportedLanguages } from "@utils/types/types";
 
-export function metadata() {
+export async function generateMetadata({}) {
   return {
     title: pageData.seo.title,
-    description: pageData.seo.pageDescription,
     openGraph: {
       images: [globalOgImage.src],
     },
-    icons: {
-      icon: "/favicon.ico",
-    },
+    description: pageData.seo.pageDescription,
   };
 }
 
-export default async function EsPrivacyPolicyPage({
+export default async function EsCareerNavigatorPage({
   params,
 }: {
   params?: {
@@ -26,5 +23,5 @@ export default async function EsPrivacyPolicyPage({
   const resolvedParams = await params;
   const lang = resolvedParams?.lang || "en";
 
-  return PrivacyPolicyPage({ lang });
+  return CareerNavigatorPage({ lang });
 }

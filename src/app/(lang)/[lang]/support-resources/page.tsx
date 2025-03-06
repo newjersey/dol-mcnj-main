@@ -1,6 +1,6 @@
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
-import Home from "app/(main)/page";
+import SupportResourcesPage from "app/(main)/support-resources/page";
 import { SupportedLanguages } from "@utils/types/types";
 
 export async function generateMetadata({}) {
@@ -17,7 +17,7 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function EsHome({
+export default async function EsSupportResourcesPage({
   params,
 }: {
   params?: {
@@ -27,5 +27,5 @@ export default async function EsHome({
   const resolvedParams = await params;
   const lang = resolvedParams?.lang || "en";
 
-  return Home({ lang });
+  return SupportResourcesPage({ lang });
 }

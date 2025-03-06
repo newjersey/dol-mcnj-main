@@ -4,6 +4,7 @@ import { MinimalBanner } from "@components/blocks/MinimalBanner";
 import { IndustrySelector } from "@components/blocks/IndustrySelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { CAREER_PATHWAYS_PAGE_DATA as pageData } from "@data/pages/career-pathways";
+import { SupportedLanguages } from "@utils/types/types";
 
 export const revalidate = 86400;
 
@@ -21,13 +22,17 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function CareerPathwaysPage() {
+export default async function CareerPathwaysPage({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
   return (
     <div className="careerPathwaysLanding">
-      <MinimalBanner {...pageData.en.banner} />
-      <IndustrySelector {...pageData.en.industrySelector} />
+      <MinimalBanner {...pageData[lang].banner} />
+      <IndustrySelector {...pageData[lang].industrySelector} />
       <section className="body-copy container">
-        {pageData.en.bodyContent.map((copy, index) => (
+        {pageData[lang].bodyContent.map((copy, index) => (
           <div
             key={`body-copy-${index}`}
             dangerouslySetInnerHTML={{
@@ -36,8 +41,8 @@ export default async function CareerPathwaysPage() {
           />
         ))}
       </section>
-      <CtaBanner {...pageData.en.cta} />
-      <CtaBanner {...pageData.en.ctaBanner} />
+      <CtaBanner {...pageData[lang].cta} />
+      <CtaBanner {...pageData[lang].ctaBanner} />
     </div>
   );
 }

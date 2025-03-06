@@ -8,6 +8,7 @@ import { UpdateNotifier } from "@components/blocks/UpdateNotifier";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
 import { SupportedLanguages } from "@utils/types/types";
+import { notFound } from "next/navigation";
 
 export const revalidate = 86400;
 
@@ -32,7 +33,15 @@ declare global {
   }
 }
 
-export async function Home({ lang = "en" }: { lang?: SupportedLanguages }) {
+export default async function Home({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
+  if (!pageData[lang]) {
+    notFound();
+  }
+
   return (
     <>
       <div className="page home">
@@ -66,5 +75,3 @@ export async function Home({ lang = "en" }: { lang?: SupportedLanguages }) {
     </>
   );
 }
-
-export default Home;

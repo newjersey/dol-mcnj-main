@@ -1,22 +1,20 @@
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { PRIVACY_POLICY_PAGE_DATA as pageData } from "@data/pages/privacy-policy";
-import PrivacyPolicyPage from "app/(main)/privacy-policy/page";
+import { FAQ_PAGE_DATA as pageData } from "@data/pages/faq";
+import FaqPage from "app/(main)/faq/page";
 import { SupportedLanguages } from "@utils/types/types";
 
-export function metadata() {
+export async function generateMetadata({}) {
   return {
-    title: pageData.seo.title,
+    title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: pageData.seo.pageDescription,
+    keywords: pageData.seo.keywords,
     openGraph: {
       images: [globalOgImage.src],
-    },
-    icons: {
-      icon: "/favicon.ico",
     },
   };
 }
 
-export default async function EsPrivacyPolicyPage({
+export default async function EsFaqPage({
   params,
 }: {
   params?: {
@@ -26,5 +24,5 @@ export default async function EsPrivacyPolicyPage({
   const resolvedParams = await params;
   const lang = resolvedParams?.lang || "en";
 
-  return PrivacyPolicyPage({ lang });
+  return FaqPage({ lang });
 }

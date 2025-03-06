@@ -1,11 +1,11 @@
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
-import Home from "app/(main)/page";
+import { TRAINING_EXPLORER_PAGE_DATA as pageData } from "@data/pages/training";
+import SearchPage from "app/(main)/training/search/page";
 import { SupportedLanguages } from "@utils/types/types";
 
 export async function generateMetadata({}) {
   return {
-    title: process.env.REACT_APP_SITE_NAME,
+    title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
     description: pageData.seo.pageDescription,
     keywords: pageData.seo.keywords,
     icons: {
@@ -17,9 +17,13 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function EsHome({
+export default async function EsSearchPage({
+  searchParams,
   params,
 }: {
+  searchParams: Promise<{
+    [key: string]: string;
+  }>;
   params?: {
     lang?: SupportedLanguages;
   };
@@ -27,5 +31,5 @@ export default async function EsHome({
   const resolvedParams = await params;
   const lang = resolvedParams?.lang || "en";
 
-  return Home({ lang });
+  return SearchPage({ searchParams, lang });
 }

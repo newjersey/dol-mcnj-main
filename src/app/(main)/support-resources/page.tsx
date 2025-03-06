@@ -6,6 +6,7 @@ import { SupportResourcesPageProps } from "@utils/types";
 import { ALL_SUPPORT_PAGE_QUERY } from "queries/allSupportPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { SUPPORT_RESOURCES_PAGE_DATA as pageData } from "@data/pages/support-resources";
+import { SupportedLanguages } from "@utils/types/types";
 
 async function getData() {
   const { categories } = await client({
@@ -33,12 +34,16 @@ export async function generateMetadata({}) {
   };
 }
 
-export default async function SupportResourcesPage() {
+export default async function SupportResourcesPage({
+  lang = "en",
+}: {
+  lang?: SupportedLanguages;
+}) {
   const { categories } = (await getData()) as SupportResourcesPageProps;
 
   return (
     <div className="page supportResources">
-      <PageBanner {...pageData.en.banner} />
+      <PageBanner {...pageData[lang].banner} />
       <section className="categories">
         <div className="container">
           <div className="inner">
@@ -49,14 +54,16 @@ export default async function SupportResourcesPage() {
                 message={category.description}
                 theme="navy"
                 systemIcon="support"
-                url={`/support-resources/${category.slug}`}
+                url={`${lang === "en" ? "" : `/${lang}`}/support-resources/${
+                  category.slug
+                }`}
                 {...category}
               />
             ))}
           </div>
         </div>
       </section>
-      <CtaBanner {...pageData.en.cta} />
+      <CtaBanner {...pageData[lang].cta} />
     </div>
   );
 }

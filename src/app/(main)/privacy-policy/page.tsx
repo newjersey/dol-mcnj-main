@@ -17,7 +17,7 @@ export function metadata() {
   };
 }
 
-export async function PrivacyPolicyPage({
+export default async function PrivacyPolicyPage({
   lang = "en",
 }: {
   lang?: SupportedLanguages;
@@ -42,5 +42,3 @@ export async function PrivacyPolicyPage({
     </div>
   );
 }
-
-export default PrivacyPolicyPage;

@@ -247,6 +247,29 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
             },
           ],
         },
+        {
+          image: mechanic,
+          title: "Transporte, Distribución y Logística",
+          shorthandTitle: "TDL",
+          slug: "tdl",
+          active: false,
+          description:
+            "Las rutas para este sector están en desarrollo, pero aún puedes explorar las ocupaciones más demandadas en TDL.",
+          drawerDescription:
+            "Sé una parte importante de la cadena de suministro de nuestra nación con una carrera en transporte, distribución y logística (TDL). La diversidad de roles y responsabilidades laborales que se enumeran a continuación representa las últimas posiciones de TDL en demanda en el estado de Nueva Jersey.",
+          drawerCards: [
+            {
+              icon: "Truck",
+              title: "¿Por qué considerar una carrera en TDL?",
+              copy: `### Trabajos de calidad\n\nMuchos trabajos en transporte, distribución y logística ofrecen empleo a largo plazo, oportunidades de ascenso, grandes beneficios, formación en el puesto de trabajo y tutoría.\n\n### Para una variedad de intereses\n\nLa industria ofrece oportunidades para personas a las que les gusta trabajar con clientes, como asistentes de vuelo y conductores de trenes, así como para personas a las que les gusta construir y reparar cosas y resolver problemas, como ingenieros, técnicos de servicio y mecánicos.\n\n### Contribución Importante\n\nEl transporte, la distribución y la logística son fundamentales para la economía y la sociedad. Cuando trabajas en transporte, puedes ir a trabajar todos los días sabiendo que estás teniendo un impacto en las personas.`,
+            },
+            {
+              icon: "Star",
+              title: "Principales Sectores de Fabricación",
+              copy: `### Transporte Aéreo\n\nLos aviones se utilizan para mover pasajeros o carga. Pueden ser programados o bajo demanda, y las empresas que los operan varían desde grandes aerolíneas hasta transportistas regionales. Nueva Jersey alberga tres aeropuertos comerciales—Newark Liberty, Trenton Mercer y Atlantic City—ocho aeropuertos que admiten actividades de aviación general corporativa y privada, 30 aeropuertos de uso público, una base de hidroaviones, así como varios helipuertos y puertos de globos aerostáticos.\n\n### Transporte por Carretera\n\nLos camiones juegan un papel importante en la economía de Nueva Jersey, como parte de la industria del transporte de carga. Las terminales y los centros de almacenamiento conectan estos sistemas para entregar bienes y crear empleos. De los más de 600 millones de toneladas de bienes transportados cada año, el 75 por ciento se mueve en camión. Existen reglas y regulaciones que rigen a los conductores y camiones en esta industria.\n\n### Almacenamiento\n\nEl almacenamiento es el proceso de guardar inventario físico para la venta o distribución. Los almacenes son utilizados por todo tipo de empresas que necesitan almacenar temporalmente productos a granel antes de enviarlos a otras ubicaciones o individualmente a los consumidores finales.`,
+            },
+          ],
+        },
       ],
     } as IndustrySelectorProps,
     bodyContent: [

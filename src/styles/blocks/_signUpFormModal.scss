@@ -1,4 +1,5 @@
 @use "../settings" as s;
+@use "sass:math";
 
 .signUpModal {
   position: fixed;
@@ -21,7 +22,7 @@
     }
 
     .modal {
-      transition-delay: s.$transition-speed / 2;
+      transition-delay: math.div(s.$transition-speed, 2);
       opacity: 1;
       top: 0;
     }
@@ -29,7 +30,7 @@
 
   .overlay {
     opacity: 0;
-    transition-delay: s.$transition-speed / 2;
+    transition-delay: math.div(s.$transition-speed, 2);
     background-color: rgba(0, 0, 0, 0.5);
     transition-duration: s.$transition-speed;
     position: fixed;
