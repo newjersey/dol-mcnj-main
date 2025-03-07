@@ -59,6 +59,7 @@ export default async function SearchPage(props: {
           searchParams={searchParams}
           count={itemCount}
           page={pageNumber}
+          lang={lang}
           totalPages={totalPages}
         />
       </div>

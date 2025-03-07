@@ -9,9 +9,8 @@ import { Filter } from "./Filter";
 import { notFound } from "next/navigation";
 import { RESOURCE_LISTING_QUERY } from "queries/resourceListing";
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { SupportedLanguages } from "@utils/types/types";
 
-export async function getData(slug: string) {
+async function getData(slug: string) {
   const { page, tags, audience, cta } = await client({
     query: RESOURCE_CATEGORY_QUERY,
     variables: {

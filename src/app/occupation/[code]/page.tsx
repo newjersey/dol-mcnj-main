@@ -19,7 +19,7 @@ import {
 } from "mockData";
 import Script from "next/script";
 
-export async function getData(soc: string) {
+async function getData(soc: string) {
   const pageData = await fetch(
     `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`
   );
