@@ -3,11 +3,13 @@ import { LinkObject } from "@components/modules/LinkObject";
 import { NavSubMenu } from "./NavSubMenu";
 import { HeadingLevel, NavMenuProps, TopNavItemProps } from "@utils/types";
 import { ReactNode, useEffect, useState, JSX } from "react";
+import { SupportedLanguages } from "@utils/types/types";
 
 export const NavMenu = ({
   menu,
   className,
   label,
+  lang = "en",
   innerClassName,
   noDropdowns = false,
   extraItems,
@@ -17,6 +19,7 @@ export const NavMenu = ({
 }: {
   menu?: NavMenuProps;
   id?: string;
+  lang?: SupportedLanguages;
   extraItems?: ReactNode;
   className?: string;
   noDropdowns?: boolean;
@@ -67,63 +70,69 @@ export const NavMenu = ({
         )}
 
         <ul className="unstyled">
-          {menu?.topLevelItemsCollection.items.map((item, index) => {
-            const hasSub =
-              item.subItemsCollection &&
-              item.subItemsCollection.items.length > 0;
-            return (
-              <li
-                key={item.copy + index}
-                className={`nav-item${item.classes ? ` ${item.classes}` : ""}${
-                  hasSub ? " has-sub" : " no-sub"
-                }`}
-              >
-                {hasSub && !noDropdowns ? (
-                  <NavSubMenu
-                    icons={icons}
-                    {...item}
-                    open={activeSubMenu?.itemId === item.itemId}
-                    onClick={() => {
-                      if (activeSubMenu?.itemId === item.itemId) {
-                        setActiveSubMenu(undefined);
-                      } else {
-                        setActiveSubMenu(item);
-                      }
-                    }}
-                  />
-                ) : (
-                  <>
-                    <LinkObject
-                      noIndicator={!icons}
-                      className={`${item.classes ? ` ${item.classes}` : ""}`}
-                      url={item.url as string}
-                    >
-                      {item.copy}
-                    </LinkObject>
+          {menu
+            ? menu[lang]?.topLevelItemsCollection.items.map((item, index) => {
+                const hasSub =
+                  item.subItemsCollection &&
+                  item.subItemsCollection.items.length > 0;
+                return (
+                  <li
+                    key={item.copy + index}
+                    className={`nav-item${
+                      item.classes ? ` ${item.classes}` : ""
+                    }${hasSub ? " has-sub" : " no-sub"}`}
+                  >
+                    {hasSub && !noDropdowns ? (
+                      <NavSubMenu
+                        icons={icons}
+                        {...item}
+                        open={activeSubMenu?.itemId === item.itemId}
+                        onClick={() => {
+                          if (activeSubMenu?.itemId === item.itemId) {
+                            setActiveSubMenu(undefined);
+                          } else {
+                            setActiveSubMenu(item);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <>
+                        <LinkObject
+                          noIndicator={!icons}
+                          className={`${
+                            item.classes ? ` ${item.classes}` : ""
+                          }`}
+                          url={item.url as string}
+                        >
+                          {item.copy}
+                        </LinkObject>
 
-                    {item.subItemsCollection &&
-                      item.subItemsCollection.items.length > 0 && (
-                        <ul className="unstyled">
-                          {item.subItemsCollection.items.map((subItem) => (
-                            <li key={subItem.itemId}>
-                              <LinkObject
-                                noIndicator={!icons}
-                                className={
-                                  subItem.classes ? ` ${subItem.classes}` : ""
-                                }
-                                url={subItem.url as string}
-                              >
-                                {subItem.copy}
-                              </LinkObject>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                  </>
-                )}
-              </li>
-            );
-          })}
+                        {item.subItemsCollection &&
+                          item.subItemsCollection.items.length > 0 && (
+                            <ul className="unstyled">
+                              {item.subItemsCollection.items.map((subItem) => (
+                                <li key={subItem.itemId}>
+                                  <LinkObject
+                                    noIndicator={!icons}
+                                    className={
+                                      subItem.classes
+                                        ? ` ${subItem.classes}`
+                                        : ""
+                                    }
+                                    url={subItem.url as string}
+                                  >
+                                    {subItem.copy}
+                                  </LinkObject>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                      </>
+                    )}
+                  </li>
+                );
+              })
+            : null}
         </ul>
         {extraItems}
       </div>

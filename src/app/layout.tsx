@@ -57,10 +57,11 @@ export default async function RootLayout({
             />
           )}
           <SkipToMain />
-          <Header globalNav={globalNav} mainNav={mainNav} />
+          <Header globalNav={globalNav} mainNav={mainNav} lang={lang} />
           <LangSelector />
           <div id="main-content">{children}</div>
           <Footer
+            lang={lang}
             items={{
               footerNav1,
               footerNav2,
