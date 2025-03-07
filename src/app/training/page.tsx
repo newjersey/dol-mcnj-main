@@ -6,6 +6,8 @@ import { Accordion } from "@components/blocks/Accordion";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { TrainingExplorerHeading } from "./TrainingExplorerHeading";
 import { TRAINING_EXPLORER_PAGE_DATA as pageData } from "@data/pages/training";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 export const revalidate = 1800;
 
@@ -24,25 +26,28 @@ export async function generateMetadata({}) {
 }
 
 export default async function TrainingExplorerPage() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <div className="page trainingExplorer">
-      <TrainingExplorerHeading {...pageData.banner} />
+      <TrainingExplorerHeading {...pageData[lang].banner} lang={lang} />
       <section className="howTo">
         <div className="container">
-          <SectionHeading heading={pageData.resourceHeading} />
-          <VideoBlock video={pageData.demoVideoUrl} />
-          <Stepper steps={pageData.iconCards} />
+          <SectionHeading heading={pageData[lang].resourceHeading} />
+          <VideoBlock video={pageData[lang].demoVideoUrl} />
+          <Stepper steps={pageData[lang].iconCards} />
         </div>
       </section>
-      <CtaBanner {...pageData.interruptor} />
+      <CtaBanner {...pageData[lang].interruptor} />
       <section className="faq">
         <div className="container">
-          <SectionHeading {...pageData.faqs.heading} />
-          <Accordion items={pageData.faqs.items} />
+          <SectionHeading {...pageData[lang].faqs.heading} />
+          <Accordion items={pageData[lang].faqs.items} />
         </div>
-        <CtaBanner {...pageData.faqs.cta} />
+        <CtaBanner {...pageData[lang].faqs.cta} />
       </section>
-      <CtaBanner {...pageData.footerCta} />
+      <CtaBanner {...pageData[lang].footerCta} />
     </div>
   );
 }

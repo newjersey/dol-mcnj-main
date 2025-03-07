@@ -1,5 +1,5 @@
 import { HeadingLevel } from "@utils/types";
-import { ReactNode } from "react";
+import { ReactNode, JSX } from "react";
 
 export interface HeadingProps {
   children?: ReactNode;

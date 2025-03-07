@@ -9,12 +9,14 @@ import { zipCodes } from "@utils/zipCodeCoordinates";
 import { encodeForUrl } from "@utils/encodeForUrl";
 import { Flex } from "@components/utility/Flex";
 import { colors } from "@utils/settings";
+import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
 
 interface TrainingSearchProps {
   className?: string;
+  content: TrainingExplorerHeadingProps["search"];
 }
 
-const TrainingSearch = ({ className }: TrainingSearchProps) => {
+const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
@@ -119,22 +121,21 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
             columnBreak="none"
           >
             <Flex columnBreak="none" alignItems="center" gap="xxs">
-              <Heading level={2}>Search for training</Heading>
+              <Heading level={content.heading.level}>
+                {content.heading.heading}
+              </Heading>
               <button
                 type="button"
                 className="unstyled usa-tooltip"
                 data-position="top"
-                title="Search by training, provider, certification, SOC code, CIP code, or keyword."
+                title={content.toolTip.copy}
               >
                 <Info size={24} color={colors.primary} />
-                <div className="sr-only">Information</div>
+                <div className="sr-only">{content.toolTip.screenReader}</div>
               </button>
             </Flex>
             <Button
-              type="button"
-              unstyled
-              className="clear-all"
-              label="Clear All"
+              {...content.clearButton}
               onClick={() => {
                 clearAllInputs();
               }}
@@ -169,7 +170,7 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
               defaultStyle="secondary"
               link={searchUrl}
               type="submit"
-              label="Search"
+              label={content.form.submitLabel}
             />
           </form>
         </Flex>
@@ -186,14 +187,14 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
                 type="select"
                 inputId="miles"
                 disabled={zipError}
-                label="Miles from Zip Code"
+                label={content.form.miles.label}
                 error={
                   zipError && attempted
-                    ? "Please enter a 5-digit New Jersey ZIP code."
+                    ? content.form.miles.zipError
                     : undefined
                 }
                 options={[
-                  { key: "Miles", value: "" },
+                  { key: content.form.miles.milesPlaceholder, value: "" },
                   { key: "5", value: "5" },
                   { key: "10", value: "10" },
                   { key: "25", value: "25" },
@@ -202,7 +203,7 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
                   { key: "200", value: "200" },
                 ]}
                 onChangeSelect={(e: ChangeEvent<HTMLSelectElement>) => {
-                  if (e.target.value === "Miles") {
+                  if (e.target.value === content.form.miles.milesPlaceholder) {
                     setMiles("");
                     return;
                   }
@@ -214,8 +215,8 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
               <FormInput
                 type="text"
                 inputId="zip"
-                placeholder="ZIP Code"
-                label="Zip Code"
+                placeholder={content.form.miles.zipPlaceholder}
+                label={content.form.miles.zipPlaceholder}
                 hideLabel
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   setZipCode(sanitizedValue(e.target.value));
@@ -236,19 +237,19 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
                 <FormInput
                   type="number"
                   inputId="maxCost"
-                  label="Max Cost"
+                  label={content.form.costLabel}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     setMaxCost(sanitizedValue(e.target.value));
                   }}
                 />
               </div>
               <div className="checks">
-                <p>Class Format</p>
+                <p>{content.form.format.label}</p>
                 <Flex alignItems="center" className="items" columnBreak="none">
                   <FormInput
                     type="checkbox"
                     inputId="in-person"
-                    label="In-Person"
+                    label={content.form.format.inPersonLabel}
                     onChange={() => {
                       setInPerson(!inPerson);
                     }}
@@ -256,7 +257,7 @@ const TrainingSearch = ({ className }: TrainingSearchProps) => {
                   <FormInput
                     type="checkbox"
                     inputId="online"
-                    label="Online"
+                    label={content.form.format.onlineLabel}
                     onChange={() => {
                       setOnline(!online);
                     }}

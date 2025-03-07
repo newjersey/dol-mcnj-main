@@ -1,10 +1,12 @@
 import stateSeal from "@newjersey/njwds/dist/img/nj_state_seal.png";
 import { Envelope, MagnifyingGlass } from "@phosphor-icons/react";
 import { NavMenuProps } from "@utils/types";
+import { SupportedLanguages } from "@utils/types/types";
 import Image from "next/image";
 
 interface NjHeaderProps {
   menu: NavMenuProps;
+  lang: SupportedLanguages;
 }
 
 const HasIcon = ({ string }: { string: string }) => {
@@ -30,7 +32,7 @@ const HasIcon = ({ string }: { string: string }) => {
   );
 };
 
-const NjHeader = ({ menu }: NjHeaderProps) => {
+const NjHeader = ({ menu, lang }: NjHeaderProps) => {
   return (
     <div className="global-header">
       <div className="container">
@@ -53,7 +55,7 @@ const NjHeader = ({ menu }: NjHeaderProps) => {
             Governor Phil Murphy • Lt. Governor Sheila Oliver
           </a>
           <ul>
-            {menu.topLevelItemsCollection.items?.map((item) => (
+            {menu[lang]?.topLevelItemsCollection.items?.map((item) => (
               <li key={item.itemId} className={item.classes || undefined}>
                 <a href={item.url}>
                   <HasIcon string={item.copy} />

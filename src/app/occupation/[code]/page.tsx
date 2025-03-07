@@ -36,7 +36,9 @@ export const generateMetadata = async ({
   searchParams: Promise<{
     mockData: string;
   }>;
-  params: Promise<{ code: string }>;
+  params: Promise<{
+    code: string;
+  }>;
 }) => {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
@@ -72,7 +74,9 @@ export default async function OccupationPage({
   searchParams: Promise<{
     mockData: string;
   }>;
-  params: Promise<{ code: string }>;
+  params: Promise<{
+    code: string;
+  }>;
 }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;

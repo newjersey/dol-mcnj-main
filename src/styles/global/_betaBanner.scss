@@ -1,42 +1,42 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .beta-banner {
   height: 2.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: settings.$info-lighter;
+  background-color: s.$info-lighter;
   width: 100%;
   font-size: 0.9rem;
-  color: settings.$ink;
+  color: s.$ink;
 
   @media print {
     position: static;
   }
 
   a {
-    background-color: settings.$primary;
-    color: settings.$white;
+    background-color: s.$primary;
+    color: s.$white;
     text-decoration: none;
     display: inline-block;
     position: relative;
-    padding: settings.$size-2 10px settings.$size-2 30px;
-    margin-left: settings.$size-16;
-    border-radius: settings.$size-2;
+    padding: s.$size-2 10px s.$size-2 30px;
+    margin-left: s.$size-16;
+    border-radius: s.$size-2;
 
     &:visited {
-      color: settings.$white;
+      color: s.$white;
     }
 
     &:hover {
-      background-color: settings.$primary-light;
+      background-color: s.$primary-light;
     }
 
     &:before {
       content: "";
       display: block;
       position: absolute;
-      height: settings.$size-12;
+      height: s.$size-12;
       width: 13px;
       left: 10px;
       top: 50%;

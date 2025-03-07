@@ -4,6 +4,8 @@ import { MinimalBanner } from "@components/blocks/MinimalBanner";
 import { IndustrySelector } from "@components/blocks/IndustrySelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { CAREER_PATHWAYS_PAGE_DATA as pageData } from "@data/pages/career-pathways";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 export const revalidate = 86400;
 
@@ -22,18 +24,25 @@ export async function generateMetadata({}) {
 }
 
 export default async function CareerPathwaysPage() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <div className="careerPathwaysLanding">
-      <MinimalBanner {...pageData.banner} />
-      <IndustrySelector {...pageData.industrySelector} />
-      <section
-        className="body-copy container"
-        dangerouslySetInnerHTML={{
-          __html: parseMarkdownToHTML(pageData.markdownSection),
-        }}
-      />
-      <CtaBanner {...pageData.cta} />
-      <CtaBanner {...pageData.ctaBanner} />
+      <MinimalBanner {...pageData[lang].banner} />
+      <IndustrySelector {...pageData[lang].industrySelector} />
+      <section className="body-copy container">
+        {pageData[lang].bodyContent.map((copy, index) => (
+          <div
+            key={`body-copy-${index}`}
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(copy),
+            }}
+          />
+        ))}
+      </section>
+      <CtaBanner {...pageData[lang].cta} />
+      <CtaBanner {...pageData[lang].ctaBanner} />
     </div>
   );
 }

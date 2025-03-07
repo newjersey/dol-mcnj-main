@@ -1,4 +1,3 @@
-import { Button } from "@components/modules/Button";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { ArrowSquareOut } from "@phosphor-icons/react";
@@ -37,14 +36,9 @@ export const HowToGetFunding = ({
         <ArrowSquareOut size={24} />
       </Link>
       <p>You can also check out other tuition assistance opportunities.</p>
-      <Button
-        unstyled
-        newTab
-        type="link"
-        link="/support-resources/tuition-assistance"
-      >
+      <Link href="/support-resources/tuition-assistance" className="boldLink">
         View Tuition Assistance Resource
-      </Button>
+      </Link>
     </LabelBox>
   );
 };
