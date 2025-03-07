@@ -32,7 +32,7 @@ interface Props extends RouteComponentProps {
 export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [metaData, setMetaData] = useState<TrainingData["meta"]>();
+  const [metaData, setMetaData] = useState<TrainingData["meta"] | undefined>(undefined);
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const searchQuery = getSearchQuery(location?.search);
   const [filters, setFilters] = useState({
@@ -222,7 +222,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         !["itemsPerPage", "pageNumber", "sortBy"].includes(key)
     )
   );
-
 
   type FilterFields = {
     [key: string]: string | number | boolean | string[] | number[] | boolean[];

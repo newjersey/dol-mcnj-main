@@ -1,6 +1,3 @@
-
-
-
 import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
@@ -378,7 +375,7 @@ const paginateRecords = (trainingResults: TrainingResult[], page: number, limit:
     totalResults,
     currentPage
   };
-};
+}
 
 
 
@@ -520,7 +517,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       cachedData = { results: [], totalResults: 0 };
     }
 
-  // Apply filtering, sorting, and pagination as usual
+    // Apply filtering, sorting, and pagination as usual
     const filteredResults = await filterRecords(
       cachedData.results,
       params.cip_code,
@@ -536,14 +533,14 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.services
     );
 
-     const rankStart = performance.now();
+    const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
     console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
 
-  // Apply sorting
+    // Apply sorting
     const sortedResults = sortTrainings(rankedResults, sort);
 
-  // Apply pagination
+    // Apply pagination
     const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
 
     console.timeEnd("TotalSearchTime");
