@@ -21,7 +21,7 @@ import { ComparisonContext } from "../comparison/ComparisonContext";
 import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
 import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
-import {getSearchQuery, filterChips, getTrainingData} from "./searchFunctions";
+import { getSearchQuery, filterChips, getTrainingData } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
@@ -32,7 +32,6 @@ interface Props extends RouteComponentProps {
 export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const searchQuery = getSearchQuery(location?.search);
@@ -54,13 +53,19 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     zipcode: undefined as string | undefined,
   });
 
-
   const comparisonState = useContext(ComparisonContext).state;
-
   const { t } = useTranslation();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("p");
+    const limit = urlParams.get("limit");
+
+    console.log('Fetching data with params:', {
+      pageNumber: page || filters.pageNumber,
+      itemsPerPage: limit || filters.itemsPerPage,
+      // Log other filters here if needed
+    });
 
     const updatedFilters = {
       pageNumber: parseInt(urlParams.get("p") || "1", 10),
@@ -86,8 +91,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }));
   }, [window.location.search]);
 
-
-
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
@@ -110,7 +113,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     setIsLoading(true);
 
-    /** ✅ **Process `completeIn` correctly** */
+    /** Process `completeIn` correctly */
     const completeInArray: number[] = [];
     let completeInStringArray: string[] = [];
 
@@ -120,7 +123,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           ? completeInValue.split(",")
           : [completeInValue];
 
-      completeInStringArray = completeValues; // Store string version in filters
+      completeInStringArray = completeValues;
 
       completeValues.forEach((value) => {
         switch (value) {
@@ -140,8 +143,6 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       });
     }
 
-
-    /** ✅ **Update filters state** */
     setFilters((prev) => ({
       ...prev,
       pageNumber: pageNumberValue,
@@ -151,7 +152,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         : "best_match",
       cipCode: cipCodeValue || undefined,
       classFormat: classFormatValue ? classFormatValue.split(",") : [],
-      completeIn: completeInStringArray, // ✅ Keep as string[]
+      completeIn: completeInStringArray,
       county: countyValue ? (countyValue as CountyProps) : undefined,
       inDemand: inDemandValue === "true",
       languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
@@ -162,7 +163,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       zipcode: zipcodeValue || undefined,
     }));
 
-    /** ✅ **Fetch training data using correct filters** */
+    /** Fetch training data using correct filters */
     getTrainingData(
       client,
       searchQuery || "",
@@ -172,7 +173,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       setTrainings,
       filters.cipCode,
       filters.classFormat,
-      completeInArray, // ✅ Pass the correctly mapped numeric values
+      completeInArray,
       filters.county,
       filters.inDemand,
       filters.itemsPerPage,
@@ -185,22 +186,15 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       filters.sortBy,
       filters.zipcode
     );
-
   }, [client, searchQuery, JSON.stringify(filters)]);
-
 
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     const newNumber = parseInt(event.target.value);
-
-    // ✅ Update state properly
     setFilters((prev) => ({ ...prev, itemsPerPage: newNumber }));
-
-    // ✅ Update URL properly
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("limit", newNumber.toString());
     navigate(`?${urlParams.toString()}`, { replace: true });
   };
-
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as
@@ -213,10 +207,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     logEvent("Search", "Updated sort", newSortOrder);
 
-    // ✅ Update state first
     setFilters((prev) => ({ ...prev, sortBy: newSortOrder }));
-
-    // ✅ Update URL without reloading
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("sort", newSortOrder);
     navigate(`?${urlParams.toString()}`, { replace: true });
@@ -228,7 +219,7 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
         value !== undefined &&
         value !== false &&
         (!(Array.isArray(value) && value.length === 0)) &&
-        !["itemsPerPage", "pageNumber", "sortBy"].includes(key) // ✅ Now sortBy will NOT appear as a chip
+        !["itemsPerPage", "pageNumber", "sortBy"].includes(key)
     )
   );
 
@@ -263,11 +254,9 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
               <FilterDrawer
                 chips={filterChips(appliedFilters as FilterFields) as ChipProps[]}
                 {...appliedFilters}
-                maxCost={filters.maxCost ? String(filters.maxCost) : undefined} // ✅ Ensure maxCost is displayed correctly
-                miles={filters.miles ? String(filters.miles) : undefined} // ✅ Ensure miles is displayed correctly
+                maxCost={filters.maxCost ? String(filters.maxCost) : undefined}
+                miles={filters.miles ? String(filters.miles) : undefined}
               />
-
-
 
               <SearchFilters
                 handleSortChange={handleSortChange}
