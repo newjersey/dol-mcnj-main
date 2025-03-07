@@ -670,3 +670,9 @@ iframe:focus {
 .text-black {
   color: s.$black;
 }
+
+.langSelector {
+  position: fixed;
+  bottom: s.$size-8;
+  left: s.$size-8;
+}

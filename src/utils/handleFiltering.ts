@@ -1,4 +1,4 @@
-import { FilterProps } from "app/(main)/training/search/components/Results";
+import { FilterProps } from "app/training/search/components/Results";
 import { ResultProps } from "./types";
 
 export function handleFiltering(

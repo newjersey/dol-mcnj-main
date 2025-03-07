@@ -284,7 +284,7 @@ export const HOMEPAGE_DATA = {
       sections: [
         {
           link: {
-            url: "/es/training",
+            url: "/training",
             copy: "Visita el Explorador de Capacitación de NJ",
           },
           title: "Explorador de Capacitación de NJ",
@@ -305,7 +305,7 @@ export const HOMEPAGE_DATA = {
         },
         {
           link: {
-            url: "/es/career-pathways",
+            url: "/career-pathways",
             copy: "Visita las Trayectorias Profesionales de NJ",
           },
           title: "Trayectorias Profesionales de NJ",
@@ -335,7 +335,7 @@ export const HOMEPAGE_DATA = {
           },
           {
             copy: "Lista de Ocupaciones en Demanda",
-            url: "/es/in-demand-occupations",
+            url: "/in-demand-occupations",
             description:
               "Consulta las carreras con oportunidades ahora y en el futuro en NJ",
           },
@@ -365,7 +365,7 @@ export const HOMEPAGE_DATA = {
           {
             sectionIcon: "training",
             copy: "Explorador de Capacitación de NJ",
-            url: "/es/training",
+            url: "/training",
             description: "Busca programas de capacitación en NJ",
           },
           {
@@ -378,13 +378,13 @@ export const HOMEPAGE_DATA = {
           {
             sectionIcon: "training",
             copy: "Recursos de Asistencia para Matrícula",
-            url: "/es/support-resources/tuition-assistance",
+            url: "/support-resources/tuition-assistance",
             description: "Descubre cómo obtener ayuda para pagar tu educación",
           },
           {
             sectionIcon: "training",
             copy: "Recursos para Proveedores de Capacitación",
-            url: "/es/training-provider-resources",
+            url: "/training-provider-resources",
             description:
               "Información importante para proveedores de capacitación",
           },
@@ -413,7 +413,7 @@ export const HOMEPAGE_DATA = {
             icon: "MapTrifold",
             sectionIcon: "explore",
             copy: "Trayectorias Profesionales de NJ",
-            url: "/es/career-pathways",
+            url: "/career-pathways",
             description:
               "Explora trabajos en demanda y oportunidades de capacitación.",
           },
@@ -428,31 +428,31 @@ export const HOMEPAGE_DATA = {
           {
             sectionIcon: "support",
             copy: "Explorar Apoyo por Categoría",
-            url: "/es/support-resources",
+            url: "/support-resources",
           },
           {
             sectionIcon: "support",
             copy: "Apoyo Profesional",
-            url: "/es/support-resources/career-support",
+            url: "/support-resources/career-support",
             description:
               "Orientación profesional, ayuda con la búsqueda de empleo y reinserción laboral",
           },
           {
             sectionIcon: "support",
             copy: "Asistencia para Matrícula",
-            url: "/es/support-resources/tuition-assistance",
+            url: "/support-resources/tuition-assistance",
             description: "Capacitación laboral, colegios comunitarios y más",
           },
           {
             sectionIcon: "support",
             copy: "Otras Ayudas",
-            url: "/es/support-resources/other",
+            url: "/support-resources/other",
             description: "Vivienda, transporte, salud y más",
           },
           {
             sectionIcon: "support",
             copy: "Preguntas Frecuentes",
-            url: "/es/faq",
+            url: "/faq",
           },
         ],
       },

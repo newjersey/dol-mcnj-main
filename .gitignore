@@ -139,3 +139,4 @@ $RECYCLE.BIN/
 OverlayTool.tsx
 overlayImages
 frontend
+backend/dist

@@ -4,6 +4,7 @@ import { CircleNotch, X } from "@phosphor-icons/react";
 import { Button } from "@components/modules/Button";
 import { FormInput } from "@components/modules/FormInput";
 import { Alert } from "@components/modules/Alert";
+import Link from "next/link";
 
 export const SignUpFormModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -348,8 +349,9 @@ export const SignUpFormModal = () => {
                 </div>
               </form>
               <p>
-                Read about our <a href="/privacy-policy">privacy policy</a> and
-                our <a href="/terms-of-use">terms of use</a>.
+                Read about our{" "}
+                <Link href="/privacy-policy">privacy policy</Link> and our{" "}
+                <Link href="/terms-of-use">terms of use</Link>.
               </p>
             </>
           )}
