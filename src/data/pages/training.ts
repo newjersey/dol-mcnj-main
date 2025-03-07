@@ -57,6 +57,39 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
           url: "/",
         },
       ],
+      search: {
+        heading: {
+          level: 2,
+          heading: "Search for training",
+        },
+        toolTip: {
+          copy: "Search by training, provider, certification, SOC code, CIP code, or keyword.",
+          screenReader: "Information",
+        },
+        clearButton: {
+          label: "Clear All",
+          type: "button",
+          className: "clear-all",
+          unstyled: true,
+        },
+        form: {
+          inputLabel: "Search for Training",
+          filterHeading: "Filters",
+          miles: {
+            label: "Miles from Zip Code",
+            milesPlaceholder: "Miles",
+            zipPlaceholder: "ZIP Code",
+            zipError: "Please enter a 5-digit New Jersey ZIP code.",
+          },
+          costLabel: "Max Cost",
+          format: {
+            label: "Class Format",
+            inPersonLabel: "In-Person",
+            onlineLabel: "Online",
+          },
+          submitLabel: "Search",
+        },
+      },
       learnMore: {
         copy: "Trainings and programs on the Training Explorer are accredited.",
         url: "/faq#etpl-program-general-information",
@@ -186,6 +219,40 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
           url: "/",
         },
       ],
+      search: {
+        heading: {
+          level: 2,
+          heading: "Buscar capacitación",
+        },
+        toolTip: {
+          copy: "Buscar por capacitación, proveedor, certificación, código SOC, código CIP o palabra clave.",
+          screenReader: "Información",
+        },
+        clearButton: {
+          label: "Borrar Todo",
+          type: "button",
+          className: "clear-all",
+          unstyled: true,
+        },
+        form: {
+          inputLabel: "Buscar capacitación",
+          filterHeading: "Filtros",
+          miles: {
+            label: "Millas desde el código postal",
+            milesPlaceholder: "Millas",
+            zipPlaceholder: "Código Postal",
+            zipError:
+              "Por favor, ingrese un código postal de Nueva Jersey de 5 dígitos.",
+          },
+          costLabel: "Costo Máximo",
+          format: {
+            label: "Formato de Clase",
+            inPersonLabel: "Presencial",
+            onlineLabel: "En Línea",
+          },
+          submitLabel: "Buscar",
+        },
+      },
       learnMore: {
         copy: "Las capacitaciones y programas en el Explorador de Capacitación están acreditados.",
         url: "/faq#etpl-program-general-information",

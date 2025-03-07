@@ -31,7 +31,7 @@ export default async function TrainingExplorerPage() {
 
   return (
     <div className="page trainingExplorer">
-      <TrainingExplorerHeading {...pageData[lang].banner} />
+      <TrainingExplorerHeading {...pageData[lang].banner} lang={lang} />
       <section className="howTo">
         <div className="container">
           <SectionHeading heading={pageData[lang].resourceHeading} />

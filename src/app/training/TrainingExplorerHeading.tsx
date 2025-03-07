@@ -7,11 +7,41 @@ import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { ButtonProps } from "@utils/types";
+import { HeadingLevel, SupportedLanguages } from "@utils/types/types";
 
 export interface TrainingExplorerHeadingProps {
   heading: string;
   subheading?: string;
+  search: {
+    heading: {
+      level: HeadingLevel;
+      heading: string;
+    };
+    toolTip: {
+      screenReader: string;
+      copy: string;
+    };
+    clearButton: ButtonProps;
+    form: {
+      inputLabel: string;
+      filterHeading: string;
+      miles: {
+        label: string;
+        milesPlaceholder: string;
+        zipPlaceholder: string;
+        zipError: string;
+      };
+      costLabel: string;
+      format: {
+        label: string;
+        inPersonLabel: string;
+        onlineLabel: string;
+      };
+      submitLabel: string;
+    };
+  };
   message?: string;
+  lang?: SupportedLanguages;
   steps: string[];
   breadcrumbs: { url: string; copy: string }[];
   notReady: {
@@ -30,6 +60,7 @@ export const TrainingExplorerHeading = ({
   message,
   steps,
   breadcrumbs,
+  search,
   notReady,
   learnMore,
 }: TrainingExplorerHeadingProps) => {
@@ -52,7 +83,7 @@ export const TrainingExplorerHeading = ({
           )}
         </div>
         <Steps items={steps} className="desktop-only" />
-        <TrainingSearch />
+        <TrainingSearch content={search} />
         <Steps items={steps} className="mobile-only" />
 
         <div className="learn-more">
