@@ -63,7 +63,7 @@ const Header = ({ mainNav, globalNav, lang = "en" }: HeaderProps) => {
             <LinkObject className="nav-item contact-us" url="/contact">
               Contact Us
             </LinkObject>
-            <SignUpFormModal />
+            <SignUpFormModal lang={lang} />
           </div>
         }
       />

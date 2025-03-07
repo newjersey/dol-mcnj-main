@@ -28,6 +28,16 @@
     }
   }
 
+  .footerCopy {
+    margin-top: s.$size-16;
+    display: block;
+
+    p,
+    a {
+      font-size: s.$size-14;
+    }
+  }
+
   .overlay {
     opacity: 0;
     transition-delay: math.div(s.$transition-speed, 2);

@@ -4,9 +4,12 @@ import { CircleNotch, X } from "@phosphor-icons/react";
 import { Button } from "@components/modules/Button";
 import { FormInput } from "@components/modules/FormInput";
 import { Alert } from "@components/modules/Alert";
+import { SIGNUP_FORM as contentData } from "@data/global/signupForm";
 import Link from "next/link";
+import { SupportedLanguages } from "@utils/types/types";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
-export const SignUpFormModal = () => {
+export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
   const [firstNameError, setFirstNameError] = useState<string>("");
@@ -56,37 +59,37 @@ export const SignUpFormModal = () => {
 
     // check if first name has 2 or more characters
     if (firstName.length !== 0 && firstName.length < 2) {
-      setFirstNameError("First name must be 2 or more characters.");
+      setFirstNameError(contentData[lang].form.error.firstName);
     } else {
       setFirstNameError("");
     }
 
     // check if last name has 2 or more characters
     if (lastName.length !== 0 && lastName.length < 2) {
-      setLastNameError("Last name must be 2 or more characters.");
+      setLastNameError(contentData[lang].form.error.lastName);
     } else {
       setLastNameError("");
     }
 
     // check if there is entered email and is valid
     if (!email) {
-      setEmailError("Email is required.");
+      setEmailError(contentData[lang].form.error.emailRequired);
     } else if (email && !email.includes("@")) {
-      setEmailError("Email invalid.");
+      setEmailError(contentData[lang].form.error.emailInvalid);
     } else {
       setEmailError("");
     }
 
     // check if phone number is valid
     if (phone && phone.length < 12) {
-      setPhoneError("Phone number invalid.");
+      setPhoneError(contentData[lang].form.error.phone);
     } else {
       setPhoneError("");
     }
 
     if (allErrorCheck()) {
       setSubmitting(false);
-      setHasErrors("There are items that require your attention.");
+      setHasErrors(contentData[lang].form.error.attention);
       return;
     }
 
@@ -189,16 +192,11 @@ export const SignUpFormModal = () => {
   return (
     <>
       <Button
-        type="button"
-        defaultStyle="primary"
-        outlined
-        className="sign-up-toggle"
+        {...contentData[lang].headerButton}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
-      >
-        Sign Up for Updates
-      </Button>
+      />
 
       <div
         ref={modalRef}
@@ -211,11 +209,9 @@ export const SignUpFormModal = () => {
             <X size={20} weight="bold" />
             <div className="sr-only">Close</div>
           </button>
-          <p className="heading">My Career NJ User Sign Up Form</p>
-          <p>
-            Sign-up to stay up to date on the latest new features, news, and
-            resources from My Career NJ.
-          </p>
+          <p className="heading">{contentData[lang].heading}</p>
+
+          <p>{contentData[lang].message}</p>
           {success ? (
             <>
               <Alert
@@ -238,9 +234,9 @@ export const SignUpFormModal = () => {
           ) : (
             <>
               <span className="instruction">
-                A red asterick (
-                <span className="require-mark text-error">*</span>) indicates a
-                required field.
+                {contentData[lang].instruction[0]} (
+                <span className="require-mark text-error">*</span>){" "}
+                {contentData[lang].instruction[1]}
               </span>
               <form
                 onSubmit={handleSubmission}
@@ -249,10 +245,12 @@ export const SignUpFormModal = () => {
                 <div className="row">
                   <FormInput
                     type="text"
-                    label="First Name"
+                    label={contentData[lang].form.fields.firstName.label}
                     inputId="firstName"
                     value={firstName}
-                    placeholder="Jane"
+                    placeholder={
+                      contentData[lang].form.fields.firstName.placeholder
+                    }
                     error={firstNameError}
                     onChange={(e) => {
                       if (firstName.length > 2) {
@@ -263,10 +261,12 @@ export const SignUpFormModal = () => {
                   />
                   <FormInput
                     type="text"
-                    label="Last Name"
+                    label={contentData[lang].form.fields.lastName.label}
                     inputId="lastName"
                     value={lastName}
-                    placeholder="Smith"
+                    placeholder={
+                      contentData[lang].form.fields.lastName.placeholder
+                    }
                     error={lastNameError}
                     onChange={(e) => {
                       if (lastName.length > 2) {
@@ -279,11 +279,11 @@ export const SignUpFormModal = () => {
 
                 <FormInput
                   type="text"
-                  label="Email"
+                  label={contentData[lang].form.fields.email.label}
                   inputId="email"
                   value={email}
                   requiredIndicator
-                  placeholder="email@example.com"
+                  placeholder={contentData[lang].form.fields.email.placeholder}
                   error={emailError}
                   onChange={(e) => {
                     if (email && email.includes("@")) {
@@ -294,13 +294,15 @@ export const SignUpFormModal = () => {
                   }}
                 />
                 <label htmlFor="phone" className={phoneError ? "error" : ""}>
-                  <span>Mobile phone number</span>
-                  US phone numbers only
+                  <span>{contentData[lang].form.fields.email.label}</span>
+                  {contentData[lang].form.fields.phone.description}
                   <input
                     type="text"
                     value={formatPhoneNumber(phone)}
                     id="phone"
-                    placeholder="___-___-____"
+                    placeholder={
+                      contentData[lang].form.fields.phone.placeholder
+                    }
                     onChange={(e) => {
                       if (e.target.value.length > 11) {
                         setPhoneError("");
@@ -326,7 +328,9 @@ export const SignUpFormModal = () => {
                         <CircleNotch size={20} weight="bold" />
                       </div>
                     )}
-                    {submitting ? "Submitting" : "Submit form"}
+                    {submitting
+                      ? contentData[lang].form.submitButton[1]
+                      : contentData[lang].form.submitButton[0]}
                   </Button>
                   <button
                     className="usa-button usa-button--unstyled"
@@ -344,15 +348,16 @@ export const SignUpFormModal = () => {
                       setSubmitting(false);
                     }}
                   >
-                    Reset form
+                    {contentData[lang].form.resetButton}
                   </button>
                 </div>
               </form>
-              <p>
-                Read about our{" "}
-                <Link href="/privacy-policy">privacy policy</Link> and our{" "}
-                <Link href="/terms-of-use">terms of use</Link>.
-              </p>
+              <span
+                className="footerCopy"
+                dangerouslySetInnerHTML={{
+                  __html: parseMarkdownToHTML(contentData[lang].form.footer),
+                }}
+              />
             </>
           )}
         </div>
