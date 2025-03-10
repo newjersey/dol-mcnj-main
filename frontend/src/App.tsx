@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useState, useMemo, Suspense } from "react";
 import { Router, Redirect, globalHistory } from "@reach/router";
-import ReactGA from "react-ga";
 import * as Sentry from "@sentry/react";
 import { Client } from "./domain/Client";
 
@@ -103,15 +102,14 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-// eslint-disable-next-line
-declare const window: any;
-const GA_TRACKING_ID = "G-THV625FWWB";
-globalHistory.listen(({ location }) => {
-  if (typeof window.gtag === "function") {
-    window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
-    ReactGA.initialize("G-THV625FWWB", {});
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[];
   }
-});
+}
+
+// Load GTM dynamically
+const GTM_ID = "GTM-KBN58VK9";
 
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer(sortReducer, initialSortState);
@@ -123,7 +121,27 @@ export const App = (props: Props): ReactElement => {
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
 
   useEffect(() => {
-    ReactGA.initialize("G-THV625FWWB", { testMode: process.env.NODE_ENV === "test" });
+    // Check if GTM is already loaded
+    if (!window.dataLayer) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "gtm.js", "gtm.start": new Date().getTime() });
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+      document.head.appendChild(script);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Push page views to GTM on route change
+    globalHistory.listen(({ location }) => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "page_view",
+        page_path: location.pathname,
+      });
+    });
   }, []);
 
   const sortContextValue = useMemo(
