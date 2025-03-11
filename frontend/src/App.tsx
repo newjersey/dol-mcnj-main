@@ -108,7 +108,9 @@ declare global {
   }
 }
 
-// Load GTM dynamically
+// Allowed hosts for GTM
+const allowedHosts = ["mycareer.nj.gov", "test.mycareer.nj.gov", "dev.mycareer.nj.gov"];
+const hostname = window.location.hostname;
 const GTM_ID = "GTM-KBN58VK9";
 
 export const App = (props: Props): ReactElement => {
@@ -122,26 +124,30 @@ export const App = (props: Props): ReactElement => {
 
   useEffect(() => {
     // Check if GTM is already loaded
-    if (!window.dataLayer) {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: "gtm.js", "gtm.start": new Date().getTime() });
+    if (allowedHosts.includes(hostname)) {
+      if (!window.dataLayer) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "gtm.js", "gtm.start": new Date().getTime() });
 
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
-      document.head.appendChild(script);
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+        document.head.appendChild(script);
+      }
     }
   }, []);
 
   useEffect(() => {
     // Push page views to GTM on route change
-    globalHistory.listen(({ location }) => {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "page_view",
-        page_path: location.pathname,
+    if (allowedHosts.includes(hostname)) {
+      globalHistory.listen(({ location }) => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "page_view",
+          page_path: location.pathname,
+        });
       });
-    });
+    }
   }, []);
 
   const sortContextValue = useMemo(
