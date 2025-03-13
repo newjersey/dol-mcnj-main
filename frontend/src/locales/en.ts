@@ -488,7 +488,7 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
   },
   SignUpFormModal: {
     buttonText: "Sign Up for Updates",
-    formTitle: "My Career NJ User Sign Up Form",
+    formTitle: "My Career NJ User Sign-Up Form",
     formDescription:
       "Sign up to stay up to date on the latest new features, news, and resources from My Career NJ.",
     firstNameLabel: "First Name",
@@ -502,7 +502,7 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
     usPhoneOnlyLabel: "US phone numbers only",
     phoneError: "Please enter a valid phone number",
     submitButton: "Submit form",
-    successMessage: "You've successfully subscribed to updates from My Career NJ.",
+    successMessage: "Success!  You're all set to receive My Career NJ updates.",
     confirmationMessage:
       "A confirmation email should be in your inbox. If it's not there, please check your spam or junk folder.",
     errorMessage: "There was an error submitting the form. Please try again.",
