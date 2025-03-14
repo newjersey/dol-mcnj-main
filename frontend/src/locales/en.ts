@@ -503,8 +503,6 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
     phoneError: "Please enter a valid phone number",
     submitButton: "Submit form",
     successMessage: "Success!  You're all set to receive My Career NJ updates.",
-    confirmationMessage:
-      "A confirmation email should be in your inbox. If it's not there, please check your spam or junk folder.",
     errorMessage: "There was an error submitting the form. Please try again.",
     serverErrorMessage: "There was an error connecting to the server. Please try again later.",
     loadingMessage: "Submitting",
