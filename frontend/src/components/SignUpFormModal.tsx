@@ -187,7 +187,6 @@ export const SignUpFormModal = () => {
               <div className="usa-alert usa-alert--success" role="alert">
                 <div className="usa-alert__body">
                   <p className="usa-alert__heading">{t("SignUpFormModal.successMessage")}</p>
-                  <p className="usa-alert__text">{t("SignUpFormModal.confirmationMessage")}</p>
                 </div>
               </div>
               <div className="buttons" style={{ marginTop: "1.5rem" }}>
