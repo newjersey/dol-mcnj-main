@@ -519,8 +519,6 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     phoneError: "Por favor, introduce un número de teléfono válido.",
     submitButton: "Enviar formulario",
     successMessage: "¡Éxito!  Está todo listo para recibir actualizaciones de My Career NJ.",
-    confirmationMessage:
-      "Un correo de confirmación debería estar en tu bandeja de entrada. Si no está allí, revisa tu carpeta de spam o correo no deseado.",
     errorMessage: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
     serverErrorMessage:
       "Hubo un error al conectar con el servidor. Por favor, inténtalo más tarde.",
