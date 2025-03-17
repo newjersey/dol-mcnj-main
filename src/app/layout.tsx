@@ -38,6 +38,20 @@ export default async function RootLayout({
     <html lang={lang || "en"}>
       <body className={publicSans.className}>
         <Script src="https://newjersey.github.io/njwds/dist/js/uswds.min.js" />
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            window.allowedHosts = ['mycareer.nj.gov', 'test.mycareer.nj.gov', 'dev.mycareer.nj.gov'];
+            window.hostname = document.location.hostname;
+
+            if (window.allowedHosts.includes(window.hostname)) {
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KBN58VK9');
+            }
+          `}
+        </Script>
         <main>
           {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
             <Alert
