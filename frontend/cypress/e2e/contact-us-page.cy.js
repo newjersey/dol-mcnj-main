@@ -103,24 +103,17 @@ describe("Contact Us Page", () => {
 
   it("allows form submission with 'Career Navigator' preselected", () => {
     cy.visit("/contact?topic=career-navigator");
-  
-    // Ensure "Career Navigator" is preselected
     cy.get(`[data-testid="topic-6"] input[type="radio"]`).should("be.checked");
-  
-    // Fill out the rest of the form
     cy.get("input[name=email]").type("testuser@example.com");
     cy.get("textarea[name=message]").type("Hello, I need help with my career.");
   
-    // Mock API response
     cy.intercept("POST", "/api/contact", {
       statusCode: 200,
       body: { message: "Success!" },
     }).as("formSubmit");
   
-    // Submit the form
     cy.get("button[type=submit]").click();
   
-    // Verify success message
     cy.wait("@formSubmit");
     cy.contains("Success!").should("exist");
   });
@@ -128,28 +121,16 @@ describe("Contact Us Page", () => {
 
   it("requires manual topic selection if query parameter is missing", () => {
     cy.visit("/contact");
-  
-    // Ensure no radio button is preselected
     cy.get("input[type='radio']").should("not.be.checked");
-  
-    // Try to submit without selecting a topic
     cy.get("button[type=submit]").click();
-  
-    // Ensure error message appears
     cy.contains("Please select an option").should("exist");
   });
   
 
   it("requires manual topic selection if an invalid query parameter is provided", () => {
     cy.visit("/contact?topic=invalid-topic");
-  
-    // Ensure no radio button is preselected
     cy.get("input[type='radio']").should("not.be.checked");
-  
-    // Try to submit without selecting a topic
     cy.get("button[type=submit]").click();
-  
-    // Ensure error message appears
     cy.contains("Please select an option").should("exist");
   });
   
