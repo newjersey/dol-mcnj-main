@@ -17,6 +17,7 @@ import { SupportServices } from "./sections/SupportServices";
 import { CipDrawer } from "./CipDrawer";
 import { SocDrawer } from "./SocDrawer";
 import { generateJsonLd } from "./jsonLd";
+import { createPortal } from "react-dom";
 
 const Content = ({ training }: { training: TrainingProps }) => {
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
@@ -107,14 +108,20 @@ const Content = ({ training }: { training: TrainingProps }) => {
         </div>
       </section>
 
-      <CipDrawer
-        cipDrawerOpen={cipDrawerOpen}
-        setCipDrawerOpen={setCipDrawerOpen}
-      />
-      <SocDrawer
-        socDrawerOpen={socDrawerOpen}
-        setSocDrawerOpen={setSocDrawerOpen}
-      />
+      {createPortal(
+        <CipDrawer
+          cipDrawerOpen={cipDrawerOpen}
+          setCipDrawerOpen={setCipDrawerOpen}
+        />,
+        document.body
+      )}
+      {createPortal(
+        <SocDrawer
+          socDrawerOpen={socDrawerOpen}
+          setSocDrawerOpen={setSocDrawerOpen}
+        />,
+        document.body
+      )}
     </div>
   );
 };

@@ -52,7 +52,9 @@ export const Drawer = ({
           <div className="sr-only">Close</div>
           <X size={30} />
         </button>
-        <div className="content">{children}</div>
+        <div className="content mcnj-box mcnj-flex direction-column align-flex-start justify-flex-start gap-sm column-sm">
+          {children}
+        </div>
       </div>
     </div>
   );

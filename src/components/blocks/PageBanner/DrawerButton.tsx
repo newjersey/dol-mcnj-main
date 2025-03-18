@@ -61,7 +61,7 @@ export const DrawerButton = ({
           <div className="sr-only">Close</div>
           <X size={30} />
         </button>
-        <div className="content">
+        <div className="content mcnj-box mcnj-flex direction-column align-flex-start justify-flex-start gap-sm column-sm">
           <Heading level={drawerHeadingLevel}>{copy}</Heading>
           <p>{definition}</p>
         </div>

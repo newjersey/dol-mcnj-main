@@ -66,7 +66,6 @@ export default async function Home() {
           <CardSlider key={cardRow.heading} {...cardRow} />
         ))}
       </div>
-      {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
     </>
   );
 }

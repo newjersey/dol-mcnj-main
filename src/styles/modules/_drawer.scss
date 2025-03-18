@@ -21,7 +21,9 @@
   h4,
   h5,
   h6,
-  p {
+  p,
+  * + p,
+  p + * {
     margin-top: 0;
     margin-bottom: 0;
   }
@@ -184,10 +186,20 @@
   }
 
   .small {
+    font-size: s.$size-12;
+
     p,
     li,
     ul li {
       font-size: s.$size-12;
+    }
+
+    ul {
+      list-style-type: disc;
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-8;
+      margin: s.$size-16 0 s.$size-16 s.$size-32;
     }
   }
 }
