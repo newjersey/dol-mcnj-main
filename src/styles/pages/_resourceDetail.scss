@@ -87,7 +87,7 @@
     }
   }
 
-  .tags:not(.resourceCards .tags) {
+  .tags:not(.resourceCard .tags) {
     margin-top: s.$size-16;
     display: flex;
     flex-wrap: wrap;
