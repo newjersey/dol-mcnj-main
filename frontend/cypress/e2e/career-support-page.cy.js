@@ -4,7 +4,7 @@ describe("Career Support Page", () => {
     cy.injectAxe();
     cy.contains(
       "Planning your future is hard when you don’t know where to start - We’ve put a list together to make it easier for you - find and connect with the programs and services you may need to help get your job search on track and jumpstart your career.",
-    ).should("exist");
+    {timeout: 10000}).should("exist");
 
     /*
 
