@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -25,35 +25,21 @@ const schema = yup.object()
   .required();
 
 const topics = [
-  {
-    label: 'In-demand Occupations',
-    value: 'in-demand-occupations'
-  },
-  {
-    label: 'Occupation Details',
-    value: 'occupation-details'
-  },
-  {
-    label: 'Support and Assistance',
-    value: 'support-and-assistance'
-  },
-  {
-    label: 'Training Details',
-    value: 'training-details'
-  },
-  {
-    label: 'Training Provider Resources',
-    value: 'training-provider-resources'
-  },
-  {
-    label: 'Tuition Assistance',
-    value: 'tuition-assistance'
-  },
-  {
-    label: 'Other / Not Listed',
-    value: 'other'
-  }
-]
+  { label: 'In-demand Occupations', value: 'in-demand-occupations' },
+  { label: 'Occupation Details', value: 'occupation-details' },
+  { label: 'Support and Assistance', value: 'support-and-assistance' },
+  { label: 'Training Details', value: 'training-details' },
+  { label: 'Training Provider Resources', value: 'training-provider-resources' },
+  { label: 'Tuition Assistance', value: 'tuition-assistance' },
+  { label: 'Career Navigator', value: 'career-navigator' },
+  { label: 'Other / Not Listed', value: 'other' }
+];
+
+const getTopicFromUrl = () => {
+  const params = new URLSearchParams(window.location.search);
+  const topicParam = params.get("topic")?.toLowerCase().replace(/\s+/g, "-");
+  return topics.some(t => t.value === topicParam) ? topicParam : "";
+};
 
 const ContactForm = ({
   defaultValues,
@@ -66,6 +52,7 @@ const ContactForm = ({
   },
   setFormSuccess: Dispatch<SetStateAction<boolean | undefined>>
 }) => {
+  const [preselectedTopic] = useState(getTopicFromUrl());
 
   const {
     control,
@@ -74,16 +61,25 @@ const ContactForm = ({
     handleSubmit,
     register,
     reset,
-    watch
+    watch,
+    setValue
   } = useForm({
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      topic: preselectedTopic || ""
+    },
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    if (preselectedTopic) {
+      setValue("topic", preselectedTopic);
+    }
+  }, [preselectedTopic, setValue]);
+
   const watchMessage = watch("message");
 
-  // @ts-expect-error - TS doesn't know that the formValues state is being set
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: { email: string; topic: string; message: string }) => {
     const formValues = JSON.stringify(data);
     console.log(formValues);
     const response = await fetch('/api/contact', {
@@ -126,21 +122,17 @@ const ContactForm = ({
             }}
             error={!!errors.email}
             {...register("email")}
-            onBlur={() => {
-
-            }}
           />
           <div className="form-error-message">
             {errors.email?.message}
           </div>
         </div>
-        <div className={`input-container${errors.topic ? ' radio-erros' : ''}`}>
+        <div className={`input-container${errors.topic ? ' radio-errors' : ''}`}>
           <div className="label-container">
             <label htmlFor="topic">Please select a topic</label> <span className="required">*</span>
           </div>
           <Controller
             name="topic"
-            defaultValue=""
             control={control}
             render={({ field }) => (
               <RadioGroup
@@ -155,7 +147,7 @@ const ContactForm = ({
                     value={topic.value}
                     data-testid={`topic-${index}`}
                     control={
-                      <Radio classes={{root: errors.topic ? 'radio-error' : undefined} } />
+                      <Radio classes={{ root: errors.topic ? 'radio-error' : undefined }} />
                     }
                     label={topic.label} />
                 ))}
@@ -194,4 +186,4 @@ const ContactForm = ({
   )
 }
 
-export default ContactForm
+export default ContactForm;

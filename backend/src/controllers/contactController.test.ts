@@ -34,7 +34,7 @@ describe('submitContactForm', () => {
     await submitContactForm(req as Request, res as Response);
 
     expect(sendEmail).toHaveBeenCalledWith({
-      subject: `[My Career NJ] New Contact Request from test@example.com`,
+      subject: `[My Career NJ] New Contact Request from test@example.com - Topic: test`,
       body: expect.any(String),
     });
     expect(res.status).toHaveBeenCalledWith(200);

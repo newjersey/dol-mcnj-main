@@ -21,7 +21,7 @@ export const submitContactForm = async (req: ContactFormRequest, res: Response):
  
   try {
     await sendEmail({
-      subject: `[My Career NJ] New Contact Request from ${email}`,
+      subject: `[My Career NJ] New Contact Request from ${email} - Topic: ${topic}`,
       body: emailBody,
     });
     res.status(200).json({ message: 'Your message has been sent successfully.' });
