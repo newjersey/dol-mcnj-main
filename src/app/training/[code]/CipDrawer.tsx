@@ -29,7 +29,6 @@ export const CipDrawer = ({
           here.
         </a>
       </p>
-      <br />
       <div className="small sources">
         <span>
           <sup>1.</sup> Sources

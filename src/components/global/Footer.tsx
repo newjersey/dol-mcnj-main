@@ -3,10 +3,13 @@ import { SubFooter } from "./SubFooter";
 import { footerLogo } from "./assets";
 import { NavMenu } from "./NavMenu";
 import { ResponsiveImage } from "@components/modules/ResponsiveImage";
+import { SupportedLanguages } from "@utils/types/types";
 
 export const Footer = ({
   items,
+  lang,
 }: {
+  lang: SupportedLanguages;
   items?: {
     footerNav1?: NavMenuProps;
     footerNav2?: NavMenuProps;
@@ -20,6 +23,7 @@ export const Footer = ({
             <NavMenu
               noDropdowns
               id="footer1"
+              lang={lang}
               icons
               menu={items.footerNav1}
               className="footer-nav-l"
@@ -32,6 +36,7 @@ export const Footer = ({
             <NavMenu
               noDropdowns
               id="footer2"
+              lang={lang}
               icons
               menu={items.footerNav2}
               className="footer-nav-r"

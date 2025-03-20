@@ -8,6 +8,7 @@ import {
   Elements,
   Gaps,
   SectionIcons,
+  SupportedLanguages,
   ThemeColors,
 } from "./types";
 import { CSSProperties, ReactNode } from "react";
@@ -82,14 +83,20 @@ export interface CardSliderProps {
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
-export interface NavMenuProps {
-  itemId: string;
-  title: string;
-  heading?: string;
-  url?: string;
+export interface TopLevelCollectionProps {
   topLevelItemsCollection: {
     items: TopNavItemProps[];
   };
+}
+
+export interface NavMenuProps {
+  itemId: string;
+  title: string;
+  lang?: SupportedLanguages;
+  heading?: string;
+  url?: string;
+  en?: TopLevelCollectionProps;
+  es?: TopLevelCollectionProps;
 }
 
 //////////////////////////////////////////////////////
@@ -807,6 +814,7 @@ export interface FormInputProps {
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
+  requiredIndicator?: boolean;
   type:
     | "text"
     | "email"

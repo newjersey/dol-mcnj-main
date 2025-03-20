@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 @mixin customLayouts {
   &.one-third-two-thirds {
@@ -52,43 +52,43 @@
 
 @mixin columnBreaks {
   &.column-xxs {
-    @media screen and (max-width: (settings.$mobile - 1)) {
+    @media screen and (max-width: (s.$mobile - 1)) {
       flex-direction: column;
     }
   }
 
   &.column-xs {
-    @media screen and (max-width: (settings.$mobile-lg - 1)) {
+    @media screen and (max-width: (s.$mobile-lg - 1)) {
       flex-direction: column;
     }
   }
 
   &.column-sm {
-    @media screen and (max-width: (settings.$tablet - 1)) {
+    @media screen and (max-width: (s.$tablet - 1)) {
       flex-direction: column;
     }
   }
 
   &.column-md {
-    @media screen and (max-width: (settings.$tablet-md - 1)) {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
       flex-direction: column;
     }
   }
 
   &.column-lg {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
 
   &.column-xl {
-    @media screen and (max-width: (settings.$desktop-lg - 1)) {
+    @media screen and (max-width: (s.$desktop-lg - 1)) {
       flex-direction: column;
     }
   }
 
   &.column-xxl {
-    @media screen and (max-width: (settings.$widescreen - 1)) {
+    @media screen and (max-width: (s.$widescreen - 1)) {
       flex-direction: column;
     }
   }
@@ -167,43 +167,43 @@
   }
 
   &.break-xxs {
-    @media screen and (min-width: (settings.$mobile)) {
+    @media screen and (min-width: (s.$mobile)) {
       @include customLayouts;
     }
   }
 
   &.break-xs {
-    @media screen and (min-width: (settings.$mobile-lg)) {
+    @media screen and (min-width: (s.$mobile-lg)) {
       @include customLayouts;
     }
   }
 
   &.break-sm {
-    @media screen and (min-width: (settings.$tablet)) {
+    @media screen and (min-width: (s.$tablet)) {
       @include customLayouts;
     }
   }
 
   &.break-md {
-    @media screen and (min-width: (settings.$tablet-md)) {
+    @media screen and (min-width: (s.$tablet-md)) {
       @include customLayouts;
     }
   }
 
   &.break-lg {
-    @media screen and (min-width: settings.$tablet-xl) {
+    @media screen and (min-width: s.$tablet-xl) {
       @include customLayouts;
     }
   }
 
   &.break-xl {
-    @media screen and (min-width: settings.$desktop-lg) {
+    @media screen and (min-width: s.$desktop-lg) {
       @include customLayouts;
     }
   }
 
   &.break-xxl {
-    @media screen and (min-width: settings.$widescreen) {
+    @media screen and (min-width: s.$widescreen) {
       @include customLayouts;
     }
   }

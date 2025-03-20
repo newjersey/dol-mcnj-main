@@ -26,67 +26,134 @@ export const FAQ_PAGE_DATA = {
       contentType: "image/png",
     },
   },
-  banner: {
-    message: "Get answers to all of your My Career NJ questions.",
-    title: "Frequently Asked Questions",
-    section: "support",
-    theme: "blue",
-    breadcrumbsCollection: {
-      items: [
-        {
-          sys: {
-            id: "50o1RGfZ173Cis7VEFlBDR",
+  en: {
+    banner: {
+      message: "Get answers to all of your My Career NJ questions.",
+      title: "Frequently Asked Questions",
+      section: "support",
+      theme: "blue",
+      breadcrumbsCollection: {
+        items: [
+          {
+            sys: {
+              id: "50o1RGfZ173Cis7VEFlBDR",
+            },
+            copy: "Home",
+            url: "/",
           },
-          copy: "Home",
-          url: "/",
+        ],
+      },
+    } as PageBannerProps,
+    ctaBanner: {
+      fullColor: true,
+      heading: "Check out some other useful resources and tools",
+      headingLevel: 2,
+      customLinks: [
+        {
+          iconPrefix: "Fire",
+          link: "https://mycareer.nj.gov/in-demand-occupations",
+          label: "In-Demand Occupation List",
+          type: "link",
+          highlight: "orange",
+        },
+        {
+          iconPrefix: "GraduationCap",
+          link: "/training",
+          label: "NJ Training Explorer",
+          type: "link",
+          highlight: "green",
+        },
+        {
+          iconPrefix: "Lifebuoy",
+          link: "/support-resources/tuition-assistance",
+          label: "Tuition Assistance Resources",
+          type: "link",
+          highlight: "purple",
+        },
+        {
+          iconPrefix: "ChalkboardTeacher",
+          link: "/training-provider-resources",
+          label: "Training Provider Resources",
+          type: "link",
+          highlight: "blue",
         },
       ],
-    },
-  } as PageBannerProps,
-  ctaBanner: {
-    fullColor: true,
-    heading: "Check out some other useful resources and tools",
-    headingLevel: 2,
-    customLinks: [
-      {
-        iconPrefix: "Fire",
-        link: "https://mycareer.nj.gov/in-demand-occupations",
-        label: "In-Demand Occupation List",
-        type: "link",
-        highlight: "orange",
+    } as CtaBannerProps,
+    cta: {
+      headingLevel: 3,
+      heading: "Still have questions?",
+      inlineButtons: true,
+      items: [
+        {
+          copy: "Contact Us",
+          url: "/contact",
+        },
+      ],
+    } as CtaBannerProps,
+  },
+  es: {
+    banner: {
+      message: "Obtén respuestas a todas tus preguntas sobre My Career NJ.",
+      title: "Preguntas Frecuentes",
+      section: "support",
+      theme: "blue",
+      breadcrumbsCollection: {
+        items: [
+          {
+            sys: {
+              id: "50o1RGfZ173Cis7VEFlBDR",
+            },
+            copy: "Inicio",
+            url: "/",
+          },
+        ],
       },
-      {
-        iconPrefix: "GraduationCap",
-        link: "/training",
-        label: "NJ Training Explorer",
-        type: "link",
-        highlight: "green",
-      },
-      {
-        iconPrefix: "Lifebuoy",
-        link: "/support-resources/tuition-assistance",
-        label: "Tuition Assistance Resources",
-        type: "link",
-        highlight: "purple",
-      },
-      {
-        iconPrefix: "ChalkboardTeacher",
-        link: "/training-provider-resources",
-        label: "Training Provider Resources",
-        type: "link",
-        highlight: "blue",
-      },
-    ],
-  } as CtaBannerProps,
-  cta: {
-    headingLevel: 3,
-    heading: "Still have questions?",
-    inlineButtons: true,
-    items: [
-      {
-        copy: "Contact Us",
-        url: "/contact",
-      },
-    ],
-  } as CtaBannerProps,
+    } as PageBannerProps,
+    ctaBanner: {
+      fullColor: true,
+      heading: "Consulta otros recursos y herramientas útiles",
+      headingLevel: 2,
+      customLinks: [
+        {
+          iconPrefix: "Fire",
+          link: "https://mycareer.nj.gov/in-demand-occupations",
+          label: "Lista de Ocupaciones en Demanda",
+          type: "link",
+          highlight: "orange",
+        },
+        {
+          iconPrefix: "GraduationCap",
+          link: "/training",
+          label: "Explorador de Capacitación de NJ",
+          type: "link",
+          highlight: "green",
+        },
+        {
+          iconPrefix: "Lifebuoy",
+          link: "/support-resources/tuition-assistance",
+          label: "Recursos de Asistencia para Matrícula",
+          type: "link",
+          highlight: "purple",
+        },
+        {
+          iconPrefix: "ChalkboardTeacher",
+          link: "/training-provider-resources",
+          label: "Recursos para Proveedores de Capacitación",
+          type: "link",
+          highlight: "blue",
+        },
+      ],
+    } as CtaBannerProps,
+    cta: {
+      headingLevel: 3,
+      heading: "¿Aún tienes preguntas?",
+      inlineButtons: true,
+      items: [
+        {
+          copy: "Contáctanos",
+          url: "/contact",
+        },
+      ],
+    } as CtaBannerProps,
+  },
 };

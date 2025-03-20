@@ -1,19 +1,19 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .filterControl {
   &.open {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      box-shadow: settings.$shadow-2;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      box-shadow: s.$shadow-2;
     }
 
     .content {
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         display: block;
       }
     }
   }
   .labelBox {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       border-radius: 0;
     }
 
@@ -21,7 +21,7 @@
       justify-content: center;
 
       svg {
-        @media screen and (min-width: (settings.$tablet-lg)) {
+        @media screen and (min-width: (s.$tablet-lg)) {
           display: none;
         }
       }
@@ -38,15 +38,15 @@
     justify-content: space-between;
     display: flex;
     align-items: center;
-    margin: settings.$size-16 0;
+    margin: s.$size-16 0;
   }
 
   .clear {
-    margin: settings.$size-16 0 0;
+    margin: s.$size-16 0 0;
   }
 
   .clear-all {
-    padding: settings.$size-12 settings.$size-20_8;
+    padding: s.$size-12 s.$size-20_8;
   }
 
   button {
@@ -54,15 +54,15 @@
   }
 
   .content {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       display: none;
     }
   }
 
   .resourceLinkBox {
-    margin-top: settings.$size-32;
+    margin-top: s.$size-32;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       display: none;
     }
   }

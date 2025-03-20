@@ -1,25 +1,25 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .contact-page {
-  margin-top: settings.$size-48;
-  margin-bottom: settings.$size-48;
+  margin-top: s.$size-48;
+  margin-bottom: s.$size-48;
 
   .address {
     width: 100%;
-    padding: settings.$size-24;
+    padding: s.$size-24;
 
-    @media screen and (min-width: (settings.$desktop)) {
-      max-width: settings.$size-480;
+    @media screen and (min-width: (s.$desktop)) {
+      max-width: s.$size-480;
     }
   }
 
   .form-container {
-    padding: settings.$size-24;
+    padding: s.$size-24;
     width: 100%;
 
-    @media screen and (min-width: (settings.$desktop)) {
-      width: calc(100% - settings.$size-480);
-      max-width: settings.$size-640;
+    @media screen and (min-width: (s.$desktop)) {
+      width: calc(100% - s.$size-480);
+      max-width: s.$size-640;
     }
 
     form {

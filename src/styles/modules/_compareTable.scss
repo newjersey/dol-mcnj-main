@@ -1,37 +1,37 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .compareTable {
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: settings.$secondary-lighter;
+  background-color: s.$secondary-lighter;
   z-index: 1000;
   width: 100%;
 
   .compare-inner {
-    max-width: settings.$desktop-xl;
+    max-width: s.$desktop-xl;
     width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: settings.$size-48;
-    padding: settings.$size-16;
+    gap: s.$size-48;
+    padding: s.$size-16;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
 
-  @media screen and (max-width: (settings.$desktop-lg - 1)) {
+  @media screen and (max-width: (s.$desktop-lg - 1)) {
     flex-direction: column;
   }
 
   .buttons {
     display: flex;
-    gap: settings.$size-8;
+    gap: s.$size-8;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
+    @media screen and (min-width: (s.$tablet-lg)) {
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -45,25 +45,25 @@
   .boxes {
     justify-content: center;
     display: flex;
-    gap: settings.$size-48;
+    gap: s.$size-48;
     width: 100%;
 
-    @media screen and (max-width: (settings.$desktop-lg - 1)) {
-      gap: settings.$size-24;
+    @media screen and (max-width: (s.$desktop-lg - 1)) {
+      gap: s.$size-24;
     }
   }
 
   .box {
-    width: settings.$size-256;
-    padding: settings.$size-8;
-    background: settings.$white;
+    width: s.$size-256;
+    padding: s.$size-8;
+    background: s.$white;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: settings.$size-8;
-    min-height: settings.$size-128;
+    gap: s.$size-8;
+    min-height: s.$size-128;
 
-    @media screen and (max-width: (settings.$desktop-lg - 1)) {
+    @media screen and (max-width: (s.$desktop-lg - 1)) {
       width: 33.333%;
     }
 
@@ -83,11 +83,11 @@
       align-items: center;
       align-content: center;
       border-radius: 100%;
-      top: -(settings.$size-20);
-      right: -(settings.$size-5);
-      height: settings.$size-16;
-      width: settings.$size-16;
-      background: settings.$black;
+      top: -(s.$size-20);
+      right: -(s.$size-5);
+      height: s.$size-16;
+      width: s.$size-16;
+      background: s.$black;
       cursor: pointer;
     }
   }
@@ -115,20 +115,20 @@
         > div {
           display: flex;
           flex-direction: column;
-          gap: settings.$size-8;
+          gap: s.$size-8;
           justify-content: flex-end;
           align-items: center;
           height: 100%;
-          padding-bottom: settings.$size-8;
+          padding-bottom: s.$size-8;
         }
       }
     }
 
     td {
       width: 25%;
-      min-width: settings.$size-216;
+      min-width: s.$size-216;
       text-align: center;
-      border-color: settings.$base-light;
+      border-color: s.$base-light;
       border-top: 0;
       border-left: 0;
       background: transparent;

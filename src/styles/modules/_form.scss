@@ -1,10 +1,10 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 select.usa-select,
 input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
     [type="submit"]
   ) {
-  border-radius: settings.$size-4;
+  border-radius: s.$size-4;
 }
 
 .usa-checkbox,
@@ -14,8 +14,8 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
 
 .usa-radio__input:focus + [class*="__label"]::before,
 .usa-checkbox__input:focus + [class*="__label"]::before {
-  outline: settings.$size-4 solid settings.$info-darker;
-  outline-offset: settings.$size-4;
+  outline: s.$size-4 solid s.$info-darker;
+  outline-offset: s.$size-4;
 }
 
 .usa-label {
@@ -24,22 +24,22 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
 }
 
 .usa-checkbox__input:checked + [class*="__label"]::before {
-  background-color: settings.$info-darker;
-  box-shadow: inset 0 0 0 settings.$size-2 settings.$info-darker;
+  background-color: s.$info-darker;
+  box-shadow: inset 0 0 0 s.$size-2 s.$info-darker;
 }
 
 .usa-radio__input:checked + [class*="__label"]::before {
-  box-shadow: 0 0 0 settings.$size-2 settings.$info-darker,
-    inset 0 0 0 settings.$size-2 #fff;
+  box-shadow: 0 0 0 s.$size-2 s.$info-darker, inset 0 0 0 s.$size-2 #fff;
 }
 
 .usa-radio__input:checked + [class*="__label"]::before {
-  background-color: settings.$info-darker;
+  background-color: s.$info-darker;
 }
 
 .usa-checkbox__label::before,
 .usa-radio__label::before {
   background-color: transparent;
+  box-shadow: inset 0 0 0 s.$size-2 s.$base-light;
 }
 
 .label {

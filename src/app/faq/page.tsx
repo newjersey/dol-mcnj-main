@@ -6,6 +6,8 @@ import { FaqPageProps } from "@utils/types";
 import { FAQ_PAGE_QUERY } from "queries/faqPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { FAQ_PAGE_DATA as pageData } from "@data/pages/faq";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 async function getData() {
   const { faqCategories } = await client({
@@ -31,13 +33,15 @@ export async function generateMetadata({}) {
 
 export default async function FaqPage() {
   const { faqCategories } = (await getData()) as FaqPageProps;
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
 
   return (
     <div className="page faq">
-      <PageBanner {...pageData.banner} />
+      <PageBanner {...pageData[lang].banner} />
       <FaqSection items={faqCategories.categoriesCollection.items} />
-      <CtaBanner {...pageData.ctaBanner} />
-      <CtaBanner {...pageData.cta} />
+      <CtaBanner {...pageData[lang].ctaBanner} />
+      <CtaBanner {...pageData[lang].cta} />
     </div>
   );
 }

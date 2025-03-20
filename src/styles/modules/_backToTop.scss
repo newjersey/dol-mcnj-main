@@ -1,29 +1,29 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .backToTop {
   position: fixed;
-  bottom: settings.$size-16;
+  bottom: s.$size-16;
   cursor: pointer;
-  right: settings.$size-16;
-  background: settings.$white;
-  width: settings.$size-48;
-  height: settings.$size-48;
+  right: s.$size-16;
+  background: s.$white;
+  width: s.$size-48;
+  height: s.$size-48;
   justify-content: center;
   display: flex;
   align-items: center;
-  padding: settings.$size-8;
-  color: settings.$primary-vivid;
-  border: 1px solid settings.$primary-vivid;
-  border-radius: settings.$size-4;
+  padding: s.$size-8;
+  color: s.$primary-vivid;
+  border: 1px solid s.$primary-vivid;
+  border-radius: s.$size-4;
 
-  @media screen and (min-width: (settings.$tablet-lg)) {
-    transition-duration: settings.$transition-speed;
+  @media screen and (min-width: (s.$tablet-lg)) {
+    transition-duration: s.$transition-speed;
     transition-timing-function: ease-in-out;
   }
 
   &:hover {
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      box-shadow: settings.$shadow-3;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      box-shadow: s.$shadow-3;
     }
   }
 

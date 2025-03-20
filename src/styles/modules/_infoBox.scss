@@ -1,8 +1,8 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .infoBox {
   border-radius: 10px;
-  padding: settings.$size-8 settings.$size-16;
+  padding: s.$size-8 s.$size-16;
 
   p,
   a {
@@ -10,9 +10,9 @@
   }
 
   .copy {
-    font-size: settings.$size-16;
+    font-size: s.$size-16;
     font-weight: bold;
-    margin-top: settings.$size-6;
+    margin-top: s.$size-6;
   }
 
   .number {
@@ -22,8 +22,8 @@
   .eyebrow {
     display: flex;
     align-items: center;
-    gap: settings.$size-8;
-    font-size: settings.$size-16;
+    gap: s.$size-8;
+    font-size: s.$size-16;
 
     .tooltip,
     .tooltip button {
@@ -34,9 +34,9 @@
   }
 
   .usa-tooltip__body {
-    @media screen and (min-width: (settings.$tablet-md)) {
+    @media screen and (min-width: (s.$tablet-md)) {
       white-space: normal;
-      width: settings.$size-160;
+      width: s.$size-160;
     }
   }
 
@@ -46,13 +46,12 @@
 
     .content {
       position: absolute;
-      background: settings.$white;
+      background: s.$white;
       left: calc(100% + 10px);
       width: 200px;
-      padding: settings.$size-4_8 settings.$size-24 settings.$size-4_8
-        settings.$size-8;
+      padding: s.$size-4_8 s.$size-24 s.$size-4_8 s.$size-8;
       line-height: 1.3;
-      box-shadow: settings.$shadow-2;
+      box-shadow: s.$shadow-2;
 
       &:before {
         content: "";
@@ -63,7 +62,7 @@
         height: 0;
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
-        border-right: 10px solid settings.$white;
+        border-right: 10px solid s.$white;
         transform: translateY(-50%);
       }
 
@@ -71,36 +70,36 @@
         position: absolute;
         top: 0;
         right: 0;
-        background: settings.$white;
+        background: s.$white;
         border: none;
-        padding: settings.$size-4_8;
+        padding: s.$size-4_8;
         cursor: pointer;
       }
     }
   }
 
   a {
-    color: settings.$primary;
+    color: s.$primary;
     display: flex;
     align-items: center;
-    gap: settings.$size-8;
+    gap: s.$size-8;
     width: 100%;
 
     &:hover {
-      color: settings.$primary-dark;
+      color: s.$primary-dark;
     }
   }
 
   &.color-blue {
-    background-color: settings.$primary-lighter;
+    background-color: s.$primary-lighter;
   }
   &.color-green {
-    background-color: settings.$secondary-lighter;
+    background-color: s.$secondary-lighter;
   }
   &.color-purple {
-    background-color: settings.$tertiary-lighter;
+    background-color: s.$tertiary-lighter;
   }
   &.color-orange {
-    background-color: settings.$accent-warm-lighter;
+    background-color: s.$accent-warm-lighter;
   }
 }

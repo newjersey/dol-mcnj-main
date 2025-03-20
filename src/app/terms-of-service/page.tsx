@@ -2,6 +2,8 @@ import { Heading } from "@components/modules/Heading";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { TERMS_OF_SERVICE_PAGE_DATA as pageData } from "@data/pages/terms-of-service";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 export function metadata() {
   return {
@@ -17,6 +19,9 @@ export function metadata() {
 }
 
 export default async function TermsOfServicePage() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <div
       className="container "
@@ -25,11 +30,11 @@ export default async function TermsOfServicePage() {
         paddingBottom: "4rem",
       }}
     >
-      <Heading {...pageData.heading} />
+      <Heading {...pageData[lang].heading} />
       <div
         className="mrkdwn"
         dangerouslySetInnerHTML={{
-          __html: parseMarkdownToHTML(pageData.copy),
+          __html: parseMarkdownToHTML(pageData[lang].copy),
         }}
       />
     </div>
