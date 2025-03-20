@@ -1,11 +1,8 @@
 import { TrainingSearch } from "@components/blocks/TrainingSearch";
 import { Steps } from "./Steps";
-import { Breadcrumbs } from "@components/modules/Breadcrumbs";
-import { Heading } from "@components/modules/Heading";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
-import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { ButtonProps } from "@utils/types";
 import { HeadingLevel, SupportedLanguages } from "@utils/types/types";
 import { PageHero, PageHeroProps } from "@components/blocks/PageHero";
