@@ -87,20 +87,75 @@
       flex-direction: column;
       gap: s.$size-48;
 
-      > div {
-        padding: s.$size-32;
+      .contentContainer {
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-32;
+
+        @media screen and (min-width: (s.$tablet-lg)) {
+          flex-direction: row-reverse;
+        }
+
+        &:nth-child(2n) {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            flex-direction: row;
+          }
+        }
+      }
+
+      .contentBlocks {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-48;
+        flex: 1;
+
+        > div {
+          padding: s.$size-32;
+          border-radius: s.$size-16;
+
+          &.blue {
+            background-color: s.$primary-extra-light;
+          }
+
+          &.purple {
+            background-color: s.$tertiary-extra-light;
+          }
+
+          &.green {
+            background-color: s.$secondary-extra-light;
+          }
+        }
+      }
+
+      .image {
+        overflow: hidden;
         border-radius: s.$size-16;
+        width: 100%;
 
-        &:nth-child(3n - 2) {
-          background-color: s.$info-lighter;
+        @media screen and (min-width: (s.$tablet-lg)) {
+          max-width: s.$size-536;
         }
 
-        &:nth-child(3n - 1) {
-          background-color: s.$tertiary-lighter;
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          height: 0;
+          padding-bottom: 56.25%;
+          position: relative;
         }
+      }
 
-        &:nth-child(3n) {
-          background-color: s.$secondary-lighter;
+      img {
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          height: 100%;
+          width: 100%;
         }
       }
 

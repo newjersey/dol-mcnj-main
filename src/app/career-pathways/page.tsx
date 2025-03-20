@@ -6,6 +6,7 @@ import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { CAREER_PATHWAYS_PAGE_DATA as pageData } from "@data/pages/career-pathways";
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
+import Image from "next/image";
 
 export const revalidate = 86400;
 
@@ -32,13 +33,30 @@ export default async function CareerPathwaysPage() {
       <MinimalBanner {...pageData[lang].banner} />
       <IndustrySelector {...pageData[lang].industrySelector} />
       <section className="body-copy container">
-        {pageData[lang].bodyContent.map((copy, index) => (
-          <div
-            key={`body-copy-${index}`}
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(copy),
-            }}
-          />
+        {pageData[lang].bodyContent.map((block, index) => (
+          <div key={`body-copy-${index}`} className="contentContainer">
+            <div className="image">
+              <Image
+                src={block.image.src}
+                alt=""
+                width={block.image.width}
+                height={block.image.height}
+                blurDataURL={block.image.blurDataURL}
+                placeholder="blur"
+              />
+            </div>
+            <div className="contentBlocks">
+              {block.contentBlocks.map((content) => (
+                <div
+                  key={content.copy}
+                  className={`content ${content.theme}`}
+                  dangerouslySetInnerHTML={{
+                    __html: parseMarkdownToHTML(content.copy),
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         ))}
       </section>
       <CtaBanner {...pageData[lang].cta} />

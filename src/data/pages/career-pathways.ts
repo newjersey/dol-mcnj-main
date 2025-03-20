@@ -4,6 +4,9 @@ import mechanic from "@images/mechanic.jpg";
 import medical from "@images/medical.jpg";
 import welder from "@images/welder.jpg";
 import { IndustrySelectorProps } from "@utils/types/components";
+import placeholder1 from "@images/placeholder.png";
+import placeholder2 from "@images/placeholder2.png";
+import { ThemeColors } from "@utils/types";
 
 export const CAREER_PATHWAYS_PAGE_DATA = {
   seo: {
@@ -125,9 +128,28 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       ],
     } as IndustrySelectorProps,
     bodyContent: [
-      `## Career Pathways and Industry Sectors—what's the difference, exactly?\n\n### Think of Career Pathways as a GPS.\n\nCareer Pathways offers the best route to reach your career destination, outlining the steps you need to take to get where you want to go, including education, training, and upskilling.\n\n### Think of Industry Sector Information as a guidebook.\n\nIndustry Sector Information provides an overview of various industries, including a snapshot of the job market. Here's some of the helpful information you'll find:\n\n- Types of jobs\n- Salary expectations\n- Specific skills in high demand\n- Companies that are the major players\n- Potential for Industry growth`,
-      `## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.\n\nThrough Career Pathways and Industry Sector Information, you'll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you'll discover:\n\n- Information about the most in-demand manufacturing jobs in New Jersey\n- Insights from over 40 manufacturing companies throughout New Jersey\n- Valuable data about available jobs\n- The skills, education, and experience you need to get started.`,
-      `## Our legwork can help you get a leg up in your career.\n\nOur data comes from trusted sources with the most up-to-date information:\n\n- Experienced New Jersey labor market analysts who study job trends\n- Actual New Jersey employers\n- Recent employment and wage surveys\n\nEveryone's career path is different. With Career Pathways and Industry Sector Information, you'll have what you need to help you move forward successfully.`,
+      {
+        image: placeholder1,
+        contentBlocks: [
+          {
+            theme: "blue",
+            copy: `## Career Pathways and Industry Sectors—what's the difference, exactly?\n\n### Think of Career Pathways as a GPS.\n\nCareer Pathways offers the best route to reach your career destination, outlining the steps you need to take to get where you want to go, including education, training, and upskilling.\n\n### Think of Industry Sector Information as a guidebook.\n\nIndustry Sector Information provides an overview of various industries, including a snapshot of the job market. Here's some of the helpful information you'll find:\n\n- Types of jobs\n- Salary expectations\n- Specific skills in high demand\n- Companies that are the major players\n- Potential for Industry growth`,
+          },
+        ],
+      },
+      {
+        image: placeholder2,
+        contentBlocks: [
+          {
+            theme: "purple",
+            copy: `## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.\n\nThrough Career Pathways and Industry Sector Information, you'll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you'll discover:\n\n- Information about the most in-demand manufacturing jobs in New Jersey\n- Insights from over 40 manufacturing companies throughout New Jersey\n- Valuable data about available jobs\n- The skills, education, and experience you need to get started.`,
+          },
+          {
+            theme: "green",
+            copy: `## Our legwork can help you get a leg up in your career.\n\nOur data comes from trusted sources with the most up-to-date information:\n\n- Experienced New Jersey labor market analysts who study job trends\n- Actual New Jersey employers\n- Recent employment and wage surveys\n\nEveryone's career path is different. With Career Pathways and Industry Sector Information, you'll have what you need to help you move forward successfully.`,
+          },
+        ],
+      },
     ],
     markdownSection: ``,
     ctaBanner: {
@@ -273,9 +295,28 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       ],
     } as IndustrySelectorProps,
     bodyContent: [
-      `## Trayectorias profesionales y sectores industriales: ¿cuál es la diferencia?\n\n### Piensa en las trayectorias profesionales como un GPS.\n\nCareer Pathways ofrece la mejor ruta para llegar a tu destino profesional, describiendo los pasos que debes seguir para llegar a donde quieres ir, incluyendo educación, capacitación y mejora de habilidades.\n\n### Piensa en la información del sector industrial como una guía.\n\nLa información del sector industrial proporciona una visión general de diversas industrias, incluyendo una imagen del mercado laboral. Aquí hay información útil que encontrarás:\n\n- Tipos de empleos\n- Expectativas salariales\n- Habilidades específicas en alta demanda\n- Empresas clave en la industria\n- Potencial de crecimiento del sector`,
-      `## Es importante tomar decisiones informadas. Descubre cómo Career Pathways e información del sector industrial pueden ayudarte.\n\nA través de Career Pathways e información del sector industrial, podrás tomar decisiones impactantes basadas en datos. Por ejemplo, si decides explorar la Trayectoria Profesional en Manufactura, descubrirás:\n- Información sobre los trabajos más demandados en manufactura en Nueva Jersey\n- Perspectivas de más de 40 empresas de manufactura en Nueva Jersey\n- Datos valiosos sobre oportunidades laborales\n- Las habilidades, educación y experiencia necesarias para comenzar.`,
-      `## Nuestra investigación puede ayudarte a avanzar en tu carrera.\n\nNuestra información proviene de fuentes confiables con datos actualizados:\n\n- Analistas del mercado laboral de Nueva Jersey con experiencia en tendencias laborales\n- Empleadores reales en Nueva Jersey\n- Encuestas recientes de empleo y salarios\n\nCada trayectoria profesional es diferente. Con Career Pathways y la información del sector industrial, tendrás lo necesario para avanzar con éxito.`,
+      {
+        image: placeholder1,
+        contentBlocks: [
+          {
+            theme: "blue" as ThemeColors,
+            copy: `## Trayectorias profesionales y sectores industriales: ¿cuál es la diferencia?\n\n### Piensa en las trayectorias profesionales como un GPS.\n\nCareer Pathways ofrece la mejor ruta para llegar a tu destino profesional, describiendo los pasos que debes seguir para llegar a donde quieres ir, incluyendo educación, capacitación y mejora de habilidades.\n\n### Piensa en la información del sector industrial como una guía.\n\nLa información del sector industrial proporciona una visión general de diversas industrias, incluyendo una imagen del mercado laboral. Aquí hay información útil que encontrarás:\n\n- Tipos de empleos\n- Expectativas salariales\n- Habilidades específicas en alta demanda\n- Empresas clave en la industria\n- Potencial de crecimiento del sector`,
+          },
+        ],
+      },
+      {
+        image: placeholder2,
+        contentBlocks: [
+          {
+            theme: "purple" as ThemeColors,
+            copy: `## Es importante tomar decisiones informadas. Descubre cómo Career Pathways e información del sector industrial pueden ayudarte.\n\nA través de Career Pathways e información del sector industrial, podrás tomar decisiones impactantes basadas en datos. Por ejemplo, si decides explorar la Trayectoria Profesional en Manufactura, descubrirás:\n- Información sobre los trabajos más demandados en manufactura en Nueva Jersey\n- Perspectivas de más de 40 empresas de manufactura en Nueva Jersey\n- Datos valiosos sobre oportunidades laborales\n- Las habilidades, educación y experiencia necesarias para comenzar.`,
+          },
+          {
+            theme: "green" as ThemeColors,
+            copy: `## Nuestra investigación puede ayudarte a avanzar en tu carrera.\n\nNuestra información proviene de fuentes confiables con datos actualizados:\n\n- Analistas del mercado laboral de Nueva Jersey con experiencia en tendencias laborales\n- Empleadores reales en Nueva Jersey\n- Encuestas recientes de empleo y salarios\n\nCada trayectoria profesional es diferente. Con Career Pathways y la información del sector industrial, tendrás lo necesario para avanzar con éxito.`,
+          },
+        ],
+      },
     ],
     markdownSection: ``,
     ctaBanner: {

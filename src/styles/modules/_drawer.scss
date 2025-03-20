@@ -34,10 +34,10 @@
 
   .panel {
     position: fixed;
-    border-left: s.$size-4 solid s.$black;
+    border-left: s.$size-4 solid s.$secondary-dark;
     top: 0;
     right: -100%;
-    background: s.$white;
+    background: s.$secondary-light;
     padding: 3rem;
     max-width: s.$tablet;
     width: 100%;
