@@ -1,7 +1,9 @@
 import { CtaBannerProps } from "@components/blocks/CtaBanner";
 import { SectionHeadingProps } from "@components/modules/SectionHeading";
-import { FaqItem } from "@utils/types";
+import { ButtonProps, FaqItem } from "@utils/types";
 import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
+import image from "@images/placeholder.png";
+import { PageHeroProps } from "@components/blocks/PageHero";
 
 export const TRAINING_EXPLORER_PAGE_DATA = {
   seo: {
@@ -41,80 +43,84 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
     ],
   },
   en: {
-    banner: {
+    pageHero: {
       heading: "NJ Training Explorer",
-      subheading: "Find classes to help you qualify for in-demand jobs.",
-      message:
-        "Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you'll be ready to take on new career opportunities.",
-      steps: [
-        "Search by occupation, provider, and more",
-        "Filter and compare results",
-        "Visit training provider's website to enroll",
-      ],
-      breadcrumbs: [
+      subheading: "Find approved job training programs.",
+      description:
+        "Search and compare New Jersey’s approved training providers and programs. Review details and costs, gain new skills, and advance your career with confidence.",
+      theme: "green",
+      image: {
+        src: image.src,
+        width: image.width,
+        height: image.height,
+        blurDataURL: image.blurDataURL,
+        placeholder: "blur",
+        alt: "Training Hero",
+      },
+    } as PageHeroProps,
+    steps: [
+      "Search by occupation, provider, and more",
+      "Filter and compare results",
+      "Visit training provider's website to enroll",
+    ],
+    search: {
+      heading: {
+        level: 2,
+        heading: "Search for training",
+      },
+      toolTip: {
+        copy: "Search by training, provider, certification, SOC code, CIP code, or keyword.",
+        screenReader: "Information",
+      },
+      clearButton: {
+        label: "Clear All",
+        type: "button",
+        className: "clear-all",
+        unstyled: true,
+      },
+      form: {
+        inputLabel: "Search for Training",
+        filterHeading: "Filters",
+        miles: {
+          label: "Miles from Zip Code",
+          milesPlaceholder: "Miles",
+          zipPlaceholder: "ZIP Code",
+          zipError: "Please enter a 5-digit New Jersey ZIP code.",
+        },
+        costLabel: "Max Cost",
+        format: {
+          label: "Class Format",
+          inPersonLabel: "In-Person",
+          onlineLabel: "Online",
+        },
+        submitLabel: "Search",
+      },
+    } as TrainingExplorerHeadingProps["search"],
+    learnMore: {
+      copy: "Trainings and programs on the Training Explorer are accredited.",
+      url: "/faq#etpl-program-general-information",
+    },
+    notReadyCta: {
+      copy: "Not ready to search for training yet?",
+      theme: "blue",
+      buttons: [
         {
-          copy: "Home",
-          url: "/",
+          label: "Search for jobs",
+          type: "link",
+          defaultStyle: "primary",
+          outlined: true,
+          link: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx",
         },
-      ],
-      search: {
-        heading: {
-          level: 2,
-          heading: "Search for training",
+        {
+          label: "Find out about tuition resources",
+          defaultStyle: "secondary",
+          type: "link",
+          outlined: true,
+          link: "/support-resources/tuition-assistance",
+          iconSuffix: "ArrowRight",
         },
-        toolTip: {
-          copy: "Search by training, provider, certification, SOC code, CIP code, or keyword.",
-          screenReader: "Information",
-        },
-        clearButton: {
-          label: "Clear All",
-          type: "button",
-          className: "clear-all",
-          unstyled: true,
-        },
-        form: {
-          inputLabel: "Search for Training",
-          filterHeading: "Filters",
-          miles: {
-            label: "Miles from Zip Code",
-            milesPlaceholder: "Miles",
-            zipPlaceholder: "ZIP Code",
-            zipError: "Please enter a 5-digit New Jersey ZIP code.",
-          },
-          costLabel: "Max Cost",
-          format: {
-            label: "Class Format",
-            inPersonLabel: "In-Person",
-            onlineLabel: "Online",
-          },
-          submitLabel: "Search",
-        },
-      },
-      learnMore: {
-        copy: "Trainings and programs on the Training Explorer are accredited.",
-        url: "/faq#etpl-program-general-information",
-      },
-      notReady: {
-        copy: "Not ready to search for training yet?",
-        buttons: [
-          {
-            label: "Search for jobs",
-            type: "link",
-            outlined: true,
-            link: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx",
-            iconSuffix: "ArrowSquareOut",
-          },
-          {
-            label: "Find out about tuition resources",
-            defaultStyle: "secondary",
-            type: "link",
-            outlined: true,
-            link: "/support-resources/tuition-assistance",
-            iconSuffix: "ArrowRight",
-          },
-        ],
-      },
-    } as TrainingExplorerHeadingProps,
+      ] as ButtonProps[],
+    },
     demoVideoUrl:
       "https://www.youtube.com/embed/fSBbrIoQAFE?si=MmBcyHbiB5PjZrxR",
     iconCards: [
@@ -202,82 +208,91 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
     },
   },
   es: {
-    banner: {
+    pageHero: {
       heading: "Explorador de Capacitación de NJ",
-      subheading:
-        "Encuentra clases para ayudarte a calificar para trabajos en demanda.",
-      message:
-        "Imagina tener un guía personal que te ayude a elegir la mejor capacitación para tu futuro. El Explorador de Capacitación de Nueva Jersey facilita la búsqueda de clases y programas de formación en habilidades que necesitas. Explora el catálogo de escuelas y cursos verificados que mejorarán tus habilidades, para que estés listo para aprovechar nuevas oportunidades profesionales.",
-      steps: [
-        "Busca por ocupación, proveedor y más",
-        "Filtra y compara resultados",
-        "Visita el sitio web del proveedor de capacitación para inscribirte",
-      ],
-      breadcrumbs: [
+      subheading: "Encuentra programas de capacitación laboral aprobados.",
+      description:
+        "Busca y compara proveedores y programas de capacitación aprobados en Nueva Jersey. Revisa detalles y costos, adquiere nuevas habilidades y avanza en tu carrera con confianza.",
+      theme: "green",
+      image: {
+        src: image.src,
+        width: image.width,
+        height: image.height,
+        blurDataURL: image.blurDataURL,
+        placeholder: "blur",
+        alt: "Héroe de Capacitación",
+      },
+    } as PageHeroProps,
+    steps: [
+      "Busca por ocupación, proveedor y más",
+      "Filtra y compara resultados",
+      "Visita el sitio web del proveedor de capacitación para inscribirte",
+    ],
+    breadcrumbs: [
+      {
+        copy: "Inicio",
+        url: "/",
+      },
+    ],
+    search: {
+      heading: {
+        level: 2,
+        heading: "Buscar capacitación",
+      },
+      toolTip: {
+        copy: "Buscar por capacitación, proveedor, certificación, código SOC, código CIP o palabra clave.",
+        screenReader: "Información",
+      },
+      clearButton: {
+        label: "Borrar Todo",
+        type: "button",
+        className: "clear-all",
+        unstyled: true,
+      },
+      form: {
+        inputLabel: "Buscar capacitación",
+        filterHeading: "Filtros",
+        miles: {
+          label: "Millas desde el código postal",
+          milesPlaceholder: "Millas",
+          zipPlaceholder: "Código Postal",
+          zipError:
+            "Por favor, ingrese un código postal de Nueva Jersey de 5 dígitos.",
+        },
+        costLabel: "Costo Máximo",
+        format: {
+          label: "Formato de Clase",
+          inPersonLabel: "Presencial",
+          onlineLabel: "En Línea",
+        },
+        submitLabel: "Buscar",
+      },
+    } as TrainingExplorerHeadingProps["search"],
+    learnMore: {
+      copy: "Las capacitaciones y programas en el Explorador de Capacitación están acreditados.",
+      url: "/faq#etpl-program-general-information",
+    },
+    notReadyCta: {
+      copy: "¿Aún no estás listo para buscar capacitación?",
+      buttons: [
         {
-          copy: "Inicio",
-          url: "/",
+          label: "Buscar empleos",
+          type: "link",
+          defaultStyle: "primary",
+          outlined: true,
+          link: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx",
+          iconSuffix: "ArrowSquareOut",
         },
-      ],
-      search: {
-        heading: {
-          level: 2,
-          heading: "Buscar capacitación",
+        {
+          label: "Conoce los recursos de matrícula",
+          defaultStyle: "secondary",
+          type: "link",
+          outlined: true,
+          link: "/support-resources/tuition-assistance",
+          iconSuffix: "ArrowRight",
         },
-        toolTip: {
-          copy: "Buscar por capacitación, proveedor, certificación, código SOC, código CIP o palabra clave.",
-          screenReader: "Información",
-        },
-        clearButton: {
-          label: "Borrar Todo",
-          type: "button",
-          className: "clear-all",
-          unstyled: true,
-        },
-        form: {
-          inputLabel: "Buscar capacitación",
-          filterHeading: "Filtros",
-          miles: {
-            label: "Millas desde el código postal",
-            milesPlaceholder: "Millas",
-            zipPlaceholder: "Código Postal",
-            zipError:
-              "Por favor, ingrese un código postal de Nueva Jersey de 5 dígitos.",
-          },
-          costLabel: "Costo Máximo",
-          format: {
-            label: "Formato de Clase",
-            inPersonLabel: "Presencial",
-            onlineLabel: "En Línea",
-          },
-          submitLabel: "Buscar",
-        },
-      },
-      learnMore: {
-        copy: "Las capacitaciones y programas en el Explorador de Capacitación están acreditados.",
-        url: "/faq#etpl-program-general-information",
-      },
-      notReady: {
-        copy: "¿Aún no estás listo para buscar capacitación?",
-        buttons: [
-          {
-            label: "Buscar empleos",
-            type: "link",
-            outlined: true,
-            link: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx",
-            iconSuffix: "ArrowSquareOut",
-          },
-          {
-            label: "Conoce los recursos de matrícula",
-            defaultStyle: "secondary",
-            type: "link",
-            outlined: true,
-            link: "/support-resources/tuition-assistance",
-            iconSuffix: "ArrowRight",
-          },
-        ],
-      },
-    } as TrainingExplorerHeadingProps,
+      ] as ButtonProps[],
+    },
     demoVideoUrl:
       "https://www.youtube.com/embed/fSBbrIoQAFE?si=MmBcyHbiB5PjZrxR",
     iconCards: [

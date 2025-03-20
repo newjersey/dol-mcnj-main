@@ -1,10 +1,16 @@
 @use "../settings" as s;
 
 .trainingSearch {
-  background-color: s.$secondary-lighter;
-  padding: s.$size-32 s.$size-16 s.$size-48;
-  border: 1px solid s.$black;
-  border-radius: s.$size-16;
+  > .container {
+    width: 100%;
+
+    .inner-container {
+      width: 100%;
+      background-color: s.$secondary-lighter;
+      padding: s.$size-32 s.$size-16 s.$size-48;
+      border-radius: s.$size-16;
+    }
+  }
 
   label {
     margin: 0;
@@ -26,6 +32,15 @@
     border: none;
   }
 
+  .formField
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="submit"]
+    ),
+  .formField textarea,
+  .formField select {
+    border: none;
+  }
+
   .input-heading {
     .clear-all {
       @media screen and (max-width: (s.$tablet-md - 1)) {
@@ -34,8 +49,12 @@
     }
   }
 
+  .search-button {
+    justify-content: center;
+    height: s.$size-48;
+  }
+
   .items {
-    margin-top: s.$size-8;
     min-height: s.$size-48;
 
     input {
@@ -105,6 +124,12 @@
     }
   }
 
+  label.usa-label {
+    span {
+      font-weight: 500;
+    }
+  }
+
   form {
     display: flex;
     align-items: center;
@@ -141,6 +166,12 @@
     }
   }
 
+  .checks {
+    p {
+      margin: 0;
+    }
+  }
+
   .usa-select {
     &:disabled,
     &[aria-disabled="true"] {
@@ -159,5 +190,11 @@
     @media screen and (max-width: (s.$tablet-lg - 1)) {
       align-items: flex-start;
     }
+  }
+
+  .usa-tooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

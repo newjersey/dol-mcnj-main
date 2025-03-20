@@ -39,6 +39,7 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
 .usa-checkbox__label::before,
 .usa-radio__label::before {
   background-color: transparent;
+  box-shadow: inset 0 0 0 s.$size-2 s.$base-light;
 }
 
 .label {

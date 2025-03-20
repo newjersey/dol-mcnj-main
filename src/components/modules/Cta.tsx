@@ -21,7 +21,7 @@ const Cta = ({
   noIndicator,
   linkDirection,
   links,
-  theme = "green",
+  theme,
 }: CtaProps) => {
   return (
     <div className={`cta${className ? ` ${className}` : ""}`}>
@@ -43,9 +43,9 @@ const Cta = ({
               {...button}
               key={button.label}
               iconSuffix={
-                isExternal ? ("ArrowUpRight" as IconNames) : button.iconSuffix
+                isExternal ? ("ArrowSquareOut" as IconNames) : button.iconSuffix
               }
-              defaultStyle={themeConverter(theme)}
+              defaultStyle={theme ? themeConverter(theme) : button.defaultStyle}
               noIndicator={noIndicator}
               className={index > 0 ? "usa-button--outline" : ""}
               type="link"

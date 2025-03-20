@@ -1,8 +1,6 @@
 @use "../settings" as s;
 
 .training-explorer-heading {
-  background-color: s.$base-lightest;
-
   .heading-container {
     display: flex;
     flex-direction: column;
@@ -14,50 +12,8 @@
     }
   }
 
-  .subheading,
-  .message {
-    margin: 0 auto;
-    max-width: s.$tablet-lg;
-    text-align: center;
-    line-height: 1.3;
-
-    * {
-      line-height: 1.3;
-    }
-  }
-
-  .subheading {
-    font-size: s.$size-24;
-    font-weight: 600;
-
-    @media screen and (min-width: (s.$tablet-lg)) {
-      font-size: s.$size-32;
-    }
-  }
-
-  p {
-    margin: 0;
-
-    @media screen and (min-width: (s.$tablet-lg)) {
-      font-size: s.$size-18;
-    }
-  }
-
-  .usa-breadcrumb {
-    padding: s.$size-32 0;
-  }
-
-  .heading-tag {
-    &.main {
-      text-align: center;
-      font-size: s.$size-48;
-      margin: 0;
-      font-weight: 600;
-
-      @media screen and (max-width: (s.$tablet-lg - 1)) {
-        font-size: s.$size-32;
-      }
-    }
+  .steps {
+    margin-bottom: s.$size-100;
   }
 
   .usa-tooltip {
@@ -74,15 +30,12 @@
     }
 
     p {
-      background-color: white;
-      border-radius: s.$size-16;
-      padding: s.$size-16;
       display: inline-block;
+      font-weight: 600;
 
       @media screen and (min-width: (s.$tablet-lg)) {
         text-align: center;
         font-size: s.$size-18;
-        border-radius: s.$size-80;
       }
     }
 

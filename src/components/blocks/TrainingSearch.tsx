@@ -11,7 +11,7 @@ import { Flex } from "@components/utility/Flex";
 import { colors } from "@utils/settings";
 import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
 
-interface TrainingSearchProps {
+export interface TrainingSearchProps {
   className?: string;
   content: TrainingExplorerHeadingProps["search"];
 }
@@ -111,164 +111,181 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
   }, []);
 
   return (
-    <div className={`trainingSearch${className ? ` ${className}` : ""}`}>
-      <Flex direction="column" gap="sm" fill className="inner">
-        <Flex direction="column" gap="xs" fill>
-          <Flex
-            alignItems="center"
-            justifyContent="space-between"
-            className="input-heading"
-            columnBreak="none"
-          >
-            <Flex columnBreak="none" alignItems="center" gap="xxs">
-              <Heading level={content.heading.level}>
-                {content.heading.heading}
-              </Heading>
-              <button
-                type="button"
-                className="unstyled usa-tooltip"
-                data-position="top"
-                title={content.toolTip.copy}
+    <section
+      id="trainingSearch"
+      className={`trainingSearch${className ? ` ${className}` : ""}`}
+    >
+      <div className="container">
+        <div className="inner-container">
+          <Flex direction="column" gap="sm" fill className="inner">
+            <Flex direction="column" gap="xs" fill>
+              <Flex
+                alignItems="center"
+                justifyContent="space-between"
+                className="input-heading"
+                columnBreak="none"
               >
-                <Info size={24} color={colors.primary} />
-                <div className="sr-only">{content.toolTip.screenReader}</div>
-              </button>
-            </Flex>
-            <Button
-              {...content.clearButton}
-              onClick={() => {
-                clearAllInputs();
-              }}
-            />
-          </Flex>
-
-          <form
-            onSubmit={(
-              e:
-                | React.FormEvent<HTMLFormElement>
-                | React.MouseEvent<HTMLButtonElement, MouseEvent>
-            ) => {
-              e.preventDefault();
-              // navigate to searchUrl
-              window.location.href = searchUrl;
-            }}
-          >
-            <FormInput
-              type="text"
-              inputId="searchInput"
-              label="Search for Training"
-              hideLabel
-              ariaLabel="search"
-              defaultValue={searchTerm}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setSearchTerm(encodeForUrl(sanitizedValue(e.target.value)));
-              }}
-            />
-
-            <Button
-              buttonId="search-button"
-              defaultStyle="secondary"
-              link={searchUrl}
-              type="submit"
-              label={content.form.submitLabel}
-            />
-          </form>
-        </Flex>
-        <Flex direction="column" gap="xxs" fill className="filter-row">
-          <Heading level={3}>Filters</Heading>
-          <Flex alignItems="flex-end" className="filters" columnBreak="lg">
-            <Flex
-              alignItems="flex-end"
-              gap="xs"
-              className="miles-container"
-              columnBreak="none"
-            >
-              <FormInput
-                type="select"
-                inputId="miles"
-                disabled={zipError}
-                label={content.form.miles.label}
-                error={
-                  zipError && attempted
-                    ? content.form.miles.zipError
-                    : undefined
-                }
-                options={[
-                  { key: content.form.miles.milesPlaceholder, value: "" },
-                  { key: "5", value: "5" },
-                  { key: "10", value: "10" },
-                  { key: "25", value: "25" },
-                  { key: "50", value: "50" },
-                  { key: "100", value: "100" },
-                  { key: "200", value: "200" },
-                ]}
-                onChangeSelect={(e: ChangeEvent<HTMLSelectElement>) => {
-                  if (e.target.value === content.form.miles.milesPlaceholder) {
-                    setMiles("");
-                    return;
-                  }
-
-                  setMiles(sanitizedValue(e.target.value));
-                }}
-              />
-              <span className="from">from</span>
-              <FormInput
-                type="text"
-                inputId="zip"
-                placeholder={content.form.miles.zipPlaceholder}
-                label={content.form.miles.zipPlaceholder}
-                hideLabel
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setZipCode(sanitizedValue(e.target.value));
-                }}
-                onBlur={() => {
-                  setAttempted(true);
-                  setZipError(
-                    zipCodes.filter((zip) => zip === zipCode).length > 0
-                      ? false
-                      : true
-                  );
-                }}
-              />
-            </Flex>
-            <Flex alignItems="flex-end" gap="sm" columnBreak="none">
-              <div className="maxCost">
-                <CurrencyDollarSimple />
-                <FormInput
-                  type="number"
-                  inputId="maxCost"
-                  label={content.form.costLabel}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setMaxCost(sanitizedValue(e.target.value));
+                <Flex columnBreak="none" alignItems="center" gap="xxs">
+                  <Heading level={content.heading.level}>
+                    {content.heading.heading}
+                  </Heading>
+                  <button
+                    type="button"
+                    className="unstyled usa-tooltip"
+                    data-position="top"
+                    title={content.toolTip.copy}
+                  >
+                    <Info size={24} color={colors.primary} />
+                    <div className="sr-only">
+                      {content.toolTip.screenReader}
+                    </div>
+                  </button>
+                </Flex>
+                <Button
+                  {...content.clearButton}
+                  onClick={() => {
+                    clearAllInputs();
                   }}
                 />
-              </div>
-              <div className="checks">
-                <p>{content.form.format.label}</p>
-                <Flex alignItems="center" className="items" columnBreak="none">
+              </Flex>
+
+              <form
+                onSubmit={(
+                  e:
+                    | React.FormEvent<HTMLFormElement>
+                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => {
+                  e.preventDefault();
+                  // navigate to searchUrl
+                  window.location.href = searchUrl;
+                }}
+              >
+                <FormInput
+                  type="text"
+                  inputId="searchInput"
+                  label="Search for Training"
+                  hideLabel
+                  ariaLabel="search"
+                  defaultValue={searchTerm}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    setSearchTerm(encodeForUrl(sanitizedValue(e.target.value)));
+                  }}
+                />
+
+                <Button
+                  buttonId="search-button"
+                  defaultStyle="secondary"
+                  link={searchUrl}
+                  className="search-button"
+                  type="submit"
+                  label={content.form.submitLabel}
+                  iconSuffix="ArrowRight"
+                />
+              </form>
+            </Flex>
+            <Flex direction="column" gap="xxs" fill className="filter-row">
+              <Heading level={3}>Filters</Heading>
+              <Flex alignItems="flex-end" className="filters" columnBreak="lg">
+                <Flex
+                  alignItems="flex-end"
+                  gap="xs"
+                  className="miles-container"
+                  columnBreak="none"
+                >
                   <FormInput
-                    type="checkbox"
-                    inputId="in-person"
-                    label={content.form.format.inPersonLabel}
-                    onChange={() => {
-                      setInPerson(!inPerson);
+                    type="select"
+                    inputId="miles"
+                    disabled={zipError}
+                    label={content.form.miles.label}
+                    error={
+                      zipError && attempted
+                        ? content.form.miles.zipError
+                        : undefined
+                    }
+                    options={[
+                      { key: content.form.miles.milesPlaceholder, value: "" },
+                      { key: "5", value: "5" },
+                      { key: "10", value: "10" },
+                      { key: "25", value: "25" },
+                      { key: "50", value: "50" },
+                      { key: "100", value: "100" },
+                      { key: "200", value: "200" },
+                    ]}
+                    onChangeSelect={(e: ChangeEvent<HTMLSelectElement>) => {
+                      if (
+                        e.target.value === content.form.miles.milesPlaceholder
+                      ) {
+                        setMiles("");
+                        return;
+                      }
+
+                      setMiles(sanitizedValue(e.target.value));
                     }}
                   />
+                  <span className="from">from</span>
                   <FormInput
-                    type="checkbox"
-                    inputId="online"
-                    label={content.form.format.onlineLabel}
-                    onChange={() => {
-                      setOnline(!online);
+                    type="text"
+                    inputId="zip"
+                    placeholder={content.form.miles.zipPlaceholder}
+                    label={content.form.miles.zipPlaceholder}
+                    hideLabel
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      setZipCode(sanitizedValue(e.target.value));
+                    }}
+                    onBlur={() => {
+                      setAttempted(true);
+                      setZipError(
+                        zipCodes.filter((zip) => zip === zipCode).length > 0
+                          ? false
+                          : true
+                      );
                     }}
                   />
                 </Flex>
-              </div>
+                <Flex alignItems="flex-end" gap="sm" columnBreak="none">
+                  <div className="maxCost">
+                    <CurrencyDollarSimple />
+                    <FormInput
+                      type="number"
+                      inputId="maxCost"
+                      label={content.form.costLabel}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        setMaxCost(sanitizedValue(e.target.value));
+                      }}
+                    />
+                  </div>
+                  <div className="checks">
+                    <p>{content.form.format.label}</p>
+                    <Flex
+                      alignItems="center"
+                      className="items"
+                      columnBreak="none"
+                    >
+                      <FormInput
+                        type="checkbox"
+                        inputId="in-person"
+                        label={content.form.format.inPersonLabel}
+                        onChange={() => {
+                          setInPerson(!inPerson);
+                        }}
+                      />
+                      <FormInput
+                        type="checkbox"
+                        inputId="online"
+                        label={content.form.format.onlineLabel}
+                        onChange={() => {
+                          setOnline(!online);
+                        }}
+                      />
+                    </Flex>
+                  </div>
+                </Flex>
+              </Flex>
             </Flex>
           </Flex>
-        </Flex>
-      </Flex>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
