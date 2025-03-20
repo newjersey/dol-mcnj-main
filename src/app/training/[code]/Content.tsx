@@ -2,7 +2,6 @@
 import Script from "next/script";
 import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { logEvent } from "@utils/analytics";
 import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
 import { ProgramBanner } from "@components/blocks/ProgramBanner";
@@ -23,20 +22,11 @@ const Content = ({ training }: { training: TrainingProps }) => {
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
   const [socDrawerOpen, setSocDrawerOpen] = useState(false);
 
-  const componentRef = useRef<HTMLDivElement>(null);
-
-  const printReactContent = useReactToPrint({
-    pageStyle: "@page { size: auto;  margin: 20mm; }",
-    documentTitle: "Training Content",
-  });
-
-  const printHandler = (): void => {
-    printReactContent();
-    logEvent("Training page", "Clicked print link", training.id);
-  };
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   return (
-    <div ref={componentRef}>
+    <div ref={contentRef}>
       <Script
         id="json-ld"
         type="application/ld+json"
@@ -48,7 +38,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
         name={training.name}
         id={training.id}
         provider={training.provider.name}
-        printHandler={printHandler}
+        printHandler={reactToPrintFn}
         breadcrumbsCollection={{
           items: [
             {
