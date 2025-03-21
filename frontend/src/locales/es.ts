@@ -506,7 +506,7 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     buttonText: "Regístrate para recibir actualizaciones",
     formTitle: "Formulario de registro de usuario de My Career NJ",
     formDescription:
-      "Regístrate para mantenerte al día con las últimas características, noticias y recursos de My Career NJ.",
+      "Regístrese para recibir correos electrónicos y conocer herramientas y recursos que lo ayudarán a avanzar en su carrera.",
     firstNameLabel: "Nombre",
     firstNameError: "El nombre debe tener 2 o más caracteres.",
     lastNameLabel: "Apellido",
