@@ -490,7 +490,7 @@ The New Jersey Department of Labor and Workforce Development reserves the right 
     buttonText: "Sign Up for Updates",
     formTitle: "My Career NJ User Sign-Up Form",
     formDescription:
-      "Sign up to stay up to date on the latest new features, news, and resources from My Career NJ.",
+      "Sign up for emails to learn about tools and resources to help you advance your career.",
     firstNameLabel: "First Name",
     firstNameError: "First name must be 2 or more characters.",
     lastNameLabel: "Last Name",

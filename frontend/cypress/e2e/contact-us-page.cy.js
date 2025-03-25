@@ -94,4 +94,44 @@ describe("Contact Us Page", () => {
     cy.contains("Success!").should("not.exist");
     cy.contains("Submission Error").should("not.exist");
   });
+
+  it("preselects the topic when provided in the query parameter", () => {
+    cy.visit("/contact?topic=career-navigator");
+
+    cy.get(`[data-testid="topic-6"] input[type="radio"]`).should("be.checked");
+  });
+
+  it("allows form submission with 'Career Navigator' preselected", () => {
+    cy.visit("/contact?topic=career-navigator");
+    cy.get(`[data-testid="topic-6"] input[type="radio"]`).should("be.checked");
+    cy.get("input[name=email]").type("testuser@example.com");
+    cy.get("textarea[name=message]").type("Hello, I need help with my career.");
+  
+    cy.intercept("POST", "/api/contact", {
+      statusCode: 200,
+      body: { message: "Success!" },
+    }).as("formSubmit");
+  
+    cy.get("button[type=submit]").click();
+  
+    cy.wait("@formSubmit");
+    cy.contains("Success!").should("exist");
+  });
+  
+
+  it("requires manual topic selection if query parameter is missing", () => {
+    cy.visit("/contact");
+    cy.get("input[type='radio']").should("not.be.checked");
+    cy.get("button[type=submit]").click();
+    cy.contains("Please select an option").should("exist");
+  });
+  
+
+  it("requires manual topic selection if an invalid query parameter is provided", () => {
+    cy.visit("/contact?topic=invalid-topic");
+    cy.get("input[type='radio']").should("not.be.checked");
+    cy.get("button[type=submit]").click();
+    cy.contains("Please select an option").should("exist");
+  });
+  
 })
