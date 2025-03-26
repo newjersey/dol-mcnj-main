@@ -5,7 +5,6 @@ import { Button } from "@components/modules/Button";
 import { FormInput } from "@components/modules/FormInput";
 import { Alert } from "@components/modules/Alert";
 import { SIGNUP_FORM as contentData } from "@data/global/signupForm";
-import Link from "next/link";
 import { SupportedLanguages } from "@utils/types/types";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 

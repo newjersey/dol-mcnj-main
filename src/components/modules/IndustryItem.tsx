@@ -6,7 +6,7 @@ import { Flex } from "@components/utility/Flex";
 import { Button } from "./Button";
 import { ArrowRight, Info } from "@phosphor-icons/react/dist/ssr";
 import { Drawer } from "./Drawer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heading } from "./Heading";
 import { LabelBox } from "./LabelBox";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
@@ -23,6 +23,12 @@ export const IndustryItem = ({
   shorthandTitle,
 }: IndustryItemProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const drawerContent = (
     <Drawer open={drawerOpen} setOpen={setDrawerOpen}>
@@ -97,7 +103,7 @@ export const IndustryItem = ({
           </Button>
         </div>
       </Flex>
-      {createPortal(drawerContent, document.body)}
+      {mounted && createPortal(drawerContent, document.body)}
     </div>
   );
 };

@@ -20,10 +20,12 @@ export const DrawerButton = ({
   definition: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    setMounted(true);
     const escFunction = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
@@ -80,7 +82,7 @@ export const DrawerButton = ({
         </button>
         <span className="value">{number}</span>
       </Box>
-      {createPortal(drawerContent, document.body)}
+      {mounted && createPortal(drawerContent, document.body)}
     </>
   );
 };

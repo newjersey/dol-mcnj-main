@@ -9,6 +9,7 @@ import {
   webDesign,
 } from "mockData";
 import { Content } from "./Content";
+import { Related } from "./Related";
 
 async function getData(soc: string) {
   const pageData = await fetch(
@@ -56,8 +57,6 @@ export const generateMetadata = async ({
   };
 };
 
-export const revalidate = 1800;
-
 export default async function OccupationPage({
   searchParams,
   params,
@@ -94,6 +93,7 @@ export default async function OccupationPage({
   return (
     <div className="page occupationPage">
       <Content occupation={occupation} />
+      <Related occupation={occupation} />
     </div>
   );
 }

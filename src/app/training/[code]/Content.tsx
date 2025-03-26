@@ -1,6 +1,6 @@
 "use client";
 import Script from "next/script";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
@@ -21,9 +21,14 @@ import { createPortal } from "react-dom";
 const Content = ({ training }: { training: TrainingProps }) => {
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
   const [socDrawerOpen, setSocDrawerOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div ref={contentRef}>
@@ -98,20 +103,22 @@ const Content = ({ training }: { training: TrainingProps }) => {
         </div>
       </section>
 
-      {createPortal(
-        <CipDrawer
-          cipDrawerOpen={cipDrawerOpen}
-          setCipDrawerOpen={setCipDrawerOpen}
-        />,
-        document.body
-      )}
-      {createPortal(
-        <SocDrawer
-          socDrawerOpen={socDrawerOpen}
-          setSocDrawerOpen={setSocDrawerOpen}
-        />,
-        document.body
-      )}
+      {mounted &&
+        createPortal(
+          <CipDrawer
+            cipDrawerOpen={cipDrawerOpen}
+            setCipDrawerOpen={setCipDrawerOpen}
+          />,
+          document.body
+        )}
+      {mounted &&
+        createPortal(
+          <SocDrawer
+            socDrawerOpen={socDrawerOpen}
+            setSocDrawerOpen={setSocDrawerOpen}
+          />,
+          document.body
+        )}
     </div>
   );
 };
