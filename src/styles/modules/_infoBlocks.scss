@@ -2,6 +2,10 @@
 @use "../mixins" as m;
 
 .infoBlocks {
+  > div {
+    width: 100%;
+  }
+
   p {
     margin: 0;
 

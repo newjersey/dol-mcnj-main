@@ -4,6 +4,10 @@
   background-color: s.$secondary-lighter;
   padding: s.$size-16 0;
 
+  .occupationPage & {
+    background-color: s.$tertiary-lighter;
+  }
+
   @media screen and (min-width: (s.$tablet-lg)) {
     z-index: 13;
     position: sticky;
@@ -109,7 +113,8 @@
   }
 }
 
-.programBanner {
+.programBanner,
+.occupationPage {
   .crumbContainer {
     padding: s.$size-8 0;
     @media screen and (min-width: (s.$mobile-lg)) {
