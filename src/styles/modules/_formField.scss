@@ -30,6 +30,7 @@
     textarea,
     select {
       border-color: s.$error;
+      border-width: s.$size-2;
     }
 
     span {

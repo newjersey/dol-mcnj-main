@@ -1,79 +1,79 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .tag-item {
   display: inline-flex;
   align-items: center;
-  gap: settings.$size-4;
-  padding: settings.$size-4 settings.$size-12;
-  border-radius: settings.$size-2;
-  color: settings.$ink;
-  border: settings.$size-1 solid;
+  gap: s.$size-4;
+  padding: s.$size-4 s.$size-12;
+  border-radius: s.$size-2;
+  color: s.$ink;
+  border: s.$size-1 solid;
 
   &.small {
-    padding: settings.$size-2 settings.$size-8;
-    font-size: settings.$size-14;
+    padding: s.$size-2 s.$size-8;
+    font-size: s.$size-14;
     line-height: 1;
 
     * {
-      font-size: settings.$size-14;
+      font-size: s.$size-14;
     }
 
     svg {
-      width: settings.$size-14;
-      height: settings.$size-14;
+      width: s.$size-14;
+      height: s.$size-14;
     }
   }
 
   &.chip {
     padding: 5px 15px;
-    border-radius: settings.$size-20;
+    border-radius: s.$size-20;
     border: none;
     font-weight: bold;
 
     &.color-green {
-      background-color: settings.$secondary-light;
+      background-color: s.$secondary-light;
     }
 
     &.color-blue {
-      background-color: settings.$primary-light;
+      background-color: s.$primary-light;
     }
 
     &.color-purple {
-      background-color: settings.$tertiary-light;
+      background-color: s.$tertiary-light;
     }
 
     &.color-navy {
-      background-color: settings.$info-light;
+      background-color: s.$info-light;
     }
 
     &.color-orange {
-      background-color: settings.$accent-warm-light;
+      background-color: s.$accent-warm-light;
     }
   }
 
   &.color-green {
-    background-color: settings.$secondary-lighter;
-    border-color: settings.$secondary-light;
+    background-color: s.$secondary-lighter;
+    border-color: s.$secondary-light;
   }
 
   &.color-blue {
-    background-color: settings.$primary-lighter;
-    border-color: settings.$primary-light;
+    background-color: s.$primary-lighter;
+    border-color: s.$primary-light;
   }
 
   &.color-purple {
-    background-color: settings.$tertiary-lighter;
-    border-color: settings.$tertiary-light;
+    background-color: s.$tertiary-lighter;
+    border-color: s.$tertiary-light;
   }
 
   &.color-navy {
-    background-color: settings.$info-lighter;
-    border-color: settings.$info-light;
+    background-color: s.$info-lighter;
+    border-color: s.$info-light;
   }
 
   &.color-orange {
-    background-color: settings.$accent-warm-lighter;
-    border-color: settings.$accent-warm-light;
+    background-color: s.$accent-warm-lighter;
+    border-color: s.$accent-warm-light;
   }
 }
 
@@ -82,36 +82,36 @@ a {
   .tag-item {
     cursor: pointer;
     &:hover {
-      color: settings.$white;
+      color: s.$white;
     }
 
     &.color-green {
       &:hover {
-        background-color: settings.$secondary;
+        background-color: s.$secondary;
       }
     }
 
     &.color-blue {
       &:hover {
-        background-color: settings.$primary-light;
+        background-color: s.$primary-light;
       }
     }
 
     &.color-purple {
       &:hover {
-        background-color: settings.$tertiary;
+        background-color: s.$tertiary;
       }
     }
 
     &.color-navy {
       &:hover {
-        background-color: settings.$info;
+        background-color: s.$info;
       }
     }
 
     &.color-orange {
       &:hover {
-        background-color: settings.$accent-warm;
+        background-color: s.$accent-warm;
       }
     }
   }

@@ -4,8 +4,14 @@ import { VideoBlock } from "@components/blocks/VideoBlock";
 import { SectionHeading } from "@components/modules/SectionHeading";
 import { Accordion } from "@components/blocks/Accordion";
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { TrainingExplorerHeading } from "./TrainingExplorerHeading";
 import { TRAINING_EXPLORER_PAGE_DATA as pageData } from "@data/pages/training";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
+import { PageHero } from "@components/blocks/PageHero";
+import { Steps } from "./Steps";
+import { TrainingSearch } from "@components/blocks/TrainingSearch";
+import { LinkObject } from "@components/modules/LinkObject";
+import { Cta } from "@components/modules/Cta";
 
 export const revalidate = 1800;
 
@@ -24,25 +30,42 @@ export async function generateMetadata({}) {
 }
 
 export default async function TrainingExplorerPage() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <div className="page trainingExplorer">
-      <TrainingExplorerHeading {...pageData.banner} />
+      <PageHero {...pageData[lang].pageHero} />
+      <Steps items={pageData[lang].steps} className="desktop-only" />
+      <TrainingSearch content={pageData[lang].search} />
+      <Steps items={pageData[lang].steps} className="mobile-only" />
+      <div className="learn-more">
+        <p>
+          {pageData[lang].learnMore.copy}{" "}
+          <LinkObject url={pageData[lang].learnMore.url}>Learn more</LinkObject>
+        </p>
+      </div>
+      <Cta
+        linkDirection="row"
+        heading={pageData[lang].notReadyCta.copy}
+        links={pageData[lang].notReadyCta.buttons}
+      />
       <section className="howTo">
         <div className="container">
-          <SectionHeading heading={pageData.resourceHeading} />
-          <VideoBlock video={pageData.demoVideoUrl} />
-          <Stepper steps={pageData.iconCards} />
+          <SectionHeading heading={pageData[lang].resourceHeading} />
+          <VideoBlock video={pageData[lang].demoVideoUrl} />
+          <Stepper steps={pageData[lang].iconCards} />
         </div>
       </section>
-      <CtaBanner {...pageData.interruptor} />
+      <CtaBanner {...pageData[lang].interruptor} />
       <section className="faq">
         <div className="container">
-          <SectionHeading {...pageData.faqs.heading} />
-          <Accordion items={pageData.faqs.items} />
+          <SectionHeading {...pageData[lang].faqs.heading} />
+          <Accordion items={pageData[lang].faqs.items} />
         </div>
-        <CtaBanner {...pageData.faqs.cta} />
+        <CtaBanner {...pageData[lang].faqs.cta} />
       </section>
-      <CtaBanner {...pageData.footerCta} />
+      <CtaBanner {...pageData[lang].footerCta} />
     </div>
   );
 }

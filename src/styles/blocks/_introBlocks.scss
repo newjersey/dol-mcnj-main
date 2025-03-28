@@ -1,75 +1,71 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .introBlocks {
-  @media screen and (min-width: (settings.$tablet-md)) {
+  @media screen and (min-width: (s.$tablet-md)) {
     display: flex;
   }
 
   .box {
-    background-color: settings.$info-lighter;
+    background-color: s.$info-lighter;
 
-    @media screen and (min-width: (settings.$tablet-md)) {
+    @media screen and (min-width: (s.$tablet-md)) {
       width: 50%;
     }
 
     h2 {
-      font-size: settings.$size-40;
+      font-size: s.$size-40;
       font-weight: 700;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        font-size: settings.$size-32;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-32;
       }
 
-      @media screen and (max-width: (settings.$tablet - 1)) {
-        font-size: settings.$size-24;
+      @media screen and (max-width: (s.$tablet - 1)) {
+        font-size: s.$size-24;
       }
     }
 
     &:nth-child(2n) {
-      background-color: settings.$primary-lighter;
+      background-color: s.$primary-lighter;
 
       h2 {
-        @media screen and (min-width: (settings.$tablet-lg)) {
-          font-size: settings.$size-32;
+        @media screen and (min-width: (s.$tablet-lg)) {
+          font-size: s.$size-32;
         }
       }
 
       .inner {
         margin: 0 auto 0 0;
 
-        @media screen and (min-width: (settings.$tablet)) {
-          padding: settings.$size-48 settings.$size-16 settings.$size-48
-            settings.$size-56;
+        @media screen and (min-width: (s.$tablet)) {
+          padding: s.$size-48 s.$size-16 s.$size-48 s.$size-56;
         }
-        @media screen and (min-width: (settings.$tablet-lg)) {
-          padding: settings.$size-96 settings.$size-16 settings.$size-96
-            settings.$size-48;
+        @media screen and (min-width: (s.$tablet-lg)) {
+          padding: s.$size-96 s.$size-16 s.$size-96 s.$size-48;
         }
       }
     }
 
     .inner {
-      max-width: settings.$size-640;
+      max-width: s.$size-640;
       margin: 0 0 0 auto;
-      padding: settings.$size-96 settings.$size-48 settings.$size-96
-        settings.$size-16;
+      padding: s.$size-96 s.$size-48 s.$size-96 s.$size-16;
 
-      @media screen and (max-width: (settings.$tablet-md - 1)) {
+      @media screen and (max-width: (s.$tablet-md - 1)) {
         margin: 0 auto;
       }
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        padding: settings.$size-48 settings.$size-56 settings.$size-48
-          settings.$size-16;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        padding: s.$size-48 s.$size-56 s.$size-48 s.$size-16;
       }
 
-      @media screen and (max-width: (settings.$tablet - 1)) {
-        padding: settings.$size-48 settings.$size-16;
+      @media screen and (max-width: (s.$tablet - 1)) {
+        padding: s.$size-48 s.$size-16;
       }
 
       p {
         &.heading {
-          font-size: settings.$size-22;
+          font-size: s.$size-22;
           font-weight: 700;
         }
       }
@@ -77,8 +73,8 @@
       .buttons {
         display: flex;
         flex-wrap: wrap;
-        gap: settings.$size-16;
-        margin: settings.$size-16 0;
+        gap: s.$size-16;
+        margin: s.$size-16 0;
       }
 
       .usa-button {
@@ -89,73 +85,73 @@
       button {
         appearance: none;
         cursor: pointer;
-        background-color: settings.$base-cool;
-        border-radius: settings.$size-100;
-        color: settings.$ink;
+        background-color: s.$base-cool;
+        border-radius: s.$size-100;
+        color: s.$ink;
         text-align: center;
-        padding: settings.$size-8 settings.$size-16;
+        padding: s.$size-8 s.$size-16;
 
         &:nth-of-type(4n-1) {
-          outline: settings.$size-2 solid settings.$primary;
+          outline: s.$size-2 solid s.$primary;
 
           &:hover {
-            @media screen and (min-width: (settings.$tablet-md)) {
-              outline: settings.$size-4 solid settings.$primary;
+            @media screen and (min-width: (s.$tablet-md)) {
+              outline: s.$size-4 solid s.$primary;
             }
           }
         }
         &:nth-of-type(4n-2) {
-          outline: settings.$size-2 solid settings.$tertiary;
+          outline: s.$size-2 solid s.$tertiary;
 
           &:hover {
-            @media screen and (min-width: (settings.$tablet-md)) {
-              outline: settings.$size-4 solid settings.$tertiary;
+            @media screen and (min-width: (s.$tablet-md)) {
+              outline: s.$size-4 solid s.$tertiary;
             }
           }
         }
         &:nth-of-type(4n-3) {
-          outline: settings.$size-2 solid settings.$secondary;
+          outline: s.$size-2 solid s.$secondary;
 
           &:hover {
-            @media screen and (min-width: (settings.$tablet-md)) {
-              outline: settings.$size-4 solid settings.$secondary;
+            @media screen and (min-width: (s.$tablet-md)) {
+              outline: s.$size-4 solid s.$secondary;
             }
           }
         }
         &:nth-of-type(4n) {
-          outline: settings.$size-2 solid settings.$info;
+          outline: s.$size-2 solid s.$info;
 
           &:hover {
-            @media screen and (min-width: (settings.$tablet-md)) {
-              outline: settings.$size-4 solid settings.$info;
+            @media screen and (min-width: (s.$tablet-md)) {
+              outline: s.$size-4 solid s.$info;
             }
           }
         }
 
         &.active {
-          color: settings.$white;
+          color: s.$white;
 
           &:nth-of-type(4n-1) {
             outline: none;
-            background-color: settings.$primary;
+            background-color: s.$primary;
           }
           &:nth-of-type(4n-2) {
             outline: none;
-            background-color: settings.$tertiary;
+            background-color: s.$tertiary;
           }
           &:nth-of-type(4n-3) {
             outline: none;
-            background-color: settings.$secondary;
+            background-color: s.$secondary;
           }
           &:nth-of-type(4n) {
             outline: none;
-            background-color: settings.$info;
+            background-color: s.$info;
           }
         }
 
         &:focus {
           &:focus {
-            outline: 0.25rem solid settings.$primary-darker;
+            outline: 0.25rem solid s.$primary-darker;
           }
         }
       }

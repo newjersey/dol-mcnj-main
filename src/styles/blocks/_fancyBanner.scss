@@ -1,67 +1,67 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .fancyBanner {
-  background-color: settings.$primary-darker;
-  color: settings.$white;
-  font-size: settings.$size-16;
+  background-color: s.$primary-darker;
+  color: s.$white;
+  font-size: s.$size-16;
   line-height: 1;
-  padding: settings.$size-64 0;
+  padding: s.$size-64 0;
 
-  @media screen and (max-width: (settings.$tablet-lg - 1)) {
-    padding: settings.$size-32 0;
+  @media screen and (max-width: (s.$tablet-lg - 1)) {
+    padding: s.$size-32 0;
   }
 
   .subheading {
-    font-size: settings.$size-32;
+    font-size: s.$size-32;
     line-height: 1;
     font-weight: 600;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      padding-right: settings.$size-128;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      padding-right: s.$size-128;
     }
   }
 
   p {
-    font-size: settings.$size-20_8;
+    font-size: s.$size-20_8;
     line-height: 1.5;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      padding-right: settings.$size-128;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      padding-right: s.$size-128;
     }
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       font-size: 1.1rem;
     }
   }
 
   .message {
-    margin-bottom: settings.$size-24;
+    margin-bottom: s.$size-24;
 
     * {
-      font-size: settings.$size-16;
+      font-size: s.$size-16;
 
-      @media screen and (min-width: (settings.$tablet-lg)) {
-        padding-right: settings.$size-50;
+      @media screen and (min-width: (s.$tablet-lg)) {
+        padding-right: s.$size-50;
       }
     }
   }
 
   h1 {
     line-height: 1;
-    margin: 0 0 settings.$size-24;
-    color: settings.$primary-lighter;
+    margin: 0 0 s.$size-24;
+    color: s.$primary-lighter;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      font-size: settings.$size-72;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      font-size: s.$size-72;
     }
 
-    @media (max-width: (settings.$desktop-lg)) and (min-width: (settings.$tablet-lg + 1)) {
-      font-size: settings.$size-48;
+    @media (max-width: (s.$desktop-lg)) and (min-width: (s.$tablet-lg + 1)) {
+      font-size: s.$size-48;
     }
   }
 
   button {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       width: 100%;
       justify-content: center;
     }
@@ -70,10 +70,10 @@
   .container {
     display: flex;
     justify-content: space-between;
-    gap: settings.$size-48;
+    gap: s.$size-48;
     align-items: center;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
@@ -84,21 +84,21 @@
   }
 
   .copy {
-    @media screen and (min-width: (settings.$desktop-lg)) {
-      width: calc(100% - settings.$size-480);
+    @media screen and (min-width: (s.$desktop-lg)) {
+      width: calc(100% - s.$size-480);
     }
 
-    @media (max-width: (settings.$desktop-lg)) and (min-width: (settings.$tablet-lg + 1)) {
+    @media (max-width: (s.$desktop-lg)) and (min-width: (s.$tablet-lg + 1)) {
       width: 50%;
     }
   }
 
   .image {
-    @media screen and (min-width: (settings.$desktop-lg)) {
-      width: settings.$size-480;
+    @media screen and (min-width: (s.$desktop-lg)) {
+      width: s.$size-480;
     }
 
-    @media (max-width: (settings.$desktop-lg)) and (min-width: (settings.$tablet-lg + 1)) {
+    @media (max-width: (s.$desktop-lg)) and (min-width: (s.$tablet-lg + 1)) {
       width: 50%;
     }
   }

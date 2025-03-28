@@ -116,6 +116,14 @@ export const HighlightBlue: Story = {
   },
 };
 
+export const HighlightBase: Story = {
+  args: {
+    label: "Nulla semper, felis",
+    highlight: "base",
+    iconPrefix: "MapTrifold",
+  },
+};
+
 export const HighlightGreen: Story = {
   args: {
     label: "Vestibulum eleifend elit",

@@ -1,12 +1,12 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 @use "../mixins" as mixins;
 
 .showMore {
   button {
-    color: settings.$primary;
+    color: s.$primary;
     display: flex;
     align-items: center;
-    gap: settings.$size-4;
+    gap: s.$size-4;
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;

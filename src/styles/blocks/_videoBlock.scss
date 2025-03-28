@@ -1,12 +1,12 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .videoBlock {
-  background-color: settings.$secondary-lighter;
-  padding: settings.$size-16;
+  background-color: s.$secondary-lighter;
+  padding: s.$size-16;
 
   .video {
     margin: 0 auto;
-    max-width: settings.$size-320;
+    max-width: s.$size-320;
     width: 100%;
   }
 
@@ -15,14 +15,14 @@
   }
 
   .usa-button {
-    background-color: settings.$secondary;
-    max-width: settings.$size-320;
+    background-color: s.$secondary;
+    max-width: s.$size-320;
     margin: 0;
     width: 100%;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet-lg)) {
-        background-color: settings.$secondary-dark;
+      @media screen and (min-width: (s.$tablet-lg)) {
+        background-color: s.$secondary-dark;
       }
     }
   }

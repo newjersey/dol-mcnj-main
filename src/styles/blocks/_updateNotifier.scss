@@ -1,13 +1,13 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .update-notifier {
-  margin: settings.$size-48 0;
+  margin: s.$size-48 0;
 
   .input-wrapper {
     svg {
       position: absolute;
-      top: settings.$size-45;
-      left: settings.$size-12;
+      top: s.$size-45;
+      left: s.$size-12;
       z-index: 1;
     }
   }
@@ -19,9 +19,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: settings.$black;
+    background-color: s.$black;
     opacity: 0;
-    transition-duration: settings.$transition-speed;
+    transition-duration: s.$transition-speed;
     transition-timing-function: ease-in-out;
 
     &.open {
@@ -33,34 +33,34 @@
   .usa-button {
     margin-right: 0;
     justify-content: center;
-    margin-top: settings.$size-16;
+    margin-top: s.$size-16;
 
     &:disabled,
     &.submitting {
-      background-color: settings.$base;
-      color: settings.$white;
-      min-height: settings.$size-64;
+      background-color: s.$base;
+      color: s.$white;
+      min-height: s.$size-64;
       cursor: not-allowed;
     }
   }
 
   .update-content {
-    background-color: settings.$base-lightest;
+    background-color: s.$base-lightest;
     position: relative;
-    border-radius: settings.$size-24;
-    padding: settings.$size-48 0;
+    border-radius: s.$size-24;
+    padding: s.$size-48 0;
 
     &.fixed {
       z-index: 1000;
       width: 100%;
       left: 50%;
       transform: translateX(-50%);
-      max-width: settings.$size-1400;
+      max-width: s.$size-1400;
       position: fixed;
-      transition-duration: settings.$transition-speed;
-      border-radius: settings.$size-24 settings.$size-24 0 0;
+      transition-duration: s.$transition-speed;
+      border-radius: s.$size-24 s.$size-24 0 0;
       transition-timing-function: ease-in-out;
-      bottom: -(settings.$size-880);
+      bottom: -(s.$size-880);
 
       &.open {
         bottom: 0;
@@ -71,12 +71,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: settings.$size-24;
+      gap: s.$size-24;
       position: relative;
       z-index: 1;
 
-      @media screen and (min-width: (settings.$tablet-xl)) {
-        padding-right: settings.$size-48;
+      @media screen and (min-width: (s.$tablet-xl)) {
+        padding-right: s.$size-48;
       }
     }
 
@@ -84,56 +84,56 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: settings.$size-20;
-      padding: 0 settings.$size-24;
-      max-width: settings.$size-880;
+      gap: s.$size-20;
+      padding: 0 s.$size-24;
+      max-width: s.$size-880;
 
-      @media screen and (min-width: (settings.$tablet-xl)) {
-        padding: 0 settings.$size-48;
-        width: calc(100% - settings.$size-240);
+      @media screen and (min-width: (s.$tablet-xl)) {
+        padding: 0 s.$size-48;
+        width: calc(100% - s.$size-240);
       }
 
       .heading-wrap {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: settings.$size-20;
+        gap: s.$size-20;
 
         &.status {
-          gap: settings.$size-12;
+          gap: s.$size-12;
         }
 
         .status-message {
           margin-top: 0;
           text-align: left;
-          font-size: settings.$size-20;
-          line-height: settings.$size-28;
+          font-size: s.$size-20;
+          line-height: s.$size-28;
         }
       }
 
       .heading-tag {
-        font-size: settings.$size-22;
+        font-size: s.$size-22;
         margin: 0;
         text-align: center;
       }
 
       p {
-        font-size: settings.$size-16;
+        font-size: s.$size-16;
         text-align: center;
 
         &.copy {
           width: 100%;
-          font-size: settings.$size-14;
+          font-size: s.$size-14;
           text-align: left;
         }
       }
 
       a {
-        color: settings.$primary;
+        color: s.$primary;
 
         &:hover {
-          @media screen and (min-width: (settings.$tablet-xl)) {
-            color: settings.$primary-dark;
+          @media screen and (min-width: (s.$tablet-xl)) {
+            color: s.$primary-dark;
           }
         }
       }
@@ -142,23 +142,23 @@
         text-align: center;
         width: 100%;
         max-width: none;
-        margin: settings.$size-8;
+        margin: s.$size-8;
 
         .usa-form-group {
           margin: 0;
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: settings.$size-24;
+          gap: s.$size-24;
           align-items: center;
 
           .input-row {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: settings.$size-32;
+            gap: s.$size-32;
 
-            @media screen and (min-width: (settings.$tablet-xl)) {
+            @media screen and (min-width: (s.$tablet-xl)) {
               flex-direction: row;
             }
           }
@@ -171,12 +171,12 @@
             &.error {
               input,
               .select-button {
-                border-color: settings.$error;
+                border-color: s.$error;
               }
             }
 
             input {
-              padding-left: settings.$size-45;
+              padding-left: s.$size-45;
             }
           }
 
@@ -191,27 +191,27 @@
         text-align: left;
 
         .require-mark {
-          margin-left: settings.$size-4;
+          margin-left: s.$size-4;
         }
       }
 
       input {
-        height: settings.$size-56;
+        height: s.$size-56;
         width: 100%;
-        padding-left: settings.$size-45;
-        border-width: settings.$size-2;
-        border-radius: settings.$size-4;
-        border-color: settings.$base;
+        padding-left: s.$size-45;
+        border-width: s.$size-2;
+        border-radius: s.$size-4;
+        border-color: s.$base;
       }
     }
   }
 
   .close-update-drawer {
     position: absolute;
-    top: settings.$size-24;
-    right: settings.$size-24;
-    width: settings.$size-32;
-    height: settings.$size-32;
+    top: s.$size-24;
+    right: s.$size-24;
+    width: s.$size-32;
+    height: s.$size-32;
     z-index: 1;
     border: none;
     background-color: transparent;
@@ -223,9 +223,9 @@
   }
 
   .error-message {
-    color: settings.$error;
+    color: s.$error;
     text-align: left;
-    margin-top: settings.$size-16;
+    margin-top: s.$size-16;
     font-weight: bold;
   }
 
@@ -233,13 +233,13 @@
     display: block;
     font-weight: bold;
     position: relative;
-    border-color: settings.$base;
+    border-color: s.$base;
 
     &.open {
       &:after {
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
-        border-bottom: 0.35rem solid settings.$ink;
+        border-bottom: 0.35rem solid s.$ink;
         border-top: 0;
       }
     }
@@ -247,56 +247,54 @@
     &:after {
       content: "";
       position: absolute;
-      right: settings.$size-16;
-      bottom: settings.$size-24;
+      right: s.$size-16;
+      bottom: s.$size-24;
       width: 0;
       height: 0;
       border-left: 0.35rem solid transparent;
       border-right: 0.35rem solid transparent;
-      border-top: 0.35rem solid settings.$ink;
+      border-top: 0.35rem solid s.$ink;
     }
 
     select {
-      margin-top: settings.$size-12;
+      margin-top: s.$size-12;
       width: 100%;
       appearance: none;
-      padding: settings.$size-12 settings.$size-24 settings.$size-12
-        settings.$size-12;
+      padding: s.$size-12 s.$size-24 s.$size-12 s.$size-12;
     }
   }
 
   .select-button {
-    margin-top: settings.$size-8;
+    margin-top: s.$size-8;
     width: 100%;
-    color: settings.$ink;
-    background: settings.$white;
+    color: s.$ink;
+    background: s.$white;
     appearance: none;
-    padding: settings.$size-12 settings.$size-32 settings.$size-12
-      settings.$size-12;
+    padding: s.$size-12 s.$size-32 s.$size-12 s.$size-12;
     position: relative;
-    height: settings.$size-56;
+    height: s.$size-56;
     font-weight: normal;
     text-align: left;
     width: 100%;
-    border: settings.$size-2 solid settings.$base;
-    border-radius: settings.$size-4;
+    border: s.$size-2 solid s.$base;
+    border-radius: s.$size-4;
 
     &.greyed-out {
-      color: settings.$base;
+      color: s.$base;
     }
   }
 
   .dropdown-select {
     font-weight: normal;
-    margin-top: settings.$size-16;
-    box-shadow: 0 10px 20px -15px settings.$ink;
+    margin-top: s.$size-16;
+    box-shadow: 0 10px 20px -15px s.$ink;
     position: absolute;
-    background-color: settings.$base-cool;
+    background-color: s.$base-cool;
     z-index: 1;
-    max-height: settings.$size-300;
+    max-height: s.$size-300;
     overflow: auto;
-    outline: 1px solid settings.$base-lighter;
-    border-radius: settings.$size-8;
+    outline: 1px solid s.$base-lighter;
+    border-radius: s.$size-8;
     width: 100%;
 
     &[aria-expanded="true"] {
@@ -309,20 +307,20 @@
     }
 
     button {
-      padding: settings.$size-16;
+      padding: s.$size-16;
       text-align: left;
 
-      @media screen and (min-width: (settings.$tablet)) {
-        padding: settings.$size-16;
+      @media screen and (min-width: (s.$tablet)) {
+        padding: s.$size-16;
       }
 
       &:nth-of-type(2n - 1) {
-        background: settings.$base-lighter;
+        background: s.$base-lighter;
       }
 
       &:hover {
-        @media screen and (min-width: (settings.$tablet)) {
-          background: settings.$tertiary-lighter;
+        @media screen and (min-width: (s.$tablet)) {
+          background: s.$tertiary-lighter;
         }
       }
     }
@@ -330,6 +328,6 @@
 
   .require-mark {
     display: inline-block;
-    color: settings.$error;
+    color: s.$error;
   }
 }
