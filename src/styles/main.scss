@@ -100,3 +100,7 @@
 @forward "./pages/supportResources";
 @forward "./pages/trainingExplorer";
 @forward "./pages/trainingPage";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
