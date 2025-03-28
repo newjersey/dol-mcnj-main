@@ -20,84 +20,19 @@ jobs:
       - run:
           name: Install required dependencies for Cypress
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-      - restore_cache:
-          keys:
-            - node-deps-v3-{{ checksum "package-lock.json" }}
-            - node-deps-v3
       - run:
           name: Install Node.js dependencies
           command: npm ci
-      - save_cache:
-          key: node-deps-v3-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.npm
       - run:
-          name: Run Node.js tests
+          name: Run Node.js tests > jest-test.txt
           command: npm test
-      - run:
-          name: Create .env file for backend
-          command: |
-            mkdir -p backend
-            cat \<<EOF > backend/.env
-            DB_ENV=$DB_ENV
-            AWS_REGION=$AWS_REGION
-            AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-
-            DEV_LOG_GROUP_NAME=$DEV_LOG_GROUP_NAME
-            DEV_LOG_STREAM_NAME=$DEV_LOG_STREAM_NAME
-            DEV_LOG_VPC_ENDPOINT=$DEV_LOG_VPC_ENDPOINT
-
-            EMAIL_SOURCE=$EMAIL_SOURCE
-            CONTACT_RECEIVER_EMAIL=$CONTACT_RECEIVER_EMAIL
-            SMTP_HOST=$SMTP_HOST
-            SMTP_USER=$SMTP_USER
-            SMTP_PASS=$SMTP_PASS
-
-            AWS_PINPOINT_PROJECT_ID=$AWS_PINPOINT_PROJECT_ID
-            SHOW_PINPOINT_SEGMENTS=$SHOW_PINPOINT_SEGMENTS
-
-            MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
-            MAILCHIMP_LIST_ID=$MAILCHIMP_LIST_ID
-
-            CAREER_ONESTOP_AUTH_TOKEN=$CAREER_ONESTOP_AUTH_TOKEN
-            CAREER_ONESTOP_BASEURL=$CAREER_ONESTOP_BASEURL
-            CAREER_ONESTOP_USERID=$CAREER_ONESTOP_USERID
-
-            NODE_OPTIONS=$NODE_OPTIONS
-            ONET_BASEURL=$ONET_BASEURL
-            ONET_PASSWORD=$ONET_PASSWORD
-            ONET_USERNAME=$ONET_USERNAME
-
-            CE_AUTH_TOKEN=$CE_AUTH_TOKEN
-            CE_ENVIRONMENT=$CE_ENVIRONMENT
-            SENTRY_DSN=$SENTRY_DSN
-            BASE_URL=$BASE_URL
-            SPACE_ID=$SPACE_ID
-            ENVIRONMENT=$ENVIRONMENT
-            DELIVERY_API=$DELIVERY_API
-
-            NODE_ENV=$NODE_ENV
-            DB_HOST_TEST=$DB_HOST_TEST
-            DB_HOST_DEV=$DB_HOST_DEV
-            DB_PASS_TEST=$DB_PASS_TEST
-            DB_PASS_DEV=$DB_PASS_DEV
-            EOF
+          no_output_timeout: 30m
       - run:
           name: Execute feature tests script
           command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
-      - run:
-          name: Clean up .env
-          command: rm -f backend/.env
       - store_artifacts:
           path: feature-test-output.txt
-      - store_artifacts:
-          path: wiremock.log
-      - store_artifacts:
-          path: /home/circleci/.npm/_logs/*.log
-      - store_artifacts:
-          path: ~/project/frontend/cypress/videos
       - persist_to_workspace:
           root: ~/project
           paths:
