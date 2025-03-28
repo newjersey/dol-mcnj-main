@@ -286,10 +286,14 @@
     justify-content: center;
   }
 
+  // starts with highlight- and ends with -light
+  &[class*="highlight-"] {
+    color: s.$black;
+  }
+
   &.highlight-orange {
     background: s.$accent-warm-lighter;
     border-color: s.$accent-warm-light;
-    color: s.$black;
 
     &:hover {
       @media screen and (min-width: (s.$tablet)) {
@@ -302,11 +306,11 @@
   &.highlight-blue {
     background: s.$primary-lighter;
     border-color: s.$primary-light;
-    color: s.$primary-darker;
 
     &:hover {
       @media screen and (min-width: (s.$tablet)) {
-        border-color: s.$primary-vivid;
+        border-color: s.$primary;
+        background: s.$primary-light;
       }
     }
   }
@@ -314,23 +318,35 @@
   &.highlight-purple {
     background: s.$tertiary-lighter;
     border-color: s.$tertiary-light;
-    color: s.$tertiary-darker;
 
     &:hover {
       @media screen and (min-width: (s.$tablet)) {
-        border-color: s.$tertiary-vivid;
+        background: s.$tertiary-light;
+        border-color: s.$tertiary;
       }
     }
   }
 
   &.highlight-green {
     background: s.$secondary-lighter;
-    border-color: s.$secondary;
-    color: s.$secondary-darker;
+    border-color: s.$secondary-light;
 
     &:hover {
       @media screen and (min-width: (s.$tablet)) {
-        border-color: s.$secondary-vivid;
+        border-color: s.$secondary;
+        background: s.$secondary-light;
+      }
+    }
+  }
+
+  &.highlight-base {
+    background: s.$base-extra-light;
+    border-color: s.$base-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$base-dark;
+        background: s.$base-lighter;
       }
     }
   }
@@ -338,11 +354,11 @@
   &.highlight-navy {
     background: s.$info-lighter;
     border-color: s.$info-light;
-    color: s.$info-darker;
 
     &:hover {
       @media screen and (min-width: (s.$tablet)) {
-        border-color: s.$info;
+        border-color: s.$info-dark;
+        background: s.$info-light;
       }
     }
   }

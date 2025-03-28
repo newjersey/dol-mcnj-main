@@ -57,6 +57,10 @@
   &.blue {
     a {
       border: s.$size-2 solid s.$primary;
+
+      &:hover {
+        background-color: s.$primary-extra-light;
+      }
     }
 
     &.fill {
@@ -80,7 +84,11 @@
 
   &.green {
     a {
-      border: s.$size-2 solid s.$secondary-light;
+      border: s.$size-2 solid s.$secondary;
+
+      &:hover {
+        background-color: s.$secondary-extra-light;
+      }
     }
 
     &.fill {
@@ -90,7 +98,7 @@
         &:hover {
           @media screen and (min-width: (s.$desktop)) {
             color: s.$white;
-            background-color: s.$secondary-light;
+            background-color: s.$secondary;
 
             svg {
               color: s.$black;
@@ -105,6 +113,10 @@
   &.purple {
     a {
       border: s.$size-2 solid s.$tertiary-vivid;
+
+      &:hover {
+        background-color: s.$tertiary-extra-light;
+      }
     }
 
     &.fill {
@@ -129,6 +141,10 @@
   &.navy {
     a {
       border: s.$size-2 solid s.$info-dark;
+
+      &:hover {
+        background-color: s.$info-lighter;
+      }
     }
 
     &.fill {
@@ -153,6 +169,10 @@
   &.orange {
     a {
       border: s.$size-2 solid s.$accent-warm;
+
+      &:hover {
+        background-color: s.$accent-warm-extra-light;
+      }
     }
 
     &.fill {
