@@ -24,13 +24,15 @@ jobs:
           name: Install Node.js dependencies
           command: npm ci
       - run:
-          name: Run Node.js tests > jest-test.txt
-          command: npm test
+          name: Run Node.js tests
+          command: scripts/test-all.sh > test-all-output.txt
           no_output_timeout: 30m
       - run:
           name: Execute feature tests script
           command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
+      - store_artifacts:
+          path: test-all-output.txt
       - store_artifacts:
           path: feature-test-output.txt
       - persist_to_workspace:
