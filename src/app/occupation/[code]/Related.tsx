@@ -3,6 +3,7 @@ import { RelatedHeading } from "@components/modules/RelatedHeading";
 import { ResultCard } from "@components/modules/ResultCard";
 import careeronestop from "@images/careeronestop.png";
 import { OccupationPageProps } from "@utils/types";
+import Image from "next/image";
 
 export const Related = ({
   occupation,
@@ -54,7 +55,7 @@ export const Related = ({
             Occupational Outlook Handbook
           </p>
           <p>
-            <img
+            <Image
               src={careeronestop.src}
               width={careeronestop.width}
               height={careeronestop.height}
