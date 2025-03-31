@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { Content } from "./Content";
 import { TrainingProps } from "@utils/types";
-import { SupportedLanguages } from "@utils/types/types";
 
 async function getData(soc: string) {
   const pageData = await fetch(

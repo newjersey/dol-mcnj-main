@@ -39,7 +39,7 @@ const NjHeader = ({ menu, lang }: NjHeaderProps) => {
           <Image
             width={30}
             height={30}
-            src="./stateSeal.png"
+            src="/stateSeal.png"
             alt="New Jersey State Seal"
           />
           <span>Official Site Of The State Of New Jersey</span>

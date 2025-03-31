@@ -144,10 +144,10 @@ export const InDemandDetails = (props: {
           </LabelBox>
 
           <LabelBox color="green" title="Related Occupations" icon="Briefcase">
-            <ul className="unstyled">
+            <ul className="unstyled flex flex-col gap-2">
               {props.content.relatedOccupations &&
               props.content.relatedOccupations.length > 0 ? (
-                props.content.relatedOccupations.map((occupation: any) => (
+                props.content.relatedOccupations.map((occupation) => (
                   <li key={occupation.soc}>
                     <a href={`/occupation/${occupation.soc}`}>
                       {occupation.title}

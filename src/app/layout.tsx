@@ -1,3 +1,4 @@
+import "@styles/tailwind.scss";
 import "@styles/main.scss";
 import { BackToTop } from "@components/modules/BackToTop";
 import Script from "next/script";

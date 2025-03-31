@@ -126,19 +126,6 @@ main {
     gap: s.$size-2;
     position: relative;
 
-    &.boldLink {
-      font-weight: 700;
-      text-decoration: underline;
-      text-decoration-thickness: s.$size-2;
-      text-underline-offset: s.$size-4;
-
-      svg {
-        position: relative;
-        top: s.$size-6;
-        margin-left: s.$size-6;
-      }
-    }
-
     &.linkObject {
       display: inline-flex;
     }

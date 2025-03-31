@@ -79,7 +79,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
   useEffect(() => {
     const filteredPathways = activeMap?.careerMap.pathways?.items?.filter(
-      (path) => path.title !== activePathway?.title,
+      (path) => path.title !== activePathway?.title
     );
     if (filteredPathways && activePathway) {
       setFullMap([activePathway, ...filteredPathways]);
@@ -91,7 +91,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       const getInDemandOccupation = async () => {
         setLoading(true);
         const occupation = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`,
+          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
         );
 
         if (!occupation.ok) {
@@ -167,7 +167,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                           {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
                             (pathItem) => {
                               const pathways = groupObjectsByLevel(
-                                pathItem.occupationsCollection.items,
+                                pathItem.occupationsCollection.items
                               );
                               return (
                                 <Fragment key={pathItem.sys.id}>
@@ -196,7 +196,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                                   setActivePathway(pathItem);
 
                                                   getOccupation(
-                                                    occupation.sys.id,
+                                                    occupation.sys.id
                                                   );
                                                 }}
                                                 className={`path-stop${
@@ -218,11 +218,11 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                                       <strong>
                                                         $
                                                         {numberShorthand(
-                                                          occupation.salaryRangeStart,
+                                                          occupation.salaryRangeStart
                                                         )}{" "}
                                                         - $
                                                         {numberShorthand(
-                                                          occupation.salaryRangeEnd,
+                                                          occupation.salaryRangeEnd
                                                         )}
                                                       </strong>
                                                     </p>
@@ -245,13 +245,14 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                   </ul>
                                 </Fragment>
                               );
-                            },
+                            }
                           )}
                         </div>
                       </div>
                     </>
                   )}
                 </div>
+                test
                 <Details
                   content={activeOccupation.careerMapObject}
                   parents={{
@@ -267,7 +268,9 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
           thisIndustry.inDemandCollection.items.length > 0 && (
             <>
               <div
-                className={`occupationSelector${activeInDemand ? "" : " inactive"}`}
+                className={`occupationSelector${
+                  activeInDemand ? "" : " inactive"
+                }`}
               >
                 <button
                   type="button"

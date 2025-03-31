@@ -59,7 +59,7 @@ const Button = ({
       type={type}
       aria-label={ariaLabel}
       role="button"
-      onClick={(e?: any) => {
+      onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
           onClick(e);
         }
@@ -108,7 +108,7 @@ const Button = ({
       id={buttonId}
       disabled={disabled}
       type={type}
-      onClick={(e?: any) => {
+      onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
           onClick(e);
         }
@@ -159,7 +159,7 @@ const Button = ({
       noIndicator
       target={newTab ? "_blank" : undefined}
       role="link"
-      onClick={(e?: any) => {
+      onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
           onClick(e);
         }
