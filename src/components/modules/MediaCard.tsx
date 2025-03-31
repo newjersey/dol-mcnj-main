@@ -2,6 +2,7 @@ import { highlighter } from "@utils/highlighter";
 import { LinkObject } from "./LinkObject";
 import { ResponsiveImage } from "./ResponsiveImage";
 import { HeadingLevel } from "@utils/types";
+import { JSX } from "react";
 
 interface MediaCardProps {
   className?: string;

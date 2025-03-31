@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { ResultsContext } from "../Results";
 
 export const ClearAll = () => {
-  let { results, setToggle } = useContext(ResultsContext);
+  const { results, setToggle } = useContext(ResultsContext);
   return (
     <div className="section search">
       <Button

@@ -4,7 +4,6 @@ import { SectionHeading } from "@components/modules/SectionHeading";
 import { SectionIcons, ThemeColors } from "@utils/types";
 import { CardSlider } from "@components/blocks/CardSlider";
 import { IntroBlocks } from "@components/blocks/IntroBlocks";
-import { UpdateNotifier } from "@components/blocks/UpdateNotifier";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
 import { SupportedLanguages } from "@utils/types/types";

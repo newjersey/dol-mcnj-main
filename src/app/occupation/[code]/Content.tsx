@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 import { LabelBox } from "@components/modules/LabelBox";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
@@ -19,7 +18,7 @@ export const Content = ({
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
 
-  const tasks = occupation.tasks?.map((task: {}) => {
+  const tasks = occupation.tasks?.map((task) => {
     return {
       copy: task,
     };

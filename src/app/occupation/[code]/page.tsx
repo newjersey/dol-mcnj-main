@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { OccupationPageProps } from "@utils/types";
 import { notFound } from "next/navigation";
 import globalOgImage from "@images/globalOgImage.jpeg";

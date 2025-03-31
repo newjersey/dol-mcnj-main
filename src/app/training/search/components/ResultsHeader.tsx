@@ -16,7 +16,7 @@ import { FunnelSimple, MagnifyingGlass } from "@phosphor-icons/react";
 import { getSearchData } from "../utils/getSearchData";
 
 export const ResultsHeader = () => {
-  let {
+  const {
     itemsPerPage,
     lang,
     results,

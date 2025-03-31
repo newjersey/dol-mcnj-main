@@ -1,6 +1,6 @@
 import { IconSelector } from "@components/modules/IconSelector";
 import { Flex } from "@components/utility/Flex";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { logEvent } from "@utils/analytics";
 import { Button } from "@components/modules/Button";
 

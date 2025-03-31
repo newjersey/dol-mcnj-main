@@ -143,7 +143,9 @@ const ResultCard = (props: ResultCardProps) => {
             label="Compare"
             disabled={disableCompare}
             onChange={() => {
-              onCompare && onCompare(trainingId);
+              if (onCompare) {
+                onCompare(trainingId);
+              }
             }}
           />
         )}

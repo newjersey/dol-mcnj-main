@@ -52,7 +52,9 @@ export const FieldSelect = ({
                 },
               },
             ]}
-            pageTitle={`Select a ${industry.title} ${isField ? "field" : "occupation"}`}
+            pageTitle={`Select a ${industry.title} ${
+              isField ? "field" : "occupation"
+            }`}
           />
           <Flex direction="column" gap="xs" fill>
             <LinkObject url="/career-pathways" className="back">
@@ -62,11 +64,13 @@ export const FieldSelect = ({
             <SectionHeading
               headingLevel={1}
               noDivider
-              heading={`Select a ${industry.title} ${isField ? "field" : "occupation"}`}
+              heading={`Select a ${industry.title} ${
+                isField ? "field" : "occupation"
+              }`}
             />
             {industry.careerMaps && industry.careerMaps.items.length > 0 && (
               <Flex className="cards" alignItems="stretch" fill>
-                {industry.careerMaps.items.map((map, index) => (
+                {industry.careerMaps.items.map((map) => (
                   <Flex
                     direction="column"
                     fill

@@ -14,7 +14,7 @@ import { Flex } from "@components/utility/Flex";
 import { WarningCircle } from "@phosphor-icons/react";
 
 export const Distance = () => {
-  let { results, setResults } = useContext(ResultsContext);
+  const { results, setResults } = useContext(ResultsContext);
   const isInitialZipValid =
     zipCodes.filter((zip) => zip === extractParam("zip", results)).length > 0
       ? true
