@@ -8,6 +8,21 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: [
+        "Public Sans Web",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica",
+        "Arial",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+      ],
+    },
     screens: {
       card: "160px",
       cardLg: "240px",
@@ -69,6 +84,7 @@ export default {
         accentWarmExtraLight: "#fef2e4",
         accentWarmDark: "#c05600",
         accentWarmDarker: "#775540",
+
         infoLighter: "#e7f6f8",
         infoLight: "#99deea",
         info: "#00bde3",
@@ -94,6 +110,7 @@ export default {
         disabledDark: "#adadad",
         emergency: "#9c3d10",
         emergencyDark: "#332d29",
+
         njBlack: "#363636",
         white: "#ffffff",
         black: "#000000",
