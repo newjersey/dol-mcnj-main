@@ -26,6 +26,7 @@ jobs:
     executor: postgres-executer
     steps:
       - checkout
+      - run: npm install -g db-migrate
       - run:
           name: Install PostgreSQL client and setup database
           command: |
@@ -45,8 +46,25 @@ jobs:
     executor: cypress-executor
     steps:
       - checkout
-      - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-      - run: npm ci
+      - run:
+          name: Install UI dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y software-properties-common
+            sudo add-apt-repository universe
+            sudo apt-get update
+            sudo apt-get install -y \
+              libgtk2.0-0 \
+              libgtk-3-0 \
+              libgbm-dev \
+              libnotify-dev \
+              libgconf-2-4 \
+              libnss3 \
+              libxss1 \
+              libasound2 \
+              libxtst6 \
+              xauth \
+              xvfb
       - run: scripts/feature-tests.sh > feature-test-output.txt
       - store_artifacts:
           path: feature-test-output.txt
