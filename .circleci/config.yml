@@ -11,6 +11,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Force checkout specific branch (nextjs)
+          command: |
+            git fetch origin nextjs
+            git checkout nextjs
+      - run:
           name: Install PostgreSQL client and setup database
           command: |
             sudo apt-get update
