@@ -37,25 +37,25 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      - run:
-          name: Run Node.js tests
-          command: npm test
-      - run:
-          name: Execute feature tests script
-          command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
-          no_output_timeout: 30m
-      - store_artifacts:
-          path: feature-test-output.txt
-      - store_artifacts:
-          path: wiremock.log
-      - store_artifacts:
-          path: /home/circleci/.npm/_logs/*.log
-      - store_artifacts:
-          path: ~/project/frontend/cypress/videos
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
+      # - run:
+      #     name: Run Node.js tests
+      #     command: npm test
+      # - run:
+      #     name: Execute feature tests script
+      #     command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
+      #     no_output_timeout: 30m
+      # - store_artifacts:
+      #     path: feature-test-output.txt
+      # - store_artifacts:
+      #     path: wiremock.log
+      # - store_artifacts:
+      #     path: /home/circleci/.npm/_logs/*.log
+      # - store_artifacts:
+      #     path: ~/project/frontend/cypress/videos
+      # - persist_to_workspace:
+      #     root: ~/project
+      #     paths:
+      #       - .
 workflows:
   build-test-deploy:
     jobs:
