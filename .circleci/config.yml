@@ -1,14 +1,28 @@
 version: 2.1
-jobs:
-  build-and-test:
-    circleci_ip_ranges: true
+
+
+executors:
+  jest-executor:
+    docker:
+      - image: cimg/node:20.11.0
+    resource_class: medium
+
+  cypress-executor:
     docker:
       - image: cimg/node:20.11.0-browsers
+    resource_class: large
+
+  postgres-executer:
+    docker:
       - image: cimg/postgres:12.7
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD:
-    resource_class: xlarge
+    resource_class: medium
+
+jobs:
+  db-migration:
+    executor: postgres-executer
     steps:
       - checkout
       - run:
@@ -17,6 +31,18 @@ jobs:
             sudo apt-get update
             sudo apt-get install postgresql-client
             createdb -h localhost d4adlocal -U postgres
+            DB_ENV=$DB_ENV scripts/db-migrate.sh
+
+  jest-tests:
+    executor: jest-executor
+    steps:
+      - checkout
+      - run: npm ci
+      - run: scripts/test-all.sh
+
+  cypress-tests:
+    executor: cypress-executor
+    steps:
       - run:
           name: Install required dependencies for Cypress
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
@@ -24,22 +50,21 @@ jobs:
           name: Install Node.js dependencies
           command: npm ci
       - run:
-          name: Run Node.js tests
-          command: scripts/test-all.sh > test-all-output.txt
-          no_output_timeout: 30m
-      - run:
           name: Execute feature tests script
-          command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
-          no_output_timeout: 30m
-      - store_artifacts:
-          path: test-all-output.txt
+          command: scripts/feature-tests.sh > feature-test-output.txt
+          no_output_timeout: 30m    
       - store_artifacts:
           path: feature-test-output.txt
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
+
 workflows:
-  build-test-deploy:
+  build-test-migrate:
     jobs:
-      - build-and-test
+      - db-migration:
+        filters:
+          branches:
+            only: /.*/
+          paths:
+            only:
+              - "migrations/**"
+      - jest-tests
+      - cypress-tests
