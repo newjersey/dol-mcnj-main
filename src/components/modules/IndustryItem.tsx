@@ -47,6 +47,7 @@ export const IndustryItem = ({
         />
         {drawerCards.map((card) => (
           <LabelBox
+            className="bg-secondaryExtraLight"
             color="green"
             key={card.title}
             title={card.title}
