@@ -101,54 +101,6 @@
     }
   }
 
-  .learn-more-content {
-    @media screen and (min-width: (s.$tablet-lg)) {
-      display: flex;
-      gap: s.$size-32;
-    }
-
-    .mobile-only {
-      @media screen and (max-width: (s.$tablet-lg - 1)) {
-        display: flex;
-        gap: s.$size-16;
-        flex-direction: column;
-      }
-    }
-  }
-
-  .column {
-    flex-direction: column;
-    gap: s.$size-32;
-    width: 100%;
-
-    @media screen and (min-width: (s.$tablet-lg)) {
-      display: flex;
-    }
-
-    .box {
-      &:nth-of-type(3n - 2) {
-        background-color: s.$tertiary-lighter;
-      }
-      &:nth-of-type(3n - 1) {
-        background-color: s.$secondary-lighter;
-      }
-      &:nth-of-type(3n) {
-        background-color: s.$primary-lighter;
-      }
-    }
-
-    &:last-of-type {
-      .box {
-        &:nth-of-type(2n - 1) {
-          background-color: s.$accent-cool-lighter;
-        }
-        &:nth-of-type(2n) {
-          background-color: s.$accent-warm-lighter;
-        }
-      }
-    }
-  }
-
   .box {
     padding: s.$size-24;
     border-radius: s.$size-16;
