@@ -10,6 +10,7 @@ export const Description = ({ training }: { training: TrainingProps }) => {
       subheading="About this Learning Opportunity"
       color="green"
       title="Description"
+      headingLevel={2}
       className="description"
     >
       <div

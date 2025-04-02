@@ -2,6 +2,7 @@
 import { Heading } from "@components/modules/Heading";
 import { Box } from "@components/utility/Box";
 import { X } from "@phosphor-icons/react";
+import { slugify } from "@utils/slugify";
 import { HeadingLevel } from "@utils/types";
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
@@ -56,7 +57,13 @@ export const DrawerButton = ({
   }, [open]);
 
   const drawerContent = (
-    <div className="drawer">
+    <div
+      className="drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-label={slugify(copy)}
+      aria-labelledby="drawer-heading"
+    >
       <div ref={overlayRef} className={`overlay${open ? " open" : ""}`} />
       <div ref={panelRef} className={`panel${open ? " open" : ""}`}>
         <button className="close" onClick={() => setOpen(false)}>

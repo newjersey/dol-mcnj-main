@@ -52,7 +52,7 @@ export const PageHero = (props: PageHeroProps) => {
           </div>
           {props.image && (
             <div className="image">
-              <Image {...props.image} alt="" />
+              <Image {...props.image} alt="temp image" />
             </div>
           )}
         </div>

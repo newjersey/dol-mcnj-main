@@ -54,14 +54,12 @@ export const Related = ({
             &nbsp;Bureau of Labor Statistics, U.S. Department of Labor,
             Occupational Outlook Handbook
           </p>
-          <p>
-            <Image
-              src={careeronestop.src}
-              width={careeronestop.width}
-              height={careeronestop.height}
-              alt="Career One Stop Logo"
-            />
-          </p>
+          <Image
+            src={careeronestop.src}
+            width={careeronestop.width}
+            height={careeronestop.height}
+            alt="Career One Stop Logo"
+          />
         </div>
       </div>
     </section>
