@@ -11,9 +11,13 @@ module.exports = async () => {
     console.log("✅ Database created successfully.");
 
     console.log("Running database migrations...");
-
     const migrationTimeout = 15 * 60 * 1000; // 15 minutes timeout
-    const migrationPromise = executeCommand("npm", ["run", "db-migrate", "up", "--", "-e", "test"], false);
+
+    const migrationPromise = executeCommand(
+        "npm",
+        ["run", "db-migrate", "up", "--", "-e", "test"],
+        true // <-- run silently
+    );
 
     await Promise.race([
       migrationPromise,
@@ -33,14 +37,17 @@ function executeCommand(command, args = [], silent = false) {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args);
 
-    // Stream logs to Jest in real-time to avoid CI timeouts
-    proc.stdout.on("data", (data) => {
-      console.log(`[${command}]: ${data.toString().trim()}`);
-    });
+    if (!silent) {
+      proc.stdout.on("data", (data) => {
+        console.log(`[${command}]: ${data.toString().trim()}`);
+      });
 
-    proc.stderr.on("data", (data) => {
-      console.error(`[${command} ERROR]: ${data.toString().trim()}`);
-    });
+      proc.stderr.on("data", (data) => {
+        console.error(`[${command} ERROR]: ${data.toString().trim()}`);
+      });
+    } else {
+      console.log(`[${command}]: running silently...`);
+    }
 
     proc.on("close", (code) => {
       if (code === 0) {
