@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build-setup:
     circleci_ip_ranges: true
     docker:
       - image: cimg/node:20.11.0-browsers
@@ -9,7 +9,7 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - run:
@@ -32,7 +32,7 @@ jobs:
   run-node-tests:
     docker:
       - image: cimg/node:20.11.0-browsers
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - attach_workspace:
           at: ~/project
@@ -50,7 +50,7 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD:
-    resource_class: large
+    resource_class: xlarge
     steps:
       - attach_workspace:
           at: ~/project
@@ -64,10 +64,10 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - build
+      - build-setup
       - run-node-tests:
           requires:
-            - build
+            - build-setup
       - run-feature-tests:
           requires:
-            - build
+            - build-setup
