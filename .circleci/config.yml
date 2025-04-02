@@ -1,6 +1,7 @@
 version: 2.1
+
 jobs:
-  build-and-test:
+  build:
     circleci_ip_ranges: true
     docker:
       - image: cimg/node:20.11.0-browsers
@@ -8,7 +9,7 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD:
-    resource_class: xlarge
+    resource_class: medium
     steps:
       - checkout
       - run:
@@ -23,23 +24,50 @@ jobs:
       - run:
           name: Install Node.js dependencies
           command: npm ci
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+
+  run-node-tests:
+    docker:
+      - image: cimg/node:20.11.0-browsers
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Run Node.js tests
           command: scripts/test-all.sh > test-all-output.txt
           no_output_timeout: 30m
+      - store_artifacts:
+          path: test-all-output.txt
+
+  run-feature-tests:
+    docker:
+      - image: cimg/node:20.11.0-browsers
+      - image: cimg/postgres:12.7
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD:
+    resource_class: large
+    steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Execute feature tests script
           command: DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
-          path: test-all-output.txt
-      - store_artifacts:
           path: feature-test-output.txt
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
+
 workflows:
   build-test-deploy:
     jobs:
-      - build-and-test
+      - build
+      - run-node-tests:
+          requires:
+            - build
+      - run-feature-tests:
+          requires:
+            - build
