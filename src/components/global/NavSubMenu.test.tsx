@@ -31,12 +31,12 @@ describe("NavSubMenu Component", () => {
   const subItemsCollection = {
     items: [
       {
-        sys: { id: "subitem1" },
+        itemId: "subitem1",
         copy: "SubItem 1",
         url: "/subitem1",
       },
       {
-        sys: { id: "subitem2" },
+        itemId: "subitem2",
         copy: "SubItem 2",
         url: "/subitem2",
       },
@@ -44,7 +44,7 @@ describe("NavSubMenu Component", () => {
   };
 
   const topNavItemProps: TopNavItemProps = {
-    sys: { id: "item1" },
+    itemId: "item1",
     copy: "Item 1",
     url: "/item1",
     subItemsCollection: subItemsCollection,
@@ -52,7 +52,7 @@ describe("NavSubMenu Component", () => {
 
   it("renders without crashing with default props", () => {
     const { container } = render(
-      <NavSubMenu {...topNavItemProps} onClick={jest.fn()} />,
+      <NavSubMenu {...topNavItemProps} onClick={jest.fn()} />
     );
     expect(container).toBeInTheDocument();
     expect(container).toHaveTextContent("Item 1");
@@ -60,7 +60,7 @@ describe("NavSubMenu Component", () => {
 
   it("renders sub-menu items when open is true", () => {
     const { getByText } = render(
-      <NavSubMenu {...topNavItemProps} open onClick={jest.fn()} />,
+      <NavSubMenu {...topNavItemProps} open onClick={jest.fn()} />
     );
     expect(getByText("SubItem 1")).toBeInTheDocument();
     expect(getByText("SubItem 2")).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe("NavSubMenu Component", () => {
   it("toggles sub-menu on click", () => {
     const handleClick = jest.fn();
     const { getByText } = render(
-      <NavSubMenu {...topNavItemProps} open onClick={handleClick} />,
+      <NavSubMenu {...topNavItemProps} open onClick={handleClick} />
     );
     const button = getByText("Item 1");
     fireEvent.click(button);
@@ -78,7 +78,7 @@ describe("NavSubMenu Component", () => {
 
   it("renders with icons when icons prop is true", () => {
     const { getByTestId } = render(
-      <NavSubMenu {...topNavItemProps} icons onClick={jest.fn()} />,
+      <NavSubMenu {...topNavItemProps} icons onClick={jest.fn()} />
     );
     const caretIcon = getByTestId("caret-icon");
     expect(caretIcon).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe("NavSubMenu Component", () => {
   it("calls onClick when sub-menu item is clicked", () => {
     const handleClick = jest.fn();
     const { getByText } = render(
-      <NavSubMenu {...topNavItemProps} open onClick={handleClick} />,
+      <NavSubMenu {...topNavItemProps} open onClick={handleClick} />
     );
     const subItem = getByText("SubItem 1");
     fireEvent.click(subItem);
