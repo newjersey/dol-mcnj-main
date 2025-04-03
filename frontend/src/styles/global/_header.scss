@@ -332,6 +332,12 @@ header {
       transition-delay: $transition-speed / 2;
       opacity: 1;
       top: 0;
+
+      p {
+        a {
+          font-size: $size-16;
+        }
+      }
     }
   }
 

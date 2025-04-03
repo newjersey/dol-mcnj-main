@@ -187,7 +187,6 @@ export const SignUpFormModal = () => {
               <div className="usa-alert usa-alert--success" role="alert">
                 <div className="usa-alert__body">
                   <p className="usa-alert__heading">{t("SignUpFormModal.successMessage")}</p>
-                  <p className="usa-alert__text">{t("SignUpFormModal.confirmationMessage")}</p>
                 </div>
               </div>
               <div className="buttons" style={{ marginTop: "1.5rem" }}>
@@ -328,11 +327,21 @@ export const SignUpFormModal = () => {
               </form>
               <p>
                 {t("SignUpFormModal.readAboutOur")}{" "}
-                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.nj.gov/nj/privacy.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: "16px" }}
+                >
                   {t("SignUpFormModal.privacyPolicy")}
                 </a>{" "}
                 {t("SignUpFormModal.andOur")}{" "}
-                <a href="/sms-use-policy" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="/sms-use-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: "16px" }}
+                >
                   {t("SignUpFormModal.smsUsePolicy")}
                 </a>
                 .

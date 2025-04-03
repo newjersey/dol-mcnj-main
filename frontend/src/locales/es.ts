@@ -520,7 +520,8 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
   SignUpFormModal: {
     buttonText: "Regístrate para recibir actualizaciones",
     formTitle: "Formulario de registro de usuario de My Career NJ",
-    formDescription: "Regístrate para mantenerte al día con las últimas características, noticias y recursos de My Career NJ.",
+    formDescription:
+      "Regístrese para recibir correos electrónicos y conocer herramientas y recursos que lo ayudarán a avanzar en su carrera.",
     firstNameLabel: "Nombre",
     firstNameError: "El nombre debe tener 2 o más caracteres.",
     lastNameLabel: "Apellido",
@@ -532,10 +533,10 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     usPhoneOnlyLabel: "Solo números de teléfono de EE.UU.",
     phoneError: "Por favor, introduce un número de teléfono válido.",
     submitButton: "Enviar formulario",
-    successMessage: "Te has suscrito con éxito a las actualizaciones de My Career NJ.",
-    confirmationMessage: "Un correo de confirmación debería estar en tu bandeja de entrada. Si no está allí, revisa tu carpeta de spam o correo no deseado.",
+    successMessage: "¡Éxito!  Está todo listo para recibir actualizaciones de My Career NJ.",
     errorMessage: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
-    serverErrorMessage: "Hubo un error al conectar con el servidor. Por favor, inténtalo más tarde.",
+    serverErrorMessage:
+      "Hubo un error al conectar con el servidor. Por favor, inténtalo más tarde.",
     loadingMessage: "Enviando",
     alreadyRegisteredMessage: "Ya estás registrado con este correo electrónico.",
     attentionRequired: "Hay elementos que requieren tu atención.",
@@ -544,7 +545,7 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     resetForm: "Restablecer formulario",
     requiredFieldIndicator: {
       part1: "Un asterisco rojo ",
-      part2: " indica un campo obligatorio."
+      part2: " indica un campo obligatorio.",
     },
     readAboutOur: "Lee sobre nuestra",
     privacyPolicy: "política de privacidad",
