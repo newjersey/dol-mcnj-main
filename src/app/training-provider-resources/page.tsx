@@ -29,8 +29,6 @@ export default async function TrainingProviderResourcesPage() {
   return (
     <div className="page trainingProviderResources">
       <PageBanner {...pageData[lang].banner} />
-      {/* <Tabs {...pageData[lang].tabs} /> */}
-
       <Article content={article} />
     </div>
   );
