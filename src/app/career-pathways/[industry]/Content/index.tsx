@@ -252,7 +252,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                     </>
                   )}
                 </div>
-                test
+
                 <Details
                   content={activeOccupation.careerMapObject}
                   parents={{
