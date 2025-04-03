@@ -35,7 +35,7 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
 
   return (
     <div className="article">
-      <div className="container narrow" id="contentBody">
+      <div className="container" id="contentBody">
         <div className="inner">
           <div className="nav-wrapper">
             <div className="toggle-container mobile-only">
@@ -76,7 +76,7 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
                             if (!item.items || item.items.length === 0) {
                               setOpenNav(false);
                               const element = document.getElementById(
-                                item.elementId,
+                                item.elementId
                               ) as HTMLElement;
                               element.scrollIntoView({
                                 behavior: "smooth",
@@ -104,7 +104,7 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
 
                                       // smooth scroll to the heading
                                       const element = document.getElementById(
-                                        subItem.elementId,
+                                        subItem.elementId
                                       ) as HTMLElement;
                                       element.scrollIntoView({
                                         behavior: "smooth",

@@ -1,3 +1,5 @@
+import { ContentfulRichTextProps } from "@utils/types";
+
 export const article = {
   json: {
     nodeType: "document",
@@ -1850,4 +1852,4 @@ export const article = {
       ],
     },
   },
-};
+} as ContentfulRichTextProps;

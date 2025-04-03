@@ -4,6 +4,8 @@ import globalOgImage from "@images/globalOgImage.jpeg";
 import { TRAINING_PROVIDER_PAGE_DATA as pageData } from "@data/pages/training-provider-resources";
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
+import { Article } from "@components/blocks/Article";
+import { article } from "@data/mock/article";
 
 export const revalidate = 86400;
 
@@ -28,7 +30,9 @@ export default async function TrainingProviderResourcesPage() {
   return (
     <div className="page trainingProviderResources">
       <PageBanner {...pageData[lang].banner} />
-      <Tabs {...pageData[lang].tabs} />
+      {/* <Tabs {...pageData[lang].tabs} /> */}
+
+      <Article content={article} />
     </div>
   );
 }

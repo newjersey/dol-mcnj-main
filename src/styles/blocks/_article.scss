@@ -77,14 +77,44 @@
   }
 
   .content {
-    @media screen and (min-width: (s.$tablet-lg)) {
-      width: calc(100% - s.$size-320);
+    @media screen and (min-width: (s.$tablet-md)) {
+      width: calc(100% - s.$size-300);
     }
-    h2 {
-      margin: s.$size-80 0 s.$size-48;
 
-      &:first-of-type {
-        margin: 0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-weight: 700;
+      margin: s.$size-16 0;
+    }
+
+    h2 {
+      font-size: s.$size-32;
+      margin-bottom: s.$size-24;
+    }
+
+    h3 {
+      font-size: s.$size-24;
+    }
+
+    h4,
+    h5 {
+      font-size: 1.2rem;
+    }
+
+    table {
+      margin: s.$size-16 0;
+      tr {
+        th {
+          text-align: left;
+        }
+        td,
+        th {
+          padding: 0.5rem 0;
+          border-bottom: s.$size-1 solid s.$base-cool;
+        }
       }
     }
   }
