@@ -33,6 +33,32 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
     setActiveHeading(result[0]);
   }, []);
 
+  useEffect(() => {
+    const updateActiveHeadingOnScroll = () => {
+      const headings = document.querySelectorAll("h2");
+      let currentHeading: Heading | null = null;
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top <= 100) {
+          const id = heading.id;
+
+          const foundHeading = headingArray.filter(
+            (item) => item.elementId === id
+          )[0];
+
+          if (foundHeading) {
+            currentHeading = foundHeading;
+          }
+        }
+      });
+      if (currentHeading) {
+        setActiveHeading(currentHeading);
+      }
+    };
+
+    window.addEventListener("scroll", updateActiveHeadingOnScroll);
+  }, [headingArray]);
+
   return (
     <div className="article">
       <div className="container" id="contentBody">
@@ -78,6 +104,7 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
                               const element = document.getElementById(
                                 item.elementId
                               ) as HTMLElement;
+
                               element.scrollIntoView({
                                 behavior: "smooth",
                                 block: "start",
