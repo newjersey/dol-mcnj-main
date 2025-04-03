@@ -51,7 +51,7 @@ export default async function SupportResourcesPage() {
               <IconCard
                 key={category.sys?.id}
                 copy={category.title}
-                message={category.description}
+                message={category.cardDescription || category.description}
                 theme="navy"
                 systemIcon="support"
                 url={`/support-resources/${category.slug}`}
