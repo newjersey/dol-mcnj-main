@@ -1,5 +1,4 @@
 import { PageBanner } from "@components/blocks/PageBanner";
-import { Tabs } from "@components/blocks/Tabs";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { TRAINING_PROVIDER_PAGE_DATA as pageData } from "@data/pages/training-provider-resources";
 import { SupportedLanguages } from "@utils/types/types";
