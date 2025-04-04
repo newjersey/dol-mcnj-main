@@ -568,11 +568,7 @@ export const article = {
           },
         ],
       },
-      {
-        nodeType: "hr",
-        data: {},
-        content: [],
-      },
+
       {
         nodeType: "heading-3",
         data: {},
@@ -759,11 +755,7 @@ export const article = {
           },
         ],
       },
-      {
-        nodeType: "hr",
-        data: {},
-        content: [],
-      },
+
       {
         nodeType: "heading-3",
         data: {},
@@ -905,11 +897,7 @@ export const article = {
           },
         ],
       },
-      {
-        nodeType: "hr",
-        data: {},
-        content: [],
-      },
+
       {
         nodeType: "heading-3",
         data: {},
@@ -1222,11 +1210,6 @@ export const article = {
             ],
           },
         ],
-      },
-      {
-        nodeType: "hr",
-        data: {},
-        content: [],
       },
       {
         nodeType: "heading-3",
