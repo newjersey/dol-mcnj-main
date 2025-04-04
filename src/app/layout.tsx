@@ -73,7 +73,9 @@ export default async function RootLayout({
           )}
           <SkipToMain />
           <Header globalNav={globalNav} mainNav={mainNav} lang={lang} />
-          <LangSelector />
+          {process.env.REACT_APP_FEATURE_MULTILANG === "true" && (
+            <LangSelector />
+          )}
           <div id="main-content">{children}</div>
           <Footer
             lang={lang}
