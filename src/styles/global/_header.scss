@@ -18,13 +18,7 @@ header {
       padding: 0 s.$size-16;
       max-width: s.$desktop-xl;
 
-      &.flex {
-        @media screen and (min-width: (s.$desktop)) {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
+      &.main {
         &:after {
           content: none;
         }
