@@ -56,7 +56,7 @@ const Header = ({ mainNav, globalNav, lang = "en" }: HeaderProps) => {
         lang={lang}
         label="Primary navigation"
         className={`main-nav${isOpen ? " open" : ""}`}
-        innerClassName="usa-nav-container tabletLg:flex"
+        innerClassName="usa-nav-container main tabletLg:flex justify-between w-full"
         icons
         extraItems={
           <div className="contact-links">
