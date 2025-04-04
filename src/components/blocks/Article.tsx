@@ -96,20 +96,28 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
                           }
                           onClick={(e) => {
                             e.preventDefault();
+
                             setActiveHeading(item);
 
-                            // if there are no subheadings, scroll to the heading
-                            if (!item.items || item.items.length === 0) {
-                              setOpenNav(false);
-                              const element = document.getElementById(
-                                item.elementId
-                              ) as HTMLElement;
+                            setOpenNav(false);
+                            const element = document.getElementById(
+                              item.elementId
+                            ) as HTMLElement;
 
-                              element.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              });
-                            }
+                            // scroll into view with 10 px offset
+                            element.scrollIntoView({
+                              behavior: "smooth",
+                              block: "start",
+                            });
+                            const offset = 20;
+                            const elementPosition =
+                              element.getBoundingClientRect().top +
+                              window.scrollY -
+                              offset;
+                            window.scrollTo({
+                              top: elementPosition,
+                              behavior: "smooth",
+                            });
                           }}
                         >
                           {item.title}
