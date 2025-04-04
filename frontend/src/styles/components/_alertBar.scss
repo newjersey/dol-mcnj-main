@@ -1,0 +1,51 @@
+.alert-bar {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: $size-22;
+    font-weight: 700;
+    @media screen and (max-width: ($tablet-lg)) {
+      font-size: $size-18;
+    }
+  }
+  .usa-alert__heading {
+    @media screen and (max-width: ($tablet-lg)) {
+      font-size: $size-18;
+    }
+  }
+
+  &.toggle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    &.closed {
+      .usa-alert__heading {
+        margin: 0;
+      }
+    }
+
+    .usa-alert__body {
+      max-width: none;
+      width: calc(100% - $size-30);
+    }
+
+    button {
+      &.toggle {
+        height: $size-60;
+        width: $size-60;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.open {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}

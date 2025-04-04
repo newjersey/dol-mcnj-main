@@ -11,12 +11,15 @@ export const LinkObject = ({
   iconPrefix,
   onClick,
   iconSuffix,
+  newTab,
   iconSize,
   screenReaderOnlyCopy,
   url,
   label,
 }: LinkObjectProps) => {
-  const isRelative = url.startsWith("/") || url.startsWith("#") || url === "mycareer.nj.gov";
+  const isRelative = newTab
+    ? false
+    : url.startsWith("/") || url.startsWith("#") || url === "mycareer.nj.gov";
   const isHome = url === "/";
   const target = isRelative ? undefined : "_blank";
   const rel = isRelative ? undefined : "noopener noreferrer";

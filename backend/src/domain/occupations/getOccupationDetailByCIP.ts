@@ -9,10 +9,11 @@ import {
 } from "../types";
 import {DataClient} from "../DataClient";
 import {convertToTitleCaseIfUppercase} from "../utils/convertToTitleCaseIfUppercase";
-import {convertTrainingToTrainingResult} from "../training/convertTrainingToTrainingResult";
-import {Training} from "../training/Training";
-import {Selector} from "../training/Selector";
+// import {convertTrainingToTrainingResult} from "../training/convertTrainingToTrainingResult";
+// import {Training} from "../training/Training";
+// import {Selector} from "../training/Selector";
 import {TrainingResult} from "../training/TrainingResult";
+import { searchTrainingsFactory } from "../search/searchTrainings";
 
 export const getOccupationDetailByCIPFactory = (
     getOccupationDetailFromOnet: GetOccupationDetailPartial,
@@ -92,13 +93,15 @@ export const getOccupationDetailByCIPFactory = (
 
             // Logic to get training results
             const getTrainingResults = async (soc: string): Promise<TrainingResult[]> => {
-                const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
-                const cipcodes = cipDefinitions.map((it) => it.cipcode);
-                const trainings = await findTrainingsBy(Selector.CIP_CODE, cipcodes);
-
-                return trainings.map((training: Training) => {
-                    return convertTrainingToTrainingResult(training, "", 0);
-                });            };
+                // const cipDefinitions = await dataClient.findCipDefinitionBySoc2018(soc);
+                // const cipcodes = cipDefinitions.map((it) => it.cipcode);
+                // const trainings = await findTrainingsBy(Selector.CIP_CODE, cipcodes);
+                // return trainings.map((training: Training) => {
+                //   return convertTrainingToTrainingResult(training, "", 0);
+                // });
+                const trainings = await searchTrainingsFactory(dataClient)({searchQuery: soc, limit:4})
+                return trainings.data
+              };
 
             // Use original logic to assemble the OccupationDetail object for each SOC
             return getOccupationDetailFromOnet(soc)

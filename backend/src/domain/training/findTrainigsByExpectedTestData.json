@@ -1,0 +1,53 @@
+[
+  {
+    "ctid": "ce-73263b7f-07fd-4c4a-8caa-f31bab4b3de5",
+    "name": "Computer Security Specialist",
+    "cipDefinition": null,
+    "provider": null,
+    "availableAt": [
+      {
+        "@type": "ceterms:Place",
+        "street_address": "5100 Black Horse PIke",
+        "city": "Mays Landing",
+        "state": "New Jersey",
+        "zipCode": "08330",
+        "county": "Atlantic",
+        "targetContactPoints": [
+          {
+            "name": "Name not specified",
+            "email": ["cfraone@atlantic.edu"],
+            "telephone": ["6093435009"],
+            "contactType": "College Recruiter"
+          }
+        ]
+      }
+    ],
+    "description": "A two-semester series designed for students to gain computer skills with a focus on computer security. Included are a selection of hardware and software, computer applications and introductory programming. Credits earned may be applied to the Computer Security Certificate and the Computer Systems Support, A.A.S. degree.",
+    "credentials": "Data not collected, Data not collected",
+    "prerequisites": ["18 years of age, or HS Diploma, or GED"],
+    "totalClockHours": 54,
+    "calendarLength": 3,
+    "occupations": [
+      {
+        "soc": "15-1212",
+        "title": "Information Security Analysts"
+      }
+    ],
+    "inDemand": true,
+    "localExceptionCounty": [],
+    "tuitionCost": 2988,
+    "feesCost": 1311,
+    "booksMaterialsCost": 600,
+    "suppliesToolsCost": 0,
+    "otherCost": 0,
+    "totalCost": 4899,
+    "deliveryTypes": ["deliveryType:BlendedDelivery"],
+    "percentEmployed": null,
+    "averageSalary": null,
+    "hasEveningCourses": true,
+    "languages": ["English"],
+    "isWheelchairAccessible": false,
+    "hasJobPlacementAssistance": false,
+    "hasChildcareAssistance": false
+  }
+]

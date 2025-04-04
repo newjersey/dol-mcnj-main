@@ -13,7 +13,7 @@ export const LanguageSwitchButton = (): ReactElement => {
   }
 
   return (
-    <Button variant="secondary" className="language-switch-buttton width-auto" onClick={onClick}>
+    <Button variant="custom" className="language-switch-buttton width-auto" onClick={onClick}>
       {i18n.language === "en" ? "Español" : "English"}
     </Button>
   );

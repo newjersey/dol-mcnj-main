@@ -1,7 +1,9 @@
 import { RouteComponentProps } from "@reach/router";
 import { ReactElement } from "react";
-import { Layout } from "../components/Layout";
+import { useEffect } from "react";
 import { Client } from "../domain/Client";
+import { Certificates } from "../domain/CredentialEngine";
+import { Layout } from "../components/Layout";
 import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
 import { HomeBanner } from "../components/HomeBanner";
@@ -48,6 +50,17 @@ export const LandingPage = (props: Props): ReactElement => {
         return "Training";
     }
   }
+
+  useEffect(() => {
+    props.client.getAllCertificates(0, 5, "^search:recordCreated", false, {
+      onSuccess: (data: Certificates) => {
+        console.log(`Some JSON, maybe: ${JSON.stringify(data, null, 2)}`);
+      },
+      onError: (e) => {
+        console.log(`An error, maybe an error code: ${e}`);
+      },
+    });
+  });
 
   return (
     <Layout client={props.client} noPad seo={seoObject}>
