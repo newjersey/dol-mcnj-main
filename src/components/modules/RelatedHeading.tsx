@@ -22,12 +22,14 @@ const RelatedHeading = ({
       level={headingLevel}
       className={`relatedHeading${className ? ` ${className}` : ""}`}
     >
-      Related Training
-      {hasTraining && (
-        <LinkObject url={`/training/search?q=${title}`}>
-          See More Results <CaretRight size={16} />
-        </LinkObject>
-      )}
+      <>
+        Related Training
+        {hasTraining && (
+          <LinkObject url={`/training/search?q=${title}`}>
+            See More Results <CaretRight size={16} />
+          </LinkObject>
+        )}
+      </>
     </Heading>
   );
 };

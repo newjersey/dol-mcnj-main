@@ -27,206 +27,455 @@ export const NAVIGATOR_PAGE_DATA = {
       contentType: "image/png",
     },
   },
-  banner: {
-    message: "Learn how to enter and advance a career in key NJ industries.",
-    title: "NJ Career Navigator",
-    section: "explore",
-    theme: "blue",
-    breadcrumbsCollection: {
-      items: [
+  en: {
+    banner: {
+      message:
+        "Your next job opportunity awaits with the New Jersey Career Navigator. We offer personalized jobs that fit your skills and experience level—plus valuable skills training courses to boost your career opportunities.",
+      title: "NJ Career Navigator",
+      subHeading:
+        "Find your first job, a new job or transition to a new career faster.",
+      section: "explore",
+      theme: "blue",
+      ctaLinks: [
         {
           sys: {
-            id: "50o1RGfZ173Cis7VEFlBDR",
+            id: "5v8zZzVfQw1JwZQ7kPzX4B",
           },
-          copy: "Home",
-          url: "/",
+          copy: "Log In",
+          url: "/navigator/#/login",
+        },
+        {
+          sys: {
+            id: "3c1qJ5K8s6LZ8y4KpVv0wL",
+          },
+          copy: "Sign Up",
+          url: "/navigator/#/login",
+        },
+      ],
+      breadcrumbsCollection: {
+        items: [
+          {
+            sys: {
+              id: "50o1RGfZ173Cis7VEFlBDR",
+            },
+            copy: "Home",
+            url: "/",
+          },
+        ],
+      },
+    } as PageBannerProps,
+    opportunities: {
+      sectionHeading: {
+        heading: "Personalized Career Opportunities",
+      },
+      cards: [
+        {
+          sys: { id: "52EC9X2J4rT7M4osjaSl45" },
+          copy: "Discover Personalized Job Openings",
+          fill: true,
+          url: "/navigator/#/jobs",
+          icon: "Briefcase",
+          theme: "blue",
+          message: "Sign up to find current job openings based on your skills.",
+        },
+        {
+          sys: { id: "1cU2jt1XCw0kmhlwfUD7pP" },
+          fill: true,
+          copy: "Explore Career Change Recommendations",
+          theme: "purple",
+          url: "/navigator/#/careers",
+          icon: "MapTrifold",
+          message: "Sign up to see new careers based on your skills.",
+        },
+      ] as IconCardProps[],
+    },
+    howTo: {
+      sectionHeading: {
+        heading: "How to use the Career Navigator",
+      },
+      cards: [
+        {
+          heading: "Sign Up",
+          icon: "UserPlus",
+          description:
+            "Add your skills and experience to get personalized recommendations.",
+        },
+        {
+          heading: "Explore Suggestions",
+          icon: "Binoculars",
+          description:
+            "We compare your data to current job openings and the experience of other New Jerseyans to give recommendations that are best for you.",
+        },
+        {
+          heading: "Take Action",
+          icon: "CheckSquare",
+          description:
+            "Link to high-value training programs and open jobs to apply to.",
         },
       ],
     },
-  } as PageBannerProps,
-  opportunities: {
-    sectionHeading: {
-      heading: "Personalized Career Opportunities",
+    midPageCta: {
+      headingLevel: 2,
+      noIndicator: true,
+      inlineButtons: true,
+      heading: "Start finding opportunities today.",
+      items: [
+        {
+          sys: {
+            id: "bhGAVbaJfPuVniKl3FoaO",
+          },
+          copy: "Log In",
+          url: "/navigator/#/login",
+        },
+        {
+          sys: {
+            id: "44ygVngSycN2d1w5Zwb4x4",
+          },
+          copy: "Sign Up",
+          url: "/navigator/#/login",
+        },
+      ],
+    } as CtaBannerProps,
+    ctaBanner: {
+      fullColor: true,
+      theme: "purple",
+      headingLevel: 3,
+      heading: "Not ready to sign up? Check out these other tools.",
+      customLinks: [
+        {
+          iconPrefix: "GraduationCap",
+          link: "/training",
+          label: "NJ Training Explorer",
+          type: "link",
+          highlight: "blue",
+        },
+        {
+          iconPrefix: "Fire",
+          link: "/in-demand-occupations",
+          label: "In-Demand Occupations",
+          type: "link",
+          highlight: "orange",
+        },
+        {
+          iconPrefix: "Briefcase",
+          link: "https://www.careeronestop.org/",
+          label: "One Stop Job Board",
+          type: "link",
+          highlight: "navy",
+          iconSuffix: "ArrowSquareOut",
+        },
+        {
+          iconPrefix: "MapTrifold",
+          link: "/career-pathways",
+          label: "NJ Career Pathways",
+          type: "link",
+          highlight: "green",
+        },
+      ],
+    } as CtaBannerProps,
+    info: {
+      sectionHeading: {
+        heading: "Why use Career Navigator?",
+        headingLevel: 3 as HeadingLevel,
+      },
+      cards: [
+        {
+          sys: {
+            id: "73Cc15iWxF6VTufKikIgpv",
+          },
+          copy: "Data-Driven Career Recommendations",
+          icon: "ThumbsUp",
+          theme: "blue",
+          message:
+            "We use data and machine learning to give you the best possible career recommendations.",
+        },
+        {
+          sys: {
+            id: "4LpZgmuGMVCYlfCQizdOHB",
+          },
+          copy: "Continuous Improvement",
+          icon: "Brain",
+          theme: "green",
+          message:
+            "Your career recommendations will improve over time, as we learn more about you.",
+        },
+        {
+          sys: {
+            id: "3feeqiLzanHlVH3vzWeD6c",
+          },
+          copy: "Best-Fit Opportunities",
+          theme: "purple",
+          icon: "PuzzlePiece",
+          message:
+            "You'll be matched with best-fit job opportunities based on your existing skills, available jobs, and their potential to boost your income.",
+        },
+      ] as IconCardProps[],
     },
-    cards: [
-      {
-        sys: { id: "52EC9X2J4rT7M4osjaSl45" },
-        copy: "Discover Personalized Job Openings",
-        fill: true,
-        url: "/navigator/#/jobs",
-        icon: "Briefcase",
-        theme: "blue",
-        message: "Sign up to find current job openings based on your skills.",
-      },
-      {
-        sys: { id: "1cU2jt1XCw0kmhlwfUD7pP" },
-        fill: true,
-        copy: "Explore Career Change Recommendations",
-        theme: "purple",
-        url: "/navigator/#/careers",
-        icon: "MapTrifold",
-        message: "Sign up to see new careers based on your skills.",
-      },
-    ] as IconCardProps[],
+    footerCta: {
+      inlineButtons: true,
+      headingLevel: 3,
+      heading: "Still have a question about the Career Navigator? ",
+      items: [
+        {
+          sys: {
+            id: "7pHmRVYgW7tVAELau6UYNU",
+          },
+          copy: "Contact Us",
+          url: "https://mycareer.nj.gov/contact",
+        },
+      ],
+    } as CtaBannerProps,
+    river: {
+      headingLevel: 4 as HeadingLevel,
+      items: [
+        {
+          heading: "High Potential Career Pathways",
+          copy: "Our algorithm presents you new career pathways that are informed by the successful transitions other New Jersey workers are making.",
+          image: {
+            url: "https://images.ctfassets.net/jbdk7q9c827d/1mlYyWt7tOpa9EAoPbmzvR/342507c4c5495b95fb4f900d3f70c735/Screenshot_2023-06-29_at_3.46.08_PM.png",
+            description: "Woman looking at computer screen",
+            height: 744,
+            width: 1385,
+          },
+        },
+        {
+          heading: "Take Action Quickly",
+          copy: "When you've decided on a new career, we know you want to get to work quickly. We help you take action by recommending high-value training programs and open jobs to apply to.",
+          image: {
+            url: "https://images.ctfassets.net/jbdk7q9c827d/3dWCGroualGdb35HvvwQdt/37d278ff80f1a9c531c9f85129e0874c/Screenshot_2023-06-29_at_3.46.26_PM.png",
+            description: "Man looking at mobile device screen",
+            height: 746,
+            width: 1379,
+          },
+        },
+      ],
+    } as RiverProps,
   },
-  howTo: {
-    sectionHeading: {
-      heading: "How to use the Career Navigator",
+  es: {
+    banner: {
+      message:
+        "Tu próxima oportunidad laboral te espera con el Navegador de Carrera de Nueva Jersey. Ofrecemos empleos personalizados que se adaptan a tus habilidades y nivel de experiencia, además de valiosos cursos de capacitación para impulsar tus oportunidades profesionales.",
+      title: "Navegador de Carrera de NJ",
+      subHeading:
+        "Encuentra tu primer empleo, un nuevo trabajo o cambia de carrera más rápido.",
+      section: "explore",
+      theme: "blue",
+      ctaLinks: [
+        {
+          sys: {
+            id: "5v8zZzVfQw1JwZQ7kPzX4B",
+          },
+          copy: "Iniciar sesión",
+          url: "/navigator/#/login",
+        },
+        {
+          sys: {
+            id: "3c1qJ5K8s6LZ8y4KpVv0wL",
+          },
+          copy: "Regístrate",
+          url: "/navigator/#/login",
+        },
+      ],
+      breadcrumbsCollection: {
+        items: [
+          {
+            sys: {
+              id: "50o1RGfZ173Cis7VEFlBDR",
+            },
+            copy: "Inicio",
+            url: "/",
+          },
+        ],
+      },
+    } as PageBannerProps,
+    opportunities: {
+      sectionHeading: {
+        heading: "Oportunidades de Carrera Personalizadas",
+      },
+      cards: [
+        {
+          sys: { id: "52EC9X2J4rT7M4osjaSl45" },
+          copy: "Descubre Ofertas de Trabajo Personalizadas",
+          fill: true,
+          url: "/navigator/#/jobs",
+          icon: "Briefcase",
+          theme: "blue",
+          message:
+            "Regístrate para encontrar ofertas de empleo actuales basadas en tus habilidades.",
+        },
+        {
+          sys: { id: "1cU2jt1XCw0kmhlwfUD7pP" },
+          fill: true,
+          copy: "Explora Recomendaciones de Cambio de Carrera",
+          theme: "purple",
+          url: "/navigator/#/careers",
+          icon: "MapTrifold",
+          message:
+            "Regístrate para ver nuevas carreras basadas en tus habilidades.",
+        },
+      ] as IconCardProps[],
     },
-    cards: [
-      {
-        heading: "Sign Up",
-        icon: "UserPlus",
-        description:
-          "Add your skills and experience to get personalized recommendations.",
+    howTo: {
+      sectionHeading: {
+        heading: "Cómo usar el Navegador de Carrera",
       },
-      {
-        heading: "Explore Suggestions",
-        icon: "Binoculars",
-        description:
-          "We compare your data to current job openings and the experience of other New Jerseyans to give recommendations that are best for you.",
-      },
-      {
-        heading: "Take Action",
-        icon: "CheckSquare",
-        description:
-          "Link to high-value training programs and open jobs to apply to.",
-      },
-    ],
-  },
-  midPageCta: {
-    headingLevel: 2,
-    noIndicator: true,
-    inlineButtons: true,
-    heading: "Start finding opportunities today.",
-    items: [
-      {
-        sys: {
-          id: "bhGAVbaJfPuVniKl3FoaO",
+      cards: [
+        {
+          heading: "Regístrate",
+          icon: "UserPlus",
+          description:
+            "Agrega tus habilidades y experiencia para obtener recomendaciones personalizadas.",
         },
-        copy: "Log In",
-        url: "/navigator/#/login",
-      },
-      {
-        sys: {
-          id: "44ygVngSycN2d1w5Zwb4x4",
+        {
+          heading: "Explora Sugerencias",
+          icon: "Binoculars",
+          description:
+            "Comparamos tus datos con las ofertas de trabajo actuales y la experiencia de otros residentes de Nueva Jersey para brindarte las mejores recomendaciones.",
         },
-        copy: "Sign Up",
-        url: "/navigator/#/login",
-      },
-    ],
-  } as CtaBannerProps,
-  ctaBanner: {
-    fullColor: true,
-    theme: "purple",
-    headingLevel: 3,
-    heading: "Not ready to sign up? Check out these other tools.",
-    customLinks: [
-      {
-        iconPrefix: "GraduationCap",
-        link: "/training",
-        label: "NJ Training Explorer",
-        type: "link",
-        highlight: "blue",
-      },
-      {
-        iconPrefix: "Fire",
-        link: "/in-demand-occupations",
-        label: "In-Demand Occupations",
-        type: "link",
-        highlight: "orange",
-      },
-      {
-        iconPrefix: "Briefcase",
-        link: "https://www.careeronestop.org/",
-        label: "One Stop Job Board",
-        type: "link",
-        highlight: "navy",
-      },
-      {
-        iconPrefix: "MapTrifold",
-        link: "/career-pathways",
-        label: "NJ Career Pathways",
-        type: "link",
-        highlight: "green",
-      },
-    ],
-  } as CtaBannerProps,
-  info: {
-    sectionHeading: {
-      heading: "Why use Career Navigator?",
-      headingLevel: 3 as HeadingLevel,
+        {
+          heading: "Toma Acción",
+          icon: "CheckSquare",
+          description:
+            "Accede a programas de capacitación de alto valor y postúlate a empleos disponibles.",
+        },
+      ],
     },
-    cards: [
-      {
-        sys: {
-          id: "73Cc15iWxF6VTufKikIgpv",
+    midPageCta: {
+      headingLevel: 2,
+      noIndicator: true,
+      inlineButtons: true,
+      heading: "Empieza a encontrar oportunidades hoy.",
+      items: [
+        {
+          sys: {
+            id: "bhGAVbaJfPuVniKl3FoaO",
+          },
+          copy: "Iniciar sesión",
+          url: "/navigator/#/login",
         },
-        copy: "Data-Driven Career Recommendations",
-        icon: "ThumbsUp",
-        theme: "blue",
-        message:
-          "We use data and machine learning to give you the best possible career recommendations.",
-      },
-      {
-        sys: {
-          id: "4LpZgmuGMVCYlfCQizdOHB",
+        {
+          sys: {
+            id: "44ygVngSycN2d1w5Zwb4x4",
+          },
+          copy: "Regístrate",
+          url: "/navigator/#/login",
         },
-        copy: "Continuous Improvement",
-        icon: "Brain",
-        theme: "green",
-        message:
-          "Your career recommendations will improve over time, as we learn more about you.",
-      },
-      {
-        sys: {
-          id: "3feeqiLzanHlVH3vzWeD6c",
+      ],
+    } as CtaBannerProps,
+    ctaBanner: {
+      fullColor: true,
+      theme: "purple",
+      headingLevel: 3,
+      heading:
+        "¿Aún no estás listo para registrarte? Explora estas otras herramientas.",
+      customLinks: [
+        {
+          iconPrefix: "GraduationCap",
+          link: "/training",
+          label: "Explorador de Capacitación de NJ",
+          type: "link",
+          highlight: "blue",
         },
-        copy: "Best-Fit Opportunities",
-        theme: "purple",
-        icon: "PuzzlePiece",
-        message:
-          "You'll be matched with best-fit job opportunities based on your existing skills, available jobs, and their potential to boost your income.",
+        {
+          iconPrefix: "Fire",
+          link: "/in-demand-occupations",
+          label: "Ocupaciones en Demanda",
+          type: "link",
+          highlight: "orange",
+        },
+        {
+          iconPrefix: "Briefcase",
+          link: "https://www.careeronestop.org/",
+          label: "Bolsa de Trabajo One Stop",
+          type: "link",
+          highlight: "navy",
+          iconSuffix: "ArrowSquareOut",
+        },
+        {
+          iconPrefix: "MapTrifold",
+          link: "/career-pathways",
+          label: "Trayectorias Profesionales de NJ",
+          type: "link",
+          highlight: "green",
+        },
+      ],
+    } as CtaBannerProps,
+    info: {
+      sectionHeading: {
+        heading: "¿Por qué usar el Navegador de Carrera?",
+        headingLevel: 3 as HeadingLevel,
       },
-    ] as IconCardProps[],
+      cards: [
+        {
+          sys: {
+            id: "73Cc15iWxF6VTufKikIgpv",
+          },
+          copy: "Recomendaciones de Carrera Basadas en Datos",
+          icon: "ThumbsUp",
+          theme: "blue",
+          message:
+            "Utilizamos datos y aprendizaje automático para brindarte las mejores recomendaciones de carrera posibles.",
+        },
+        {
+          sys: {
+            id: "4LpZgmuGMVCYlfCQizdOHB",
+          },
+          copy: "Mejora Continua",
+          icon: "Brain",
+          theme: "green",
+          message:
+            "Tus recomendaciones de carrera mejorarán con el tiempo a medida que aprendemos más sobre ti.",
+        },
+        {
+          sys: {
+            id: "3feeqiLzanHlVH3vzWeD6c",
+          },
+          copy: "Oportunidades Ideales",
+          theme: "purple",
+          icon: "PuzzlePiece",
+          message:
+            "Te conectaremos con las mejores oportunidades laborales según tus habilidades existentes, empleos disponibles y su potencial para mejorar tus ingresos.",
+        },
+      ] as IconCardProps[],
+    },
+    footerCta: {
+      inlineButtons: true,
+      headingLevel: 3,
+      heading: "¿Tienes alguna pregunta sobre el Navegador de Carrera?",
+      items: [
+        {
+          sys: {
+            id: "7pHmRVYgW7tVAELau6UYNU",
+          },
+          copy: "Contáctanos",
+          url: "https://mycareer.nj.gov/contact",
+        },
+      ],
+    } as CtaBannerProps,
+    river: {
+      headingLevel: 4 as HeadingLevel,
+      items: [
+        {
+          heading: "Trayectorias Profesionales con Alto Potencial",
+          copy: "Nuestro algoritmo te presenta nuevas trayectorias profesionales basadas en las transiciones exitosas de otros trabajadores en Nueva Jersey.",
+          image: {
+            url: "https://images.ctfassets.net/jbdk7q9c827d/1mlYyWt7tOpa9EAoPbmzvR/342507c4c5495b95fb4f900d3f70c735/Screenshot_2023-06-29_at_3.46.08_PM.png",
+            description: "Mujer mirando una pantalla de computadora",
+            height: 744,
+            width: 1385,
+          },
+        },
+        {
+          heading: "Toma Acción Rápidamente",
+          copy: "Cuando decides cambiar de carrera, sabemos que quieres empezar rápido. Te ayudamos recomendándote programas de capacitación de alto valor y empleos disponibles para postularte.",
+          image: {
+            url: "https://images.ctfassets.net/jbdk7q9c827d/3dWCGroualGdb35HvvwQdt/37d278ff80f1a9c531c9f85129e0874c/Screenshot_2023-06-29_at_3.46.26_PM.png",
+            description: "Hombre mirando la pantalla de un dispositivo móvil",
+            height: 746,
+            width: 1379,
+          },
+        },
+      ],
+    } as RiverProps,
   },
-  footerCta: {
-    inlineButtons: true,
-    headingLevel: 3,
-    heading: "Still have a question about the Career Navigator? ",
-    items: [
-      {
-        sys: {
-          id: "7pHmRVYgW7tVAELau6UYNU",
-        },
-        copy: "Contact Us",
-        url: "https://mycareer.nj.gov/contact",
-      },
-    ],
-  } as CtaBannerProps,
-  river: {
-    headingLevel: 4 as HeadingLevel,
-    items: [
-      {
-        heading: "High Potential Career Pathways",
-        copy: "Our algorithm presents you new career pathways that are informed by the successful transitions other New Jersey workers are making.",
-        image: {
-          url: "https://images.ctfassets.net/jbdk7q9c827d/1mlYyWt7tOpa9EAoPbmzvR/342507c4c5495b95fb4f900d3f70c735/Screenshot_2023-06-29_at_3.46.08_PM.png",
-          description: "Woman looking at computer screen",
-          height: 744,
-          width: 1385,
-        },
-      },
-      {
-        heading: "Take Action Quickly",
-        copy: "When you've decided on a new career, we know you want to get to work quickly. We help you take action by recommending high-value training programs and open jobs to apply to.",
-        image: {
-          url: "https://images.ctfassets.net/jbdk7q9c827d/3dWCGroualGdb35HvvwQdt/37d278ff80f1a9c531c9f85129e0874c/Screenshot_2023-06-29_at_3.46.26_PM.png",
-          description: "Man looking at mobile device screen",
-          height: 746,
-          width: 1379,
-        },
-      },
-    ],
-  } as RiverProps,
 };

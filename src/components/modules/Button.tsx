@@ -59,7 +59,7 @@ const Button = ({
       type={type}
       aria-label={ariaLabel}
       role="button"
-      onClick={(e?: any) => {
+      onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
           onClick(e);
         }
@@ -80,7 +80,7 @@ const Button = ({
     >
       {!noIndicator && svgName && !iconPrefix && (
         <span className="svg-container">
-          <IconSelector className="prefix" svgName={svgName} size={20} />
+          <IconSelector className="prefix" svgName={svgName} size={30} />
         </span>
       )}
       {!noIndicator && iconPrefix && !svgName && (
@@ -88,7 +88,7 @@ const Button = ({
           weight={iconWeight}
           className="prefix"
           name={iconPrefix ? (iconPrefix as IconNames) : undefined}
-          size={20}
+          size={30}
         />
       )}
       {children || <span>{label}</span>}
@@ -98,7 +98,7 @@ const Button = ({
           weight={iconWeight}
           className="suffix"
           name={iconSuffix ? (iconSuffix as IconNames) : undefined}
-          size={20}
+          size={25}
         />
       )}
     </button>
@@ -108,7 +108,7 @@ const Button = ({
       id={buttonId}
       disabled={disabled}
       type={type}
-      onClick={(e?: any) => {
+      onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
           onClick(e);
         }
@@ -129,7 +129,7 @@ const Button = ({
     >
       {!noIndicator && svgName && !iconPrefix && (
         <span className="svg-container">
-          <IconSelector className="prefix" svgName={svgName} size={20} />
+          <IconSelector className="prefix" svgName={svgName} size={30} />
         </span>
       )}
       {!noIndicator && iconPrefix && !svgName && (
@@ -137,7 +137,7 @@ const Button = ({
           weight={iconWeight}
           className="prefix"
           name={iconPrefix ? (iconPrefix as IconNames) : undefined}
-          size={20}
+          size={30}
         />
       )}
       {children || <span>{label}</span>}
@@ -147,7 +147,7 @@ const Button = ({
           weight={iconWeight}
           className="suffix"
           name={iconSuffix ? (iconSuffix as IconNames) : undefined}
-          size={20}
+          size={25}
         />
       )}
     </button>
@@ -159,7 +159,7 @@ const Button = ({
       noIndicator
       target={newTab ? "_blank" : undefined}
       role="link"
-      onClick={(e?: any) => {
+      onClick={(e?: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
           onClick(e);
         }
@@ -184,14 +184,14 @@ const Button = ({
       >
         {!noIndicator && svgName && !iconPrefix && (
           <span className="svg-container">
-            <IconSelector className="prefix" svgName={svgName} size={20} />
+            <IconSelector className="prefix" svgName={svgName} size={30} />
           </span>
         )}
         {!noIndicator && iconPrefix && !svgName && (
           <IconSelector
             className="prefix"
             name={iconPrefix ? (iconPrefix as IconNames) : undefined}
-            size={20}
+            size={30}
           />
         )}
         {children || <span>{label}</span>}
@@ -200,7 +200,7 @@ const Button = ({
         <IconSelector
           className="suffix"
           name={iconSuffix ? (iconSuffix as IconNames) : undefined}
-          size={20}
+          size={25}
         />
       )}
     </LinkObject>

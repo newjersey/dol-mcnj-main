@@ -1,6 +1,4 @@
-import { Button } from "@components/modules/Button";
 import { LabelBox } from "@components/modules/LabelBox";
-import { LinkObject } from "@components/modules/LinkObject";
 import { Box } from "@components/utility/Box";
 import { ArrowSquareOut } from "@phosphor-icons/react";
 import { formatCip } from "@utils/formatCip";
@@ -42,18 +40,13 @@ export const InstructionalPrograms = ({
                 href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
                   training.cipDefinition?.cipcode
                 )}`}
+                className="flex items-center gap-2"
               >
                 {`${training.cipDefinition?.ciptitle.replace(
                   /\.$/,
                   ""
                 )} (${formatCip(training.cipDefinition?.cipcode)})`}
-                <ArrowSquareOut
-                  size={20}
-                  style={{
-                    verticalAlign: "middle",
-                    margin: "0 0 0.4rem 0.5rem",
-                  }}
-                />
+                <ArrowSquareOut size={20} />
               </a>
             </p>
           </Box>

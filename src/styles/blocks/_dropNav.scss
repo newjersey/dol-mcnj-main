@@ -1,12 +1,12 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .dropNav {
   .dropGroup {
-    background-color: settings.$base-lightest;
-    border: settings.$size-1 solid settings.$base-lighter;
+    background-color: s.$base-lightest;
+    border: s.$size-1 solid s.$base-lighter;
 
     li {
-      background-color: settings.$base-lightest;
+      background-color: s.$base-lightest;
       margin: 0;
 
       &:last-of-type {
@@ -19,18 +19,18 @@
     ul {
       height: 0;
       overflow: hidden;
-      transition-duration: settings.$transition-speed;
+      transition-duration: s.$transition-speed;
       transition-timing-function: ease-in-out;
 
       button {
-        padding-left: settings.$size-32;
+        padding-left: s.$size-32;
       }
 
       li {
         button {
-          color: settings.$ink;
+          color: s.$ink;
           font-weight: normal;
-          border-top: settings.$size-1 solid settings.$base-lighter;
+          border-top: s.$size-1 solid s.$base-lighter;
         }
 
         &.active {
@@ -42,9 +42,9 @@
     }
 
     &.active {
-      background-color: settings.$base-lighter;
+      background-color: s.$base-lighter;
       font-weight: bold;
-      color: settings.$info-darker;
+      color: s.$info-darker;
 
       ul {
         display: block;
@@ -57,7 +57,7 @@
   }
 
   svg {
-    transition-duration: settings.$transition-speed;
+    transition-duration: s.$transition-speed;
     transition-timing-function: ease-in-out;
     transform: rotate(0deg);
   }
@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: settings.$size-8 settings.$size-16;
+    padding: s.$size-8 s.$size-16;
     cursor: pointer;
 
     &:focus {

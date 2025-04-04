@@ -3,6 +3,7 @@ export function decodeUrlEncodedString(encodedString: string): string {
     // Use decodeURIComponent to decode the URL-encoded string
     const decodedString = decodeURIComponent(encodedString);
     return decodedString;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return encodedString; // Return the original string in case of error
   }

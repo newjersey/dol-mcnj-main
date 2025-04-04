@@ -105,14 +105,17 @@ describe("FormInput component", () => {
       className: "custom-class",
       inputClass: "custom-input-class",
       labelClass: "custom-label-class",
+      inputId: "custom-input-id",
     });
 
-    expect(screen.getByLabelText("Test Label")).toHaveClass(
-      "custom-input-class",
+    expect(document.getElementById("custom-input-id")).toHaveClass(
+      "custom-input-class"
     );
-    expect(screen.getByText("Test Label")).toHaveClass("custom-label-class");
+    expect(screen.getByText("Test Label").parentElement).toHaveClass(
+      "custom-label-class"
+    );
     expect(screen.getByRole("textbox").parentElement).toHaveClass(
-      "custom-class",
+      "custom-class"
     );
   });
 
@@ -129,9 +132,9 @@ describe("FormInput component", () => {
       hideLabel: true,
     });
 
-    expect(screen.getByText("Test Label").parentElement).toHaveClass(
-      "hideLabel",
-    );
+    expect(
+      screen.getByText("Test Label").parentElement?.parentElement
+    ).toHaveClass("hideLabel");
   });
 
   it("renders input as select", () => {

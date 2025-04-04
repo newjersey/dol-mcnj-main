@@ -12,7 +12,7 @@ import { camelify } from "@utils/slugify";
 import { allLanguages } from "@utils/languages";
 
 export const Language = () => {
-  let { results, setResults } = useContext(ResultsContext);
+  const { results, setResults } = useContext(ResultsContext);
   const [showMore, setShowMore] = useState(false);
 
   return (

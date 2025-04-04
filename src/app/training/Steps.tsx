@@ -10,31 +10,37 @@ export const Steps = ({
 }) => {
   return (
     <div className={`steps${className ? ` ${className}` : ""}`}>
-      <Flex
-        alignItems="center"
-        justifyContent="space-between"
-        columnBreak="lg"
-        elementTag="ul"
-        gap="micro"
-        className="container unstyled"
-      >
-        {items.map((item, index) => (
+      <div className="container">
+        <div className="inner">
           <Flex
-            columnBreak="none"
             alignItems="center"
-            gap="xs"
-            elementTag="li"
-            key={item}
+            justifyContent="space-between"
+            columnBreak="lg"
+            elementTag="ul"
+            gap="micro"
+            className="container unstyled"
           >
-            <div className="list-num-container">
-              <div className="list-num">{index + 1}</div>
-            </div>
-            <div className="list-info">
-              <Markdown content={item} />
-            </div>
+            {items.map((item, index) => (
+              <Flex
+                columnBreak="none"
+                alignItems="center"
+                gap="xs"
+                elementTag="li"
+                key={item}
+              >
+                <div className="list-num-container">
+                  <div className="list-num">
+                    <span>{index + 1}</span>
+                  </div>
+                </div>
+                <div className="list-info">
+                  <Markdown content={item} />
+                </div>
+              </Flex>
+            ))}
           </Flex>
-        ))}
-      </Flex>
+        </div>
+      </div>
     </div>
   );
 };

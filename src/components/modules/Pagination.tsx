@@ -8,7 +8,7 @@ export const Pagination = () => {
   const [breakCount, setBreakCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  let { results } = useContext(ResultsContext);
+  const { results } = useContext(ResultsContext);
 
   useEffect(() => {
     const breakElements = document.querySelectorAll(

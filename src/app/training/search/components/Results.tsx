@@ -6,10 +6,10 @@ import { createContext, useEffect, useState } from "react";
 import { ResultsHeader } from "./ResultsHeader";
 import { CompareTable } from "./CompareTable";
 import { SEARCH_RESULTS_PAGE_DATA as pageContent } from "@data/pages/training/search";
-import { HelpText } from "./HelpText";
 import { Pagination } from "@components/modules/Pagination";
 import { Alert } from "@components/modules/Alert";
 import { ParamTags } from "./ParamTags";
+import { SupportedLanguages } from "@utils/types/types";
 
 export interface FilterProps {
   searchQuery?: string;
@@ -30,19 +30,20 @@ export interface FilterProps {
 }
 
 export interface ContextProps {
-  results: FetchResultsProps;
-  setResults: (results: FetchResultsProps) => void;
   compare: ResultProps[];
-  setCompare: (compare: ResultProps[]) => void;
-  toggle: boolean;
-  setToggle: (toggle: boolean) => void;
-  searchTerm: string;
-  setSearchTerm: (searchTerm: string) => void;
   extractParam: (param: string) => string | null;
-  sortValue: string;
-  setSortValue: (sortValue: string) => void;
   itemsPerPage: string;
+  lang: SupportedLanguages;
+  results: FetchResultsProps;
+  searchTerm: string;
+  setCompare: (compare: ResultProps[]) => void;
   setItemsPerPage: (itemsPerPage: string) => void;
+  setResults: (results: FetchResultsProps) => void;
+  setSearchTerm: (searchTerm: string) => void;
+  setSortValue: (sortValue: string) => void;
+  setToggle: (toggle: boolean) => void;
+  sortValue: string;
+  toggle: boolean;
 }
 
 export const ResultsContext = createContext<ContextProps>({} as ContextProps);
@@ -54,11 +55,13 @@ const Results = ({
   count,
   totalPages = 1,
   page,
+  lang = "en",
 }: {
   query?: string;
   searchParams: any;
   items: ResultProps[];
   totalPages: number;
+  lang?: SupportedLanguages;
   count: number;
   page: number;
 }) => {
@@ -92,19 +95,20 @@ const Results = ({
   return (
     <ResultsContext.Provider
       value={{
-        results,
-        setResults,
         compare,
-        setCompare,
-        toggle,
-        setToggle,
-        searchTerm,
-        setSearchTerm,
         extractParam,
-        sortValue,
-        setSortValue,
         itemsPerPage,
+        lang,
+        results,
+        searchTerm,
+        setCompare,
         setItemsPerPage,
+        setResults,
+        setSearchTerm,
+        setSortValue,
+        setToggle,
+        sortValue,
+        toggle,
       }}
     >
       {compare.length > 0 && <CompareTable />}
@@ -117,9 +121,9 @@ const Results = ({
         <div className={`results${toggle ? "" : " wide"}`} id="results">
           <>
             {results.pageData.length === 0 && !query && page === 1 ? (
-              <Alert {...pageContent.searchHelp} />
+              <Alert {...pageContent.en.searchHelp} />
             ) : results.pageData.length <= 3 && page === 1 ? (
-              <Alert {...pageContent.searchHelp} />
+              <Alert {...pageContent.en.searchHelp} />
             ) : (
               <></>
             )}

@@ -10,7 +10,7 @@ import { getSearchData } from "../../utils/getSearchData";
 import { FormInput } from "@components/modules/FormInput";
 
 export const County = () => {
-  let { results, setResults } = useContext(ResultsContext);
+  const { results, setResults } = useContext(ResultsContext);
 
   return (
     <div className="section county">

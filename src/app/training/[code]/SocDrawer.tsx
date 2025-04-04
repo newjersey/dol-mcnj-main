@@ -9,7 +9,7 @@ export const SocDrawer = ({
   setSocDrawerOpen: (value: boolean) => void;
 }) => {
   return (
-    <Drawer open={socDrawerOpen} setOpen={setSocDrawerOpen}>
+    <Drawer open={socDrawerOpen} setOpen={setSocDrawerOpen} title="SOC Codes">
       <Heading level={3}>
         Standard Occupational Classification (SOC) codes
       </Heading>
@@ -29,7 +29,7 @@ export const SocDrawer = ({
           here.
         </a>
       </p>
-      <br />
+
       <div className="small sources">
         <span>
           <sup>1.</sup> Sources

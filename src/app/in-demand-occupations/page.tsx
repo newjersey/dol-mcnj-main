@@ -3,6 +3,8 @@ import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 import { Heading } from "@components/modules/Heading";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { IN_DEMAND_OCCUPATIONS_PAGE_DATA as pageData } from "@data/pages/in-demand-occupations";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 async function getData() {
   const occupationItems = await fetch(
@@ -37,6 +39,9 @@ export default async function IndemandOccupationsPage() {
   const { occupationItems } = await getData();
   const occupations: OccupationProps[] = await occupationItems.json();
 
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   // group by major group in an array of objects that look like this: {title: }
   const majorGroups = occupations.reduce((acc, occupation) => {
     const { majorGroup } = occupation;
@@ -60,9 +65,9 @@ export default async function IndemandOccupationsPage() {
     <div className="page inDemandList">
       <section className="hero">
         <div className="container">
-          <Breadcrumbs {...pageData.hero.breadcrumbs} />
-          <Heading {...pageData.hero.heading} />
-          <p>{pageData.hero.message}</p>
+          <Breadcrumbs {...pageData[lang].hero.breadcrumbs} />
+          <Heading {...pageData[lang].hero.heading} />
+          <p>{pageData[lang].hero.message}</p>
         </div>
       </section>
       <section className="listBlock">

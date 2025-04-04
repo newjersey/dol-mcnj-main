@@ -1,12 +1,17 @@
 import { X } from "@phosphor-icons/react";
+import { slugify } from "@utils/slugify";
 import { ReactNode, useEffect } from "react";
 
 export const Drawer = ({
   children,
+  className,
+  title,
   open,
   setOpen,
 }: {
   children: ReactNode;
+  className?: string;
+  title?: string;
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
@@ -40,9 +45,20 @@ export const Drawer = ({
   }, [open]);
 
   return (
-    <div className="drawer">
+    <div
+      className="drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title ? slugify(title) : "drawer"}
+      aria-labelledby="drawer-heading"
+    >
       <div className={`overlay${open ? " open" : ""}`} />
-      <div className={`panel${open ? " open" : ""}`} tabIndex={-1}>
+      <div
+        className={`panel${open ? " open" : ""}${
+          className ? ` ${className}` : ""
+        }`}
+        tabIndex={-1}
+      >
         <button
           onClick={() => {
             setOpen(false);
@@ -52,7 +68,9 @@ export const Drawer = ({
           <div className="sr-only">Close</div>
           <X size={30} />
         </button>
-        <div className="content">{children}</div>
+        <div className="content mcnj-box mcnj-flex direction-column align-flex-start justify-flex-start gap-sm column-sm">
+          {children}
+        </div>
       </div>
     </div>
   );

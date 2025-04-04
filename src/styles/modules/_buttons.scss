@@ -1,12 +1,12 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 @use "../mixins" as mixins;
 
 @mixin unstyledButton {
   padding: 0;
   background-color: transparent;
   color: inherit;
-  text-underline-offset: settings.$size-4;
-  text-decoration-thickness: settings.$size-2;
+  text-underline-offset: s.$size-4;
+  text-decoration-thickness: s.$size-2;
   font-weight: bold;
   justify-content: flex-start;
   text-align: left;
@@ -21,19 +21,21 @@
   display: inline-flex !important;
   align-items: center;
   justify-content: space-between;
-  gap: settings.$size-8;
+  gap: s.$size-8;
   text-align: left;
-  padding: settings.$size-16 settings.$size-24;
+  padding: s.$size-16 s.$size-24;
+  transition-duration: s.$transition-speed;
+  transition-property: background-color, color, box-shadow;
 
   &:focus {
     outline-offset: 0 !important;
-    outline-width: settings.$size-4 !important;
-    outline-color: settings.$primary !important;
+    outline-width: s.$size-4 !important;
+    outline-color: s.$primary !important;
   }
 
   &.unstyled {
     &:disabled {
-      color: settings.$base !important;
+      color: s.$base !important;
       cursor: not-allowed;
     }
   }
@@ -46,7 +48,7 @@
       &.tertiary,
       &.quaternary,
       &.quinary {
-        background-color: settings.$base !important;
+        background-color: s.$base !important;
         cursor: not-allowed;
       }
     }
@@ -54,24 +56,24 @@
 
   &.cool {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: settings.$accent-cool-lighter;
-      color: settings.$primary-darker;
+      background: s.$accent-cool-lighter;
+      color: s.$primary-darker;
 
       &:hover {
-        background: settings.$accent-cool-light;
+        background: s.$accent-cool-light;
       }
     }
 
     &.usa-button--outline {
-      background: settings.$white;
-      box-shadow: inset 0 0 0 settings.$size-2 settings.$primary;
-      color: settings.$primary;
+      background: s.$white;
+      box-shadow: inset 0 0 0 s.$size-2 s.$primary;
+      color: s.$primary;
     }
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$primary-dark;
-        color: settings.$primary-darker;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$primary-dark;
+        color: s.$primary-darker;
       }
     }
 
@@ -82,31 +84,31 @@
 
   &.primary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: settings.$primary;
-      color: settings.$white;
+      background: s.$primary;
+      color: s.$white;
 
       &:hover {
-        background: settings.$primary-dark;
+        background: s.$primary-dark;
       }
     }
 
     &.usa-button--outline {
-      background: settings.$white;
+      background: s.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$primary;
-      color: settings.$primary;
+      outline: s.$size-2 solid s.$primary;
+      color: s.$primary;
 
       &:hover {
-        background: settings.$white;
-        color: settings.$primary;
-        box-shadow: settings.$shadow-3;
+        background: s.$white;
+        color: s.$primary;
+        box-shadow: s.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$primary-dark;
-        color: settings.$white;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$primary-dark;
+        color: s.$white;
       }
     }
 
@@ -117,31 +119,31 @@
 
   &.secondary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: settings.$secondary;
-      color: settings.$white;
+      background: s.$secondary;
+      color: s.$white;
 
       &:hover {
-        background: settings.$secondary-dark;
+        background: s.$secondary-dark;
       }
     }
 
     &.usa-button--outline {
-      background: settings.$white;
+      background: s.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$secondary;
-      color: settings.$secondary;
+      outline: s.$size-2 solid s.$secondary;
+      color: s.$secondary;
 
       &:hover {
-        background: settings.$white;
-        color: settings.$secondary;
-        box-shadow: settings.$shadow-3;
+        background: s.$white;
+        color: s.$secondary;
+        box-shadow: s.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$secondary-dark;
-        color: settings.$white;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$secondary-dark;
+        color: s.$white;
       }
     }
 
@@ -152,31 +154,31 @@
 
   &.tertiary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: settings.$tertiary;
-      color: settings.$white;
+      background: s.$tertiary;
+      color: s.$white;
 
       &:hover {
-        background: settings.$tertiary-dark;
+        background: s.$tertiary-dark;
       }
     }
 
     &.usa-button--outline {
-      background: settings.$white;
+      background: s.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$tertiary;
-      color: settings.$tertiary;
+      outline: s.$size-2 solid s.$tertiary;
+      color: s.$tertiary;
 
       &:hover {
-        background: settings.$white;
-        color: settings.$tertiary;
-        box-shadow: settings.$shadow-3;
+        background: s.$white;
+        color: s.$tertiary;
+        box-shadow: s.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$tertiary-dark;
-        color: settings.$white;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$tertiary-dark;
+        color: s.$white;
       }
     }
 
@@ -187,31 +189,31 @@
 
   &.quaternary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: settings.$info-darker;
-      color: settings.$white;
+      background: s.$info-darker;
+      color: s.$white;
 
       &:hover {
-        background: settings.$info-dark;
+        background: s.$info-dark;
       }
     }
 
     &.usa-button--outline {
-      background: settings.$white;
+      background: s.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$info-darker;
-      color: settings.$info-darker;
+      outline: s.$size-2 solid s.$info-darker;
+      color: s.$info-darker;
 
       &:hover {
-        background: settings.$white;
-        color: settings.$info-darker;
-        box-shadow: settings.$shadow-3;
+        background: s.$white;
+        color: s.$info-darker;
+        box-shadow: s.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$info-dark;
-        color: settings.$white;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$info-dark;
+        color: s.$white;
       }
     }
 
@@ -222,34 +224,34 @@
 
   &.quinary {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
-      background: settings.$accent-warm;
-      color: settings.$white;
+      background: s.$accent-warm;
+      color: s.$white;
 
       &:hover {
-        @media screen and (min-width: (settings.$tablet)) {
-          background-color: settings.$accent-warm-dark;
-          color: settings.$white;
+        @media screen and (min-width: (s.$tablet)) {
+          background-color: s.$accent-warm-dark;
+          color: s.$white;
         }
       }
     }
 
     &.usa-button--outline {
-      background: settings.$white;
+      background: s.$white;
       box-shadow: none;
-      outline: settings.$size-2 solid settings.$accent-warm;
-      color: settings.$accent-warm;
+      outline: s.$size-2 solid s.$accent-warm;
+      color: s.$accent-warm;
 
       &:hover {
-        background: settings.$white;
-        color: settings.$accent-warm;
-        box-shadow: settings.$shadow-3;
+        background: s.$white;
+        color: s.$accent-warm;
+        box-shadow: s.$shadow-3;
       }
     }
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$accent-warm-dark;
-        color: settings.$white;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$accent-warm-dark;
+        color: s.$white;
       }
     }
 
@@ -259,13 +261,13 @@
   }
 
   &[class*="highlight-"] {
-    padding: settings.$size-8 settings.$size-16;
-    border-radius: settings.$size-5;
-    border: settings.$size-2 solid;
+    padding: s.$size-8 s.$size-16;
+    border-radius: s.$size-5;
+    border: s.$size-2 solid;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        box-shadow: settings.$shadow-3;
+      @media screen and (min-width: (s.$tablet)) {
+        box-shadow: s.$shadow-3;
       }
     }
 
@@ -275,15 +277,9 @@
     }
 
     .grouping {
-      @media screen and (max-width: (settings.$tablet - 1)) {
+      @media screen and (max-width: (s.$tablet - 1)) {
         margin: 0 auto;
       }
-    }
-
-    svg,
-    .svg-container {
-      height: auto;
-      width: 32px;
     }
   }
 
@@ -292,106 +288,122 @@
     justify-content: center;
   }
 
+  // starts with highlight- and ends with -light
+  &[class*="highlight-"] {
+    color: s.$black;
+  }
+
   &.highlight-orange {
-    background: settings.$accent-warm-lighter;
-    border-color: settings.$accent-warm-light;
-    color: settings.$black;
+    background: s.$accent-warm-lighter;
+    border-color: s.$accent-warm-light;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        background-color: settings.$accent-warm-light;
-        border-color: settings.$accent-warm;
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$accent-warm-light;
+        border-color: s.$accent-warm;
       }
     }
   }
 
   &.highlight-blue {
-    background: settings.$primary-lighter;
-    border-color: settings.$primary-light;
-    color: settings.$primary-darker;
+    background: s.$primary-lighter;
+    border-color: s.$primary-light;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        border-color: settings.$primary-vivid;
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$primary;
+        background: s.$primary-light;
       }
     }
   }
 
   &.highlight-purple {
-    background: settings.$tertiary-lighter;
-    border-color: settings.$tertiary-light;
-    color: settings.$tertiary-darker;
+    background: s.$tertiary-lighter;
+    border-color: s.$tertiary-light;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        border-color: settings.$tertiary-vivid;
+      @media screen and (min-width: (s.$tablet)) {
+        background: s.$tertiary-light;
+        border-color: s.$tertiary;
       }
     }
   }
 
   &.highlight-green {
-    background: settings.$secondary-lighter;
-    border-color: settings.$secondary;
-    color: settings.$secondary-darker;
+    background: s.$secondary-lighter;
+    border-color: s.$secondary-light;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        border-color: settings.$secondary-vivid;
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$secondary;
+        background: s.$secondary-light;
+      }
+    }
+  }
+
+  &.highlight-base {
+    background: s.$base-extra-light;
+    border-color: s.$base-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$base-dark;
+        background: s.$base-lighter;
       }
     }
   }
 
   &.highlight-navy {
-    background: settings.$info-lighter;
-    border-color: settings.$info-light;
-    color: settings.$info-darker;
+    background: s.$info-lighter;
+    border-color: s.$info-light;
 
     &:hover {
-      @media screen and (min-width: (settings.$tablet)) {
-        border-color: settings.$info;
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$info-dark;
+        background: s.$info-light;
       }
     }
   }
 
   &.info {
-    background: settings.$white;
+    background: s.$white;
     font-weight: 500;
   }
 
   &.info,
   &.svg:not([class*="highlight-"]) {
-    padding: settings.$size-8 settings.$size-16;
-    color: settings.$ink;
-    border-radius: settings.$size-5;
-    min-height: settings.$size-50;
-    border: settings.$size-2 solid settings.$base-light;
+    padding: s.$size-8 s.$size-16;
+    color: s.$ink;
+    border-radius: s.$size-5;
+    min-height: s.$size-50;
+    border: s.$size-2 solid s.$base-light;
 
     &:hover {
-      background: settings.$white;
-      color: settings.$ink;
-      border-radius: settings.$size-5;
-      border: settings.$size-2 solid settings.$base;
+      background: s.$white;
+      color: s.$ink;
+      border-radius: s.$size-5;
+      border: s.$size-2 solid s.$base;
       opacity: 1;
 
-      @media screen and (min-width: (settings.$desktop)) {
-        box-shadow: settings.$shadow-2;
+      @media screen and (min-width: (s.$desktop)) {
+        box-shadow: s.$shadow-2;
       }
     }
 
     &.fill {
       .svg-container {
-        background-color: settings.$primary-lighter;
+        background-color: s.$primary-lighter;
         border-radius: 100%;
-        padding: settings.$size-4;
-        height: settings.$size-30;
-        width: settings.$size-30;
+        padding: s.$size-4;
+        height: s.$size-30;
+        width: s.$size-30;
       }
     }
 
     svg {
-      height: settings.$size-30;
+      height: s.$size-30;
       width: auto;
-      color: settings.$ink;
+      color: s.$ink;
     }
   }
   .svg-container {
@@ -405,23 +417,23 @@
   }
 
   &.tag {
-    background-color: settings.$primary-lighter;
-    padding: settings.$size-8 settings.$size-16;
+    background-color: s.$primary-lighter;
+    padding: s.$size-8 s.$size-16;
     font-weight: 500;
-    color: settings.$ink;
+    color: s.$ink;
 
     svg {
-      width: settings.$size-20;
+      width: s.$size-20;
     }
 
     span {
-      width: calc(100% - settings.$size-20);
+      width: calc(100% - s.$size-20);
     }
 
     &:hover {
-      background-color: settings.$primary-lighter;
-      box-shadow: settings.$shadow-2;
-      color: settings.$ink;
+      background-color: s.$primary-lighter;
+      box-shadow: s.$shadow-2;
+      color: s.$ink;
     }
   }
 }

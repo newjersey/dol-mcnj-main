@@ -10,10 +10,6 @@ import {
 import { getSearchData } from "../utils/getSearchData";
 import { ResultsContext } from "./Results";
 
-interface ParamTagProps {
-  queryString: string;
-}
-
 const formatKey = (key: string) => {
   return key
     .replace(/([a-z])([A-Z])/g, "$1 $2")

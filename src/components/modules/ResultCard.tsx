@@ -4,11 +4,9 @@ import { Heading } from "./Heading";
 import {
   BookBookmark,
   Briefcase,
-  CalendarBlank,
   Clock,
   GraduationCap,
   MapPin,
-  QrCode,
 } from "@phosphor-icons/react";
 import { Tag } from "./Tag";
 import { FormInput } from "./FormInput";
@@ -61,9 +59,11 @@ const ResultCard = (props: ResultCardProps) => {
       id={trainingId}
     >
       <div className="heading">
-        <LinkObject noIndicator url={url}>
-          <Heading level={3}>{title}</Heading>
-        </LinkObject>
+        <Heading level={3}>
+          <LinkObject noIndicator url={url}>
+            {title}
+          </LinkObject>
+        </Heading>
         <span>{(cost && toUsCurrency(cost)) || "$0"}</span>
       </div>
       <div className="information">
@@ -119,7 +119,7 @@ const ResultCard = (props: ResultCardProps) => {
             <span
               dangerouslySetInnerHTML={{
                 __html: `"...${replaceDoubleBracketsWithStrong(
-                  description,
+                  description
                 )}..."`,
               }}
             />
@@ -143,7 +143,9 @@ const ResultCard = (props: ResultCardProps) => {
             label="Compare"
             disabled={disableCompare}
             onChange={() => {
-              onCompare && onCompare(trainingId);
+              if (onCompare) {
+                onCompare(trainingId);
+              }
             }}
           />
         )}

@@ -6,6 +6,8 @@ import { SupportResourcesPageProps } from "@utils/types";
 import { ALL_SUPPORT_PAGE_QUERY } from "queries/allSupportPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { SUPPORT_RESOURCES_PAGE_DATA as pageData } from "@data/pages/support-resources";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 async function getData() {
   const { categories } = await client({
@@ -36,9 +38,12 @@ export async function generateMetadata({}) {
 export default async function SupportResourcesPage() {
   const { categories } = (await getData()) as SupportResourcesPageProps;
 
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <div className="page supportResources">
-      <PageBanner {...pageData.banner} />
+      <PageBanner {...pageData[lang].banner} />
       <section className="categories">
         <div className="container">
           <div className="inner">
@@ -46,7 +51,7 @@ export default async function SupportResourcesPage() {
               <IconCard
                 key={category.sys?.id}
                 copy={category.title}
-                message={category.description}
+                message={category.cardDescription || category.description}
                 theme="navy"
                 systemIcon="support"
                 url={`/support-resources/${category.slug}`}
@@ -56,7 +61,7 @@ export default async function SupportResourcesPage() {
           </div>
         </div>
       </section>
-      <CtaBanner {...pageData.cta} />
+      <CtaBanner {...pageData[lang].cta} />
     </div>
   );
 }

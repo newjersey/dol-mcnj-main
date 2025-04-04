@@ -4,8 +4,8 @@ const navigation_paths = [
   { path: path + "/training", label: "Training Explorer Page" },
   { path: path + "/training/search", label: "Search Page" },
   { path: path + "/training/35895", label: "Training Page" },
-  { path: path + "/occupation/15-1254", label: "Occupation Page" },
   /*
+    { path: path + "/occupation/15-1254", label: "Occupation Page" },
     { path: path + "/career-pathways/:slug", label: "Career Pathways Page" },
   */
 

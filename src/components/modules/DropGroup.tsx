@@ -42,7 +42,7 @@ const DropGroup = ({
 
     if (searchTopic) {
       const activeItem = topics.items.find(
-        (topic) => slugify(topic.topic) === searchTopic,
+        (topic) => slugify(topic.topic) === searchTopic
       );
 
       if (activeItem) {
@@ -50,7 +50,9 @@ const DropGroup = ({
 
         setTimeout(() => {
           setActiveTopic(activeItem);
-          onChange && onChange(activeItem);
+          if (onChange) {
+            onChange(activeItem);
+          }
           toggleOpen(open, `list-${sys?.id}`);
         }, 10);
       }
@@ -94,7 +96,9 @@ const DropGroup = ({
               id={`${item.sys.id}-${slugify(title)}`}
               onClick={() => {
                 setActiveTopic(item);
-                onChange && onChange(item);
+                if (onChange) {
+                  onChange(item);
+                }
               }}
             >
               {item.topic}

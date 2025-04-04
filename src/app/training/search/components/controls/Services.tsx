@@ -9,7 +9,7 @@ import { getSearchData } from "../../utils/getSearchData";
 import { Switch } from "@components/modules/Switch";
 
 export const Services = () => {
-  let { results, setResults } = useContext(ResultsContext);
+  const { results, setResults } = useContext(ResultsContext);
 
   return (
     <div className="section services">

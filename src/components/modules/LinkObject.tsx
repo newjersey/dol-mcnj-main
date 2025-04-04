@@ -31,7 +31,7 @@ const LinkObject = ({
   return isInternal ? (
     <Link
       id={id}
-      className={className}
+      className={`linkObject${className ? ` ${className}` : ""}`}
       role={role}
       href={url}
       target={target}
@@ -56,7 +56,9 @@ const LinkObject = ({
       style={style}
     >
       {children}
-      {!noIndicator && isHomePage && <House weight="fill" size={14} />}
+      {!noIndicator && isHomePage && (
+        <House weight="fill" size={14} className="ml-[4px] inline-block" />
+      )}
     </Link>
   ) : (
     <a
@@ -86,7 +88,9 @@ const LinkObject = ({
       style={style}
     >
       {children}
-      {!noIndicator && <ArrowSquareOut size={14} />}
+      {!noIndicator && (
+        <ArrowSquareOut size={14} className="ml-[4px] inline-block" />
+      )}
     </a>
   );
 };

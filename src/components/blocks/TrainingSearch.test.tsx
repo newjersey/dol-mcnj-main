@@ -1,7 +1,8 @@
 import React from "react";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { TrainingSearch } from "./TrainingSearch";
+import { TRAINING_EXPLORER_PAGE_DATA as pageData } from "../../data/pages/training";
 
 describe("TrainingSearch", () => {
   beforeEach(() => {
@@ -9,12 +10,12 @@ describe("TrainingSearch", () => {
   });
 
   it("renders correctly", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     expect(screen.getByText("Search for training")).toBeInTheDocument();
   });
 
   it('clears all inputs when the "Clear All" button is clicked', () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     const searchInput = document.querySelector(
       "#searchInput"
     ) as HTMLInputElement;
@@ -34,7 +35,7 @@ describe("TrainingSearch", () => {
   });
 
   it("handles search input changes correctly", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     const searchInput = document.querySelector(
       "#searchInput"
     ) as HTMLInputElement;
@@ -43,7 +44,7 @@ describe("TrainingSearch", () => {
   });
 
   it("shows error for invalid zip code", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     const zipInput = document.querySelector("#zip") as HTMLInputElement;
 
     fireEvent.change(zipInput, { target: { value: "12345" } });
@@ -54,7 +55,7 @@ describe("TrainingSearch", () => {
   });
 
   it("does not show error for valid zip code", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     const zipInput = document.querySelector("#zip") as HTMLInputElement;
     fireEvent.change(zipInput, { target: { value: "07001" } });
     fireEvent.blur(zipInput);
@@ -76,7 +77,7 @@ describe("TrainingSearch", () => {
       value: mockLocation,
     });
 
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
 
     const searchInput = document.querySelector(
       "#searchInput"
@@ -95,7 +96,7 @@ describe("TrainingSearch", () => {
   });
 
   it("handles in-person and online checkboxes correctly", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
 
     const inPersonCheckbox = document.querySelector(
       "#in-person"
@@ -112,7 +113,7 @@ describe("TrainingSearch", () => {
   });
 
   it("handles miles select correctly", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     const milesSelect = document.querySelector("#miles") as HTMLSelectElement;
 
     fireEvent.change(milesSelect, { target: { value: "10" } });
@@ -120,7 +121,7 @@ describe("TrainingSearch", () => {
   });
 
   it("handles max cost input correctly", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
 
     const maxCostInput = document.querySelector("#maxCost") as HTMLInputElement;
 
@@ -129,7 +130,7 @@ describe("TrainingSearch", () => {
   });
 
   it("handles zip code input and validation correctly", () => {
-    render(<TrainingSearch />);
+    render(<TrainingSearch content={pageData.en.search} />);
     const zipInput = document.querySelector("#zip") as HTMLInputElement;
     fireEvent.change(zipInput, { target: { value: "07001" } });
     fireEvent.blur(zipInput);

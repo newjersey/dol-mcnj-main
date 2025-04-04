@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Text } from "@contentful/rich-text-types";
 import { List, X } from "@phosphor-icons/react";
 import { TabItemProps } from "@utils/types";
 import { slugify } from "@utils/slugify";
