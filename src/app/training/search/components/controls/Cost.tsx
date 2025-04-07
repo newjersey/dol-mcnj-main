@@ -9,7 +9,7 @@ import { FormInput } from "@components/modules/FormInput";
 import { getSearchData } from "../../utils/getSearchData";
 
 export const Cost = () => {
-  let { results, setResults } = useContext(ResultsContext);
+  const { results, setResults } = useContext(ResultsContext);
 
   return (
     <div className="section cost">

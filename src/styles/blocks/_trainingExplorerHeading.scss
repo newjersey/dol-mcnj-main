@@ -1,44 +1,19 @@
 @use "../settings" as s;
 
 .training-explorer-heading {
-  background-color: s.$base-lightest;
+  .heading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: s.$size-16;
 
-  .subheading,
-  .message {
-    margin: s.$size-16 auto;
-    max-width: s.$tablet-lg;
-    text-align: center;
-
-    * {
-      line-height: 1.2;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      padding-bottom: s.$size-32;
     }
   }
 
-  .subheading {
-    font-size: s.$size-24;
-    font-weight: 600;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .usa-breadcrumb {
-    padding: s.$size-32 0;
-  }
-
-  .heading-tag {
-    &.main {
-      text-align: center;
-      font-size: s.$size-48;
-      margin: 0;
-      font-weight: 600;
-
-      @media screen and (max-width: (s.$tablet-lg - 1)) {
-        font-size: s.$size-32;
-        margin-bottom: s.$size-32;
-      }
-    }
+  .steps {
+    margin-bottom: s.$size-100;
   }
 
   .usa-tooltip {
@@ -50,20 +25,17 @@
   .learn-more {
     margin: s.$size-32 0;
 
-    @media screen and (min-width: (s.$tablet-lg + 1)) {
+    @media screen and (min-width: (s.$tablet-lg)) {
       text-align: center;
     }
 
     p {
-      background-color: white;
-      border-radius: s.$size-16;
-      padding: s.$size-16;
       display: inline-block;
+      font-weight: 600;
 
-      @media screen and (min-width: (s.$tablet-lg + 1)) {
+      @media screen and (min-width: (s.$tablet-lg)) {
         text-align: center;
         font-size: s.$size-18;
-        border-radius: s.$size-80;
       }
     }
 
@@ -75,5 +47,9 @@
 
   .cta {
     padding: s.$size-32 0;
+
+    .heading-tag {
+      font-size: s.$size-22;
+    }
   }
 }

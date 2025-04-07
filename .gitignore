@@ -37,11 +37,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Storybook
-*storybook.log
-storybook-static
-build-storybook.log
-
 # Cypress
 cypress/videos/
 cypress/screenshots/
@@ -139,3 +134,4 @@ $RECYCLE.BIN/
 OverlayTool.tsx
 overlayImages
 frontend
+backend/dist

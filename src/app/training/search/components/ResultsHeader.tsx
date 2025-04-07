@@ -16,8 +16,9 @@ import { FunnelSimple, MagnifyingGlass } from "@phosphor-icons/react";
 import { getSearchData } from "../utils/getSearchData";
 
 export const ResultsHeader = () => {
-  let {
+  const {
     itemsPerPage,
+    lang,
     results,
     searchTerm,
     setItemsPerPage,
@@ -144,7 +145,7 @@ export const ResultsHeader = () => {
             defaultValue={sortValue}
             inputId="sortBy"
             onChangeSelect={handleSortChange}
-            options={contentData.sortOptions}
+            options={contentData[lang].sortOptions}
           />
 
           <FormInput
@@ -153,7 +154,7 @@ export const ResultsHeader = () => {
             defaultValue={itemsPerPage || "10"}
             inputId="sortBy"
             onChangeSelect={handleItemsPerPageChange}
-            options={contentData.perPageOptions}
+            options={contentData[lang].perPageOptions}
           />
         </div>
       </div>

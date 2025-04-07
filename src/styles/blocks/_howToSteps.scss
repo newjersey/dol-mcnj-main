@@ -1,46 +1,56 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .steps {
-  background-color: white;
-  border-radius: settings.$size-16;
-  padding: settings.$size-16;
-  max-width: settings.$desktop-lg - 50;
-  margin: settings.$size-32 auto;
+  > .container {
+    .inner {
+      background-color: s.$secondary-lighter;
+      border-radius: s.$size-16;
+      padding: s.$size-16 s.$size-32;
+      max-width: s.$desktop-lg - 50;
+      margin: s.$size-32 auto;
 
-  @media screen and (min-width: (settings.$tablet-lg + 1)) {
-    border-radius: settings.$size-80;
-  }
+      @media screen and (min-width: (s.$tablet-lg + 1)) {
+        border-radius: s.$size-80;
+      }
 
-  .list-num {
-    align-items: center;
-    background-color: settings.$secondary;
-    border-radius: 100%;
-    color: settings.$white;
-    display: flex;
-    font-size: settings.$size-16;
-    font-weight: bold;
-    height: settings.$size-24;
-    justify-content: center;
-    width: settings.$size-24;
-  }
+      .list-num {
+        align-items: center;
+        background-color: s.$secondary;
+        border-radius: 100%;
+        color: s.$white;
+        display: flex;
+        font-size: s.$size-16;
+        font-weight: bold;
+        justify-content: center;
+        height: s.$size-24;
+        width: s.$size-24;
 
-  .container {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      align-items: flex-start;
-      gap: settings.$size-16;
-    }
-  }
+        span {
+          display: block;
+          position: relative;
+          top: 0.5px;
+        }
+      }
 
-  li {
-    margin: 0;
+      .container {
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          align-items: flex-start;
+          gap: s.$size-16;
+        }
+      }
 
-    p {
-      line-height: 1.2;
-      font-size: settings.$size-16;
+      li {
+        margin: 0;
 
-      @media screen and (min-width: (settings.$tablet-lg + 1)) {
-        font-size: settings.$size-18;
-        font-weight: 600;
+        p {
+          line-height: 1.2;
+          font-size: s.$size-16;
+
+          @media screen and (min-width: (s.$tablet-lg + 1)) {
+            font-size: s.$size-18;
+            font-weight: 600;
+          }
+        }
       }
     }
   }

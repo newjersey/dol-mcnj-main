@@ -1,15 +1,15 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .faq {
   .faqSection {
-    padding: settings.$size-50 0;
+    padding: s.$size-50 0;
 
     .inner {
       display: flex;
-      gap: settings.$size-28;
+      gap: s.$size-28;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
-        gap: settings.$size-20;
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        gap: s.$size-20;
         flex-direction: column;
       }
     }
@@ -17,8 +17,8 @@
 
   .dropNav,
   nav {
-    @media screen and (min-width: (settings.$tablet-lg - 1)) {
-      width: settings.$size-300;
+    @media screen and (min-width: (s.$tablet-lg - 1)) {
+      width: s.$size-300;
     }
   }
 
@@ -31,14 +31,14 @@
   }
 
   p.title {
-    font-size: settings.$size-18;
+    font-size: s.$size-18;
     font-weight: 700;
-    margin-bottom: settings.$size-16;
+    margin-bottom: s.$size-16;
   }
 
   hr {
-    background-color: settings.$base-cool;
-    margin: 0 settings.$size-8;
+    background-color: s.$base-cool;
+    margin: 0 s.$size-8;
   }
 
   .spinner {

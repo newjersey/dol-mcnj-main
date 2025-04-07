@@ -4,6 +4,10 @@
   background-color: s.$secondary-lighter;
   padding: s.$size-16 0;
 
+  .occupationPage & {
+    background-color: s.$tertiary-lighter;
+  }
+
   @media screen and (min-width: (s.$tablet-lg)) {
     z-index: 13;
     position: sticky;
@@ -38,6 +42,11 @@
       width: s.$size-32;
       border-radius: s.$size-4;
       position: relative;
+
+      &.unstyled {
+        justify-content: center;
+        align-items: center;
+      }
 
       svg {
         fill: s.$black;
@@ -97,14 +106,15 @@
         border-radius: s.$size-4;
         padding: s.$size-4;
         white-space: nowrap;
-        bottom: -(s.$size-24);
+        bottom: -(s.$size-32);
         font-size: s.$size-12;
       }
     }
   }
 }
 
-.programBanner {
+.programBanner,
+.occupationPage {
   .crumbContainer {
     padding: s.$size-8 0;
     @media screen and (min-width: (s.$mobile-lg)) {

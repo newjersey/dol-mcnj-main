@@ -1,5 +1,5 @@
 import { Elements } from "@utils/types";
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode, JSX } from "react";
 
 interface BoxProps {
   ariaLabel?: string;

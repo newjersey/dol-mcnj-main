@@ -210,6 +210,7 @@ export interface SupportResourcesPageProps {
       title: string;
       slug: string;
       description?: string;
+      cardDescription?: string;
     }[];
   };
 }

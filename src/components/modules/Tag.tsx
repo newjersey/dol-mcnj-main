@@ -2,6 +2,7 @@ import { IconNames } from "@utils/enums";
 import { IconWeight, ThemeColors } from "@utils/types";
 import { IconSelector } from "./IconSelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { JSX } from "react";
 
 export interface TagItemProps {
   chip?: boolean;

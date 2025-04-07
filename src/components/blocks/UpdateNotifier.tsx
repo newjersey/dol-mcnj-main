@@ -116,6 +116,7 @@ const Content = ({
           setError({ status: 500, message: response.statusText });
         }, 1000);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setTimeout(() => {
         setSubmitting(false);
@@ -234,7 +235,7 @@ const Content = ({
                                   status: 400,
                                   message: "Input error",
                                 }
-                              : null,
+                              : null
                           );
                         }}
                         onChange={(e) => {
@@ -296,7 +297,7 @@ const Content = ({
                                   onClick={() => {
                                     const selectButton =
                                       document.getElementById(
-                                        "description-select",
+                                        "description-select"
                                       ) as HTMLButtonElement;
                                     selectButton.classList.remove("greyed-out");
                                     setOpenDropdown(false);
@@ -308,7 +309,7 @@ const Content = ({
                                               status: 400,
                                               message: "Input error",
                                             }
-                                          : null,
+                                          : null
                                       );
                                     }
                                   }}

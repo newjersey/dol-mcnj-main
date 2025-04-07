@@ -23,33 +23,35 @@ import { NavMenuProps } from "../../utils/types";
 
 describe("NavMenu Component", () => {
   const menu: NavMenuProps = {
-    sys: { id: "menu" },
+    itemId: "menu1",
     title: "Main Navigation",
     heading: "Main Heading",
-    topLevelItemsCollection: {
-      items: [
-        {
-          sys: { id: "item1" },
-          copy: "Item 1",
-          url: "/item1",
-          classes: "class1",
-          subItemsCollection: {
-            items: [
-              {
-                sys: { id: "subitem1" },
-                copy: "SubItem 1",
-                url: "/subitem1",
-                classes: "subclass1",
-              },
-            ],
+    en: {
+      topLevelItemsCollection: {
+        items: [
+          {
+            itemId: "item1",
+            copy: "Item 1",
+            url: "/item1",
+            classes: "class1",
+            subItemsCollection: {
+              items: [
+                {
+                  itemId: "subitem1",
+                  copy: "SubItem 1",
+                  url: "/subitem1",
+                  classes: "subclass1",
+                },
+              ],
+            },
           },
-        },
-        {
-          sys: { id: "item2" },
-          copy: "Item 2",
-          url: "/item2",
-        },
-      ],
+          {
+            itemId: "item2",
+            copy: "Item 2",
+            url: "/item2",
+          },
+        ],
+      },
     },
   };
 
@@ -75,7 +77,7 @@ describe("NavMenu Component", () => {
   it("renders extra items when provided", () => {
     const extraItems = <div>Extra Item</div>;
     const { getByText } = render(
-      <NavMenu menu={menu} extraItems={extraItems} />,
+      <NavMenu menu={menu} extraItems={extraItems} />
     );
     expect(getByText("Extra Item")).toBeInTheDocument();
   });

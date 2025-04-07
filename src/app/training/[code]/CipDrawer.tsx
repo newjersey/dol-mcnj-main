@@ -9,7 +9,7 @@ export const CipDrawer = ({
   setCipDrawerOpen: (value: boolean) => void;
 }) => {
   return (
-    <Drawer open={cipDrawerOpen} setOpen={setCipDrawerOpen}>
+    <Drawer open={cipDrawerOpen} setOpen={setCipDrawerOpen} title="CIP Codes">
       <Heading level={3}>
         Classification of Instructional Programs (CIP) codes
       </Heading>
@@ -29,7 +29,6 @@ export const CipDrawer = ({
           here.
         </a>
       </p>
-      <br />
       <div className="small sources">
         <span>
           <sup>1.</sup> Sources

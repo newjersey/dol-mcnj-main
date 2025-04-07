@@ -1,8 +1,7 @@
 "use client";
 import Script from "next/script";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { logEvent } from "@utils/analytics";
 import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
 import { ProgramBanner } from "@components/blocks/ProgramBanner";
@@ -17,25 +16,22 @@ import { SupportServices } from "./sections/SupportServices";
 import { CipDrawer } from "./CipDrawer";
 import { SocDrawer } from "./SocDrawer";
 import { generateJsonLd } from "./jsonLd";
+import { createPortal } from "react-dom";
 
 const Content = ({ training }: { training: TrainingProps }) => {
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
   const [socDrawerOpen, setSocDrawerOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const componentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
-  const printReactContent = useReactToPrint({
-    pageStyle: "@page { size: auto;  margin: 20mm; }",
-    documentTitle: "Training Content",
-  });
-
-  const printHandler = (): void => {
-    printReactContent();
-    logEvent("Training page", "Clicked print link", training.id);
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <div ref={componentRef}>
+    <div ref={contentRef}>
       <Script
         id="json-ld"
         type="application/ld+json"
@@ -47,7 +43,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
         name={training.name}
         id={training.id}
         provider={training.provider.name}
-        printHandler={printHandler}
+        printHandler={reactToPrintFn}
         breadcrumbsCollection={{
           items: [
             {
@@ -107,14 +103,22 @@ const Content = ({ training }: { training: TrainingProps }) => {
         </div>
       </section>
 
-      <CipDrawer
-        cipDrawerOpen={cipDrawerOpen}
-        setCipDrawerOpen={setCipDrawerOpen}
-      />
-      <SocDrawer
-        socDrawerOpen={socDrawerOpen}
-        setSocDrawerOpen={setSocDrawerOpen}
-      />
+      {mounted &&
+        createPortal(
+          <CipDrawer
+            cipDrawerOpen={cipDrawerOpen}
+            setCipDrawerOpen={setCipDrawerOpen}
+          />,
+          document.body
+        )}
+      {mounted &&
+        createPortal(
+          <SocDrawer
+            socDrawerOpen={socDrawerOpen}
+            setSocDrawerOpen={setSocDrawerOpen}
+          />,
+          document.body
+        )}
     </div>
   );
 };

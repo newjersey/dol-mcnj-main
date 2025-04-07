@@ -1,0 +1,105 @@
+@use "../settings" as s;
+
+.pageHero {
+  padding: s.$size-64 0 s.$size-48;
+
+  @media screen and (max-width: (s.$tablet-lg - 1)) {
+    padding: s.$size-32 0;
+  }
+
+  &.green {
+    h1 {
+      color: s.$secondary;
+    }
+  }
+
+  &.blue {
+    h1 {
+      color: s.$primary;
+    }
+  }
+
+  &.purple {
+    h1 {
+      color: s.$tertiary;
+    }
+  }
+
+  &.navy {
+    h1 {
+      color: s.$info-darker;
+    }
+  }
+
+  &.orange {
+    h1 {
+      color: s.$accent-warm;
+    }
+  }
+
+  p {
+    font-size: s.$size-18;
+  }
+
+  h1 {
+    font-size: s.$size-24;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .subheading {
+    font-size: s.$size-32;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .description {
+    max-width: s.$tablet-lg;
+  }
+
+  .buttons {
+    display: flex;
+    gap: s.$size-16;
+
+    a,
+    button {
+      margin: 0;
+    }
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    gap: s.$size-32;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      flex-direction: column;
+    }
+
+    .heroContent {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-12;
+
+      > * {
+        margin: 0;
+      }
+    }
+
+    .image {
+      overflow: hidden;
+      border-radius: s.$size-16;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        max-width: s.$size-500;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+}

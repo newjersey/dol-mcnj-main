@@ -53,9 +53,7 @@ const CtaBanner = ({
     <section
       className={`ctaBanner${className ? ` ${className}` : ""}${
         theme ? ` color-${theme}` : ""
-      }${fullColor ? " fullColor" : ""}${
-        contained && fullColor ? " contained" : ""
-      }`}
+      }${fullColor ? " fullColor" : ""}${contained ? " contained" : ""}`}
     >
       {fullColor ? (
         <div className="container">

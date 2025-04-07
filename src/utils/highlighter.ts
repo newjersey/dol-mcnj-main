@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { noOrphans } from "./noOrphans";
 import { sanitizeString } from "./sanitizeString";
 

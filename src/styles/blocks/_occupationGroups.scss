@@ -1,11 +1,11 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .occupationGroups {
-  margin-bottom: settings.$size-48;
+  margin-bottom: s.$size-48;
 
   &.disabled {
     .heading-tag {
-      color: settings.$base-light;
+      color: s.$base-light;
     }
   }
 
@@ -14,7 +14,7 @@
     position: relative;
 
     .select {
-      max-width: settings.$size-560;
+      max-width: s.$size-560;
       position: relative;
     }
 
@@ -22,43 +22,43 @@
       margin-top: 0.7rem;
       width: 100%;
       appearance: none;
-      color: settings.$ink;
+      color: s.$ink;
       cursor: pointer;
       padding: 0.7rem 2rem 0.7rem 0.7rem;
       position: relative;
-      border: settings.$size-2 solid settings.$black;
+      border: s.$size-2 solid s.$black;
       border-radius: 5px;
 
       &[disabled] {
-        background: settings.$base-lighter;
-        border-color: settings.$black;
-        color: settings.$base-light;
+        background: s.$base-lighter;
+        border-color: s.$black;
+        color: s.$base-light;
         cursor: not-allowed;
       }
 
       &:after {
         content: "";
         position: absolute;
-        right: settings.$size-16;
-        bottom: settings.$size-16;
+        right: s.$size-16;
+        bottom: s.$size-16;
         width: 0;
         height: 0;
         border-left: 0.35rem solid transparent;
         border-right: 0.35rem solid transparent;
-        border-top: 0.35rem solid settings.$ink;
+        border-top: 0.35rem solid s.$ink;
       }
     }
 
     .dropdown-select {
       font-weight: normal;
-      margin-top: settings.$size-16;
-      box-shadow: 0 10px 20px -15px settings.$ink;
-      max-height: settings.$size-330;
-      border-radius: settings.$size-8;
+      margin-top: s.$size-16;
+      box-shadow: 0 10px 20px -15px s.$ink;
+      max-height: s.$size-330;
+      border-radius: s.$size-8;
       position: absolute;
       overflow: auto;
       z-index: 11;
-      background-color: settings.$white;
+      background-color: s.$white;
       width: 100%;
 
       &[aria-expanded="true"] {
@@ -78,8 +78,8 @@
 
           align-items: center;
           gap: 0.5rem;
-          background: settings.$base-lighter;
-          padding: 0.5rem settings.$size-16;
+          background: s.$base-lighter;
+          padding: 0.5rem s.$size-16;
 
           + * {
             margin-top: 0;
@@ -88,20 +88,20 @@
       }
 
       button {
-        padding: settings.$size-16;
+        padding: s.$size-16;
         cursor: pointer;
 
-        @media screen and (min-width: (settings.$tablet)) {
-          padding: settings.$size-16 settings.$size-16 settings.$size-16 5rem;
+        @media screen and (min-width: (s.$tablet)) {
+          padding: s.$size-16 s.$size-16 s.$size-16 5rem;
         }
 
         &:nth-of-type(2n - 1) {
-          background: settings.$base-cool;
+          background: s.$base-cool;
         }
 
         &:hover {
-          @media screen and (min-width: (settings.$tablet)) {
-            background: settings.$tertiary-lighter;
+          @media screen and (min-width: (s.$tablet)) {
+            background: s.$tertiary-lighter;
           }
         }
       }

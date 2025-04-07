@@ -4,9 +4,10 @@ import { SectionHeading } from "@components/modules/SectionHeading";
 import { SectionIcons, ThemeColors } from "@utils/types";
 import { CardSlider } from "@components/blocks/CardSlider";
 import { IntroBlocks } from "@components/blocks/IntroBlocks";
-import { UpdateNotifier } from "@components/blocks/UpdateNotifier";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 
 export const revalidate = 86400;
 
@@ -32,16 +33,19 @@ declare global {
 }
 
 export default async function Home() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <>
       <div className="page home">
-        <FancyBanner {...pageData.banner} />
-        <IntroBlocks {...pageData.introBlocks} />
+        <FancyBanner {...pageData[lang].banner} />
+        <IntroBlocks {...pageData[lang].introBlocks} />
         <section className="tools" id="tools">
           <div className="container">
-            <SectionHeading {...pageData.sectionHeading} />
+            <SectionHeading {...pageData[lang].sectionHeading} />
             <div className="row">
-              {pageData.sections.map((card: any) => {
+              {pageData[lang].sections.map((card: any) => {
                 return (
                   <IconCard
                     key={card.copy}
@@ -57,11 +61,10 @@ export default async function Home() {
             </div>
           </div>
         </section>
-        {pageData.sections.map((cardRow: any) => (
+        {pageData[lang].sections.map((cardRow: any) => (
           <CardSlider key={cardRow.heading} {...cardRow} />
         ))}
       </div>
-      {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
     </>
   );
 }

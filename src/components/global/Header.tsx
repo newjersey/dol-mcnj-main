@@ -7,13 +7,16 @@ import { Button } from "@components/modules/Button";
 import { useState } from "react";
 import { LinkObject } from "@components/modules/LinkObject";
 import Link from "next/link";
+import { SignUpFormModal } from "@components/blocks/SignUpFormModal";
+import { SupportedLanguages } from "@utils/types/types";
 
 interface HeaderProps {
   mainNav?: NavMenuProps;
   globalNav: NavMenuProps;
+  lang?: SupportedLanguages;
 }
 
-const Header = ({ mainNav, globalNav }: HeaderProps) => {
+const Header = ({ mainNav, globalNav, lang = "en" }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleIsOpen = (): void => {
@@ -21,7 +24,7 @@ const Header = ({ mainNav, globalNav }: HeaderProps) => {
   };
   return (
     <header className="header">
-      <NjHeader menu={globalNav} />
+      <NjHeader menu={globalNav} lang={lang} />
       <nav
         id="usaNav"
         aria-label="Career Central Navigation"
@@ -50,14 +53,18 @@ const Header = ({ mainNav, globalNav }: HeaderProps) => {
       <NavMenu
         id="headerNavDesktop"
         menu={mainNav}
+        lang={lang}
         label="Primary navigation"
         className={`main-nav${isOpen ? " open" : ""}`}
-        innerClassName="usa-nav-container flex"
+        innerClassName="usa-nav-container main tabletLg:flex justify-between w-full"
         icons
         extraItems={
-          <LinkObject className="nav-item contact-us" url="/contact">
-            Contact Us
-          </LinkObject>
+          <div className="contact-links">
+            <LinkObject className="nav-item contact-us" url="/contact">
+              Contact Us
+            </LinkObject>
+            <SignUpFormModal lang={lang} />
+          </div>
         }
       />
     </header>
