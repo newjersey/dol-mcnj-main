@@ -6,10 +6,11 @@ import { Flex } from "@components/utility/Flex";
 import { Button } from "./Button";
 import { ArrowRight, Info } from "@phosphor-icons/react/dist/ssr";
 import { Drawer } from "./Drawer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heading } from "./Heading";
 import { LabelBox } from "./LabelBox";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { createPortal } from "react-dom";
 
 export const IndustryItem = ({
   image,
@@ -22,6 +23,47 @@ export const IndustryItem = ({
   shorthandTitle,
 }: IndustryItemProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const drawerContent = (
+    <Drawer open={drawerOpen} setOpen={setDrawerOpen}>
+      <Flex direction="column" gap="sm">
+        <Heading level={3}>
+          {shorthandTitle ? shorthandTitle : title} in New Jersey
+        </Heading>
+        <p>{drawerDescription}</p>
+        <Image
+          src={image.src}
+          width={image.width}
+          height={image.height}
+          blurDataURL={image.blurDataURL}
+          placeholder="blur"
+          alt=""
+        />
+        {drawerCards.map((card) => (
+          <LabelBox
+            className="bg-secondaryExtraLight"
+            color="green"
+            key={card.title}
+            title={card.title}
+            icon={card.icon}
+          >
+            <div
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(card.copy),
+              }}
+            />
+          </LabelBox>
+        ))}
+      </Flex>
+    </Drawer>
+  );
+
   return (
     <div className="industryItem">
       <Flex className="inner" direction="column" justifyContent="space-between">
@@ -62,36 +104,7 @@ export const IndustryItem = ({
           </Button>
         </div>
       </Flex>
-      <Drawer open={drawerOpen} setOpen={setDrawerOpen}>
-        <Flex direction="column" gap="sm">
-          <Heading level={3}>
-            {shorthandTitle ? shorthandTitle : title} in New Jersey
-          </Heading>
-          <p>{drawerDescription}</p>
-          <Image
-            src={image.src}
-            width={image.width}
-            height={image.height}
-            blurDataURL={image.blurDataURL}
-            placeholder="blur"
-            alt=""
-          />
-          {drawerCards.map((card) => (
-            <LabelBox
-              color="green"
-              key={card.title}
-              title={card.title}
-              icon={card.icon}
-            >
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: parseMarkdownToHTML(card.copy),
-                }}
-              />
-            </LabelBox>
-          ))}
-        </Flex>
-      </Drawer>
+      {mounted && createPortal(drawerContent, document.body)}
     </div>
   );
 };

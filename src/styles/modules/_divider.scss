@@ -1,15 +1,15 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .divider {
   width: 100%;
 
   &.size-sm {
-    padding: settings.$size-40 0;
+    padding: s.$size-40 0;
   }
   &.size-md {
-    padding: settings.$size-80 0;
+    padding: s.$size-80 0;
   }
   &.size-lg {
-    padding: settings.$size-112 0;
+    padding: s.$size-112 0;
   }
 }

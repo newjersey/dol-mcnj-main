@@ -3,6 +3,8 @@ import { getSearchData } from "./utils/getSearchData";
 import { Results } from "./components/Results";
 import { SEARCH_RESULTS_PAGE_DATA as contentData } from "@data/pages/training/search";
 import { Breadcrumbs } from "@components/modules/Breadcrumbs";
+import { SupportedLanguages } from "@utils/types/types";
+import { cookies } from "next/headers";
 export const revalidate = 0;
 
 export const generateMetadata = async ({
@@ -45,15 +47,19 @@ export default async function SearchPage(props: {
     totalPages,
   } = searchProps;
 
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+
   return (
     <div className="search default">
       <div className="container">
-        <Breadcrumbs {...contentData.breadcrumbs} />
+        <Breadcrumbs {...contentData[lang].breadcrumbs} />
         <Results
           items={pageData}
           searchParams={searchParams}
           count={itemCount}
           page={pageNumber}
+          lang={lang}
           totalPages={totalPages}
         />
       </div>

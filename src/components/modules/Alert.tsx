@@ -1,6 +1,4 @@
 "use client";
-import { HeadingLevel } from "@utils/types";
-import { Heading } from "./Heading";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { useEffect, useState } from "react";
 import { IconSelector } from "./IconSelector";

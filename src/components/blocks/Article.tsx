@@ -33,9 +33,35 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
     setActiveHeading(result[0]);
   }, []);
 
+  useEffect(() => {
+    const updateActiveHeadingOnScroll = () => {
+      const headings = document.querySelectorAll("h2");
+      let currentHeading: Heading | null = null;
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top <= 100) {
+          const id = heading.id;
+
+          const foundHeading = headingArray.filter(
+            (item) => item.elementId === id
+          )[0];
+
+          if (foundHeading) {
+            currentHeading = foundHeading;
+          }
+        }
+      });
+      if (currentHeading) {
+        setActiveHeading(currentHeading);
+      }
+    };
+
+    window.addEventListener("scroll", updateActiveHeadingOnScroll);
+  }, [headingArray]);
+
   return (
     <div className="article">
-      <div className="container narrow" id="contentBody">
+      <div className="container" id="contentBody">
         <div className="inner">
           <div className="nav-wrapper">
             <div className="toggle-container mobile-only">
@@ -70,19 +96,28 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
                           }
                           onClick={(e) => {
                             e.preventDefault();
+
                             setActiveHeading(item);
 
-                            // if there are no subheadings, scroll to the heading
-                            if (!item.items || item.items.length === 0) {
-                              setOpenNav(false);
-                              const element = document.getElementById(
-                                item.elementId,
-                              ) as HTMLElement;
-                              element.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              });
-                            }
+                            setOpenNav(false);
+                            const element = document.getElementById(
+                              item.elementId
+                            ) as HTMLElement;
+
+                            // scroll into view with 10 px offset
+                            element.scrollIntoView({
+                              behavior: "smooth",
+                              block: "start",
+                            });
+                            const offset = 20;
+                            const elementPosition =
+                              element.getBoundingClientRect().top +
+                              window.scrollY -
+                              offset;
+                            window.scrollTo({
+                              top: elementPosition,
+                              behavior: "smooth",
+                            });
                           }}
                         >
                           {item.title}
@@ -104,7 +139,7 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
 
                                       // smooth scroll to the heading
                                       const element = document.getElementById(
-                                        subItem.elementId,
+                                        subItem.elementId
                                       ) as HTMLElement;
                                       element.scrollIntoView({
                                         behavior: "smooth",

@@ -30,9 +30,9 @@ export const OccupationList = ({
   suggestions,
 }: OccupationListProps) => {
   const handleTypeaheadChange = (
-    event: ChangeEvent<{}>,
+    event: ChangeEvent<any>,
     value: InDemandOccupation | null,
-    reason: AutocompleteChangeReason,
+    reason: AutocompleteChangeReason
   ): void => {
     if (value && reason === "selectOption") {
       window.location.href = `/occupation/${value.soc}`;

@@ -4,7 +4,7 @@ import { ResultsContext } from "../Results";
 import { getSearchData } from "../../utils/getSearchData";
 
 export const FilterForm = ({ children }: { children: React.ReactNode }) => {
-  let { setResults, searchTerm, toggle } = useContext(ResultsContext);
+  const { setResults, searchTerm, toggle } = useContext(ResultsContext);
   return (
     <aside id="searchFilter" className={`searchFilter${toggle ? " open" : ""}`}>
       <form

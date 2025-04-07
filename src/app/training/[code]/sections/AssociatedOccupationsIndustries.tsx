@@ -1,4 +1,3 @@
-import { Button } from "@components/modules/Button";
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Box } from "@components/utility/Box";

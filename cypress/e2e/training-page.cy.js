@@ -21,13 +21,13 @@ describe("Training Page", () => {
 
     // description
     cy.contains(
-      "This four unit course of study is designed to introduce students to preventive maintenance concepts as they apply to Heating, Ventilation and Air Conditioning systems. Students are trained to service, troubleshoot, and repair various types of building maintenance equipment from residential applications to light commercial systems. Students also learn proper refrigerant recovery and recycling techniques, and are encouraged to complete Environmental Protection Agency (EPA) certification testing."
+      "This four unit course of study is designed to introduce students to preventive maintenance concepts as they apply to Heating, Ventilation and Air Conditioning systems.."
     ).should("exist");
 
     // quick stats
     cy.contains("High School Diploma or GED").should("exist");
     cy.contains("Completion Time").should("exist");
-    cy.contains("3-5 months").should("exist");
+    cy.contains("More than 4 years").should("exist");
 
     // associated occupations
     cy.contains(

@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { FaqSection } from "./FaqSection";
-import { dropNavItems } from "../../stories/mock/dropNavItems";
+import { dropNavItems } from "../../data/mock/dropNavItems";
 // import { Spinner } from "../modules/Spinner";
 
 // jest.mock("../modules/Spinner", () => ({
@@ -29,20 +29,20 @@ describe("FaqSection Component", () => {
     const dropNavItem = getByText("Tuition Assistance for Training");
     fireEvent.click(dropNavItem);
     expect(
-      getByText("Can I get help paying for training?"),
+      getByText("Can I get help paying for training?")
     ).toBeInTheDocument();
   });
 
   it("renders Accordion with active topic items", () => {
     const { getByText } = render(<FaqSection items={dropNavItems} />);
     expect(
-      getByText("What kinds of trainings can I find on this site?"),
+      getByText("What kinds of trainings can I find on this site?")
     ).toBeInTheDocument();
   });
 
   it("applies className correctly", () => {
     const { container } = render(
-      <FaqSection items={dropNavItems} className="test-class" />,
+      <FaqSection items={dropNavItems} className="test-class" />
     );
     expect(container.firstChild).toHaveClass("faqSection test-class");
   });

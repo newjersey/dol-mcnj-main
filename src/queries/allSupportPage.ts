@@ -6,6 +6,7 @@ export const ALL_SUPPORT_PAGE_QUERY = `query AllSupport {
       }
       title
       slug
+      cardDescription
       description
     }
   }

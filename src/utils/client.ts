@@ -40,7 +40,7 @@ export const client = async ({
           ...headers,
         },
         body: JSON.stringify({ query, variables }),
-      },
+      }
     );
     // Making a POST request to the specified endpoint URL with the query, variables, and headers
 
@@ -53,6 +53,7 @@ export const client = async ({
 
     return responseData.data;
     // Returning the response data
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     throw new Error("GraphQL request failed");
   }

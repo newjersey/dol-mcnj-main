@@ -10,7 +10,7 @@ import { getSearchData } from "../../utils/getSearchData";
 import { Flex } from "@components/utility/Flex";
 
 export const CipSoc = () => {
-  let { results, setResults } = useContext(ResultsContext);
+  const { results, setResults } = useContext(ResultsContext);
 
   return (
     <Flex gap="sm" direction="column" fill className="section cipsoc">

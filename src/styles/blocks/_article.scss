@@ -1,24 +1,24 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .article {
-  padding: settings.$size-48 0;
+  padding: s.$size-48 0;
 
   .spinner {
     display: flex;
     justify-content: center;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       display: none;
     }
   }
 
   .inner {
     display: flex;
-    gap: settings.$size-32;
+    gap: s.$size-32;
     align-items: flex-start;
     flex-direction: row-reverse;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       flex-direction: column;
     }
   }
@@ -28,32 +28,32 @@
     top: 0;
     width: 100%;
     z-index: 1;
-    top: settings.$size-16;
+    top: s.$size-16;
 
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      width: settings.$size-320;
-      top: settings.$size-32;
+    @media screen and (min-width: (s.$tablet-lg)) {
+      width: s.$size-320;
+      top: s.$size-32;
     }
   }
 
   nav {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      background-color: settings.$white;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      background-color: s.$white;
       display: none;
       width: 100%;
-      max-width: settings.$size-480;
+      max-width: s.$size-480;
       position: absolute;
       left: 50%;
       top: 100%;
-      border-top: 4px solid settings.$base-lighter;
+      border-top: 4px solid s.$base-lighter;
       transform: translateX(-50%);
-      box-shadow: settings.$shadow-3;
-      max-height: calc(100vh - settings.$size-120);
+      box-shadow: s.$shadow-3;
+      max-height: calc(100vh - s.$size-120);
       overflow: auto;
     }
 
     &.open {
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         display: block;
       }
     }
@@ -64,7 +64,7 @@
   }
 
   .toggle-container {
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -77,14 +77,44 @@
   }
 
   .content {
-    @media screen and (min-width: (settings.$tablet-lg)) {
-      width: calc(100% - settings.$size-320);
+    @media screen and (min-width: (s.$tablet-md)) {
+      width: calc(100% - s.$size-300);
     }
-    h2 {
-      margin: settings.$size-80 0 settings.$size-48;
 
-      &:first-of-type {
-        margin: 0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-weight: 700;
+      margin: s.$size-16 0;
+    }
+
+    h2 {
+      font-size: s.$size-32;
+      margin-bottom: s.$size-24;
+    }
+
+    h3 {
+      font-size: s.$size-24;
+    }
+
+    h4,
+    h5 {
+      font-size: 1.2rem;
+    }
+
+    table {
+      margin: s.$size-16 0;
+      tr {
+        th {
+          text-align: left;
+        }
+        td,
+        th {
+          padding: 0.5rem 0;
+          border-bottom: s.$size-1 solid s.$base-cool;
+        }
       }
     }
   }

@@ -4,12 +4,11 @@ import { Tag } from "@components/modules/Tag";
 import { X } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
 import { toUsCurrency } from "@utils/toUsCurrency";
-import { ResultProps } from "@utils/types";
 import { useContext, useState } from "react";
 import { ResultsContext } from "./Results";
 
 export const CompareTable = () => {
-  let { compare, setCompare } = useContext(ResultsContext);
+  const { compare, setCompare } = useContext(ResultsContext);
 
   const [expanded, setExpanded] = useState<boolean>(false);
   const remainingBoxes = 3 - compare.length;

@@ -1,15 +1,15 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .careerNavigator {
   .info {
-    padding: settings.$size-48 0;
+    padding: s.$size-48 0;
 
     .inner {
       display: flex;
-      gap: settings.$size-32;
-      padding-top: settings.$size-24;
+      gap: s.$size-32;
+      padding-top: s.$size-24;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         flex-direction: column;
       }
     }
@@ -20,17 +20,17 @@
   }
 
   .opportunities {
-    padding: settings.$size-80 0;
+    padding: s.$size-80 0;
 
-    @media screen and (max-width: (settings.$tablet-lg - 1)) {
-      padding: settings.$size-48 0;
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      padding: s.$size-48 0;
     }
 
     .inner {
       display: flex;
-      gap: settings.$size-32;
+      gap: s.$size-32;
 
-      @media screen and (max-width: (settings.$tablet-lg - 1)) {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
         flex-direction: column;
       }
 
@@ -45,6 +45,6 @@
   }
 
   .howTo {
-    padding: settings.$size-48 0;
+    padding: s.$size-48 0;
   }
 }

@@ -1,19 +1,44 @@
 import { TrainingSearch } from "@components/blocks/TrainingSearch";
 import { Steps } from "./Steps";
-import { Breadcrumbs } from "@components/modules/Breadcrumbs";
-import { Heading } from "@components/modules/Heading";
 import { LinkObject } from "@components/modules/LinkObject";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
-import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { ButtonProps } from "@utils/types";
+import { HeadingLevel, SupportedLanguages } from "@utils/types/types";
+import { PageHero, PageHeroProps } from "@components/blocks/PageHero";
 
 export interface TrainingExplorerHeadingProps {
-  heading: string;
-  subheading?: string;
-  message?: string;
+  pageHero: PageHeroProps;
+  search: {
+    heading: {
+      level: HeadingLevel;
+      heading: string;
+    };
+    toolTip: {
+      screenReader: string;
+      copy: string;
+    };
+    clearButton: ButtonProps;
+    form: {
+      inputLabel: string;
+      filterHeading: string;
+      miles: {
+        label: string;
+        milesPlaceholder: string;
+        zipPlaceholder: string;
+        zipError: string;
+      };
+      costLabel: string;
+      format: {
+        label: string;
+        inPersonLabel: string;
+        onlineLabel: string;
+      };
+      submitLabel: string;
+    };
+  };
+  lang?: SupportedLanguages;
   steps: string[];
-  breadcrumbs: { url: string; copy: string }[];
   notReady: {
     copy: string;
     buttons: ButtonProps[];
@@ -25,32 +50,18 @@ export interface TrainingExplorerHeadingProps {
 }
 
 export const TrainingExplorerHeading = ({
-  heading,
-  subheading,
-  message,
   steps,
-  breadcrumbs,
+  search,
   notReady,
+  pageHero,
   learnMore,
 }: TrainingExplorerHeadingProps) => {
   return (
     <section className="training-explorer-heading">
+      <PageHero {...pageHero} />
       <div className="container">
-        <Breadcrumbs crumbs={breadcrumbs} pageTitle={heading} />
-        <Heading level={1} className="main">
-          {heading}
-        </Heading>
-        {subheading && <p className="subheading">{subheading}</p>}
-        {message && (
-          <div
-            className="message"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownToHTML(message),
-            }}
-          />
-        )}
         <Steps items={steps} className="desktop-only" />
-        <TrainingSearch />
+        <TrainingSearch content={search} />
         <Steps items={steps} className="mobile-only" />
 
         <div className="learn-more">

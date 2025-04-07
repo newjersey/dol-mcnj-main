@@ -16,7 +16,7 @@ jest.mock("./Button", () => ({
 
 jest.mock("./Heading", () => ({
   Heading: jest.fn(({ level, children, className }) =>
-    React.createElement(`h${level}`, { className }, children),
+    React.createElement(`h${level}`, { className }, children)
   ),
 }));
 
@@ -48,14 +48,14 @@ describe("Cta Component", () => {
   it("applies the correct class names based on props", () => {
     render(<Cta {...defaultProps} className="custom-class" />);
     expect(screen.getByText("Link 1").parentElement?.parentElement).toHaveClass(
-      "cta custom-class",
+      "cta custom-class"
     );
   });
 
   it("renders heading correctly with specified level", () => {
     render(<Cta {...defaultProps} heading="Test Heading" headingLevel={2} />);
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Test Heading",
+      "Test Heading"
     );
   });
 
@@ -67,7 +67,7 @@ describe("Cta Component", () => {
   it("renders links with the correct direction", () => {
     render(<Cta {...defaultProps} linkDirection="column" />);
     expect(screen.getByText("Link 1").parentElement).toHaveClass(
-      "links column",
+      "links flex items-center gap-[16px] flex-col mobile:flex-row justify-center"
     );
   });
 

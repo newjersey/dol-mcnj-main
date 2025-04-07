@@ -2,6 +2,7 @@
 
 .labelBox {
   border: s.$size-1 solid s.$base-lighter;
+  overflow: hidden;
 
   &.large {
     .heading-tag {

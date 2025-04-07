@@ -1,18 +1,18 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 
 .industryItem {
-  border: settings.$size-1 solid settings.$base-lighter;
-  border-radius: settings.$size-16;
+  border: s.$size-1 solid s.$base-lighter;
+  border-radius: s.$size-16;
   overflow: hidden;
-  padding: settings.$size-16;
-  background-color: settings.$white;
+  padding: s.$size-16;
+  background-color: s.$white;
 
   * {
     margin: 0;
   }
 
   .title {
-    font-size: settings.$size-22;
+    font-size: s.$size-22;
     font-weight: 700;
     line-height: 1.2;
   }
@@ -23,8 +23,8 @@
 
   .image {
     position: relative;
-    height: settings.$size-146;
-    border-radius: settings.$size-16;
+    height: s.$size-146;
+    border-radius: s.$size-16;
     width: 100%;
     overflow: hidden;
 
@@ -48,13 +48,13 @@
         > div {
           display: flex;
           flex-direction: column;
-          gap: settings.$size-16;
+          gap: s.$size-16;
         }
 
         h3,
         h4,
         h5 {
-          font-size: settings.$size-16;
+          font-size: s.$size-16;
           font-weight: bold;
         }
       }
@@ -63,15 +63,15 @@
 
   .buttons {
     display: flex;
-    gap: settings.$size-16;
-    margin-top: settings.$size-16;
+    gap: s.$size-16;
+    margin-top: s.$size-16;
     width: 100%;
 
-    @media (max-width: (settings.$desktop-md - 1)) and (min-width: (settings.$tablet-md)) {
+    @media (max-width: (s.$desktop-md - 1)) and (min-width: (s.$tablet-md)) {
       flex-direction: column;
     }
 
-    @media screen and (max-width: (settings.$mobile-lg - 1)) {
+    @media screen and (max-width: (s.$mobile-lg - 1)) {
       flex-direction: column;
     }
 

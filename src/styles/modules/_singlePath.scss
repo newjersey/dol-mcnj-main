@@ -1,4 +1,4 @@
-@use "../settings" as settings;
+@use "../settings" as s;
 @use "../system-colors" as systemColors;
 
 .single-path {
@@ -6,25 +6,25 @@
   padding: 0;
   display: flex;
   align-items: center;
-  gap: settings.$size-28;
+  gap: s.$size-28;
   overflow: auto;
-  padding: settings.$size-8 settings.$size-2;
+  padding: s.$size-8 s.$size-2;
   -webkit-overflow-scrolling: touch;
 
   .arrow {
     width: 0;
     height: 0;
-    border-top: settings.$size-10 solid transparent;
-    border-bottom: settings.$size-10 solid transparent;
+    border-top: s.$size-10 solid transparent;
+    border-bottom: s.$size-10 solid transparent;
     display: block;
     position: absolute;
     top: 50%;
     right: calc(100% + 0px);
     transform: translateY(-50%);
     z-index: 10;
-    border-top: settings.$size-5 solid systemColors.$gray-cool-5;
-    border-bottom: settings.$size-5 solid systemColors.$gray-cool-5;
-    border-left: settings.$size-10 solid settings.$base;
+    border-top: s.$size-5 solid systemColors.$gray-cool-5;
+    border-bottom: s.$size-5 solid systemColors.$gray-cool-5;
+    border-left: s.$size-10 solid s.$base;
   }
 
   li {
@@ -72,21 +72,21 @@
 
     + li {
       &.tall {
-        margin-left: settings.$size-30;
+        margin-left: s.$size-30;
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + (settings.$size-24 - settings.$size-1));
+            right: calc(100% + (s.$size-24 - s.$size-1));
           }
 
           &:first-of-type,
           &:last-of-type {
             .path-connector {
-              left: calc(100% + (settings.$size-24 - settings.$size-1));
+              left: calc(100% + (s.$size-24 - s.$size-1));
             }
           }
 
           .path-connector {
-            left: calc(100% + (settings.$size-24 - settings.$size-1));
+            left: calc(100% + (s.$size-24 - s.$size-1));
           }
         }
 
@@ -95,7 +95,7 @@
 
           .path-stop {
             .prev-path-connector {
-              right: calc(100% + (settings.$size-28 + settings.$size-1));
+              right: calc(100% + (s.$size-28 + s.$size-1));
             }
           }
         }
@@ -108,25 +108,25 @@
               &.active,
               &:hover {
                 .prev-path-connector {
-                  right: calc(100% + settings.$size-3);
+                  right: calc(100% + s.$size-3);
                 }
               }
 
               &.active {
-                background: settings.$tertiary;
+                background: s.$tertiary;
                 color: systemColors.$gray-cool-5;
-                border-color: settings.$tertiary;
+                border-color: s.$tertiary;
               }
 
               .prev-path-connector {
                 display: block;
-                height: settings.$size-10;
+                height: s.$size-10;
                 background-color: systemColors.$gray-cool-5;
-                width: settings.$size-4;
+                width: s.$size-4;
                 top: 50%;
                 position: absolute;
                 transform: translateY(-50%);
-                right: calc(100% + settings.$size-2);
+                right: calc(100% + s.$size-2);
               }
 
               &:after {
@@ -138,11 +138,11 @@
 
         .path-stop {
           &:after {
-            background: settings.$base;
+            background: s.$base;
           }
           .arrow {
             display: block;
-            right: calc(100% + settings.$size-6);
+            right: calc(100% + s.$size-6);
           }
         }
       }
@@ -150,11 +150,11 @@
 
     &.tall {
       position: relative;
-      margin-right: settings.$size-30;
+      margin-right: s.$size-30;
 
       .path-stop {
         .arrow {
-          right: calc(100% + settings.$size-6);
+          right: calc(100% + s.$size-6);
         }
       }
 
@@ -169,7 +169,7 @@
 
         .path-stop {
           .prev-path-connector {
-            right: calc(100% + (settings.$size-28 + settings.$size-1));
+            right: calc(100% + (s.$size-28 + s.$size-1));
           }
         }
       }
@@ -177,19 +177,19 @@
       + li:not(.tall) {
         .path-stop {
           .arrow {
-            right: calc(100% + settings.$size-6);
+            right: calc(100% + s.$size-6);
           }
         }
       }
 
       .prev-path-connector {
-        width: settings.$size-10;
-        background-color: settings.$base;
+        width: s.$size-10;
+        background-color: s.$base;
         display: block;
         height: 135%;
         top: 50%;
         transform: translateY(-50%);
-        right: calc(100% + (settings.$size-26 + settings.$size-1));
+        right: calc(100% + (s.$size-26 + s.$size-1));
         z-index: 10;
         position: absolute;
       }
@@ -200,7 +200,7 @@
         &:first-of-type {
           .path-connector,
           .prev-path-connector {
-            top: calc(50% - settings.$size-5);
+            top: calc(50% - s.$size-5);
             transform: none;
             height: 100%;
           }
@@ -212,27 +212,27 @@
             top: auto;
             height: 100%;
             transform: none;
-            bottom: calc(50% - settings.$size-5);
+            bottom: calc(50% - s.$size-5);
           }
         }
 
         &:before {
-          width: (settings.$size-16 + settings.$size-1);
-          right: calc(100% + settings.$size-16);
+          width: (s.$size-16 + s.$size-1);
+          right: calc(100% + s.$size-16);
         }
 
         &:after {
-          width: settings.$size-26 + settings.$size-1;
+          width: s.$size-26 + s.$size-1;
         }
 
         .path-connector {
-          width: settings.$size-10;
-          background-color: settings.$base;
+          width: s.$size-10;
+          background-color: s.$base;
           display: block;
           height: 135%;
           top: 50%;
           transform: translateY(-50%);
-          left: calc(100% + (settings.$size-26 - settings.$size-3));
+          left: calc(100% + (s.$size-26 - s.$size-3));
           z-index: 10;
         }
       }
@@ -241,8 +241,8 @@
         &:not(.tall) {
           .path-stop {
             &:before {
-              width: settings.$size-20;
-              right: calc(100% + settings.$size-10);
+              width: s.$size-20;
+              right: calc(100% + s.$size-10);
             }
           }
         }
@@ -255,26 +255,26 @@
   }
 
   .path-stop {
-    border: 2px solid settings.$base-dark;
+    border: 2px solid s.$base-dark;
     border-radius: 0.3rem;
-    background-color: settings.$secondary-lighter;
-    width: settings.$size-200;
-    min-height: settings.$size-120;
-    color: settings.$base-dark;
+    background-color: s.$secondary-lighter;
+    width: s.$size-200;
+    min-height: s.$size-120;
+    color: s.$base-dark;
     cursor: pointer;
     padding: 0.3rem 0.8rem;
     position: relative;
 
     &:hover {
-      border-color: settings.$tertiary;
-      outline: 1px solid settings.$tertiary;
+      border-color: s.$tertiary;
+      outline: 1px solid s.$tertiary;
     }
 
     &.active {
-      background: settings.$tertiary;
+      background: s.$tertiary;
       color: systemColors.$gray-cool-5;
-      border-color: settings.$tertiary;
-      outline: 1px solid settings.$tertiary;
+      border-color: s.$tertiary;
+      outline: 1px solid s.$tertiary;
     }
 
     &:before {
@@ -282,11 +282,11 @@
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: settings.$size-10;
-      height: settings.$size-10;
+      width: s.$size-10;
+      height: s.$size-10;
       display: block;
-      background: settings.$base;
-      right: calc(100% + settings.$size-16);
+      background: s.$base;
+      right: calc(100% + s.$size-16);
     }
 
     &:after {
@@ -294,11 +294,11 @@
       position: absolute;
       transform: translateY(-50%);
       top: 50%;
-      width: calc(settings.$size-26 + settings.$size-5);
-      height: settings.$size-10;
+      width: calc(s.$size-26 + s.$size-5);
+      height: s.$size-10;
       display: block;
-      background: settings.$base;
-      left: calc(100% + settings.$size-6);
+      background: s.$base;
+      left: calc(100% + s.$size-6);
     }
 
     p {
@@ -309,7 +309,7 @@
 
     .title {
       line-height: 1.2;
-      font-size: settings.$size-16;
+      font-size: s.$size-16;
       text-align: center;
       margin: 0.2rem 0 0.6rem;
     }

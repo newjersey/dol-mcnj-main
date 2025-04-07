@@ -3,7 +3,7 @@ import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Tabs } from "./Tabs";
 import { slugify } from "../../utils/slugify";
-import { tabContent } from "../../stories/mock/tabs";
+import { tabContent } from "../../data/mock/tabs";
 
 jest.mock("../modules/Spinner", () => ({
   Spinner: jest.fn(({ size, color }) => (
@@ -25,7 +25,7 @@ describe("Tabs", () => {
     render(<Tabs items={tabContent} />);
     expect(screen.getAllByText("Introduction")[0]).toBeInTheDocument();
     expect(
-      screen.getByText("Center for Occupational Employment Information (COEI)"),
+      screen.getByText("Center for Occupational Employment Information (COEI)")
     ).toBeInTheDocument();
   });
 
@@ -35,8 +35,8 @@ describe("Tabs", () => {
     expect(screen.getAllByText("ETPL")[0]).toHaveClass("usa-current");
     expect(
       screen.getAllByText(
-        "What is the Eligible Training Provider List (ETPL)?",
-      )[1],
+        "What is the Eligible Training Provider List (ETPL)?"
+      )[1]
     ).toBeInTheDocument();
   });
 
@@ -64,7 +64,7 @@ describe("Tabs", () => {
   it("assigns IDs to headings based on the slugified text", () => {
     render(<Tabs items={tabContent} />);
     const headingElements = document.querySelectorAll(
-      ".content h1, .content h2, .content h3, .content h4",
+      ".content h1, .content h2, .content h3, .content h4"
     );
     headingElements.forEach((heading) => {
       expect(heading.id).toBe(slugify(heading.textContent || ""));
