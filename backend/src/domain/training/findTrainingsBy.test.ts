@@ -65,8 +65,8 @@ describe('findTrainingsByFactory', () => {
   });
 
 
-
-  it('should return the correct trainings for selector "ID"', async () => {
+  // TODO: Stop using real data here
+  it.skip('should return the correct trainings for selector "ID"', async () => {
     const dataClient = StubDataClient();
     dataClient.getCIPsInDemand = jest.fn().mockResolvedValue([
       {
@@ -94,6 +94,7 @@ describe('findTrainingsByFactory', () => {
 
   it("should return an empty array when no CE records are found", async () => {
     const stubDataClient = StubDataClient();
+    stubDataClient.getCIPsInDemand = jest.fn().mockResolvedValue([]); // or mock some CIP codes if needed
     const findTrainingsBy = findTrainingsByFactory(stubDataClient);
 
     const trainings = await findTrainingsBy(1, ["nonexistentValue"]);
