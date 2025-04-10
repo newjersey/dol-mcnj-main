@@ -17,7 +17,7 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import {Provider} from "../training/Training";
+
 
 // ─── Initialize cache ─────────────────────────────────────────────────────────
 interface CachedResults {
@@ -475,12 +475,12 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     );
     console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
 
-/*    const rankStart = performance.now();
+    const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
-    console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);*/
+    console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
 
     // Sorting results
-    const sortedResults = sortTrainings(filteredResults, sort);
+    const sortedResults = sortTrainings(rankedResults, sort);
 
     // Pagination handling
     const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
@@ -578,18 +578,6 @@ function buildQuery(params: {
     "search:termGroup": termGroup
   };
 }
-
-const transformResults = async (
-  learningOpportunities: CTDLResource[],
-  dataClient: DataClient,
-  searchQuery: string
-): Promise<TrainingResult[]> => {
-  return Promise.all(
-    learningOpportunities.map(async (lo) => {
-      return transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery);
-    })
-  );
-};
 
 async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,
