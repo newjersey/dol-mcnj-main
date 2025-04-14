@@ -62,16 +62,25 @@
     &.body-copy {
       &.container {
         margin: 0 auto;
-        padding-top: $size-96;
-        padding-bottom: $size-96;
+        padding: $size-64 0;
         display: flex;
         flex-direction: column;
         gap: $size-48;
 
+        &:before,
+        &:after {
+          content: none;
+        }
+
         > .container {
           display: flex;
           flex-direction: column;
-          gap: $size-64;
+          gap: $size-32;
+
+          &:before,
+          &:after {
+            content: none;
+          }
         }
 
         .contentContainer {
@@ -94,7 +103,7 @@
           margin: 0 auto;
           display: flex;
           flex-direction: column;
-          gap: $size-48;
+          gap: $size-32;
           flex: 1;
 
           > div {
@@ -170,6 +179,7 @@
         h4,
         h5 {
           font-weight: 600;
+          line-height: 1.2;
         }
 
         h2 {
@@ -195,7 +205,7 @@
 
   .contact-cta {
     text-align: center;
-    margin-bottom: $size-48;
+    margin-bottom: $size-32;
 
     .inner {
       background-color: $info-lighter;
