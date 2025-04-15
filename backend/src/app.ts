@@ -93,7 +93,7 @@ app.use(
           "https://pagead2.googlesyndication.com",
           "https://*.doubleclick.net",
         ],
-        scriptSrcAttr: ["'none'"],
+        scriptSrcAttr: ["'unsafe-inline'"], // changed from 'none' to allow GTM inline handlers
 
         styleSrc: [
           "'self'",
@@ -124,6 +124,7 @@ app.use(
           "https://www.google-analytics.com",
           "https://ssl.gstatic.com",
           "https://www.gstatic.com",
+          "https://fonts.gstatic.com", // added to fix icon image blocking
           "https://*.ctfassets.net",
           "https://pagead2.googlesyndication.com",
           "https://www.googleadservices.com",
@@ -150,7 +151,9 @@ app.use(
         baseUri: ["'self'"],
         formAction: ["'self'"],
         frameAncestors: ["'self'"],
-        upgradeInsecureRequests: [],
+        upgradeInsecureRequests: [], // will be ignored in report-only
+        // Optional: enable CSP reporting endpoint if needed
+        // reportUri: "/csp-report",
       },
       reportOnly: true,
     })
