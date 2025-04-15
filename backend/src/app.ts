@@ -64,55 +64,51 @@ const corsOptions = {
 app.use(
     helmet({
       contentSecurityPolicy: {
-        useDefaults: true,
         directives: {
           defaultSrc: ["'self'"],
-
           scriptSrc: [
             "'self'",
-            "'unsafe-inline'",     // ✅ Required for GTM container injection
-            "'unsafe-eval'",       // ✅ Required for GTM Preview/Debug
-            "https://www.googletagmanager.com",
-            "https://www.google-analytics.com"
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+            'https://www.googletagmanager.com',
+            'https://tagmanager.google.com',
+            'https://www.googletagmanager.com/debug',
           ],
-
           styleSrc: [
             "'self'",
-            "'unsafe-inline'",     // ✅ Required for Google Fonts and GTM badge
-            "https://fonts.googleapis.com",
-            "https://www.googletagmanager.com"
+            "'unsafe-inline'",
+            'https://fonts.googleapis.com',
+            'https://fonts.googleapis.com/icon',
+            'https://tagmanager.google.com',
+            'https://www.googletagmanager.com/debug',
           ],
-
           fontSrc: [
             "'self'",
-            "https://fonts.gstatic.com"
+            'https://fonts.gstatic.com',
+            'data:',
           ],
-
           imgSrc: [
             "'self'",
-            "data:",
-            "blob:",
-            "https://images.ctfassets.net",        // ✅ Contentful images
-            "https://www.google-analytics.com",
-            "https://www.googletagmanager.com",
-            "https://fonts.gstatic.com"            // ✅ For Google Fonts previews/icons
+            'data:',
+            'https://www.googletagmanager.com',
+            'https://ssl.gstatic.com',
+            'https://www.gstatic.com',
           ],
-
           connectSrc: [
             "'self'",
-            "https://www.google-analytics.com",
-            "https://region1.google-analytics.com",
-            "https://www.googletagmanager.com"     // ✅ Tag load + debug beacon connections
+            'https://www.googletagmanager.com',
+            'https://www.google-analytics.com',
+            'https://analytics.google.com',
           ],
-
+          frameSrc: [
+            "'self'",
+            'https://www.googletagmanager.com',
+          ],
           objectSrc: ["'none'"],
           baseUri: ["'self'"],
-          frameAncestors: ["'self'"],
-
-          // Optional: explicitly disallow inline event handlers
-          scriptSrcAttr: ["'none'"]
-        }
-      }
+          formAction: ["'self'"],
+        },
+      },
     })
 
 );
