@@ -21,6 +21,7 @@ import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
+import helmet from "helmet";
 // import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
@@ -59,6 +60,50 @@ const corsOptions = {
   optionsSuccessStatus: 200
 
 };
+
+app.use(
+    helmet({
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'",  // required if GTM uses inline startup scripts
+            "https://www.googletagmanager.com",
+            "https://www.google-analytics.com",
+            "https://tagmanager.google.com"
+          ],
+          styleSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "https://fonts.googleapis.com",
+            "https://www.googletagmanager.com"
+          ],
+          fontSrc: [
+            "'self'",
+            "https://fonts.gstatic.com"
+          ],
+          imgSrc: [
+            "'self'",
+            "data:",
+            "https://images.ctfassets.net",
+            "https://www.google-analytics.com",
+            "https://www.googletagmanager.com"
+          ],
+          connectSrc: [
+            "'self'",
+            "https://www.google-analytics.com",
+            "https://region1.google-analytics.com"
+          ],
+          objectSrc: ["'none'"],
+          scriptSrcAttr: ["'none'"], // prevent onClick/onLoad inline handlers
+          baseUri: ["'self'"],
+          frameAncestors: ["'self'"]
+        }
+      }
+    })
+);
 
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
