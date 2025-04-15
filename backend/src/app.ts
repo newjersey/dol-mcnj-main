@@ -68,41 +68,41 @@ app.use(
         defaultSrc: ["'self'"],
         scriptSrc: [
           "'self'",
-          "'unsafe-inline'",
-          "'unsafe-eval'",
+          "'unsafe-inline'",   // GTM bootstrap
+          "'unsafe-eval'",     // GTM preview mode
           "'report-sample'",
           "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
           "https://www.google-analytics.com",
           "https://www.google.com",
           "https://adservice.google.com",
           "https://pagead2.googlesyndication.com",
           "https://*.doubleclick.net",
+          "https://analytics.google.com",
         ],
         scriptSrcAttr: ["'none'"],
         scriptSrcElem: [
           "'self'",
           "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
           "https://www.google-analytics.com",
           "https://www.google.com",
           "https://adservice.google.com",
           "https://pagead2.googlesyndication.com",
           "https://*.doubleclick.net",
+          "https://analytics.google.com",
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'",
           "https://fonts.googleapis.com",
-          "https://www.googletagmanager.com", // for badge/debug styles
-        ],
-        styleSrcElem: [
-          "'self'",
-          "'unsafe-inline'",
-          "https://fonts.googleapis.com",
           "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
         ],
         fontSrc: [
           "'self'",
           "https://fonts.gstatic.com",
+          "data:",
         ],
         imgSrc: [
           "'self'",
@@ -114,28 +114,35 @@ app.use(
           "https://www.gstatic.com",
           "https://*.ctfassets.net",
           "https://pagead2.googlesyndication.com",
+          "https://www.googleadservices.com",
+          "https://*.doubleclick.net",
         ],
         connectSrc: [
           "'self'",
           "https://www.google-analytics.com",
+          "https://analytics.google.com",
           "https://www.googletagmanager.com",
           "https://region1.google-analytics.com",
+          "https://pagead2.googlesyndication.com",
+          "https://www.googleadservices.com",
           "https://*.ctfassets.net",
         ],
         frameSrc: [
           "'self'",
           "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
           "https://www.google.com",
           "https://*.doubleclick.net",
         ],
         objectSrc: ["'none'"],
         baseUri: ["'self'"],
         formAction: ["'self'"],
+        frameAncestors: ["'self'"],
+        upgradeInsecureRequests: [],
       },
       reportOnly: true,
     })
 );
-
 
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
