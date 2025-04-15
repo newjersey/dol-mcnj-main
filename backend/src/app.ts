@@ -83,6 +83,7 @@ app.use(
         ],
         scriptSrcElem: [
           "'self'",
+          "'unsafe-inline'",
           "https://www.googletagmanager.com",
           "https://tagmanager.google.com",
           "https://www.google-analytics.com",
