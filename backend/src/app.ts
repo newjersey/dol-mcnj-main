@@ -67,37 +67,44 @@ app.use(
         useDefaults: true,
         directives: {
           defaultSrc: ["'self'"],
+
           scriptSrc: [
             "'self'",
-            "'unsafe-inline'",  // required if GTM uses inline startup scripts
+            "'unsafe-inline'", // needed for GTM injection
+            "'unsafe-eval'",   // needed for GTM debug tools + source maps
             "https://www.googletagmanager.com",
-            "https://www.google-analytics.com",
-            "https://tagmanager.google.com"
+            "https://www.google-analytics.com"
           ],
+
           styleSrc: [
             "'self'",
-            "'unsafe-inline'",
+            "'unsafe-inline'", // needed for fonts.googleapis.com
             "https://fonts.googleapis.com",
             "https://www.googletagmanager.com"
           ],
+
           fontSrc: [
             "'self'",
             "https://fonts.gstatic.com"
           ],
+
           imgSrc: [
             "'self'",
             "data:",
-            "https://images.ctfassets.net",
+            "blob:",
+            "https://images.ctfassets.net", // Contentful
             "https://www.google-analytics.com",
             "https://www.googletagmanager.com"
           ],
+
           connectSrc: [
             "'self'",
             "https://www.google-analytics.com",
             "https://region1.google-analytics.com"
           ],
+
+          scriptSrcAttr: ["'none'"],
           objectSrc: ["'none'"],
-          scriptSrcAttr: ["'none'"], // prevent onClick/onLoad inline handlers
           baseUri: ["'self'"],
           frameAncestors: ["'self'"]
         }
