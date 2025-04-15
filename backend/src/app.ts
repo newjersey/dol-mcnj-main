@@ -68,15 +68,17 @@ app.use(
         defaultSrc: ["'self'"],
         scriptSrc: [
           "'self'",
-          "'unsafe-inline'", // needed for GTM inline bootstrap
-          "'unsafe-eval'",   // needed by some browser polyfills & React dev
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "'report-sample'",
           "https://www.googletagmanager.com",
           "https://www.google-analytics.com",
-          "https://www.google.com",             // Google Ads
-          "https://adservice.google.com",       // Google Ads
-          "https://pagead2.googlesyndication.com", // Google Ads
+          "https://www.google.com",
+          "https://adservice.google.com",
+          "https://pagead2.googlesyndication.com",
+          "https://*.doubleclick.net",
         ],
-        scriptSrcAttr: ["'none'"], // block inline event handlers
+        scriptSrcAttr: ["'none'"],
         scriptSrcElem: [
           "'self'",
           "https://www.googletagmanager.com",
@@ -84,28 +86,13 @@ app.use(
           "https://www.google.com",
           "https://adservice.google.com",
           "https://pagead2.googlesyndication.com",
-        ],
-        connectSrc: [
-          "'self'",
-          "https://www.google-analytics.com",
-          "https://www.googletagmanager.com",
-          "https://region1.google-analytics.com", // for region-specific GA4
-          "https://*.ctfassets.net", // Contentful assets
-        ],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https://www.googletagmanager.com",
-          "https://www.google-analytics.com",
-          "https://ssl.gstatic.com",
-          "https://www.gstatic.com",
-          "https://*.ctfassets.net",
+          "https://*.doubleclick.net",
         ],
         styleSrc: [
           "'self'",
-          "'unsafe-inline'", // for fonts.googleapis.com CSS
+          "'unsafe-inline'",
           "https://fonts.googleapis.com",
-          "https://www.googletagmanager.com", // badge/debug styles
+          "https://www.googletagmanager.com", // for badge/debug styles
         ],
         styleSrcElem: [
           "'self'",
@@ -117,19 +104,38 @@ app.use(
           "'self'",
           "https://fonts.gstatic.com",
         ],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+          "https://ssl.gstatic.com",
+          "https://www.gstatic.com",
+          "https://*.ctfassets.net",
+          "https://pagead2.googlesyndication.com",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://www.google-analytics.com",
+          "https://www.googletagmanager.com",
+          "https://region1.google-analytics.com",
+          "https://*.ctfassets.net",
+        ],
         frameSrc: [
           "'self'",
           "https://www.googletagmanager.com",
-          "https://www.google.com", // for iframes/ads
-          "https://*.doubleclick.net", // ads
+          "https://www.google.com",
+          "https://*.doubleclick.net",
         ],
         objectSrc: ["'none'"],
         baseUri: ["'self'"],
         formAction: ["'self'"],
       },
-      reportOnly: true, // flip to false when you're ready to enforce
+      reportOnly: true,
     })
 );
+
 
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
