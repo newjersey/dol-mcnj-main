@@ -62,55 +62,73 @@ const corsOptions = {
 };
 
 app.use(
-    helmet({
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            "'unsafe-eval'",
-            'https://www.googletagmanager.com',
-            'https://tagmanager.google.com',
-            'https://www.googletagmanager.com/debug',
-          ],
-          styleSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            'https://fonts.googleapis.com',
-            'https://fonts.googleapis.com/icon',
-            'https://tagmanager.google.com',
-            'https://www.googletagmanager.com/debug',
-          ],
-          fontSrc: [
-            "'self'",
-            'https://fonts.gstatic.com',
-            'data:',
-          ],
-          imgSrc: [
-            "'self'",
-            'data:',
-            'https://www.googletagmanager.com',
-            'https://ssl.gstatic.com',
-            'https://www.gstatic.com',
-          ],
-          connectSrc: [
-            "'self'",
-            'https://www.googletagmanager.com',
-            'https://www.google-analytics.com',
-            'https://analytics.google.com',
-          ],
-          frameSrc: [
-            "'self'",
-            'https://www.googletagmanager.com',
-          ],
-          objectSrc: ["'none'"],
-          baseUri: ["'self'"],
-          formAction: ["'self'"],
-        },
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'", // needed for GTM inline bootstrap
+          "'unsafe-eval'",   // needed by some browser polyfills & React dev
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+          "https://www.google.com",             // Google Ads
+          "https://adservice.google.com",       // Google Ads
+          "https://pagead2.googlesyndication.com", // Google Ads
+        ],
+        scriptSrcAttr: ["'none'"], // block inline event handlers
+        scriptSrcElem: [
+          "'self'",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+          "https://www.google.com",
+          "https://adservice.google.com",
+          "https://pagead2.googlesyndication.com",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://www.google-analytics.com",
+          "https://www.googletagmanager.com",
+          "https://region1.google-analytics.com", // for region-specific GA4
+          "https://*.ctfassets.net", // Contentful assets
+        ],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+          "https://ssl.gstatic.com",
+          "https://www.gstatic.com",
+          "https://*.ctfassets.net",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'", // for fonts.googleapis.com CSS
+          "https://fonts.googleapis.com",
+          "https://www.googletagmanager.com", // badge/debug styles
+        ],
+        styleSrcElem: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://www.googletagmanager.com",
+        ],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+        ],
+        frameSrc: [
+          "'self'",
+          "https://www.googletagmanager.com",
+          "https://www.google.com", // for iframes/ads
+          "https://*.doubleclick.net", // ads
+        ],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
       },
+      reportOnly: true, // flip to false when you're ready to enforce
     })
-
 );
 
 
