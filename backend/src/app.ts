@@ -62,56 +62,62 @@ const corsOptions = {
 };
 
 app.use(
-    helmet({
-      contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-          defaultSrc: ["'self'"],
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      reportOnly: true, // Safe for testing
+      directives: {
+        defaultSrc: ["'self'"],
 
-          scriptSrc: [
-            "'self'",
-            "'unsafe-inline'", // needed for GTM injection
-            "'unsafe-eval'",   // needed for GTM debug tools + source maps
-            "https://www.googletagmanager.com",
-            "https://www.google-analytics.com"
-          ],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'", // Needed for GTM injection
+          "'unsafe-eval'",    // Some React dev tools or Google debug scripts may need this
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+        ],
 
-          styleSrc: [
-            "'self'",
-            "'unsafe-inline'", // needed for fonts.googleapis.com
-            "https://fonts.googleapis.com",
-            "https://www.googletagmanager.com"
-          ],
+        scriptSrcElem: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+        ],
 
-          fontSrc: [
-            "'self'",
-            "https://fonts.gstatic.com"
-          ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://www.googletagmanager.com"
+        ],
 
-          imgSrc: [
-            "'self'",
-            "data:",
-            "blob:",
-            "https://images.ctfassets.net", // Contentful
-            "https://www.google-analytics.com",
-            "https://www.googletagmanager.com"
-          ],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com"
+        ],
 
-          connectSrc: [
-            "'self'",
-            "https://www.google-analytics.com",
-            "https://region1.google-analytics.com"
-          ],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://images.ctfassets.net",
+          "https://www.google-analytics.com",
+          "https://www.googletagmanager.com"
+        ],
 
-          scriptSrcAttr: ["'none'"],
-          objectSrc: ["'none'"],
-          baseUri: ["'self'"],
-          frameAncestors: ["'self'"]
-        }
+        connectSrc: [
+          "'self'",
+          "https://www.google-analytics.com",
+          "https://region1.google-analytics.com",
+          "https://www.googletagmanager.com"
+        ],
+
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        frameAncestors: ["'self'"]
       }
     })
 );
-
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
 // const contactLimiter = rateLimiter(3600, 20) // max 20 emails in 1 hour per ip
