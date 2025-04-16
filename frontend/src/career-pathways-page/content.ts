@@ -2,6 +2,8 @@ import manufacturingImage from "../images/welder.jpg";
 import healthcareImage from "../images/medical.jpg";
 import tdlImage from "../images/mechanic.jpg";
 import { SelectorProps } from "../svg/Selector";
+import sectionImage from "../images/1207302676_cropped-min.png";
+import sectionImage2 from "../images/1404069302-min.jpg";
 
 export const content = {
   banner: {
@@ -141,37 +143,57 @@ Warehousing is the process of storing physical inventory for sale or distributio
     ],
   },
   copySections: [
-    `## Career Pathways and Industry Sectors—what's the difference, exactly?
+    {
+      image: sectionImage2,
+      blocks: [
+        {
+          theme: "blue",
+          copy: `## Career Pathways and Industry Sectors—what's the difference, exactly?
 
-  ### Think of Career Pathways as a GPS.
+### Think of Career Pathways as a GPS.
 
-  Career Pathways offers the best route to reach your career destination, outlining the steps you need to take to get where you want to go, including education, training, and upskilling.
+Career Pathways offers the best route to reach your career destination, outlining the steps you need to take to get where you want to go, including education, training, and upskilling.
 
-  ### Think of Industry Sector Information as a guidebook.
+### Think of Industry Sector Information as a guidebook.
 
-  Industry Sector Information provides an overview of various industries, including a snapshot of the job market. Here's some of the helpful information you'll find:
+Industry Sector Information provides an overview of various industries, including a snapshot of the job market. Here's some of the helpful information you'll find:
 
-  - Types of jobs
-  - Salary expectations
-  - Specific skills in high demand
-  - Companies that are the major players
-  - Potential for Industry growth`,
-    `## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.
+- Types of jobs
+- Salary expectations
+- Specific skills in high demand
+- Companies that are the major players
+- Potential for Industry growth`,
+        },
+      ],
+    },
+    {
+      image: sectionImage,
+      blocks: [
+        {
+          theme: "purple",
+          copy: `## It's important to make informed choices. See how Career Pathways and Industry Sector Information can help.
 
-  Through Career Pathways and Industry Sector Information, you'll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you'll discover:
-  - Information about the most in-demand manufacturing jobs in New Jersey
-  - Insights from over 40 manufacturing companies throughout New Jersey
-  - Valuable data about available jobs
-  - The skills, education, and experience you need to get started.`,
-    `  ## Our legwork can help you get a leg up in your career.
+Through Career Pathways and Industry Sector Information, you'll be able to make impactful, data-driven decisions. For instance, if you choose to explore the Manufacturing Career Pathway, you'll discover:
 
-  Our data comes from trusted sources with the most up-to-date information:
+- Information about the most in-demand manufacturing jobs in New Jersey
+- Insights from over 40 manufacturing companies throughout New Jersey
+- Valuable data about available jobs
+- The skills, education, and experience you need to get started.`,
+        },
+        {
+          theme: "green",
+          copy: `## Our legwork can help you get a leg up in your career.
 
-  - Experienced New Jersey labor market analysts who study job trends
-  - Actual New Jersey employers
-  - Recent employment and wage surveys
+Our data comes from trusted sources with the most up-to-date information:
 
-  Everyone's career path is different. With Career Pathways and Industry Sector Information, you'll have what you need to help you move forward successfully.`,
+- Experienced New Jersey labor market analysts who study job trends
+- Actual New Jersey employers
+- Recent employment and wage surveys
+
+Everyone's career path is different. With Career Pathways and Industry Sector Information, you'll have what you need to help you move forward successfully.`,
+        },
+      ],
+    },
   ],
   cta: {
     heading: "Still have a question about My Career NJ?",
