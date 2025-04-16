@@ -154,8 +154,7 @@ app.use(
         upgradeInsecureRequests: [], // will be ignored in report-only
         // Optional: enable CSP reporting endpoint if needed
         // reportUri: "/csp-report",
-      },
-      reportOnly: true,
+      }
     })
 );
 
