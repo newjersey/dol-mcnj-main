@@ -4,8 +4,8 @@ import mechanic from "@images/mechanic.jpg";
 import medical from "@images/medical.jpg";
 import welder from "@images/welder.jpg";
 import { IndustrySelectorProps } from "@utils/types/components";
-import placeholder1 from "@images/placeholder.png";
-import placeholder2 from "@images/placeholder2.png";
+import placeholder1 from "@images/1404069302.jpg";
+import placeholder2 from "@images/1207302676.png";
 import { ThemeColors } from "@utils/types";
 
 export const CAREER_PATHWAYS_PAGE_DATA = {
