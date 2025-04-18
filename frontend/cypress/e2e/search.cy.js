@@ -71,7 +71,7 @@ describe("Search", () => {
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+    cy.contains("Baking and Pastry").should(
       "exist",
     );
 
@@ -79,7 +79,7 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Culinary Arts").should("exist");
+    cy.contains("Baking and Pastry").should("exist");
 
     // removes others
     cy.contains("Welding Workshops").should("not.exist");
