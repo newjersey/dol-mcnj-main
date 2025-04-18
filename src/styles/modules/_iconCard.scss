@@ -22,7 +22,8 @@
     @media screen and (min-width: (s.$desktop)) {
       transition-duration: s.$transition-speed;
       transition-timing-function: ease-in-out;
-      transition-property: transform, box-shadow, background-color, border-color;
+      transition-property: transform, box-shadow, background-color, border-color,
+        top;
     }
 
     &:hover {
