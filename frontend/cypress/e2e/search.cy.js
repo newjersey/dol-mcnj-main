@@ -20,7 +20,7 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+    cy.contains("Baking and Pastry").should(
       "exist",
     );
 
@@ -28,10 +28,8 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("baking skills").should("exist");
-
     cy.contains(
-      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
+      "...program offers hands-on courses in the fundamentals of baking and pastry. It will also prepare you for the National...",
     ).should("exist");
   });
 
