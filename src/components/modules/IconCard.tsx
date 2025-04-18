@@ -45,7 +45,6 @@ const CardContent = ({
 
 export const IconCard = (props: IconCardProps) => {
   const { centered, className, fill, hoverFill, theme, url } = props;
-  // Constructing the classNames string for the iconCard element based on different conditions
   const classes = `iconCard${theme && !centered ? ` ${theme}` : ""}${
     theme && fill ? ` fill` : ""
   }${centered ? ` centered` : ""}${hoverFill && centered ? " hoverFill" : ""}${
@@ -55,7 +54,11 @@ export const IconCard = (props: IconCardProps) => {
   return (
     <div className={classes}>
       {url ? (
-        <LinkObject url={url} noIndicator>
+        <LinkObject
+          url={url}
+          noIndicator
+          className="relative top-0 hover:top-[-10px]"
+        >
           <CardContent {...props} />
         </LinkObject>
       ) : (
