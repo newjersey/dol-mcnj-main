@@ -21,6 +21,7 @@ import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
+import helmet from "helmet";
 // import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
@@ -59,6 +60,104 @@ const corsOptions = {
   optionsSuccessStatus: 200
 
 };
+
+app.use(
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'", // for GTM bootstrap
+          "'unsafe-eval'",   // required for GTM preview & Custom JS
+          "'report-sample'",
+          "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
+          "https://www.google-analytics.com",
+          "https://analytics.google.com",
+          "https://www.google.com",
+          "https://adservice.google.com",
+          "https://pagead2.googlesyndication.com",
+          "https://*.doubleclick.net",
+        ],
+        scriptSrcElem: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
+          "https://www.google-analytics.com",
+          "https://analytics.google.com",
+          "https://www.google.com",
+          "https://adservice.google.com",
+          "https://pagead2.googlesyndication.com",
+          "https://*.doubleclick.net",
+        ],
+        scriptSrcAttr: ["'unsafe-inline'"], // changed from 'none' to allow GTM inline handlers
+
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
+        ],
+        styleSrcElem: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
+        ],
+
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://fonts.googleapis.com",
+          "data:",
+        ],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+          "https://ssl.gstatic.com",
+          "https://www.gstatic.com",
+          "https://fonts.gstatic.com", // added to fix icon image blocking
+          "https://*.ctfassets.net",
+          "https://pagead2.googlesyndication.com",
+          "https://www.googleadservices.com",
+          "https://*.doubleclick.net",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://www.google-analytics.com",
+          "https://region1.google-analytics.com",
+          "https://analytics.google.com",
+          "https://www.googletagmanager.com",
+          "https://pagead2.googlesyndication.com",
+          "https://www.googleadservices.com",
+          "https://*.ctfassets.net",
+        ],
+        frameSrc: [
+          "'self'",
+          "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
+          "https://*.doubleclick.net",
+          "https://www.google.com",
+        ],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'self'"],
+        upgradeInsecureRequests: [], // will be ignored in report-only
+        // Optional: enable CSP reporting endpoint if needed
+        // reportUri: "/csp-report",
+      }
+    })
+);
+
 
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
