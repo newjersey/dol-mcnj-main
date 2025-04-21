@@ -12,7 +12,7 @@ import {Address, Provider} from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
 import { DeliveryType } from "../domain/DeliveryType";
-import { processInBatches } from "../utils/concurrencyUtils";
+// import { processInBatches } from "../utils/concurrencyUtils";
 import { AxiosError } from "axios";
 import NodeCache from "node-cache";
 import * as process from "node:process";
@@ -108,74 +108,63 @@ const getCtidFromURL = async (url: string): Promise<string> => {
   }
 };
 
-/**
- * Fetches resource data from Credential Engine based on a given URL.
- * @param url - The Credential Engine resource URL.
- * @returns The fetched CTDLResource or null if not found.
- */
-const fetchNJDOLResource = async (url: string): Promise<CTDLResource | null> => {
-  try {
-    const ctid = await getCtidFromURL(url);
-    const query = {
-      "ceterms:ctid": ctid,
-      "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
-    };
-
-    const response = await credentialEngineAPI.getResults(query, 0, 10);
-    // console.log(response.data);
-    return response.data.data.length > 0 ? response.data.data[0] : null;
-
-  } catch (error) {
-    logError(`Error fetching data for CTID`, error as Error);
-    return null;
-  }
-};
-
 
 /**
- * Processes a list of URLs to fetch valid Credential Engine data concurrently.
- * Uses CTID validation, retries with exponential backoff, and batch processing.
- *
- * @param urls - List of Credential Engine URLs.
- * @returns An array of valid CTDLResource objects.
+ * Fetches and verifies a Credential Engine envelope by full URL.
+ * Returns the decoded resource if it's published by NJDOL and passes the optional filter.
  */
-const   fetchValidCEData = async (urls: string[]): Promise<CTDLResource[]> => {
+export async function fetchNJDOLResource(
+  envelopeUrl: string,
+  filterFn?: (resource: CTDLResource) => boolean
+): Promise<CTDLResource | null> {
   try {
-    const processFn = async (url: string): Promise<CTDLResource | null> => {
-      // Validate CTID before processing
-      const ctid = await getCtidFromURL(url);
-      if (!(await validateCtId(ctid))) {
-        console.error(`Invalid CE ID: ${url}`);
+    const ctid = envelopeUrl.split("/").pop();
+    if (!ctid) {
+      console.error(`Invalid envelope URL: ${envelopeUrl}`);
+      return null;
+    }
+
+    const envelope = await credentialEngineAPI.getEnvelopeByCTID(ctid);
+    const publishedBy = envelope?.published_by;
+    const expectedPublisher = process.env.CE_NJDOL_CTID;
+
+    if (publishedBy !== expectedPublisher) {
+      console.warn(`CTID ${ctid} not published by NJDOL. Found: ${publishedBy}`);
+      return null;
+    }
+
+    const resourceGraph = envelope?.decoded_resource?.["@graph"];
+    if (!Array.isArray(resourceGraph)) return null;
+
+    // If filterFn is provided, return the first matching node
+    if (filterFn) {
+      const match = resourceGraph.find((node) => filterFn(node));
+      if (!match) {
+        console.warn(`No resource in @graph passed filterFn for CTID: ${ctid}`);
         return null;
       }
+      return match;
+    }
 
-      // Fetch certificate data with retry and exponential backoff
-      const result = await retryWithBackoff(
-        () => fetchNJDOLResource(url),
-        3, // Max retries
-        1000, // Initial delay in ms
-        `fetchValidCEData for URL: ${url}`
-      );
-      console.log(result);
-      return result;
-    };
+    // Fallback: if only one node, return it
+    if (resourceGraph.length === 1) {
+      return resourceGraph[0];
+    }
 
-    // Use processInBatches for concurrency and retries
-    const results = await processInBatches<CTDLResource | null>(
-      urls,
-      processFn,
-      3, // Concurrency limit
-      3, // Max retries per batch task
-      1000 // Initial delay for backoff
-    );
-
-    // Filter out null results
-    return results.filter((record): record is CTDLResource => record !== null);
-  } catch (error) {
-    logError(`Error fetching valid CE data`, error as Error);
-    throw error;
+    // If multiple nodes and no filterFn, warn and return null
+    console.warn(`Ambiguous graph structure in envelope for CTID ${ctid} — multiple nodes, no filter`);
+    return null;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(`Failed to fetch or process envelope from ${envelopeUrl}:`, err.message);
+    } else {
+      console.error(`Unknown error while fetching envelope from ${envelopeUrl}`);
+    }
+    return null;
   }
-};
+}
+
+
 
 /**
  * Fetches provider data associated with a given resource.
@@ -806,11 +795,29 @@ export const DATA_VALUE_TO_LANGUAGE: { [key: string]: string } = {
   yi: "Yiddish",
 };
 
+/**
+ * Checks whether the decoded resource contains a Learning Opportunity Profile.
+ * @param resource - The decoded CTDL resource (as a JWT-decoded object).
+ * @returns True if at least one graph node is of type ceterms:LearningOpportunityProfile.
+ */
+/**
+ * Checks whether a decoded_resource contains a LearningOpportunityProfile.
+ * Can be used as a filterFn for fetchNJDOLResource().
+ *
+ * @param resource - The decoded_resource object from the envelope.
+ * @returns True if any node in @graph has type LearningOpportunityProfile.
+ */
+export function isLearningOpportunityProfile(resource: Pick<CTDLResource, "@type">): boolean {
+  const type = resource?.["@type"];
+  if (Array.isArray(type)) {
+    return type.includes("ceterms:LearningOpportunityProfile");
+  }
+  return type === "ceterms:LearningOpportunityProfile";
+}
+
 export const credentialEngineUtils = {
   validateCtId,
   getCtidFromURL,
-  fetchNJDOLResource: fetchNJDOLResource,
-  fetchValidCEData,
   getProviderData,
   getAddress,
   getAvailableAtAddresses,
@@ -830,4 +837,5 @@ export const credentialEngineUtils = {
   getLanguages,
   convertIso8601DurationToTotalHours,
   convertIso8601DurationToCalendarLengthId,
+  isLearningOpportunityProfile,
 };
