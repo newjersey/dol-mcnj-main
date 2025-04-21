@@ -17,6 +17,7 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import * as process from "node:process";
 
 
 // ─── Initialize cache ─────────────────────────────────────────────────────────
@@ -574,7 +575,7 @@ function buildQuery(params: {
     "ceterms:lifeCycleStatusType": {
       "ceterms:targetNode": "lifeCycle:Active",
     },
-    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+    "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
     "search:termGroup": termGroup
   };
 }

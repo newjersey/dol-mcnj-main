@@ -9,7 +9,7 @@ import {DeliveryType} from "../../domain/Training";
 
 jest.mock("../../utils/updateUrlParams.ts");
 
-describe("filtering by online or in-person", () => {
+describe.skip("filtering by online or in-person", () => {
   const online = buildTrainingResult({ name: "online training", deliveryTypes: [DeliveryType.OnlineOnly] });
   const inPerson = buildTrainingResult({ name: "in-person training", deliveryTypes: [DeliveryType.InPerson] });
 

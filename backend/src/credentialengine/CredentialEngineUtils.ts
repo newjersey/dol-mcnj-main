@@ -15,6 +15,7 @@ import { DeliveryType } from "../domain/DeliveryType";
 import { processInBatches } from "../utils/concurrencyUtils";
 import { AxiosError } from "axios";
 import NodeCache from "node-cache";
+import * as process from "node:process";
 
 // Cache provider data to avoid redundant API calls
 const providerCache = new NodeCache({ stdTTL: 3600 });
@@ -117,7 +118,7 @@ const fetchNJDOLResource = async (url: string): Promise<CTDLResource | null> => 
     const ctid = await getCtidFromURL(url);
     const query = {
       "ceterms:ctid": ctid,
-      "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+      "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
     };
 
     const response = await credentialEngineAPI.getResults(query, 0, 10);
