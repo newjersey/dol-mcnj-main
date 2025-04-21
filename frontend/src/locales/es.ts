@@ -22,9 +22,15 @@ export const es = {
   },
   ErrorPage: {
     notFoundHeader: "Lo sentimos, parece que no podemos encontrar esa página.",
+    notFoundHeaderTemp: "Cambio temporal de URL",
+    notFoundHeaderTraining: "Training Not Found",
     notFoundText: "Pruebe uno de estos en su lugar:",
+    notFoundTextTemp:
+      "¡Disculpas! Actualmente estamos actualizando nuestra estructura de datos, lo que ha resultado en cambios temporales en la URL de la página a la que intenta acceder. Mientras solucionamos este problema, utilice el siguiente enlace para regresar a la página de búsqueda de Training Explorer y vuelva a intentar su búsqueda.",
     notFoundLink1: "Buscar una oportunidad de formación",
     notFoundLink2: "Busque su One-Stop Career Center local",
+    notFoundLink1Temp: "Búsqueda del Explorador de formación",
+    notFoundLink2Temp: "Contacta con nosotros",
     somethingWentWrongHeader: "Perdón, algo salió mal",
     somethingWentWrongText: "Por favor, inténtelo de nuevo más tarde",
   },
@@ -193,7 +199,7 @@ export const es = {
   },
   SearchAndFilter: {
     searchButtonDefaultText: "Búsqueda",
-    searchButtonUpdateResultsText: "Actualizar resultados",
+    applyFiltersButtontText: "Aplicar",
     searchBarDefaultPlaceholderText: "Buscar cursos de formación",
     sortByLabel: "Ordenar por",
     sortByBestMatch: "Mejor partido",
@@ -203,14 +209,13 @@ export const es = {
     resultCountString_one: "{{count}} resultado",
     resultCountString_other: "{{count}} resultados",
     mobileFilterText: "Editar búsqueda o filtro",
-    locationFilterLabel: "Millas desde el código postal",
+    locationFilterLabel: "Distancia desde el código postal",
     locationFilterMilesInputLabel: "Millas",
     locationFilterZipCodePlaceholder: "Código postal",
     locationFilterZipCodeInvalid: "Ingrese un código postal de Nueva Jersey de 5 dígitos.",
     inDemandFilterLabel: "Mostrar solo capacitaciones bajo demanda",
     costFilterLabel: "Costo",
     maxCostLabel: "Costo máximo",
-    classFormatFilterLabel: "Formato de clase",
     classFormatInPersonLabel: "En persona",
     classFormatOnlineLabel: "En línea",
     timeToCompleteFilterLabel: "Tiempo para completar",
@@ -238,6 +243,8 @@ export const es = {
     noSearchTermPageTitle: "Buscar Entrenamiento",
     noSearchTermHeader: "Buscar formación",
     sectionOneHeader: "¿Qué es el New Jersey Training Explorer?",
+    loadingHeader: "Buscando datos de entrenamiento para tus resultados...",
+    loadingHeaderMessage: "Esto puede tardar unos segundos",
     sectionOneHeaderSmallScreen: "Empezando",
     introText:
       "El New Jersey Training Explorer es una lista completa de todas las escuelas y organizaciones que ofrecen educación y capacitación laboral que pueden ser elegibles para recibir",
@@ -245,8 +252,6 @@ export const es = {
     searchHelperHeader: "¿Qué puedo buscar?",
     searchHelperText: "Estos son algunos ejemplos que pueden mejorar sus resultados de búsqueda:",
     boldText1: "Proveedores de capacitación:",
-    helperText1:
-      'si está buscando un proveedor de capacitación, intente usar solo el nombre del proveedor y excluya palabras como "universidad" o "facultad".',
     boldText2: "Ocupaciones:",
     helperText2:
       "si está buscando capacitación para un trabajo, puede escribir el trabajo directamente en el cuadro de búsqueda.",
@@ -254,6 +259,9 @@ export const es = {
     helperText3:
       'si conoce el nombre de la licencia para la que se está capacitando, use el acrónimo para ver más resultados. Por ejemplo, para la licencia de conducir comercial, intente buscar "CDL".',
     smallScreenSearchHeader: "Buscar Entrenamiento",
+    searchTipsHeading: "¿No estás viendo los resultados que buscabas?",
+    searchTTipsContent:
+      '- Revise la ortografía para asegurarse de que sea correcta.\n- Verifique y ajuste los filtros que haya aplicado a su búsqueda.\n- ¿Los resultados de su búsqueda son demasiado pequeños? Su búsqueda puede ser demasiado específica. Intente buscar con menos palabras.\n### Estos son algunos ejemplos que pueden mejorar sus resultados de búsqueda:\n- **Proveedores de capacitación**: si está buscando un proveedor de capacitación, intente usar solo el proveedor\' s nombre y excluye palabras como "universidad" o "colegio".\n- **Ocupaciones**: si estás buscando capacitación para un trabajo, puedes escribir el trabajo directamente en el cuadro de búsqueda.\n- * *Licencia**: Si conoce el nombre de la licencia para el que estás entrenando, utiliza el acrónimo para ver más resultados. Por ejemplo, para el permiso de conducir comercial, intente buscar "CDL".',
     searchTips1:
       "¿No estás viendo los resultados que buscabas? Le recomendamos que pruebe estos consejos de búsqueda para mejorar sus resultados:",
     searchTips2:
@@ -282,6 +290,8 @@ export const es = {
     comparisonEmploymentRateLabelMobile: "Tasa de empleo",
     comparisonTimeToCompleteLabel: "Tiempo para completar",
     comparisonSeeDetails: "Ver detalles",
+    addFiltersLabel: "Agregar filtros",
+    filtersButton: "Filtros",
   },
   StatBlock: {
     dataSourceLabel: "Fuente de datos: ",
@@ -302,7 +312,7 @@ export const es = {
       "Porcentaje de estudiantes matriculados empleados dentro de los 6 meses de esta clase o clases similares en este proveedor",
     descriptionGroupHeader: "Descripción",
     quickStatsGroupHeader: "Estadísticas rápidas",
-    certificationsLabel: "Certifications:",
+    credentialsLabel: "Credenciales:",
     prereqsLabel: "Requisitos previos:",
     completionTimeLabel: "Tiempo de finalización:",
     cipCodeLabel: "Código CIP:",
@@ -331,10 +341,15 @@ export const es = {
     suppliesCostLabel: "Suministros y herramientas",
     otherCostLabel: "Otro",
     providerGroupHeader: "Detalles del proveedor",
+    locationGroupHeader: "Detalles de ubicación",
     onlineClass: "Clase en línea",
+    inPersonClass: "Clase presencial",
+    blendedClass: "Clases combinadas (en línea y presenciales)",
+    variableSiteClass: "Clase de sitio variable",
+    unknownDeliveryType: "Tipo de entrega de clase desconocida",
+    deliveryTypeLabel: "Tipo de entrega",
     providerServicesGroupHeader: "Servicios del proveedor",
     eveningCoursesServiceLabel: "Este proveedor ofrece cursos nocturnos.",
-    otherLanguagesServiceLabel: "Los programas pueden estar disponibles en otros idiomas.",
     wheelchairAccessibleServiceLabel: "La instalación es accesible para sillas de ruedas.",
     childcareAssistanceServiceLabel:
       "Este proveedor tiene cuidado de niños en la instalación o brinda asistencia para encontrar cuidado de niños",

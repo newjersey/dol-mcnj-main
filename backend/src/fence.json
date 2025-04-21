@@ -1,6 +1,7 @@
 {
   "tags": ["backend"],
   "dependencies": [
+    "./utils/fakeDataGenerator",
     "aws-sdk",
     "@contentful/rich-text-types",
     "@sentry/node",
@@ -8,13 +9,17 @@
     "cors",
     "dotenv",
     "express",
+    "@faker-js/faker",
     "graphql-request",
     "helmet",
+    "jest-mock-axios",
     "knex",
     "supertest",
     "node-cache",
-    "express-rate-limit",
+    "p-limit",
     "winston",
+    "zipcodes",
+    "express-rate-limit",
     "express-validator",
     "nodemailer"
   ]

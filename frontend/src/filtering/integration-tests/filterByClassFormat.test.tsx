@@ -1,16 +1,17 @@
-import { buildTrainingResult } from "../../test-objects/factories";
-import { act } from "react-dom/test-utils";
-import { fireEvent, RenderResult } from "@testing-library/react";
-import { StubClient } from "../../test-objects/StubClient";
-import { App } from "../../App";
-import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
-import { en as Content } from "../../locales/en";
+import {buildTrainingResult} from "../../test-objects/factories";
+import {act} from "react-dom/test-utils";
+import {fireEvent, RenderResult} from "@testing-library/react";
+import {StubClient} from "../../test-objects/StubClient";
+import {App} from "../../App";
+import {renderWithRouter, waitForEffect} from "../../test-objects/helpers";
+import {en as Content} from "../../locales/en";
+import {DeliveryType} from "../../domain/Training";
 
 jest.mock("../../utils/updateUrlParams.ts");
 
 describe.skip("filtering by online or in-person", () => {
-  const online = buildTrainingResult({ name: "online training", online: true });
-  const inPerson = buildTrainingResult({ name: "in-person training", online: false });
+  const online = buildTrainingResult({ name: "online training", deliveryTypes: [DeliveryType.OnlineOnly] });
+  const inPerson = buildTrainingResult({ name: "in-person training", deliveryTypes: [DeliveryType.InPerson] });
 
   let stubClient: StubClient;
   let subject: RenderResult;

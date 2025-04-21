@@ -1,409 +1,316 @@
 import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
-import { WindowLocation } from "@reach/router";
-import { Client } from "../domain/Client";
-import { TrainingResult } from "../domain/Training";
-import { RouteComponentProps, Link } from "@reach/router";
-import { TrainingResultCard } from "./TrainingResultCard";
-import { CircularProgress, FormControl, InputLabel, useMediaQuery, Icon } from "@material-ui/core";
-import { FilterBox } from "../filtering/FilterBox";
-import { SomethingWentWrongPage } from "../error/SomethingWentWrongPage";
-import { WhiteSelect } from "../components/WhiteSelect";
-import { SortOrder } from "../sorting/SortOrder";
-import { SortContext } from "../sorting/SortContext";
-import { FilterContext } from "../filtering/FilterContext";
-import { TrainingComparison } from "./TrainingComparison";
-import { ComparisonContext } from "../comparison/ComparisonContext";
-import { useTranslation } from "react-i18next";
+import { navigate } from "@reach/router";
+import { RouteComponentProps, WindowLocation } from "@reach/router";
+
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
-import { usePageTitle } from "../utils/usePageTitle";
-import { ArrowLeft } from "@phosphor-icons/react";
-import { checkValidSocCode } from "../utils/checkValidCodes";
+import { Client } from "../domain/Client";
+import { TrainingData, TrainingResult } from "../domain/Training";
 import pageImage from "../images/ogImages/searchResults.png";
+
+import { Breadcrumbs } from "./Breadcrumbs";
+import { Pagination } from "./Pagination";
+import { ResultsHeader } from "./ResultsHeader";
+import { TrainingComparison } from "./TrainingComparison";
+import { TrainingResultCard } from "./TrainingResultCard";
+import { SearchFilters } from "./SearchFilters";
+import { SearchTips } from "./SearchTips";
+import { useTranslation } from "react-i18next";
+
+import { ComparisonContext } from "../comparison/ComparisonContext";
+import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
+import { CountyProps, LanguageProps } from "../filtering/filterLists";
+
+import {getSearchQuery, filterChips, getTrainingData} from "./searchFunctions";
+import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
   client: Client;
   location?: WindowLocation<unknown> | undefined;
 }
 
-export const SearchResultsPage = (props: Props): ReactElement<Props> => {
-  const isTabletAndUp = useMediaQuery("(min-width:768px)");
-  const isTabletAndBelow = useMediaQuery("(max-width:767px)");
+export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
+  const [isError, setIsError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [metaData, setMetaData] = useState<TrainingData["meta"]>();
+  const [trainings, setTrainings] = useState<TrainingResult[]>([]);
+  const searchQuery = getSearchQuery(location?.search);
+  const [filters, setFilters] = useState({
+    itemsPerPage: 10,
+    pageNumber: 1,
+    sortBy: "best_match" as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
+    searchQuery: searchQuery || "",
+    cipCode: undefined as string | undefined,
+    classFormat: [] as string[],
+    completeIn: [] as string[],
+    county: undefined as CountyProps | undefined,
+    inDemand: false,
+    languages: [] as LanguageProps[],
+    maxCost: undefined as number | undefined,
+    miles: undefined as number | undefined,
+    services: [] as string[],
+    socCode: undefined as string | undefined,
+    zipcode: undefined as string | undefined,
+  });
+
+
+  const comparisonState = useContext(ComparisonContext).state;
+
   const { t } = useTranslation();
 
-  const [trainings, setTrainings] = useState<TrainingResult[]>([]);
-  const [filteredTrainings, setFilteredTrainings] = useState<TrainingResult[]>([]);
-  const [shouldShowTrainings, setShouldShowTrainings] = useState<boolean>(false);
-  const [showSearchTips, setShowSearchTips] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
-  const [pageTitle, setPageTitle] = useState<string>(
-    `Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
-  );
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
 
-  const filterState = useContext(FilterContext).state;
-  const comparisonState = useContext(ComparisonContext).state;
-  const sortContextValue = useContext(SortContext);
-  const sortState = sortContextValue.state;
-  const sortDispatch = sortContextValue.dispatch;
+    const updatedFilters = {
+      pageNumber: parseInt(urlParams.get("p") || "1", 10),
+      itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
+      sortBy: (urlParams.get("sort") as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") || "best_match",
+      cipCode: urlParams.get("cip") || undefined,
+      classFormat: urlParams.get("format") ? urlParams.get("format")!.split(",") : [],
+      completeIn: urlParams.get("completeIn") ? urlParams.get("completeIn")!.split(",") : [],
+      county: urlParams.get("county") ? ({ name: urlParams.get("county")! } as unknown as CountyProps) : undefined,
+      inDemand: urlParams.get("inDemand") === "true",
+      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as LanguageProps[]) : [],
+      maxCost: urlParams.get("maxCost") ? parseInt(urlParams.get("maxCost")!) : undefined,
+      miles: urlParams.get("miles") ? parseInt(urlParams.get("miles")!) : undefined,
+      services: urlParams.get("services") ? urlParams.get("services")!.split(",") : [],
+      socCode: urlParams.get("soc") || undefined,
+      zipcode: urlParams.get("zipcode") || undefined,
+      searchQuery: getSearchQuery(window.location.search) || ""
+    };
 
-  const searchString = props.location?.search;
-  const regex = /\?q=([^&]*)/;
-  const matches = searchString?.match(regex);
-  const searchQuery = matches ? decodeURIComponent(matches[1]) : null;
+    setFilters((prev) => ({
+      ...prev,
+      ...updatedFilters,
+    }));
+  }, [window.location.search]);
 
 
-  usePageTitle(pageTitle);
 
   useEffect(() => {
-    let newFilteredTrainings = trainings;
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get("p");
+    const limit = urlParams.get("limit");
+    const sortByValue = urlParams.get("sort");
+    const cipCodeValue = urlParams.get("cip");
+    const classFormatValue = urlParams.get("format");
+    const completeInValue = urlParams.get("completeIn");
+    const countyValue = urlParams.get("county");
+    const inDemandValue = urlParams.get("inDemand");
+    const languagesValue = urlParams.get("languages");
+    const maxCostValue = urlParams.get("maxCost");
+    const milesValue = urlParams.get("miles");
+    const servicesValue = urlParams.get("services");
+    const socCodeValue = urlParams.get("soc");
+    const zipcodeValue = urlParams.get("zipcode");
 
-    filterState.filters.forEach((filter) => {
-      newFilteredTrainings = filter.func(newFilteredTrainings);
-    });
+    const limitValue = limit ? parseInt(limit) : 10;
+    const pageNumberValue = page ? parseInt(page) : 1;
 
-    const sortedResults = newFilteredTrainings.sort((a: TrainingResult, b: TrainingResult) => {
-      switch (sortState.sortOrder) {
-        case SortOrder.BEST_MATCH:
-          return b.rank - a.rank;
-        case SortOrder.COST_LOW_TO_HIGH:
-          return a.totalCost - b.totalCost;
-        case SortOrder.COST_HIGH_TO_LOW:
-          return b.totalCost - a.totalCost;
-        case SortOrder.EMPLOYMENT_RATE:
-          return (
-            (b.percentEmployed ? b.percentEmployed : 0) -
-            (a.percentEmployed ? a.percentEmployed : 0)
-          );
-        default:
-          return 0;
-      }
-    });
+    setIsLoading(true);
 
-    setFilteredTrainings([...sortedResults]);
-    setShowSearchTips(newFilteredTrainings.length < 5);
+    /** ✅ **Process `completeIn` correctly** */
+    const completeInArray: number[] = [];
+    let completeInStringArray: string[] = [];
 
-    if (newFilteredTrainings.length > 0 && searchQuery !== "null") {
-      setShouldShowTrainings(true);
-    }
-  }, [trainings, filterState.filters, sortState.sortOrder, showSearchTips, searchQuery]);
+    if (completeInValue) {
+      const completeValues =
+        completeInValue.includes(",") || completeInValue.includes("%2C")
+          ? completeInValue.split(",")
+          : [completeInValue];
 
-  const getPageTitle = (): void => {
-    if (!searchQuery || searchQuery === "null") {
-      setPageTitle(`Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`);
-    } else {
-      const query = decodeURIComponent(searchQuery.replace(/\+/g, " ")).toLocaleLowerCase();
-      setPageTitle(
-        `${query} | Advanced Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
-      );
-    }
-  };
+      completeInStringArray = completeValues; // Store string version in filters
 
-  useEffect(() => {
-    let queryToSearch = searchQuery ? searchQuery : "";
-
-    queryToSearch = checkValidSocCode(queryToSearch);
-
-    props.client.getTrainingsByQuery(queryToSearch, {
-      onSuccess: (data: TrainingResult[]) => {
-        setTrainings(data);
-        getPageTitle();
-        setIsLoading(false);
-      },
-      onError: () => {
-        setIsError(true);
-      },
-    });
-  }, [searchQuery, props.client]);
-
-  const toggleIsOpen = (): void => {
-    setIsOpen(!isOpen);
-  };
-
-  const getResultCount = (): ReactElement => {
-    let message;
-
-    if (!searchQuery || searchQuery === "null") {
-      message = t("SearchResultsPage.noSearchTermHeader");
-    } else {
-      const query = decodeURIComponent(searchQuery.replace(/\+/g, " "));
-      message = t("SearchResultsPage.resultsString", {
-        count: filteredTrainings.length,
-        query,
+      completeValues.forEach((value) => {
+        switch (value) {
+          case "days":
+            completeInArray.push(1, 2, 3);
+            break;
+          case "weeks":
+            completeInArray.push(4, 5);
+            break;
+          case "months":
+            completeInArray.push(6, 7);
+            break;
+          case "years":
+            completeInArray.push(8, 9, 10);
+            break;
+        }
       });
     }
 
-    return <h2 className="text-xl weight-500 pts mbs cutoff-text">{message}</h2>;
+
+    /** ✅ **Update filters state** */
+    setFilters((prev) => ({
+      ...prev,
+      pageNumber: pageNumberValue,
+      itemsPerPage: limitValue,
+      sortBy: sortByValue
+        ? (sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match")
+        : "best_match",
+      cipCode: cipCodeValue || undefined,
+      classFormat: classFormatValue ? classFormatValue.split(",") : [],
+      completeIn: completeInStringArray, // ✅ Keep as string[]
+      county: countyValue ? (countyValue as CountyProps) : undefined,
+      inDemand: inDemandValue === "true",
+      languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
+      maxCost: maxCostValue ? parseInt(maxCostValue) : undefined,
+      miles: milesValue ? parseInt(milesValue) : undefined,
+      services: servicesValue ? servicesValue.split(",") : [],
+      socCode: socCodeValue || undefined,
+      zipcode: zipcodeValue || undefined,
+    }));
+
+    /** ✅ **Fetch training data using correct filters** */
+    getTrainingData(
+      client,
+      searchQuery || "",
+      setIsError,
+      setIsLoading,
+      setMetaData,
+      setTrainings,
+      filters.cipCode,
+      filters.classFormat,
+      completeInArray, // ✅ Pass the correctly mapped numeric values
+      filters.county,
+      filters.inDemand,
+      filters.itemsPerPage,
+      filters.languages,
+      filters.maxCost,
+      filters.miles,
+      filters.pageNumber,
+      filters.services,
+      filters.socCode,
+      filters.sortBy,
+      filters.zipcode
+    );
+
+  }, [client, searchQuery, JSON.stringify(filters)]);
+
+
+  const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
+    const newNumber = parseInt(event.target.value);
+
+    // ✅ Update state properly
+    setFilters((prev) => ({ ...prev, itemsPerPage: newNumber }));
+
+    // ✅ Update URL properly
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("limit", newNumber.toString());
+    navigate(`?${urlParams.toString()}`, { replace: true });
   };
 
-  const resetState = (): void => {
-    setIsLoading(true);
-    setTrainings([]);
-  };
-
-  if (isError) {
-    return <SomethingWentWrongPage client={props.client} />;
-  }
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
-    const newSortOrder = event.target.value as SortOrder;
-    sortDispatch(newSortOrder);
+    const newSortOrder = event.target.value as
+      | "asc"
+      | "desc"
+      | "price_asc"
+      | "price_desc"
+      | "EMPLOYMENT_RATE"
+      | "best_match";
+
     logEvent("Search", "Updated sort", newSortOrder);
+
+    // ✅ Update state first
+    setFilters((prev) => ({ ...prev, sortBy: newSortOrder }));
+
+    // ✅ Update URL without reloading
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("sort", newSortOrder);
+    navigate(`?${urlParams.toString()}`, { replace: true });
   };
 
-  const getSortDropdown = (): ReactElement => (
-    <>
-      {filteredTrainings.length > 0 && (
-        <FormControl variant="outlined" className="mla width-100">
-          <InputLabel htmlFor="sortby">{t("SearchAndFilter.sortByLabel")}</InputLabel>
-          <WhiteSelect
-            native={true}
-            value={sortState.sortOrder}
-            onChange={handleSortChange}
-            label={t("SearchAndFilter.sortByLabel")}
-            id="sortby"
-          >
-            <option value={SortOrder.BEST_MATCH}>{t("SearchAndFilter.sortByBestMatch")}</option>
-            <option value={SortOrder.COST_LOW_TO_HIGH}>
-              {t("SearchAndFilter.sortByCostLowToHigh")}
-            </option>
-            <option value={SortOrder.COST_HIGH_TO_LOW}>
-              {t("SearchAndFilter.sortByCostHighToLow")}
-            </option>
-            <option value={SortOrder.EMPLOYMENT_RATE}>
-              {t("SearchAndFilter.sortByEmploymentRate")}
-            </option>
-          </WhiteSelect>
-        </FormControl>
-      )}
-    </>
+  const appliedFilters = Object.fromEntries(
+    Object.entries(filters).filter(
+      ([key, value]) =>
+        value !== undefined &&
+        value !== false &&
+        (!(Array.isArray(value) && value.length === 0)) &&
+        !["itemsPerPage", "pageNumber", "sortBy"].includes(key) // ✅ Now sortBy will NOT appear as a chip
+    )
   );
 
-  const getSearchTips = (): ReactElement => (
-    <div className="mbm" data-testid="searchTips">
-      <p>{t("SearchResultsPage.searchTips1")}</p>
-      <p>Check your spelling to ensure it is correct.</p>
-      <p>Verify and adjust any filters that you might have applied to your search.</p>
-      <p>{t("SearchResultsPage.searchTips2")}</p>
-      <p>{t("SearchResultsPage.searchTips3")}</p>
 
-      <button className="fin fac paz link-format-blue" onClick={toggleIsOpen}>
-        {isOpen ? t("SearchResultsPage.seeLessText") : t("SearchResultsPage.seeMoreText")}
-        <Icon>{isOpen ? "keyboard_arrow_up" : "keyboard_arrow_right"}</Icon>
-      </button>
-
-      {isOpen && (
-        <div>
-          <p>{t("SearchResultsPage.searchHelperText")}</p>
-          <p>
-            <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
-            {t("SearchResultsPage.helperText1")}
-          </p>
-          <p>
-            <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
-            {t("SearchResultsPage.helperText2")}
-          </p>
-          <p>
-            <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
-            {t("SearchResultsPage.helperText3")}
-          </p>
-        </div>
-      )}
-    </div>
-  );
+  type FilterFields = {
+    [key: string]: string | number | boolean | string[] | number[] | boolean[];
+  };
 
   return (
     <Layout
       noFooter
-      client={props.client}
+      client={client}
       seo={{
-        title: pageTitle || `Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
-        url: props.location?.pathname || "/training/search",
+        title: `Search | Training Explorer | ${process.env.REACT_APP_SITE_NAME}`,
+        url: location?.pathname || "/training/search",
         image: pageImage,
       }}
     >
-      {isTabletAndUp && (
-        <div className="container results-count-container">
-          <nav className="usa-breadcrumb " aria-label="Breadcrumbs">
-            <ol className="usa-breadcrumb__list">
-              <li className="usa-breadcrumb__list-item">
-                <a className="usa-breadcrumb__link" href="/">
-                  Home
-                </a>
-              </li>
-              <li className="usa-breadcrumb__list-item">
-                <a className="usa-breadcrumb__link" href="/training">
-                  Training Explorer
-                </a>
-              </li>
-              <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                <span data-testid="title">Search</span>
-              </li>
-            </ol>
-          </nav>
-
-          <div className="row fixed-wrapper">
-            <div className="col-md-12 fdr fac">
-              <div className="result-count-text">{!isLoading && getResultCount()}</div>
-              {shouldShowTrainings && searchQuery !== "null" && (
-                <div className="mla">{getSortDropdown()}</div>
-              )}
-            </div>
+      <div id="search-results-page" className="container">
+        <Breadcrumbs />
+        <div>
+          <div>
+            <ResultsHeader
+              loading={isLoading}
+              searchQuery={searchQuery || ""}
+              metaCount={metaData?.totalItems || 0}
+            />
+            {isLoading && <p>{t("SearchResultsPage.loadingHeaderMessage")}</p>}
           </div>
+          {!isLoading && (
+            <div id="search-filters-container">
+              <FilterDrawer
+                chips={filterChips(appliedFilters as FilterFields) as ChipProps[]}
+                {...appliedFilters}
+                maxCost={filters.maxCost ? String(filters.maxCost) : undefined} // ✅ Ensure maxCost is displayed correctly
+                miles={filters.miles ? String(filters.miles) : undefined} // ✅ Ensure miles is displayed correctly
+              />
+
+
+
+              <SearchFilters
+                handleSortChange={handleSortChange}
+                handleLimitChange={handleLimitChange}
+                itemsPerPage={filters.itemsPerPage}
+                sortBy={filters.sortBy}
+              />
+            </div>
+          )}
         </div>
-      )}
-
-      {isTabletAndBelow && (
-        <>
-          <div className="container results-count-container">
-            <a className="back-link" href="/training">
-              <ArrowLeft size={24} />
-              Back
-            </a>
-          </div>
-        </>
-      )}
-
-      {shouldShowTrainings && searchQuery !== "null" && (
-        <>
-          <div
-            className={`container ${
-              comparisonState.comparison.length > 0 ? "space-for-comparison" : "pbm"
-            }`}
-          >
-            <div className="row">
-              <div className="col-sm-4">
-                {
-                  <FilterBox
-                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
-                    resultCount={filteredTrainings.length}
-                    setShowTrainings={setShouldShowTrainings}
-                    resetStateForReload={resetState}
-                    fixedContainer={true}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
-                }
-              </div>
-              <div className="col-sm-8 space-for-filterbox">
-                {isLoading && (
-                  <div className="fdr fjc ptl">
-                    <CircularProgress color="secondary" />
-                  </div>
-                )}
-
-                {!isLoading && !isTabletAndUp && getResultCount()}
-                {!isLoading && showSearchTips && getSearchTips()}
-
-                {filteredTrainings.map((training) => (
-                  <TrainingResultCard
-                    key={training.id}
-                    trainingResult={training}
-                    comparisonItems={comparisonState.comparison}
-                  />
-                ))}
-              </div>
+        <div id="results-container">
+          {isLoading && (
+            <div>
+              {Array.from({ length: filters.itemsPerPage }, (_, index) => (
+                <SkeletonCard key={`skel-${index}`} />
+              ))}
             </div>
-          </div>
-          <TrainingComparison comparisonItems={comparisonState.comparison} />
-        </>
-      )}
-
-      {(!shouldShowTrainings || searchQuery === "null") && (
-        <div className="container" data-testid="gettingStarted">
-          <div className="row">
-            {isTabletAndUp && (
-              <div className="col-sm-4">
-                {
-                  <FilterBox
-                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
-                    resultCount={filteredTrainings.length}
-                    setShowTrainings={setShouldShowTrainings}
-                    resetStateForReload={resetState}
-                    fixedContainer={true}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
-                }
-              </div>
-            )}
-            <div className={`col-sm-7 ${!isTabletAndUp ? "ptm" : ""}`}>
-              {isTabletAndUp && (
-                <h3 className="text-l mts">{t("SearchResultsPage.sectionOneHeader")}</h3>
-              )}
-              {isTabletAndUp && (
-                <>
-                  <p className="mbl">
-                    {t("SearchResultsPage.introText")}
-                    &nbsp;
-                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
-                      {t("SearchResultsPage.introTextLink")}
-                    </Link>
-                    .
-                  </p>
-                  <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
-                  <p>{t("SearchResultsPage.searchHelperText")}</p>
-                  <p>
-                    <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
-                    {t("SearchResultsPage.helperText1")}
-                  </p>
-                  <p>
-                    <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
-                    {t("SearchResultsPage.helperText2")}
-                  </p>
-                  <p>
-                    <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
-                    {t("SearchResultsPage.helperText3")}
-                  </p>
-                </>
-              )}
-              {!isTabletAndUp && (
-                <div className="mtl mbd">
-                  <h3 className="text-l">{t("SearchResultsPage.smallScreenSearchHeader")}</h3>
-                  <FilterBox
-                    searchQuery={searchQuery ? decodeURIComponent(searchQuery) : ""}
-                    resultCount={filteredTrainings.length}
-                    setShowTrainings={setShouldShowTrainings}
-                    resetStateForReload={resetState}
-                  >
-                    {getSortDropdown()}
-                  </FilterBox>
-                </div>
-              )}
-              {!isTabletAndUp && (
-                <>
-                  <h3 className="text-l mts">
-                    {t("SearchResultsPage.sectionOneHeaderSmallScreen")}
-                  </h3>
-                  <p className="mbl">
-                    {t("SearchResultsPage.introText")}
-                    &nbsp;
-                    <Link className="link-format-blue" to="/support-resources/tuition-assistance">
-                      {t("SearchResultsPage.introTextLink")}
-                    </Link>
-                    .
-                  </p>
-                  <h3 className="text-l">{t("SearchResultsPage.searchHelperHeader")}</h3>
-                  <p>{t("SearchResultsPage.searchHelperText")}</p>
-                  <p>
-                    <span className="bold">{t("SearchResultsPage.boldText1")}&nbsp;</span>
-                    {t("SearchResultsPage.helperText1")}
-                  </p>
-                  <p>
-                    <span className="bold">{t("SearchResultsPage.boldText2")}&nbsp;</span>
-                    {t("SearchResultsPage.helperText2")}
-                  </p>
-                  <p>
-                    <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
-                    {t("SearchResultsPage.helperText3")}
-                  </p>
-                </>
+          )}
+          {!isLoading && !isError && trainings.length <= 5 && filters.pageNumber === 1 && <SearchTips />}
+          {!isLoading && !isError && trainings.length > 0 && (
+            <div id="results-list">
+              {trainings.map((training) => (
+                <TrainingResultCard
+                  key={training.ctid}
+                  trainingResult={training}
+                  comparisonItems={comparisonState.comparison}
+                />
+              ))}
+              {filters.pageNumber && (
+                <Pagination
+                  isLoading={isLoading}
+                  currentPage={filters.pageNumber || 1}
+                  totalPages={metaData?.totalPages || 0}
+                  hasPreviousPage={metaData?.hasPreviousPage || false}
+                  hasNextPage={metaData?.hasNextPage || false}
+                  setPageNumber={(newPage) => setFilters((prev) => ({ ...prev, pageNumber: newPage }))}
+                />
               )}
             </div>
-          </div>
+          )}
+          {!isLoading && <TrainingComparison comparisonItems={comparisonState.comparison} />}
         </div>
-      )}
+      </div>
     </Layout>
   );
 };

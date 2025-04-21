@@ -46,7 +46,7 @@
   ],
   "relatedTrainings": [
     {
-      "id": "10808",
+      "ctid": "10808",
       "name": "Civil Engineering Technology A.A.S.",
       "cipCode": "140801",
       "totalCost": 12645,
@@ -75,7 +75,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "38828",
+      "ctid": "38828",
       "name": "Architectural Design and Drafting",
       "cipCode": "140801",
       "totalCost": 4325,
@@ -107,7 +107,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "44943",
+      "ctid": "44943",
       "name": "Architectural Design and Drafting",
       "cipCode": "140801",
       "totalCost": 4075,
@@ -140,7 +140,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "38795",
+      "ctid": "38795",
       "name": "Architectural Design and Drafting",
       "cipCode": "140801",
       "totalCost": 4075,
@@ -169,7 +169,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "43084",
+      "ctid": "43084",
       "name": "Structural Engineering/Design",
       "cipCode": "140803",
       "totalCost": 4000,
@@ -198,7 +198,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "51667",
+      "ctid": "51667",
       "name": "4 Hour DOT Flagger",
       "cipCode": "140804",
       "totalCost": 215,

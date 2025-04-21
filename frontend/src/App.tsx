@@ -19,6 +19,7 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { IndustryPage } from "./career-pathways-page/IndustryPage";
+import { TrainingPageRouter } from "./training-page/TrainingPageRouter";
 
 // Lazy load pages
 const SearchResultsPage = React.lazy(() =>
@@ -26,9 +27,7 @@ const SearchResultsPage = React.lazy(() =>
     default: module.SearchResultsPage,
   })),
 );
-const TrainingPage = React.lazy(() =>
-  import("./training-page/TrainingPage").then((module) => ({ default: module.TrainingPage })),
-);
+
 const OccupationPage = React.lazy(() =>
   import("./occupation-page/OccupationPage").then((module) => ({ default: module.OccupationPage })),
 );
@@ -56,6 +55,7 @@ const TrainingProviderPage = React.lazy(() =>
 const NotFoundPage = React.lazy(() =>
   import("./error/NotFoundPage").then((module) => ({ default: module.NotFoundPage })),
 );
+
 const InDemandOccupationsPage = React.lazy(() =>
   import("./in-demand-occupations-page/InDemandOccupationsPage").then((module) => ({
     default: module.InDemandOccupationsPage,
@@ -179,7 +179,7 @@ export const App = (props: Props): ReactElement => {
                 {FaqRoutes({ client: props.client })}
                 <SearchResultsPage path="/training/search" client={props.client} />
                 <SearchResultsPage path="/training/search?q=:searchQuery" client={props.client} />
-                <TrainingPage path="/training/:id" client={props.client} />
+                <TrainingPageRouter path="/training/:id" id=":id" client={props.client} />
                 <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
                 <OccupationPage path="/occupation/:soc" client={props.client} />
                 <PrivacyPolicyPage path="/privacy-policy" client={props.client} />

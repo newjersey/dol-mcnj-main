@@ -167,6 +167,7 @@ export interface LinkObjectProps {
   };
   copy?: string;
   className?: string;
+  newTab?: boolean;
   iconPrefix?: IconNames;
   iconSuffix?: IconNames;
   iconSize?: number;
