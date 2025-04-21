@@ -57,7 +57,7 @@ export const IconCard = (props: IconCardProps) => {
         <LinkObject
           url={url}
           noIndicator
-          className="relative top-0 hover:top-[-10px]"
+          className="relative tabletLg:top-0 tabletLg:hover:top-[-10px]"
         >
           <CardContent {...props} />
         </LinkObject>
