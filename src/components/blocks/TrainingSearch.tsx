@@ -17,6 +17,7 @@ export interface TrainingSearchProps {
 }
 
 const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
+  const [showTooltip, setShowTooltip] = useState(false);
   const [inPerson, setInPerson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
@@ -129,17 +130,37 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                   <Heading level={content.heading.level}>
                     {content.heading.heading}
                   </Heading>
-                  <button
-                    type="button"
-                    className="unstyled usa-tooltip"
-                    data-position="top"
+                  <span
+                    className="relative"
                     title={content.toolTip.copy}
+                    onMouseEnter={() => setShowTooltip(true)}
+                    onMouseLeave={() => setShowTooltip(false)}
+                    onFocus={() => setShowTooltip(true)}
+                    onBlur={() => setShowTooltip(false)}
+                    role="tooltip"
                   >
                     <Info size={24} color={colors.primary} />
+                    {showTooltip && (
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-800 px-3 py-2 text-[14px] leading-[1.2] text-white font-bold shadow-md z-10">
+                        <div className="absolute left-1/2 top-full -translate-x-1/2">
+                          <svg
+                            className="text-gray-800"
+                            width="12"
+                            height="6"
+                            viewBox="0 0 12 6"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M6 6L0 0H12L6 6Z" fill="currentColor" />
+                          </svg>
+                        </div>
+                        {content.toolTip.copy}
+                      </div>
+                    )}
                     <div className="sr-only">
                       {content.toolTip.screenReader}
                     </div>
-                  </button>
+                  </span>
                 </Flex>
                 <Button
                   {...content.clearButton}
