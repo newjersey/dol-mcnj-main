@@ -37,8 +37,16 @@
   }
 
   .cardSlider {
+    .sectionHeading {
+      background-color: s.$white;
+    }
+
     &:nth-child(2n) {
       background-color: s.$base-cool;
+
+      .sectionHeading {
+        background-color: s.$base-cool;
+      }
 
       .inner {
         &:before {

@@ -1,8 +1,10 @@
+'use client";';
 import { Info } from "@phosphor-icons/react";
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { ThemeColors } from "@utils/types";
 import { LinkObject } from "./LinkObject";
 import { Spinner } from "./Spinner";
+import { useState } from "react";
 
 interface InfoBoxProps {
   className?: string;
@@ -31,23 +33,44 @@ const InfoBox = ({
   theme = "orange",
   tooltip,
 }: InfoBoxProps) => {
+  const [showTooltip, setShowTooltip] = useState(false);
   return (
     <div
-      className={`infoBox${className ? ` ${className}` : ""}${theme ? ` color-${theme}` : ""}`}
+      className={`infoBox${className ? ` ${className}` : ""}${
+        theme ? ` color-${theme}` : ""
+      }`}
     >
       {eyebrow && (
-        <p className="eyebrow">
+        <p className="eyebrow relative">
           {eyebrow}
           {tooltip && (
             <>
-              <button
-                type="button"
-                className="unstyled usa-tooltip"
+              <span
+                className="custom-tooltip relative"
                 data-position="top"
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
                 title={tooltip}
               >
                 <Info weight="fill" size={16} />
-              </button>
+                {showTooltip && (
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-800 px-3 py-2 text-[14px] leading-[1.2] text-white font-bold shadow-md z-10">
+                    <span className="absolute left-1/2 top-full -translate-x-1/2">
+                      <svg
+                        className="text-gray-800"
+                        width="12"
+                        height="6"
+                        viewBox="0 0 12 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M6 6L0 0H12L6 6Z" fill="currentColor" />
+                      </svg>
+                    </span>
+                    {tooltip}
+                  </span>
+                )}
+              </span>
             </>
           )}
         </p>

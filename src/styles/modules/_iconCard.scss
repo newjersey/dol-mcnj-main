@@ -22,7 +22,8 @@
     @media screen and (min-width: (s.$desktop)) {
       transition-duration: s.$transition-speed;
       transition-timing-function: ease-in-out;
-      transition-property: transform, box-shadow, background-color, border-color;
+      transition-property: transform, box-shadow, background-color, border-color,
+        top;
     }
 
     &:hover {
@@ -48,6 +49,7 @@
     font-size: s.$size-14;
     line-height: s.$size-20;
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
