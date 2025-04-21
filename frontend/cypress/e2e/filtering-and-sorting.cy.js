@@ -261,10 +261,9 @@ describe.skip("Filtering", () => {
     cy.contains("Employment Rate").should("exist");
   });
 
-  it("preserves a filter between pages", () => {
+  it.skip("preserves a filter between pages", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
     cy.intercept("/api/trainings/search?query=baking&page=2&limit=10&sort=best_match", { fixture: "baking-search-results-p2.json" })
-
     cy.visit("/training/search?q=baking");
     cy.contains("Bakery and Pastry").should("exist");
     cy.contains("Certificate in Baking").should("exist");

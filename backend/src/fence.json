@@ -11,6 +11,7 @@
     "express",
     "@faker-js/faker",
     "graphql-request",
+    "helmet",
     "jest-mock-axios",
     "knex",
     "supertest",

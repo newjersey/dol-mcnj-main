@@ -15,6 +15,7 @@ import { Heading } from "../components/modules/Heading";
 import { content } from "./content";
 import { Info } from "@phosphor-icons/react";
 import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
+// import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -150,19 +151,30 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           </section>
 
           <IndustrySelector />
-          <section className="body-copy">
+
+          <section className="pathways body-copy container">
             <div className="container">
               {content.copySections.map((section, index) => (
-                <div
-                  key={section}
-                  className={`content content-block section-${index + 1}`}
-                  dangerouslySetInnerHTML={{
-                    __html: parseMarkdownToHTML(`${section}`),
-                  }}
-                />
+                <div key={`body-copy-${index}`} className="contentContainer">
+                  <div className="image">
+                    <img src={section.image} alt="" placeholder="blur" />
+                  </div>
+                  <div className="contentBlocks">
+                    {section.blocks.map((block) => (
+                      <div
+                        key={block.copy}
+                        className={`content block-${block.theme}`}
+                        dangerouslySetInnerHTML={{
+                          __html: parseMarkdownToHTML(`${block.copy}`),
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
+
           <section className="contact-cta">
             <div className="container">
               <div className="inner">
