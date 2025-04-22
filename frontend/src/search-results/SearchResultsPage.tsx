@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { navigate } from "@reach/router";
 import { RouteComponentProps, WindowLocation } from "@reach/router";
 
@@ -19,9 +19,9 @@ import { useTranslation } from "react-i18next";
 
 import { ComparisonContext } from "../comparison/ComparisonContext";
 import { ChipProps, FilterDrawer } from "../filtering/FilterDrawer";
-import { CountyProps, LanguageProps } from "../filtering/filterLists";
 
-import {getSearchQuery, filterChips, getTrainingData} from "./searchFunctions";
+
+import { getSearchQuery, filterChips, getTrainingData } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
 
 interface Props extends RouteComponentProps {
@@ -29,10 +29,33 @@ interface Props extends RouteComponentProps {
   location?: WindowLocation<unknown> | undefined;
 }
 
+// Helper to convert completeIn filter strings to numbers
+const computeCompleteInArray = (completeInStrings: string[]): number[] => {
+  const result: number[] = [];
+  for (const value of completeInStrings) {
+    switch (value) {
+      case "days":
+        result.push(1, 2, 3);
+        break;
+      case "weeks":
+        result.push(4, 5);
+        break;
+      case "months":
+        result.push(6, 7);
+        break;
+      case "years":
+        result.push(8, 9, 10);
+        break;
+      default:
+        break;
+    }
+  }
+  return result;
+};
+
 export const SearchResultsPage = ({ client, location }: Props): ReactElement<Props> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [metaData, setMetaData] = useState<TrainingData["meta"]>();
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const searchQuery = getSearchQuery(location?.search);
@@ -41,53 +64,46 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     pageNumber: 1,
     sortBy: "best_match" as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
     searchQuery: searchQuery || "",
-    cipCode: undefined as string | undefined,
-    classFormat: [] as string[],
-    completeIn: [] as string[],
-    county: undefined as CountyProps | undefined,
-    inDemand: false,
-    languages: [] as LanguageProps[],
-    maxCost: undefined as number | undefined,
-    miles: undefined as number | undefined,
-    services: [] as string[],
-    socCode: undefined as string | undefined,
-    zipcode: undefined as string | undefined,
+    cipCode: "" as string, // Provide a default value
+    classFormat: [] as string[], // Default as an empty array
+    completeIn: [] as string[], // Default as an empty array
+    county: "" as string, // Provide a default value
+    inDemand: false, // Default as false
+    languages: [] as string[], // Default as an empty array
+    maxCost: "" as string, // Default as an empty string, will be converted to number
+    miles: "" as string, // Default as an empty string
+    services: [] as string[], // Default as an empty array
+    socCode: "" as string, // Provide a default value
+    zipcode: "" as string, // Provide a default value
   });
 
-
   const comparisonState = useContext(ComparisonContext).state;
-
   const { t } = useTranslation();
 
+  // --- Update filters from URL ---
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-
     const updatedFilters = {
       pageNumber: parseInt(urlParams.get("p") || "1", 10),
       itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
       sortBy: (urlParams.get("sort") as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") || "best_match",
-      cipCode: urlParams.get("cip") || undefined,
+      cipCode: urlParams.get("cip") || "", // Default to empty string
       classFormat: urlParams.get("format") ? urlParams.get("format")!.split(",") : [],
       completeIn: urlParams.get("completeIn") ? urlParams.get("completeIn")!.split(",") : [],
-      county: urlParams.get("county") ? ({ name: urlParams.get("county")! } as unknown as CountyProps) : undefined,
+      county: urlParams.get("county") || "", // Default to empty string
       inDemand: urlParams.get("inDemand") === "true",
-      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as LanguageProps[]) : [],
-      maxCost: urlParams.get("maxCost") ? parseInt(urlParams.get("maxCost")!) : undefined,
-      miles: urlParams.get("miles") ? parseInt(urlParams.get("miles")!) : undefined,
+      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as string[]) : [],
+      maxCost: urlParams.get("maxCost") || "", // Default to empty string
+      miles: urlParams.get("miles") || "", // Default to empty string
       services: urlParams.get("services") ? urlParams.get("services")!.split(",") : [],
-      socCode: urlParams.get("soc") || undefined,
-      zipcode: urlParams.get("zipcode") || undefined,
+      socCode: urlParams.get("soc") || "", // Default to empty string
+      zipcode: urlParams.get("zipcode") || "", // Default to empty string
       searchQuery: getSearchQuery(window.location.search) || ""
     };
-
-    setFilters((prev) => ({
-      ...prev,
-      ...updatedFilters,
-    }));
+    setFilters((prev) => ({ ...prev, ...updatedFilters }));
   }, [window.location.search]);
 
-
-
+  // --- Initial fetch ---
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("p");
@@ -110,38 +126,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
 
     setIsLoading(true);
 
-    /** ✅ **Process `completeIn` correctly** */
-    const completeInArray: number[] = [];
-    let completeInStringArray: string[] = [];
+    const completeInStringArray =
+      completeInValue && (completeInValue.includes(",") || completeInValue.includes("%2C"))
+        ? completeInValue.split(",")
+        : (completeInValue ? [completeInValue] : []);
 
-    if (completeInValue) {
-      const completeValues =
-        completeInValue.includes(",") || completeInValue.includes("%2C")
-          ? completeInValue.split(",")
-          : [completeInValue];
-
-      completeInStringArray = completeValues; // Store string version in filters
-
-      completeValues.forEach((value) => {
-        switch (value) {
-          case "days":
-            completeInArray.push(1, 2, 3);
-            break;
-          case "weeks":
-            completeInArray.push(4, 5);
-            break;
-          case "months":
-            completeInArray.push(6, 7);
-            break;
-          case "years":
-            completeInArray.push(8, 9, 10);
-            break;
-        }
-      });
-    }
-
-
-    /** ✅ **Update filters state** */
     setFilters((prev) => ({
       ...prev,
       pageNumber: pageNumberValue,
@@ -149,20 +138,19 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       sortBy: sortByValue
         ? (sortByValue as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match")
         : "best_match",
-      cipCode: cipCodeValue || undefined,
+      cipCode: cipCodeValue || "",
       classFormat: classFormatValue ? classFormatValue.split(",") : [],
-      completeIn: completeInStringArray, // ✅ Keep as string[]
-      county: countyValue ? (countyValue as CountyProps) : undefined,
+      completeIn: completeInStringArray,
+      county: countyValue || "",
       inDemand: inDemandValue === "true",
-      languages: languagesValue ? (languagesValue.split(",") as LanguageProps[]) : [],
-      maxCost: maxCostValue ? parseInt(maxCostValue) : undefined,
-      miles: milesValue ? parseInt(milesValue) : undefined,
+      languages: languagesValue ? (languagesValue.split(",") as string[]) : [],
+      maxCost: maxCostValue || "", // Default to empty string, will be converted to number
+      miles: milesValue || "",
       services: servicesValue ? servicesValue.split(",") : [],
-      socCode: socCodeValue || undefined,
-      zipcode: zipcodeValue || undefined,
+      socCode: socCodeValue || "",
+      zipcode: zipcodeValue || "",
     }));
 
-    /** ✅ **Fetch training data using correct filters** */
     getTrainingData(
       client,
       searchQuery || "",
@@ -172,35 +160,101 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       setTrainings,
       filters.cipCode,
       filters.classFormat,
-      completeInArray, // ✅ Pass the correctly mapped numeric values
+      computeCompleteInArray(filters.completeIn),
       filters.county,
       filters.inDemand,
       filters.itemsPerPage,
       filters.languages,
-      filters.maxCost,
-      filters.miles,
+
+      Number(filters.maxCost) || undefined,
+      Number(filters.miles) || undefined,
       filters.pageNumber,
       filters.services,
       filters.socCode,
       filters.sortBy,
       filters.zipcode
     );
-
   }, [client, searchQuery, JSON.stringify(filters)]);
 
+  // --- Polling for Updates (for the current page only) ---
+  const stableCountRef = useRef(0);
+  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (filters.pageNumber === 1 && metaData?.totalPages === 1) {
+      const intervalMs = 5000;
+
+      // Helper that wraps the getTrainingData call into a Promise
+      const fetchTrainingData = (): Promise<TrainingData> => {
+        return new Promise((resolve, reject) => {
+          client.getTrainingsByQuery(
+            searchQuery || "",
+            {
+              onSuccess: (data: TrainingData) => resolve(data),
+              onError: () => reject(new Error("Error fetching training data")),
+            },
+            filters.cipCode,
+            filters.classFormat,
+            computeCompleteInArray(filters.completeIn),
+            filters.county,
+            filters.inDemand,
+            filters.itemsPerPage,
+            filters.languages,
+            Number(filters.maxCost),
+            Number(filters.miles),
+            filters.pageNumber,
+            filters.services,
+            filters.socCode,
+            filters.sortBy,
+            filters.zipcode
+          );
+        });
+      };
+
+      pollIntervalRef.current = setInterval(async () => {
+        try {
+          const newData = await fetchTrainingData();
+          if (newData.data && newData.data.length > 0) {
+            const start = (filters.pageNumber - 1) * filters.itemsPerPage;
+            const newPageResults = newData.data.slice(start, start + filters.itemsPerPage);
+            const newCTIDs = newPageResults.map((t) => t.ctid).join(",");
+            const currentCTIDs = trainings.map((t) => t.ctid).join(",");
+            if (newCTIDs !== currentCTIDs) {
+              console.log("Polled updated data for page", filters.pageNumber);
+              setMetaData(newData.meta);
+              setTrainings(newPageResults);
+              stableCountRef.current = 0;
+            } else {
+              stableCountRef.current += 1;
+              if (stableCountRef.current >= 3) {
+                if (pollIntervalRef.current) {
+                  clearInterval(pollIntervalRef.current);
+                  pollIntervalRef.current = null;
+                  console.log("Polling stopped – data is stable for page", filters.pageNumber);
+                }
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Error during polling:", error);
+        }
+      }, intervalMs);
+
+      return () => {
+        if (pollIntervalRef.current) {
+          clearInterval(pollIntervalRef.current);
+        }
+      };
+    }
+  }, [filters.pageNumber, metaData?.totalPages, trainings, searchQuery, filters]);
 
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
     const newNumber = parseInt(event.target.value);
-
-    // ✅ Update state properly
     setFilters((prev) => ({ ...prev, itemsPerPage: newNumber }));
-
-    // ✅ Update URL properly
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("limit", newNumber.toString());
     navigate(`?${urlParams.toString()}`, { replace: true });
   };
-
 
   const handleSortChange = (event: ChangeEvent<{ value: unknown }>): void => {
     const newSortOrder = event.target.value as
@@ -210,31 +264,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       | "price_desc"
       | "EMPLOYMENT_RATE"
       | "best_match";
-
     logEvent("Search", "Updated sort", newSortOrder);
-
-    // ✅ Update state first
     setFilters((prev) => ({ ...prev, sortBy: newSortOrder }));
-
-    // ✅ Update URL without reloading
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("sort", newSortOrder);
     navigate(`?${urlParams.toString()}`, { replace: true });
-  };
-
-  const appliedFilters = Object.fromEntries(
-    Object.entries(filters).filter(
-      ([key, value]) =>
-        value !== undefined &&
-        value !== false &&
-        (!(Array.isArray(value) && value.length === 0)) &&
-        !["itemsPerPage", "pageNumber", "sortBy"].includes(key) // ✅ Now sortBy will NOT appear as a chip
-    )
-  );
-
-
-  type FilterFields = {
-    [key: string]: string | number | boolean | string[] | number[] | boolean[];
   };
 
   return (
@@ -261,14 +295,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
           {!isLoading && (
             <div id="search-filters-container">
               <FilterDrawer
-                chips={filterChips(appliedFilters as FilterFields) as ChipProps[]}
-                {...appliedFilters}
-                maxCost={filters.maxCost ? String(filters.maxCost) : undefined} // ✅ Ensure maxCost is displayed correctly
-                miles={filters.miles ? String(filters.miles) : undefined} // ✅ Ensure miles is displayed correctly
+                chips={filterChips(filters) as ChipProps[]}
+                {...filters}
+                maxCost={filters.maxCost ? String(filters.maxCost) : undefined}
+                miles={filters.miles ? String(filters.miles) : undefined}
               />
-
-
-
               <SearchFilters
                 handleSortChange={handleSortChange}
                 handleLimitChange={handleLimitChange}
