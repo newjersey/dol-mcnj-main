@@ -37,7 +37,6 @@ getRecordAPI.interceptors.response.use(undefined, (error) => {
 });
 
 /*
-
 curl "https://sandbox.credentialengine.org/assistant/search/ctdl" \
   -H "Origin: http://localhost:3000" \
   -H 'Access-Control-Request-Method: POST' \

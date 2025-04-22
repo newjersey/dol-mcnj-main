@@ -20,6 +20,11 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
     setIsOpen(!isOpen);
   };
 
+  const contactUrl = window.location.pathname.includes("navigator")
+  ? "/contact?topic=Career%20Navigator"
+  : "/contact";
+
+
   const mobileNav = (): ReactElement => {
     return (
       <div className="mobile-menu container height-100">
@@ -53,7 +58,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
               className="nav-item contact-us"
               copy="Contact Us"
               icons={true}
-              url="/contact"
+              url={contactUrl}
             />
             {process.env.REACT_APP_SIGNUP_FOR_UPDATES === "true" ? <SignUpFormModal /> : <></>}
           </div>
@@ -89,7 +94,7 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
                 className="nav-item contact-us"
                 copy="Contact Us"
                 icons={true}
-                url="/contact"
+                url={contactUrl}
               />
               {process.env.REACT_APP_SIGNUP_FOR_UPDATES === "true" ? <SignUpFormModal /> : <></>}
             </div>

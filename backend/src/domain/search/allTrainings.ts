@@ -5,6 +5,7 @@ import { CTDLResource } from "../credentialengine/CredentialEngine";
 import NodeCache from "node-cache";
 import { AllTrainingsResult } from "../training/TrainingResult";
 import { AllTrainings } from "../types";
+import * as process from "node:process";
 
 const cache = new NodeCache({ stdTTL: 3600, checkperiod: 3600 });
 
@@ -61,7 +62,7 @@ function buildQuery() {
     "ceterms:lifeCycleStatusType": {
       "ceterms:targetNode": "lifeCycle:Active"
     },
-    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d"
+    "search:recordPublishedBy": process.env.CE_NJDOL_CTID
   };
 }
 

@@ -14,7 +14,7 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import { Provider } from "../training/Training";
+import * as process from "node:process";
 
 // ─── Initialize cache ───────────────────────────────────────────────
 interface CachedResults {
@@ -401,6 +401,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const { page = 1, limit = 10, sort = "best_match" } = params;
     console.log(`Received search request for query: "${params.searchQuery}" on page: ${page}`);
     const query = buildQuery(params);
+    console.log(JSON.stringify(query));
     const normalizedParams = normalizeQueryParams(params);
     // Exclude pagination from our full-data cache key
     const { page: _, limit: __, ...cacheParams } = normalizedParams;
@@ -585,11 +586,9 @@ function buildQuery(params: {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
       "ceterms:name": [
-        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
         { "search:value": params.searchQuery, "search:matchType": "search:contains" },
       ],
       "ceterms:description": [
-        { "search:value": params.searchQuery, "search:matchType": "search:exact" },
         { "search:value": params.searchQuery, "search:matchType": "search:contains" },
       ],
       "ceterms:ownedBy": {
@@ -603,7 +602,7 @@ function buildQuery(params: {
       ? {
         "ceterms:codedNotation": {
           "search:value": params.searchQuery,
-          "search:matchType": "search:startsWith"
+          "search:matchType": "search:contains"
         }
       }
       : undefined,
@@ -611,7 +610,7 @@ function buildQuery(params: {
       ? {
         "ceterms:codedNotation": {
           "search:value": params.searchQuery,
-          "search:matchType": "search:startsWith"
+          "search:matchType": "search:contains"
         }
       }
       : undefined
@@ -639,7 +638,7 @@ function buildQuery(params: {
     "ceterms:lifeCycleStatusType": {
       "ceterms:targetNode": "lifeCycle:Active",
     },
-    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+    "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
     "search:termGroup": termGroup
   };
 }
@@ -650,9 +649,9 @@ const transformResults = async (
   searchQuery: string
 ): Promise<TrainingResult[]> => {
   return Promise.all(
-    learningOpportunities.map(async (lo) =>
-      transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery)
-    )
+    learningOpportunities.map(async (lo) => {
+      return transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery);
+    })
   );
 };
 

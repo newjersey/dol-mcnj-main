@@ -2,7 +2,7 @@ import { DataClient } from "../DataClient";
 import { FindTrainingsBy } from "../types";
 import { Training } from "./Training";
 import { Selector } from "./Selector";
-import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
+import {credentialEngineUtils, fetchNJDOLResource} from "../../credentialengine/CredentialEngineUtils";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import {
   CetermsConditionProfile,
@@ -33,8 +33,13 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
     const inDemandCIPs = await dataClient.getCIPsInDemand();
     const inDemandCIPCodes = inDemandCIPs.map((c) => c.cipcode);
 
-    // Fetch Credential Engine records based on provided values
-    const ceRecords = await credentialEngineUtils.fetchValidCEData(values);
+
+    const ceEnvelopeUrls: string[] = values; // assumes values are full envelope URLs
+    const ceRecordsRaw = await Promise.all(
+      ceEnvelopeUrls.map(url => fetchNJDOLResource(url, credentialEngineUtils.isLearningOpportunityProfile))
+    );
+    const ceRecords = ceRecordsRaw.filter(Boolean) as CTDLResource[];
+
 
     if (ceRecords.length === 0) {
       return [];
