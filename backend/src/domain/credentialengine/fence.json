@@ -1,0 +1,12 @@
+{
+  "tags": ["credentialengine"],
+  "dependencies": [
+    "axios",
+    "../infrastructure/redis/redisClient"
+  ],
+  "exports": [
+    "./CredentialEngine",
+    "./CredentialEngineInterface",
+    "./CredentialEngineFactory"
+  ]
+}
