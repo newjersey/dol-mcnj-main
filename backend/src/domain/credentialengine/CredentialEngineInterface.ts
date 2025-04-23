@@ -1,13 +1,3 @@
-export interface CredentialEngineQuery {
-  skip: number;
-  take: number;
-  sort: string;
-  cancel: boolean;
-}
-
-export interface CredentialEngineObject {
-  credentialEngineParams: CredentialEngineQuery;
-}
 
 export interface Keypair {
   key: string;
@@ -16,7 +6,7 @@ export interface Keypair {
 
 }
 
-export interface Certificate {
+export interface Resource {
   [propName: string]: string | string[] | Keypair | Keypair[];
 }
 
@@ -31,8 +21,8 @@ export interface Extra {
   Debug?: number;
 }
 
-export interface Certificates {
-  data: Certificate[];
+export interface Resources {
+  data: Resource[];
   valid: boolean;
   status: string;
   extra?: Extra;

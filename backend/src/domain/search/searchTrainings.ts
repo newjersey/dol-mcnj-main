@@ -1,7 +1,3 @@
-
-
-
-import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
@@ -17,8 +13,7 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import * as process from "node:process";
-
+import redis from "../../infrastructure/redis/redisClient";
 
 // ─── Initialize cache ─────────────────────────────────────────────────────────
 interface CachedResults {
@@ -26,7 +21,6 @@ interface CachedResults {
   totalResults: number;
 }
 
-const cache = new NodeCache({ stdTTL: 900, checkperiod: 120 });
 
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
 
@@ -177,30 +171,63 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
 /**
  * Fetch all learning opportunities in batches.
  */
-const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 25) => {
+// Fetch all learning opportunities in batches with pagination
+const searchLearningOpportunitiesInBatches = async (query: object, page = 1, batchSize = 25) => {
+  const cacheKey = `learningOpportunities-${JSON.stringify(query)}-page-${page}`;
+
+  // Try to get from cache first
+  const cachedOpportunities = await redis.get(cacheKey);
+
+  if (cachedOpportunities) {
+    console.log(`✅ Cache hit for query: "${JSON.stringify(query)}" (page: ${page})`);
+    return JSON.parse(cachedOpportunities);
+  }
+
   const learningOpportunities: CTDLResource[] = [];
-  const initialResponse = await searchLearningOpportunities(query, 0, batchSize);
-  const totalResults = initialResponse.totalResults;
-  learningOpportunities.push(...initialResponse.learningOpportunities);
-  const fetchBatch = async (offset: number) => {
-    try {
-      const response = await searchLearningOpportunities(query, offset, batchSize);
-      return response.learningOpportunities;
-    } catch (error) {
-      console.error(`Error fetching batch at offset ${offset}:`, error);
-      return [];
+  let totalResults = Infinity;
+  let currentPage = page;
+
+// Fetch data in batches and aggregate them
+  while (learningOpportunities.length < totalResults) {
+    const offset = (currentPage - 1) * batchSize;
+
+    // Fetch current batch
+    const { learningOpportunities: currentBatch, totalResults: fetchedTotalResults } = await searchLearningOpportunities(query, offset, batchSize);
+
+    // Handle 503 errors and filter out results with "Provider not available"
+    if (!currentBatch.length || fetchedTotalResults === 0) {
+      console.error(`❌ Error fetching records for query: "${JSON.stringify(query)}" (offset: ${offset})`);
+      break;
     }
-  };
-  const offsets = [];
-  for (let offset = batchSize; offset < totalResults; offset += batchSize) {
-    offsets.push(offset);
+
+    // Filter out "Provider not available" items
+    const validBatch = currentBatch.filter((opportunity: CTDLResource) => {
+      // Ensure ownedBy is an array and check if it contains "Provider not available"
+      return !(opportunity["ceterms:ownedBy"]?.includes("Provider not available"));
+    });
+
+    learningOpportunities.push(...validBatch);
+    totalResults = fetchedTotalResults;
+
+    // If we've fetched all available results, break the loop
+    if (learningOpportunities.length >= totalResults) {
+      break;
+    }
+
+    // Otherwise, fetch the next batch
+    currentPage++;
   }
-  const concurrencyLimit = 5;
-  for (let i = 0; i < offsets.length; i += concurrencyLimit) {
-    const batchOffsets = offsets.slice(i, i + concurrencyLimit);
-    const results = await Promise.all(batchOffsets.map(fetchBatch));
-    results.forEach((batch) => learningOpportunities.push(...batch));
+
+  // If no valid data, do not cache
+  if (learningOpportunities.length === 0) {
+    console.log("❌ No valid data to cache (likely due to 503 or 'Provider not available')");
+    return { learningOpportunities, totalResults };
   }
+
+  // Cache the results for the current page
+  await redis.set(cacheKey, JSON.stringify({ learningOpportunities, totalResults }), 'EX', 900); // Cache for 15 minutes
+  console.log(`✅ Caching ${learningOpportunities.length} valid results`);
+
   return { learningOpportunities, totalResults };
 };
 
@@ -339,7 +366,7 @@ const paginateRecords = (trainingResults: TrainingResult[], page: number, limit:
     totalResults,
     currentPage
   };
-};
+}
 
 
 
@@ -431,34 +458,57 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const overallStart = performance.now();
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
-    console.log(JSON.stringify(query));
     const normalizedParams = normalizeQueryParams(params);
     const cacheKey = `searchResults-${JSON.stringify(normalizedParams)}`;
     console.time("TotalSearchTime");
 
-    let cachedData = cache.get<CachedResults>(cacheKey);
+    // First, define the cache type explicitly for `cachedData`
+    let cachedData: CachedResults | null = null;
 
-    if (!cachedData) {
+    // Attempt to get cached data from Redis (which will be a string)
+    const cachedOpportunities = await redis.get(cacheKey);
+
+    // If cache miss, fetch data from the API and store it in Redis
+    if (!cachedOpportunities) {
       console.log(`🚀 Cache miss: Fetching new results for query: "${normalizedParams.searchTerm}"`);
+
+      // Fetch the data from the API
       const fetchStart = performance.now();
       const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
       console.log(`📊 API fetch took ${performance.now() - fetchStart} ms`);
 
-      // Transform results with provider caching
+      // Transform the results
       const transformStart = performance.now();
       const results = await Promise.all(
-        learningOpportunities.map((lo) =>
+        learningOpportunities.map((lo: CTDLResource) =>
           transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
         )
       );
       console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
 
+      // Store the results in Redis cache as a string (JSON stringified)
       cachedData = { results, totalResults };
-      cache.set(cacheKey, cachedData, 300);
+      await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
     } else {
       console.log(`✅ Cache hit for query: "${normalizedParams.searchTerm}"`);
+
+      // Try to parse the cached string into a `CachedResults` object
+      try {
+        cachedData = JSON.parse(cachedOpportunities) as CachedResults;
+      } catch (error) {
+        console.error("Error parsing cached data", error);
+        // In case of parsing failure, we reset `cachedData` to a default value
+        cachedData = { results: [], totalResults: 0 };
+      }
     }
 
+    // Ensure `cachedData` is correctly handled
+    if (!cachedData) {
+      // If no data or failed to fetch from the cache, reset
+      cachedData = { results: [], totalResults: 0 };
+    }
+
+    // Apply filtering
     const filterStart = performance.now();
     const filteredResults = await filterRecords(
       cachedData.results,
@@ -480,13 +530,11 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const rankedResults = rankResults(params.searchQuery, filteredResults);
     console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
 
-    // Sorting results
+    // Apply sorting
     const sortedResults = sortTrainings(rankedResults, sort);
 
-    // Pagination handling
+    // Apply pagination
     const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
-
-    console.log(`📌 Paginating ${totalResults} results (Page: ${currentPage} / ${totalPages}, Limit: ${limit})`);
 
     console.timeEnd("TotalSearchTime");
     console.log(`🚀 Overall search execution took ${performance.now() - overallStart} ms`);

@@ -14,11 +14,7 @@ import { credentialEngineAPI } from "./CredentialEngineAPI";
 import { DeliveryType } from "../domain/DeliveryType";
 // import { processInBatches } from "../utils/concurrencyUtils";
 import { AxiosError } from "axios";
-import NodeCache from "node-cache";
-import * as process from "node:process";
-
-// Cache provider data to avoid redundant API calls
-const providerCache = new NodeCache({ stdTTL: 3600 });
+import redis from "../infrastructure/redis/redisClient";
 
 /**
  * Logs errors in a consistent format.
@@ -47,34 +43,35 @@ export const retryWithBackoff = async <T>(
 
   while (attempt < retries) {
     try {
-      return await fn();
+      console.log(`Attempt ${attempt + 1} for ${context || "Unknown"} with delay ${delay}ms`);
+      const result = await fn();
+      console.log(`✅ Request succeeded in ${attempt + 1} attempt(s).`);
+      return result;
     } catch (error) {
-      if (
-        error instanceof AxiosError &&
-        error.response?.status === 503 &&
-        attempt < retries - 1
-      ) {
-        console.error(
-          `503 Error on attempt ${attempt + 1} in ${
-            context || "retryWithBackoff"
-          }. Retrying in ${delay}ms.`
-        );
-        await new Promise((resolve) => setTimeout(resolve, delay));
-        attempt++;
-        delay *= 2; // Exponential backoff
+      if (error instanceof AxiosError && error.response?.status === 503) {
+        // Log more details on each 503 error
+        console.error(`503 Error (Attempt ${attempt + 1}): ${error.response?.statusText || "Unknown"} for ${context || "Unknown"}`);
+        console.error(`Response: ${JSON.stringify(error.response?.data)}`);
+
+        if (attempt < retries - 1) {
+          console.log(`Retrying in ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          attempt++;
+          delay *= 2; // Exponential backoff
+        } else {
+          console.error(`Exhausted all retries. Giving up after ${retries} attempts.`);
+          throw new Error(`503 Error after ${retries} attempts in ${context || "retryWithBackoff"}`);
+        }
       } else {
-        console.error(
-          `Error in ${context || "retryWithBackoff"}: ${error}`
-        );
+        console.error(`Error in ${context || "retryWithBackoff"}: ${error as Error}`);
         throw error; // Propagate non-503 errors
       }
     }
   }
-
-  throw new Error(
-    `503 Error after ${retries} attempts in ${context || "retryWithBackoff"}`
-  );
+  // In case retries run out
+  throw new Error(`503 Error after ${retries} attempts in ${context || "retryWithBackoff"}`);
 };
+
 
 
 /**
@@ -151,7 +148,8 @@ export async function fetchNJDOLResource(
       return resourceGraph[0];
     }
 
-    // If multiple nodes and no filterFn, warn and return null
+
+// If multiple nodes and no filterFn, warn and return null
     console.warn(`Ambiguous graph structure in envelope for CTID ${ctid} — multiple nodes, no filter`);
     return null;
   } catch (err: unknown) {
@@ -166,75 +164,56 @@ export async function fetchNJDOLResource(
 
 
 
+
 /**
  * Fetches provider data associated with a given resource.
- * Utilizes a cache to avoid repeated HTTP requests for the same provider.
- *
+ * Utilizes a cache (Redis) to avoid repeated HTTP requests for the same provider.
  * @param resource - The resource object containing provider information.
  * @returns The provider data or null if unavailable.
  */
 async function getProviderData(resource: CTDLResource): Promise<Provider | null> {
   try {
-    // Check if "ownedBy" exists in the certificate
     const ownedByUrl = resource["ceterms:ownedBy"]?.[0];
     if (!ownedByUrl) {
       console.warn("OwnedBy field is missing in the certificate.");
       return null;
     }
 
-    // Extract the CTID from the "ownedBy" URL
     const ownedByCtid = await credentialEngineUtils.getCtidFromURL(ownedByUrl);
 
-    // Validate the CTID format
-    if (!(await credentialEngineUtils.validateCtId(ownedByCtid))) {
-      throw new Error(`Invalid CTID format: ${ownedByCtid}`);
-    }
-
-    // Check if the data is already in the cache
-    const cachedProvider = providerCache.get(ownedByCtid);
+    // First, check Redis cache
+    const cachedProvider = await redis.get(ownedByCtid);
     if (cachedProvider) {
-      // console.debug(`Cache hit for provider CTID: ${ownedByCtid}`);
-      return cachedProvider as Provider;
+      console.log(`✅ Cache hit for provider CTID: ${ownedByCtid}`);
+      return JSON.parse(cachedProvider);
     }
 
-    // console.debug(`Cache miss for provider CTID: ${ownedByCtid}. Fetching data...`);
-
-    // Fetch the provider record using the CTID
-    const providerRecord = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
-
-    if (!providerRecord) {
-      console.warn(`Provider record not found for CTID: ${ownedByCtid}`);
+    // Fetch provider data from API and cache it
+    const providerData = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+    if (!providerData) {
       return null;
     }
 
-    // Extract provider details using utility functions
-    const providerId = providerRecord["ceterms:identifier"]?.find(
-      (identifier: {
-        "ceterms:identifierTypeName": { "en-US": string };
-        "ceterms:identifierValueCode": string;
-      }) =>
-        identifier["ceterms:identifierTypeName"]?.["en-US"] === "NJDOL Provider ID"
-    )?.["ceterms:identifierValueCode"];
-
-    const providerData: Provider = {
-      ctid: providerRecord["ceterms:ctid"] || "",
-      providerId: providerId || "",
-      name: providerRecord["ceterms:name"]?.["en-US"] || "Unknown Provider",
-      url: providerRecord["ceterms:subjectWebpage"] || "",
-      email: providerRecord["ceterms:email"]?.[0] || "",
-      addresses: await credentialEngineUtils.getAddress(providerRecord), // No additional mapping required
+    const provider: Provider = {
+      ctid: providerData["ceterms:ctid"] || "",
+      providerId: providerData["ceterms:identifierValueCode"] || "",
+      name: providerData["ceterms:name"]?.["en-US"] || "Unknown Provider",
+      url: providerData["ceterms:subjectWebpage"] || "",
+      email: providerData["ceterms:email"]?.[0] || "",
+      addresses: await credentialEngineUtils.getAddress(providerData),
     };
 
-    // Cache the provider data using the CTID as the key
-    providerCache.set(ownedByCtid, providerData);
-    console.log(`Cached provider data for CTID: ${ownedByCtid}`);
+    // Cache the provider data for 3 hours in Redis and NodeCache
+    await redis.set(ownedByCtid, JSON.stringify(provider), 'EX', 7200); // Cache for 2 hours
 
-    return providerData;
+
+    return provider;
   } catch (error) {
-    console.error("Error fetching provider data:", error);
+    console.error(`Error fetching provider for ${resource["ceterms:ownedBy"]?.[0]}: `, error);
     return null;
   }
 }
+
 
 
 /**

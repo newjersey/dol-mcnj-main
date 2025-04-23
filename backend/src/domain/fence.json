@@ -1,8 +1,6 @@
 {
   "tags": ["domain"],
-  "imports": [
-    "credentialengine"
-  ],
+  "imports": ["credentialengine", "infrastructure"],
   "dependencies": [
     "node-cache",
     "zipcodes",

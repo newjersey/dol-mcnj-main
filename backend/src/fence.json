@@ -11,7 +11,6 @@
     "express",
     "@faker-js/faker",
     "graphql-request",
-    "helmet",
     "jest-mock-axios",
     "knex",
     "supertest",
@@ -21,6 +20,8 @@
     "zipcodes",
     "express-rate-limit",
     "express-validator",
-    "nodemailer"
+    "nodemailer",
+    "helmet",
+    "ioredis"
   ]
 }

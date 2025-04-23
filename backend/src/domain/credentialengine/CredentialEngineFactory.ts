@@ -1,5 +1,5 @@
 import { GetAllCertificates } from "../types";
-import { Certificates } from "./CredentialEngineInterface";
+import { Resources } from "./CredentialEngineInterface";
 import { api } from "./CredentialEngineConfig";
 
 export const credentialEngineFactory = (): GetAllCertificates => {
@@ -8,7 +8,7 @@ export const credentialEngineFactory = (): GetAllCertificates => {
     take: number,
     sort: string,
     // cancel: boolean
-  ): Promise<Certificates> => {
+  ): Promise<Resources> => {
     const gateway = `/assistant/search/ctdl`;
 
     const response = await api.request({
@@ -21,7 +21,7 @@ export const credentialEngineFactory = (): GetAllCertificates => {
             "ceterms:AssociateDegree",
             "ceterms:BachelorDegree",
             "ceterms:Badge",
-            "ceterms:Certificate",
+            "ceterms:Resource",
             "ceterms:CertificateOfCompletion",
             "ceterms:Certification",
             "ceterms:Degree",
