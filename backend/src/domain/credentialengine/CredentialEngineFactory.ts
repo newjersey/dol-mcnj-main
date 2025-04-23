@@ -21,7 +21,7 @@ export const credentialEngineFactory = (): GetAllCertificates => {
             "ceterms:AssociateDegree",
             "ceterms:BachelorDegree",
             "ceterms:Badge",
-            "ceterms:Resource",
+            "ceterms:Certificate",
             "ceterms:CertificateOfCompletion",
             "ceterms:Certification",
             "ceterms:Degree",

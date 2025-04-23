@@ -129,7 +129,7 @@ describe.skip("Filtering", () => {
     cy.get('select[id="miles"]').blur();
 
     cy.contains("Rutgers Mini MBA: Digital Marketing").should("not.exist");
-    cy.contains("Resource in Digital Marketing").should("exist");
+    cy.contains("Certificate in Digital Marketing").should("exist");
     cy.contains('9 results found for "digital marketing"').should("exist");
 
     cy.get('input[aria-label="Search by ZIP code"]').clear();
@@ -261,13 +261,14 @@ describe.skip("Filtering", () => {
     cy.contains("Employment Rate").should("exist");
   });
 
-  it.skip("preserves a filter between pages", () => {
+  it("preserves a filter between pages", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
     cy.intercept("/api/trainings/search?query=baking&page=2&limit=10&sort=best_match", { fixture: "baking-search-results-p2.json" })
+
     cy.visit("/training/search?q=baking");
     cy.contains("Bakery and Pastry").should("exist");
-    cy.contains("Resource in Baking").should("exist");
-    cy.contains("Resource in Professional Cooking").should("not.exist");
+    cy.contains("Certificate in Baking").should("exist");
+    cy.contains("Certificate in Professional Cooking").should("not.exist");
 
     cy.contains("Max Cost").within(() => {
       cy.get("input").type("4000");
@@ -275,7 +276,7 @@ describe.skip("Filtering", () => {
     });
 
     cy.contains("Bakery and Pastry").should("not.exist");
-    cy.contains("Resource in Baking").should("exist");
+    cy.contains("Certificate in Baking").should("exist");
 
     cy.get('[aria-label="Go to page 2"]').click();
 
@@ -283,7 +284,7 @@ describe.skip("Filtering", () => {
       cy.get("input").should("have.value", "4000");
     });
 
-    cy.contains("Resource in Baking").should("not.exist");
-    cy.contains("Resource in Professional Cooking").should("exist");
+    cy.contains("Certificate in Baking").should("not.exist");
+    cy.contains("Certificate in Professional Cooking").should("exist");
   });
 });
