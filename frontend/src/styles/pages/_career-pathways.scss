@@ -58,75 +58,159 @@
     }
   }
 
-  .body-copy {
-    padding: $size-96 0;
-    margin: 0 auto;
+  .pathways {
+    &.body-copy {
+      &.container {
+        margin: 0 auto;
+        padding: $size-64 0;
+        display: flex;
+        flex-direction: column;
+        gap: $size-48;
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: $size-48;
+        &:before,
+        &:after {
+          content: none;
+        }
 
-      @media screen and (max-width: ($tablet-md - 1)) {
-        gap: $size-32;
-      }
+        > .container {
+          display: flex;
+          flex-direction: column;
+          gap: $size-32;
 
-      @media screen and (max-width: ($mobile-lg - 1)) {
-        gap: $size-16;
-      }
-    }
+          &:before,
+          &:after {
+            content: none;
+          }
+        }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: $size-24;
+        .contentContainer {
+          display: flex;
+          flex-direction: column;
+          gap: $size-32;
 
-      &.content-block {
-        border-radius: $size-16;
-        padding: $size-32;
-      }
+          @media screen and (min-width: ($tablet-lg)) {
+            flex-direction: row-reverse;
+          }
 
-      &.section-1 {
-        background-color: $primary-extra-light;
-      }
+          &:nth-child(2n) {
+            @media screen and (min-width: ($tablet-lg)) {
+              flex-direction: row;
+            }
+          }
+        }
 
-      &.section-2 {
-        background-color: $tertiary-extra-light;
-      }
+        .contentBlocks {
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: $size-32;
+          width: 100%;
 
-      &.section-3 {
-        background-color: $secondary-extra-light;
-      }
+          @media screen and (min-width: ($tablet-lg)) {
+            width: 60%;
+          }
 
-      * {
-        margin: 0;
-        line-height: 1.3;
-      }
-    }
+          > div {
+            padding: $size-32;
+            border-radius: $size-16;
+            display: flex;
+            flex-direction: column;
+            gap: $size-16;
 
-    h2 {
-      font-size: $size-32;
+            ul {
+              display: flex;
+              flex-direction: column;
+              gap: $size-8;
+            }
 
-      @media screen and (max-width: ($tablet-md - 1)) {
-        font-size: $size-22;
-        font-weight: bold;
-      }
-    }
+            p,
+            ul,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+              margin: 0;
+            }
 
-    h3 {
-      font-size: $size-22;
-      font-weight: bold;
+            &.block-blue {
+              background-color: $primary-extra-light;
+            }
 
-      @media screen and (max-width: ($tablet-md - 1)) {
-        font-size: $size-18;
-        font-weight: bold;
+            &.block-purple {
+              background-color: $tertiary-extra-light;
+            }
+
+            &.block-green {
+              background-color: $secondary-extra-light;
+            }
+          }
+        }
+
+        .image {
+          overflow: hidden;
+          border-radius: $size-16;
+          width: 100%;
+
+          @media screen and (min-width: ($tablet-lg)) {
+            width: 40%;
+            max-width: $size-536;
+          }
+
+          @media screen and (max-width: ($tablet-lg - 1)) {
+            height: 0;
+            padding-bottom: 56.25%;
+            position: relative;
+          }
+        }
+
+        img {
+          display: block;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          @media screen and (max-width: ($tablet-lg - 1)) {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 100%;
+            width: 100%;
+          }
+        }
+
+        h2,
+        h3,
+        h4,
+        h5 {
+          font-weight: 600;
+          line-height: 1.2;
+        }
+
+        h2 {
+          font-size: $size-32;
+
+          @media screen and (max-width: ($tablet-md - 1)) {
+            font-size: $size-22;
+            font-weight: bold;
+          }
+        }
+
+        h3 {
+          font-size: $size-22;
+
+          @media screen and (max-width: ($tablet-md - 1)) {
+            font-size: $size-18;
+            font-weight: bold;
+          }
+        }
       }
     }
   }
 
   .contact-cta {
     text-align: center;
-    margin-bottom: $size-48;
+    margin-bottom: $size-32;
 
     .inner {
       background-color: $info-lighter;

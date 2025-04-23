@@ -9,7 +9,7 @@ import {
   AllTrainings,
 } from "../domain/types";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
-import { Certificates } from "../domain/credentialengine/CredentialEngineInterface";
+import { Resources } from "../domain/credentialengine/CredentialEngineInterface";
 import { Training } from "../domain/training/Training";
 import { AllTrainingsResult, TrainingData } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
@@ -41,14 +41,14 @@ export const routerFactory = ({
    */
   router.get(
     "/ce/getallcredentials/:skip/:take/:sort/:cancel",
-    async (req: Request, res: Response<Certificates>) => {
+    async (req: Request, res: Response<Resources>) => {
       getAllCertificates(
         req.params.skip as unknown as number,
         req.params.take as unknown as number,
         req.params.sort as string,
         req.params.cancel as unknown as boolean,
       )
-        .then((certificates: Certificates) => {
+        .then((certificates: Resources) => {
           res.status(200).json(certificates);
         })
         .catch((e) => res.status(500).send(e));

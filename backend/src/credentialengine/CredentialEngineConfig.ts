@@ -37,13 +37,12 @@ getRecordAPI.interceptors.response.use(undefined, (error) => {
 });
 
 /*
-
 curl "https://sandbox.credentialengine.org/assistant/search/ctdl" \
   -H "Origin: http://localhost:3000" \
   -H 'Access-Control-Request-Method: POST' \
   -H 'Access-Control-Request-Headers: Content-Type, Authorization' \
   -H "Authorization: ***REMOVED***" \
   -H 'Content-Type: application/json' \
-  -d "{'Query': { '@type': 'ceterms:Certificate' }, 'Skip': 0, 'Take': 5, 'Sort': '^search:recordCreated' }"
+  -d "{'Query': { '@type': 'ceterms:Resource' }, 'Skip': 0, 'Take': 5, 'Sort': '^search:recordCreated' }"
  
 */

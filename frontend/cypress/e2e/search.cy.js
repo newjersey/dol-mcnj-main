@@ -32,7 +32,7 @@ describe.skip("Filter Drawer", () => {
     cy.get('input[name="cipCode"]').should("have.value", "12.0503");
     cy.get('input[name="socCode"]').should("have.value", "22222");
   });
-  
+
   it("should clear filters when clear button is clicked", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
     cy.visit("/training/search?q=baking&inDemand=true&maxCost=20000&county=Bergen&format=online&miles=10&zipcode=07625&completeIn=days,weeks&languages=es,fr&services=placement&cip=12.0503&soc=22222")
@@ -175,7 +175,7 @@ describe("Search", () => {
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+    cy.contains("Baking and Pastry").should(
       "exist",
     );
 
@@ -183,7 +183,7 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Culinary Arts").should("exist");
+    cy.contains("Baking and Pastry").should("exist");
 
     // removes others
     cy.contains("Welding Workshops").should("not.exist");

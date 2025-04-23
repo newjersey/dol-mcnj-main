@@ -1,4 +1,4 @@
-import { Certificates } from "./credentialengine/CredentialEngineInterface";
+import { Resources } from "./credentialengine/CredentialEngineInterface";
 import { AllTrainingsResult, TrainingData } from "./training/TrainingResult";
 import { Training } from "./training/Training";
 import { Selector } from "./training/Selector";
@@ -42,4 +42,4 @@ export type GetAllCertificates = (
   take: number,
   sort: string,
   cancel: boolean
-) => Promise<Certificates>;
+) => Promise<Resources>;

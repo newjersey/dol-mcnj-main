@@ -1,4 +1,3 @@
-import NodeCache from "node-cache";
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
@@ -14,20 +13,13 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import {Provider} from "../training/Training";
-import Redis from "ioredis";
+import redis from "../../infrastructure/redis/redisClient";
 
 // ─── Initialize cache ─────────────────────────────────────────────────────────
 interface CachedResults {
   results: TrainingResult[];
   totalResults: number;
 }
-
-// Initialize Redis client
-const redis = new Redis({
-  host: '127.0.0.1',  // Local Redis server
-  port: 6379,         // Default Redis port
-});
 
 
 const STOP_WORDS = new Set(["of", "the", "and", "in", "for", "at", "on", "it", "institute"]);
@@ -192,11 +184,11 @@ const searchLearningOpportunitiesInBatches = async (query: object, page = 1, bat
   }
 
   const learningOpportunities: CTDLResource[] = [];
-  let totalResults = 0;
+  let totalResults = Infinity;
   let currentPage = page;
 
-  // Fetch data in batches and aggregate them
-  while (true) {
+// Fetch data in batches and aggregate them
+  while (learningOpportunities.length < totalResults) {
     const offset = (currentPage - 1) * batchSize;
 
     // Fetch current batch
@@ -238,7 +230,6 @@ const searchLearningOpportunitiesInBatches = async (query: object, page = 1, bat
 
   return { learningOpportunities, totalResults };
 };
-
 
 /**
  * Filters training results based on various parameters.
@@ -517,7 +508,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       cachedData = { results: [], totalResults: 0 };
     }
 
-    // Apply filtering, sorting, and pagination as usual
+    // Apply filtering
+    const filterStart = performance.now();
     const filteredResults = await filterRecords(
       cachedData.results,
       params.cip_code,
@@ -532,6 +524,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.languages,
       params.services
     );
+    console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
 
     const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
@@ -547,7 +540,6 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     console.log(`🚀 Overall search execution took ${performance.now() - overallStart} ms`);
 
     return packageResults(currentPage, limit, paginatedResults, totalResults, totalPages);
-
   };
 };
 
@@ -631,22 +623,10 @@ function buildQuery(params: {
     "ceterms:lifeCycleStatusType": {
       "ceterms:targetNode": "lifeCycle:Active",
     },
-    "search:recordPublishedBy": "ce-cc992a07-6e17-42e5-8ed1-5b016e743e9d",
+    "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
     "search:termGroup": termGroup
   };
 }
-
-const transformResults = async (
-  learningOpportunities: CTDLResource[],
-  dataClient: DataClient,
-  searchQuery: string
-): Promise<TrainingResult[]> => {
-  return Promise.all(
-    learningOpportunities.map(async (lo) => {
-      return transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, searchQuery);
-    })
-  );
-};
 
 async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,

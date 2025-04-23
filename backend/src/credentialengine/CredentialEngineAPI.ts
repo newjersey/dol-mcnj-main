@@ -9,6 +9,8 @@ const resourcesGateway = `/resources`;
 const DEFAULT_TAKE = 10; // Default number of results per request for pagination
 
 export const credentialEngineAPI = {
+
+
   /**
    * Retrieves a list of results from the Credential Engine API based on a search query.
    *
@@ -62,6 +64,12 @@ export const credentialEngineAPI = {
 
     return response.data;
   },
+
+  getEnvelopeByCTID: async (ctid: string) => {
+    const url = `/ce-registry/envelopes/${ctid}`;
+    const response = await getRecordAPI.get(url);
+    return response.data;
+  }
 
   // TODO: Discuss how we can use Cips for better results
   // getResultByCips: async function (cips: string[]) {
