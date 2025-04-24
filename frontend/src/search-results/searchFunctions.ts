@@ -29,11 +29,11 @@ export const getTrainingData = (
   completeIn?: number[],
   county?: string,
   inDemand?: boolean,
-  itemsPerPage?: number,
+  itemsPerPage: number = 10, // Default to 10 per page
   languages?: string[],
   maxCost?: number,
   miles?: number,
-  pageNum?: number,
+  pageNum: number = 1, // Default to page 1
   services?: string[],
   socCode?: string,
   sortBy?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
@@ -51,7 +51,7 @@ export const getTrainingData = (
       const parsedData = JSON.parse(cachedData) as TrainingData;
       setMetaData(parsedData.meta);
       setTrainings(parsedData.data);
-      return; // Skip the API call
+      return; // Skip the API call if data is cached
     }
 
     // If no cached data, proceed with API call
@@ -80,7 +80,7 @@ export const getTrainingData = (
       languages,
       maxCost,
       miles,
-      pageNum,
+      pageNum, // Ensure the correct pageNum is passed
       services,
       socCode,
       sortBy,
@@ -90,6 +90,8 @@ export const getTrainingData = (
     setLoading(false);
   }
 };
+
+
 
 export const getSearchQuery = (searchString: string | undefined): string | undefined => {
   const regex = /\?q=([^&]*)/;
@@ -102,8 +104,6 @@ type FilterFields = {
 };
 
 export const filterChips = (filters: FilterFields) => {
-  // make array from the object "filters" and convert the items into {name: key, value: value} pairs
-
   const titleMaker = (string: string) => {
     if (string === "cipCode") {
       return "CIP code";
@@ -146,7 +146,6 @@ export const filterChips = (filters: FilterFields) => {
   };
 
   const labelMaker = (lang: string, key: string) => {
-    // if lang matches an id in languageList, return the label
     const language = [...languageList, ...serviceList, ...classFormatList].find(
       (item) => item.id === lang,
     );
@@ -158,7 +157,6 @@ export const filterChips = (filters: FilterFields) => {
 
   const filterArray = Object.entries(filters).map(([key, value]) => {
     if (Array.isArray(value)) {
-      // filter out empty strings and false values
       const filteredArray = value.filter((item) => item !== "" && item !== false);
       return filteredArray.map((item) => ({
         id: paramMatcher(key),
@@ -182,35 +180,27 @@ export const filterChips = (filters: FilterFields) => {
     (item) => (item as { id?: string }).id !== "searchQuery",
   );
 
-  // flatten the array
   return removeQueryArray.flat();
 };
 
 export const handleChipClick = (id: string, value: string) => {
-  // Get the current URL and search parameters
   const url = new URL(window.location.href);
   const searchParams = new URLSearchParams(url.search);
   const searchParam = searchParams.get(id);
 
   if (searchParam) {
-    // Split the parameter value by commas to handle multiple values
-    const values = searchParam.split(",").filter(Boolean); // filter out any empty strings
+    const values = searchParam.split(",").filter(Boolean);
 
-    // Check if the value exists in the list and remove it if present
     const updatedValues = values.filter((v) => v !== value);
 
     if (updatedValues.length > 0) {
-      // If there are still values left, set the parameter to the updated list
       searchParams.set(id, updatedValues.join(","));
     } else {
-      // If no values remain, delete the parameter
       searchParams.delete(id);
     }
 
-    // Update the URL without reloading the page
     window.history.replaceState({}, "", `${url.pathname}?${searchParams.toString()}`);
   }
 
-  // navigate to the new URL
   window.location.href = `${url.pathname}?${searchParams.toString()}`;
 };

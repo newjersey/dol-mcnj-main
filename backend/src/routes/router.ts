@@ -97,6 +97,7 @@ export const routerFactory = ({
       .catch((e) => res.status(500).send(e));
   });
 
+
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
     findTrainingsBy(Selector.ID, [req.params.id as string])
       .then((trainings: Training[]) => {
