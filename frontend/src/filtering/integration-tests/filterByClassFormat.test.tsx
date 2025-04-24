@@ -5,6 +5,7 @@ import { StubClient } from "../../test-objects/StubClient";
 import { App } from "../../App";
 import { waitForEffect, renderWithRouter } from "../../test-objects/helpers";
 import { en as Content } from "../../locales/en";
+import ReactGA from "react-ga";
 
 jest.mock("../../utils/updateUrlParams.ts");
 
@@ -17,6 +18,7 @@ describe.skip("filtering by online or in-person", () => {
 
   beforeEach(async () => {
     jest.setTimeout(10000);
+    ReactGA.testModeAPI.resetCalls();
 
     stubClient = new StubClient();
     const { container, history } = renderWithRouter(<App client={stubClient} />);
