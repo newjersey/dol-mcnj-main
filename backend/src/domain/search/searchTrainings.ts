@@ -155,23 +155,8 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
  */
-const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
-  try {
-    const response = await credentialEngineAPI.getResults(query, offset, limit);
-    return {
-      learningOpportunities: response.data.data || [],
-      totalResults: response.data.extra.TotalResults || 0,
-    };
-  } catch (error) {
-    console.error(`Error fetching records (offset: ${offset}, limit: ${limit}):`, error);
-    return { learningOpportunities: [], totalResults: 0 };
-  }
-};
-
-
-/**
- * Fetch all learning opportunities in batches.
- */
+// Simplified search function that handles pagination
+// Update your backend search request to pass pagination parameters correctly
 
 
 /**
@@ -191,6 +176,8 @@ const filterRecords = async (
   languages?: string[],
   services?: string[]
 ): Promise<TrainingResult[]> => {
+  console.log("Before filtering, results length:", results.length);
+
   let filteredResults = results;
   if (cip_code) {
     const normalizedCip = normalizeCipCode(cip_code);
@@ -289,27 +276,32 @@ const filterRecords = async (
       return serviceChecks.every(Boolean) ? result : null;
     }))).filter(result => result !== null);
   }
+
+  console.log("After filtering, results length:", filteredResults.length); // Log after filtering
   return filteredResults;
 };
 
-const paginateRecords = (trainingResults: TrainingResult[], page: number, limit: number) => {
-  const totalResults = trainingResults.length;
-  const totalPages = Math.max(1, Math.ceil(totalResults / limit));
+const paginateRecords = (
+  results: TrainingResult[],
+  page: number,
+  limit: number,
+  totalResults: number
+) => {
+  const offset = (page - 1) * limit;
+  console.log(`Paginating: Page ${page}, Limit ${limit}, Offset ${offset}`);
 
-  // Ensure current page is within valid range
-  const currentPage = Math.min(page, totalPages);
-  const start = (currentPage - 1) * limit;
-  const end = start + limit;
-
-  console.log(`📌 Paginating ${totalResults} results (Page: ${currentPage} / ${totalPages}, Limit: ${limit})`);
+  const paginatedResults = results.slice(offset, offset + limit);
+  const totalPages = Math.ceil(totalResults / limit); // Use totalResults for totalPages calculation
 
   return {
-    results: trainingResults.slice(start, end), // ✅ Return correctly paginated results
+    results: paginatedResults,
+    totalResults,  // Pass totalResults here
     totalPages,
-    totalResults,
-    currentPage
+    currentPage: page,
   };
-}
+};
+
+
 
 
 
@@ -379,6 +371,34 @@ function normalizeQueryParams(params: {
       : undefined,
   };
 }
+const searchLearningOpportunities = async (
+  query: object,
+  page = 1,
+  limit = 10
+): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
+  const offset = (page - 1) * limit; // Calculate offset based on the page number
+  console.log(`API Request Parameters - Offset: ${offset}, Limit: ${limit}`);
+
+  try {
+    const response = await credentialEngineAPI.getResults(query, offset, limit); // Fetch the data
+    console.log("API Response:", response);
+
+    if (!response.data || !response.data.length) {
+      console.error("No valid data returned from the API.");
+      return { learningOpportunities: [], totalResults: 0 };
+    }
+
+    // Correctly access the `data` and `extra` properties
+    return {
+      learningOpportunities: response.data || [],
+      totalResults: response.extra?.TotalResults || 0, // Access `TotalResults` from `extra`
+    };
+  } catch (error) {
+    console.error(`Error fetching records (offset: ${offset}, limit: ${limit}):`, error);
+    return { learningOpportunities: [], totalResults: 0 }; // Return empty results on error
+  }
+};
+
 
 export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings => {
   return async (params: {
@@ -400,19 +420,27 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
   }): Promise<TrainingData> => {
     const overallStart = performance.now();
     const { page = 1, limit = 10, sort = "best_match" } = params;
+
     const query = buildQuery(params);
+    console.log("Built Query:", query);  // Log the query for debugging
+
     const normalizedParams = normalizeQueryParams(params);
     const cacheKey = `searchResults-${JSON.stringify(normalizedParams)}`;
     console.time("TotalSearchTime");
 
     let cachedData: CachedResults | null = null;
-
     const cachedOpportunities = await redis.get(cacheKey);
 
     if (!cachedOpportunities) {
       console.log(`🚀 Cache miss: Fetching new results for query: "${normalizedParams.searchTerm}"`);
 
-      const { learningOpportunities, totalResults } = await searchLearningOpportunities(query);
+      const { learningOpportunities, totalResults } = await searchLearningOpportunities(query, page, limit);
+      console.log("Total Results:", totalResults);
+
+      if (learningOpportunities.length === 0) {
+        console.log("No results found for query:", query);
+      }
+
       console.log(`📊 API fetch took ${performance.now() - overallStart} ms`);
 
       const transformStart = performance.now();
@@ -424,9 +452,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
 
       cachedData = { results, totalResults };
-      await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
+      await redis.set(cacheKey, JSON.stringify(cachedData), "EX", 900); // Cache for 15 minutes
     } else {
-      console.log(`✅ Cache hit for query: "${normalizedParams.searchTerm}"`);
       cachedData = JSON.parse(cachedOpportunities) as CachedResults;
     }
 
@@ -457,14 +484,20 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     const sortedResults = sortTrainings(rankedResults, sort);
 
-    const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
+    const { results, totalResults, totalPages, currentPage } = paginateRecords(
+      sortedResults,
+      page,
+      limit,
+      cachedData.totalResults // Use cachedData.totalResults for pagination
+    );
 
     console.timeEnd("TotalSearchTime");
     console.log(`🚀 Overall search execution took ${performance.now() - overallStart} ms`);
 
-    return packageResults(currentPage, limit, paginatedResults, totalResults, totalPages);
+    return packageResults(currentPage, limit, results, totalResults, totalPages);  // Use results here instead of paginatedResults
   };
 };
+
 
 type SearchTerm = {
   "search:value": string;
@@ -490,9 +523,11 @@ function buildQuery(params: {
   const isCIP = /^\d{2}\.?\d{4}$/.test(params.searchQuery);
   const isZipCode = zipcodes.lookup(params.searchQuery);
   const isCounty = Object.keys(zipcodeJson.byCounty).includes(params.searchQuery);
+
   const queryParts = params.searchQuery.split('+').map(part => part.trim());
   const hasMultipleParts = queryParts.length > 1;
   const [ownedByPart, trainingPart] = queryParts;
+
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
@@ -522,6 +557,7 @@ function buildQuery(params: {
         }
       } : undefined
   };
+
   if (hasMultipleParts) {
     termGroup = {
       "search:operator": "search:andTerms",
@@ -537,6 +573,7 @@ function buildQuery(params: {
       }
     };
   }
+
   return {
     "@type": {
       "search:value": "ceterms:LearningOpportunityProfile",
@@ -549,6 +586,8 @@ function buildQuery(params: {
     "search:termGroup": termGroup
   };
 }
+
+
 
 async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,

@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 export const Pagination = ({
-  currentPage,
-  totalPages,
-  setPageNumber,
-  isLoading,
-}: {
+                             currentPage,
+                             totalPages,
+                             setPageNumber,
+                             isLoading,
+                             hasPreviousPage,
+                             hasNextPage,
+                           }: {
   currentPage: number;
   totalPages: number;
   hasPreviousPage: boolean;
@@ -15,6 +17,8 @@ export const Pagination = ({
   setPageNumber: (pageNumber: number) => void;
   isLoading: boolean;
 }) => {
+  console.log("Current Page:", currentPage);
+  console.log("Total Pages:", totalPages);
   const [breakCount, setBreakCount] = useState(0);
 
   useEffect(() => {
@@ -109,11 +113,8 @@ export const Pagination = ({
         renderOnZeroPageCount={null}
         pageRangeDisplayed={2}
         onPageChange={(page) => {
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.set("p", `${page.selected + 1}`);
-          window.history.pushState({}, "", newUrl.toString());
-          setPageNumber(page.selected + 1);
-          window.scrollTo(0, 0);
+          console.log("Page Selected:", page.selected + 1);
+          setPageNumber(page.selected + 1);  // Update the page number
         }}
         hrefBuilder={(page) => {
           const newUrl = new URL(window.location.href);

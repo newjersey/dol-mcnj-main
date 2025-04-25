@@ -29,75 +29,89 @@ export const getTrainingData = (
   completeIn?: number[],
   county?: string,
   inDemand?: boolean,
-  itemsPerPage: number = 10, // Default to 10 per page
+  itemsPerPage?: number,
   languages?: string[],
   maxCost?: number,
   miles?: number,
-  pageNum: number = 1, // Default to page 1
+  pageNum?: number,
   services?: string[],
   socCode?: string,
   sortBy?: "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match",
   zipCode?: string,
 ): void => {
-  if (queryToSearch && queryToSearch !== "" && queryToSearch !== "null") {
-    // Generate a cache key based on the query and parameters
-    const cacheKey = `${queryToSearch}-${cipCode}-${classFormat}-${completeIn}-${county}-${inDemand}-${itemsPerPage}-${languages}-${maxCost}-${miles}-${pageNum}-${services}-${socCode}-${sortBy}-${zipCode}`;
+  const pageNumber = pageNum || 1;  // Default to 1 if pageNum is undefined
+  const cacheKey = `${queryToSearch}-${cipCode}-${classFormat}-${completeIn}-${county}-${inDemand}-${itemsPerPage}-${languages}-${maxCost}-${miles}-${pageNumber}-${services}-${socCode}-${sortBy}-${zipCode}`;
 
-    // Check if data is cached
-    const cachedData = sessionStorage.getItem(cacheKey);
+  // Log the page number and cache key
+  console.log("Fetching page:", pageNumber);
+  console.log("Cache Key:", cacheKey);
 
-    if (cachedData) {
-      setLoading(false); // Set loading to false immediately
-      const parsedData = JSON.parse(cachedData) as TrainingData;
-      setMetaData(parsedData.meta);
-      setTrainings(parsedData.data);
-      return; // Skip the API call if data is cached
-    }
-
-    // If no cached data, proceed with API call
-    client.getTrainingsByQuery(
-      queryToSearch,
-      {
-        onSuccess: (data: TrainingData) => {
-          // Cache the data for future use
-          sessionStorage.setItem(cacheKey, JSON.stringify(data));
-
-          setMetaData(data.meta);
-          setTrainings(data.data);
-          setLoading(false);
-        },
-        onError: () => {
-          setIsError(true);
-          setLoading(false);
-        },
-      },
-      cipCode,
-      classFormat,
-      completeIn,
-      county,
-      inDemand,
-      itemsPerPage,
-      languages,
-      maxCost,
-      miles,
-      pageNum, // Ensure the correct pageNum is passed
-      services,
-      socCode,
-      sortBy,
-      zipCode,
-    );
-  } else {
-    setLoading(false);
+  // Check if data is cached
+  const cachedData = sessionStorage.getItem(cacheKey);
+  console.log("Cache hit/miss:", cachedData ? "Hit" : "Miss");
+  if (cachedData) {
+    setLoading(false); // Set loading to false immediately
+    const parsedData = JSON.parse(cachedData) as TrainingData;
+    setMetaData(parsedData.meta);
+    setTrainings(parsedData.data);
+    console.log("Cache hit. Returning cached data.");
+    return; // Skip the API call if cached data is available
   }
+
+  // Proceed with API call if no cached data
+  client.getTrainingsByQuery(
+    queryToSearch,
+    {
+      onSuccess: (data: TrainingData) => {
+        // Cache the data for future use
+        sessionStorage.setItem(cacheKey, JSON.stringify(data));
+        setMetaData(data.meta);
+        setTrainings(data.data);
+        setLoading(false);
+        console.log("Data fetched and cached.");
+      },
+      onError: () => {
+        setIsError(true);
+        setLoading(false);
+        console.log("Error fetching data.");
+      },
+    },
+    cipCode,
+    classFormat,
+    completeIn,
+    county,
+    inDemand,
+    itemsPerPage,
+    languages,
+    maxCost,
+    miles,
+    pageNumber, // Ensure page number is passed correctly
+    services,
+    socCode,
+    sortBy,
+    zipCode,
+  );
 };
+
 
 
 
 export const getSearchQuery = (searchString: string | undefined): string | undefined => {
+  if (!searchString) return undefined;
+
   const regex = /\?q=([^&]*)/;
-  const matches = searchString?.match(regex);
-  return matches ? decodeURIComponent(matches[1]).replace(/\+/g, ' ') : undefined;
+  const matches = searchString.match(regex);
+
+  if (matches) {
+    const decodedQuery = decodeURIComponent(matches[1]).replace(/\+/g, ' ');
+    console.log("Search query extracted:", decodedQuery);  // Log the extracted query
+    return decodedQuery;
+  }
+
+  console.log("No search query found.");
+  return undefined;
 };
+
 
 type FilterFields = {
   [key: string]: string | number | boolean | string[] | number[] | boolean[];

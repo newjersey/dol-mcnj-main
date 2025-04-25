@@ -11,7 +11,7 @@ import { SearchFilters } from "./SearchFilters";
 import { SearchTips } from "./SearchTips";
 import { getSearchQuery, getTrainingData } from "./searchFunctions";
 import { SkeletonCard } from "./SkeletonCard";
-import {WindowLocation} from "@reach/router";
+import { WindowLocation } from "@reach/router";
 
 interface Props {
   client: Client;
@@ -25,6 +25,7 @@ export const SearchResultsPage = ({ client, location, path }: Props): ReactEleme
   const [metaData, setMetaData] = useState<TrainingData["meta"] | undefined>(undefined);
   const [trainings, setTrainings] = useState<TrainingResult[]>([]);
   const searchQuery = getSearchQuery(location?.search);
+
   const [filters, setFilters] = useState({
     itemsPerPage: 10,
     pageNumber: 1,
@@ -37,12 +38,20 @@ export const SearchResultsPage = ({ client, location, path }: Props): ReactEleme
     inDemand: undefined as boolean | undefined,
     languages: undefined as string[] | undefined,
     maxCost: undefined as number | undefined,
+    zipCode: undefined as string | undefined,
     miles: undefined as number | undefined,
+    services: undefined as string[] | undefined,  // Add services filter
+    socCode: undefined as string | undefined,    // Add socCode filter
   });
 
-  // Fetch the first page of results
+  // Fetch the first page of results when the component loads or search filters change
   useEffect(() => {
     const fetchInitialData = async () => {
+      console.log("Page Number:", filters.pageNumber); // Log the current page number
+      const cacheKey = `${filters.searchQuery}-${filters.cipCode}-${filters.classFormat}-${filters.completeIn}-${filters.county}-${filters.inDemand}-${filters.itemsPerPage}-${filters.languages}-${filters.maxCost}-${filters.miles}-${filters.pageNumber}-${filters.services}-${filters.socCode}-${filters.sortBy}-${filters.zipCode}`;
+      console.log("Cache Key:", cacheKey); // Log the cache key
+      console.log("Filters:", filters); // Log the entire filters ob
+
       setIsLoading(true);
       await getTrainingData(
         client,
@@ -60,45 +69,22 @@ export const SearchResultsPage = ({ client, location, path }: Props): ReactEleme
         filters.languages,
         filters.maxCost,
         filters.miles,
-        filters.pageNumber
+        filters.pageNumber, // Ensure this is passed correctly
+        filters.services,
+        filters.socCode,
+        filters.sortBy
       );
     };
     fetchInitialData();
-  }, [client, filters.searchQuery, filters.pageNumber]);
+  }, [client, filters.searchQuery, filters.pageNumber]); // Ensure pageNumber is in dependencies
 
-  // Fetch the next page only when needed
-  useEffect(() => {
-    const loadNextPage = async () => {
-      if (metaData && metaData.hasNextPage && filters.pageNumber > 1) {
-        setIsLoading(true);
-        await getTrainingData(
-          client,
-          filters.searchQuery,
-          setIsError,
-          setIsLoading,
-          setMetaData,
-          (newTrainings) => {
-            if (Array.isArray(newTrainings)) {
-              setTrainings((prevTrainings) => [...prevTrainings, ...newTrainings]); // Append new results
-            }
-          },
-          filters.cipCode,
-          filters.classFormat,
-          filters.completeIn,
-          filters.county,
-          filters.inDemand,
-          filters.itemsPerPage,
-          filters.languages,
-          filters.maxCost,
-          filters.miles,
-          filters.pageNumber
-        );
-      }
-    };
 
-    loadNextPage();
-  }, [filters.pageNumber, client, filters.searchQuery]);
+  // Handle page change event from pagination
+  const handlePageChange = (newPage: number) => {
+    setFilters((prevFilters) => ({ ...prevFilters, pageNumber: newPage }));
+  };
 
+  // Handle sort change event
   const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value as "best_match" | "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE";
     setFilters((prevFilters) => ({ ...prevFilters, sortBy: value }));
@@ -107,10 +93,6 @@ export const SearchResultsPage = ({ client, location, path }: Props): ReactEleme
   const handleLimitChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = parseInt(e.target.value, 10);
     setFilters((prevFilters) => ({ ...prevFilters, itemsPerPage: value }));
-  };
-
-  const handlePageChange = (newPage: number) => {
-    setFilters((prevFilters) => ({ ...prevFilters, pageNumber: newPage }));
   };
 
   return (
@@ -158,3 +140,4 @@ export const SearchResultsPage = ({ client, location, path }: Props): ReactEleme
     </Layout>
   );
 };
+

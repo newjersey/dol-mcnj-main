@@ -26,14 +26,14 @@ interface RouterActions {
 }
 
 export const routerFactory = ({
-  allTrainings,
-  searchTrainings,
-  findTrainingsBy,
-  getInDemandOccupations,
-  getOccupationDetail,
-  getAllCertificates,
-  getOccupationDetailByCIP,
-}: RouterActions): Router => {
+                                allTrainings,
+                                searchTrainings,
+                                findTrainingsBy,
+                                getInDemandOccupations,
+                                getOccupationDetail,
+                                getAllCertificates,
+                                getOccupationDetailByCIP,
+                              }: RouterActions): Router => {
   const router = Router();
 
   /**
@@ -56,28 +56,24 @@ export const routerFactory = ({
   );
 
   router.get("/trainings/all", (req: Request, res: Response) => {
-      allTrainings()
+    allTrainings()
       .then((trainings: AllTrainingsResult[]) => {
         res.status(200).json(trainings);
       })
       .catch((e) => res.status(500).send(e));
-  })
+  });
 
   router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
-    let page = parseInt(req.query.page as string);
-    if (isNaN(page) || page < 1) {
-      page = 1;
-    }
-
-    let limit = parseInt(req.query.limit as string);
-    if (isNaN(limit) || limit < 1) {
-      limit = 10;
-    }
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const offset = (page - 1) * limit;  // Ensure the offset is correctly calculated
+    console.log(`Offset: ${offset}, Limit: ${limit}`);
 
     searchTrainings({
       searchQuery: req.query.query as string,
       page: page,
       limit: limit,
+      offset: offset, // Make sure offset is correctly used here
       sort: req.query.sort as string,
       cip_code: req.query.cip_code as string,
       format: req.query.format ? (req.query.format as string).split(",") : undefined,
@@ -92,28 +88,30 @@ export const routerFactory = ({
       zipcode: req.query.zipcode as string,
     })
       .then((trainings: TrainingData) => {
+        console.log(`Returning ${trainings.data.length} results for page ${page}`);
         res.status(200).json(trainings);
       })
       .catch((e) => res.status(500).send(e));
   });
 
 
+
+
   router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
     findTrainingsBy(Selector.ID, [req.params.id as string])
       .then((trainings: Training[]) => {
         if (trainings.length === 0) {
-          throw new Error('NOT_FOUND')
+          throw new Error('NOT_FOUND');
         }
         res.status(200).json(trainings[0]);
       })
-        .catch((e) => {
-          if (e?.message === "NOT_FOUND") {
-            res.status(404).send();
-          }
-          else {
-            res.status(500).send();
-          }
-        });
+      .catch((e) => {
+        if (e?.message === "NOT_FOUND") {
+          res.status(404).send();
+        } else {
+          res.status(500).send();
+        }
+      });
   });
 
   router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
@@ -147,7 +145,6 @@ export const routerFactory = ({
   });
 
   router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
-    // console.log("here");
     getOccupationDetailByCIP(req.params.cip as string)
       .then((occupationDetails: OccupationDetail[]) => {
         res.status(200).json(occupationDetails);

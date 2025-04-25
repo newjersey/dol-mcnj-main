@@ -1,5 +1,6 @@
 import { searchAPI } from "./CredentialEngineConfig";
 import { getRecordAPI } from "./CredentialEngineConfig";
+import {CTDLResource} from "../domain/credentialengine/CredentialEngine";
 
 // API endpoint paths for various Credential Engine data types
 const searchGateway = `/assistant/search/ctdl`;
@@ -8,6 +9,12 @@ const resourcesGateway = `/resources`;
 
 const DEFAULT_TAKE = 10; // Default number of results per request for pagination
 
+interface CredentialEngineResponse {
+  data: CTDLResource[];  // Define based on what data structure you expect in `data`
+  extra: {
+    TotalResults: number;  // This is where you access `TotalResults`
+  };
+}
 export const credentialEngineAPI = {
 
 
@@ -19,7 +26,7 @@ export const credentialEngineAPI = {
    * @param take - Number of results to return (default: 10).
    * @returns A collection of search results from Credential Engine.
    */
-  getResults: async function (query: object, skip: number, take: number = DEFAULT_TAKE) {
+  getResults: async function (query: object, skip: number, take: number = DEFAULT_TAKE): Promise<CredentialEngineResponse> {
     const response = await searchAPI.request({
       url: `${searchGateway}`,
       method: "post",
@@ -27,12 +34,19 @@ export const credentialEngineAPI = {
         Query: query,
         Skip: skip,
         Take: take,
-        Sort: "^search:relevance"
-        // IncludeResultsMetadata: true // Uncomment if metadata is needed
+        Sort: "^search:relevance",
       },
     });
 
-    return response;
+    // Correctly access response data and typecast it
+    const responseData: CredentialEngineResponse = {
+      data: response.data.data || [],  // Assuming 'data' is an array of results
+      extra: {
+        TotalResults: response.data.extra?.TotalResults || 0,  // Correctly access the extra property
+      },
+    };
+
+    return responseData;
   },
 
   /**
