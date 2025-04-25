@@ -44,10 +44,13 @@
     }
 
     p {
-      font-size: $size-22;
       margin: 0;
-      @media screen and (max-width: ($tablet-md - 1)) {
-        font-size: $size-18;
+      &.subheading {
+        font-size: $size-22;
+        margin: 0;
+        @media screen and (max-width: ($tablet-md - 1)) {
+          font-size: $size-18;
+        }
       }
     }
 
