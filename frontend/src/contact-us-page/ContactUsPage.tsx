@@ -82,6 +82,8 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
       <PageBanner
         title="Contact Us"
         breadcrumbTitle="Contact Us"
+        subheading="New Jersey Training Provider Information Hub:"
+        description="If you have questions about the New Jersey Career Central, please fill out the form below."
         theme="green"
         section="support"
         breadcrumbsCollection={{
