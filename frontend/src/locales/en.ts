@@ -29,9 +29,9 @@ export const en = {
     somethingWentWrongText: "Please try again later",
   },
   ExplorerPage: {
-    bannerSubheading: "Find classes to help you qualify for in-demand jobs.",
+    bannerSubheading: "Find Quality Job Training Programs:",
     bannerMessageCopy:
-      "Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you’ll be ready to take on new career opportunities.",
+      "Search approved training providers and courses to help you gain new skills and advance your career. Compare program details, costs, and locations to make an informed choice.",
     header: "Power up your search to find your next training opportunity",
     sectionOneHeader: "Get Started",
     sectionOneText:
@@ -145,7 +145,8 @@ export const en = {
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
-    bannerSubheading: "The tools you need to find a job that works for you.",
+    bannerSubheading:
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
     bannerMessageCopy:
       "The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you.",
     headerText:
