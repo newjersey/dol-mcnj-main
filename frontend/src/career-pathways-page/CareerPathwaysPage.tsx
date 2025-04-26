@@ -144,6 +144,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
                     </span>
                     <Tooltip id="beta-tooltip" className="custom-tooltip" />
                   </Heading>
+                  <p className="subheading">{content.banner.subheading}</p>
                   <p>{content.banner.description}</p>
                 </div>
               </div>

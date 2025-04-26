@@ -7,9 +7,10 @@ import sectionImage2 from "../images/1404069302-min.jpg";
 
 export const content = {
   banner: {
-    title: "Welcome to New Jersey Career Pathways!",
+    title: "NJ Career Pathways",
+    subheading: "Map Out Your Career Path:",
     description:
-      "With New Jersey Career Pathways, exploring in-demand jobs and training opportunities has never been easier.",
+      "The pathways tool is easy to use! It saves you time by bringing everything - high growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, without stress.",
   },
   betaToolTip:
     "Our team is currently researching and developing more pathways. Check back regularly for updates.",
