@@ -7,6 +7,7 @@ export const PageBanner = ({
   breadcrumbTitle,
   message,
   noCrumbs = false,
+  subheading,
   description,
   breadcrumbsCollection,
   ctaHeading,
@@ -41,7 +42,13 @@ export const PageBanner = ({
         <div className="copy">
           <div className="heading">
             <h1>{title}</h1>
-            {message && <ContentfulRichText document={message.json} />}
+            {subheading && <p className="subheading">{subheading}</p>}
+            {message &&
+              (typeof message === "string" ? (
+                <p>{message}</p>
+              ) : (
+                <ContentfulRichText document={message.json} />
+              ))}
             {description && <p>{description}</p>}
           </div>
           {ctaLinksCollection && ctaLinksCollection.items.length > 0 && (
