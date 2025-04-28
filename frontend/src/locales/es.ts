@@ -31,7 +31,7 @@ export const es = {
   ExplorerPage: {
     bannerSubheading: "Encuentre programas de capacitación laboral de calidad:",
     bannerMessageCopy:
-      "Busca proveedores y cursos de capacitación aprobados que te ayuden a adquirir nuevas habilidades y progresar profesionalmente. Compara detalles, costos y ubicaciones de los programas para tomar una decisión informada.",
+      "Accede a más de 5000 programas de capacitación y certificaciones para impulsar tu carrera. Compara detalles, costos y ubicaciones de los programas para tomar una decisión informada.",
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
     sectionOneHeader: "Empecemos!",
     sectionOneText:
