@@ -145,10 +145,9 @@ export const en = {
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
-    bannerSubheading:
-      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
+    bannerSubheading: "Cutting Edge Career Tools:",
     bannerMessageCopy:
-      "The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you.",
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
     headerText:
       "Find training to better prepare you for a promotion, better job, or even a career change",
     searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
