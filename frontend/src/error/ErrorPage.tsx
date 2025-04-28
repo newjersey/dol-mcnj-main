@@ -3,6 +3,7 @@ import { Icon } from "@material-ui/core";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { usePageTitle } from "../utils/usePageTitle";
+import { Helmet } from "react-helmet-async";
 
 interface Props {
   client: Client;
@@ -48,6 +49,10 @@ export const ErrorPage = (props: Props): ReactElement => {
         title: `${process.env.REACT_APP_SITE_NAME}`,
       }}
     >
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+
       <ErrorBlock className={props.className} headerText={props.headerText}>
         {props.children}
       </ErrorBlock>
