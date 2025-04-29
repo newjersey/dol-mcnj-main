@@ -19,10 +19,10 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db) {
-    const fileName =
+  const fileName =
       process.env.NODE_ENV === "test"
-        ? "20250426054903-update-etpl-up.sql-TEST"
-        : "20250426054903-update-etpl-up.sql";
+          ? "20250426054903-update-etpl-up.sql-TEST"
+          : "20250426054903-update-etpl-up.sql";
   var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
@@ -38,10 +38,10 @@ exports.up = function(db) {
 };
 
 exports.down = function(db) {
-    const fileName =
+  const fileName =
       process.env.NODE_ENV === "test"
-        ? "20250426054903-update-etpl-down.sql-TEST"
-        : "20250426054903-update-etpl-down.sql";
+          ? "20250426054903-update-etpl-down.sql-TEST"
+          : "20250426054903-update-etpl-down.sql";
   var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
