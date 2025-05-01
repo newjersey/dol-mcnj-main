@@ -91,7 +91,12 @@ footer {
       padding: 0 0 2rem;
 
       li {
-        margin-bottom: 0.3rem;
+        margin: 0;
+
+        a {
+          display: inline-block;
+          padding: $size-4 0 $size-8;
+        }
       }
     }
   }
@@ -143,8 +148,9 @@ footer {
 
       > a {
         border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0.3rem;
+        display: inline-block;
+        padding: $size-4 0 $size-8;
+        margin: 0;
       }
     }
 
