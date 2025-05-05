@@ -36,6 +36,11 @@ export const routerFactory = ({
         .then((trainings: TrainingResult[]) => {
           console.log(`Successfully retrieved training programs: `, trainings);
 
+          if (!req.query.query) {
+            console.warn("Empty search query provided; returning an empty array.");
+            return res.status(200).json(trainings);
+          }
+
           if (trainings.length === 0) {
             console.log(`No trainings found for the query: ${req.query.query}`);
             return res.status(404).json({ error: "No trainings found for the given query" });
