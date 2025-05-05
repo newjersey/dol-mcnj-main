@@ -4,12 +4,12 @@ import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
-import AWS from 'aws-sdk';
+import AWS from "aws-sdk";
 import { routerFactory } from "./routes/router";
-import emailSubmissionRouter from './routes/emailRoutes';
-import contentfulRouter from './contentful/index';
-import contactRouter from './routes/contactRoutes'
-import signUpRouter from './routes/signupRoutes'
+import emailSubmissionRouter from "./routes/emailRoutes";
+import contentfulRouter from "./contentful/index";
+import contactRouter from "./routes/contactRoutes";
+import signUpRouter from "./routes/signupRoutes";
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
 import { PostgresSearchClient } from "./database/search/PostgresSearchClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
@@ -20,7 +20,8 @@ import { OnetClient } from "./oNET/OnetClient";
 import { getEducationTextFactory } from "./domain/occupations/getEducationText";
 import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate";
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
-import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
+import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupationDetailByCIP";
+import helmet from "helmet";
 // import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
@@ -42,7 +43,7 @@ Sentry.init({
 });
 
 // Error handling for uncaught exceptions and unhandled rejections...
-process.on('uncaughtException', function (exception) {
+process.on("uncaughtException", function (exception) {
   Sentry.captureException(exception);
 });
 
@@ -50,16 +51,107 @@ process.on("unhandledRejection", (reason) => {
   Sentry.captureException(reason);
 });
 
-
 // CORS options
 const corsOptions = {
-  origin: ['https://mycareer.nj.gov', 'http://localhost:3000'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200
-
+  origin: ["https://mycareer.nj.gov", "http://localhost:3000"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200,
 };
 
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"],
+
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'", // for GTM bootstrap
+        "'unsafe-eval'", // required for GTM preview & Custom JS
+        "'report-sample'",
+        "https://www.googletagmanager.com",
+        "https://tagmanager.google.com",
+        "https://www.google-analytics.com",
+        "https://analytics.google.com",
+        "https://www.google.com",
+        "https://adservice.google.com",
+        "https://pagead2.googlesyndication.com",
+        "https://*.doubleclick.net",
+      ],
+      scriptSrcElem: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://www.googletagmanager.com",
+        "https://tagmanager.google.com",
+        "https://www.google-analytics.com",
+        "https://analytics.google.com",
+        "https://www.google.com",
+        "https://adservice.google.com",
+        "https://pagead2.googlesyndication.com",
+        "https://*.doubleclick.net",
+      ],
+      scriptSrcAttr: ["'unsafe-inline'"], // changed from 'none' to allow GTM inline handlers
+
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://fonts.googleapis.com",
+        "https://www.googletagmanager.com",
+        "https://tagmanager.google.com",
+      ],
+      styleSrcElem: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://fonts.googleapis.com",
+        "https://www.googletagmanager.com",
+        "https://tagmanager.google.com",
+      ],
+
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://fonts.googleapis.com", "data:"],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://ssl.gstatic.com",
+        "https://www.gstatic.com",
+        "https://fonts.gstatic.com", // added to fix icon image blocking
+        "https://*.ctfassets.net",
+        "https://pagead2.googlesyndication.com",
+        "https://www.googleadservices.com",
+        "https://*.doubleclick.net",
+      ],
+      connectSrc: [
+        "'self'",
+        "https://www.google-analytics.com",
+        "https://region1.google-analytics.com",
+        "https://analytics.google.com",
+        "https://www.googletagmanager.com",
+        "https://pagead2.googlesyndication.com",
+        "https://www.googleadservices.com",
+        "https://*.ctfassets.net",
+      ],
+      frameSrc: [
+        "'self'",
+        "https://www.googletagmanager.com",
+        "https://tagmanager.google.com",
+        "https://*.doubleclick.net",
+        "https://www.google.com",
+        "https://www.youtube.com",
+        "https://www.youtube-nocookie.com",
+      ],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      frameAncestors: ["'self'"],
+      upgradeInsecureRequests: [], // will be ignored in report-only
+      // Optional: enable CSP reporting endpoint if needed
+      // reportUri: "/csp-report",
+    },
+  }),
+);
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
 // const contactLimiter = rateLimiter(3600, 20) // max 20 emails in 1 hour per ip
@@ -74,15 +166,15 @@ app.use(Sentry.Handlers.tracingHandler());
 const awsConfig = new AWS.Config({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
-  region: process.env.AWS_REGION
+  region: process.env.AWS_REGION,
 });
 
 type PostgresConnectionConfig = {
-  user: string,
-  host: string,
-  database: string,
-  password: string,
-  port: number,
+  user: string;
+  host: string;
+  database: string;
+  password: string;
+  port: number;
 };
 
 // Determine if the NODE_ENV begins with "aws"
@@ -92,50 +184,52 @@ switch (process.env.NODE_ENV) {
   case "dev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_DEV || '',
+      host: process.env.DB_HOST_DEV || "",
       database: "d4adlocal",
-      password: process.env.DB_PASS_DEV || '',
+      password: process.env.DB_PASS_DEV || "",
       port: 5432,
     };
     break;
   case "test":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_TEST || '',
+      host: process.env.DB_HOST_TEST || "",
       database: "d4adtest",
-      password: process.env.DB_PASS_TEST || '',
+      password: process.env.DB_PASS_TEST || "",
       port: 5432,
     };
     break;
   case "awsdev":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_AWSDEV || '',
+      host: process.env.DB_HOST_WRITER_AWSDEV || "",
       database: "d4addev",
-      password: process.env.DB_PASS_AWSDEV || '',
+      password: process.env.DB_PASS_AWSDEV || "",
       port: 5432,
     };
     break;
   case "awstest":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_AWSTEST || '',
+      host: process.env.DB_HOST_WRITER_AWSTEST || "",
       database: "d4adtest",
-      password: process.env.DB_PASS_AWSTEST || '',
+      password: process.env.DB_PASS_AWSTEST || "",
       port: 5432,
     };
     break;
   case "awsprod":
     connection = {
       user: "postgres",
-      host: process.env.DB_HOST_WRITER_AWSPROD || '',
+      host: process.env.DB_HOST_WRITER_AWSPROD || "",
       database: "d4adprod",
-      password: process.env.DB_PASS_AWSPROD || '',
+      password: process.env.DB_PASS_AWSPROD || "",
       port: 5432,
     };
     break;
   default:
-    console.error("Invalid NODE_ENV. Please set NODE_ENV to one of: dev, test, awsdev, awstest, awsprod.");
+    console.error(
+      "Invalid NODE_ENV. Please set NODE_ENV to one of: dev, test, awsdev, awstest, awsprod.",
+    );
     process.exit(1);
 }
 
@@ -163,7 +257,7 @@ if (!isCI) {
   apiValues.careerOneStopBaseUrl = process.env.CAREER_ONESTOP_BASEURL || "http://localhost:8090";
   apiValues.careerOneStopUserId = process.env.CAREER_ONESTOP_USERID || "CAREER_ONESTOP_USERID";
   apiValues.careerOneStopAuthToken =
-      process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
+    process.env.CAREER_ONESTOP_AUTH_TOKEN || "CAREER_ONESTOP_AUTH_TOKEN";
 }
 
 const postgresDataClient = new PostgresDataClient(connection);
@@ -175,46 +269,46 @@ const router = routerFactory({
   findTrainingsBy: findTrainingsBy,
   getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
   getOccupationDetail: getOccupationDetailFactory(
-      OnetClient(
-          apiValues.onetBaseUrl,
-          apiValues.onetAuth,
-          postgresDataClient.find2018OccupationsBySoc2010
-      ),
-      getEducationTextFactory(postgresDataClient),
-      getSalaryEstimateFactory(postgresDataClient),
-      CareerOneStopClient(
-          apiValues.careerOneStopBaseUrl,
-          apiValues.careerOneStopUserId,
-          apiValues.careerOneStopAuthToken
-      ),
-      findTrainingsBy,
-      postgresDataClient
+    OnetClient(
+      apiValues.onetBaseUrl,
+      apiValues.onetAuth,
+      postgresDataClient.find2018OccupationsBySoc2010,
+    ),
+    getEducationTextFactory(postgresDataClient),
+    getSalaryEstimateFactory(postgresDataClient),
+    CareerOneStopClient(
+      apiValues.careerOneStopBaseUrl,
+      apiValues.careerOneStopUserId,
+      apiValues.careerOneStopAuthToken,
+    ),
+    findTrainingsBy,
+    postgresDataClient,
   ),
   getOccupationDetailByCIP: getOccupationDetailByCIPFactory(
-      OnetClient(
-          apiValues.onetBaseUrl,
-          apiValues.onetAuth,
-          postgresDataClient.find2018OccupationsBySoc2010
-      ),
-      getEducationTextFactory(postgresDataClient),
-      getSalaryEstimateFactory(postgresDataClient),
-      CareerOneStopClient(
-          apiValues.careerOneStopBaseUrl,
-          apiValues.careerOneStopUserId,
-          apiValues.careerOneStopAuthToken
-      ),
-      findTrainingsBy,
-      postgresDataClient
+    OnetClient(
+      apiValues.onetBaseUrl,
+      apiValues.onetAuth,
+      postgresDataClient.find2018OccupationsBySoc2010,
+    ),
+    getEducationTextFactory(postgresDataClient),
+    getSalaryEstimateFactory(postgresDataClient),
+    CareerOneStopClient(
+      apiValues.careerOneStopBaseUrl,
+      apiValues.careerOneStopUserId,
+      apiValues.careerOneStopAuthToken,
+    ),
+    findTrainingsBy,
+    postgresDataClient,
   ),
 });
 
 app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use(express.json());
 app.use("/api", router);
-app.use('/api/contact', contactRouter)
-app.use('/api/signup', signUpRouter)
-app.use('/api/emails', emailSubmissionRouter);
-app.use('/api/contentful', contentfulRouter);
+app.use("/api/contact", contactRouter);
+app.use("/api/signup", signUpRouter);
+app.use("/api/emails", emailSubmissionRouter);
+app.use("/api/contentful", contentfulRouter);
 
 // Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
@@ -226,7 +320,6 @@ app.get("*", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());
