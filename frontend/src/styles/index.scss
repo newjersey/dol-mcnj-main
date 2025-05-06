@@ -66,6 +66,7 @@
 @import "components/industry-selector";
 @import "components/interrupter";
 @import "components/introBlocks";
+@import "components/itemCard";
 @import "components/labelBox";
 @import "components/occupation-block";
 @import "components/page-banner";
@@ -75,10 +76,10 @@
 @import "components/resourceCard";
 @import "components/resourceList";
 @import "components/river";
-@import "components/updateNotifier";
 @import "components/search-block";
 @import "components/stepper";
 @import "components/tab-content";
+@import "components/updateNotifier";
 
 button:not([disabled]):focus,
 input:not([disabled]):focus,

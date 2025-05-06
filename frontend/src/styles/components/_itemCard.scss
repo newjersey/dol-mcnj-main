@@ -1,0 +1,83 @@
+.itemCard {
+  padding: $size-24;
+  transition-duration: 0.3s;
+  border-radius: $size-16;
+  display: block;
+  color: $black;
+  text-decoration: none;
+  text-wrap: pretty;
+
+  &:visited {
+    color: $black;
+  }
+
+  &:hover {
+    color: $white;
+  }
+
+  .heading {
+    display: inline-flex;
+    align-items: center;
+    gap: $size-4;
+    justify-content: space-between;
+    width: 100%;
+
+    > * {
+      margin: 0;
+    }
+
+    p {
+      font-size: $size-24;
+      font-weight: 700;
+      text-wrap: pretty;
+    }
+  }
+
+  span {
+    display: flex;
+    font-weight: 700;
+    gap: $size-4;
+    text-wrap: pretty;
+    justify-content: end;
+    align-items: center;
+  }
+
+  &.theme-blue {
+    border: 1px solid $primary;
+    background-color: $accent-cool-lighter;
+
+    &:hover {
+      background-color: $primary-darker;
+
+      svg {
+        fill: $accent-cool-light;
+      }
+    }
+  }
+
+  &.theme-green {
+    border: 1px solid $secondary;
+    background-color: $secondary-light;
+
+    &:hover {
+      background-color: $secondary-darker;
+
+      svg {
+        fill: $secondary-light;
+      }
+    }
+  }
+
+  &.theme-purple {
+    border: 1px solid $tertiary;
+    background-color: $tertiary-light;
+
+    &:hover {
+      background-color: $tertiary-darker;
+
+      svg {
+        fill: $tertiary-light;
+      }
+    }
+  }
+}

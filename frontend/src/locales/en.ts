@@ -149,14 +149,26 @@ export const en = {
     bannerSubheading: "Cutting Edge Career Tools:",
     bannerMessageCopy:
       "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
-    headerText:
-      "Find training to better prepare you for a promotion, better job, or even a career change",
-    searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
-    swimLaneHeader: "Helpful how-to’s",
-    columnOneHeader: "For Training Seekers",
-    columnTwoHeader: "For Counselors and Coaches",
-    columnThreeHeader: "For Training Providers",
-    columnButtonText: "Learn More",
+    topToolsHeader: "Top Tools",
+    topToolNavigatorHeading: "NJ Career Navigator",
+    topToolNavigatorDescription:
+      "Upload your resume to see personalized job and training recommendations.",
+    topToolNavigatorButtonText: "Get Started",
+    topToolExplorerHeading: "Training Explorer",
+    topToolExplorerDescription:
+      "Search by job, training program, and more to find a training that works for you.",
+    topToolExplorerButtonText: "Search Training",
+    topToolPathwaysHeading: "Career Pathways",
+    topToolPathwaysDescription:
+      "Explore popular industries to see what it takes to enter or progress in them.",
+    topToolPathwaysButtonText: "Explore Pathways",
+    optionsHeading: "How can My Career NJ help you?",
+    optionsDescription:
+      "My Career NJ is a free resource for New Jersey residents to help you find training, job opportunities, and career resources.",
+    optionsCard1: "I want to find a job",
+    optionsCard2: "I want to search for training",
+    optionsCard3: "I want to explore career opportunities",
+    optionsCard4: "I need additional resources",
   },
   OccupationPage: {
     header: "Occupation",

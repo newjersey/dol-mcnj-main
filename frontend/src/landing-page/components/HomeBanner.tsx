@@ -1,4 +1,4 @@
-import { ImageProps } from "../types/contentful";
+import { ImageProps } from "../../types/contentful";
 
 interface HomeBannerProps {
   heading: string;

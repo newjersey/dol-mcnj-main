@@ -79,3 +79,21 @@
     margin-bottom: 0 !important;
   }
 }
+
+.topTools {
+  .heading-tag {
+    font-size: $size-32;
+    color: $primary-darker;
+    margin-bottom: $size-24;
+    font-weight: 600;
+  }
+
+  .inner {
+    display: flex;
+    gap: $size-24;
+    @media screen and (max-width: ($tablet)) {
+      flex-direction: column;
+      gap: $size-16;
+    }
+  }
+}
