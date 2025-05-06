@@ -3,6 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import { ErrorPage } from "./ErrorPage";
 import { useTranslation } from "react-i18next";
 import { Client } from "../domain/Client";
+import {Helmet} from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -19,6 +20,10 @@ export const NotFoundPage = (props: Props): ReactElement => {
         <>{props.children}</>
       ) : (
         <>
+          <Helmet>
+            <meta name="robots" content="noindex" />
+            <title>Page not found – My Career NJ</title>
+          </Helmet>
           <p>{t("ErrorPage.notFoundText")}</p>
           <p>
             <a className="link-format-blue" href="/training/search/">
