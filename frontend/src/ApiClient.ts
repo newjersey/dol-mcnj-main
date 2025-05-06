@@ -15,7 +15,7 @@ import {
 export class ApiClient implements Client {
   getTrainingsByQuery(query: string, observer: Observer<TrainingResult[]>): void {
     const encodedQuery = encodeURIComponent(query);
-    this.get(`/api/trainings/search?query=${encodedQuery}`, observer);
+    this.get(`/api/trainings/search?query=${encodedQuery}`, observer, { treat404AsEmpty: true });
   }
 
   getTrainingById(id: string, observer: Observer<Training>): void {
@@ -66,18 +66,27 @@ export class ApiClient implements Client {
     this.get(`/api/jobcount/${term}`, observer);
   }
 
-  private get<T>(endpoint: string, observer: Observer<T>): void {
+  private get<T>(
+      endpoint: string,
+      observer: Observer<T>,
+      options?: { treat404AsEmpty?: boolean }
+  ): void {
     axios
-      .get(endpoint)
-      .then((response: AxiosResponse<T>) => {
-        observer.onSuccess(response.data);
-      })
-      .catch((errorResponse: AxiosError<T>) => {
-        if (errorResponse.response?.status === 404) {
-          return observer.onError(Error.NOT_FOUND);
-        }
+        .get(endpoint)
+        .then((response: AxiosResponse<T>) => {
+          observer.onSuccess(response.data);
+        })
+        .catch((errorResponse: AxiosError) => {
+          if (errorResponse.response?.status === 404) {
+            if (options?.treat404AsEmpty) {
+              observer.onSuccess([] as T);  // assume only arrays use treat404AsEmpty
+            } else {
+              observer.onError(Error.NOT_FOUND);
+            }
+            return;
+          }
 
-        return observer.onError(Error.SYSTEM_ERROR);
-      });
+          observer.onError(Error.SYSTEM_ERROR);
+        });
   }
 }
