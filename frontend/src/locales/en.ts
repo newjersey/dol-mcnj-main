@@ -145,6 +145,7 @@ export const en = {
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
+    bannerHeading: "My Career NJ",
     bannerSubheading: "Cutting Edge Career Tools:",
     bannerMessageCopy:
       "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
