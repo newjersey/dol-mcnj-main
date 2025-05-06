@@ -20,6 +20,7 @@ import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { checkValidSocCode } from "../utils/checkValidCodes";
 import pageImage from "../images/ogImages/searchResults.png";
+import { Helmet } from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -142,6 +143,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     setTrainings([]);
   };
 
+  // Inject noindex tag when there are no results
+  const showNoIndexTag =
+      filteredTrainings.length === 0 && shouldShowTrainings && searchQuery !== "null";
+
   if (isError) {
     return <SomethingWentWrongPage client={props.client} />;
   }
@@ -223,6 +228,12 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
         image: pageImage,
       }}
     >
+      {showNoIndexTag && (
+          <Helmet>
+            <meta name="robots" content="noindex" />
+            <title>No results found – My Career NJ</title>
+          </Helmet>
+      )}
       {isTabletAndUp && (
         <div className="container results-count-container">
           <nav className="usa-breadcrumb " aria-label="Breadcrumbs">
