@@ -80,20 +80,47 @@
   }
 }
 
-.topTools {
+.topTools,
+.resources {
+  padding-bottom: $size-48;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: $size-24;
+  }
+
+  .heading-container {
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+  }
+
   .heading-tag {
     font-size: $size-32;
     color: $primary-darker;
-    margin-bottom: $size-24;
     font-weight: 600;
+  }
+
+  .subheading {
+    margin: 0;
+    color: $primary-darker;
+    font-size: $size-24;
+    font-weight: 400;
   }
 
   .inner {
     display: flex;
     gap: $size-24;
+    margin: 0;
+
     @media screen and (max-width: ($tablet)) {
       flex-direction: column;
       gap: $size-16;
+    }
+
+    > * {
+      width: 100%;
     }
   }
 }

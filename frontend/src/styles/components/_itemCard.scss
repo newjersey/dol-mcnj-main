@@ -1,6 +1,5 @@
 .itemCard {
   padding: $size-24;
-  transition-duration: 0.3s;
   border-radius: $size-16;
   display: block;
   color: $black;
@@ -13,12 +12,13 @@
 
   &:hover {
     color: $white;
+    box-shadow: $shadow-2;
   }
 
   .heading {
     display: inline-flex;
     align-items: center;
-    gap: $size-4;
+    gap: $size-8;
     justify-content: space-between;
     width: 100%;
 
@@ -27,9 +27,14 @@
     }
 
     p {
-      font-size: $size-24;
+      font-size: $size-20;
       font-weight: 700;
       text-wrap: pretty;
+      width: calc(100% - $size-36);
+    }
+
+    svg {
+      width: $size-32;
     }
   }
 
@@ -53,6 +58,19 @@
         fill: $accent-cool-light;
       }
     }
+
+    &.outline {
+      color: $primary;
+
+      &:hover {
+        background-color: $primary-lighter;
+        color: $primary-darker;
+
+        svg {
+          fill: $primary-darker;
+        }
+      }
+    }
   }
 
   &.theme-green {
@@ -66,6 +84,19 @@
         fill: $secondary-light;
       }
     }
+
+    &.outline {
+      color: $secondary;
+
+      &:hover {
+        background-color: $secondary-lighter;
+        color: $secondary-darker;
+
+        svg {
+          fill: $secondary-darker;
+        }
+      }
+    }
   }
 
   &.theme-purple {
@@ -77,6 +108,59 @@
 
       svg {
         fill: $tertiary-light;
+      }
+    }
+
+    &.outline {
+      color: $tertiary;
+
+      &:hover {
+        background-color: $tertiary-lighter;
+        color: $tertiary-darker;
+
+        svg {
+          fill: $tertiary-darker;
+        }
+      }
+    }
+  }
+
+  &.theme-navy {
+    border: 1px solid $info-darker;
+    background-color: $info-light;
+
+    &:hover {
+      background-color: $info-darker;
+
+      svg {
+        fill: $info;
+      }
+    }
+
+    &.outline {
+      color: $info-darker;
+
+      &:hover {
+        background-color: $info-lighter;
+        color: $info-darker;
+
+        svg {
+          fill: $info-darker;
+        }
+      }
+    }
+  }
+
+  &.outline {
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .heading {
+      > * {
+        line-height: 1.1;
       }
     }
   }

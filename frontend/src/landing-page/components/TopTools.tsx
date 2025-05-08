@@ -5,7 +5,9 @@ export const TopTools = ({ heading, items }: { heading: string; items: CardProps
   return (
     <section className="topTools">
       <div className="container">
-        <h2 className="heading-tag">{heading}:</h2>
+        <div className="heading-container">
+          <h2 className="heading-tag">{heading}:</h2>
+        </div>
         <div className="inner">
           {items.map((item) => (
             <Card key={item.heading} {...item} />

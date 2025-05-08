@@ -7,7 +7,7 @@ export interface CardProps {
   icon?: string;
   link?: {
     href: string;
-    text: string;
+    text?: string;
   };
   theme?: "blue" | "green" | "purple" | "navy";
   outline?: boolean;
@@ -28,13 +28,12 @@ export const Card = ({
     >
       <div className="heading">
         {heading && <p>{heading}</p>}
-        {icon && <IconSelector name={icon} weight="duotone" size={32} />}
+        {icon && <IconSelector name={icon} weight="duotone" size={28} />}
       </div>
       {description && <p>{description}</p>}
-      {link && (
+      {link && link.text && (
         <span>
           {link.text}
-
           <ArrowRight size={32} />
         </span>
       )}
