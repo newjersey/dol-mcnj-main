@@ -1,0 +1,37 @@
+.tools-page {
+  .toolRow {
+    padding: $size-64 0 $size-64;
+
+    &:nth-child(2n) {
+      background-color: $base-cool;
+    }
+
+    .inner {
+      display: flex;
+      align-items: start;
+      gap: $size-24;
+
+      @media (max-width: $desktop) {
+        flex-direction: column;
+        gap: $size-16;
+      }
+    }
+
+    .main {
+      width: 100%;
+      max-width: $size-411;
+    }
+
+    .cards {
+      width: 100%;
+      flex-grow: 1;
+      display: flex;
+      gap: $size-24;
+      grid-template-columns: repeat(3, 1fr);
+
+      .itemCard {
+        width: 33.3333%;
+      }
+    }
+  }
+}

@@ -20,6 +20,7 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { IndustryPage } from "./career-pathways-page/IndustryPage";
+import { ToolsPage } from "./tools-page/ToolsPage";
 
 // Lazy load pages
 const SearchResultsPage = React.lazy(() =>
@@ -165,6 +166,7 @@ export const App = (props: Props): ReactElement => {
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
                 <AllSupportPage path="/support-resources" client={props.client} />
                 <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
+                <ToolsPage path="/tools" client={props.client} />
                 <NotFoundPage default client={props.client} />
 
                 <Redirect from="/search" to="/training/search" />
