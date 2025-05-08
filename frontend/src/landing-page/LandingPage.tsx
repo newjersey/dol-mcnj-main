@@ -92,21 +92,33 @@ export const LandingPage = (props: Props): ReactElement => {
               heading: t("LandingPage.resourcesCard1"),
               icon: "Compass",
               theme: "blue",
+              link: {
+                href: "/tools#jobs",
+              },
             },
             {
               heading: t("LandingPage.resourcesCard2"),
               icon: "Signpost",
               theme: "green",
+              link: {
+                href: "/tools#training",
+              },
             },
             {
               heading: t("LandingPage.resourcesCard3"),
               icon: "Path",
               theme: "purple",
+              link: {
+                href: "/tools#career",
+              },
             },
             {
               heading: t("LandingPage.resourcesCard4"),
               icon: "Lifebuoy",
               theme: "navy",
+              link: {
+                href: "/tools#resources",
+              },
             },
           ]}
         />
