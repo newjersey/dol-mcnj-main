@@ -28,7 +28,7 @@
     "dompurify": "^3.2.5",
     "graphql-request": "^7.1.2",
     "i18next": "^25.1.1",
-    "libphonenumber-js": "^1.12.7",
+    "libphonenumber-js": "^1.12.8",
     "markdown-it": "^14.1.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
