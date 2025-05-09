@@ -4,6 +4,19 @@ import welder from "../images/welder.jpg";
 
 export const content = {
   banner: {
-    images: [medical, mechanic, welder],
+    images: [
+      {
+        src: medical,
+        alt: "Medical professional",
+      },
+      {
+        src: mechanic,
+        alt: "Mechanic working on a car",
+      },
+      {
+        src: welder,
+        alt: "Welder working on a metal structure",
+      },
+    ],
   },
 };

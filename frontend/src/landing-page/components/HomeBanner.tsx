@@ -4,7 +4,10 @@ interface HomeBannerProps {
   heading: string;
   subheading?: string;
   image?: ImageProps;
-  images?: string[];
+  images?: {
+    src: string;
+    alt?: string;
+  }[];
   message?: string;
   preload?: boolean;
 }
@@ -23,7 +26,11 @@ export const HomeBanner = ({ heading, subheading, images, message, preload }: Ho
           <div className="imageGrid">
             {images?.map((image, index) => (
               <div className="image" key={index}>
-                <img src={image} alt="" loading={preload ? "eager" : "lazy"} />
+                <img
+                  src={image.src}
+                  alt={image.alt || `Image ${index + 1} of ${images.length}`}
+                  loading={preload ? "eager" : "lazy"}
+                />
               </div>
             ))}
           </div>
