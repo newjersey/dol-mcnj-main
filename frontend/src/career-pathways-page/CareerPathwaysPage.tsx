@@ -9,12 +9,11 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { CtaBanner } from "../components/CtaBanner";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/careerPathways.png";
-import { Icon } from "@material-ui/core";
-import { Tooltip } from "react-tooltip";
 import { Heading } from "../components/modules/Heading";
 import { content } from "./content";
-import { Info } from "@phosphor-icons/react";
 import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
+import { HeroBanner } from "../components/HeroBanner";
+import pathwaysImage from "../images/pathways.png";
 // import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
 
 interface Props extends RouteComponentProps {
@@ -105,54 +104,28 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
           className="career-pathways-page"
           seo={seoObject}
         >
-          <section className="banner">
-            <div className="container">
-              <div className="inner">
-                <div className="top-nav">
-                  <nav className="usa-breadcrumb" aria-label="Breadcrumbs">
-                    <Icon>keyboard_backspace</Icon>
-                    <ol className="usa-breadcrumb__list">
-                      {data.page.pageBanner.breadcrumbsCollection?.items.map((crumb) => {
-                        return (
-                          <li
-                            className="usa-breadcrumb__list-item"
-                            key={crumb.sys?.id || crumb.copy}
-                          >
-                            <a className="usa-breadcrumb__link" href={crumb.url}>
-                              {crumb.copy}
-                            </a>
-                          </li>
-                        );
-                      })}
-                      <li className="usa-breadcrumb__list-item use-current" aria-current="page">
-                        <span data-testid="title">
-                          {data.page.pageBanner.breadcrumbTitle || data.page.title}
-                        </span>
-                      </li>
-                    </ol>
-                  </nav>
-                </div>
-                <div className="content">
-                  <Heading level={1}>
-                    {content.banner.title}
-                    <span
-                      className="tag-item color-navy"
-                      data-tooltip-id="beta-tooltip"
-                      data-tooltip-content={content.betaToolTip}
-                    >
-                      <Info /> Beta
-                    </span>
-                    <Tooltip id="beta-tooltip" className="custom-tooltip" />
-                  </Heading>
-                  <p className="subheading">{content.banner.subheading}</p>
-                  <p>{content.banner.description}</p>
-                </div>
-              </div>
-            </div>
-          </section>
+          <HeroBanner
+            eyebrow={content.banner.title}
+            heading={content.banner.subheading}
+            message={content.banner.description}
+            image={pathwaysImage}
+            theme="purple"
+            buttons={[
+              {
+                text: "Start exploring",
+                href: "/career-pathways#industry-selector",
+                icon: "ArrowDown",
+                onClick: () => {
+                  const element = document.getElementById("industry-selector");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }
+                },
+              },
+            ]}
+          />
 
           <IndustrySelector />
-
           <section className="pathways body-copy container">
             <div className="container">
               {content.copySections.map((section, index) => (
@@ -175,7 +148,6 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
               ))}
             </div>
           </section>
-
           <section className="contact-cta">
             <div className="container">
               <div className="inner">
