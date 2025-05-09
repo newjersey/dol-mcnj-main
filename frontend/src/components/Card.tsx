@@ -12,6 +12,7 @@ export interface CardProps {
   };
   theme?: "blue" | "green" | "purple" | "navy";
   outline?: boolean;
+  iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
 }
 
 export const Card = ({
@@ -22,6 +23,7 @@ export const Card = ({
   link,
   theme = "blue",
   outline = false,
+  iconWeight = "duotone",
 }: CardProps) => {
   const isExternalLink = (url: string) => {
     const pattern = /^(https?:\/\/|www\.)/;
@@ -39,7 +41,7 @@ export const Card = ({
     >
       <div className="heading">
         {heading && <p>{heading}</p>}
-        {icon && <IconSelector name={icon} weight={!outline ? "duotone" : undefined} size={28} />}
+        {icon && <IconSelector name={icon} weight={iconWeight} size={28} />}
       </div>
       {description && <p>{description}</p>}
       {link && link.text && (

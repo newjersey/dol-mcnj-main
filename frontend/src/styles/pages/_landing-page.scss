@@ -100,12 +100,14 @@
     font-size: $size-32;
     color: $primary-darker;
     font-weight: 600;
+    color: $primary-dark;
   }
 
   .subheading {
     margin: 0;
     color: $primary-darker;
     font-size: $size-24;
+    color: $primary-dark;
     font-weight: 400;
   }
 
@@ -121,6 +123,25 @@
 
     > * {
       width: 100%;
+    }
+  }
+}
+
+.resources {
+  .inner {
+    @media screen and (max-width: ($tablet-xl)) {
+      flex-wrap: wrap;
+    }
+
+    > * {
+      min-height: $size-120;
+
+      @media screen and (max-width: ($tablet-xl)) {
+        width: calc(50% - $size-16);
+      }
+      @media screen and (max-width: ($tablet)) {
+        width: 100%;
+      }
     }
   }
 }

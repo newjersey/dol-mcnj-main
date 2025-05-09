@@ -23,18 +23,20 @@ export const ToolRow = ({
   heading,
   items,
   mainCard,
+  theme,
 }: {
   id: string;
   heading?: string;
   items: CardProps[];
   mainCard?: CardProps;
+  theme?: "blue" | "green" | "purple" | "navy";
 }) => {
   return (
-    <section className="toolRow" id={id}>
+    <section className={`toolRow${theme ? ` theme-${theme}` : ""}`} id={id}>
       <div className="container">
         <h3>{heading}</h3>
         <div className="inner">
-          {mainCard && <Card {...mainCard} className="main" />}
+          {mainCard && <Card {...mainCard} className="main" theme={theme} />}
           <div className={`cards${!mainCard ? " wide" : ""}`}>
             {items.map((item) => (
               <Card key={item.heading} {...item} outline />
@@ -60,11 +62,13 @@ export const ToolsPage = (props: Props): ReactElement => {
         <ToolRow
           id="jobs"
           heading={t("ToolsPage.jobHeading")}
+          theme="blue"
           items={[
             {
               heading: t("ToolsPage.jobLink1Heading"),
               description: t("ToolsPage.jobLink1Description"),
               icon: "ArrowSquareOut",
+              iconWeight: "regular",
               link: {
                 href: "https://www.naswa.org/partnerships/nlx",
               },
@@ -73,6 +77,7 @@ export const ToolsPage = (props: Props): ReactElement => {
               heading: t("ToolsPage.jobLink2Heading"),
               description: t("ToolsPage.jobLink2Description"),
               icon: "ArrowSquareOut",
+              iconWeight: "regular",
               link: {
                 href: "https://www.nj.gov/labor/labormarketinformation/",
               },
@@ -81,6 +86,7 @@ export const ToolsPage = (props: Props): ReactElement => {
               heading: t("ToolsPage.jobLink3Heading"),
               description: t("ToolsPage.jobLink3Description"),
               icon: "ArrowSquareOut",
+              iconWeight: "regular",
               link: {
                 href: "https://www.nj.gov/labor/career-services/apprenticeship/",
               },
@@ -94,12 +100,12 @@ export const ToolsPage = (props: Props): ReactElement => {
               href: "/navigator",
               text: t("LandingPage.topToolNavigatorButtonText"),
             },
-            theme: "blue",
           }}
         />
         <ToolRow
           id="training"
           heading={t("ToolsPage.trainingHeading")}
+          theme="green"
           items={[
             {
               heading: t("ToolsPage.trainingLink1Heading"),
@@ -124,11 +130,11 @@ export const ToolsPage = (props: Props): ReactElement => {
               href: "/training",
               text: t("LandingPage.topToolExplorerButtonText"),
             },
-            theme: "green",
           }}
         />
         <ToolRow
           id="career"
+          theme="purple"
           heading={t("ToolsPage.careerHeading")}
           items={[
             {
@@ -147,12 +153,12 @@ export const ToolsPage = (props: Props): ReactElement => {
               href: "/training",
               text: t("LandingPage.topToolPathwaysButtonText"),
             },
-            theme: "purple",
           }}
         />
         <ToolRow
           id="resources"
           heading={t("ToolsPage.supportHeading")}
+          theme="navy"
           items={[
             {
               heading: t("ToolsPage.supportLink1Heading"),

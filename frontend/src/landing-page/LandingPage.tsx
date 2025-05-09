@@ -90,7 +90,7 @@ export const LandingPage = (props: Props): ReactElement => {
           items={[
             {
               heading: t("LandingPage.resourcesCard1"),
-              icon: "Compass",
+              icon: "Briefcase",
               theme: "blue",
               link: {
                 href: "/tools#jobs",
